@@ -1,0 +1,341 @@
+.. _supriya--commands--bases:
+
+bases
+=====
+
+.. automodule:: supriya.commands.bases
+
+.. currentmodule:: supriya.commands.bases
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.bases
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Request
+
+.. autoclass:: Request
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      request_name
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Request.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Request.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Request.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Request.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Request.communicate
+
+   .. container:: inherited
+
+      .. automethod:: Request.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: Request.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: Request.to_list
+
+   .. automethod:: Request.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Request.condition
+
+   .. autoattribute:: Request.request_id
+
+   .. autoattribute:: Request.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: Request.response
+
+   .. autoattribute:: Request.response_patterns
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~RequestBundle
+   ~Requestable
+   ~Response
+
+.. autoclass:: RequestBundle
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      condition
+      contents
+      partition
+      timestamp
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RequestBundle.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: RequestBundle.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: RequestBundle.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: RequestBundle.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RequestBundle.communicate
+
+   .. container:: inherited
+
+      .. automethod:: RequestBundle.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: RequestBundle.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: RequestBundle.to_list
+
+   .. automethod:: RequestBundle.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: RequestBundle.partition
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: RequestBundle.condition
+
+   .. autoattribute:: RequestBundle.contents
+
+   .. container:: inherited
+
+      .. autoattribute:: RequestBundle.response
+
+   .. autoattribute:: RequestBundle.timestamp
+
+.. autoclass:: Requestable
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      communicate
+      communicate_async
+      condition
+      response
+      to_datagram
+      to_list
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Requestable.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Requestable.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Requestable.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Requestable.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Requestable.communicate
+
+   .. automethod:: Requestable.communicate_async
+
+   .. automethod:: Requestable.to_datagram
+
+   .. automethod:: Requestable.to_list
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Requestable.condition
+
+   .. autoattribute:: Requestable.response
+
+.. autoclass:: Response
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      from_osc_message
+      to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Response.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Response.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Response.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Response.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Response.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Response.from_osc_message

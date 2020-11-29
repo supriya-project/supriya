@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,21 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="_static/supriya.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -25,16 +33,11 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/supriya.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="_static/uqbar.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation" href="installation.html" /> 
@@ -51,7 +54,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> Supriya
+            <a href="#" class="icon icon-home" alt="Documentation Home"> Supriya
           
 
           
@@ -78,6 +81,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -120,6 +124,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -158,7 +163,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
       <li>Supriya (0.4.0)</li>
     
@@ -351,11 +356,7 @@ setting it up, and installing any additional dependencies like <a class="referen
 <li class="toctree-l2"><a class="reference internal" href="realtime.html#asyncio">Asyncio</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="nonrealtime.html">Non-realtime usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="nonrealtime.html#non-realtime-sessions">Non-realtime sessions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nonrealtime.html#non-realtime-nodes-and-actions">Non-realtime nodes and actions</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="nonrealtime.html">Non-realtime usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="time-agnostic.html">Time-agnostic usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="time-agnostic.html#providers">Providers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="time-agnostic.html#asyncio">Asyncio</a></li>
@@ -392,92 +393,15 @@ setting it up, and installing any additional dependencies like <a class="referen
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/commands/index.html">commands</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/MoveRequest.html">MoveRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/Request.html">Request</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferAllocateReadChannelRequest.html">BufferAllocateReadChannelRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferAllocateReadRequest.html">BufferAllocateReadRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferAllocateRequest.html">BufferAllocateRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferCloseRequest.html">BufferCloseRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferCopyRequest.html">BufferCopyRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferFillRequest.html">BufferFillRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferFreeRequest.html">BufferFreeRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferGenerateRequest.html">BufferGenerateRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferGetContiguousRequest.html">BufferGetContiguousRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferGetRequest.html">BufferGetRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferInfoResponse.html">BufferInfoResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferNormalizeRequest.html">BufferNormalizeRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferQueryRequest.html">BufferQueryRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferReadChannelRequest.html">BufferReadChannelRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferReadRequest.html">BufferReadRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferSetContiguousRequest.html">BufferSetContiguousRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferSetContiguousResponse.html">BufferSetContiguousResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferSetRequest.html">BufferSetRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferSetResponse.html">BufferSetResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferWriteRequest.html">BufferWriteRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/BufferZeroRequest.html">BufferZeroRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/ClearScheduleRequest.html">ClearScheduleRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/CommandRequest.html">CommandRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/ControlBusFillRequest.html">ControlBusFillRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/ControlBusGetContiguousRequest.html">ControlBusGetContiguousRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/ControlBusGetRequest.html">ControlBusGetRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/ControlBusSetContiguousRequest.html">ControlBusSetContiguousRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/ControlBusSetContiguousResponse.html">ControlBusSetContiguousResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/ControlBusSetRequest.html">ControlBusSetRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/ControlBusSetResponse.html">ControlBusSetResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/DoneResponse.html">DoneResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/DumpOscRequest.html">DumpOscRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/ErrorRequest.html">ErrorRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/FailResponse.html">FailResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/GroupDeepFreeRequest.html">GroupDeepFreeRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/GroupDumpTreeRequest.html">GroupDumpTreeRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/GroupFreeAllRequest.html">GroupFreeAllRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/GroupHeadRequest.html">GroupHeadRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/GroupNewRequest.html">GroupNewRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/GroupQueryTreeRequest.html">GroupQueryTreeRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/GroupTailRequest.html">GroupTailRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeAfterRequest.html">NodeAfterRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeBeforeRequest.html">NodeBeforeRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeCommandRequest.html">NodeCommandRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeFillRequest.html">NodeFillRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeFreeRequest.html">NodeFreeRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeInfoResponse.html">NodeInfoResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeMapToAudioBusContiguousRequest.html">NodeMapToAudioBusContiguousRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeMapToAudioBusRequest.html">NodeMapToAudioBusRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeMapToControlBusContiguousRequest.html">NodeMapToControlBusContiguousRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeMapToControlBusRequest.html">NodeMapToControlBusRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeOrderRequest.html">NodeOrderRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeQueryRequest.html">NodeQueryRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeRunRequest.html">NodeRunRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeSetContiguousRequest.html">NodeSetContiguousRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeSetContiguousResponse.html">NodeSetContiguousResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeSetRequest.html">NodeSetRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeSetResponse.html">NodeSetResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NodeTraceRequest.html">NodeTraceRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NothingRequest.html">NothingRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NotifyRequest.html">NotifyRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/ParallelGroupNewRequest.html">ParallelGroupNewRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/QueryTreeResponse.html">QueryTreeResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/QuitRequest.html">QuitRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/RequestBundle.html">RequestBundle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/Requestable.html">Requestable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/Response.html">Response</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/StatusRequest.html">StatusRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/StatusResponse.html">StatusResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SyncRequest.html">SyncRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SyncedResponse.html">SyncedResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SynthDefFreeAllRequest.html">SynthDefFreeAllRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SynthDefFreeRequest.html">SynthDefFreeRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SynthDefLoadDirectoryRequest.html">SynthDefLoadDirectoryRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SynthDefLoadRequest.html">SynthDefLoadRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SynthDefReceiveRequest.html">SynthDefReceiveRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SynthDefRemovedResponse.html">SynthDefRemovedResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SynthGetContiguousRequest.html">SynthGetContiguousRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SynthGetRequest.html">SynthGetRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SynthNewRequest.html">SynthNewRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SynthNewargsRequest.html">SynthNewargsRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/SynthNoidRequest.html">SynthNoidRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/TriggerResponse.html">TriggerResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/UgenCommandRequest.html">UgenCommandRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/buffers.html">buffers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/buses.html">buses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/groups.html">groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/movement.html">movement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/nodes.html">nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/server.html">server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/synthdefs.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/synths.html">synths</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/conversions.html">conversions</a></li>
@@ -515,33 +439,14 @@ setting it up, and installing any additional dependencies like <a class="referen
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/patterns/index.html">patterns</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Event.html">Event</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/EventPattern.html">EventPattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pattern.html">Pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/BusEvent.html">BusEvent</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/CompositeEvent.html">CompositeEvent</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/EventPlayer.html">EventPlayer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/EventProduct.html">EventProduct</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/GroupEvent.html">GroupEvent</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/NoteEvent.html">NoteEvent</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/NullEvent.html">NullEvent</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pbind.html">Pbind</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pbindf.html">Pbindf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pbinop.html">Pbinop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pbus.html">Pbus</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pchain.html">Pchain</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pfx.html">Pfx</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pgpar.html">Pgpar</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pgroup.html">Pgroup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pmono.html">Pmono</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pn.html">Pn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Ppar.html">Ppar</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Prand.html">Prand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pseed.html">Pseed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pseq.html">Pseq</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pwhite.html">Pwhite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/RandomNumberGenerator.html">RandomNumberGenerator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/SynthEvent.html">SynthEvent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/events.html">events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/mappings.html">mappings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/parallel.html">parallel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/patterns.html">patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/players.html">players</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/random.html">random</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/structure.html">structure</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/provider.html">provider</a></li>
@@ -577,352 +482,34 @@ setting it up, and installing any additional dependencies like <a class="referen
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/system.html">system</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/typing.html">typing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/ugens/index.html">ugens</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PseudoUGen.html">PseudoUGen</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DecodeB2.html">DecodeB2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/ZeroCrossing.html">ZeroCrossing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MulAdd.html">MulAdd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Sum3.html">Sum3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Sum4.html">Sum4</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufChannels.html">BufChannels</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufDur.html">BufDur</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufFrames.html">BufFrames</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufInfoUGenBase.html">BufInfoUGenBase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufRateScale.html">BufRateScale</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufRd.html">BufRd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufSampleRate.html">BufSampleRate</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufSamples.html">BufSamples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufWr.html">BufWr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/ClearBuf.html">ClearBuf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LocalBuf.html">LocalBuf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MaxLocalBufs.html">MaxLocalBufs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PlayBuf.html">PlayBuf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/RecordBuf.html">RecordBuf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/CuspL.html">CuspL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/CuspN.html">CuspN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/FBSineC.html">FBSineC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/FBSineL.html">FBSineL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/FBSineN.html">FBSineN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/GbmanL.html">GbmanL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/GbmanN.html">GbmanN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/HenonC.html">HenonC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/HenonL.html">HenonL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/HenonN.html">HenonN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LatoocarfianC.html">LatoocarfianC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LatoocarfianL.html">LatoocarfianL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LatoocarfianN.html">LatoocarfianN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LinCongC.html">LinCongC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LinCongL.html">LinCongL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LinCongN.html">LinCongN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LorenzL.html">LorenzL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/QuadC.html">QuadC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/QuadL.html">QuadL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/QuadN.html">QuadN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/StandardL.html">StandardL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/StandardN.html">StandardN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Convolution2.html">Convolution2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Convolution2L.html">Convolution2L</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Convolution3.html">Convolution3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DiskIn.html">DiskIn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Duty.html">Duty</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/FSinOsc.html">FSinOsc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/FreqShift.html">FreqShift</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/GrainBuf.html">GrainBuf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/GrainIn.html">GrainIn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Pulse.html">Pulse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SyncSaw.html">SyncSaw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/VDiskIn.html">VDiskIn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/VOsc.html">VOsc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/VOsc3.html">VOsc3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Vibrato.html">Vibrato</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Warp1.html">Warp1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/XFade2.html">XFade2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/AllpassC.html">AllpassC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/AllpassL.html">AllpassL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/AllpassN.html">AllpassN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufAllpassC.html">BufAllpassC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufAllpassL.html">BufAllpassL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufAllpassN.html">BufAllpassN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufCombC.html">BufCombC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufCombL.html">BufCombL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufCombN.html">BufCombN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufDelayC.html">BufDelayC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufDelayL.html">BufDelayL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufDelayN.html">BufDelayN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/CombC.html">CombC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/CombL.html">CombL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/CombN.html">CombN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DelTapRd.html">DelTapRd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DelTapWr.html">DelTapWr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Delay1.html">Delay1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Delay2.html">Delay2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DelayC.html">DelayC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DelayL.html">DelayL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DelayN.html">DelayN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Pluck.html">Pluck</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DUGen.html">DUGen</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dbrown.html">Dbrown</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dbufrd.html">Dbufrd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dbufwr.html">Dbufwr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Demand.html">Demand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dgeom.html">Dgeom</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dibrown.html">Dibrown</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Diwhite.html">Diwhite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Drand.html">Drand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dreset.html">Dreset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dseq.html">Dseq</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dser.html">Dser</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dseries.html">Dseries</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dshuf.html">Dshuf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dstutter.html">Dstutter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dswitch.html">Dswitch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dswitch1.html">Dswitch1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dunique.html">Dunique</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dwhite.html">Dwhite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dwrand.html">Dwrand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dxrand.html">Dxrand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DiskOut.html">DiskOut</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Amplitude.html">Amplitude</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Compander.html">Compander</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/CompanderD.html">CompanderD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Limiter.html">Limiter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Normalizer.html">Normalizer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DetectSilence.html">DetectSilence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Done.html">Done</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/EnvGen.html">EnvGen</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Free.html">Free</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/FreeSelf.html">FreeSelf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/FreeSelfWhenDone.html">FreeSelfWhenDone</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Linen.html">Linen</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Pause.html">Pause</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PauseSelf.html">PauseSelf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PauseSelfWhenDone.html">PauseSelfWhenDone</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Convolution.html">Convolution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/FFT.html">FFT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/IFFT.html">IFFT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_Add.html">PV_Add</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_BinScramble.html">PV_BinScramble</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_BinShift.html">PV_BinShift</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_BinWipe.html">PV_BinWipe</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_BrickWall.html">PV_BrickWall</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_ChainUGen.html">PV_ChainUGen</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_ConformalMap.html">PV_ConformalMap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_Conj.html">PV_Conj</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_Copy.html">PV_Copy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_CopyPhase.html">PV_CopyPhase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_Diffuser.html">PV_Diffuser</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_Div.html">PV_Div</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_HainsworthFoote.html">PV_HainsworthFoote</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_JensenAndersen.html">PV_JensenAndersen</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_LocalMax.html">PV_LocalMax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_MagAbove.html">PV_MagAbove</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_MagBelow.html">PV_MagBelow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_MagClip.html">PV_MagClip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_MagDiv.html">PV_MagDiv</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_MagFreeze.html">PV_MagFreeze</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_MagMul.html">PV_MagMul</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_MagNoise.html">PV_MagNoise</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_MagShift.html">PV_MagShift</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_MagSmear.html">PV_MagSmear</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_MagSquared.html">PV_MagSquared</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_Max.html">PV_Max</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_Min.html">PV_Min</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_Mul.html">PV_Mul</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_PhaseShift.html">PV_PhaseShift</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_PhaseShift270.html">PV_PhaseShift270</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_PhaseShift90.html">PV_PhaseShift90</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_RandComb.html">PV_RandComb</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_RandWipe.html">PV_RandWipe</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_RectComb.html">PV_RectComb</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PV_RectComb2.html">PV_RectComb2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/APF.html">APF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BAllPass.html">BAllPass</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BBandPass.html">BBandPass</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BBandStop.html">BBandStop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BEQSuite.html">BEQSuite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BHiCut.html">BHiCut</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BHiPass.html">BHiPass</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BHiShelf.html">BHiShelf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BLowCut.html">BLowCut</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BLowPass.html">BLowPass</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BLowShelf.html">BLowShelf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BPF.html">BPF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BPZ2.html">BPZ2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BPeakEQ.html">BPeakEQ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BRF.html">BRF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BRZ2.html">BRZ2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Changed.html">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Decay.html">Decay</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Decay2.html">Decay2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/FOS.html">FOS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Filter.html">Filter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Formlet.html">Formlet</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/HPF.html">HPF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/HPZ1.html">HPZ1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/HPZ2.html">HPZ2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Integrator.html">Integrator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Klank.html">Klank</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LPF.html">LPF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LPZ1.html">LPZ1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LPZ2.html">LPZ2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Lag.html">Lag</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Lag2.html">Lag2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Lag2UD.html">Lag2UD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Lag3.html">Lag3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Lag3UD.html">Lag3UD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LagUD.html">LagUD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LeakDC.html">LeakDC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Median.html">Median</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MidEQ.html">MidEQ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MoogFF.html">MoogFF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/OnePole.html">OnePole</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/OneZero.html">OneZero</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/RHPF.html">RHPF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/RLPF.html">RLPF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Ramp.html">Ramp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Ringz.html">Ringz</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SOS.html">SOS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Slew.html">Slew</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Slope.html">Slope</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/TwoPole.html">TwoPole</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/TwoZero.html">TwoZero</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BlockSize.html">BlockSize</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/ControlDur.html">ControlDur</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/ControlRate.html">ControlRate</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/InfoUGenBase.html">InfoUGenBase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/NumAudioBuses.html">NumAudioBuses</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/NumBuffers.html">NumBuffers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/NumControlBuses.html">NumControlBuses</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/NumInputBuses.html">NumInputBuses</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/NumOutputBuses.html">NumOutputBuses</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/NumRunningSynths.html">NumRunningSynths</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/RadiansPerSample.html">RadiansPerSample</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SampleDur.html">SampleDur</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SampleRate.html">SampleRate</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SubsampleOffset.html">SubsampleOffset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/In.html">In</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/InFeedback.html">InFeedback</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LocalIn.html">LocalIn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LocalOut.html">LocalOut</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/OffsetOut.html">OffsetOut</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Out.html">Out</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/ReplaceOut.html">ReplaceOut</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SoundIn.html">SoundIn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/XOut.html">XOut</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/AmpComp.html">AmpComp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/AmpCompA.html">AmpCompA</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LinExp.html">LinExp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LinLin.html">LinLin</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Line.html">Line</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/XLine.html">XLine</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BeatTrack.html">BeatTrack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BeatTrack2.html">BeatTrack2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/KeyTrack.html">KeyTrack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Loudness.html">Loudness</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MFCC.html">MFCC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Onsets.html">Onsets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SpecCentroid.html">SpecCentroid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SpecFlatness.html">SpecFlatness</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SpecPcile.html">SpecPcile</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BrownNoise.html">BrownNoise</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/ClipNoise.html">ClipNoise</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/CoinGate.html">CoinGate</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Crackle.html">Crackle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dust.html">Dust</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Dust2.html">Dust2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/ExpRand.html">ExpRand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Gendy1.html">Gendy1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Gendy2.html">Gendy2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Gendy3.html">Gendy3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/GrayNoise.html">GrayNoise</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Hasher.html">Hasher</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/IRand.html">IRand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFClipNoise.html">LFClipNoise</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFDClipNoise.html">LFDClipNoise</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFDNoise0.html">LFDNoise0</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFDNoise1.html">LFDNoise1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFDNoise3.html">LFDNoise3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFNoise0.html">LFNoise0</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFNoise1.html">LFNoise1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFNoise2.html">LFNoise2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LinRand.html">LinRand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Logistic.html">Logistic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MantissaMask.html">MantissaMask</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/NRand.html">NRand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PinkNoise.html">PinkNoise</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Rand.html">Rand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/RandID.html">RandID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/RandSeed.html">RandSeed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/TExpRand.html">TExpRand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/TIRand.html">TIRand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/TRand.html">TRand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/TWindex.html">TWindex</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/WhiteNoise.html">WhiteNoise</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Blip.html">Blip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/COsc.html">COsc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Impulse.html">Impulse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFCub.html">LFCub</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFGauss.html">LFGauss</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFPar.html">LFPar</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFPulse.html">LFPulse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFSaw.html">LFSaw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LFTri.html">LFTri</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Saw.html">Saw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SinOsc.html">SinOsc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/VarSaw.html">VarSaw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Ball.html">Ball</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Spring.html">Spring</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/TBall.html">TBall</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PitchShift.html">PitchShift</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/FreeVerb.html">FreeVerb</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Balance2.html">Balance2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BiPanB2.html">BiPanB2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Pan2.html">Pan2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Pan4.html">Pan4</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PanAz.html">PanAz</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PanB.html">PanB</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PanB2.html">PanB2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Rotate2.html">Rotate2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Splay.html">Splay</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DemandEnvGen.html">DemandEnvGen</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Hilbert.html">Hilbert</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/HilbertFIR.html">HilbertFIR</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LeastChange.html">LeastChange</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MostChange.html">MostChange</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/RunningSum.html">RunningSum</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Select.html">Select</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SendTrig.html">SendTrig</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Sweep.html">Sweep</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/WrapIndex.html">WrapIndex</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/_Index.html">Index</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Clip.html">Clip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Fold.html">Fold</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Gate.html">Gate</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/InRange.html">InRange</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Latch.html">Latch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Peak.html">Peak</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PeakFollower.html">PeakFollower</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Phasor.html">Phasor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/RunningMax.html">RunningMax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/RunningMin.html">RunningMin</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Schmidt.html">Schmidt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/TDelay.html">TDelay</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/ToggleFF.html">ToggleFF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Trig.html">Trig</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Trig1.html">Trig1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Wrap.html">Wrap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MouseButton.html">MouseButton</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MouseX.html">MouseX</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MouseY.html">MouseY</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/A2K.html">A2K</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/CheckBadValues.html">CheckBadValues</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DC.html">DC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DegreeToKey.html">DegreeToKey</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/K2A.html">K2A</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Mix.html">Mix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Poll.html">Poll</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Sanitize.html">Sanitize</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SendPeakRMS.html">SendPeakRMS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Silence.html">Silence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/basic.html">basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/beq.html">beq</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/bufio.html">bufio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/chaos.html">chaos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/convolution.html">convolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/delay.html">delay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/demand.html">demand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/diskio.html">diskio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/dynamics.html">dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/envelopes.html">envelopes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/ffsinosc.html">ffsinosc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/filters.html">filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/gendyn.html">gendyn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/granular.html">granular</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/hilbert.html">hilbert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/info.html">info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/inout.html">inout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/lines.html">lines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/mac.html">mac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/ml.html">ml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/noise.html">noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/osc.html">osc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/panning.html">panning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/physical.html">physical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/pv.html">pv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/reverb.html">reverb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/safety.html">safety</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/triggers.html">triggers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/utils.html">utils</a></li>
@@ -965,11 +552,19 @@ setting it up, and installing any additional dependencies like <a class="referen
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2014, Josiah Wolf Oberholtzer
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -980,7 +575,6 @@ setting it up, and installing any additional dependencies like <a class="referen
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

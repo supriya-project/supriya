@@ -1077,7 +1077,10 @@ bases
 .. autosummary::
    :nosignatures:
 
+   ~PseudoUGen
    ~UGenMeta
+
+.. autoclass:: PseudoUGen
 
 .. autoclass:: UGenMeta
 

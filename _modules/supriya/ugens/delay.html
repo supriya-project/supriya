@@ -1,0 +1,800 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.ugens.delay &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/supriya.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>supriya.ugens.delay</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.ugens.delay</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="kn">import</span> <span class="n">CalculationRate</span>
+<span class="kn">from</span> <span class="nn">supriya.synthdefs</span> <span class="kn">import</span> <span class="n">PureUGen</span><span class="p">,</span> <span class="n">UGen</span>
+
+
+<div class="viewcode-block" id="AllpassC"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.AllpassC">[docs]</a><span class="k">class</span> <span class="nc">AllpassC</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A cubic-interpolating allpass delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; allpass_c = supriya.ugens.AllpassC.ar(source=source)</span>
+<span class="sd">        &gt;&gt;&gt; allpass_c</span>
+<span class="sd">        AllpassC.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AllpassL"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.AllpassL">[docs]</a><span class="k">class</span> <span class="nc">AllpassL</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A linear interpolating allpass delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; allpass_l = supriya.ugens.AllpassL.ar(source=source)</span>
+<span class="sd">        &gt;&gt;&gt; allpass_l</span>
+<span class="sd">        AllpassL.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AllpassN"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.AllpassN">[docs]</a><span class="k">class</span> <span class="nc">AllpassN</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A non-interpolating allpass delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; allpass_n = supriya.ugens.AllpassN.ar(source=source)</span>
+<span class="sd">        &gt;&gt;&gt; allpass_n</span>
+<span class="sd">        AllpassN.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BufAllpassC"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.BufAllpassC">[docs]</a><span class="k">class</span> <span class="nc">BufAllpassC</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A buffer-based cubic-interpolating allpass delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; buffer_id = 0</span>
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.BufAllpassC.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     source=source,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        BufAllpassC.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;buffer_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BufAllpassL"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.BufAllpassL">[docs]</a><span class="k">class</span> <span class="nc">BufAllpassL</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A buffer-based linear-interpolating allpass delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; buffer_id = 0</span>
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.BufAllpassL.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     source=source,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        BufAllpassL.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;buffer_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BufAllpassN"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.BufAllpassN">[docs]</a><span class="k">class</span> <span class="nc">BufAllpassN</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A buffer-based non-interpolating allpass delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; buffer_id = 0</span>
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.BufAllpassN.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     source=source,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        BufAllpassN.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;buffer_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BufCombC"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.BufCombC">[docs]</a><span class="k">class</span> <span class="nc">BufCombC</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A buffer-based cubic-interpolating comb delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; buffer_id = 0</span>
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.BufCombC.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     source=source,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        BufCombC.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;buffer_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BufCombL"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.BufCombL">[docs]</a><span class="k">class</span> <span class="nc">BufCombL</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A buffer-based linear-interpolating comb delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; buffer_id = 0</span>
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.BufCombL.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     source=source,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        BufCombL.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;buffer_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BufCombN"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.BufCombN">[docs]</a><span class="k">class</span> <span class="nc">BufCombN</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A buffer-based non-interpolating comb delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; buffer_id = 0</span>
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.BufCombN.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     source=source,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        BufCombN.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;buffer_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BufDelayC"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.BufDelayC">[docs]</a><span class="k">class</span> <span class="nc">BufDelayC</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A buffer-based cubic-interpolating delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; buffer_id = 0</span>
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.BufDelayC.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     source=source,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        BufDelayC.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;buffer_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BufDelayL"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.BufDelayL">[docs]</a><span class="k">class</span> <span class="nc">BufDelayL</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A buffer-based linear-interpolating delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; buffer_id = 0</span>
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.BufDelayL.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     source=source,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        BufDelayL.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;buffer_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BufDelayN"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.BufDelayN">[docs]</a><span class="k">class</span> <span class="nc">BufDelayN</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A buffer-based non-interpolating delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; buffer_id = 0</span>
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.BufDelayN.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     source=source,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        BufDelayN.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;buffer_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CombC"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.CombC">[docs]</a><span class="k">class</span> <span class="nc">CombC</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A cubic-interpolating comb delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.CombC.ar(source=source)</span>
+<span class="sd">        CombC.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CombL"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.CombL">[docs]</a><span class="k">class</span> <span class="nc">CombL</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A linear interpolating comb delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.CombL.ar(source=source)</span>
+<span class="sd">        CombL.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CombN"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.CombN">[docs]</a><span class="k">class</span> <span class="nc">CombN</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A non-interpolating comb delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.CombN.ar(source=source)</span>
+<span class="sd">        CombN.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DelTapRd"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.DelTapRd">[docs]</a><span class="k">class</span> <span class="nc">DelTapRd</span><span class="p">(</span><span class="n">UGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A delay tap reader unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; buffer_id = 0</span>
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.SoundIn.ar(0)</span>
+<span class="sd">        &gt;&gt;&gt; tapin = supriya.ugens.DelTapWr.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     source=source,</span>
+<span class="sd">        ...     )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; tapin</span>
+<span class="sd">        DelTapWr.ar()</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; tapout = supriya.ugens.DelTapRd.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     phase=tapin,</span>
+<span class="sd">        ...     delay_time=0.1,</span>
+<span class="sd">        ...     interpolation=True,</span>
+<span class="sd">        ...     )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; tapout</span>
+<span class="sd">        DelTapRd.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;buffer_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;phase&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DelTapWr"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.DelTapWr">[docs]</a><span class="k">class</span> <span class="nc">DelTapWr</span><span class="p">(</span><span class="n">UGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A delay tap writer unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; buffer_id = 0</span>
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.SoundIn.ar(0)</span>
+<span class="sd">        &gt;&gt;&gt; tapin = supriya.ugens.DelTapWr.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     source=source,</span>
+<span class="sd">        ...     )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; tapin</span>
+<span class="sd">        DelTapWr.ar()</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; tapout = supriya.ugens.DelTapRd.ar(</span>
+<span class="sd">        ...     buffer_id=buffer_id,</span>
+<span class="sd">        ...     phase=tapin,</span>
+<span class="sd">        ...     delay_time=0.1,</span>
+<span class="sd">        ...     interpolation=True,</span>
+<span class="sd">        ...     )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; tapout</span>
+<span class="sd">        DelTapRd.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[(</span><span class="s2">&quot;buffer_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DelayC"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.DelayC">[docs]</a><span class="k">class</span> <span class="nc">DelayC</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A cubic-interpolating delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.DelayC.ar(source=source)</span>
+<span class="sd">        DelayC.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DelayL"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.DelayL">[docs]</a><span class="k">class</span> <span class="nc">DelayL</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A linear-interpolating delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.DelayL.ar(source=source)</span>
+<span class="sd">        DelayL.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DelayN"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.DelayN">[docs]</a><span class="k">class</span> <span class="nc">DelayN</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A non-interpolating delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.DelayN.ar(source=source)</span>
+<span class="sd">        DelayN.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Delay1"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.Delay1">[docs]</a><span class="k">class</span> <span class="nc">Delay1</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A one-sample delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.Delay1.ar(source=source)</span>
+<span class="sd">        Delay1.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">([(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Delay2"><a class="viewcode-back" href="../../../api/supriya/ugens/delay.html#supriya.ugens.delay.Delay2">[docs]</a><span class="k">class</span> <span class="nc">Delay2</span><span class="p">(</span><span class="n">PureUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A two-sample delay line unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.In.ar(bus=0)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.Delay2.ar(source=source)</span>
+<span class="sd">        Delay2.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;maximum_delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;delay_time&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)]</span>
+    <span class="p">)</span>
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

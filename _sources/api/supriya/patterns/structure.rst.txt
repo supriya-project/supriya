@@ -1,0 +1,441 @@
+.. _supriya--patterns--structure:
+
+structure
+=========
+
+.. automodule:: supriya.patterns.structure
+
+.. currentmodule:: supriya.patterns.structure
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.structure
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Pbus
+   ~Pfx
+   ~Pgroup
+
+.. autoclass:: Pbus
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      arity
+      calculation_rate
+      channel_count
+      is_infinite
+      pattern
+      release_time
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.play
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.with_bus
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.with_effect
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.with_group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Pbus.arity
+
+   .. autoattribute:: Pbus.calculation_rate
+
+   .. autoattribute:: Pbus.channel_count
+
+   .. autoattribute:: Pbus.is_infinite
+
+   .. autoattribute:: Pbus.pattern
+
+   .. autoattribute:: Pbus.release_time
+
+.. autoclass:: Pfx
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      arity
+      channel_count
+      is_infinite
+      pattern
+      release_time
+      settings
+      synthdef
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.play
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.with_bus
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.with_effect
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.with_group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pfx.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Pfx.arity
+
+   .. autoattribute:: Pfx.channel_count
+
+   .. autoattribute:: Pfx.is_infinite
+
+   .. autoattribute:: Pfx.pattern
+
+   .. autoattribute:: Pfx.release_time
+
+   .. autoattribute:: Pfx.settings
+
+   .. autoattribute:: Pfx.synthdef
+
+.. autoclass:: Pgroup
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      arity
+      is_infinite
+      pattern
+      release_time
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.play
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.with_bus
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.with_effect
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.with_group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Pgroup.arity
+
+   .. autoattribute:: Pgroup.is_infinite
+
+   .. autoattribute:: Pgroup.pattern
+
+   .. autoattribute:: Pgroup.release_time

@@ -1,0 +1,2109 @@
+.. _supriya--commands--buffers:
+
+buffers
+=======
+
+.. automodule:: supriya.commands.buffers
+
+.. currentmodule:: supriya.commands.buffers
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.buffers
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~BufferAllocateReadChannelRequest
+   ~BufferAllocateReadRequest
+   ~BufferAllocateRequest
+   ~BufferCloseRequest
+   ~BufferCopyRequest
+   ~BufferFillRequest
+   ~BufferFreeRequest
+   ~BufferGenerateRequest
+   ~BufferGetContiguousRequest
+   ~BufferGetRequest
+   ~BufferInfoResponse
+   ~BufferNormalizeRequest
+   ~BufferQueryRequest
+   ~BufferReadChannelRequest
+   ~BufferReadRequest
+   ~BufferSetContiguousRequest
+   ~BufferSetContiguousResponse
+   ~BufferSetRequest
+   ~BufferSetResponse
+   ~BufferWriteRequest
+   ~BufferZeroRequest
+
+.. autoclass:: BufferAllocateReadChannelRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      channel_indices
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadChannelRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadChannelRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadChannelRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadChannelRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadChannelRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadChannelRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadChannelRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadChannelRequest.to_list
+
+   .. automethod:: BufferAllocateReadChannelRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadChannelRequest.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadChannelRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadChannelRequest.channel_count
+
+   .. autoattribute:: BufferAllocateReadChannelRequest.channel_indices
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadChannelRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadChannelRequest.file_path
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadChannelRequest.frame_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadChannelRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadChannelRequest.response
+
+   .. autoattribute:: BufferAllocateReadChannelRequest.response_patterns
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadChannelRequest.starting_frame
+
+.. autoclass:: BufferAllocateReadRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      callback
+      file_path
+      frame_count
+      request_id
+      response_patterns
+      starting_frame
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.to_list
+
+   .. automethod:: BufferAllocateReadRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferAllocateReadRequest.buffer_id
+
+   .. autoattribute:: BufferAllocateReadRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadRequest.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadRequest.condition
+
+   .. autoattribute:: BufferAllocateReadRequest.file_path
+
+   .. autoattribute:: BufferAllocateReadRequest.frame_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadRequest.response
+
+   .. autoattribute:: BufferAllocateReadRequest.response_patterns
+
+   .. autoattribute:: BufferAllocateReadRequest.starting_frame
+
+.. autoclass:: BufferAllocateRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      callback
+      channel_count
+      frame_count
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateRequest.to_list
+
+   .. automethod:: BufferAllocateRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferAllocateRequest.buffer_id
+
+   .. autoattribute:: BufferAllocateRequest.callback
+
+   .. autoattribute:: BufferAllocateRequest.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateRequest.condition
+
+   .. autoattribute:: BufferAllocateRequest.frame_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateRequest.response
+
+   .. autoattribute:: BufferAllocateRequest.response_patterns
+
+.. autoclass:: BufferCloseRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.to_list
+
+   .. automethod:: BufferCloseRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferCloseRequest.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferCloseRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferCloseRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferCloseRequest.response
+
+   .. autoattribute:: BufferCloseRequest.response_patterns
+
+.. autoclass:: BufferCopyRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      frame_count
+      request_id
+      response_patterns
+      source_buffer_id
+      source_starting_frame
+      target_buffer_id
+      target_starting_frame
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferCopyRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferCopyRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferCopyRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferCopyRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferCopyRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferCopyRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferCopyRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferCopyRequest.to_list
+
+   .. automethod:: BufferCopyRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferCopyRequest.condition
+
+   .. autoattribute:: BufferCopyRequest.frame_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferCopyRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferCopyRequest.response
+
+   .. autoattribute:: BufferCopyRequest.response_patterns
+
+   .. autoattribute:: BufferCopyRequest.source_buffer_id
+
+   .. autoattribute:: BufferCopyRequest.source_starting_frame
+
+   .. autoattribute:: BufferCopyRequest.target_buffer_id
+
+   .. autoattribute:: BufferCopyRequest.target_starting_frame
+
+.. autoclass:: BufferFillRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      index_count_value_triples
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferFillRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferFillRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferFillRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferFillRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferFillRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferFillRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferFillRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferFillRequest.to_list
+
+   .. automethod:: BufferFillRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferFillRequest.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferFillRequest.condition
+
+   .. autoattribute:: BufferFillRequest.index_count_value_triples
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferFillRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferFillRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferFillRequest.response_patterns
+
+.. autoclass:: BufferFreeRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      callback
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferFreeRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferFreeRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferFreeRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferFreeRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferFreeRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferFreeRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferFreeRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferFreeRequest.to_list
+
+   .. automethod:: BufferFreeRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferFreeRequest.buffer_id
+
+   .. autoattribute:: BufferFreeRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferFreeRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferFreeRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferFreeRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferFreeRequest.response_patterns
+
+.. autoclass:: BufferGenerateRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      amplitudes
+      as_wavetable
+      buffer_id
+      chebyshev
+      command_name
+      flags
+      frequencies
+      phases
+      request_id
+      response_patterns
+      should_clear_first
+      should_normalize
+      sine1
+      sine2
+      sine3
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferGenerateRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferGenerateRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferGenerateRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferGenerateRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferGenerateRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferGenerateRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferGenerateRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferGenerateRequest.to_list
+
+   .. automethod:: BufferGenerateRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BufferGenerateRequest.chebyshev
+
+   .. automethod:: BufferGenerateRequest.sine1
+
+   .. automethod:: BufferGenerateRequest.sine2
+
+   .. automethod:: BufferGenerateRequest.sine3
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferGenerateRequest.amplitudes
+
+   .. autoattribute:: BufferGenerateRequest.as_wavetable
+
+   .. autoattribute:: BufferGenerateRequest.buffer_id
+
+   .. autoattribute:: BufferGenerateRequest.command_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferGenerateRequest.condition
+
+   .. autoattribute:: BufferGenerateRequest.flags
+
+   .. autoattribute:: BufferGenerateRequest.frequencies
+
+   .. autoattribute:: BufferGenerateRequest.phases
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferGenerateRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferGenerateRequest.response
+
+   .. autoattribute:: BufferGenerateRequest.response_patterns
+
+   .. autoattribute:: BufferGenerateRequest.should_clear_first
+
+   .. autoattribute:: BufferGenerateRequest.should_normalize
+
+.. autoclass:: BufferGetContiguousRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      index_count_pairs
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetContiguousRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetContiguousRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetContiguousRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetContiguousRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetContiguousRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetContiguousRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetContiguousRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetContiguousRequest.to_list
+
+   .. automethod:: BufferGetContiguousRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferGetContiguousRequest.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferGetContiguousRequest.condition
+
+   .. autoattribute:: BufferGetContiguousRequest.index_count_pairs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferGetContiguousRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferGetContiguousRequest.response
+
+   .. autoattribute:: BufferGetContiguousRequest.response_patterns
+
+.. autoclass:: BufferGetRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      indices
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferGetRequest.to_list
+
+   .. automethod:: BufferGetRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferGetRequest.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferGetRequest.condition
+
+   .. autoattribute:: BufferGetRequest.indices
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferGetRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferGetRequest.response
+
+   .. autoattribute:: BufferGetRequest.response_patterns
+
+.. autoclass:: BufferInfoResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      Item
+      __getitem__
+      __len__
+      buffer_id
+      from_osc_message
+      items
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferInfoResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferInfoResponse.__eq__
+
+   .. automethod:: BufferInfoResponse.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BufferInfoResponse.__hash__
+
+   .. automethod:: BufferInfoResponse.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufferInfoResponse.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferInfoResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BufferInfoResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferInfoResponse.buffer_id
+
+   .. autoattribute:: BufferInfoResponse.items
+
+.. autoclass:: BufferNormalizeRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      as_wavetable
+      buffer_id
+      new_maximum
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.to_list
+
+   .. automethod:: BufferNormalizeRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferNormalizeRequest.as_wavetable
+
+   .. autoattribute:: BufferNormalizeRequest.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferNormalizeRequest.condition
+
+   .. autoattribute:: BufferNormalizeRequest.new_maximum
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferNormalizeRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferNormalizeRequest.response
+
+   .. autoattribute:: BufferNormalizeRequest.response_patterns
+
+.. autoclass:: BufferQueryRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_ids
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.to_list
+
+   .. automethod:: BufferQueryRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferQueryRequest.buffer_ids
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferQueryRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferQueryRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferQueryRequest.response
+
+   .. autoattribute:: BufferQueryRequest.response_patterns
+
+.. autoclass:: BufferReadChannelRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      channel_indices
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.to_list
+
+   .. automethod:: BufferReadChannelRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.callback
+
+   .. autoattribute:: BufferReadChannelRequest.channel_indices
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.file_path
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.frame_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.leave_open
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.response
+
+   .. autoattribute:: BufferReadChannelRequest.response_patterns
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.starting_frame_in_buffer
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.starting_frame_in_file
+
+.. autoclass:: BufferReadRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      callback
+      file_path
+      frame_count
+      leave_open
+      request_id
+      response_patterns
+      starting_frame_in_buffer
+      starting_frame_in_file
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.to_list
+
+   .. automethod:: BufferReadRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferReadRequest.buffer_id
+
+   .. autoattribute:: BufferReadRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadRequest.condition
+
+   .. autoattribute:: BufferReadRequest.file_path
+
+   .. autoattribute:: BufferReadRequest.frame_count
+
+   .. autoattribute:: BufferReadRequest.leave_open
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadRequest.response
+
+   .. autoattribute:: BufferReadRequest.response_patterns
+
+   .. autoattribute:: BufferReadRequest.starting_frame_in_buffer
+
+   .. autoattribute:: BufferReadRequest.starting_frame_in_file
+
+.. autoclass:: BufferSetContiguousRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      index_values_pairs
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousRequest.to_list
+
+   .. automethod:: BufferSetContiguousRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferSetContiguousRequest.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferSetContiguousRequest.condition
+
+   .. autoattribute:: BufferSetContiguousRequest.index_values_pairs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferSetContiguousRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferSetContiguousRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferSetContiguousRequest.response_patterns
+
+.. autoclass:: BufferSetContiguousResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      Item
+      __getitem__
+      __len__
+      as_dict
+      buffer_id
+      from_osc_message
+      items
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__eq__
+
+   .. automethod:: BufferSetContiguousResponse.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__iter__
+
+   .. automethod:: BufferSetContiguousResponse.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__reversed__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: BufferSetContiguousResponse.as_dict
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.count
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.index
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BufferSetContiguousResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferSetContiguousResponse.buffer_id
+
+   .. autoattribute:: BufferSetContiguousResponse.items
+
+.. autoclass:: BufferSetRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      index_value_pairs
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetRequest.to_list
+
+   .. automethod:: BufferSetRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferSetRequest.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferSetRequest.condition
+
+   .. autoattribute:: BufferSetRequest.index_value_pairs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferSetRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferSetRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferSetRequest.response_patterns
+
+.. autoclass:: BufferSetResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      Item
+      __getitem__
+      __len__
+      as_dict
+      buffer_id
+      from_osc_message
+      items
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__eq__
+
+   .. automethod:: BufferSetResponse.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__iter__
+
+   .. automethod:: BufferSetResponse.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__reversed__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: BufferSetResponse.as_dict
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.count
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.index
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BufferSetResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferSetResponse.buffer_id
+
+   .. autoattribute:: BufferSetResponse.items
+
+.. autoclass:: BufferWriteRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      callback
+      file_path
+      frame_count
+      header_format
+      leave_open
+      request_id
+      sample_format
+      starting_frame
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.to_list
+
+   .. automethod:: BufferWriteRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferWriteRequest.buffer_id
+
+   .. autoattribute:: BufferWriteRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferWriteRequest.condition
+
+   .. autoattribute:: BufferWriteRequest.file_path
+
+   .. autoattribute:: BufferWriteRequest.frame_count
+
+   .. autoattribute:: BufferWriteRequest.header_format
+
+   .. autoattribute:: BufferWriteRequest.leave_open
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferWriteRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferWriteRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferWriteRequest.response_patterns
+
+   .. autoattribute:: BufferWriteRequest.sample_format
+
+   .. autoattribute:: BufferWriteRequest.starting_frame
+
+.. autoclass:: BufferZeroRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      callback
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferZeroRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferZeroRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferZeroRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferZeroRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferZeroRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferZeroRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: BufferZeroRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferZeroRequest.to_list
+
+   .. automethod:: BufferZeroRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferZeroRequest.buffer_id
+
+   .. autoattribute:: BufferZeroRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferZeroRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferZeroRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferZeroRequest.response
+
+   .. autoattribute:: BufferZeroRequest.response_patterns

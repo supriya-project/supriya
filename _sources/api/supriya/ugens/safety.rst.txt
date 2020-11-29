@@ -1,0 +1,735 @@
+.. _supriya--ugens--safety:
+
+safety
+======
+
+.. automodule:: supriya.ugens.safety
+
+.. currentmodule:: supriya.ugens.safety
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.safety
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: SynthDef Internals
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~CheckBadValues
+   ~Sanitize
+
+.. autoclass:: CheckBadValues
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      post_mode
+      source
+      ugen_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__add__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__div__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__le__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__len__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__str__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.as_int
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.clip
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.cubed
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.distort
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.exponential
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.floor
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.lag
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.log
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.log10
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.log2
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.maximum
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.minimum
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.power
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.range
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.scale
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.sign
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.softclip
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.square_root
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.squared
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.sum
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.tanh
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.transpose
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: CheckBadValues.ar
+
+   .. automethod:: CheckBadValues.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.outputs
+
+   .. autoattribute:: CheckBadValues.post_mode
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.signal_range
+
+   .. autoattribute:: CheckBadValues.source
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.special_index
+
+   .. autoattribute:: CheckBadValues.ugen_id
+
+.. autoclass:: Sanitize
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      replace
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.clip
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.distort
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.floor
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.lag
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.log
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.log10
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.log2
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.power
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.range
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.scale
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.sign
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.squared
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.sum
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Sanitize.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Sanitize.ar
+
+   .. automethod:: Sanitize.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Sanitize.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Sanitize.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Sanitize.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Sanitize.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Sanitize.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Sanitize.outputs
+
+   .. autoattribute:: Sanitize.replace
+
+   .. container:: inherited
+
+      .. autoattribute:: Sanitize.signal_range
+
+   .. autoattribute:: Sanitize.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Sanitize.special_index

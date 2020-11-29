@@ -1,0 +1,112 @@
+.. _supriya--patterns--players:
+
+players
+=======
+
+.. automodule:: supriya.patterns.players
+
+.. currentmodule:: supriya.patterns.players
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.players
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~EventPlayer
+   ~EventProduct
+
+.. autoclass:: EventPlayer
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __call__
+      event_template
+      notify
+      pattern
+      start
+      stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: EventPlayer.__call__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: EventPlayer.notify
+
+   .. automethod:: EventPlayer.start
+
+   .. automethod:: EventPlayer.stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: EventPlayer.event_template
+
+   .. autoattribute:: EventPlayer.pattern
+
+.. autoclass:: EventProduct
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __eq__
+      __lt__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: EventProduct.__copy__
+
+   .. automethod:: EventProduct.__eq__
+
+   .. automethod:: EventProduct.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: EventProduct.__repr__

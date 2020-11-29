@@ -1,0 +1,1522 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>buses &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/supriya.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="groups" href="groups.html" />
+    <link rel="prev" title="buffers" href="buffers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buffers.html">buffers</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">buses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html">groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="movement.html">movement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server.html">server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="synthdefs.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="synths.html">synths</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">commands</a> &raquo;</li>
+        
+      <li>buses</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/commands/buses.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.commands.buses">
+<span id="buses"></span><span id="supriya-commands-buses"></span><h1>buses<a class="headerlink" href="#module-supriya.commands.buses" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-938dd9cf6b23f9bcf2c6c1185db0c7c8bd177f34.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_collections.abc&quot; {
+        graph [label=&quot;collections.abc&quot;];
+        node [color=2];
+        &quot;collections.abc.Collection&quot; [URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Collection&quot;,
+            label=Collection,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;collections.abc.Container&quot; [URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Container&quot;,
+            label=Container,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;collections.abc.Iterable&quot; [URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable&quot;,
+            label=Iterable,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;collections.abc.Reversible&quot; [URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Reversible&quot;,
+            label=Reversible,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;collections.abc.Sequence&quot; [URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence&quot;,
+            label=Sequence,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;collections.abc.Sized&quot; [URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Sized&quot;,
+            label=Sized,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;collections.abc.Collection&quot; -&gt; &quot;collections.abc.Sequence&quot;;
+        &quot;collections.abc.Container&quot; -&gt; &quot;collections.abc.Collection&quot;;
+        &quot;collections.abc.Iterable&quot; -&gt; &quot;collections.abc.Collection&quot;;
+        &quot;collections.abc.Iterable&quot; -&gt; &quot;collections.abc.Reversible&quot;;
+        &quot;collections.abc.Reversible&quot; -&gt; &quot;collections.abc.Sequence&quot;;
+        &quot;collections.abc.Sized&quot; -&gt; &quot;collections.abc.Collection&quot;;
+    }
+    subgraph &quot;cluster_supriya.commands.bases&quot; {
+        graph [label=&quot;supriya.commands.bases&quot;];
+        node [color=3];
+        &quot;supriya.commands.bases.Request&quot; [URL=&quot;../api/supriya/commands/bases.html#supriya.commands.bases.Request&quot;,
+            label=Request,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;supriya.commands.bases.Requestable&quot; [URL=&quot;../api/supriya/commands/bases.html#supriya.commands.bases.Requestable&quot;,
+            label=Requestable,
+            target=_top];
+        &quot;supriya.commands.bases.Response&quot; [URL=&quot;../api/supriya/commands/bases.html#supriya.commands.bases.Response&quot;,
+            label=Response,
+            target=_top];
+        &quot;supriya.commands.bases.Requestable&quot; -&gt; &quot;supriya.commands.bases.Request&quot;;
+    }
+    subgraph &quot;cluster_supriya.commands.buses&quot; {
+        graph [label=&quot;supriya.commands.buses&quot;];
+        node [color=4];
+        &quot;supriya.commands.buses.ControlBusFillRequest&quot; [URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusFillRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Control\nBus\nFill\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.buses.ControlBusGetContiguousRequest&quot; [URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusGetContiguousRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Control\nBus\nGet\nContiguous\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.buses.ControlBusGetRequest&quot; [URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusGetRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Control\nBus\nGet\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.buses.ControlBusSetContiguousRequest&quot; [URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusSetContiguousRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Control\nBus\nSet\nContiguous\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.buses.ControlBusSetContiguousResponse&quot; [URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusSetContiguousResponse&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Control\nBus\nSet\nContiguous\nResponse&quot;,
+            target=_top];
+        &quot;supriya.commands.buses.ControlBusSetRequest&quot; [URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusSetRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Control\nBus\nSet\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.buses.ControlBusSetResponse&quot; [URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusSetResponse&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Control\nBus\nSet\nResponse&quot;,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.system&quot; {
+        graph [label=&quot;supriya.system&quot;];
+        node [color=5];
+        &quot;supriya.system.SupriyaObject&quot; [URL=&quot;../api/supriya/commands/../system.html#supriya.system.SupriyaObject&quot;,
+            label=&quot;Supriya\nObject&quot;,
+            target=_top];
+        &quot;supriya.system.SupriyaValueObject&quot; [URL=&quot;../api/supriya/commands/../system.html#supriya.system.SupriyaValueObject&quot;,
+            label=&quot;Supriya\nValue\nObject&quot;,
+            target=_top];
+        &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject&quot;;
+    }
+    &quot;builtins.object&quot; -&gt; &quot;collections.abc.Container&quot;;
+    &quot;builtins.object&quot; -&gt; &quot;collections.abc.Iterable&quot;;
+    &quot;builtins.object&quot; -&gt; &quot;collections.abc.Sized&quot;;
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;;
+    &quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.buses.ControlBusSetContiguousResponse&quot;;
+    &quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.buses.ControlBusSetResponse&quot;;
+    &quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buses.ControlBusFillRequest&quot;;
+    &quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buses.ControlBusGetContiguousRequest&quot;;
+    &quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buses.ControlBusGetRequest&quot;;
+    &quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buses.ControlBusSetContiguousRequest&quot;;
+    &quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buses.ControlBusSetRequest&quot;;
+    &quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.buses.ControlBusSetContiguousResponse&quot;;
+    &quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.buses.ControlBusSetResponse&quot;;
+    &quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.bases.Requestable&quot;;
+    &quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.bases.Response&quot;;
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusFillRequest" title="supriya.commands.buses.ControlBusFillRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusFillRequest</span></code></a></p></td>
+<td><p>A /c_fill request.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusGetContiguousRequest" title="supriya.commands.buses.ControlBusGetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusGetContiguousRequest</span></code></a></p></td>
+<td><p>A /c_getn request.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusGetRequest" title="supriya.commands.buses.ControlBusGetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusGetRequest</span></code></a></p></td>
+<td><p>A /c_get request.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetContiguousRequest" title="supriya.commands.buses.ControlBusSetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusSetContiguousRequest</span></code></a></p></td>
+<td><p>A /c_setn request.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetContiguousResponse" title="supriya.commands.buses.ControlBusSetContiguousResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusSetContiguousResponse</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetRequest" title="supriya.commands.buses.ControlBusSetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusSetRequest</span></code></a></p></td>
+<td><p>A /c_set request.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetResponse" title="supriya.commands.buses.ControlBusSetResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusSetResponse</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.commands.buses.ControlBusFillRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.buses.</code><code class="sig-name descname">ControlBusFillRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index_count_value_triples</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusFillRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A /c_fill request.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.commands</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusFillRequest</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">index_count_value_triples</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),],</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span>
+<span class="go">ControlBusFillRequest(</span>
+<span class="go">    index_count_value_triples=(</span>
+<span class="go">        (0, 8, 0.5),</span>
+<span class="go">        (8, 8, 0.25),</span>
+<span class="go">    ),</span>
+<span class="go">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
+<span class="go">OscMessage(&#39;/c_fill&#39;, 0, 8, 0.5, 8, 8, 0.25)</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusFillRequest.index_count_value_triples" title="supriya.commands.buses.ControlBusFillRequest.index_count_value_triples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_count_value_triples</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusFillRequest.to_osc" title="supriya.commands.buses.ControlBusFillRequest.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusFillRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusFillRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusFillRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusFillRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusFillRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusFillRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusFillRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusFillRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusFillRequest.to_osc">
+<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusFillRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusFillRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusFillRequest.index_count_value_triples">
+<code class="sig-name descname">index_count_value_triples</code><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.index_count_value_triples" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusFillRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusFillRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusFillRequest.response_patterns">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.buses.</code><code class="sig-name descname">ControlBusGetContiguousRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index_count_pairs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusGetContiguousRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A /c_getn request.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusGetContiguousRequest</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">index_count_pairs</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">],</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span>
+<span class="go">ControlBusGetContiguousRequest(</span>
+<span class="go">    index_count_pairs=(</span>
+<span class="go">        (0, 2),</span>
+<span class="go">        (4, 1),</span>
+<span class="go">        (8, 2),</span>
+<span class="go">        (12, 1),</span>
+<span class="go">        ),</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
+<span class="go">OscMessage(&#39;/c_getn&#39;, 0, 2, 4, 1, 8, 2, 12, 1)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">ControlBusSetContiguousResponse(</span>
+<span class="go">    items=(</span>
+<span class="go">        Item(bus_values=(0.0, 0.0), starting_bus_id=0),</span>
+<span class="go">        Item(bus_values=(0.0,), starting_bus_id=4),</span>
+<span class="go">        Item(bus_values=(0.0, 0.0), starting_bus_id=8),</span>
+<span class="go">        Item(bus_values=(0.0,), starting_bus_id=12),</span>
+<span class="go">        ),</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/c_getn&#39;, 0, 2, 4, 1, 8, 2, 12, 1))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/c_setn&#39;, 0, 2, 0.0, 0.0, 4, 1, 0.0, 8, 2, 0.0, 0.0, 12, 1, 0.0))</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusGetContiguousRequest.index_count_pairs" title="supriya.commands.buses.ControlBusGetContiguousRequest.index_count_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_count_pairs</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusGetContiguousRequest.response_patterns" title="supriya.commands.buses.ControlBusGetContiguousRequest.response_patterns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">response_patterns</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusGetContiguousRequest.to_osc" title="supriya.commands.buses.ControlBusGetContiguousRequest.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.to_osc">
+<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusGetContiguousRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.index_count_pairs">
+<code class="sig-name descname">index_count_pairs</code><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.index_count_pairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusGetContiguousRequest.response_patterns">
+<em class="property">overridden </em><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.buses.ControlBusGetRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.buses.</code><code class="sig-name descname">ControlBusGetRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indices</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusGetRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A /c_get request.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusGetRequest</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">indices</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span>
+<span class="go">ControlBusGetRequest(</span>
+<span class="go">    indices=(0, 4, 8, 12),</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
+<span class="go">OscMessage(&#39;/c_get&#39;, 0, 4, 8, 12)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">ControlBusSetResponse(</span>
+<span class="go">    items=(</span>
+<span class="go">        Item(bus_id=0, bus_value=0.0),</span>
+<span class="go">        Item(bus_id=4, bus_value=0.0),</span>
+<span class="go">        Item(bus_id=8, bus_value=0.0),</span>
+<span class="go">        Item(bus_id=12, bus_value=0.0),</span>
+<span class="go">        ),</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/c_get&#39;, 0, 4, 8, 12))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/c_set&#39;, 0, 0.0, 4, 0.0, 8, 0.0, 12, 0.0))</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusGetRequest.indices" title="supriya.commands.buses.ControlBusGetRequest.indices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">indices</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusGetRequest.response_patterns" title="supriya.commands.buses.ControlBusGetRequest.response_patterns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">response_patterns</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusGetRequest.to_osc" title="supriya.commands.buses.ControlBusGetRequest.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusGetRequest.to_osc">
+<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusGetRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusGetRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusGetRequest.indices">
+<code class="sig-name descname">indices</code><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.indices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusGetRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusGetRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusGetRequest.response_patterns">
+<em class="property">overridden </em><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.buses.</code><code class="sig-name descname">ControlBusSetContiguousRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index_values_pairs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusSetContiguousRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A /c_setn request.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusSetContiguousRequest</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">index_values_pairs</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)),</span>
+<span class="gp">... </span>        <span class="p">],</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span>
+<span class="go">ControlBusSetContiguousRequest(</span>
+<span class="go">    index_values_pairs=(</span>
+<span class="go">        (0, (0.1, 0.2, 0.3)),</span>
+<span class="go">        (4, (0.4, 0.5, 0.6)),</span>
+<span class="go">        ),</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
+<span class="go">OscMessage(&#39;/c_setn&#39;, 0, 3, 0.1, 0.2, 0.3, 4, 3, 0.4, 0.5, 0.6)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/c_setn&#39;, 0, 3, 0.1, 0.2, 0.3, 4, 3, 0.4, 0.5, 0.6))</span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 0))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/synced&#39;, 0))</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetContiguousRequest.index_values_pairs" title="supriya.commands.buses.ControlBusSetContiguousRequest.index_values_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_values_pairs</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetContiguousRequest.to_osc" title="supriya.commands.buses.ControlBusSetContiguousRequest.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.to_osc">
+<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusSetContiguousRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.index_values_pairs">
+<code class="sig-name descname">index_values_pairs</code><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.index_values_pairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusSetContiguousRequest.response_patterns">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.buses.</code><code class="sig-name descname">ControlBusSetContiguousResponse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusSetContiguousResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Item</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetContiguousResponse.__getitem__" title="supriya.commands.buses.ControlBusSetContiguousResponse.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetContiguousResponse.__len__" title="supriya.commands.buses.ControlBusSetContiguousResponse.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetContiguousResponse.from_osc_message" title="supriya.commands.buses.ControlBusSetContiguousResponse.from_osc_message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_osc_message</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetContiguousResponse.items" title="supriya.commands.buses.ControlBusSetContiguousResponse.items"><code class="xref py py-obj docutils literal notranslate"><span class="pre">items</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.__contains__">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.__getitem__">
+<em class="property">overridden </em><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusSetContiguousResponse.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.__iter__">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.__len__">
+<em class="property">overridden </em><code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusSetContiguousResponse.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.__reversed__">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">__reversed__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.__reversed__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.count">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">count</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span> &#x2192; integer – return number of occurrences of value<a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.index">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="optional">[</span>, <em class="sig-param">start</em><span class="optional">[</span>, <em class="sig-param">stop</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; integer – return first index of value.<a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises ValueError if the value is not present.</p>
+<p>Supporting start and stop arguments is optional, but
+recommended.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.to_dict">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="descclassname docutils literal notranslate"><span class="pre">Response</span></code></a>).</code><code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.from_osc_message">
+<em class="property">overridden </em><em class="property">classmethod </em><code class="sig-name descname">from_osc_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">osc_message</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusSetContiguousResponse.from_osc_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.from_osc_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusSetContiguousResponse.items">
+<code class="sig-name descname">items</code><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.buses.ControlBusSetRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.buses.</code><code class="sig-name descname">ControlBusSetRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index_value_pairs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusSetRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A /c_set request.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusSetRequest</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">index_value_pairs</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">],</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span>
+<span class="go">ControlBusSetRequest(</span>
+<span class="go">    index_value_pairs=(</span>
+<span class="go">        (0, 0.1),</span>
+<span class="go">        (1, 0.2),</span>
+<span class="go">        (2, 0.3),</span>
+<span class="go">        (3, 0.4),</span>
+<span class="go">        ),</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
+<span class="go">OscMessage(&#39;/c_set&#39;, 0, 0.1, 1, 0.2, 2, 0.3, 3, 0.4)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/c_set&#39;, 0, 0.1, 1, 0.2, 2, 0.3, 3, 0.4))</span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 0))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/synced&#39;, 0))</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetRequest.index_value_pairs" title="supriya.commands.buses.ControlBusSetRequest.index_value_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_value_pairs</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetRequest.to_osc" title="supriya.commands.buses.ControlBusSetRequest.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetRequest.to_osc">
+<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusSetRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusSetRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusSetRequest.index_value_pairs">
+<code class="sig-name descname">index_value_pairs</code><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.index_value_pairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusSetRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusSetRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusSetRequest.response_patterns">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.buses.ControlBusSetResponse">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.buses.</code><code class="sig-name descname">ControlBusSetResponse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusSetResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Item</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetResponse.__getitem__" title="supriya.commands.buses.ControlBusSetResponse.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetResponse.__len__" title="supriya.commands.buses.ControlBusSetResponse.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetResponse.from_osc_message" title="supriya.commands.buses.ControlBusSetResponse.from_osc_message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_osc_message</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.buses.ControlBusSetResponse.items" title="supriya.commands.buses.ControlBusSetResponse.items"><code class="xref py py-obj docutils literal notranslate"><span class="pre">items</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.__contains__">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.__getitem__">
+<em class="property">overridden </em><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusSetResponse.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.__iter__">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.__len__">
+<em class="property">overridden </em><code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusSetResponse.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.__reversed__">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">__reversed__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.__reversed__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.count">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">count</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span> &#x2192; integer – return number of occurrences of value<a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.index">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="optional">[</span>, <em class="sig-param">start</em><span class="optional">[</span>, <em class="sig-param">stop</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; integer – return first index of value.<a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises ValueError if the value is not present.</p>
+<p>Supporting start and stop arguments is optional, but
+recommended.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.to_dict">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="descclassname docutils literal notranslate"><span class="pre">Response</span></code></a>).</code><code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<dl class="py method">
+<dt id="supriya.commands.buses.ControlBusSetResponse.from_osc_message">
+<em class="property">overridden </em><em class="property">classmethod </em><code class="sig-name descname">from_osc_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">osc_message</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/buses.html#ControlBusSetResponse.from_osc_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.from_osc_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.commands.buses.ControlBusSetResponse.items">
+<code class="sig-name descname">items</code><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="groups.html" class="btn btn-neutral float-right" title="groups" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="buffers.html" class="btn btn-neutral float-left" title="buffers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,486 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.commands.synths &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/supriya.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>supriya.commands.synths</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.commands.synths</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="kn">import</span> <span class="nn">supriya.osc</span>
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="kn">import</span> <span class="n">AddAction</span>
+<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="kn">import</span> <span class="n">RequestId</span>
+<span class="kn">from</span> <span class="nn">supriya.realtime.nodes</span> <span class="kn">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Synth</span>
+
+<span class="kn">from</span> <span class="nn">.bases</span> <span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">Response</span>
+
+
+<div class="viewcode-block" id="SynthInfoResponse"><a class="viewcode-back" href="../../../api/supriya/commands/synths.html#supriya.commands.synths.SynthInfoResponse">[docs]</a><span class="k">class</span> <span class="nc">SynthInfoResponse</span><span class="p">(</span><span class="n">Response</span><span class="p">):</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">synthdef_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_id</span> <span class="o">=</span> <span class="n">node_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">synthdef_name</span> <span class="o">=</span> <span class="n">synthdef_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+<div class="viewcode-block" id="SynthInfoResponse.from_osc_message"><a class="viewcode-back" href="../../../api/supriya/commands/synths.html#supriya.commands.synths.SynthInfoResponse.from_osc_message">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_osc_message</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">osc_message</span><span class="p">):</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">osc_message</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span>
+        <span class="n">node_id</span> <span class="o">=</span> <span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">synthdef_name</span> <span class="o">=</span> <span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">pair_count</span> <span class="o">=</span> <span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pair_count</span><span class="p">):</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="n">contents</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="n">contents</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">node_id</span><span class="o">=</span><span class="n">node_id</span><span class="p">,</span> <span class="n">synthdef_name</span><span class="o">=</span><span class="n">synthdef_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="SynthNewRequest"><a class="viewcode-back" href="../../../api/supriya/commands/synths.html#supriya.commands.synths.SynthNewRequest">[docs]</a><span class="k">class</span> <span class="nc">SynthNewRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /s_new request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.SynthNewRequest(</span>
+<span class="sd">        ...     add_action=supriya.AddAction.ADD_TO_TAIL,</span>
+<span class="sd">        ...     node_id=1001,</span>
+<span class="sd">        ...     synthdef=&#39;test&#39;,</span>
+<span class="sd">        ...     target_node_id=1000,</span>
+<span class="sd">        ...     frequency=443,</span>
+<span class="sd">        ...     phase=0.2</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        SynthNewRequest(</span>
+<span class="sd">            add_action=AddAction.ADD_TO_TAIL,</span>
+<span class="sd">            frequency=443,</span>
+<span class="sd">            node_id=1001,</span>
+<span class="sd">            phase=0.2,</span>
+<span class="sd">            synthdef=&#39;test&#39;,</span>
+<span class="sd">            target_node_id=1000,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/s_new&#39;, &#39;test&#39;, 1001, 1, 1000, &#39;frequency&#39;, 443, &#39;phase&#39;, 0.2)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">SYNTH_NEW</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">add_action</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">node_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">synthdef</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">target_node_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_action</span> <span class="o">=</span> <span class="n">AddAction</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">add_action</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span> <span class="o">=</span> <span class="n">node_id</span>
+        <span class="n">prototype</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDef</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">synthdef</span><span class="p">,</span> <span class="n">prototype</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_synthdef</span> <span class="o">=</span> <span class="n">synthdef</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_node_id</span> <span class="o">=</span> <span class="n">target_node_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_apply_local</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">Synth</span><span class="p">):</span>
+            <span class="n">node_id</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">synth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_id</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">node_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_id</span>
+            <span class="n">synth</span> <span class="o">=</span> <span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">synthdef</span><span class="p">,</span> <span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_node_id</span><span class="p">,</span> <span class="n">Node</span><span class="p">):</span>
+            <span class="n">target_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_node_id</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">target_node</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_node_id</span><span class="p">]</span>
+        <span class="n">synth</span><span class="o">.</span><span class="n">_register_with_local_server</span><span class="p">(</span>
+            <span class="n">node_id</span><span class="o">=</span><span class="n">node_id</span><span class="p">,</span>
+            <span class="n">node_id_is_permanent</span><span class="o">=</span><span class="n">synth</span><span class="o">.</span><span class="n">node_id_is_permanent</span><span class="p">,</span>
+            <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">target_node</span><span class="o">.</span><span class="n">_move_node</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">add_action</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">synth</span><span class="p">)</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="SynthNewRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/synths.html#supriya.commands.synths.SynthNewRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">synthdef</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">synthdef</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">synthdef</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDef</span><span class="p">):</span>
+            <span class="n">synthdef</span> <span class="o">=</span> <span class="n">synthdef</span><span class="o">.</span><span class="n">actual_name</span>
+        <span class="n">node_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sanitize_node_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="p">)</span>
+        <span class="n">add_action</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">add_action</span><span class="p">)</span>
+        <span class="n">target_node_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sanitize_node_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_node_id</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target_node_id</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">with_placeholders</span><span class="p">:</span>
+            <span class="n">target_node_id</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">synthdef</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">add_action</span><span class="p">,</span> <span class="n">target_node_id</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">:</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">add_action</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_action</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">node_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/n_go&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_id</span><span class="p">)],</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">synthdef</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synthdef</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">target_node_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_node_id</span></div>
+
+
+<div class="viewcode-block" id="SynthQueryRequest"><a class="viewcode-back" href="../../../api/supriya/commands/synths.html#supriya.commands.synths.SynthQueryRequest">[docs]</a><span class="k">class</span> <span class="nc">SynthQueryRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /s_query request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.SynthQueryRequest(1000)</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        SynthQueryRequest(</span>
+<span class="sd">            node_ids=(1000,),</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/s_query&#39;, 1000)</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya</span>
+<span class="sd">        &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
+<span class="sd">        &gt;&gt;&gt; synth = supriya.Synth().allocate()</span>
+<span class="sd">        &gt;&gt;&gt; request.communicate()</span>
+<span class="sd">        SynthInfoResponse(</span>
+<span class="sd">            1000,</span>
+<span class="sd">            &#39;default&#39;,</span>
+<span class="sd">            amplitude=0.100...,</span>
+<span class="sd">            frequency=440.0,</span>
+<span class="sd">            gate=1.0,</span>
+<span class="sd">            out=0.0,</span>
+<span class="sd">            pan=0.5,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">SYNTH_QUERY</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node_ids</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+            <span class="n">node_ids</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_ids</span><span class="p">,)</span>
+        <span class="n">node_ids</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">node_ids</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_node_ids</span> <span class="o">=</span> <span class="n">node_ids</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="SynthQueryRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/synths.html#supriya.commands.synths.SynthQueryRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">request_name</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">node_ids</span><span class="p">]</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">node_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_ids</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/s_info&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_ids</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])],</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="TriggerResponse"><a class="viewcode-back" href="../../../api/supriya/commands/synths.html#supriya.commands.synths.TriggerResponse">[docs]</a><span class="k">class</span> <span class="nc">TriggerResponse</span><span class="p">(</span><span class="n">Response</span><span class="p">):</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">trigger_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">trigger_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span> <span class="o">=</span> <span class="n">node_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_trigger_id</span> <span class="o">=</span> <span class="n">trigger_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_trigger_value</span> <span class="o">=</span> <span class="n">trigger_value</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="TriggerResponse.from_osc_message"><a class="viewcode-back" href="../../../api/supriya/commands/synths.html#supriya.commands.synths.TriggerResponse.from_osc_message">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_osc_message</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">osc_message</span><span class="p">):</span>
+        <span class="n">arguments</span> <span class="o">=</span> <span class="n">osc_message</span><span class="o">.</span><span class="n">contents</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">arguments</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">node_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">trigger_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trigger_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">trigger_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trigger_value</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

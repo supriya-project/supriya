@@ -1,0 +1,815 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.ugens.basic &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/supriya.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>supriya.ugens.basic</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.ugens.basic</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="kn">import</span> <span class="n">CalculationRate</span><span class="p">,</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">supriya.synthdefs</span> <span class="kn">import</span> <span class="n">PseudoUGen</span><span class="p">,</span> <span class="n">UGen</span>
+
+
+<div class="viewcode-block" id="Mix"><a class="viewcode-back" href="../../../api/supriya/ugens/basic.html#supriya.ugens.basic.Mix">[docs]</a><span class="k">class</span> <span class="nc">Mix</span><span class="p">(</span><span class="n">PseudoUGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A down-to-mono signal mixer.</span>
+
+<span class="sd">    ..  container:: example</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; with supriya.synthdefs.SynthDefBuilder() as builder:</span>
+<span class="sd">            ...     oscillators = [supriya.ugens.DC.ar(1) for _ in range(5)]</span>
+<span class="sd">            ...     mix = supriya.ugens.Mix.new(oscillators)</span>
+<span class="sd">            ...</span>
+<span class="sd">            &gt;&gt;&gt; synthdef = builder.build(name=&#39;mix1&#39;, optimize=False)</span>
+<span class="sd">            &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">            synthdef:</span>
+<span class="sd">                name: mix1</span>
+<span class="sd">                ugens:</span>
+<span class="sd">                -   DC.ar/0:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/1:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/2:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/3:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   Sum4.ar:</span>
+<span class="sd">                        input_four: DC.ar/3[0]</span>
+<span class="sd">                        input_one: DC.ar/0[0]</span>
+<span class="sd">                        input_three: DC.ar/2[0]</span>
+<span class="sd">                        input_two: DC.ar/1[0]</span>
+<span class="sd">                -   DC.ar/4:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   BinaryOpUGen(ADDITION).ar:</span>
+<span class="sd">                        left: Sum4.ar[0]</span>
+<span class="sd">                        right: DC.ar/4[0]</span>
+
+<span class="sd">    ..  container:: example</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; with supriya.synthdefs.SynthDefBuilder() as builder:</span>
+<span class="sd">            ...     oscillators = [supriya.ugens.DC.ar(1) for _ in range(15)]</span>
+<span class="sd">            ...     mix = supriya.ugens.Mix.new(oscillators)</span>
+<span class="sd">            ...</span>
+<span class="sd">            &gt;&gt;&gt; synthdef = builder.build(&#39;mix2&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">            synthdef:</span>
+<span class="sd">                name: mix2</span>
+<span class="sd">                ugens:</span>
+<span class="sd">                -   DC.ar/0:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/1:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/2:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/3:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   Sum4.ar/0:</span>
+<span class="sd">                        input_four: DC.ar/3[0]</span>
+<span class="sd">                        input_one: DC.ar/0[0]</span>
+<span class="sd">                        input_three: DC.ar/2[0]</span>
+<span class="sd">                        input_two: DC.ar/1[0]</span>
+<span class="sd">                -   DC.ar/4:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/5:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/6:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/7:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   Sum4.ar/1:</span>
+<span class="sd">                        input_four: DC.ar/7[0]</span>
+<span class="sd">                        input_one: DC.ar/4[0]</span>
+<span class="sd">                        input_three: DC.ar/6[0]</span>
+<span class="sd">                        input_two: DC.ar/5[0]</span>
+<span class="sd">                -   DC.ar/8:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/9:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/10:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/11:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   Sum4.ar/2:</span>
+<span class="sd">                        input_four: DC.ar/11[0]</span>
+<span class="sd">                        input_one: DC.ar/8[0]</span>
+<span class="sd">                        input_three: DC.ar/10[0]</span>
+<span class="sd">                        input_two: DC.ar/9[0]</span>
+<span class="sd">                -   DC.ar/12:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/13:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   DC.ar/14:</span>
+<span class="sd">                        source: 1.0</span>
+<span class="sd">                -   Sum3.ar:</span>
+<span class="sd">                        input_one: DC.ar/12[0]</span>
+<span class="sd">                        input_three: DC.ar/14[0]</span>
+<span class="sd">                        input_two: DC.ar/13[0]</span>
+<span class="sd">                -   Sum4.ar/3:</span>
+<span class="sd">                        input_four: Sum3.ar[0]</span>
+<span class="sd">                        input_one: Sum4.ar/0[0]</span>
+<span class="sd">                        input_three: Sum4.ar/2[0]</span>
+<span class="sd">                        input_two: Sum4.ar/1[0]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_flatten_sources</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">sources</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+
+        <span class="n">flattened_sources</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">sources</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenArray</span><span class="p">):</span>
+                <span class="n">flattened_sources</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">flattened_sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenArray</span><span class="p">(</span><span class="n">flattened_sources</span><span class="p">)</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="Mix.new"><a class="viewcode-back" href="../../../api/supriya/ugens/basic.html#supriya.ugens.basic.Mix.new">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">sources</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="n">sources</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_flatten_sources</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span>
+        <span class="n">summed_sources</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">group_iterable_by_count</span><span class="p">(</span><span class="n">sources</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="n">summed_sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Sum4</span><span class="p">(</span><span class="o">*</span><span class="n">part</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">summed_sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Sum3</span><span class="p">(</span><span class="o">*</span><span class="n">part</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">summed_sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">part</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">summed_sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">summed_sources</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">summed_sources</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">Mix</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">summed_sources</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mix.multichannel"><a class="viewcode-back" href="../../../api/supriya/ugens/basic.html#supriya.ugens.basic.Mix.multichannel">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">multichannel</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">channel_count</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Segment by channel count and mix down in parallel.</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Combine panner outputs, first with first, second with second, etc.</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; source = supriya.ugens.SinOsc.ar(frequency=[440, 660, 880])</span>
+<span class="sd">                &gt;&gt;&gt; panner = supriya.ugens.PanAz.ar(</span>
+<span class="sd">                ...     channel_count=4,</span>
+<span class="sd">                ...     source=source,</span>
+<span class="sd">                ...     position=supriya.ugens.LFNoise2.kr(),</span>
+<span class="sd">                ...     )</span>
+<span class="sd">                &gt;&gt;&gt; mix = supriya.ugens.Mix.multichannel(panner, channel_count=4)</span>
+<span class="sd">                &gt;&gt;&gt; out = supriya.ugens.Out.ar(bus=0, source=mix)</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(out)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(out)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   SinOsc.ar/0:</span>
+<span class="sd">                            frequency: 440.0</span>
+<span class="sd">                            phase: 0.0</span>
+<span class="sd">                    -   LFNoise2.kr:</span>
+<span class="sd">                            frequency: 500.0</span>
+<span class="sd">                    -   PanAz.ar/0:</span>
+<span class="sd">                            amplitude: 1.0</span>
+<span class="sd">                            orientation: 0.5</span>
+<span class="sd">                            position: LFNoise2.kr[0]</span>
+<span class="sd">                            source: SinOsc.ar/0[0]</span>
+<span class="sd">                            width: 2.0</span>
+<span class="sd">                    -   SinOsc.ar/1:</span>
+<span class="sd">                            frequency: 660.0</span>
+<span class="sd">                            phase: 0.0</span>
+<span class="sd">                    -   PanAz.ar/1:</span>
+<span class="sd">                            amplitude: 1.0</span>
+<span class="sd">                            orientation: 0.5</span>
+<span class="sd">                            position: LFNoise2.kr[0]</span>
+<span class="sd">                            source: SinOsc.ar/1[0]</span>
+<span class="sd">                            width: 2.0</span>
+<span class="sd">                    -   SinOsc.ar/2:</span>
+<span class="sd">                            frequency: 880.0</span>
+<span class="sd">                            phase: 0.0</span>
+<span class="sd">                    -   PanAz.ar/2:</span>
+<span class="sd">                            amplitude: 1.0</span>
+<span class="sd">                            orientation: 0.5</span>
+<span class="sd">                            position: LFNoise2.kr[0]</span>
+<span class="sd">                            source: SinOsc.ar/2[0]</span>
+<span class="sd">                            width: 2.0</span>
+<span class="sd">                    -   Sum3.ar/0:</span>
+<span class="sd">                            input_one: PanAz.ar/0[0]</span>
+<span class="sd">                            input_three: PanAz.ar/2[0]</span>
+<span class="sd">                            input_two: PanAz.ar/1[0]</span>
+<span class="sd">                    -   Sum3.ar/1:</span>
+<span class="sd">                            input_one: PanAz.ar/0[1]</span>
+<span class="sd">                            input_three: PanAz.ar/2[1]</span>
+<span class="sd">                            input_two: PanAz.ar/1[1]</span>
+<span class="sd">                    -   Sum3.ar/2:</span>
+<span class="sd">                            input_one: PanAz.ar/0[2]</span>
+<span class="sd">                            input_three: PanAz.ar/2[2]</span>
+<span class="sd">                            input_two: PanAz.ar/1[2]</span>
+<span class="sd">                    -   Sum3.ar/3:</span>
+<span class="sd">                            input_one: PanAz.ar/0[3]</span>
+<span class="sd">                            input_three: PanAz.ar/2[3]</span>
+<span class="sd">                            input_two: PanAz.ar/1[3]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: 0.0</span>
+<span class="sd">                            source[0]: Sum3.ar/0[0]</span>
+<span class="sd">                            source[1]: Sum3.ar/1[0]</span>
+<span class="sd">                            source[2]: Sum3.ar/2[0]</span>
+<span class="sd">                            source[3]: Sum3.ar/3[0]</span>
+
+<span class="sd">            Compare with a non-multichannel mixdown:</span>
+
+<span class="sd">                &gt;&gt;&gt; mix = supriya.ugens.Mix.new(panner)</span>
+<span class="sd">                &gt;&gt;&gt; out = supriya.ugens.Out.ar(bus=0, source=mix)</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(out)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(out)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   SinOsc.ar/0:</span>
+<span class="sd">                            frequency: 440.0</span>
+<span class="sd">                            phase: 0.0</span>
+<span class="sd">                    -   LFNoise2.kr:</span>
+<span class="sd">                            frequency: 500.0</span>
+<span class="sd">                    -   PanAz.ar/0:</span>
+<span class="sd">                            amplitude: 1.0</span>
+<span class="sd">                            orientation: 0.5</span>
+<span class="sd">                            position: LFNoise2.kr[0]</span>
+<span class="sd">                            source: SinOsc.ar/0[0]</span>
+<span class="sd">                            width: 2.0</span>
+<span class="sd">                    -   Sum4.ar/0:</span>
+<span class="sd">                            input_four: PanAz.ar/0[3]</span>
+<span class="sd">                            input_one: PanAz.ar/0[0]</span>
+<span class="sd">                            input_three: PanAz.ar/0[2]</span>
+<span class="sd">                            input_two: PanAz.ar/0[1]</span>
+<span class="sd">                    -   SinOsc.ar/1:</span>
+<span class="sd">                            frequency: 660.0</span>
+<span class="sd">                            phase: 0.0</span>
+<span class="sd">                    -   PanAz.ar/1:</span>
+<span class="sd">                            amplitude: 1.0</span>
+<span class="sd">                            orientation: 0.5</span>
+<span class="sd">                            position: LFNoise2.kr[0]</span>
+<span class="sd">                            source: SinOsc.ar/1[0]</span>
+<span class="sd">                            width: 2.0</span>
+<span class="sd">                    -   Sum4.ar/1:</span>
+<span class="sd">                            input_four: PanAz.ar/1[3]</span>
+<span class="sd">                            input_one: PanAz.ar/1[0]</span>
+<span class="sd">                            input_three: PanAz.ar/1[2]</span>
+<span class="sd">                            input_two: PanAz.ar/1[1]</span>
+<span class="sd">                    -   SinOsc.ar/2:</span>
+<span class="sd">                            frequency: 880.0</span>
+<span class="sd">                            phase: 0.0</span>
+<span class="sd">                    -   PanAz.ar/2:</span>
+<span class="sd">                            amplitude: 1.0</span>
+<span class="sd">                            orientation: 0.5</span>
+<span class="sd">                            position: LFNoise2.kr[0]</span>
+<span class="sd">                            source: SinOsc.ar/2[0]</span>
+<span class="sd">                            width: 2.0</span>
+<span class="sd">                    -   Sum4.ar/2:</span>
+<span class="sd">                            input_four: PanAz.ar/2[3]</span>
+<span class="sd">                            input_one: PanAz.ar/2[0]</span>
+<span class="sd">                            input_three: PanAz.ar/2[2]</span>
+<span class="sd">                            input_two: PanAz.ar/2[1]</span>
+<span class="sd">                    -   Sum3.ar:</span>
+<span class="sd">                            input_one: Sum4.ar/0[0]</span>
+<span class="sd">                            input_three: Sum4.ar/2[0]</span>
+<span class="sd">                            input_two: Sum4.ar/1[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: 0.0</span>
+<span class="sd">                            source[0]: Sum3.ar[0]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+
+        <span class="n">sources</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_flatten_sources</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span>
+        <span class="n">mixes</span><span class="p">,</span> <span class="n">parts</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">),</span> <span class="n">channel_count</span><span class="p">):</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">channel_count</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">columns</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">parts</span><span class="p">):</span>
+            <span class="n">mixes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">columns</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenArray</span><span class="p">(</span><span class="n">mixes</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MulAdd"><a class="viewcode-back" href="../../../api/supriya/ugens/basic.html#supriya.ugens.basic.MulAdd">[docs]</a><span class="k">class</span> <span class="nc">MulAdd</span><span class="p">(</span><span class="n">UGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An Optimized multiplication / addition ugen.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; source = supriya.ugens.SinOsc.ar()</span>
+<span class="sd">        &gt;&gt;&gt; mul_add = supriya.ugens.MulAdd.new(</span>
+<span class="sd">        ...     addend=0.5,</span>
+<span class="sd">        ...     multiplier=-1.5,</span>
+<span class="sd">        ...     source=source,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; mul_add</span>
+<span class="sd">        MulAdd.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">__documentation_section__</span> <span class="o">=</span> <span class="s2">&quot;Basic Operator UGens&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;multiplier&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;addend&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)]</span>
+    <span class="p">)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addend</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">multiplier</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">UGen</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">addend</span><span class="o">=</span><span class="n">addend</span><span class="p">,</span>
+            <span class="n">multiplier</span><span class="o">=</span><span class="n">multiplier</span><span class="p">,</span>
+            <span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_inputs_are_valid</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">multiplier</span><span class="p">,</span> <span class="n">addend</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="o">==</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="o">==</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">multiplier</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span>
+                <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">,</span>
+                <span class="n">CalculationRate</span><span class="o">.</span><span class="n">SCALAR</span><span class="p">,</span>
+            <span class="p">):</span>
+                <span class="k">if</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">addend</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span>
+                    <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">,</span>
+                    <span class="n">CalculationRate</span><span class="o">.</span><span class="n">SCALAR</span><span class="p">,</span>
+                <span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_new_single</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">addend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">multiplier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">multiplier</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">addend</span>
+        <span class="n">minus</span> <span class="o">=</span> <span class="n">multiplier</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">no_multiplier</span> <span class="o">=</span> <span class="n">multiplier</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">no_addend</span> <span class="o">=</span> <span class="n">addend</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">no_multiplier</span> <span class="ow">and</span> <span class="n">no_addend</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">source</span>
+        <span class="k">if</span> <span class="n">minus</span> <span class="ow">and</span> <span class="n">no_addend</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">source</span>
+        <span class="k">if</span> <span class="n">no_addend</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">source</span> <span class="o">*</span> <span class="n">multiplier</span>
+        <span class="k">if</span> <span class="n">minus</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">addend</span> <span class="o">-</span> <span class="n">source</span>
+        <span class="k">if</span> <span class="n">no_multiplier</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">source</span> <span class="o">+</span> <span class="n">addend</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_inputs_are_valid</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">multiplier</span><span class="p">,</span> <span class="n">addend</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+                <span class="n">addend</span><span class="o">=</span><span class="n">addend</span><span class="p">,</span>
+                <span class="n">multiplier</span><span class="o">=</span><span class="n">multiplier</span><span class="p">,</span>
+                <span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span><span class="p">,</span>
+                <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_inputs_are_valid</span><span class="p">(</span><span class="n">multiplier</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">addend</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+                <span class="n">addend</span><span class="o">=</span><span class="n">addend</span><span class="p">,</span>
+                <span class="n">multiplier</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+                <span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span><span class="p">,</span>
+                <span class="n">source</span><span class="o">=</span><span class="n">multiplier</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">source</span> <span class="o">*</span> <span class="n">multiplier</span><span class="p">)</span> <span class="o">+</span> <span class="n">addend</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="MulAdd.new"><a class="viewcode-back" href="../../../api/supriya/ugens/basic.html#supriya.ugens.basic.MulAdd.new">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">multiplier</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">addend</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a multiplication / addition ugen.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; addend = 0.5</span>
+<span class="sd">            &gt;&gt;&gt; multiplier = 1.5</span>
+<span class="sd">            &gt;&gt;&gt; source = supriya.ugens.SinOsc.ar(frequency=[440, 442])</span>
+<span class="sd">            &gt;&gt;&gt; mul_add = supriya.ugens.MulAdd.new(</span>
+<span class="sd">            ...     addend=addend,</span>
+<span class="sd">            ...     multiplier=multiplier,</span>
+<span class="sd">            ...     source=source,</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; mul_add</span>
+<span class="sd">            UGenArray({2})</span>
+
+<span class="sd">        Returns ugen graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+
+        <span class="c1"># TODO: handle case of array as source</span>
+        <span class="n">calculation_rate</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">multiplier</span><span class="p">,</span> <span class="n">addend</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">ugen</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_new_expanded</span><span class="p">(</span>
+            <span class="n">addend</span><span class="o">=</span><span class="n">addend</span><span class="p">,</span>
+            <span class="n">multiplier</span><span class="o">=</span><span class="n">multiplier</span><span class="p">,</span>
+            <span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">ugen</span></div></div>
+
+
+<div class="viewcode-block" id="Sum3"><a class="viewcode-back" href="../../../api/supriya/ugens/basic.html#supriya.ugens.basic.Sum3">[docs]</a><span class="k">class</span> <span class="nc">Sum3</span><span class="p">(</span><span class="n">UGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A three-input summing unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; input_one = supriya.ugens.SinOsc.ar()</span>
+<span class="sd">        &gt;&gt;&gt; input_two = supriya.ugens.SinOsc.ar(phase=0.1)</span>
+<span class="sd">        &gt;&gt;&gt; input_three = supriya.ugens.SinOsc.ar(phase=0.2)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.Sum3.new(</span>
+<span class="sd">        ...     input_one=input_one,</span>
+<span class="sd">        ...     input_two=input_two,</span>
+<span class="sd">        ...     input_three=input_three,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        Sum3.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">__documentation_section__</span> <span class="o">=</span> <span class="s2">&quot;Basic Operator UGens&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[(</span><span class="s2">&quot;input_one&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;input_two&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;input_three&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)]</span>
+    <span class="p">)</span>
+
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_one</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_two</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_three</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">input_one</span><span class="p">,</span> <span class="n">input_two</span><span class="p">,</span> <span class="n">input_three</span><span class="p">]</span>
+        <span class="n">calculation_rate</span> <span class="o">=</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">inputs</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">UGen</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span><span class="p">,</span>
+            <span class="n">input_one</span><span class="o">=</span><span class="n">input_one</span><span class="p">,</span>
+            <span class="n">input_two</span><span class="o">=</span><span class="n">input_two</span><span class="p">,</span>
+            <span class="n">input_three</span><span class="o">=</span><span class="n">input_three</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_new_single</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">input_one</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_two</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_three</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">input_three</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ugen</span> <span class="o">=</span> <span class="n">input_one</span> <span class="o">+</span> <span class="n">input_two</span>
+        <span class="k">elif</span> <span class="n">input_two</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ugen</span> <span class="o">=</span> <span class="n">input_one</span> <span class="o">+</span> <span class="n">input_three</span>
+        <span class="k">elif</span> <span class="n">input_one</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ugen</span> <span class="o">=</span> <span class="n">input_two</span> <span class="o">+</span> <span class="n">input_three</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ugen</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+                <span class="n">input_one</span><span class="o">=</span><span class="n">input_one</span><span class="p">,</span> <span class="n">input_two</span><span class="o">=</span><span class="n">input_two</span><span class="p">,</span> <span class="n">input_three</span><span class="o">=</span><span class="n">input_three</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">ugen</span></div>
+
+
+<div class="viewcode-block" id="Sum4"><a class="viewcode-back" href="../../../api/supriya/ugens/basic.html#supriya.ugens.basic.Sum4">[docs]</a><span class="k">class</span> <span class="nc">Sum4</span><span class="p">(</span><span class="n">UGen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A four-input summing unit generator.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; input_one = supriya.ugens.SinOsc.ar()</span>
+<span class="sd">        &gt;&gt;&gt; input_two = supriya.ugens.SinOsc.ar(phase=0.1)</span>
+<span class="sd">        &gt;&gt;&gt; input_three = supriya.ugens.SinOsc.ar(phase=0.2)</span>
+<span class="sd">        &gt;&gt;&gt; input_four = supriya.ugens.SinOsc.ar(phase=0.3)</span>
+<span class="sd">        &gt;&gt;&gt; supriya.ugens.Sum4.new(</span>
+<span class="sd">        ...     input_one=input_one,</span>
+<span class="sd">        ...     input_two=input_two,</span>
+<span class="sd">        ...     input_three=input_three,</span>
+<span class="sd">        ...     input_four=input_four,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        Sum4.ar()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">__documentation_section__</span> <span class="o">=</span> <span class="s2">&quot;Basic Operator UGens&quot;</span>
+
+    <span class="n">_ordered_input_names</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;input_one&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;input_two&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;input_three&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;input_four&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="n">_valid_calculation_rates</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">input_one</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_two</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_three</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_four</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">input_one</span><span class="p">,</span> <span class="n">input_two</span><span class="p">,</span> <span class="n">input_three</span><span class="p">,</span> <span class="n">input_four</span><span class="p">]</span>
+        <span class="n">calculation_rate</span> <span class="o">=</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">inputs</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">UGen</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span><span class="p">,</span>
+            <span class="n">input_one</span><span class="o">=</span><span class="n">input_one</span><span class="p">,</span>
+            <span class="n">input_two</span><span class="o">=</span><span class="n">input_two</span><span class="p">,</span>
+            <span class="n">input_three</span><span class="o">=</span><span class="n">input_three</span><span class="p">,</span>
+            <span class="n">input_four</span><span class="o">=</span><span class="n">input_four</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_new_single</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">input_one</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_two</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_three</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_four</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="k">if</span> <span class="n">input_one</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ugen</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Sum3</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+                <span class="n">input_one</span><span class="o">=</span><span class="n">input_two</span><span class="p">,</span> <span class="n">input_two</span><span class="o">=</span><span class="n">input_three</span><span class="p">,</span> <span class="n">input_three</span><span class="o">=</span><span class="n">input_four</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">input_two</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ugen</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Sum3</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+                <span class="n">input_one</span><span class="o">=</span><span class="n">input_one</span><span class="p">,</span> <span class="n">input_two</span><span class="o">=</span><span class="n">input_three</span><span class="p">,</span> <span class="n">input_three</span><span class="o">=</span><span class="n">input_four</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">input_three</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ugen</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Sum3</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+                <span class="n">input_one</span><span class="o">=</span><span class="n">input_one</span><span class="p">,</span> <span class="n">input_two</span><span class="o">=</span><span class="n">input_two</span><span class="p">,</span> <span class="n">input_three</span><span class="o">=</span><span class="n">input_four</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">input_four</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ugen</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Sum3</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+                <span class="n">input_one</span><span class="o">=</span><span class="n">input_one</span><span class="p">,</span> <span class="n">input_two</span><span class="o">=</span><span class="n">input_two</span><span class="p">,</span> <span class="n">input_three</span><span class="o">=</span><span class="n">input_three</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ugen</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+                <span class="n">input_one</span><span class="o">=</span><span class="n">input_one</span><span class="p">,</span>
+                <span class="n">input_two</span><span class="o">=</span><span class="n">input_two</span><span class="p">,</span>
+                <span class="n">input_three</span><span class="o">=</span><span class="n">input_three</span><span class="p">,</span>
+                <span class="n">input_four</span><span class="o">=</span><span class="n">input_four</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">ugen</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

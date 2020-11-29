@@ -303,6 +303,7 @@ protocols
       __del__
       connect
       disconnect
+      expect
       register
       send
       unregister
@@ -330,6 +331,8 @@ protocols
    .. automethod:: ThreadedOscProtocol.connect
 
    .. automethod:: ThreadedOscProtocol.disconnect
+
+   .. automethod:: ThreadedOscProtocol.expect
 
    .. automethod:: ThreadedOscProtocol.register
 

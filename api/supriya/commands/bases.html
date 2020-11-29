@@ -1,0 +1,1137 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bases &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/supriya.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="buffers" href="buffers.html" />
+    <link rel="prev" title="commands" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">commands</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buffers.html">buffers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buses.html">buses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html">groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="movement.html">movement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server.html">server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="synthdefs.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="synths.html">synths</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">commands</a> &raquo;</li>
+        
+      <li>bases</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/commands/bases.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.commands.bases">
+<span id="bases"></span><span id="supriya-commands-bases"></span><h1>bases<a class="headerlink" href="#module-supriya.commands.bases" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-8e9f614bc8c63854627e729fbaa5c89241866987.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+	graph [bgcolor=transparent,
+		color=lightsteelblue2,
+		fontname=Arial,
+		fontsize=10,
+		outputorder=edgesfirst,
+		overlap=prism,
+		penwidth=2,
+		rankdir=LR,
+		splines=spline,
+		style=&quot;dashed, rounded&quot;,
+		truecolor=true
+	];
+	node [colorscheme=pastel19,
+		fontname=Arial,
+		fontsize=10,
+		height=0,
+		penwidth=2,
+		shape=box,
+		style=&quot;filled, rounded&quot;,
+		width=0
+	];
+	edge [color=lightslategrey,
+		penwidth=1
+	];
+	subgraph cluster_builtins {
+		graph [label=builtins];
+		node [color=1];
+		&quot;builtins.object&quot;	[URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+			label=object,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.commands.bases&quot; {
+		graph [label=&quot;supriya.commands.bases&quot;];
+		node [color=2];
+		&quot;supriya.commands.bases.Request&quot;	[URL=&quot;../api/supriya/commands/bases.html#supriya.commands.bases.Request&quot;,
+			color=black,
+			fontcolor=white,
+			label=Request,
+			shape=oval,
+			style=&quot;bold, filled&quot;,
+			target=_top];
+		&quot;supriya.commands.bases.RequestBundle&quot;	[URL=&quot;../api/supriya/commands/bases.html#supriya.commands.bases.RequestBundle&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Request\nBundle&quot;,
+			target=_top];
+		&quot;supriya.commands.bases.Requestable&quot;	[URL=&quot;../api/supriya/commands/bases.html#supriya.commands.bases.Requestable&quot;,
+			color=black,
+			fontcolor=white,
+			label=Requestable,
+			target=_top];
+		&quot;supriya.commands.bases.Requestable&quot; -&gt; &quot;supriya.commands.bases.Request&quot;;
+		&quot;supriya.commands.bases.Requestable&quot; -&gt; &quot;supriya.commands.bases.RequestBundle&quot;	[minlen=1];
+		&quot;supriya.commands.bases.Response&quot;	[URL=&quot;../api/supriya/commands/bases.html#supriya.commands.bases.Response&quot;,
+			color=black,
+			fontcolor=white,
+			label=Response,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.commands.buffers&quot; {
+		graph [label=&quot;supriya.commands.buffers&quot;];
+		node [color=3];
+		&quot;supriya.commands.buffers.BufferAllocateReadChannelRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferAllocateReadChannelRequest&quot;,
+			label=&quot;Buffer\nAllocate\nRead\nChannel\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferAllocateReadRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferAllocateReadRequest&quot;,
+			label=&quot;Buffer\nAllocate\nRead\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferAllocateReadRequest&quot; -&gt; &quot;supriya.commands.buffers.BufferAllocateReadChannelRequest&quot;	[minlen=1];
+		&quot;supriya.commands.buffers.BufferAllocateRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferAllocateRequest&quot;,
+			label=&quot;Buffer\nAllocate\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferAllocateRequest&quot; -&gt; &quot;supriya.commands.buffers.BufferAllocateReadRequest&quot;	[minlen=1];
+		&quot;supriya.commands.buffers.BufferCloseRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferCloseRequest&quot;,
+			label=&quot;Buffer\nClose\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferCopyRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferCopyRequest&quot;,
+			label=&quot;Buffer\nCopy\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferFillRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferFillRequest&quot;,
+			label=&quot;Buffer\nFill\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferFreeRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferFreeRequest&quot;,
+			label=&quot;Buffer\nFree\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferGenerateRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGenerateRequest&quot;,
+			label=&quot;Buffer\nGenerate\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferGetContiguousRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGetContiguousRequest&quot;,
+			label=&quot;Buffer\nGet\nContiguous\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferGetRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGetRequest&quot;,
+			label=&quot;Buffer\nGet\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferInfoResponse&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferInfoResponse&quot;,
+			label=&quot;Buffer\nInfo\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferNormalizeRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferNormalizeRequest&quot;,
+			label=&quot;Buffer\nNormalize\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferQueryRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferQueryRequest&quot;,
+			label=&quot;Buffer\nQuery\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferReadChannelRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferReadChannelRequest&quot;,
+			label=&quot;Buffer\nRead\nChannel\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferReadRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferReadRequest&quot;,
+			label=&quot;Buffer\nRead\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferReadRequest&quot; -&gt; &quot;supriya.commands.buffers.BufferReadChannelRequest&quot;	[minlen=1];
+		&quot;supriya.commands.buffers.BufferSetContiguousRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetContiguousRequest&quot;,
+			label=&quot;Buffer\nSet\nContiguous\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferSetContiguousResponse&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetContiguousResponse&quot;,
+			label=&quot;Buffer\nSet\nContiguous\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferSetRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetRequest&quot;,
+			label=&quot;Buffer\nSet\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferSetResponse&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetResponse&quot;,
+			label=&quot;Buffer\nSet\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferWriteRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferWriteRequest&quot;,
+			label=&quot;Buffer\nWrite\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buffers.BufferZeroRequest&quot;	[URL=&quot;../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferZeroRequest&quot;,
+			label=&quot;Buffer\nZero\nRequest&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.commands.buses&quot; {
+		graph [label=&quot;supriya.commands.buses&quot;];
+		node [color=4];
+		&quot;supriya.commands.buses.ControlBusFillRequest&quot;	[URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusFillRequest&quot;,
+			label=&quot;Control\nBus\nFill\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buses.ControlBusGetContiguousRequest&quot;	[URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusGetContiguousRequest&quot;,
+			label=&quot;Control\nBus\nGet\nContiguous\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buses.ControlBusGetRequest&quot;	[URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusGetRequest&quot;,
+			label=&quot;Control\nBus\nGet\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buses.ControlBusSetContiguousRequest&quot;	[URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusSetContiguousRequest&quot;,
+			label=&quot;Control\nBus\nSet\nContiguous\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buses.ControlBusSetContiguousResponse&quot;	[URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusSetContiguousResponse&quot;,
+			label=&quot;Control\nBus\nSet\nContiguous\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.buses.ControlBusSetRequest&quot;	[URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusSetRequest&quot;,
+			label=&quot;Control\nBus\nSet\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.buses.ControlBusSetResponse&quot;	[URL=&quot;../api/supriya/commands/buses.html#supriya.commands.buses.ControlBusSetResponse&quot;,
+			label=&quot;Control\nBus\nSet\nResponse&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.commands.groups&quot; {
+		graph [label=&quot;supriya.commands.groups&quot;];
+		node [color=5];
+		&quot;supriya.commands.groups.GroupDeepFreeRequest&quot;	[URL=&quot;../api/supriya/commands/groups.html#supriya.commands.groups.GroupDeepFreeRequest&quot;,
+			label=&quot;Group\nDeep\nFree\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.groups.GroupFreeAllRequest&quot;	[URL=&quot;../api/supriya/commands/groups.html#supriya.commands.groups.GroupFreeAllRequest&quot;,
+			label=&quot;Group\nFree\nAll\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.groups.GroupNewRequest&quot;	[URL=&quot;../api/supriya/commands/groups.html#supriya.commands.groups.GroupNewRequest&quot;,
+			label=&quot;Group\nNew\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.groups.ParallelGroupNewRequest&quot;	[URL=&quot;../api/supriya/commands/groups.html#supriya.commands.groups.ParallelGroupNewRequest&quot;,
+			label=&quot;Parallel\nGroup\nNew\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.groups.GroupNewRequest&quot; -&gt; &quot;supriya.commands.groups.ParallelGroupNewRequest&quot;	[minlen=1];
+		&quot;supriya.commands.groups.GroupQueryTreeRequest&quot;	[URL=&quot;../api/supriya/commands/groups.html#supriya.commands.groups.GroupQueryTreeRequest&quot;,
+			label=&quot;Group\nQuery\nTree\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.groups.QueryTreeResponse&quot;	[URL=&quot;../api/supriya/commands/groups.html#supriya.commands.groups.QueryTreeResponse&quot;,
+			label=&quot;Query\nTree\nResponse&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.commands.movement&quot; {
+		graph [label=&quot;supriya.commands.movement&quot;];
+		node [color=6];
+		&quot;supriya.commands.movement.GroupHeadRequest&quot;	[URL=&quot;../api/supriya/commands/movement.html#supriya.commands.movement.GroupHeadRequest&quot;,
+			label=&quot;Group\nHead\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.movement.GroupTailRequest&quot;	[URL=&quot;../api/supriya/commands/movement.html#supriya.commands.movement.GroupTailRequest&quot;,
+			label=&quot;Group\nTail\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.movement.MoveRequest&quot;	[URL=&quot;../api/supriya/commands/movement.html#supriya.commands.movement.MoveRequest&quot;,
+			label=&quot;Move\nRequest&quot;,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;supriya.commands.movement.MoveRequest&quot; -&gt; &quot;supriya.commands.movement.GroupHeadRequest&quot;	[minlen=1];
+		&quot;supriya.commands.movement.MoveRequest&quot; -&gt; &quot;supriya.commands.movement.GroupTailRequest&quot;	[minlen=2];
+		&quot;supriya.commands.movement.NodeAfterRequest&quot;	[URL=&quot;../api/supriya/commands/movement.html#supriya.commands.movement.NodeAfterRequest&quot;,
+			label=&quot;Node\nAfter\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.movement.MoveRequest&quot; -&gt; &quot;supriya.commands.movement.NodeAfterRequest&quot;	[minlen=3];
+		&quot;supriya.commands.movement.NodeBeforeRequest&quot;	[URL=&quot;../api/supriya/commands/movement.html#supriya.commands.movement.NodeBeforeRequest&quot;,
+			label=&quot;Node\nBefore\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.movement.MoveRequest&quot; -&gt; &quot;supriya.commands.movement.NodeBeforeRequest&quot;	[minlen=1];
+	}
+	subgraph &quot;cluster_supriya.commands.nodes&quot; {
+		graph [label=&quot;supriya.commands.nodes&quot;];
+		node [color=7];
+		&quot;supriya.commands.nodes.NodeFreeRequest&quot;	[URL=&quot;../api/supriya/commands/nodes.html#supriya.commands.nodes.NodeFreeRequest&quot;,
+			label=&quot;Node\nFree\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.nodes.NodeInfoResponse&quot;	[URL=&quot;../api/supriya/commands/nodes.html#supriya.commands.nodes.NodeInfoResponse&quot;,
+			label=&quot;Node\nInfo\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.nodes.NodeMapToAudioBusRequest&quot;	[URL=&quot;../api/supriya/commands/nodes.html#supriya.commands.nodes.NodeMapToAudioBusRequest&quot;,
+			label=&quot;Node\nMap\nTo\nAudio\nBus\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.nodes.NodeMapToControlBusRequest&quot;	[URL=&quot;../api/supriya/commands/nodes.html#supriya.commands.nodes.NodeMapToControlBusRequest&quot;,
+			label=&quot;Node\nMap\nTo\nControl\nBus\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.nodes.NodeQueryRequest&quot;	[URL=&quot;../api/supriya/commands/nodes.html#supriya.commands.nodes.NodeQueryRequest&quot;,
+			label=&quot;Node\nQuery\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.nodes.NodeRunRequest&quot;	[URL=&quot;../api/supriya/commands/nodes.html#supriya.commands.nodes.NodeRunRequest&quot;,
+			label=&quot;Node\nRun\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.nodes.NodeSetContiguousResponse&quot;	[URL=&quot;../api/supriya/commands/nodes.html#supriya.commands.nodes.NodeSetContiguousResponse&quot;,
+			label=&quot;Node\nSet\nContiguous\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.nodes.NodeSetRequest&quot;	[URL=&quot;../api/supriya/commands/nodes.html#supriya.commands.nodes.NodeSetRequest&quot;,
+			label=&quot;Node\nSet\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.nodes.NodeSetResponse&quot;	[URL=&quot;../api/supriya/commands/nodes.html#supriya.commands.nodes.NodeSetResponse&quot;,
+			label=&quot;Node\nSet\nResponse&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.commands.server&quot; {
+		graph [label=&quot;supriya.commands.server&quot;];
+		node [color=8];
+		&quot;supriya.commands.server.ClearScheduleRequest&quot;	[URL=&quot;../api/supriya/commands/server.html#supriya.commands.server.ClearScheduleRequest&quot;,
+			label=&quot;Clear\nSchedule\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.server.DoneResponse&quot;	[URL=&quot;../api/supriya/commands/server.html#supriya.commands.server.DoneResponse&quot;,
+			label=&quot;Done\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.server.DumpOscRequest&quot;	[URL=&quot;../api/supriya/commands/server.html#supriya.commands.server.DumpOscRequest&quot;,
+			label=&quot;Dump\nOsc\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.server.FailResponse&quot;	[URL=&quot;../api/supriya/commands/server.html#supriya.commands.server.FailResponse&quot;,
+			label=&quot;Fail\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.server.NothingRequest&quot;	[URL=&quot;../api/supriya/commands/server.html#supriya.commands.server.NothingRequest&quot;,
+			label=&quot;Nothing\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.server.NotifyRequest&quot;	[URL=&quot;../api/supriya/commands/server.html#supriya.commands.server.NotifyRequest&quot;,
+			label=&quot;Notify\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.server.QuitRequest&quot;	[URL=&quot;../api/supriya/commands/server.html#supriya.commands.server.QuitRequest&quot;,
+			label=&quot;Quit\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.server.StatusRequest&quot;	[URL=&quot;../api/supriya/commands/server.html#supriya.commands.server.StatusRequest&quot;,
+			label=&quot;Status\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.server.StatusResponse&quot;	[URL=&quot;../api/supriya/commands/server.html#supriya.commands.server.StatusResponse&quot;,
+			label=&quot;Status\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.server.SyncRequest&quot;	[URL=&quot;../api/supriya/commands/server.html#supriya.commands.server.SyncRequest&quot;,
+			label=&quot;Sync\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.server.SyncedResponse&quot;	[URL=&quot;../api/supriya/commands/server.html#supriya.commands.server.SyncedResponse&quot;,
+			label=&quot;Synced\nResponse&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.commands.synthdefs&quot; {
+		graph [label=&quot;supriya.commands.synthdefs&quot;];
+		node [color=9];
+		&quot;supriya.commands.synthdefs.SynthDefFreeAllRequest&quot;	[URL=&quot;../api/supriya/commands/synthdefs.html#supriya.commands.synthdefs.SynthDefFreeAllRequest&quot;,
+			label=&quot;Synth\nDef\nFree\nAll\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.synthdefs.SynthDefFreeRequest&quot;	[URL=&quot;../api/supriya/commands/synthdefs.html#supriya.commands.synthdefs.SynthDefFreeRequest&quot;,
+			label=&quot;Synth\nDef\nFree\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.synthdefs.SynthDefLoadDirectoryRequest&quot;	[URL=&quot;../api/supriya/commands/synthdefs.html#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest&quot;,
+			label=&quot;Synth\nDef\nLoad\nDirectory\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.synthdefs.SynthDefLoadRequest&quot;	[URL=&quot;../api/supriya/commands/synthdefs.html#supriya.commands.synthdefs.SynthDefLoadRequest&quot;,
+			label=&quot;Synth\nDef\nLoad\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.synthdefs.SynthDefReceiveRequest&quot;	[URL=&quot;../api/supriya/commands/synthdefs.html#supriya.commands.synthdefs.SynthDefReceiveRequest&quot;,
+			label=&quot;Synth\nDef\nReceive\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.synthdefs.SynthDefRemovedResponse&quot;	[URL=&quot;../api/supriya/commands/synthdefs.html#supriya.commands.synthdefs.SynthDefRemovedResponse&quot;,
+			label=&quot;Synth\nDef\nRemoved\nResponse&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.commands.synths&quot; {
+		graph [label=&quot;supriya.commands.synths&quot;];
+		node [color=1];
+		&quot;supriya.commands.synths.SynthInfoResponse&quot;	[URL=&quot;../api/supriya/commands/synths.html#supriya.commands.synths.SynthInfoResponse&quot;,
+			label=&quot;Synth\nInfo\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.synths.SynthNewRequest&quot;	[URL=&quot;../api/supriya/commands/synths.html#supriya.commands.synths.SynthNewRequest&quot;,
+			label=&quot;Synth\nNew\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.synths.SynthQueryRequest&quot;	[URL=&quot;../api/supriya/commands/synths.html#supriya.commands.synths.SynthQueryRequest&quot;,
+			label=&quot;Synth\nQuery\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.synths.TriggerResponse&quot;	[URL=&quot;../api/supriya/commands/synths.html#supriya.commands.synths.TriggerResponse&quot;,
+			label=&quot;Trigger\nResponse&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.system&quot; {
+		graph [label=&quot;supriya.system&quot;];
+		node [color=2];
+		&quot;supriya.system.SupriyaObject&quot;	[URL=&quot;../api/supriya/commands/../system.html#supriya.system.SupriyaObject&quot;,
+			label=&quot;Supriya\nObject&quot;,
+			target=_top];
+		&quot;supriya.system.SupriyaValueObject&quot;	[URL=&quot;../api/supriya/commands/../system.html#supriya.system.SupriyaValueObject&quot;,
+			label=&quot;Supriya\nValue\nObject&quot;,
+			target=_top];
+		&quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject&quot;;
+	}
+	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferAllocateRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferCloseRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferCopyRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferFillRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferFreeRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferGenerateRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferGetContiguousRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferGetRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferNormalizeRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferQueryRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferReadRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferSetContiguousRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferSetRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferWriteRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buffers.BufferZeroRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buses.ControlBusFillRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buses.ControlBusGetContiguousRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buses.ControlBusGetRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buses.ControlBusSetContiguousRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.buses.ControlBusSetRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.groups.GroupDeepFreeRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.groups.GroupFreeAllRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.groups.GroupNewRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.groups.GroupQueryTreeRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.movement.MoveRequest&quot;;
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.nodes.NodeFreeRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.nodes.NodeMapToAudioBusRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.nodes.NodeMapToControlBusRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.nodes.NodeQueryRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.nodes.NodeRunRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.nodes.NodeSetRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.server.ClearScheduleRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.server.DumpOscRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.server.NothingRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.server.NotifyRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.server.QuitRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.server.StatusRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.server.SyncRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.synthdefs.SynthDefFreeAllRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.synthdefs.SynthDefFreeRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.synthdefs.SynthDefLoadDirectoryRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.synthdefs.SynthDefLoadRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.synthdefs.SynthDefReceiveRequest&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.synths.SynthNewRequest&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.synths.SynthQueryRequest&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.buffers.BufferInfoResponse&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.buffers.BufferSetContiguousResponse&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.buffers.BufferSetResponse&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.buses.ControlBusSetContiguousResponse&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.buses.ControlBusSetResponse&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.groups.QueryTreeResponse&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.nodes.NodeInfoResponse&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.nodes.NodeSetContiguousResponse&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.nodes.NodeSetResponse&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.server.DoneResponse&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.server.FailResponse&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.server.StatusResponse&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.server.SyncedResponse&quot;	[minlen=1];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.synthdefs.SynthDefRemovedResponse&quot;	[minlen=2];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.synths.SynthInfoResponse&quot;	[minlen=3];
+	&quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.synths.TriggerResponse&quot;	[minlen=1];
+	&quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.bases.Requestable&quot;;
+	&quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.bases.Response&quot;;
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Abstract Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Request</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.commands.bases.Request">
+<em class="property">abstract </em><em class="property">class </em><code class="sig-prename descclassname">supriya.commands.bases.</code><code class="sig-name descname">Request</code><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#Request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.Request" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.bases.Request.request_id" title="supriya.commands.bases.Request.request_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.bases.Request.request_name" title="supriya.commands.bases.Request.request_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_name</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.bases.Request.response_patterns" title="supriya.commands.bases.Request.response_patterns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">response_patterns</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.bases.Request.to_osc" title="supriya.commands.bases.Request.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Request.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Request.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Request.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Request.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Request.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Request.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Request.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Request.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Request.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Request.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Request.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Request.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Request.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Request.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Request.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Request.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.bases.Request.to_osc">
+<em class="property">abstract</em><em class="property">abstract </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#Request.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.Request.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.bases.Request.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.bases.Request.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.bases.Request.request_id">
+<em class="property">abstract</em><code class="sig-name descname">request_id</code><a class="headerlink" href="#supriya.commands.bases.Request.request_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.commands.bases.Request.request_name">
+<code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.bases.Request.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.bases.Request.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.bases.Request.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.bases.Request.response_patterns">
+<code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.bases.Request.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr/><p class="section-header rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.bases.RequestBundle" title="supriya.commands.bases.RequestBundle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RequestBundle</span></code></a></p></td>
+<td><p>A Request bundle.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Requestable</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.commands.bases.RequestBundle">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.bases.</code><code class="sig-name descname">RequestBundle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timestamp</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">contents</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#RequestBundle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.RequestBundle" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Request bundle.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferAllocateRequest</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">buffer_id</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferAllocateRequest</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">buffer_id</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request_bundle</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">RequestBundle</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">timestamp</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="p">[</span><span class="n">request_one</span><span class="p">,</span> <span class="n">request_two</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request_bundle</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
+<span class="go">OscBundle(</span>
+<span class="go">    contents=(</span>
+<span class="go">        OscMessage(&#39;/b_alloc&#39;, 23, 512, 1),</span>
+<span class="go">        OscMessage(&#39;/b_alloc&#39;, 24, 512, 1),</span>
+<span class="go">    ),</span>
+<span class="go">    timestamp=10.5,</span>
+<span class="go">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request_bundle</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="go">[10.5, [[&#39;/b_alloc&#39;, 23, 512, 1], [&#39;/b_alloc&#39;, 24, 512, 1]]]</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.bases.RequestBundle.condition" title="supriya.commands.bases.RequestBundle.condition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.bases.RequestBundle.contents" title="supriya.commands.bases.RequestBundle.contents"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contents</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.bases.RequestBundle.partition" title="supriya.commands.bases.RequestBundle.partition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">partition</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.bases.RequestBundle.timestamp" title="supriya.commands.bases.RequestBundle.timestamp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timestamp</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.bases.RequestBundle.to_osc" title="supriya.commands.bases.RequestBundle.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.RequestBundle.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.RequestBundle.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.RequestBundle.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.RequestBundle.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.RequestBundle.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.RequestBundle.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.RequestBundle.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.RequestBundle.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.RequestBundle.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.RequestBundle.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.RequestBundle.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.RequestBundle.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.RequestBundle.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.RequestBundle.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.RequestBundle.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.RequestBundle.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.bases.RequestBundle.to_osc">
+<code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#RequestBundle.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.RequestBundle.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<dl class="py method">
+<dt id="supriya.commands.bases.RequestBundle.partition">
+<em class="property">classmethod </em><code class="sig-name descname">partition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">requests</span></em>, <em class="sig-param"><span class="n">timestamp</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#RequestBundle.partition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.RequestBundle.partition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.commands.bases.RequestBundle.condition">
+<em class="property">overridden </em><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.bases.RequestBundle.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.commands.bases.RequestBundle.contents">
+<code class="sig-name descname">contents</code><a class="headerlink" href="#supriya.commands.bases.RequestBundle.contents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.bases.RequestBundle.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.bases.RequestBundle.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.bases.RequestBundle.timestamp">
+<code class="sig-name descname">timestamp</code><a class="headerlink" href="#supriya.commands.bases.RequestBundle.timestamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.bases.Requestable">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.bases.</code><code class="sig-name descname">Requestable</code><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#Requestable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.Requestable" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.bases.Requestable.communicate" title="supriya.commands.bases.Requestable.communicate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">communicate</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.bases.Requestable.communicate_async" title="supriya.commands.bases.Requestable.communicate_async"><code class="xref py py-obj docutils literal notranslate"><span class="pre">communicate_async</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.bases.Requestable.condition" title="supriya.commands.bases.Requestable.condition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.bases.Requestable.response" title="supriya.commands.bases.Requestable.response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">response</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.bases.Requestable.to_datagram" title="supriya.commands.bases.Requestable.to_datagram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_datagram</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.bases.Requestable.to_list" title="supriya.commands.bases.Requestable.to_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_list</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Requestable.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Requestable.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Requestable.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Requestable.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Requestable.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Requestable.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Requestable.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Requestable.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.commands.bases.Requestable.communicate">
+<code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#Requestable.communicate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.Requestable.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.commands.bases.Requestable.communicate_async">
+<em class="property">async </em><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#Requestable.communicate_async"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.Requestable.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.commands.bases.Requestable.to_datagram">
+<code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#Requestable.to_datagram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.Requestable.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.commands.bases.Requestable.to_list">
+<code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#Requestable.to_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.Requestable.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.commands.bases.Requestable.condition">
+<code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.bases.Requestable.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.commands.bases.Requestable.response">
+<code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.bases.Requestable.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.bases.Response">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.bases.</code><code class="sig-name descname">Response</code><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#Response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.Response" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.bases.Response.from_osc_message" title="supriya.commands.bases.Response.from_osc_message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_osc_message</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.bases.Response.to_dict" title="supriya.commands.bases.Response.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Response.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Response.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Response.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Response.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Response.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Response.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.bases.Response.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.bases.Response.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.commands.bases.Response.to_dict">
+<code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#Response.to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.Response.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<dl class="py method">
+<dt id="supriya.commands.bases.Response.from_osc_message">
+<em class="property">classmethod </em><code class="sig-name descname">from_osc_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/bases.html#Response.from_osc_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.bases.Response.from_osc_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="buffers.html" class="btn btn-neutral float-right" title="buffers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

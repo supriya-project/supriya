@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,21 @@
   
 
   
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
@@ -25,16 +33,11 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/supriya.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="buses" href="buses.html" />
@@ -52,7 +55,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> Supriya
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
           
 
           
@@ -79,6 +82,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -157,6 +161,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -195,7 +200,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
@@ -484,9 +489,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_three = supriya.realtime.Buffer()
 &gt;&gt;&gt; float(buffer_three)
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 113, in __float__
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -525,9 +528,7 @@ supriya.exceptions.BufferNotAllocated
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_three = supriya.realtime.Buffer()
 &gt;&gt;&gt; int(buffer_three)
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 162, in __int__
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -572,7 +573,9 @@ supriya.exceptions.BufferNotAllocated
 <span class="go">    )</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
@@ -582,8 +585,9 @@ supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
@@ -594,9 +598,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_three.allocate()
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 330, in allocate
-    raise supriya.exceptions.BufferAlreadyAllocated
+...
 supriya.exceptions.BufferAlreadyAllocated
 </pre></div>
 </div>
@@ -614,8 +616,8 @@ supriya.exceptions.BufferAlreadyAllocated
 <dd><p>Allocates buffer on <cite>server</cite> with contents read from <cite>file_path</cite>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate_from_file</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s2">&quot;audio/pulse_44100sr_16bit_octo.wav&quot;</span><span class="p">],</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/pulse_44100sr_16bit_octo.wav&#39;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
@@ -625,12 +627,12 @@ supriya.exceptions.BufferAlreadyAllocated
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate_from_file</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s2">&quot;audio/pulse_44100sr_16bit_octo.wav&quot;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/pulse_44100sr_16bit_octo.wav&#39;</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">channel_indices</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">starting_frame</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
@@ -641,7 +643,7 @@ supriya.exceptions.BufferAlreadyAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">buffer_two</span><span class="o">.</span><span class="n">frame_count</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">buffer_two</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">frame_id</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="go">OrderedDict([(0, (0.0, 0.0))])</span>
 <span class="go">OrderedDict([(2, (0.0, 0.0))])</span>
 <span class="go">OrderedDict([(4, (0.999969482421875, 0.0))])</span>
@@ -650,9 +652,7 @@ supriya.exceptions.BufferAlreadyAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_two.allocate()
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 330, in allocate
-    raise supriya.exceptions.BufferAlreadyAllocated
+...
 supriya.exceptions.BufferAlreadyAllocated
 </pre></div>
 </div>
@@ -669,20 +669,21 @@ supriya.exceptions.BufferAlreadyAllocated
 <dd><p>Closes buffer, if it was open during a read or write process by
 the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s2">&quot;audio/pulse_44100sr_16bit_octo.wav&quot;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/pulse_44100sr_16bit_octo.wav&#39;</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">leave_open</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.close()
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 461, in close
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -698,8 +699,10 @@ supriya.exceptions.BufferNotAllocated
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">fill</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">copy_from</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">source_buffer_id</span><span class="o">=</span><span class="n">buffer_one</span><span class="p">,</span> <span class="n">target_starting_frame</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">source_buffer_id</span><span class="o">=</span><span class="n">buffer_one</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">target_starting_frame</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
 <span class="go">OrderedDict([(0, (0.0, 0.5, 0.5, 0.0))])</span>
 </pre></div>
@@ -710,9 +713,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_one.copy_from(source_buffer_id=666)
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 555, in copy_from
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -738,9 +739,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_one.copy_to(target_buffer_id=666)
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 503, in copy_to
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -753,9 +752,11 @@ supriya.exceptions.BufferNotAllocated
 <dd><p>Fills contiguous blocks of samples with values.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)])</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
 <span class="go">OrderedDict([(0, (0.5, 0.5, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0))])</span>
 </pre></div>
@@ -765,9 +766,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.fill()
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 597, in fill
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -779,13 +778,17 @@ supriya.exceptions.BufferNotAllocated
 <code class="sig-name descname">fill_via_chebyshev</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">amplitudes</span></em>, <em class="sig-param"><span class="n">as_wavetable</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">should_normalize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">should_clear_first</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buffers.html#Buffer.fill_via_chebyshev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buffers.Buffer.fill_via_chebyshev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fills buffer with Chebyshev polynomial.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_chebyshev</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span> <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
 <span class="gp">... </span>    <span class="n">x</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="go">-0.2133333384990692</span>
 <span class="go">-0.03999999910593033</span>
 <span class="go">4.7369516864363795e-17</span>
@@ -801,9 +804,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.fill_via_chebyshev(amplitudes=(1, 0.5, 0.25))
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 670, in fill_via_chebyshev
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -815,13 +816,17 @@ supriya.exceptions.BufferNotAllocated
 <code class="sig-name descname">fill_via_sine_1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">amplitudes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">as_wavetable</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">should_clear_first</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">should_normalize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buffers.html#Buffer.fill_via_sine_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buffers.Buffer.fill_via_sine_1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fills buffer with sum of sinusoids via <cite>/b_gen sine1</cite>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_1</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
 <span class="gp">... </span>    <span class="n">x</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="go">0.0</span>
 <span class="go">1.0</span>
 <span class="go">0.0</span>
@@ -837,9 +842,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.fill_via_sine_1(amplitudes=(1, 1, 1))
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 730, in fill_via_sine_1
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -851,13 +854,18 @@ supriya.exceptions.BufferNotAllocated
 <code class="sig-name descname">fill_via_sine_2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">amplitudes</span></em>, <em class="sig-param"><span class="n">frequencies</span></em>, <em class="sig-param"><span class="n">as_wavetable</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">should_clear_first</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">should_normalize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buffers.html#Buffer.fill_via_sine_2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buffers.Buffer.fill_via_sine_2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fills buffer with sum of sinusoids via <cite>/b_gen sine2</cite>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_2</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span> <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">frequencies</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frequencies</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
 <span class="gp">... </span>    <span class="n">x</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="go">0.0</span>
 <span class="go">0.46657732129096985</span>
 <span class="go">0.8170253038406372</span>
@@ -872,12 +880,11 @@ supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.fill_via_sine_2(
-...     amplitudes=(1, 0.5, 0.25), frequencies=(1, 2, 4),
-... )
+...     amplitudes=(1, 0.5, 0.25),
+...     frequencies=(1, 2, 4),
+...     )
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 795, in fill_via_sine_2
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -889,16 +896,19 @@ supriya.exceptions.BufferNotAllocated
 <code class="sig-name descname">fill_via_sine_3</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">amplitudes</span></em>, <em class="sig-param"><span class="n">frequencies</span></em>, <em class="sig-param"><span class="n">phases</span></em>, <em class="sig-param"><span class="n">as_wavetable</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">should_clear_first</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">should_normalize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buffers.html#Buffer.fill_via_sine_3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buffers.Buffer.fill_via_sine_3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fills buffer with sum of sinusoids via <cite>/b_gen sine3</cite>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_3</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">frequencies</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">phases</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
 <span class="gp">... </span>    <span class="n">x</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="go">0.21980325877666473</span>
 <span class="go">0.6533028483390808</span>
 <span class="go">0.9323374032974243</span>
@@ -913,12 +923,12 @@ supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.fill_via_sine_3(
-...     amplitudes=(1, 0.5, 0.25), frequencies=(1, 2, 3), phases=(0, 0.5, 0),
-... )
+...     amplitudes=(1, 0.5, 0.25),
+...     frequencies=(1, 2, 3),
+...     phases=(0, 0.5, 0),
+...     )
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 864, in fill_via_sine_3
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -937,8 +947,10 @@ supriya.exceptions.BufferNotAllocated
 <dd><p>Gets sample values at <cite>indices</cite>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">indices</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
 <span class="go">OrderedDict([(1, 0.0), (2, 0.0)])</span>
@@ -949,9 +961,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.get()
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 908, in get
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -964,9 +974,13 @@ supriya.exceptions.BufferNotAllocated
 <dd><p>Gets contiguous sample values.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">(</span><span class="n">index_count_pairs</span><span class="o">=</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">index_count_pairs</span><span class="o">=</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
 <span class="go">OrderedDict([(0, (0.0, 0.0)), (1, (0.0, 0.0, 0.0))])</span>
 </pre></div>
@@ -976,9 +990,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.get_contiguous()
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 951, in get_contiguous
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -991,11 +1003,11 @@ supriya.exceptions.BufferNotAllocated
 <dd><p>Gets frames at <cite>frame_ids</cite>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate_from_file</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s2">&quot;audio/pulse_44100sr_16bit_octo.wav&quot;</span><span class="p">],</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/pulse_44100sr_16bit_octo.wav&#39;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">buffer_</span><span class="o">.</span><span class="n">frame_count</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">buffer_</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">frame_id</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="go">OrderedDict([(0, (0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))])</span>
 <span class="go">OrderedDict([(8, (0.0, 0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))])</span>
 <span class="go">OrderedDict([(16, (0.0, 0.0, 0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0))])</span>
@@ -1011,9 +1023,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.get_frame()
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 996, in get_frame
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -1035,7 +1045,10 @@ supriya.exceptions.BufferNotAllocated
 <code class="sig-name descname">query</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buffers.html#Buffer.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buffers.Buffer.query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Queries buffer.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
@@ -1049,9 +1062,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.query()
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 1070, in query
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -1063,10 +1074,13 @@ supriya.exceptions.BufferNotAllocated
 <code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span></em>, <em class="sig-param"><span class="n">channel_indices</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">frame_count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">leave_open</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">starting_frame_in_buffer</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">starting_frame_in_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buffers.html#Buffer.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buffers.Buffer.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads contents of <cite>file_path</cite> into buffer.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">buffer_</span><span class="o">.</span><span class="n">frame_count</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">buffer_</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">frame_id</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="go">OrderedDict([(0, (0.0, 0.0))])</span>
 <span class="go">OrderedDict([(2, (0.0, 0.0))])</span>
 <span class="go">OrderedDict([(4, (0.0, 0.0))])</span>
@@ -1077,13 +1091,13 @@ supriya.exceptions.BufferNotAllocated
 <span class="go">OrderedDict([(14, (0.0, 0.0))])</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s2">&quot;audio/pulse_44100sr_16bit_octo.wav&quot;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/pulse_44100sr_16bit_octo.wav&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">channel_indices</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">buffer_</span><span class="o">.</span><span class="n">frame_count</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">buffer_</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">frame_id</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="go">OrderedDict([(0, (0.999969482421875, 0.0))])</span>
 <span class="go">OrderedDict([(2, (0.0, 0.999969482421875))])</span>
 <span class="go">OrderedDict([(4, (0.0, 0.0))])</span>
@@ -1099,9 +1113,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.read(file_path)
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 1144, in read
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -1113,12 +1125,17 @@ supriya.exceptions.BufferNotAllocated
 <code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index_value_pairs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buffers.html#Buffer.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buffers.Buffer.set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets samples.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),]</span>
-<span class="gp">... </span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">set</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 <span class="go">(0.25, 0.5, 0.0, 0.0, 0.75, 1.0, 0.0, 0.0)</span>
 </pre></div>
@@ -1128,9 +1145,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.set()
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 1207, in set
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -1142,12 +1157,15 @@ supriya.exceptions.BufferNotAllocated
 <code class="sig-name descname">set_contiguous</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index_values_pairs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buffers.html#Buffer.set_contiguous"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buffers.Buffer.set_contiguous" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets contiguous blocks of samples.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">set_contiguous</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]),]</span>
-<span class="gp">... </span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">set_contiguous</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+<span class="gp">... </span>    <span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 <span class="go">(0.0, 1.0, 2.0, 3.0, -3.0, 2.0, -1.0, 0.0)</span>
 </pre></div>
@@ -1157,9 +1175,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.set_contiguous()
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 1249, in set_contiguous
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -1172,24 +1188,24 @@ supriya.exceptions.BufferNotAllocated
 <dd><p>Writes buffer to disk.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate_from_file</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s2">&quot;audio/pulse_44100sr_16bit_octo.wav&quot;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/pulse_44100sr_16bit_octo.wav&#39;</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">channel_indices</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 <span class="go">(0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;temp.wav&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;temp.wav&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-<span class="gp">... </span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">file_path</span><span class="p">,</span> <span class="n">header_format</span><span class="o">=</span><span class="s2">&quot;wav&quot;</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">file_path</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">header_format</span><span class="o">=</span><span class="s1">&#39;wav&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
@@ -1204,9 +1220,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_one.write(file_path=file_path)
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 1318, in write
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -1218,12 +1232,16 @@ supriya.exceptions.BufferNotAllocated
 <code class="sig-name descname">zero</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buffers.html#Buffer.zero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buffers.Buffer.zero" title="Permalink to this definition">¶</a></dt>
 <dd><p>Zero all samples in buffer.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">set_contiguous</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">index_values_pairs</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">))],</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">index_values_pairs</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">))],</span>
+<span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
@@ -1242,9 +1260,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.zero()
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;, line 1380, in zero
-    raise supriya.exceptions.BufferNotAllocated
+...
 supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
@@ -1298,7 +1314,7 @@ supriya.exceptions.BufferNotAllocated
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BufferGroup</span><span class="p">(</span><span class="n">buffer_count</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">buffer_</span> <span class="ow">in</span> <span class="n">buffer_group</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">buffer_</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="go">None</span>
 <span class="go">None</span>
 <span class="go">None</span>
@@ -1314,9 +1330,9 @@ supriya.exceptions.BufferNotAllocated
 <span class="go">&lt;+ BufferGroup{4}: 1&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">buffer_</span> <span class="ow">in</span> <span class="n">buffer_group</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">buffer_</span> <span class="ow">in</span>  <span class="n">buffer_group</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">buffer_</span><span class="o">.</span><span class="n">buffer_id</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="go">1</span>
 <span class="go">2</span>
 <span class="go">3</span>
@@ -1331,7 +1347,7 @@ supriya.exceptions.BufferNotAllocated
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_group</span> <span class="o">=</span> <span class="n">buffer_group</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">buffer_</span> <span class="ow">in</span> <span class="n">buffer_group</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">buffer_</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="go">None</span>
 <span class="go">None</span>
 <span class="go">None</span>
@@ -1346,10 +1362,15 @@ supriya.exceptions.BufferNotAllocated
 <code class="sig-name descname">channel_count</code><a class="headerlink" href="#supriya.realtime.buffers.Buffer.channel_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets channel count.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">channel_count</span>
@@ -1443,11 +1464,13 @@ supriya.exceptions.BufferNotAllocated
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">sample_count</span>
@@ -1543,8 +1566,10 @@ supriya.exceptions.BufferNotAllocated
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_group</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="go">&lt;+ BufferGroup{4}: 0&gt;</span>
 </pre></div>
 </div>
@@ -1678,7 +1703,7 @@ supriya.exceptions.BufferNotAllocated
 <dt id="supriya.realtime.buffers.BufferGroup.from_file_paths">
 <em class="property">static </em><code class="sig-name descname">from_file_paths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_paths</span></em>, <em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buffers.html#BufferGroup.from_file_paths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buffers.BufferGroup.from_file_paths" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a buffer group from <cite>file_paths</cite>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_paths</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s2">&quot;audio/*mono_1s*&quot;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_paths</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/*mono_1s*&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">file_paths</span><span class="p">)</span>
 <span class="go">4</span>
 </pre></div>
@@ -1689,7 +1714,7 @@ supriya.exceptions.BufferNotAllocated
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">buffer_</span> <span class="ow">in</span> <span class="n">buffer_group</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">buffer_</span><span class="p">,</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">frame_count</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="go">(&lt;+ Buffer: 0&gt;, 44100)</span>
 <span class="go">(&lt;+ Buffer: 1&gt;, 44100)</span>
 <span class="go">(&lt;+ Buffer: 2&gt;, 44100)</span>
@@ -1766,7 +1791,7 @@ treated as an implementation detail.</p>
 <span class="go">    frame_count=441,</span>
 <span class="go">    sample_rate=44100,</span>
 <span class="go">    server=&lt;Server: offline&gt;,</span>
-<span class="go">    )</span>
+<span class="go">)</span>
 </pre></div>
 </div>
 <hr/><p class="class-header rubric">Attributes Summary</p>
@@ -2033,11 +2058,19 @@ treated as an implementation detail.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2014, Josiah Wolf Oberholtzer
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -2048,7 +2081,6 @@ treated as an implementation detail.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

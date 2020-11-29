@@ -1,0 +1,2033 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.commands.buffers &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/supriya.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>supriya.commands.buffers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.commands.buffers</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NamedTuple</span>
+
+<span class="kn">import</span> <span class="nn">supriya.osc</span>
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="kn">import</span> <span class="n">HeaderFormat</span><span class="p">,</span> <span class="n">SampleFormat</span><span class="p">,</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="kn">import</span> <span class="n">RequestId</span>
+
+<span class="kn">from</span> <span class="nn">.bases</span> <span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">RequestBundle</span><span class="p">,</span> <span class="n">Response</span>
+
+
+<div class="viewcode-block" id="BufferAllocateRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferAllocateRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferAllocateRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_alloc request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferAllocateRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     frame_count=512,</span>
+<span class="sd">        ...     channel_count=2,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        BufferAllocateRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            channel_count=2,</span>
+<span class="sd">            frame_count=512,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_alloc&#39;, 23, 512, 2)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_ALLOCATE</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span> <span class="o">=</span> <span class="n">frame_count</span>
+        <span class="k">if</span> <span class="n">channel_count</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">channel_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">channel_count</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">channel_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span> <span class="o">=</span> <span class="n">channel_count</span>
+        <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="p">(</span><span class="n">Request</span><span class="p">,</span> <span class="n">RequestBundle</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span> <span class="o">=</span> <span class="n">callback</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferAllocateRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferAllocateRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">frame_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span><span class="p">)</span>
+        <span class="n">channel_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel_count</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">,</span> <span class="n">frame_count</span><span class="p">,</span> <span class="n">channel_count</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">to_osc</span><span class="p">())</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">frame_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/done&quot;</span><span class="p">,</span> <span class="s2">&quot;/b_alloc&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">],</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="BufferAllocateReadRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferAllocateReadRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferAllocateReadRequest</span><span class="p">(</span><span class="n">BufferAllocateRequest</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_allocRead request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferAllocateReadRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     file_path=&#39;pulse_44100sr_16bit_octo.wav&#39;,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; print(request)</span>
+<span class="sd">        BufferAllocateReadRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            file_path=&#39;pulse_44100sr_16bit_octo.wav&#39;,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_allocRead&#39;, 23, &#39;...pulse_44100sr_16bit_octo.wav&#39;, 0, -1)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_ALLOCATE_READ</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
+
+        <span class="n">BufferAllocateRequest</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="n">buffer_id</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="n">frame_count</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Session</span><span class="o">.</span><span class="n">is_session_like</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+        <span class="k">if</span> <span class="n">starting_frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">starting_frame</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">starting_frame</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">starting_frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_starting_frame</span> <span class="o">=</span> <span class="n">starting_frame</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_get_osc_message_contents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">frame_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span>
+        <span class="k">if</span> <span class="n">frame_count</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame_count</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">starting_frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">starting_frame</span>
+        <span class="k">if</span> <span class="n">starting_frame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">starting_frame</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="n">starting_frame</span><span class="p">,</span> <span class="n">frame_count</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">contents</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferAllocateReadRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferAllocateReadRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_osc_message_contents</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">to_osc</span><span class="p">())</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">frame_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/done&quot;</span><span class="p">,</span> <span class="s2">&quot;/b_allocRead&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">],</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">starting_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_starting_frame</span></div>
+
+
+<div class="viewcode-block" id="BufferAllocateReadChannelRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferAllocateReadChannelRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferAllocateReadChannelRequest</span><span class="p">(</span><span class="n">BufferAllocateReadRequest</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_allocRead request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferAllocateReadChannelRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     channel_indices=(3, 4),</span>
+<span class="sd">        ...     file_path=&#39;pulse_44100sr_16bit_octo.wav&#39;,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; print(request)</span>
+<span class="sd">        BufferAllocateReadChannelRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            channel_indices=(3, 4),</span>
+<span class="sd">            file_path=&#39;pulse_44100sr_16bit_octo.wav&#39;,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_allocReadChannel&#39;, 23, &#39;...pulse_44100sr_16bit_octo.wav&#39;, 0, -1, 3, 4)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_ALLOCATE_READ_CHANNEL</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">channel_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">BufferAllocateReadRequest</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="n">buffer_id</span><span class="p">,</span>
+            <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
+            <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+            <span class="n">frame_count</span><span class="o">=</span><span class="n">frame_count</span><span class="p">,</span>
+            <span class="n">starting_frame</span><span class="o">=</span><span class="n">starting_frame</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">channel_indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">channel_indices</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channel_indices</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+            <span class="n">channel_indices</span> <span class="o">=</span> <span class="p">(</span><span class="n">channel_indices</span><span class="p">,)</span>
+        <span class="n">channel_indices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">channel_indices</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">channel_indices</span> <span class="o">!=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,):</span>
+            <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">channel_indices</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel_indices</span> <span class="o">=</span> <span class="n">channel_indices</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferAllocateReadChannelRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferAllocateReadChannelRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_osc_message_contents</span><span class="p">()</span>
+        <span class="n">contents</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel_indices</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">to_osc</span><span class="p">())</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">channel_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel_indices</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/done&quot;</span><span class="p">,</span> <span class="s2">&quot;/b_allocReadChannel&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">],</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="BufferCloseRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferCloseRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferCloseRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_close request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferCloseRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        BufferCloseRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_close&#39;, 23)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_CLOSE</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferCloseRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferCloseRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="n">request_id</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/done&quot;</span><span class="p">,</span> <span class="s2">&quot;/b_close&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">],</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="BufferCopyRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferCopyRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferCopyRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A `/b_gen copy` request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferCopyRequest(</span>
+<span class="sd">        ...     source_buffer_id=23,</span>
+<span class="sd">        ...     target_buffer_id=666,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; print(request)</span>
+<span class="sd">        BufferCopyRequest(</span>
+<span class="sd">            source_buffer_id=23,</span>
+<span class="sd">            target_buffer_id=666,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_gen&#39;, 666, &#39;copy&#39;, 0, 23, 0, -1)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_GENERATE</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">source_buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">source_starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">target_buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">target_starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">source_buffer_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">target_buffer_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">frame_count</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_count</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">frame_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span> <span class="o">=</span> <span class="n">frame_count</span>
+        <span class="k">if</span> <span class="n">source_starting_frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">source_starting_frame</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">source_starting_frame</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">source_starting_frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source_starting_frame</span> <span class="o">=</span> <span class="n">source_starting_frame</span>
+        <span class="k">if</span> <span class="n">target_starting_frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">target_starting_frame</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">target_starting_frame</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">target_starting_frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_starting_frame</span> <span class="o">=</span> <span class="n">target_starting_frame</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferCopyRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferCopyRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">frame_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span>
+        <span class="k">if</span> <span class="n">frame_count</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame_count</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">source_starting_frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_starting_frame</span>
+        <span class="k">if</span> <span class="n">source_starting_frame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">source_starting_frame</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">target_starting_frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_starting_frame</span>
+        <span class="k">if</span> <span class="n">target_starting_frame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">target_starting_frame</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">request_id</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_buffer_id</span><span class="p">,</span>
+            <span class="s2">&quot;copy&quot;</span><span class="p">,</span>
+            <span class="n">target_starting_frame</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source_buffer_id</span><span class="p">,</span>
+            <span class="n">source_starting_frame</span><span class="p">,</span>
+            <span class="n">frame_count</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">frame_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/done&quot;</span><span class="p">,</span> <span class="s2">&quot;/b_gen&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_buffer_id</span><span class="p">],</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">source_buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">source_starting_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_starting_frame</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">target_buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">target_starting_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_starting_frame</span></div>
+
+
+<div class="viewcode-block" id="BufferFillRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferFillRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferFillRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_fill request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferFillRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     index_count_value_triples=(</span>
+<span class="sd">        ...         (0, 8, 0.1),</span>
+<span class="sd">        ...         (11, 4, 0.2),</span>
+<span class="sd">        ...         ),</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        BufferFillRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            index_count_value_triples=(</span>
+<span class="sd">                (0, 8, 0.1),</span>
+<span class="sd">                (11, 4, 0.2),</span>
+<span class="sd">                ),</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_fill&#39;, 23, 0, 8, 0.1, 11, 4, 0.2)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_FILL</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index_count_value_triples</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">triples</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">index_count_value_triples</span><span class="p">:</span>
+            <span class="n">triple</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">count</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="n">triples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">triple</span><span class="p">)</span>
+        <span class="n">triples</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">triples</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index_count_value_triples</span> <span class="o">=</span> <span class="n">triples</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferFillRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferFillRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_count_value_triples</span><span class="p">:</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">index_count_value_triples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_count_value_triples</span></div>
+
+
+<div class="viewcode-block" id="BufferFreeRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferFreeRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferFreeRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_free request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferFreeRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        BufferFreeRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_free&#39;, 23)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_FREE</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="p">(</span><span class="n">Request</span><span class="p">,</span> <span class="n">RequestBundle</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span> <span class="o">=</span> <span class="n">callback</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferFreeRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferFreeRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">to_osc</span><span class="p">())</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span></div>
+
+
+<div class="viewcode-block" id="BufferGenerateRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGenerateRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferGenerateRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_gen request.</span>
+
+<span class="sd">    This requests models the &#39;cheby&#39;, &#39;sine1&#39;, &#39;sine2&#39; and &#39;sine3&#39; /b_gen</span>
+<span class="sd">    commands.</span>
+
+<span class="sd">    Use BufferCopyRequest for `/b_gen copy` and BufferNormalizeRequest for</span>
+<span class="sd">    `/b_gen normalize` and `/b_gen wnormalize`.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferGenerateRequest(</span>
+<span class="sd">        ...     amplitudes=(1., 0.5, 0.25),</span>
+<span class="sd">        ...     as_wavetable=True,</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     command_name=&#39;sine3&#39;,</span>
+<span class="sd">        ...     frequencies=(1, 2, 3),</span>
+<span class="sd">        ...     phases=(0, 0.5, 0),</span>
+<span class="sd">        ...     should_clear_first=True,</span>
+<span class="sd">        ...     should_normalize=True,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; print(request)</span>
+<span class="sd">        BufferGenerateRequest(</span>
+<span class="sd">            amplitudes=(1.0, 0.5, 0.25),</span>
+<span class="sd">            as_wavetable=True,</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            command_name=&#39;sine3&#39;,</span>
+<span class="sd">            frequencies=(1.0, 2.0, 3.0),</span>
+<span class="sd">            phases=(0.0, 0.5, 0.0),</span>
+<span class="sd">            should_clear_first=True,</span>
+<span class="sd">            should_normalize=True,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_gen&#39;, 23, &#39;sine3&#39;, 7, 1.0, 1.0, 0.0, 0.5, 2.0, 0.5, 0.25, 3.0, 0.0)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_GENERATE</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">amplitudes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">command_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">frequencies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">phases</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">should_clear_first</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">should_normalize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">command_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;cheby&quot;</span><span class="p">,</span> <span class="s2">&quot;sine1&quot;</span><span class="p">,</span> <span class="s2">&quot;sine2&quot;</span><span class="p">,</span> <span class="s2">&quot;sine3&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_command_name</span> <span class="o">=</span> <span class="n">command_name</span>
+        <span class="k">if</span> <span class="n">as_wavetable</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">as_wavetable</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">as_wavetable</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_as_wavetable</span> <span class="o">=</span> <span class="n">as_wavetable</span>
+        <span class="k">if</span> <span class="n">should_clear_first</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">should_clear_first</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">should_clear_first</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_should_clear_first</span> <span class="o">=</span> <span class="n">should_clear_first</span>
+        <span class="k">if</span> <span class="n">should_normalize</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">should_normalize</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">should_normalize</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_should_normalize</span> <span class="o">=</span> <span class="n">should_normalize</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frequencies</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_phases</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">command_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;cheby&quot;</span><span class="p">,</span> <span class="s2">&quot;sine1&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">amplitudes</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+                <span class="n">amplitudes</span> <span class="o">=</span> <span class="p">(</span><span class="n">amplitudes</span><span class="p">,)</span>
+            <span class="n">amplitudes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">amplitudes</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">amplitudes</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_amplitudes</span> <span class="o">=</span> <span class="n">amplitudes</span>
+        <span class="k">if</span> <span class="n">command_name</span> <span class="o">==</span> <span class="s2">&quot;sine2&quot;</span><span class="p">:</span>
+            <span class="n">amplitudes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">amplitudes</span><span class="p">)</span>
+            <span class="n">frequencies</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">frequencies</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">amplitudes</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">amplitudes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequencies</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_amplitudes</span> <span class="o">=</span> <span class="n">amplitudes</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_frequencies</span> <span class="o">=</span> <span class="n">frequencies</span>
+        <span class="k">if</span> <span class="n">command_name</span> <span class="o">==</span> <span class="s2">&quot;sine3&quot;</span><span class="p">:</span>
+            <span class="n">amplitudes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">amplitudes</span><span class="p">)</span>
+            <span class="n">frequencies</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">frequencies</span><span class="p">)</span>
+            <span class="n">phases</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">phases</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">amplitudes</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">amplitudes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequencies</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">phases</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_amplitudes</span> <span class="o">=</span> <span class="n">amplitudes</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_frequencies</span> <span class="o">=</span> <span class="n">frequencies</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_phases</span> <span class="o">=</span> <span class="n">phases</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferGenerateRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGenerateRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;cheby&quot;</span><span class="p">,</span> <span class="s2">&quot;sine1&quot;</span><span class="p">):</span>
+            <span class="n">coefficients</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_name</span> <span class="o">==</span> <span class="s2">&quot;sine2&quot;</span><span class="p">:</span>
+            <span class="n">coefficients</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequencies</span><span class="p">)</span>
+            <span class="n">coefficients</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">coefficients</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_name</span> <span class="o">==</span> <span class="s2">&quot;sine3&quot;</span><span class="p">:</span>
+            <span class="n">coefficients</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequencies</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="p">)</span>
+            <span class="n">coefficients</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">coefficients</span><span class="p">)</span>
+        <span class="n">coefficients</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">flatten_iterable</span><span class="p">(</span><span class="n">coefficients</span><span class="p">)</span>
+        <span class="n">contents</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">coefficients</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferGenerateRequest.chebyshev"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGenerateRequest.chebyshev">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">chebyshev</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">amplitudes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">should_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">should_clear_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">command_name</span> <span class="o">=</span> <span class="s2">&quot;cheby&quot;</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">amplitudes</span><span class="o">=</span><span class="n">amplitudes</span><span class="p">,</span>
+            <span class="n">as_wavetable</span><span class="o">=</span><span class="n">as_wavetable</span><span class="p">,</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="n">buffer_id</span><span class="p">,</span>
+            <span class="n">command_name</span><span class="o">=</span><span class="n">command_name</span><span class="p">,</span>
+            <span class="n">should_clear_first</span><span class="o">=</span><span class="n">should_clear_first</span><span class="p">,</span>
+            <span class="n">should_normalize</span><span class="o">=</span><span class="n">should_normalize</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">request</span></div>
+
+<div class="viewcode-block" id="BufferGenerateRequest.sine1"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGenerateRequest.sine1">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">sine1</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">amplitudes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">should_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">should_clear_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">command_name</span> <span class="o">=</span> <span class="s2">&quot;sine1&quot;</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">amplitudes</span><span class="o">=</span><span class="n">amplitudes</span><span class="p">,</span>
+            <span class="n">as_wavetable</span><span class="o">=</span><span class="n">as_wavetable</span><span class="p">,</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="n">buffer_id</span><span class="p">,</span>
+            <span class="n">command_name</span><span class="o">=</span><span class="n">command_name</span><span class="p">,</span>
+            <span class="n">should_clear_first</span><span class="o">=</span><span class="n">should_clear_first</span><span class="p">,</span>
+            <span class="n">should_normalize</span><span class="o">=</span><span class="n">should_normalize</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">request</span></div>
+
+<div class="viewcode-block" id="BufferGenerateRequest.sine2"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGenerateRequest.sine2">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">sine2</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">amplitudes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">frequencies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">should_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">should_clear_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">command_name</span> <span class="o">=</span> <span class="s2">&quot;sine2&quot;</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">amplitudes</span><span class="o">=</span><span class="n">amplitudes</span><span class="p">,</span>
+            <span class="n">as_wavetable</span><span class="o">=</span><span class="n">as_wavetable</span><span class="p">,</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="n">buffer_id</span><span class="p">,</span>
+            <span class="n">command_name</span><span class="o">=</span><span class="n">command_name</span><span class="p">,</span>
+            <span class="n">frequencies</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
+            <span class="n">should_clear_first</span><span class="o">=</span><span class="n">should_clear_first</span><span class="p">,</span>
+            <span class="n">should_normalize</span><span class="o">=</span><span class="n">should_normalize</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">request</span></div>
+
+<div class="viewcode-block" id="BufferGenerateRequest.sine3"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGenerateRequest.sine3">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">sine3</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">amplitudes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">frequencies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">phases</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">should_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">should_clear_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">command_name</span> <span class="o">=</span> <span class="s2">&quot;sine3&quot;</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">amplitudes</span><span class="o">=</span><span class="n">amplitudes</span><span class="p">,</span>
+            <span class="n">as_wavetable</span><span class="o">=</span><span class="n">as_wavetable</span><span class="p">,</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="n">buffer_id</span><span class="p">,</span>
+            <span class="n">command_name</span><span class="o">=</span><span class="n">command_name</span><span class="p">,</span>
+            <span class="n">frequencies</span><span class="o">=</span><span class="n">frequencies</span><span class="p">,</span>
+            <span class="n">phases</span><span class="o">=</span><span class="n">phases</span><span class="p">,</span>
+            <span class="n">should_clear_first</span><span class="o">=</span><span class="n">should_clear_first</span><span class="p">,</span>
+            <span class="n">should_normalize</span><span class="o">=</span><span class="n">should_normalize</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">request</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">amplitudes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_amplitudes</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">as_wavetable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_as_wavetable</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">command_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">flags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">flags</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="mi">1</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">should_normalize</span><span class="p">)),</span>
+                <span class="mi">2</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">as_wavetable</span><span class="p">)),</span>
+                <span class="mi">4</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">should_clear_first</span><span class="p">)),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">flags</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">frequencies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frequencies</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">phases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phases</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/done&quot;</span><span class="p">,</span> <span class="s2">&quot;/b_gen&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">],</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">should_clear_first</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_clear_first</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">should_normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_normalize</span></div>
+
+
+<div class="viewcode-block" id="BufferGetContiguousRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGetContiguousRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferGetContiguousRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_getn request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferGetContiguousRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     index_count_pairs=[(0, 3), (8, 11)],</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        BufferGetContiguousRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            index_count_pairs=(</span>
+<span class="sd">                (0, 3),</span>
+<span class="sd">                (8, 11),</span>
+<span class="sd">                ),</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_getn&#39;, 23, 0, 3, 8, 11)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_GET_CONTIGUOUS</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index_count_pairs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index_count_pairs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">count</span><span class="p">))</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">index_count_pairs</span>
+        <span class="p">)</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferGetContiguousRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGetContiguousRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_count_pairs</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_count_pairs</span><span class="p">:</span>
+                <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">index_count_pairs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_count_pairs</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/b_setn&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;/fail&quot;</span><span class="p">,</span> <span class="s2">&quot;/b_getn&quot;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="BufferGetRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGetRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferGetRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_get request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferGetRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     indices=(0, 4, 8, 16),</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        BufferGetRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            indices=(0, 4, 8, 16),</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_get&#39;, 23, 0, 4, 8, 16)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_GET</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_indices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">)</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferGetRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferGetRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">:</span>
+                <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_indices</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/b_set&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;/fail&quot;</span><span class="p">,</span> <span class="s2">&quot;/b_get&quot;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="BufferInfoResponse"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferInfoResponse">[docs]</a><span class="k">class</span> <span class="nc">BufferInfoResponse</span><span class="p">(</span><span class="n">Response</span><span class="p">):</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="k">class</span> <span class="nc">Item</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+        <span class="n">buffer_id</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">frame_count</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">channel_count</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">sample_rate</span><span class="p">:</span> <span class="nb">int</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_items</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">items</span> <span class="ow">or</span> <span class="p">())</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="BufferInfoResponse.__getitem__"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferInfoResponse.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">item</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="BufferInfoResponse.__len__"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferInfoResponse.__len__">[docs]</a>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">)</span></div>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferInfoResponse.from_osc_message"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferInfoResponse.from_osc_message">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_osc_message</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">osc_message</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create response(s) from OSC message.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; message = supriya.osc.OscMessage(&#39;/b_info&#39;, 1100, 512, 1, 44100.0)</span>
+<span class="sd">            &gt;&gt;&gt; supriya.commands.BufferInfoResponse.from_osc_message(message)</span>
+<span class="sd">            BufferInfoResponse(</span>
+<span class="sd">                items=(</span>
+<span class="sd">                    Item(buffer_id=1100, frame_count=512, channel_count=1, sample_rate=44100.0),</span>
+<span class="sd">                    ),</span>
+<span class="sd">                )</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Return one single thing</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_group_items</span><span class="p">(</span><span class="n">osc_message</span><span class="o">.</span><span class="n">contents</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">Item</span><span class="p">(</span><span class="o">*</span><span class="n">group</span><span class="p">)</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">)</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span></div>
+
+
+<div class="viewcode-block" id="BufferNormalizeRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferNormalizeRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferNormalizeRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A `/b_gen normalize` request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferNormalizeRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; print(request)</span>
+<span class="sd">        BufferNormalizeRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_gen&#39;, 23, &#39;normalize&#39;, 1.0)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_GENERATE</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_maximum</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">as_wavetable</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">as_wavetable</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">as_wavetable</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_as_wavetable</span> <span class="o">=</span> <span class="n">as_wavetable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_new_maximum</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">new_maximum</span><span class="p">)</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferNormalizeRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferNormalizeRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">command_name</span> <span class="o">=</span> <span class="s2">&quot;normalize&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_wavetable</span><span class="p">:</span>
+            <span class="n">command_name</span> <span class="o">=</span> <span class="s2">&quot;wnormalize&quot;</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">,</span> <span class="n">command_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_maximum</span><span class="p">]</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">as_wavetable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_as_wavetable</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">new_maximum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_maximum</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/done&quot;</span><span class="p">,</span> <span class="s2">&quot;/b_gen&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">],</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="BufferQueryRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferQueryRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferQueryRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_query request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferQueryRequest(</span>
+<span class="sd">        ...     buffer_ids=(1, 23, 41)</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        BufferQueryRequest(</span>
+<span class="sd">            buffer_ids=(1, 23, 41),</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_query&#39;, 1, 23, 41)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_QUERY</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">buffer_ids</span><span class="p">:</span>
+            <span class="n">buffer_ids</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">buffer_id</span> <span class="ow">in</span> <span class="n">buffer_ids</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_ids</span> <span class="o">=</span> <span class="n">buffer_ids</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferQueryRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferQueryRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">buffer_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_ids</span><span class="p">:</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_ids</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_ids</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/b_info&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="BufferReadRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferReadRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferReadRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_read request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferReadRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     file_path=&#39;pulse_44100sr_16bit_octo.wav&#39;,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; print(request)</span>
+<span class="sd">        BufferReadRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            file_path=&#39;pulse_44100sr_16bit_octo.wav&#39;,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_read&#39;, 23, &#39;...pulse_44100sr_16bit_octo.wav&#39;, 0, -1, 0, 0)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_READ</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">leave_open</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">starting_frame_in_buffer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">starting_frame_in_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
+
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="p">(</span><span class="n">Request</span><span class="p">,</span> <span class="n">RequestBundle</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span> <span class="o">=</span> <span class="n">callback</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Session</span><span class="o">.</span><span class="n">is_session_like</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+        <span class="k">if</span> <span class="n">frame_count</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_count</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">frame_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span> <span class="o">=</span> <span class="n">frame_count</span>
+        <span class="k">if</span> <span class="n">leave_open</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">leave_open</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">leave_open</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_leave_open</span> <span class="o">=</span> <span class="n">leave_open</span>
+        <span class="k">if</span> <span class="n">starting_frame_in_buffer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">starting_frame_in_buffer</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">starting_frame_in_buffer</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">starting_frame_in_buffer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_starting_frame_in_buffer</span> <span class="o">=</span> <span class="n">starting_frame_in_buffer</span>
+        <span class="k">if</span> <span class="n">starting_frame_in_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">starting_frame_in_file</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">starting_frame_in_file</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">starting_frame_in_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_starting_frame_in_file</span> <span class="o">=</span> <span class="n">starting_frame_in_file</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_get_osc_message_contents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">starting_frame_in_buffer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">starting_frame_in_buffer</span>
+        <span class="k">if</span> <span class="n">starting_frame_in_buffer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">starting_frame_in_buffer</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">frame_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span>
+        <span class="k">if</span> <span class="n">frame_count</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame_count</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">starting_frame_in_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">starting_frame_in_file</span>
+        <span class="k">if</span> <span class="n">starting_frame_in_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">starting_frame_in_file</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">leave_open</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">leave_open</span><span class="p">))</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">request_id</span><span class="p">,</span>
+            <span class="n">buffer_id</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span>
+            <span class="n">starting_frame_in_file</span><span class="p">,</span>
+            <span class="n">frame_count</span><span class="p">,</span>
+            <span class="n">starting_frame_in_buffer</span><span class="p">,</span>
+            <span class="n">leave_open</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">contents</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferReadRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferReadRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_osc_message_contents</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">to_osc</span><span class="p">())</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">frame_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">leave_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_leave_open</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/done&quot;</span><span class="p">,</span> <span class="s2">&quot;/b_read&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">],</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">starting_frame_in_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_starting_frame_in_buffer</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">starting_frame_in_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_starting_frame_in_file</span></div>
+
+
+<div class="viewcode-block" id="BufferReadChannelRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferReadChannelRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferReadChannelRequest</span><span class="p">(</span><span class="n">BufferReadRequest</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_readChannel request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferReadChannelRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     channel_indices=(3, 4),</span>
+<span class="sd">        ...     file_path=&#39;pulse_44100sr_16bit_octo.wav&#39;,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; print(request)</span>
+<span class="sd">        BufferReadChannelRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            channel_indices=(3, 4),</span>
+<span class="sd">            file_path=&#39;pulse_44100sr_16bit_octo.wav&#39;,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_readChannel&#39;, 23, &#39;...pulse_44100sr_16bit_octo.wav&#39;, 0, -1, 0, 0, 3, 4)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_READ_CHANNEL</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">channel_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">leave_open</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">starting_frame_in_buffer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">starting_frame_in_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">BufferReadRequest</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="n">buffer_id</span><span class="p">,</span>
+            <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
+            <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+            <span class="n">frame_count</span><span class="o">=</span><span class="n">frame_count</span><span class="p">,</span>
+            <span class="n">leave_open</span><span class="o">=</span><span class="n">leave_open</span><span class="p">,</span>
+            <span class="n">starting_frame_in_buffer</span><span class="o">=</span><span class="n">starting_frame_in_buffer</span><span class="p">,</span>
+            <span class="n">starting_frame_in_file</span><span class="o">=</span><span class="n">starting_frame_in_file</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channel_indices</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+            <span class="n">channel_indices</span> <span class="o">=</span> <span class="p">(</span><span class="n">channel_indices</span><span class="p">,)</span>
+        <span class="n">channel_indices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">channel_indices</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">channel_indices</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel_indices</span> <span class="o">=</span> <span class="n">channel_indices</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferReadChannelRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferReadChannelRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_osc_message_contents</span><span class="p">()</span>
+        <span class="n">contents</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel_indices</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">to_osc</span><span class="p">())</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">channel_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel_indices</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/done&quot;</span><span class="p">,</span> <span class="s2">&quot;/b_readChannel&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">],</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="BufferSetContiguousRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetContiguousRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferSetContiguousRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_setn request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferSetContiguousRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     index_values_pairs=(</span>
+<span class="sd">        ...         (0, (1, 2, 3)),</span>
+<span class="sd">        ...         (10, (17.1, 18.2))</span>
+<span class="sd">        ...         ),</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        BufferSetContiguousRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            index_values_pairs=(</span>
+<span class="sd">                (0, (1.0, 2.0, 3.0)),</span>
+<span class="sd">                (10, (17.1, 18.2)),</span>
+<span class="sd">                ),</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_setn&#39;, 23, 0, 3, 1.0, 2.0, 3.0, 10, 2, 17.1, 18.2)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_SET_CONTIGUOUS</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index_values_pairs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">index_values_pairs</span><span class="p">:</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">index_values_pairs</span><span class="p">:</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">)</span>
+                <span class="n">pair</span> <span class="o">=</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+                <span class="n">pairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">pairs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index_values_pairs</span> <span class="o">=</span> <span class="n">pairs</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferSetContiguousRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetContiguousRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_values_pairs</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_values_pairs</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">index_values_pairs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_values_pairs</span></div>
+
+
+<div class="viewcode-block" id="BufferSetContiguousResponse"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetContiguousResponse">[docs]</a><span class="k">class</span> <span class="nc">BufferSetContiguousResponse</span><span class="p">(</span><span class="n">Response</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="k">class</span> <span class="nc">Item</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+        <span class="n">sample_values</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">starting_sample_index</span><span class="p">:</span> <span class="nb">int</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="n">buffer_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_items</span> <span class="o">=</span> <span class="n">items</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="BufferSetContiguousResponse.__getitem__"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetContiguousResponse.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">item</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="BufferSetContiguousResponse.__len__"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetContiguousResponse.__len__">[docs]</a>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">)</span></div>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferSetContiguousResponse.as_dict"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetContiguousResponse.as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">starting_sample_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">sample_values</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="BufferSetContiguousResponse.from_osc_message"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetContiguousResponse.from_osc_message">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_osc_message</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">osc_message</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create response from OSC message.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; message = supriya.osc.OscMessage(&#39;/b_setn&#39;, 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</span>
+<span class="sd">            &gt;&gt;&gt; supriya.commands.BufferSetContiguousResponse.from_osc_message(message)</span>
+<span class="sd">            BufferSetContiguousResponse(</span>
+<span class="sd">                buffer_id=1,</span>
+<span class="sd">                items=(</span>
+<span class="sd">                    Item(sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0), starting_sample_index=0),</span>
+<span class="sd">                    ),</span>
+<span class="sd">                )</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">buffer_id</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">osc_message</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">osc_message</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="n">remainder</span><span class="p">:</span>
+            <span class="n">starting_sample_index</span> <span class="o">=</span> <span class="n">remainder</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">sample_count</span> <span class="o">=</span> <span class="n">remainder</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">sample_values</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">remainder</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">sample_count</span><span class="p">])</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">Item</span><span class="p">(</span>
+                <span class="n">starting_sample_index</span><span class="o">=</span><span class="n">starting_sample_index</span><span class="p">,</span> <span class="n">sample_values</span><span class="o">=</span><span class="n">sample_values</span>
+            <span class="p">)</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">remainder</span> <span class="o">=</span> <span class="n">remainder</span><span class="p">[</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sample_count</span> <span class="p">:]</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="n">buffer_id</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span></div>
+
+
+<div class="viewcode-block" id="BufferSetRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferSetRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_set request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferSetRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     index_value_pairs=(</span>
+<span class="sd">        ...         (0, 1.0),</span>
+<span class="sd">        ...         (10, 13.2),</span>
+<span class="sd">        ...         (17, 19.3),</span>
+<span class="sd">        ...         ),</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        BufferSetRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            index_value_pairs=(</span>
+<span class="sd">                (0, 1.0),</span>
+<span class="sd">                (10, 13.2),</span>
+<span class="sd">                (17, 19.3),</span>
+<span class="sd">                ),</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_set&#39;, 23, 0, 1.0, 10, 13.2, 17, 19.3)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_SET</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index_value_pairs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">index_value_pairs</span><span class="p">:</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">index_value_pairs</span><span class="p">:</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">pair</span> <span class="o">=</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                <span class="n">pairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">pairs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index_value_pairs</span> <span class="o">=</span> <span class="n">index_value_pairs</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferSetRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_value_pairs</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_value_pairs</span><span class="p">:</span>
+                <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">index_value_pairs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_value_pairs</span></div>
+
+
+<div class="viewcode-block" id="BufferSetResponse"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetResponse">[docs]</a><span class="k">class</span> <span class="nc">BufferSetResponse</span><span class="p">(</span><span class="n">Response</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="k">class</span> <span class="nc">Item</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+        <span class="n">sample_index</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">sample_value</span><span class="p">:</span> <span class="nb">float</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="n">buffer_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_items</span> <span class="o">=</span> <span class="n">items</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="BufferSetResponse.__getitem__"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetResponse.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">item</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="BufferSetResponse.__len__"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetResponse.__len__">[docs]</a>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">)</span></div>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferSetResponse.as_dict"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetResponse.as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">sample_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">sample_value</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="BufferSetResponse.from_osc_message"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferSetResponse.from_osc_message">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_osc_message</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">osc_message</span><span class="p">):</span>
+        <span class="n">buffer_id</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">osc_message</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">osc_message</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_group_items</span><span class="p">(</span><span class="n">remainder</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">Item</span><span class="p">(</span><span class="o">*</span><span class="n">group</span><span class="p">)</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="n">buffer_id</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span></div>
+
+
+<div class="viewcode-block" id="BufferWriteRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferWriteRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferWriteRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_write request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferWriteRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     file_path=&#39;test.aiff&#39;,</span>
+<span class="sd">        ...     header_format=supriya.HeaderFormat.AIFF,</span>
+<span class="sd">        ...     sample_format=supriya.SampleFormat.INT24,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        BufferWriteRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            file_path=&#39;test.aiff&#39;,</span>
+<span class="sd">            frame_count=-1,</span>
+<span class="sd">            header_format=HeaderFormat.AIFF,</span>
+<span class="sd">            sample_format=SampleFormat.INT24,</span>
+<span class="sd">            starting_frame=0,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_write&#39;, 23, &#39;test.aiff&#39;, &#39;aiff&#39;, &#39;int24&#39;, -1, 0, 0)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_WRITE</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">header_format</span><span class="o">=</span><span class="s2">&quot;aiff&quot;</span><span class="p">,</span>
+        <span class="n">leave_open</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">sample_format</span><span class="o">=</span><span class="s2">&quot;int24&quot;</span><span class="p">,</span>
+        <span class="n">starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="p">(</span><span class="n">Request</span><span class="p">,</span> <span class="n">RequestBundle</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span> <span class="o">=</span> <span class="n">callback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">frame_count</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame_count</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">frame_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_count</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">frame_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span> <span class="o">=</span> <span class="n">frame_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_header_format</span> <span class="o">=</span> <span class="n">HeaderFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">header_format</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_leave_open</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">leave_open</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sample_format</span> <span class="o">=</span> <span class="n">SampleFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">sample_format</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">starting_frame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">starting_frame</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">starting_frame</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">starting_frame</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">starting_frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_starting_frame</span> <span class="o">=</span> <span class="n">starting_frame</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferWriteRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferWriteRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">header_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_format</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">sample_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_format</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">leave_open</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">leave_open</span><span class="p">))</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">request_id</span><span class="p">,</span>
+            <span class="n">buffer_id</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span>
+            <span class="n">header_format</span><span class="p">,</span>
+            <span class="n">sample_format</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">starting_frame</span><span class="p">,</span>
+            <span class="n">leave_open</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">to_osc</span><span class="p">())</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">frame_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">header_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_header_format</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">leave_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_leave_open</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sample_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample_format</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">starting_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_starting_frame</span></div>
+
+
+<div class="viewcode-block" id="BufferZeroRequest"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferZeroRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferZeroRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /b_zero request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferZeroRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request</span>
+<span class="sd">        BufferZeroRequest(</span>
+<span class="sd">            buffer_id=23,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/b_zero&#39;, 23)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_ZERO</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="p">(</span><span class="n">Request</span><span class="p">,</span> <span class="n">RequestBundle</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span> <span class="o">=</span> <span class="n">callback</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferZeroRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/buffers.html#supriya.commands.buffers.BufferZeroRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">to_osc</span><span class="p">())</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;/done&quot;</span><span class="p">,</span> <span class="s2">&quot;/b_zero&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">],</span> <span class="kc">None</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

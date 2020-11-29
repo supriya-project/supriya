@@ -16,82 +16,29 @@ patterns
 
    <hr/>
 
-.. rubric:: Abstract Classes
+.. rubric:: Subpackages
    :class: section-header
 
 .. toctree::
    :hidden:
 
-   Event
-   EventPattern
-   Pattern
+   bases
+   events
+   mappings
+   parallel
+   patterns
+   players
+   random
+   structure
 
 .. autosummary::
    :nosignatures:
 
-   ~Event.Event
-   ~EventPattern.EventPattern
-   ~Pattern.Pattern
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Classes
-   :class: section-header
-
-.. toctree::
-   :hidden:
-
-   BusEvent
-   CompositeEvent
-   EventPlayer
-   EventProduct
-   GroupEvent
-   NoteEvent
-   NullEvent
-   Pbind
-   Pbindf
-   Pbinop
-   Pbus
-   Pchain
-   Pfx
-   Pgpar
-   Pgroup
-   Pmono
-   Pn
-   Ppar
-   Prand
-   Pseed
-   Pseq
-   Pwhite
-   RandomNumberGenerator
-   SynthEvent
-
-.. autosummary::
-   :nosignatures:
-
-   ~BusEvent.BusEvent
-   ~CompositeEvent.CompositeEvent
-   ~EventPlayer.EventPlayer
-   ~EventProduct.EventProduct
-   ~GroupEvent.GroupEvent
-   ~NoteEvent.NoteEvent
-   ~NullEvent.NullEvent
-   ~Pbind.Pbind
-   ~Pbindf.Pbindf
-   ~Pbinop.Pbinop
-   ~Pbus.Pbus
-   ~Pchain.Pchain
-   ~Pfx.Pfx
-   ~Pgpar.Pgpar
-   ~Pgroup.Pgroup
-   ~Pmono.Pmono
-   ~Pn.Pn
-   ~Ppar.Ppar
-   ~Prand.Prand
-   ~Pseed.Pseed
-   ~Pseq.Pseq
-   ~Pwhite.Pwhite
-   ~RandomNumberGenerator.RandomNumberGenerator
-   ~SynthEvent.SynthEvent
+   bases
+   events
+   mappings
+   parallel
+   patterns
+   players
+   random
+   structure

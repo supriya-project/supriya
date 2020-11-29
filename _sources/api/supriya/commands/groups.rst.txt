@@ -1,0 +1,551 @@
+.. _supriya--commands--groups:
+
+groups
+======
+
+.. automodule:: supriya.commands.groups
+
+.. currentmodule:: supriya.commands.groups
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.groups
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~GroupDeepFreeRequest
+   ~GroupFreeAllRequest
+   ~GroupNewRequest
+   ~GroupQueryTreeRequest
+   ~ParallelGroupNewRequest
+   ~QueryTreeResponse
+
+.. autoclass:: GroupDeepFreeRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      group_id
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupDeepFreeRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: GroupDeepFreeRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: GroupDeepFreeRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: GroupDeepFreeRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupDeepFreeRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: GroupDeepFreeRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: GroupDeepFreeRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: GroupDeepFreeRequest.to_list
+
+   .. automethod:: GroupDeepFreeRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupDeepFreeRequest.condition
+
+   .. autoattribute:: GroupDeepFreeRequest.group_id
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupDeepFreeRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupDeepFreeRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupDeepFreeRequest.response_patterns
+
+.. autoclass:: GroupFreeAllRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      group_id
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.to_list
+
+   .. automethod:: GroupFreeAllRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupFreeAllRequest.condition
+
+   .. autoattribute:: GroupFreeAllRequest.group_id
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupFreeAllRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupFreeAllRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupFreeAllRequest.response_patterns
+
+.. autoclass:: GroupNewRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      Item
+      items
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupNewRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: GroupNewRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: GroupNewRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: GroupNewRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupNewRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: GroupNewRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: GroupNewRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: GroupNewRequest.to_list
+
+   .. automethod:: GroupNewRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupNewRequest.condition
+
+   .. autoattribute:: GroupNewRequest.items
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupNewRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupNewRequest.response
+
+   .. autoattribute:: GroupNewRequest.response_patterns
+
+.. autoclass:: GroupQueryTreeRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      include_controls
+      node_id
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.to_list
+
+   .. automethod:: GroupQueryTreeRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupQueryTreeRequest.condition
+
+   .. autoattribute:: GroupQueryTreeRequest.include_controls
+
+   .. autoattribute:: GroupQueryTreeRequest.node_id
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupQueryTreeRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupQueryTreeRequest.response
+
+   .. autoattribute:: GroupQueryTreeRequest.response_patterns
+
+.. autoclass:: ParallelGroupNewRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ParallelGroupNewRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: ParallelGroupNewRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: ParallelGroupNewRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: ParallelGroupNewRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ParallelGroupNewRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: ParallelGroupNewRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: ParallelGroupNewRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: ParallelGroupNewRequest.to_list
+
+   .. container:: inherited
+
+      .. automethod:: ParallelGroupNewRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ParallelGroupNewRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: ParallelGroupNewRequest.items
+
+   .. container:: inherited
+
+      .. autoattribute:: ParallelGroupNewRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: ParallelGroupNewRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: ParallelGroupNewRequest.response_patterns
+
+.. autoclass:: QueryTreeResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __str__
+      from_osc_message
+      node_id
+      query_tree_group
+      to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeResponse.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeResponse.__repr__
+
+   .. automethod:: QueryTreeResponse.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: QueryTreeResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: QueryTreeResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: QueryTreeResponse.node_id
+
+   .. autoattribute:: QueryTreeResponse.query_tree_group

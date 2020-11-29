@@ -1,0 +1,548 @@
+.. _supriya--commands--synthdefs:
+
+synthdefs
+=========
+
+.. automodule:: supriya.commands.synthdefs
+
+.. currentmodule:: supriya.commands.synthdefs
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.synthdefs
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~SynthDefFreeAllRequest
+   ~SynthDefFreeRequest
+   ~SynthDefLoadDirectoryRequest
+   ~SynthDefLoadRequest
+   ~SynthDefReceiveRequest
+   ~SynthDefRemovedResponse
+
+.. autoclass:: SynthDefFreeAllRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.to_list
+
+   .. automethod:: SynthDefFreeAllRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefFreeAllRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefFreeAllRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefFreeAllRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefFreeAllRequest.response_patterns
+
+.. autoclass:: SynthDefFreeRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      synthdef
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeRequest.to_list
+
+   .. automethod:: SynthDefFreeRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefFreeRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefFreeRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefFreeRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefFreeRequest.response_patterns
+
+   .. autoattribute:: SynthDefFreeRequest.synthdef
+
+.. autoclass:: SynthDefLoadDirectoryRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      callback
+      directory_path
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadDirectoryRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadDirectoryRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadDirectoryRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadDirectoryRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadDirectoryRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadDirectoryRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadDirectoryRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadDirectoryRequest.to_list
+
+   .. automethod:: SynthDefLoadDirectoryRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: SynthDefLoadDirectoryRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefLoadDirectoryRequest.condition
+
+   .. autoattribute:: SynthDefLoadDirectoryRequest.directory_path
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefLoadDirectoryRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefLoadDirectoryRequest.response
+
+   .. autoattribute:: SynthDefLoadDirectoryRequest.response_patterns
+
+.. autoclass:: SynthDefLoadRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      callback
+      request_id
+      response_patterns
+      synthdef_path
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.to_list
+
+   .. automethod:: SynthDefLoadRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: SynthDefLoadRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefLoadRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefLoadRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefLoadRequest.response
+
+   .. autoattribute:: SynthDefLoadRequest.response_patterns
+
+   .. autoattribute:: SynthDefLoadRequest.synthdef_path
+
+.. autoclass:: SynthDefReceiveRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      callback
+      request_id
+      response_patterns
+      synthdefs
+      to_osc
+      use_anonymous_names
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefReceiveRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefReceiveRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefReceiveRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefReceiveRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefReceiveRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefReceiveRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefReceiveRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefReceiveRequest.to_list
+
+   .. automethod:: SynthDefReceiveRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: SynthDefReceiveRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefReceiveRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefReceiveRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefReceiveRequest.response
+
+   .. autoattribute:: SynthDefReceiveRequest.response_patterns
+
+   .. autoattribute:: SynthDefReceiveRequest.synthdefs
+
+   .. autoattribute:: SynthDefReceiveRequest.use_anonymous_names
+
+.. autoclass:: SynthDefRemovedResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      from_osc_message
+      synthdef_name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefRemovedResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefRemovedResponse.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefRemovedResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefRemovedResponse.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefRemovedResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SynthDefRemovedResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: SynthDefRemovedResponse.synthdef_name

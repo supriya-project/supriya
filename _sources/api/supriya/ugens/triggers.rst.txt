@@ -1,0 +1,8188 @@
+.. _supriya--ugens--triggers:
+
+triggers
+========
+
+.. automodule:: supriya.ugens.triggers
+
+.. currentmodule:: supriya.ugens.triggers
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.triggers
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: SynthDef Internals
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Clip
+   ~Fold
+   ~Gate
+   ~InRange
+   ~Latch
+   ~LeastChange
+   ~MostChange
+   ~Peak
+   ~PeakFollower
+   ~Phasor
+   ~RunningMax
+   ~RunningMin
+   ~Schmidt
+   ~SendPeakRMS
+   ~SendTrig
+   ~Sweep
+   ~TDelay
+   ~ToggleFF
+   ~Trig
+   ~Trig1
+   ~Wrap
+   ~ZeroCrossing
+
+.. autoclass:: Clip
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      ir
+      kr
+      maximum
+      minimum
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Clip.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Clip.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Clip.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Clip.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Clip.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Clip.clip
+
+   .. container:: inherited
+
+      .. automethod:: Clip.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Clip.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Clip.distort
+
+   .. container:: inherited
+
+      .. automethod:: Clip.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Clip.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Clip.floor
+
+   .. container:: inherited
+
+      .. automethod:: Clip.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Clip.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Clip.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Clip.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Clip.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Clip.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Clip.lag
+
+   .. container:: inherited
+
+      .. automethod:: Clip.log
+
+   .. container:: inherited
+
+      .. automethod:: Clip.log10
+
+   .. container:: inherited
+
+      .. automethod:: Clip.log2
+
+   .. container:: inherited
+
+      .. automethod:: Clip.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Clip.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Clip.power
+
+   .. container:: inherited
+
+      .. automethod:: Clip.range
+
+   .. container:: inherited
+
+      .. automethod:: Clip.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Clip.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Clip.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Clip.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Clip.scale
+
+   .. container:: inherited
+
+      .. automethod:: Clip.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Clip.sign
+
+   .. container:: inherited
+
+      .. automethod:: Clip.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Clip.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Clip.squared
+
+   .. container:: inherited
+
+      .. automethod:: Clip.sum
+
+   .. container:: inherited
+
+      .. automethod:: Clip.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Clip.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Clip.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Clip.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Clip.ar
+
+   .. automethod:: Clip.ir
+
+   .. automethod:: Clip.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Clip.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Clip.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Clip.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Clip.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Clip.is_output_ugen
+
+   .. autoattribute:: Clip.maximum
+
+   .. autoattribute:: Clip.minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: Clip.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Clip.signal_range
+
+   .. autoattribute:: Clip.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Clip.special_index
+
+.. autoclass:: Fold
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      ir
+      kr
+      maximum
+      minimum
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Fold.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Fold.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Fold.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Fold.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Fold.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Fold.clip
+
+   .. container:: inherited
+
+      .. automethod:: Fold.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Fold.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Fold.distort
+
+   .. container:: inherited
+
+      .. automethod:: Fold.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Fold.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Fold.floor
+
+   .. container:: inherited
+
+      .. automethod:: Fold.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Fold.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Fold.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Fold.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Fold.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Fold.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Fold.lag
+
+   .. container:: inherited
+
+      .. automethod:: Fold.log
+
+   .. container:: inherited
+
+      .. automethod:: Fold.log10
+
+   .. container:: inherited
+
+      .. automethod:: Fold.log2
+
+   .. container:: inherited
+
+      .. automethod:: Fold.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Fold.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Fold.power
+
+   .. container:: inherited
+
+      .. automethod:: Fold.range
+
+   .. container:: inherited
+
+      .. automethod:: Fold.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Fold.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Fold.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Fold.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Fold.scale
+
+   .. container:: inherited
+
+      .. automethod:: Fold.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Fold.sign
+
+   .. container:: inherited
+
+      .. automethod:: Fold.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Fold.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Fold.squared
+
+   .. container:: inherited
+
+      .. automethod:: Fold.sum
+
+   .. container:: inherited
+
+      .. automethod:: Fold.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Fold.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Fold.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Fold.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Fold.ar
+
+   .. automethod:: Fold.ir
+
+   .. automethod:: Fold.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Fold.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Fold.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Fold.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Fold.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Fold.is_output_ugen
+
+   .. autoattribute:: Fold.maximum
+
+   .. autoattribute:: Fold.minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: Fold.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Fold.signal_range
+
+   .. autoattribute:: Fold.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Fold.special_index
+
+.. autoclass:: Gate
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      source
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Gate.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Gate.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Gate.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Gate.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Gate.clip
+
+   .. container:: inherited
+
+      .. automethod:: Gate.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Gate.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Gate.distort
+
+   .. container:: inherited
+
+      .. automethod:: Gate.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Gate.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Gate.floor
+
+   .. container:: inherited
+
+      .. automethod:: Gate.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Gate.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Gate.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Gate.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Gate.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Gate.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Gate.lag
+
+   .. container:: inherited
+
+      .. automethod:: Gate.log
+
+   .. container:: inherited
+
+      .. automethod:: Gate.log10
+
+   .. container:: inherited
+
+      .. automethod:: Gate.log2
+
+   .. container:: inherited
+
+      .. automethod:: Gate.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Gate.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Gate.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Gate.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Gate.power
+
+   .. container:: inherited
+
+      .. automethod:: Gate.range
+
+   .. container:: inherited
+
+      .. automethod:: Gate.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Gate.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Gate.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Gate.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Gate.scale
+
+   .. container:: inherited
+
+      .. automethod:: Gate.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Gate.sign
+
+   .. container:: inherited
+
+      .. automethod:: Gate.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Gate.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Gate.squared
+
+   .. container:: inherited
+
+      .. automethod:: Gate.sum
+
+   .. container:: inherited
+
+      .. automethod:: Gate.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Gate.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Gate.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Gate.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Gate.ar
+
+   .. automethod:: Gate.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.signal_range
+
+   .. autoattribute:: Gate.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.special_index
+
+   .. autoattribute:: Gate.trigger
+
+.. autoclass:: InRange
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      ir
+      kr
+      maximum
+      minimum
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__add__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__div__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__le__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__len__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__str__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: InRange.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: InRange.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: InRange.as_int
+
+   .. container:: inherited
+
+      .. automethod:: InRange.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: InRange.clip
+
+   .. container:: inherited
+
+      .. automethod:: InRange.cubed
+
+   .. container:: inherited
+
+      .. automethod:: InRange.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: InRange.distort
+
+   .. container:: inherited
+
+      .. automethod:: InRange.exponential
+
+   .. container:: inherited
+
+      .. automethod:: InRange.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: InRange.floor
+
+   .. container:: inherited
+
+      .. automethod:: InRange.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: InRange.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: InRange.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: InRange.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: InRange.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: InRange.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: InRange.lag
+
+   .. container:: inherited
+
+      .. automethod:: InRange.log
+
+   .. container:: inherited
+
+      .. automethod:: InRange.log10
+
+   .. container:: inherited
+
+      .. automethod:: InRange.log2
+
+   .. container:: inherited
+
+      .. automethod:: InRange.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: InRange.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: InRange.power
+
+   .. container:: inherited
+
+      .. automethod:: InRange.range
+
+   .. container:: inherited
+
+      .. automethod:: InRange.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: InRange.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: InRange.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: InRange.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: InRange.scale
+
+   .. container:: inherited
+
+      .. automethod:: InRange.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: InRange.sign
+
+   .. container:: inherited
+
+      .. automethod:: InRange.softclip
+
+   .. container:: inherited
+
+      .. automethod:: InRange.square_root
+
+   .. container:: inherited
+
+      .. automethod:: InRange.squared
+
+   .. container:: inherited
+
+      .. automethod:: InRange.sum
+
+   .. container:: inherited
+
+      .. automethod:: InRange.tanh
+
+   .. container:: inherited
+
+      .. automethod:: InRange.transpose
+
+   .. container:: inherited
+
+      .. automethod:: InRange.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: InRange.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: InRange.ar
+
+   .. automethod:: InRange.ir
+
+   .. automethod:: InRange.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.is_output_ugen
+
+   .. autoattribute:: InRange.maximum
+
+   .. autoattribute:: InRange.minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.signal_range
+
+   .. autoattribute:: InRange.source
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.special_index
+
+.. autoclass:: Latch
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      source
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Latch.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Latch.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Latch.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Latch.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Latch.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Latch.clip
+
+   .. container:: inherited
+
+      .. automethod:: Latch.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Latch.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Latch.distort
+
+   .. container:: inherited
+
+      .. automethod:: Latch.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Latch.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Latch.floor
+
+   .. container:: inherited
+
+      .. automethod:: Latch.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Latch.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Latch.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Latch.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Latch.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Latch.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Latch.lag
+
+   .. container:: inherited
+
+      .. automethod:: Latch.log
+
+   .. container:: inherited
+
+      .. automethod:: Latch.log10
+
+   .. container:: inherited
+
+      .. automethod:: Latch.log2
+
+   .. container:: inherited
+
+      .. automethod:: Latch.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Latch.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Latch.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Latch.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Latch.power
+
+   .. container:: inherited
+
+      .. automethod:: Latch.range
+
+   .. container:: inherited
+
+      .. automethod:: Latch.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Latch.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Latch.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Latch.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Latch.scale
+
+   .. container:: inherited
+
+      .. automethod:: Latch.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Latch.sign
+
+   .. container:: inherited
+
+      .. automethod:: Latch.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Latch.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Latch.squared
+
+   .. container:: inherited
+
+      .. automethod:: Latch.sum
+
+   .. container:: inherited
+
+      .. automethod:: Latch.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Latch.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Latch.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Latch.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Latch.ar
+
+   .. automethod:: Latch.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Latch.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Latch.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Latch.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Latch.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Latch.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Latch.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Latch.signal_range
+
+   .. autoattribute:: Latch.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Latch.special_index
+
+   .. autoattribute:: Latch.trigger
+
+.. autoclass:: LeastChange
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      a
+      ar
+      b
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__add__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__div__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__le__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__len__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__str__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.as_int
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.clip
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.cubed
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.distort
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.exponential
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.floor
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.lag
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.log
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.log10
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.log2
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.maximum
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.minimum
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.power
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.range
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.scale
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.sign
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.softclip
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.square_root
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.squared
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.sum
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.tanh
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.transpose
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LeastChange.ar
+
+   .. automethod:: LeastChange.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: LeastChange.a
+
+   .. autoattribute:: LeastChange.b
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.special_index
+
+.. autoclass:: MostChange
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      a
+      ar
+      b
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__add__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__div__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__le__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__len__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__str__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.as_int
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.clip
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.cubed
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.distort
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.exponential
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.floor
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.lag
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.log
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.log10
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.log2
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.maximum
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.minimum
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.power
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.range
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.scale
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.sign
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.softclip
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.square_root
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.squared
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.sum
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.tanh
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.transpose
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: MostChange.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: MostChange.ar
+
+   .. automethod:: MostChange.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: MostChange.a
+
+   .. autoattribute:: MostChange.b
+
+   .. container:: inherited
+
+      .. autoattribute:: MostChange.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: MostChange.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: MostChange.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: MostChange.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: MostChange.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: MostChange.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: MostChange.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: MostChange.special_index
+
+.. autoclass:: Peak
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      source
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Peak.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Peak.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Peak.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Peak.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Peak.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Peak.clip
+
+   .. container:: inherited
+
+      .. automethod:: Peak.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Peak.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Peak.distort
+
+   .. container:: inherited
+
+      .. automethod:: Peak.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Peak.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Peak.floor
+
+   .. container:: inherited
+
+      .. automethod:: Peak.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Peak.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Peak.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Peak.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Peak.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Peak.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Peak.lag
+
+   .. container:: inherited
+
+      .. automethod:: Peak.log
+
+   .. container:: inherited
+
+      .. automethod:: Peak.log10
+
+   .. container:: inherited
+
+      .. automethod:: Peak.log2
+
+   .. container:: inherited
+
+      .. automethod:: Peak.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Peak.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Peak.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Peak.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Peak.power
+
+   .. container:: inherited
+
+      .. automethod:: Peak.range
+
+   .. container:: inherited
+
+      .. automethod:: Peak.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Peak.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Peak.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Peak.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Peak.scale
+
+   .. container:: inherited
+
+      .. automethod:: Peak.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Peak.sign
+
+   .. container:: inherited
+
+      .. automethod:: Peak.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Peak.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Peak.squared
+
+   .. container:: inherited
+
+      .. automethod:: Peak.sum
+
+   .. container:: inherited
+
+      .. automethod:: Peak.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Peak.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Peak.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Peak.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Peak.ar
+
+   .. automethod:: Peak.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Peak.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Peak.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Peak.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Peak.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Peak.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Peak.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Peak.signal_range
+
+   .. autoattribute:: Peak.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Peak.special_index
+
+   .. autoattribute:: Peak.trigger
+
+.. autoclass:: PeakFollower
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      decay
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.clip
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.distort
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.floor
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.lag
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.log
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.log10
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.log2
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.power
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.range
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.scale
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.sign
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.squared
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.sum
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PeakFollower.ar
+
+   .. automethod:: PeakFollower.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.calculation_rate
+
+   .. autoattribute:: PeakFollower.decay
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.signal_range
+
+   .. autoattribute:: PeakFollower.source
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.special_index
+
+.. autoclass:: Phasor
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      rate
+      reset_pos
+      start
+      stop
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.clip
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.distort
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.floor
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.lag
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.log
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.log10
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.log2
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.power
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.range
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.scale
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.sign
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.squared
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.sum
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Phasor.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Phasor.ar
+
+   .. automethod:: Phasor.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Phasor.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Phasor.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Phasor.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Phasor.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Phasor.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Phasor.outputs
+
+   .. autoattribute:: Phasor.rate
+
+   .. autoattribute:: Phasor.reset_pos
+
+   .. container:: inherited
+
+      .. autoattribute:: Phasor.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Phasor.special_index
+
+   .. autoattribute:: Phasor.start
+
+   .. autoattribute:: Phasor.stop
+
+   .. autoattribute:: Phasor.trigger
+
+.. autoclass:: RunningMax
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      source
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__add__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__div__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__le__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__len__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__str__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.as_int
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.clip
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.cubed
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.distort
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.exponential
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.floor
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.lag
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.log
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.log10
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.log2
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.maximum
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.minimum
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.power
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.range
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.scale
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.sign
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.softclip
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.square_root
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.squared
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.sum
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.tanh
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.transpose
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: RunningMax.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: RunningMax.ar
+
+   .. automethod:: RunningMax.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMax.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMax.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMax.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMax.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMax.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMax.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMax.signal_range
+
+   .. autoattribute:: RunningMax.source
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMax.special_index
+
+   .. autoattribute:: RunningMax.trigger
+
+.. autoclass:: RunningMin
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      source
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__add__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__div__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__le__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__len__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__str__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.as_int
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.clip
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.cubed
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.distort
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.exponential
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.floor
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.lag
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.log
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.log10
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.log2
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.maximum
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.minimum
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.power
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.range
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.scale
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.sign
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.softclip
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.square_root
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.squared
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.sum
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.tanh
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.transpose
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: RunningMin.ar
+
+   .. automethod:: RunningMin.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.signal_range
+
+   .. autoattribute:: RunningMin.source
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.special_index
+
+   .. autoattribute:: RunningMin.trigger
+
+.. autoclass:: Schmidt
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      maximum
+      minimum
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.clip
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.distort
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.floor
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.lag
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.log
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.log10
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.log2
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.power
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.range
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.scale
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.sign
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.squared
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.sum
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Schmidt.ar
+
+   .. automethod:: Schmidt.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.is_output_ugen
+
+   .. autoattribute:: Schmidt.maximum
+
+   .. autoattribute:: Schmidt.minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.signal_range
+
+   .. autoattribute:: Schmidt.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.special_index
+
+.. autoclass:: SendPeakRMS
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      command_name
+      kr
+      peak_lag
+      reply_id
+      reply_rate
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__add__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__div__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__le__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__len__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__str__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.as_int
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.clip
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.cubed
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.distort
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.exponential
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.floor
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.lag
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.log
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.log10
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.log2
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.maximum
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.minimum
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.power
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.range
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.scale
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.sign
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.softclip
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.square_root
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.squared
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.sum
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.tanh
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.transpose
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SendPeakRMS.ar
+
+   .. automethod:: SendPeakRMS.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.calculation_rate
+
+   .. autoattribute:: SendPeakRMS.command_name
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.outputs
+
+   .. autoattribute:: SendPeakRMS.peak_lag
+
+   .. autoattribute:: SendPeakRMS.reply_id
+
+   .. autoattribute:: SendPeakRMS.reply_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.signal_range
+
+   .. autoattribute:: SendPeakRMS.source
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.special_index
+
+.. autoclass:: SendTrig
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      id_
+      kr
+      trigger
+      value
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__add__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__div__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__le__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__len__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__str__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.as_int
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.clip
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.cubed
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.distort
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.exponential
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.floor
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.lag
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.log
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.log10
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.log2
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.maximum
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.minimum
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.power
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.range
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.scale
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.sign
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.softclip
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.square_root
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.squared
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.sum
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.tanh
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.transpose
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SendTrig.ar
+
+   .. automethod:: SendTrig.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.has_done_flag
+
+   .. autoattribute:: SendTrig.id_
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.special_index
+
+   .. autoattribute:: SendTrig.trigger
+
+   .. autoattribute:: SendTrig.value
+
+.. autoclass:: Sweep
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      rate
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.clip
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.distort
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.floor
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.lag
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.log
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.log10
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.log2
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.power
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.range
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.scale
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.sign
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.squared
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.sum
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Sweep.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Sweep.ar
+
+   .. automethod:: Sweep.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Sweep.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Sweep.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Sweep.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Sweep.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Sweep.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Sweep.outputs
+
+   .. autoattribute:: Sweep.rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Sweep.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Sweep.special_index
+
+   .. autoattribute:: Sweep.trigger
+
+.. autoclass:: TDelay
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      duration
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__add__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__div__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__le__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__len__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__str__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.as_int
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.clip
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.cubed
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.distort
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.exponential
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.floor
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.lag
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.log
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.log10
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.log2
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.maximum
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.minimum
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.power
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.range
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.scale
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.sign
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.softclip
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.square_root
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.squared
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.sum
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.tanh
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.transpose
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: TDelay.ar
+
+   .. automethod:: TDelay.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.calculation_rate
+
+   .. autoattribute:: TDelay.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.signal_range
+
+   .. autoattribute:: TDelay.source
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.special_index
+
+.. autoclass:: ToggleFF
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__add__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__div__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__le__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__len__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__str__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.as_int
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.clip
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.cubed
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.distort
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.exponential
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.floor
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.lag
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.log
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.log10
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.log2
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.maximum
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.minimum
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.power
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.range
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.scale
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.sign
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.softclip
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.square_root
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.squared
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.sum
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.tanh
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.transpose
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: ToggleFF.ar
+
+   .. automethod:: ToggleFF.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.special_index
+
+   .. autoattribute:: ToggleFF.trigger
+
+.. autoclass:: Trig
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      duration
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Trig.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Trig.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Trig.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Trig.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Trig.clip
+
+   .. container:: inherited
+
+      .. automethod:: Trig.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Trig.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Trig.distort
+
+   .. container:: inherited
+
+      .. automethod:: Trig.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Trig.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Trig.floor
+
+   .. container:: inherited
+
+      .. automethod:: Trig.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Trig.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Trig.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Trig.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Trig.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Trig.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Trig.lag
+
+   .. container:: inherited
+
+      .. automethod:: Trig.log
+
+   .. container:: inherited
+
+      .. automethod:: Trig.log10
+
+   .. container:: inherited
+
+      .. automethod:: Trig.log2
+
+   .. container:: inherited
+
+      .. automethod:: Trig.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Trig.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Trig.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Trig.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Trig.power
+
+   .. container:: inherited
+
+      .. automethod:: Trig.range
+
+   .. container:: inherited
+
+      .. automethod:: Trig.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Trig.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Trig.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Trig.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Trig.scale
+
+   .. container:: inherited
+
+      .. automethod:: Trig.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Trig.sign
+
+   .. container:: inherited
+
+      .. automethod:: Trig.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Trig.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Trig.squared
+
+   .. container:: inherited
+
+      .. automethod:: Trig.sum
+
+   .. container:: inherited
+
+      .. automethod:: Trig.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Trig.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Trig.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Trig.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Trig.ar
+
+   .. automethod:: Trig.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.calculation_rate
+
+   .. autoattribute:: Trig.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.signal_range
+
+   .. autoattribute:: Trig.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.special_index
+
+.. autoclass:: Trig1
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      duration
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.clip
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.distort
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.floor
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.lag
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.log
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.log10
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.log2
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.power
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.range
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.scale
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.sign
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.squared
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.sum
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Trig1.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Trig1.ar
+
+   .. automethod:: Trig1.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig1.calculation_rate
+
+   .. autoattribute:: Trig1.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig1.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig1.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig1.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig1.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig1.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig1.signal_range
+
+   .. autoattribute:: Trig1.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig1.special_index
+
+.. autoclass:: Wrap
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      ir
+      kr
+      maximum
+      minimum
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.clip
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.distort
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.floor
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.lag
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.log
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.log10
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.log2
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.power
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.range
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.scale
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.sign
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.squared
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.sum
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Wrap.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Wrap.ar
+
+   .. automethod:: Wrap.ir
+
+   .. automethod:: Wrap.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Wrap.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Wrap.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Wrap.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Wrap.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Wrap.is_output_ugen
+
+   .. autoattribute:: Wrap.maximum
+
+   .. autoattribute:: Wrap.minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: Wrap.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Wrap.signal_range
+
+   .. autoattribute:: Wrap.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Wrap.special_index
+
+.. autoclass:: ZeroCrossing
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__add__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__div__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__le__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__len__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__str__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.as_int
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.clip
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.cubed
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.distort
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.exponential
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.floor
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.lag
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.log
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.log10
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.log2
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.maximum
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.minimum
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.power
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.range
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.scale
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.sign
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.softclip
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.square_root
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.squared
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.sum
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.tanh
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.transpose
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: ZeroCrossing.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: ZeroCrossing.ar
+
+   .. automethod:: ZeroCrossing.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ZeroCrossing.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: ZeroCrossing.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: ZeroCrossing.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: ZeroCrossing.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: ZeroCrossing.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: ZeroCrossing.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: ZeroCrossing.signal_range
+
+   .. autoattribute:: ZeroCrossing.source
+
+   .. container:: inherited
+
+      .. autoattribute:: ZeroCrossing.special_index
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Utility UGens
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Poll
+
+.. autoclass:: Poll
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      label
+      new
+      source
+      trigger
+      trigger_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Poll.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Poll.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Poll.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Poll.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Poll.clip
+
+   .. container:: inherited
+
+      .. automethod:: Poll.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Poll.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Poll.distort
+
+   .. container:: inherited
+
+      .. automethod:: Poll.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Poll.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Poll.floor
+
+   .. container:: inherited
+
+      .. automethod:: Poll.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Poll.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Poll.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Poll.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Poll.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Poll.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Poll.lag
+
+   .. container:: inherited
+
+      .. automethod:: Poll.log
+
+   .. container:: inherited
+
+      .. automethod:: Poll.log10
+
+   .. container:: inherited
+
+      .. automethod:: Poll.log2
+
+   .. container:: inherited
+
+      .. automethod:: Poll.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Poll.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Poll.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Poll.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Poll.power
+
+   .. container:: inherited
+
+      .. automethod:: Poll.range
+
+   .. container:: inherited
+
+      .. automethod:: Poll.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Poll.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Poll.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Poll.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Poll.scale
+
+   .. container:: inherited
+
+      .. automethod:: Poll.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Poll.sign
+
+   .. container:: inherited
+
+      .. automethod:: Poll.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Poll.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Poll.squared
+
+   .. container:: inherited
+
+      .. automethod:: Poll.sum
+
+   .. container:: inherited
+
+      .. automethod:: Poll.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Poll.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Poll.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Poll.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Poll.ar
+
+   .. automethod:: Poll.kr
+
+   .. automethod:: Poll.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.is_output_ugen
+
+   .. autoattribute:: Poll.label
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.signal_range
+
+   .. autoattribute:: Poll.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.special_index
+
+   .. autoattribute:: Poll.trigger
+
+   .. autoattribute:: Poll.trigger_id

@@ -1,0 +1,381 @@
+.. _supriya--ugens--reverb:
+
+reverb
+======
+
+.. automodule:: supriya.ugens.reverb
+
+.. currentmodule:: supriya.ugens.reverb
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.reverb
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: SynthDef Internals
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~FreeVerb
+
+.. autoclass:: FreeVerb
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      damping
+      mix
+      room_size
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__add__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__div__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__le__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__len__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__str__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.as_int
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.clip
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.cubed
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.distort
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.exponential
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.floor
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.lag
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.log
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.log10
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.log2
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.maximum
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.minimum
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.power
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.range
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.scale
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.sign
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.softclip
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.square_root
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.squared
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.sum
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.tanh
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.transpose
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: FreeVerb.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: FreeVerb.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeVerb.calculation_rate
+
+   .. autoattribute:: FreeVerb.damping
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeVerb.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeVerb.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeVerb.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeVerb.is_output_ugen
+
+   .. autoattribute:: FreeVerb.mix
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeVerb.outputs
+
+   .. autoattribute:: FreeVerb.room_size
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeVerb.signal_range
+
+   .. autoattribute:: FreeVerb.source
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeVerb.special_index

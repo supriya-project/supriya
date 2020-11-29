@@ -1,0 +1,933 @@
+.. _supriya--commands--server:
+
+server
+======
+
+.. automodule:: supriya.commands.server
+
+.. currentmodule:: supriya.commands.server
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.server
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~ClearScheduleRequest
+   ~DoneResponse
+   ~DumpOscRequest
+   ~FailResponse
+   ~NothingRequest
+   ~NotifyRequest
+   ~QuitRequest
+   ~StatusRequest
+   ~StatusResponse
+   ~SyncRequest
+   ~SyncedResponse
+
+.. autoclass:: ClearScheduleRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.to_list
+
+   .. automethod:: ClearScheduleRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearScheduleRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearScheduleRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearScheduleRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearScheduleRequest.response_patterns
+
+.. autoclass:: DoneResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      action
+      from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DoneResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: DoneResponse.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: DoneResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: DoneResponse.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DoneResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: DoneResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: DoneResponse.action
+
+.. autoclass:: DumpOscRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      osc_status
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DumpOscRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: DumpOscRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: DumpOscRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: DumpOscRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DumpOscRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: DumpOscRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: DumpOscRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: DumpOscRequest.to_list
+
+   .. automethod:: DumpOscRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: DumpOscRequest.condition
+
+   .. autoattribute:: DumpOscRequest.osc_status
+
+   .. container:: inherited
+
+      .. autoattribute:: DumpOscRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: DumpOscRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: DumpOscRequest.response_patterns
+
+.. autoclass:: FailResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      failed_command
+      failure_reason
+      from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FailResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: FailResponse.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: FailResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: FailResponse.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FailResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: FailResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: FailResponse.failed_command
+
+   .. autoattribute:: FailResponse.failure_reason
+
+.. autoclass:: NothingRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.to_list
+
+   .. automethod:: NothingRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: NothingRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: NothingRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: NothingRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: NothingRequest.response_patterns
+
+.. autoclass:: NotifyRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      notify_status
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NotifyRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: NotifyRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: NotifyRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: NotifyRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NotifyRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: NotifyRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: NotifyRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: NotifyRequest.to_list
+
+   .. automethod:: NotifyRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: NotifyRequest.condition
+
+   .. autoattribute:: NotifyRequest.notify_status
+
+   .. container:: inherited
+
+      .. autoattribute:: NotifyRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: NotifyRequest.response
+
+   .. autoattribute:: NotifyRequest.response_patterns
+
+.. autoclass:: QuitRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.to_list
+
+   .. automethod:: QuitRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: QuitRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: QuitRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: QuitRequest.response
+
+   .. autoattribute:: QuitRequest.response_patterns
+
+.. autoclass:: StatusRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: StatusRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: StatusRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: StatusRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: StatusRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: StatusRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: StatusRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: StatusRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: StatusRequest.to_list
+
+   .. automethod:: StatusRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: StatusRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: StatusRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: StatusRequest.response
+
+   .. autoattribute:: StatusRequest.response_patterns
+
+.. autoclass:: StatusResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      actual_sample_rate
+      average_cpu_usage
+      from_osc_message
+      group_count
+      peak_cpu_usage
+      synth_count
+      synthdef_count
+      target_sample_rate
+      to_dict
+      ugen_count
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: StatusResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: StatusResponse.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: StatusResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: StatusResponse.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: StatusResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: StatusResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: StatusResponse.actual_sample_rate
+
+   .. autoattribute:: StatusResponse.average_cpu_usage
+
+   .. autoattribute:: StatusResponse.group_count
+
+   .. autoattribute:: StatusResponse.peak_cpu_usage
+
+   .. autoattribute:: StatusResponse.synth_count
+
+   .. autoattribute:: StatusResponse.synthdef_count
+
+   .. autoattribute:: StatusResponse.target_sample_rate
+
+   .. autoattribute:: StatusResponse.ugen_count
+
+.. autoclass:: SyncRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      response_patterns
+      sync_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SyncRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SyncRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SyncRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SyncRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SyncRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: SyncRequest.communicate_async
+
+   .. container:: inherited
+
+      .. automethod:: SyncRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: SyncRequest.to_list
+
+   .. automethod:: SyncRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SyncRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: SyncRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: SyncRequest.response
+
+   .. autoattribute:: SyncRequest.response_patterns
+
+   .. autoattribute:: SyncRequest.sync_id
+
+.. autoclass:: SyncedResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      from_osc_message
+      sync_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SyncedResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SyncedResponse.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SyncedResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SyncedResponse.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SyncedResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SyncedResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: SyncedResponse.sync_id
