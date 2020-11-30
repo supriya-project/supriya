@@ -1,0 +1,2011 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>buses &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/supriya.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="interfaces" href="interfaces.html" />
+    <link rel="prev" title="buffers" href="buffers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">realtime</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="allocators.html">allocators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buffers.html">buffers</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">buses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interfaces.html">interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="meters.html">meters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="protocols.html">protocols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="recorder.html">recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="servers.html">servers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">realtime</a> &raquo;</li>
+        
+      <li>buses</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/realtime/buses.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.realtime.buses">
+<span id="buses"></span><span id="supriya-realtime-buses"></span><h1>buses<a class="headerlink" href="#module-supriya.realtime.buses" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-aa41bedbf45d827c56e2187c2c9534fea0419689.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.realtime.bases&quot; {
+        graph [label=&quot;supriya.realtime.bases&quot;];
+        node [color=2];
+        &quot;supriya.realtime.bases.ServerObject&quot; [URL=&quot;../api/supriya/realtime/bases.html#supriya.realtime.bases.ServerObject&quot;,
+            label=&quot;Server\nObject&quot;,
+            shape=oval,
+            style=bold,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.realtime.buses&quot; {
+        graph [label=&quot;supriya.realtime.buses&quot;];
+        node [color=3];
+        &quot;supriya.realtime.buses.AudioInputBusGroup&quot; [URL=&quot;../api/supriya/realtime/buses.html#supriya.realtime.buses.AudioInputBusGroup&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Audio\nInput\nBus\nGroup&quot;,
+            target=_top];
+        &quot;supriya.realtime.buses.AudioOutputBusGroup&quot; [URL=&quot;../api/supriya/realtime/buses.html#supriya.realtime.buses.AudioOutputBusGroup&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Audio\nOutput\nBus\nGroup&quot;,
+            target=_top];
+        &quot;supriya.realtime.buses.Bus&quot; [URL=&quot;../api/supriya/realtime/buses.html#supriya.realtime.buses.Bus&quot;,
+            color=black,
+            fontcolor=white,
+            label=Bus,
+            target=_top];
+        &quot;supriya.realtime.buses.BusGroup&quot; [URL=&quot;../api/supriya/realtime/buses.html#supriya.realtime.buses.BusGroup&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Bus\nGroup&quot;,
+            target=_top];
+        &quot;supriya.realtime.buses.BusProxy&quot; [URL=&quot;../api/supriya/realtime/buses.html#supriya.realtime.buses.BusProxy&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Bus\nProxy&quot;,
+            target=_top];
+        &quot;supriya.realtime.buses.BusGroup&quot; -&gt; &quot;supriya.realtime.buses.AudioInputBusGroup&quot;;
+        &quot;supriya.realtime.buses.BusGroup&quot; -&gt; &quot;supriya.realtime.buses.AudioOutputBusGroup&quot;;
+    }
+    subgraph &quot;cluster_supriya.system&quot; {
+        graph [label=&quot;supriya.system&quot;];
+        node [color=4];
+        &quot;supriya.system.SupriyaObject&quot; [URL=&quot;../api/supriya/realtime/../system.html#supriya.system.SupriyaObject&quot;,
+            label=&quot;Supriya\nObject&quot;,
+            target=_top];
+        &quot;supriya.system.SupriyaValueObject&quot; [URL=&quot;../api/supriya/realtime/../system.html#supriya.system.SupriyaValueObject&quot;,
+            label=&quot;Supriya\nValue\nObject&quot;,
+            target=_top];
+        &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject&quot;;
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;;
+    &quot;supriya.realtime.bases.ServerObject&quot; -&gt; &quot;supriya.realtime.buses.Bus&quot;;
+    &quot;supriya.realtime.bases.ServerObject&quot; -&gt; &quot;supriya.realtime.buses.BusGroup&quot;;
+    &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.realtime.bases.ServerObject&quot;;
+    &quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.realtime.buses.BusProxy&quot;;
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Main Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus" title="supriya.realtime.buses.Bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bus</span></code></a></p></td>
+<td><p>A bus.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BusGroup</span></code></a></p></td>
+<td><p>A bus group.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.realtime.buses.Bus">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.realtime.buses.</code><code class="sig-name descname">Bus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus_group_or_index</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">calculation_rate</span><span class="o">=</span><span class="default_value">CalculationRate.CONTROL</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus" title="Permalink to this definition">¶</a></dt>
+<dd><p>A bus.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Bus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span>
+<span class="go">&lt;- Bus: ??? (control)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="go">&lt;+ Bus: 0 (control)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">bus</span><span class="p">)</span>
+<span class="go">c0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="go">&lt;- Bus: ??? (control)&gt;</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.__float__" title="supriya.realtime.buses.Bus.__float__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__float__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.__int__" title="supriya.realtime.buses.Bus.__int__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__int__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.__repr__" title="supriya.realtime.buses.Bus.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.__str__" title="supriya.realtime.buses.Bus.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></p></td>
+<td><p>Gets map symbol representation of bus.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.allocate" title="supriya.realtime.buses.Bus.allocate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.ar" title="supriya.realtime.buses.Bus.ar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ar</span></code></a></p></td>
+<td><p>Creates an audio-rate input ugen subgraph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.audio" title="supriya.realtime.buses.Bus.audio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.bus_group" title="supriya.realtime.buses.Bus.bus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bus_group</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.bus_id" title="supriya.realtime.buses.Bus.bus_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bus_id</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.calculation_rate" title="supriya.realtime.buses.Bus.calculation_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculation_rate</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.control" title="supriya.realtime.buses.Bus.control"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.free" title="supriya.realtime.buses.Bus.free"><code class="xref py py-obj docutils literal notranslate"><span class="pre">free</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.get" title="supriya.realtime.buses.Bus.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.is_allocated" title="supriya.realtime.buses.Bus.is_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_allocated</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.kr" title="supriya.realtime.buses.Bus.kr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kr</span></code></a></p></td>
+<td><p>Creates a control-rate input ugen subgraph.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.map_symbol" title="supriya.realtime.buses.Bus.map_symbol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">map_symbol</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.server" title="supriya.realtime.buses.Bus.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.set" title="supriya.realtime.buses.Bus.set"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.Bus.value" title="supriya.realtime.buses.Bus.value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.buses.Bus.__float__">
+<code class="sig-name descname">__float__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus.__float__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus.__float__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.Bus.__int__">
+<code class="sig-name descname">__int__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus.__int__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus.__int__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.Bus.__repr__">
+<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.Bus.__str__">
+<em class="property">overridden </em><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets map symbol representation of bus.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">control_bus</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Bus</span><span class="o">.</span><span class="n">control</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio_bus</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Bus</span><span class="o">.</span><span class="n">audio</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">control_bus</span><span class="p">))</span>
+<span class="go">c0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">audio_bus</span><span class="p">))</span>
+<span class="go">a16</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(str(control_bus.free()))
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 133, in __str__
+    raise supriya.exceptions.BusNotAllocated
+supriya.exceptions.BusNotAllocated
+</pre></div>
+</div>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.buses.Bus.allocate">
+<em class="property">overridden </em><code class="sig-name descname">allocate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus.allocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus.allocate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.Bus.ar">
+<code class="sig-name descname">ar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus.ar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus.ar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an audio-rate input ugen subgraph.</p>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio_bus</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;audio&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">audio_bus</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-4f8ada94544ba2822d28d5b8ccdaf73e7bf10c73e65a9769fba3ed7dfc6269cd.dot" title=""><img src="../../../_images/graphviz-4f8ada94544ba2822d28d5b8ccdaf73e7bf10c73e65a9769fba3ed7dfc6269cd.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: fb63450852ac2df2fad1242e27a913d6</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.ar:</span>
+<span class="go">            bus: 8.0</span>
+
+</pre></div>
+</div>
+</div>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">control_bus</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;control&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">control_bus</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-5bf8d69fe546e81758bb3bf5450f79a765261a82ef986a272d45ee0d80904d88.dot" title=""><img src="../../../_images/graphviz-5bf8d69fe546e81758bb3bf5450f79a765261a82ef986a272d45ee0d80904d88.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: d48f76506e364201100db95a248cc8e2</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.kr:</span>
+<span class="go">            bus: 8.0</span>
+<span class="go">    -   K2A.ar:</span>
+<span class="go">            source: In.kr[0]</span>
+
+</pre></div>
+</div>
+</div>
+<p>Returns ugen.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.Bus.free">
+<em class="property">overridden </em><code class="sig-name descname">free</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus.free"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus.free" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.Bus.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">completion_callback</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.Bus.kr">
+<code class="sig-name descname">kr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus.kr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus.kr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a control-rate input ugen subgraph.</p>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio_bus</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;audio&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">audio_bus</span><span class="o">.</span><span class="n">kr</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-39599198b8715dda8c43357f41ba852cc0fdfb7d15d051f041d1f3fbb707e513.dot" title=""><img src="../../../_images/graphviz-39599198b8715dda8c43357f41ba852cc0fdfb7d15d051f041d1f3fbb707e513.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: 65ceebd3294ae43fa3dd12035e1895fd</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.ar:</span>
+<span class="go">            bus: 8.0</span>
+<span class="go">    -   A2K.kr:</span>
+<span class="go">            source: In.ar[0]</span>
+
+</pre></div>
+</div>
+</div>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">control_bus</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;control&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">control_bus</span><span class="o">.</span><span class="n">kr</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-ea2ca1dc4dd3ca198421eb77c1ca09ffcb34bc927409758082e60ed9b1f9168f.dot" title=""><img src="../../../_images/graphviz-ea2ca1dc4dd3ca198421eb77c1ca09ffcb34bc927409758082e60ed9b1f9168f.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: ef2c11e55da5af28e2ae77c5c8934f3d</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.kr:</span>
+<span class="go">            bus: 8.0</span>
+
+</pre></div>
+</div>
+</div>
+<p>Returns ugen.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.Bus.set">
+<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.buses.Bus.audio">
+<em class="property">classmethod </em><code class="sig-name descname">audio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus.audio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus.audio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.Bus.control">
+<em class="property">classmethod </em><code class="sig-name descname">control</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#Bus.control"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.Bus.control" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.Bus.bus_group">
+<code class="sig-name descname">bus_group</code><a class="headerlink" href="#supriya.realtime.buses.Bus.bus_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.Bus.bus_id">
+<code class="sig-name descname">bus_id</code><a class="headerlink" href="#supriya.realtime.buses.Bus.bus_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.Bus.calculation_rate">
+<code class="sig-name descname">calculation_rate</code><a class="headerlink" href="#supriya.realtime.buses.Bus.calculation_rate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.Bus.is_allocated">
+<em class="property">overridden </em><code class="sig-name descname">is_allocated</code><a class="headerlink" href="#supriya.realtime.buses.Bus.is_allocated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.Bus.map_symbol">
+<code class="sig-name descname">map_symbol</code><a class="headerlink" href="#supriya.realtime.buses.Bus.map_symbol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.Bus.server">
+<em class="property">overridden </em><code class="sig-name descname">server</code><a class="headerlink" href="#supriya.realtime.buses.Bus.server" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.Bus.value">
+<code class="sig-name descname">value</code><a class="headerlink" href="#supriya.realtime.buses.Bus.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.realtime.buses.BusGroup">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.realtime.buses.</code><code class="sig-name descname">BusGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus_count</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">calculation_rate</span><span class="o">=</span><span class="default_value">CalculationRate.CONTROL</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">bus_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>A bus group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span><span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span>
+<span class="go">&lt;- BusGroup{4}: ??? (control)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="go">&lt;+ BusGroup{4}: 0 (control)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">&lt;+ Bus: 2 (control)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bus_group</span><span class="p">)):</span>
+<span class="gp">... </span>    <span class="n">bus</span> <span class="o">=</span> <span class="n">bus_group</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.1</span>
+<span class="gp">... </span>    <span class="n">bus</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_values</span> <span class="o">=</span> <span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Values in <code class="docutils literal notranslate"><span class="pre">scsynth</span></code> don’t necessarily have the same precision as in
+Python, so we’ll round them here for display purposes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">bus_values</span><span class="p">])</span>
+<span class="go">[0.1, 0.3, 0.5, 0.7]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">bus_group</span><span class="p">)</span>
+<span class="go">c0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="go">&lt;- BusGroup{4}: ??? (control)&gt;</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.__contains__" title="supriya.realtime.buses.BusGroup.__contains__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__contains__</span></code></a></p></td>
+<td><p>Test if a bus belongs to the bus group.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.__float__" title="supriya.realtime.buses.BusGroup.__float__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__float__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.__getitem__" title="supriya.realtime.buses.BusGroup.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></p></td>
+<td><p>Get <code class="docutils literal notranslate"><span class="pre">item</span></code> in bus group.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.__int__" title="supriya.realtime.buses.BusGroup.__int__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__int__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.__iter__" title="supriya.realtime.buses.BusGroup.__iter__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__iter__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.__len__" title="supriya.realtime.buses.BusGroup.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.__repr__" title="supriya.realtime.buses.BusGroup.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.__str__" title="supriya.realtime.buses.BusGroup.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></p></td>
+<td><p>Gets map symbol representation of bus group.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.allocate" title="supriya.realtime.buses.BusGroup.allocate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.ar" title="supriya.realtime.buses.BusGroup.ar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ar</span></code></a></p></td>
+<td><p>Creates an audio-rate input ugen subgraph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.audio" title="supriya.realtime.buses.BusGroup.audio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.bus_id" title="supriya.realtime.buses.BusGroup.bus_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bus_id</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.buses" title="supriya.realtime.buses.BusGroup.buses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buses</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.calculation_rate" title="supriya.realtime.buses.BusGroup.calculation_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculation_rate</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.control" title="supriya.realtime.buses.BusGroup.control"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.fill" title="supriya.realtime.buses.BusGroup.fill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill</span></code></a></p></td>
+<td><p>Fill buses in bus group with <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.free" title="supriya.realtime.buses.BusGroup.free"><code class="xref py py-obj docutils literal notranslate"><span class="pre">free</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.get" title="supriya.realtime.buses.BusGroup.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a></p></td>
+<td><p>Get bus group values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.index" title="supriya.realtime.buses.BusGroup.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.is_allocated" title="supriya.realtime.buses.BusGroup.is_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_allocated</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.kr" title="supriya.realtime.buses.BusGroup.kr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kr</span></code></a></p></td>
+<td><p>Creates a control-rate input ugen subgraph.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.map_symbol" title="supriya.realtime.buses.BusGroup.map_symbol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">map_symbol</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusGroup.set" title="supriya.realtime.buses.BusGroup.set"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set</span></code></a></p></td>
+<td><p>Set bus group values.</p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if a bus belongs to the bus group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">bus_group</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Bus</span><span class="o">.</span><span class="n">audio</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span> <span class="ow">in</span> <span class="n">bus_group</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.__float__">
+<code class="sig-name descname">__float__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.__float__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.__float__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get <code class="docutils literal notranslate"><span class="pre">item</span></code> in bus group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">&lt;+ Bus: 0 (control)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="go">&lt;+ BusGroup{3}: 1 (control)&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.__int__">
+<code class="sig-name descname">__int__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.__int__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.__int__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.__len__">
+<code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.__repr__">
+<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.__str__">
+<em class="property">overridden </em><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets map symbol representation of bus group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">control_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">audio</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">control_bus_group</span><span class="p">))</span>
+<span class="go">c0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">audio_bus_group</span><span class="p">))</span>
+<span class="go">a16</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.allocate">
+<em class="property">overridden </em><code class="sig-name descname">allocate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.allocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.allocate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.ar">
+<code class="sig-name descname">ar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.ar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.ar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an audio-rate input ugen subgraph.</p>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">bus_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;audio&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">audio_bus_group</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-103109cce82e4f27110de9a2f28e274f0e491657110306c04b65535531a53334.dot" title=""><img src="../../../_images/graphviz-103109cce82e4f27110de9a2f28e274f0e491657110306c04b65535531a53334.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: 0af6b551a643cad01e9994845ff4ae40</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.ar:</span>
+<span class="go">            bus: 8.0</span>
+
+</pre></div>
+</div>
+</div>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">control_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">bus_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;control&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">control_bus_group</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-630bdd7cfaef2b365496abc5aa35d3559134be55ba70fa50aebe60f66d1b2cd4.dot" title=""><img src="../../../_images/graphviz-630bdd7cfaef2b365496abc5aa35d3559134be55ba70fa50aebe60f66d1b2cd4.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: ecaa7fe9417cb0742cdcda87657fe9de</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.kr:</span>
+<span class="go">            bus: 8.0</span>
+<span class="go">    -   K2A.ar/0:</span>
+<span class="go">            source: In.kr[0]</span>
+<span class="go">    -   K2A.ar/1:</span>
+<span class="go">            source: In.kr[1]</span>
+<span class="go">    -   K2A.ar/2:</span>
+<span class="go">            source: In.kr[2]</span>
+<span class="go">    -   K2A.ar/3:</span>
+<span class="go">            source: In.kr[3]</span>
+
+</pre></div>
+</div>
+</div>
+<p>Returns ugen.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.fill">
+<code class="sig-name descname">fill</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill buses in bus group with <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(0.0, 0.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(0.5, 0.5, 0.5, 0.5)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; bus_group = supriya.BusGroup.audio(4)
+&gt;&gt;&gt; bus_group.fill(0.5)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 678, in fill
+    raise supriya.exceptions.BusNotAllocated
+supriya.exceptions.BusNotAllocated
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; bus_group.allocate().fill(0.5)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 680, in fill
+    raise supriya.exceptions.IncompatibleRate
+supriya.exceptions.IncompatibleRate
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.free">
+<em class="property">overridden </em><code class="sig-name descname">free</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.free"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.free" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get bus group values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">()</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(0.0, 0.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.index">
+<code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.kr">
+<code class="sig-name descname">kr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.kr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.kr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a control-rate input ugen subgraph.</p>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">bus_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;audio&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">audio_bus_group</span><span class="o">.</span><span class="n">kr</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-c33f397ff7dd50076070a69fc80bac8af21a623952a17c392c91bfd3e0d8689a.dot" title=""><img src="../../../_images/graphviz-c33f397ff7dd50076070a69fc80bac8af21a623952a17c392c91bfd3e0d8689a.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: ffeda833c370bc644251437469e243ef</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.ar:</span>
+<span class="go">            bus: 8.0</span>
+<span class="go">    -   A2K.kr/0:</span>
+<span class="go">            source: In.ar[0]</span>
+<span class="go">    -   A2K.kr/1:</span>
+<span class="go">            source: In.ar[1]</span>
+<span class="go">    -   A2K.kr/2:</span>
+<span class="go">            source: In.ar[2]</span>
+<span class="go">    -   A2K.kr/3:</span>
+<span class="go">            source: In.ar[3]</span>
+
+</pre></div>
+</div>
+</div>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">control_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">bus_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;control&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">control_bus_group</span><span class="o">.</span><span class="n">kr</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-56d2b60f95826585949958876a859a2df41164cbade24c7d988d4ee987cc2a18.dot" title=""><img src="../../../_images/graphviz-56d2b60f95826585949958876a859a2df41164cbade24c7d988d4ee987cc2a18.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: b64857a04b384841694ba85f74f0fd0b</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.kr:</span>
+<span class="go">            bus: 8.0</span>
+
+</pre></div>
+</div>
+</div>
+<p>Returns ugen.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.set">
+<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set bus group values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(0.0, 0.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">set</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(-0.5, 0.5, -0.5, 0.5)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.audio">
+<em class="property">classmethod </em><code class="sig-name descname">audio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus_count</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.audio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.audio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusGroup.control">
+<em class="property">classmethod </em><code class="sig-name descname">control</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus_count</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusGroup.control"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusGroup.control" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.BusGroup.bus_id">
+<code class="sig-name descname">bus_id</code><a class="headerlink" href="#supriya.realtime.buses.BusGroup.bus_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.BusGroup.buses">
+<code class="sig-name descname">buses</code><a class="headerlink" href="#supriya.realtime.buses.BusGroup.buses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.BusGroup.calculation_rate">
+<code class="sig-name descname">calculation_rate</code><a class="headerlink" href="#supriya.realtime.buses.BusGroup.calculation_rate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.BusGroup.is_allocated">
+<em class="property">overridden </em><code class="sig-name descname">is_allocated</code><a class="headerlink" href="#supriya.realtime.buses.BusGroup.is_allocated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.BusGroup.map_symbol">
+<code class="sig-name descname">map_symbol</code><a class="headerlink" href="#supriya.realtime.buses.BusGroup.map_symbol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.BusGroup.server">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.realtime.bases.ServerObject" title="supriya.realtime.bases.ServerObject"><code class="descclassname docutils literal notranslate"><span class="pre">ServerObject</span></code></a>).</code><code class="sig-name descname">server</code><a class="headerlink" href="#supriya.realtime.buses.BusGroup.server" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<hr/><p class="section-header rubric">Server Internals</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.AudioInputBusGroup" title="supriya.realtime.buses.AudioInputBusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AudioInputBusGroup</span></code></a></p></td>
+<td><p>Audio input bus group.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.AudioOutputBusGroup" title="supriya.realtime.buses.AudioOutputBusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AudioOutputBusGroup</span></code></a></p></td>
+<td><p>Audio output bus group.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusProxy" title="supriya.realtime.buses.BusProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BusProxy</span></code></a></p></td>
+<td><p>A buffer proxy.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.realtime.buses.AudioInputBusGroup">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.realtime.buses.</code><code class="sig-name descname">AudioInputBusGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#AudioInputBusGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Audio input bus group.</p>
+<p>Allocated automatically on server boot.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">audio_input_bus_group</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span>
+<span class="go">&lt;+ AudioInputBusGroup{8}: 8 (audio)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">is_allocated</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.AudioInputBusGroup.allocate" title="supriya.realtime.buses.AudioInputBusGroup.allocate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.AudioInputBusGroup.free" title="supriya.realtime.buses.AudioInputBusGroup.free"><code class="xref py py-obj docutils literal notranslate"><span class="pre">free</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.__contains__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if a bus belongs to the bus group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">bus_group</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Bus</span><span class="o">.</span><span class="n">audio</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span> <span class="ow">in</span> <span class="n">bus_group</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.__float__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__float__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.__float__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.__getitem__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get <code class="docutils literal notranslate"><span class="pre">item</span></code> in bus group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">&lt;+ Bus: 0 (control)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="go">&lt;+ BusGroup{3}: 1 (control)&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.__int__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__int__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.__int__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.__iter__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.__len__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.__str__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets map symbol representation of bus group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">control_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">audio</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">control_bus_group</span><span class="p">))</span>
+<span class="go">c0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">audio_bus_group</span><span class="p">))</span>
+<span class="go">a16</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.allocate">
+<em class="property">overridden </em><code class="sig-name descname">allocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#AudioInputBusGroup.allocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.allocate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.ar">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">ar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.ar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an audio-rate input ugen subgraph.</p>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">bus_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;audio&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">audio_bus_group</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-103109cce82e4f27110de9a2f28e274f0e491657110306c04b65535531a53334.dot" title=""><img src="../../../_images/graphviz-103109cce82e4f27110de9a2f28e274f0e491657110306c04b65535531a53334.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: 0af6b551a643cad01e9994845ff4ae40</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.ar:</span>
+<span class="go">            bus: 8.0</span>
+
+</pre></div>
+</div>
+</div>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">control_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">bus_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;control&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">control_bus_group</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-630bdd7cfaef2b365496abc5aa35d3559134be55ba70fa50aebe60f66d1b2cd4.dot" title=""><img src="../../../_images/graphviz-630bdd7cfaef2b365496abc5aa35d3559134be55ba70fa50aebe60f66d1b2cd4.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: ecaa7fe9417cb0742cdcda87657fe9de</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.kr:</span>
+<span class="go">            bus: 8.0</span>
+<span class="go">    -   K2A.ar/0:</span>
+<span class="go">            source: In.kr[0]</span>
+<span class="go">    -   K2A.ar/1:</span>
+<span class="go">            source: In.kr[1]</span>
+<span class="go">    -   K2A.ar/2:</span>
+<span class="go">            source: In.kr[2]</span>
+<span class="go">    -   K2A.ar/3:</span>
+<span class="go">            source: In.kr[3]</span>
+
+</pre></div>
+</div>
+</div>
+<p>Returns ugen.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.fill">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">fill</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill buses in bus group with <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(0.0, 0.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(0.5, 0.5, 0.5, 0.5)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; bus_group = supriya.BusGroup.audio(4)
+&gt;&gt;&gt; bus_group.fill(0.5)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 678, in fill
+    raise supriya.exceptions.BusNotAllocated
+supriya.exceptions.BusNotAllocated
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; bus_group.allocate().fill(0.5)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 680, in fill
+    raise supriya.exceptions.IncompatibleRate
+supriya.exceptions.IncompatibleRate
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.free">
+<em class="property">overridden </em><code class="sig-name descname">free</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#AudioInputBusGroup.free"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.free" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.get">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get bus group values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">()</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(0.0, 0.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.index">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.kr">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">kr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.kr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a control-rate input ugen subgraph.</p>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">bus_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;audio&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">audio_bus_group</span><span class="o">.</span><span class="n">kr</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-c33f397ff7dd50076070a69fc80bac8af21a623952a17c392c91bfd3e0d8689a.dot" title=""><img src="../../../_images/graphviz-c33f397ff7dd50076070a69fc80bac8af21a623952a17c392c91bfd3e0d8689a.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: ffeda833c370bc644251437469e243ef</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.ar:</span>
+<span class="go">            bus: 8.0</span>
+<span class="go">    -   A2K.kr/0:</span>
+<span class="go">            source: In.ar[0]</span>
+<span class="go">    -   A2K.kr/1:</span>
+<span class="go">            source: In.ar[1]</span>
+<span class="go">    -   A2K.kr/2:</span>
+<span class="go">            source: In.ar[2]</span>
+<span class="go">    -   A2K.kr/3:</span>
+<span class="go">            source: In.ar[3]</span>
+
+</pre></div>
+</div>
+</div>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">control_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">bus_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;control&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">control_bus_group</span><span class="o">.</span><span class="n">kr</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-56d2b60f95826585949958876a859a2df41164cbade24c7d988d4ee987cc2a18.dot" title=""><img src="../../../_images/graphviz-56d2b60f95826585949958876a859a2df41164cbade24c7d988d4ee987cc2a18.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: b64857a04b384841694ba85f74f0fd0b</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.kr:</span>
+<span class="go">            bus: 8.0</span>
+
+</pre></div>
+</div>
+</div>
+<p>Returns ugen.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.set">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set bus group values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(0.0, 0.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">set</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(-0.5, 0.5, -0.5, 0.5)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.audio">
+<em class="property">classmethod </em><code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">audio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus_count</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.audio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.control">
+<em class="property">classmethod </em><code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">control</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus_count</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.control" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.bus_id">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">bus_id</code><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.bus_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.buses">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">buses</code><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.buses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.calculation_rate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">calculation_rate</code><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.calculation_rate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.is_allocated">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">is_allocated</code><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.is_allocated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.map_symbol">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">map_symbol</code><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.map_symbol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.AudioInputBusGroup.server">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.realtime.bases.ServerObject" title="supriya.realtime.bases.ServerObject"><code class="descclassname docutils literal notranslate"><span class="pre">ServerObject</span></code></a>).</code><code class="sig-name descname">server</code><a class="headerlink" href="#supriya.realtime.buses.AudioInputBusGroup.server" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.realtime.buses.</code><code class="sig-name descname">AudioOutputBusGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#AudioOutputBusGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Audio output bus group.</p>
+<p>Allocated automatically on server boot.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">audio_output_bus_group</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span>
+<span class="go">&lt;+ AudioOutputBusGroup{8}: 0 (audio)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">is_allocated</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.AudioOutputBusGroup.allocate" title="supriya.realtime.buses.AudioOutputBusGroup.allocate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.AudioOutputBusGroup.free" title="supriya.realtime.buses.AudioOutputBusGroup.free"><code class="xref py py-obj docutils literal notranslate"><span class="pre">free</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.__contains__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if a bus belongs to the bus group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">bus_group</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Bus</span><span class="o">.</span><span class="n">audio</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span> <span class="ow">in</span> <span class="n">bus_group</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.__float__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__float__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.__float__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.__getitem__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get <code class="docutils literal notranslate"><span class="pre">item</span></code> in bus group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">&lt;+ Bus: 0 (control)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="go">&lt;+ BusGroup{3}: 1 (control)&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.__int__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__int__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.__int__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.__iter__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.__len__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.__str__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets map symbol representation of bus group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">control_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">audio</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">control_bus_group</span><span class="p">))</span>
+<span class="go">c0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">audio_bus_group</span><span class="p">))</span>
+<span class="go">a16</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.allocate">
+<em class="property">overridden </em><code class="sig-name descname">allocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#AudioOutputBusGroup.allocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.allocate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.ar">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">ar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.ar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an audio-rate input ugen subgraph.</p>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">bus_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;audio&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">audio_bus_group</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-103109cce82e4f27110de9a2f28e274f0e491657110306c04b65535531a53334.dot" title=""><img src="../../../_images/graphviz-103109cce82e4f27110de9a2f28e274f0e491657110306c04b65535531a53334.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: 0af6b551a643cad01e9994845ff4ae40</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.ar:</span>
+<span class="go">            bus: 8.0</span>
+
+</pre></div>
+</div>
+</div>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">control_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">bus_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;control&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">control_bus_group</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-630bdd7cfaef2b365496abc5aa35d3559134be55ba70fa50aebe60f66d1b2cd4.dot" title=""><img src="../../../_images/graphviz-630bdd7cfaef2b365496abc5aa35d3559134be55ba70fa50aebe60f66d1b2cd4.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: ecaa7fe9417cb0742cdcda87657fe9de</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.kr:</span>
+<span class="go">            bus: 8.0</span>
+<span class="go">    -   K2A.ar/0:</span>
+<span class="go">            source: In.kr[0]</span>
+<span class="go">    -   K2A.ar/1:</span>
+<span class="go">            source: In.kr[1]</span>
+<span class="go">    -   K2A.ar/2:</span>
+<span class="go">            source: In.kr[2]</span>
+<span class="go">    -   K2A.ar/3:</span>
+<span class="go">            source: In.kr[3]</span>
+
+</pre></div>
+</div>
+</div>
+<p>Returns ugen.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.fill">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">fill</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill buses in bus group with <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(0.0, 0.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(0.5, 0.5, 0.5, 0.5)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; bus_group = supriya.BusGroup.audio(4)
+&gt;&gt;&gt; bus_group.fill(0.5)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 678, in fill
+    raise supriya.exceptions.BusNotAllocated
+supriya.exceptions.BusNotAllocated
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; bus_group.allocate().fill(0.5)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 680, in fill
+    raise supriya.exceptions.IncompatibleRate
+supriya.exceptions.IncompatibleRate
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.free">
+<em class="property">overridden </em><code class="sig-name descname">free</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#AudioOutputBusGroup.free"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.free" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.get">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get bus group values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">()</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(0.0, 0.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.index">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.kr">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">kr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.kr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a control-rate input ugen subgraph.</p>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">audio_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">bus_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;audio&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">audio_bus_group</span><span class="o">.</span><span class="n">kr</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-c33f397ff7dd50076070a69fc80bac8af21a623952a17c392c91bfd3e0d8689a.dot" title=""><img src="../../../_images/graphviz-c33f397ff7dd50076070a69fc80bac8af21a623952a17c392c91bfd3e0d8689a.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: ffeda833c370bc644251437469e243ef</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.ar:</span>
+<span class="go">            bus: 8.0</span>
+<span class="go">    -   A2K.kr/0:</span>
+<span class="go">            source: In.ar[0]</span>
+<span class="go">    -   A2K.kr/1:</span>
+<span class="go">            source: In.ar[1]</span>
+<span class="go">    -   A2K.kr/2:</span>
+<span class="go">            source: In.ar[2]</span>
+<span class="go">    -   A2K.kr/3:</span>
+<span class="go">            source: In.ar[3]</span>
+
+</pre></div>
+</div>
+</div>
+<div class="example docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">control_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">bus_id</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;control&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">control_bus_group</span><span class="o">.</span><span class="n">kr</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-56d2b60f95826585949958876a859a2df41164cbade24c7d988d4ee987cc2a18.dot" title=""><img src="../../../_images/graphviz-56d2b60f95826585949958876a859a2df41164cbade24c7d988d4ee987cc2a18.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+<span class="go">synthdef:</span>
+<span class="go">    name: b64857a04b384841694ba85f74f0fd0b</span>
+<span class="go">    ugens:</span>
+<span class="go">    -   In.kr:</span>
+<span class="go">            bus: 8.0</span>
+
+</pre></div>
+</div>
+</div>
+<p>Returns ugen.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.set">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set bus group values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">BusGroup</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(0.0, 0.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">set</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">(-0.5, 0.5, -0.5, 0.5)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.audio">
+<em class="property">classmethod </em><code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">audio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus_count</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.audio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.control">
+<em class="property">classmethod </em><code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">control</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus_count</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.control" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.bus_id">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">bus_id</code><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.bus_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.buses">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">buses</code><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.buses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.calculation_rate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">calculation_rate</code><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.calculation_rate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.is_allocated">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">is_allocated</code><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.is_allocated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.map_symbol">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.buses.BusGroup" title="supriya.realtime.buses.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">map_symbol</code><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.map_symbol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.AudioOutputBusGroup.server">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.realtime.bases.ServerObject" title="supriya.realtime.bases.ServerObject"><code class="descclassname docutils literal notranslate"><span class="pre">ServerObject</span></code></a>).</code><code class="sig-name descname">server</code><a class="headerlink" href="#supriya.realtime.buses.AudioOutputBusGroup.server" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.realtime.buses.BusProxy">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.realtime.buses.</code><code class="sig-name descname">BusProxy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">calculation_rate</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">value</span><span class="o">=</span><span class="default_value">0.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusProxy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusProxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>A buffer proxy.</p>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusProxy.__float__" title="supriya.realtime.buses.BusProxy.__float__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__float__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusProxy.__int__" title="supriya.realtime.buses.BusProxy.__int__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__int__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusProxy.__str__" title="supriya.realtime.buses.BusProxy.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></p></td>
+<td><p>Return str(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusProxy.bus_id" title="supriya.realtime.buses.BusProxy.bus_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bus_id</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusProxy.calculation_rate" title="supriya.realtime.buses.BusProxy.calculation_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculation_rate</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusProxy.map_symbol" title="supriya.realtime.buses.BusProxy.map_symbol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">map_symbol</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusProxy.server" title="supriya.realtime.buses.BusProxy.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.buses.BusProxy.value" title="supriya.realtime.buses.BusProxy.value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusProxy.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.BusProxy.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusProxy.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.BusProxy.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusProxy.__float__">
+<code class="sig-name descname">__float__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusProxy.__float__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusProxy.__float__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusProxy.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.BusProxy.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusProxy.__int__">
+<code class="sig-name descname">__int__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusProxy.__int__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusProxy.__int__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusProxy.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buses.BusProxy.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.realtime.buses.BusProxy.__str__">
+<em class="property">overridden </em><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/buses.html#BusProxy.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.buses.BusProxy.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.BusProxy.bus_id">
+<code class="sig-name descname">bus_id</code><a class="headerlink" href="#supriya.realtime.buses.BusProxy.bus_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.BusProxy.calculation_rate">
+<code class="sig-name descname">calculation_rate</code><a class="headerlink" href="#supriya.realtime.buses.BusProxy.calculation_rate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.BusProxy.map_symbol">
+<code class="sig-name descname">map_symbol</code><a class="headerlink" href="#supriya.realtime.buses.BusProxy.map_symbol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.BusProxy.server">
+<code class="sig-name descname">server</code><a class="headerlink" href="#supriya.realtime.buses.BusProxy.server" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.buses.BusProxy.value">
+<code class="sig-name descname">value</code><a class="headerlink" href="#supriya.realtime.buses.BusProxy.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="interfaces.html" class="btn btn-neutral float-right" title="interfaces" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="buffers.html" class="btn btn-neutral float-left" title="buffers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

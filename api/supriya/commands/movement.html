@@ -1,0 +1,1282 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>movement &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/supriya.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="nodes" href="nodes.html" />
+    <link rel="prev" title="groups" href="groups.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buffers.html">buffers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buses.html">buses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html">groups</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">movement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server.html">server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="synthdefs.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="synths.html">synths</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">commands</a> &raquo;</li>
+        
+      <li>movement</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/commands/movement.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.commands.movement">
+<span id="movement"></span><span id="supriya-commands-movement"></span><h1>movement<a class="headerlink" href="#module-supriya.commands.movement" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-ed8b57f982c687ac22aa62e2ac646086b185b47c.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.commands.bases&quot; {
+        graph [label=&quot;supriya.commands.bases&quot;];
+        node [color=2];
+        &quot;supriya.commands.bases.Request&quot; [URL=&quot;../api/supriya/commands/bases.html#supriya.commands.bases.Request&quot;,
+            label=Request,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;supriya.commands.bases.Requestable&quot; [URL=&quot;../api/supriya/commands/bases.html#supriya.commands.bases.Requestable&quot;,
+            label=Requestable,
+            target=_top];
+        &quot;supriya.commands.bases.Requestable&quot; -&gt; &quot;supriya.commands.bases.Request&quot;;
+    }
+    subgraph &quot;cluster_supriya.commands.movement&quot; {
+        graph [label=&quot;supriya.commands.movement&quot;];
+        node [color=3];
+        &quot;supriya.commands.movement.GroupHeadRequest&quot; [URL=&quot;../api/supriya/commands/movement.html#supriya.commands.movement.GroupHeadRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Group\nHead\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.movement.GroupTailRequest&quot; [URL=&quot;../api/supriya/commands/movement.html#supriya.commands.movement.GroupTailRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Group\nTail\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.movement.MoveRequest&quot; [URL=&quot;../api/supriya/commands/movement.html#supriya.commands.movement.MoveRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Move\nRequest&quot;,
+            shape=oval,
+            style=&quot;bold, filled&quot;,
+            target=_top];
+        &quot;supriya.commands.movement.NodeAfterRequest&quot; [URL=&quot;../api/supriya/commands/movement.html#supriya.commands.movement.NodeAfterRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Node\nAfter\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.movement.NodeBeforeRequest&quot; [URL=&quot;../api/supriya/commands/movement.html#supriya.commands.movement.NodeBeforeRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Node\nBefore\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.movement.MoveRequest&quot; -&gt; &quot;supriya.commands.movement.GroupHeadRequest&quot;;
+        &quot;supriya.commands.movement.MoveRequest&quot; -&gt; &quot;supriya.commands.movement.GroupTailRequest&quot;;
+        &quot;supriya.commands.movement.MoveRequest&quot; -&gt; &quot;supriya.commands.movement.NodeAfterRequest&quot;;
+        &quot;supriya.commands.movement.MoveRequest&quot; -&gt; &quot;supriya.commands.movement.NodeBeforeRequest&quot;;
+    }
+    subgraph &quot;cluster_supriya.system&quot; {
+        graph [label=&quot;supriya.system&quot;];
+        node [color=4];
+        &quot;supriya.system.SupriyaObject&quot; [URL=&quot;../api/supriya/commands/../system.html#supriya.system.SupriyaObject&quot;,
+            label=&quot;Supriya\nObject&quot;,
+            target=_top];
+        &quot;supriya.system.SupriyaValueObject&quot; [URL=&quot;../api/supriya/commands/../system.html#supriya.system.SupriyaValueObject&quot;,
+            label=&quot;Supriya\nValue\nObject&quot;,
+            target=_top];
+        &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject&quot;;
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;;
+    &quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.movement.MoveRequest&quot;;
+    &quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.bases.Requestable&quot;;
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Abstract Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.movement.MoveRequest" title="supriya.commands.movement.MoveRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MoveRequest</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.commands.movement.MoveRequest">
+<em class="property">abstract </em><em class="property">class </em><code class="sig-prename descclassname">supriya.commands.movement.</code><code class="sig-name descname">MoveRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_id_pairs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/movement.html#MoveRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.movement.MoveRequest" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeIdPair</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.movement.MoveRequest.node_id_pairs" title="supriya.commands.movement.MoveRequest.node_id_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">node_id_pairs</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.movement.MoveRequest.to_osc" title="supriya.commands.movement.MoveRequest.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.MoveRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.MoveRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.MoveRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.MoveRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.MoveRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.MoveRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.MoveRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.MoveRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.MoveRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.MoveRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.MoveRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.MoveRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.MoveRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.MoveRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.MoveRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.MoveRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.movement.MoveRequest.to_osc">
+<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/movement.html#MoveRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.movement.MoveRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.MoveRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.movement.MoveRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.movement.MoveRequest.node_id_pairs">
+<code class="sig-name descname">node_id_pairs</code><a class="headerlink" href="#supriya.commands.movement.MoveRequest.node_id_pairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.MoveRequest.request_id">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_id</code><a class="headerlink" href="#supriya.commands.movement.MoveRequest.request_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.MoveRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.movement.MoveRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.MoveRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.movement.MoveRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.MoveRequest.response_patterns">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.movement.MoveRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<hr/><p class="section-header rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.movement.GroupHeadRequest" title="supriya.commands.movement.GroupHeadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupHeadRequest</span></code></a></p></td>
+<td><p>A /g_head request.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.movement.GroupTailRequest" title="supriya.commands.movement.GroupTailRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupTailRequest</span></code></a></p></td>
+<td><p>A /g_tail request.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.movement.NodeAfterRequest" title="supriya.commands.movement.NodeAfterRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeAfterRequest</span></code></a></p></td>
+<td><p>An /n_after request.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.movement.NodeBeforeRequest" title="supriya.commands.movement.NodeBeforeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeBeforeRequest</span></code></a></p></td>
+<td><p>An /n_before request.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.commands.movement.GroupHeadRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.movement.</code><code class="sig-name descname">GroupHeadRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_id_pairs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/movement.html#GroupHeadRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A /g_head request.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">(),</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1001 default</span>
+<span class="go">            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5</span>
+<span class="go">        1000 group</span>
+<span class="go">            1002 group</span>
+<span class="go">            1003 group</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">GroupHeadRequest</span><span class="p">([(</span><span class="n">synth</span><span class="p">,</span> <span class="n">group</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
+<span class="go">OscMessage(&#39;/g_head&#39;, 1000, 1001)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="gp">... </span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/g_head&#39;, 1000, 1001))</span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 1))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/n_move&#39;, 1001, 1000, -1, 1002, 0))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/synced&#39;, 1))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1000 group</span>
+<span class="go">            1001 default</span>
+<span class="go">            1002 group</span>
+<span class="go">            1003 group</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_local_nodes</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1000 group</span>
+<span class="go">            1001 default</span>
+<span class="go">            1002 group</span>
+<span class="go">            1003 group</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupHeadRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupHeadRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupHeadRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupHeadRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupHeadRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupHeadRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupHeadRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupHeadRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupHeadRequest.to_osc">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.movement.MoveRequest" title="supriya.commands.movement.MoveRequest"><code class="descclassname docutils literal notranslate"><span class="pre">MoveRequest</span></code></a>).</code><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.GroupHeadRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.GroupHeadRequest.node_id_pairs">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.movement.MoveRequest" title="supriya.commands.movement.MoveRequest"><code class="descclassname docutils literal notranslate"><span class="pre">MoveRequest</span></code></a>).</code><code class="sig-name descname">node_id_pairs</code><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.node_id_pairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.GroupHeadRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.GroupHeadRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.GroupHeadRequest.response_patterns">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.movement.GroupHeadRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.movement.GroupTailRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.movement.</code><code class="sig-name descname">GroupTailRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_id_pairs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/movement.html#GroupTailRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A /g_tail request.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">(),</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1001 default</span>
+<span class="go">        1000 group</span>
+<span class="go">            1002 group</span>
+<span class="go">            1003 group</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">GroupTailRequest</span><span class="p">([(</span><span class="n">synth</span><span class="p">,</span> <span class="n">group</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
+<span class="go">OscMessage(&#39;/g_tail&#39;, 1000, 1001)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="gp">... </span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/g_tail&#39;, 1000, 1001))</span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 1))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/n_move&#39;, 1001, 1000, 1003, -1, 0))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/synced&#39;, 1))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1000 group</span>
+<span class="go">            1002 group</span>
+<span class="go">            1003 group</span>
+<span class="go">            1001 default</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_local_nodes</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1000 group</span>
+<span class="go">            1002 group</span>
+<span class="go">            1003 group</span>
+<span class="go">            1001 default</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupTailRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupTailRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupTailRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupTailRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupTailRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupTailRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupTailRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupTailRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.GroupTailRequest.to_osc">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.movement.MoveRequest" title="supriya.commands.movement.MoveRequest"><code class="descclassname docutils literal notranslate"><span class="pre">MoveRequest</span></code></a>).</code><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.GroupTailRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.GroupTailRequest.node_id_pairs">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.movement.MoveRequest" title="supriya.commands.movement.MoveRequest"><code class="descclassname docutils literal notranslate"><span class="pre">MoveRequest</span></code></a>).</code><code class="sig-name descname">node_id_pairs</code><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.node_id_pairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.GroupTailRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.GroupTailRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.GroupTailRequest.response_patterns">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.movement.GroupTailRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.movement.NodeAfterRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.movement.</code><code class="sig-name descname">NodeAfterRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_id_pairs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/movement.html#NodeAfterRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>An /n_after request.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_a</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">([</span><span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">(),</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_b</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">([</span><span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">(),</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth_b</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">synth_a</span><span class="p">,</span> <span class="n">synth_b</span><span class="p">,</span> <span class="n">group_a</span><span class="p">,</span> <span class="n">group_b</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1000 default</span>
+<span class="go">        1001 default</span>
+<span class="go">        1002 group</span>
+<span class="go">            1003 group</span>
+<span class="go">            1004 group</span>
+<span class="go">        1005 group</span>
+<span class="go">            1006 group</span>
+<span class="go">            1007 group</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeAfterRequest</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[[</span><span class="n">synth_a</span><span class="p">,</span> <span class="n">group_a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">synth_b</span><span class="p">,</span> <span class="n">group_b</span><span class="p">],]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
+<span class="go">OscMessage(&#39;/n_after&#39;, 1000, 1004, 1001, 1005)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="gp">... </span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/n_after&#39;, 1000, 1004, 1001, 1005))</span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 0))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/n_move&#39;, 1000, 1002, 1004, -1, 0))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/n_move&#39;, 1001, 1, 1005, -1, 0))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/synced&#39;, 0))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1002 group</span>
+<span class="go">            1003 group</span>
+<span class="go">            1004 group</span>
+<span class="go">            1000 default</span>
+<span class="go">        1005 group</span>
+<span class="go">            1006 group</span>
+<span class="go">            1007 group</span>
+<span class="go">        1001 default</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_local_nodes</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1002 group</span>
+<span class="go">            1003 group</span>
+<span class="go">            1004 group</span>
+<span class="go">            1000 default</span>
+<span class="go">        1005 group</span>
+<span class="go">            1006 group</span>
+<span class="go">            1007 group</span>
+<span class="go">        1001 default</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeAfterRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeAfterRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeAfterRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeAfterRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeAfterRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeAfterRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeAfterRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeAfterRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeAfterRequest.to_osc">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.movement.MoveRequest" title="supriya.commands.movement.MoveRequest"><code class="descclassname docutils literal notranslate"><span class="pre">MoveRequest</span></code></a>).</code><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.NodeAfterRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.NodeAfterRequest.node_id_pairs">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.movement.MoveRequest" title="supriya.commands.movement.MoveRequest"><code class="descclassname docutils literal notranslate"><span class="pre">MoveRequest</span></code></a>).</code><code class="sig-name descname">node_id_pairs</code><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.node_id_pairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.NodeAfterRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.NodeAfterRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.NodeAfterRequest.response_patterns">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.movement.NodeAfterRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.movement.NodeBeforeRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.movement.</code><code class="sig-name descname">NodeBeforeRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_id_pairs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/movement.html#NodeBeforeRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>An /n_before request.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_a</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">([</span><span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">(),</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_b</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">([</span><span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">(),</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth_b</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">synth_a</span><span class="p">,</span> <span class="n">synth_b</span><span class="p">,</span> <span class="n">group_a</span><span class="p">,</span> <span class="n">group_b</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1000 default</span>
+<span class="go">        1001 default</span>
+<span class="go">        1002 group</span>
+<span class="go">            1003 group</span>
+<span class="go">            1004 group</span>
+<span class="go">        1005 group</span>
+<span class="go">            1006 group</span>
+<span class="go">            1007 group</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeBeforeRequest</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[[</span><span class="n">synth_a</span><span class="p">,</span> <span class="n">group_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">synth_b</span><span class="p">,</span> <span class="n">group_b</span><span class="p">],]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
+<span class="go">OscMessage(&#39;/n_before&#39;, 1000, 1003, 1001, 1005)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="gp">... </span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/n_before&#39;, 1000, 1003, 1001, 1005))</span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 0))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/n_move&#39;, 1000, 1002, -1, 1003, 0))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/n_move&#39;, 1001, 1, 1002, 1005, 0))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/synced&#39;, 0))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1002 group</span>
+<span class="go">            1000 default</span>
+<span class="go">            1003 group</span>
+<span class="go">            1004 group</span>
+<span class="go">        1001 default</span>
+<span class="go">        1005 group</span>
+<span class="go">            1006 group</span>
+<span class="go">            1007 group</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_local_nodes</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1002 group</span>
+<span class="go">            1000 default</span>
+<span class="go">            1003 group</span>
+<span class="go">            1004 group</span>
+<span class="go">        1001 default</span>
+<span class="go">        1005 group</span>
+<span class="go">            1006 group</span>
+<span class="go">            1007 group</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeBeforeRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeBeforeRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeBeforeRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeBeforeRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeBeforeRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeBeforeRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeBeforeRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeBeforeRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.movement.NodeBeforeRequest.to_osc">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.movement.MoveRequest" title="supriya.commands.movement.MoveRequest"><code class="descclassname docutils literal notranslate"><span class="pre">MoveRequest</span></code></a>).</code><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.NodeBeforeRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.NodeBeforeRequest.node_id_pairs">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.commands.movement.MoveRequest" title="supriya.commands.movement.MoveRequest"><code class="descclassname docutils literal notranslate"><span class="pre">MoveRequest</span></code></a>).</code><code class="sig-name descname">node_id_pairs</code><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.node_id_pairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.NodeBeforeRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.NodeBeforeRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.movement.NodeBeforeRequest.response_patterns">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.movement.NodeBeforeRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nodes.html" class="btn btn-neutral float-right" title="nodes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="groups.html" class="btn btn-neutral float-left" title="groups" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

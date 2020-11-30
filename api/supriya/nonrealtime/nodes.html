@@ -1,0 +1,1090 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nodes &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/supriya.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="renderer" href="renderer.html" />
+    <link rel="prev" title="buses" href="buses.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">nonrealtime</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buffers.html">buffers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buses.html">buses</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="renderer.html">renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sessions.html">sessions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html">states</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">nonrealtime</a> &raquo;</li>
+        
+      <li>nodes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/nonrealtime/nodes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.nonrealtime.nodes">
+<span id="nodes"></span><span id="supriya-nonrealtime-nodes"></span><h1>nodes<a class="headerlink" href="#module-supriya.nonrealtime.nodes" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-413ba352b7611c2e682c2c6c85c168aaffa9f9fe.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.nonrealtime.bases&quot; {
+        graph [label=&quot;supriya.nonrealtime.bases&quot;];
+        node [color=2];
+        &quot;supriya.nonrealtime.bases.SessionObject&quot; [URL=&quot;../api/supriya/nonrealtime/bases.html#supriya.nonrealtime.bases.SessionObject&quot;,
+            label=&quot;Session\nObject&quot;,
+            shape=oval,
+            style=bold,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.nonrealtime.nodes&quot; {
+        graph [label=&quot;supriya.nonrealtime.nodes&quot;];
+        node [color=3];
+        &quot;supriya.nonrealtime.nodes.Group&quot; [URL=&quot;../api/supriya/nonrealtime/nodes.html#supriya.nonrealtime.nodes.Group&quot;,
+            color=black,
+            fontcolor=white,
+            label=Group,
+            target=_top];
+        &quot;supriya.nonrealtime.nodes.Node&quot; [URL=&quot;../api/supriya/nonrealtime/nodes.html#supriya.nonrealtime.nodes.Node&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Node&quot;,
+            target=_top];
+        &quot;supriya.nonrealtime.nodes.RootNode&quot; [URL=&quot;../api/supriya/nonrealtime/nodes.html#supriya.nonrealtime.nodes.RootNode&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Root\nNode&quot;,
+            target=_top];
+        &quot;supriya.nonrealtime.nodes.Synth&quot; [URL=&quot;../api/supriya/nonrealtime/nodes.html#supriya.nonrealtime.nodes.Synth&quot;,
+            color=black,
+            fontcolor=white,
+            label=Synth,
+            target=_top];
+        &quot;supriya.nonrealtime.nodes.Group&quot; -&gt; &quot;supriya.nonrealtime.nodes.RootNode&quot;;
+        &quot;supriya.nonrealtime.nodes.Node&quot; -&gt; &quot;supriya.nonrealtime.nodes.Group&quot;;
+        &quot;supriya.nonrealtime.nodes.Node&quot; -&gt; &quot;supriya.nonrealtime.nodes.Synth&quot;;
+    }
+    subgraph &quot;cluster_supriya.system&quot; {
+        graph [label=&quot;supriya.system&quot;];
+        node [color=4];
+        &quot;supriya.system.SupriyaObject&quot; [URL=&quot;../api/supriya/nonrealtime/../system.html#supriya.system.SupriyaObject&quot;,
+            label=&quot;Supriya\nObject&quot;,
+            target=_top];
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;;
+    &quot;supriya.nonrealtime.bases.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.nodes.Node&quot;;
+    &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.nonrealtime.bases.SessionObject&quot;;
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Session Objects</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Group" title="supriya.nonrealtime.nodes.Group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Group</span></code></a></p></td>
+<td><p>A non-realtime group.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Node</span></code></a></p></td>
+<td><p>A non-realtime node.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.RootNode" title="supriya.nonrealtime.nodes.RootNode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RootNode</span></code></a></p></td>
+<td><p>A non-realtime root node.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Synth" title="supriya.nonrealtime.nodes.Synth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Synth</span></code></a></p></td>
+<td><p>A non-realtime synth.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.nonrealtime.nodes.Group">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.nonrealtime.nodes.</code><code class="sig-name descname">Group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">session_id</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Group" title="Permalink to this definition">¶</a></dt>
+<dd><p>A non-realtime group.</p>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Group.__str__" title="supriya.nonrealtime.nodes.Group.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></p></td>
+<td><p>Return str(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Group.get_children" title="supriya.nonrealtime.nodes.Group.get_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_children</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Group.inscribe" title="supriya.nonrealtime.nodes.Group.inscribe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inscribe</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.__getitem__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.__setitem__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">, </span>supriya.nonrealtime.Bus<span class="p">, </span>supriya.nonrealtime.BusGroup<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.__str__">
+<em class="property">overridden </em><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Group.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.add_group">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">add_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">add_action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Group" title="supriya.nonrealtime.nodes.Group">supriya.nonrealtime.nodes.Group</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.add_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.add_synth">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">add_synth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">add_action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">synthdef</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">synth_kwargs</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Synth" title="supriya.nonrealtime.nodes.Synth">supriya.nonrealtime.nodes.Synth</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.add_synth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.delete">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.free">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">free</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.free" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.get_children">
+<code class="sig-name descname">get_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Group.get_children"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.get_children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.get_parent">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">get_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.get_parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.get_parentage">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">get_parentage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.get_parentage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.inscribe">
+<code class="sig-name descname">inscribe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pattern</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../patterns/bases.html#supriya.patterns.bases.Pattern" title="supriya.patterns.bases.Pattern">supriya.patterns.bases.Pattern</a></span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Group.inscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.inscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.inspect_children">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">inspect_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.inspect_children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.move_node">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">move_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a></span></em>, <em class="sig-param"><span class="n">add_action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.move_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.set_duration">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">set_duration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span></em>, <em class="sig-param"><span class="n">clip_children</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.set_duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.split">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">split_occupiers</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">split_traversers</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.split" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Group.require_offset">
+<em class="property">static </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.nonrealtime.bases.SessionObject" title="supriya.nonrealtime.bases.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="sig-name descname">require_offset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.require_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Group.duration">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">duration</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Group.session">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.nonrealtime.bases.SessionObject" title="supriya.nonrealtime.bases.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="sig-name descname">session</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.session" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Group.session_id">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">session_id</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.session_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Group.start_offset">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">start_offset</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.start_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Group.stop_offset">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">stop_offset</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Group.stop_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.nonrealtime.nodes.Node">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.nonrealtime.nodes.</code><code class="sig-name descname">Node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">session_id</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>A non-realtime node.</p>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.__getitem__" title="supriya.nonrealtime.nodes.Node.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.__repr__" title="supriya.nonrealtime.nodes.Node.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.__setitem__" title="supriya.nonrealtime.nodes.Node.__setitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__setitem__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.add_group" title="supriya.nonrealtime.nodes.Node.add_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_group</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.add_synth" title="supriya.nonrealtime.nodes.Node.add_synth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_synth</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.delete" title="supriya.nonrealtime.nodes.Node.delete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delete</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.duration" title="supriya.nonrealtime.nodes.Node.duration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">duration</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.free" title="supriya.nonrealtime.nodes.Node.free"><code class="xref py py-obj docutils literal notranslate"><span class="pre">free</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.get_parent" title="supriya.nonrealtime.nodes.Node.get_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_parent</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.get_parentage" title="supriya.nonrealtime.nodes.Node.get_parentage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_parentage</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.inspect_children" title="supriya.nonrealtime.nodes.Node.inspect_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inspect_children</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.move_node" title="supriya.nonrealtime.nodes.Node.move_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_node</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.session_id" title="supriya.nonrealtime.nodes.Node.session_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_id</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.set_duration" title="supriya.nonrealtime.nodes.Node.set_duration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_duration</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.split" title="supriya.nonrealtime.nodes.Node.split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.start_offset" title="supriya.nonrealtime.nodes.Node.start_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_offset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Node.stop_offset" title="supriya.nonrealtime.nodes.Node.stop_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop_offset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.__repr__">
+<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.__setitem__">
+<code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">, </span>supriya.nonrealtime.Bus<span class="p">, </span>supriya.nonrealtime.BusGroup<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.add_group">
+<code class="sig-name descname">add_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">add_action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Group" title="supriya.nonrealtime.nodes.Group">supriya.nonrealtime.nodes.Group</a><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.add_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.add_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.add_synth">
+<code class="sig-name descname">add_synth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">add_action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">synthdef</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">synth_kwargs</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Synth" title="supriya.nonrealtime.nodes.Synth">supriya.nonrealtime.nodes.Synth</a><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.add_synth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.add_synth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.delete">
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.free">
+<code class="sig-name descname">free</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.free"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.free" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.get_parent">
+<code class="sig-name descname">get_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.get_parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.get_parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.get_parentage">
+<code class="sig-name descname">get_parentage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.get_parentage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.get_parentage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.inspect_children">
+<code class="sig-name descname">inspect_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">]</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.inspect_children"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.inspect_children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.move_node">
+<code class="sig-name descname">move_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a></span></em>, <em class="sig-param"><span class="n">add_action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.move_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.move_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.set_duration">
+<code class="sig-name descname">set_duration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span></em>, <em class="sig-param"><span class="n">clip_children</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.set_duration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.set_duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.split">
+<code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">split_occupiers</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">split_traversers</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Node.split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.split" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Node.require_offset">
+<em class="property">static </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.nonrealtime.bases.SessionObject" title="supriya.nonrealtime.bases.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="sig-name descname">require_offset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.require_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Node.duration">
+<code class="sig-name descname">duration</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Node.session">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.nonrealtime.bases.SessionObject" title="supriya.nonrealtime.bases.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="sig-name descname">session</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.session" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Node.session_id">
+<code class="sig-name descname">session_id</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.session_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Node.start_offset">
+<code class="sig-name descname">start_offset</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.start_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Node.stop_offset">
+<code class="sig-name descname">stop_offset</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Node.stop_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.nonrealtime.nodes.RootNode">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.nonrealtime.nodes.</code><code class="sig-name descname">RootNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#RootNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>A non-realtime root node.</p>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.RootNode.__str__" title="supriya.nonrealtime.nodes.RootNode.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></p></td>
+<td><p>Return str(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.RootNode.duration" title="supriya.nonrealtime.nodes.RootNode.duration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">duration</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.RootNode.start_offset" title="supriya.nonrealtime.nodes.RootNode.start_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_offset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.RootNode.stop_offset" title="supriya.nonrealtime.nodes.RootNode.stop_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop_offset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.__getitem__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.__setitem__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">, </span>supriya.nonrealtime.Bus<span class="p">, </span>supriya.nonrealtime.BusGroup<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.__str__">
+<em class="property">overridden </em><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#RootNode.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.add_group">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">add_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">add_action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Group" title="supriya.nonrealtime.nodes.Group">supriya.nonrealtime.nodes.Group</a><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.add_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.add_synth">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">add_synth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">add_action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">synthdef</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">synth_kwargs</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Synth" title="supriya.nonrealtime.nodes.Synth">supriya.nonrealtime.nodes.Synth</a><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.add_synth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.delete">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.free">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">free</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.free" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.get_children">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Group" title="supriya.nonrealtime.nodes.Group"><code class="descclassname docutils literal notranslate"><span class="pre">Group</span></code></a>).</code><code class="sig-name descname">get_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.get_children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.get_parent">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">get_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.get_parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.get_parentage">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">get_parentage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.get_parentage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.inscribe">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Group" title="supriya.nonrealtime.nodes.Group"><code class="descclassname docutils literal notranslate"><span class="pre">Group</span></code></a>).</code><code class="sig-name descname">inscribe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pattern</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../patterns/bases.html#supriya.patterns.bases.Pattern" title="supriya.patterns.bases.Pattern">supriya.patterns.bases.Pattern</a></span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.inscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.inspect_children">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">inspect_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.inspect_children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.move_node">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">move_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a></span></em>, <em class="sig-param"><span class="n">add_action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.move_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.set_duration">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">set_duration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span></em>, <em class="sig-param"><span class="n">clip_children</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.set_duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.split">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">split_occupiers</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">split_traversers</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.split" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.RootNode.require_offset">
+<em class="property">static </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.nonrealtime.bases.SessionObject" title="supriya.nonrealtime.bases.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="sig-name descname">require_offset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.require_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.RootNode.duration">
+<em class="property">overridden </em><code class="sig-name descname">duration</code><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.RootNode.session">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.nonrealtime.bases.SessionObject" title="supriya.nonrealtime.bases.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="sig-name descname">session</code><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.session" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.RootNode.session_id">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">session_id</code><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.session_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.RootNode.start_offset">
+<em class="property">overridden </em><code class="sig-name descname">start_offset</code><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.start_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.RootNode.stop_offset">
+<em class="property">overridden </em><code class="sig-name descname">stop_offset</code><a class="headerlink" href="#supriya.nonrealtime.nodes.RootNode.stop_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.nonrealtime.nodes.Synth">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.nonrealtime.nodes.</code><code class="sig-name descname">Synth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">session_id</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">synthdef</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">synth_kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Synth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth" title="Permalink to this definition">¶</a></dt>
+<dd><p>A non-realtime synth.</p>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Synth.__str__" title="supriya.nonrealtime.nodes.Synth.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></p></td>
+<td><p>Return str(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Synth.synth_kwargs" title="supriya.nonrealtime.nodes.Synth.synth_kwargs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synth_kwargs</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.nodes.Synth.synthdef" title="supriya.nonrealtime.nodes.Synth.synthdef"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synthdef</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.__getitem__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.__setitem__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">, </span>supriya.nonrealtime.Bus<span class="p">, </span>supriya.nonrealtime.BusGroup<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.__str__">
+<em class="property">overridden </em><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><a class="reference internal" href="../../../_modules/supriya/nonrealtime/nodes.html#Synth.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.add_group">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">add_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">add_action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Group" title="supriya.nonrealtime.nodes.Group">supriya.nonrealtime.nodes.Group</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.add_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.add_synth">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">add_synth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">add_action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">synthdef</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">synth_kwargs</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Synth" title="supriya.nonrealtime.nodes.Synth">supriya.nonrealtime.nodes.Synth</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.add_synth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.delete">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.free">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">free</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.free" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.get_parent">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">get_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.get_parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.get_parentage">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">get_parentage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.get_parentage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.inspect_children">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">inspect_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.inspect_children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.move_node">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">move_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a></span></em>, <em class="sig-param"><span class="n">add_action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.move_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.set_duration">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">set_duration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span></em>, <em class="sig-param"><span class="n">clip_children</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.set_duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.split">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">split_occupiers</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">split_traversers</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node">supriya.nonrealtime.nodes.Node</a><span class="p">]</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.split" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.nodes.Synth.require_offset">
+<em class="property">static </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.nonrealtime.bases.SessionObject" title="supriya.nonrealtime.bases.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="sig-name descname">require_offset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.require_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Synth.duration">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">duration</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Synth.session">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.nonrealtime.bases.SessionObject" title="supriya.nonrealtime.bases.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="sig-name descname">session</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.session" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Synth.session_id">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">session_id</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.session_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Synth.start_offset">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">start_offset</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.start_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Synth.stop_offset">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.nonrealtime.nodes.Node" title="supriya.nonrealtime.nodes.Node"><code class="descclassname docutils literal notranslate"><span class="pre">Node</span></code></a>).</code><code class="sig-name descname">stop_offset</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.stop_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Synth.synth_kwargs">
+<code class="sig-name descname">synth_kwargs</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.synth_kwargs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.nodes.Synth.synthdef">
+<code class="sig-name descname">synthdef</code><a class="headerlink" href="#supriya.nonrealtime.nodes.Synth.synthdef" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="renderer.html" class="btn btn-neutral float-right" title="renderer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="buses.html" class="btn btn-neutral float-left" title="buses" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

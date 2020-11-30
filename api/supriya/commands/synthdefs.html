@@ -1,0 +1,1235 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>synthdefs &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/supriya.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="synths" href="synths.html" />
+    <link rel="prev" title="server" href="server.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buffers.html">buffers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buses.html">buses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html">groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="movement.html">movement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server.html">server</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="synths.html">synths</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">commands</a> &raquo;</li>
+        
+      <li>synthdefs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/commands/synthdefs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.commands.synthdefs">
+<span id="synthdefs"></span><span id="supriya-commands-synthdefs"></span><h1>synthdefs<a class="headerlink" href="#module-supriya.commands.synthdefs" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-799b071aabb69f717dc3cb3e1d361d42f6937bf2.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.commands.bases&quot; {
+        graph [label=&quot;supriya.commands.bases&quot;];
+        node [color=2];
+        &quot;supriya.commands.bases.Request&quot; [URL=&quot;../api/supriya/commands/bases.html#supriya.commands.bases.Request&quot;,
+            label=Request,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;supriya.commands.bases.Requestable&quot; [URL=&quot;../api/supriya/commands/bases.html#supriya.commands.bases.Requestable&quot;,
+            label=Requestable,
+            target=_top];
+        &quot;supriya.commands.bases.Response&quot; [URL=&quot;../api/supriya/commands/bases.html#supriya.commands.bases.Response&quot;,
+            label=Response,
+            target=_top];
+        &quot;supriya.commands.bases.Requestable&quot; -&gt; &quot;supriya.commands.bases.Request&quot;;
+    }
+    subgraph &quot;cluster_supriya.commands.synthdefs&quot; {
+        graph [label=&quot;supriya.commands.synthdefs&quot;];
+        node [color=3];
+        &quot;supriya.commands.synthdefs.SynthDefFreeAllRequest&quot; [URL=&quot;../api/supriya/commands/synthdefs.html#supriya.commands.synthdefs.SynthDefFreeAllRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Synth\nDef\nFree\nAll\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.synthdefs.SynthDefFreeRequest&quot; [URL=&quot;../api/supriya/commands/synthdefs.html#supriya.commands.synthdefs.SynthDefFreeRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Synth\nDef\nFree\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.synthdefs.SynthDefLoadDirectoryRequest&quot; [URL=&quot;../api/supriya/commands/synthdefs.html#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Synth\nDef\nLoad\nDirectory\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.synthdefs.SynthDefLoadRequest&quot; [URL=&quot;../api/supriya/commands/synthdefs.html#supriya.commands.synthdefs.SynthDefLoadRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Synth\nDef\nLoad\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.synthdefs.SynthDefReceiveRequest&quot; [URL=&quot;../api/supriya/commands/synthdefs.html#supriya.commands.synthdefs.SynthDefReceiveRequest&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Synth\nDef\nReceive\nRequest&quot;,
+            target=_top];
+        &quot;supriya.commands.synthdefs.SynthDefRemovedResponse&quot; [URL=&quot;../api/supriya/commands/synthdefs.html#supriya.commands.synthdefs.SynthDefRemovedResponse&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Synth\nDef\nRemoved\nResponse&quot;,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.system&quot; {
+        graph [label=&quot;supriya.system&quot;];
+        node [color=4];
+        &quot;supriya.system.SupriyaObject&quot; [URL=&quot;../api/supriya/commands/../system.html#supriya.system.SupriyaObject&quot;,
+            label=&quot;Supriya\nObject&quot;,
+            target=_top];
+        &quot;supriya.system.SupriyaValueObject&quot; [URL=&quot;../api/supriya/commands/../system.html#supriya.system.SupriyaValueObject&quot;,
+            label=&quot;Supriya\nValue\nObject&quot;,
+            target=_top];
+        &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject&quot;;
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;;
+    &quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.synthdefs.SynthDefFreeAllRequest&quot;;
+    &quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.synthdefs.SynthDefFreeRequest&quot;;
+    &quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.synthdefs.SynthDefLoadDirectoryRequest&quot;;
+    &quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.synthdefs.SynthDefLoadRequest&quot;;
+    &quot;supriya.commands.bases.Request&quot; -&gt; &quot;supriya.commands.synthdefs.SynthDefReceiveRequest&quot;;
+    &quot;supriya.commands.bases.Response&quot; -&gt; &quot;supriya.commands.synthdefs.SynthDefRemovedResponse&quot;;
+    &quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.bases.Requestable&quot;;
+    &quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.bases.Response&quot;;
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest" title="supriya.commands.synthdefs.SynthDefFreeAllRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefFreeAllRequest</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefFreeRequest" title="supriya.commands.synthdefs.SynthDefFreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefFreeRequest</span></code></a></p></td>
+<td><p>A /d_free request.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest" title="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefLoadDirectoryRequest</span></code></a></p></td>
+<td><p>A /d_loadDir request.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefLoadRequest" title="supriya.commands.synthdefs.SynthDefLoadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefLoadRequest</span></code></a></p></td>
+<td><p>A /d_load request.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefReceiveRequest" title="supriya.commands.synthdefs.SynthDefReceiveRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefReceiveRequest</span></code></a></p></td>
+<td><p>A /d_recv request.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefRemovedResponse" title="supriya.commands.synthdefs.SynthDefRemovedResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefRemovedResponse</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.synthdefs.</code><code class="sig-name descname">SynthDefFreeAllRequest</code><a class="reference internal" href="../../../_modules/supriya/commands/synthdefs.html#SynthDefFreeAllRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.to_osc" title="supriya.commands.synthdefs.SynthDefFreeAllRequest.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.to_osc">
+<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/synthdefs.html#SynthDefFreeAllRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefFreeAllRequest.response_patterns">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeAllRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.synthdefs.</code><code class="sig-name descname">SynthDefFreeRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">synthdef</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/synthdefs.html#SynthDefFreeRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A /d_free request.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.commands</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">SynthDefFreeRequest</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span>
+<span class="go">SynthDefFreeRequest(</span>
+<span class="go">    synthdef=&#39;test&#39;,</span>
+<span class="go">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
+<span class="go">OscMessage(&#39;/d_free&#39;, &#39;test&#39;)</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefFreeRequest.synthdef" title="supriya.commands.synthdefs.SynthDefFreeRequest.synthdef"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synthdef</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefFreeRequest.to_osc" title="supriya.commands.synthdefs.SynthDefFreeRequest.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.to_osc">
+<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/synthdefs.html#SynthDefFreeRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.response_patterns">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefFreeRequest.synthdef">
+<code class="sig-name descname">synthdef</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefFreeRequest.synthdef" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.synthdefs.</code><code class="sig-name descname">SynthDefLoadDirectoryRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">directory_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/synthdefs.html#SynthDefLoadDirectoryRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A /d_loadDir request.</p>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.callback" title="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">callback</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.directory_path" title="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.directory_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">directory_path</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.response_patterns" title="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.response_patterns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">response_patterns</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.to_osc" title="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.to_osc">
+<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/synthdefs.html#SynthDefLoadDirectoryRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.callback">
+<code class="sig-name descname">callback</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.callback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.directory_path">
+<code class="sig-name descname">directory_path</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.directory_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.response_patterns">
+<em class="property">overridden </em><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadDirectoryRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.synthdefs.</code><code class="sig-name descname">SynthDefLoadRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">synthdef_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/synthdefs.html#SynthDefLoadRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A /d_load request.</p>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefLoadRequest.callback" title="supriya.commands.synthdefs.SynthDefLoadRequest.callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">callback</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefLoadRequest.response_patterns" title="supriya.commands.synthdefs.SynthDefLoadRequest.response_patterns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">response_patterns</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefLoadRequest.synthdef_path" title="supriya.commands.synthdefs.SynthDefLoadRequest.synthdef_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synthdef_path</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefLoadRequest.to_osc" title="supriya.commands.synthdefs.SynthDefLoadRequest.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.to_osc">
+<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/synthdefs.html#SynthDefLoadRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.callback">
+<code class="sig-name descname">callback</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.callback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.response_patterns">
+<em class="property">overridden </em><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefLoadRequest.synthdef_path">
+<code class="sig-name descname">synthdef_path</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefLoadRequest.synthdef_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.synthdefs.</code><code class="sig-name descname">SynthDefReceiveRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">synthdefs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">use_anonymous_names</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/synthdefs.html#SynthDefReceiveRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A /d_recv request.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">out</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">],</span> <span class="n">source</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">DC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]),</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="ow">in</span> <span class="n">server</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+</pre></div>
+</div>
+<p>Allocate a synthdef, then allocate a new group and allocate a synth in that
+group using the newly allocated synthdef:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">SynthDefReceiveRequest</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">synthdefs</span><span class="o">=</span><span class="p">[</span><span class="n">synthdef</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">callback</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">RequestBundle</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">contents</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>            <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">GroupNewRequest</span><span class="p">(</span>
+<span class="gp">... </span>                <span class="n">items</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>                    <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">GroupNewRequest</span><span class="o">.</span><span class="n">Item</span><span class="p">(</span>
+<span class="gp">... </span>                        <span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">target_node_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="p">),</span>
+<span class="gp">... </span>                <span class="p">],</span>
+<span class="gp">... </span>            <span class="p">),</span>
+<span class="gp">... </span>            <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">SynthNewRequest</span><span class="p">(</span>
+<span class="gp">... </span>                <span class="n">node_id</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">,</span> <span class="n">target_node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="p">),</span>
+<span class="gp">... </span>        <span class="p">],</span>
+<span class="gp">... </span>    <span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span>
+<span class="go">DoneResponse(</span>
+<span class="go">    action=(&#39;/d_recv&#39;,),</span>
+<span class="go">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="gp">... </span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/d_recv&#39;, bytearray(b&#39;SCgf\x00\x00\x00\x02\x00\x01\x07example\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00?\x00\x00\x00\x00\x00\x00\x02\x03out\x00\x00\x00\x00\x05value\x00\x00\x00\x01\x00\x00\x00\x03\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x01\x01\x02DC\x02\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00&#39;), OscBundle(</span>
+<span class="go">    contents=(</span>
+<span class="go">        OscMessage(&#39;/g_new&#39;, 1000, 0, 1),</span>
+<span class="go">        OscMessage(&#39;/s_new&#39;, &#39;example&#39;, 1001, 0, 1000),</span>
+<span class="go">    ),</span>
+<span class="go">)))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/n_go&#39;, 1000, 1, -1, -1, 1, -1, -1))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/n_go&#39;, 1001, 1000, -1, -1, 0))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/done&#39;, &#39;/d_recv&#39;))</span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 0))</span>
+<span class="go">(&#39;R&#39;, OscMessage(&#39;/synced&#39;, 0))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1000 group</span>
+<span class="go">            1001 example</span>
+<span class="go">                out: 0.0, value: 0.5</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_local_nodes</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1000 group</span>
+<span class="go">            1001 example</span>
+<span class="go">                out: 0.0, value: 0.5</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="ow">in</span> <span class="n">server</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.callback" title="supriya.commands.synthdefs.SynthDefReceiveRequest.callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">callback</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_id</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.response_patterns" title="supriya.commands.synthdefs.SynthDefReceiveRequest.response_patterns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">response_patterns</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.synthdefs" title="supriya.commands.synthdefs.SynthDefReceiveRequest.synthdefs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synthdefs</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.to_osc" title="supriya.commands.synthdefs.SynthDefReceiveRequest.to_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.use_anonymous_names" title="supriya.commands.synthdefs.SynthDefReceiveRequest.use_anonymous_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_anonymous_names</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.communicate">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.to_datagram">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.to_list">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.to_osc">
+<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/synthdefs.html#SynthDefReceiveRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.callback">
+<code class="sig-name descname">callback</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.callback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.condition">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.request_name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.response">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.response_patterns">
+<em class="property">overridden </em><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.synthdefs">
+<code class="sig-name descname">synthdefs</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.synthdefs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefReceiveRequest.use_anonymous_names">
+<code class="sig-name descname">use_anonymous_names</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefReceiveRequest.use_anonymous_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.commands.synthdefs.SynthDefRemovedResponse">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.synthdefs.</code><code class="sig-name descname">SynthDefRemovedResponse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">synthdef_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/synthdefs.html#SynthDefRemovedResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefRemovedResponse" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefRemovedResponse.from_osc_message" title="supriya.commands.synthdefs.SynthDefRemovedResponse.from_osc_message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_osc_message</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.commands.synthdefs.SynthDefRemovedResponse.synthdef_name" title="supriya.commands.synthdefs.SynthDefRemovedResponse.synthdef_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synthdef_name</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefRemovedResponse.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefRemovedResponse.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefRemovedResponse.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefRemovedResponse.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefRemovedResponse.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefRemovedResponse.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefRemovedResponse.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefRemovedResponse.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefRemovedResponse.to_dict">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="descclassname docutils literal notranslate"><span class="pre">Response</span></code></a>).</code><code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefRemovedResponse.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<dl class="py method">
+<dt id="supriya.commands.synthdefs.SynthDefRemovedResponse.from_osc_message">
+<em class="property">overridden </em><em class="property">classmethod </em><code class="sig-name descname">from_osc_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">osc_message</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/synthdefs.html#SynthDefRemovedResponse.from_osc_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefRemovedResponse.from_osc_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.commands.synthdefs.SynthDefRemovedResponse.synthdef_name">
+<code class="sig-name descname">synthdef_name</code><a class="headerlink" href="#supriya.commands.synthdefs.SynthDefRemovedResponse.synthdef_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="synths.html" class="btn btn-neutral float-right" title="synths" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="server.html" class="btn btn-neutral float-left" title="server" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

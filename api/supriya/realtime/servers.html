@@ -1,0 +1,1277 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>servers &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/supriya.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="sclang" href="../sclang.html" />
+    <link rel="prev" title="recorder" href="recorder.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">realtime</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="allocators.html">allocators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buffers.html">buffers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buses.html">buses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interfaces.html">interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="meters.html">meters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="protocols.html">protocols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="recorder.html">recorder</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">servers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">realtime</a> &raquo;</li>
+        
+      <li>servers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/realtime/servers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.realtime.servers">
+<span id="servers"></span><span id="supriya-realtime-servers"></span><h1>servers<a class="headerlink" href="#module-supriya.realtime.servers" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-93f14e6ed72f6d09f35f5a04949ac7b18f87b24a.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.realtime.servers&quot; {
+        graph [label=&quot;supriya.realtime.servers&quot;];
+        node [color=2];
+        &quot;supriya.realtime.servers.AsyncServer&quot; [URL=&quot;../api/supriya/realtime/servers.html#supriya.realtime.servers.AsyncServer&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Async\nServer&quot;,
+            target=_top];
+        &quot;supriya.realtime.servers.BaseServer&quot; [URL=&quot;../api/supriya/realtime/servers.html#supriya.realtime.servers.BaseServer&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Base\nServer&quot;,
+            target=_top];
+        &quot;supriya.realtime.servers.Server&quot; [URL=&quot;../api/supriya/realtime/servers.html#supriya.realtime.servers.Server&quot;,
+            color=black,
+            fontcolor=white,
+            label=Server,
+            target=_top];
+        &quot;supriya.realtime.servers.BaseServer&quot; -&gt; &quot;supriya.realtime.servers.AsyncServer&quot;;
+        &quot;supriya.realtime.servers.BaseServer&quot; -&gt; &quot;supriya.realtime.servers.Server&quot;;
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.realtime.servers.BaseServer&quot;;
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.AsyncServer" title="supriya.realtime.servers.AsyncServer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AsyncServer</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseServer</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.realtime.servers.AsyncServer">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.realtime.servers.</code><code class="sig-name descname">AsyncServer</code><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#AsyncServer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.AsyncServer" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.AsyncServer.__contains__" title="supriya.realtime.servers.AsyncServer.__contains__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__contains__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.AsyncServer.boot" title="supriya.realtime.servers.AsyncServer.boot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">boot</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.AsyncServer.boot_future" title="supriya.realtime.servers.AsyncServer.boot_future"><code class="xref py py-obj docutils literal notranslate"><span class="pre">boot_future</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.AsyncServer.connect" title="supriya.realtime.servers.AsyncServer.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.AsyncServer.default_group" title="supriya.realtime.servers.AsyncServer.default_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_group</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.AsyncServer.disconnect" title="supriya.realtime.servers.AsyncServer.disconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disconnect</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.AsyncServer.query" title="supriya.realtime.servers.AsyncServer.query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.AsyncServer.quit" title="supriya.realtime.servers.AsyncServer.quit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quit</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.AsyncServer.quit_future" title="supriya.realtime.servers.AsyncServer.quit_future"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quit_future</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.servers.AsyncServer.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#AsyncServer.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.servers.AsyncServer.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.servers.AsyncServer.boot">
+<em class="property">overridden </em><em class="property">async </em><code class="sig-name descname">boot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">57110</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">scsynth_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#AsyncServer.boot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.boot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.AsyncServer.connect">
+<em class="property">overridden </em><em class="property">async </em><code class="sig-name descname">connect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ip_address</span><span class="o">=</span><span class="default_value">'127.0.0.1'</span></em>, <em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">57110</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#AsyncServer.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.AsyncServer.disconnect">
+<em class="property">overridden </em><em class="property">async </em><code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#AsyncServer.disconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.AsyncServer.query">
+<em class="property">async </em><code class="sig-name descname">query</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_controls</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#AsyncServer.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.query" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.AsyncServer.quit">
+<em class="property">overridden </em><em class="property">async </em><code class="sig-name descname">quit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#AsyncServer.quit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.quit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.servers.AsyncServer.send">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.send" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read/write properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.latency">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">latency</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.latency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.audio_bus_allocator">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">audio_bus_allocator</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.audio_bus_allocator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.boot_future">
+<code class="sig-name descname">boot_future</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.boot_future" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.buffer_allocator">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">buffer_allocator</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.buffer_allocator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.client_id">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">client_id</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.client_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.control_bus_allocator">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">control_bus_allocator</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.control_bus_allocator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.default_group">
+<code class="sig-name descname">default_group</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.default_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.ip_address">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">ip_address</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.ip_address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.is_owner">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">is_owner</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.is_owner" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.is_running">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">is_running</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.is_running" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.maximum_logins">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">maximum_logins</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.maximum_logins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.next_sync_id">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">next_sync_id</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.next_sync_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.node_id_allocator">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">node_id_allocator</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.node_id_allocator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.options">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">options</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.osc_protocol">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">osc_protocol</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.osc_protocol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.port">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">port</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.process_protocol">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">process_protocol</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.process_protocol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.quit_future">
+<code class="sig-name descname">quit_future</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.quit_future" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.AsyncServer.status">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">status</code><a class="headerlink" href="#supriya.realtime.servers.AsyncServer.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.realtime.servers.BaseServer">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.realtime.servers.</code><code class="sig-name descname">BaseServer</code><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#BaseServer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.BaseServer" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.__repr__" title="supriya.realtime.servers.BaseServer.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.audio_bus_allocator" title="supriya.realtime.servers.BaseServer.audio_bus_allocator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_bus_allocator</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.boot" title="supriya.realtime.servers.BaseServer.boot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">boot</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.buffer_allocator" title="supriya.realtime.servers.BaseServer.buffer_allocator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buffer_allocator</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.client_id" title="supriya.realtime.servers.BaseServer.client_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">client_id</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.connect" title="supriya.realtime.servers.BaseServer.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.control_bus_allocator" title="supriya.realtime.servers.BaseServer.control_bus_allocator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control_bus_allocator</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.disconnect" title="supriya.realtime.servers.BaseServer.disconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disconnect</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.ip_address" title="supriya.realtime.servers.BaseServer.ip_address"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ip_address</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.is_owner" title="supriya.realtime.servers.BaseServer.is_owner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_owner</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.is_running" title="supriya.realtime.servers.BaseServer.is_running"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_running</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.latency" title="supriya.realtime.servers.BaseServer.latency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latency</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.maximum_logins" title="supriya.realtime.servers.BaseServer.maximum_logins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">maximum_logins</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.next_sync_id" title="supriya.realtime.servers.BaseServer.next_sync_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">next_sync_id</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.node_id_allocator" title="supriya.realtime.servers.BaseServer.node_id_allocator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">node_id_allocator</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.options" title="supriya.realtime.servers.BaseServer.options"><code class="xref py py-obj docutils literal notranslate"><span class="pre">options</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.osc_protocol" title="supriya.realtime.servers.BaseServer.osc_protocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">osc_protocol</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.port" title="supriya.realtime.servers.BaseServer.port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">port</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.process_protocol" title="supriya.realtime.servers.BaseServer.process_protocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">process_protocol</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.quit" title="supriya.realtime.servers.BaseServer.quit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quit</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.send" title="supriya.realtime.servers.BaseServer.send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.BaseServer.status" title="supriya.realtime.servers.BaseServer.status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">status</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.servers.BaseServer.__repr__">
+<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#BaseServer.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.BaseServer.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.servers.BaseServer.boot">
+<code class="sig-name descname">boot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">57110</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">scsynth_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#BaseServer.boot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.BaseServer.boot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.BaseServer.connect">
+<code class="sig-name descname">connect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ip_address</span><span class="o">=</span><span class="default_value">'127.0.0.1'</span></em>, <em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">57110</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#BaseServer.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.BaseServer.connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.BaseServer.disconnect">
+<code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#BaseServer.disconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.BaseServer.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.BaseServer.quit">
+<code class="sig-name descname">quit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#BaseServer.quit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.BaseServer.quit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.BaseServer.send">
+<code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#BaseServer.send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.BaseServer.send" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read/write properties</p>
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.latency">
+<code class="sig-name descname">latency</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.latency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.audio_bus_allocator">
+<code class="sig-name descname">audio_bus_allocator</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.audio_bus_allocator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.buffer_allocator">
+<code class="sig-name descname">buffer_allocator</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.buffer_allocator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.client_id">
+<code class="sig-name descname">client_id</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.client_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.control_bus_allocator">
+<code class="sig-name descname">control_bus_allocator</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.control_bus_allocator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.ip_address">
+<code class="sig-name descname">ip_address</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.ip_address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.is_owner">
+<code class="sig-name descname">is_owner</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.is_owner" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.is_running">
+<code class="sig-name descname">is_running</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.is_running" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.maximum_logins">
+<code class="sig-name descname">maximum_logins</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.maximum_logins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.next_sync_id">
+<code class="sig-name descname">next_sync_id</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.next_sync_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.node_id_allocator">
+<code class="sig-name descname">node_id_allocator</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.node_id_allocator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.options">
+<code class="sig-name descname">options</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.osc_protocol">
+<code class="sig-name descname">osc_protocol</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.osc_protocol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.port">
+<code class="sig-name descname">port</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.process_protocol">
+<code class="sig-name descname">process_protocol</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.process_protocol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.BaseServer.status">
+<code class="sig-name descname">status</code><a class="headerlink" href="#supriya.realtime.servers.BaseServer.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr/><p class="section-header rubric">Main Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server" title="supriya.realtime.servers.Server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Server</span></code></a></p></td>
+<td><p>An scsynth server proxy.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.realtime.servers.Server">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.realtime.servers.</code><code class="sig-name descname">Server</code><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server" title="Permalink to this definition">¶</a></dt>
+<dd><p>An scsynth server proxy.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="go">&lt;Server: offline&gt;</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.__contains__" title="supriya.realtime.servers.Server.__contains__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__contains__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.__getitem__" title="supriya.realtime.servers.Server.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></p></td>
+<td><p>Get <code class="docutils literal notranslate"><span class="pre">item</span></code> from server.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.__graph__" title="supriya.realtime.servers.Server.__graph__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__graph__</span></code></a></p></td>
+<td><p>Graph server.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.__str__" title="supriya.realtime.servers.Server.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></p></td>
+<td><p>Return str(self).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.audio_input_bus_group" title="supriya.realtime.servers.Server.audio_input_bus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_input_bus_group</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.audio_output_bus_group" title="supriya.realtime.servers.Server.audio_output_bus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_output_bus_group</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.boot" title="supriya.realtime.servers.Server.boot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">boot</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.connect" title="supriya.realtime.servers.Server.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.default" title="supriya.realtime.servers.Server.default"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.default_group" title="supriya.realtime.servers.Server.default_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_group</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.disconnect" title="supriya.realtime.servers.Server.disconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disconnect</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.meters" title="supriya.realtime.servers.Server.meters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meters</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.query_local_nodes" title="supriya.realtime.servers.Server.query_local_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query_local_nodes</span></code></a></p></td>
+<td><p>Queries all node proxies in Python.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.query_remote_nodes" title="supriya.realtime.servers.Server.query_remote_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query_remote_nodes</span></code></a></p></td>
+<td><p>Queries all nodes on scsynth.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.quit" title="supriya.realtime.servers.Server.quit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quit</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.reboot" title="supriya.realtime.servers.Server.reboot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reboot</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.recorder" title="supriya.realtime.servers.Server.recorder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recorder</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.root_node" title="supriya.realtime.servers.Server.root_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_node</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.servers.Server.sync" title="supriya.realtime.servers.Server.sync"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get <code class="docutils literal notranslate"><span class="pre">item</span></code> from server.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="go">&lt;+ Synth: 1000 (foo)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="mi">1000</span><span class="p">]</span>
+<span class="go">&lt;+ Synth: 1000 (foo)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">]</span>
+<span class="go">&lt;+ Synth: 1000 (foo)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="s2">&quot;b10&quot;</span><span class="p">]</span>
+<span class="go">&lt;+ Buffer: 10&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">]</span>
+<span class="go">&lt;+ Bus: 0 (audio)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="s2">&quot;c16&quot;</span><span class="p">]</span>
+<span class="go">&lt;+ Bus: 16 (control)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; server = server.quit()
+&gt;&gt;&gt; server[&quot;c16&quot;]
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/servers.py&quot;, line 512, in __getitem__
+    raise supriya.exceptions.ServerOffline
+supriya.exceptions.ServerOffline
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.__graph__">
+<code class="sig-name descname">__graph__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.__graph__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.__graph__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Graph server.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(),</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">([</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(),</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(),]),]</span>
+<span class="gp">... </span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">__graph__</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="s2">&quot;graphviz&quot;</span><span class="p">))</span>
+<span class="go">digraph G {</span>
+<span class="go">    graph [bgcolor=transparent,</span>
+<span class="go">        color=lightslategrey,</span>
+<span class="go">        dpi=72,</span>
+<span class="go">        fontname=Arial,</span>
+<span class="go">        outputorder=edgesfirst,</span>
+<span class="go">        overlap=prism,</span>
+<span class="go">        penwidth=2,</span>
+<span class="go">        rankdir=TB,</span>
+<span class="go">        ranksep=0.5,</span>
+<span class="go">        splines=spline,</span>
+<span class="go">        style=&quot;dotted, rounded&quot;];</span>
+<span class="go">    node [fontname=Arial,</span>
+<span class="go">        fontsize=12,</span>
+<span class="go">        penwidth=2,</span>
+<span class="go">        shape=Mrecord,</span>
+<span class="go">        style=&quot;filled, rounded&quot;];</span>
+<span class="go">    edge [penwidth=2];</span>
+<span class="go">    &quot;root-node-0&quot; [fillcolor=lightsalmon2,</span>
+<span class="go">        label=&quot;{ &lt;f_0_0&gt; RootNode | &lt;f_0_1&gt; id: 0 }&quot;];</span>
+<span class="go">    &quot;group-1&quot; [fillcolor=lightsteelblue2,</span>
+<span class="go">        label=&quot;{ &lt;f_0_0&gt; Group | &lt;f_0_1&gt; id: 1 }&quot;];</span>
+<span class="go">    &quot;group-1000&quot; [fillcolor=lightsteelblue2,</span>
+<span class="go">        label=&quot;{ &lt;f_0_0&gt; Group | &lt;f_0_1&gt; id: 1000 }&quot;];</span>
+<span class="go">    &quot;synth-1001&quot; [fillcolor=lightgoldenrod2,</span>
+<span class="go">        label=&quot;{ &lt;f_0_0&gt; Synth | &lt;f_0_1&gt; id: 1001 }&quot;];</span>
+<span class="go">    &quot;group-1002&quot; [fillcolor=lightsteelblue2,</span>
+<span class="go">        label=&quot;{ &lt;f_0_0&gt; Group | &lt;f_0_1&gt; id: 1002 }&quot;];</span>
+<span class="go">    &quot;synth-1003&quot; [fillcolor=lightgoldenrod2,</span>
+<span class="go">        label=&quot;{ &lt;f_0_0&gt; Synth | &lt;f_0_1&gt; id: 1003 }&quot;];</span>
+<span class="go">    &quot;synth-1004&quot; [fillcolor=lightgoldenrod2,</span>
+<span class="go">        label=&quot;{ &lt;f_0_0&gt; Synth | &lt;f_0_1&gt; id: 1004 }&quot;];</span>
+<span class="go">    &quot;root-node-0&quot; -&gt; &quot;group-1&quot;;</span>
+<span class="go">    &quot;group-1&quot; -&gt; &quot;group-1000&quot;;</span>
+<span class="go">    &quot;group-1000&quot; -&gt; &quot;synth-1001&quot;;</span>
+<span class="go">    &quot;group-1000&quot; -&gt; &quot;group-1002&quot;;</span>
+<span class="go">    &quot;group-1002&quot; -&gt; &quot;synth-1003&quot;;</span>
+<span class="go">    &quot;group-1002&quot; -&gt; &quot;synth-1004&quot;;</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>  
+<span class="go">Exception ignored in: &lt;function ThreadedOscProtocol.__del__ at 0x7ff9c2bceee0&gt;</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/osc/protocols.py&quot;</span>, line <span class="m">310</span>, in <span class="n">__del__</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/osc/protocols.py&quot;</span>, line <span class="m">363</span>, in <span class="n">disconnect</span>
+    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+<span class="gr">AttributeError</span>: <span class="n">&#39;ThreadedOscProtocol&#39; object has no attribute &#39;lock&#39;</span>
+</pre></div>
+</div>
+<div class="uqbar-book"><a href="../../../_images/graphviz-1256c3831913fea767971a56327681b898f362fb6bc2cf512595687fadb16296.dot" title=""><img src="../../../_images/graphviz-1256c3831913fea767971a56327681b898f362fb6bc2cf512595687fadb16296.svg" alt=""/></a></div></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.servers.Server.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.__str__">
+<em class="property">overridden </em><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.boot">
+<em class="property">overridden </em><code class="sig-name descname">boot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">57110</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">scsynth_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.boot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.boot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.connect">
+<em class="property">overridden </em><code class="sig-name descname">connect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ip_address</span><span class="o">=</span><span class="default_value">'127.0.0.1'</span></em>, <em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">57110</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.disconnect">
+<em class="property">overridden </em><code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.disconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.query_local_nodes">
+<code class="sig-name descname">query_local_nodes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_controls</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.query_local_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.query_local_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries all node proxies in Python.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group_a</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_b</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_c</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">target_node</span><span class="o">=</span><span class="n">group_a</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.ugens</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">440.0</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">],)</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">*=</span> <span class="n">builder</span><span class="p">[</span><span class="s2">&quot;amplitude&quot;</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">sin_osc</span><span class="p">,</span> <span class="n">sin_osc</span><span class="p">],)</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="go">&lt;SynthDef: e41193ac8b7216f49ff0d477876a3bf3&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">target_node</span><span class="o">=</span><span class="n">group_b</span><span class="p">,)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">query_local_nodes</span><span class="p">(</span><span class="n">include_controls</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1001 group</span>
+<span class="go">            1003 e41193ac8b7216f49ff0d477876a3bf3</span>
+<span class="go">                amplitude: 0.0, frequency: 440.0</span>
+<span class="go">        1000 group</span>
+<span class="go">            1002 group</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="go">&lt;Server: offline&gt;</span>
+</pre></div>
+</div>
+<p>Returns server query-tree group response.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.query_remote_nodes">
+<code class="sig-name descname">query_remote_nodes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_controls</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.query_remote_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.query_remote_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries all nodes on scsynth.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group_a</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_b</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_c</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">target_node</span><span class="o">=</span><span class="n">group_a</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.ugens</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">440.0</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">],)</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">*=</span> <span class="n">builder</span><span class="p">[</span><span class="s2">&quot;amplitude&quot;</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">sin_osc</span><span class="p">,</span> <span class="n">sin_osc</span><span class="p">],)</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="go">&lt;SynthDef: e41193ac8b7216f49ff0d477876a3bf3&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">target_node</span><span class="o">=</span><span class="n">group_b</span><span class="p">,)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">(</span><span class="n">include_controls</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1001 group</span>
+<span class="go">            1003 e41193ac8b7216f49ff0d477876a3bf3</span>
+<span class="go">        1000 group</span>
+<span class="go">            1002 group</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="go">&lt;Server: offline&gt;</span>
+</pre></div>
+</div>
+<p>Returns server query-tree group response.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.quit">
+<em class="property">overridden </em><code class="sig-name descname">quit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.quit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.quit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.reboot">
+<code class="sig-name descname">reboot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.reboot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.reboot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.send">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.servers.Server.send" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.sync">
+<code class="sig-name descname">sync</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sync_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.sync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.sync" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<dl class="py method">
+<dt id="supriya.realtime.servers.Server.default">
+<em class="property">classmethod </em><code class="sig-name descname">default</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read/write properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.latency">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">latency</code><a class="headerlink" href="#supriya.realtime.servers.Server.latency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.audio_bus_allocator">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">audio_bus_allocator</code><a class="headerlink" href="#supriya.realtime.servers.Server.audio_bus_allocator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.audio_input_bus_group">
+<code class="sig-name descname">audio_input_bus_group</code><a class="headerlink" href="#supriya.realtime.servers.Server.audio_input_bus_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.audio_output_bus_group">
+<code class="sig-name descname">audio_output_bus_group</code><a class="headerlink" href="#supriya.realtime.servers.Server.audio_output_bus_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.buffer_allocator">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">buffer_allocator</code><a class="headerlink" href="#supriya.realtime.servers.Server.buffer_allocator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.client_id">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">client_id</code><a class="headerlink" href="#supriya.realtime.servers.Server.client_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.control_bus_allocator">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">control_bus_allocator</code><a class="headerlink" href="#supriya.realtime.servers.Server.control_bus_allocator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.default_group">
+<code class="sig-name descname">default_group</code><a class="headerlink" href="#supriya.realtime.servers.Server.default_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.ip_address">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">ip_address</code><a class="headerlink" href="#supriya.realtime.servers.Server.ip_address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.is_owner">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">is_owner</code><a class="headerlink" href="#supriya.realtime.servers.Server.is_owner" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.is_running">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">is_running</code><a class="headerlink" href="#supriya.realtime.servers.Server.is_running" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.maximum_logins">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">maximum_logins</code><a class="headerlink" href="#supriya.realtime.servers.Server.maximum_logins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.meters">
+<code class="sig-name descname">meters</code><a class="headerlink" href="#supriya.realtime.servers.Server.meters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.next_sync_id">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">next_sync_id</code><a class="headerlink" href="#supriya.realtime.servers.Server.next_sync_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.node_id_allocator">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">node_id_allocator</code><a class="headerlink" href="#supriya.realtime.servers.Server.node_id_allocator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.options">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">options</code><a class="headerlink" href="#supriya.realtime.servers.Server.options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.osc_protocol">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">osc_protocol</code><a class="headerlink" href="#supriya.realtime.servers.Server.osc_protocol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.port">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">port</code><a class="headerlink" href="#supriya.realtime.servers.Server.port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.process_protocol">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">process_protocol</code><a class="headerlink" href="#supriya.realtime.servers.Server.process_protocol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.recorder">
+<code class="sig-name descname">recorder</code><a class="headerlink" href="#supriya.realtime.servers.Server.recorder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.root_node">
+<code class="sig-name descname">root_node</code><a class="headerlink" href="#supriya.realtime.servers.Server.root_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.realtime.servers.Server.status">
+<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.realtime.servers.BaseServer" title="supriya.realtime.servers.BaseServer"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">status</code><a class="headerlink" href="#supriya.realtime.servers.Server.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../sclang.html" class="btn btn-neutral float-right" title="sclang" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="recorder.html" class="btn btn-neutral float-left" title="recorder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

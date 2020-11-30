@@ -1,0 +1,983 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>querytree &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/uqbar.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/supriya.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/supriya.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="realtime" href="realtime/index.html" />
+    <link rel="prev" title="provider" href="provider.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="clock/index.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intervals/index.html">intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provider.html">provider</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">querytree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">supriya</a> &raquo;</li>
+        
+      <li>querytree</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api/supriya/querytree.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.querytree">
+<span id="querytree"></span><span id="supriya-querytree"></span><h1>querytree<a class="headerlink" href="#module-supriya.querytree" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../_images/inheritance-be170cd01955174181f713f12843f8e79a6055a5.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_collections.abc&quot; {
+        graph [label=&quot;collections.abc&quot;];
+        node [color=2];
+        &quot;collections.abc.Collection&quot; [URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Collection&quot;,
+            label=Collection,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;collections.abc.Container&quot; [URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Container&quot;,
+            label=Container,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;collections.abc.Iterable&quot; [URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable&quot;,
+            label=Iterable,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;collections.abc.Reversible&quot; [URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Reversible&quot;,
+            label=Reversible,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;collections.abc.Sequence&quot; [URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence&quot;,
+            label=Sequence,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;collections.abc.Sized&quot; [URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Sized&quot;,
+            label=Sized,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;collections.abc.Collection&quot; -&gt; &quot;collections.abc.Sequence&quot;;
+        &quot;collections.abc.Container&quot; -&gt; &quot;collections.abc.Collection&quot;;
+        &quot;collections.abc.Iterable&quot; -&gt; &quot;collections.abc.Collection&quot;;
+        &quot;collections.abc.Iterable&quot; -&gt; &quot;collections.abc.Reversible&quot;;
+        &quot;collections.abc.Reversible&quot; -&gt; &quot;collections.abc.Sequence&quot;;
+        &quot;collections.abc.Sized&quot; -&gt; &quot;collections.abc.Collection&quot;;
+    }
+    subgraph &quot;cluster_supriya.querytree&quot; {
+        graph [label=&quot;supriya.querytree&quot;];
+        node [color=3];
+        &quot;supriya.querytree.QueryTreeControl&quot; [URL=&quot;../api/supriya/querytree.html#supriya.querytree.QueryTreeControl&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Query\nTree\nControl&quot;,
+            target=_top];
+        &quot;supriya.querytree.QueryTreeGroup&quot; [URL=&quot;../api/supriya/querytree.html#supriya.querytree.QueryTreeGroup&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Query\nTree\nGroup&quot;,
+            target=_top];
+        &quot;supriya.querytree.QueryTreeSynth&quot; [URL=&quot;../api/supriya/querytree.html#supriya.querytree.QueryTreeSynth&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Query\nTree\nSynth&quot;,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.system&quot; {
+        graph [label=&quot;supriya.system&quot;];
+        node [color=4];
+        &quot;supriya.system.SupriyaObject&quot; [URL=&quot;../api/supriya/system.html#supriya.system.SupriyaObject&quot;,
+            label=&quot;Supriya\nObject&quot;,
+            target=_top];
+        &quot;supriya.system.SupriyaValueObject&quot; [URL=&quot;../api/supriya/system.html#supriya.system.SupriyaValueObject&quot;,
+            label=&quot;Supriya\nValue\nObject&quot;,
+            target=_top];
+        &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject&quot;;
+    }
+    &quot;builtins.object&quot; -&gt; &quot;collections.abc.Container&quot;;
+    &quot;builtins.object&quot; -&gt; &quot;collections.abc.Iterable&quot;;
+    &quot;builtins.object&quot; -&gt; &quot;collections.abc.Sized&quot;;
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;;
+    &quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.querytree.QueryTreeGroup&quot;;
+    &quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.querytree.QueryTreeSynth&quot;;
+    &quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.querytree.QueryTreeControl&quot;;
+    &quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.querytree.QueryTreeGroup&quot;;
+    &quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.querytree.QueryTreeSynth&quot;;
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeControl" title="supriya.querytree.QueryTreeControl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeControl</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup" title="supriya.querytree.QueryTreeGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeGroup</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth" title="supriya.querytree.QueryTreeSynth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeSynth</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.querytree.QueryTreeControl">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.querytree.</code><code class="sig-name descname">QueryTreeControl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">control_name_or_index</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">control_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeControl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeControl" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeControl.__str__" title="supriya.querytree.QueryTreeControl.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></p></td>
+<td><p>Return str(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeControl.control_name_or_index" title="supriya.querytree.QueryTreeControl.control_name_or_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control_name_or_index</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeControl.control_value" title="supriya.querytree.QueryTreeControl.control_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control_value</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeControl.from_control" title="supriya.querytree.QueryTreeControl.from_control"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_control</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeControl.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeControl.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeControl.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeControl.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeControl.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeControl.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeControl.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeControl.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeControl.__str__">
+<em class="property">overridden </em><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeControl.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeControl.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeControl.from_control">
+<em class="property">classmethod </em><code class="sig-name descname">from_control</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">control</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeControl.from_control"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeControl.from_control" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.querytree.QueryTreeControl.control_name_or_index">
+<code class="sig-name descname">control_name_or_index</code><a class="headerlink" href="#supriya.querytree.QueryTreeControl.control_name_or_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.querytree.QueryTreeControl.control_value">
+<code class="sig-name descname">control_value</code><a class="headerlink" href="#supriya.querytree.QueryTreeControl.control_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.querytree.QueryTreeGroup">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.querytree.</code><code class="sig-name descname">QueryTreeGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">children</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">extra</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeGroup" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup.__getitem__" title="supriya.querytree.QueryTreeGroup.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup.__len__" title="supriya.querytree.QueryTreeGroup.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup.__str__" title="supriya.querytree.QueryTreeGroup.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></p></td>
+<td><p>Return str(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup.annotate" title="supriya.querytree.QueryTreeGroup.annotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">annotate</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup.children" title="supriya.querytree.QueryTreeGroup.children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">children</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup.extra" title="supriya.querytree.QueryTreeGroup.extra"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extra</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup.from_group" title="supriya.querytree.QueryTreeGroup.from_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_group</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup.from_response" title="supriya.querytree.QueryTreeGroup.from_response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_response</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup.from_state" title="supriya.querytree.QueryTreeGroup.from_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_state</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup.name" title="supriya.querytree.QueryTreeGroup.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup.node_id" title="supriya.querytree.QueryTreeGroup.node_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">node_id</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeGroup.to_dict" title="supriya.querytree.QueryTreeGroup.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a></p></td>
+<td><p>Convert QueryTreeGroup to JSON-serializable dictionary.</p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.__contains__">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.__getitem__">
+<em class="property">overridden </em><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeGroup.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.__iter__">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.__len__">
+<em class="property">overridden </em><code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeGroup.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.__reversed__">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">__reversed__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.__reversed__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.__str__">
+<em class="property">overridden </em><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeGroup.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.annotate">
+<code class="sig-name descname">annotate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">annotation_map</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeGroup.annotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.annotate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.count">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">count</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span> &#x2192; integer – return number of occurrences of value<a class="headerlink" href="#supriya.querytree.QueryTreeGroup.count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.index">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="optional">[</span>, <em class="sig-param">start</em><span class="optional">[</span>, <em class="sig-param">stop</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; integer – return first index of value.<a class="headerlink" href="#supriya.querytree.QueryTreeGroup.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises ValueError if the value is not present.</p>
+<p>Supporting start and stop arguments is optional, but
+recommended.</p>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.to_dict">
+<code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeGroup.to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert QueryTreeGroup to JSON-serializable dictionary.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">query_tree_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeGroup</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">node_id</span><span class="o">=</span><span class="mi">1002</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">children</span><span class="o">=</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeSynth</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="n">node_id</span><span class="o">=</span><span class="mi">1105</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">synthdef_name</span><span class="o">=</span><span class="s2">&quot;dca557070c6b57164557041ac746fb3f&quot;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">controls</span><span class="o">=</span><span class="p">(</span>
+<span class="gp">... </span>                <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>                    <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;damping&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">control_value</span><span class="o">=</span><span class="mf">0.06623425334692</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>                <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>                    <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">control_value</span><span class="o">=</span><span class="mf">3.652155876159668</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>                <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>                    <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;level&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">control_value</span><span class="o">=</span><span class="mf">0.894767701625824</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>                <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>                    <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;out&quot;</span><span class="p">,</span> <span class="n">control_value</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>                <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>                    <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;room_size&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">control_value</span><span class="o">=</span><span class="mf">0.918643176555634</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>            <span class="p">),</span>
+<span class="gp">... </span>        <span class="p">),</span>
+<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeSynth</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="n">node_id</span><span class="o">=</span><span class="mi">1098</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">synthdef_name</span><span class="o">=</span><span class="s2">&quot;cc754c63533fdcf412a44ef6adb1a8f0&quot;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">controls</span><span class="o">=</span><span class="p">(</span>
+<span class="gp">... </span>                <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>                    <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">control_value</span><span class="o">=</span><span class="mf">5.701356887817383</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>                <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>                    <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;level&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">control_value</span><span class="o">=</span><span class="mf">0.959683060646057</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>                <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>                    <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;out&quot;</span><span class="p">,</span> <span class="n">control_value</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>                <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>                    <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;pitch_dispersion&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">control_value</span><span class="o">=</span><span class="mf">0.040342573076487</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>                <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>                    <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;pitch_shift&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">control_value</span><span class="o">=</span><span class="mf">10.517594337463379</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>                <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>                    <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;time_dispersion&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">control_value</span><span class="o">=</span><span class="mf">0.666014134883881</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>                <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>                    <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;window_size&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">control_value</span><span class="o">=</span><span class="mf">1.014111995697021</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>            <span class="p">),</span>
+<span class="gp">... </span>        <span class="p">),</span>
+<span class="gp">... </span>    <span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">query_tree_group</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;: &quot;</span><span class="p">),</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="go">{</span>
+<span class="go">    &quot;children&quot;: [</span>
+<span class="go">        {</span>
+<span class="go">            &quot;controls&quot;: {</span>
+<span class="go">                &quot;damping&quot;: 0.06623425334692,</span>
+<span class="go">                &quot;duration&quot;: 3.652155876159668,</span>
+<span class="go">                &quot;level&quot;: 0.894767701625824,</span>
+<span class="go">                &quot;out&quot;: 16.0,</span>
+<span class="go">                &quot;room_size&quot;: 0.918643176555634</span>
+<span class="go">            },</span>
+<span class="go">            &quot;node_id&quot;: 1105,</span>
+<span class="go">            &quot;synthdef&quot;: &quot;dca557070c6b57164557041ac746fb3f&quot;</span>
+<span class="go">        },</span>
+<span class="go">        {</span>
+<span class="go">            &quot;controls&quot;: {</span>
+<span class="go">                &quot;duration&quot;: 5.701356887817383,</span>
+<span class="go">                &quot;level&quot;: 0.959683060646057,</span>
+<span class="go">                &quot;out&quot;: 16.0,</span>
+<span class="go">                &quot;pitch_dispersion&quot;: 0.040342573076487,</span>
+<span class="go">                &quot;pitch_shift&quot;: 10.517594337463379,</span>
+<span class="go">                &quot;time_dispersion&quot;: 0.666014134883881,</span>
+<span class="go">                &quot;window_size&quot;: 1.014111995697021</span>
+<span class="go">            },</span>
+<span class="go">            &quot;node_id&quot;: 1098,</span>
+<span class="go">            &quot;synthdef&quot;: &quot;cc754c63533fdcf412a44ef6adb1a8f0&quot;</span>
+<span class="go">        }</span>
+<span class="go">    ],</span>
+<span class="go">    &quot;node_id&quot;: 1002</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.from_group">
+<em class="property">classmethod </em><code class="sig-name descname">from_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">group</span></em>, <em class="sig-param"><span class="n">include_controls</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeGroup.from_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.from_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.from_response">
+<em class="property">classmethod </em><code class="sig-name descname">from_response</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">response</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeGroup.from_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.from_response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeGroup.from_state">
+<em class="property">classmethod </em><code class="sig-name descname">from_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">include_controls</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_timespans</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeGroup.from_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.from_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.querytree.QueryTreeGroup.children">
+<code class="sig-name descname">children</code><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.querytree.QueryTreeGroup.extra">
+<code class="sig-name descname">extra</code><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.querytree.QueryTreeGroup.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.querytree.QueryTreeGroup.node_id">
+<code class="sig-name descname">node_id</code><a class="headerlink" href="#supriya.querytree.QueryTreeGroup.node_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="supriya.querytree.QueryTreeSynth">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.querytree.</code><code class="sig-name descname">QueryTreeSynth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">synthdef_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">controls</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">extra</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeSynth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeSynth" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth.__getitem__" title="supriya.querytree.QueryTreeSynth.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth.__len__" title="supriya.querytree.QueryTreeSynth.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth.__str__" title="supriya.querytree.QueryTreeSynth.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></p></td>
+<td><p>Return str(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth.annotate" title="supriya.querytree.QueryTreeSynth.annotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">annotate</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth.controls" title="supriya.querytree.QueryTreeSynth.controls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">controls</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth.extra" title="supriya.querytree.QueryTreeSynth.extra"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extra</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth.from_response" title="supriya.querytree.QueryTreeSynth.from_response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_response</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth.from_synth" title="supriya.querytree.QueryTreeSynth.from_synth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_synth</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth.name" title="supriya.querytree.QueryTreeSynth.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth.node_id" title="supriya.querytree.QueryTreeSynth.node_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">node_id</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth.synthdef_name" title="supriya.querytree.QueryTreeSynth.synthdef_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synthdef_name</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.querytree.QueryTreeSynth.to_dict" title="supriya.querytree.QueryTreeSynth.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a></p></td>
+<td><p>Convert QueryTreeSynth to JSON-serializable dictionary.</p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.__contains__">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.__copy__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.__copy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.__eq__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.__getitem__">
+<em class="property">overridden </em><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeSynth.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.__hash__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hash(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.__iter__">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.__len__">
+<em class="property">overridden </em><code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeSynth.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.__reversed__">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">__reversed__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.__reversed__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.__str__">
+<em class="property">overridden </em><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeSynth.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.annotate">
+<code class="sig-name descname">annotate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">annotation_map</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeSynth.annotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.annotate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.count">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">count</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span> &#x2192; integer – return number of occurrences of value<a class="headerlink" href="#supriya.querytree.QueryTreeSynth.count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.index">
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">Sequence</span></code></a>).</code><code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="optional">[</span>, <em class="sig-param">start</em><span class="optional">[</span>, <em class="sig-param">stop</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; integer – return first index of value.<a class="headerlink" href="#supriya.querytree.QueryTreeSynth.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises ValueError if the value is not present.</p>
+<p>Supporting start and stop arguments is optional, but
+recommended.</p>
+</dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.to_dict">
+<code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeSynth.to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert QueryTreeSynth to JSON-serializable dictionary.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">query_tree_synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeSynth</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">node_id</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">synthdef_name</span><span class="o">=</span><span class="s2">&quot;c1aa521afab5b0c0ce3d744690951649&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">controls</span><span class="o">=</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;level&quot;</span><span class="p">,</span> <span class="n">control_value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="p">),</span>
+<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">querytree</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="n">control_name_or_index</span><span class="o">=</span><span class="s2">&quot;out&quot;</span><span class="p">,</span> <span class="n">control_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="p">),</span>
+<span class="gp">... </span>    <span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">query_tree_synth</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;: &quot;</span><span class="p">),</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="go">{</span>
+<span class="go">    &quot;controls&quot;: {</span>
+<span class="go">        &quot;level&quot;: 1.0,</span>
+<span class="go">        &quot;out&quot;: 0.0</span>
+<span class="go">    },</span>
+<span class="go">    &quot;node_id&quot;: 1001,</span>
+<span class="go">    &quot;synthdef&quot;: &quot;c1aa521afab5b0c0ce3d744690951649&quot;</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.from_response">
+<em class="property">classmethod </em><code class="sig-name descname">from_response</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">response</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeSynth.from_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.from_response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.querytree.QueryTreeSynth.from_synth">
+<em class="property">classmethod </em><code class="sig-name descname">from_synth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">synth</span></em>, <em class="sig-param"><span class="n">include_controls</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/querytree.html#QueryTreeSynth.from_synth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.from_synth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.querytree.QueryTreeSynth.controls">
+<code class="sig-name descname">controls</code><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.controls" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.querytree.QueryTreeSynth.extra">
+<code class="sig-name descname">extra</code><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.querytree.QueryTreeSynth.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.querytree.QueryTreeSynth.node_id">
+<code class="sig-name descname">node_id</code><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.node_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.querytree.QueryTreeSynth.synthdef_name">
+<code class="sig-name descname">synthdef_name</code><a class="headerlink" href="#supriya.querytree.QueryTreeSynth.synthdef_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="realtime/index.html" class="btn btn-neutral float-right" title="realtime" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="provider.html" class="btn btn-neutral float-left" title="provider" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
