@@ -299,13 +299,13 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tempdir</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">server</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">start</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">file_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="s1">&#39;example.aiff&#39;</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="n">file_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="s2">&quot;example.aiff&quot;</span><span class="p">),</span>
 <span class="gp">... </span>        <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="n">header_format</span><span class="o">=</span><span class="s1">&#39;AIFF&#39;</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="p">)</span>
+<span class="gp">... </span>        <span class="n">header_format</span><span class="o">=</span><span class="s2">&quot;AIFF&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">server</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </pre></div>
 </div>
 <hr/><p class="class-header rubric">Attributes Summary</p>

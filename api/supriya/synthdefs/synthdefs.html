@@ -308,16 +308,16 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.ugens</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">])</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">])</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">sin_osc</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<div class="uqbar-book"><a href="../../../_images/graphviz-a4c75f04fdb98aa1f5469af77dbf48cda6749c444bd7fdc6a39d34b3ef849c87.dot" title=""><img src="../../../_images/graphviz-a4c75f04fdb98aa1f5469af77dbf48cda6749c444bd7fdc6a39d34b3ef849c87.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </pre></div>
 </div>

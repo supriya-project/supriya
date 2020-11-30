@@ -8,6 +8,11 @@
  viewBox="0.00 0.00 933.76 848.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 844)">
 <title>InheritanceGraph</title>
+<g id="clust1" class="cluster">
+<title>cluster_builtins</title>
+<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-370C20,-370 55,-370 55,-370 61,-370 67,-376 67,-382 67,-382 67,-413 67,-413 67,-419 61,-425 55,-425 55,-425 20,-425 20,-425 14,-425 8,-419 8,-413 8,-413 8,-382 8,-382 8,-376 14,-370 20,-370"/>
+<text text-anchor="middle" x="37.5" y="-413" font-family="Arial" font-size="10.00">builtins</text>
+</g>
 <g id="clust2" class="cluster">
 <title>cluster_supriya.patterns.bases</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M345,-433C345,-433 535.76,-433 535.76,-433 541.76,-433 547.76,-439 547.76,-445 547.76,-445 547.76,-527 547.76,-527 547.76,-533 541.76,-539 535.76,-539 535.76,-539 345,-539 345,-539 339,-539 333,-533 333,-527 333,-527 333,-445 333,-445 333,-439 339,-433 345,-433"/>
@@ -22,11 +27,6 @@
 <title>cluster_supriya.patterns.mappings</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M750.76,-603C750.76,-603 905.76,-603 905.76,-603 911.76,-603 917.76,-609 917.76,-615 917.76,-615 917.76,-757 917.76,-757 917.76,-763 911.76,-769 905.76,-769 905.76,-769 750.76,-769 750.76,-769 744.76,-769 738.76,-763 738.76,-757 738.76,-757 738.76,-615 738.76,-615 738.76,-609 744.76,-603 750.76,-603"/>
 <text text-anchor="middle" x="828.26" y="-757" font-family="Arial" font-size="10.00">supriya.patterns.mappings</text>
-</g>
-<g id="clust1" class="cluster">
-<title>cluster_builtins</title>
-<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-370C20,-370 55,-370 55,-370 61,-370 67,-376 67,-382 67,-382 67,-413 67,-413 67,-419 61,-425 55,-425 55,-425 20,-425 20,-425 14,-425 8,-419 8,-413 8,-413 8,-382 8,-382 8,-376 14,-370 20,-370"/>
-<text text-anchor="middle" x="37.5" y="-413" font-family="Arial" font-size="10.00">builtins</text>
 </g>
 <g id="clust5" class="cluster">
 <title>cluster_supriya.patterns.parallel</title>

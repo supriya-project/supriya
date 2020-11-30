@@ -226,7 +226,7 @@
 <span id="synthdefs"></span><span id="supriya-synthdefs"></span><h1>synthdefs<a class="headerlink" href="#module-supriya.synthdefs" title="Permalink to this headline">¶</a></h1>
 <p>Tools for constructing and compiling synthesizer definitions (SynthDefs).</p>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-fd03cf387e64109311e4088f478632baabe90044.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-fcbce5f233d2c8da01bb4afdc8bc535d10c36415.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -252,98 +252,6 @@
 	edge [color=lightslategrey,
 		penwidth=1
 	];
-	subgraph &quot;cluster_supriya.ugens.reverb&quot; {
-		graph [label=&quot;supriya.ugens.reverb&quot;];
-		node [color=3];
-		&quot;supriya.ugens.reverb.FreeVerb&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/reverb.html#supriya.ugens.reverb.FreeVerb&quot;,
-			label=&quot;Free\nVerb&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.safety&quot; {
-		graph [label=&quot;supriya.ugens.safety&quot;];
-		node [color=4];
-		&quot;supriya.ugens.safety.CheckBadValues&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/safety.html#supriya.ugens.safety.CheckBadValues&quot;,
-			label=&quot;Check\nBad\nValues&quot;,
-			target=_top];
-		&quot;supriya.ugens.safety.Sanitize&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/safety.html#supriya.ugens.safety.Sanitize&quot;,
-			label=Sanitize,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.triggers&quot; {
-		graph [label=&quot;supriya.ugens.triggers&quot;];
-		node [color=5];
-		&quot;supriya.ugens.triggers.Clip&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Clip&quot;,
-			label=Clip,
-			target=_top];
-		&quot;supriya.ugens.triggers.Fold&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Fold&quot;,
-			label=Fold,
-			target=_top];
-		&quot;supriya.ugens.triggers.Gate&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Gate&quot;,
-			label=Gate,
-			target=_top];
-		&quot;supriya.ugens.triggers.InRange&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.InRange&quot;,
-			label=&quot;In\nRange&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Latch&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Latch&quot;,
-			label=Latch,
-			target=_top];
-		&quot;supriya.ugens.triggers.LeastChange&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.LeastChange&quot;,
-			label=&quot;Least\nChange&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.MostChange&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.MostChange&quot;,
-			label=&quot;Most\nChange&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Peak&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Peak&quot;,
-			label=Peak,
-			target=_top];
-		&quot;supriya.ugens.triggers.RunningMax&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.RunningMax&quot;,
-			label=&quot;Running\nMax&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Peak&quot; -&gt; &quot;supriya.ugens.triggers.RunningMax&quot;	[minlen=1];
-		&quot;supriya.ugens.triggers.RunningMin&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.RunningMin&quot;,
-			label=&quot;Running\nMin&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Peak&quot; -&gt; &quot;supriya.ugens.triggers.RunningMin&quot;	[minlen=2];
-		&quot;supriya.ugens.triggers.PeakFollower&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.PeakFollower&quot;,
-			label=&quot;Peak\nFollower&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Phasor&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Phasor&quot;,
-			label=Phasor,
-			target=_top];
-		&quot;supriya.ugens.triggers.Poll&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Poll&quot;,
-			label=Poll,
-			target=_top];
-		&quot;supriya.ugens.triggers.Schmidt&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Schmidt&quot;,
-			label=Schmidt,
-			target=_top];
-		&quot;supriya.ugens.triggers.SendPeakRMS&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.SendPeakRMS&quot;,
-			label=&quot;Send\nPeak\nRMS&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.SendTrig&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.SendTrig&quot;,
-			label=&quot;Send\nTrig&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Sweep&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Sweep&quot;,
-			label=Sweep,
-			target=_top];
-		&quot;supriya.ugens.triggers.TDelay&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.TDelay&quot;,
-			label=TDelay,
-			target=_top];
-		&quot;supriya.ugens.triggers.ToggleFF&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.ToggleFF&quot;,
-			label=&quot;Toggle\nFF&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Trig&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Trig&quot;,
-			label=Trig,
-			target=_top];
-		&quot;supriya.ugens.triggers.Trig1&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Trig1&quot;,
-			label=&quot;Trig\n1&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Wrap&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Wrap&quot;,
-			label=Wrap,
-			target=_top];
-		&quot;supriya.ugens.triggers.ZeroCrossing&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.ZeroCrossing&quot;,
-			label=&quot;Zero\nCrossing&quot;,
-			target=_top];
-	}
 	subgraph cluster_abc {
 		graph [label=abc];
 		node [color=1];
@@ -1712,6 +1620,98 @@
 		&quot;supriya.ugens.pv.PV_MagAbove&quot; -&gt; &quot;supriya.ugens.pv.PV_MagClip&quot;	[minlen=2];
 		&quot;supriya.ugens.pv.RunningSum&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/pv.html#supriya.ugens.pv.RunningSum&quot;,
 			label=&quot;Running\nSum&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.ugens.reverb&quot; {
+		graph [label=&quot;supriya.ugens.reverb&quot;];
+		node [color=3];
+		&quot;supriya.ugens.reverb.FreeVerb&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/reverb.html#supriya.ugens.reverb.FreeVerb&quot;,
+			label=&quot;Free\nVerb&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.ugens.safety&quot; {
+		graph [label=&quot;supriya.ugens.safety&quot;];
+		node [color=4];
+		&quot;supriya.ugens.safety.CheckBadValues&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/safety.html#supriya.ugens.safety.CheckBadValues&quot;,
+			label=&quot;Check\nBad\nValues&quot;,
+			target=_top];
+		&quot;supriya.ugens.safety.Sanitize&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/safety.html#supriya.ugens.safety.Sanitize&quot;,
+			label=Sanitize,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.ugens.triggers&quot; {
+		graph [label=&quot;supriya.ugens.triggers&quot;];
+		node [color=5];
+		&quot;supriya.ugens.triggers.Clip&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Clip&quot;,
+			label=Clip,
+			target=_top];
+		&quot;supriya.ugens.triggers.Fold&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Fold&quot;,
+			label=Fold,
+			target=_top];
+		&quot;supriya.ugens.triggers.Gate&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Gate&quot;,
+			label=Gate,
+			target=_top];
+		&quot;supriya.ugens.triggers.InRange&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.InRange&quot;,
+			label=&quot;In\nRange&quot;,
+			target=_top];
+		&quot;supriya.ugens.triggers.Latch&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Latch&quot;,
+			label=Latch,
+			target=_top];
+		&quot;supriya.ugens.triggers.LeastChange&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.LeastChange&quot;,
+			label=&quot;Least\nChange&quot;,
+			target=_top];
+		&quot;supriya.ugens.triggers.MostChange&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.MostChange&quot;,
+			label=&quot;Most\nChange&quot;,
+			target=_top];
+		&quot;supriya.ugens.triggers.Peak&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Peak&quot;,
+			label=Peak,
+			target=_top];
+		&quot;supriya.ugens.triggers.RunningMax&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.RunningMax&quot;,
+			label=&quot;Running\nMax&quot;,
+			target=_top];
+		&quot;supriya.ugens.triggers.Peak&quot; -&gt; &quot;supriya.ugens.triggers.RunningMax&quot;	[minlen=1];
+		&quot;supriya.ugens.triggers.RunningMin&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.RunningMin&quot;,
+			label=&quot;Running\nMin&quot;,
+			target=_top];
+		&quot;supriya.ugens.triggers.Peak&quot; -&gt; &quot;supriya.ugens.triggers.RunningMin&quot;	[minlen=2];
+		&quot;supriya.ugens.triggers.PeakFollower&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.PeakFollower&quot;,
+			label=&quot;Peak\nFollower&quot;,
+			target=_top];
+		&quot;supriya.ugens.triggers.Phasor&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Phasor&quot;,
+			label=Phasor,
+			target=_top];
+		&quot;supriya.ugens.triggers.Poll&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Poll&quot;,
+			label=Poll,
+			target=_top];
+		&quot;supriya.ugens.triggers.Schmidt&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Schmidt&quot;,
+			label=Schmidt,
+			target=_top];
+		&quot;supriya.ugens.triggers.SendPeakRMS&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.SendPeakRMS&quot;,
+			label=&quot;Send\nPeak\nRMS&quot;,
+			target=_top];
+		&quot;supriya.ugens.triggers.SendTrig&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.SendTrig&quot;,
+			label=&quot;Send\nTrig&quot;,
+			target=_top];
+		&quot;supriya.ugens.triggers.Sweep&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Sweep&quot;,
+			label=Sweep,
+			target=_top];
+		&quot;supriya.ugens.triggers.TDelay&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.TDelay&quot;,
+			label=TDelay,
+			target=_top];
+		&quot;supriya.ugens.triggers.ToggleFF&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.ToggleFF&quot;,
+			label=&quot;Toggle\nFF&quot;,
+			target=_top];
+		&quot;supriya.ugens.triggers.Trig&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Trig&quot;,
+			label=Trig,
+			target=_top];
+		&quot;supriya.ugens.triggers.Trig1&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Trig1&quot;,
+			label=&quot;Trig\n1&quot;,
+			target=_top];
+		&quot;supriya.ugens.triggers.Wrap&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.Wrap&quot;,
+			label=Wrap,
+			target=_top];
+		&quot;supriya.ugens.triggers.ZeroCrossing&quot;	[URL=&quot;../api/supriya/synthdefs/../ugens/triggers.html#supriya.ugens.triggers.ZeroCrossing&quot;,
+			label=&quot;Zero\nCrossing&quot;,
 			target=_top];
 	}
 	&quot;abc.ABCMeta&quot; -&gt; &quot;supriya.synthdefs.bases.UGenMeta&quot;	[minlen=1];

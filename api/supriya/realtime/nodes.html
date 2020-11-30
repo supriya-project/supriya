@@ -424,7 +424,7 @@
 <div class="inherited docutils container">
 <dl class="py method">
 <dt id="supriya.realtime.nodes.Node.allocate">
-<em class="property">abstract</em><em class="property">abstract </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.realtime.bases.ServerObject" title="supriya.realtime.bases.ServerObject"><code class="descclassname docutils literal notranslate"><span class="pre">ServerObject</span></code></a>).</code><code class="sig-name descname">allocate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.nodes.Node.allocate" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.realtime.bases.ServerObject" title="supriya.realtime.bases.ServerObject"><code class="descclassname docutils literal notranslate"><span class="pre">ServerObject</span></code></a>).</code><code class="sig-name descname">allocate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.nodes.Node.allocate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -960,28 +960,18 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.ugens</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">frequency</span><span class="o">=</span><span class="mf">440.0</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">],</span>
-<span class="gp">... </span>        <span class="p">)</span>
-<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">*=</span> <span class="n">builder</span><span class="p">[</span><span class="s1">&#39;amplitude&#39;</span><span class="p">]</span>
-<span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">sin_osc</span><span class="p">,</span> <span class="n">sin_osc</span><span class="p">],</span>
-<span class="gp">... </span>        <span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>    <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">440.0</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">],)</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">*=</span> <span class="n">builder</span><span class="p">[</span><span class="s2">&quot;amplitude&quot;</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">sin_osc</span><span class="p">,</span> <span class="n">sin_osc</span><span class="p">],)</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
 <span class="go">&lt;SynthDef: e41193ac8b7216f49ff0d477876a3bf3&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">frequency</span><span class="o">=</span><span class="mi">443</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">443</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span>
 <span class="go">&lt;- Synth: ???&gt;</span>
 </pre></div>
@@ -990,8 +980,8 @@
 <span class="go">&lt;+ Synth: 1000&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">666.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">666.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">]</span>
 <span class="go">666.0</span>
 </pre></div>
 </div>

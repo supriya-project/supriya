@@ -1124,10 +1124,7 @@
 </div>
 <p>Unpause <code class="docutils literal notranslate"><span class="pre">synth_a</span></code> (a no-op because it’s already unpaused) and pause
 <code class="docutils literal notranslate"><span class="pre">synth_b</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeRunRequest</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="p">[</span><span class="n">synth_a</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="p">[</span><span class="n">synth_b</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeRunRequest</span><span class="p">([[</span><span class="n">synth_a</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="n">synth_b</span><span class="p">,</span> <span class="kc">False</span><span class="p">],])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
 <span class="go">OscMessage(&#39;/n_run&#39;, 1000, 1, 1001, 0)</span>
 </pre></div>
@@ -1135,10 +1132,10 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/n_run&#39;, 1000, 1, 1001, 0))</span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 0))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/n_off&#39;, 1001, 1, -1, 1000, 0))</span>
@@ -1150,10 +1147,7 @@
 </pre></div>
 </div>
 <p>Pause <code class="docutils literal notranslate"><span class="pre">synth_a</span></code> and unpause <code class="docutils literal notranslate"><span class="pre">synth_b</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeRunRequest</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="p">[</span><span class="n">synth_a</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="p">[</span><span class="n">synth_b</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeRunRequest</span><span class="p">([[</span><span class="n">synth_a</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span> <span class="p">[</span><span class="n">synth_b</span><span class="p">,</span> <span class="kc">True</span><span class="p">],])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
 <span class="go">OscMessage(&#39;/n_run&#39;, 1000, 0, 1001, 1)</span>
 </pre></div>
@@ -1161,10 +1155,10 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/n_run&#39;, 1000, 0, 1001, 1))</span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 1))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/n_off&#39;, 1000, 1, 1001, -1, 0))</span>

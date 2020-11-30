@@ -466,7 +466,9 @@
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(str(control_bus.free()))
 Traceback (most recent call last):
-...
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 133, in __str__
+    raise supriya.exceptions.BusNotAllocated
 supriya.exceptions.BusNotAllocated
 </pre></div>
 </div>
@@ -648,7 +650,7 @@ supriya.exceptions.BusNotAllocated
 <span class="gp">... </span>    <span class="n">bus</span> <span class="o">=</span> <span class="n">bus_group</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.1</span>
 <span class="gp">... </span>    <span class="n">bus</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bus_values</span> <span class="o">=</span> <span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -900,13 +902,17 @@ Python, so we’ll round them here for display purposes:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; bus_group = supriya.BusGroup.audio(4)
 &gt;&gt;&gt; bus_group.fill(0.5)
 Traceback (most recent call last):
-...
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 678, in fill
+    raise supriya.exceptions.BusNotAllocated
 supriya.exceptions.BusNotAllocated
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; bus_group.allocate().fill(0.5)
 Traceback (most recent call last):
-...
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 680, in fill
+    raise supriya.exceptions.IncompatibleRate
 supriya.exceptions.IncompatibleRate
 </pre></div>
 </div>
@@ -1273,13 +1279,17 @@ supriya.exceptions.IncompatibleRate
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; bus_group = supriya.BusGroup.audio(4)
 &gt;&gt;&gt; bus_group.fill(0.5)
 Traceback (most recent call last):
-...
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 678, in fill
+    raise supriya.exceptions.BusNotAllocated
 supriya.exceptions.BusNotAllocated
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; bus_group.allocate().fill(0.5)
 Traceback (most recent call last):
-...
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 680, in fill
+    raise supriya.exceptions.IncompatibleRate
 supriya.exceptions.IncompatibleRate
 </pre></div>
 </div>
@@ -1651,13 +1661,17 @@ supriya.exceptions.IncompatibleRate
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; bus_group = supriya.BusGroup.audio(4)
 &gt;&gt;&gt; bus_group.fill(0.5)
 Traceback (most recent call last):
-...
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 678, in fill
+    raise supriya.exceptions.BusNotAllocated
 supriya.exceptions.BusNotAllocated
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; bus_group.allocate().fill(0.5)
 Traceback (most recent call last):
-...
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buses.py&quot;, line 680, in fill
+    raise supriya.exceptions.IncompatibleRate
 supriya.exceptions.IncompatibleRate
 </pre></div>
 </div>

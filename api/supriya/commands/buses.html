@@ -558,13 +558,8 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusGetContiguousRequest</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">index_count_pairs</span><span class="o">=</span><span class="p">[</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-<span class="gp">... </span>        <span class="p">],</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span>    <span class="n">index_count_pairs</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">),],</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span>
 <span class="go">ControlBusGetContiguousRequest(</span>
 <span class="go">    index_count_pairs=(</span>
@@ -572,8 +567,8 @@
 <span class="go">        (4, 1),</span>
 <span class="go">        (8, 2),</span>
 <span class="go">        (12, 1),</span>
-<span class="go">        ),</span>
-<span class="go">    )</span>
+<span class="go">    ),</span>
+<span class="go">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
@@ -582,20 +577,20 @@
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">ControlBusSetContiguousResponse(</span>
 <span class="go">    items=(</span>
 <span class="go">        Item(bus_values=(0.0, 0.0), starting_bus_id=0),</span>
 <span class="go">        Item(bus_values=(0.0,), starting_bus_id=4),</span>
 <span class="go">        Item(bus_values=(0.0, 0.0), starting_bus_id=8),</span>
 <span class="go">        Item(bus_values=(0.0,), starting_bus_id=12),</span>
-<span class="go">        ),</span>
-<span class="go">    )</span>
+<span class="go">    ),</span>
+<span class="go">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/c_getn&#39;, 0, 2, 4, 1, 8, 2, 12, 1))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/c_setn&#39;, 0, 2, 0.0, 0.0, 4, 1, 0.0, 8, 2, 0.0, 0.0, 12, 1, 0.0))</span>
 </pre></div>
@@ -727,13 +722,11 @@
 <dd><p>A /c_get request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusGetRequest</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">indices</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusGetRequest</span><span class="p">(</span><span class="n">indices</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">),)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span>
 <span class="go">ControlBusGetRequest(</span>
 <span class="go">    indices=(0, 4, 8, 12),</span>
-<span class="go">    )</span>
+<span class="go">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
@@ -742,20 +735,20 @@
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">ControlBusSetResponse(</span>
 <span class="go">    items=(</span>
 <span class="go">        Item(bus_id=0, bus_value=0.0),</span>
 <span class="go">        Item(bus_id=4, bus_value=0.0),</span>
 <span class="go">        Item(bus_id=8, bus_value=0.0),</span>
 <span class="go">        Item(bus_id=12, bus_value=0.0),</span>
-<span class="go">        ),</span>
-<span class="go">    )</span>
+<span class="go">    ),</span>
+<span class="go">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/c_get&#39;, 0, 4, 8, 12))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/c_set&#39;, 0, 0.0, 4, 0.0, 8, 0.0, 12, 0.0))</span>
 </pre></div>
@@ -888,18 +881,15 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusSetContiguousRequest</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">index_values_pairs</span><span class="o">=</span><span class="p">[</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)),</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)),</span>
-<span class="gp">... </span>        <span class="p">],</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span>    <span class="n">index_values_pairs</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)),],</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span>
 <span class="go">ControlBusSetContiguousRequest(</span>
 <span class="go">    index_values_pairs=(</span>
 <span class="go">        (0, (0.1, 0.2, 0.3)),</span>
 <span class="go">        (4, (0.4, 0.5, 0.6)),</span>
-<span class="go">        ),</span>
-<span class="go">    )</span>
+<span class="go">    ),</span>
+<span class="go">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
@@ -909,12 +899,12 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/c_setn&#39;, 0, 3, 0.1, 0.2, 0.3, 4, 3, 0.4, 0.5, 0.6))</span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 0))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/synced&#39;, 0))</span>
@@ -1176,13 +1166,8 @@ recommended.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusSetRequest</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">index_value_pairs</span><span class="o">=</span><span class="p">[</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span>
-<span class="gp">... </span>        <span class="p">],</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span>    <span class="n">index_value_pairs</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),],</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span>
 <span class="go">ControlBusSetRequest(</span>
 <span class="go">    index_value_pairs=(</span>
@@ -1190,8 +1175,8 @@ recommended.</p>
 <span class="go">        (1, 0.2),</span>
 <span class="go">        (2, 0.3),</span>
 <span class="go">        (3, 0.4),</span>
-<span class="go">        ),</span>
-<span class="go">    )</span>
+<span class="go">    ),</span>
+<span class="go">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
@@ -1201,12 +1186,12 @@ recommended.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/c_set&#39;, 0, 0.1, 1, 0.2, 2, 0.3, 3, 0.4))</span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 0))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/synced&#39;, 0))</span>

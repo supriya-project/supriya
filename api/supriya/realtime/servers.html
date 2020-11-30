@@ -812,7 +812,7 @@
 <code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/servers.html#Server.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.servers.Server.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get <code class="docutils literal notranslate"><span class="pre">item</span></code> from server.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
 <span class="go">&lt;+ Synth: 1000 (foo)&gt;</span>
 </pre></div>
 </div>
@@ -820,26 +820,28 @@
 <span class="go">&lt;+ Synth: 1000 (foo)&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">]</span>
 <span class="go">&lt;+ Synth: 1000 (foo)&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="s1">&#39;b10&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="s2">&quot;b10&quot;</span><span class="p">]</span>
 <span class="go">&lt;+ Buffer: 10&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="s1">&#39;a0&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">]</span>
 <span class="go">&lt;+ Bus: 0 (audio)&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="s1">&#39;c16&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="p">[</span><span class="s2">&quot;c16&quot;</span><span class="p">]</span>
 <span class="go">&lt;+ Bus: 16 (control)&gt;</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; server = server.quit()
-&gt;&gt;&gt; server[&#39;c16&#39;]
+&gt;&gt;&gt; server[&quot;c16&quot;]
 Traceback (most recent call last):
-...
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/servers.py&quot;, line 512, in __getitem__
+    raise supriya.exceptions.ServerOffline
 supriya.exceptions.ServerOffline
 </pre></div>
 </div>
@@ -851,17 +853,13 @@ supriya.exceptions.ServerOffline
 <dd><p>Graph server.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(),</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">([</span>
-<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(),</span>
-<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(),</span>
-<span class="gp">... </span>        <span class="p">]),</span>
-<span class="gp">... </span>    <span class="p">])</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(),</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">([</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(),</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(),]),]</span>
+<span class="gp">... </span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">__graph__</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="s1">&#39;graphviz&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="s2">&quot;graphviz&quot;</span><span class="p">))</span>
 <span class="go">digraph G {</span>
 <span class="go">    graph [bgcolor=transparent,</span>
 <span class="go">        color=lightslategrey,</span>
@@ -904,9 +902,16 @@ supriya.exceptions.ServerOffline
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>  
+<span class="go">Exception ignored in: &lt;function ThreadedOscProtocol.__del__ at 0x7ff9c2bceee0&gt;</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/osc/protocols.py&quot;</span>, line <span class="m">310</span>, in <span class="n">__del__</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/osc/protocols.py&quot;</span>, line <span class="m">363</span>, in <span class="n">disconnect</span>
+    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+<span class="gr">AttributeError</span>: <span class="n">&#39;ThreadedOscProtocol&#39; object has no attribute &#39;lock&#39;</span>
 </pre></div>
 </div>
-</dd></dl>
+<div class="uqbar-book"><a href="../../../_images/graphviz-1256c3831913fea767971a56327681b898f362fb6bc2cf512595687fadb16296.dot" title=""><img src="../../../_images/graphviz-1256c3831913fea767971a56327681b898f362fb6bc2cf512595687fadb16296.svg" alt=""/></a></div></dd></dl>
 
 <div class="inherited docutils container">
 <dl class="py method">
@@ -956,26 +961,18 @@ supriya.exceptions.ServerOffline
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.ugens</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">frequency</span><span class="o">=</span><span class="mf">440.0</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">],</span>
-<span class="gp">... </span>        <span class="p">)</span>
-<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">*=</span> <span class="n">builder</span><span class="p">[</span><span class="s1">&#39;amplitude&#39;</span><span class="p">]</span>
-<span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">sin_osc</span><span class="p">,</span> <span class="n">sin_osc</span><span class="p">],</span>
-<span class="gp">... </span>        <span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>    <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">440.0</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">],)</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">*=</span> <span class="n">builder</span><span class="p">[</span><span class="s2">&quot;amplitude&quot;</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">sin_osc</span><span class="p">,</span> <span class="n">sin_osc</span><span class="p">],)</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
 <span class="go">&lt;SynthDef: e41193ac8b7216f49ff0d477876a3bf3&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">target_node</span><span class="o">=</span><span class="n">group_b</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">target_node</span><span class="o">=</span><span class="n">group_b</span><span class="p">,)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">query_local_nodes</span><span class="p">(</span><span class="n">include_controls</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1014,26 +1011,18 @@ supriya.exceptions.ServerOffline
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.ugens</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">frequency</span><span class="o">=</span><span class="mf">440.0</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">],</span>
-<span class="gp">... </span>        <span class="p">)</span>
-<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">*=</span> <span class="n">builder</span><span class="p">[</span><span class="s1">&#39;amplitude&#39;</span><span class="p">]</span>
-<span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">sin_osc</span><span class="p">,</span> <span class="n">sin_osc</span><span class="p">],</span>
-<span class="gp">... </span>        <span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>    <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">440.0</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">],)</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">*=</span> <span class="n">builder</span><span class="p">[</span><span class="s2">&quot;amplitude&quot;</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">sin_osc</span><span class="p">,</span> <span class="n">sin_osc</span><span class="p">],)</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
 <span class="go">&lt;SynthDef: e41193ac8b7216f49ff0d477876a3bf3&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">target_node</span><span class="o">=</span><span class="n">group_b</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">target_node</span><span class="o">=</span><span class="n">group_b</span><span class="p">,)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">(</span><span class="n">include_controls</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>

@@ -366,18 +366,18 @@
 </div>
 <dl class="py method">
 <dt id="supriya.realtime.interfaces.ControlInterface.__setitem__">
-<em class="property">abstract</em><em class="property">abstract </em><code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span></em>, <em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/interfaces.html#ControlInterface.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.interfaces.ControlInterface.__setitem__" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span></em>, <em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/interfaces.html#ControlInterface.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.interfaces.ControlInterface.__setitem__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <hr/><p class="class-header rubric">Methods</p>
 <dl class="py method">
 <dt id="supriya.realtime.interfaces.ControlInterface.as_dict">
-<em class="property">abstract</em><em class="property">abstract </em><code class="sig-name descname">as_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/interfaces.html#ControlInterface.as_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.interfaces.ControlInterface.as_dict" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">as_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/interfaces.html#ControlInterface.as_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.interfaces.ControlInterface.as_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="supriya.realtime.interfaces.ControlInterface.reset">
-<em class="property">abstract</em><em class="property">abstract </em><code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/interfaces.html#ControlInterface.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.interfaces.ControlInterface.reset" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/interfaces.html#ControlInterface.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.interfaces.ControlInterface.reset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <hr/><p class="class-header rubric">Read-only properties</p>
@@ -474,17 +474,19 @@
 <dd><p>Interface to group controls.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">test</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">default</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">default</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span>
+<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">test</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">default</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">default</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">control</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">controls</span><span class="p">[</span><span class="s1">&#39;amplitude&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">control</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">controls</span><span class="p">[</span><span class="s2">&quot;amplitude&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">controls</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">777</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">controls</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">777</span>
 </pre></div>
 </div>
 <hr/><p class="class-header rubric">Attributes Summary</p>

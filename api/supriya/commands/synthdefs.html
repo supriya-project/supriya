@@ -883,11 +883,10 @@
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">out</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s1">&#39;out&#39;</span><span class="p">],</span>
-<span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">DC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">builder</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]),</span>
-<span class="gp">... </span>        <span class="p">)</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">],</span> <span class="n">source</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">DC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]),</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="ow">in</span> <span class="n">server</span>
@@ -908,40 +907,37 @@ group using the newly allocated synthdef:</p>
 <span class="gp">... </span>            <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">GroupNewRequest</span><span class="p">(</span>
 <span class="gp">... </span>                <span class="n">items</span><span class="o">=</span><span class="p">[</span>
 <span class="gp">... </span>                    <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">GroupNewRequest</span><span class="o">.</span><span class="n">Item</span><span class="p">(</span>
-<span class="gp">... </span>                        <span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-<span class="gp">... </span>                        <span class="n">target_node_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="gp">... </span>                        <span class="p">),</span>
-<span class="gp">... </span>                    <span class="p">],</span>
-<span class="gp">... </span>                <span class="p">),</span>
+<span class="gp">... </span>                        <span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">target_node_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="p">),</span>
+<span class="gp">... </span>                <span class="p">],</span>
+<span class="gp">... </span>            <span class="p">),</span>
 <span class="gp">... </span>            <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">SynthNewRequest</span><span class="p">(</span>
-<span class="gp">... </span>                <span class="n">node_id</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span>
-<span class="gp">... </span>                <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">,</span>
-<span class="gp">... </span>                <span class="n">target_node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-<span class="gp">... </span>                <span class="p">),</span>
-<span class="gp">... </span>            <span class="p">],</span>
-<span class="gp">... </span>        <span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span>                <span class="n">node_id</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">,</span> <span class="n">target_node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="p">),</span>
+<span class="gp">... </span>        <span class="p">],</span>
+<span class="gp">... </span>    <span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">response</span>
 <span class="go">DoneResponse(</span>
 <span class="go">    action=(&#39;/d_recv&#39;,),</span>
-<span class="go">    )</span>
+<span class="go">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-<span class="gp">...</span>
-<span class="go">(&#39;S&#39;, OscMessage(&#39;/d_recv&#39;, bytearray(b&#39;SCgf...example...&#39;), OscBundle(</span>
+<span class="gp">... </span>
+<span class="go">(&#39;S&#39;, OscMessage(&#39;/d_recv&#39;, bytearray(b&#39;SCgf\x00\x00\x00\x02\x00\x01\x07example\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00?\x00\x00\x00\x00\x00\x00\x02\x03out\x00\x00\x00\x00\x05value\x00\x00\x00\x01\x00\x00\x00\x03\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x01\x01\x02DC\x02\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00&#39;), OscBundle(</span>
 <span class="go">    contents=(</span>
 <span class="go">        OscMessage(&#39;/g_new&#39;, 1000, 0, 1),</span>
 <span class="go">        OscMessage(&#39;/s_new&#39;, &#39;example&#39;, 1001, 0, 1000),</span>
-<span class="go">        ),</span>
-<span class="go">    )))</span>
+<span class="go">    ),</span>
+<span class="go">)))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/n_go&#39;, 1000, 1, -1, -1, 1, -1, -1))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/n_go&#39;, 1001, 1000, -1, -1, 0))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/done&#39;, &#39;/d_recv&#39;))</span>
