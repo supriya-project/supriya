@@ -1,5 +1,4 @@
 import asyncio
-import collections
 import dataclasses
 import logging
 import queue
