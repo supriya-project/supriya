@@ -13,7 +13,7 @@ class Done(UGen):
         >>> source = supriya.ugens.Line.kr()
         >>> done = supriya.ugens.Done.kr(
         ...     source=source,
-        ...     )
+        ... )
         >>> done
         Done.kr()
 
@@ -103,7 +103,7 @@ class Free(UGen):
         >>> free = supriya.ugens.Free.kr(
         ...     node_id=node_id,
         ...     trigger=trigger,
-        ...     )
+        ... )
         >>> free
         Free.kr()
 
@@ -124,7 +124,7 @@ class FreeSelf(UGen):
         >>> trigger = supriya.ugens.Impulse.kr(frequency=1.0)
         >>> free_self = supriya.ugens.FreeSelf.kr(
         ...     trigger=trigger,
-        ...     )
+        ... )
         >>> free_self
         FreeSelf.kr()
 
@@ -143,7 +143,7 @@ class FreeSelfWhenDone(UGen):
         >>> source = supriya.ugens.Line.kr()
         >>> free_self_when_done = supriya.ugens.FreeSelfWhenDone.kr(
         ...     source=source,
-        ...     )
+        ... )
         >>> free_self_when_done
         FreeSelfWhenDone.kr()
 
@@ -173,7 +173,7 @@ class Pause(UGen):
         >>> pause = supriya.ugens.Pause.kr(
         ...     node_id=node_id,
         ...     trigger=trigger,
-        ...     )
+        ... )
         >>> pause
         Pause.kr()
 
@@ -194,7 +194,7 @@ class PauseSelf(UGen):
         >>> trigger = supriya.ugens.Impulse.kr(frequency=1.0)
         >>> pause_self = supriya.ugens.PauseSelf.kr(
         ...     trigger=trigger,
-        ...     )
+        ... )
         >>> pause_self
         PauseSelf.kr()
 
@@ -213,7 +213,7 @@ class PauseSelfWhenDone(UGen):
         >>> source = supriya.ugens.Line.kr()
         >>> pause_self_when_done = supriya.ugens.PauseSelfWhenDone.kr(
         ...     source=source,
-        ...     )
+        ... )
         >>> pause_self_when_done
         PauseSelfWhenDone.kr()
 

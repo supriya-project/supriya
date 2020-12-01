@@ -31,7 +31,7 @@ class Dbrown(DUGen):
         ...     maximum=1,
         ...     minimum=0,
         ...     step=0.01,
-        ...     )
+        ... )
         >>> dbrown
         Dbrown()
 
@@ -54,7 +54,7 @@ class Dbufrd(DUGen):
         ...     buffer_id=0,
         ...     loop=1,
         ...     phase=0,
-        ...     )
+        ... )
         >>> dbufrd
         Dbufrd()
 
@@ -77,7 +77,7 @@ class Dbufwr(DUGen):
         ...     source=0,
         ...     loop=1,
         ...     phase=0,
-        ...     )
+        ... )
         >>> dbufwr
         Dbufwr()
 
@@ -104,7 +104,7 @@ class Demand(MultiOutUGen):
         ...     reset=0,
         ...     source=source,
         ...     trigger=trigger,
-        ...     )
+        ... )
         >>> demand
         UGenArray({2})
 
@@ -152,7 +152,7 @@ class DemandEnvGen(UGen):
         ...     reset=1,
         ...     shape=1,
         ...     time_scale=1,
-        ...     )
+        ... )
         >>> demand_env_gen
         DemandEnvGen.ar()
 
@@ -185,7 +185,7 @@ class Dgeom(DUGen):
         ...     grow=2,
         ...     length=float('inf'),
         ...     start=1,
-        ...     )
+        ... )
         >>> dgeom
         Dgeom()
 
@@ -208,7 +208,7 @@ class Dibrown(DUGen):
         ...     maximum=1,
         ...     minimum=0,
         ...     step=0.01,
-        ...     )
+        ... )
         >>> dibrown
         Dibrown()
 
@@ -230,7 +230,7 @@ class Diwhite(DUGen):
         ...     length=float('inf'),
         ...     maximum=1,
         ...     minimum=0,
-        ...     )
+        ... )
         >>> diwhite
         Diwhite()
 
@@ -252,7 +252,7 @@ class Drand(DUGen):
         >>> drand = supriya.ugens.Drand.new(
         ...     repeats=1,
         ...     sequence=sequence,
-        ...     )
+        ... )
         >>> drand
         Drand()
 
@@ -273,7 +273,7 @@ class Dreset(DUGen):
         >>> dreset = supriya.ugens.Dreset(
         ...     reset=0,
         ...     source=source,
-        ...     )
+        ... )
         >>> dreset
         Dreset()
 
@@ -293,7 +293,7 @@ class Dseq(DUGen):
         >>> dseq = supriya.ugens.Dseq.new(
         ...     repeats=1,
         ...     sequence=sequence,
-        ...     )
+        ... )
         >>> dseq
         Dseq()
 
@@ -314,7 +314,7 @@ class Dser(DUGen):
         >>> dser = supriya.ugens.Dser.new(
         ...     repeats=1,
         ...     sequence=sequence,
-        ...     )
+        ... )
         >>> dser
         Dser()
 
@@ -335,7 +335,7 @@ class Dseries(DUGen):
         ...     length=float('inf'),
         ...     start=1,
         ...     step=1,
-        ...     )
+        ... )
         >>> dseries
         Dseries()
 
@@ -366,7 +366,7 @@ class Dshuf(DUGen):
         >>> dshuf = supriya.ugens.Dshuf.new(
         ...     repeats=1,
         ...     sequence=sequence,
-        ...     )
+        ... )
         >>> dshuf
         Dshuf()
 
@@ -387,7 +387,7 @@ class Dstutter(DUGen):
         >>> dstutter = supriya.ugens.Dstutter.new(
         ...     n=2,
         ...     source=source,
-        ...     )
+        ... )
         >>> dstutter
         Dstutter()
 
@@ -408,7 +408,7 @@ class Dswitch(DUGen):
         >>> dswitch = supriya.ugens.Dswitch.new(
         ...     index=index,
         ...     sequence=sequence,
-        ...     )
+        ... )
         >>> dswitch
         Dswitch()
 
@@ -432,7 +432,7 @@ class Dswitch1(DUGen):
         >>> dswitch_1 = supriya.ugens.Dswitch1.new(
         ...     index=index,
         ...     sequence=sequence,
-        ...     )
+        ... )
         >>> dswitch_1
         Dswitch1()
 
@@ -456,7 +456,7 @@ class Dunique(DUGen):
         ...     max_buffer_size=1024,
         ...     protected=True,
         ...     source=source,
-        ...     )
+        ... )
         >>> dunique
         Dunique()
 
@@ -479,13 +479,13 @@ class Duty(UGen):
         ...     duration=supriya.ugens.Drand(
         ...         sequence=[0.01, 0.2, 0.4],
         ...         repeats=2,
-        ...     ),
+        ... ),
         ...     reset=0,
         ...     level=supriya.ugens.Dseq(
         ...         sequence=[204, 400, 201, 502, 300, 200],
         ...         repeats=2,
-        ...         ),
-        ...     )
+        ...     ),
+        ... )
         >>> duty
         Duty.kr()
 
@@ -507,7 +507,7 @@ class Dwhite(DUGen):
         ...     length=float('inf'),
         ...     maximum=1,
         ...     minimum=0,
-        ...     )
+        ... )
         >>> dwhite
         Dwhite()
 
@@ -531,7 +531,7 @@ class Dwrand(DUGen):
         ...     repeats=1,
         ...     sequence=sequence,
         ...     weights=weights,
-        ...     )
+        ... )
         >>> dwrand
         Dwrand()
 
@@ -577,7 +577,7 @@ class Dxrand(DUGen):
         >>> dxrand = supriya.ugens.Dxrand.new(
         ...     repeats=1,
         ...     sequence=sequence,
-        ...     )
+        ... )
         >>> dxrand
         Dxrand()
 

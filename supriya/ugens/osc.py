@@ -14,7 +14,7 @@ class COsc(PureUGen):
         ...     beats=0.5,
         ...     buffer_id=23,
         ...     frequency=440,
-        ...     )
+        ... )
         >>> cosc
         COsc.ar()
 
@@ -37,7 +37,7 @@ class DegreeToKey(PureUGen):
         ...     buffer_id=23,
         ...     octave=12,
         ...     source=source,
-        ...     )
+        ... )
         >>> degree_to_key
         DegreeToKey.ar()
 
@@ -76,7 +76,7 @@ class Index(PureUGen):
         >>> index = supriya.ugens.Index.ar(
         ...     buffer_id=23,
         ...     source=source,
-        ...     )
+        ... )
         >>> index
         Index.ar()
 
@@ -233,7 +233,7 @@ class Select(PureUGen):
         >>> select = supriya.ugens.Select.ar(
         ...     sources=sources,
         ...     selector=selector,
-        ...     )
+        ... )
         >>> select
         Select.ar()
 
@@ -282,7 +282,7 @@ class SyncSaw(PureUGen):
         >>> sync_saw = supriya.ugens.SyncSaw.ar(
         ...     saw_frequency=440,
         ...     sync_frequency=440,
-        ...     )
+        ... )
         >>> sync_saw
         SyncSaw.ar()
 
@@ -304,7 +304,7 @@ class VOsc(PureUGen):
         ...     buffer_id=supriya.ugens.MouseX.kr(0,7),
         ...     frequency=440,
         ...     phase=0,
-        ...     )
+        ... )
         >>> vosc
         VOsc.ar()
 
@@ -327,7 +327,7 @@ class VOsc3(PureUGen):
         ...     freq_1=110,
         ...     freq_2=220,
         ...     freq_3=440,
-        ...     )
+        ... )
         >>> vosc_3
         VOsc3.ar()
 
@@ -371,7 +371,7 @@ class Vibrato(PureUGen):
         ...     onset=0,
         ...     rate=6,
         ...     rate_variation=0.04,
-        ...     )
+        ... )
         >>> vibrato
         Vibrato.ar()
 
@@ -402,7 +402,7 @@ class WrapIndex(UGen):
         >>> wrap_index = supriya.ugens.WrapIndex.ar(
         ...     buffer_id=23,
         ...     source=source,
-        ...     )
+        ... )
         >>> wrap_index
         WrapIndex.ar()
 

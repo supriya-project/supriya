@@ -14,7 +14,7 @@ class FreqShift(UGen):
         ...     frequency=0,
         ...     phase=0,
         ...     source=source,
-        ...     )
+        ... )
         >>> freq_shift
         FreqShift.ar()
 
@@ -35,7 +35,7 @@ class Hilbert(MultiOutUGen):
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> hilbert = supriya.ugens.Hilbert.ar(
         ...     source=source,
-        ...     )
+        ... )
         >>> hilbert
         UGenArray({2})
 
@@ -57,7 +57,7 @@ class HilbertFIR(UGen):
         >>> hilbert_fir = supriya.ugens.HilbertFIR.ar(
         ...     buffer_id=23,
         ...     source=source,
-        ...     )
+        ... )
         >>> hilbert_fir
         HilbertFIR.ar()
 

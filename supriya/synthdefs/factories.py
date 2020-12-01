@@ -26,7 +26,7 @@ class SynthDefFactory(SupriyaObject):
             ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
             ...             source=source,
             ...             maximum_delay_time=0.1,
-            ...             )
+            ...         )
             ...     return source
 
         ::
@@ -395,7 +395,7 @@ class SynthDefFactory(SupriyaObject):
                 ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
-                ...             )
+                ...         )
                 ...     return source
 
             ::
@@ -578,7 +578,7 @@ class SynthDefFactory(SupriyaObject):
                 ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
-                ...             )
+                ...         )
                 ...     return source
 
             ::
@@ -731,7 +731,7 @@ class SynthDefFactory(SupriyaObject):
                 ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
-                ...             )
+                ...         )
                 ...     return source
 
             ::
@@ -824,7 +824,7 @@ class SynthDefFactory(SupriyaObject):
                 ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
-                ...             )
+                ...         )
                 ...     return source
 
             ::
@@ -927,7 +927,7 @@ class SynthDefFactory(SupriyaObject):
                 ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
-                ...             )
+                ...         )
                 ...     return source
 
             ::
@@ -1169,7 +1169,7 @@ class SynthDefFactory(SupriyaObject):
                 ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
-                ...             )
+                ...         )
                 ...     return source
 
             ::
@@ -1385,7 +1385,7 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_output(
                 ...     crossfaded=True,
                 ...     windowed=True,
-                ...     )
+                ... )
                 >>> synthdef = factory.build()
                 >>> supriya.graph(synthdef)  # doctest: +SKIP
 
@@ -1442,7 +1442,7 @@ class SynthDefFactory(SupriyaObject):
                 ...     crossfaded=True,
                 ...     leveled=True,
                 ...     windowed=True,
-                ...     )
+                ... )
                 >>> synthdef = factory.build()
                 >>> supriya.graph(synthdef)  # doctest: +SKIP
 
@@ -1642,13 +1642,13 @@ class SynthDefFactory(SupriyaObject):
                 ...             slope_above=builder[band_name + 'slope_above'],
                 ...             slope_below=builder[band_name + 'slope_below'],
                 ...             threshold=builder[band_name + 'threshold'].db_to_amplitude(),
-                ...             )
+                ...         )
                 ...         band *= builder[band_name + 'postgain'].db_to_amplitude()
                 ...         compressors.extend(band)
                 ...     source = supriya.ugens.Mix.multichannel(
                 ...         compressors,
                 ...         state['channel_count'],
-                ...         )
+                ...     )
                 ...     return source
 
             ::
@@ -2094,7 +2094,7 @@ class SynthDefFactory(SupriyaObject):
                 ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
-                ...             )
+                ...         )
                 ...     return source
 
             ::
@@ -2194,7 +2194,7 @@ class SynthDefFactory(SupriyaObject):
                 ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
-                ...             )
+                ...         )
                 ...     return source
 
             ::
@@ -2214,7 +2214,7 @@ class SynthDefFactory(SupriyaObject):
                 ...     source = supriya.ugens.Limiter.ar(
                 ...         duration=supriya.ugens.Rand.ir(0.005, 0.015),
                 ...         source=source,
-                ...         )
+                ...     )
                 ...     return source
 
             ::
@@ -2293,7 +2293,7 @@ class SynthDefFactory(SupriyaObject):
                 ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
-                ...             )
+                ...         )
                 ...     return source
 
             ::
@@ -2362,7 +2362,7 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_output(
                 ...     leveled=True,
                 ...     windowed=True,
-                ...     )
+                ... )
                 >>> synthdef = factory.build()
                 >>> supriya.graph(synthdef)  # doctest: +SKIP
 

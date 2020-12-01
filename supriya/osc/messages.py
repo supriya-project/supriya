@@ -268,7 +268,7 @@ class OscBundle(SupriyaValueObject):
         >>> inner_bundle = supriya.osc.OscBundle(
         ...     timestamp=1401557034.5,
         ...     contents=(message_one, message_two),
-        ...     )
+        ... )
         >>> inner_bundle
         OscBundle(
             contents=(
@@ -282,7 +282,7 @@ class OscBundle(SupriyaValueObject):
 
         >>> outer_bundle = supriya.osc.OscBundle(
         ...     contents=(inner_bundle, message_three),
-        ...     )
+        ... )
         >>> outer_bundle
         OscBundle(
             contents=(

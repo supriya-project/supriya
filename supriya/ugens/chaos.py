@@ -15,7 +15,7 @@ class CuspL(UGen):
         ...     b=1.9,
         ...     frequency=22050,
         ...     xi=0,
-        ...     )
+        ... )
         >>> cusp_l
         CuspL.ar()
 
@@ -38,7 +38,7 @@ class CuspN(UGen):
         ...     b=1.9,
         ...     frequency=22050,
         ...     xi=0,
-        ...     )
+        ... )
         >>> cusp_n
         CuspN.ar()
 
@@ -64,7 +64,7 @@ class FBSineC(UGen):
         ...     im=1,
         ...     xi=0.1,
         ...     yi=0.1,
-        ...     )
+        ... )
         >>> fbsine_c
         FBSineC.ar()
 
@@ -98,7 +98,7 @@ class FBSineL(UGen):
         ...     im=1,
         ...     xi=0.1,
         ...     yi=0.1,
-        ...     )
+        ... )
         >>> fbsine_l
         FBSineL.ar()
 
@@ -132,7 +132,7 @@ class FBSineN(UGen):
         ...     im=1,
         ...     xi=0.1,
         ...     yi=0.1,
-        ...     )
+        ... )
         >>> fbsine_n
         FBSineN.ar()
 
@@ -162,7 +162,7 @@ class GbmanL(UGen):
         ...     frequency=22050,
         ...     xi=1.2,
         ...     yi=2.1,
-        ...     )
+        ... )
         >>> gbman_l
         GbmanL.ar()
 
@@ -184,7 +184,7 @@ class GbmanN(UGen):
         ...     frequency=22050,
         ...     xi=1.2,
         ...     yi=2.1,
-        ...     )
+        ... )
         >>> gbman_n
         GbmanN.ar()
 
@@ -208,7 +208,7 @@ class HenonC(UGen):
         ...     frequency=22050,
         ...     x_0=0,
         ...     x_1=0,
-        ...     )
+        ... )
         >>> henon_c
         HenonC.ar()
 
@@ -232,7 +232,7 @@ class HenonL(UGen):
         ...     frequency=22050,
         ...     x_0=0,
         ...     x_1=0,
-        ...     )
+        ... )
         >>> henon_l
         HenonL.ar()
 
@@ -256,7 +256,7 @@ class HenonN(UGen):
         ...     frequency=22050,
         ...     x_0=0,
         ...     x_1=0,
-        ...     )
+        ... )
         >>> henon_n
         HenonN.ar()
 
@@ -282,7 +282,7 @@ class LatoocarfianC(UGen):
         ...     frequency=22050,
         ...     xi=0.5,
         ...     yi=0.5,
-        ...     )
+        ... )
         >>> latoocarfian_c
         LatoocarfianC.ar()
 
@@ -316,7 +316,7 @@ class LatoocarfianL(UGen):
         ...     frequency=22050,
         ...     xi=0.5,
         ...     yi=0.5,
-        ...     )
+        ... )
         >>> latoocarfian_l
         LatoocarfianL.ar()
 
@@ -350,7 +350,7 @@ class LatoocarfianN(UGen):
         ...     frequency=22050,
         ...     xi=0.5,
         ...     yi=0.5,
-        ...     )
+        ... )
         >>> latoocarfian_n
         LatoocarfianN.ar()
 
@@ -382,7 +382,7 @@ class LinCongC(UGen):
         ...     frequency=22050,
         ...     m=1,
         ...     xi=0,
-        ...     )
+        ... )
         >>> lin_cong_c
         LinCongC.ar()
 
@@ -406,7 +406,7 @@ class LinCongL(UGen):
         ...     frequency=22050,
         ...     m=1,
         ...     xi=0,
-        ...     )
+        ... )
         >>> lin_cong_l
         LinCongL.ar()
 
@@ -430,7 +430,7 @@ class LinCongN(UGen):
         ...     frequency=22050,
         ...     m=1,
         ...     xi=0,
-        ...     )
+        ... )
         >>> lin_cong_n
         LinCongN.ar()
 
@@ -457,7 +457,7 @@ class LorenzL(UGen):
         ...     xi=0.1,
         ...     yi=0,
         ...     zi=0,
-        ...     )
+        ... )
         >>> lorenz_l
         LorenzL.ar()
 
@@ -490,7 +490,7 @@ class QuadC(UGen):
         ...     c=-0.75,
         ...     frequency=22050,
         ...     xi=0,
-        ...     )
+        ... )
         >>> quad_c
         QuadC.ar()
 
@@ -514,7 +514,7 @@ class QuadL(UGen):
         ...     c=-0.75,
         ...     frequency=22050,
         ...     xi=0,
-        ...     )
+        ... )
         >>> quad_l
         QuadL.ar()
 
@@ -538,7 +538,7 @@ class QuadN(UGen):
         ...     c=-0.75,
         ...     frequency=22050,
         ...     xi=0,
-        ...     )
+        ... )
         >>> quad_n
         QuadN.ar()
 
@@ -561,7 +561,7 @@ class StandardL(UGen):
         ...     k=1,
         ...     xi=0.5,
         ...     yi=0,
-        ...     )
+        ... )
         >>> standard_l
         StandardL.ar()
 
@@ -584,7 +584,7 @@ class StandardN(UGen):
         ...     k=1,
         ...     xi=0.5,
         ...     yi=0,
-        ...     )
+        ... )
         >>> standard_n
         StandardN.ar()
 

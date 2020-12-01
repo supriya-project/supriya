@@ -19,7 +19,7 @@ class Balance2(MultiOutUGen):
         ...     level=1,
         ...     position=0,
         ...     right=right,
-        ...     )
+        ... )
         >>> balance_2
         UGenArray({2})
 
@@ -46,7 +46,7 @@ class BiPanB2(MultiOutUGen):
         ...     gain=1,
         ...     in_a=in_a,
         ...     in_b=in_b,
-        ...     )
+        ... )
         >>> bi_pan_b_2
         UGenArray({3})
 
@@ -74,7 +74,7 @@ class DecodeB2(MultiOutUGen):
         >>> w, x, y = supriya.ugens.PanB2.ar(
         ...     source=source,
         ...     azimuth=supriya.ugens.SinOsc.kr(),
-        ...     )
+        ... )
         >>> channel_count = 4
         >>> decode_b_2 = supriya.ugens.DecodeB2.ar(
         ...     channel_count=channel_count,
@@ -82,7 +82,7 @@ class DecodeB2(MultiOutUGen):
         ...     w=w,
         ...     x=x,
         ...     y=y,
-        ...     )
+        ... )
         >>> decode_b_2
         UGenArray({4})
 
@@ -105,7 +105,7 @@ class Pan2(MultiOutUGen):
         >>> source = supriya.ugens.WhiteNoise.ar()
         >>> pan_2 = supriya.ugens.Pan2.ar(
         ...     source=source,
-        ...     )
+        ... )
         >>> pan_2
         UGenArray({2})
 
@@ -131,7 +131,7 @@ class Pan4(MultiOutUGen):
         ...     source=source,
         ...     x_position=0,
         ...     y_position=0,
-        ...     )
+        ... )
         >>> pan_4
         UGenArray({4})
 
@@ -159,7 +159,7 @@ class PanAz(MultiOutUGen):
         ...     position=0,
         ...     source=source,
         ...     width=2,
-        ...     )
+        ... )
         >>> pan_az
         UGenArray({8})
 
@@ -191,7 +191,7 @@ class PanB(MultiOutUGen):
         ...     elevation=0,
         ...     gain=1,
         ...     source=source,
-        ...     )
+        ... )
         >>> pan_b
         UGenArray({3})
 
@@ -216,7 +216,7 @@ class PanB2(MultiOutUGen):
         ...     azimuth=0,
         ...     gain=1,
         ...     source=source,
-        ...     )
+        ... )
         >>> pan_b_2
         UGenArray({3})
 
@@ -244,7 +244,7 @@ class Rotate2(MultiOutUGen):
         ...     x=x,
         ...     y=y,
         ...     position=position,
-        ...     )
+        ... )
         >>> rotate_2
         UGenArray({2})
 
@@ -420,7 +420,7 @@ class XFade2(UGen):
         ...     in_b=supriya.ugens.SinOsc.ar(),
         ...     level=1,
         ...     pan=supriya.ugens.LFTri.kr(frequency=0.1),
-        ...     )
+        ... )
         >>> xfade_3
         XFade2.ar()
 

@@ -21,7 +21,7 @@ class BAllPass(BEQSuite):
         ...     frequency=1200,
         ...     reciprocal_of_q=1,
         ...     source=source,
-        ...     )
+        ... )
         >>> ball_pass
         BAllPass.ar()
 
@@ -44,7 +44,7 @@ class BBandPass(BEQSuite):
         ...     bandwidth=1,
         ...     frequency=1200,
         ...     source=source,
-        ...     )
+        ... )
         >>> bband_pass
         BBandPass.ar()
 
@@ -67,7 +67,7 @@ class BBandStop(BEQSuite):
         ...     bandwidth=1,
         ...     frequency=1200,
         ...     source=source,
-        ...     )
+        ... )
         >>> bband_stop
         BBandStop.ar()
 
@@ -91,7 +91,7 @@ class BHiCut(BEQSuite):
         ...     max_order=5,
         ...     order=2,
         ...     source=source,
-        ...     )
+        ... )
         >>> bhi_cut
         BHiCut.ar()
 
@@ -114,7 +114,7 @@ class BHiPass(BEQSuite):
         ...     frequency=1200,
         ...     reciprocal_of_q=1,
         ...     source=source,
-        ...     )
+        ... )
         >>> bhi_pass
         BHiPass.ar()
 
@@ -138,7 +138,7 @@ class BHiShelf(BEQSuite):
         ...     frequency=1200,
         ...     reciprocal_of_s=1,
         ...     source=source,
-        ...     )
+        ... )
         >>> bhi_shelf
         BHiShelf.ar()
 
@@ -162,7 +162,7 @@ class BLowCut(BEQSuite):
         ...     max_order=5,
         ...     order=2,
         ...     source=source,
-        ...     )
+        ... )
         >>> blow_cut
         BLowCut.ar()
 
@@ -185,7 +185,7 @@ class BLowPass(BEQSuite):
         ...     frequency=1200,
         ...     reciprocal_of_q=1,
         ...     source=source,
-        ...     )
+        ... )
         >>> blow_pass
         BLowPass.ar()
 
@@ -209,7 +209,7 @@ class BLowShelf(BEQSuite):
         ...     gain=0,
         ...     reciprocal_of_s=1,
         ...     source=source,
-        ...     )
+        ... )
         >>> blow_shelf
         BLowShelf.ar()
 
@@ -233,7 +233,7 @@ class BPeakEQ(BEQSuite):
         ...     gain=0,
         ...     reciprocal_of_q=1,
         ...     source=source,
-        ...     )
+        ... )
         >>> bpeak_eq
         BPeakEQ.ar()
 

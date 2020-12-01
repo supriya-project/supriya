@@ -24,19 +24,19 @@ class SynthDefBuilder(SupriyaObject):
         ...     trigger=supriya.synthdefs.Parameter(
         ...         value=0,
         ...         parameter_rate=supriya.ParameterRate.TRIGGER,
-        ...         ),
-        ...     )
+        ...     ),
+        ... )
 
     ::
 
         >>> with builder:
         ...     sin_osc = supriya.ugens.SinOsc.ar(
         ...         frequency=builder['frequency'],
-        ...         )
+        ...     )
         ...     decay = supriya.ugens.Decay.kr(
         ...         decay_time=0.5,
         ...         source=builder['trigger'],
-        ...         )
+        ...     )
         ...     enveloped_sin = sin_osc * decay
         ...     out = supriya.ugens.Out.ar(bus=0, source=enveloped_sin)
         ...

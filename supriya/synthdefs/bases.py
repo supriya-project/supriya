@@ -517,7 +517,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             >>> result = supriya.synthdefs.UGen._expand_dictionary(
             ...     dictionary,
             ...     unexpanded_input_names=('source',),
-            ...     )
+            ... )
             >>> for x in result:
             ...     sorted(x.items())
             ...
@@ -662,7 +662,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             >>> ugen = supriya.ugens.SinOsc.ar(
             ...     frequency=supriya.ugens.WhiteNoise.kr(),
             ...     phase=0.5,
-            ...     )
+            ... )
             >>> ugen.calculation_rate
             CalculationRate.AUDIO
 
@@ -684,7 +684,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             >>> ugen = supriya.ugens.SinOsc.ar(
             ...     frequency=supriya.ugens.WhiteNoise.kr(),
             ...     phase=0.5,
-            ...     )
+            ... )
             >>> for input_ in ugen.inputs:
             ...     input_
             ...
@@ -713,7 +713,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             >>> ugen = supriya.ugens.SinOsc.ar(
             ...     frequency=supriya.ugens.WhiteNoise.kr(),
             ...     phase=0.5,
-            ...     )
+            ... )
             >>> ugen.outputs
             (CalculationRate.AUDIO,)
 
@@ -752,7 +752,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             >>> ugen = supriya.ugens.SinOsc.ar(
             ...     frequency=supriya.ugens.WhiteNoise.kr(),
             ...     phase=0.5,
-            ...     )
+            ... )
             >>> ugen.special_index
             0
 
