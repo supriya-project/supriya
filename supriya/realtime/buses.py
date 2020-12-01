@@ -574,7 +574,7 @@ class BusGroup(ServerObject):
                 ...     bus_id=8,
                 ...     bus_count=4,
                 ...     calculation_rate='audio',
-                ...     )
+                ... )
                 >>> ugen = audio_bus_group.ar()
                 >>> supriya.graph(ugen)  # doctest: +SKIP
 
@@ -595,7 +595,7 @@ class BusGroup(ServerObject):
                 ...     bus_id=8,
                 ...     bus_count=4,
                 ...     calculation_rate='control',
-                ...     )
+                ... )
                 >>> ugen = control_bus_group.ar()
                 >>> supriya.graph(ugen)  # doctest: +SKIP
 
@@ -739,7 +739,7 @@ class BusGroup(ServerObject):
                 ...     bus_id=8,
                 ...     bus_count=4,
                 ...     calculation_rate='audio',
-                ...     )
+                ... )
                 >>> ugen = audio_bus_group.kr()
                 >>> supriya.graph(ugen)  # doctest: +SKIP
 
@@ -768,7 +768,7 @@ class BusGroup(ServerObject):
                 ...     bus_id=8,
                 ...     bus_count=4,
                 ...     calculation_rate='control',
-                ...     )
+                ... )
                 >>> ugen = control_bus_group.kr()
                 >>> supriya.graph(ugen)  # doctest: +SKIP
 

@@ -13,7 +13,7 @@ class Meters(SupriyaObject):
         >>> server = supriya.Server.default().boot(
         ...     input_bus_channel_count=2,
         ...     output_bus_channel_count=2,
-        ...     )
+        ... )
         >>> meters = server.meters.allocate()
         >>> time.sleep(1)
         >>> print(json.dumps(meters.to_dict(), indent=4))

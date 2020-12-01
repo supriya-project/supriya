@@ -18,7 +18,7 @@ class Recorder(SupriyaObject):
         ...         file_path=os.path.join(tempdir, 'example.aiff'),
         ...         channel_count=2,
         ...         header_format='AIFF',
-        ...         )
+        ...     )
         ...     time.sleep(1)
         ...     server.recorder.stop()
         ...

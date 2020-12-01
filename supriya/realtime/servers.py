@@ -545,8 +545,8 @@ class Server(BaseServer):
             ...     supriya.Group([
             ...         supriya.Synth(),
             ...         supriya.Synth(),
-            ...         ]),
-            ...     ]).allocate()
+            ...     ]),
+            ... ]).allocate()
 
         ::
 
@@ -942,15 +942,15 @@ class Server(BaseServer):
             >>> with supriya.synthdefs.SynthDefBuilder(
             ...     amplitude=0.0,
             ...     frequency=440.0,
-            ...     ) as builder:
+            ... ) as builder:
             ...     sin_osc = supriya.ugens.SinOsc.ar(
             ...         frequency=builder['frequency'],
-            ...         )
+            ...     )
             ...     sin_osc *= builder['amplitude']
             ...     out = supriya.ugens.Out.ar(
             ...         bus=0,
             ...         source=[sin_osc, sin_osc],
-            ...         )
+            ...     )
             ...
             >>> synthdef = builder.build()
             >>> synthdef.allocate()
@@ -960,7 +960,7 @@ class Server(BaseServer):
 
             >>> synth = supriya.realtime.Synth(synthdef).allocate(
             ...     target_node=group_b,
-            ...     )
+            ... )
 
         ::
 
@@ -1010,15 +1010,15 @@ class Server(BaseServer):
             >>> with supriya.synthdefs.SynthDefBuilder(
             ...     amplitude=0.0,
             ...     frequency=440.0,
-            ...     ) as builder:
+            ... ) as builder:
             ...     sin_osc = supriya.ugens.SinOsc.ar(
             ...         frequency=builder['frequency'],
-            ...         )
+            ...     )
             ...     sin_osc *= builder['amplitude']
             ...     out = supriya.ugens.Out.ar(
             ...         bus=0,
             ...         source=[sin_osc, sin_osc],
-            ...         )
+            ...     )
             ...
             >>> synthdef = builder.build()
             >>> synthdef.allocate()
@@ -1028,7 +1028,7 @@ class Server(BaseServer):
 
             >>> synth = supriya.realtime.Synth(synthdef).allocate(
             ...     target_node=group_b,
-            ...     )
+            ... )
 
         ::
 

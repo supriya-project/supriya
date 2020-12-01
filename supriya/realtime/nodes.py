@@ -695,15 +695,15 @@ class Synth(Node):
         >>> with supriya.synthdefs.SynthDefBuilder(
         ...     amplitude=0.0,
         ...     frequency=440.0,
-        ...     ) as builder:
+        ... ) as builder:
         ...     sin_osc = supriya.ugens.SinOsc.ar(
         ...         frequency=builder['frequency'],
-        ...         )
+        ...     )
         ...     sin_osc *= builder['amplitude']
         ...     out = supriya.ugens.Out.ar(
         ...         bus=0,
         ...         source=[sin_osc, sin_osc],
-        ...         )
+        ...     )
         ...
         >>> synthdef = builder.build()
         >>> synthdef.allocate()
@@ -715,7 +715,7 @@ class Synth(Node):
         ...     amplitude=0.5,
         ...     frequency=443,
         ...     synthdef=synthdef
-        ...     )
+        ... )
         >>> synth
         <- Synth: ???>
 
