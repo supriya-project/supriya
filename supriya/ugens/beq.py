@@ -18,9 +18,7 @@ class BAllPass(BEQSuite):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> ball_pass = supriya.ugens.BAllPass.ar(
-        ...     frequency=1200,
-        ...     reciprocal_of_q=1,
-        ...     source=source,
+        ...     frequency=1200, reciprocal_of_q=1, source=source,
         ... )
         >>> ball_pass
         BAllPass.ar()
@@ -41,9 +39,7 @@ class BBandPass(BEQSuite):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> bband_pass = supriya.ugens.BBandPass.ar(
-        ...     bandwidth=1,
-        ...     frequency=1200,
-        ...     source=source,
+        ...     bandwidth=1, frequency=1200, source=source,
         ... )
         >>> bband_pass
         BBandPass.ar()
@@ -64,9 +60,7 @@ class BBandStop(BEQSuite):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> bband_stop = supriya.ugens.BBandStop.ar(
-        ...     bandwidth=1,
-        ...     frequency=1200,
-        ...     source=source,
+        ...     bandwidth=1, frequency=1200, source=source,
         ... )
         >>> bband_stop
         BBandStop.ar()
@@ -87,10 +81,7 @@ class BHiCut(BEQSuite):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> bhi_cut = supriya.ugens.BHiCut.ar(
-        ...     frequency=1200,
-        ...     max_order=5,
-        ...     order=2,
-        ...     source=source,
+        ...     frequency=1200, max_order=5, order=2, source=source,
         ... )
         >>> bhi_cut
         BHiCut.ar()
@@ -111,9 +102,7 @@ class BHiPass(BEQSuite):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> bhi_pass = supriya.ugens.BHiPass.ar(
-        ...     frequency=1200,
-        ...     reciprocal_of_q=1,
-        ...     source=source,
+        ...     frequency=1200, reciprocal_of_q=1, source=source,
         ... )
         >>> bhi_pass
         BHiPass.ar()
@@ -134,10 +123,7 @@ class BHiShelf(BEQSuite):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> bhi_shelf = supriya.ugens.BHiShelf.ar(
-        ...     gain=0,
-        ...     frequency=1200,
-        ...     reciprocal_of_s=1,
-        ...     source=source,
+        ...     gain=0, frequency=1200, reciprocal_of_s=1, source=source,
         ... )
         >>> bhi_shelf
         BHiShelf.ar()
@@ -158,10 +144,7 @@ class BLowCut(BEQSuite):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> blow_cut = supriya.ugens.BLowCut.ar(
-        ...     frequency=1200,
-        ...     max_order=5,
-        ...     order=2,
-        ...     source=source,
+        ...     frequency=1200, max_order=5, order=2, source=source,
         ... )
         >>> blow_cut
         BLowCut.ar()
@@ -182,9 +165,7 @@ class BLowPass(BEQSuite):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> blow_pass = supriya.ugens.BLowPass.ar(
-        ...     frequency=1200,
-        ...     reciprocal_of_q=1,
-        ...     source=source,
+        ...     frequency=1200, reciprocal_of_q=1, source=source,
         ... )
         >>> blow_pass
         BLowPass.ar()
@@ -205,10 +186,7 @@ class BLowShelf(BEQSuite):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> blow_shelf = supriya.ugens.BLowShelf.ar(
-        ...     frequency=1200,
-        ...     gain=0,
-        ...     reciprocal_of_s=1,
-        ...     source=source,
+        ...     frequency=1200, gain=0, reciprocal_of_s=1, source=source,
         ... )
         >>> blow_shelf
         BLowShelf.ar()
@@ -229,10 +207,7 @@ class BPeakEQ(BEQSuite):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> bpeak_eq = supriya.ugens.BPeakEQ.ar(
-        ...     frequency=1200,
-        ...     gain=0,
-        ...     reciprocal_of_q=1,
-        ...     source=source,
+        ...     frequency=1200, gain=0, reciprocal_of_q=1, source=source,
         ... )
         >>> bpeak_eq
         BPeakEQ.ar()

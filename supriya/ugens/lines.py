@@ -12,9 +12,7 @@ class A2K(PureUGen):
     ::
 
         >>> source = supriya.ugens.SinOsc.ar()
-        >>> a_2_k = supriya.ugens.A2K.kr(
-        ...     source=source,
-        ... )
+        >>> a_2_k = supriya.ugens.A2K.kr(source=source,)
         >>> a_2_k
         A2K.kr()
 
@@ -30,11 +28,7 @@ class AmpComp(PureUGen):
 
     ::
 
-        >>> amp_comp = supriya.ugens.AmpComp.ar(
-        ...     exp=0.3333,
-        ...     frequency=1000,
-        ...     root=0,
-        ... )
+        >>> amp_comp = supriya.ugens.AmpComp.ar(exp=0.3333, frequency=1000, root=0,)
         >>> amp_comp
         AmpComp.ar()
 
@@ -57,10 +51,7 @@ class AmpCompA(PureUGen):
     ::
 
         >>> amp_comp_a = supriya.ugens.AmpCompA.ar(
-        ...     frequency=1000,
-        ...     min_amp=0.32,
-        ...     root=0,
-        ...     root_amp=1,
+        ...     frequency=1000, min_amp=0.32, root=0, root_amp=1,
         ... )
         >>> amp_comp_a
         AmpCompA.ar()
@@ -83,16 +74,12 @@ class DC(PureUGen):
 
     ::
 
-        >>> supriya.ugens.DC.ar(
-        ...     source=0,
-        ... )
+        >>> supriya.ugens.DC.ar(source=0,)
         DC.ar()
 
     ::
 
-        >>> supriya.ugens.DC.ar(
-        ...     source=(1, 2, 3),
-        ... )
+        >>> supriya.ugens.DC.ar(source=(1, 2, 3),)
         UGenArray({3})
 
     """
@@ -108,9 +95,7 @@ class K2A(PureUGen):
     ::
 
         >>> source = supriya.ugens.SinOsc.kr()
-        >>> k_2_a = supriya.ugens.K2A.ar(
-        ...     source=source,
-        ... )
+        >>> k_2_a = supriya.ugens.K2A.ar(source=source,)
         >>> k_2_a
         K2A.ar()
 

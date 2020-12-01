@@ -14,10 +14,8 @@ class Amplitude(UGen):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> amplitude = supriya.ugens.Amplitude.kr(
-        ...     attack_time=0.01,
-        ...     release_time=0.01,
-        ...     source=source,
-        ...     )
+        ...     attack_time=0.01, release_time=0.01, source=source,
+        ... )
         >>> amplitude
         Amplitude.kr()
 
@@ -74,9 +72,7 @@ class CompanderD(PseudoUGen):
             ::
 
                 >>> source = supriya.ugens.In.ar(bus=0)
-                >>> compander_d = supriya.ugens.CompanderD.ar(
-                ...     source=source,
-                ...     )
+                >>> compander_d = supriya.ugens.CompanderD.ar(source=source,)
                 >>> supriya.graph(compander_d)  # doctest: +SKIP
 
             ::
@@ -124,11 +120,7 @@ class Limiter(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(0)
-        >>> limiter = supriya.ugens.Limiter.ar(
-        ...     duration=0.01,
-        ...     level=1,
-        ...     source=source,
-        ...     )
+        >>> limiter = supriya.ugens.Limiter.ar(duration=0.01, level=1, source=source,)
         >>> limiter
         Limiter.ar()
 
@@ -147,11 +139,7 @@ class Normalizer(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(0)
-        >>> normalizer = supriya.ugens.Normalizer.ar(
-        ...     duration=0.01,
-        ...     level=1,
-        ...     source=source,
-        ...     )
+        >>> normalizer = supriya.ugens.Normalizer.ar(duration=0.01, level=1, source=source,)
         >>> normalizer
         Normalizer.ar()
 

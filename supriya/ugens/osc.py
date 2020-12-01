@@ -10,11 +10,7 @@ class COsc(PureUGen):
 
     ::
 
-        >>> cosc = supriya.ugens.COsc.ar(
-        ...     beats=0.5,
-        ...     buffer_id=23,
-        ...     frequency=440,
-        ... )
+        >>> cosc = supriya.ugens.COsc.ar(beats=0.5, buffer_id=23, frequency=440,)
         >>> cosc
         COsc.ar()
 
@@ -34,9 +30,7 @@ class DegreeToKey(PureUGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> degree_to_key = supriya.ugens.DegreeToKey.ar(
-        ...     buffer_id=23,
-        ...     octave=12,
-        ...     source=source,
+        ...     buffer_id=23, octave=12, source=source,
         ... )
         >>> degree_to_key
         DegreeToKey.ar()
@@ -73,10 +67,7 @@ class Index(PureUGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> index = supriya.ugens.Index.ar(
-        ...     buffer_id=23,
-        ...     source=source,
-        ... )
+        >>> index = supriya.ugens.Index.ar(buffer_id=23, source=source,)
         >>> index
         Index.ar()
 
@@ -230,10 +221,7 @@ class Select(PureUGen):
 
         >>> sources = supriya.ugens.In.ar(bus=0, channel_count=8)
         >>> selector = supriya.ugens.Phasor.kr() * 8
-        >>> select = supriya.ugens.Select.ar(
-        ...     sources=sources,
-        ...     selector=selector,
-        ... )
+        >>> select = supriya.ugens.Select.ar(sources=sources, selector=selector,)
         >>> select
         Select.ar()
 
@@ -279,10 +267,7 @@ class SyncSaw(PureUGen):
 
     ::
 
-        >>> sync_saw = supriya.ugens.SyncSaw.ar(
-        ...     saw_frequency=440,
-        ...     sync_frequency=440,
-        ... )
+        >>> sync_saw = supriya.ugens.SyncSaw.ar(saw_frequency=440, sync_frequency=440,)
         >>> sync_saw
         SyncSaw.ar()
 
@@ -301,9 +286,7 @@ class VOsc(PureUGen):
     ::
 
         >>> vosc = supriya.ugens.VOsc.ar(
-        ...     buffer_id=supriya.ugens.MouseX.kr(0,7),
-        ...     frequency=440,
-        ...     phase=0,
+        ...     buffer_id=supriya.ugens.MouseX.kr(0, 7), frequency=440, phase=0,
         ... )
         >>> vosc
         VOsc.ar()
@@ -323,10 +306,7 @@ class VOsc3(PureUGen):
     ::
 
         >>> vosc_3 = supriya.ugens.VOsc3.ar(
-        ...     buffer_id=supriya.ugens.MouseX.kr(0,7),
-        ...     freq_1=110,
-        ...     freq_2=220,
-        ...     freq_3=440,
+        ...     buffer_id=supriya.ugens.MouseX.kr(0, 7), freq_1=110, freq_2=220, freq_3=440,
         ... )
         >>> vosc_3
         VOsc3.ar()
@@ -399,10 +379,7 @@ class WrapIndex(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> wrap_index = supriya.ugens.WrapIndex.ar(
-        ...     buffer_id=23,
-        ...     source=source,
-        ... )
+        >>> wrap_index = supriya.ugens.WrapIndex.ar(buffer_id=23, source=source,)
         >>> wrap_index
         WrapIndex.ar()
 

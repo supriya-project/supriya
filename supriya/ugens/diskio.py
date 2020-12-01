@@ -11,11 +11,7 @@ class DiskIn(MultiOutUGen):
     ::
 
         >>> buffer_id = 23
-        >>> disk_in = supriya.ugens.DiskIn.ar(
-        ...     buffer_id=buffer_id,
-        ...     channel_count=2,
-        ...     loop=0,
-        ... )
+        >>> disk_in = supriya.ugens.DiskIn.ar(buffer_id=buffer_id, channel_count=2, loop=0,)
         >>> disk_in
         UGenArray({2})
 
@@ -36,10 +32,7 @@ class DiskOut(UGen):
 
         >>> buffer_id = 0
         >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
-        >>> disk_out = supriya.ugens.DiskOut.ar(
-        ...     buffer_id=buffer_id,
-        ...     source=source,
-        ... )
+        >>> disk_out = supriya.ugens.DiskOut.ar(buffer_id=buffer_id, source=source,)
         >>> disk_out
         DiskOut.ar()
 
@@ -60,11 +53,7 @@ class VDiskIn(MultiOutUGen):
 
         >>> buffer_id = 23
         >>> vdisk_in = supriya.ugens.VDiskIn.ar(
-        ...     buffer_id=buffer_id,
-        ...     channel_count=2,
-        ...     loop=0,
-        ...     rate=1,
-        ...     send_id=0,
+        ...     buffer_id=buffer_id, channel_count=2, loop=0, rate=1, send_id=0,
         ... )
         >>> vdisk_in
         UGenArray({2})

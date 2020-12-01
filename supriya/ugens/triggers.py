@@ -11,11 +11,7 @@ class Clip(UGen):
     ::
 
         >>> source = supriya.ugens.SinOsc.ar()
-        >>> clip = supriya.ugens.Clip.ar(
-        ...     maximum=0.9,
-        ...     minimum=0.1,
-        ...     source=source,
-        ... )
+        >>> clip = supriya.ugens.Clip.ar(maximum=0.9, minimum=0.1, source=source,)
         >>> clip
         Clip.ar()
 
@@ -38,11 +34,7 @@ class Fold(UGen):
     ::
 
         >>> source = supriya.ugens.SinOsc.ar()
-        >>> fold = supriya.ugens.Fold.ar(
-        ...     maximum=0.9,
-        ...     minimum=0.1,
-        ...     source=source,
-        ... )
+        >>> fold = supriya.ugens.Fold.ar(maximum=0.9, minimum=0.1, source=source,)
         >>> fold
         Fold.ar()
 
@@ -66,10 +58,7 @@ class Gate(UGen):
 
         >>> source = supriya.ugens.WhiteNoise.ar()
         >>> trigger = supriya.ugens.Dust.kr(1)
-        >>> gate = supriya.ugens.Gate.ar(
-        ...     source=source,
-        ...     trigger=trigger,
-        ... )
+        >>> gate = supriya.ugens.Gate.ar(source=source, trigger=trigger,)
         >>> gate
         Gate.ar()
 
@@ -86,11 +75,7 @@ class InRange(UGen):
     ::
 
         >>> source = supriya.ugens.SinOsc.ar()
-        >>> in_range = supriya.ugens.InRange.ar(
-        ...     maximum=0.9,
-        ...     minimum=0.1,
-        ...     source=source,
-        ... )
+        >>> in_range = supriya.ugens.InRange.ar(maximum=0.9, minimum=0.1, source=source,)
         >>> in_range
         InRange.ar()
 
@@ -114,10 +99,7 @@ class Latch(UGen):
 
         >>> source = supriya.ugens.WhiteNoise.ar()
         >>> trigger = supriya.ugens.Dust.kr(1)
-        >>> latch = supriya.ugens.Latch.ar(
-        ...     source=source,
-        ...     trigger=trigger,
-        ... )
+        >>> latch = supriya.ugens.Latch.ar(source=source, trigger=trigger,)
         >>> latch
         Latch.ar()
 
@@ -133,10 +115,7 @@ class LeastChange(UGen):
 
     ::
 
-        >>> least_change = supriya.ugens.LeastChange.ar(
-        ...     a=0,
-        ...     b=0,
-        ... )
+        >>> least_change = supriya.ugens.LeastChange.ar(a=0, b=0,)
         >>> least_change
         LeastChange.ar()
 
@@ -152,10 +131,7 @@ class MostChange(UGen):
 
     ::
 
-        >>> most_change = supriya.ugens.MostChange.ar(
-        ...     a=0,
-        ...     b=0,
-        ... )
+        >>> most_change = supriya.ugens.MostChange.ar(a=0, b=0,)
         >>> most_change
         MostChange.ar()
 
@@ -173,10 +149,7 @@ class Peak(UGen):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> trigger = supriya.ugens.Impulse.kr(1)
-        >>> peak = supriya.ugens.Peak.ar(
-        ...     source=source,
-        ...     trigger=trigger,
-        ... )
+        >>> peak = supriya.ugens.Peak.ar(source=source, trigger=trigger,)
         >>> peak
         Peak.ar()
 
@@ -193,10 +166,7 @@ class PeakFollower(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(0)
-        >>> peak_follower = supriya.ugens.PeakFollower.ar(
-        ...     decay=0.999,
-        ...     source=source,
-        ... )
+        >>> peak_follower = supriya.ugens.PeakFollower.ar(decay=0.999, source=source,)
         >>> peak_follower
         PeakFollower.ar()
 
@@ -214,11 +184,7 @@ class Phasor(UGen):
 
         >>> trigger = supriya.ugens.Impulse.kr(0.5)
         >>> phasor = supriya.ugens.Phasor.ar(
-        ...     rate=1,
-        ...     reset_pos=0,
-        ...     start=0,
-        ...     stop=1,
-        ...     trigger=trigger,
+        ...     rate=1, reset_pos=0, start=0, stop=1, trigger=trigger,
         ... )
         >>> phasor
         Phasor.ar()
@@ -239,11 +205,7 @@ class Poll(UGen):
 
         >>> sine = supriya.ugens.SinOsc.ar()
         >>> trigger = supriya.ugens.Impulse.kr(1)
-        >>> poll = supriya.ugens.Poll.ar(
-        ...     source=sine,
-        ...     trigger=trigger,
-        ...     trigger_id=1234,
-        ... )
+        >>> poll = supriya.ugens.Poll.ar(source=sine, trigger=trigger, trigger_id=1234,)
         >>> poll
         Poll.ar()
 
@@ -264,11 +226,7 @@ class Poll(UGen):
             >>> with supriya.SynthDefBuilder() as builder:
             ...     sine = supriya.ugens.SinOsc.ar()
             ...     trigger = supriya.ugens.Impulse.kr(1)
-            ...     poll = supriya.ugens.Poll.ar(
-            ...         source=sine,
-            ...         trigger=trigger,
-            ...         trigger_id=1234,
-            ...     )
+            ...     poll = supriya.ugens.Poll.ar(source=sine, trigger=trigger, trigger_id=1234,)
             ...
             >>> synthdef = builder.build()
 
@@ -277,9 +235,10 @@ class Poll(UGen):
             >>> server = supriya.Server.default().boot()
             >>> synth = supriya.Synth(synthdef).allocate()
             >>> callback = server.osc_protocol.register(
-            ...     pattern='/tr',
+            ...     pattern="/tr",
             ...     procedure=lambda response: print(
-            ...         'Poll value is: {}'.format(response.value)),
+            ...         "Poll value is: {}".format(response.value)
+            ...     ),
             ...     once=True,
             ... )
 
@@ -391,10 +350,7 @@ class Poll(UGen):
             >>> sine = supriya.ugens.SinOsc.ar()
             >>> trigger = supriya.ugens.Impulse.kr(1)
             >>> poll = supriya.ugens.Poll.ar(
-            ...     label='Foo',
-            ...     source=sine,
-            ...     trigger=trigger,
-            ...     trigger_id=1234,
+            ...     label="Foo", source=sine, trigger=trigger, trigger_id=1234,
             ... )
             >>> poll.label
             'Foo'
@@ -416,10 +372,7 @@ class RunningMax(Peak):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> trigger = supriya.ugens.Impulse.kr(1)
-        >>> running_max = supriya.ugens.RunningMax.ar(
-        ...     source=source,
-        ...     trigger=0,
-        ... )
+        >>> running_max = supriya.ugens.RunningMax.ar(source=source, trigger=0,)
         >>> running_max
         RunningMax.ar()
 
@@ -437,10 +390,7 @@ class RunningMin(Peak):
 
         >>> source = supriya.ugens.In.ar(0)
         >>> trigger = supriya.ugens.Impulse.kr(1)
-        >>> running_min = supriya.ugens.RunningMin.ar(
-        ...     source=source,
-        ...     trigger=trigger,
-        ... )
+        >>> running_min = supriya.ugens.RunningMin.ar(source=source, trigger=trigger,)
         >>> running_min
         RunningMin.ar()
 
@@ -457,11 +407,7 @@ class Schmidt(UGen):
     ::
 
         >>> source = supriya.ugens.SinOsc.ar()
-        >>> schmidt = supriya.ugens.Schmidt.ar(
-        ...     maximum=0.9,
-        ...     minimum=0.1,
-        ...     source=source,
-        ... )
+        >>> schmidt = supriya.ugens.Schmidt.ar(maximum=0.9, minimum=0.1, source=source,)
         >>> schmidt
         Schmidt.ar()
 
@@ -481,7 +427,7 @@ class SendPeakRMS(UGen):
 
         >>> source = supriya.ugens.In.ar(channel_count=4)
         >>> send_peak_rms = supriya.ugens.SendPeakRMS.kr(
-        ...     command_name='/reply',
+        ...     command_name="/reply",
         ...     peak_lag=3,
         ...     reply_id=-1,
         ...     reply_rate=20,
@@ -542,7 +488,7 @@ class SendPeakRMS(UGen):
 
             >>> source = supriya.ugens.In.ar(channel_count=4)
             >>> send_peak_rms = supriya.ugens.SendPeakRMS.ar(
-            ...     command_name='/reply',
+            ...     command_name="/reply",
             ...     peak_lag=3,
             ...     reply_id=-1,
             ...     reply_rate=20,
@@ -575,7 +521,7 @@ class SendPeakRMS(UGen):
 
             >>> source = supriya.ugens.In.ar(channel_count=4)
             >>> send_peak_rms = supriya.ugens.SendPeakRMS.kr(
-            ...     command_name='/reply',
+            ...     command_name="/reply",
             ...     peak_lag=3,
             ...     reply_id=-1,
             ...     reply_rate=20,
@@ -608,7 +554,7 @@ class SendPeakRMS(UGen):
 
             >>> source = supriya.ugens.In.ar(channel_count=4)
             >>> send_peak_rms = supriya.ugens.SendPeakRMS.ar(
-            ...     command_name='/reply',
+            ...     command_name="/reply",
             ...     peak_lag=3,
             ...     reply_id=-1,
             ...     reply_rate=20,
@@ -636,7 +582,7 @@ class SendPeakRMS(UGen):
 
             >>> source = supriya.ugens.In.ar(channel_count=4)
             >>> send_peak_rms = supriya.ugens.SendPeakRMS.ar(
-            ...     command_name='/reply',
+            ...     command_name="/reply",
             ...     peak_lag=3,
             ...     reply_id=-1,
             ...     reply_rate=20,
@@ -667,10 +613,7 @@ class Sweep(UGen):
 
     ::
 
-        >>> sweep = supriya.ugens.Sweep.ar(
-        ...     rate=1,
-        ...     trigger=0,
-        ... )
+        >>> sweep = supriya.ugens.Sweep.ar(rate=1, trigger=0,)
         >>> sweep
         Sweep.ar()
 
@@ -687,10 +630,7 @@ class TDelay(UGen):
     ::
 
         >>> source = supriya.ugens.Dust.kr()
-        >>> tdelay = supriya.ugens.TDelay.ar(
-        ...     duration=0.1,
-        ...     source=source,
-        ... )
+        >>> tdelay = supriya.ugens.TDelay.ar(duration=0.1, source=source,)
         >>> tdelay
         TDelay.ar()
 
@@ -709,9 +649,7 @@ class ToggleFF(UGen):
     ::
 
         >>> trigger = supriya.ugens.Dust.kr(1)
-        >>> toggle_ff = supriya.ugens.ToggleFF.ar(
-        ...     trigger=trigger,
-        ... )
+        >>> toggle_ff = supriya.ugens.ToggleFF.ar(trigger=trigger,)
         >>> toggle_ff
         ToggleFF.ar()
 
@@ -728,10 +666,7 @@ class Trig1(UGen):
     ::
 
         >>> source = supriya.ugens.Dust.kr(1)
-        >>> trig_1 = supriya.ugens.Trig1.ar(
-        ...     duration=0.1,
-        ...     source=source,
-        ... )
+        >>> trig_1 = supriya.ugens.Trig1.ar(duration=0.1, source=source,)
         >>> trig_1
         Trig1.ar()
 
@@ -750,10 +685,7 @@ class Trig(UGen):
     ::
 
         >>> source = supriya.ugens.Dust.kr(1)
-        >>> trig = supriya.ugens.Trig.ar(
-        ...     duration=0.1,
-        ...     source=source,
-        ... )
+        >>> trig = supriya.ugens.Trig.ar(duration=0.1, source=source,)
         >>> trig
         Trig.ar()
 
@@ -772,11 +704,7 @@ class Wrap(UGen):
     ::
 
         >>> source = supriya.ugens.SinOsc.ar()
-        >>> wrap = supriya.ugens.Wrap.ar(
-        ...     maximum=0.9,
-        ...     minimum=0.1,
-        ...     source=source,
-        ... )
+        >>> wrap = supriya.ugens.Wrap.ar(maximum=0.9, minimum=0.1, source=source,)
         >>> wrap
         Wrap.ar()
 
@@ -799,9 +727,7 @@ class ZeroCrossing(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> zero_crossing = supriya.ugens.ZeroCrossing.ar(
-        ...     source=source,
-        ... )
+        >>> zero_crossing = supriya.ugens.ZeroCrossing.ar(source=source,)
         >>> zero_crossing
         ZeroCrossing.ar()
 

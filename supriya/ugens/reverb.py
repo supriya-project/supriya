@@ -11,9 +11,7 @@ class FreeVerb(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> supriya.ugens.FreeVerb.ar(
-        ...     source=source,
-        ...     )
+        >>> supriya.ugens.FreeVerb.ar(source=source,)
         FreeVerb.ar()
 
     """

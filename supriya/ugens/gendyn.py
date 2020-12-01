@@ -21,7 +21,7 @@ class Gendy1(UGen):
         ...     knum=10,
         ...     maxfrequency=660,
         ...     minfrequency=440,
-        ...     )
+        ... )
         >>> gendy_1
         Gendy1.ar()
 
@@ -98,7 +98,7 @@ class Gendy2(UGen):
         ...     knum=10,
         ...     maxfrequency=660,
         ...     minfrequency=440,
-        ...     )
+        ... )
         >>> gendy_2
         Gendy2.ar()
 
@@ -139,7 +139,7 @@ class Gendy3(UGen):
         ...     frequency=440,
         ...     init_cps=12,
         ...     knum=10,
-        ...     )
+        ... )
         >>> gendy_3
         Gendy3.ar()
 

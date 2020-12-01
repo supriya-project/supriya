@@ -20,7 +20,7 @@ class GrainBuf(MultiOutUGen):
         ...     rate=1,
         ...     buffer_id=0,
         ...     trigger=0,
-        ...     )
+        ... )
         >>> grain_buf
         UGenArray({2})
 
@@ -58,7 +58,7 @@ class GrainIn(MultiOutUGen):
         ...     position=0,
         ...     source=source,
         ...     trigger=0,
-        ...     )
+        ... )
         >>> grain_in
         UGenArray({2})
 
@@ -86,9 +86,7 @@ class PitchShift(UGen):
     ::
 
         >>> source = supriya.ugens.SoundIn.ar()
-        >>> supriya.ugens.PitchShift.ar(
-        ...     source=source,
-        ...     )
+        >>> supriya.ugens.PitchShift.ar(source=source,)
         PitchShift.ar()
 
     """
@@ -120,7 +118,7 @@ class Warp1(MultiOutUGen):
         ...     pointer=0,
         ...     window_rand_ratio=0,
         ...     window_size=0.2,
-        ...     )
+        ... )
         >>> warp_1
         Warp1.ar()[0]
 
