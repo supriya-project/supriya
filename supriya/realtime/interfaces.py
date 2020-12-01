@@ -2,6 +2,7 @@ import abc
 import collections
 import copy
 import re
+from collections.abc import Iterable
 
 from supriya.system import SupriyaObject
 
@@ -524,7 +525,7 @@ class SynthInterface(ControlInterface):
     def __getitem__(self, item):
         if isinstance(item, str):
             return self._synth_control_map[item]
-        elif isinstance(item, collections.Iterable):
+        elif isinstance(item, Iterable):
             return tuple(self._synth_control_map[x] for x in item)
         raise ValueError
 

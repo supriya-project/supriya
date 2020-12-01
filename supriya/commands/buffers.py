@@ -240,7 +240,7 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
         )
         if channel_indices is None:
             channel_indices = -1
-        if not isinstance(channel_indices, collections.Sequence):
+        if not isinstance(channel_indices, Sequence):
             channel_indices = (channel_indices,)
         channel_indices = tuple(int(_) for _ in channel_indices)
         if channel_indices != (-1,):
@@ -618,7 +618,7 @@ class BufferGenerateRequest(Request):
         self._frequencies = None
         self._phases = None
         if command_name in ("cheby", "sine1"):
-            if not isinstance(amplitudes, collections.Sequence):
+            if not isinstance(amplitudes, Sequence):
                 amplitudes = (amplitudes,)
             amplitudes = tuple(float(_) for _ in amplitudes)
             assert len(amplitudes)
@@ -1292,7 +1292,7 @@ class BufferReadChannelRequest(BufferReadRequest):
             starting_frame_in_buffer=starting_frame_in_buffer,
             starting_frame_in_file=starting_frame_in_file,
         )
-        if not isinstance(channel_indices, collections.Sequence):
+        if not isinstance(channel_indices, Sequence):
             channel_indices = (channel_indices,)
         channel_indices = tuple(channel_indices)
         assert all(0 <= _ for _ in channel_indices)
@@ -1537,7 +1537,7 @@ class BufferSetRequest(Request):
         return self._index_value_pairs
 
 
-class BufferSetResponse(Response, collections.Sequence):
+class BufferSetResponse(Response, Sequence):
 
     ### CLASS VARIABLES ###
 

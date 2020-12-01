@@ -7,7 +7,7 @@ These will be migrated out into a base package at some point.
 import importlib
 import itertools
 import pathlib
-from collections import Iterable
+from collections.abc import Iterable
 
 
 def locate(path: str) -> pathlib.Path:

@@ -1,5 +1,6 @@
 import abc
 import collections
+from collections.abc import Iterable
 
 from supriya import CalculationRate, utils
 from supriya.synthdefs import MultiOutUGen, PseudoUGen, UGen
@@ -175,7 +176,7 @@ class SoundIn(PseudoUGen):
         import supriya.ugens
 
         channel_offset = supriya.ugens.NumOutputBuses.ir()
-        if isinstance(bus, collections.Iterable):
+        if isinstance(bus, Iterable):
             assert all(isinstance(x, int) for x in bus)
             bus = tuple(sorted(bus))
         else:
