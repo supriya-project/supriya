@@ -1,5 +1,5 @@
-import collections
 import typing
+from collections.abc import Sequence
 
 import supriya.osc
 from supriya.enums import RequestId
@@ -20,7 +20,7 @@ class MoveRequest(Request):
     def __init__(self, node_id_pairs=None):
         Request.__init__(self)
         if node_id_pairs:
-            if not isinstance(node_id_pairs, collections.Sequence):
+            if not isinstance(node_id_pairs, Sequence):
                 node_id_pairs = [node_id_pairs]
             node_id_pairs = list(node_id_pairs)
             for i, x in enumerate(node_id_pairs):
@@ -239,10 +239,9 @@ class NodeAfterRequest(MoveRequest):
 
     ::
 
-        >>> request = supriya.commands.NodeAfterRequest([
-        ...     [synth_a, group_a[-1]],
-        ...     [synth_b, group_b],
-        ...     ])
+        >>> request = supriya.commands.NodeAfterRequest(
+        ...     [[synth_a, group_a[-1]], [synth_b, group_b],]
+        ... )
         >>> request.to_osc()
         OscMessage('/n_after', 1000, 1004, 1001, 1005)
 
@@ -328,10 +327,9 @@ class NodeBeforeRequest(MoveRequest):
 
     ::
 
-        >>> request = supriya.commands.NodeBeforeRequest([
-        ...     [synth_a, group_a[0]],
-        ...     [synth_b, group_b],
-        ...     ])
+        >>> request = supriya.commands.NodeBeforeRequest(
+        ...     [[synth_a, group_a[0]], [synth_b, group_b],]
+        ... )
         >>> request.to_osc()
         OscMessage('/n_before', 1000, 1003, 1001, 1005)
 

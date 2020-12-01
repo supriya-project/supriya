@@ -132,10 +132,8 @@ def test_02_ugens(py_synthdef_02):
         "IFFT.ar()",
         "Out.ar()",
     )
-    assert (
-        str(py_synthdef_02)
-        == normalize(
-            """
+    assert str(py_synthdef_02) == normalize(
+        """
         synthdef:
             name: PVCopyTest
             ugens:
@@ -179,8 +177,6 @@ def test_02_ugens(py_synthdef_02):
                     bus: 0.0
                     source[0]: IFFT.ar[0]
         """
-        )
-        + "\n"
     )
 
 

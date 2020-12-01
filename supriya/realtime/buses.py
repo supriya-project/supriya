@@ -173,7 +173,7 @@ class Bus(ServerObject):
             ::
 
                 >>> import supriya.realtime
-                >>> audio_bus = supriya.realtime.Bus(8, 'audio')
+                >>> audio_bus = supriya.realtime.Bus(8, "audio")
                 >>> ugen = audio_bus.ar()
                 >>> supriya.graph(ugen)  # doctest: +SKIP
 
@@ -190,7 +190,7 @@ class Bus(ServerObject):
 
             ::
 
-                >>> control_bus = supriya.realtime.Bus(8, 'control')
+                >>> control_bus = supriya.realtime.Bus(8, "control")
                 >>> ugen = control_bus.ar()
                 >>> supriya.graph(ugen)  # doctest: +SKIP
 
@@ -262,7 +262,7 @@ class Bus(ServerObject):
             ::
 
                 >>> import supriya.realtime
-                >>> audio_bus = supriya.realtime.Bus(8, 'audio')
+                >>> audio_bus = supriya.realtime.Bus(8, "audio")
                 >>> ugen = audio_bus.kr()
                 >>> supriya.graph(ugen)  # doctest: +SKIP
 
@@ -281,7 +281,7 @@ class Bus(ServerObject):
 
             ::
 
-                >>> control_bus = supriya.realtime.Bus(8, 'control')
+                >>> control_bus = supriya.realtime.Bus(8, "control")
                 >>> ugen = control_bus.kr()
                 >>> supriya.graph(ugen)  # doctest: +SKIP
 
@@ -571,10 +571,8 @@ class BusGroup(ServerObject):
 
                 >>> import supriya.realtime
                 >>> audio_bus_group = supriya.realtime.BusGroup(
-                ...     bus_id=8,
-                ...     bus_count=4,
-                ...     calculation_rate='audio',
-                ...     )
+                ...     bus_id=8, bus_count=4, calculation_rate="audio",
+                ... )
                 >>> ugen = audio_bus_group.ar()
                 >>> supriya.graph(ugen)  # doctest: +SKIP
 
@@ -592,10 +590,8 @@ class BusGroup(ServerObject):
             ::
 
                 >>> control_bus_group = supriya.realtime.BusGroup(
-                ...     bus_id=8,
-                ...     bus_count=4,
-                ...     calculation_rate='control',
-                ...     )
+                ...     bus_id=8, bus_count=4, calculation_rate="control",
+                ... )
                 >>> ugen = control_bus_group.ar()
                 >>> supriya.graph(ugen)  # doctest: +SKIP
 
@@ -736,10 +732,8 @@ class BusGroup(ServerObject):
 
                 >>> import supriya.realtime
                 >>> audio_bus_group = supriya.realtime.BusGroup(
-                ...     bus_id=8,
-                ...     bus_count=4,
-                ...     calculation_rate='audio',
-                ...     )
+                ...     bus_id=8, bus_count=4, calculation_rate="audio",
+                ... )
                 >>> ugen = audio_bus_group.kr()
                 >>> supriya.graph(ugen)  # doctest: +SKIP
 
@@ -765,10 +759,8 @@ class BusGroup(ServerObject):
             ::
 
                 >>> control_bus_group = supriya.realtime.BusGroup(
-                ...     bus_id=8,
-                ...     bus_count=4,
-                ...     calculation_rate='control',
-                ...     )
+                ...     bus_id=8, bus_count=4, calculation_rate="control",
+                ... )
                 >>> ugen = control_bus_group.kr()
                 >>> supriya.graph(ugen)  # doctest: +SKIP
 

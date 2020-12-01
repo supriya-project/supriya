@@ -52,7 +52,7 @@ class DumpOscRequest(Request):
         >>> request
         DumpOscRequest(
             osc_status=1,
-            )
+        )
 
     ::
 
@@ -137,13 +137,11 @@ class NotifyRequest(Request):
 
         >>> import supriya.commands
 
-        >>> request = supriya.commands.NotifyRequest(
-        ...     notify_status=True,
-        ...     )
+        >>> request = supriya.commands.NotifyRequest(notify_status=True,)
         >>> request
         NotifyRequest(
             notify_status=True,
-            )
+        )
 
     ::
 
@@ -276,10 +274,17 @@ class StatusResponse(Response):
         ::
 
             >>> message = supriya.osc.OscMessage(
-            ...     '/status.reply', 1, 0, 0, 2, 4,
-            ...     0.040679048746824265, 0.15118031203746796,
-            ...     44100.0, 44100.00077873274,
-            ...     )
+            ...     "/status.reply",
+            ...     1,
+            ...     0,
+            ...     0,
+            ...     2,
+            ...     4,
+            ...     0.040679048746824265,
+            ...     0.15118031203746796,
+            ...     44100.0,
+            ...     44100.00077873274,
+            ... )
             >>> supriya.commands.StatusResponse.from_osc_message(message)
             StatusResponse(
                 actual_sample_rate=44100.00077873274,
@@ -290,7 +295,7 @@ class StatusResponse(Response):
                 synthdef_count=4,
                 target_sample_rate=44100.0,
                 ugen_count=0,
-                )
+            )
 
         """
         arguments = osc_message.contents[1:]
@@ -330,19 +335,14 @@ class StatusResponse(Response):
             ...     synth_count=19,
             ...     synthdef_count=42,
             ...     target_sample_rate=44100.0,
-            ...     ugen_count=685
-            ...     )
+            ...     ugen_count=685,
+            ... )
 
         ::
 
             >>> import json
             >>> result = status_response.to_dict()
-            >>> result = json.dumps(
-            ...     result,
-            ...     indent=4,
-            ...     separators=(',', ': '),
-            ...     sort_keys=True,
-            ...     )
+            >>> result = json.dumps(result, indent=4, separators=(",", ": "), sort_keys=True,)
             >>> print(result)
             {
                 "server_status": {
@@ -436,13 +436,11 @@ class SyncRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> request = supriya.commands.SyncRequest(
-        ...     sync_id=1999,
-        ...     )
+        >>> request = supriya.commands.SyncRequest(sync_id=1999,)
         >>> request
         SyncRequest(
             sync_id=1999,
-            )
+        )
 
     ::
 

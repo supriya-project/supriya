@@ -12,14 +12,12 @@ class Convolution(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> kernel = supriya.ugens.Mix.new(
-        ...     supriya.ugens.LFSaw.ar(frequency=[300, 500, 800, 1000]) *
-        ...     supriya.ugens.MouseX.kr(minimum=1, maximum=2),
-        ...     )
+        ...     supriya.ugens.LFSaw.ar(frequency=[300, 500, 800, 1000])
+        ...     * supriya.ugens.MouseX.kr(minimum=1, maximum=2),
+        ... )
         >>> convolution = supriya.ugens.Convolution.ar(
-        ...     framesize=512,
-        ...     kernel=kernel,
-        ...     source=source,
-        ...     )
+        ...     framesize=512, kernel=kernel, source=source,
+        ... )
         >>> convolution
         Convolution.ar()
 
@@ -40,15 +38,12 @@ class Convolution2(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> kernel = supriya.ugens.Mix.new(
-        ...     supriya.ugens.LFSaw.ar(frequency=[300, 500, 800, 1000]) *
-        ...     supriya.ugens.MouseX.kr(minimum=1, maximum=2),
-        ...     )
+        ...     supriya.ugens.LFSaw.ar(frequency=[300, 500, 800, 1000])
+        ...     * supriya.ugens.MouseX.kr(minimum=1, maximum=2),
+        ... )
         >>> convolution_2 = supriya.ugens.Convolution2.ar(
-        ...     framesize=2048,
-        ...     kernel=kernel,
-        ...     source=source,
-        ...     trigger=0,
-        ...     )
+        ...     framesize=2048, kernel=kernel, source=source, trigger=0,
+        ... )
         >>> convolution_2
         Convolution2.ar()
 
@@ -73,16 +68,12 @@ class Convolution2L(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> kernel = supriya.ugens.Mix.new(
-        ...     supriya.ugens.LFSaw.ar(frequency=[300, 500, 800, 1000]) *
-        ...     supriya.ugens.MouseX.kr(minimum=1, maximum=2),
-        ...     )
+        ...     supriya.ugens.LFSaw.ar(frequency=[300, 500, 800, 1000])
+        ...     * supriya.ugens.MouseX.kr(minimum=1, maximum=2),
+        ... )
         >>> convolution_2_l = supriya.ugens.Convolution2L.ar(
-        ...     crossfade=1,
-        ...     framesize=2048,
-        ...     kernel=kernel,
-        ...     source=source,
-        ...     trigger=0,
-        ...     )
+        ...     crossfade=1, framesize=2048, kernel=kernel, source=source, trigger=0,
+        ... )
         >>> convolution_2_l
         Convolution2L.ar()
 
@@ -108,15 +99,12 @@ class Convolution3(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> kernel = supriya.ugens.Mix.new(
-        ...     supriya.ugens.LFSaw.ar(frequency=[300, 500, 800, 1000]) *
-        ...     supriya.ugens.MouseX.kr(minimum=1, maximum=2),
-        ...     )
+        ...     supriya.ugens.LFSaw.ar(frequency=[300, 500, 800, 1000])
+        ...     * supriya.ugens.MouseX.kr(minimum=1, maximum=2),
+        ... )
         >>> convolution_3 = supriya.ugens.Convolution3.ar(
-        ...     framesize=2048,
-        ...     kernel=kernel,
-        ...     source=source,
-        ...     trigger=0,
-        ...     )
+        ...     framesize=2048, kernel=kernel, source=source, trigger=0,
+        ... )
         >>> convolution_3
         Convolution3.ar()
 

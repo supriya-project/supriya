@@ -1,4 +1,5 @@
 import collections
+from collections.abc import Sequence
 
 from supriya import CalculationRate, utils
 from supriya.synthdefs import PureUGen, UGen
@@ -10,10 +11,7 @@ class Blip(UGen):
 
     ::
 
-        >>> blip = supriya.ugens.Blip.ar(
-        ...     frequency=440,
-        ...     harmonic_count=200,
-        ...     )
+        >>> blip = supriya.ugens.Blip.ar(frequency=440, harmonic_count=200,)
         >>> blip
         Blip.ar()
 
@@ -32,10 +30,7 @@ class FSinOsc(UGen):
 
     ::
 
-        >>> fsin_osc = supriya.ugens.FSinOsc.ar(
-        ...     frequency=440,
-        ...     initial_phase=0,
-        ...     )
+        >>> fsin_osc = supriya.ugens.FSinOsc.ar(frequency=440, initial_phase=0,)
         >>> fsin_osc
         FSinOsc.ar()
 
@@ -64,7 +59,7 @@ class Klank(UGen):
         ...     frequency_scale=1,
         ...     source=source,
         ...     specifications=specifications,
-        ...     )
+        ... )
         >>> klank
         Klank.ar()
 
@@ -99,11 +94,11 @@ class Klank(UGen):
         assert len(frequencies)
         if not amplitudes:
             amplitudes = [1.0] * len(frequencies)
-        elif not isinstance(amplitudes, collections.Sequence):
+        elif not isinstance(amplitudes, Sequence):
             amplitudes = [amplitudes] * len(frequencies)
         if not decay_times:
             decay_times = [1.0] * len(frequencies)
-        elif not isinstance(decay_times, collections.Sequence):
+        elif not isinstance(decay_times, Sequence):
             decay_times = [decay_times] * len(frequencies)
         specifications = utils.zip_sequences(frequencies, amplitudes, decay_times)
         specifications = utils.flatten_iterable(specifications)
@@ -125,10 +120,7 @@ class Pulse(UGen):
 
     ::
 
-        >>> pulse = supriya.ugens.Pulse.ar(
-        ...     frequency=440,
-        ...     width=0.5,
-        ...     )
+        >>> pulse = supriya.ugens.Pulse.ar(frequency=440, width=0.5,)
         >>> pulse
         Pulse.ar()
 

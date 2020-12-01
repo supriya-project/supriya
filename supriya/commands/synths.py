@@ -1,4 +1,4 @@
-import collections
+from collections.abc import Sequence
 
 import supriya.osc
 from supriya import AddAction
@@ -39,11 +39,11 @@ class SynthNewRequest(Request):
         >>> request = supriya.commands.SynthNewRequest(
         ...     add_action=supriya.AddAction.ADD_TO_TAIL,
         ...     node_id=1001,
-        ...     synthdef='test',
+        ...     synthdef="test",
         ...     target_node_id=1000,
         ...     frequency=443,
-        ...     phase=0.2
-        ...     )
+        ...     phase=0.2,
+        ... )
         >>> request
         SynthNewRequest(
             add_action=AddAction.ADD_TO_TAIL,
@@ -52,7 +52,7 @@ class SynthNewRequest(Request):
             phase=0.2,
             synthdef='test',
             target_node_id=1000,
-            )
+        )
 
     ::
 
@@ -165,7 +165,7 @@ class SynthQueryRequest(Request):
         >>> request
         SynthQueryRequest(
             node_ids=(1000,),
-            )
+        )
 
     ::
 
@@ -186,7 +186,7 @@ class SynthQueryRequest(Request):
             gate=1.0,
             out=0.0,
             pan=0.5,
-            )
+        )
 
     """
 
@@ -198,7 +198,7 @@ class SynthQueryRequest(Request):
 
     def __init__(self, node_ids=None):
         Request.__init__(self)
-        if not isinstance(node_ids, collections.Sequence):
+        if not isinstance(node_ids, Sequence):
             node_ids = (node_ids,)
         node_ids = tuple(int(_) for _ in node_ids)
         self._node_ids = node_ids

@@ -1,6 +1,6 @@
-import collections
 import inspect
 import operator
+from collections.abc import Sequence
 
 from .bases import Pattern
 from .random import RandomNumberGenerator
@@ -138,10 +138,13 @@ class Pseq(Pattern):
 
     ::
 
-        >>> pattern = supriya.patterns.Pseq([
-        ...     supriya.patterns.Pseq([1, 2, 3], repetitions=1),
-        ...     supriya.patterns.Pseq([4, 5, 6], repetitions=1),
-        ...     ], repetitions=2)
+        >>> pattern = supriya.patterns.Pseq(
+        ...     [
+        ...         supriya.patterns.Pseq([1, 2, 3], repetitions=1),
+        ...         supriya.patterns.Pseq([4, 5, 6], repetitions=1),
+        ...     ],
+        ...     repetitions=2,
+        ... )
         >>> list(pattern)
         [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6]
 
@@ -150,7 +153,7 @@ class Pseq(Pattern):
     ### INITIALIZER ###
 
     def __init__(self, sequence, repetitions=1):
-        assert isinstance(sequence, collections.Sequence)
+        assert isinstance(sequence, Sequence)
         self._sequence = self._freeze_recursive(sequence)
         if repetitions is not None:
             repetitions = int(repetitions)
@@ -199,10 +202,9 @@ class Pseq(Pattern):
 
         ::
 
-            >>> pattern = supriya.patterns.Pseq([
-            ...     supriya.patterns.Pseq([1, 2, 3]),
-            ...     supriya.patterns.Pseq([[1, 2], 3, 4]),
-            ...     ])
+            >>> pattern = supriya.patterns.Pseq(
+            ...     [supriya.patterns.Pseq([1, 2, 3]), supriya.patterns.Pseq([[1, 2], 3, 4]),]
+            ... )
             >>> pattern.arity
             2
 

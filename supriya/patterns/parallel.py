@@ -1,5 +1,6 @@
 import collections
 import uuid
+from collections.abc import Sequence
 from queue import PriorityQueue
 
 from uqbar.objects import new
@@ -28,7 +29,7 @@ class Ppar(EventPattern):
         for i, pattern_group in enumerate(patterns):
             if isinstance(pattern_group, supriya.patterns.EventPattern):
                 pattern_group = [pattern_group]
-            assert isinstance(pattern_group, collections.Sequence)
+            assert isinstance(pattern_group, Sequence)
             pattern_group = tuple(pattern_group)
             assert all(
                 isinstance(_, supriya.patterns.EventPattern) for _ in pattern_group

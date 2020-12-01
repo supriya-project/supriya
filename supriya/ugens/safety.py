@@ -14,10 +14,8 @@ class CheckBadValues(UGen):
         >>> ugen_id = 23
         >>> post_mode = 0
         >>> check_bad_values = supriya.ugens.CheckBadValues.ar(
-        ...     source=source,
-        ...     ugen_id=ugen_id,
-        ...     post_mode=post_mode,
-        ...     )
+        ...     source=source, ugen_id=ugen_id, post_mode=post_mode,
+        ... )
         >>> check_bad_values
         CheckBadValues.ar()
 

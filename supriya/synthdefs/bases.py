@@ -1,6 +1,7 @@
 import abc
 import collections
 import inspect
+from collections.abc import Iterable, Sequence
 from typing import Optional, Tuple
 
 import uqbar.strings
@@ -319,9 +320,9 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             elif isinstance(input_value, server_id_prototype):
                 input_value = int(input_value)
             if self._is_unexpanded_input_name(input_name):
-                if not isinstance(input_value, collections.Sequence):
+                if not isinstance(input_value, Sequence):
                     input_value = (input_value,)
-                if isinstance(input_value, collections.Sequence):
+                if isinstance(input_value, Sequence):
                     input_value = tuple(input_value)
                 elif not self._is_valid_input(input_value):
                     raise ValueError(input_name, input_value)
@@ -419,7 +420,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             if expr.calculation_rate == supriya.CalculationRate.AUDIO:
                 return expr
             return supriya.ugens.K2A.ar(source=expr)
-        elif isinstance(expr, collections.Iterable):
+        elif isinstance(expr, Iterable):
             return supriya.synthdefs.UGenArray(
                 UGen._as_audio_rate_input(x) for x in expr
             )
@@ -501,9 +502,8 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
         ::
 
-            >>> dictionary = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
-            >>> result = supriya.synthdefs.UGen._expand_dictionary(
-            ...     dictionary)
+            >>> dictionary = {"foo": 0, "bar": (1, 2), "baz": (3, 4, 5)}
+            >>> result = supriya.synthdefs.UGen._expand_dictionary(dictionary)
             >>> for x in result:
             ...     sorted(x.items())
             ...
@@ -513,11 +513,10 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
         ::
 
-            >>> dictionary = {'bus': (8, 9), 'source': (1, 2, 3)}
+            >>> dictionary = {"bus": (8, 9), "source": (1, 2, 3)}
             >>> result = supriya.synthdefs.UGen._expand_dictionary(
-            ...     dictionary,
-            ...     unexpanded_input_names=('source',),
-            ...     )
+            ...     dictionary, unexpanded_input_names=("source",),
+            ... )
             >>> for x in result:
             ...     sorted(x.items())
             ...
@@ -537,7 +536,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
                 del dictionary[input_name]
         maximum_length = 1
         result = []
-        prototype = (collections.Sequence, UGen, supriya.synthdefs.Parameter)
+        prototype = (Sequence, UGen, supriya.synthdefs.Parameter)
         for name, value in dictionary.items():
             if isinstance(value, prototype) and not isinstance(value, str):
                 maximum_length = max(maximum_length, len(value))
@@ -660,9 +659,8 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         ::
 
             >>> ugen = supriya.ugens.SinOsc.ar(
-            ...     frequency=supriya.ugens.WhiteNoise.kr(),
-            ...     phase=0.5,
-            ...     )
+            ...     frequency=supriya.ugens.WhiteNoise.kr(), phase=0.5,
+            ... )
             >>> ugen.calculation_rate
             CalculationRate.AUDIO
 
@@ -682,9 +680,8 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         ::
 
             >>> ugen = supriya.ugens.SinOsc.ar(
-            ...     frequency=supriya.ugens.WhiteNoise.kr(),
-            ...     phase=0.5,
-            ...     )
+            ...     frequency=supriya.ugens.WhiteNoise.kr(), phase=0.5,
+            ... )
             >>> for input_ in ugen.inputs:
             ...     input_
             ...
@@ -711,9 +708,8 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         ::
 
             >>> ugen = supriya.ugens.SinOsc.ar(
-            ...     frequency=supriya.ugens.WhiteNoise.kr(),
-            ...     phase=0.5,
-            ...     )
+            ...     frequency=supriya.ugens.WhiteNoise.kr(), phase=0.5,
+            ... )
             >>> ugen.outputs
             (CalculationRate.AUDIO,)
 
@@ -750,9 +746,8 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         ::
 
             >>> ugen = supriya.ugens.SinOsc.ar(
-            ...     frequency=supriya.ugens.WhiteNoise.kr(),
-            ...     phase=0.5,
-            ...     )
+            ...     frequency=supriya.ugens.WhiteNoise.kr(), phase=0.5,
+            ... )
             >>> ugen.special_index
             0
 

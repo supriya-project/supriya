@@ -10,12 +10,7 @@ class CuspL(UGen):
 
     ::
 
-        >>> cusp_l = supriya.ugens.CuspL.ar(
-        ...     a=1,
-        ...     b=1.9,
-        ...     frequency=22050,
-        ...     xi=0,
-        ...     )
+        >>> cusp_l = supriya.ugens.CuspL.ar(a=1, b=1.9, frequency=22050, xi=0,)
         >>> cusp_l
         CuspL.ar()
 
@@ -33,12 +28,7 @@ class CuspN(UGen):
 
     ::
 
-        >>> cusp_n = supriya.ugens.CuspN.ar(
-        ...     a=1,
-        ...     b=1.9,
-        ...     frequency=22050,
-        ...     xi=0,
-        ...     )
+        >>> cusp_n = supriya.ugens.CuspN.ar(a=1, b=1.9, frequency=22050, xi=0,)
         >>> cusp_n
         CuspN.ar()
 
@@ -57,14 +47,8 @@ class FBSineC(UGen):
     ::
 
         >>> fbsine_c = supriya.ugens.FBSineC.ar(
-        ...     a=1.1,
-        ...     c=0.5,
-        ...     fb=0.1,
-        ...     frequency=22050,
-        ...     im=1,
-        ...     xi=0.1,
-        ...     yi=0.1,
-        ...     )
+        ...     a=1.1, c=0.5, fb=0.1, frequency=22050, im=1, xi=0.1, yi=0.1,
+        ... )
         >>> fbsine_c
         FBSineC.ar()
 
@@ -91,14 +75,8 @@ class FBSineL(UGen):
     ::
 
         >>> fbsine_l = supriya.ugens.FBSineL.ar(
-        ...     a=1.1,
-        ...     c=0.5,
-        ...     fb=0.1,
-        ...     frequency=22050,
-        ...     im=1,
-        ...     xi=0.1,
-        ...     yi=0.1,
-        ...     )
+        ...     a=1.1, c=0.5, fb=0.1, frequency=22050, im=1, xi=0.1, yi=0.1,
+        ... )
         >>> fbsine_l
         FBSineL.ar()
 
@@ -125,14 +103,8 @@ class FBSineN(UGen):
     ::
 
         >>> fbsine_n = supriya.ugens.FBSineN.ar(
-        ...     a=1.1,
-        ...     c=0.5,
-        ...     fb=0.1,
-        ...     frequency=22050,
-        ...     im=1,
-        ...     xi=0.1,
-        ...     yi=0.1,
-        ...     )
+        ...     a=1.1, c=0.5, fb=0.1, frequency=22050, im=1, xi=0.1, yi=0.1,
+        ... )
         >>> fbsine_n
         FBSineN.ar()
 
@@ -158,11 +130,7 @@ class GbmanL(UGen):
 
     ::
 
-        >>> gbman_l = supriya.ugens.GbmanL.ar(
-        ...     frequency=22050,
-        ...     xi=1.2,
-        ...     yi=2.1,
-        ...     )
+        >>> gbman_l = supriya.ugens.GbmanL.ar(frequency=22050, xi=1.2, yi=2.1,)
         >>> gbman_l
         GbmanL.ar()
 
@@ -180,11 +148,7 @@ class GbmanN(UGen):
 
     ::
 
-        >>> gbman_n = supriya.ugens.GbmanN.ar(
-        ...     frequency=22050,
-        ...     xi=1.2,
-        ...     yi=2.1,
-        ...     )
+        >>> gbman_n = supriya.ugens.GbmanN.ar(frequency=22050, xi=1.2, yi=2.1,)
         >>> gbman_n
         GbmanN.ar()
 
@@ -202,13 +166,7 @@ class HenonC(UGen):
 
     ::
 
-        >>> henon_c = supriya.ugens.HenonC.ar(
-        ...     a=1.4,
-        ...     b=0.3,
-        ...     frequency=22050,
-        ...     x_0=0,
-        ...     x_1=0,
-        ...     )
+        >>> henon_c = supriya.ugens.HenonC.ar(a=1.4, b=0.3, frequency=22050, x_0=0, x_1=0,)
         >>> henon_c
         HenonC.ar()
 
@@ -226,13 +184,7 @@ class HenonL(UGen):
 
     ::
 
-        >>> henon_l = supriya.ugens.HenonL.ar(
-        ...     a=1.4,
-        ...     b=0.3,
-        ...     frequency=22050,
-        ...     x_0=0,
-        ...     x_1=0,
-        ...     )
+        >>> henon_l = supriya.ugens.HenonL.ar(a=1.4, b=0.3, frequency=22050, x_0=0, x_1=0,)
         >>> henon_l
         HenonL.ar()
 
@@ -250,13 +202,7 @@ class HenonN(UGen):
 
     ::
 
-        >>> henon_n = supriya.ugens.HenonN.ar(
-        ...     a=1.4,
-        ...     b=0.3,
-        ...     frequency=22050,
-        ...     x_0=0,
-        ...     x_1=0,
-        ...     )
+        >>> henon_n = supriya.ugens.HenonN.ar(a=1.4, b=0.3, frequency=22050, x_0=0, x_1=0,)
         >>> henon_n
         HenonN.ar()
 
@@ -275,14 +221,8 @@ class LatoocarfianC(UGen):
     ::
 
         >>> latoocarfian_c = supriya.ugens.LatoocarfianC.ar(
-        ...     a=1,
-        ...     b=3,
-        ...     c=0.5,
-        ...     d=0.5,
-        ...     frequency=22050,
-        ...     xi=0.5,
-        ...     yi=0.5,
-        ...     )
+        ...     a=1, b=3, c=0.5, d=0.5, frequency=22050, xi=0.5, yi=0.5,
+        ... )
         >>> latoocarfian_c
         LatoocarfianC.ar()
 
@@ -309,14 +249,8 @@ class LatoocarfianL(UGen):
     ::
 
         >>> latoocarfian_l = supriya.ugens.LatoocarfianL.ar(
-        ...     a=1,
-        ...     b=3,
-        ...     c=0.5,
-        ...     d=0.5,
-        ...     frequency=22050,
-        ...     xi=0.5,
-        ...     yi=0.5,
-        ...     )
+        ...     a=1, b=3, c=0.5, d=0.5, frequency=22050, xi=0.5, yi=0.5,
+        ... )
         >>> latoocarfian_l
         LatoocarfianL.ar()
 
@@ -343,14 +277,8 @@ class LatoocarfianN(UGen):
     ::
 
         >>> latoocarfian_n = supriya.ugens.LatoocarfianN.ar(
-        ...     a=1,
-        ...     b=3,
-        ...     c=0.5,
-        ...     d=0.5,
-        ...     frequency=22050,
-        ...     xi=0.5,
-        ...     yi=0.5,
-        ...     )
+        ...     a=1, b=3, c=0.5, d=0.5, frequency=22050, xi=0.5, yi=0.5,
+        ... )
         >>> latoocarfian_n
         LatoocarfianN.ar()
 
@@ -377,12 +305,8 @@ class LinCongC(UGen):
     ::
 
         >>> lin_cong_c = supriya.ugens.LinCongC.ar(
-        ...     a=1.1,
-        ...     c=0.13,
-        ...     frequency=22050,
-        ...     m=1,
-        ...     xi=0,
-        ...     )
+        ...     a=1.1, c=0.13, frequency=22050, m=1, xi=0,
+        ... )
         >>> lin_cong_c
         LinCongC.ar()
 
@@ -401,12 +325,8 @@ class LinCongL(UGen):
     ::
 
         >>> lin_cong_l = supriya.ugens.LinCongL.ar(
-        ...     a=1.1,
-        ...     c=0.13,
-        ...     frequency=22050,
-        ...     m=1,
-        ...     xi=0,
-        ...     )
+        ...     a=1.1, c=0.13, frequency=22050, m=1, xi=0,
+        ... )
         >>> lin_cong_l
         LinCongL.ar()
 
@@ -425,12 +345,8 @@ class LinCongN(UGen):
     ::
 
         >>> lin_cong_n = supriya.ugens.LinCongN.ar(
-        ...     a=1.1,
-        ...     c=0.13,
-        ...     frequency=22050,
-        ...     m=1,
-        ...     xi=0,
-        ...     )
+        ...     a=1.1, c=0.13, frequency=22050, m=1, xi=0,
+        ... )
         >>> lin_cong_n
         LinCongN.ar()
 
@@ -449,15 +365,8 @@ class LorenzL(UGen):
     ::
 
         >>> lorenz_l = supriya.ugens.LorenzL.ar(
-        ...     b=2.667,
-        ...     frequency=22050,
-        ...     h=0.05,
-        ...     r=28,
-        ...     s=10,
-        ...     xi=0.1,
-        ...     yi=0,
-        ...     zi=0,
-        ...     )
+        ...     b=2.667, frequency=22050, h=0.05, r=28, s=10, xi=0.1, yi=0, zi=0,
+        ... )
         >>> lorenz_l
         LorenzL.ar()
 
@@ -484,13 +393,7 @@ class QuadC(UGen):
 
     ::
 
-        >>> quad_c = supriya.ugens.QuadC.ar(
-        ...     a=1,
-        ...     b=-1,
-        ...     c=-0.75,
-        ...     frequency=22050,
-        ...     xi=0,
-        ...     )
+        >>> quad_c = supriya.ugens.QuadC.ar(a=1, b=-1, c=-0.75, frequency=22050, xi=0,)
         >>> quad_c
         QuadC.ar()
 
@@ -508,13 +411,7 @@ class QuadL(UGen):
 
     ::
 
-        >>> quad_l = supriya.ugens.QuadL.ar(
-        ...     a=1,
-        ...     b=-1,
-        ...     c=-0.75,
-        ...     frequency=22050,
-        ...     xi=0,
-        ...     )
+        >>> quad_l = supriya.ugens.QuadL.ar(a=1, b=-1, c=-0.75, frequency=22050, xi=0,)
         >>> quad_l
         QuadL.ar()
 
@@ -532,13 +429,7 @@ class QuadN(UGen):
 
     ::
 
-        >>> quad_n = supriya.ugens.QuadN.ar(
-        ...     a=1,
-        ...     b=-1,
-        ...     c=-0.75,
-        ...     frequency=22050,
-        ...     xi=0,
-        ...     )
+        >>> quad_n = supriya.ugens.QuadN.ar(a=1, b=-1, c=-0.75, frequency=22050, xi=0,)
         >>> quad_n
         QuadN.ar()
 
@@ -556,12 +447,7 @@ class StandardL(UGen):
 
     ::
 
-        >>> standard_l = supriya.ugens.StandardL.ar(
-        ...     frequency=22050,
-        ...     k=1,
-        ...     xi=0.5,
-        ...     yi=0,
-        ...     )
+        >>> standard_l = supriya.ugens.StandardL.ar(frequency=22050, k=1, xi=0.5, yi=0,)
         >>> standard_l
         StandardL.ar()
 
@@ -579,12 +465,7 @@ class StandardN(UGen):
 
     ::
 
-        >>> standard_n = supriya.ugens.StandardN.ar(
-        ...     frequency=22050,
-        ...     k=1,
-        ...     xi=0.5,
-        ...     yi=0,
-        ...     )
+        >>> standard_n = supriya.ugens.StandardN.ar(frequency=22050, k=1, xi=0.5, yi=0,)
         >>> standard_n
         StandardN.ar()
 

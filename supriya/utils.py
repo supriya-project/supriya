@@ -4,10 +4,10 @@ Utility functions.
 These will be migrated out into a base package at some point.
 """
 
-import collections
 import importlib
 import itertools
 import pathlib
+from collections.abc import Iterable
 
 
 def locate(path: str) -> pathlib.Path:
@@ -22,7 +22,7 @@ def locate(path: str) -> pathlib.Path:
 
 def flatten_iterable(iterable):
     for x in iterable:
-        if isinstance(x, collections.Iterable):
+        if isinstance(x, Iterable):
             yield from flatten_iterable(x)
         else:
             yield x

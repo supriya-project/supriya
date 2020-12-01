@@ -1,5 +1,6 @@
 import abc
 import collections
+from collections.abc import Iterable, Sequence
 
 from supriya import CalculationRate, utils
 from supriya.synthdefs import MultiOutUGen, PseudoUGen, UGen
@@ -31,10 +32,7 @@ class InFeedback(MultiOutUGen):
 
     ::
 
-        >>> in_feedback = supriya.ugens.InFeedback.ar(
-        ...     bus=0,
-        ...     channel_count=2,
-        ...     )
+        >>> in_feedback = supriya.ugens.InFeedback.ar(bus=0, channel_count=2,)
         >>> in_feedback
         UGenArray({2})
 
@@ -69,7 +67,7 @@ class LocalIn(MultiOutUGen):
     ### INITIALIZER ###
 
     def __init__(self, calculation_rate=None, channel_count=1, default=0):
-        if not isinstance(default, collections.Sequence):
+        if not isinstance(default, Sequence):
             default = (default,)
         default = (float(_) for _ in default)
         default = utils.repeat_sequence_to_length(default, channel_count)
@@ -89,9 +87,7 @@ class LocalOut(UGen):
     ::
 
         >>> source = supriya.ugens.SinOsc.ar()
-        >>> supriya.ugens.LocalOut.ar(
-        ...     source=source,
-        ...     )
+        >>> supriya.ugens.LocalOut.ar(source=source,)
         LocalOut.ar()
 
     """
@@ -110,9 +106,8 @@ class OffsetOut(UGen):
 
         >>> source = supriya.ugens.SinOsc.ar()
         >>> supriya.ugens.OffsetOut.ar(
-        ...     bus=0,
-        ...     source=source,
-        ...     )
+        ...     bus=0, source=source,
+        ... )
         OffsetOut.ar()
 
     """
@@ -132,9 +127,8 @@ class Out(UGen):
 
         >>> source = supriya.ugens.SinOsc.ar()
         >>> supriya.ugens.Out.ar(
-        ...     bus=0,
-        ...     source=source,
-        ...     )
+        ...     bus=0, source=source,
+        ... )
         Out.ar()
 
     """
@@ -154,9 +148,8 @@ class ReplaceOut(UGen):
 
         >>> source = supriya.ugens.SinOsc.ar()
         >>> supriya.ugens.ReplaceOut.ar(
-        ...     bus=0,
-        ...     source=source,
-        ...     )
+        ...     bus=0, source=source,
+        ... )
         ReplaceOut.ar()
 
     """
@@ -183,7 +176,7 @@ class SoundIn(PseudoUGen):
         import supriya.ugens
 
         channel_offset = supriya.ugens.NumOutputBuses.ir()
-        if isinstance(bus, collections.Iterable):
+        if isinstance(bus, Iterable):
             assert all(isinstance(x, int) for x in bus)
             bus = tuple(sorted(bus))
         else:
@@ -205,11 +198,7 @@ class XOut(UGen):
     ::
 
         >>> source = supriya.ugens.WhiteNoise.ar()
-        >>> xout = supriya.ugens.XOut.ar(
-        ...     bus=0,
-        ...     crossfade=0.5,
-        ...     source=source,
-        ...     )
+        >>> xout = supriya.ugens.XOut.ar(bus=0, crossfade=0.5, source=source,)
         >>> xout
         XOut.ar()
 

@@ -55,8 +55,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=5.0, stop_offset=10.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -64,8 +64,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=0.0, stop_offset=2.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -83,8 +83,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=10.0, stop_offset=12.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -164,8 +164,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=0.0, stop_offset=12.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -173,8 +173,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=-2.0, stop_offset=10.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -182,8 +182,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=0.0, stop_offset=20.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -192,8 +192,8 @@ class Interval(SupriyaValueObject):
                 intervals=[
                     Interval(start_offset=-2.0, stop_offset=2.0),
                     Interval(start_offset=5.0, stop_offset=12.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -201,8 +201,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=5.0, stop_offset=20.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -211,8 +211,8 @@ class Interval(SupriyaValueObject):
                 intervals=[
                     Interval(start_offset=-2.0, stop_offset=2.0),
                     Interval(start_offset=10.0, stop_offset=20.0),
-                    ],
-                )
+                ],
+            )
 
         """
         from .IntervalTree import IntervalTree
@@ -257,8 +257,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=0.0, stop_offset=5.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -266,8 +266,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=0.0, stop_offset=8.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -275,8 +275,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=0.0, stop_offset=10.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -284,8 +284,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=10.0, stop_offset=12.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -299,8 +299,8 @@ class Interval(SupriyaValueObject):
                 intervals=[
                     Interval(start_offset=5.0, stop_offset=8.0),
                     Interval(start_offset=11.0, stop_offset=12.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -308,8 +308,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=5.0, stop_offset=10.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -317,8 +317,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=10.0, stop_offset=11.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -336,8 +336,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=8.0, stop_offset=10.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -345,8 +345,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=10.0, stop_offset=20.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -354,8 +354,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=12.0, stop_offset=20.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -363,8 +363,8 @@ class Interval(SupriyaValueObject):
             IntervalTree(
                 intervals=[
                     Interval(start_offset=11.0, stop_offset=20.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -412,8 +412,8 @@ class Interval(SupriyaValueObject):
                 intervals=[
                     Interval(start_offset=0.0, stop_offset=5.0),
                     Interval(start_offset=10.0, stop_offset=12.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -422,8 +422,8 @@ class Interval(SupriyaValueObject):
                 intervals=[
                     Interval(start_offset=-2.0, stop_offset=0.0),
                     Interval(start_offset=2.0, stop_offset=10.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -432,8 +432,8 @@ class Interval(SupriyaValueObject):
                 intervals=[
                     Interval(start_offset=0.0, stop_offset=10.0),
                     Interval(start_offset=10.0, stop_offset=20.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -442,8 +442,8 @@ class Interval(SupriyaValueObject):
                 intervals=[
                     Interval(start_offset=-2.0, stop_offset=2.0),
                     Interval(start_offset=5.0, stop_offset=12.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -452,8 +452,8 @@ class Interval(SupriyaValueObject):
                 intervals=[
                     Interval(start_offset=5.0, stop_offset=10.0),
                     Interval(start_offset=12.0, stop_offset=20.0),
-                    ],
-                )
+                ],
+            )
 
         ::
 
@@ -462,8 +462,8 @@ class Interval(SupriyaValueObject):
                 intervals=[
                     Interval(start_offset=-2.0, stop_offset=2.0),
                     Interval(start_offset=10.0, stop_offset=20.0),
-                    ],
-                )
+                ],
+            )
 
         """
         from .IntervalTree import IntervalTree

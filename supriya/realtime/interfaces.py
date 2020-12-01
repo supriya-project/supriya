@@ -2,6 +2,7 @@ import abc
 import collections
 import copy
 import re
+from collections.abc import Iterable
 
 from supriya.system import SupriyaObject
 
@@ -190,19 +191,21 @@ class GroupInterface(ControlInterface):
 
         >>> server = supriya.Server.default().boot()
         >>> group = supriya.Group().allocate()
-        >>> group.extend([
-        ...     supriya.Synth(synthdef=supriya.assets.synthdefs.test),
-        ...     supriya.Synth(synthdef=supriya.assets.synthdefs.default),
-        ...     supriya.Synth(synthdef=supriya.assets.synthdefs.default),
-        ...     ])
+        >>> group.extend(
+        ...     [
+        ...         supriya.Synth(synthdef=supriya.assets.synthdefs.test),
+        ...         supriya.Synth(synthdef=supriya.assets.synthdefs.default),
+        ...         supriya.Synth(synthdef=supriya.assets.synthdefs.default),
+        ...     ]
+        ... )
 
     ::
 
-        >>> control = group.controls['amplitude']
+        >>> control = group.controls["amplitude"]
 
     ::
 
-        >>> group.controls['frequency'] = 777
+        >>> group.controls["frequency"] = 777
 
     """
 
@@ -522,7 +525,7 @@ class SynthInterface(ControlInterface):
     def __getitem__(self, item):
         if isinstance(item, str):
             return self._synth_control_map[item]
-        elif isinstance(item, collections.Iterable):
+        elif isinstance(item, Iterable):
             return tuple(self._synth_control_map[x] for x in item)
         raise ValueError
 

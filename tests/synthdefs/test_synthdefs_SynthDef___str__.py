@@ -11,10 +11,8 @@ def test_multi_value_parameters():
         sines = sines * builder["amp"]
         supriya.ugens.Out.ar(bus=builder["out"], source=sines)
     synthdef = builder.build()
-    assert (
-        str(synthdef)
-        == uqbar.strings.normalize(
-            """
+    assert str(synthdef) == uqbar.strings.normalize(
+        """
         synthdef:
             name: 58528261cb129f5bee634d41a34e082c
             ugens:
@@ -35,6 +33,4 @@ def test_multi_value_parameters():
                     bus: Control.kr[3:out]
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
         """
-        )
-        + "\n"
     )

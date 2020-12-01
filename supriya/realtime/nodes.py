@@ -1,7 +1,7 @@
 import abc
-import collections
 import pathlib
 import tempfile
+from collections.abc import Sequence
 
 import uqbar.graphs
 import uqbar.strings
@@ -311,7 +311,7 @@ class Node(ServerObject, UniqueTreeNode):
             request.communicate(server=self.server, sync=False)
 
     def precede_by(self, expr):
-        if not isinstance(expr, collections.Sequence):
+        if not isinstance(expr, Sequence):
             expr = [expr]
         index = self.parent.index(self)
         self.parent[index:index] = expr
@@ -341,13 +341,13 @@ class Node(ServerObject, UniqueTreeNode):
         return query_tree[self.node_id]
 
     def replace_with(self, expr):
-        if not isinstance(expr, collections.Sequence):
+        if not isinstance(expr, Sequence):
             expr = [expr]
         index = self.parent.index(self)
         self.parent[index : index + 1] = expr
 
     def succeed_by(self, expr):
-        if not isinstance(expr, collections.Sequence):
+        if not isinstance(expr, Sequence):
             expr = [expr]
         index = self.parent.index(self)
         self.parent[index + 1 : index + 1] = expr
@@ -454,7 +454,7 @@ class Group(Node, UniqueTreeList):
         # TODO: lean on uqbar's __setitem__ more.
         self._validate(expr)
         if isinstance(i, slice):
-            assert isinstance(expr, collections.Sequence)
+            assert isinstance(expr, Sequence)
         if isinstance(i, str):
             i = self.index(self._named_children[i])
         if isinstance(i, int):
@@ -470,7 +470,7 @@ class Group(Node, UniqueTreeList):
             start, stop = 0, 0
         else:
             start, stop, stride = i.indices(len(self))
-        if not isinstance(expr, collections.Sequence):
+        if not isinstance(expr, Sequence):
             expr = [expr]
         if self.is_allocated:
             self._set_allocated(expr, start, stop)
@@ -693,17 +693,11 @@ class Synth(Node):
         >>> import supriya.synthdefs
         >>> import supriya.ugens
         >>> with supriya.synthdefs.SynthDefBuilder(
-        ...     amplitude=0.0,
-        ...     frequency=440.0,
-        ...     ) as builder:
-        ...     sin_osc = supriya.ugens.SinOsc.ar(
-        ...         frequency=builder['frequency'],
-        ...         )
-        ...     sin_osc *= builder['amplitude']
-        ...     out = supriya.ugens.Out.ar(
-        ...         bus=0,
-        ...         source=[sin_osc, sin_osc],
-        ...         )
+        ...     amplitude=0.0, frequency=440.0,
+        ... ) as builder:
+        ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"],)
+        ...     sin_osc *= builder["amplitude"]
+        ...     out = supriya.ugens.Out.ar(bus=0, source=[sin_osc, sin_osc],)
         ...
         >>> synthdef = builder.build()
         >>> synthdef.allocate()
@@ -711,11 +705,7 @@ class Synth(Node):
 
     ::
 
-        >>> synth = supriya.realtime.Synth(
-        ...     amplitude=0.5,
-        ...     frequency=443,
-        ...     synthdef=synthdef
-        ...     )
+        >>> synth = supriya.realtime.Synth(amplitude=0.5, frequency=443, synthdef=synthdef)
         >>> synth
         <- Synth: ???>
 
@@ -726,8 +716,8 @@ class Synth(Node):
 
     ::
 
-        >>> synth['frequency'] = 666.0
-        >>> synth['frequency']
+        >>> synth["frequency"] = 666.0
+        >>> synth["frequency"]
         666.0
 
     ::

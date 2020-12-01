@@ -1,4 +1,4 @@
-import collections
+from collections.abc import Sequence
 from typing import NamedTuple, Tuple
 
 import supriya.osc
@@ -15,18 +15,15 @@ class ControlBusFillRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.ControlBusFillRequest(
-        ...     index_count_value_triples=[
-        ...         (0, 8, 0.5),
-        ...         (8, 8, 0.25),
-        ...         ],
-        ...     )
+        ...     index_count_value_triples=[(0, 8, 0.5), (8, 8, 0.25),],
+        ... )
         >>> request
         ControlBusFillRequest(
             index_count_value_triples=(
                 (0, 8, 0.5),
                 (8, 8, 0.25),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -85,13 +82,8 @@ class ControlBusGetContiguousRequest(Request):
         >>> import supriya
         >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusGetContiguousRequest(
-        ...     index_count_pairs=[
-        ...         (0, 2),
-        ...         (4, 1),
-        ...         (8, 2),
-        ...         (12, 1),
-        ...         ],
-        ...     )
+        ...     index_count_pairs=[(0, 2), (4, 1), (8, 2), (12, 1),],
+        ... )
         >>> request
         ControlBusGetContiguousRequest(
             index_count_pairs=(
@@ -99,8 +91,8 @@ class ControlBusGetContiguousRequest(Request):
                 (4, 1),
                 (8, 2),
                 (12, 1),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -118,8 +110,8 @@ class ControlBusGetContiguousRequest(Request):
                 Item(bus_values=(0.0,), starting_bus_id=4),
                 Item(bus_values=(0.0, 0.0), starting_bus_id=8),
                 Item(bus_values=(0.0,), starting_bus_id=12),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -181,13 +173,11 @@ class ControlBusGetRequest(Request):
 
         >>> import supriya
         >>> server = supriya.Server.default().boot()
-        >>> request = supriya.commands.ControlBusGetRequest(
-        ...     indices=(0, 4, 8, 12),
-        ...     )
+        >>> request = supriya.commands.ControlBusGetRequest(indices=(0, 4, 8, 12),)
         >>> request
         ControlBusGetRequest(
             indices=(0, 4, 8, 12),
-            )
+        )
 
     ::
 
@@ -205,8 +195,8 @@ class ControlBusGetRequest(Request):
                 Item(bus_id=4, bus_value=0.0),
                 Item(bus_id=8, bus_value=0.0),
                 Item(bus_id=12, bus_value=0.0),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -261,18 +251,15 @@ class ControlBusSetContiguousRequest(Request):
         >>> import supriya
         >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusSetContiguousRequest(
-        ...     index_values_pairs=[
-        ...         (0, (0.1, 0.2, 0.3)),
-        ...         (4, (0.4, 0.5, 0.6)),
-        ...         ],
-        ...     )
+        ...     index_values_pairs=[(0, (0.1, 0.2, 0.3)), (4, (0.4, 0.5, 0.6)),],
+        ... )
         >>> request
         ControlBusSetContiguousRequest(
             index_values_pairs=(
                 (0, (0.1, 0.2, 0.3)),
                 (4, (0.4, 0.5, 0.6)),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -348,7 +335,7 @@ class ControlBusSetContiguousRequest(Request):
         return self._index_values_pairs
 
 
-class ControlBusSetContiguousResponse(Response, collections.Sequence):
+class ControlBusSetContiguousResponse(Response, Sequence):
 
     ### CLASS VARIABLES ###
 
@@ -402,13 +389,8 @@ class ControlBusSetRequest(Request):
         >>> import supriya
         >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusSetRequest(
-        ...     index_value_pairs=[
-        ...         (0, 0.1),
-        ...         (1, 0.2),
-        ...         (2, 0.3),
-        ...         (3, 0.4),
-        ...         ],
-        ...     )
+        ...     index_value_pairs=[(0, 0.1), (1, 0.2), (2, 0.3), (3, 0.4),],
+        ... )
         >>> request
         ControlBusSetRequest(
             index_value_pairs=(
@@ -416,8 +398,8 @@ class ControlBusSetRequest(Request):
                 (1, 0.2),
                 (2, 0.3),
                 (3, 0.4),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -487,7 +469,7 @@ class ControlBusSetRequest(Request):
         return self._index_value_pairs
 
 
-class ControlBusSetResponse(Response, collections.Sequence):
+class ControlBusSetResponse(Response, Sequence):
 
     ### CLASS VARIABLES ###
 

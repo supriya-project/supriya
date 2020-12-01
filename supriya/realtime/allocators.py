@@ -40,9 +40,7 @@ class BlockAllocator(SupriyaObject):
     ::
 
         >>> from supriya.realtime import BlockAllocator
-        >>> allocator = BlockAllocator(
-        ...     heap_maximum=16,
-        ...     )
+        >>> allocator = BlockAllocator(heap_maximum=16,)
 
     ::
 

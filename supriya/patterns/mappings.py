@@ -1,5 +1,5 @@
-import collections
 import uuid
+from collections.abc import Sequence
 
 from uqbar.objects import new
 
@@ -17,7 +17,7 @@ class Pbind(EventPattern):
         ...     duration=supriya.patterns.Pseq([0.5, 0.25, 0.25, 0.125]),
         ...     foo=[1, 2],
         ...     bar=3,
-        ...     )
+        ... )
 
     ::
 
@@ -31,7 +31,7 @@ class Pbind(EventPattern):
             foo=(1, 2),
             pitch=0,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             bar=3,
             delta=0.25,
@@ -39,7 +39,7 @@ class Pbind(EventPattern):
             foo=(1, 2),
             pitch=3,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             bar=3,
             delta=0.25,
@@ -47,18 +47,17 @@ class Pbind(EventPattern):
             foo=(1, 2),
             pitch=7,
             uuid=UUID('...'),
-            )
+        )
 
     ::
 
-        >>> pattern = supriya.patterns.Pseq([
-        ...     supriya.patterns.Pbind(
-        ...         pitch=supriya.patterns.Pseq([1, 2, 3], 1),
-        ...         ),
-        ...     supriya.patterns.Pbind(
-        ...         pitch=supriya.patterns.Pseq([4, 5, 6], 1),
-        ...         ),
-        ...     ], 1)
+        >>> pattern = supriya.patterns.Pseq(
+        ...     [
+        ...         supriya.patterns.Pbind(pitch=supriya.patterns.Pseq([1, 2, 3], 1),),
+        ...         supriya.patterns.Pbind(pitch=supriya.patterns.Pseq([4, 5, 6], 1),),
+        ...     ],
+        ...     1,
+        ... )
 
     ::
 
@@ -68,27 +67,27 @@ class Pbind(EventPattern):
         NoteEvent(
             pitch=1,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=2,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=3,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=4,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=5,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=6,
             uuid=UUID('...'),
-            )
+        )
 
     """
 
@@ -152,7 +151,7 @@ class Pbind(EventPattern):
         for _, value in self._patterns:
             if isinstance(value, supriya.patterns.Pattern) and not value.is_infinite:
                 return False
-            elif isinstance(value, collections.Sequence):
+            elif isinstance(value, Sequence):
                 return False
         return True
 
@@ -238,7 +237,7 @@ class Pbindf(EventPattern):
         for _, value in self._patterns:
             if isinstance(value, supriya.patterns.Pattern) and not value.is_infinite:
                 return False
-            elif isinstance(value, collections.Sequence):
+            elif isinstance(value, Sequence):
                 return False
         return True
 
@@ -306,7 +305,7 @@ class Pmono(Pbind):
         >>> pattern = supriya.patterns.Pmono(
         ...     pitch=supriya.patterns.Pseq([0, 3, 7]),
         ...     duration=supriya.patterns.Pseq([0.5, 0.25, 0.25]),
-        ...     )
+        ... )
 
     ::
 
@@ -319,31 +318,30 @@ class Pmono(Pbind):
             is_stop=False,
             pitch=0,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             delta=0.25,
             duration=0.25,
             is_stop=False,
             pitch=3,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             delta=0.25,
             duration=0.25,
             pitch=7,
             uuid=UUID('...'),
-            )
+        )
 
     ::
 
-        >>> pattern = supriya.patterns.Pseq([
-        ...     supriya.patterns.Pmono(
-        ...         pitch=supriya.patterns.Pseq([1, 2, 3], 1),
-        ...         ),
-        ...     supriya.patterns.Pmono(
-        ...         pitch=supriya.patterns.Pseq([4, 5, 6], 1),
-        ...         ),
-        ...     ], 1)
+        >>> pattern = supriya.patterns.Pseq(
+        ...     [
+        ...         supriya.patterns.Pmono(pitch=supriya.patterns.Pseq([1, 2, 3], 1),),
+        ...         supriya.patterns.Pmono(pitch=supriya.patterns.Pseq([4, 5, 6], 1),),
+        ...     ],
+        ...     1,
+        ... )
 
     ::
 
@@ -354,30 +352,30 @@ class Pmono(Pbind):
             is_stop=False,
             pitch=1,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             is_stop=False,
             pitch=2,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=3,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             is_stop=False,
             pitch=4,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             is_stop=False,
             pitch=5,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=6,
             uuid=UUID('...'),
-            )
+        )
 
     """
 

@@ -42,7 +42,7 @@ class FFT(PV_ChainUGen):
         ...     source=source,
         ...     window_size=0,
         ...     window_type=0,
-        ...     )
+        ... )
         >>> fft
         FFT.kr()
 
@@ -108,11 +108,7 @@ class IFFT(WidthFirstUGen):
     ::
 
         >>> pv_chain = supriya.ugens.LocalBuf(2048)
-        >>> ifft = supriya.ugens.IFFT.ar(
-        ...     pv_chain=pv_chain,
-        ...     window_size=0,
-        ...     window_type=0,
-        ...     )
+        >>> ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain, window_size=0, window_type=0,)
         >>> ifft
         IFFT.ar()
 
@@ -130,16 +126,9 @@ class PV_Add(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_chain_b = supriya.ugens.FFT(
-        ...     source=supriya.ugens.LFSaw.ar(),
-        ...     )
-        >>> pv_add = supriya.ugens.PV_Add.new(
-        ...     pv_chain_a=pv_chain_a,
-        ...     pv_chain_b=pv_chain_b,
-        ...     )
+        >>> pv_chain_a = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_chain_b = supriya.ugens.FFT(source=supriya.ugens.LFSaw.ar(),)
+        >>> pv_add = supriya.ugens.PV_Add.new(pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b,)
         >>> pv_add
         PV_Add.kr()
 
@@ -156,15 +145,10 @@ class PV_BinScramble(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
         >>> pv_bin_scramble = supriya.ugens.PV_BinScramble.new(
-        ...     pv_chain=pv_chain,
-        ...     trigger=0,
-        ...     width=0.2,
-        ...     wipe=0,
-        ...     )
+        ...     pv_chain=pv_chain, trigger=0, width=0.2, wipe=0,
+        ... )
         >>> pv_bin_scramble
         PV_BinScramble.kr()
 
@@ -181,15 +165,10 @@ class PV_BinShift(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
         >>> pv_bin_shift = supriya.ugens.PV_BinShift.new(
-        ...     pv_chain=pv_chain,
-        ...     interpolate=0,
-        ...     shift=0,
-        ...     stretch=1,
-        ...     )
+        ...     pv_chain=pv_chain, interpolate=0, shift=0, stretch=1,
+        ... )
         >>> pv_bin_shift
         PV_BinShift.kr()
 
@@ -206,17 +185,11 @@ class PV_BinWipe(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_chain_b = supriya.ugens.FFT.new(
-        ...     source=supriya.ugens.LFSaw.ar(),
-        ...     )
+        >>> pv_chain_a = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_chain_b = supriya.ugens.FFT.new(source=supriya.ugens.LFSaw.ar(),)
         >>> pv_bin_wipe = supriya.ugens.PV_BinWipe.new(
-        ...     pv_chain_a=pv_chain_a,
-        ...     pv_chain_b=pv_chain_b,
-        ...     wipe=0,
-        ...     )
+        ...     pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b, wipe=0,
+        ... )
         >>> pv_bin_wipe
         PV_BinWipe.kr()
 
@@ -239,13 +212,8 @@ class PV_BrickWall(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_brick_wall = supriya.ugens.PV_BrickWall.new(
-        ...     pv_chain=pv_chain,
-        ...     wipe=0,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_brick_wall = supriya.ugens.PV_BrickWall.new(pv_chain=pv_chain, wipe=0,)
         >>> pv_brick_wall
         PV_BrickWall.kr()
 
@@ -260,14 +228,10 @@ class PV_ConformalMap(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
         >>> pv_conformal_map = supriya.ugens.PV_ConformalMap.new(
-        ...     aimag=0,
-        ...     areal=0,
-        ...     pv_chain=pv_chain,
-        ...     )
+        ...     aimag=0, areal=0, pv_chain=pv_chain,
+        ... )
         >>> pv_conformal_map
         PV_ConformalMap.kr()
 
@@ -284,12 +248,8 @@ class PV_Conj(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_conj = supriya.ugens.PV_Conj.new(
-        ...     pv_chain=pv_chain,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_conj = supriya.ugens.PV_Conj.new(pv_chain=pv_chain,)
         >>> pv_conj
         PV_Conj.kr()
 
@@ -304,16 +264,11 @@ class PV_Copy(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_chain_b = supriya.ugens.FFT(
-        ...     source=supriya.ugens.LFSaw.ar(),
-        ...     )
+        >>> pv_chain_a = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_chain_b = supriya.ugens.FFT(source=supriya.ugens.LFSaw.ar(),)
         >>> pv_copy = supriya.ugens.PV_Copy.new(
-        ...     pv_chain_a=pv_chain_a,
-        ...     pv_chain_b=pv_chain_b,
-        ...     )
+        ...     pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b,
+        ... )
         >>> pv_copy
         PV_Copy.kr()
 
@@ -330,16 +285,11 @@ class PV_CopyPhase(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_chain_b = supriya.ugens.FFT(
-        ...     source=supriya.ugens.LFSaw.ar(),
-        ...     )
+        >>> pv_chain_a = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_chain_b = supriya.ugens.FFT(source=supriya.ugens.LFSaw.ar(),)
         >>> pv_copy_phase = supriya.ugens.PV_CopyPhase.new(
-        ...     pv_chain_a=pv_chain_a,
-        ...     pv_chain_b=pv_chain_b,
-        ...     )
+        ...     pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b,
+        ... )
         >>> pv_copy_phase
         PV_CopyPhase.kr()
 
@@ -356,13 +306,8 @@ class PV_Diffuser(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_diffuser = supriya.ugens.PV_Diffuser.new(
-        ...     pv_chain=pv_chain,
-        ...     trigger=0,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_diffuser = supriya.ugens.PV_Diffuser.new(pv_chain=pv_chain, trigger=0,)
         >>> pv_diffuser
         PV_Diffuser.kr()
 
@@ -377,16 +322,9 @@ class PV_Div(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_chain_b = supriya.ugens.FFT(
-        ...     source=supriya.ugens.LFSaw.ar(),
-        ...     )
-        >>> pv_div = supriya.ugens.PV_Div.new(
-        ...     pv_chain_a=pv_chain_a,
-        ...     pv_chain_b=pv_chain_b,
-        ...     )
+        >>> pv_chain_a = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_chain_b = supriya.ugens.FFT(source=supriya.ugens.LFSaw.ar(),)
+        >>> pv_div = supriya.ugens.PV_Div.new(pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b,)
         >>> pv_div
         PV_Div.kr()
 
@@ -403,16 +341,10 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
         >>> pv_hainsworth_foote = supriya.ugens.PV_HainsworthFoote.new(
-        ...     pv_chain=pv_chain,
-        ...     propf=0,
-        ...     proph=0,
-        ...     threshold=1,
-        ...     waittime=0.04,
-        ...     )
+        ...     pv_chain=pv_chain, propf=0, proph=0, threshold=1, waittime=0.04,
+        ... )
         >>> pv_hainsworth_foote
         PV_HainsworthFoote.kr()
 
@@ -435,9 +367,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
         >>> pv_jensen_andersen = supriya.ugens.PV_JensenAndersen.new(
         ...     pv_chain=pv_chain,
         ...     prophfc=0.25,
@@ -446,7 +376,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         ...     propsf=0.25,
         ...     threshold=1,
         ...     waittime=0.04,
-        ...     )
+        ... )
         >>> pv_jensen_andersen
         PV_JensenAndersen.kr()
 
@@ -471,13 +401,8 @@ class PV_LocalMax(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_local_max = supriya.ugens.PV_LocalMax.new(
-        ...     pv_chain=pv_chain,
-        ...     threshold=0,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_local_max = supriya.ugens.PV_LocalMax.new(pv_chain=pv_chain, threshold=0,)
         >>> pv_local_max
         PV_LocalMax.kr()
 
@@ -494,13 +419,8 @@ class PV_MagAbove(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_mag_above = supriya.ugens.PV_MagAbove.new(
-        ...     pv_chain=pv_chain,
-        ...     threshold=0,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_mag_above = supriya.ugens.PV_MagAbove.new(pv_chain=pv_chain, threshold=0,)
         >>> pv_mag_above
         PV_MagAbove.kr()
 
@@ -517,13 +437,8 @@ class PV_MagBelow(PV_MagAbove):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_mag_below = supriya.ugens.PV_MagBelow.new(
-        ...     pv_chain=pv_chain,
-        ...     threshold=0,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_mag_below = supriya.ugens.PV_MagBelow.new(pv_chain=pv_chain, threshold=0,)
         >>> pv_mag_below
         PV_MagBelow.kr()
 
@@ -540,13 +455,8 @@ class PV_MagClip(PV_MagAbove):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_mag_clip = supriya.ugens.PV_MagClip.new(
-        ...     pv_chain=pv_chain,
-        ...     threshold=0,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_mag_clip = supriya.ugens.PV_MagClip.new(pv_chain=pv_chain, threshold=0,)
         >>> pv_mag_clip
         PV_MagClip.kr()
 
@@ -563,17 +473,11 @@ class PV_MagDiv(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_chain_b = supriya.ugens.FFT(
-        ...     source=supriya.ugens.LFSaw.ar(),
-        ...     )
+        >>> pv_chain_a = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_chain_b = supriya.ugens.FFT(source=supriya.ugens.LFSaw.ar(),)
         >>> pv_mag_div = supriya.ugens.PV_MagDiv.new(
-        ...     pv_chain_a=pv_chain_a,
-        ...     pv_chain_b=pv_chain_b,
-        ...     zeroed=0.0001,
-        ...     )
+        ...     pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b, zeroed=0.0001,
+        ... )
         >>> pv_mag_div
         PV_MagDiv.kr()
 
@@ -590,13 +494,8 @@ class PV_MagFreeze(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_mag_freeze = supriya.ugens.PV_MagFreeze.new(
-        ...     pv_chain=pv_chain,
-        ...     freeze=0,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_mag_freeze = supriya.ugens.PV_MagFreeze.new(pv_chain=pv_chain, freeze=0,)
         >>> pv_mag_freeze
         PV_MagFreeze.kr()
 
@@ -611,16 +510,11 @@ class PV_MagMul(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_chain_b = supriya.ugens.FFT(
-        ...     source=supriya.ugens.LFSaw.ar(),
-        ...     )
+        >>> pv_chain_a = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_chain_b = supriya.ugens.FFT(source=supriya.ugens.LFSaw.ar(),)
         >>> pv_mag_mul = supriya.ugens.PV_MagMul.new(
-        ...     pv_chain_a=pv_chain_a,
-        ...     pv_chain_b=pv_chain_b,
-        ...     )
+        ...     pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b,
+        ... )
         >>> pv_mag_mul
         PV_MagMul.kr()
 
@@ -637,12 +531,8 @@ class PV_MagNoise(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_mag_noise = supriya.ugens.PV_MagNoise.new(
-        ...     pv_chain=pv_chain,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_mag_noise = supriya.ugens.PV_MagNoise.new(pv_chain=pv_chain,)
         >>> pv_mag_noise
         PV_MagNoise.kr()
 
@@ -657,14 +547,10 @@ class PV_MagShift(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
         >>> pv_mag_shift = supriya.ugens.PV_MagShift.new(
-        ...     pv_chain=pv_chain,
-        ...     shift=0,
-        ...     stretch=1,
-        ...     )
+        ...     pv_chain=pv_chain, shift=0, stretch=1,
+        ... )
         >>> pv_mag_shift
         PV_MagShift.kr()
 
@@ -681,13 +567,8 @@ class PV_MagSmear(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_mag_smear = supriya.ugens.PV_MagSmear.new(
-        ...     bins=0,
-        ...     pv_chain=pv_chain,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_mag_smear = supriya.ugens.PV_MagSmear.new(bins=0, pv_chain=pv_chain,)
         >>> pv_mag_smear
         PV_MagSmear.kr()
 
@@ -702,12 +583,8 @@ class PV_MagSquared(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_mag_squared = supriya.ugens.PV_MagSquared.new(
-        ...     pv_chain=pv_chain,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_mag_squared = supriya.ugens.PV_MagSquared.new(pv_chain=pv_chain,)
         >>> pv_mag_squared
         PV_MagSquared.kr()
 
@@ -722,16 +599,9 @@ class PV_Max(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_chain_b = supriya.ugens.FFT(
-        ...     source=supriya.ugens.LFSaw.ar(),
-        ...     )
-        >>> pv_max = supriya.ugens.PV_Max.new(
-        ...     pv_chain_a=pv_chain_a,
-        ...     pv_chain_b=pv_chain_b,
-        ...     )
+        >>> pv_chain_a = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_chain_b = supriya.ugens.FFT(source=supriya.ugens.LFSaw.ar(),)
+        >>> pv_max = supriya.ugens.PV_Max.new(pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b,)
         >>> pv_max
         PV_Max.kr()
 
@@ -748,16 +618,9 @@ class PV_Min(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_chain_b = supriya.ugens.FFT(
-        ...     source=supriya.ugens.LFSaw.ar(),
-        ...     )
-        >>> pv_min = supriya.ugens.PV_Min.new(
-        ...     pv_chain_a=pv_chain_a,
-        ...     pv_chain_b=pv_chain_b,
-        ...     )
+        >>> pv_chain_a = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_chain_b = supriya.ugens.FFT(source=supriya.ugens.LFSaw.ar(),)
+        >>> pv_min = supriya.ugens.PV_Min.new(pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b,)
         >>> pv_min
         PV_Min.kr()
 
@@ -774,16 +637,9 @@ class PV_Mul(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_chain_b = supriya.ugens.FFT(
-        ...     source=supriya.ugens.LFSaw.ar(),
-        ...     )
-        >>> pv_mul = supriya.ugens.PV_Mul.new(
-        ...     pv_chain_a=pv_chain_a,
-        ...     pv_chain_b=pv_chain_b,
-        ...     )
+        >>> pv_chain_a = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_chain_b = supriya.ugens.FFT(source=supriya.ugens.LFSaw.ar(),)
+        >>> pv_mul = supriya.ugens.PV_Mul.new(pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b,)
         >>> pv_mul
         PV_Mul.kr()
 
@@ -800,15 +656,11 @@ class PV_PhaseShift(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
         >>> shift = supriya.ugens.LFNoise2.kr(1).scale(-1, 1, -180, 180)
         >>> pv_phase_shift = supriya.ugens.PV_PhaseShift.new(
-        ...     pv_chain=pv_chain,
-        ...     integrate=0,
-        ...     shift=shift,
-        ...     )
+        ...     pv_chain=pv_chain, integrate=0, shift=shift,
+        ... )
         >>> pv_phase_shift
         PV_PhaseShift.kr()
 
@@ -825,12 +677,8 @@ class PV_PhaseShift270(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_phase_shift_270 = supriya.ugens.PV_PhaseShift270.new(
-        ...     pv_chain=pv_chain,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_phase_shift_270 = supriya.ugens.PV_PhaseShift270.new(pv_chain=pv_chain,)
         >>> pv_phase_shift_270
         PV_PhaseShift270.kr()
 
@@ -845,12 +693,8 @@ class PV_PhaseShift90(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_phase_shift_90 = supriya.ugens.PV_PhaseShift90.new(
-        ...     pv_chain=pv_chain,
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_phase_shift_90 = supriya.ugens.PV_PhaseShift90.new(pv_chain=pv_chain,)
         >>> pv_phase_shift_90
         PV_PhaseShift90.kr()
 
@@ -865,14 +709,10 @@ class PV_RandComb(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
         >>> pv_rand_comb = supriya.ugens.PV_RandComb.new(
-        ...     pv_chain=pv_chain,
-        ...     trigger=0,
-        ...     wipe=0,
-        ...     )
+        ...     pv_chain=pv_chain, trigger=0, wipe=0,
+        ... )
         >>> pv_rand_comb
         PV_RandComb.kr()
 
@@ -889,18 +729,11 @@ class PV_RandWipe(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_chain_b = supriya.ugens.FFT(
-        ...     source=supriya.ugens.LFSaw.ar(),
-        ...     )
+        >>> pv_chain_a = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_chain_b = supriya.ugens.FFT(source=supriya.ugens.LFSaw.ar(),)
         >>> pv_rand_wipe = supriya.ugens.PV_RandWipe.new(
-        ...     pv_chain_a=pv_chain_a,
-        ...     pv_chain_b=pv_chain_b,
-        ...     trigger=0,
-        ...     wipe=0,
-        ...     )
+        ...     pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b, trigger=0, wipe=0,
+        ... )
         >>> pv_rand_wipe
         PV_RandWipe.kr()
 
@@ -917,15 +750,10 @@ class PV_RectComb(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
+        >>> pv_chain = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
         >>> pv_rect_comb = supriya.ugens.PV_RectComb.new(
-        ...     pv_chain=pv_chain,
-        ...     num_teeth=0,
-        ...     phase=0,
-        ...     width=0.5,
-        ...     )
+        ...     pv_chain=pv_chain, num_teeth=0, phase=0, width=0.5,
+        ... )
         >>> pv_rect_comb
         PV_RectComb.kr()
 
@@ -942,19 +770,15 @@ class PV_RectComb2(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
-        ...     source=supriya.ugens.WhiteNoise.ar(),
-        ...     )
-        >>> pv_chain_b = supriya.ugens.FFT(
-        ...     source=supriya.ugens.LFSaw.ar(),
-        ...     )
+        >>> pv_chain_a = supriya.ugens.FFT(source=supriya.ugens.WhiteNoise.ar(),)
+        >>> pv_chain_b = supriya.ugens.FFT(source=supriya.ugens.LFSaw.ar(),)
         >>> pv_rect_comb_2 = supriya.ugens.PV_RectComb2.new(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ...     num_teeth=0,
         ...     phase=0,
         ...     width=0.5,
-        ...     )
+        ... )
         >>> pv_rect_comb_2
         PV_RectComb2.kr()
 
@@ -978,10 +802,7 @@ class RunningSum(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> running_sum = supriya.ugens.RunningSum.ar(
-        ...     sample_count=40,
-        ...     source=source,
-        ...     )
+        >>> running_sum = supriya.ugens.RunningSum.ar(sample_count=40, source=source,)
         >>> running_sum
         RunningSum.ar()
 

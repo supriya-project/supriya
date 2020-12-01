@@ -1,4 +1,5 @@
 import collections
+from collections.abc import Sequence
 
 from supriya import CalculationRate, ParameterRate, SignalRange
 from supriya.system import SupriyaValueObject
@@ -14,19 +15,19 @@ class Range(SupriyaValueObject):
 
     ::
 
-        >>> supriya.synthdefs.Range(-1., 1.)
+        >>> supriya.synthdefs.Range(-1.0, 1.0)
         Range(
             maximum=1.0,
             minimum=-1.0,
-            )
+        )
 
     ::
 
-        >>> supriya.synthdefs.Range(minimum=0.)
+        >>> supriya.synthdefs.Range(minimum=0.0)
         Range(
             maximum=inf,
             minimum=0.0,
-            )
+        )
 
     ::
 
@@ -34,7 +35,7 @@ class Range(SupriyaValueObject):
         Range(
             maximum=inf,
             minimum=-inf,
-            )
+        )
 
     ::
 
@@ -42,7 +43,7 @@ class Range(SupriyaValueObject):
         Range(
             maximum=0.9,
             minimum=0.1,
-            )
+        )
 
     ::
 
@@ -50,7 +51,7 @@ class Range(SupriyaValueObject):
         Range(
             maximum=3.0,
             minimum=-3.0,
-            )
+        )
 
     """
 
@@ -63,11 +64,7 @@ class Range(SupriyaValueObject):
     ### INITIALIZER ###
 
     def __init__(self, minimum=None, maximum=None):
-        if (
-            isinstance(minimum, collections.Sequence)
-            and maximum is None
-            and len(minimum) == 2
-        ):
+        if isinstance(minimum, Sequence) and maximum is None and len(minimum) == 2:
             minimum, maximum = minimum
         elif isinstance(minimum, type(self)):
             minimum, maximum = minimum.minimum, minimum.maximum
@@ -96,27 +93,27 @@ class Range(SupriyaValueObject):
 
         ::
 
-            >>> input_range = supriya.synthdefs.Range(0., 10.)
+            >>> input_range = supriya.synthdefs.Range(0.0, 10.0)
             >>> output_range = supriya.synthdefs.Range(-2.5, 2.5)
 
         ::
 
-            >>> supriya.synthdefs.Range.scale(0., input_range, output_range)
+            >>> supriya.synthdefs.Range.scale(0.0, input_range, output_range)
             -2.5
 
         ::
 
-            >>> supriya.synthdefs.Range.scale(5., input_range, output_range)
+            >>> supriya.synthdefs.Range.scale(5.0, input_range, output_range)
             0.0
 
         ::
 
-            >>> supriya.synthdefs.Range.scale(5., input_range, output_range, 2.)
+            >>> supriya.synthdefs.Range.scale(5.0, input_range, output_range, 2.0)
             -1.25
 
         ::
 
-            >>> supriya.synthdefs.Range.scale(5., input_range, output_range, 0.5)
+            >>> supriya.synthdefs.Range.scale(5.0, input_range, output_range, 0.5)
             1.0355...
 
         Returns float.
@@ -181,7 +178,7 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
         self._range = range_
         self._unit = unit
         self._uuid = None
-        if isinstance(value, collections.Sequence):
+        if isinstance(value, Sequence):
             value = tuple(float(_) for _ in value)
             assert value, value
         else:

@@ -14,10 +14,7 @@ class BeatTrack(MultiOutUGen):
 
         >>> source = supriya.ugens.SoundIn.ar(bus=0)
         >>> pv_chain = supriya.ugens.FFT(source=source)
-        >>> beat_track = supriya.ugens.BeatTrack.kr(
-        ...     pv_chain=pv_chain,
-        ...     lock=0,
-        ...     )
+        >>> beat_track = supriya.ugens.BeatTrack.kr(pv_chain=pv_chain, lock=0,)
         >>> beat_track
         UGenArray({4})
 
@@ -42,7 +39,7 @@ class BeatTrack2(MultiOutUGen):
         ...     phase_accuracy=0.02,
         ...     weighting_scheme=-2.1,
         ...     window_size=2,
-        ...     )
+        ... )
         >>> beat_track_2
         UGenArray({6})
 
@@ -72,10 +69,8 @@ class KeyTrack(UGen):
         >>> source = supriya.ugens.SoundIn.ar(bus=0)
         >>> pv_chain = supriya.ugens.FFT(source=source)
         >>> key_track = supriya.ugens.KeyTrack.kr(
-        ...     pv_chain=pv_chain,
-        ...     chroma_leak=0.5,
-        ...     key_decay=2,
-        ...     )
+        ...     pv_chain=pv_chain, chroma_leak=0.5, key_decay=2,
+        ... )
         >>> key_track
         KeyTrack.kr()
 
@@ -95,11 +90,7 @@ class Loudness(UGen):
 
         >>> source = supriya.ugens.SoundIn.ar(bus=0)
         >>> pv_chain = supriya.ugens.FFT(source=source)
-        >>> loudness = supriya.ugens.Loudness.kr(
-        ...     pv_chain=pv_chain,
-        ...     smask=0.25,
-        ...     tmask=1,
-        ...     )
+        >>> loudness = supriya.ugens.Loudness.kr(pv_chain=pv_chain, smask=0.25, tmask=1,)
         >>> loudness
         Loudness.kr()
 
@@ -119,10 +110,7 @@ class MFCC(MultiOutUGen):
 
         >>> source = supriya.ugens.SoundIn.ar(bus=0)
         >>> pv_chain = supriya.ugens.FFT(source=source)
-        >>> mfcc = supriya.ugens.MFCC.kr(
-        ...     pv_chain=pv_chain,
-        ...     channel_count=13,
-        ...     )
+        >>> mfcc = supriya.ugens.MFCC.kr(pv_chain=pv_chain, channel_count=13,)
         >>> mfcc
         UGenArray({13})
 
@@ -152,7 +140,7 @@ class Onsets(UGen):
         ...     relaxtime=1,
         ...     threshold=0.5,
         ...     whtype=1,
-        ...     )
+        ... )
         >>> onsets
         Onsets.kr()
 
@@ -191,9 +179,7 @@ class SpecCentroid(UGen):
 
         >>> source = supriya.ugens.SoundIn.ar(bus=0)
         >>> pv_chain = supriya.ugens.FFT(source=source)
-        >>> spec_centroid = supriya.ugens.SpecCentroid.kr(
-        ...     pv_chain=pv_chain,
-        ...     )
+        >>> spec_centroid = supriya.ugens.SpecCentroid.kr(pv_chain=pv_chain,)
         >>> spec_centroid
         SpecCentroid.kr()
 
@@ -211,9 +197,7 @@ class SpecFlatness(UGen):
 
         >>> source = supriya.ugens.SoundIn.ar(bus=0)
         >>> pv_chain = supriya.ugens.FFT(source=source)
-        >>> spec_flatness = supriya.ugens.SpecFlatness.kr(
-        ...     pv_chain=pv_chain,
-        ...     )
+        >>> spec_flatness = supriya.ugens.SpecFlatness.kr(pv_chain=pv_chain,)
         >>> spec_flatness
         SpecFlatness.kr()
 
@@ -232,10 +216,8 @@ class SpecPcile(UGen):
         >>> source = supriya.ugens.SoundIn.ar(bus=0)
         >>> pv_chain = supriya.ugens.FFT(source=source)
         >>> spec_pcile = supriya.ugens.SpecPcile.kr(
-        ...     pv_chain=pv_chain,
-        ...     fraction=0.5,
-        ...     interpolate=0,
-        ...     )
+        ...     pv_chain=pv_chain, fraction=0.5, interpolate=0,
+        ... )
         >>> spec_pcile
         SpecPcile.kr()
 

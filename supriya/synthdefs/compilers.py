@@ -1,5 +1,6 @@
 import collections
 import struct
+from collections.abc import Sequence
 
 from supriya import CalculationRate, ParameterRate, utils
 from supriya.system import SupriyaObject
@@ -48,7 +49,7 @@ class SynthDefCompiler(SupriyaObject):
     @staticmethod
     def compile_synthdefs(synthdefs, use_anonymous_names=False):
         def flatten(value):
-            if isinstance(value, collections.Sequence) and not isinstance(
+            if isinstance(value, Sequence) and not isinstance(
                 value, (bytes, bytearray)
             ):
                 return bytes().join(flatten(x) for x in value)
@@ -159,15 +160,11 @@ class SynthDefDecompiler(SupriyaObject):
         >>> with supriya.synthdefs.SynthDefBuilder(
         ...     frequency=440,
         ...     trigger=supriya.synthdefs.Parameter(
-        ...         value=0.,
-        ...         parameter_rate=supriya.ParameterRate.TRIGGER,
-        ...         ),
-        ...     ) as builder:
-        ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder['frequency'])
-        ...     decay = supriya.ugens.Decay.kr(
-        ...         decay_time=0.5,
-        ...         source=builder['trigger'],
-        ...         )
+        ...         value=0.0, parameter_rate=supriya.ParameterRate.TRIGGER,
+        ...     ),
+        ... ) as builder:
+        ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"])
+        ...     decay = supriya.ugens.Decay.kr(decay_time=0.5, source=builder["trigger"],)
         ...     enveloped_sin = sin_osc * decay
         ...     out = supriya.ugens.Out.ar(bus=0, source=enveloped_sin)
         ...

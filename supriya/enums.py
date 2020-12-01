@@ -1,4 +1,4 @@
-import collections
+from collections.abc import Sequence
 
 from uqbar.enums import IntEnumeration, StrictEnumeration
 
@@ -84,7 +84,7 @@ class CalculationRate(IntEnumeration):
 
     ::
 
-        >>> supriya.CalculationRate.from_expr('demand')
+        >>> supriya.CalculationRate.from_expr("demand")
         CalculationRate.DEMAND
 
     """
@@ -115,7 +115,7 @@ class CalculationRate(IntEnumeration):
 
         ::
 
-            >>> supriya.CalculationRate.from_expr('demand')
+            >>> supriya.CalculationRate.from_expr("demand")
             CalculationRate.DEMAND
 
         ::
@@ -150,7 +150,7 @@ class CalculationRate(IntEnumeration):
             return CalculationRate.from_expr(name)
         elif isinstance(expr, str):
             return super().from_expr(expr)
-        elif isinstance(expr, collections.Sequence):
+        elif isinstance(expr, Sequence):
             return max(CalculationRate.from_expr(item) for item in expr)
         elif hasattr(expr, "calculation_rate"):
             return cls.from_expr(expr.calculation_rate)
@@ -181,7 +181,7 @@ class DoneAction(IntEnumeration):
 
     ::
 
-        >>> supriya.DoneAction.from_expr('pause synth')
+        >>> supriya.DoneAction.from_expr("pause synth")
         DoneAction.PAUSE_SYNTH
 
     """
@@ -230,12 +230,12 @@ class HeaderFormat(IntEnumeration):
 
     ::
 
-        >>> supriya.HeaderFormat.from_expr('wav')
+        >>> supriya.HeaderFormat.from_expr("wav")
         HeaderFormat.WAV
 
     ::
 
-        >>> header_format = supriya.HeaderFormat.from_expr('wav')
+        >>> header_format = supriya.HeaderFormat.from_expr("wav")
         >>> header_format.name.lower()
         'wav'
 
@@ -461,7 +461,7 @@ class SampleFormat(IntEnumeration):
 
     ::
 
-        >>> supriya.SampleFormat.from_expr('float')
+        >>> supriya.SampleFormat.from_expr("float")
         SampleFormat.FLOAT
 
     ::
@@ -495,7 +495,7 @@ class SignalRange(IntEnumeration):
 
     ::
 
-        >>> supriya.SignalRange.from_expr('bipolar')
+        >>> supriya.SignalRange.from_expr("bipolar")
         SignalRange.BIPOLAR
 
     """
