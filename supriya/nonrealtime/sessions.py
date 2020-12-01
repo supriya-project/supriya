@@ -50,9 +50,7 @@ class Session:
         >>> builder = supriya.synthdefs.SynthDefBuilder(frequency=440)
         >>> with builder:
         ...     out = supriya.ugens.Out.ar(
-        ...         source=supriya.ugens.SinOsc.ar(
-        ...             frequency=builder['frequency'],
-        ...         )
+        ...         source=supriya.ugens.SinOsc.ar(frequency=builder["frequency"],)
         ...     )
         ...
         >>> synthdef = builder.build()
@@ -71,13 +69,17 @@ class Session:
 
         >>> result = session.to_lists(duration=20)
         >>> result == [
-        ...     [0.0, [
-        ...         ['/d_recv', bytearray(synthdef.compile(use_anonymous_name=True))],
-        ...         ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1000, 0, 0],
-        ...         ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1001, 0, 0]]],
-        ...     [5.0, [['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1002, 0, 0]]],
-        ...     [10.0, [['/n_free', 1000]]],
-        ...     [15.0, [['/n_free', 1001, 1002]]],
+        ...     [
+        ...         0.0,
+        ...         [
+        ...             ["/d_recv", bytearray(synthdef.compile(use_anonymous_name=True))],
+        ...             ["/s_new", "9c4eb4778dc0faf39459fa8a5cd45c19", 1000, 0, 0],
+        ...             ["/s_new", "9c4eb4778dc0faf39459fa8a5cd45c19", 1001, 0, 0],
+        ...         ],
+        ...     ],
+        ...     [5.0, [["/s_new", "9c4eb4778dc0faf39459fa8a5cd45c19", 1002, 0, 0]]],
+        ...     [10.0, [["/n_free", 1000]]],
+        ...     [15.0, [["/n_free", 1001, 1002]]],
         ...     [20.0, [[0]]],
         ... ]
         True
@@ -169,10 +171,10 @@ class Session:
             ...     synth_c = group.add_synth(duration=5)
             ...
             >>> with session.at(7.5):
-            ...     synth_d = synth_b.add_synth(duration=5, add_action='ADD_BEFORE')
+            ...     synth_d = synth_b.add_synth(duration=5, add_action="ADD_BEFORE")
             ...
             >>> with session.at(11):
-            ...     _ = synth_d.move_node(synth_a, add_action='ADD_AFTER')
+            ...     _ = synth_d.move_node(synth_a, add_action="ADD_AFTER")
             ...
             >>> supriya.graph(session)  # doctest: +SKIP
 
