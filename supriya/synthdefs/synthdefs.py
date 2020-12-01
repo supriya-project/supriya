@@ -34,7 +34,7 @@ class SynthDef:
         >>> import supriya.synthdefs
         >>> import supriya.ugens
         >>> with supriya.synthdefs.SynthDefBuilder(frequency=440) as builder:
-        ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder['frequency'])
+        ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"])
         ...     out = supriya.ugens.Out.ar(bus=0, source=sin_osc)
         ...
         >>> synthdef = builder.build()
@@ -124,11 +124,11 @@ class SynthDef:
         ::
 
             >>> with supriya.synthdefs.SynthDefBuilder(frequency=440) as builder:
-            ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder['frequency'])
+            ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"])
             ...     out = supriya.ugens.Out.ar(bus=0, source=sin_osc)
             ...
             >>> synthdef = builder.build()
-            >>> print(format(synthdef.__graph__(), 'graphviz'))
+            >>> print(format(synthdef.__graph__(), "graphviz"))
             digraph synthdef_... {
                 graph [bgcolor=transparent,
                     color=lightslategrey,
@@ -185,7 +185,7 @@ class SynthDef:
             ...     source = sin_one + sin_two
             ...     out = supriya.ugens.Out.ar(bus=0, source=source)
             ...
-            >>> synthdef = builder.build(name='test')
+            >>> synthdef = builder.build(name="test")
 
         ::
 
@@ -638,12 +638,7 @@ class SynthDef:
 
             >>> import json
             >>> result = supriya.assets.synthdefs.default.to_dict()
-            >>> result = json.dumps(
-            ...     result,
-            ...     indent=4,
-            ...     separators=(',', ': '),
-            ...     sort_keys=True,
-            ... )
+            >>> result = json.dumps(result, indent=4, separators=(",", ": "), sort_keys=True,)
             >>> print(result)
             {
                 "synthdef": {
@@ -746,9 +741,7 @@ class SynthDef:
             >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
-            ...     sin = supriya.ugens.SinOsc.ar(
-            ...         frequency=audio_in,
-            ...     )
+            ...     sin = supriya.ugens.SinOsc.ar(frequency=audio_in,)
             ...     source = audio_in * control_in[1]
             ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
             ...
@@ -784,9 +777,7 @@ class SynthDef:
             >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
-            ...     sin = supriya.ugens.SinOsc.ar(
-            ...         frequency=audio_in,
-            ...     )
+            ...     sin = supriya.ugens.SinOsc.ar(frequency=audio_in,)
             ...     source = audio_in * control_in[1]
             ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
             ...
@@ -834,9 +825,7 @@ class SynthDef:
             >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
-            ...     sin = supriya.ugens.SinOsc.ar(
-            ...         frequency=audio_in,
-            ...     )
+            ...     sin = supriya.ugens.SinOsc.ar(frequency=audio_in,)
             ...     source = audio_in * control_in[1]
             ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
             ...
@@ -872,9 +861,7 @@ class SynthDef:
             >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
-            ...     sin = supriya.ugens.SinOsc.ar(
-            ...         frequency=audio_in,
-            ...     )
+            ...     sin = supriya.ugens.SinOsc.ar(frequency=audio_in,)
             ...     source = audio_in * control_in[1]
             ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
             ...

@@ -19,7 +19,7 @@ class IntervalTree(SupriyaObject):
         ...     Interval(1, 2),
         ...     Interval(2, 5),
         ...     Interval(6, 9),
-        ...     )
+        ... )
         >>> interval_tree = IntervalTree(intervals)
 
     """
@@ -66,7 +66,7 @@ class IntervalTree(SupriyaObject):
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
-            ...     )
+            ... )
             >>> interval_tree = IntervalTree(intervals)
 
         ::
@@ -96,7 +96,7 @@ class IntervalTree(SupriyaObject):
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
-            ...     )
+            ... )
             >>> interval_tree = IntervalTree(intervals)
 
         ::
@@ -133,7 +133,7 @@ class IntervalTree(SupriyaObject):
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
-            ...     )
+            ... )
             >>> interval_tree = IntervalTree(intervals)
 
         ::
@@ -164,7 +164,7 @@ class IntervalTree(SupriyaObject):
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
-            ...     )
+            ... )
             >>> interval_tree = IntervalTree(intervals)
 
         ::
@@ -194,7 +194,7 @@ class IntervalTree(SupriyaObject):
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
-            ...     )
+            ... )
             >>> interval_tree = IntervalTree(intervals)
 
         ::
@@ -225,11 +225,9 @@ class IntervalTree(SupriyaObject):
         ::
 
             >>> from supriya.intervals import Interval, IntervalTree
-            >>> interval_tree = IntervalTree([
-            ...     Interval(0, 16),
-            ...     Interval(5, 12),
-            ...     Interval(-2, 8),
-            ...     ])
+            >>> interval_tree = IntervalTree(
+            ...     [Interval(0, 16), Interval(5, 12), Interval(-2, 8),]
+            ... )
 
         ::
 
@@ -286,7 +284,7 @@ class IntervalTree(SupriyaObject):
                 ...     Interval(1, 2),
                 ...     Interval(2, 5),
                 ...     Interval(6, 9),
-                ...     )
+                ... )
                 >>> interval_tree = IntervalTree(intervals)
 
             ::
@@ -310,7 +308,7 @@ class IntervalTree(SupriyaObject):
                 ...     Interval(1, 2),
                 ...     Interval(2, 5),
                 ...     Interval(6, 9),
-                ...     )
+                ... )
                 >>> interval_tree = IntervalTree(intervals)
 
             ::
@@ -347,7 +345,7 @@ class IntervalTree(SupriyaObject):
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
-            ...     )
+            ... )
             >>> interval_tree = IntervalTree(intervals)
 
         ::
@@ -390,7 +388,7 @@ class IntervalTree(SupriyaObject):
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
-            ...     )
+            ... )
             >>> interval_tree = IntervalTree(intervals)
 
         ::
@@ -427,7 +425,7 @@ class IntervalTree(SupriyaObject):
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
-            ...     )
+            ... )
             >>> interval_tree = IntervalTree(intervals)
 
         ::
@@ -471,7 +469,7 @@ class IntervalTree(SupriyaObject):
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
-            ...     )
+            ... )
             >>> interval_tree = IntervalTree(intervals)
 
         ::
@@ -524,7 +522,7 @@ class IntervalTree(SupriyaObject):
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
-            ...     )
+            ... )
             >>> interval_tree = IntervalTree(intervals)
 
         ::
@@ -539,8 +537,7 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> for x in interval_tree.iterate_moments(
-            ...     reverse=True):
+            >>> for x in interval_tree.iterate_moments(reverse=True):
             ...     x
             ...
             <Moment(6.0 <<1>>)>
@@ -582,7 +579,7 @@ class IntervalTree(SupriyaObject):
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
-            ...     )
+            ... )
             >>> interval_tree = IntervalTree(intervals)
 
         ::
@@ -596,8 +593,7 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> for x in interval_tree.iterate_moments_nwise(
-            ...     n=2, reverse=True):
+            >>> for x in interval_tree.iterate_moments_nwise(n=2, reverse=True):
             ...     x
             ...
             [<Moment(2.0 <<3>>)>, <Moment(6.0 <<1>>)>]
@@ -642,7 +638,7 @@ class IntervalTree(SupriyaObject):
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
-            ...     )
+            ... )
             >>> interval_tree = IntervalTree(intervals)
 
         ::

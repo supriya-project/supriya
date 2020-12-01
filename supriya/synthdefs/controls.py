@@ -14,7 +14,7 @@ class Range(SupriyaValueObject):
 
     ::
 
-        >>> supriya.synthdefs.Range(-1., 1.)
+        >>> supriya.synthdefs.Range(-1.0, 1.0)
         Range(
             maximum=1.0,
             minimum=-1.0,
@@ -22,7 +22,7 @@ class Range(SupriyaValueObject):
 
     ::
 
-        >>> supriya.synthdefs.Range(minimum=0.)
+        >>> supriya.synthdefs.Range(minimum=0.0)
         Range(
             maximum=inf,
             minimum=0.0,
@@ -96,27 +96,27 @@ class Range(SupriyaValueObject):
 
         ::
 
-            >>> input_range = supriya.synthdefs.Range(0., 10.)
+            >>> input_range = supriya.synthdefs.Range(0.0, 10.0)
             >>> output_range = supriya.synthdefs.Range(-2.5, 2.5)
 
         ::
 
-            >>> supriya.synthdefs.Range.scale(0., input_range, output_range)
+            >>> supriya.synthdefs.Range.scale(0.0, input_range, output_range)
             -2.5
 
         ::
 
-            >>> supriya.synthdefs.Range.scale(5., input_range, output_range)
+            >>> supriya.synthdefs.Range.scale(5.0, input_range, output_range)
             0.0
 
         ::
 
-            >>> supriya.synthdefs.Range.scale(5., input_range, output_range, 2.)
+            >>> supriya.synthdefs.Range.scale(5.0, input_range, output_range, 2.0)
             -1.25
 
         ::
 
-            >>> supriya.synthdefs.Range.scale(5., input_range, output_range, 0.5)
+            >>> supriya.synthdefs.Range.scale(5.0, input_range, output_range, 0.5)
             1.0355...
 
         Returns float.

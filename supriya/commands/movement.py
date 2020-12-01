@@ -239,10 +239,9 @@ class NodeAfterRequest(MoveRequest):
 
     ::
 
-        >>> request = supriya.commands.NodeAfterRequest([
-        ...     [synth_a, group_a[-1]],
-        ...     [synth_b, group_b],
-        ...     ])
+        >>> request = supriya.commands.NodeAfterRequest(
+        ...     [[synth_a, group_a[-1]], [synth_b, group_b],]
+        ... )
         >>> request.to_osc()
         OscMessage('/n_after', 1000, 1004, 1001, 1005)
 
@@ -328,10 +327,9 @@ class NodeBeforeRequest(MoveRequest):
 
     ::
 
-        >>> request = supriya.commands.NodeBeforeRequest([
-        ...     [synth_a, group_a[0]],
-        ...     [synth_b, group_b],
-        ...     ])
+        >>> request = supriya.commands.NodeBeforeRequest(
+        ...     [[synth_a, group_a[0]], [synth_b, group_b],]
+        ... )
         >>> request.to_osc()
         OscMessage('/n_before', 1000, 1003, 1001, 1005)
 

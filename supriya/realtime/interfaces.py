@@ -190,19 +190,21 @@ class GroupInterface(ControlInterface):
 
         >>> server = supriya.Server.default().boot()
         >>> group = supriya.Group().allocate()
-        >>> group.extend([
-        ...     supriya.Synth(synthdef=supriya.assets.synthdefs.test),
-        ...     supriya.Synth(synthdef=supriya.assets.synthdefs.default),
-        ...     supriya.Synth(synthdef=supriya.assets.synthdefs.default),
-        ...     ])
+        >>> group.extend(
+        ...     [
+        ...         supriya.Synth(synthdef=supriya.assets.synthdefs.test),
+        ...         supriya.Synth(synthdef=supriya.assets.synthdefs.default),
+        ...         supriya.Synth(synthdef=supriya.assets.synthdefs.default),
+        ...     ]
+        ... )
 
     ::
 
-        >>> control = group.controls['amplitude']
+        >>> control = group.controls["amplitude"]
 
     ::
 
-        >>> group.controls['frequency'] = 777
+        >>> group.controls["frequency"] = 777
 
     """
 

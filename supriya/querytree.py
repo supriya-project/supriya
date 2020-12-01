@@ -199,15 +199,13 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
             >>> query_tree_synth = supriya.querytree.QueryTreeSynth(
             ...     node_id=1001,
-            ...     synthdef_name='c1aa521afab5b0c0ce3d744690951649',
+            ...     synthdef_name="c1aa521afab5b0c0ce3d744690951649",
             ...     controls=(
             ...         supriya.querytree.QueryTreeControl(
-            ...             control_name_or_index='level',
-            ...             control_value=1.0,
+            ...             control_name_or_index="level", control_value=1.0,
             ...         ),
             ...         supriya.querytree.QueryTreeControl(
-            ...             control_name_or_index='out',
-            ...             control_value=0.0,
+            ...             control_name_or_index="out", control_value=0.0,
             ...         ),
             ...     ),
             ... )
@@ -216,12 +214,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
             >>> import json
             >>> result = query_tree_synth.to_dict()
-            >>> result = json.dumps(
-            ...     result,
-            ...     indent=4,
-            ...     separators=(',', ': '),
-            ...     sort_keys=True,
-            ... )
+            >>> result = json.dumps(result, indent=4, separators=(",", ": "), sort_keys=True,)
             >>> print(result)
             {
                 "controls": {
@@ -417,60 +410,58 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
             ...     children=(
             ...         supriya.querytree.QueryTreeSynth(
             ...             node_id=1105,
-            ...             synthdef_name='dca557070c6b57164557041ac746fb3f',
+            ...             synthdef_name="dca557070c6b57164557041ac746fb3f",
             ...             controls=(
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index='damping',
+            ...                     control_name_or_index="damping",
             ...                     control_value=0.06623425334692,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index='duration',
+            ...                     control_name_or_index="duration",
             ...                     control_value=3.652155876159668,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index='level',
+            ...                     control_name_or_index="level",
             ...                     control_value=0.894767701625824,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index='out',
-            ...                     control_value=16.0,
+            ...                     control_name_or_index="out", control_value=16.0,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index='room_size',
+            ...                     control_name_or_index="room_size",
             ...                     control_value=0.918643176555634,
             ...                 ),
             ...             ),
             ...         ),
             ...         supriya.querytree.QueryTreeSynth(
             ...             node_id=1098,
-            ...             synthdef_name='cc754c63533fdcf412a44ef6adb1a8f0',
+            ...             synthdef_name="cc754c63533fdcf412a44ef6adb1a8f0",
             ...             controls=(
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index='duration',
+            ...                     control_name_or_index="duration",
             ...                     control_value=5.701356887817383,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index='level',
+            ...                     control_name_or_index="level",
             ...                     control_value=0.959683060646057,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index='out',
-            ...                     control_value=16.0,
+            ...                     control_name_or_index="out", control_value=16.0,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index='pitch_dispersion',
+            ...                     control_name_or_index="pitch_dispersion",
             ...                     control_value=0.040342573076487,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index='pitch_shift',
+            ...                     control_name_or_index="pitch_shift",
             ...                     control_value=10.517594337463379,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index='time_dispersion',
+            ...                     control_name_or_index="time_dispersion",
             ...                     control_value=0.666014134883881,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index='window_size',
+            ...                     control_name_or_index="window_size",
             ...                     control_value=1.014111995697021,
             ...                 ),
             ...             ),
@@ -482,12 +473,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
 
             >>> import json
             >>> result = query_tree_group.to_dict()
-            >>> result = json.dumps(
-            ...     result,
-            ...     indent=4,
-            ...     separators=(',', ': '),
-            ...     sort_keys=True,
-            ... )
+            >>> result = json.dumps(result, indent=4, separators=(",", ": "), sort_keys=True,)
             >>> print(result)
             {
                 "children": [

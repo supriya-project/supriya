@@ -19,7 +19,7 @@ class SynthDefFactory(SupriyaObject):
         ::
 
             >>> def signal_block(builder, source, state):
-            ...     iterations = state.get('iterations') or 2
+            ...     iterations = state.get("iterations") or 2
             ...     for _ in range(iterations):
             ...         source = supriya.ugens.AllpassC.ar(
             ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
@@ -388,7 +388,7 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> def signal_block(builder, source, state):
-                ...     iterations = state.get('iterations') or 2
+                ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
                 ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
@@ -571,7 +571,7 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> def signal_block(builder, source, state):
-                ...     iterations = state.get('iterations') or 2
+                ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
                 ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
@@ -724,7 +724,7 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> def signal_block(builder, source, state):
-                ...     iterations = state.get('iterations') or 2
+                ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
                 ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
@@ -817,7 +817,7 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> def signal_block(builder, source, state):
-                ...     iterations = state.get('iterations') or 2
+                ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
                 ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
@@ -920,7 +920,7 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> def signal_block(builder, source, state):
-                ...     iterations = state.get('iterations') or 2
+                ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
                 ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
@@ -1162,7 +1162,7 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> def signal_block(builder, source, state):
-                ...     iterations = state.get('iterations') or 2
+                ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
                 ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
@@ -1382,10 +1382,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = factory.with_output(
-                ...     crossfaded=True,
-                ...     windowed=True,
-                ... )
+                >>> factory = factory.with_output(crossfaded=True, windowed=True,)
                 >>> synthdef = factory.build()
                 >>> supriya.graph(synthdef)  # doctest: +SKIP
 
@@ -1438,11 +1435,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = factory.with_output(
-                ...     crossfaded=True,
-                ...     leveled=True,
-                ...     windowed=True,
-                ... )
+                >>> factory = factory.with_output(crossfaded=True, leveled=True, windowed=True,)
                 >>> synthdef = factory.build()
                 >>> supriya.graph(synthdef)  # doctest: +SKIP
 
@@ -1609,23 +1602,23 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> def parameter_block(builder, state):
-                ...     frequencies = state['frequencies']
+                ...     frequencies = state["frequencies"]
                 ...     band_count = len(frequencies) + 1
                 ...     for i in range(band_count):
-                ...         band_name = 'band_{}_'.format(i + 1)
-                ...         builder._add_parameter(band_name + 'pregain', 0)
-                ...         builder._add_parameter(band_name + 'clamp_time', 0.01)
-                ...         builder._add_parameter(band_name + 'relax_time', 0.1)
-                ...         builder._add_parameter(band_name + 'threshold', -6)
-                ...         builder._add_parameter(band_name + 'slope_above', 0.5)
-                ...         builder._add_parameter(band_name + 'slope_below', 1.0)
-                ...         builder._add_parameter(band_name + 'postgain', 0)
+                ...         band_name = "band_{}_".format(i + 1)
+                ...         builder._add_parameter(band_name + "pregain", 0)
+                ...         builder._add_parameter(band_name + "clamp_time", 0.01)
+                ...         builder._add_parameter(band_name + "relax_time", 0.1)
+                ...         builder._add_parameter(band_name + "threshold", -6)
+                ...         builder._add_parameter(band_name + "slope_above", 0.5)
+                ...         builder._add_parameter(band_name + "slope_below", 1.0)
+                ...         builder._add_parameter(band_name + "postgain", 0)
 
             ::
 
                 >>> def signal_block(builder, source, state):
                 ...     bands = []
-                ...     frequencies = state['frequencies']
+                ...     frequencies = state["frequencies"]
                 ...     for frequency in frequencies:
                 ...         band = supriya.ugens.LPF.ar(source=source, frequency=frequency)
                 ...         bands.append(band)
@@ -1633,21 +1626,20 @@ class SynthDefFactory(SupriyaObject):
                 ...     bands.append(source)
                 ...     compressors = []
                 ...     for i, band in enumerate(bands):
-                ...         band_name = 'band_{}_'.format(i + 1)
-                ...         band *= builder[band_name + 'pregain'].db_to_amplitude()
+                ...         band_name = "band_{}_".format(i + 1)
+                ...         band *= builder[band_name + "pregain"].db_to_amplitude()
                 ...         band = supriya.ugens.CompanderD.ar(
                 ...             source=band,
-                ...             clamp_time=builder[band_name + 'clamp_time'],
-                ...             relax_time=builder[band_name + 'relax_time'],
-                ...             slope_above=builder[band_name + 'slope_above'],
-                ...             slope_below=builder[band_name + 'slope_below'],
-                ...             threshold=builder[band_name + 'threshold'].db_to_amplitude(),
+                ...             clamp_time=builder[band_name + "clamp_time"],
+                ...             relax_time=builder[band_name + "relax_time"],
+                ...             slope_above=builder[band_name + "slope_above"],
+                ...             slope_below=builder[band_name + "slope_below"],
+                ...             threshold=builder[band_name + "threshold"].db_to_amplitude(),
                 ...         )
-                ...         band *= builder[band_name + 'postgain'].db_to_amplitude()
+                ...         band *= builder[band_name + "postgain"].db_to_amplitude()
                 ...         compressors.extend(band)
                 ...     source = supriya.ugens.Mix.multichannel(
-                ...         compressors,
-                ...         state['channel_count'],
+                ...         compressors, state["channel_count"],
                 ...     )
                 ...     return source
 
@@ -2087,7 +2079,7 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> def signal_block(builder, source, state):
-                ...     iterations = state.get('iterations') or 2
+                ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
                 ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
@@ -2187,7 +2179,7 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> def signal_block(builder, source, state):
-                ...     iterations = state.get('iterations') or 2
+                ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
                 ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
@@ -2212,8 +2204,7 @@ class SynthDefFactory(SupriyaObject):
                 >>> def signal_block_post(builder, source, state):
                 ...     source = supriya.ugens.LeakDC.ar(source=source)
                 ...     source = supriya.ugens.Limiter.ar(
-                ...         duration=supriya.ugens.Rand.ir(0.005, 0.015),
-                ...         source=source,
+                ...         duration=supriya.ugens.Rand.ir(0.005, 0.015), source=source,
                 ...     )
                 ...     return source
 
@@ -2286,7 +2277,7 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> def signal_block(builder, source, state):
-                ...     iterations = state.get('iterations') or 2
+                ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
                 ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
@@ -2359,10 +2350,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = factory.with_output(
-                ...     leveled=True,
-                ...     windowed=True,
-                ... )
+                >>> factory = factory.with_output(leveled=True, windowed=True,)
                 >>> synthdef = factory.build()
                 >>> supriya.graph(synthdef)  # doctest: +SKIP
 

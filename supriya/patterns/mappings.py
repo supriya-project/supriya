@@ -51,14 +51,13 @@ class Pbind(EventPattern):
 
     ::
 
-        >>> pattern = supriya.patterns.Pseq([
-        ...     supriya.patterns.Pbind(
-        ...         pitch=supriya.patterns.Pseq([1, 2, 3], 1),
-        ...     ),
-        ...     supriya.patterns.Pbind(
-        ...         pitch=supriya.patterns.Pseq([4, 5, 6], 1),
-        ...     ),
-        ... ], 1)
+        >>> pattern = supriya.patterns.Pseq(
+        ...     [
+        ...         supriya.patterns.Pbind(pitch=supriya.patterns.Pseq([1, 2, 3], 1),),
+        ...         supriya.patterns.Pbind(pitch=supriya.patterns.Pseq([4, 5, 6], 1),),
+        ...     ],
+        ...     1,
+        ... )
 
     ::
 
@@ -336,14 +335,13 @@ class Pmono(Pbind):
 
     ::
 
-        >>> pattern = supriya.patterns.Pseq([
-        ...     supriya.patterns.Pmono(
-        ...         pitch=supriya.patterns.Pseq([1, 2, 3], 1),
-        ...     ),
-        ...     supriya.patterns.Pmono(
-        ...         pitch=supriya.patterns.Pseq([4, 5, 6], 1),
-        ...     ),
-        ... ], 1)
+        >>> pattern = supriya.patterns.Pseq(
+        ...     [
+        ...         supriya.patterns.Pmono(pitch=supriya.patterns.Pseq([1, 2, 3], 1),),
+        ...         supriya.patterns.Pmono(pitch=supriya.patterns.Pseq([4, 5, 6], 1),),
+        ...     ],
+        ...     1,
+        ... )
 
     ::
 

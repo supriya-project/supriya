@@ -15,9 +15,9 @@ class Recorder(SupriyaObject):
         >>> server = supriya.Server.default().boot()
         >>> with tempfile.TemporaryDirectory() as tempdir:
         ...     server.recorder.start(
-        ...         file_path=os.path.join(tempdir, 'example.aiff'),
+        ...         file_path=os.path.join(tempdir, "example.aiff"),
         ...         channel_count=2,
-        ...         header_format='AIFF',
+        ...         header_format="AIFF",
         ...     )
         ...     time.sleep(1)
         ...     server.recorder.stop()

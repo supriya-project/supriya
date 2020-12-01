@@ -138,10 +138,13 @@ class Pseq(Pattern):
 
     ::
 
-        >>> pattern = supriya.patterns.Pseq([
-        ...     supriya.patterns.Pseq([1, 2, 3], repetitions=1),
-        ...     supriya.patterns.Pseq([4, 5, 6], repetitions=1),
-        ...     ], repetitions=2)
+        >>> pattern = supriya.patterns.Pseq(
+        ...     [
+        ...         supriya.patterns.Pseq([1, 2, 3], repetitions=1),
+        ...         supriya.patterns.Pseq([4, 5, 6], repetitions=1),
+        ...     ],
+        ...     repetitions=2,
+        ... )
         >>> list(pattern)
         [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6]
 
@@ -199,10 +202,9 @@ class Pseq(Pattern):
 
         ::
 
-            >>> pattern = supriya.patterns.Pseq([
-            ...     supriya.patterns.Pseq([1, 2, 3]),
-            ...     supriya.patterns.Pseq([[1, 2], 3, 4]),
-            ...     ])
+            >>> pattern = supriya.patterns.Pseq(
+            ...     [supriya.patterns.Pseq([1, 2, 3]), supriya.patterns.Pseq([[1, 2], 3, 4]),]
+            ... )
             >>> pattern.arity
             2
 

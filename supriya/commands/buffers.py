@@ -16,9 +16,7 @@ class BufferAllocateRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.BufferAllocateRequest(
-        ...     buffer_id=23,
-        ...     frame_count=512,
-        ...     channel_count=2,
+        ...     buffer_id=23, frame_count=512, channel_count=2,
         ... )
         >>> request
         BufferAllocateRequest(
@@ -98,8 +96,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
 
         >>> import supriya.commands
         >>> request = supriya.commands.BufferAllocateReadRequest(
-        ...     buffer_id=23,
-        ...     file_path='pulse_44100sr_16bit_octo.wav',
+        ...     buffer_id=23, file_path="pulse_44100sr_16bit_octo.wav",
         ... )
         >>> print(request)
         BufferAllocateReadRequest(
@@ -201,7 +198,7 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
         >>> request = supriya.commands.BufferAllocateReadChannelRequest(
         ...     buffer_id=23,
         ...     channel_indices=(3, 4),
-        ...     file_path='pulse_44100sr_16bit_octo.wav',
+        ...     file_path="pulse_44100sr_16bit_octo.wav",
         ... )
         >>> print(request)
         BufferAllocateReadChannelRequest(
@@ -277,9 +274,7 @@ class BufferCloseRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> request = supriya.commands.BufferCloseRequest(
-        ...     buffer_id=23,
-        ... )
+        >>> request = supriya.commands.BufferCloseRequest(buffer_id=23,)
         >>> request
         BufferCloseRequest(
             buffer_id=23,
@@ -329,8 +324,7 @@ class BufferCopyRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.BufferCopyRequest(
-        ...     source_buffer_id=23,
-        ...     target_buffer_id=666,
+        ...     source_buffer_id=23, target_buffer_id=666,
         ... )
         >>> print(request)
         BufferCopyRequest(
@@ -435,11 +429,7 @@ class BufferFillRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.BufferFillRequest(
-        ...     buffer_id=23,
-        ...     index_count_value_triples=(
-        ...         (0, 8, 0.1),
-        ...         (11, 4, 0.2),
-        ...     ),
+        ...     buffer_id=23, index_count_value_triples=((0, 8, 0.1), (11, 4, 0.2),),
         ... )
         >>> request
         BufferFillRequest(
@@ -504,9 +494,7 @@ class BufferFreeRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> request = supriya.commands.BufferFreeRequest(
-        ...     buffer_id=23,
-        ... )
+        >>> request = supriya.commands.BufferFreeRequest(buffer_id=23,)
         >>> request
         BufferFreeRequest(
             buffer_id=23,
@@ -568,10 +556,10 @@ class BufferGenerateRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.BufferGenerateRequest(
-        ...     amplitudes=(1., 0.5, 0.25),
+        ...     amplitudes=(1.0, 0.5, 0.25),
         ...     as_wavetable=True,
         ...     buffer_id=23,
-        ...     command_name='sine3',
+        ...     command_name="sine3",
         ...     frequencies=(1, 2, 3),
         ...     phases=(0, 0.5, 0),
         ...     should_clear_first=True,
@@ -816,8 +804,7 @@ class BufferGetContiguousRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.BufferGetContiguousRequest(
-        ...     buffer_id=23,
-        ...     index_count_pairs=[(0, 3), (8, 11)],
+        ...     buffer_id=23, index_count_pairs=[(0, 3), (8, 11)],
         ... )
         >>> request
         BufferGetContiguousRequest(
@@ -884,8 +871,7 @@ class BufferGetRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.BufferGetRequest(
-        ...     buffer_id=23,
-        ...     indices=(0, 4, 8, 16),
+        ...     buffer_id=23, indices=(0, 4, 8, 16),
         ... )
         >>> request
         BufferGetRequest(
@@ -970,7 +956,7 @@ class BufferInfoResponse(Response):
 
         ::
 
-            >>> message = supriya.osc.OscMessage('/b_info', 1100, 512, 1, 44100.0)
+            >>> message = supriya.osc.OscMessage("/b_info", 1100, 512, 1, 44100.0)
             >>> supriya.commands.BufferInfoResponse.from_osc_message(message)
             BufferInfoResponse(
                 items=(
@@ -1004,9 +990,7 @@ class BufferNormalizeRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> request = supriya.commands.BufferNormalizeRequest(
-        ...     buffer_id=23,
-        ... )
+        >>> request = supriya.commands.BufferNormalizeRequest(buffer_id=23,)
         >>> print(request)
         BufferNormalizeRequest(
             buffer_id=23,
@@ -1071,9 +1055,7 @@ class BufferQueryRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> request = supriya.commands.BufferQueryRequest(
-        ...     buffer_ids=(1, 23, 41)
-        ... )
+        >>> request = supriya.commands.BufferQueryRequest(buffer_ids=(1, 23, 41))
         >>> request
         BufferQueryRequest(
             buffer_ids=(1, 23, 41),
@@ -1129,8 +1111,7 @@ class BufferReadRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.BufferReadRequest(
-        ...     buffer_id=23,
-        ...     file_path='pulse_44100sr_16bit_octo.wav',
+        ...     buffer_id=23, file_path="pulse_44100sr_16bit_octo.wav",
         ... )
         >>> print(request)
         BufferReadRequest(
@@ -1267,7 +1248,7 @@ class BufferReadChannelRequest(BufferReadRequest):
         >>> request = supriya.commands.BufferReadChannelRequest(
         ...     buffer_id=23,
         ...     channel_indices=(3, 4),
-        ...     file_path='pulse_44100sr_16bit_octo.wav',
+        ...     file_path="pulse_44100sr_16bit_octo.wav",
         ... )
         >>> print(request)
         BufferReadChannelRequest(
@@ -1345,11 +1326,7 @@ class BufferSetContiguousRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.BufferSetContiguousRequest(
-        ...     buffer_id=23,
-        ...     index_values_pairs=(
-        ...         (0, (1, 2, 3)),
-        ...         (10, (17.1, 18.2))
-        ...     ),
+        ...     buffer_id=23, index_values_pairs=((0, (1, 2, 3)), (10, (17.1, 18.2))),
         ... )
         >>> request
         BufferSetContiguousRequest(
@@ -1451,7 +1428,9 @@ class BufferSetContiguousResponse(Response, collections.Sequence):
 
         ::
 
-            >>> message = supriya.osc.OscMessage('/b_setn', 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+            >>> message = supriya.osc.OscMessage(
+            ...     "/b_setn", 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+            ... )
             >>> supriya.commands.BufferSetContiguousResponse.from_osc_message(message)
             BufferSetContiguousResponse(
                 buffer_id=1,
@@ -1495,12 +1474,7 @@ class BufferSetRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.BufferSetRequest(
-        ...     buffer_id=23,
-        ...     index_value_pairs=(
-        ...         (0, 1.0),
-        ...         (10, 13.2),
-        ...         (17, 19.3),
-        ...     ),
+        ...     buffer_id=23, index_value_pairs=((0, 1.0), (10, 13.2), (17, 19.3),),
         ... )
         >>> request
         BufferSetRequest(
@@ -1623,7 +1597,7 @@ class BufferWriteRequest(Request):
         >>> import supriya.commands
         >>> request = supriya.commands.BufferWriteRequest(
         ...     buffer_id=23,
-        ...     file_path='test.aiff',
+        ...     file_path="test.aiff",
         ...     header_format=supriya.HeaderFormat.AIFF,
         ...     sample_format=supriya.SampleFormat.INT24,
         ... )
@@ -1746,9 +1720,7 @@ class BufferZeroRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> request = supriya.commands.BufferZeroRequest(
-        ...     buffer_id=23,
-        ... )
+        >>> request = supriya.commands.BufferZeroRequest(buffer_id=23,)
         >>> request
         BufferZeroRequest(
             buffer_id=23,

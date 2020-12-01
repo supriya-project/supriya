@@ -26,7 +26,7 @@ class OscMessage(SupriyaValueObject):
         ::
 
             >>> from supriya.osc import OscMessage
-            >>> osc_message = OscMessage('/g_new', 0, 0)
+            >>> osc_message = OscMessage("/g_new", 0, 0)
             >>> osc_message
             OscMessage('/g_new', 0, 0)
 
@@ -259,15 +259,14 @@ class OscBundle(SupriyaValueObject):
     ::
 
         >>> import supriya.osc
-        >>> message_one = supriya.osc.OscMessage('/one', 1)
-        >>> message_two = supriya.osc.OscMessage('/two', 2)
-        >>> message_three = supriya.osc.OscMessage('/three', 3)
+        >>> message_one = supriya.osc.OscMessage("/one", 1)
+        >>> message_two = supriya.osc.OscMessage("/two", 2)
+        >>> message_three = supriya.osc.OscMessage("/three", 3)
 
     ::
 
         >>> inner_bundle = supriya.osc.OscBundle(
-        ...     timestamp=1401557034.5,
-        ...     contents=(message_one, message_two),
+        ...     timestamp=1401557034.5, contents=(message_one, message_two),
         ... )
         >>> inner_bundle
         OscBundle(
@@ -280,9 +279,7 @@ class OscBundle(SupriyaValueObject):
 
     ::
 
-        >>> outer_bundle = supriya.osc.OscBundle(
-        ...     contents=(inner_bundle, message_three),
-        ... )
+        >>> outer_bundle = supriya.osc.OscBundle(contents=(inner_bundle, message_three),)
         >>> outer_bundle
         OscBundle(
             contents=(

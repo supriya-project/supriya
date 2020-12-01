@@ -84,7 +84,7 @@ class CalculationRate(IntEnumeration):
 
     ::
 
-        >>> supriya.CalculationRate.from_expr('demand')
+        >>> supriya.CalculationRate.from_expr("demand")
         CalculationRate.DEMAND
 
     """
@@ -115,7 +115,7 @@ class CalculationRate(IntEnumeration):
 
         ::
 
-            >>> supriya.CalculationRate.from_expr('demand')
+            >>> supriya.CalculationRate.from_expr("demand")
             CalculationRate.DEMAND
 
         ::
@@ -181,7 +181,7 @@ class DoneAction(IntEnumeration):
 
     ::
 
-        >>> supriya.DoneAction.from_expr('pause synth')
+        >>> supriya.DoneAction.from_expr("pause synth")
         DoneAction.PAUSE_SYNTH
 
     """
@@ -230,12 +230,12 @@ class HeaderFormat(IntEnumeration):
 
     ::
 
-        >>> supriya.HeaderFormat.from_expr('wav')
+        >>> supriya.HeaderFormat.from_expr("wav")
         HeaderFormat.WAV
 
     ::
 
-        >>> header_format = supriya.HeaderFormat.from_expr('wav')
+        >>> header_format = supriya.HeaderFormat.from_expr("wav")
         >>> header_format.name.lower()
         'wav'
 
@@ -461,7 +461,7 @@ class SampleFormat(IntEnumeration):
 
     ::
 
-        >>> supriya.SampleFormat.from_expr('float')
+        >>> supriya.SampleFormat.from_expr("float")
         SampleFormat.FLOAT
 
     ::
@@ -495,7 +495,7 @@ class SignalRange(IntEnumeration):
 
     ::
 
-        >>> supriya.SignalRange.from_expr('bipolar')
+        >>> supriya.SignalRange.from_expr("bipolar")
         SignalRange.BIPOLAR
 
     """

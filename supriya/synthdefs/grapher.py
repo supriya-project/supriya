@@ -20,7 +20,7 @@ class SynthDefGrapher:
 
         ::
 
-            >>> print(format(result.__graph__(), 'graphviz'))
+            >>> print(format(result.__graph__(), "graphviz"))
             digraph synthdef_c481c3d42e3cfcee0267250247dab51f {
                 graph [bgcolor=transparent,
                     color=lightslategrey,

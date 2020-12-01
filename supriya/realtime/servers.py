@@ -469,7 +469,7 @@ class Server(BaseServer):
         ::
 
             >>> server = supriya.Server.default().boot()
-            >>> supriya.Synth(name='foo').allocate()
+            >>> supriya.Synth(name="foo").allocate()
             <+ Synth: 1000 (foo)>
 
         ::
@@ -479,28 +479,28 @@ class Server(BaseServer):
 
         ::
 
-            >>> server['foo']
+            >>> server["foo"]
             <+ Synth: 1000 (foo)>
 
         ::
 
-            >>> server['b10']
+            >>> server["b10"]
             <+ Buffer: 10>
 
         ::
 
-            >>> server['a0']
+            >>> server["a0"]
             <+ Bus: 0 (audio)>
 
         ::
 
-            >>> server['c16']
+            >>> server["c16"]
             <+ Bus: 16 (control)>
 
         ::
 
             >>> server = server.quit()
-            >>> server['c16']
+            >>> server["c16"]
             Traceback (most recent call last):
             ...
             supriya.exceptions.ServerOffline
@@ -540,18 +540,14 @@ class Server(BaseServer):
 
             >>> import supriya
             >>> server = supriya.Server.default().boot()
-            >>> group = supriya.Group([
-            ...     supriya.Synth(),
-            ...     supriya.Group([
-            ...         supriya.Synth(),
-            ...         supriya.Synth(),
-            ...     ]),
-            ... ]).allocate()
+            >>> group = supriya.Group(
+            ...     [supriya.Synth(), supriya.Group([supriya.Synth(), supriya.Synth(),]),]
+            ... ).allocate()
 
         ::
 
             >>> graph = server.__graph__()
-            >>> print(format(graph, 'graphviz'))
+            >>> print(format(graph, "graphviz"))
             digraph G {
                 graph [bgcolor=transparent,
                     color=lightslategrey,
@@ -940,17 +936,11 @@ class Server(BaseServer):
             >>> import supriya.synthdefs
             >>> import supriya.ugens
             >>> with supriya.synthdefs.SynthDefBuilder(
-            ...     amplitude=0.0,
-            ...     frequency=440.0,
+            ...     amplitude=0.0, frequency=440.0,
             ... ) as builder:
-            ...     sin_osc = supriya.ugens.SinOsc.ar(
-            ...         frequency=builder['frequency'],
-            ...     )
-            ...     sin_osc *= builder['amplitude']
-            ...     out = supriya.ugens.Out.ar(
-            ...         bus=0,
-            ...         source=[sin_osc, sin_osc],
-            ...     )
+            ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"],)
+            ...     sin_osc *= builder["amplitude"]
+            ...     out = supriya.ugens.Out.ar(bus=0, source=[sin_osc, sin_osc],)
             ...
             >>> synthdef = builder.build()
             >>> synthdef.allocate()
@@ -958,9 +948,7 @@ class Server(BaseServer):
 
         ::
 
-            >>> synth = supriya.realtime.Synth(synthdef).allocate(
-            ...     target_node=group_b,
-            ... )
+            >>> synth = supriya.realtime.Synth(synthdef).allocate(target_node=group_b,)
 
         ::
 
@@ -1008,17 +996,11 @@ class Server(BaseServer):
             >>> import supriya.synthdefs
             >>> import supriya.ugens
             >>> with supriya.synthdefs.SynthDefBuilder(
-            ...     amplitude=0.0,
-            ...     frequency=440.0,
+            ...     amplitude=0.0, frequency=440.0,
             ... ) as builder:
-            ...     sin_osc = supriya.ugens.SinOsc.ar(
-            ...         frequency=builder['frequency'],
-            ...     )
-            ...     sin_osc *= builder['amplitude']
-            ...     out = supriya.ugens.Out.ar(
-            ...         bus=0,
-            ...         source=[sin_osc, sin_osc],
-            ...     )
+            ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"],)
+            ...     sin_osc *= builder["amplitude"]
+            ...     out = supriya.ugens.Out.ar(bus=0, source=[sin_osc, sin_osc],)
             ...
             >>> synthdef = builder.build()
             >>> synthdef.allocate()
@@ -1026,9 +1008,7 @@ class Server(BaseServer):
 
         ::
 
-            >>> synth = supriya.realtime.Synth(synthdef).allocate(
-            ...     target_node=group_b,
-            ... )
+            >>> synth = supriya.realtime.Synth(synthdef).allocate(target_node=group_b,)
 
         ::
 

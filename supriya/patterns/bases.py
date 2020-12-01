@@ -20,10 +20,7 @@ class Event(SupriyaValueObject):
     ::
 
         >>> supriya.patterns.NoteEvent(
-        ...     amplitude=0.9,
-        ...     duration=10.5,
-        ...     frequency=443,
-        ...     panning=0.75,
+        ...     amplitude=0.9, duration=10.5, frequency=443, panning=0.75,
         ... )
         NoteEvent(
             amplitude=0.9,
@@ -168,7 +165,7 @@ class Pattern(SupriyaValueObject):
 
             >>> pattern = supriya.patterns.Pseq([[1, [2, 3]], [[4, 5], 6, 7]])
             >>> expr = [10, [100, 1000]]
-            >>> for x in (pattern + expr):
+            >>> for x in pattern + expr:
             ...     x
             ...
             [11, [102, 1003]]

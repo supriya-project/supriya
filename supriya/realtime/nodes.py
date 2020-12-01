@@ -693,17 +693,11 @@ class Synth(Node):
         >>> import supriya.synthdefs
         >>> import supriya.ugens
         >>> with supriya.synthdefs.SynthDefBuilder(
-        ...     amplitude=0.0,
-        ...     frequency=440.0,
+        ...     amplitude=0.0, frequency=440.0,
         ... ) as builder:
-        ...     sin_osc = supriya.ugens.SinOsc.ar(
-        ...         frequency=builder['frequency'],
-        ...     )
-        ...     sin_osc *= builder['amplitude']
-        ...     out = supriya.ugens.Out.ar(
-        ...         bus=0,
-        ...         source=[sin_osc, sin_osc],
-        ...     )
+        ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"],)
+        ...     sin_osc *= builder["amplitude"]
+        ...     out = supriya.ugens.Out.ar(bus=0, source=[sin_osc, sin_osc],)
         ...
         >>> synthdef = builder.build()
         >>> synthdef.allocate()
@@ -711,11 +705,7 @@ class Synth(Node):
 
     ::
 
-        >>> synth = supriya.realtime.Synth(
-        ...     amplitude=0.5,
-        ...     frequency=443,
-        ...     synthdef=synthdef
-        ... )
+        >>> synth = supriya.realtime.Synth(amplitude=0.5, frequency=443, synthdef=synthdef)
         >>> synth
         <- Synth: ???>
 
@@ -726,8 +716,8 @@ class Synth(Node):
 
     ::
 
-        >>> synth['frequency'] = 666.0
-        >>> synth['frequency']
+        >>> synth["frequency"] = 666.0
+        >>> synth["frequency"]
         666.0
 
     ::

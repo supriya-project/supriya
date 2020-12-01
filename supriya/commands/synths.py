@@ -39,10 +39,10 @@ class SynthNewRequest(Request):
         >>> request = supriya.commands.SynthNewRequest(
         ...     add_action=supriya.AddAction.ADD_TO_TAIL,
         ...     node_id=1001,
-        ...     synthdef='test',
+        ...     synthdef="test",
         ...     target_node_id=1000,
         ...     frequency=443,
-        ...     phase=0.2
+        ...     phase=0.2,
         ... )
         >>> request
         SynthNewRequest(
