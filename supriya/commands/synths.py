@@ -52,7 +52,7 @@ class SynthNewRequest(Request):
             phase=0.2,
             synthdef='test',
             target_node_id=1000,
-            )
+        )
 
     ::
 
@@ -165,7 +165,7 @@ class SynthQueryRequest(Request):
         >>> request
         SynthQueryRequest(
             node_ids=(1000,),
-            )
+        )
 
     ::
 
@@ -186,7 +186,7 @@ class SynthQueryRequest(Request):
             gate=1.0,
             out=0.0,
             pan=0.5,
-            )
+        )
 
     """
 

@@ -37,7 +37,7 @@ class SynthDefFreeRequest(Request):
         >>> request
         SynthDefFreeRequest(
             synthdef='test',
-            )
+        )
 
     ::
 
@@ -231,7 +231,7 @@ class SynthDefReceiveRequest(Request):
         >>> response
         DoneResponse(
             action=('/d_recv',),
-            )
+        )
 
     ::
 
@@ -242,8 +242,8 @@ class SynthDefReceiveRequest(Request):
             contents=(
                 OscMessage('/g_new', 1000, 0, 1),
                 OscMessage('/s_new', 'example', 1001, 0, 1000),
-                ),
-            )))
+            ),
+        )))
         ('R', OscMessage('/n_go', 1000, 1, -1, -1, 1, -1, -1))
         ('R', OscMessage('/n_go', 1001, 1000, -1, -1, 0))
         ('R', OscMessage('/done', '/d_recv'))

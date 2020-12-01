@@ -71,8 +71,8 @@ class OscMessage(SupriyaValueObject):
                 contents=(
                     OscMessage('/bar', 'baz', 3.0),
                     OscMessage('/ffff', False, True, None),
-                    ),
-                ), ['a', 'b', ['c', 'd']])
+                ),
+            ), ['a', 'b', ['c', 'd']])
 
         ::
 
@@ -82,8 +82,8 @@ class OscMessage(SupriyaValueObject):
                 contents=(
                     OscMessage('/bar', 'baz', 3.0),
                     OscMessage('/ffff', False, True, None),
-                    ),
-                ), ['a', 'b', ['c', 'd']])
+                ),
+            ), ['a', 'b', ['c', 'd']])
 
     """
 
@@ -274,9 +274,9 @@ class OscBundle(SupriyaValueObject):
             contents=(
                 OscMessage('/one', 1),
                 OscMessage('/two', 2),
-                ),
+            ),
             timestamp=1401557034.5,
-            )
+        )
 
     ::
 
@@ -290,12 +290,12 @@ class OscBundle(SupriyaValueObject):
                     contents=(
                         OscMessage('/one', 1),
                         OscMessage('/two', 2),
-                        ),
-                    timestamp=1401557034.5,
                     ),
-                OscMessage('/three', 3),
+                    timestamp=1401557034.5,
                 ),
-            )
+                OscMessage('/three', 3),
+            ),
+        )
 
     ::
 
@@ -311,12 +311,12 @@ class OscBundle(SupriyaValueObject):
                     contents=(
                         OscMessage('/one', 1),
                         OscMessage('/two', 2),
-                        ),
-                    timestamp=1401557034.5,
                     ),
-                OscMessage('/three', 3),
+                    timestamp=1401557034.5,
                 ),
-            )
+                OscMessage('/three', 3),
+            ),
+        )
 
     ::
 

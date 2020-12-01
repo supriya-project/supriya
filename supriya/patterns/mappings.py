@@ -31,7 +31,7 @@ class Pbind(EventPattern):
             foo=(1, 2),
             pitch=0,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             bar=3,
             delta=0.25,
@@ -39,7 +39,7 @@ class Pbind(EventPattern):
             foo=(1, 2),
             pitch=3,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             bar=3,
             delta=0.25,
@@ -47,7 +47,7 @@ class Pbind(EventPattern):
             foo=(1, 2),
             pitch=7,
             uuid=UUID('...'),
-            )
+        )
 
     ::
 
@@ -68,27 +68,27 @@ class Pbind(EventPattern):
         NoteEvent(
             pitch=1,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=2,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=3,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=4,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=5,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=6,
             uuid=UUID('...'),
-            )
+        )
 
     """
 
@@ -319,20 +319,20 @@ class Pmono(Pbind):
             is_stop=False,
             pitch=0,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             delta=0.25,
             duration=0.25,
             is_stop=False,
             pitch=3,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             delta=0.25,
             duration=0.25,
             pitch=7,
             uuid=UUID('...'),
-            )
+        )
 
     ::
 
@@ -354,30 +354,30 @@ class Pmono(Pbind):
             is_stop=False,
             pitch=1,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             is_stop=False,
             pitch=2,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=3,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             is_stop=False,
             pitch=4,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             is_stop=False,
             pitch=5,
             uuid=UUID('...'),
-            )
+        )
         NoteEvent(
             pitch=6,
             uuid=UUID('...'),
-            )
+        )
 
     """
 

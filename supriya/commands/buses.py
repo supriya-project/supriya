@@ -25,8 +25,8 @@ class ControlBusFillRequest(Request):
             index_count_value_triples=(
                 (0, 8, 0.5),
                 (8, 8, 0.25),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -99,8 +99,8 @@ class ControlBusGetContiguousRequest(Request):
                 (4, 1),
                 (8, 2),
                 (12, 1),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -118,8 +118,8 @@ class ControlBusGetContiguousRequest(Request):
                 Item(bus_values=(0.0,), starting_bus_id=4),
                 Item(bus_values=(0.0, 0.0), starting_bus_id=8),
                 Item(bus_values=(0.0,), starting_bus_id=12),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -187,7 +187,7 @@ class ControlBusGetRequest(Request):
         >>> request
         ControlBusGetRequest(
             indices=(0, 4, 8, 12),
-            )
+        )
 
     ::
 
@@ -205,8 +205,8 @@ class ControlBusGetRequest(Request):
                 Item(bus_id=4, bus_value=0.0),
                 Item(bus_id=8, bus_value=0.0),
                 Item(bus_id=12, bus_value=0.0),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -271,8 +271,8 @@ class ControlBusSetContiguousRequest(Request):
             index_values_pairs=(
                 (0, (0.1, 0.2, 0.3)),
                 (4, (0.4, 0.5, 0.6)),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -416,8 +416,8 @@ class ControlBusSetRequest(Request):
                 (1, 0.2),
                 (2, 0.3),
                 (3, 0.4),
-                ),
-            )
+            ),
+        )
 
     ::
 

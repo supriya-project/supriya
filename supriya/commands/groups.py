@@ -374,7 +374,7 @@ class GroupQueryTreeRequest(Request):
         GroupQueryTreeRequest(
             include_controls=True,
             node_id=0,
-            )
+        )
 
     ::
 
@@ -525,23 +525,23 @@ class QueryTreeResponse(Response):
                                 QueryTreeGroup(
                                     children=(),
                                     node_id=1001,
-                                    ),
+                                ),
                                 QueryTreeGroup(
                                     children=(
                                         QueryTreeGroup(
                                             children=(),
                                             node_id=1002,
-                                            ),
                                         ),
-                                    node_id=1000,
                                     ),
+                                    node_id=1000,
                                 ),
-                            node_id=1,
                             ),
+                            node_id=1,
                         ),
-                    node_id=0,
                     ),
-                )
+                    node_id=0,
+                ),
+            )
 
         ::
 

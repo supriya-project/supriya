@@ -18,7 +18,7 @@ class Range(SupriyaValueObject):
         Range(
             maximum=1.0,
             minimum=-1.0,
-            )
+        )
 
     ::
 
@@ -26,7 +26,7 @@ class Range(SupriyaValueObject):
         Range(
             maximum=inf,
             minimum=0.0,
-            )
+        )
 
     ::
 
@@ -34,7 +34,7 @@ class Range(SupriyaValueObject):
         Range(
             maximum=inf,
             minimum=-inf,
-            )
+        )
 
     ::
 
@@ -42,7 +42,7 @@ class Range(SupriyaValueObject):
         Range(
             maximum=0.9,
             minimum=0.1,
-            )
+        )
 
     ::
 
@@ -50,7 +50,7 @@ class Range(SupriyaValueObject):
         Range(
             maximum=3.0,
             minimum=-3.0,
-            )
+        )
 
     """
 

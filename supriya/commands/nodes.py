@@ -20,7 +20,7 @@ class NodeFreeRequest(Request):
         >>> request
         NodeFreeRequest(
             node_ids=(1000,),
-            )
+        )
 
     ::
 
@@ -192,7 +192,7 @@ class NodeMapToAudioBusRequest(Request):
             frequency=<- Bus: 9 (audio)>,
             node_id=1000,
             phase=<- Bus: 10 (audio)>,
-            )
+        )
 
     ::
 
@@ -258,7 +258,7 @@ class NodeMapToControlBusRequest(Request):
             frequency=<- Bus: 9 (control)>,
             node_id=1000,
             phase=<- Bus: 10 (control)>,
-            )
+        )
 
     ::
 
@@ -317,7 +317,7 @@ class NodeQueryRequest(Request):
         >>> request
         NodeQueryRequest(
             node_id=1000,
-            )
+        )
 
     ::
 
@@ -498,7 +498,7 @@ class NodeSetRequest(Request):
             frequency=443.1,
             node_id=1000,
             phase=0.5,
-            )
+        )
 
     ::
 
@@ -573,9 +573,9 @@ class NodeSetResponse(Response):
                 items=(
                     Item(control_index_or_name='/one', control_value=-1),
                     Item(control_index_or_name='/two', control_value=0),
-                    ),
+                ),
                 node_id=1023,
-                )
+            )
 
         """
         node_id, remainder = osc_message.contents[0], osc_message.contents[1:]

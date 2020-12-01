@@ -52,7 +52,7 @@ class DumpOscRequest(Request):
         >>> request
         DumpOscRequest(
             osc_status=1,
-            )
+        )
 
     ::
 
@@ -143,7 +143,7 @@ class NotifyRequest(Request):
         >>> request
         NotifyRequest(
             notify_status=True,
-            )
+        )
 
     ::
 
@@ -290,7 +290,7 @@ class StatusResponse(Response):
                 synthdef_count=4,
                 target_sample_rate=44100.0,
                 ugen_count=0,
-                )
+            )
 
         """
         arguments = osc_message.contents[1:]
@@ -442,7 +442,7 @@ class SyncRequest(Request):
         >>> request
         SyncRequest(
             sync_id=1999,
-            )
+        )
 
     ::
 

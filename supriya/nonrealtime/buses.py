@@ -18,7 +18,7 @@ class Bus(SessionObject):
             <Session>,
             calculation_rate=CalculationRate.CONTROL,
             session_id=0,
-            )>
+        )>
 
     ::
 
@@ -183,7 +183,7 @@ class BusGroup(SessionObject):
             bus_count=3,
             calculation_rate=CalculationRate.CONTROL,
             session_id=0,
-            )>
+        )>
 
     ::
 

@@ -25,7 +25,7 @@ class BufferAllocateRequest(Request):
             buffer_id=23,
             channel_count=2,
             frame_count=512,
-            )
+        )
 
     ::
 
@@ -105,7 +105,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
         BufferAllocateReadRequest(
             buffer_id=23,
             file_path='pulse_44100sr_16bit_octo.wav',
-            )
+        )
 
     ::
 
@@ -208,7 +208,7 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
             buffer_id=23,
             channel_indices=(3, 4),
             file_path='pulse_44100sr_16bit_octo.wav',
-            )
+        )
 
     ::
 
@@ -283,7 +283,7 @@ class BufferCloseRequest(Request):
         >>> request
         BufferCloseRequest(
             buffer_id=23,
-            )
+        )
 
     ::
 
@@ -336,7 +336,7 @@ class BufferCopyRequest(Request):
         BufferCopyRequest(
             source_buffer_id=23,
             target_buffer_id=666,
-            )
+        )
 
     ::
 
@@ -447,8 +447,8 @@ class BufferFillRequest(Request):
             index_count_value_triples=(
                 (0, 8, 0.1),
                 (11, 4, 0.2),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -510,7 +510,7 @@ class BufferFreeRequest(Request):
         >>> request
         BufferFreeRequest(
             buffer_id=23,
-            )
+        )
 
     ::
 
@@ -587,7 +587,7 @@ class BufferGenerateRequest(Request):
             phases=(0.0, 0.5, 0.0),
             should_clear_first=True,
             should_normalize=True,
-            )
+        )
 
     ::
 
@@ -825,8 +825,8 @@ class BufferGetContiguousRequest(Request):
             index_count_pairs=(
                 (0, 3),
                 (8, 11),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -891,7 +891,7 @@ class BufferGetRequest(Request):
         BufferGetRequest(
             buffer_id=23,
             indices=(0, 4, 8, 16),
-            )
+        )
 
     ::
 
@@ -975,8 +975,8 @@ class BufferInfoResponse(Response):
             BufferInfoResponse(
                 items=(
                     Item(buffer_id=1100, frame_count=512, channel_count=1, sample_rate=44100.0),
-                    ),
-                )
+                ),
+            )
 
         """
         # TODO: Return one single thing
@@ -1010,7 +1010,7 @@ class BufferNormalizeRequest(Request):
         >>> print(request)
         BufferNormalizeRequest(
             buffer_id=23,
-            )
+        )
 
     ::
 
@@ -1077,7 +1077,7 @@ class BufferQueryRequest(Request):
         >>> request
         BufferQueryRequest(
             buffer_ids=(1, 23, 41),
-            )
+        )
 
     ::
 
@@ -1136,7 +1136,7 @@ class BufferReadRequest(Request):
         BufferReadRequest(
             buffer_id=23,
             file_path='pulse_44100sr_16bit_octo.wav',
-            )
+        )
 
     ::
 
@@ -1274,7 +1274,7 @@ class BufferReadChannelRequest(BufferReadRequest):
             buffer_id=23,
             channel_indices=(3, 4),
             file_path='pulse_44100sr_16bit_octo.wav',
-            )
+        )
 
     ::
 
@@ -1357,8 +1357,8 @@ class BufferSetContiguousRequest(Request):
             index_values_pairs=(
                 (0, (1.0, 2.0, 3.0)),
                 (10, (17.1, 18.2)),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -1457,8 +1457,8 @@ class BufferSetContiguousResponse(Response, collections.Sequence):
                 buffer_id=1,
                 items=(
                     Item(sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0), starting_sample_index=0),
-                    ),
-                )
+                ),
+            )
 
         """
         buffer_id, remainder = osc_message.contents[0], osc_message.contents[1:]
@@ -1509,8 +1509,8 @@ class BufferSetRequest(Request):
                 (0, 1.0),
                 (10, 13.2),
                 (17, 19.3),
-                ),
-            )
+            ),
+        )
 
     ::
 
@@ -1635,7 +1635,7 @@ class BufferWriteRequest(Request):
             header_format=HeaderFormat.AIFF,
             sample_format=SampleFormat.INT24,
             starting_frame=0,
-            )
+        )
 
     ::
 
@@ -1752,7 +1752,7 @@ class BufferZeroRequest(Request):
         >>> request
         BufferZeroRequest(
             buffer_id=23,
-            )
+        )
 
     ::
 

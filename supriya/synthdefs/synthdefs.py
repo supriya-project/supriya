@@ -298,7 +298,7 @@ class SynthDef:
                 "ugens": ugens,
             }
         }
-        return yaml.dump(result, default_flow_style=False, indent=4)
+        return yaml.dump(result, default_flow_style=False, indent=4).rstrip()
 
     ### PRIVATE METHODS ###
 

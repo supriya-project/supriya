@@ -207,9 +207,9 @@ class RequestBundle(Requestable):
             contents=(
                 OscMessage('/b_alloc', 23, 512, 1),
                 OscMessage('/b_alloc', 24, 512, 1),
-                ),
+            ),
             timestamp=10.5,
-            )
+        )
 
     ::
 

@@ -31,7 +31,7 @@ class Event(SupriyaValueObject):
             duration=10.5,
             frequency=443,
             panning=0.75,
-            )
+        )
 
     """
 
