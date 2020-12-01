@@ -1,4 +1,4 @@
-import collections
+from collections.abc import Sequence
 
 from uqbar.enums import IntEnumeration, StrictEnumeration
 
@@ -150,7 +150,7 @@ class CalculationRate(IntEnumeration):
             return CalculationRate.from_expr(name)
         elif isinstance(expr, str):
             return super().from_expr(expr)
-        elif isinstance(expr, collections.Sequence):
+        elif isinstance(expr, Sequence):
             return max(CalculationRate.from_expr(item) for item in expr)
         elif hasattr(expr, "calculation_rate"):
             return cls.from_expr(expr.calculation_rate)

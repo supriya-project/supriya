@@ -1,5 +1,6 @@
 import collections
 import os
+from collections.abc import Sequence
 
 import supriya.exceptions
 from supriya.system import SupriyaValueObject
@@ -223,7 +224,7 @@ class Buffer(ServerObject):
 
         on_done = supriya.commands.BufferQueryRequest(buffer_ids=(self.buffer_id,))
         if file_path and channel_indices is not None:
-            if not isinstance(channel_indices, collections.Sequence):
+            if not isinstance(channel_indices, Sequence):
                 channel_indices = (channel_indices,)
             channel_indices = tuple(channel_indices)
             assert all(0 <= _ for _ in channel_indices)

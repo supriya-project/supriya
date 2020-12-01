@@ -1,4 +1,5 @@
 import collections
+from collections.abc import Sequence
 
 from supriya import CalculationRate, utils
 from supriya.synthdefs import PureUGen, UGen
@@ -93,11 +94,11 @@ class Klank(UGen):
         assert len(frequencies)
         if not amplitudes:
             amplitudes = [1.0] * len(frequencies)
-        elif not isinstance(amplitudes, collections.Sequence):
+        elif not isinstance(amplitudes, Sequence):
             amplitudes = [amplitudes] * len(frequencies)
         if not decay_times:
             decay_times = [1.0] * len(frequencies)
-        elif not isinstance(decay_times, collections.Sequence):
+        elif not isinstance(decay_times, Sequence):
             decay_times = [decay_times] * len(frequencies)
         specifications = utils.zip_sequences(frequencies, amplitudes, decay_times)
         specifications = utils.flatten_iterable(specifications)

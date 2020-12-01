@@ -1,4 +1,4 @@
-import collections
+from collections.abc import Sequence
 from typing import NamedTuple, Tuple
 
 import supriya.osc
@@ -335,7 +335,7 @@ class ControlBusSetContiguousRequest(Request):
         return self._index_values_pairs
 
 
-class ControlBusSetContiguousResponse(Response, collections.Sequence):
+class ControlBusSetContiguousResponse(Response, Sequence):
 
     ### CLASS VARIABLES ###
 
@@ -469,7 +469,7 @@ class ControlBusSetRequest(Request):
         return self._index_value_pairs
 
 
-class ControlBusSetResponse(Response, collections.Sequence):
+class ControlBusSetResponse(Response, Sequence):
 
     ### CLASS VARIABLES ###
 

@@ -1,5 +1,5 @@
-import collections
 import uuid
+from collections.abc import Sequence
 
 from uqbar.objects import new
 
@@ -151,7 +151,7 @@ class Pbind(EventPattern):
         for _, value in self._patterns:
             if isinstance(value, supriya.patterns.Pattern) and not value.is_infinite:
                 return False
-            elif isinstance(value, collections.Sequence):
+            elif isinstance(value, Sequence):
                 return False
         return True
 
@@ -237,7 +237,7 @@ class Pbindf(EventPattern):
         for _, value in self._patterns:
             if isinstance(value, supriya.patterns.Pattern) and not value.is_infinite:
                 return False
-            elif isinstance(value, collections.Sequence):
+            elif isinstance(value, Sequence):
                 return False
         return True
 

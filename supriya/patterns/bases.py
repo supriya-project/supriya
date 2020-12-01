@@ -1,9 +1,9 @@
 import abc
-import collections
 import inspect
 import itertools
 import re
 import uuid
+from collections.abc import Sequence
 from typing import Dict, Generator, Iterator
 
 import uqbar.objects
@@ -58,13 +58,13 @@ class Event(SupriyaValueObject):
                 value = uuids[value]
                 if isinstance(value, dict):
                     value = sorted(value)[0]
-                if not isinstance(value, collections.Sequence):
+                if not isinstance(value, Sequence):
                     value = [value]
                 settings[key] = value
         maximum_length = 1
         unexpanded_settings = {}
         for key, value in settings.items():
-            if isinstance(value, collections.Sequence):
+            if isinstance(value, Sequence):
                 maximum_length = max(len(value), maximum_length)
                 unexpanded_settings[key] = value
             else:
@@ -277,7 +277,7 @@ class Pattern(SupriyaValueObject):
 
     @classmethod
     def _coerce_floats(cls, value):
-        if isinstance(value, collections.Sequence):
+        if isinstance(value, Sequence):
             value = tuple(float(_) for _ in value)
             assert value
         else:
@@ -300,7 +300,7 @@ class Pattern(SupriyaValueObject):
     def _freeze_recursive(cls, value):
         if isinstance(value, str):
             return value
-        elif isinstance(value, collections.Sequence) and not isinstance(value, Pattern):
+        elif isinstance(value, Sequence) and not isinstance(value, Pattern):
             return tuple(cls._freeze_recursive(_) for _ in value)
         return value
 
@@ -308,7 +308,7 @@ class Pattern(SupriyaValueObject):
     def _get_arity(cls, value):
         if isinstance(value, Pattern):
             return value.arity
-        elif isinstance(value, collections.Sequence):
+        elif isinstance(value, Sequence):
             return len(value)
         return 1
 
@@ -352,13 +352,11 @@ class Pattern(SupriyaValueObject):
 
     @classmethod
     def _process_recursive(cls, one, two, procedure):
-        if not isinstance(one, collections.Sequence) and not isinstance(
-            two, collections.Sequence
-        ):
+        if not isinstance(one, Sequence) and not isinstance(two, Sequence):
             return procedure(one, two)
-        if not isinstance(one, collections.Sequence):
+        if not isinstance(one, Sequence):
             one = [one]
-        if not isinstance(two, collections.Sequence):
+        if not isinstance(two, Sequence):
             two = [two]
         length = max(len(one), len(two))
         if len(one) < length:

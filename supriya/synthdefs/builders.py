@@ -1,6 +1,7 @@
 import collections
 import copy
 import uuid
+from collections.abc import Sequence
 from typing import List
 
 from uqbar.objects import new
@@ -78,7 +79,7 @@ class SynthDefBuilder(SupriyaObject):
         import supriya.synthdefs
         import supriya.ugens
 
-        if not isinstance(ugens, collections.Sequence):
+        if not isinstance(ugens, Sequence):
             ugens = [ugens]
         prototype = (
             supriya.synthdefs.OutputProxy,

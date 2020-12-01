@@ -1,4 +1,5 @@
 import collections
+from collections.abc import Sequence
 
 from supriya import CalculationRate, ParameterRate, SignalRange
 from supriya.system import SupriyaValueObject
@@ -63,11 +64,7 @@ class Range(SupriyaValueObject):
     ### INITIALIZER ###
 
     def __init__(self, minimum=None, maximum=None):
-        if (
-            isinstance(minimum, collections.Sequence)
-            and maximum is None
-            and len(minimum) == 2
-        ):
+        if isinstance(minimum, Sequence) and maximum is None and len(minimum) == 2:
             minimum, maximum = minimum
         elif isinstance(minimum, type(self)):
             minimum, maximum = minimum.minimum, minimum.maximum
@@ -181,7 +178,7 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
         self._range = range_
         self._unit = unit
         self._uuid = None
-        if isinstance(value, collections.Sequence):
+        if isinstance(value, Sequence):
             value = tuple(float(_) for _ in value)
             assert value, value
         else:

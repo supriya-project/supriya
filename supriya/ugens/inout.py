@@ -1,6 +1,6 @@
 import abc
 import collections
-from collections.abc import Iterable
+from collections.abc import Iterable, Sequence
 
 from supriya import CalculationRate, utils
 from supriya.synthdefs import MultiOutUGen, PseudoUGen, UGen
@@ -67,7 +67,7 @@ class LocalIn(MultiOutUGen):
     ### INITIALIZER ###
 
     def __init__(self, calculation_rate=None, channel_count=1, default=0):
-        if not isinstance(default, collections.Sequence):
+        if not isinstance(default, Sequence):
             default = (default,)
         default = (float(_) for _ in default)
         default = utils.repeat_sequence_to_length(default, channel_count)

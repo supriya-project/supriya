@@ -1,5 +1,6 @@
 import collections
 import struct
+from collections.abc import Sequence
 
 from supriya import CalculationRate, ParameterRate, utils
 from supriya.system import SupriyaObject
@@ -48,7 +49,7 @@ class SynthDefCompiler(SupriyaObject):
     @staticmethod
     def compile_synthdefs(synthdefs, use_anonymous_names=False):
         def flatten(value):
-            if isinstance(value, collections.Sequence) and not isinstance(
+            if isinstance(value, Sequence) and not isinstance(
                 value, (bytes, bytearray)
             ):
                 return bytes().join(flatten(x) for x in value)

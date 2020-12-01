@@ -1,4 +1,5 @@
 import collections
+from collections.abc import Sequence
 
 from supriya import CalculationRate
 from supriya.synthdefs import MultiOutUGen, UGen
@@ -107,7 +108,7 @@ class Demand(MultiOutUGen):
     ### INITIALIZER ###
 
     def __init__(self, calculation_rate=None, trigger=None, reset=None, source=None):
-        if not isinstance(source, collections.Sequence):
+        if not isinstance(source, Sequence):
             source = [source]
         MultiOutUGen.__init__(
             self,
@@ -483,10 +484,10 @@ class Dwrand(DUGen):
     ### INITIALIZER ###
 
     def __init__(self, repeats=1, sequence=None, weights=None, **kwargs):
-        if not isinstance(sequence, collections.Sequence):
+        if not isinstance(sequence, Sequence):
             sequence = [sequence]
         sequence = tuple(float(_) for _ in sequence)
-        if not isinstance(weights, collections.Sequence):
+        if not isinstance(weights, Sequence):
             weights = [weights]
         weights = tuple(float(_) for _ in weights)
         weights = weights[: len(sequence)]

@@ -1,5 +1,5 @@
-import collections
 import typing
+from collections.abc import Sequence
 
 import supriya.osc
 from supriya.enums import RequestId
@@ -299,7 +299,7 @@ class GroupNewRequest(Request):
 
         Request.__init__(self)
         if items:
-            if not isinstance(items, collections.Sequence):
+            if not isinstance(items, Sequence):
                 items = [items]
             items = list(items)
             for i, (add_action, node_id, target_node_id) in enumerate(items):

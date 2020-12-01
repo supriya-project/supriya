@@ -1,5 +1,5 @@
-import collections
 import typing
+from collections.abc import Sequence
 
 import supriya.osc
 from supriya.enums import RequestId
@@ -20,7 +20,7 @@ class MoveRequest(Request):
     def __init__(self, node_id_pairs=None):
         Request.__init__(self)
         if node_id_pairs:
-            if not isinstance(node_id_pairs, collections.Sequence):
+            if not isinstance(node_id_pairs, Sequence):
                 node_id_pairs = [node_id_pairs]
             node_id_pairs = list(node_id_pairs)
             for i, x in enumerate(node_id_pairs):

@@ -1,4 +1,4 @@
-import collections
+from collections.abc import Sequence
 
 import supriya.osc
 from supriya import AddAction
@@ -198,7 +198,7 @@ class SynthQueryRequest(Request):
 
     def __init__(self, node_ids=None):
         Request.__init__(self)
-        if not isinstance(node_ids, collections.Sequence):
+        if not isinstance(node_ids, Sequence):
             node_ids = (node_ids,)
         node_ids = tuple(int(_) for _ in node_ids)
         self._node_ids = node_ids

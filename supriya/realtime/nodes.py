@@ -2,6 +2,7 @@ import abc
 import collections
 import pathlib
 import tempfile
+from collections.abc import Sequence
 
 import uqbar.graphs
 import uqbar.strings
@@ -311,7 +312,7 @@ class Node(ServerObject, UniqueTreeNode):
             request.communicate(server=self.server, sync=False)
 
     def precede_by(self, expr):
-        if not isinstance(expr, collections.Sequence):
+        if not isinstance(expr, Sequence):
             expr = [expr]
         index = self.parent.index(self)
         self.parent[index:index] = expr
@@ -341,13 +342,13 @@ class Node(ServerObject, UniqueTreeNode):
         return query_tree[self.node_id]
 
     def replace_with(self, expr):
-        if not isinstance(expr, collections.Sequence):
+        if not isinstance(expr, Sequence):
             expr = [expr]
         index = self.parent.index(self)
         self.parent[index : index + 1] = expr
 
     def succeed_by(self, expr):
-        if not isinstance(expr, collections.Sequence):
+        if not isinstance(expr, Sequence):
             expr = [expr]
         index = self.parent.index(self)
         self.parent[index + 1 : index + 1] = expr
@@ -454,7 +455,7 @@ class Group(Node, UniqueTreeList):
         # TODO: lean on uqbar's __setitem__ more.
         self._validate(expr)
         if isinstance(i, slice):
-            assert isinstance(expr, collections.Sequence)
+            assert isinstance(expr, Sequence)
         if isinstance(i, str):
             i = self.index(self._named_children[i])
         if isinstance(i, int):
@@ -470,7 +471,7 @@ class Group(Node, UniqueTreeList):
             start, stop = 0, 0
         else:
             start, stop, stride = i.indices(len(self))
-        if not isinstance(expr, collections.Sequence):
+        if not isinstance(expr, Sequence):
             expr = [expr]
         if self.is_allocated:
             self._set_allocated(expr, start, stop)

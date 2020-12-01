@@ -1,4 +1,5 @@
 import collections
+from collections.abc import Sequence
 
 from supriya import CalculationRate
 from supriya.synthdefs import UGen
@@ -323,7 +324,7 @@ class Poll(UGen):
     def new(cls, label=None, source=None, trigger=None, trigger_id=-1):
         import supriya.synthdefs
 
-        if isinstance(source, collections.Sequence):
+        if isinstance(source, Sequence):
             source = (source,)
         calculation_rates = []
         for single_source in source:
@@ -466,7 +467,7 @@ class SendPeakRMS(UGen):
             reply_rate=reply_rate,
         )
         command_name = str(command_name)
-        if not isinstance(source, collections.Sequence):
+        if not isinstance(source, Sequence):
             source = (source,)
         self._configure_input("source", len(source))
         for input_ in source:

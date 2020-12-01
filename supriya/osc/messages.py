@@ -3,6 +3,7 @@ import datetime
 import enum
 import struct
 import time
+from collections.abc import Sequence
 
 from supriya.system import SupriyaValueObject
 
@@ -167,7 +168,7 @@ class OscMessage(SupriyaValueObject):
             encoded_value += struct.pack(">i", value)
         elif value is None:
             type_tags += "N"
-        elif isinstance(value, collections.Sequence):
+        elif isinstance(value, Sequence):
             type_tags += "["
             for sub_value in value:
                 sub_type_tags, sub_encoded_value = cls._encode_value(sub_value)

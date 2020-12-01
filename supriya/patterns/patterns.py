@@ -1,6 +1,6 @@
-import collections
 import inspect
 import operator
+from collections.abc import Sequence
 
 from .bases import Pattern
 from .random import RandomNumberGenerator
@@ -153,7 +153,7 @@ class Pseq(Pattern):
     ### INITIALIZER ###
 
     def __init__(self, sequence, repetitions=1):
-        assert isinstance(sequence, collections.Sequence)
+        assert isinstance(sequence, Sequence)
         self._sequence = self._freeze_recursive(sequence)
         if repetitions is not None:
             repetitions = int(repetitions)

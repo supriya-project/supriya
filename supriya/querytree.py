@@ -1,4 +1,4 @@
-import collections
+from collections.abc import Sequence
 
 from supriya.system import SupriyaValueObject
 
@@ -51,7 +51,7 @@ class QueryTreeControl(SupriyaValueObject):
         return self._control_value
 
 
-class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
+class QueryTreeSynth(SupriyaValueObject, Sequence):
 
     ### CLASS VARIABLES ###
 
@@ -259,7 +259,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         return self._synthdef_name
 
 
-class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
+class QueryTreeGroup(SupriyaValueObject, Sequence):
 
     ### CLASS VARIABLES ###
 
