@@ -43,7 +43,7 @@ class SynthNewRequest(Request):
         ...     target_node_id=1000,
         ...     frequency=443,
         ...     phase=0.2
-        ...     )
+        ... )
         >>> request
         SynthNewRequest(
             add_action=AddAction.ADD_TO_TAIL,

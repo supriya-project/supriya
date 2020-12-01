@@ -139,7 +139,7 @@ class NotifyRequest(Request):
 
         >>> request = supriya.commands.NotifyRequest(
         ...     notify_status=True,
-        ...     )
+        ... )
         >>> request
         NotifyRequest(
             notify_status=True,
@@ -279,7 +279,7 @@ class StatusResponse(Response):
             ...     '/status.reply', 1, 0, 0, 2, 4,
             ...     0.040679048746824265, 0.15118031203746796,
             ...     44100.0, 44100.00077873274,
-            ...     )
+            ... )
             >>> supriya.commands.StatusResponse.from_osc_message(message)
             StatusResponse(
                 actual_sample_rate=44100.00077873274,
@@ -331,7 +331,7 @@ class StatusResponse(Response):
             ...     synthdef_count=42,
             ...     target_sample_rate=44100.0,
             ...     ugen_count=685
-            ...     )
+            ... )
 
         ::
 
@@ -342,7 +342,7 @@ class StatusResponse(Response):
             ...     indent=4,
             ...     separators=(',', ': '),
             ...     sort_keys=True,
-            ...     )
+            ... )
             >>> print(result)
             {
                 "server_status": {
@@ -438,7 +438,7 @@ class SyncRequest(Request):
         >>> import supriya.commands
         >>> request = supriya.commands.SyncRequest(
         ...     sync_id=1999,
-        ...     )
+        ... )
         >>> request
         SyncRequest(
             sync_id=1999,

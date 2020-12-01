@@ -16,7 +16,7 @@ class NodeFreeRequest(Request):
         >>> import supriya.commands
         >>> request = supriya.commands.NodeFreeRequest(
         ...     node_ids=1000,
-        ...     )
+        ... )
         >>> request
         NodeFreeRequest(
             node_ids=(1000,),
@@ -185,7 +185,7 @@ class NodeMapToAudioBusRequest(Request):
         ...     frequency=supriya.realtime.Bus(9, 'audio'),
         ...     phase=supriya.realtime.Bus(10, 'audio'),
         ...     amplitude=supriya.realtime.Bus(11, 'audio'),
-        ...     )
+        ... )
         >>> request
         NodeMapToAudioBusRequest(
             amplitude=<- Bus: 11 (audio)>,
@@ -251,7 +251,7 @@ class NodeMapToControlBusRequest(Request):
         ...     frequency=supriya.realtime.Bus(9, 'control'),
         ...     phase=supriya.realtime.Bus(10, 'control'),
         ...     amplitude=supriya.realtime.Bus(11, 'control'),
-        ...     )
+        ... )
         >>> request
         NodeMapToControlBusRequest(
             amplitude=<- Bus: 11 (control)>,
@@ -313,7 +313,7 @@ class NodeQueryRequest(Request):
         >>> import supriya.commands
         >>> request = supriya.commands.NodeQueryRequest(
         ...     node_id=1000,
-        ...     )
+        ... )
         >>> request
         NodeQueryRequest(
             node_id=1000,
@@ -376,7 +376,7 @@ class NodeRunRequest(Request):
         >>> request = supriya.commands.NodeRunRequest([
         ...     [synth_a, True],
         ...     [synth_b, False],
-        ...     ])
+        ... ])
         >>> request.to_osc()
         OscMessage('/n_run', 1000, 1, 1001, 0)
 
@@ -406,7 +406,7 @@ class NodeRunRequest(Request):
         >>> request = supriya.commands.NodeRunRequest([
         ...     [synth_a, False],
         ...     [synth_b, True],
-        ...     ])
+        ... ])
         >>> request.to_osc()
         OscMessage('/n_run', 1000, 0, 1001, 1)
 
@@ -491,7 +491,7 @@ class NodeSetRequest(Request):
         ...     frequency=443.1,
         ...     phase=0.5,
         ...     amplitude=0.1,
-        ...     )
+        ... )
         >>> request
         NodeSetRequest(
             amplitude=0.1,

@@ -19,7 +19,7 @@ class BufferAllocateRequest(Request):
         ...     buffer_id=23,
         ...     frame_count=512,
         ...     channel_count=2,
-        ...     )
+        ... )
         >>> request
         BufferAllocateRequest(
             buffer_id=23,
@@ -100,7 +100,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
         >>> request = supriya.commands.BufferAllocateReadRequest(
         ...     buffer_id=23,
         ...     file_path='pulse_44100sr_16bit_octo.wav',
-        ...     )
+        ... )
         >>> print(request)
         BufferAllocateReadRequest(
             buffer_id=23,
@@ -202,7 +202,7 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
         ...     buffer_id=23,
         ...     channel_indices=(3, 4),
         ...     file_path='pulse_44100sr_16bit_octo.wav',
-        ...     )
+        ... )
         >>> print(request)
         BufferAllocateReadChannelRequest(
             buffer_id=23,
@@ -279,7 +279,7 @@ class BufferCloseRequest(Request):
         >>> import supriya.commands
         >>> request = supriya.commands.BufferCloseRequest(
         ...     buffer_id=23,
-        ...     )
+        ... )
         >>> request
         BufferCloseRequest(
             buffer_id=23,
@@ -331,7 +331,7 @@ class BufferCopyRequest(Request):
         >>> request = supriya.commands.BufferCopyRequest(
         ...     source_buffer_id=23,
         ...     target_buffer_id=666,
-        ...     )
+        ... )
         >>> print(request)
         BufferCopyRequest(
             source_buffer_id=23,
@@ -439,8 +439,8 @@ class BufferFillRequest(Request):
         ...     index_count_value_triples=(
         ...         (0, 8, 0.1),
         ...         (11, 4, 0.2),
-        ...         ),
-        ...     )
+        ...     ),
+        ... )
         >>> request
         BufferFillRequest(
             buffer_id=23,
@@ -506,7 +506,7 @@ class BufferFreeRequest(Request):
         >>> import supriya.commands
         >>> request = supriya.commands.BufferFreeRequest(
         ...     buffer_id=23,
-        ...     )
+        ... )
         >>> request
         BufferFreeRequest(
             buffer_id=23,
@@ -576,7 +576,7 @@ class BufferGenerateRequest(Request):
         ...     phases=(0, 0.5, 0),
         ...     should_clear_first=True,
         ...     should_normalize=True,
-        ...     )
+        ... )
         >>> print(request)
         BufferGenerateRequest(
             amplitudes=(1.0, 0.5, 0.25),
@@ -818,7 +818,7 @@ class BufferGetContiguousRequest(Request):
         >>> request = supriya.commands.BufferGetContiguousRequest(
         ...     buffer_id=23,
         ...     index_count_pairs=[(0, 3), (8, 11)],
-        ...     )
+        ... )
         >>> request
         BufferGetContiguousRequest(
             buffer_id=23,
@@ -886,7 +886,7 @@ class BufferGetRequest(Request):
         >>> request = supriya.commands.BufferGetRequest(
         ...     buffer_id=23,
         ...     indices=(0, 4, 8, 16),
-        ...     )
+        ... )
         >>> request
         BufferGetRequest(
             buffer_id=23,
@@ -1006,7 +1006,7 @@ class BufferNormalizeRequest(Request):
         >>> import supriya.commands
         >>> request = supriya.commands.BufferNormalizeRequest(
         ...     buffer_id=23,
-        ...     )
+        ... )
         >>> print(request)
         BufferNormalizeRequest(
             buffer_id=23,
@@ -1073,7 +1073,7 @@ class BufferQueryRequest(Request):
         >>> import supriya.commands
         >>> request = supriya.commands.BufferQueryRequest(
         ...     buffer_ids=(1, 23, 41)
-        ...     )
+        ... )
         >>> request
         BufferQueryRequest(
             buffer_ids=(1, 23, 41),
@@ -1131,7 +1131,7 @@ class BufferReadRequest(Request):
         >>> request = supriya.commands.BufferReadRequest(
         ...     buffer_id=23,
         ...     file_path='pulse_44100sr_16bit_octo.wav',
-        ...     )
+        ... )
         >>> print(request)
         BufferReadRequest(
             buffer_id=23,
@@ -1268,7 +1268,7 @@ class BufferReadChannelRequest(BufferReadRequest):
         ...     buffer_id=23,
         ...     channel_indices=(3, 4),
         ...     file_path='pulse_44100sr_16bit_octo.wav',
-        ...     )
+        ... )
         >>> print(request)
         BufferReadChannelRequest(
             buffer_id=23,
@@ -1349,8 +1349,8 @@ class BufferSetContiguousRequest(Request):
         ...     index_values_pairs=(
         ...         (0, (1, 2, 3)),
         ...         (10, (17.1, 18.2))
-        ...         ),
-        ...     )
+        ...     ),
+        ... )
         >>> request
         BufferSetContiguousRequest(
             buffer_id=23,
@@ -1500,8 +1500,8 @@ class BufferSetRequest(Request):
         ...         (0, 1.0),
         ...         (10, 13.2),
         ...         (17, 19.3),
-        ...         ),
-        ...     )
+        ...     ),
+        ... )
         >>> request
         BufferSetRequest(
             buffer_id=23,
@@ -1626,7 +1626,7 @@ class BufferWriteRequest(Request):
         ...     file_path='test.aiff',
         ...     header_format=supriya.HeaderFormat.AIFF,
         ...     sample_format=supriya.SampleFormat.INT24,
-        ...     )
+        ... )
         >>> request
         BufferWriteRequest(
             buffer_id=23,
@@ -1748,7 +1748,7 @@ class BufferZeroRequest(Request):
         >>> import supriya.commands
         >>> request = supriya.commands.BufferZeroRequest(
         ...     buffer_id=23,
-        ...     )
+        ... )
         >>> request
         BufferZeroRequest(
             buffer_id=23,

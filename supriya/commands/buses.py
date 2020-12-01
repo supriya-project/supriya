@@ -18,8 +18,8 @@ class ControlBusFillRequest(Request):
         ...     index_count_value_triples=[
         ...         (0, 8, 0.5),
         ...         (8, 8, 0.25),
-        ...         ],
-        ...     )
+        ...     ],
+        ... )
         >>> request
         ControlBusFillRequest(
             index_count_value_triples=(
@@ -90,8 +90,8 @@ class ControlBusGetContiguousRequest(Request):
         ...         (4, 1),
         ...         (8, 2),
         ...         (12, 1),
-        ...         ],
-        ...     )
+        ...     ],
+        ... )
         >>> request
         ControlBusGetContiguousRequest(
             index_count_pairs=(
@@ -183,7 +183,7 @@ class ControlBusGetRequest(Request):
         >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusGetRequest(
         ...     indices=(0, 4, 8, 12),
-        ...     )
+        ... )
         >>> request
         ControlBusGetRequest(
             indices=(0, 4, 8, 12),
@@ -264,8 +264,8 @@ class ControlBusSetContiguousRequest(Request):
         ...     index_values_pairs=[
         ...         (0, (0.1, 0.2, 0.3)),
         ...         (4, (0.4, 0.5, 0.6)),
-        ...         ],
-        ...     )
+        ...     ],
+        ... )
         >>> request
         ControlBusSetContiguousRequest(
             index_values_pairs=(
@@ -407,8 +407,8 @@ class ControlBusSetRequest(Request):
         ...         (1, 0.2),
         ...         (2, 0.3),
         ...         (3, 0.4),
-        ...         ],
-        ...     )
+        ...     ],
+        ... )
         >>> request
         ControlBusSetRequest(
             index_value_pairs=(
