@@ -180,7 +180,6 @@ def test_02_ugens(py_synthdef_02):
                     source[0]: IFFT.ar[0]
         """
         )
-        + "\n"
     )
 
 

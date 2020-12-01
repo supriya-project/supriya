@@ -38,7 +38,6 @@ def test_gate_01():
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
         """
         )
-        + "\n"
     )
 
 
@@ -77,7 +76,6 @@ def test_gate_02():
                     source[0]: SinOsc.ar[0]
         """
         )
-        + "\n"
     )
 
 
@@ -123,7 +121,6 @@ def test_gate_03():
                     source[0]: SinOsc.ar[0]
         """
         )
-        + "\n"
     )
 
 
@@ -172,5 +169,4 @@ def test_gate_04():
                     source[0]: SinOsc.ar[0]
         """
         )
-        + "\n"
     )

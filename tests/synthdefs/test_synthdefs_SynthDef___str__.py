@@ -36,5 +36,4 @@ def test_multi_value_parameters():
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
         """
         )
-        + "\n"
     )
