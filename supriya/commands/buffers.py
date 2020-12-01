@@ -1,4 +1,5 @@
 import collections
+from collections.abc import Sequence
 from typing import NamedTuple
 
 import supriya.osc
@@ -1391,7 +1392,7 @@ class BufferSetContiguousRequest(Request):
         return self._index_values_pairs
 
 
-class BufferSetContiguousResponse(Response, collections.Sequence):
+class BufferSetContiguousResponse(Response, Sequence):
 
     ### CLASS VARIABLES ###
 

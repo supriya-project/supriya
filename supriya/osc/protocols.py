@@ -6,6 +6,7 @@ import queue
 import socketserver
 import threading
 import time
+from collections.abc import Sequence
 from typing import Any, Callable, Dict, NamedTuple, Optional, Set, Tuple, Union
 
 from .captures import Capture, CaptureEntry
@@ -151,11 +152,11 @@ class OscProtocol:
     def _validate_send(self, message):
         if not self.is_running:
             raise OscProtocolOffline
-        if not isinstance(message, (str, collections.Iterable, OscBundle, OscMessage)):
+        if not isinstance(message, (str, Sequence, OscBundle, OscMessage)):
             raise ValueError(message)
         if isinstance(message, str):
             message = OscMessage(message)
-        elif isinstance(message, collections.Iterable):
+        elif isinstance(message, Sequence):
             message = OscMessage(*message)
         osc_out_logger.debug(repr(message))
         for capture in self.captures:
