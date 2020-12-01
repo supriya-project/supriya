@@ -12,10 +12,8 @@ def test_gate_01():
     factory = factory.with_signal_block(signal_block)
     factory = factory.with_gate()
     factory = factory.with_output()
-    assert (
-        str(factory.build(name="test"))
-        == uqbar.strings.normalize(
-            """
+    assert str(factory.build(name="test")) == uqbar.strings.normalize(
+        """
         synthdef:
             name: test
             ugens:
@@ -37,7 +35,6 @@ def test_gate_01():
                     bus: Control.ir[0:out]
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
         """
-        )
     )
 
 
@@ -49,10 +46,8 @@ def test_gate_02():
     factory = factory.with_signal_block(signal_block)
     factory = factory.with_gate()
     factory = factory.with_output(crossfaded=True)
-    assert (
-        str(factory.build(name="test"))
-        == uqbar.strings.normalize(
-            """
+    assert str(factory.build(name="test")) == uqbar.strings.normalize(
+        """
         synthdef:
             name: test
             ugens:
@@ -75,7 +70,6 @@ def test_gate_02():
                     crossfade: BinaryOpUGen(MULTIPLICATION).kr[0]
                     source[0]: SinOsc.ar[0]
         """
-        )
     )
 
 
@@ -87,10 +81,8 @@ def test_gate_03():
     factory = factory.with_signal_block(signal_block)
     factory = factory.with_gate()
     factory = factory.with_output(crossfaded=True, windowed=True)
-    assert (
-        str(factory.build(name="test"))
-        == uqbar.strings.normalize(
-            """
+    assert str(factory.build(name="test")) == uqbar.strings.normalize(
+        """
         synthdef:
             name: test
             ugens:
@@ -120,7 +112,6 @@ def test_gate_03():
                     crossfade: BinaryOpUGen(MULTIPLICATION).kr[0]
                     source[0]: SinOsc.ar[0]
         """
-        )
     )
 
 
@@ -132,10 +123,8 @@ def test_gate_04():
     factory = factory.with_signal_block(signal_block)
     factory = factory.with_gate()
     factory = factory.with_output(crossfaded=True, leveled=True, windowed=True)
-    assert (
-        str(factory.build(name="test"))
-        == uqbar.strings.normalize(
-            """
+    assert str(factory.build(name="test")) == uqbar.strings.normalize(
+        """
         synthdef:
             name: test
             ugens:
@@ -168,5 +157,4 @@ def test_gate_04():
                     crossfade: BinaryOpUGen(MULTIPLICATION).kr/1[0]
                     source[0]: SinOsc.ar[0]
         """
-        )
     )
