@@ -1,4 +1,3 @@
-import collections
 import os
 from collections.abc import Sequence
 

@@ -1,5 +1,4 @@
 import abc
-import collections
 import pathlib
 import tempfile
 from collections.abc import Sequence
