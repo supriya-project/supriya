@@ -52,8 +52,8 @@ class Session:
         ...     out = supriya.ugens.Out.ar(
         ...         source=supriya.ugens.SinOsc.ar(
         ...             frequency=builder['frequency'],
-        ...             )
         ...         )
+        ...     )
         ...
         >>> synthdef = builder.build()
 

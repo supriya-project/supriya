@@ -204,13 +204,13 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
             ...         supriya.querytree.QueryTreeControl(
             ...             control_name_or_index='level',
             ...             control_value=1.0,
-            ...             ),
+            ...         ),
             ...         supriya.querytree.QueryTreeControl(
             ...             control_name_or_index='out',
             ...             control_value=0.0,
-            ...             ),
             ...         ),
-            ...     )
+            ...     ),
+            ... )
 
         ::
 
@@ -221,7 +221,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
             ...     indent=4,
             ...     separators=(',', ': '),
             ...     sort_keys=True,
-            ...     )
+            ... )
             >>> print(result)
             {
                 "controls": {
@@ -422,25 +422,25 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index='damping',
             ...                     control_value=0.06623425334692,
-            ...                     ),
+            ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index='duration',
             ...                     control_value=3.652155876159668,
-            ...                     ),
+            ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index='level',
             ...                     control_value=0.894767701625824,
-            ...                     ),
+            ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index='out',
             ...                     control_value=16.0,
-            ...                     ),
+            ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index='room_size',
             ...                     control_value=0.918643176555634,
-            ...                     ),
             ...                 ),
             ...             ),
+            ...         ),
             ...         supriya.querytree.QueryTreeSynth(
             ...             node_id=1098,
             ...             synthdef_name='cc754c63533fdcf412a44ef6adb1a8f0',
@@ -448,35 +448,35 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index='duration',
             ...                     control_value=5.701356887817383,
-            ...                     ),
+            ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index='level',
             ...                     control_value=0.959683060646057,
-            ...                     ),
+            ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index='out',
             ...                     control_value=16.0,
-            ...                     ),
+            ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index='pitch_dispersion',
             ...                     control_value=0.040342573076487,
-            ...                     ),
+            ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index='pitch_shift',
             ...                     control_value=10.517594337463379,
-            ...                     ),
+            ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index='time_dispersion',
             ...                     control_value=0.666014134883881,
-            ...                     ),
+            ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index='window_size',
             ...                     control_value=1.014111995697021,
-            ...                     ),
             ...                 ),
             ...             ),
             ...         ),
-            ...     )
+            ...     ),
+            ... )
 
         ::
 
@@ -487,7 +487,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
             ...     indent=4,
             ...     separators=(',', ': '),
             ...     sort_keys=True,
-            ...     )
+            ... )
             >>> print(result)
             {
                 "children": [
