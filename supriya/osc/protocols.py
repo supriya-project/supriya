@@ -103,7 +103,7 @@ class OscProtocol:
             delete(list(pattern), self.callbacks)
 
     def _pass_healthcheck(self, message):
-        osc_protocol_logger.info("healthcheck passed")
+        osc_protocol_logger.info("...healthcheck passed")
         self.attempts = 0
 
     def _setup(self, ip_address, port, healthcheck):
@@ -330,14 +330,18 @@ class ThreadedOscProtocol(OscProtocol):
         now = time.time()
         if now < self.healthcheck_deadline:
             return
-        if self.attempts > 1:
-            osc_protocol_logger.info("healthcheck failed")
+        if self.attempts > 0:
+            remaining = self.healthcheck.max_attempts - self.attempts
+            osc_protocol_logger.info(
+                f"healthcheck failed, {remaining} attempts remaining"
+            )
         new_timeout = self.healthcheck.timeout * pow(
             self.healthcheck.backoff_factor, self.attempts
         )
         self.healthcheck_deadline = now + new_timeout
         self.attempts += 1
         if self.attempts <= self.healthcheck.max_attempts:
+            osc_protocol_logger.info("healthchecking...")
             self.send(OscMessage(*self.healthcheck.request_pattern))
             return
         osc_protocol_logger.info("healthcheck failure limit exceeded")
