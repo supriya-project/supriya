@@ -1,4 +1,5 @@
 import configparser
+import logging
 import pathlib
 
 import appdirs
@@ -35,6 +36,15 @@ with config_path.open() as file_pointer:
 del appdirs
 del configparser
 del pathlib
+
+
+def setup_logging(*loggers):
+    logging.basicConfig(
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+    for logger in loggers:
+        logging.getLogger(logger).setLevel(logging.DEBUG)
+
 
 from supriya._version import __version__, __version_info__  # noqa
 from supriya import utils  # noqa

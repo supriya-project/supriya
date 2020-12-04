@@ -631,6 +631,7 @@ class Server(BaseServer):
         self._servers.add(self)
 
     def _disconnect(self):
+        logger.info("disconnecting")
         self._is_running = False
         self._is_owner = False
         self._client_id = None
@@ -640,6 +641,7 @@ class Server(BaseServer):
         self._teardown_allocators()
         if self in self._servers:
             self._servers.remove(self)
+        logger.info("disconnected")
 
     def _get_buffer_proxy(self, buffer_id):
         import supriya.realtime
@@ -846,7 +848,8 @@ class Server(BaseServer):
     def _shutdown(self):
         if not self.is_running:
             return
-        elif self.is_owner:
+        logger.info("shutting down")
+        if self.is_owner:
             self.quit()
         else:
             self.disconnect()
