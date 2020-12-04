@@ -39,9 +39,7 @@ del pathlib
 
 
 def setup_logging(*loggers):
-    logging.basicConfig(
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    )
+    logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     for logger in loggers:
         logging.getLogger(logger).setLevel(logging.DEBUG)
 

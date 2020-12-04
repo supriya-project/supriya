@@ -331,7 +331,7 @@ class ThreadedOscProtocol(OscProtocol):
         if now < self.healthcheck_deadline:
             return
         if self.attempts > 1:
-            osc_protocol_logger.info(f"healthcheck failed")
+            osc_protocol_logger.info("healthcheck failed")
         new_timeout = self.healthcheck.timeout * pow(
             self.healthcheck.backoff_factor, self.attempts
         )
