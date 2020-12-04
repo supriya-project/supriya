@@ -11,6 +11,7 @@ from typing import Any, Callable, Dict, NamedTuple, Optional, Set, Tuple, Union
 from .captures import Capture, CaptureEntry
 from .messages import OscBundle, OscMessage
 
+osc_protocol_logger = logging.getLogger("supriya.osc.protocol")
 osc_in_logger = logging.getLogger("supriya.osc.in")
 osc_out_logger = logging.getLogger("supriya.osc.out")
 udp_in_logger = logging.getLogger("supriya.udp.in")
@@ -101,7 +102,8 @@ class OscProtocol:
         for pattern in patterns:
             delete(list(pattern), self.callbacks)
 
-    def _reset_attempts(self, message):
+    def _pass_healthcheck(self, message):
+        osc_protocol_logger.info("...healthcheck passed")
         self.attempts = 0
 
     def _setup(self, ip_address, port, healthcheck):
@@ -111,12 +113,12 @@ class OscProtocol:
         if self.healthcheck:
             self.healthcheck_osc_callback = self.register(
                 pattern=self.healthcheck.response_pattern,
-                procedure=self._reset_attempts,
+                procedure=self._pass_healthcheck,
             )
 
     def _teardown(self):
         self.is_running = False
-        if self.healthcheck:
+        if self.healthcheck is not None:
             self.unregister(self.healthcheck_osc_callback)
 
     def _validate_callback(
@@ -301,8 +303,8 @@ class ThreadedOscProtocol(OscProtocol):
         OscProtocol.__init__(self)
         self.command_queue = queue.Queue()
         self.lock = threading.RLock()
-        self.server = None
-        self.server_thread = None
+        self.osc_server = None
+        self.osc_server_thread = None
 
     ### SPECIAL METHODS ###
 
@@ -323,21 +325,29 @@ class ThreadedOscProtocol(OscProtocol):
                 self._remove_callback(callback)
 
     def _run_healthcheck(self):
-        if self.healthcheck is None or time.time() < self.healthcheck_deadline:
+        if self.healthcheck is None:
             return
-        self.healthcheck_deadline += self.healthcheck.timeout * pow(
+        now = time.time()
+        if now < self.healthcheck_deadline:
+            return
+        if self.attempts > 0:
+            remaining = self.healthcheck.max_attempts - self.attempts
+            osc_protocol_logger.info(
+                f"healthcheck failed, {remaining} attempts remaining"
+            )
+        new_timeout = self.healthcheck.timeout * pow(
             self.healthcheck.backoff_factor, self.attempts
         )
+        self.healthcheck_deadline = now + new_timeout
         self.attempts += 1
-        if self.attempts < self.healthcheck.max_attempts:
+        if self.attempts <= self.healthcheck.max_attempts:
+            osc_protocol_logger.info("healthchecking...")
             self.send(OscMessage(*self.healthcheck.request_pattern))
             return
-        self._BaseServer__shutdown_request = True
-        with self.lock:
-            self._teardown()
-            self.server = None
-            self.server_thread = None
-            self.healthcheck.callback()
+        osc_protocol_logger.info("healthcheck failure limit exceeded")
+        self.osc_server._BaseServer__shutdown_request = True
+        self.disconnect()
+        self.healthcheck.callback()
 
     def _server_factory(self, ip_address, port):
         server = ThreadedOscServer(
@@ -349,24 +359,31 @@ class ThreadedOscProtocol(OscProtocol):
     ### PUBLIC METHODS ###
 
     def connect(self, ip_address: str, port: int, *, healthcheck: HealthCheck = None):
+        osc_protocol_logger.info("connecting...")
         if self.is_running:
+            osc_protocol_logger.info("already connected!")
             raise OscProtocolAlreadyConnected
         self._setup(ip_address, port, healthcheck)
         self.healthcheck_deadline = time.time()
-        self.server = self._server_factory(ip_address, port)
-        self.server_thread = threading.Thread(target=self.server.serve_forever)
-        self.server_thread.daemon = True
-        self.server_thread.start()
+        self.osc_server = self._server_factory(ip_address, port)
+        self.osc_server_thread = threading.Thread(target=self.osc_server.serve_forever)
+        self.osc_server_thread.daemon = True
+        self.osc_server_thread.start()
         self.is_running = True
+        osc_protocol_logger.info("...connected")
 
     def disconnect(self):
+        osc_protocol_logger.info("disconnecting...")
         with self.lock:
             if not self.is_running:
+                osc_protocol_logger.info("already disconnected!")
                 return
             self._teardown()
-            self.server.shutdown()
-            self.server = None
-            self.server_thread = None
+            if not self.osc_server._BaseServer__shutdown_request:
+                self.osc_server.shutdown()
+            self.osc_server = None
+            self.osc_server_thread = None
+        osc_protocol_logger.info("...disconnected")
 
     def expect(self, message, pattern, failure_pattern=None, timeout=1.0):
         def set_response(message):
@@ -410,7 +427,7 @@ class ThreadedOscProtocol(OscProtocol):
     def send(self, message):
         datagram = self._validate_send(message)
         try:
-            self.server.socket.sendto(datagram, (self.ip_address, self.port))
+            self.osc_server.socket.sendto(datagram, (self.ip_address, self.port))
         except OSError:
             # print(message)
             raise

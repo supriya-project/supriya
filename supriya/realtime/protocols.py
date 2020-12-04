@@ -8,7 +8,7 @@ import time
 
 import supriya.exceptions
 
-logger = logging.getLogger("supriya.server")
+logger = logging.getLogger("supriya.server.protocol")
 
 
 class ProcessProtocol:
