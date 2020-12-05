@@ -143,6 +143,21 @@ class Node(ServerObject, UniqueTreeNode):
     def _cache_control_interface(self):
         return self._control_interface.as_dict()
 
+    @staticmethod
+    def _expr_as_target(expr):
+        import supriya.realtime
+
+        if expr is None:
+            expr = Node._expr_as_target(supriya.realtime.Server.default())
+        if hasattr(expr, "_as_node_target"):
+            return expr._as_node_target()
+        if isinstance(expr, (float, int)):
+            server = supriya.realtime.Server.default()
+            return server._nodes[int(expr)]
+        if expr is None:
+            raise supriya.exceptions.ServerOffline
+        raise TypeError(expr)
+
     def _get_graphviz_name(self):
         parts = [uqbar.strings.to_dash_case(type(self).__name__)]
         if self.is_allocated:
@@ -271,21 +286,6 @@ class Node(ServerObject, UniqueTreeNode):
         return node_id
 
     ### PUBLIC METHODS ###
-
-    @staticmethod
-    def expr_as_target(expr):
-        import supriya.realtime
-
-        if expr is None:
-            expr = Node.expr_as_target(supriya.realtime.Server.default())
-        if hasattr(expr, "_as_node_target"):
-            return expr._as_node_target()
-        if isinstance(expr, (float, int)):
-            server = supriya.realtime.Server.default()
-            return server._nodes[int(expr)]
-        if expr is None:
-            raise supriya.exceptions.ServerOffline
-        raise TypeError(expr)
 
     def free(self):
         import supriya.commands
@@ -644,7 +644,7 @@ class Group(Node, UniqueTreeList):
         if self.is_allocated:
             return
         self._node_id_is_permanent = bool(node_id_is_permanent)
-        target_node = Node.expr_as_target(target_node)
+        target_node = Node._expr_as_target(target_node)
         server = target_node.server
         group_new_request = supriya.commands.GroupNewRequest(
             items=[
@@ -821,7 +821,7 @@ class Synth(Node):
         if self.is_allocated:
             return
         self._node_id_is_permanent = bool(node_id_is_permanent)
-        target_node = Node.expr_as_target(target_node)
+        target_node = Node._expr_as_target(target_node)
         server = target_node.server
         if not server.is_running:
             raise supriya.exceptions.ServerOffline
