@@ -2,6 +2,7 @@ import abc
 import pathlib
 import tempfile
 from collections.abc import Sequence
+from typing import Tuple
 
 import uqbar.graphs
 import uqbar.strings
@@ -287,6 +288,26 @@ class Node(ServerObject, UniqueTreeNode):
 
     ### PUBLIC METHODS ###
 
+    def add_group(self, add_action: int = None) -> "Group":
+        if add_action is None:
+            add_action = self._valid_add_actions[0]
+        add_action = AddAction.from_expr(add_action)
+        if add_action not in self._valid_add_actions:
+            raise ValueError("Invalid add action: {add_action}")
+        group = Group()
+        group.allocate(add_action=add_action, target_node=self)
+        return group
+
+    def add_synth(self, synthdef=None, add_action: int = None, **kwargs) -> "Synth":
+        if add_action is None:
+            add_action = self._valid_add_actions[0]
+        add_action = AddAction.from_expr(add_action)
+        if add_action not in self._valid_add_actions:
+            raise ValueError("Invalid add action: {add_action}")
+        synth = Synth(synthdef=synthdef, **kwargs)
+        synth.allocate(add_action=add_action, target_node=self)
+        return synth
+
     def free(self):
         import supriya.commands
 
@@ -297,6 +318,33 @@ class Node(ServerObject, UniqueTreeNode):
             node_free_request = supriya.commands.NodeFreeRequest(node_ids=(node_id,))
             node_free_request.communicate(server=server, sync=False)
         return self
+
+    def move_node(self, node: "Node", add_action: int = None) -> "Node":
+        """
+        Move ``node`` relative to self via ``add_action``.
+        """
+        if add_action is None:
+            add_action = self._valid_add_actions[0]
+        add_action = AddAction.from_expr(add_action)
+        if add_action not in self._valid_add_actions:
+            raise ValueError("Invalid add action: {add_action}")
+        elif node in self.parentage:
+            raise ValueError("Node in parentage")
+        if add_action == AddAction.ADD_TO_HEAD:
+            self.insert(0, node)
+        elif add_action == AddAction.ADD_TO_TAIL:
+            self.append(node)
+        elif add_action == AddAction.ADD_BEFORE:
+            if self.parent is None:
+                raise ValueError("Cannot move before without parent")
+            index = self.parent.index(self)
+            self.parent.insert(index, node)
+        elif add_action == AddAction.ADD_AFTER:
+            if self.parent is None:
+                raise ValueError("Cannot move after without parent")
+            index = self.parent.index(self)
+            self.parent.insert(index + 1, node)
+        return node
 
     def pause(self):
         import supriya.commands
@@ -420,6 +468,13 @@ class Group(Node, UniqueTreeList):
 
     __slots__ = ("_children", "_control_interface", "_named_children")
 
+    _valid_add_actions: Tuple[int, ...] = (
+        AddAction.ADD_TO_HEAD,
+        AddAction.ADD_TO_TAIL,
+        AddAction.ADD_AFTER,
+        AddAction.ADD_BEFORE,
+    )
+
     ### INITIALIZER ###
 
     def __init__(self, children=None, name=None, node_id_is_permanent=False):
@@ -511,9 +566,9 @@ class Group(Node, UniqueTreeList):
             outer_target_node = group[start - 1]
         for outer_node in expr:
             if outer_target_node is group:
-                outer_add_action = supriya.AddAction.ADD_TO_HEAD
+                outer_add_action = AddAction.ADD_TO_HEAD
             else:
-                outer_add_action = supriya.AddAction.ADD_AFTER
+                outer_add_action = AddAction.ADD_AFTER
             outer_node_was_allocated = outer_node.is_allocated
             yield outer_node, outer_target_node, outer_add_action
             outer_target_node = outer_node
@@ -540,7 +595,7 @@ class Group(Node, UniqueTreeList):
         for node, target_node, add_action in iterator:
             nodes.add(node)
             if node.is_allocated:
-                if add_action == supriya.AddAction.ADD_TO_HEAD:
+                if add_action == AddAction.ADD_TO_HEAD:
                     request = supriya.commands.GroupHeadRequest(
                         node_id_pairs=[(node, target_node)]
                     )
@@ -733,6 +788,8 @@ class Synth(Node):
 
     __slots__ = ("_control_interface", "_register_controls", "_synthdef")
 
+    _valid_add_actions = (AddAction.ADD_BEFORE, AddAction.ADD_AFTER)
+
     ### INITIALIZER ###
 
     def __init__(
@@ -873,6 +930,11 @@ class RootNode(Group):
     __documentation_section__ = "Server Internals"
 
     __slots__ = ()
+
+    _valid_add_actions: Tuple[int, ...] = (
+        AddAction.ADD_TO_HEAD,
+        AddAction.ADD_TO_TAIL,
+    )
 
     ### INITIALIZER ###
 
