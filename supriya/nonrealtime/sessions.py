@@ -13,7 +13,13 @@ import supriya.osc
 import supriya.realtime
 import supriya.soundfiles
 import supriya.synthdefs
-from supriya import HeaderFormat, ParameterRate, SampleFormat, scsynth
+from supriya import (
+    CalculationRate,
+    HeaderFormat,
+    ParameterRate,
+    SampleFormat,
+    scsynth,
+)
 from supriya.commands import (
     BufferCopyRequest,
     BufferFillRequest,
@@ -302,10 +308,10 @@ class Session:
         output_count = self._options.output_bus_channel_count
         first_private_bus_id = input_count + output_count
         allocators = {
-            supriya.CalculationRate.AUDIO: supriya.realtime.BlockAllocator(
+            CalculationRate.AUDIO: supriya.realtime.BlockAllocator(
                 heap_minimum=first_private_bus_id
             ),
-            supriya.CalculationRate.CONTROL: supriya.realtime.BlockAllocator(),
+            CalculationRate.CONTROL: supriya.realtime.BlockAllocator(),
         }
         mapping = {}
         if output_count:
@@ -516,7 +522,7 @@ class Session:
     def _collect_bus_settings(self, id_mapping):
         bus_settings = {}
         for bus in self._buses:
-            if bus.calculation_rate != supriya.CalculationRate.CONTROL:
+            if bus.calculation_rate != CalculationRate.CONTROL:
                 continue
             bus_id = id_mapping[bus]
             for offset, value in bus._events:
@@ -961,7 +967,7 @@ class Session:
                 stop_moment.state.stop_buffers.add(buffer_)
         return buffer_group
 
-    def add_bus(self, calculation_rate="control"):
+    def add_bus(self, calculation_rate=CalculationRate.CONTROL):
         import supriya.nonrealtime
 
         session_id = self._get_next_session_id("bus")
@@ -972,7 +978,7 @@ class Session:
         self._buses_by_session_id[session_id] = bus
         return bus
 
-    def add_bus_group(self, bus_count=1, calculation_rate="control"):
+    def add_bus_group(self, bus_count=1, calculation_rate=CalculationRate.CONTROL):
         import supriya.nonrealtime
 
         session_id = self._get_next_session_id("bus")

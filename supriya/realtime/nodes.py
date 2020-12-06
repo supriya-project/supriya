@@ -2,6 +2,7 @@ import abc
 import pathlib
 import tempfile
 from collections.abc import Sequence
+from typing import Tuple, cast
 
 import uqbar.graphs
 import uqbar.strings
@@ -18,6 +19,8 @@ class Node(ServerObject, UniqueTreeNode):
     ### CLASS VARIABLES ###
 
     __slots__ = ("_is_paused", "_name", "_node_id", "_node_id_is_permanent", "_parent")
+
+    _valid_add_actions: Tuple[int, ...] = ()
 
     ### INITIALIZER ###
 
@@ -142,6 +145,21 @@ class Node(ServerObject, UniqueTreeNode):
 
     def _cache_control_interface(self):
         return self._control_interface.as_dict()
+
+    @staticmethod
+    def _expr_as_target(expr):
+        import supriya.realtime
+
+        if expr is None:
+            expr = Node._expr_as_target(supriya.realtime.Server.default())
+        if hasattr(expr, "_as_node_target"):
+            return expr._as_node_target()
+        if isinstance(expr, (float, int)):
+            server = supriya.realtime.Server.default()
+            return server._nodes[int(expr)]
+        if expr is None:
+            raise supriya.exceptions.ServerOffline
+        raise TypeError(expr)
 
     def _get_graphviz_name(self):
         parts = [uqbar.strings.to_dash_case(type(self).__name__)]
@@ -272,20 +290,68 @@ class Node(ServerObject, UniqueTreeNode):
 
     ### PUBLIC METHODS ###
 
-    @staticmethod
-    def expr_as_target(expr):
-        import supriya.realtime
+    def add_group(self, add_action: int = None) -> "Group":
+        """
+        Add a group relative to this node via ``add_action``.
 
-        if expr is None:
-            expr = Node.expr_as_target(supriya.realtime.Server.default())
-        if hasattr(expr, "_as_node_target"):
-            return expr._as_node_target()
-        if isinstance(expr, (float, int)):
-            server = supriya.realtime.Server.default()
-            return server._nodes[int(expr)]
-        if expr is None:
-            raise supriya.exceptions.ServerOffline
-        raise TypeError(expr)
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+
+        ::
+
+            >>> node = server.add_group()
+            >>> group = node.add_group()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+                    1000 group
+                        1001 group
+
+        """
+        if add_action is None:
+            add_action = self._valid_add_actions[0]
+        add_action = AddAction.from_expr(add_action)
+        if add_action not in self._valid_add_actions:
+            raise ValueError("Invalid add action: {add_action}")
+        group = Group()
+        group.allocate(add_action=add_action, target_node=self)
+        return group
+
+    def add_synth(self, synthdef=None, add_action: int = None, **kwargs) -> "Synth":
+        """
+        Add a synth relative to this node via ``add_action``.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+
+        ::
+
+            >>> node = server.add_group()
+            >>> synth = node.add_synth()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+                    1000 group
+                        1001 default
+                            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
+
+        """
+        if add_action is None:
+            add_action = self._valid_add_actions[0]
+        add_action = AddAction.from_expr(add_action)
+        if add_action not in self._valid_add_actions:
+            raise ValueError("Invalid add action: {add_action}")
+        synth = Synth(synthdef=synthdef, **kwargs)
+        synth.allocate(add_action=add_action, target_node=self)
+        return synth
 
     def free(self):
         import supriya.commands
@@ -297,6 +363,54 @@ class Node(ServerObject, UniqueTreeNode):
             node_free_request = supriya.commands.NodeFreeRequest(node_ids=(node_id,))
             node_free_request.communicate(server=server, sync=False)
         return self
+
+    def move_node(self, node: "Node", add_action: int = None) -> "Node":
+        """
+        Move ``node`` relative to this node via ``add_action``.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> group_one = server.add_group()
+            >>> group_two = server.add_group()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+                    1001 group
+                    1000 group
+
+        ::
+
+            >>> _ = group_two.move_node(group_one, "add_to_head")
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+                    1001 group
+                        1000 group
+
+        """
+        if add_action is None:
+            add_action = self._valid_add_actions[0]
+        add_action = AddAction.from_expr(add_action)
+        if add_action not in self._valid_add_actions:
+            raise ValueError("Invalid add action: {add_action}")
+        elif node in self.parentage:
+            raise ValueError("Node in parentage")
+        if add_action == AddAction.ADD_BEFORE:
+            if self.parent is None:
+                raise ValueError("Cannot move before without parent")
+            index = self.parent.index(self)
+            self.parent.insert(index, node)
+        elif add_action == AddAction.ADD_AFTER:
+            if self.parent is None:
+                raise ValueError("Cannot move after without parent")
+            index = self.parent.index(self)
+            self.parent.insert(index + 1, node)
+        elif add_action == AddAction.ADD_TO_HEAD:
+            cast(Group, self).insert(0, node)
+        elif add_action == AddAction.ADD_TO_TAIL:
+            cast(Group, self).append(node)
+        return node
 
     def pause(self):
         import supriya.commands
@@ -420,6 +534,13 @@ class Group(Node, UniqueTreeList):
 
     __slots__ = ("_children", "_control_interface", "_named_children")
 
+    _valid_add_actions: Tuple[int, ...] = (
+        AddAction.ADD_TO_HEAD,
+        AddAction.ADD_TO_TAIL,
+        AddAction.ADD_AFTER,
+        AddAction.ADD_BEFORE,
+    )
+
     ### INITIALIZER ###
 
     def __init__(self, children=None, name=None, node_id_is_permanent=False):
@@ -511,9 +632,9 @@ class Group(Node, UniqueTreeList):
             outer_target_node = group[start - 1]
         for outer_node in expr:
             if outer_target_node is group:
-                outer_add_action = supriya.AddAction.ADD_TO_HEAD
+                outer_add_action = AddAction.ADD_TO_HEAD
             else:
-                outer_add_action = supriya.AddAction.ADD_AFTER
+                outer_add_action = AddAction.ADD_AFTER
             outer_node_was_allocated = outer_node.is_allocated
             yield outer_node, outer_target_node, outer_add_action
             outer_target_node = outer_node
@@ -540,7 +661,7 @@ class Group(Node, UniqueTreeList):
         for node, target_node, add_action in iterator:
             nodes.add(node)
             if node.is_allocated:
-                if add_action == supriya.AddAction.ADD_TO_HEAD:
+                if add_action == AddAction.ADD_TO_HEAD:
                     request = supriya.commands.GroupHeadRequest(
                         node_id_pairs=[(node, target_node)]
                     )
@@ -644,7 +765,7 @@ class Group(Node, UniqueTreeList):
         if self.is_allocated:
             return
         self._node_id_is_permanent = bool(node_id_is_permanent)
-        target_node = Node.expr_as_target(target_node)
+        target_node = Node._expr_as_target(target_node)
         server = target_node.server
         group_new_request = supriya.commands.GroupNewRequest(
             items=[
@@ -671,6 +792,8 @@ class Group(Node, UniqueTreeList):
             node._unregister_with_local_server()
         Node.free(self)
         return self
+
+    ### PUBLIC PROPERTIES ###
 
     @property
     def controls(self):
@@ -732,6 +855,8 @@ class Synth(Node):
     __documentation_section__ = "Main Classes"
 
     __slots__ = ("_control_interface", "_register_controls", "_synthdef")
+
+    _valid_add_actions = (AddAction.ADD_BEFORE, AddAction.ADD_AFTER)
 
     ### INITIALIZER ###
 
@@ -821,7 +946,7 @@ class Synth(Node):
         if self.is_allocated:
             return
         self._node_id_is_permanent = bool(node_id_is_permanent)
-        target_node = Node.expr_as_target(target_node)
+        target_node = Node._expr_as_target(target_node)
         server = target_node.server
         if not server.is_running:
             raise supriya.exceptions.ServerOffline
@@ -873,6 +998,11 @@ class RootNode(Group):
     __documentation_section__ = "Server Internals"
 
     __slots__ = ()
+
+    _valid_add_actions: Tuple[int, ...] = (
+        AddAction.ADD_TO_HEAD,
+        AddAction.ADD_TO_TAIL,
+    )
 
     ### INITIALIZER ###
 

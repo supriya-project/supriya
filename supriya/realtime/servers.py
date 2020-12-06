@@ -7,7 +7,6 @@ from typing import Set
 from uqbar.objects import new
 
 import supriya.exceptions
-from supriya import scsynth
 from supriya.commands import (  # type: ignore
     FailResponse,
     GroupNewRequest,
@@ -16,7 +15,7 @@ from supriya.commands import (  # type: ignore
     QuitRequest,
     SyncRequest,
 )
-from supriya.enums import NodeAction
+from supriya.enums import CalculationRate, NodeAction
 from supriya.osc.protocols import (
     AsyncOscProtocol,
     HealthCheck,
@@ -24,10 +23,13 @@ from supriya.osc.protocols import (
     ThreadedOscProtocol,
 )
 from supriya.querytree import QueryTreeGroup, QueryTreeSynth
-from supriya.scsynth import Options
+from supriya.scsynth import Options, find
 
 from .allocators import BlockAllocator, NodeIdAllocator
+from .buffers import Buffer, BufferGroup
+from .buses import Bus, BusGroup
 from .meters import Meters
+from .nodes import Group, Synth
 from .protocols import AsyncProcessProtocol, SyncProcessProtocol
 from .recorder import Recorder
 
@@ -324,7 +326,7 @@ class AsyncServer(BaseServer):
         self._boot_future = loop.create_future()
         self._quit_future = loop.create_future()
         self._options = new(options or Options(), **kwargs)
-        scsynth_path = scsynth.find(scsynth_path)
+        scsynth_path = find(scsynth_path)
         self._process_protocol = AsyncProcessProtocol()
         await self._process_protocol.boot(self._options, scsynth_path, port)
         if not await self._process_protocol.boot_future:
@@ -856,12 +858,145 @@ class Server(BaseServer):
 
     ### PUBLIC METHODS ###
 
+    def add_buffer(
+        self,
+        channel_count: int = None,
+        frame_count: int = None,
+        starting_frame: int = None,
+        file_path: str = None,
+    ) -> Buffer:
+        """
+        Add a buffer.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> server.add_buffer(channel_count=2, frame_count=1024)
+            <+ Buffer: 0>
+
+        """
+        buffer_ = Buffer()
+        if file_path:
+            channel_indices = None
+            if channel_count:
+                channel_indices = tuple(range(channel_count))
+            buffer_.allocate_from_file(
+                file_path,
+                channel_indices=channel_indices,
+                frame_count=frame_count,
+                server=self,
+                starting_frame=starting_frame,
+            )
+        else:
+            buffer_.allocate(
+                channel_count=channel_count, frame_count=frame_count, server=self,
+            )
+        return buffer_
+
+    def add_buffer_group(
+        self, buffer_count: int = 1, channel_count: int = None, frame_count: int = None,
+    ) -> BufferGroup:
+        """
+        Add a buffer group.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> server.add_buffer_group(buffer_count=8, channel_count=1, frame_count=1024)
+            <+ BufferGroup{8}: 0>
+
+        """
+        buffer_group = BufferGroup(buffer_count)
+        buffer_group.allocate(
+            channel_count=channel_count, frame_count=frame_count, server=self,
+        )
+        return buffer_group
+
+    def add_bus(self, calculation_rate: int = CalculationRate.CONTROL) -> Bus:
+        """
+        Add a bus.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> server.add_bus()
+            <+ Bus: 0 (control)>
+
+        """
+        bus = Bus(calculation_rate=calculation_rate)
+        bus.allocate(server=self)
+        return bus
+
+    def add_bus_group(
+        self, bus_count: int = 1, calculation_rate: int = CalculationRate.CONTROL
+    ) -> BusGroup:
+        """
+        Add a bus group.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> server.add_bus_group(4, "audio")
+            <+ BusGroup{4}: 16 (audio)>
+
+        """
+        bus_group = BusGroup(bus_count=bus_count, calculation_rate=calculation_rate)
+        bus_group.allocate(server=self)
+        return bus_group
+
+    def add_group(self, add_action: int = None) -> Group:
+        """
+        Add a group relative to the default group via ``add_action``.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+
+        ::
+
+            >>> group = server.add_group()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+                    1000 group
+
+        """
+        return self.default_group.add_group(add_action=add_action)
+
+    def add_synth(self, synthdef=None, add_action: int = None, **kwargs) -> Synth:
+        """
+        Add a synth relative to the default group via ``add_action``.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+
+        ::
+
+            >>> synth = server.add_synth()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+                    1000 default
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
+
+        """
+        return self.default_group.add_synth(
+            synthdef=synthdef, add_action=add_action, **kwargs
+        )
+
     def boot(self, port=DEFAULT_PORT, *, scsynth_path=None, options=None, **kwargs):
         if self.is_running:
             raise supriya.exceptions.ServerOnline
         port = port or DEFAULT_PORT
         self._options = new(options or Options(), **kwargs)
-        scsynth_path = scsynth.find(scsynth_path)
+        scsynth_path = find(scsynth_path)
         self._process_protocol = SyncProcessProtocol()
         self._process_protocol.boot(self._options, scsynth_path, port)
         self._ip_address = "127.0.0.1"
@@ -916,6 +1051,9 @@ class Server(BaseServer):
         if cls._default_server is None:
             cls._default_server = Server()
         return cls._default_server
+
+    def query(self, include_controls=True):
+        return self.query_remote_nodes(include_controls=include_controls)
 
     def query_local_nodes(self, include_controls=False):
         """
