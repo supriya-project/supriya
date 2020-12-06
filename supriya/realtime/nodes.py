@@ -291,6 +291,27 @@ class Node(ServerObject, UniqueTreeNode):
     ### PUBLIC METHODS ###
 
     def add_group(self, add_action: int = None) -> "Group":
+        """
+        Add a group relative to this node via ``add_action``.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+
+        ::
+
+            >>> node = server.add_group()
+            >>> group = node.add_group()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+                    1000 group
+                        1001 group
+
+        """
         if add_action is None:
             add_action = self._valid_add_actions[0]
         add_action = AddAction.from_expr(add_action)
@@ -301,6 +322,28 @@ class Node(ServerObject, UniqueTreeNode):
         return group
 
     def add_synth(self, synthdef=None, add_action: int = None, **kwargs) -> "Synth":
+        """
+        Add a synth relative to this node via ``add_action``.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+
+        ::
+
+            >>> node = server.add_group()
+            >>> synth = node.add_synth()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+                    1000 group
+                        1001 default
+                            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
+
+        """
         if add_action is None:
             add_action = self._valid_add_actions[0]
         add_action = AddAction.from_expr(add_action)
@@ -323,7 +366,7 @@ class Node(ServerObject, UniqueTreeNode):
 
     def move_node(self, node: "Node", add_action: int = None) -> "Node":
         """
-        Move ``node`` relative to self via ``add_action``.
+        Move ``node`` relative to this node via ``add_action``.
         """
         if add_action is None:
             add_action = self._valid_add_actions[0]
