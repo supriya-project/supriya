@@ -20,6 +20,8 @@ class Node(ServerObject, UniqueTreeNode):
 
     __slots__ = ("_is_paused", "_name", "_node_id", "_node_id_is_permanent", "_parent")
 
+    _valid_add_actions: Tuple[int, ...] = ()
+
     ### INITIALIZER ###
 
     @abc.abstractmethod
