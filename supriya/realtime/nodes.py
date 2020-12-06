@@ -2,7 +2,7 @@ import abc
 import pathlib
 import tempfile
 from collections.abc import Sequence
-from typing import Tuple
+from typing import Tuple, cast
 
 import uqbar.graphs
 import uqbar.strings
@@ -367,6 +367,27 @@ class Node(ServerObject, UniqueTreeNode):
     def move_node(self, node: "Node", add_action: int = None) -> "Node":
         """
         Move ``node`` relative to this node via ``add_action``.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> group_one = server.add_group()
+            >>> group_two = server.add_group()
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+                    1001 group
+                    1000 group
+
+        ::
+
+            >>> _ = group_two.move_node(group_one, "add_to_head")
+            >>> print(server.query())
+            NODE TREE 0 group
+                1 group
+                    1001 group
+                        1000 group
+
         """
         if add_action is None:
             add_action = self._valid_add_actions[0]
@@ -385,6 +406,10 @@ class Node(ServerObject, UniqueTreeNode):
                 raise ValueError("Cannot move after without parent")
             index = self.parent.index(self)
             self.parent.insert(index + 1, node)
+        elif add_action == AddAction.ADD_TO_HEAD:
+            cast(Group, self).insert(0, node)
+        elif add_action == AddAction.ADD_TO_TAIL:
+            cast(Group, self).append(node)
         return node
 
     def pause(self):
@@ -767,14 +792,6 @@ class Group(Node, UniqueTreeList):
             node._unregister_with_local_server()
         Node.free(self)
         return self
-
-    def move_node(self, node: "Node", add_action: int = None) -> "Node":
-        node = super().move_node(node, add_action)
-        if add_action == AddAction.ADD_TO_HEAD:
-            self.insert(0, node)
-        elif add_action == AddAction.ADD_TO_TAIL:
-            self.append(node)
-        return node
 
     ### PUBLIC PROPERTIES ###
 
