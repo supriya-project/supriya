@@ -9,6 +9,7 @@ from uqbar.objects import new
 import supriya  # noqa
 import supriya.realtime
 from supriya.commands import GroupNewRequest, SynthNewRequest
+from supriya.enums import AddAction
 from supriya.nonrealtime.bases import SessionObject
 from supriya.nonrealtime.states import NodeTransition, State
 from supriya.patterns.bases import Pattern
@@ -279,8 +280,9 @@ class Node(SessionObject):
 
         if add_action is None:
             add_action = self._valid_add_actions[0]
-        add_action = supriya.AddAction.from_expr(add_action)
-        assert add_action in self._valid_add_actions
+        add_action = AddAction.from_expr(add_action)
+        if add_action not in self._valid_add_actions:
+            raise ValueError(f"Invalid add action: {add_action}")
         session_id = self.session._get_next_session_id("node")
         node = supriya.nonrealtime.Group(
             self.session, duration=duration, session_id=session_id, start_offset=offset
@@ -302,8 +304,9 @@ class Node(SessionObject):
 
         if add_action is None:
             add_action = self._valid_add_actions[0]
-        add_action = supriya.AddAction.from_expr(add_action)
-        assert add_action in self._valid_add_actions
+        add_action = AddAction.from_expr(add_action)
+        if add_action not in self._valid_add_actions:
+            raise ValueError(f"Invalid add action: {add_action}")
         session_id = self.session._get_next_session_id("node")
         synthdef = synthdef or supriya.assets.synthdefs.default
         node = supriya.nonrealtime.Synth(
@@ -332,8 +335,9 @@ class Node(SessionObject):
             raise ValueError("Can't add parent as a child.")
         if add_action is None:
             add_action = self._valid_add_actions[0]
-        add_action = supriya.AddAction.from_expr(add_action)
-        assert add_action in self._valid_add_actions
+        add_action = AddAction.from_expr(add_action)
+        if add_action not in self._valid_add_actions:
+            raise ValueError("Invalid add action: {add_action}")
         node_action = supriya.nonrealtime.NodeTransition(
             source=node, target=self, action=add_action
         )
@@ -556,10 +560,10 @@ class Group(Node):
     __slots__ = ()
 
     _valid_add_actions: Tuple[int, ...] = (
-        supriya.AddAction.ADD_TO_HEAD,
-        supriya.AddAction.ADD_TO_TAIL,
-        supriya.AddAction.ADD_AFTER,
-        supriya.AddAction.ADD_BEFORE,
+        AddAction.ADD_TO_HEAD,
+        AddAction.ADD_TO_TAIL,
+        AddAction.ADD_AFTER,
+        AddAction.ADD_BEFORE,
     )
 
     ### SPECIAL METHODS ###
@@ -687,7 +691,7 @@ class Synth(Node):
 
     __slots__ = ("_synthdef", "_synth_kwargs")
 
-    _valid_add_actions = (supriya.AddAction.ADD_BEFORE, supriya.AddAction.ADD_AFTER)
+    _valid_add_actions = (AddAction.ADD_BEFORE, AddAction.ADD_AFTER)
 
     ### INITIALIZER ###
 
@@ -797,8 +801,8 @@ class RootNode(Group):
     __slots__ = ()
 
     _valid_add_actions: Tuple[int, ...] = (
-        supriya.AddAction.ADD_TO_HEAD,
-        supriya.AddAction.ADD_TO_TAIL,
+        AddAction.ADD_TO_HEAD,
+        AddAction.ADD_TO_TAIL,
     )
 
     ### INITIALIZER ###
