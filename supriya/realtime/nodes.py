@@ -332,11 +332,7 @@ class Node(ServerObject, UniqueTreeNode):
             raise ValueError("Invalid add action: {add_action}")
         elif node in self.parentage:
             raise ValueError("Node in parentage")
-        if add_action == AddAction.ADD_TO_HEAD:
-            self.insert(0, node)
-        elif add_action == AddAction.ADD_TO_TAIL:
-            self.append(node)
-        elif add_action == AddAction.ADD_BEFORE:
+        if add_action == AddAction.ADD_BEFORE:
             if self.parent is None:
                 raise ValueError("Cannot move before without parent")
             index = self.parent.index(self)
@@ -728,6 +724,16 @@ class Group(Node, UniqueTreeList):
             node._unregister_with_local_server()
         Node.free(self)
         return self
+
+    def move_node(self, node: "Node", add_action: int = None) -> "Node":
+        node = super().move_node(node, add_action)
+        if add_action == AddAction.ADD_TO_HEAD:
+            self.insert(0, node)
+        elif add_action == AddAction.ADD_TO_TAIL:
+            self.append(node)
+        return node
+
+    ### PUBLIC PROPERTIES ###
 
     @property
     def controls(self):
