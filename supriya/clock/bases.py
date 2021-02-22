@@ -12,7 +12,9 @@ from .. import conversions
 from .ephemera import (
     CallbackCommand,
     CallbackEvent,
+    ChangeCommand,
     ChangeEvent,
+    ClockContext,
     ClockState,
     EventType,
     Moment,
@@ -186,7 +188,16 @@ class BaseTempoClock:
     ### SCHEDULING METHODS ###
 
     def _cancel(self, event_id) -> Optional[Tuple]:
-        ...
+        event = self._events_by_id.pop(event_id, None)
+        if event is not None and not isinstance(
+            event, (CallbackCommand, ChangeCommand)
+        ):
+            self._event_queue.remove(event)
+            if event.offset is not None:
+                self._offset_relative_event_ids.remove(event.event_id)
+                if event.measure is not None:
+                    self._measure_relative_event_ids.remove(event.event_id)
+        return event
 
     def _enqueue_command(self, command):
         self._events_by_id[command.event_id] = command
@@ -236,14 +247,11 @@ class BaseTempoClock:
             f"{desired_moment.seconds - self._state.initial_seconds}:s / "
             f"{desired_moment.offset}:o"
         )
+        context = ClockContext(current_moment, desired_moment, event)
+        args = event.args or ()
+        kwargs = event.kwargs or {}
         try:
-            result = event.procedure(
-                current_moment,
-                desired_moment,
-                event,
-                *(event.args or ()),
-                **(event.kwargs or {}),
-            )
+            result = event.procedure(context, *args, **kwargs)
         except Exception:
             traceback.print_exc()
             return
@@ -435,7 +443,114 @@ class BaseTempoClock:
             )
             self._enqueue_event(event._replace(offset=offset, seconds=seconds))
 
+    def _start(
+        self,
+        initial_time: Optional[float] = None,
+        initial_offset: float = 0.0,
+        initial_measure: int = 1,
+        beats_per_minute: Optional[float] = None,
+        time_signature: Optional[Tuple[int, int]] = None,
+    ):
+        if self._is_running:
+            raise RuntimeError("Already started")
+        if initial_time is None:
+            initial_time = self.get_current_time()
+        self._state = ClockState(
+            beats_per_minute=beats_per_minute or self._state.beats_per_minute,
+            initial_seconds=initial_time,
+            previous_measure=int(initial_measure),
+            previous_offset=float(initial_offset),
+            previous_seconds=float(initial_time),
+            previous_time_signature_change_offset=float(initial_offset),
+            time_signature=time_signature or self._state.time_signature,
+        )
+        self._is_running = True
+
+    def _stop(self):
+        if not self._is_running:
+            return False
+        self._is_running = False
+        return True
+
     ### PUBLIC METHODS ###
+
+    def cancel(self, event_id) -> Optional[Tuple]:
+        logger.debug(f"[{self.name}] Canceling {event_id}")
+        event_id = self._cancel(event_id)
+        return event_id
+
+    def change(
+        self,
+        beats_per_minute: Optional[float] = None,
+        time_signature: Optional[Tuple[int, int]] = None,
+    ) -> Optional[int]:
+        if not self._is_running:
+            self._state = self._state._replace(
+                beats_per_minute=beats_per_minute or self._state.beats_per_minute,
+                time_signature=time_signature or self._state.time_signature,
+            )
+            return None
+        event_id = next(self._counter)
+        command = ChangeCommand(
+            event_id=event_id,
+            event_type=EventType.CHANGE,
+            beats_per_minute=beats_per_minute,
+            time_signature=time_signature,
+            quantization=None,
+            schedule_at=self.get_current_time(),
+            time_unit=None,
+        )
+        self._enqueue_command(command)
+        return event_id
+
+    def cue(
+        self,
+        procedure,
+        *,
+        args=None,
+        event_type: EventType = EventType.SCHEDULE,
+        kwargs=None,
+        quantization: str = None,
+    ) -> int:
+        if event_type <= 0:
+            raise ValueError(f"Invalid event type {event_type}")
+        elif quantization is not None and quantization not in self._valid_quantizations:
+            raise ValueError(f"Invalid quantization: {quantization}")
+        event_id = next(self._counter)
+        command = CallbackCommand(
+            args=args,
+            event_id=event_id,
+            event_type=event_type,
+            kwargs=kwargs,
+            procedure=procedure,
+            quantization=quantization,
+            schedule_at=self.get_current_time() if self.is_running else 0,
+            time_unit=None,
+        )
+        self._enqueue_command(command)
+        return event_id
+
+    def cue_change(
+        self,
+        *,
+        beats_per_minute: Optional[float] = None,
+        quantization: str = None,
+        time_signature: Optional[Tuple[int, int]] = None,
+    ) -> int:
+        if quantization is not None and quantization not in self._valid_quantizations:
+            raise ValueError(f"Invalid quantization: {quantization}")
+        event_id = next(self._counter)
+        command = ChangeCommand(
+            beats_per_minute=beats_per_minute,
+            event_id=event_id,
+            event_type=EventType.CHANGE,
+            quantization=quantization,
+            schedule_at=self.get_current_time() if self.is_running else 0,
+            time_signature=time_signature,
+            time_unit=None,
+        )
+        self._enqueue_command(command)
+        return event_id
 
     def get_current_time(self) -> float:
         return time.time()
@@ -452,6 +567,89 @@ class BaseTempoClock:
         if "T" in quantization:
             fraction *= fractions.Fraction(2, 3)
         return float(fraction)
+
+    def reschedule(
+        self, event_id, *, schedule_at=0.0, time_unit=TimeUnit.BEATS
+    ) -> Optional[int]:
+        if (event_or_command := self.cancel(event_id)) is None:
+            return None
+        if isinstance(event_or_command, (CallbackCommand, ChangeCommand)):
+            command = event_or_command._replace(
+                schedule_at=schedule_at, time_unit=time_unit
+            )
+        elif isinstance(event_or_command, CallbackEvent):
+            command = CallbackCommand(
+                args=event_or_command.args,
+                event_id=event_or_command.event_id,
+                event_type=event_or_command.event_type,
+                kwargs=event_or_command.kwargs,
+                procedure=event_or_command.procedure,
+                quantization=None,
+                schedule_at=schedule_at,
+                time_unit=time_unit,
+            )
+        elif isinstance(event_or_command, ChangeEvent):
+            command = ChangeCommand(
+                beats_per_minute=event_or_command.beats_per_minute,
+                event_id=event_or_command.event_id,
+                event_type=EventType.CHANGE,
+                quantization=None,
+                schedule_at=schedule_at,
+                time_signature=event_or_command.time_signature,
+                time_unit=time_unit,
+            )
+        else:
+            raise ValueError(event_or_command)
+        self._enqueue_command(command)
+        return event_id
+
+    def schedule(
+        self,
+        procedure,
+        *,
+        event_type: EventType = EventType.SCHEDULE,
+        schedule_at: float = 0.0,
+        time_unit: TimeUnit = TimeUnit.BEATS,
+        args=None,
+        kwargs=None,
+    ) -> int:
+        logger.debug(f"[{self.name}] Scheduling {procedure}")
+        if event_type <= 0:
+            raise ValueError(f"Invalid event type {event_type}")
+        event_id = next(self._counter)
+        command = CallbackCommand(
+            args=args,
+            event_id=event_id,
+            event_type=event_type,
+            kwargs=kwargs,
+            procedure=procedure,
+            quantization=None,
+            schedule_at=schedule_at,
+            time_unit=time_unit,
+        )
+        self._enqueue_command(command)
+        return event_id
+
+    def schedule_change(
+        self,
+        *,
+        beats_per_minute: Optional[float] = None,
+        schedule_at: float = 0.0,
+        time_signature: Optional[Tuple[int, int]] = None,
+        time_unit: TimeUnit = TimeUnit.BEATS,
+    ) -> int:
+        event_id = next(self._counter)
+        command = ChangeCommand(
+            beats_per_minute=beats_per_minute,
+            event_id=event_id,
+            event_type=EventType.CHANGE,
+            quantization=None,
+            schedule_at=schedule_at,
+            time_signature=time_signature,
+            time_unit=time_unit,
+        )
+        self._enqueue_command(command)
+        return event_id
 
     ### PUBLIC PROPERTIES ###
 

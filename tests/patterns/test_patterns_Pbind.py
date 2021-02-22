@@ -98,8 +98,8 @@ def test_manual_communicado_pbind_01(server):
     """
     )
     # Step 1
-    moment = pytest.helpers.make_moment(0)
-    player(moment, moment)
+    context = pytest.helpers.make_clock_context(0)
+    player(context)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -111,8 +111,8 @@ def test_manual_communicado_pbind_01(server):
     """
     )
     # Step 2
-    moment = pytest.helpers.make_moment(0)
-    player(moment, moment)
+    context = pytest.helpers.make_clock_context(0)
+    player(context)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -137,8 +137,8 @@ def test_manual_communicado_pbind_01(server):
     """
     )
     # Step 3
-    moment = pytest.helpers.make_moment(0)
-    player(moment, moment)
+    context = pytest.helpers.make_clock_context(0)
+    player(context)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -163,7 +163,7 @@ def test_manual_communicado_pbind_01(server):
     """
     )
     # Step 4
-    player(moment, moment)
+    player(context)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -233,8 +233,8 @@ def test_manual_communicado_pbind_02(server):
     """
     )
     # Step 1
-    moment = pytest.helpers.make_moment(0)
-    player(moment, moment)
+    context = pytest.helpers.make_clock_context(0)
+    player(context)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -248,8 +248,8 @@ def test_manual_communicado_pbind_02(server):
     """
     )
     # Step 2
-    moment = pytest.helpers.make_moment(0)
-    player(moment, moment)
+    context = pytest.helpers.make_clock_context(0)
+    player(context)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -280,8 +280,8 @@ def test_manual_communicado_pbind_02(server):
     """
     )
     # Step 3
-    moment = pytest.helpers.make_moment(0)
-    player(moment, moment)
+    context = pytest.helpers.make_clock_context(0)
+    player(context)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -312,8 +312,8 @@ def test_manual_communicado_pbind_02(server):
     """
     )
     # Step 4
-    moment = pytest.helpers.make_moment(0)
-    player(moment, moment)
+    context = pytest.helpers.make_clock_context(0)
+    player(context)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
