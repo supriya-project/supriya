@@ -35,8 +35,7 @@ jobs:
         pip install -e .
     - name: Sanity-check Supriya
       run: |
-        python -c "import supriya"
-        python -c "from supriya.realtime.shm import ServerSHM"
+        python -c "from supriya import Server"
 
   lint:
     name: Lint
