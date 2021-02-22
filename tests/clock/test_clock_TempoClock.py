@@ -20,9 +20,7 @@ def tempo_clock(mocker):
 
 
 def callback(
-    current_moment,
-    desired_moment,
-    event,
+    context,
     store,
     blow_up_at=None,
     delta=0.25,
@@ -30,12 +28,12 @@ def callback(
     time_unit=TimeUnit.BEATS,
     **kwargs,
 ):
-    if event.invocations == blow_up_at:
+    if context.event.invocations == blow_up_at:
         raise Exception
-    store.append((current_moment, desired_moment, event))
+    store.append((context.current_moment, context.desired_moment, context.event))
     if limit is None:
         return delta, time_unit
-    elif event.invocations < limit:
+    elif context.event.invocations < limit:
         return delta, time_unit
     return None
 

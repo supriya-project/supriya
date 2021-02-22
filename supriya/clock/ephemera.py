@@ -1,6 +1,6 @@
 import dataclasses
 import enum
-from typing import Callable, Dict, NamedTuple, Optional, Tuple
+from typing import Callable, Dict, NamedTuple, Optional, Tuple, Union
 
 
 class EventType(enum.IntEnum):
@@ -89,3 +89,9 @@ class ChangeEvent(NamedTuple):
 
     def __hash__(self):
         return hash((type(self), self.event_id))
+
+
+class ClockContext(NamedTuple):
+    current_moment: Moment
+    desired_moment: Moment
+    event: Union[CallbackEvent, ChangeEvent]

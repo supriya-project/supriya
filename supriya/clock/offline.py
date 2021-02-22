@@ -1,6 +1,5 @@
 import logging
 import queue
-import threading
 from typing import Optional, Tuple
 
 from .bases import BaseTempoClock
@@ -9,29 +8,14 @@ from .ephemera import Moment
 logger = logging.getLogger("supriya.clock")
 
 
-class TempoClock(BaseTempoClock):
-
-    ### CLASS VARIABLES ###
-
-    _default_clock = None
-
-    ### INITIALIZER ###
-
-    def __init__(self):
-        BaseTempoClock.__init__(self)
-        self._event = threading.Event()
-        self._thread = threading.Thread(target=self._run, daemon=True)
+class OfflineTempoClock(BaseTempoClock):
 
     ### SCHEDULING METHODS ###
-
-    def _enqueue_command(self, command):
-        super()._enqueue_command(command)
-        self._event.set()
 
     def _run(self, *args, offline=False, **kwargs):
         logger.debug(f"[{self.name}] Thread start")
         self._process_command_deque(first_run=True)
-        while self._is_running:
+        while self._is_running and self._event_queue.qsize():
             logger.debug(f"[{self.name}] Loop start")
             if not self._wait_for_queue():
                 return
@@ -46,52 +30,27 @@ class TempoClock(BaseTempoClock):
                 previous_seconds=current_moment.seconds,
                 previous_offset=current_moment.offset,
             )
-            if not offline:
-                self._event.wait(timeout=self._slop)
         logger.debug(f"[{self.name}] Terminating")
 
     def _wait_for_moment(self, offline=False) -> Optional[Moment]:
-        current_time = self.get_current_time()
-        next_time = self._event_queue.peek().seconds
-        logger.debug(
-            f"[{self.name}] ... Waiting for next moment at {next_time} from {current_time}"
-        )
-        while current_time < next_time:
-            if not offline:
-                self._event.wait(timeout=self._slop)
-            if not self._is_running:
-                return None
-            self._process_command_deque()
-            next_time = self._event_queue.peek().seconds
-            current_time = self.get_current_time()
-            self._event.clear()
+        current_time = self._event_queue.peek().seconds
         return self._seconds_to_moment(current_time)
 
     def _wait_for_queue(self, offline=False) -> bool:
         logger.debug(f"[{self.name}] ... Waiting for events")
         self._process_command_deque()
-        self._event.clear()
         while not self._event_queue.qsize():
-            if not offline:
-                self._event.wait(timeout=self._slop)
             if not self._is_running:
                 return False
             self._process_command_deque()
-            self._event.clear()
         return True
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id) -> Optional[Tuple]:
-        event_id = super().cancel(event_id)
-        self._event.set()
-        return event_id
-
-    @classmethod
-    def default(cls):
-        if cls._default_clock is None:
-            cls._default_clock = cls()
-        return cls._default_clock
+    def get_current_time(self) -> float:
+        if not self._is_running:
+            return 0.0
+        return self._state.previous_seconds
 
     def start(
         self,
@@ -108,10 +67,7 @@ class TempoClock(BaseTempoClock):
             beats_per_minute=beats_per_minute,
             time_signature=time_signature,
         )
-        self._thread = threading.Thread(target=self._run, args=(self,), daemon=True)
-        self._thread.start()
+        self._run()
 
     def stop(self):
-        if self._stop():
-            self._event.set()
-            self._thread.join()
+        self._stop()
