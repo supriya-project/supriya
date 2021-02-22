@@ -10,16 +10,20 @@ env:
   MYPYPATH: /tmp/typehints
   SC_ORIGIN: https://github.com/josiah-wolf-oberholtzer/supercollider.git
   SC_BRANCH: s-query
+
 jobs:
-  testing:
-    name: Testing
-    runs-on: ubuntu-latest
+
+  install:
+    name: Install
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        python-version:
-        - 3.8
-        - 3.9
+        python-version: [3.8, 3.9, "3.10.0-alpha.5"]
+        os: [ubuntu-latest]
+        include:
+        - os: macos-latest
+          python-version: 3.9
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -29,8 +33,33 @@ jobs:
     - name: Install Supriya
       run: |
         pip install -e .
-        python -c "import supriya"
-        pip install -e .[cython,ipython,test]
+    - name: Sanity-check Supriya
+      run: |
+        python -c "from supriya import Server"
+
+  lint:
+    name: Lint
+    needs: [install]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.8, 3.9]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('setup.py') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-${{ matrix.python-version }}-
+    - name: Install Supriya
+      run: |
+        pip install -e .[ipython,test]
     - name: Get Type Hints
       run: |
         pip install --target /tmp/typehints --no-deps uqbar
@@ -43,6 +72,11 @@ jobs:
     - name: Run Mypy
       run: |
         make mypy
+
+  supercollider:
+    name: SuperCollider
+    runs-on: ubuntu-latest
+    steps:
     - name: Clone SC
       run: |
         git clone --quiet --recursive --branch ${SC_BRANCH} ${SC_ORIGIN} /tmp/supercollider
@@ -55,8 +89,9 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /tmp/supercollider
-        key: supercollider-${{ runner.os }}-${{ env.SC_ORIGIN_MD5 }}-${{ env.SC_COMMIT_SHA }}
-    - name: Install Deps
+        key: ${{ runner.os }}-supercollider-${{ env.SC_ORIGIN_MD5 }}-${{ env.SC_COMMIT_SHA }}
+    - name: Install SC Deps
+      if: steps.cache.outputs.cache-hit != 'true'
       run: |
         export DEBIAN_FRONTEND=noninteractive
         sudo apt-get clean
@@ -83,9 +118,87 @@ jobs:
     - name: Build SC
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
-        cmake --debug-output -DCMAKE_build_TYPE=Release -DSC_EL=OFF -DSC_IDE=OFF -DSC_QT=OFF /tmp/supercollider > /dev/null
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          cmake \
+            --debug-output \
+            -DCMAKE_build_TYPE=Release \
+            -DSC_EL=OFF \
+            -DSC_IDE=OFF \
+            -DSC_QT=OFF \
+            /tmp/supercollider
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          cmake \
+            -DCMAKE_PREFIX_PATH=`brew --prefix qt5` \
+            -G Xcode \
+            /tmp/supercollider
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
         make
       working-directory: /tmp/supercollider/build
+
+  test:
+    name: Test
+    needs: [lint, supercollider]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.8, 3.9]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('setup.py') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-${{ matrix.python-version }}-
+    - name: Install Supriya
+      run: |
+        pip install -e .[ipython,test]
+    - name: Clone SC
+      run: |
+        git clone --quiet --recursive --branch ${SC_BRANCH} ${SC_ORIGIN} /tmp/supercollider
+        cd /tmp/supercollider
+        mkdir build
+        echo "SC_COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+        echo "SC_ORIGIN_MD5=$(echo ${SC_ORIGIN} | md5sum | head -c 7)" >> $GITHUB_ENV
+    - name: Cache SC
+      id: cache
+      uses: actions/cache@v2
+      with:
+        path: /tmp/supercollider
+        key: ${{ runner.os }}-supercollider-${{ env.SC_ORIGIN_MD5 }}-${{ env.SC_COMMIT_SHA }}
+    - name: Install SC Deps
+      run: |
+        export DEBIAN_FRONTEND=noninteractive
+        sudo apt-get clean
+        sudo apt-get update
+        sudo apt-get install --yes \
+          alsa-oss \
+          alsa-utils \
+          build-essential \
+          cmake \
+          espeak \
+          ffmpeg \
+          jackd2 \
+          lame \
+          libasound2-dev \
+          libavahi-client-dev \
+          libfftw3-dev \
+          libicu-dev \
+          libjack-jackd2-dev \
+          libreadline6-dev \
+          libsndfile1-dev \
+          libudev-dev \
+          libxt-dev \
+          pkg-config
     - name: Install SC
       run: |
         sudo make install

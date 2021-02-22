@@ -32,6 +32,7 @@ from .meters import Meters
 from .nodes import Group, Synth
 from .protocols import AsyncProcessProtocol, SyncProcessProtocol
 from .recorder import Recorder
+from .shm import ServerSHM
 
 logger = logging.getLogger("supriya.server")
 
@@ -56,6 +57,7 @@ class BaseServer:
         self._osc_protocol = None
         self._process_protocol = None
         self._status = None
+        self._shm = None
         # allocators
         self._audio_bus_allocator = None
         self._buffer_allocator = None
@@ -124,12 +126,18 @@ class BaseServer:
             pattern="/fail", procedure=self._handle_failed_response,
         )
 
+    def _setup_shm(self):
+        self._shm = ServerSHM(self.port, self.options.control_bus_channel_count)
+
     def _teardown_allocators(self):
         self._audio_bus_allocator = None
         self._buffer_allocator = None
         self._control_bus_allocator = None
         self._node_id_allocator = None
         self._sync_id = 0
+
+    def _teardown_shm(self):
+        self._shm = None
 
     ### PUBLIC METHODS ###
 
@@ -272,12 +280,14 @@ class AsyncServer(BaseServer):
             await self._setup_system_synthdefs()
         self.boot_future.set_result(True)
         self._servers.add(self)
+        self._setup_shm()
 
     async def _disconnect(self):
         self._is_running = False
         self._is_owner = False
         self._client_id = None
         self._maximum_logins = None
+        self._teardown_shm()
         await self._osc_protocol.disconnect()
         await self._osc_protocol.exit_future
         self._teardown_allocators()
@@ -631,6 +641,7 @@ class Server(BaseServer):
             self._setup_default_groups()
             self._setup_system_synthdefs()
         self._servers.add(self)
+        self._setup_shm()
 
     def _disconnect(self):
         logger.info("disconnecting")
@@ -638,6 +649,7 @@ class Server(BaseServer):
         self._is_owner = False
         self._client_id = None
         self._maximum_logins = None
+        self._teardown_shm()
         self._osc_protocol.disconnect()
         self._teardown_proxies()
         self._teardown_allocators()

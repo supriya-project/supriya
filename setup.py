@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 import pathlib
-import sys
-from distutils.version import LooseVersion
+import platform
 
-import setuptools
+from setuptools import Extension, setup
 
 package_name = "supriya"
 
@@ -20,71 +19,78 @@ def read_version():
 
 version = read_version()
 
-install_requires = ["PyYAML", "appdirs", "tqdm", "uqbar >= 0.5.2"]
-
-if LooseVersion(sys.version.split()[0]) < LooseVersion("3.7.0"):
-    install_requires.append("dataclasses")
-
-extras_require = {
-    "cython": ["cython"],
-    "ipython": [
-        "jupyter",
-        "jupyter_contrib_nbextensions",
-        "jupyter_nbextensions_configurator",
-        "rise",
-    ],
-    "test": [
-        "black == 19.10b0",  # Trailing comma behavior in 20.x needs work
-        "flake8",
-        "isort",
-        "mypy >= 0.720",
-        "pytest >= 5.4.0",
-        "pytest-asyncio >= 0.14.0",
-        "pytest-cov >= 2.10.0",
-        "pytest-helpers-namespace >= 2019.1.8",
-        "pytest-mock",
-        "pytest-rerunfailures >= 9.0",
-        "pytest-timeout >= 1.4.0",
-    ],
-}
-
 with open("README.rst", "r") as file_pointer:
     long_description = file_pointer.read()
 
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Environment :: Console",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Natural Language :: English",
-    "Operating System :: MacOS",
-    "Operating System :: POSIX",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
-    "Topic :: Artistic Software",
-    "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
-]
-
-keywords = [
-    "audio",
-    "dsp",
-    "music composition",
-    "scsynth",
-    "supercollider",
-    "synthesis",
-]
-
 
 if __name__ == "__main__":
-    setuptools.setup(
+    setup(
         author="Josiah Wolf Oberholtzer",
         author_email="josiah.oberholtzer@gmail.com",
-        classifiers=classifiers,
+        classifiers=[
+            "Environment :: Console",
+            "Intended Audience :: Developers",
+            "License :: OSI Approved :: MIT License",
+            "Natural Language :: English",
+            "Operating System :: MacOS",
+            "Operating System :: POSIX",
+            "Programming Language :: Python :: 3.8",
+            "Programming Language :: Python :: 3.9",
+            "Topic :: Artistic Software",
+            "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
+        ],
         description="A Python API for SuperCollider",
-        extras_require=extras_require,
+        extras_require={
+            "ipython": [
+                "jupyter",
+                "jupyter_contrib_nbextensions",
+                "jupyter_nbextensions_configurator",
+                "rise",
+            ],
+            "test": [
+                "black == 19.10b0",  # Trailing comma behavior in 20.x needs work
+                "flake8",
+                "isort",
+                "mypy >= 0.720",
+                "pytest >= 5.4.0",
+                "pytest-asyncio >= 0.14.0",
+                "pytest-cov >= 2.10.0",
+                "pytest-helpers-namespace >= 2019.1.8",
+                "pytest-mock",
+                "pytest-rerunfailures >= 9.0",
+                "pytest-timeout >= 1.4.0",
+            ],
+        },
+        ext_modules=[
+            Extension(
+                "supriya.realtime.shm",
+                include_dirs=[
+                    "vendor",
+                    "vendor/TLSF-2.4.6/src",
+                    "vendor/supercollider/common",
+                ],
+                language="c++",
+                libraries=["rt"] if platform.system() == "Linux" else [],
+                sources=["supriya/realtime/shm.pyx"],
+            )
+        ],
         include_package_data=True,
-        install_requires=install_requires,
-        keywords=keywords,
+        install_requires=[
+            "PyYAML",
+            "appdirs",
+            "cython",
+            "setuptools>=18.0",
+            "tqdm",
+            "uqbar >= 0.5.2",
+        ],
+        keywords=[
+            "audio",
+            "dsp",
+            "music composition",
+            "scsynth",
+            "supercollider",
+            "synthesis",
+        ],
         license="MIT",
         long_description=long_description,
         name=package_name,
