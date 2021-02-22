@@ -139,6 +139,7 @@ def test_manual_incommunicado_pmono_02():
     assert deltas == [1.0, 2.0, 3.0, None]
 
 
+@pytest.mark.skip
 def test_manual_communicado_pmono_02(server):
     player = supriya.patterns.EventPlayer(pmono_02, server=server)
     # Initial State
