@@ -33,12 +33,12 @@ class EventPlayer:
 
     ### SPECIAL METHODS ###
 
-    def __call__(self, current_moment, desired_moment, *args, communicate=True):
+    def __call__(self, context, *args, communicate=True):
         if self._iterator is None:
             self._iterator = self._iterate_outer(
                 pattern=self._pattern,
                 server=self._server,
-                timestamp=desired_moment.seconds,
+                timestamp=context.desired_moment.seconds,
                 uuids=self._uuids,
             )
         event_products, delta = next(self._iterator)
@@ -67,7 +67,7 @@ class EventPlayer:
             request = supriya.commands.NodeFreeRequest(node_ids=node_free_ids)
             requests.append(request)
         consolidated_bundle = supriya.commands.RequestBundle(
-            timestamp=desired_moment.seconds, contents=requests
+            timestamp=context.desired_moment.seconds, contents=requests
         )
         if communicate:
             osc_bundle = consolidated_bundle.to_osc()
