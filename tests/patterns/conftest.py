@@ -51,9 +51,7 @@ def manual_incommunicado(pattern, timestamp=10):
             time_signature=(4, 4),
         )
         context = ClockContext(
-            current_moment=moment,
-            desired_moment=moment,
-            event=None,
+            current_moment=moment, desired_moment=moment, event=None,
         )
         bundle, delta = player(context, None, communicate=False)
         if delta is not None:
@@ -87,8 +85,4 @@ def make_clock_context(timestamp):
         seconds=timestamp,
         time_signature=(4, 4),
     )
-    return ClockContext(
-        current_moment=moment,
-        desired_moment=moment,
-        event=None,
-    )
+    return ClockContext(current_moment=moment, desired_moment=moment, event=None,)
