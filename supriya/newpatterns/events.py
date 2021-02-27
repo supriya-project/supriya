@@ -81,7 +81,7 @@ class BusFreeEvent(Event):
         notes_mapping: Dict[Tuple[UUID, int], float],
         priority: int,
     ):
-        proxy_mapping[self.id_].free()
+        provider.free_bus_group(proxy_mapping.pop(self.id_))
 
 
 class CompositeEvent(Event):
@@ -134,7 +134,7 @@ class NodeFreeEvent(Event):
         notes_mapping: Dict[Tuple[UUID, int], float],
         priority: int,
     ):
-        proxy_mapping[self.id_].free()
+        provider.free_node(proxy_mapping.pop(self.id_))
 
 
 class NoteEvent(Event):
@@ -218,7 +218,7 @@ class NoteEvent(Event):
             if expected_completion is None or expected_completion > current_offset:
                 return
             notes_mapping.pop(self.id_)
-            proxy_mapping.pop(self.id_).free()
+            provider.free_node(proxy_mapping.pop(self.id_))
 
 
 class NullEvent(Event):
