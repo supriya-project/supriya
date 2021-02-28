@@ -158,7 +158,7 @@ class NoteEvent(Event):
         self.kwargs = kwargs
 
     def expand(self, offset: float):
-        expanded = []
+        starts, stops = [], []
         for i, proxy_mapping in enumerate(expand(self.kwargs)):
             event = type(self)(
                 id_=(self.id_, i),
@@ -170,9 +170,9 @@ class NoteEvent(Event):
             )
             start_offset = offset
             stop_offset = offset + self.calculate_duration()
-            expanded.append((start_offset, Priority.START, event))
-            expanded.append((stop_offset, Priority.STOP, event))
-        return expanded
+            starts.append((start_offset, Priority.START, event))
+            stops.append((stop_offset, Priority.STOP, event))
+        return starts + stops
 
     def calculate_duration(self):
         return self.duration or 1.0
