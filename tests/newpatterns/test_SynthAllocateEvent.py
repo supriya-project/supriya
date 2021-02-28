@@ -5,8 +5,8 @@ import pytest
 
 from supriya import AddAction
 from supriya.assets.synthdefs import default
-from supriya.newpatterns.events import SynthAllocateEvent, Priority
-from supriya.provider import SynthProxy, Provider
+from supriya.newpatterns.events import Priority, SynthAllocateEvent
+from supriya.provider import Provider, SynthProxy
 
 id_ = uuid.uuid4()
 
@@ -17,13 +17,7 @@ id_ = uuid.uuid4()
         (
             SynthAllocateEvent(id_),
             0.0,
-            [
-                (
-                    0.0,
-                    Priority.START,
-                    SynthAllocateEvent(id_),
-                ),
-            ],
+            [(0.0, Priority.START, SynthAllocateEvent(id_))],
         ),
     ],
 )
@@ -48,9 +42,13 @@ def test_perform():
             priority=Priority.START,
         )
     assert proxy_mapping == {
-        id_: SynthProxy(provider=provider, identifier=1000, synthdef=default, settings={}),
+        id_: SynthProxy(
+            provider=provider, identifier=1000, synthdef=default, settings={}
+        ),
     }
     assert notes_mapping == {}
     assert spy.mock_calls == [
-        call.add_synth(add_action=AddAction.ADD_TO_HEAD, synthdef=None, target_node=None)
+        call.add_synth(
+            add_action=AddAction.ADD_TO_HEAD, synthdef=None, target_node=None
+        )
     ]

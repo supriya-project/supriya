@@ -16,13 +16,7 @@ id_ = uuid.uuid4()
         (
             GroupAllocateEvent(id_),
             0.0,
-            [
-                (
-                    0.0,
-                    Priority.START,
-                    GroupAllocateEvent(id_),
-                ),
-            ],
+            [(0.0, Priority.START, GroupAllocateEvent(id_))],
         ),
     ],
 )

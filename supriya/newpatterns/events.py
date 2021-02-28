@@ -94,7 +94,7 @@ class CompositeEvent(Event):
         for event in self.events:
             events.extend(event.expand(offset))
             offset += event.delta
-        return []
+        return events
 
 
 class GroupAllocateEvent(Event):
