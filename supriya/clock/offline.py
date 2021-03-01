@@ -9,6 +9,9 @@ logger = logging.getLogger("supriya.clock")
 
 
 class OfflineTempoClock(BaseTempoClock):
+    def __init__(self, require_step=False):
+        super().__init__()
+        self.require_step = bool(require_step)
 
     ### SCHEDULING METHODS ###
 

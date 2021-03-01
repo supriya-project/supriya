@@ -4,7 +4,7 @@ from threading import RLock
 from .events import Event
 
 
-class RealtimePatternPlayer:
+class PatternPlayer:
     def __init__(self, pattern, provider, clock):
         self._pattern = pattern
         self._provider = provider

@@ -22,6 +22,7 @@ from .patterns import (
     SequencePattern,
     UnaryOpPattern,
 )
+from .players import PatternPlayer
 from .sequences import (
     GatePattern,
     RepeatPattern,
@@ -49,6 +50,7 @@ __all__ = [
     "NullEvent",
     "ParallelPattern",
     "Pattern",
+    "PatternPlayer",
     "RandomPattern",
     "RepeatPattern",
     "RestartPattern",

@@ -12,12 +12,10 @@ from typing import Dict, Iterator, Optional
 from uqbar.objects import get_vars
 
 from supriya.clock import TempoClock
-from supriya.exceptions import ServerOffline
 from supriya.provider import Provider
-from supriya.realtime import Server
 
 from .events import CompositeEvent
-from .players import RealtimePatternPlayer
+from .players import PatternPlayer
 
 
 class Pattern(metaclass=abc.ABCMeta):
@@ -197,14 +195,13 @@ class Pattern(metaclass=abc.ABCMeta):
 
     ### PUBLIC METHODS ###
 
-    def play(self, server=None, clock=None, quantization=None):
-        server = server or Server.default()
-        if not server.is_running:
-            raise ServerOffline
-        player = RealtimePatternPlayer(
-            pattern=self,
-            provider=Provider.from_context(server or Server.default()),
-            clock=clock or TempoClock.default(),
+    def play(self, provider=None, clock=None, quantization=None):
+        if provider is None:
+            provider = Provider.realtime()
+        elif not isinstance(provider, Provider):
+            provider = Provider.from_context(provider)
+        player = PatternPlayer(
+            pattern=self, provider=provider, clock=clock or TempoClock.default(),
         )
         player.play(quantization=quantization)
         return player
