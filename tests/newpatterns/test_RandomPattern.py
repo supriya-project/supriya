@@ -9,12 +9,16 @@ from supriya.newpatterns import RandomPattern
         (0.0, 1.0, None, True),
         (0.0, 1.0, 1, False),
         (0.45, 0.55, None, True),
-        (0.0, [1.0, 2.0], None, True),
+        (0.0, (1.0, 2.0), None, True),
     ],
 )
 def test(minimum, maximum, iterations, is_infinite):
     pattern = RandomPattern(minimum=minimum, maximum=maximum, iterations=iterations,)
+    assert pattern.distribution == RandomPattern.Distribution.WHITE_NOISE
     assert pattern.is_infinite == is_infinite
+    assert pattern.iterations == iterations
+    assert pattern.maximum == maximum
+    assert pattern.minimum == minimum
     iterator = iter(pattern)
     ceased = True
     actual = []

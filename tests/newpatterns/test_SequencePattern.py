@@ -51,3 +51,21 @@ from supriya.newpatterns.testutils import run_pattern_test
 def test(stop_at, sequence, iterations, expected, is_infinite):
     pattern = SequencePattern(sequence, iterations=iterations)
     run_pattern_test(pattern, expected, is_infinite, stop_at)
+
+
+@pytest.mark.parametrize(
+    "sequence, iterations, raises",
+    [
+        ([1, 2, 3], 1, None),
+        ([1, 2, 3], 10, None),
+        ([1, 2, 3], None, None),
+        ([1, 2, 3], 0, ValueError),
+        (23, 1, ValueError),
+    ],
+)
+def test___init__(sequence, iterations, raises):
+    if raises:
+        with pytest.raises(raises):
+            SequencePattern(sequence, iterations)
+    else:
+        SequencePattern(sequence, iterations)

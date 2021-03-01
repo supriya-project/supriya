@@ -9,6 +9,8 @@ import random
 from collections.abc import Sequence
 from typing import Dict, Iterator, Optional
 
+from uqbar.objects import get_vars
+
 from supriya.clock import TempoClock
 from supriya.exceptions import ServerOffline
 from supriya.provider import Provider
@@ -27,16 +29,24 @@ class Pattern(metaclass=abc.ABCMeta):
     ### SPECIAL METHODS ###
 
     def __abs__(self):
-        return UnaryOpPattern(self)
+        return UnaryOpPattern("abs", self)
 
     def __add__(self, expr):
-        return BinaryOpPattern(self, "+", expr)
+        return BinaryOpPattern("+", self, expr)
 
-    def __div__(self, expr):
-        return BinaryOpPattern(self, "/", expr)
+    def __eq__(self, expr):
+        self_values = type(self), get_vars(self)
+        try:
+            expr_values = type(expr), get_vars(expr)
+        except AttributeError:
+            expr_values = type(expr), expr
+        return self_values == expr_values
+
+    def __floordiv__(self, expr):
+        return BinaryOpPattern("//", self, expr)
 
     def __invert__(self):
-        return UnaryOpPattern(self, "~")
+        return UnaryOpPattern("~", self)
 
     def __iter__(self):
         should_stop = False
@@ -63,40 +73,46 @@ class Pattern(metaclass=abc.ABCMeta):
             yield stop_event
 
     def __mod__(self, expr):
-        return BinaryOpPattern(self, "%", expr)
+        return BinaryOpPattern("%", self, expr)
 
     def __mul__(self, expr):
-        return BinaryOpPattern(self, "*", expr)
+        return BinaryOpPattern("*", self, expr)
 
     def __neg__(self):
-        return UnaryOpPattern(self, "-")
+        return UnaryOpPattern("-", self)
 
     def __pos__(self):
-        return UnaryOpPattern(self, "+")
+        return UnaryOpPattern("+", self)
 
     def __pow__(self, expr):
-        return BinaryOpPattern(self, "**", expr)
+        return BinaryOpPattern("**", self, expr)
 
     def __radd__(self, expr):
-        return BinaryOpPattern(expr, "+", self)
-
-    def __rdiv__(self, expr):
-        return BinaryOpPattern(expr, "/", self)
+        return BinaryOpPattern("+", expr, self)
 
     def __rmod__(self, expr):
-        return BinaryOpPattern(expr, "%", self)
+        return BinaryOpPattern("%", expr, self)
 
     def __rmul__(self, expr):
-        return BinaryOpPattern(expr, "*", self)
+        return BinaryOpPattern("*", expr, self)
 
     def __rpow__(self, expr):
-        return BinaryOpPattern(expr, "**", self)
+        return BinaryOpPattern("**", expr, self)
 
     def __rsub__(self, expr):
-        return BinaryOpPattern(expr, "-", self)
+        return BinaryOpPattern("-", expr, self)
+
+    def __rtruediv__(self, expr):
+        return BinaryOpPattern("/", expr, self)
+
+    def __rfloordiv__(self, expr):
+        return BinaryOpPattern("//", expr, self)
 
     def __sub__(self, expr):
-        return BinaryOpPattern(self, "-", expr)
+        return BinaryOpPattern("-", self, expr)
+
+    def __truediv__(self, expr):
+        return BinaryOpPattern("/", self, expr)
 
     ### PRIVATE METHODS ###
 
@@ -204,10 +220,10 @@ class BinaryOpPattern(Pattern):
 
     ### INITIALIZER ###
 
-    def __init__(self, expr_one, operator, expr_two):
+    def __init__(self, operator, expr_one, expr_two):
+        self._operator = operator
         self._expr_one = self._freeze_recursive(expr_one)
         self._expr_two = self._freeze_recursive(expr_two)
-        self._operator = operator
 
     ### PRIVATE METHODS ###
 
@@ -265,9 +281,9 @@ class UnaryOpPattern(Pattern):
 
     ### INITIALIZER ###
 
-    def __init__(self, expr, operator):
-        self._expr = expr
+    def __init__(self, operator, expr):
         self._operator = operator
+        self._expr = expr
 
     ### PRIVATE METHODS ###
 

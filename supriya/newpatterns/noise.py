@@ -91,16 +91,16 @@ class RandomPattern(Pattern):
         return self._iterations is None
 
     @property
+    def iterations(self):
+        return self._iterations
+
+    @property
     def minimum(self):
         return self._minimum
 
     @property
     def maximum(self):
         return self._maximum
-
-    @property
-    def repetitions(self):
-        return self._iterations
 
 
 class ShufflePattern(SequencePattern):

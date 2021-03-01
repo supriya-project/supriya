@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.newpatterns import SeedPattern, SequencePattern
+from supriya.newpatterns import ChoicePattern, SeedPattern, SequencePattern
 from supriya.newpatterns.testutils import run_pattern_test
 
 
@@ -14,3 +14,10 @@ from supriya.newpatterns.testutils import run_pattern_test
 def test(stop_at, pattern, expected, is_infinite):
     pattern = SeedPattern(pattern)
     run_pattern_test(pattern, expected, is_infinite, stop_at)
+
+
+def test_random():
+    pattern = ChoicePattern([1, 2, 3])
+    assert len(set(tuple(pattern) for _ in range(10))) > 1
+    pattern = SeedPattern(ChoicePattern([1, 2, 3]))
+    assert len(set(tuple(pattern) for _ in range(10))) == 1
