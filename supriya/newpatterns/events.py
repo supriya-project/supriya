@@ -43,7 +43,7 @@ class Event:
         notes_mapping: Dict[Tuple[UUID, int], float],
         priority: int,
     ):
-        pass
+        raise NotImplementedError
 
 
 class BusAllocateEvent(Event):
