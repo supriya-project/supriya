@@ -196,20 +196,21 @@ class NoteEvent(Event):
             #    if yes, update settings
             #    if no, create proxy
             # update notes mapping with expected completion offset
-            if self.id_ in proxy_mapping:
-                proxy = proxy_mapping[self.id_]
-                for key, value in self.kwargs.items():
-                    if isinstance(value, UUID):
-                        value = proxy_mapping[value]
-                    proxy[key] = value
-            else:
+            if self.id_ not in proxy_mapping:
                 proxy_mapping[self.id_] = provider.add_synth(
                     add_action=self.add_action,
                     synthdef=self.synthdef,
                     target_node=proxy_mapping.get(self.target_node),
                     **self.kwargs,
                 )
-            notes_mapping[self.id_] = self.calculate_duration()
+            else:
+                proxy = proxy_mapping[self.id_]
+                settings = self.kwargs.copy()
+                for key, value in settings.items():
+                    if isinstance(value, UUID):
+                        settings[key] = proxy_mapping[value]
+                provider.set_node(proxy, **settings)
+            notes_mapping[self.id_] = current_offset + self.calculate_duration()
         elif priority == Priority.STOP:
             # check notes mapping for expected completion offset
             # is expected completion <= current_offset? release
