@@ -3,7 +3,7 @@ import types
 
 import pytest
 
-from supriya.clock import ClockContext, Moment
+from supriya.clocks import ClockContext, Moment
 from supriya.patterns import EventPlayer
 from supriya.realtime import BlockAllocator, NodeIdAllocator
 

@@ -11,7 +11,7 @@ from typing import Dict, Iterator, Optional
 
 from uqbar.objects import get_vars
 
-from supriya.clock import TempoClock
+from supriya.clocks import TempoClock
 from supriya.provider import Provider
 
 from .events import CompositeEvent

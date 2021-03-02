@@ -6,7 +6,7 @@ from uqbar.objects import new
 import supriya.commands
 import supriya.realtime
 import supriya.system
-from supriya.clock import TempoClock
+from supriya.clocks import TempoClock
 from supriya.system import SupriyaValueObject
 
 

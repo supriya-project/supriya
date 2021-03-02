@@ -2,7 +2,7 @@ import logging
 
 import pytest
 
-from supriya.clock import OfflineTempoClock, TimeUnit
+from supriya.clocks import OfflineTempoClock, TimeUnit
 
 repeat_count = 5
 

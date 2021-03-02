@@ -22,7 +22,7 @@ from .ephemera import (
 )
 from .eventqueue import EventQueue
 
-logger = logging.getLogger("supriya.clock")
+logger = logging.getLogger("supriya.clocks")
 
 
 class BaseTempoClock:

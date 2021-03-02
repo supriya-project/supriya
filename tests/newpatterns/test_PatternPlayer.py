@@ -2,7 +2,7 @@ from unittest.mock import Mock, call
 
 from supriya import AddAction
 from supriya.assets.synthdefs import default
-from supriya.clock import OfflineTempoClock
+from supriya.clocks import OfflineTempoClock
 from supriya.newpatterns import EventPattern, MonoEventPattern, SequencePattern
 from supriya.provider import Provider, SynthProxy
 

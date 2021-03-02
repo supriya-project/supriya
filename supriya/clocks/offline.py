@@ -5,7 +5,7 @@ from typing import Optional, Tuple
 from .bases import BaseTempoClock
 from .ephemera import Moment
 
-logger = logging.getLogger("supriya.clock")
+logger = logging.getLogger("supriya.clocks")
 
 
 class OfflineTempoClock(BaseTempoClock):
