@@ -6,7 +6,7 @@ import pytest
 from supriya import AddAction
 from supriya.assets.synthdefs import default
 from supriya.newpatterns.events import Priority, SynthAllocateEvent
-from supriya.provider import Provider, SynthProxy
+from supriya.providers import Provider, SynthProxy
 
 id_ = uuid.uuid4()
 

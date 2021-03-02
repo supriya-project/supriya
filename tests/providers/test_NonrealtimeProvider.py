@@ -2,7 +2,7 @@ import pytest
 
 from supriya.assets.synthdefs import default
 from supriya.enums import AddAction, CalculationRate
-from supriya.provider import (
+from supriya.providers import (
     BufferProxy,
     BusGroupProxy,
     BusProxy,

@@ -5,7 +5,7 @@ import pytest
 
 from supriya import CalculationRate
 from supriya.newpatterns.events import BusAllocateEvent, BusFreeEvent, Priority
-from supriya.provider import BusGroupProxy, Provider
+from supriya.providers import BusGroupProxy, Provider
 
 id_ = uuid.uuid4()
 

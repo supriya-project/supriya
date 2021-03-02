@@ -12,7 +12,7 @@ from typing import Dict, Iterator, Optional
 from uqbar.objects import get_vars
 
 from supriya.clocks import TempoClock
-from supriya.provider import Provider
+from supriya.providers import Provider
 
 from .events import CompositeEvent
 from .players import PatternPlayer

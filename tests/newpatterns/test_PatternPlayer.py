@@ -4,7 +4,7 @@ from supriya import AddAction
 from supriya.assets.synthdefs import default
 from supriya.clocks import OfflineTempoClock
 from supriya.newpatterns import EventPattern, MonoEventPattern, SequencePattern
-from supriya.provider import Provider, SynthProxy
+from supriya.providers import Provider, SynthProxy
 
 
 def test_play():

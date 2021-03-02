@@ -83,7 +83,7 @@ from supriya.realtime import (  # noqa
 )
 from supriya import assets  # noqa
 from supriya.nonrealtime import Session  # noqa
-from supriya.provider import Provider  # noqa
+from supriya.providers import Provider  # noqa
 from supriya.scsynth import Options  # noqa
 from supriya.soundfiles import Say, SoundFile  # noqa
 from supriya.system import Assets  # noqa

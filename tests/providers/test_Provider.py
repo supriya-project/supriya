@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.provider import NonrealtimeProvider, Provider, RealtimeProvider
+from supriya.providers import NonrealtimeProvider, Provider, RealtimeProvider
 
 
 def test_Provider_from_context(session, server):

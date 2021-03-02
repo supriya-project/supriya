@@ -8,7 +8,7 @@ from supriya.newpatterns.events import (
     NodeFreeEvent,
     Priority,
 )
-from supriya.provider import Provider
+from supriya.providers import Provider
 
 id_ = uuid.uuid4()
 

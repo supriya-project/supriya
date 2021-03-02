@@ -5,7 +5,7 @@ import pytest
 
 from supriya import AddAction
 from supriya.newpatterns.events import GroupAllocateEvent, Priority
-from supriya.provider import GroupProxy, Provider
+from supriya.providers import GroupProxy, Provider
 
 id_ = uuid.uuid4()
 
