@@ -14,11 +14,6 @@ def log_everything(caplog):
     caplog.set_level(logging.INFO, logger="supriya")
 
 
-@pytest.fixture
-async def tempo_clock(mocker, monkeypatch):
-    yield OfflineTempoClock()
-
-
 def callback(
     context,
     store,
@@ -62,7 +57,8 @@ def check(store):
 
 
 @pytest.mark.timeout(1)
-def test_basic(tempo_clock):
+def test_basic():
+    tempo_clock = OfflineTempoClock()
     store = []
     tempo_clock.schedule(callback, schedule_at=0.0, args=[store])
     tempo_clock.start()
@@ -73,3 +69,42 @@ def test_basic(tempo_clock):
         (["4/4", 120.0], [1, 0.75, 0.75, 1.5], [1, 0.75, 0.75, 1.5]),
         (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0]),
     ]
+
+
+@pytest.mark.timeout(1)
+def test_steppable():
+    tempo_clock = OfflineTempoClock(steppable=True)
+    store = []
+    tempo_clock.schedule(callback, schedule_at=0.0, args=[store])
+    tempo_clock.start()
+    assert check(store) == [
+        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
+    ]
+    tempo_clock.step()
+    assert check(store) == [
+        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
+        (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
+    ]
+    tempo_clock.step()
+    assert check(store) == [
+        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
+        (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
+        (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
+    ]
+    tempo_clock.step()
+    assert check(store) == [
+        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
+        (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
+        (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
+        (["4/4", 120.0], [1, 0.75, 0.75, 1.5], [1, 0.75, 0.75, 1.5]),
+    ]
+    tempo_clock.step()
+    assert check(store) == [
+        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
+        (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
+        (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
+        (["4/4", 120.0], [1, 0.75, 0.75, 1.5], [1, 0.75, 0.75, 1.5]),
+        (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0]),
+    ]
+    tempo_clock.step()
+    assert not tempo_clock._is_running

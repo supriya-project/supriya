@@ -9,9 +9,10 @@ logger = logging.getLogger("supriya.clocks")
 
 
 class OfflineTempoClock(BaseTempoClock):
-    def __init__(self, require_step=False):
+    def __init__(self, steppable=False):
         super().__init__()
-        self.require_step = bool(require_step)
+        self._steppable = bool(steppable)
+        self._generator = None
 
     ### SCHEDULING METHODS ###
 
@@ -33,7 +34,11 @@ class OfflineTempoClock(BaseTempoClock):
                 previous_seconds=current_moment.seconds,
                 previous_offset=current_moment.offset,
             )
+            if self._steppable:
+                yield True
         logger.debug(f"[{self.name}] Terminating")
+        yield False
+        self._stop()
 
     def _wait_for_moment(self, offline=False) -> Optional[Moment]:
         current_time = self._event_queue.peek().seconds
@@ -70,7 +75,21 @@ class OfflineTempoClock(BaseTempoClock):
             beats_per_minute=beats_per_minute,
             time_signature=time_signature,
         )
-        self._run()
+        self._generator = self._run()
+        if not next(self._generator):
+            self._stop()
+
+    def step(self):
+        if self._generator is not None:
+            if not next(self._generator):
+                self._stop()
 
     def stop(self):
-        self._stop()
+        if not self._stop():
+            return
+        if self._generator is not None:
+            while True:
+                try:
+                    next(self._generator)
+                except StopIteration:
+                    pass
