@@ -2,16 +2,18 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from supriya import AddAction
-from supriya.assets.synthdefs import default
+from supriya import AddAction, CalculationRate
+from supriya.assets.synthdefs import default, system_link_audio_1
 from supriya.clocks import OfflineTempoClock
 from supriya.newpatterns import (
+    BusPattern,
     EventPattern,
+    GroupPattern,
     MonoEventPattern,
     ParallelPattern,
     SequencePattern,
 )
-from supriya.providers import Provider, SynthProxy
+from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
 
 
 @pytest.mark.parametrize(
@@ -215,6 +217,118 @@ from supriya.providers import Provider, SynthProxy
                         settings={"frequency": 888},
                     )
                 ),
+            ],
+        ),
+        (
+            GroupPattern(
+                BusPattern(MonoEventPattern(frequency=SequencePattern([440, 550, 660])))
+            ),
+            1.5,
+            lambda provider: [
+                call.at(0.0),
+                call.add_group(add_action=AddAction.ADD_TO_HEAD, target_node=None),
+                call.add_bus_group(
+                    calculation_rate=CalculationRate.AUDIO, channel_count=1
+                ),
+                call.add_group(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    target_node=GroupProxy(provider=provider, identifier=1000),
+                ),
+                call.add_synth(
+                    add_action=AddAction.ADD_AFTER,
+                    synthdef=system_link_audio_1,
+                    target_node=GroupProxy(provider=provider, identifier=1001),
+                    amplitude=1.0,
+                    fade_time=0.25,
+                    in_=BusGroupProxy(
+                        provider=provider,
+                        calculation_rate=CalculationRate.AUDIO,
+                        channel_count=1,
+                        identifier=16,
+                    ),
+                ),
+                call.add_synth(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    synthdef=None,
+                    target_node=GroupProxy(provider=provider, identifier=1001),
+                    frequency=440,
+                    out=BusGroupProxy(
+                        provider=provider,
+                        calculation_rate=CalculationRate.AUDIO,
+                        channel_count=1,
+                        identifier=16,
+                    ),
+                ),
+                call.at(1.0),
+                call.set_node(
+                    SynthProxy(
+                        provider=provider,
+                        identifier=1003,
+                        synthdef=default,
+                        settings={
+                            "frequency": 440,
+                            "out": BusGroupProxy(
+                                provider=provider,
+                                calculation_rate=CalculationRate.AUDIO,
+                                channel_count=1,
+                                identifier=16,
+                            ),
+                        },
+                    ),
+                    frequency=550,
+                    out=BusGroupProxy(
+                        provider=provider,
+                        calculation_rate=CalculationRate.AUDIO,
+                        channel_count=1,
+                        identifier=16,
+                    ),
+                ),
+                call.at(1.5),
+                call.free_node(
+                    SynthProxy(
+                        provider=provider,
+                        identifier=1003,
+                        synthdef=default,
+                        settings={
+                            "frequency": 440,
+                            "out": BusGroupProxy(
+                                provider=provider,
+                                calculation_rate=CalculationRate.AUDIO,
+                                channel_count=1,
+                                identifier=16,
+                            ),
+                        },
+                    )
+                ),
+                call.at(1.5),  # Can we coalesce these moments?
+                call.free_node(
+                    SynthProxy(
+                        provider=provider,
+                        identifier=1002,
+                        synthdef=system_link_audio_1,
+                        settings={
+                            "amplitude": 1.0,
+                            "fade_time": 0.25,
+                            "in_": BusGroupProxy(
+                                provider=provider,
+                                calculation_rate=CalculationRate.AUDIO,
+                                channel_count=1,
+                                identifier=16,
+                            ),
+                        },
+                    )
+                ),
+                call.at(1.75),
+                call.free_node(GroupProxy(provider=provider, identifier=1001)),
+                call.free_bus_group(
+                    BusGroupProxy(
+                        provider=provider,
+                        calculation_rate=CalculationRate.AUDIO,
+                        channel_count=1,
+                        identifier=16,
+                    )
+                ),
+                call.free_node(GroupProxy(provider=provider, identifier=1000)),
             ],
         ),
     ],

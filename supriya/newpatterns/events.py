@@ -196,19 +196,19 @@ class NoteEvent(Event):
             #    if yes, update settings
             #    if no, create proxy
             # update notes mapping with expected completion offset
+            settings = self.kwargs.copy()
+            for key, value in settings.items():
+                if isinstance(value, UUID):
+                    settings[key] = proxy_mapping[value]
             if self.id_ not in proxy_mapping:
                 proxy_mapping[self.id_] = provider.add_synth(
                     add_action=self.add_action,
                     synthdef=self.synthdef,
                     target_node=proxy_mapping.get(self.target_node),
-                    **self.kwargs,
+                    **settings,
                 )
             else:
                 proxy = proxy_mapping[self.id_]
-                settings = self.kwargs.copy()
-                for key, value in settings.items():
-                    if isinstance(value, UUID):
-                        settings[key] = proxy_mapping[value]
                 provider.set_node(proxy, **settings)
             notes_mapping[self.id_] = current_offset + self.calculate_duration()
         elif priority == Priority.STOP:
@@ -254,9 +254,13 @@ class SynthAllocateEvent(Event):
         notes_mapping: Dict[Tuple[UUID, int], float],
         priority: int,
     ):
+        settings = self.kwargs.copy()
+        for key, value in settings.items():
+            if isinstance(value, UUID):
+                settings[key] = proxy_mapping[value]
         proxy_mapping[self.id_] = provider.add_synth(
             add_action=self.add_action,
             synthdef=self.synthdef,
             target_node=proxy_mapping.get(self.target_node),
-            **self.kwargs,
+            **settings,
         )
