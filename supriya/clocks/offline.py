@@ -3,7 +3,7 @@ import queue
 from typing import Optional, Tuple
 
 from .bases import BaseTempoClock
-from .ephemera import Moment
+from .ephemera import ClockContext, Moment
 
 logger = logging.getLogger("supriya.clocks")
 
@@ -14,6 +14,18 @@ class OfflineTempoClock(BaseTempoClock):
         self._generator = None
 
     ### SCHEDULING METHODS ###
+
+    def _perform_callback_event(self, event, current_moment, desired_moment):
+        logger.debug(
+            f"[{self.name}] ... ... Performing {event.procedure} at "
+            f"{desired_moment.seconds - self._state.initial_seconds}:s / "
+            f"{desired_moment.offset}:o"
+        )
+        context = ClockContext(current_moment, desired_moment, event)
+        args = event.args or ()
+        kwargs = event.kwargs or {}
+        result = event.procedure(context, *args, **kwargs)
+        self._process_callback_event_result(desired_moment, event, result)
 
     def _run(self, *args, offline=False, **kwargs):
         logger.debug(f"[{self.name}] Thread start")

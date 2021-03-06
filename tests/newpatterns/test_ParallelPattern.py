@@ -21,6 +21,37 @@ from supriya.newpatterns.testutils import run_pattern_test
         (
             None,
             [
+                EventPattern(frequency=SequencePattern([440, 550, 660])),
+                EventPattern(frequency=SequencePattern([777, 888, 999])),
+            ],
+            [
+                CompositeEvent(
+                    [
+                        NoteEvent(M("A"), delta=0.0, frequency=440),
+                        NoteEvent(M("B"), delta=0.0, frequency=777),
+                    ],
+                    delta=1.0,
+                ),
+                CompositeEvent(
+                    [
+                        NoteEvent(M("C"), delta=0.0, frequency=550),
+                        NoteEvent(M("D"), delta=0.0, frequency=888),
+                    ],
+                    delta=1.0,
+                ),
+                CompositeEvent(
+                    [
+                        NoteEvent(M("E"), delta=0.0, frequency=660),
+                        NoteEvent(M("F"), delta=0.0, frequency=999),
+                    ],
+                    delta=1.0,
+                ),
+            ],
+            False,
+        ),
+        (
+            None,
+            [
                 EventPattern(x=SequencePattern([1, 2, 3]), delta=1.0),
                 EventPattern(y=SequencePattern([1, 2]), delta=1.5),
             ],

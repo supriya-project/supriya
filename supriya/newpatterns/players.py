@@ -53,11 +53,15 @@ class PatternPlayer:
                 if self._is_stopping:
                     return True
                 index, consumed_event = next(self._iterator)
-            for (expanded_offset, priority, expanded_event,) in consumed_event.expand(
-                current_offset
+            for subindex, (expanded_offset, priority, expanded_event) in enumerate(
+                consumed_event.expand(current_offset)
             ):
-                self._queue.put((expanded_offset, priority, index, expanded_event))
-            self._queue.put((current_offset + consumed_event.delta, 0, index, None))
+                self._queue.put(
+                    (expanded_offset, priority, (index, subindex), expanded_event)
+                )
+            self._queue.put(
+                (current_offset + consumed_event.delta, 0, (index, 0), None)
+            )
         except StopIteration:
             pass
         return False
@@ -124,7 +128,7 @@ class PatternPlayer:
             if self._is_running:
                 return
             self._iterator = self._enumerate(iter(self._pattern))
-            self._queue.put((float("-inf"), 0, 0, None))
+            self._queue.put((float("-inf"), 0, (0, 0), None))
             self._is_running = True
             self._is_stopping = False
         self._clock_event_id = self._clock.cue(
