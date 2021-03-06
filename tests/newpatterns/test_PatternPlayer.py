@@ -7,7 +7,7 @@ from supriya.newpatterns import EventPattern, MonoEventPattern, SequencePattern
 from supriya.providers import Provider, SynthProxy
 
 
-def test_play():
+def test_play_1():
     pattern = SequencePattern(
         [
             EventPattern(frequency=SequencePattern([440, 550, 660])),
@@ -100,4 +100,46 @@ def test_play():
                 settings={"frequency": 440},
             )
         ),
+    ]
+
+
+def test_play_2():
+    pattern = EventPattern(frequency=SequencePattern([440, 550, 660]))
+    clock = OfflineTempoClock()
+    provider = Provider.realtime()
+    spy = Mock(spec=Provider, wraps=provider)
+    pattern.play(provider=spy, clock=clock, until=1.5)
+    assert spy.mock_calls == [
+        call.at(0.0),
+        call.add_synth(
+            add_action=AddAction.ADD_TO_HEAD,
+            synthdef=None,
+            target_node=None,
+            frequency=440,
+        ),
+        call.at(1.0),
+        call.add_synth(
+            add_action=AddAction.ADD_TO_HEAD,
+            synthdef=None,
+            target_node=None,
+            frequency=550,
+        ),
+        call.free_node(
+            SynthProxy(
+                provider=provider,
+                identifier=1000,
+                synthdef=default,
+                settings={"frequency": 440},
+            )
+        ),
+        call.at(1.5),
+        call.free_node(
+            SynthProxy(
+                provider=provider,
+                identifier=1001,
+                synthdef=default,
+                settings={"frequency": 550},
+            )
+        ),
+        call.at(1.5),  # 1001 was freed early, nothing to do.
     ]

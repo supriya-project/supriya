@@ -9,9 +9,8 @@ logger = logging.getLogger("supriya.clocks")
 
 
 class OfflineTempoClock(BaseTempoClock):
-    def __init__(self, steppable=False):
+    def __init__(self):
         super().__init__()
-        self._steppable = bool(steppable)
         self._generator = None
 
     ### SCHEDULING METHODS ###
@@ -34,8 +33,6 @@ class OfflineTempoClock(BaseTempoClock):
                 previous_seconds=current_moment.seconds,
                 previous_offset=current_moment.offset,
             )
-            if self._steppable:
-                yield True
         logger.debug(f"[{self.name}] Terminating")
         yield False
         self._stop()
@@ -78,11 +75,6 @@ class OfflineTempoClock(BaseTempoClock):
         self._generator = self._run()
         if not next(self._generator):
             self._stop()
-
-    def step(self):
-        if self._generator is not None:
-            if not next(self._generator):
-                self._stop()
 
     def stop(self):
         if not self._stop():

@@ -64,10 +64,15 @@ class PatternPlayer:
 
     def _stop_callback(self, context, *args, **kwargs):
         with self._lock:
-            # Do we need to rebuild the queue?
-            # Do we need to free all playing notes?
-            # How do we handle when there are already stop events in the queue?
+            # Do we need to rebuild the queue? Yes.
+            # Do we need to free all playing notes? Yes.
+            # How do we handle when there are already stop events in the queue? They'll be no-ops when performed.
             self._is_stopping = True
+            self._clock.reschedule(
+                self._clock_event_id, schedule_at=context.desired_moment.offset
+            )
+            self._reschedule_queue(context.desired_moment.offset)
+            self._free_all_notes(context.desired_moment.offset)
 
     def _enumerate(self, iterator):
         index = 0
@@ -80,6 +85,15 @@ class PatternPlayer:
             except StopIteration:
                 return
             index += 1
+
+    def _free_all_notes(self, current_offset):
+        if not self._notes_by_uuid:
+            return
+        with self._provider.at(current_offset):
+            while self._notes_by_uuid:
+                uuid, _ = self._notes_by_uuid.popitem()
+                proxy = self._proxies_by_uuid.pop(uuid)
+                self._provider.free_node(proxy)
 
     def _perform_events(self, current_offset, events):
         if not events:
@@ -94,7 +108,18 @@ class PatternPlayer:
                     priority=priority,
                 )
 
-    def play(self, quantization: str = None):
+    def _reschedule_queue(self, current_offset):
+        events = []
+        while not self._queue.empty():
+            events.append(self._queue.get())
+        if not events:
+            return
+        delta = events[0][0] - current_offset
+        for event in events:
+            offset, *rest = event
+            self._queue.put((offset - delta, *rest))
+
+    def play(self, quantization: str = None, until=None):
         with self._lock:
             if self._is_running:
                 return
@@ -105,6 +130,8 @@ class PatternPlayer:
         self._clock_event_id = self._clock.cue(
             self._clock_callback, event_type=3, quantization=quantization,
         )
+        if until:
+            self._clock.schedule(self._stop_callback, event_type=2, schedule_at=until)
         if not self._clock.is_running:
             self._clock.start()
 

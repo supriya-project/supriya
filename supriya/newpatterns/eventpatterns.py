@@ -1,8 +1,9 @@
+from typing import Type
 from uuid import uuid4
 
 from uqbar.objects import new
 
-from .events import NoteEvent
+from .events import Event, NoteEvent
 from .patterns import Pattern, SequencePattern
 
 
@@ -11,8 +12,9 @@ class EventPattern(Pattern):
     Akin to SuperCollider's Pbind.
     """
 
-    def __init__(self, **patterns):
+    def __init__(self, event_type: Type[Event] = NoteEvent, **patterns):
         self._patterns = patterns
+        self._event_type = event_type
 
     def _iterate(self, state=None):
         patterns = self._prepare_patterns()
@@ -24,7 +26,7 @@ class EventPattern(Pattern):
                     event[key] = next(pattern)
                 except StopIteration:
                     return
-            if (yield NoteEvent(uuid4(), **event)):
+            if (yield self.event_type(uuid4(), **event)):
                 return
 
     def _prepare_patterns(self):
@@ -34,6 +36,10 @@ class EventPattern(Pattern):
                 pattern = SequencePattern([pattern], iterations=None)
             patterns[name] = iter(pattern)
         return patterns
+
+    @property
+    def event_type(self) -> Type[Event]:
+        return self._event_type
 
     @property
     def is_infinite(self):
@@ -59,7 +65,7 @@ class MonoEventPattern(EventPattern):
                     event[key] = next(pattern)
                 except StopIteration:
                     return
-            if (yield NoteEvent(id_, **event)):
+            if (yield self.event_type(id_, **event)):
                 return
 
     @property
