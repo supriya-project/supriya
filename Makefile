@@ -6,10 +6,10 @@ formatPaths = ${project}/ tests/ *.py
 testPaths = ${project}/ tests/
 
 black-check:
-	black --target-version py36 --check --diff ${formatPaths}
+	black --target-version py38 --check --diff ${formatPaths}
 
 black-reformat:
-	black --target-version py36 ${formatPaths}
+	black --target-version py38 ${formatPaths}
 
 build:
 	python setup.py sdist
