@@ -24,7 +24,7 @@ class PatternPlayer:
                 try:
                     offset, priority, index, event = self._queue.get(block=False)
                 except Empty:
-                    self._perform_events(current_offset, events)
+                    self._perform_events(context.desired_moment.seconds, current_offset, events)
                     self._is_running = False
                     return None
                 except Exception:
@@ -33,13 +33,13 @@ class PatternPlayer:
                     offset = context.desired_moment.offset
                 if (delta := offset - context.desired_moment.offset) :
                     self._queue.put((offset, priority, index, event))
-                    self._perform_events(current_offset, events)
+                    self._perform_events(context.desired_moment.seconds, current_offset, events)
                     return delta
                 if not isinstance(event, Event):
                     if self._consume_iterator(offset):
                         return
                 elif offset != current_offset:
-                    self._perform_events(current_offset, events)
+                    self._perform_events(context.desired_moment.seconds, current_offset, events)
                     current_offset = offset
                     events = [(event, priority)]
                 else:
@@ -76,7 +76,7 @@ class PatternPlayer:
                 self._clock_event_id, schedule_at=context.desired_moment.offset
             )
             self._reschedule_queue(context.desired_moment.offset)
-            self._free_all_notes(context.desired_moment.offset)
+            self._free_all_notes(context.desired_moment.seconds)
 
     def _enumerate(self, iterator):
         index = 0
@@ -90,19 +90,19 @@ class PatternPlayer:
                 return
             index += 1
 
-    def _free_all_notes(self, current_offset):
+    def _free_all_notes(self, current_seconds):
         if not self._notes_by_uuid:
             return
-        with self._provider.at(current_offset):
+        with self._provider.at(current_seconds):
             while self._notes_by_uuid:
                 uuid, _ = self._notes_by_uuid.popitem()
                 proxy = self._proxies_by_uuid.pop(uuid)
                 self._provider.free_node(proxy)
 
-    def _perform_events(self, current_offset, events):
+    def _perform_events(self, current_seconds, current_offset, events):
         if not events:
             return
-        with self._provider.at(current_offset):
+        with self._provider.at(current_seconds):
             for event, priority in events:
                 event.perform(
                     self._provider,

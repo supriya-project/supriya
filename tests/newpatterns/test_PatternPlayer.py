@@ -35,7 +35,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                     target_node=None,
                     frequency=440,
                 ),
-                call.at(1.0),
+                call.at(2.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
                     synthdef=None,
@@ -50,7 +50,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         settings={"frequency": 440},
                     )
                 ),
-                call.at(2.0),
+                call.at(4.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
                     synthdef=None,
@@ -65,7 +65,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         settings={"frequency": 550},
                     )
                 ),
-                call.at(3.0),
+                call.at(6.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
                     synthdef=None,
@@ -80,7 +80,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         settings={"frequency": 660},
                     )
                 ),
-                call.at(4.0),
+                call.at(8.0),
                 call.set_node(
                     SynthProxy(
                         provider=provider,
@@ -90,7 +90,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                     ),
                     frequency=550,
                 ),
-                call.at(5.0),
+                call.at(10.0),
                 call.set_node(
                     SynthProxy(
                         provider=provider,
@@ -100,7 +100,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                     ),
                     frequency=660,
                 ),
-                call.at(6.0),
+                call.at(12.0),
                 call.free_node(
                     SynthProxy(
                         provider=provider,
@@ -122,7 +122,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                     target_node=None,
                     frequency=440,
                 ),
-                call.at(1.0),
+                call.at(2.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
                     synthdef=None,
@@ -137,7 +137,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         settings={"frequency": 440},
                     )
                 ),
-                call.at(1.5),
+                call.at(3.0),
                 call.free_node(
                     SynthProxy(
                         provider=provider,
@@ -146,7 +146,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         settings={"frequency": 550},
                     )
                 ),
-                call.at(1.5),  # 1001 was freed early, nothing to do.
+                call.at(3.0),  # 1001 was freed early, nothing to do.
             ],
         ),
         (
@@ -171,7 +171,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                     target_node=None,
                     frequency=777,
                 ),
-                call.at(1.0),
+                call.at(2.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
                     synthdef=None,
@@ -200,7 +200,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         settings={"frequency": 777},
                     )
                 ),
-                call.at(2.0),
+                call.at(4.0),
                 call.free_node(
                     SynthProxy(
                         provider=provider,
@@ -259,7 +259,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         identifier=16,
                     ),
                 ),
-                call.at(1.0),
+                call.at(2.0),
                 call.set_node(
                     SynthProxy(
                         provider=provider,
@@ -283,7 +283,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         identifier=16,
                     ),
                 ),
-                call.at(1.5),
+                call.at(3.0),
                 call.free_node(
                     SynthProxy(
                         provider=provider,
@@ -300,7 +300,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         },
                     )
                 ),
-                call.at(1.5),  # Can we coalesce these moments?
+                call.at(3.0),  # Can we coalesce these moments?
                 call.free_node(
                     SynthProxy(
                         provider=provider,
@@ -318,7 +318,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         },
                     )
                 ),
-                call.at(1.75),
+                call.at(3.5),
                 call.free_node(GroupProxy(provider=provider, identifier=1001)),
                 call.free_bus_group(
                     BusGroupProxy(
