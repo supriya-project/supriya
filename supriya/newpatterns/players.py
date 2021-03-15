@@ -24,7 +24,9 @@ class PatternPlayer:
                 try:
                     offset, priority, index, event = self._queue.get(block=False)
                 except Empty:
-                    self._perform_events(context.desired_moment.seconds, current_offset, events)
+                    self._perform_events(
+                        context.desired_moment.seconds, current_offset, events
+                    )
                     self._is_running = False
                     return None
                 except Exception:
@@ -33,13 +35,17 @@ class PatternPlayer:
                     offset = context.desired_moment.offset
                 if (delta := offset - context.desired_moment.offset) :
                     self._queue.put((offset, priority, index, event))
-                    self._perform_events(context.desired_moment.seconds, current_offset, events)
+                    self._perform_events(
+                        context.desired_moment.seconds, current_offset, events
+                    )
                     return delta
                 if not isinstance(event, Event):
                     if self._consume_iterator(offset):
                         return
                 elif offset != current_offset:
-                    self._perform_events(context.desired_moment.seconds, current_offset, events)
+                    self._perform_events(
+                        context.desired_moment.seconds, current_offset, events
+                    )
                     current_offset = offset
                     events = [(event, priority)]
                 else:
@@ -123,7 +129,7 @@ class PatternPlayer:
             offset, *rest = event
             self._queue.put((offset - delta, *rest))
 
-    def play(self, quantization: str = None, until=None):
+    def play(self, quantization: str = None, at=None, until=None):
         with self._lock:
             if self._is_running:
                 return
@@ -137,7 +143,7 @@ class PatternPlayer:
         if until:
             self._clock.schedule(self._stop_callback, event_type=2, schedule_at=until)
         if not self._clock.is_running:
-            self._clock.start()
+            self._clock.start(initial_time=at)
 
     def stop(self, quantization: str = None):
         with self._lock:

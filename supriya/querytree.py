@@ -1,5 +1,6 @@
 from collections.abc import Sequence
 
+from supriya import ParameterRate
 from supriya.system import SupriyaValueObject
 
 
@@ -92,14 +93,13 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
         include_timespans=False,
         id_mapping=None,
     ):
-        import supriya.commands
-        import supriya.nonrealtime
-        import supriya.synthdefs
+        from supriya.nonrealtime import Bus, BusGroup, Synth
+        from supriya.synthdefs import SynthDef
 
-        assert isinstance(node, supriya.nonrealtime.Synth)
+        assert isinstance(node, Synth)
         node_id = node.session_id
         synthdef_name = node.synthdef
-        if isinstance(synthdef_name, supriya.synthdefs.SynthDef):
+        if isinstance(synthdef_name, SynthDef):
             synthdef_name = synthdef_name.actual_name
         controls = []
         if include_controls:
@@ -109,15 +109,21 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
             synthdef, synth_kwargs = node.synthdef, node.synth_kwargs
             for name, parameter in sorted(synthdef.parameters.items()):
                 value = parameter.value
-                if node.start_offset == state.offset:
-                    if name in synth_kwargs:
-                        value = synth_kwargs[name]
+                if node.start_offset == state.offset and name in synth_kwargs:
+                    value = synth_kwargs[name]
                 if name in settings:
                     value = settings[name]
-                try:
+                if (
+                    parameter.parameter_rate == ParameterRate.SCALAR
+                    or parameter.name in ("in_", "out")
+                ):
+                    if value in id_mapping:
+                        value = id_mapping[value]
                     value = float(value)
-                except Exception:
-                    pass
+                elif isinstance(value, (Bus, BusGroup)) and value in id_mapping:
+                    value = value.get_map_symbol(id_mapping[value])
+                else:
+                    value = float(value)
                 control = QueryTreeControl(
                     control_name_or_index=name, control_value=value
                 )

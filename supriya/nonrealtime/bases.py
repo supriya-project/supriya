@@ -1,6 +1,8 @@
 import abc
 import functools
 
+from uqbar.objects import get_repr
+
 from supriya.system import SupriyaObject
 
 
@@ -24,6 +26,11 @@ class SessionObject(SupriyaObject):
         prototype = (supriya.nonrealtime.Session, type(None))
         assert isinstance(session, prototype)
         self._session = session
+
+    ### SPECIAL METHODS ###
+
+    def __repr__(self):
+        return get_repr(self, multiline=False)
 
     ### PUBLIC METHODS ###
 

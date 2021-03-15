@@ -292,9 +292,11 @@ class SynthProxy(NodeProxy):
             value = self.settings[parameter.name]
             if value == parameter.value:
                 continue
-            if parameter.parameter_rate != ParameterRate.SCALAR and isinstance(
-                value, BusProxy
-            ):
+            if parameter.parameter_rate == ParameterRate.SCALAR:
+                synthdef_kwargs[parameter.name] = float(value)
+            elif parameter.name in ("in_", "out"):
+                synthdef_kwargs[parameter.name] = float(value)
+            elif isinstance(value, (BusProxy, BusGroupProxy)):
                 synthdef_kwargs[parameter.name] = value.map_symbol
             else:
                 synthdef_kwargs[parameter.name] = float(value)

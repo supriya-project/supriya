@@ -9,7 +9,7 @@ from uqbar.objects import new
 import supriya  # noqa
 import supriya.realtime
 from supriya.commands import GroupNewRequest, SynthNewRequest
-from supriya.enums import AddAction
+from supriya.enums import AddAction, ParameterRate
 from supriya.nonrealtime.bases import SessionObject
 from supriya.nonrealtime.states import NodeTransition, State
 from supriya.patterns.bases import Pattern
@@ -55,7 +55,9 @@ class Node(SessionObject):
 
     ### SPECIAL METHODS ###
 
-    def __getitem__(self, item: str) -> float:
+    def __getitem__(
+        self, item: str
+    ) -> Union[float, "supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"]:
         assert self.session._active_moments
         offset = self.session._active_moments[-1].offset
         return self._get_at_offset(offset, item)[0] or 0
@@ -89,20 +91,19 @@ class Node(SessionObject):
         self.session._apply_transitions([node.start_offset, node.stop_offset])
         return node
 
-    def _collect_settings(self, offset: float, id_mapping=None, persistent=False):
-        settings: Dict[str, float] = {}
+    def _collect_settings(self, offset: float, *, id_mapping, persistent=False):
+        settings: Dict[str, Union[float, str]] = {}
         for key in self._events:
             value, actual_offset = self._get_at_offset(offset, key)
             if not persistent and actual_offset != offset:
                 continue
             if id_mapping and value in id_mapping:
-                value = cast(
+                settings[key] = cast(
                     Union["supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"],
                     value,
                 ).get_map_symbol(id_mapping[value])
             elif value is not None:
-                value = float(value)
-            settings[key] = value or 0.0
+                settings[key] = float(value)
         return settings
 
     def _fixup_duration(self, new_duration: float) -> None:
@@ -156,10 +157,10 @@ class Node(SessionObject):
     def _get_at_offset(
         self, offset: float, item: str
     ) -> Tuple[
-        Optional[Union[float]],
         Optional[
             Union[float, "supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"]
         ],
+        Optional[float],
     ]:
         """
         Relative to Node start offset.
@@ -731,13 +732,43 @@ class Synth(Node):
             group.append(uqbar.graphs.RecordField(label=field))
         return uqbar.graphs.Node(children=[uqbar.graphs.RecordGroup([group])])
 
+    def _collect_settings(
+        self, offset: float, *, id_mapping: Dict[Any, float], persistent=False
+    ):
+        from .buses import Bus, BusGroup
+
+        settings: Dict[str, float] = {}
+        parameters = self.synthdef.parameters
+        for key in self._events:
+            parameter = parameters[key]
+            value, actual_offset = self._get_at_offset(offset, key)
+            if not persistent and actual_offset != offset:
+                continue
+            if value is None:
+                continue
+            if parameter.parameter_rate == ParameterRate.SCALAR or parameter.name in (
+                "in_",
+                "out",
+            ):
+                if value in id_mapping:
+                    value = id_mapping[value]
+                settings[key] = float(value)
+            elif isinstance(value, (Bus, BusGroup)) and value in id_mapping:
+                settings[key] = cast(
+                    Union["supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"],
+                    value,
+                ).get_map_symbol(id_mapping[value])
+            else:
+                settings[key] = float(value)
+        return settings
+
     def _get_at_offset(
         self, offset: float, item: str
     ) -> Tuple[
-        Optional[Union[float]],
         Optional[
             Union[float, "supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"]
         ],
+        Optional[float],
     ]:
         default = self.synthdef.parameters[item].value
         default = self._synth_kwargs.get(item, default)
@@ -757,14 +788,9 @@ class Synth(Node):
         add_action = action.action
         bus_prototype = (supriya.nonrealtime.Bus, supriya.nonrealtime.BusGroup)
         buffer_prototype = (supriya.nonrealtime.Buffer, supriya.nonrealtime.BufferGroup)
-        # nonmapping_keys = ['out']
         for key, value in synth_kwargs.items():
             if isinstance(value, bus_prototype):
                 bus_id = id_mapping[value]
-                # if key not in nonmapping_keys:
-                #    value = value.get_map_symbol(bus_id)
-                # else:
-                #    value = bus_id
                 value = bus_id
                 synth_kwargs[key] = value
             elif isinstance(value, buffer_prototype):

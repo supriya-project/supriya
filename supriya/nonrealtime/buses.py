@@ -76,6 +76,12 @@ class Bus(SessionObject):
     def __repr__(self):
         return "<{}>".format(super(Bus, self).__repr__())
 
+    def __float__(self):
+        return float(self._session_id)
+
+    def __int__(self):
+        return int(self._session_id)
+
     def __str__(self):
         map_symbol = "c"
         if self.calculation_rate == supriya.CalculationRate.AUDIO:
@@ -248,11 +254,17 @@ class BusGroup(SessionObject):
     def __contains__(self, item):
         return self.buses.__contains__(item)
 
+    def __float__(self):
+        return float(self._session_id)
+
     def __getitem__(self, item):
         if isinstance(item, int):
             return self._buses[item]
         elif isinstance(item, slice):
             return tuple(self._buses[item])
+
+    def __int__(self):
+        return int(self._session_id)
 
     def __iter__(self):
         return iter(self.buses)

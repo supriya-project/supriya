@@ -195,7 +195,7 @@ class Pattern(metaclass=abc.ABCMeta):
 
     ### PUBLIC METHODS ###
 
-    def play(self, provider=None, clock=None, quantization=None, until=None):
+    def play(self, provider=None, clock=None, quantization=None, at=None, until=None):
         if provider is None:
             provider = Provider.realtime()
         elif not isinstance(provider, Provider):
@@ -203,7 +203,7 @@ class Pattern(metaclass=abc.ABCMeta):
         player = PatternPlayer(
             pattern=self, provider=provider, clock=clock or TempoClock.default(),
         )
-        player.play(quantization=quantization, until=until)
+        player.play(quantization=quantization, at=at, until=until)
         return player
 
     ### PUBLIC PROPERTIES ###
