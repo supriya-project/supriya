@@ -90,12 +90,6 @@ jobs:
       with:
         path: /tmp/supercollider
         key: ${{ runner.os }}-supercollider-${{ env.SC_ORIGIN_MD5 }}-${{ env.SC_COMMIT_SHA }}
-    - name: Prep APT
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: |
-        export DEBIAN_FRONTEND=noninteractive
-        sudo apt-get clean
-        sudo apt-get update
     - name: Install SC Deps
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
@@ -179,12 +173,6 @@ jobs:
       with:
         path: /tmp/supercollider
         key: ${{ runner.os }}-supercollider-${{ env.SC_ORIGIN_MD5 }}-${{ env.SC_COMMIT_SHA }}
-    - name: Prep APT
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: |
-        export DEBIAN_FRONTEND=noninteractive
-        sudo apt-get clean
-        sudo apt-get update
     - name: Install SC Deps
       run: |
         export DEBIAN_FRONTEND=noninteractive
