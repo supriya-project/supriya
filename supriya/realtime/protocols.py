@@ -33,14 +33,14 @@ class SyncProcessProtocol(ProcessProtocol):
         options_string = options.as_options_string(port)
         command = "{} {}".format(scsynth_path, options_string)
         logger.info("Boot: {}".format(command))
-        self.process = subprocess.Popen(
-            command,
-            shell=True,
-            stderr=subprocess.STDOUT,
-            stdout=subprocess.PIPE,
-            start_new_session=True,
-        )
         try:
+            self.process = subprocess.Popen(
+                command,
+                shell=True,
+                stderr=subprocess.STDOUT,
+                stdout=subprocess.PIPE,
+                start_new_session=True,
+            )
             start_time = time.time()
             timeout = 10
             while True:

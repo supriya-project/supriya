@@ -279,38 +279,38 @@ def test_to_strings():
                     1002 group
                         1005 group
                             1007 default
-                                amplitude: 0.1, frequency: 2221.0, gate: 1.0, out: a0, pan: 0.5
+                                amplitude: 0.1, frequency: 2221.0, gate: 1.0, out: 16.0, pan: 0.5
                             1006 default
-                                amplitude: 0.1, frequency: 1111.0, gate: 1.0, out: a0, pan: 0.5
+                                amplitude: 0.1, frequency: 1111.0, gate: 1.0, out: 16.0, pan: 0.5
                         1004 38bda0aee6d0e2d4af72be83c09d9b77
-                            in_: a0, out: a0
+                            in_: 16.0, out: 16.0
                     1003 group
                         1009 group
                             1011 default
-                                amplitude: 0.1, frequency: 4441.0, gate: 1.0, out: a0, pan: 0.5
+                                amplitude: 0.1, frequency: 4441.0, gate: 1.0, out: 16.0, pan: 0.5
                             1010 default
-                                amplitude: 0.1, frequency: 3331.0, gate: 1.0, out: a0, pan: 0.5
+                                amplitude: 0.1, frequency: 3331.0, gate: 1.0, out: 16.0, pan: 0.5
                         1008 38bda0aee6d0e2d4af72be83c09d9b77
-                            in_: a0, out: a0
+                            in_: 16.0, out: 16.0
                 1001 system_link_audio_2
-                    done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: a0, out: 0.0
+                    done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         1.0:
             NODE TREE 0 group
                 1000 group
                     1002 group
                         1005 group
                             1013 default
-                                amplitude: 0.1, frequency: 2222.0, gate: 1.0, out: a0, pan: 0.5
+                                amplitude: 0.1, frequency: 2222.0, gate: 1.0, out: 16.0, pan: 0.5
                             1012 default
-                                amplitude: 0.1, frequency: 1112.0, gate: 1.0, out: a0, pan: 0.5
+                                amplitude: 0.1, frequency: 1112.0, gate: 1.0, out: 16.0, pan: 0.5
                         1004 38bda0aee6d0e2d4af72be83c09d9b77
                             in_: 0.0, out: 0.0
                     1003 group
                         1009 group
                             1015 default
-                                amplitude: 0.1, frequency: 4442.0, gate: 1.0, out: a0, pan: 0.5
+                                amplitude: 0.1, frequency: 4442.0, gate: 1.0, out: 16.0, pan: 0.5
                             1014 default
-                                amplitude: 0.1, frequency: 3332.0, gate: 1.0, out: a0, pan: 0.5
+                                amplitude: 0.1, frequency: 3332.0, gate: 1.0, out: 16.0, pan: 0.5
                         1008 38bda0aee6d0e2d4af72be83c09d9b77
                             in_: 0.0, out: 0.0
                 1001 system_link_audio_2
@@ -321,17 +321,17 @@ def test_to_strings():
                     1002 group
                         1005 group
                             1017 default
-                                amplitude: 0.1, frequency: 2223.0, gate: 1.0, out: a0, pan: 0.5
+                                amplitude: 0.1, frequency: 2223.0, gate: 1.0, out: 16.0, pan: 0.5
                             1016 default
-                                amplitude: 0.1, frequency: 1113.0, gate: 1.0, out: a0, pan: 0.5
+                                amplitude: 0.1, frequency: 1113.0, gate: 1.0, out: 16.0, pan: 0.5
                         1004 38bda0aee6d0e2d4af72be83c09d9b77
                             in_: 0.0, out: 0.0
                     1003 group
                         1009 group
                             1019 default
-                                amplitude: 0.1, frequency: 4443.0, gate: 1.0, out: a0, pan: 0.5
+                                amplitude: 0.1, frequency: 4443.0, gate: 1.0, out: 16.0, pan: 0.5
                             1018 default
-                                amplitude: 0.1, frequency: 3333.0, gate: 1.0, out: a0, pan: 0.5
+                                amplitude: 0.1, frequency: 3333.0, gate: 1.0, out: 16.0, pan: 0.5
                         1008 38bda0aee6d0e2d4af72be83c09d9b77
                             in_: 0.0, out: 0.0
                 1001 system_link_audio_2

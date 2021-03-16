@@ -14,11 +14,7 @@ class Bus(SessionObject):
         >>> session = supriya.nonrealtime.Session()
         >>> bus = session.add_bus("control")
         >>> print(repr(bus))
-        <Bus(
-            <Session>,
-            calculation_rate=CalculationRate.CONTROL,
-            session_id=0,
-        )>
+        <Bus(<Session>, calculation_rate=CalculationRate.CONTROL, session_id=0)>
 
     ::
 
@@ -184,12 +180,7 @@ class BusGroup(SessionObject):
         >>> session = supriya.nonrealtime.Session()
         >>> bus_group = session.add_bus_group(3)
         >>> print(repr(bus_group))
-        <BusGroup(
-            <Session>,
-            bus_count=3,
-            calculation_rate=CalculationRate.CONTROL,
-            session_id=0,
-        )>
+        <BusGroup(<Session>, bus_count=3, calculation_rate=CalculationRate.CONTROL, session_id=0)>
 
     ::
 
