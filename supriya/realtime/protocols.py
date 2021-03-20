@@ -72,12 +72,10 @@ class SyncProcessProtocol(ProcessProtocol):
         if not self.is_running:
             return
         try:
-            process_group = os.getpgid(self.process.pid)
-            os.killpg(process_group, signal.SIGINT)
-        except ProcessLookupError:
-            logger.warning(f"Could not find process group for PID {self.process.pid}")
-        self.process.terminate()
-        self.process.wait()
+            self.process.communicate(timeout=0.1)
+        except subprocess.TimeoutExpired:
+            self.process.kill()
+            self.process.communicate()
         self.is_running = False
 
 
