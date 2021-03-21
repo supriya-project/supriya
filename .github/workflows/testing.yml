@@ -94,6 +94,7 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
         export DEBIAN_FRONTEND=noninteractive
+        sudo apt-get update --yes
         sudo apt-get install --yes \
           alsa-oss \
           alsa-utils \
@@ -176,6 +177,7 @@ jobs:
     - name: Install SC Deps
       run: |
         export DEBIAN_FRONTEND=noninteractive
+        sudo apt-get update --yes
         sudo apt-get install --yes \
           alsa-oss \
           alsa-utils \
