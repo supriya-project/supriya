@@ -1,3 +1,4 @@
+import atexit
 import logging
 import queue
 import threading
@@ -21,6 +22,7 @@ class TempoClock(BaseTempoClock):
         BaseTempoClock.__init__(self)
         self._event = threading.Event()
         self._thread = threading.Thread(target=self._run, daemon=True)
+        atexit.register(self.stop)
 
     ### SCHEDULING METHODS ###
 

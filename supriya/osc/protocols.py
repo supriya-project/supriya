@@ -1,4 +1,5 @@
 import asyncio
+import atexit
 import dataclasses
 import logging
 import queue
@@ -305,6 +306,7 @@ class ThreadedOscProtocol(OscProtocol):
         self.lock = threading.RLock()
         self.osc_server = None
         self.osc_server_thread = None
+        atexit.register(self.disconnect)
 
     ### SPECIAL METHODS ###
 
