@@ -71,11 +71,18 @@ class SyncProcessProtocol(ProcessProtocol):
     def quit(self):
         if not self.is_running:
             return
+        #try:
+        #    self.process.communicate(timeout=0.1)
+        #except subprocess.TimeoutExpired:
+        #    self.process.kill()
+        #    self.process.communicate()
         try:
-            self.process.communicate(timeout=0.1)
-        except subprocess.TimeoutExpired:
-            self.process.kill()
-            self.process.communicate()
+            process_group = os.getpgid(self.process.pid)
+            os.killpg(process_group, signal.SIGINT)
+        except ProcessLookupError:
+            logger.warning(f"Could not find process group for PID {self.process.pid}")
+        self.process.terminate()
+        self.process.wait()
         self.is_running = False
 
 
