@@ -71,9 +71,9 @@ class SyncProcessProtocol(ProcessProtocol):
     def quit(self):
         if not self.is_running:
             return
-        #try:
+        # try:
         #    self.process.communicate(timeout=0.1)
-        #except subprocess.TimeoutExpired:
+        # except subprocess.TimeoutExpired:
         #    self.process.kill()
         #    self.process.communicate()
         try:
