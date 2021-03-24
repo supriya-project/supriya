@@ -1,7 +1,7 @@
 import pytest
 from uqbar.iterables import group_by_count, nwise
 
-from supriya.newpatterns import ShufflePattern
+from supriya.patterns import ShufflePattern
 
 
 @pytest.mark.parametrize(

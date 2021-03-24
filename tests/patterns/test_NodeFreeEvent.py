@@ -3,11 +3,7 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from supriya.newpatterns.events import (
-    GroupAllocateEvent,
-    NodeFreeEvent,
-    Priority,
-)
+from supriya.patterns.events import GroupAllocateEvent, NodeFreeEvent, Priority
 from supriya.providers import Provider
 
 id_ = uuid.uuid4()

@@ -5,7 +5,7 @@ import pytest
 
 from supriya import AddAction, CalculationRate
 from supriya.assets.synthdefs import default
-from supriya.newpatterns.events import BusAllocateEvent, NoteEvent, Priority
+from supriya.patterns.events import BusAllocateEvent, NoteEvent, Priority
 from supriya.providers import BusGroupProxy, Provider, SynthProxy
 
 id_ = uuid.uuid4()

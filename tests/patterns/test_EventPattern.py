@@ -1,8 +1,8 @@
 import pytest
 
-from supriya.newpatterns import EventPattern, NoteEvent, SequencePattern
-from supriya.newpatterns.testutils import MockUUID as M
-from supriya.newpatterns.testutils import run_pattern_test
+from supriya.patterns import EventPattern, NoteEvent, SequencePattern
+from supriya.patterns.testutils import MockUUID as M
+from supriya.patterns.testutils import run_pattern_test
 
 
 @pytest.mark.parametrize(

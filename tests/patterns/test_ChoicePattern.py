@@ -1,7 +1,7 @@
 import pytest
 from uqbar.iterables import nwise
 
-from supriya.newpatterns import ChoicePattern, SequencePattern
+from supriya.patterns import ChoicePattern, SequencePattern
 
 
 @pytest.mark.parametrize(

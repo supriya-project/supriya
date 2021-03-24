@@ -2,11 +2,7 @@ import operator
 
 import pytest
 
-from supriya.newpatterns import (
-    BinaryOpPattern,
-    SequencePattern,
-    UnaryOpPattern,
-)
+from supriya.patterns import BinaryOpPattern, SequencePattern, UnaryOpPattern
 
 
 @pytest.mark.parametrize(

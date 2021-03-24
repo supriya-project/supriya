@@ -4,7 +4,7 @@ from unittest.mock import Mock, call
 import pytest
 
 from supriya import CalculationRate
-from supriya.newpatterns.events import BusAllocateEvent, BusFreeEvent, Priority
+from supriya.patterns.events import BusAllocateEvent, BusFreeEvent, Priority
 from supriya.providers import BusGroupProxy, Provider
 
 id_ = uuid.uuid4()

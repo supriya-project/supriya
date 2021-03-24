@@ -6,7 +6,7 @@ from uqbar.strings import normalize
 from supriya import AddAction, CalculationRate
 from supriya.assets.synthdefs import default, system_link_audio_1
 from supriya.clocks import OfflineTempoClock
-from supriya.newpatterns import (
+from supriya.patterns import (
     BusPattern,
     EventPattern,
     GroupPattern,

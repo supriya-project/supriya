@@ -2,7 +2,7 @@ import uuid
 
 import pytest
 
-from supriya.newpatterns.events import (
+from supriya.patterns.events import (
     CompositeEvent,
     NodeFreeEvent,
     NullEvent,

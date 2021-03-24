@@ -2,7 +2,7 @@ import pytest
 
 from supriya import AddAction, CalculationRate
 from supriya.assets import synthdefs
-from supriya.newpatterns import (
+from supriya.patterns import (
     BusAllocateEvent,
     BusFreeEvent,
     BusPattern,
@@ -15,8 +15,8 @@ from supriya.newpatterns import (
     SequencePattern,
     SynthAllocateEvent,
 )
-from supriya.newpatterns.testutils import MockUUID as M
-from supriya.newpatterns.testutils import run_pattern_test
+from supriya.patterns.testutils import MockUUID as M
+from supriya.patterns.testutils import run_pattern_test
 
 
 @pytest.mark.parametrize(

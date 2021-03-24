@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.newpatterns.events import NullEvent
+from supriya.patterns.events import NullEvent
 
 
 @pytest.mark.parametrize(

@@ -1,6 +1,6 @@
 import uuid
 
-from supriya.newpatterns import NoteEvent
+from supriya.patterns import NoteEvent
 
 
 def test___eq__():

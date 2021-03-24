@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.newpatterns import RandomPattern
+from supriya.patterns import RandomPattern
 
 
 @pytest.mark.parametrize(
