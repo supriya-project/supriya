@@ -72,10 +72,7 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
     ### SPECIAL METHODS ###
 
     def __format__(self, format_spec):
-        id_tuple = None
-        if format_spec:
-            id_tuple = (0,)
-        result = self._get_str_format_pieces(id_tuple=id_tuple)
+        result = self._get_str_format_pieces(unindexed=format_spec == "unindexed")
         result = "\n".join(result)
         return result
 
@@ -144,11 +141,11 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
         )
         return query_tree_synth
 
-    def _get_str_format_pieces(self, id_tuple=None):
+    def _get_str_format_pieces(self, unindexed=False):
         result = []
         node_id = self.node_id
-        if id_tuple:
-            node_id = "/" + "/".join(str(x) for x in id_tuple)
+        if unindexed:
+            node_id = "..."
         string = f"{node_id} {self.synthdef_name}"
         if self.name:
             string += f" ({self.name})"
@@ -293,11 +290,9 @@ class QueryTreeGroup(SupriyaValueObject, Sequence):
     ### SPECIAL METHODS ###
 
     def __format__(self, format_spec):
-        id_tuple = None
-        if format_spec:
-            id_tuple = (0,)
-        result = self._get_str_format_pieces(id_tuple=id_tuple)
+        result = self._get_str_format_pieces(unindexed=format_spec == "unindexed")
         result = "\n".join(result)
+        result = "NODE TREE {}".format(result)
         return result
 
     def __getitem__(self, item):
@@ -356,11 +351,11 @@ class QueryTreeGroup(SupriyaValueObject, Sequence):
         query_tree_group = QueryTreeGroup(node_id=node_id, children=children, **extra)
         return query_tree_group
 
-    def _get_str_format_pieces(self, id_tuple=None):
+    def _get_str_format_pieces(self, unindexed=False):
         result = []
         node_id = self.node_id
-        if id_tuple:
-            node_id = "/" + "/".join(str(x) for x in id_tuple)
+        if unindexed:
+            node_id = "..."
         string = f"{node_id} group"
         if self.name:
             string += f" ({self.name})"
@@ -371,12 +366,8 @@ class QueryTreeGroup(SupriyaValueObject, Sequence):
                 + ")"
             )
         result.append(string)
-        for i, child in enumerate(self.children):
-            if id_tuple:
-                child_lines = child._get_str_format_pieces(id_tuple=id_tuple + (i,))
-            else:
-                child_lines = child._get_str_format_pieces()
-            for line in child_lines:
+        for child in self.children:
+            for line in child._get_str_format_pieces(unindexed=unindexed):
                 result.append("    {}".format(line))
         return result
 
