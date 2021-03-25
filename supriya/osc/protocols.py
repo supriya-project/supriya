@@ -346,7 +346,9 @@ class ThreadedOscProtocol(OscProtocol):
             osc_protocol_logger.info(f"{self.ip_address}:{self.port} healthchecking...")
             self.send(OscMessage(*self.healthcheck.request_pattern))
             return
-        osc_protocol_logger.info(f"{self.ip_address}:{self.port} healthcheck failure limit exceeded")
+        osc_protocol_logger.info(
+            f"{self.ip_address}:{self.port} healthcheck failure limit exceeded"
+        )
         self.osc_server._BaseServer__shutdown_request = True
         self.disconnect()
         self.healthcheck.callback()
@@ -363,7 +365,9 @@ class ThreadedOscProtocol(OscProtocol):
     def connect(self, ip_address: str, port: int, *, healthcheck: HealthCheck = None):
         osc_protocol_logger.info(f"{self.ip_address}:{self.port} connecting...")
         if self.is_running:
-            osc_protocol_logger.info(f"{self.ip_address}:{self.port} already connected!")
+            osc_protocol_logger.info(
+                f"{self.ip_address}:{self.port} already connected!"
+            )
             raise OscProtocolAlreadyConnected
         self._setup(ip_address, port, healthcheck)
         self.healthcheck_deadline = time.time()
@@ -378,7 +382,9 @@ class ThreadedOscProtocol(OscProtocol):
         osc_protocol_logger.info(f"{self.ip_address}:{self.port} disconnecting...")
         with self.lock:
             if not self.is_running:
-                osc_protocol_logger.info(f"{self.ip_address}:{self.port} already disconnected!")
+                osc_protocol_logger.info(
+                    f"{self.ip_address}:{self.port} already disconnected!"
+                )
                 return
             self._teardown()
             if not self.osc_server._BaseServer__shutdown_request:
