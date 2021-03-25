@@ -104,7 +104,7 @@ class OscProtocol:
             delete(list(pattern), self.callbacks)
 
     def _pass_healthcheck(self, message):
-        osc_protocol_logger.info("...healthcheck passed")
+        osc_protocol_logger.info(f"{self.ip_address}:{self.port} ...healthcheck passed")
         self.attempts = 0
 
     def _setup(self, ip_address, port, healthcheck):
@@ -138,12 +138,12 @@ class OscProtocol:
         )
 
     def _validate_receive(self, datagram):
-        udp_in_logger.debug(datagram)
+        udp_in_logger.debug(f"{self.ip_address}:{self.port} {datagram}")
         try:
             message = OscMessage.from_datagram(datagram)
         except Exception:
             raise
-        osc_in_logger.debug(repr(message))
+        osc_in_logger.debug(f"{self.ip_address}:{self.port} {message!r}")
         for callback in self._match_callbacks(message):
             callback.procedure(message)
         for capture in self.captures:
@@ -160,13 +160,13 @@ class OscProtocol:
             message = OscMessage(message)
         elif isinstance(message, Sequence):
             message = OscMessage(*message)
-        osc_out_logger.debug(repr(message))
+        osc_out_logger.debug(f"{self.ip_address}:{self.port} {message!r}")
         for capture in self.captures:
             capture.messages.append(
                 CaptureEntry(timestamp=time.time(), label="S", message=message)
             )
         datagram = message.to_datagram()
-        udp_out_logger.debug(datagram)
+        udp_out_logger.debug(f"{self.ip_address}:{self.port} {datagram}")
         return datagram
 
     ### PUBLIC METHODS ###
@@ -260,7 +260,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
             await self.healthcheck_task
 
     def error_received(self, exc):
-        osc_out_logger.warning(exc)
+        osc_out_logger.warning(f"{self.ip_address}:{self.port} {exc}")
 
     def register(
         self, pattern, procedure, *, failure_pattern=None, once=False,
@@ -335,7 +335,7 @@ class ThreadedOscProtocol(OscProtocol):
         if self.attempts > 0:
             remaining = self.healthcheck.max_attempts - self.attempts
             osc_protocol_logger.info(
-                f"healthcheck failed, {remaining} attempts remaining"
+                f"{self.ip_address}:{self.port} healthcheck failed, {remaining} attempts remaining"
             )
         new_timeout = self.healthcheck.timeout * pow(
             self.healthcheck.backoff_factor, self.attempts
@@ -343,10 +343,10 @@ class ThreadedOscProtocol(OscProtocol):
         self.healthcheck_deadline = now + new_timeout
         self.attempts += 1
         if self.attempts <= self.healthcheck.max_attempts:
-            osc_protocol_logger.info("healthchecking...")
+            osc_protocol_logger.info(f"{self.ip_address}:{self.port} healthchecking...")
             self.send(OscMessage(*self.healthcheck.request_pattern))
             return
-        osc_protocol_logger.info("healthcheck failure limit exceeded")
+        osc_protocol_logger.info(f"{self.ip_address}:{self.port} healthcheck failure limit exceeded")
         self.osc_server._BaseServer__shutdown_request = True
         self.disconnect()
         self.healthcheck.callback()
@@ -361,9 +361,9 @@ class ThreadedOscProtocol(OscProtocol):
     ### PUBLIC METHODS ###
 
     def connect(self, ip_address: str, port: int, *, healthcheck: HealthCheck = None):
-        osc_protocol_logger.info("connecting...")
+        osc_protocol_logger.info(f"{self.ip_address}:{self.port} connecting...")
         if self.is_running:
-            osc_protocol_logger.info("already connected!")
+            osc_protocol_logger.info(f"{self.ip_address}:{self.port} already connected!")
             raise OscProtocolAlreadyConnected
         self._setup(ip_address, port, healthcheck)
         self.healthcheck_deadline = time.time()
@@ -372,20 +372,20 @@ class ThreadedOscProtocol(OscProtocol):
         self.osc_server_thread.daemon = True
         self.osc_server_thread.start()
         self.is_running = True
-        osc_protocol_logger.info("...connected")
+        osc_protocol_logger.info(f"{self.ip_address}:{self.port} ...connected")
 
     def disconnect(self):
-        osc_protocol_logger.info("disconnecting...")
+        osc_protocol_logger.info(f"{self.ip_address}:{self.port} disconnecting...")
         with self.lock:
             if not self.is_running:
-                osc_protocol_logger.info("already disconnected!")
+                osc_protocol_logger.info(f"{self.ip_address}:{self.port} already disconnected!")
                 return
             self._teardown()
             if not self.osc_server._BaseServer__shutdown_request:
                 self.osc_server.shutdown()
             self.osc_server = None
             self.osc_server_thread = None
-        osc_protocol_logger.info("...disconnected")
+        osc_protocol_logger.info(f"{self.ip_address}:{self.port} ...disconnected")
 
     def expect(self, message, pattern, failure_pattern=None, timeout=1.0):
         def set_response(message):
