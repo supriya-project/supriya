@@ -171,7 +171,7 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
             node_id=response.node_id,
             controls=[
                 QueryTreeControl(control_name_or_index=name, control_value=value)
-                for name, value in (response.synthdef_controls or [])
+                for name, value in (response.synthdef_controls.items() or {})
             ],
             synthdef_name=response.synthdef_name,
         )
