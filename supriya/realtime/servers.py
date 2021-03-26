@@ -401,8 +401,9 @@ class AsyncServer(BaseServer):
         self._teardown_allocators()
         self._synthdefs.clear()
         self._setup_allocators()
-        await self._setup_default_groups()
-        await self._setup_system_synthdefs()
+        if self.client_id == 0:
+            await self._setup_default_groups()
+            await self._setup_system_synthdefs()
 
     ### PUBLIC PROPERTIES ###
 
@@ -676,8 +677,9 @@ class Server(BaseServer):
         self._teardown_allocators()
         self._setup_allocators()
         self._setup_proxies()
-        self._setup_default_groups()
-        self._setup_system_synthdefs()
+        if self.client_id == 0:
+            self._setup_default_groups()
+            self._setup_system_synthdefs()
 
     def _get_buffer_proxy(self, buffer_id):
         import supriya.realtime
