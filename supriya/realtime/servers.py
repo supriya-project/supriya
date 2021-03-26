@@ -153,6 +153,9 @@ class BaseServer:
     def quit(self, force=False):
         ...
 
+    def reset(self):
+        ...
+
     def send(self, message):
         if not message:
             raise ValueError
@@ -391,6 +394,15 @@ class AsyncServer(BaseServer):
             self._process_protocol.quit()
         await self._disconnect()
         return self
+
+    async def reset(self):
+        self.send(["/g_freeAll", 0])
+        self.send(["/d_freeAll"])
+        self._teardown_allocators()
+        self._synthdefs.clear()
+        self._setup_allocators()
+        await self._setup_default_groups()
+        await self._setup_system_synthdefs()
 
     ### PUBLIC PROPERTIES ###
 
@@ -656,6 +668,16 @@ class Server(BaseServer):
         if self in self._servers:
             self._servers.remove(self)
         logger.info("disconnected")
+
+    def reset(self):
+        self.send(["/g_freeAll", 0])
+        self.send(["/d_freeAll"])
+        self._teardown_proxies()
+        self._teardown_allocators()
+        self._setup_allocators()
+        self._setup_proxies()
+        self._setup_default_groups()
+        self._setup_system_synthdefs()
 
     def _get_buffer_proxy(self, buffer_id):
         import supriya.realtime
