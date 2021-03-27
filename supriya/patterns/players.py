@@ -1,220 +1,154 @@
-import itertools
-from queue import PriorityQueue
+from queue import Empty, PriorityQueue
+from threading import RLock
 
-from uqbar.objects import new
-
-import supriya.commands
-import supriya.realtime
-import supriya.system
-from supriya.clock import TempoClock
-from supriya.system import SupriyaValueObject
+from .events import Event
 
 
-class EventPlayer:
-
-    ### INITIALIZER ###
-
-    def __init__(self, pattern, server=None, event_template=None, clock=None):
-        import supriya.patterns
-
-        clock = clock or TempoClock.default()
-        if event_template is None:
-            event_template = supriya.patterns.NoteEvent()
-        elif issubclass(event_template, supriya.patterns.Event):
-            event_template = event_template()
-        self._clock = clock
-        self._cumulative_time = 0
-        self._event_template = event_template
-        self._iterator = None
+class PatternPlayer:
+    def __init__(self, pattern, provider, clock):
         self._pattern = pattern
-        self._server = server or supriya.realtime.Server.default()
-        self._uuids = {}
-        self._event_id = None
+        self._provider = provider
+        self._clock = clock
+        self._lock = RLock()
+        self._queue = PriorityQueue()
+        self._is_running = False
+        self._is_stopping = False
+        self._proxies_by_uuid = {}
+        self._notes_by_uuid = {}
 
-    ### SPECIAL METHODS ###
-
-    def __call__(self, context, *args, communicate=True):
-        if self._iterator is None:
-            self._iterator = self._iterate_outer(
-                pattern=self._pattern,
-                server=self._server,
-                timestamp=context.desired_moment.seconds,
-                uuids=self._uuids,
-            )
-        event_products, delta = next(self._iterator)
-        node_free_ids, requests = set(), []
-        for event_product in event_products:
-            if not event_product.event:
-                continue
-            for request in event_product.requests:
-                if isinstance(request, supriya.commands.NodeFreeRequest):
-                    node_free_ids.update(request.node_ids)
+    def _clock_callback(self, context, *args, **kwargs):
+        with self._lock:
+            current_offset = None
+            events = []
+            while True:
+                try:
+                    offset, priority, index, event = self._queue.get(block=False)
+                except Empty:
+                    self._perform_events(
+                        context.desired_moment.seconds, current_offset, events
+                    )
+                    self._is_running = False
+                    return None
+                except Exception:
+                    return
+                if offset == float("-inf"):
+                    offset = context.desired_moment.offset
+                if (delta := offset - context.desired_moment.offset) :
+                    self._queue.put((offset, priority, index, event))
+                    self._perform_events(
+                        context.desired_moment.seconds, current_offset, events
+                    )
+                    return delta
+                if not isinstance(event, Event):
+                    if self._consume_iterator(offset):
+                        return
+                elif offset != current_offset:
+                    self._perform_events(
+                        context.desired_moment.seconds, current_offset, events
+                    )
+                    current_offset = offset
+                    events = [(event, priority)]
                 else:
-                    requests.append(request)
-            if event_product.is_stop:
-                proxies = self._uuids[event_product.uuid]
-                for proxy_id, proxy in proxies.items():
-                    if isinstance(
-                        proxy, (supriya.realtime.Bus, supriya.realtime.BusGroup)
-                    ):
-                        allocator = supriya.realtime.Bus._get_allocator(
-                            calculation_rate=proxy.calculation_rate, server=self._server
-                        )
-                        allocator.free(proxy_id)
-                self._uuids.pop(event_product.uuid)
-        if node_free_ids:
-            node_free_ids = sorted(node_free_ids)
-            request = supriya.commands.NodeFreeRequest(node_ids=node_free_ids)
-            requests.append(request)
-        consolidated_bundle = supriya.commands.RequestBundle(
-            timestamp=context.desired_moment.seconds, contents=requests
-        )
-        if communicate:
-            osc_bundle = consolidated_bundle.to_osc()
-            osc_bundle = new(
-                osc_bundle, timestamp=osc_bundle.timestamp + self._server.latency
-            )
-            self._server.send(osc_bundle)
-            return delta
-        return consolidated_bundle, delta
+                    events.append((event, priority))
 
-    ### PRIVATE METHODS ###
-
-    def _collect_stop_requests(self):
-        import supriya.nonrealtime
-
-        requests = []
-        gated_node_ids = []
-        freed_node_ids = []
-        for _, proxy_ids in self._uuids.items():
-            for proxy_id, proxy in proxy_ids.items():
-                if not isinstance(proxy, supriya.realtime.Node):
-                    continue
-                if (
-                    isinstance(proxy, supriya.nonrealtime.Synth)
-                    and proxy.synthdef.has_gate
-                ):
-                    gated_node_ids.append(proxy_id)
-                else:
-                    freed_node_ids.append(proxy_id)
-        if freed_node_ids:
-            request = supriya.commands.NodeFreeRequest(node_ids=sorted(freed_node_ids))
-            requests.append(request)
-        for node_id in sorted(gated_node_ids):
-            request = supriya.commands.NodeSetRequest(node_id=node_id, gate=0)
-            requests.append(request)
-        if not requests:
-            return
-        return supriya.commands.RequestBundle(contents=requests)
-
-    @staticmethod
-    def _iterate_inner(pattern, server, timestamp, uuids):
-        queue = PriorityQueue()
-        for index, event in enumerate(pattern):
-            for event_product in event._perform_realtime(
-                index=(index, 0), server=server, timestamp=timestamp, uuids=uuids
-            ):
-                queue.put(event_product)
-            while not queue.empty():
-                event_product = queue.get()
-                if event_product.timestamp < (timestamp + event.delta):
-                    yield event_product
-                else:
-                    queue.put(event_product)
-                    break
-            timestamp += event.delta
-        while not queue.empty():
-            event_product = queue.get()
-            yield event_product
-        assert queue.empty()
-
-    @staticmethod
-    def _iterate_outer(pattern, server, timestamp, uuids):
-        iterator = EventPlayer._iterate_inner(pattern, server, timestamp, uuids)
-        iterator = itertools.groupby(iterator, lambda x: x.timestamp)
-        pairs = []
+    def _consume_iterator(self, current_offset):
         try:
-            timestamp_one, grouper = next(iterator)
+            try:
+                index, consumed_event = self._iterator.send(self._is_stopping)
+            except TypeError:
+                if self._is_stopping:
+                    return True
+                index, consumed_event = next(self._iterator)
+            for subindex, (expanded_offset, priority, expanded_event) in enumerate(
+                consumed_event.expand(current_offset)
+            ):
+                self._queue.put(
+                    (expanded_offset, priority, (index, subindex), expanded_event)
+                )
+            self._queue.put(
+                (current_offset + consumed_event.delta, 0, (index, 0), None)
+            )
         except StopIteration:
+            pass
+        return False
+
+    def _stop_callback(self, context, *args, **kwargs):
+        with self._lock:
+            # Do we need to rebuild the queue? Yes.
+            # Do we need to free all playing notes? Yes.
+            # How do we handle when there are already stop events in the queue? They'll be no-ops when performed.
+            self._is_stopping = True
+            self._clock.reschedule(
+                self._clock_event_id, schedule_at=context.desired_moment.offset
+            )
+            self._reschedule_queue(context.desired_moment.offset)
+            self._free_all_notes(context.desired_moment.seconds)
+
+    def _enumerate(self, iterator):
+        index = 0
+        should_stop = False
+        while True:
+            try:
+                should_stop = yield (index, iterator.send(should_stop)) or should_stop
+            except TypeError:
+                should_stop = yield (index, next(iterator))
+            except StopIteration:
+                return
+            index += 1
+
+    def _free_all_notes(self, current_seconds):
+        if not self._notes_by_uuid:
             return
-        pairs.append((timestamp_one, tuple(grouper)))
-        for timestamp_two, grouper in iterator:
-            pairs.append((timestamp_two, tuple(grouper)))
-            timestamp_one, event_products = pairs.pop(0)
-            delta = timestamp_two - timestamp_one
-            yield event_products, delta
-        _, event_products = pairs.pop()
-        yield event_products, None
+        with self._provider.at(current_seconds):
+            while self._notes_by_uuid:
+                uuid, _ = self._notes_by_uuid.popitem()
+                proxy = self._proxies_by_uuid.pop(uuid)
+                self._provider.free_node(proxy)
 
-    ### PUBLIC METHODS ###
-
-    def notify(self, topic, event):
-        if topic == "server-quitting":
-            self.stop()
-
-    def start(self):
-        if not self._server.is_running:
+    def _perform_events(self, current_seconds, current_offset, events):
+        if not events:
             return
-        self._uuids.clear()
-        self._event_id = self._clock.cue(self.__call__)
-        if not self._clock.is_running:
-            self._clock.start()
+        with self._provider.at(current_seconds):
+            for event, priority in events:
+                event.perform(
+                    self._provider,
+                    self._proxies_by_uuid,
+                    current_offset=current_offset,
+                    notes_mapping=self._notes_by_uuid,
+                    priority=priority,
+                )
 
-    def stop(self):
-        self._clock.cancel(self._event_id)
-        self._iterator = None
-        bundle = self._collect_stop_requests()
-        if bundle and self._server.is_running:
-            self._server.send(bundle.to_osc())
+    def _reschedule_queue(self, current_offset):
+        events = []
+        while not self._queue.empty():
+            events.append(self._queue.get())
+        if not events:
+            return
+        delta = events[0][0] - current_offset
+        for event in events:
+            offset, *rest = event
+            self._queue.put((offset - delta, *rest))
 
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def event_template(self):
-        return self._event_template
-
-    @property
-    def pattern(self):
-        return self._pattern
-
-
-class EventProduct(SupriyaValueObject):
-
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("event", "index", "is_stop", "uuid", "requests", "timestamp")
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self, event=None, index=0, is_stop=False, requests=None, timestamp=0, uuid=None
-    ):
-        self.event = event
-        self.index = index
-        self.is_stop = is_stop
-        self.uuid = uuid
-        self.requests = requests
-        self.timestamp = timestamp
-
-    ### SPECIAL METHODS ###
-
-    def __eq__(self, expr):
-        if type(self) != type(expr):
-            return False
-        if self._get_sort_bundle() != expr._get_sort_bundle():
-            return False
-        return (
-            self.event == expr.event
-            and self.uuid == expr.uuid
-            and self.requests == expr.requests
+    def play(self, quantization: str = None, at=None, until=None):
+        with self._lock:
+            if self._is_running:
+                return
+            self._iterator = self._enumerate(iter(self._pattern))
+            self._queue.put((float("-inf"), 0, (0, 0), None))
+            self._is_running = True
+            self._is_stopping = False
+        self._clock_event_id = self._clock.cue(
+            self._clock_callback, event_type=3, quantization=quantization,
         )
+        if until:
+            self._clock.schedule(self._stop_callback, event_type=2, schedule_at=until)
+        if not self._clock.is_running:
+            self._clock.start(initial_time=at)
 
-    def __lt__(self, expr):
-        if type(self) != type(expr):
-            raise TypeError()
-        return self._get_sort_bundle() < expr._get_sort_bundle()
-
-    ### PRIVATE METHODS ###
-
-    def _get_sort_bundle(self):
-        return (self.timestamp, self.index, self.is_stop)
+    def stop(self, quantization: str = None):
+        with self._lock:
+            if not self._is_running or self._is_stopping:
+                return
+            self._clock.cue(
+                self._stop_callback, event_type=2, quantization=quantization,
+            )

@@ -12,10 +12,10 @@ class SynthInfoResponse(Response):
 
     ### INITIALIZER ###
 
-    def __init__(self, node_id, synthdef_name, **kwargs):
+    def __init__(self, node_id, synthdef_name, **synthdef_controls):
         self.node_id = node_id
         self.synthdef_name = synthdef_name
-        self.kwargs = kwargs
+        self.synthdef_controls = synthdef_controls
 
     @classmethod
     def from_osc_message(cls, osc_message):

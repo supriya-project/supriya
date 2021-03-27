@@ -282,7 +282,7 @@ class Buffer(ServerObject):
             >>> buffer_one.query()
             BufferInfoResponse(
                 items=(
-                    Item(buffer_id=0, frame_count=1, channel_count=1, sample_rate=44100.0),
+                    Item(buffer_id=0, frame_count=1, channel_count=1, sample_rate=4...00.0),
                 ),
             )
 
@@ -292,7 +292,7 @@ class Buffer(ServerObject):
             >>> buffer_two.query()
             BufferInfoResponse(
                 items=(
-                    Item(buffer_id=1, frame_count=16, channel_count=1, sample_rate=44100.0),
+                    Item(buffer_id=1, frame_count=16, channel_count=1, sample_rate=4...00.0),
                 ),
             )
 
@@ -304,7 +304,7 @@ class Buffer(ServerObject):
             >>> buffer_three.query()
             BufferInfoResponse(
                 items=(
-                    Item(buffer_id=2, frame_count=32, channel_count=2, sample_rate=44100.0),
+                    Item(buffer_id=2, frame_count=32, channel_count=2, sample_rate=4...00.0),
                 ),
             )
 
@@ -363,7 +363,7 @@ class Buffer(ServerObject):
             >>> buffer_one.query()
             BufferInfoResponse(
                 items=(
-                    Item(buffer_id=0, frame_count=8, channel_count=8, sample_rate=44100.0),
+                    Item(buffer_id=0, frame_count=8, channel_count=8, sample_rate=4...00.0),
                 ),
             )
 
@@ -379,7 +379,7 @@ class Buffer(ServerObject):
             >>> buffer_two.query()
             BufferInfoResponse(
                 items=(
-                    Item(buffer_id=1, frame_count=4, channel_count=2, sample_rate=44100.0),
+                    Item(buffer_id=1, frame_count=4, channel_count=2, sample_rate=4...00.0),
                 ),
             )
 
@@ -1009,7 +1009,7 @@ class Buffer(ServerObject):
             >>> buffer_.query()
             BufferInfoResponse(
                 items=(
-                    Item(buffer_id=0, frame_count=16, channel_count=2, sample_rate=44100.0),
+                    Item(buffer_id=0, frame_count=16, channel_count=2, sample_rate=4...00.0),
                 ),
             )
 
@@ -1493,8 +1493,8 @@ class Buffer(ServerObject):
         ::
 
             >>> buffer_ = buffer_.allocate(frame_count=44100)
-            >>> buffer_.duration_in_seconds
-            1.0
+            >>> buffer_.duration_in_seconds == buffer_.frame_count / buffer_.sample_rate
+            True
 
         ::
 
@@ -1615,7 +1615,7 @@ class Buffer(ServerObject):
 
             >>> buffer_ = buffer_.allocate(frame_count=8)
             >>> buffer_.sample_rate
-            44100.0
+            4...00.0
 
         ::
 

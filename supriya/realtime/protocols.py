@@ -33,14 +33,14 @@ class SyncProcessProtocol(ProcessProtocol):
         options_string = options.as_options_string(port)
         command = "{} {}".format(scsynth_path, options_string)
         logger.info("Boot: {}".format(command))
-        self.process = subprocess.Popen(
-            command,
-            shell=True,
-            stderr=subprocess.STDOUT,
-            stdout=subprocess.PIPE,
-            start_new_session=True,
-        )
         try:
+            self.process = subprocess.Popen(
+                command,
+                shell=True,
+                stderr=subprocess.STDOUT,
+                stdout=subprocess.PIPE,
+                start_new_session=True,
+            )
             start_time = time.time()
             timeout = 10
             while True:
@@ -71,6 +71,11 @@ class SyncProcessProtocol(ProcessProtocol):
     def quit(self):
         if not self.is_running:
             return
+        # try:
+        #    self.process.communicate(timeout=0.1)
+        # except subprocess.TimeoutExpired:
+        #    self.process.kill()
+        #    self.process.communicate()
         try:
             process_group = os.getpgid(self.process.pid)
             os.killpg(process_group, signal.SIGINT)

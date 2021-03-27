@@ -46,7 +46,7 @@ def setup_logging(*loggers):
 
 from supriya._version import __version__, __version_info__  # noqa
 from supriya import utils  # noqa
-from supriya.clock import TempoClock  # noqa
+from supriya.clocks import TempoClock  # noqa
 from supriya.enums import (  # noqa
     AddAction,
     BinaryOperator,
@@ -83,7 +83,7 @@ from supriya.realtime import (  # noqa
 )
 from supriya import assets  # noqa
 from supriya.nonrealtime import Session  # noqa
-from supriya.provider import Provider  # noqa
+from supriya.providers import Provider  # noqa
 from supriya.scsynth import Options  # noqa
 from supriya.soundfiles import Say, SoundFile  # noqa
 from supriya.system import Assets  # noqa

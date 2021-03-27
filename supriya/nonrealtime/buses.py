@@ -14,11 +14,7 @@ class Bus(SessionObject):
         >>> session = supriya.nonrealtime.Session()
         >>> bus = session.add_bus("control")
         >>> print(repr(bus))
-        <Bus(
-            <Session>,
-            calculation_rate=CalculationRate.CONTROL,
-            session_id=0,
-        )>
+        <Bus(<Session>, calculation_rate=CalculationRate.CONTROL, session_id=0)>
 
     ::
 
@@ -75,6 +71,12 @@ class Bus(SessionObject):
 
     def __repr__(self):
         return "<{}>".format(super(Bus, self).__repr__())
+
+    def __float__(self):
+        return float(self._session_id)
+
+    def __int__(self):
+        return int(self._session_id)
 
     def __str__(self):
         map_symbol = "c"
@@ -178,12 +180,7 @@ class BusGroup(SessionObject):
         >>> session = supriya.nonrealtime.Session()
         >>> bus_group = session.add_bus_group(3)
         >>> print(repr(bus_group))
-        <BusGroup(
-            <Session>,
-            bus_count=3,
-            calculation_rate=CalculationRate.CONTROL,
-            session_id=0,
-        )>
+        <BusGroup(<Session>, bus_count=3, calculation_rate=CalculationRate.CONTROL, session_id=0)>
 
     ::
 
@@ -248,11 +245,17 @@ class BusGroup(SessionObject):
     def __contains__(self, item):
         return self.buses.__contains__(item)
 
+    def __float__(self):
+        return float(self._session_id)
+
     def __getitem__(self, item):
         if isinstance(item, int):
             return self._buses[item]
         elif isinstance(item, slice):
             return tuple(self._buses[item])
+
+    def __int__(self):
+        return int(self._session_id)
 
     def __iter__(self):
         return iter(self.buses)
