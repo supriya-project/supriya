@@ -126,9 +126,7 @@ def test_realtime_01(schedule, start_clock_first, expected):
 def test_realtime_02(limit, bpm_schedule, expected):
     store = []
     clock = Clock()
-    clock.cue(
-        callback, quantization="1/4", args=[store], kwargs=dict(limit=limit)
-    )
+    clock.cue(callback, quantization="1/4", args=[store], kwargs=dict(limit=limit))
     for schedule_at, beats_per_minute in bpm_schedule:
         clock.schedule_change(
             beats_per_minute=beats_per_minute,
@@ -139,10 +137,7 @@ def test_realtime_02(limit, bpm_schedule, expected):
     time.sleep(2)
     clock.stop()
     actual = [
-        (
-            desired_moment.offset,
-            desired_moment.seconds - clock._state.initial_seconds,
-        )
+        (desired_moment.offset, desired_moment.seconds - clock._state.initial_seconds,)
         for current_moment, desired_moment, event in store
     ]
     assert actual == expected
@@ -188,9 +183,7 @@ def test_two_procedures(clock):
     store_two = []
     clock.start()
     clock.schedule(callback, schedule_at=0.0, args=[store_one])
-    clock.schedule(
-        callback, schedule_at=0.1, args=[store_two], kwargs={"delta": 0.3}
-    )
+    clock.schedule(callback, schedule_at=0.1, args=[store_two], kwargs={"delta": 0.3})
     assert set_time_and_check(0.0, clock, store_one) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
@@ -242,9 +235,7 @@ def test_two_procedures(clock):
 def test_exception(clock):
     store = []
     clock.start()
-    clock.schedule(
-        callback, schedule_at=0.0, args=[store], kwargs={"blow_up_at": 2}
-    )
+    clock.schedule(callback, schedule_at=0.0, args=[store], kwargs={"blow_up_at": 2})
     assert set_time_and_check(0.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
@@ -470,9 +461,7 @@ def test_reschedule_earlier(clock):
     store = []
     clock.start()
     assert set_time_and_check(0.5, clock, store) == []
-    event_id = clock.cue(
-        callback, quantization="1M", args=[store], kwargs={"limit": 0}
-    )
+    event_id = clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     time.sleep(clock.slop * 2)
     assert clock.peek().seconds == 2.0
     clock.reschedule(event_id, schedule_at=0.5)
@@ -489,9 +478,7 @@ def test_reschedule_later(clock):
     store = []
     clock.start()
     assert set_time_and_check(0.5, clock, store) == []
-    event_id = clock.cue(
-        callback, quantization="1M", args=[store], kwargs={"limit": 0}
-    )
+    event_id = clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     time.sleep(clock.slop * 2)
     assert clock.peek().seconds == 2.0
     clock.reschedule(event_id, schedule_at=1.5)
