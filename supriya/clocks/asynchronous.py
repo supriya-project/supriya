@@ -90,6 +90,7 @@ class AsyncTempoClock(BaseTempoClock):
                 previous_offset=current_moment.offset,
             )
         logger.debug(f"[{self.name}] Coroutine terminating")
+        self._stop()
 
     async def _wait_for_event(self, sleep_time):
         try:
