@@ -4,15 +4,15 @@ import queue
 import traceback
 from typing import Optional, Tuple
 
-from .bases import BaseTempoClock
+from .bases import BaseClock
 from .ephemera import ClockContext, EventType, Moment
 
 logger = logging.getLogger("supriya.clocks")
 
 
-class AsyncTempoClock(BaseTempoClock):
+class AsyncClock(BaseClock):
     def __init__(self):
-        BaseTempoClock.__init__(self)
+        BaseClock.__init__(self)
         self._event = asyncio.Event()
         self._task = None
         self._slop = 1.0

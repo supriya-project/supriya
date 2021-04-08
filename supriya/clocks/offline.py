@@ -2,14 +2,14 @@ import logging
 import queue
 from typing import Optional, Tuple
 
-from .asynchronous import AsyncTempoClock
-from .bases import BaseTempoClock
+from .asynchronous import AsyncClock
+from .bases import BaseClock
 from .ephemera import ClockContext, Moment
 
 logger = logging.getLogger("supriya.clocks")
 
 
-class OfflineTempoClock(BaseTempoClock):
+class OfflineClock(BaseClock):
     def __init__(self):
         super().__init__()
         self._generator = None
@@ -96,7 +96,7 @@ class OfflineTempoClock(BaseTempoClock):
                     pass
 
 
-class AsyncOfflineTempoClock(AsyncTempoClock):
+class AsyncOfflineClock(AsyncClock):
     async def _run(self, *args, offline=False, **kwargs):
         logger.debug(f"[{self.name}] Coroutine start")
         self._process_command_deque(first_run=True)

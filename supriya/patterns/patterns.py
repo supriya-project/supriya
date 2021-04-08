@@ -11,7 +11,7 @@ from typing import Dict, Iterator, Optional
 
 from uqbar.objects import get_vars
 
-from supriya.clocks import TempoClock
+from supriya.clocks import Clock
 from supriya.providers import Provider
 
 from .events import CompositeEvent
@@ -201,7 +201,7 @@ class Pattern(metaclass=abc.ABCMeta):
         elif not isinstance(provider, Provider):
             provider = Provider.from_context(provider)
         player = PatternPlayer(
-            pattern=self, provider=provider, clock=clock or TempoClock.default(),
+            pattern=self, provider=provider, clock=clock or Clock.default(),
         )
         player.play(quantization=quantization, at=at, until=until)
         return player

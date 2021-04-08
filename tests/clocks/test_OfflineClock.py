@@ -2,7 +2,7 @@ import logging
 
 import pytest
 
-from supriya.clocks import OfflineTempoClock, TimeUnit
+from supriya.clocks import OfflineClock, TimeUnit
 
 repeat_count = 5
 
@@ -58,10 +58,10 @@ def check(store):
 
 @pytest.mark.timeout(1)
 def test_basic():
-    tempo_clock = OfflineTempoClock()
+    clock = OfflineClock()
     store = []
-    tempo_clock.schedule(callback, schedule_at=0.0, args=[store])
-    tempo_clock.start()
+    clock.schedule(callback, schedule_at=0.0, args=[store])
+    clock.start()
     assert check(store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),

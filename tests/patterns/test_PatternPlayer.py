@@ -5,7 +5,7 @@ from uqbar.strings import normalize
 
 from supriya import AddAction, CalculationRate
 from supriya.assets.synthdefs import default, system_link_audio_1
-from supriya.clocks import OfflineTempoClock
+from supriya.clocks import OfflineClock
 from supriya.patterns import (
     BusPattern,
     EventPattern,
@@ -335,7 +335,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
     ],
 )
 def test(pattern, until, expected):
-    clock = OfflineTempoClock()
+    clock = OfflineClock()
     provider = Provider.realtime()
     spy = Mock(spec=Provider, wraps=provider)
     pattern.play(provider=spy, clock=clock, until=until)
@@ -349,7 +349,7 @@ def test_nonrealtime():
     pattern = GroupPattern(
         BusPattern(MonoEventPattern(frequency=SequencePattern([440, 550, 660])))
     )
-    clock = OfflineTempoClock()
+    clock = OfflineClock()
     provider = Provider.nonrealtime()
     pattern.play(provider=provider, clock=clock, at=at, until=until)
     # Session should not map in_ or out, but use their bus numbers as consts.

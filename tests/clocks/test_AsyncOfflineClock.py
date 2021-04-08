@@ -3,7 +3,7 @@ import logging
 
 import pytest
 
-from supriya.clocks import AsyncOfflineTempoClock, TimeUnit
+from supriya.clocks import AsyncOfflineClock, TimeUnit
 
 repeat_count = 5
 
@@ -60,10 +60,10 @@ def check(store):
 @pytest.mark.timeout(1)
 @pytest.mark.asyncio
 async def test_basic():
-    tempo_clock = AsyncOfflineTempoClock()
+    clock = AsyncOfflineClock()
     store = []
-    tempo_clock.schedule(callback, schedule_at=0.0, args=[store])
-    await tempo_clock.start()
+    clock.schedule(callback, schedule_at=0.0, args=[store])
+    await clock.start()
     await asyncio.sleep(0.1)
     assert check(store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
@@ -72,4 +72,4 @@ async def test_basic():
         (["4/4", 120.0], [1, 0.75, 0.75, 1.5], [1, 0.75, 0.75, 1.5]),
         (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0]),
     ]
-    await tempo_clock.stop()
+    await clock.stop()
