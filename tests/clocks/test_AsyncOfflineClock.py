@@ -1,8 +1,9 @@
+import asyncio
 import logging
 
 import pytest
 
-from supriya.clocks import OfflineTempoClock, TimeUnit
+from supriya.clocks import AsyncOfflineClock, TimeUnit
 
 repeat_count = 5
 
@@ -11,10 +12,10 @@ logger = logging.getLogger("supriya.test")
 
 @pytest.fixture(autouse=True)
 def log_everything(caplog):
-    caplog.set_level(logging.INFO, logger="supriya")
+    caplog.set_level(logging.INFO, logger="supriya.clocks")
 
 
-def callback(
+async def callback(
     context,
     store,
     blow_up_at=None,
@@ -57,11 +58,13 @@ def check(store):
 
 
 @pytest.mark.timeout(1)
-def test_basic():
-    tempo_clock = OfflineTempoClock()
+@pytest.mark.asyncio
+async def test_basic():
+    clock = AsyncOfflineClock()
     store = []
-    tempo_clock.schedule(callback, schedule_at=0.0, args=[store])
-    tempo_clock.start()
+    clock.schedule(callback, schedule_at=0.0, args=[store])
+    await clock.start()
+    await asyncio.sleep(0.1)
     assert check(store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
@@ -69,3 +72,4 @@ def test_basic():
         (["4/4", 120.0], [1, 0.75, 0.75, 1.5], [1, 0.75, 0.75, 1.5]),
         (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0]),
     ]
+    await clock.stop()

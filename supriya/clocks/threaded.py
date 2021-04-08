@@ -4,13 +4,13 @@ import queue
 import threading
 from typing import Optional, Tuple
 
-from .bases import BaseTempoClock
+from .bases import BaseClock
 from .ephemera import Moment
 
 logger = logging.getLogger("supriya.clocks")
 
 
-class TempoClock(BaseTempoClock):
+class Clock(BaseClock):
 
     ### CLASS VARIABLES ###
 
@@ -19,7 +19,7 @@ class TempoClock(BaseTempoClock):
     ### INITIALIZER ###
 
     def __init__(self):
-        BaseTempoClock.__init__(self)
+        BaseClock.__init__(self)
         self._event = threading.Event()
         self._thread = threading.Thread(target=self._run, daemon=True)
         atexit.register(self.stop)

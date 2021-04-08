@@ -58,6 +58,8 @@ isort:
 		--use-parentheses \
 		${formatPaths}
 
+lint: reformat flake8 mypy
+
 mypy:
 	mypy --ignore-missing-imports ${project}/
 

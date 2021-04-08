@@ -1,13 +1,14 @@
-from .asynchronous import AsyncTempoClock
+from .asynchronous import AsyncClock
 from .ephemera import ClockContext, Moment, TimeUnit
-from .offline import OfflineTempoClock
-from .threaded import TempoClock
+from .offline import AsyncOfflineClock, OfflineClock
+from .threaded import Clock
 
 __all__ = [
-    "AsyncTempoClock",
+    "AsyncClock",
     "ClockContext",
     "Moment",
-    "OfflineTempoClock",
-    "TempoClock",
+    "OfflineClock",
+    "AsyncOfflineClock",
+    "Clock",
     "TimeUnit",
 ]

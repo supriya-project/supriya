@@ -46,7 +46,7 @@ def setup_logging(*loggers):
 
 from supriya._version import __version__, __version_info__  # noqa
 from supriya import utils  # noqa
-from supriya.clocks import TempoClock  # noqa
+from supriya.clocks import AsyncClock, AsyncOfflineClock, Clock, OfflineClock  # noqa
 from supriya.enums import (  # noqa
     AddAction,
     BinaryOperator,

@@ -5,7 +5,7 @@ import statistics
 
 import pytest
 
-from supriya.clocks import AsyncTempoClock, TimeUnit
+from supriya.clocks import AsyncClock, TimeUnit
 
 repeat_count = 5
 
@@ -18,18 +18,18 @@ def log_everything(caplog):
 
 
 @pytest.fixture
-async def tempo_clock(mocker, monkeypatch):
+async def clock(mocker, monkeypatch):
     async def wait_for_event(self, sleep_time):
         await asyncio.sleep(0)
         await self._event.wait()
 
-    tempo_clock = AsyncTempoClock()
-    tempo_clock.slop = 0.01
-    monkeypatch.setattr(AsyncTempoClock, "_wait_for_event", wait_for_event)
-    mock_time = mocker.patch.object(AsyncTempoClock, "get_current_time")
+    clock = AsyncClock()
+    clock.slop = 0.01
+    monkeypatch.setattr(AsyncClock, "_wait_for_event", wait_for_event)
+    mock_time = mocker.patch.object(AsyncClock, "get_current_time")
     mock_time.return_value = 0.0
-    yield tempo_clock
-    await tempo_clock.stop()
+    yield clock
+    await clock.stop()
 
 
 def callback(
@@ -51,10 +51,10 @@ def callback(
     return None
 
 
-async def set_time_and_check(time_to_advance, tempo_clock, store):
+async def set_time_and_check(time_to_advance, clock, store):
     logger.info(f"Setting time to {time_to_advance}")
-    tempo_clock.get_current_time.return_value = time_to_advance
-    tempo_clock._event.set()
+    clock.get_current_time.return_value = time_to_advance
+    clock._event.set()
     await asyncio.sleep(0.01)
     moments = []
     for current_moment, desired_moment, event in store:
@@ -108,25 +108,25 @@ async def test_realtime_01(schedule, start_clock_first, expected):
     Start clock, then schedule
     """
     store = []
-    tempo_clock = AsyncTempoClock()
-    assert not tempo_clock.is_running
-    assert tempo_clock.beats_per_minute == 120
+    clock = AsyncClock()
+    assert not clock.is_running
+    assert clock.beats_per_minute == 120
     if start_clock_first:
-        await tempo_clock.start()
-        assert tempo_clock.is_running
-        assert tempo_clock.beats_per_minute == 120
+        await clock.start()
+        assert clock.is_running
+        assert clock.beats_per_minute == 120
     if schedule:
-        tempo_clock.schedule(callback, schedule_at=0.0, args=[store])
+        clock.schedule(callback, schedule_at=0.0, args=[store])
     else:
-        tempo_clock.cue(callback, quantization="1/4", args=[store])
+        clock.cue(callback, quantization="1/4", args=[store])
     if not start_clock_first:
-        await tempo_clock.start()
-        assert tempo_clock.is_running
-        assert tempo_clock.beats_per_minute == 120
+        await clock.start()
+        assert clock.is_running
+        assert clock.beats_per_minute == 120
     await asyncio.sleep(4)
-    await tempo_clock.stop()
-    assert not tempo_clock.is_running
-    assert tempo_clock.beats_per_minute == 120
+    await clock.stop()
+    assert not clock.is_running
+    assert clock.beats_per_minute == 120
     assert len(store) == 5
     actual = [desired_moment.offset for current_moment, desired_moment, event in store]
     assert actual == expected
@@ -142,24 +142,19 @@ async def test_realtime_01(schedule, start_clock_first, expected):
 )
 async def test_realtime_02(limit, bpm_schedule, expected):
     store = []
-    tempo_clock = AsyncTempoClock()
-    tempo_clock.cue(
-        callback, quantization="1/4", args=[store], kwargs=dict(limit=limit)
-    )
+    clock = AsyncClock()
+    clock.cue(callback, quantization="1/4", args=[store], kwargs=dict(limit=limit))
     for schedule_at, beats_per_minute in bpm_schedule:
-        tempo_clock.schedule_change(
+        clock.schedule_change(
             beats_per_minute=beats_per_minute,
             schedule_at=schedule_at,
             time_unit=TimeUnit.SECONDS,
         )
-    await tempo_clock.start()
+    await clock.start()
     await asyncio.sleep(2)
-    await tempo_clock.stop()
+    await clock.stop()
     actual = [
-        (
-            desired_moment.offset,
-            desired_moment.seconds - tempo_clock._state.initial_seconds,
-        )
+        (desired_moment.offset, desired_moment.seconds - clock._state.initial_seconds,)
         for current_moment, desired_moment, event in store
     ]
     assert actual == expected
@@ -167,29 +162,29 @@ async def test_realtime_02(limit, bpm_schedule, expected):
 
 @pytest.mark.asyncio
 @pytest.mark.timeout(2)
-async def test_basic(tempo_clock):
+async def test_basic(clock):
     store = []
-    await tempo_clock.start()
-    tempo_clock.schedule(callback, schedule_at=0.0, args=[store])
-    assert await set_time_and_check(0.0, tempo_clock, store) == [
+    await clock.start()
+    clock.schedule(callback, schedule_at=0.0, args=[store])
+    assert await set_time_and_check(0.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    assert await set_time_and_check(0.5, tempo_clock, store) == [
+    assert await set_time_and_check(0.5, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
     ]
-    assert await set_time_and_check(1.0, tempo_clock, store) == [
+    assert await set_time_and_check(1.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
     ]
-    assert await set_time_and_check(1.5, tempo_clock, store) == [
+    assert await set_time_and_check(1.5, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
         (["4/4", 120.0], [1, 0.75, 0.75, 1.5], [1, 0.75, 0.75, 1.5]),
     ]
-    assert await set_time_and_check(2.0, tempo_clock, store) == [
+    assert await set_time_and_check(2.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
@@ -200,53 +195,51 @@ async def test_basic(tempo_clock):
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_two_procedures(tempo_clock):
+async def test_two_procedures(clock):
     store_one = []
     store_two = []
-    await tempo_clock.start()
-    tempo_clock.schedule(callback, schedule_at=0.0, args=[store_one])
-    tempo_clock.schedule(
-        callback, schedule_at=0.1, args=[store_two], kwargs={"delta": 0.3}
-    )
-    assert await set_time_and_check(0.0, tempo_clock, store_one) == [
+    await clock.start()
+    clock.schedule(callback, schedule_at=0.0, args=[store_one])
+    clock.schedule(callback, schedule_at=0.1, args=[store_two], kwargs={"delta": 0.3})
+    assert await set_time_and_check(0.0, clock, store_one) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    assert await set_time_and_check(0.0, tempo_clock, store_two) == []
-    assert await set_time_and_check(0.5, tempo_clock, store_one) == [
+    assert await set_time_and_check(0.0, clock, store_two) == []
+    assert await set_time_and_check(0.5, clock, store_one) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
     ]
-    assert await set_time_and_check(0.5, tempo_clock, store_two) == [
+    assert await set_time_and_check(0.5, clock, store_two) == [
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.1, 0.1, 0.2])
     ]
-    assert await set_time_and_check(1.0, tempo_clock, store_one) == [
+    assert await set_time_and_check(1.0, clock, store_one) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
     ]
-    assert await set_time_and_check(1.0, tempo_clock, store_two) == [
+    assert await set_time_and_check(1.0, clock, store_two) == [
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.1, 0.1, 0.2]),
         (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.4, 0.4, 0.8]),
     ]
-    assert await set_time_and_check(1.5, tempo_clock, store_one) == [
+    assert await set_time_and_check(1.5, clock, store_one) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
         (["4/4", 120.0], [1, 0.75, 0.75, 1.5], [1, 0.75, 0.75, 1.5]),
     ]
-    assert await set_time_and_check(1.5, tempo_clock, store_two) == [
+    assert await set_time_and_check(1.5, clock, store_two) == [
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.1, 0.1, 0.2]),
         (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.4, 0.4, 0.8]),
         (["4/4", 120.0], [1, 0.75, 0.75, 1.5], [1, 0.7, 0.7, 1.4]),
     ]
-    assert await set_time_and_check(2.0, tempo_clock, store_one) == [
+    assert await set_time_and_check(2.0, clock, store_one) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
         (["4/4", 120.0], [1, 0.75, 0.75, 1.5], [1, 0.75, 0.75, 1.5]),
         (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0]),
     ]
-    assert await set_time_and_check(2.0, tempo_clock, store_two) == [
+    assert await set_time_and_check(2.0, clock, store_two) == [
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.1, 0.1, 0.2]),
         (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.4, 0.4, 0.8]),
         (["4/4", 120.0], [1, 0.75, 0.75, 1.5], [1, 0.7, 0.7, 1.4]),
@@ -256,28 +249,26 @@ async def test_two_procedures(tempo_clock):
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_exception(tempo_clock):
+async def test_exception(clock):
     store = []
-    await tempo_clock.start()
-    tempo_clock.schedule(
-        callback, schedule_at=0.0, args=[store], kwargs={"blow_up_at": 2}
-    )
-    assert await set_time_and_check(0.0, tempo_clock, store) == [
+    await clock.start()
+    clock.schedule(callback, schedule_at=0.0, args=[store], kwargs={"blow_up_at": 2})
+    assert await set_time_and_check(0.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    assert await set_time_and_check(0.5, tempo_clock, store) == [
+    assert await set_time_and_check(0.5, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
     ]
-    assert await set_time_and_check(1.0, tempo_clock, store) == [
+    assert await set_time_and_check(1.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
     ]
-    assert await set_time_and_check(1.5, tempo_clock, store) == [
+    assert await set_time_and_check(1.5, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
     ]
-    assert await set_time_and_check(2.0, tempo_clock, store) == [
+    assert await set_time_and_check(2.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
     ]
@@ -285,28 +276,28 @@ async def test_exception(tempo_clock):
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_change_tempo(tempo_clock):
+async def test_change_tempo(clock):
     store = []
-    tempo_clock.schedule(callback, schedule_at=0.0, args=[store])
-    await tempo_clock.start()
-    assert await set_time_and_check(0.0, tempo_clock, store) == [
+    clock.schedule(callback, schedule_at=0.0, args=[store])
+    await clock.start()
+    assert await set_time_and_check(0.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    assert await set_time_and_check(0.5, tempo_clock, store) == [
+    assert await set_time_and_check(0.5, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
     ]
-    tempo_clock.change(beats_per_minute=60)
-    assert await set_time_and_check(1.0, tempo_clock, store) == [
+    clock.change(beats_per_minute=60)
+    assert await set_time_and_check(1.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
     ]
-    assert await set_time_and_check(1.5, tempo_clock, store) == [
+    assert await set_time_and_check(1.5, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (["4/4", 60.0], [1, 0.5, 0.5, 1.5], [1, 0.5, 0.5, 1.5]),
     ]
-    assert await set_time_and_check(2.0, tempo_clock, store) == [
+    assert await set_time_and_check(2.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (["4/4", 60.0], [1, 0.5, 0.5, 1.5], [1, 0.5, 0.5, 1.5]),
@@ -315,35 +306,35 @@ async def test_change_tempo(tempo_clock):
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_schedule_tempo_change(tempo_clock):
+async def test_schedule_tempo_change(clock):
     store = []
-    tempo_clock.schedule(callback, schedule_at=0.0, args=[store])
-    tempo_clock.schedule_change(schedule_at=0.5, beats_per_minute=60)
-    await tempo_clock.start()
-    assert await set_time_and_check(0.0, tempo_clock, store) == [
+    clock.schedule(callback, schedule_at=0.0, args=[store])
+    clock.schedule_change(schedule_at=0.5, beats_per_minute=60)
+    await clock.start()
+    assert await set_time_and_check(0.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    assert await set_time_and_check(0.5, tempo_clock, store) == [
+    assert await set_time_and_check(0.5, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
     ]
-    assert await set_time_and_check(1.0, tempo_clock, store) == [
-        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
-        (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
-        (["4/4", 60.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
-    ]
-    assert await set_time_and_check(1.5, tempo_clock, store) == [
+    assert await set_time_and_check(1.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (["4/4", 60.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
     ]
-    assert await set_time_and_check(2.0, tempo_clock, store) == [
+    assert await set_time_and_check(1.5, clock, store) == [
+        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
+        (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
+        (["4/4", 60.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
+    ]
+    assert await set_time_and_check(2.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (["4/4", 60.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
         (["4/4", 60.0], [1, 0.75, 0.75, 2.0], [1, 0.75, 0.75, 2.0]),
     ]
-    assert await set_time_and_check(2.5, tempo_clock, store) == [
+    assert await set_time_and_check(2.5, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (["4/4", 60.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
@@ -353,24 +344,24 @@ async def test_schedule_tempo_change(tempo_clock):
 
 @pytest.mark.asyncio
 @pytest.mark.timeout(5)
-async def test_cue_basic(tempo_clock):
+async def test_cue_basic(clock):
     store = []
-    await tempo_clock.start()
-    tempo_clock.cue(callback, quantization=None, args=[store], kwargs={"limit": 0})
-    assert await set_time_and_check(0.0, tempo_clock, store) == [
+    await clock.start()
+    clock.cue(callback, quantization=None, args=[store], kwargs={"limit": 0})
+    assert await set_time_and_check(0.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    assert await set_time_and_check(0.125, tempo_clock, store) == [
+    assert await set_time_and_check(0.125, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    tempo_clock.cue(callback, quantization="1/4", args=[store], kwargs={"limit": 0})
-    tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
-    tempo_clock.cue(callback, quantization="1/2T", args=[store], kwargs={"limit": 0})
-    assert await set_time_and_check(0.5, tempo_clock, store) == [
+    clock.cue(callback, quantization="1/4", args=[store], kwargs={"limit": 0})
+    clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
+    clock.cue(callback, quantization="1/2T", args=[store], kwargs={"limit": 0})
+    assert await set_time_and_check(0.5, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
     ]
-    assert await set_time_and_check(0.75, tempo_clock, store) == [
+    assert await set_time_and_check(0.75, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (
@@ -379,8 +370,8 @@ async def test_cue_basic(tempo_clock):
             [1, 0.3333333333, 0.3333333333333333, 0.6666666666666666],
         ),
     ]
-    tempo_clock.cue(callback, quantization="1/2T", args=[store], kwargs={"limit": 0})
-    assert await set_time_and_check(1.0, tempo_clock, store) == [
+    clock.cue(callback, quantization="1/2T", args=[store], kwargs={"limit": 0})
+    assert await set_time_and_check(1.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (
@@ -389,7 +380,7 @@ async def test_cue_basic(tempo_clock):
             [1, 0.3333333333, 0.3333333333333333, 0.6666666666666666],
         ),
     ]
-    assert await set_time_and_check(1.5, tempo_clock, store) == [
+    assert await set_time_and_check(1.5, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (
@@ -403,7 +394,7 @@ async def test_cue_basic(tempo_clock):
             [1, 0.6666666667, 0.6666666666666666, 1.3333333333333333],
         ),
     ]
-    assert await set_time_and_check(2.0, tempo_clock, store) == [
+    assert await set_time_and_check(2.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
         (
@@ -422,21 +413,21 @@ async def test_cue_basic(tempo_clock):
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_cue_measures(tempo_clock):
+async def test_cue_measures(clock):
     """
     Measure-wise cueing aligns to offset 0.0
     """
     store = []
-    await tempo_clock.start()
-    tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
-    assert await set_time_and_check(0.0, tempo_clock, store) == [
+    await clock.start()
+    clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
+    assert await set_time_and_check(0.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    assert await set_time_and_check(0.5, tempo_clock, store) == [
+    assert await set_time_and_check(0.5, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
-    assert await set_time_and_check(2.0, tempo_clock, store) == [
+    clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
+    assert await set_time_and_check(2.0, clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0]),
     ]
@@ -444,118 +435,114 @@ async def test_cue_measures(tempo_clock):
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_cue_and_reschedule(tempo_clock):
+async def test_cue_and_reschedule(clock):
     store = []
-    await tempo_clock.start()
-    assert await set_time_and_check(0.25, tempo_clock, store) == []
-    tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
-    tempo_clock.cue(callback, quantization="2M", args=[store], kwargs={"limit": 0})
-    tempo_clock.schedule_change(schedule_at=1.0, time_signature=(5, 4))
-    assert await set_time_and_check(0.5, tempo_clock, store) == []
-    assert await set_time_and_check(1.0, tempo_clock, store) == []
-    assert await set_time_and_check(1.5, tempo_clock, store) == []
-    assert await set_time_and_check(2.0, tempo_clock, store) == [
+    await clock.start()
+    assert await set_time_and_check(0.25, clock, store) == []
+    clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
+    clock.cue(callback, quantization="2M", args=[store], kwargs={"limit": 0})
+    clock.schedule_change(schedule_at=1.0, time_signature=(5, 4))
+    assert await set_time_and_check(0.5, clock, store) == []
+    assert await set_time_and_check(1.0, clock, store) == []
+    assert await set_time_and_check(1.5, clock, store) == []
+    assert await set_time_and_check(2.0, clock, store) == [
         (["5/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0])
     ]
-    assert await set_time_and_check(2.5, tempo_clock, store) == [
+    assert await set_time_and_check(2.5, clock, store) == [
         (["5/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0])
     ]
-    assert await set_time_and_check(3.0, tempo_clock, store) == [
+    assert await set_time_and_check(3.0, clock, store) == [
         (["5/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0])
     ]
-    assert await set_time_and_check(3.5, tempo_clock, store) == [
+    assert await set_time_and_check(3.5, clock, store) == [
         (["5/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0])
     ]
-    assert await set_time_and_check(4.0, tempo_clock, store) == [
+    assert await set_time_and_check(4.0, clock, store) == [
         (["5/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0])
     ]
-    assert await set_time_and_check(4.5, tempo_clock, store) == [
+    assert await set_time_and_check(4.5, clock, store) == [
         (["5/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0]),
         (["5/4", 120.0], [3, 0.0, 2.25, 4.5], [3, 0.0, 2.25, 4.5]),
     ]
 
 
 @pytest.mark.asyncio
-async def test_cue_invalid(tempo_clock):
-    await tempo_clock.start()
+async def test_cue_invalid(clock):
+    await clock.start()
     with pytest.raises(ValueError):
-        tempo_clock.cue(callback, quantization="BOGUS")
+        clock.cue(callback, quantization="BOGUS")
 
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_reschedule_earlier(tempo_clock):
+async def test_reschedule_earlier(clock):
     store = []
-    await tempo_clock.start()
-    assert await set_time_and_check(0.5, tempo_clock, store) == []
-    event_id = tempo_clock.cue(
-        callback, quantization="1M", args=[store], kwargs={"limit": 0}
-    )
+    await clock.start()
+    assert await set_time_and_check(0.5, clock, store) == []
+    event_id = clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     await asyncio.sleep(0)
-    assert tempo_clock.peek().seconds == 2.0
-    tempo_clock.reschedule(event_id, schedule_at=0.5)
+    assert clock.peek().seconds == 2.0
+    clock.reschedule(event_id, schedule_at=0.5)
     await asyncio.sleep(0)
-    assert tempo_clock.peek().seconds == 1.0
-    assert await set_time_and_check(2.0, tempo_clock, store) == [
+    assert clock.peek().seconds == 1.0
+    assert await set_time_and_check(2.0, clock, store) == [
         (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [1, 0.5, 0.5, 1.0])
     ]
 
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_reschedule_later(tempo_clock):
+async def test_reschedule_later(clock):
     store = []
-    await tempo_clock.start()
-    assert await set_time_and_check(0.5, tempo_clock, store) == []
-    event_id = tempo_clock.cue(
-        callback, quantization="1M", args=[store], kwargs={"limit": 0}
-    )
+    await clock.start()
+    assert await set_time_and_check(0.5, clock, store) == []
+    event_id = clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     await asyncio.sleep(0)
-    assert tempo_clock.peek().seconds == 2.0
-    tempo_clock.reschedule(event_id, schedule_at=1.5)
+    assert clock.peek().seconds == 2.0
+    clock.reschedule(event_id, schedule_at=1.5)
     await asyncio.sleep(0)
-    assert tempo_clock.peek().seconds == 3.0
-    assert await set_time_and_check(3.0, tempo_clock, store) == [
+    assert clock.peek().seconds == 3.0
+    assert await set_time_and_check(3.0, clock, store) == [
         (["4/4", 120.0], [2, 0.5, 1.5, 3.0], [2, 0.5, 1.5, 3.0])
     ]
 
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_change_tempo_not_running(tempo_clock):
-    assert tempo_clock.beats_per_minute == 120
-    assert tempo_clock.time_signature == (4, 4)
-    tempo_clock.change(beats_per_minute=135, time_signature=(3, 4))
-    assert tempo_clock.beats_per_minute == 135
-    assert tempo_clock.time_signature == (3, 4)
+async def test_change_tempo_not_running(clock):
+    assert clock.beats_per_minute == 120
+    assert clock.time_signature == (4, 4)
+    clock.change(beats_per_minute=135, time_signature=(3, 4))
+    assert clock.beats_per_minute == 135
+    assert clock.time_signature == (3, 4)
 
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_change_time_signature_on_downbeat(tempo_clock):
+async def test_change_time_signature_on_downbeat(clock):
     store = []
-    tempo_clock.change(beats_per_minute=240)
-    tempo_clock.schedule(
+    clock.change(beats_per_minute=240)
+    clock.schedule(
         callback,
         schedule_at=0.0,
         args=[store],
         kwargs={"delta": 1, "time_unit": TimeUnit.MEASURES},
     )
-    await tempo_clock.start()
-    assert await set_time_and_check(0.0, tempo_clock, store) == [
+    await clock.start()
+    assert await set_time_and_check(0.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    tempo_clock.schedule_change(schedule_at=2, time_signature=(3, 4))
-    assert await set_time_and_check(1.0, tempo_clock, store) == [
+    clock.schedule_change(schedule_at=2, time_signature=(3, 4))
+    assert await set_time_and_check(1.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [2, 0.0, 1.0, 1.0]),
     ]
-    assert await set_time_and_check(2.0, tempo_clock, store) == [
+    assert await set_time_and_check(2.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [2, 0.0, 1.0, 1.0]),
         (["3/4", 240], [3, 0.0, 2.0, 2.0], [3, 0.0, 2.0, 2.0]),
     ]
-    assert await set_time_and_check(3.0, tempo_clock, store) == [
+    assert await set_time_and_check(3.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [2, 0.0, 1.0, 1.0]),
         (["3/4", 240], [3, 0.0, 2.0, 2.0], [3, 0.0, 2.0, 2.0]),
@@ -565,21 +552,21 @@ async def test_change_time_signature_on_downbeat(tempo_clock):
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_change_time_signature_on_downbeat_laggy(tempo_clock):
+async def test_change_time_signature_on_downbeat_laggy(clock):
     store = []
-    tempo_clock.change(beats_per_minute=240)
-    tempo_clock.schedule(
+    clock.change(beats_per_minute=240)
+    clock.schedule(
         callback,
         schedule_at=0.0,
         args=[store],
         kwargs={"delta": 1, "time_unit": TimeUnit.MEASURES},
     )
-    await tempo_clock.start()
-    assert await set_time_and_check(0.0, tempo_clock, store) == [
+    await clock.start()
+    assert await set_time_and_check(0.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    tempo_clock.schedule_change(schedule_at=2, time_signature=(3, 4))
-    assert await set_time_and_check(3.0, tempo_clock, store) == [
+    clock.schedule_change(schedule_at=2, time_signature=(3, 4))
+    assert await set_time_and_check(3.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [4, 0.0, 3.0, 3.0], [2, 0.0, 1.0, 1.0]),
         (["3/4", 240], [4, 0.25, 3.0, 3.0], [3, 0.0, 2.0, 2.0]),
@@ -589,30 +576,30 @@ async def test_change_time_signature_on_downbeat_laggy(tempo_clock):
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_change_time_signature_late(tempo_clock):
+async def test_change_time_signature_late(clock):
     store = []
-    tempo_clock.change(beats_per_minute=240)
-    tempo_clock.schedule(
+    clock.change(beats_per_minute=240)
+    clock.schedule(
         callback,
         schedule_at=0.0,
         args=[store],
         kwargs={"delta": 1, "time_unit": TimeUnit.MEASURES},
     )
-    await tempo_clock.start()
-    assert await set_time_and_check(0.0, tempo_clock, store) == [
+    await clock.start()
+    assert await set_time_and_check(0.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    tempo_clock.schedule_change(schedule_at=1.875, time_signature=(3, 4))
-    assert await set_time_and_check(1.0, tempo_clock, store) == [
+    clock.schedule_change(schedule_at=1.875, time_signature=(3, 4))
+    assert await set_time_and_check(1.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [2, 0.0, 1.0, 1.0]),
     ]
-    assert await set_time_and_check(2.0, tempo_clock, store) == [
+    assert await set_time_and_check(2.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [2, 0.0, 1.0, 1.0]),
         (["3/4", 240], [3, 0.125, 2.0, 2.0], [3, 0.0, 1.875, 1.875]),
     ]
-    assert await set_time_and_check(3.0, tempo_clock, store) == [
+    assert await set_time_and_check(3.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [2, 0.0, 1.0, 1.0]),
         (["3/4", 240], [3, 0.125, 2.0, 2.0], [3, 0.0, 1.875, 1.875]),
@@ -622,21 +609,21 @@ async def test_change_time_signature_late(tempo_clock):
 
 @pytest.mark.asyncio
 # @pytest.mark.timeout(5)
-async def test_change_time_signature_late_laggy(tempo_clock):
+async def test_change_time_signature_late_laggy(clock):
     store = []
-    tempo_clock.change(beats_per_minute=240)
-    tempo_clock.schedule(
+    clock.change(beats_per_minute=240)
+    clock.schedule(
         callback,
         schedule_at=0.0,
         args=[store],
         kwargs={"delta": 1, "time_unit": TimeUnit.MEASURES},
     )
-    await tempo_clock.start()
-    assert await set_time_and_check(0.0, tempo_clock, store) == [
+    await clock.start()
+    assert await set_time_and_check(0.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    tempo_clock.schedule_change(schedule_at=1.875, time_signature=(3, 4))
-    assert await set_time_and_check(3.0, tempo_clock, store) == [
+    clock.schedule_change(schedule_at=1.875, time_signature=(3, 4))
+    assert await set_time_and_check(3.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [4, 0.0, 3.0, 3.0], [2, 0.0, 1.0, 1.0]),
         (["3/4", 240], [4, 0.375, 3.0, 3.0], [3, 0.0, 1.875, 1.875]),
@@ -646,31 +633,31 @@ async def test_change_time_signature_late_laggy(tempo_clock):
 
 @pytest.mark.asyncio
 @pytest.mark.timeout(5)
-async def test_change_time_signature_early(tempo_clock):
+async def test_change_time_signature_early(clock):
     store = []
-    tempo_clock.change(beats_per_minute=240)
-    tempo_clock.schedule(
+    clock.change(beats_per_minute=240)
+    clock.schedule(
         callback,
         schedule_at=0.0,
         args=[store],
         kwargs={"delta": 1, "time_unit": TimeUnit.MEASURES},
     )
-    await tempo_clock.start()
-    assert await set_time_and_check(0.0, tempo_clock, store) == [
+    await clock.start()
+    assert await set_time_and_check(0.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    tempo_clock.schedule_change(schedule_at=1.125, time_signature=(5, 4))
-    assert await set_time_and_check(1.0, tempo_clock, store) == [
+    clock.schedule_change(schedule_at=1.125, time_signature=(5, 4))
+    assert await set_time_and_check(1.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [2, 0.0, 1.0, 1.0]),
     ]
-    assert tempo_clock.time_signature == (4, 4)
-    assert await set_time_and_check(2.0, tempo_clock, store) == [
+    assert clock.time_signature == (4, 4)
+    assert await set_time_and_check(2.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [2, 0.0, 1.0, 1.0]),
     ]
-    assert tempo_clock.time_signature == (5, 4)
-    assert await set_time_and_check(3.0, tempo_clock, store) == [
+    assert clock.time_signature == (5, 4)
+    assert await set_time_and_check(3.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [2, 0.0, 1.0, 1.0]),
         (["5/4", 240], [3, 0.75, 3.0, 3.0], [3, 0.0, 2.25, 2.25]),
@@ -679,21 +666,21 @@ async def test_change_time_signature_early(tempo_clock):
 
 @pytest.mark.asyncio
 @pytest.mark.timeout(5)
-async def test_change_time_signature_early_laggy(tempo_clock):
+async def test_change_time_signature_early_laggy(clock):
     store = []
-    tempo_clock.change(beats_per_minute=240)
-    tempo_clock.schedule(
+    clock.change(beats_per_minute=240)
+    clock.schedule(
         callback,
         schedule_at=0.0,
         args=[store],
         kwargs={"delta": 1, "time_unit": TimeUnit.MEASURES},
     )
-    await tempo_clock.start()
-    assert await set_time_and_check(0.0, tempo_clock, store) == [
+    await clock.start()
+    assert await set_time_and_check(0.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    tempo_clock.schedule_change(schedule_at=1.125, time_signature=(5, 4))
-    assert await set_time_and_check(3.0, tempo_clock, store) == [
+    clock.schedule_change(schedule_at=1.125, time_signature=(5, 4))
+    assert await set_time_and_check(3.0, clock, store) == [
         (["4/4", 240], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [4, 0.0, 3.0, 3.0], [2, 0.0, 1.0, 1.0]),
         (["5/4", 240], [3, 0.75, 3.0, 3.0], [3, 0.0, 2.25, 2.25]),  # time travel
@@ -702,25 +689,25 @@ async def test_change_time_signature_early_laggy(tempo_clock):
 
 @pytest.mark.asyncio
 @pytest.mark.timeout(5)
-async def test_change_time_signature_shrinking(tempo_clock):
+async def test_change_time_signature_shrinking(clock):
     """
     When shifting to a smaller time signature, if the desired measure offset is
     within that smaller time signature, maintain the desired measure and
     measure offset.
     """
     store = []
-    tempo_clock.change(beats_per_minute=240)
-    tempo_clock.schedule(callback, schedule_at=0.0, args=[store], kwargs={"limit": 12})
-    tempo_clock.schedule_change(schedule_at=1.125, time_signature=(2, 4))
-    await tempo_clock.start()
-    assert await set_time_and_check(1.0, tempo_clock, store) == [
+    clock.change(beats_per_minute=240)
+    clock.schedule(callback, schedule_at=0.0, args=[store], kwargs={"limit": 12})
+    clock.schedule_change(schedule_at=1.125, time_signature=(2, 4))
+    await clock.start()
+    assert await set_time_and_check(1.0, clock, store) == [
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [1, 0.25, 0.25, 0.25]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [1, 0.5, 0.5, 0.5]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [1, 0.75, 0.75, 0.75]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [2, 0.0, 1.0, 1.0]),
     ]
-    assert await set_time_and_check(1.25, tempo_clock, store) == [
+    assert await set_time_and_check(1.25, clock, store) == [
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [1, 0.25, 0.25, 0.25]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [1, 0.5, 0.5, 0.5]),
@@ -728,7 +715,7 @@ async def test_change_time_signature_shrinking(tempo_clock):
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [2, 0.0, 1.0, 1.0]),
         (["2/4", 240], [2, 0.25, 1.25, 1.25], [2, 0.25, 1.25, 1.25]),
     ]
-    assert await set_time_and_check(1.5, tempo_clock, store) == [
+    assert await set_time_and_check(1.5, clock, store) == [
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [1, 0.25, 0.25, 0.25]),
         (["4/4", 240], [2, 0.0, 1.0, 1.0], [1, 0.5, 0.5, 0.5]),
@@ -741,103 +728,103 @@ async def test_change_time_signature_shrinking(tempo_clock):
 
 @pytest.mark.asyncio
 @pytest.mark.timeout(5)
-async def test_schedule_measure_relative(tempo_clock):
+async def test_schedule_measure_relative(clock):
     store = []
-    tempo_clock.change(beats_per_minute=240)
-    tempo_clock.schedule(
+    clock.change(beats_per_minute=240)
+    clock.schedule(
         callback,
         schedule_at=3,
         time_unit=TimeUnit.MEASURES,
         args=[store],
         kwargs={"limit": 0},
     )
-    await tempo_clock.start()
-    assert await set_time_and_check(0.0, tempo_clock, store) == []
-    assert await set_time_and_check(4.0, tempo_clock, store) == [
+    await clock.start()
+    assert await set_time_and_check(0.0, clock, store) == []
+    assert await set_time_and_check(4.0, clock, store) == [
         (["4/4", 240], [5, 0.0, 4.0, 4.0], [3, 0.0, 2.0, 2.0])
     ]
 
 
 @pytest.mark.asyncio
 @pytest.mark.timeout(5)
-async def test_schedule_seconds_relative(tempo_clock):
+async def test_schedule_seconds_relative(clock):
     store = []
-    tempo_clock.change(beats_per_minute=240)
-    tempo_clock.schedule(
+    clock.change(beats_per_minute=240)
+    clock.schedule(
         callback,
         schedule_at=1.234,
         time_unit=TimeUnit.SECONDS,
         args=[store],
         kwargs={"limit": 0},
     )
-    await tempo_clock.start()
-    assert await set_time_and_check(0.0, tempo_clock, store) == []
-    assert await set_time_and_check(4.0, tempo_clock, store) == [
+    await clock.start()
+    assert await set_time_and_check(0.0, clock, store) == []
+    assert await set_time_and_check(4.0, clock, store) == [
         (["4/4", 240], [5, 0.0, 4.0, 4.0], [2, 0.234, 1.234, 1.234])
     ]
 
 
 @pytest.mark.asyncio
 @pytest.mark.timeout(5)
-async def test_cancel_invalid(tempo_clock):
-    await tempo_clock.start()
-    assert tempo_clock.cancel(1) is None
+async def test_cancel_invalid(clock):
+    await clock.start()
+    assert clock.cancel(1) is None
 
 
 @pytest.mark.asyncio
-async def test_slop(tempo_clock):
-    assert tempo_clock.slop == 0.01
-    tempo_clock.slop = 0.1
-    assert tempo_clock.slop == 0.1
+async def test_slop(clock):
+    assert clock.slop == 0.01
+    clock.slop = 0.1
+    assert clock.slop == 0.1
     with pytest.raises(ValueError):
-        tempo_clock.slop = 0
+        clock.slop = 0
     with pytest.raises(ValueError):
-        tempo_clock.slop = -1.0
+        clock.slop = -1.0
 
 
 @pytest.mark.asyncio
-async def test_start_and_restart(tempo_clock):
-    assert not tempo_clock.is_running
-    await tempo_clock.start()
-    assert tempo_clock.is_running
+async def test_start_and_restart(clock):
+    assert not clock.is_running
+    await clock.start()
+    assert clock.is_running
     with pytest.raises(RuntimeError):
-        await tempo_clock.start()
-    assert tempo_clock.is_running
+        await clock.start()
+    assert clock.is_running
 
 
 @pytest.mark.asyncio
-async def test_stop_and_restop(tempo_clock):
-    assert not tempo_clock.is_running
-    await tempo_clock.start()
-    assert tempo_clock.is_running
-    await tempo_clock.stop()
-    assert not tempo_clock.is_running
-    await tempo_clock.stop()
-    assert not tempo_clock.is_running
+async def test_stop_and_restop(clock):
+    assert not clock.is_running
+    await clock.start()
+    assert clock.is_running
+    await clock.stop()
+    assert not clock.is_running
+    await clock.stop()
+    assert not clock.is_running
 
 
 @pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(30)
 @pytest.mark.asyncio
 async def test_clock_skew():
-    tempo_clock = AsyncTempoClock()
-    tempo_clock.slop = 0.001
+    clock = AsyncClock()
+    clock.slop = 0.001
     all_stats = []
     for _ in range(5):
         store = []
         for _ in range(20):
             delta = random.random() / 100
-            tempo_clock.schedule(
+            clock.schedule(
                 callback,
                 schedule_at=random.random(),
                 args=[store],
                 kwargs={"limit": 100, "delta": delta, "time_unit": TimeUnit.SECONDS},
             )
-        await tempo_clock.start()
+        await clock.start()
         await asyncio.sleep(5.0)
-        await tempo_clock.stop()
+        await clock.stop()
         stats = calculate_skew(store)
         print(" ".join(f"{key}: {value:f}" for key, value in stats.items()))
         all_stats.append(stats)
-    threshold = tempo_clock.slop * 4.0
+    threshold = clock.slop * 4.0
     assert all(stats["median"] < threshold for stats in all_stats)

@@ -25,7 +25,7 @@ from .eventqueue import EventQueue
 logger = logging.getLogger("supriya.clocks")
 
 
-class BaseTempoClock:
+class BaseClock:
 
     ### CLASS VARIABLES ###
 
