@@ -19,7 +19,7 @@ Supriya lets you:
 Send compliments or complaints to josiah.oberholtzer@gmail.com, or register
 an issue at https://github.com/josiah-wolf-oberholtzer/supriya/issues.
 
-Supriya is compatible with Python 3.6+ only.
+Supriya is compatible with Python 3.8+ only.
 
 ..  image:: graph.png
     :align: center
