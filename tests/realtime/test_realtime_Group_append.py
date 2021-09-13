@@ -26,7 +26,7 @@ def test_01(server):
     assert synth_a in group_a
     assert synth_a not in group_b
 
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -44,7 +44,7 @@ def test_01(server):
     assert synth_a in group_b
     assert synth_a not in group_a
 
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -63,7 +63,7 @@ def test_01(server):
     assert synth_b.is_allocated
     assert synth_b.parent is group_b
 
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group

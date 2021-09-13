@@ -93,7 +93,7 @@ def test_bus_symbol_mapping(server):
     assert synth.synthdef is synthdef
     assert str(synth.controls["amplitude"].value) == "c0"
     assert str(synth.controls["frequency"].value) == "a1"
-    server_state = str(server.query_remote_nodes(True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -103,4 +103,4 @@ def test_bus_symbol_mapping(server):
                         amplitude: c0, frequency: a1
         """
     )
-    assert str(server.query_local_nodes(True)) == server_state
+    assert str(server.root_node) == server_state

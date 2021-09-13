@@ -189,7 +189,7 @@ class SynthDefReceiveRequest(Request):
 
     ::
 
-        >>> print(server.query_remote_nodes())
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
 
@@ -246,7 +246,7 @@ class SynthDefReceiveRequest(Request):
 
     ::
 
-        >>> print(server.query_remote_nodes(True))
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 group
@@ -255,7 +255,7 @@ class SynthDefReceiveRequest(Request):
 
     ::
 
-        >>> print(server.query_local_nodes(True))
+        >>> print(server.root_node)
         NODE TREE 0 group
             1 group
                 1000 group

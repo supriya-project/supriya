@@ -36,7 +36,7 @@ from supriya.patterns.testutils import run_pattern_test
                             calculation_rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
-                        GroupAllocateEvent(M("B"),),
+                        GroupAllocateEvent(M("B")),
                         SynthAllocateEvent(
                             M("C"),
                             add_action=AddAction.ADD_AFTER,
@@ -51,11 +51,7 @@ from supriya.patterns.testutils import run_pattern_test
                 NoteEvent(M("D"), a=1, out=M("A"), target_node=M("B")),
                 NoteEvent(M("E"), a=2, out=M("A"), target_node=M("B")),
                 CompositeEvent(
-                    [
-                        NodeFreeEvent(M("C")),
-                        NodeFreeEvent(M("B")),
-                        BusFreeEvent(M("A")),
-                    ]
+                    [NodeFreeEvent(M("C")), NodeFreeEvent(M("B")), BusFreeEvent(M("A"))]
                 ),
             ],
             False,
@@ -74,7 +70,7 @@ from supriya.patterns.testutils import run_pattern_test
                             calculation_rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
-                        GroupAllocateEvent(M("B"),),
+                        GroupAllocateEvent(M("B")),
                         SynthAllocateEvent(
                             M("C"),
                             add_action=AddAction.ADD_AFTER,
@@ -113,7 +109,7 @@ from supriya.patterns.testutils import run_pattern_test
                             calculation_rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
-                        GroupAllocateEvent(M("B"),),
+                        GroupAllocateEvent(M("B")),
                         SynthAllocateEvent(
                             M("C"),
                             add_action=AddAction.ADD_AFTER,
@@ -132,7 +128,7 @@ from supriya.patterns.testutils import run_pattern_test
                             calculation_rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
-                        GroupAllocateEvent(M("E"), target_node=M("B"),),
+                        GroupAllocateEvent(M("E"), target_node=M("B")),
                         SynthAllocateEvent(
                             M("F"),
                             add_action=AddAction.ADD_AFTER,
@@ -145,8 +141,8 @@ from supriya.patterns.testutils import run_pattern_test
                         ),
                     ]
                 ),
-                NoteEvent(M("G"), a=1, out=M("D"), target_node=M("E"),),
-                NoteEvent(M("H"), a=2, out=M("D"), target_node=M("E"),),
+                NoteEvent(M("G"), a=1, out=M("D"), target_node=M("E")),
+                NoteEvent(M("H"), a=2, out=M("D"), target_node=M("E")),
                 CompositeEvent(
                     [
                         NodeFreeEvent(M("F")),

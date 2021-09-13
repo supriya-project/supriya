@@ -1,40 +1,42 @@
 .PHONY: build docs gh-pages
+.DEFAULT_GOAL := help
 
 project = supriya
 origin := $(shell git config --get remote.origin.url)
 formatPaths = ${project}/ tests/ *.py
 testPaths = ${project}/ tests/
 
-black-check:
-	black --target-version py38 --check --diff ${formatPaths}
+help:  ## This help
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-z0-9A-Z_-]+:.*?## / {printf "\033[36m%-30s\033]0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
-black-reformat:
-	black --target-version py38 ${formatPaths}
+black-check: ## Check syntax via black
+	black --skip-magic-trailing-comma --target-version py38 --check --diff ${formatPaths}
 
-build:
+black-reformat: ## Reformat via black
+	black --skip-magic-trailing-comma --target-version py38 ${formatPaths}
+
+build: ## Build for distribution
 	python setup.py sdist
 
-clean:
+clean: ## Clean-out transitory files
 	find . -name '*.pyc' | xargs rm
 	rm -Rif *.egg-info/
 	rm -Rif .*cache/
-	rm -Rif .tox/
 	rm -Rif __pycache__
 	rm -Rif build/
 	rm -Rif dist/
 	rm -Rif htmlcov/
-	rm -Rif prof/
 
-docs:
+docs:  ## Build documentation
 	make -C docs/ html
 
-docs-clean:
+docs-clean: ## Build documentation from scratch
 	make -C docs/ clean html
 
-flake8:
+flake8: ## Lint via flake8
 	flake8 ${formatPaths}
 
-gh-pages: docs-clean
+gh-pages: docs-clean ## Build and publish documentation to GitHub
 	rm -Rf gh-pages/
 	git clone $(origin) gh-pages/
 	cd gh-pages/ && \
@@ -47,7 +49,7 @@ gh-pages: docs-clean
 		git push -u origin gh-pages
 	rm -Rf gh-pages/
 
-isort:
+isort: ## Reformat via isort
 	isort \
 		--case-sensitive \
 		--multi-line 3 \
@@ -58,12 +60,12 @@ isort:
 		--use-parentheses \
 		${formatPaths}
 
-lint: reformat flake8 mypy
+lint: reformat flake8 mypy ## Run all linters
 
-mypy:
+mypy: ## Type-check via mypy
 	mypy --ignore-missing-imports ${project}/
 
-pytest:
+pytest: ## Unit test via pytest
 	rm -Rf htmlcov/
 	pytest \
 		--cov-config=.coveragerc \
@@ -74,30 +76,18 @@ pytest:
 		--timeout=60 \
 		${testPaths}
 
-pytest-x:
-	rm -Rf htmlcov/
-	pytest \
-		-x \
-		--cov-config=.coveragerc \
-		--cov-report=html \
-		--cov-report=term \
-		--cov=supriya/ \
-		--durations=20 \
-		--timeout=60 \
-		${testPaths}
-
-reformat:
+reformat: ## Reformat codebase
 	make isort
 	make black-reformat
 
-release:
+release: ## Release
 	make test
 	make clean
 	make build
 	twine upload dist/*.tar.gz
 	make gh-pages
 
-test:
+test: ## Test
 	make black-check
 	make flake8
 	make mypy

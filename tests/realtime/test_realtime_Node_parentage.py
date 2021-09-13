@@ -17,7 +17,7 @@ def test_Node_parentage_01(server):
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group_d.extend([synth_a, synth_b])
 
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -68,7 +68,7 @@ def test_Node_parentage_01(server):
 
     group_a.succeed_by(group_d)
 
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group

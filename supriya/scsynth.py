@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 import uqbar.io
+import uqbar.objects
 
 import supriya
 
@@ -72,6 +73,11 @@ class Options:
             self.input_bus_channel_count + self.output_bus_channel_count
         ):
             raise ValueError("Insufficient audio buses")
+
+    ### CLASS VARIABLES ###
+
+    def __repr__(self):
+        return uqbar.objects.get_repr(self, multiline=True, suppress_defaults=False)
 
     ### PUBLIC METHODS ###
 

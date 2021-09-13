@@ -24,7 +24,7 @@ def test_01(server):
     synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group_a.append(synth_d)
 
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group

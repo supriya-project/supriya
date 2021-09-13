@@ -5,13 +5,7 @@ Tools for interacting with and modeling objects on the SuperCollider
 from .allocators import Block, BlockAllocator, NodeIdAllocator
 from .bases import ServerObject
 from .buffers import Buffer, BufferGroup, BufferProxy
-from .buses import (
-    AudioInputBusGroup,
-    AudioOutputBusGroup,
-    Bus,
-    BusGroup,
-    BusProxy,
-)
+from .buses import AudioInputBusGroup, AudioOutputBusGroup, Bus, BusGroup, BusProxy
 from .interfaces import (
     ControlInterface,
     GroupControl,

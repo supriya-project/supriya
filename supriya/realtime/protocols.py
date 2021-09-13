@@ -47,7 +47,9 @@ class SyncProcessProtocol(ProcessProtocol):
                 line = self.process.stdout.readline().decode().rstrip()
                 if line:
                     logger.info("Boot: {}".format(line))
-                if line.startswith(("SuperCollider 3 server ready", "Supernova ready")):
+                if line.startswith("SuperCollider 3 server ready"):
+                    break
+                elif line.startswith("Supernova ready"):
                     break
                 elif line.startswith(("ERROR:", "*** ERROR:")):
                     raise supriya.exceptions.ServerCannotBoot(line)

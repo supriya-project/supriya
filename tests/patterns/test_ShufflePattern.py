@@ -16,7 +16,7 @@ from supriya.patterns import ShufflePattern
 )
 def test(sequence, iterations, forbid_repetitions, stride, is_infinite):
     pattern = ShufflePattern(
-        sequence, iterations=iterations, forbid_repetitions=forbid_repetitions,
+        sequence, iterations=iterations, forbid_repetitions=forbid_repetitions
     )
     assert pattern.is_infinite == is_infinite
     iterator = iter(pattern)

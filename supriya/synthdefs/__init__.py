@@ -15,14 +15,7 @@ from .bases import (
 )
 from .builders import SynthDefBuilder
 from .compilers import SynthDefCompiler, SynthDefDecompiler
-from .controls import (
-    AudioControl,
-    Control,
-    LagControl,
-    Parameter,
-    Range,
-    TrigControl,
-)
+from .controls import AudioControl, Control, LagControl, Parameter, Range, TrigControl
 from .envelopes import Envelope
 from .factories import SynthDefFactory
 from .grapher import SynthDefGrapher

@@ -40,7 +40,7 @@ def test_2(server):
     assert group_a.node_id == 1000
     assert group_b.node_id is None
     assert group_c.node_id is None
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -68,7 +68,7 @@ def test_2(server):
         ("S", supriya.osc.OscMessage("/sync", 0)),
         ("R", supriya.osc.OscMessage("/synced", 0)),
     ]
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -92,7 +92,7 @@ def test_3(server):
     application.
     """
     group_a = supriya.realtime.Group().allocate()
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -120,7 +120,7 @@ def test_3(server):
         ("S", supriya.osc.OscMessage("/sync", 0)),
         ("R", supriya.osc.OscMessage("/synced", 0)),
     ]
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group

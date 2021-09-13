@@ -13,13 +13,7 @@ import supriya.osc
 import supriya.realtime
 import supriya.soundfiles
 import supriya.synthdefs
-from supriya import (
-    CalculationRate,
-    HeaderFormat,
-    ParameterRate,
-    SampleFormat,
-    scsynth,
-)
+from supriya import CalculationRate, HeaderFormat, ParameterRate, SampleFormat, scsynth
 from supriya.commands import (
     BufferCopyRequest,
     BufferFillRequest,
@@ -1043,11 +1037,6 @@ class Session:
             offset=offset,
         )
         return buffer_
-
-    def inscribe(self, pattern, duration=None, offset=None, seed=None):
-        return self.root_node.inscribe(
-            pattern, duration=duration, offset=offset, seed=seed
-        )
 
     @staticmethod
     def is_session_like(expr):

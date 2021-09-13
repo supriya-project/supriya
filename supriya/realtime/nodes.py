@@ -72,19 +72,10 @@ class Node(ServerObject, UniqueTreeNode):
         node_id = "???"
         if self.node_id is not None:
             node_id = self.node_id
-        allocation_indicator = "+" if self.is_allocated else "-"
+        allocated = "+" if self.is_allocated else "-"
         if self.name is None:
-            string = "<{allocated} {class_name}: {node_id}>".format(
-                allocated=allocation_indicator, class_name=class_name, node_id=node_id
-            )
-        else:
-            string = "<{allocated} {class_name}: {node_id} ({name})>".format(
-                allocated=allocation_indicator,
-                class_name=class_name,
-                name=self.name,
-                node_id=node_id,
-            )
-        return string
+            return f"<{allocated} {class_name}: {node_id}>"
+        return "<{allocated} {class_name}: {node_id} ({name})>"
 
     ### PRIVATE METHODS ###
 
@@ -539,6 +530,7 @@ class Group(Node, UniqueTreeList):
         AddAction.ADD_TO_TAIL,
         AddAction.ADD_AFTER,
         AddAction.ADD_BEFORE,
+        AddAction.REPLACE,
     )
 
     ### INITIALIZER ###
@@ -609,7 +601,6 @@ class Group(Node, UniqueTreeList):
             string = f"{node_id} group"
         result.append(string)
         for child in self:
-            assert child.parent is self
             lines = str(child).splitlines()
             for line in lines:
                 result.append(f"    {line}")
@@ -830,12 +821,12 @@ class Synth(Node):
 
         >>> synth = supriya.realtime.Synth(amplitude=0.5, frequency=443, synthdef=synthdef)
         >>> synth
-        <- Synth: ???>
+        <- Synth: ??? e41193ac8b7216f49ff0d477876a3bf3>
 
     ::
 
         >>> synth.allocate()
-        <+ Synth: 1000>
+        <+ Synth: 1000 e41193ac8b7216f49ff0d477876a3bf3>
 
     ::
 
@@ -854,20 +845,13 @@ class Synth(Node):
 
     __documentation_section__ = "Main Classes"
 
-    __slots__ = ("_control_interface", "_register_controls", "_synthdef")
+    __slots__ = ("_control_interface", "_synthdef")
 
-    _valid_add_actions = (AddAction.ADD_BEFORE, AddAction.ADD_AFTER)
+    _valid_add_actions = (AddAction.ADD_BEFORE, AddAction.ADD_AFTER, AddAction.REPLACE)
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        synthdef=None,
-        name=None,
-        register_controls=None,
-        node_id_is_permanent=False,
-        **kwargs,
-    ):
+    def __init__(self, synthdef=None, name=None, node_id_is_permanent=False, **kwargs):
         import supriya.assets.synthdefs
         import supriya.realtime
         import supriya.synthdefs
@@ -879,9 +863,6 @@ class Synth(Node):
         self._control_interface = supriya.realtime.SynthInterface(
             client=self, synthdef=self._synthdef
         )
-        if register_controls is not None:
-            register_controls = bool(register_controls)
-        self._register_controls = register_controls
         self._control_interface._set(**kwargs)
 
     ### SPECIAL METHODS ###
@@ -891,6 +872,19 @@ class Synth(Node):
 
     def __iter__(self):
         return iter(self._control_interface)
+
+    def __repr__(self):
+        class_name = type(self).__name__
+        node_id = "???"
+        if self.node_id is not None:
+            node_id = self.node_id
+        allocated = "+" if self.is_allocated else "-"
+        synthdef_name = "???"
+        if self.synthdef is not None:
+            synthdef_name = self.synthdef.actual_name
+        if self.name is None:
+            return f"<{allocated} {class_name}: {node_id} {synthdef_name}>"
+        return f"<{allocated} {class_name}: {node_id} {synthdef_name} ({self.name})>"
 
     def __setitem__(self, items, values):
         self.controls.__setitem__(items, values)
@@ -909,7 +903,8 @@ class Synth(Node):
         )
         result.append(string)
         control_pieces = []
-        for control in [self.controls[name] for name in sorted(self)]:
+        for _, parameter in sorted(self.synthdef.indexed_parameters):
+            control = self.controls[parameter.name]
             control_piece = "{}: {!s}".format(control.name, control.value)
             control_pieces.append(control_piece)
         control_pieces = "    " + ", ".join(control_pieces)
@@ -986,10 +981,6 @@ class Synth(Node):
     def synthdef(self):
         return self._synthdef
 
-    @property
-    def register_controls(self):
-        return self._register_controls
-
 
 class RootNode(Group):
 
@@ -999,16 +990,18 @@ class RootNode(Group):
 
     __slots__ = ()
 
-    _valid_add_actions: Tuple[int, ...] = (
-        AddAction.ADD_TO_HEAD,
-        AddAction.ADD_TO_TAIL,
-    )
+    _valid_add_actions: Tuple[int, ...] = (AddAction.ADD_TO_HEAD, AddAction.ADD_TO_TAIL)
 
     ### INITIALIZER ###
 
     def __init__(self, server=None):
         super().__init__()
         self._server = server
+
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        return "NODE TREE " + super().__str__()
 
     ### PRIVATE METHODS ###
 

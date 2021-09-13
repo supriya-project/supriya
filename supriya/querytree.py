@@ -114,7 +114,7 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
             synthdef, synth_kwargs = node.synthdef, node.synth_kwargs
             for name, parameter in sorted(synthdef.parameters.items()):
                 value = parameter.value
-                if node.start_offset == state.offset and name in synth_kwargs:
+                if name in synth_kwargs:
                     value = synth_kwargs[name]
                 if name in settings:
                     value = settings[name]

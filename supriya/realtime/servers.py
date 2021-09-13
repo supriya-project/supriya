@@ -2,7 +2,7 @@ import asyncio
 import logging
 import re
 import threading
-from typing import Set
+from typing import Optional, Set
 
 from uqbar.objects import new
 
@@ -32,10 +32,15 @@ from .meters import Meters
 from .nodes import Group, Synth
 from .protocols import AsyncProcessProtocol, SyncProcessProtocol
 from .recorder import Recorder
-from .shm import ServerSHM
+
+try:
+    from .shm import ServerSHM
+except (ImportError, ModuleNotFoundError):
+    ServerSHM = None
 
 logger = logging.getLogger("supriya.server")
 
+DEFAULT_IP_ADDRESS = "127.0.0.1"
 DEFAULT_PORT = 57110
 
 
@@ -117,16 +122,18 @@ class BaseServer:
 
     def _setup_osc_callbacks(self):
         self._osc_protocol.register(
-            pattern="/d_removed", procedure=self._handle_synthdef_removed_response,
+            pattern="/d_removed", procedure=self._handle_synthdef_removed_response
         )
         self._osc_protocol.register(
-            pattern="/status.reply", procedure=self._handle_status_reply_response,
+            pattern="/status.reply", procedure=self._handle_status_reply_response
         )
         self._osc_protocol.register(
-            pattern="/fail", procedure=self._handle_failed_response,
+            pattern="/fail", procedure=self._handle_failed_response
         )
 
     def _setup_shm(self):
+        if ServerSHM is None:
+            return
         self._shm = ServerSHM(self.port, self.options.control_bus_channel_count)
 
     def _teardown_allocators(self):
@@ -141,27 +148,13 @@ class BaseServer:
 
     ### PUBLIC METHODS ###
 
-    def boot(self, port=DEFAULT_PORT, *, scsynth_path=None, options=None, **kwargs):
-        ...
-
-    def connect(self, ip_address="127.0.0.1", port=DEFAULT_PORT):
-        ...
-
-    def disconnect(self, force=False):
-        ...
-
-    def quit(self, force=False):
-        ...
-
-    def reset(self):
-        ...
-
     def send(self, message):
         if not message:
             raise ValueError
         if not self.is_running:
             raise supriya.exceptions.ServerOffline
         self._osc_protocol.send(message)
+        return self
 
     ### PUBLIC PROPERTIES ###
 
@@ -283,7 +276,6 @@ class AsyncServer(BaseServer):
             await self._setup_system_synthdefs()
         self.boot_future.set_result(True)
         self._servers.add(self)
-        self._setup_shm()
 
     async def _disconnect(self):
         self._is_running = False
@@ -304,7 +296,7 @@ class AsyncServer(BaseServer):
         request = GroupNewRequest(
             items=[
                 GroupNewRequest.Item(1, i, 0) for i in range(1, self.maximum_logins + 1)
-            ],
+            ]
         )
         self.send(request.to_osc())
 
@@ -317,7 +309,7 @@ class AsyncServer(BaseServer):
         self._client_id, self._maximum_logins = response.action[1], response.action[2]
 
     async def _setup_system_synthdefs(self):
-        ...
+        pass
 
     async def _shutdown(self):
         if not self.is_running:
@@ -330,8 +322,14 @@ class AsyncServer(BaseServer):
     ### PUBLIC METHODS ###
 
     async def boot(
-        self, port=DEFAULT_PORT, *, scsynth_path=None, options=None, **kwargs
-    ):
+        self,
+        *,
+        ip_address: str = DEFAULT_IP_ADDRESS,
+        port: int = DEFAULT_PORT,
+        scsynth_path: Optional[str] = None,
+        options: Optional[Options] = None,
+        **kwargs,
+    ) -> "AsyncServer":
         if self._is_running:
             raise supriya.exceptions.ServerOnline
         port = port or DEFAULT_PORT
@@ -346,25 +344,27 @@ class AsyncServer(BaseServer):
             self._boot_future.set_result(False)
             self._quit_future.set_result(True)
             raise supriya.exceptions.ServerCannotBoot
-        self._ip_address = "127.0.0.1"
+        self._ip_address = ip_address
         self._is_owner = True
         self._port = port
         await self._connect()
         return self
 
-    async def connect(self, ip_address="127.0.0.1", port=DEFAULT_PORT):
+    async def connect(
+        self, *, ip_address: str = DEFAULT_IP_ADDRESS, port: int = DEFAULT_PORT
+    ) -> "AsyncServer":
         if self._is_running:
             raise supriya.exceptions.ServerOnline
         loop = asyncio.get_running_loop()
         self._boot_future = loop.create_future()
         self._quit_future = loop.create_future()
-        self._ip_address = "127.0.0.1"
+        self._ip_address = ip_address
         self._is_owner = False
         self._port = port
         await self._connect()
         return self
 
-    async def disconnect(self):
+    async def disconnect(self) -> "AsyncServer":
         if not self._is_running:
             raise supriya.exceptions.ServerOffline
         if self._is_owner:
@@ -374,14 +374,14 @@ class AsyncServer(BaseServer):
         await self._disconnect()
         return self
 
-    async def query(self, include_controls=True):
+    async def query(self, include_controls=True) -> QueryTreeGroup:
         request = GroupQueryTreeRequest(node_id=0, include_controls=include_controls)
         response = await request.communicate_async(server=self)
         return response.query_tree_group
 
-    async def quit(self, force=False):
+    async def quit(self, force: bool = False) -> "AsyncServer":
         if not self._is_running:
-            return
+            return self
         if not self._is_owner and not force:
             raise supriya.exceptions.UnownedServerShutdown(
                 "Cannot quit unowned server without force flag."
@@ -394,16 +394,6 @@ class AsyncServer(BaseServer):
             self._process_protocol.quit()
         await self._disconnect()
         return self
-
-    async def reset(self):
-        self.send(["/g_freeAll", 0])
-        self.send(["/d_freeAll"])
-        self._teardown_allocators()
-        self._synthdefs.clear()
-        self._setup_allocators()
-        if self.client_id == 0:
-            await self._setup_default_groups()
-            await self._setup_system_synthdefs()
 
     ### PUBLIC PROPERTIES ###
 
@@ -439,8 +429,6 @@ class Server(BaseServer):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Main Classes"
 
     _default_server = None
 
@@ -495,17 +483,17 @@ class Server(BaseServer):
 
             >>> server = supriya.Server.default().boot()
             >>> supriya.Synth(name="foo").allocate()
-            <+ Synth: 1000 (foo)>
+            <+ Synth: 1000 default (foo)>
 
         ::
 
             >>> server[1000]
-            <+ Synth: 1000 (foo)>
+            <+ Synth: 1000 default (foo)>
 
         ::
 
             >>> server["foo"]
-            <+ Synth: 1000 (foo)>
+            <+ Synth: 1000 default (foo)>
 
         ::
 
@@ -621,11 +609,6 @@ class Server(BaseServer):
 
         return self.root_node.__graph__()
 
-    def __str__(self):
-        if self.is_running:
-            return str(self.query_remote_nodes(True))
-        return ""
-
     ### PRIVATE METHODS ###
 
     def _as_node_target(self):
@@ -654,7 +637,6 @@ class Server(BaseServer):
             self._setup_default_groups()
             self._setup_system_synthdefs()
         self._servers.add(self)
-        self._setup_shm()
 
     def _disconnect(self):
         logger.info("disconnecting")
@@ -669,17 +651,6 @@ class Server(BaseServer):
         if self in self._servers:
             self._servers.remove(self)
         logger.info("disconnected")
-
-    def reset(self):
-        self.send(["/g_freeAll", 0])
-        self.send(["/d_freeAll"])
-        self._teardown_proxies()
-        self._teardown_allocators()
-        self._setup_allocators()
-        self._setup_proxies()
-        if self.client_id == 0:
-            self._setup_default_groups()
-            self._setup_system_synthdefs()
 
     def _get_buffer_proxy(self, buffer_id):
         import supriya.realtime
@@ -788,7 +759,7 @@ class Server(BaseServer):
                     for query_tree_control in query_tree_child.children:
                         pass
 
-        recurse(self.query_remote_nodes(include_controls=True), self.root_node)
+        recurse(self.query(), self.root_node)
 
     def _setup_notifications(self):
         request = NotifyRequest(True)
@@ -819,13 +790,13 @@ class Server(BaseServer):
     def _setup_osc_callbacks(self):
         super()._setup_osc_callbacks()
         self._osc_protocol.register(
-            pattern="/b_info", procedure=self._handle_buffer_info_response,
+            pattern="/b_info", procedure=self._handle_buffer_info_response
         )
         self._osc_protocol.register(
-            pattern="/c_set", procedure=self._handle_control_bus_set_response,
+            pattern="/c_set", procedure=self._handle_control_bus_set_response
         )
         self._osc_protocol.register(
-            pattern="/c_setn", procedure=self._handle_control_bus_setn_response,
+            pattern="/c_setn", procedure=self._handle_control_bus_setn_response
         )
         for pattern in (
             "/n_end",
@@ -838,7 +809,7 @@ class Server(BaseServer):
             "/n_setn",
         ):
             self._osc_protocol.register(
-                pattern=pattern, procedure=self._handle_node_info_response,
+                pattern=pattern, procedure=self._handle_node_info_response
             )
 
     def _setup_system_synthdefs(self, local_only=False):
@@ -863,10 +834,10 @@ class Server(BaseServer):
         for set_ in tuple(self._audio_buses.values()):
             for x in tuple(set_):
                 x.free()
-        for set_ in tuple(self._buffers.values()):
+        for set_ in tuple(self._control_buses.values()):
             for x in tuple(set_):
                 x.free()
-        for set_ in tuple(self._control_buses.values()):
+        for set_ in tuple(self._buffers.values()):
             for x in tuple(set_):
                 x.free()
         for x in tuple(self._nodes.values()):
@@ -925,12 +896,12 @@ class Server(BaseServer):
             )
         else:
             buffer_.allocate(
-                channel_count=channel_count, frame_count=frame_count, server=self,
+                channel_count=channel_count, frame_count=frame_count, server=self
             )
         return buffer_
 
     def add_buffer_group(
-        self, buffer_count: int = 1, channel_count: int = None, frame_count: int = None,
+        self, buffer_count: int = 1, channel_count: int = None, frame_count: int = None
     ) -> BufferGroup:
         """
         Add a buffer group.
@@ -944,7 +915,7 @@ class Server(BaseServer):
         """
         buffer_group = BufferGroup(buffer_count)
         buffer_group.allocate(
-            channel_count=channel_count, frame_count=frame_count, server=self,
+            channel_count=channel_count, frame_count=frame_count, server=self
         )
         return buffer_group
 
@@ -1027,7 +998,19 @@ class Server(BaseServer):
             synthdef=synthdef, add_action=add_action, **kwargs
         )
 
-    def boot(self, port=DEFAULT_PORT, *, scsynth_path=None, options=None, **kwargs):
+    def add_synthdef(self, synthdef) -> "Server":
+        synthdef.allocate(server=self)
+        return self
+
+    def boot(
+        self,
+        *,
+        ip_address: str = DEFAULT_IP_ADDRESS,
+        port: int = DEFAULT_PORT,
+        scsynth_path: Optional[str] = None,
+        options: Optional[Options] = None,
+        **kwargs,
+    ):
         if self.is_running:
             raise supriya.exceptions.ServerOnline
         port = port or DEFAULT_PORT
@@ -1035,16 +1018,18 @@ class Server(BaseServer):
         scsynth_path = find(scsynth_path)
         self._process_protocol = SyncProcessProtocol()
         self._process_protocol.boot(self._options, scsynth_path, port)
-        self._ip_address = "127.0.0.1"
+        self._ip_address = ip_address
         self._is_owner = True
         self._port = port
         self._connect()
         return self
 
-    def connect(self, ip_address="127.0.0.1", port=DEFAULT_PORT):
+    def connect(
+        self, *, ip_address: str = DEFAULT_IP_ADDRESS, port: int = DEFAULT_PORT
+    ) -> "Server":
         if self.is_running:
             raise supriya.exceptions.ServerOnline
-        self._ip_address = "127.0.0.1"
+        self._ip_address = ip_address
         self._is_owner = False
         self._port = port
         self._connect()
@@ -1054,7 +1039,7 @@ class Server(BaseServer):
         self._default_group = self._nodes[self.client_id + 1]
         return self
 
-    def disconnect(self):
+    def disconnect(self) -> "Server":
         if not self.is_running:
             raise supriya.exceptions.ServerOffline
         if self._is_owner:
@@ -1064,9 +1049,9 @@ class Server(BaseServer):
         self._disconnect()
         return self
 
-    def quit(self, force=False):
+    def quit(self, force: bool = False) -> "Server":
         if not self.is_running:
-            return
+            return self
         if not self._is_owner and not force:
             raise supriya.exceptions.UnownedServerShutdown(
                 "Cannot quit unowned server without force flag."
@@ -1083,140 +1068,38 @@ class Server(BaseServer):
         return self
 
     @classmethod
-    def default(cls):
+    def default(cls) -> "Server":
         if cls._default_server is None:
             cls._default_server = Server()
         return cls._default_server
 
-    def query(self, include_controls=True):
-        return self.query_remote_nodes(include_controls=include_controls)
-
-    def query_local_nodes(self, include_controls=False):
-        """
-        Queries all node proxies in Python.
-
-        ::
-
-            >>> import supriya.realtime
-            >>> server = supriya.Server.default()
-            >>> server.boot()
-            <Server: udp://127.0.0.1:57110, 8i8o>
-
-        ::
-
-            >>> group_a = supriya.realtime.Group().allocate()
-            >>> group_b = supriya.realtime.Group().allocate()
-            >>> group_c = supriya.realtime.Group().allocate(target_node=group_a)
-
-        ::
-
-            >>> import supriya.synthdefs
-            >>> import supriya.ugens
-            >>> with supriya.synthdefs.SynthDefBuilder(
-            ...     amplitude=0.0, frequency=440.0,
-            ... ) as builder:
-            ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"],)
-            ...     sin_osc *= builder["amplitude"]
-            ...     out = supriya.ugens.Out.ar(bus=0, source=[sin_osc, sin_osc],)
-            ...
-            >>> synthdef = builder.build()
-            >>> synthdef.allocate()
-            <SynthDef: e41193ac8b7216f49ff0d477876a3bf3>
-
-        ::
-
-            >>> synth = supriya.realtime.Synth(synthdef).allocate(target_node=group_b,)
-
-        ::
-
-            >>> response = server.query_local_nodes(include_controls=True)
-            >>> print(response)
-            NODE TREE 0 group
-                1 group
-                    1001 group
-                        1003 e41193ac8b7216f49ff0d477876a3bf3
-                            amplitude: 0.0, frequency: 440.0
-                    1000 group
-                        1002 group
-
-        ::
-
-            >>> server.quit()
-            <Server: offline>
-
-        Returns server query-tree group response.
-        """
-        query_tree_group = QueryTreeGroup.from_group(
-            self.root_node, include_controls=include_controls
-        )
-        return query_tree_group
-
-    def query_remote_nodes(self, include_controls=False):
-        """
-        Queries all nodes on scsynth.
-
-        ::
-
-            >>> import supriya.realtime
-            >>> server = supriya.Server.default()
-            >>> server.boot()
-            <Server: udp://127.0.0.1:57110, 8i8o>
-
-        ::
-
-            >>> group_a = supriya.realtime.Group().allocate()
-            >>> group_b = supriya.realtime.Group().allocate()
-            >>> group_c = supriya.realtime.Group().allocate(target_node=group_a)
-
-        ::
-
-            >>> import supriya.synthdefs
-            >>> import supriya.ugens
-            >>> with supriya.synthdefs.SynthDefBuilder(
-            ...     amplitude=0.0, frequency=440.0,
-            ... ) as builder:
-            ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"],)
-            ...     sin_osc *= builder["amplitude"]
-            ...     out = supriya.ugens.Out.ar(bus=0, source=[sin_osc, sin_osc],)
-            ...
-            >>> synthdef = builder.build()
-            >>> synthdef.allocate()
-            <SynthDef: e41193ac8b7216f49ff0d477876a3bf3>
-
-        ::
-
-            >>> synth = supriya.realtime.Synth(synthdef).allocate(target_node=group_b,)
-
-        ::
-
-            >>> response = server.query_remote_nodes(include_controls=False)
-            >>> print(response)
-            NODE TREE 0 group
-                1 group
-                    1001 group
-                        1003 e41193ac8b7216f49ff0d477876a3bf3
-                    1000 group
-                        1002 group
-
-        ::
-
-            >>> server.quit()
-            <Server: offline>
-
-        Returns server query-tree group response.
-        """
+    def query(self, include_controls=True) -> QueryTreeGroup:
         request = GroupQueryTreeRequest(node_id=0, include_controls=include_controls)
         response = request.communicate(server=self)
         return response.query_tree_group
 
-    def reboot(self, options=None, **kwargs):
+    def reboot(self, options: Optional[Options] = None, **kwargs) -> "Server":
         self.quit()
         self.boot(options=options, **kwargs)
         return self
 
-    def sync(self, sync_id=None):
+    def reset(self) -> "Server":
+        self.send(["/d_freeAll"])
+        self.send(["/g_freeAll", 0])
+        self.send(["/clearSched"])
+        self.sync()
+        self._teardown_proxies()
+        self._teardown_allocators()
+        self._setup_allocators()
+        self._setup_proxies()
+        self._setup_default_groups()
+        self._setup_system_synthdefs()
+        self.sync()
+        return self
+
+    def sync(self, sync_id: Optional[int] = None) -> "Server":
         if not self.is_running:
-            return
+            return self
         if sync_id is None:
             sync_id = self.next_sync_id
         request = SyncRequest(sync_id=sync_id)

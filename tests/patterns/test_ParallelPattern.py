@@ -82,7 +82,7 @@ from supriya.patterns.testutils import run_pattern_test
                         NoteEvent(M("B"), delta=0.0, y=1),
                     ],
                     delta=1.0,
-                ),
+                )
             ],
             False,
         ),
@@ -96,15 +96,15 @@ from supriya.patterns.testutils import run_pattern_test
                 CompositeEvent(
                     [
                         CompositeEvent([GroupAllocateEvent(M("A"))]),
-                        NoteEvent(M("B"), delta=0.0, target_node=M("A"), x=1,),
+                        NoteEvent(M("B"), delta=0.0, target_node=M("A"), x=1),
                         CompositeEvent([GroupAllocateEvent(M("C"))]),
-                        NoteEvent(M("D"), delta=0.0, target_node=M("C"), y=1,),
+                        NoteEvent(M("D"), delta=0.0, target_node=M("C"), y=1),
                     ],
                     delta=1.0,
                 ),
-                NoteEvent(M("E"), delta=0.5, target_node=M("A"), x=2,),
-                NoteEvent(M("F"), delta=0.5, target_node=M("C"), y=2,),
-                NoteEvent(M("G"), delta=1.0, target_node=M("A"), x=3,),
+                NoteEvent(M("E"), delta=0.5, target_node=M("A"), x=2),
+                NoteEvent(M("F"), delta=0.5, target_node=M("C"), y=2),
+                NoteEvent(M("G"), delta=1.0, target_node=M("A"), x=3),
                 CompositeEvent(
                     [
                         CompositeEvent([NullEvent(delta=0.25), NodeFreeEvent(M("A"))]),
@@ -124,9 +124,9 @@ from supriya.patterns.testutils import run_pattern_test
                 CompositeEvent(
                     [
                         CompositeEvent([GroupAllocateEvent(M("A"))]),
-                        NoteEvent(M("B"), delta=0.0, target_node=M("A"), x=1,),
+                        NoteEvent(M("B"), delta=0.0, target_node=M("A"), x=1),
                         CompositeEvent([GroupAllocateEvent(M("C"))]),
-                        NoteEvent(M("D"), delta=0.0, target_node=M("C"), y=1,),
+                        NoteEvent(M("D"), delta=0.0, target_node=M("C"), y=1),
                     ],
                     delta=1.0,
                 ),

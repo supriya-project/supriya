@@ -117,7 +117,7 @@ def test_RealtimeProvider_add_group_1(server):
         [seconds + provider.latency, [["/g_new", 1000, 0, 1]]]
     ]
     time.sleep(0.1)
-    assert str(server) == normalize(
+    assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -149,7 +149,7 @@ def test_RealtimeProvider_add_group_2(server):
         [seconds + 0.01 + provider.latency, [["/g_new", 1001, 0, 1000]]],
     ]
     time.sleep(0.1)
-    assert str(server) == normalize(
+    assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -196,7 +196,7 @@ def test_RealtimeProvider_add_synth_1(server):
         ]
     ]
     time.sleep(0.1)
-    assert str(server) == normalize(
+    assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -239,7 +239,7 @@ def test_RealtimeProvider_add_synth_2(server):
         ],
     ]
     time.sleep(0.1)
-    assert str(server) == normalize(
+    assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -268,7 +268,7 @@ def test_RealtimeProvider_add_synth_3(server):
     assert [entry.message.to_list() for entry in transcript] == [
         [None, [["/s_new", "default", 1000, 0, 1, "amplitude", "c0", "out", 16.0]]]
     ]
-    assert str(server) == normalize(
+    assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -297,7 +297,7 @@ def test_RealtimeProvider_free_buffer(server):
         with provider.at(2.3456):
             proxy.free()
     assert [entry.message.to_list() for entry in transcript] == [
-        [2.4456, [["/b_free", 0]]],
+        [2.4456, [["/b_free", 0]]]
     ]
 
 
@@ -386,7 +386,7 @@ def test_RealtimeProvider_free_node_1(server):
         [None, [["/n_free", 1000], ["/n_set", 1001, "gate", 0]]],
     ]
     time.sleep(0.1)
-    assert str(server) == normalize(
+    assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -411,7 +411,7 @@ def test_RealtimeProvider_move_node_1(server):
         ]
     ]
     time.sleep(0.1)
-    assert str(server) == normalize(
+    assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -475,7 +475,7 @@ def test_RealtimeProvider_set_node_2(server):
     with provider.at(None):
         synth_proxy = provider.add_synth()
     time.sleep(0.01)
-    assert str(server) == normalize(
+    assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -490,7 +490,7 @@ def test_RealtimeProvider_set_node_2(server):
         [None, [["/n_set", 1000, "frequency", 443.0]]]
     ]
     time.sleep(0.01)
-    assert str(server) == normalize(
+    assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -513,7 +513,7 @@ def test_RealtimeProvider_set_node_3(server):
         [None, [["/n_set", 1000, "frequency", "c0"]]]
     ]
     time.sleep(0.01)
-    assert str(server) == normalize(
+    assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -529,7 +529,7 @@ def test_RealtimeProvider_set_node_3(server):
         [None, [["/n_set", 1000, "frequency", 443.0]]]
     ]
     time.sleep(0.01)
-    assert str(server) == normalize(
+    assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
             1 group

@@ -24,7 +24,7 @@ class GroupDeepFreeRequest(Request):
 
     ::
 
-        >>> print(server)
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 group
@@ -65,7 +65,7 @@ class GroupDeepFreeRequest(Request):
 
     ::
 
-        >>> print(server)
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 group
@@ -75,7 +75,7 @@ class GroupDeepFreeRequest(Request):
 
     ::
 
-        >>> print(server.query_local_nodes(True))
+        >>> print(server.root_node)
         NODE TREE 0 group
             1 group
                 1000 group
@@ -125,7 +125,7 @@ class GroupFreeAllRequest(Request):
 
     ::
 
-        >>> print(server)
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 group
@@ -169,14 +169,14 @@ class GroupFreeAllRequest(Request):
 
     ::
 
-        >>> print(server)
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 group
 
     ::
 
-        >>> print(server.query_local_nodes(True))
+        >>> print(server.root_node)
         NODE TREE 0 group
             1 group
                 1000 group
@@ -220,7 +220,7 @@ class GroupNewRequest(Request):
 
     ::
 
-        >>> print(server)
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 group
@@ -264,7 +264,7 @@ class GroupNewRequest(Request):
 
     ::
 
-        >>> print(server)
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 group
@@ -273,7 +273,7 @@ class GroupNewRequest(Request):
 
     ::
 
-        >>> print(server.query_local_nodes())
+        >>> print(server.root_node)
         NODE TREE 0 group
             1 group
                 1000 group
@@ -432,7 +432,7 @@ class ParallelGroupNewRequest(GroupNewRequest):
 
     ::
 
-        >>> print(server)
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 group
@@ -470,7 +470,7 @@ class ParallelGroupNewRequest(GroupNewRequest):
 
     ::
 
-        >>> print(server)
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 group
@@ -478,7 +478,7 @@ class ParallelGroupNewRequest(GroupNewRequest):
 
     ::
 
-        >>> print(server.query_local_nodes())
+        >>> print(server.root_node)
         NODE TREE 0 group
             1 group
                 1000 group

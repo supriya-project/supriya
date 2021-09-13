@@ -325,12 +325,14 @@ class Buffer(ServerObject):
         """
         if self.is_allocated:
             raise supriya.exceptions.BufferAlreadyAllocated
+        channel_count = int(channel_count)
+        frame_count = int(frame_count)
+        if channel_count < 1:
+            raise ValueError(channel_count)
+        if frame_count < 1:
+            raise ValueError(frame_count)
         try:
             ServerObject.allocate(self, server=server)
-            channel_count = int(channel_count)
-            frame_count = int(frame_count)
-            assert 0 < channel_count
-            assert 0 < frame_count
             self._allocate_buffer_id()
             self._register_with_local_server()
             request = self._register_with_remote_server(
@@ -1804,11 +1806,11 @@ class BufferGroup(ServerObject):
         """
         if self.is_allocated:
             return supriya.exceptions.BufferAlreadyAllocated
-        self._register_with_local_server(server)
         channel_count = int(channel_count)
         frame_count = int(frame_count)
         assert 0 < channel_count
         assert 0 < frame_count
+        self._register_with_local_server(server)
         requests = []
         for buffer_ in self:
             requests.append(

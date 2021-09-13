@@ -72,7 +72,7 @@ class GroupHeadRequest(MoveRequest):
 
     ::
 
-        >>> print(server)
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1001 default
@@ -107,21 +107,23 @@ class GroupHeadRequest(MoveRequest):
 
     ::
 
-        >>> print(server.query_remote_nodes())
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 group
                     1001 default
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                     1002 group
                     1003 group
 
     ::
 
-        >>> print(server.query_local_nodes())
+        >>> print(server.root_node)
         NODE TREE 0 group
             1 group
                 1000 group
                     1001 default
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                     1002 group
                     1003 group
 
@@ -148,10 +150,11 @@ class GroupTailRequest(MoveRequest):
 
     ::
 
-        >>> print(server.query_remote_nodes())
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1001 default
+                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                 1000 group
                     1002 group
                     1003 group
@@ -182,23 +185,25 @@ class GroupTailRequest(MoveRequest):
 
     ::
 
-        >>> print(server.query_remote_nodes())
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 group
                     1002 group
                     1003 group
                     1001 default
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
 
     ::
 
-        >>> print(server.query_local_nodes())
+        >>> print(server.root_node)
         NODE TREE 0 group
             1 group
                 1000 group
                     1002 group
                     1003 group
                     1001 default
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
 
     """
 
@@ -225,11 +230,13 @@ class NodeAfterRequest(MoveRequest):
 
     ::
 
-        >>> print(server.query_remote_nodes())
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 default
+                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                 1001 default
+                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                 1002 group
                     1003 group
                     1004 group
@@ -262,31 +269,35 @@ class NodeAfterRequest(MoveRequest):
 
     ::
 
-        >>> print(server.query_remote_nodes())
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1002 group
                     1003 group
                     1004 group
                     1000 default
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                 1005 group
                     1006 group
                     1007 group
                 1001 default
+                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
 
     ::
 
-        >>> print(server.query_local_nodes())
+        >>> print(server.root_node)
         NODE TREE 0 group
             1 group
                 1002 group
                     1003 group
                     1004 group
                     1000 default
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                 1005 group
                     1006 group
                     1007 group
                 1001 default
+                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
 
     """
 
@@ -313,11 +324,13 @@ class NodeBeforeRequest(MoveRequest):
 
     ::
 
-        >>> print(server.query_remote_nodes())
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1000 default
+                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                 1001 default
+                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                 1002 group
                     1003 group
                     1004 group
@@ -350,28 +363,32 @@ class NodeBeforeRequest(MoveRequest):
 
     ::
 
-        >>> print(server.query_remote_nodes())
+        >>> print(server.query())
         NODE TREE 0 group
             1 group
                 1002 group
                     1000 default
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                     1003 group
                     1004 group
                 1001 default
+                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                 1005 group
                     1006 group
                     1007 group
 
     ::
 
-        >>> print(server.query_local_nodes())
+        >>> print(server.root_node)
         NODE TREE 0 group
             1 group
                 1002 group
                     1000 default
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                     1003 group
                     1004 group
                 1001 default
+                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                 1005 group
                     1006 group
                     1007 group

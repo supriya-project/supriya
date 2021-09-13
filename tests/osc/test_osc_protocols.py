@@ -10,10 +10,7 @@ from supriya.osc import (
     ThreadedOscProtocol,
     find_free_port,
 )
-from supriya.realtime.protocols import (
-    AsyncProcessProtocol,
-    SyncProcessProtocol,
-)
+from supriya.realtime.protocols import AsyncProcessProtocol, SyncProcessProtocol
 from supriya.scsynth import Options, find
 
 

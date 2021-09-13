@@ -331,6 +331,7 @@ class SynthDef:
             d_recv_request = supriya.commands.SynthDefReceiveRequest(
                 synthdefs=tuple(d_recv_synth_group)
             )
+
             d_recv_request.communicate(server=server, sync=True)
         if d_load_synthdefs:
             temp_directory_path = tempfile.mkdtemp()
@@ -515,7 +516,6 @@ class SynthDef:
                 parameters[parameter.name] = (index, parameter)
                 index += len(parameter)
         parameter_names = parameter_names or sorted(parameters)
-        assert sorted(parameter_names) == sorted(parameters)
         for parameter_name in parameter_names:
             indexed_parameters.append(parameters[parameter_name])
         indexed_parameters = tuple(indexed_parameters)
@@ -555,10 +555,7 @@ class SynthDef:
             ugen._optimize_graph(sort_bundles)
         return tuple(sort_bundles)
 
-    def _register_with_local_server(self, server=None):
-        import supriya.realtime
-
-        server = server or supriya.realtime.Server.default()
+    def _register_with_local_server(self, server):
         synthdef_name = self.actual_name
         server._synthdefs[synthdef_name] = self
 

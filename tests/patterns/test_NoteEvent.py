@@ -183,7 +183,7 @@ def test_perform():
             channel_count=1,
             identifier=0,
             provider=provider,
-        ),
+        )
     }
     assert notes_mapping == {}
     assert spy.mock_calls == [

@@ -123,7 +123,7 @@ class OscProtocol:
             self.unregister(self.healthcheck_osc_callback)
 
     def _validate_callback(
-        self, pattern, procedure, *, failure_pattern=None, once=False,
+        self, pattern, procedure, *, failure_pattern=None, once=False
     ):
         if isinstance(pattern, (str, int, float)):
             pattern = [pattern]
@@ -148,7 +148,7 @@ class OscProtocol:
             callback.procedure(message)
         for capture in self.captures:
             capture.messages.append(
-                CaptureEntry(timestamp=time.time(), label="R", message=message,)
+                CaptureEntry(timestamp=time.time(), label="R", message=message)
             )
 
     def _validate_send(self, message):
@@ -231,7 +231,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         self.loop = asyncio.get_running_loop()
         self.exit_future = self.loop.create_future()
         _, protocol = await self.loop.create_datagram_endpoint(
-            lambda: self, remote_addr=(ip_address, port),
+            lambda: self, remote_addr=(ip_address, port)
         )
 
     def connection_made(self, transport):
@@ -263,7 +263,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         osc_out_logger.warning(f"{self.ip_address}:{self.port} {exc}")
 
     def register(
-        self, pattern, procedure, *, failure_pattern=None, once=False,
+        self, pattern, procedure, *, failure_pattern=None, once=False
     ) -> OscCallback:
         callback = self._validate_callback(
             pattern, procedure, failure_pattern=failure_pattern, once=once
@@ -307,11 +307,6 @@ class ThreadedOscProtocol(OscProtocol):
         self.osc_server = None
         self.osc_server_thread = None
         atexit.register(self.disconnect)
-
-    ### SPECIAL METHODS ###
-
-    def __del__(self):
-        self.disconnect()
 
     ### PRIVATE METHODS ###
 
@@ -420,7 +415,7 @@ class ThreadedOscProtocol(OscProtocol):
         return result["result"]
 
     def register(
-        self, pattern, procedure, *, failure_pattern=None, once=False,
+        self, pattern, procedure, *, failure_pattern=None, once=False
     ) -> OscCallback:
         """
         Register a callback.
