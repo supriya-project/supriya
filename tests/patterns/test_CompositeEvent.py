@@ -2,12 +2,7 @@ import uuid
 
 import pytest
 
-from supriya.patterns.events import (
-    CompositeEvent,
-    NodeFreeEvent,
-    NullEvent,
-    Priority,
-)
+from supriya.patterns.events import CompositeEvent, NodeFreeEvent, NullEvent, Priority
 
 id_ = uuid.uuid4()
 
@@ -18,12 +13,12 @@ id_ = uuid.uuid4()
         (
             CompositeEvent([NullEvent(delta=0.25), NodeFreeEvent(id_, delta=0.0)]),
             0.0,
-            [(0.25, Priority.START, NodeFreeEvent(id_),)],
+            [(0.25, Priority.START, NodeFreeEvent(id_))],
         ),
         (
             CompositeEvent([NullEvent(delta=0.5), NodeFreeEvent(id_, delta=0.0)]),
             2.5,
-            [(3.0, Priority.START, NodeFreeEvent(id_),)],
+            [(3.0, Priority.START, NodeFreeEvent(id_))],
         ),
     ],
 )

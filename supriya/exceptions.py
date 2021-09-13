@@ -1,3 +1,8 @@
+"""
+Exceptions.
+"""
+
+
 class AlreadyAllocated(Exception):
     pass
 

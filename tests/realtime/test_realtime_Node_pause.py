@@ -65,7 +65,7 @@ def test_synth_allocate_free_paused(server):
         )
     )
     assert [(_.label, _.message) for _ in transcript] == [
-        ("S", OscMessage("/d_recv", supriya.assets.synthdefs.test.compile(), bundle),),
+        ("S", OscMessage("/d_recv", supriya.assets.synthdefs.test.compile(), bundle)),
         ("R", OscMessage("/n_go", 1000, 1, -1, -1, 0)),
         ("R", OscMessage("/n_off", 1000, 1, -1, -1, 0)),
         ("R", OscMessage("/done", "/d_recv")),

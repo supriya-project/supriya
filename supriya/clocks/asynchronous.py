@@ -94,9 +94,7 @@ class AsyncClock(BaseClock):
 
     async def _wait_for_event(self, sleep_time):
         try:
-            await asyncio.wait_for(
-                self._event.wait(), sleep_time,
-            )
+            await asyncio.wait_for(self._event.wait(), sleep_time)
         except (asyncio.TimeoutError, RuntimeError):
             pass
 

@@ -8,7 +8,7 @@ def test_01(server):
 
     group = supriya.realtime.Group().allocate()
     assert len(group) == 0
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -26,13 +26,14 @@ def test_01(server):
     assert synth.parent is group
     assert synth in group
     assert synth.is_allocated
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1000 group
                     1001 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
 
@@ -41,7 +42,7 @@ def test_01(server):
     assert synth.parent is None
     assert synth not in group
     assert not synth.is_allocated
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -67,14 +68,16 @@ def test_02(server):
     assert synth_b.is_allocated
     assert synth_a is group[0]
     assert synth_b is group[1]
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1000 group
                     1001 test
+                        amplitude: 1.0, frequency: 440.0
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
 
@@ -88,14 +91,16 @@ def test_02(server):
     assert synth_b.is_allocated
     assert synth_a is group[1]
     assert synth_b is group[0]
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1000 group
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
                     1001 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
 
@@ -107,7 +112,7 @@ def test_02(server):
     assert synth_b not in group
     assert not synth_a.is_allocated
     assert not synth_b.is_allocated
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -140,18 +145,22 @@ def test_03(server):
     synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group_a.append(synth_d)
 
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1000 group
                     1001 test
+                        amplitude: 1.0, frequency: 440.0
                     1002 group
                         1003 test
+                            amplitude: 1.0, frequency: 440.0
                         1004 test
+                            amplitude: 1.0, frequency: 440.0
                         1005 group
                     1006 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
 
@@ -175,16 +184,19 @@ def test_03(server):
 
     del group_a[-1]
 
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1000 group
                     1001 test
+                        amplitude: 1.0, frequency: 440.0
                     1002 group
                         1003 test
+                            amplitude: 1.0, frequency: 440.0
                         1004 test
+                            amplitude: 1.0, frequency: 440.0
                         1005 group
         """
     )
@@ -209,15 +221,17 @@ def test_03(server):
 
     del group_b[1]
 
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1000 group
                     1001 test
+                        amplitude: 1.0, frequency: 440.0
                     1002 group
                         1003 test
+                            amplitude: 1.0, frequency: 440.0
                         1005 group
         """
     )
@@ -242,7 +256,7 @@ def test_03(server):
 
     del group_a[0]
 
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -250,6 +264,7 @@ def test_03(server):
                 1000 group
                     1002 group
                         1003 test
+                            amplitude: 1.0, frequency: 440.0
                         1005 group
         """
     )
@@ -274,7 +289,7 @@ def test_03(server):
 
     del group_b[1]
 
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -282,6 +297,7 @@ def test_03(server):
                 1000 group
                     1002 group
                         1003 test
+                            amplitude: 1.0, frequency: 440.0
         """
     )
 
@@ -305,7 +321,7 @@ def test_03(server):
 
     del group_a[0]
 
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -337,18 +353,18 @@ def test_03(server):
 
 def test_04(server):
 
-    group_a = supriya.realtime.Group(name="Group A").allocate()
-    group_b = supriya.realtime.Group(name="Group B").allocate()
+    group_a = supriya.realtime.Group().allocate()
+    group_b = supriya.realtime.Group().allocate()
 
-    synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test, name="Synth A")
-    synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test, name="Synth B")
-    synth_c = supriya.realtime.Synth(supriya.assets.synthdefs.test, name="Synth C")
-    synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test, name="Synth D")
-    synth_e = supriya.realtime.Synth(supriya.assets.synthdefs.test, name="Synth E")
-    synth_f = supriya.realtime.Synth(supriya.assets.synthdefs.test, name="Synth F")
+    synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+    synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+    synth_c = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+    synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+    synth_e = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+    synth_f = supriya.realtime.Synth(supriya.assets.synthdefs.test)
 
-    local_state = str(server.query_local_nodes())
-    remote_state = str(server.query_remote_nodes())
+    local_state = str(server.root_node)
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -363,8 +379,8 @@ def test_04(server):
 
     group_a[:] = [synth_a, synth_b]
 
-    local_state = str(server.query_local_nodes())
-    remote_state = str(server.query_remote_nodes())
+    local_state = str(server.root_node)
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -372,7 +388,9 @@ def test_04(server):
                 1001 group
                 1000 group
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
     assert local_state == remote_state
@@ -381,8 +399,8 @@ def test_04(server):
 
     group_a[:] = [synth_b, synth_a]
 
-    local_state = str(server.query_local_nodes())
-    remote_state = str(server.query_remote_nodes())
+    local_state = str(server.root_node)
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -390,7 +408,9 @@ def test_04(server):
                 1001 group
                 1000 group
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
     assert local_state == remote_state
@@ -399,8 +419,8 @@ def test_04(server):
 
     group_a[:] = [synth_c, synth_d, synth_b, synth_a]
 
-    local_state = str(server.query_local_nodes())
-    remote_state = str(server.query_remote_nodes())
+    local_state = str(server.root_node)
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -408,9 +428,13 @@ def test_04(server):
                 1001 group
                 1000 group
                     1004 test
+                        amplitude: 1.0, frequency: 440.0
                     1005 test
+                        amplitude: 1.0, frequency: 440.0
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
     assert local_state == remote_state
@@ -419,18 +443,22 @@ def test_04(server):
 
     group_b[1:-1] = [synth_c, synth_b]
 
-    local_state = str(server.query_local_nodes())
-    remote_state = str(server.query_remote_nodes())
+    local_state = str(server.root_node)
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1001 group
                     1004 test
+                        amplitude: 1.0, frequency: 440.0
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
                 1000 group
                     1005 test
+                        amplitude: 1.0, frequency: 440.0
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
     assert local_state == remote_state
@@ -439,19 +467,24 @@ def test_04(server):
 
     group_b[1:-1] = [synth_b, synth_c, synth_e]
 
-    local_state = str(server.query_local_nodes())
-    remote_state = str(server.query_remote_nodes())
+    local_state = str(server.root_node)
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1001 group
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
                     1004 test
+                        amplitude: 1.0, frequency: 440.0
                     1006 test
+                        amplitude: 1.0, frequency: 440.0
                 1000 group
                     1005 test
+                        amplitude: 1.0, frequency: 440.0
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
     assert local_state == remote_state
@@ -460,18 +493,22 @@ def test_04(server):
 
     group_a[:] = [synth_c, synth_f]
 
-    local_state = str(server.query_local_nodes())
-    remote_state = str(server.query_remote_nodes())
+    local_state = str(server.root_node)
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1001 group
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
                     1006 test
+                        amplitude: 1.0, frequency: 440.0
                 1000 group
                     1004 test
+                        amplitude: 1.0, frequency: 440.0
                     1007 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
     assert local_state == remote_state
@@ -480,17 +517,20 @@ def test_04(server):
 
     group_a[:-1] = [synth_f]
 
-    local_state = str(server.query_local_nodes())
-    remote_state = str(server.query_remote_nodes())
+    local_state = str(server.root_node)
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1001 group
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
                     1006 test
+                        amplitude: 1.0, frequency: 440.0
                 1000 group
                     1007 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
     assert local_state == remote_state
@@ -499,17 +539,20 @@ def test_04(server):
 
     group_b[len(group_b) :] = [group_a]
 
-    local_state = str(server.query_local_nodes())
-    remote_state = str(server.query_remote_nodes())
+    local_state = str(server.root_node)
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1001 group
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
                     1006 test
+                        amplitude: 1.0, frequency: 440.0
                     1000 group
                         1007 test
+                            amplitude: 1.0, frequency: 440.0
         """
     )
     assert local_state == remote_state
@@ -542,18 +585,22 @@ def test_05(server):
 
     group_a.allocate()
 
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1000 group
                     1001 test
+                        amplitude: 1.0, frequency: 440.0
                     1002 group
                         1003 test
+                            amplitude: 1.0, frequency: 440.0
                         1004 test
+                            amplitude: 1.0, frequency: 440.0
                         1005 group
                     1006 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
 
@@ -585,12 +632,13 @@ def test_05(server):
 
     synth_e.allocate(add_action=supriya.AddAction.REPLACE, target_node=group_a)
 
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1007 test
+                    amplitude: 1.0, frequency: 440.0
         """
     )
 
@@ -674,7 +722,7 @@ def test_06(server):
         """
     )
 
-    remote_state = str(server.query_remote_nodes(True))
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -692,7 +740,7 @@ def test_06(server):
     synth_b["amplitude", "frequency"] = 0.75, 880
     synth_c["amplitude", "frequency"] = control_bus, audio_bus
 
-    remote_state = str(server.query_remote_nodes(True))
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -709,7 +757,7 @@ def test_06(server):
 
     group[:] = [synth_c, synth_b, synth_a]
 
-    remote_state = str(server.query_remote_nodes(True))
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group

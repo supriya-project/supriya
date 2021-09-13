@@ -35,6 +35,7 @@ with config_path.open() as file_pointer:
 
 del appdirs
 del configparser
+del file_pointer
 del pathlib
 
 
@@ -73,6 +74,7 @@ from supriya.synthdefs import (  # noqa
     SynthDefFactory,
 )
 from supriya.realtime import (  # noqa
+    AsyncServer,
     Buffer,
     BufferGroup,
     Bus,

@@ -13,7 +13,7 @@ from supriya.patterns import RandomPattern
     ],
 )
 def test(minimum, maximum, iterations, is_infinite):
-    pattern = RandomPattern(minimum=minimum, maximum=maximum, iterations=iterations,)
+    pattern = RandomPattern(minimum=minimum, maximum=maximum, iterations=iterations)
     assert pattern.distribution == RandomPattern.Distribution.WHITE_NOISE
     assert pattern.is_infinite == is_infinite
     assert pattern.iterations == iterations

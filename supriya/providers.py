@@ -85,13 +85,13 @@ class BufferProxy:
         kwargs = dict(buffer_id=int(self), frame_count=self.frame_count)
         if self.file_path is None:
             return commands.BufferAllocateRequest(
-                **kwargs, channel_count=self.channel_count,
+                **kwargs, channel_count=self.channel_count
             )
         kwargs.update(file_path=self.file_path, starting_frame=self.starting_frame)
         if self.channel_count is None:
             return commands.BufferAllocateReadRequest(**kwargs)
         return commands.BufferAllocateReadChannelRequest(
-            **kwargs, channel_indices=list(range(self.channel_count)),
+            **kwargs, channel_indices=list(range(self.channel_count))
         )
 
     def as_free_request(self):
@@ -615,7 +615,7 @@ class Provider(metaclass=abc.ABCMeta):
 
     @classmethod
     def realtime(
-        cls, scsynth_path=None, options=None, port=None, **kwargs,
+        cls, scsynth_path=None, options=None, port=None, **kwargs
     ) -> "RealtimeProvider":
         server = Server()
         server.boot(port=port, scsynth_path=scsynth_path, options=options, **kwargs)
@@ -623,7 +623,7 @@ class Provider(metaclass=abc.ABCMeta):
 
     @classmethod
     async def realtime_async(
-        cls, scsynth_path=None, options=None, port=None, **kwargs,
+        cls, scsynth_path=None, options=None, port=None, **kwargs
     ) -> "RealtimeProvider":
         server = AsyncServer()
         await server.boot(

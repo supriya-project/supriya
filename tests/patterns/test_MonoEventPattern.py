@@ -73,5 +73,5 @@ from supriya.patterns.testutils import run_pattern_test
     ],
 )
 def test(stop_at, input_a, input_b, expected, is_infinite):
-    pattern = MonoEventPattern(a=input_a, b=input_b,)
+    pattern = MonoEventPattern(a=input_a, b=input_b)
     run_pattern_test(pattern, expected, is_infinite, stop_at)

@@ -13,13 +13,7 @@ id_ = uuid.uuid4()
 
 @pytest.mark.parametrize(
     "event, offset, expected",
-    [
-        (
-            SynthAllocateEvent(id_),
-            0.0,
-            [(0.0, Priority.START, SynthAllocateEvent(id_))],
-        ),
-    ],
+    [(SynthAllocateEvent(id_), 0.0, [(0.0, Priority.START, SynthAllocateEvent(id_))])],
 )
 def test_expand(event, offset, expected):
     actual = event.expand(offset)
@@ -44,7 +38,7 @@ def test_perform():
     assert proxy_mapping == {
         id_: SynthProxy(
             provider=provider, identifier=1000, synthdef=default, settings={}
-        ),
+        )
     }
     assert notes_mapping == {}
     assert spy.mock_calls == [

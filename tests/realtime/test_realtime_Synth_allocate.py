@@ -30,7 +30,7 @@ def test_allocate_synthdef(server):
     assert synth_a.node_id == 1000
     assert server[1000] is synth_a
     assert synth_a in server
-    server_state = str(server.query_remote_nodes(include_controls=True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -39,7 +39,7 @@ def test_allocate_synthdef(server):
                     amplitude: 1.0, frequency: 440.0
         """
     )
-    assert str(server.query_local_nodes(include_controls=True)) == server_state
+    assert str(server.root_node) == server_state
 
 
 def test_no_reallocate_synthdef(server):
@@ -60,7 +60,7 @@ def test_no_reallocate_synthdef(server):
     assert synth_b.node_id == 1001
     assert server[1001] is synth_b
     assert synth_b in server
-    server_state = str(server.query_remote_nodes(include_controls=True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -71,7 +71,7 @@ def test_no_reallocate_synthdef(server):
                     amplitude: 1.0, frequency: 440.0
         """
     )
-    assert str(server.query_local_nodes(include_controls=True)) == server_state
+    assert str(server.root_node) == server_state
 
 
 def test_replace(server):
@@ -87,7 +87,7 @@ def test_replace(server):
     assert not synth_b.is_allocated
     assert synth_b.node_id is None
     assert synth_b not in server
-    server_state = str(server.query_remote_nodes(include_controls=True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -110,7 +110,7 @@ def test_replace(server):
         ("R", OscMessage("/n_go", 1001, 1, -1, -1, 0)),
         ("R", OscMessage("/done", "/d_recv")),
     ]
-    server_state = str(server.query_remote_nodes(include_controls=True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -135,7 +135,7 @@ def test_settings(server):
     synth_a.allocate(target_node=group)
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_b.allocate(target_node=group)
-    server_state = str(server.query_remote_nodes(include_controls=True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -153,7 +153,7 @@ def test_settings(server):
     assert synth_b["amplitude"] == 1.0
     synth_a["frequency"] = 443
     synth_a["amplitude"] = 0.5
-    server_state = str(server.query_remote_nodes(include_controls=True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -170,7 +170,7 @@ def test_settings(server):
     assert synth_b["frequency"] == 440.0
     assert synth_b["amplitude"] == 1.0
     synth_b.controls["frequency", "amplitude"] = 441, 0.25
-    server_state = str(server.query_remote_nodes(include_controls=True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -190,7 +190,7 @@ def test_settings(server):
     bus_b = supriya.realtime.Bus(calculation_rate="audio").allocate()
     synth_a["frequency"] = bus_a
     synth_b["amplitude"] = bus_b
-    server_state = str(server.query_remote_nodes(include_controls=True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -227,7 +227,7 @@ def test_mapping(server):
         ),
         ("R", OscMessage("/n_go", 1000, 1, -1, -1, 0)),
     ]
-    server_state = str(server.query_remote_nodes(include_controls=True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -266,7 +266,7 @@ def test_mapping(server):
         ("R", OscMessage("/n_go", 1001, 1, -1, -1, 0)),
         ("R", OscMessage("/synced", 0)),
     ]
-    server_state = str(server.query_remote_nodes(include_controls=True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group

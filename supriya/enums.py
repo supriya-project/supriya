@@ -1,3 +1,7 @@
+"""
+Enumerations.
+"""
+
 from collections.abc import Sequence
 
 from uqbar.enums import IntEnumeration, StrictEnumeration

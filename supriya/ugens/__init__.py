@@ -14,15 +14,7 @@ from .beq import (
     BLowShelf,
     BPeakEQ,
 )
-from .bufio import (
-    BufRd,
-    BufWr,
-    ClearBuf,
-    LocalBuf,
-    MaxLocalBufs,
-    PlayBuf,
-    RecordBuf,
-)
+from .bufio import BufRd, BufWr, ClearBuf, LocalBuf, MaxLocalBufs, PlayBuf, RecordBuf
 from .chaos import (
     CuspL,
     CuspN,
@@ -189,18 +181,7 @@ from .inout import (
     SoundIn,
     XOut,
 )
-from .lines import (
-    A2K,
-    DC,
-    K2A,
-    AmpComp,
-    AmpCompA,
-    LinExp,
-    LinLin,
-    Line,
-    Silence,
-    XLine,
-)
+from .lines import A2K, DC, K2A, AmpComp, AmpCompA, LinExp, LinLin, Line, Silence, XLine
 from .mac import KeyState, MouseButton, MouseX, MouseY
 from .ml import (
     MFCC,

@@ -372,7 +372,7 @@ def test_nonrealtime():
                         1003 default
                             amplitude: 0.1, frequency: 550.0, gate: 1.0, out: 16.0, pan: 0.5
                     1002 system_link_audio_1
-                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
+                        done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         4.0:
             NODE TREE 0 group
                 1000 group

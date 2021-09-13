@@ -180,19 +180,19 @@ def test_03():
         5.0:
             NODE TREE 0 group
                 1001 default
-                    amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
+                    amplitude: 0.1, frequency: 444.0, gate: 1.0, out: 0.0, pan: 0.5
                 1000 group
                     1002 group
                         1003 default
-                            amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
+                            amplitude: 0.1, frequency: 555.0, gate: 1.0, out: 0.0, pan: 0.5
         15.0:
             NODE TREE 0 group
                 1000 group
                     1002 group
                         1003 default
-                            amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
+                            amplitude: 0.1, frequency: 555.0, gate: 1.0, out: 0.0, pan: 0.5
                     1001 default
-                        amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
+                        amplitude: 0.1, frequency: 444.0, gate: 1.0, out: 0.0, pan: 0.5
         20.0:
             NODE TREE 0 group
         """
@@ -252,17 +252,17 @@ def test_03():
         5.0:
             NODE TREE 0 group
                 1001 default
-                    amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
+                    amplitude: 0.1, frequency: 444.0, gate: 1.0, out: 0.0, pan: 0.5
                 1002 group
                     1003 default
-                        amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
+                        amplitude: 0.1, frequency: 555.0, gate: 1.0, out: 0.0, pan: 0.5
         15.0:
             NODE TREE 0 group
                 1002 group
                     1003 default
-                        amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
+                        amplitude: 0.1, frequency: 555.0, gate: 1.0, out: 0.0, pan: 0.5
                 1001 default
-                    amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
+                    amplitude: 0.1, frequency: 444.0, gate: 1.0, out: 0.0, pan: 0.5
         20.0:
             NODE TREE 0 group
         """

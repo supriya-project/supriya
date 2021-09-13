@@ -7,6 +7,7 @@ from collections import deque
 
 from uqbar.objects import new
 
+from supriya.exceptions import ServerOffline
 from supriya.osc.messages import BUNDLE_PREFIX, OscBundle
 from supriya.system import SupriyaValueObject
 
@@ -56,8 +57,10 @@ class Requestable(SupriyaValueObject):
         import supriya.realtime
 
         server = server or supriya.realtime.Server.default()
-        assert isinstance(server, supriya.realtime.servers.BaseServer)
-        assert server.is_running
+        if not isinstance(server, supriya.realtime.servers.BaseServer):
+            raise ValueError(server)
+        if not server.is_running:
+            raise ServerOffline
         if apply_local:
             with server._lock:
                 for request in self._linearize():
@@ -257,9 +260,9 @@ class RequestBundle(Requestable):
         contents = []
         for x in self.contents:
             if isinstance(x, type(self)):
-                contents.append(x.to_osc(with_placeholders=with_placeholders,))
+                contents.append(x.to_osc(with_placeholders=with_placeholders))
             else:
-                contents.append(x.to_osc(with_placeholders=with_placeholders,))
+                contents.append(x.to_osc(with_placeholders=with_placeholders))
         bundle = OscBundle(timestamp=self.timestamp, contents=contents)
         return bundle
 

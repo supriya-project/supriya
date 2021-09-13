@@ -48,6 +48,4 @@ def test_perform():
         )
     assert proxy_mapping == {}
     assert notes_mapping == {}
-    assert spy.mock_calls == [
-        call.free_node(proxy),
-    ]
+    assert spy.mock_calls == [call.free_node(proxy)]

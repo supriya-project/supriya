@@ -23,8 +23,8 @@ from supriya.patterns.testutils import run_pattern_test
             0.0,
             [
                 CompositeEvent([GroupAllocateEvent(M("A"), delta=0.0)]),
-                NoteEvent(M("B"), a=1, target_node=M("A"),),
-                NoteEvent(M("C"), a=2, target_node=M("A"),),
+                NoteEvent(M("B"), a=1, target_node=M("A")),
+                NoteEvent(M("C"), a=2, target_node=M("A")),
                 CompositeEvent([NodeFreeEvent(M("A"), delta=0.0)]),
             ],
             False,
@@ -35,8 +35,8 @@ from supriya.patterns.testutils import run_pattern_test
             0.25,
             [
                 CompositeEvent([GroupAllocateEvent(M("A"), delta=0.0)]),
-                NoteEvent(M("B"), a=1, target_node=M("A"),),
-                NoteEvent(M("C"), a=2, target_node=M("A"),),
+                NoteEvent(M("B"), a=1, target_node=M("A")),
+                NoteEvent(M("C"), a=2, target_node=M("A")),
                 CompositeEvent(
                     [NullEvent(delta=0.25), NodeFreeEvent(M("A"), delta=0.0)]
                 ),

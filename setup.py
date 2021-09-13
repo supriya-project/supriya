@@ -48,17 +48,19 @@ if __name__ == "__main__":
                 "rise",
             ],
             "test": [
-                "black == 19.10b0",  # Trailing comma behavior in 20.x needs work
+                "black",
                 "flake8 >= 3.9.0",
                 "isort >= 5.8.0",
-                "mypy >= 0.800",
+                "mypy >= 0.900",
                 "pytest >= 6.2.0",
                 "pytest-asyncio >= 0.14.0",
-                "pytest-cov >= 2.11.0",
+                "pytest-cov >= 2.12.0",
                 "pytest-helpers-namespace >= 2019.1.8",
                 "pytest-mock >= 3.5.0",
                 "pytest-rerunfailures >= 9.1.0",
                 "pytest-timeout >= 1.4.0",
+                "types-PyYAML",
+                "types-docutils",
             ],
         },
         ext_modules=[
@@ -71,6 +73,7 @@ if __name__ == "__main__":
                 ],
                 language="c++",
                 libraries=["rt"] if platform.system() == "Linux" else [],
+                optional=True,
                 sources=["supriya/realtime/shm.pyx"],
             )
         ],
@@ -81,7 +84,7 @@ if __name__ == "__main__":
             "Cython >= 0.29.0",
             "setuptools >= 18.0",
             "tqdm >= 4.59.0",
-            "uqbar >= 0.5.2",
+            "uqbar >= 0.5.6",
         ],
         keywords=[
             "audio",

@@ -154,7 +154,7 @@ async def test_realtime_02(limit, bpm_schedule, expected):
     await asyncio.sleep(2)
     await clock.stop()
     actual = [
-        (desired_moment.offset, desired_moment.seconds - clock._state.initial_seconds,)
+        (desired_moment.offset, desired_moment.seconds - clock._state.initial_seconds)
         for current_moment, desired_moment, event in store
     ]
     assert actual == expected

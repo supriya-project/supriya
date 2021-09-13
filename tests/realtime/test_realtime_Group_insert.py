@@ -6,7 +6,7 @@ import supriya.realtime
 
 def test_01(server):
     group = supriya.realtime.Group().allocate()
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -16,7 +16,7 @@ def test_01(server):
     )
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group.insert(0, synth_a)
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -27,7 +27,7 @@ def test_01(server):
     )
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group.insert(0, synth_b)
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -39,7 +39,7 @@ def test_01(server):
     )
     synth_c = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group.insert(1, synth_c)
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -52,7 +52,7 @@ def test_01(server):
     )
     synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group.insert(3, synth_d)
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group

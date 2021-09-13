@@ -33,7 +33,7 @@ class PatternPlayer:
                     return
                 if offset == float("-inf"):
                     offset = context.desired_moment.offset
-                if (delta := offset - context.desired_moment.offset) :
+                if delta := offset - context.desired_moment.offset:
                     self._queue.put((offset, priority, index, event))
                     self._perform_events(
                         context.desired_moment.seconds, current_offset, events
@@ -138,7 +138,7 @@ class PatternPlayer:
             self._is_running = True
             self._is_stopping = False
         self._clock_event_id = self._clock.cue(
-            self._clock_callback, event_type=3, quantization=quantization,
+            self._clock_callback, event_type=3, quantization=quantization
         )
         if until:
             self._clock.schedule(self._stop_callback, event_type=2, schedule_at=until)
@@ -150,5 +150,5 @@ class PatternPlayer:
             if not self._is_running or self._is_stopping:
                 return
             self._clock.cue(
-                self._stop_callback, event_type=2, quantization=quantization,
+                self._stop_callback, event_type=2, quantization=quantization
             )

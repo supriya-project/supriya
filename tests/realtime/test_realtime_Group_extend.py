@@ -7,7 +7,7 @@ from supriya.osc import OscBundle, OscMessage
 
 def test_noop(server):
     group = supriya.realtime.Group().allocate()
-    server_state = str(server.query_remote_nodes(True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -15,11 +15,11 @@ def test_noop(server):
                 1000 group
         """
     )
-    assert str(server.query_local_nodes(include_controls=True)) == server_state
+    assert str(server.root_node) == server_state
     with server.osc_protocol.capture() as transcript:
         group.extend([])
     assert [(_.label, _.message) for _ in transcript] == []
-    server_state = str(server.query_remote_nodes(True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -27,7 +27,7 @@ def test_noop(server):
                 1000 group
         """
     )
-    assert str(server.query_local_nodes(include_controls=True)) == server_state
+    assert str(server.root_node) == server_state
 
 
 def test_allocate_nested(server):
@@ -37,7 +37,7 @@ def test_allocate_nested(server):
     group.extend([synth_a, synth_b])
     with server.osc_protocol.capture() as transcript:
         group.allocate()
-    server_state = str(server.query_remote_nodes(True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -49,7 +49,7 @@ def test_allocate_nested(server):
                         amplitude: 0.0, frequency: 440.0
         """
     )
-    assert str(server.query_local_nodes(include_controls=True)) == server_state
+    assert str(server.root_node) == server_state
     bundle = OscBundle(
         contents=(
             OscMessage("/g_new", 1000, 0, 1),
@@ -78,7 +78,7 @@ def test_extend_unallocated(server):
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test, amplitude=0.0)
     with server.osc_protocol.capture() as transcript:
         group.extend([synth_a, synth_b])
-    server_state = str(server.query_remote_nodes(True))
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -90,7 +90,7 @@ def test_extend_unallocated(server):
                         amplitude: 0.0, frequency: 440.0
         """
     )
-    assert str(server.query_local_nodes(include_controls=True)) == server_state
+    assert str(server.root_node) == server_state
     bundle = OscBundle(
         contents=(
             OscMessage("/s_new", "test", 1001, 0, 1000),
@@ -98,7 +98,7 @@ def test_extend_unallocated(server):
         )
     )
     assert [(_.label, _.message) for _ in transcript] == [
-        ("S", OscMessage("/d_recv", supriya.assets.synthdefs.test.compile(), bundle),),
+        ("S", OscMessage("/d_recv", supriya.assets.synthdefs.test.compile(), bundle)),
         ("R", OscMessage("/n_go", 1001, 1000, -1, -1, 0)),
         ("R", OscMessage("/n_go", 1002, 1000, 1001, -1, 0)),
         ("R", OscMessage("/done", "/d_recv")),
@@ -115,16 +115,17 @@ def test_extend_allocate_nested_and_move(server):
             supriya.realtime.Group([supriya.realtime.Synth(synthdef=synthdef)]),
         ]
     )
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1001 group
                 1000 default
+                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
         """
     )
-    assert str(server.query_local_nodes()) == server_state
+    assert str(server.root_node) == server_state
     with server.osc_protocol.capture() as transcript:
         group_a.extend([group_b, synth])
     bundle = OscBundle(
@@ -137,7 +138,7 @@ def test_extend_allocate_nested_and_move(server):
         )
     )
     assert [(_.label, _.message) for _ in transcript] == [
-        ("S", OscMessage("/d_recv", supriya.assets.synthdefs.test.compile(), bundle),),
+        ("S", OscMessage("/d_recv", supriya.assets.synthdefs.test.compile(), bundle)),
         ("R", OscMessage("/n_go", 1002, 1001, -1, -1, 1, -1, -1)),
         ("R", OscMessage("/n_go", 1003, 1002, -1, -1, 0)),
         ("R", OscMessage("/n_go", 1004, 1002, 1003, -1, 1, -1, -1)),
@@ -145,7 +146,7 @@ def test_extend_allocate_nested_and_move(server):
         ("R", OscMessage("/n_move", 1000, 1001, 1002, -1, 0)),
         ("R", OscMessage("/done", "/d_recv")),
     ]
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -153,12 +154,15 @@ def test_extend_allocate_nested_and_move(server):
                 1001 group
                     1002 group
                         1003 test
+                            amplitude: 1.0, frequency: 440.0
                         1004 group
                             1005 test
+                                amplitude: 1.0, frequency: 440.0
                     1000 default
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
         """
     )
-    assert str(server.query_local_nodes()) == server_state
+    assert str(server.root_node) == server_state
 
 
 def test_x(server):
@@ -166,7 +170,7 @@ def test_x(server):
     group_a.allocate(target_node=server)
     group_b = supriya.realtime.Group()
     group_b.allocate(target_node=server)
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -186,18 +190,19 @@ def test_x(server):
     assert not synth_c.is_allocated
     assert not synth_d.is_allocated
     synth_a.allocate()
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1002 test
+                    amplitude: 1.0, frequency: 440.0
                 1001 group
                 1000 group
         """
     )
     group_a.extend([synth_a, synth_b])
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -205,33 +210,42 @@ def test_x(server):
                 1001 group
                 1000 group
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
     group_b.extend([synth_c])
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1001 group
                     1004 test
+                        amplitude: 1.0, frequency: 440.0
                 1000 group
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
     group_b.extend([synth_d, synth_b, synth_a])
-    server_state = str(server.query_remote_nodes())
+    server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1001 group
                     1004 test
+                        amplitude: 1.0, frequency: 440.0
                     1005 test
+                        amplitude: 1.0, frequency: 440.0
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
                 1000 group
         """
     )

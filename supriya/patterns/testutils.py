@@ -29,7 +29,7 @@ def sanitize_id(id_, cache):
 
 def sanitize_event(event, cache):
     if isinstance(event, CompositeEvent):
-        return new(event, events=[sanitize_event(x, cache) for x in event.events],)
+        return new(event, events=[sanitize_event(x, cache) for x in event.events])
     sanitize_data = {}
     args, _, kwargs = get_vars(event)
     for key, value in args.items():

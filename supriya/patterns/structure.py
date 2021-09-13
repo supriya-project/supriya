@@ -23,7 +23,7 @@ class BusPattern(Pattern):
     ### INITIALIZER ###
 
     def __init__(
-        self, pattern, calculation_rate="audio", channel_count=1, release_time=0.25,
+        self, pattern, calculation_rate="audio", channel_count=1, release_time=0.25
     ):
         self._pattern = pattern
         self._calculation_rate = CalculationRate.from_expr(calculation_rate)
@@ -205,7 +205,7 @@ class ParallelPattern(Pattern):
                     sent = yield new(events[0], delta=delta)
                 elif len(events) > 1:
                     sent = yield CompositeEvent(
-                        [new(x, delta=0.0) for x in events], delta=delta,
+                        [new(x, delta=0.0) for x in events], delta=delta
                     )
                 if sent:
                     should_stop = True

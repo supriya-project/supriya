@@ -1,9 +1,4 @@
-from .eventpatterns import (
-    ChainPattern,
-    EventPattern,
-    MonoEventPattern,
-    UpdatePattern,
-)
+from .eventpatterns import ChainPattern, EventPattern, MonoEventPattern, UpdatePattern
 from .events import (
     BusAllocateEvent,
     BusFreeEvent,
@@ -23,12 +18,7 @@ from .patterns import (
     UnaryOpPattern,
 )
 from .players import PatternPlayer
-from .sequences import (
-    GatePattern,
-    RepeatPattern,
-    RestartPattern,
-    StutterPattern,
-)
+from .sequences import GatePattern, RepeatPattern, RestartPattern, StutterPattern
 from .structure import BusPattern, FxPattern, GroupPattern, ParallelPattern
 
 __all__ = [

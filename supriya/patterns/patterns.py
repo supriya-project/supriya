@@ -11,8 +11,8 @@ from typing import Dict, Iterator, Optional
 
 from uqbar.objects import get_vars
 
-from supriya.clocks import Clock
-from supriya.providers import Provider
+from supriya.clocks import Clock, OfflineClock
+from supriya.providers import NonrealtimeProvider, Provider
 
 from .events import CompositeEvent
 from .players import PatternPlayer
@@ -195,14 +195,26 @@ class Pattern(metaclass=abc.ABCMeta):
 
     ### PUBLIC METHODS ###
 
-    def play(self, provider=None, clock=None, quantization=None, at=None, until=None):
+    def play(
+        self,
+        provider=None,
+        *,
+        at=None,
+        clock=None,
+        quantization=None,
+        tempo=None,
+        until=None,
+    ):
         if provider is None:
             provider = Provider.realtime()
         elif not isinstance(provider, Provider):
             provider = Provider.from_context(provider)
-        player = PatternPlayer(
-            pattern=self, provider=provider, clock=clock or Clock.default(),
-        )
+        if isinstance(provider, NonrealtimeProvider):
+            clock = OfflineClock()
+            at = at or 0.0
+        elif not clock:
+            clock = Clock.default()
+        player = PatternPlayer(pattern=self, provider=provider, clock=clock)
         player.play(quantization=quantization, at=at, until=until)
         return player
 

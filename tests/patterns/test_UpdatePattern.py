@@ -1,11 +1,6 @@
 import pytest
 
-from supriya.patterns import (
-    EventPattern,
-    NoteEvent,
-    SequencePattern,
-    UpdatePattern,
-)
+from supriya.patterns import EventPattern, NoteEvent, SequencePattern, UpdatePattern
 from supriya.patterns.testutils import MockUUID as M
 from supriya.patterns.testutils import run_pattern_test
 

@@ -749,10 +749,7 @@ class RootNode(Group):
 
     __slots__ = ()
 
-    _valid_add_actions: Tuple[int, ...] = (
-        AddAction.ADD_TO_HEAD,
-        AddAction.ADD_TO_TAIL,
-    )
+    _valid_add_actions: Tuple[int, ...] = (AddAction.ADD_TO_HEAD, AddAction.ADD_TO_TAIL)
 
     ### INITIALIZER ###
 

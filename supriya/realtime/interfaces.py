@@ -96,10 +96,6 @@ class ControlInterface(SupriyaObject):
     ### PUBLIC METHODS ###
 
     @abc.abstractmethod
-    def as_dict(self):
-        raise NotImplementedError
-
-    @abc.abstractmethod
     def reset(self):
         raise NotImplementedError
 
@@ -543,7 +539,7 @@ class SynthInterface(ControlInterface):
 
             >>> synth = supriya.Synth()
             >>> print(repr(synth.controls))
-            <SynthInterface: <- Synth: ???>>
+            <SynthInterface: <- Synth: ??? default>>
 
         """
         class_name = type(self).__name__
@@ -575,7 +571,7 @@ class SynthInterface(ControlInterface):
 
             >>> synth = supriya.Synth()
             >>> print(str(synth.controls))
-            <- Synth: ???>: (default)
+            <- Synth: ??? default>:
                 (kr) amplitude: 0.1
                 (kr) frequency: 440.0
                 (kr) gate:      1.0
@@ -584,7 +580,7 @@ class SynthInterface(ControlInterface):
 
         """
         result = []
-        string = "{}: ({})".format(repr(self.client), self.synthdef.actual_name)
+        string = "{!r}:".format(self.client)
         result.append(string)
         maximum_length = 0
         control_names = sorted(self)
@@ -639,10 +635,9 @@ class SynthInterface(ControlInterface):
 
     def as_dict(self):
         result = {}
-        if self.client.register_controls is None or self.client.register_controls:
-            for control_name in self:
-                control = self[control_name]
-                result[control.name] = set([self.client])
+        for control_name in self:
+            control = self[control_name]
+            result[control.name] = set([self.client])
         return result
 
     def reset(self):

@@ -30,9 +30,7 @@ class Event:
         return get_repr(self, multiline=False)
 
     def expand(self, offset):
-        return [
-            (offset, Priority.START, self),
-        ]
+        return [(offset, Priority.START, self)]
 
     def perform(
         self,
@@ -63,7 +61,7 @@ class BusAllocateEvent(Event):
         priority: int,
     ):
         proxy_mapping[self.id_] = provider.add_bus_group(
-            calculation_rate=self.calculation_rate, channel_count=self.channel_count,
+            calculation_rate=self.calculation_rate, channel_count=self.channel_count
         )
 
 
@@ -99,7 +97,7 @@ class CompositeEvent(Event):
 
 class GroupAllocateEvent(Event):
     def __init__(
-        self, id_, *, add_action=AddAction.ADD_TO_HEAD, delta=0.0, target_node=None,
+        self, id_, *, add_action=AddAction.ADD_TO_HEAD, delta=0.0, target_node=None
     ):
         Event.__init__(self, delta=delta)
         self.id_ = id_
@@ -116,7 +114,7 @@ class GroupAllocateEvent(Event):
         priority: int,
     ):
         proxy_mapping[self.id_] = provider.add_group(
-            add_action=self.add_action, target_node=proxy_mapping.get(self.target_node),
+            add_action=self.add_action, target_node=proxy_mapping.get(self.target_node)
         )
 
 

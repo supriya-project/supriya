@@ -18,18 +18,20 @@ def test_01(server):
     group_a.append(synth_a)
     group_b.append(synth_b)
 
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1001 group
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
                 1000 group
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
-    local_state = str(server.query_local_nodes())
+    local_state = str(server.root_node)
     assert local_state == remote_state
 
     with server.osc_protocol.capture() as transcript:
@@ -46,7 +48,7 @@ def test_01(server):
         ("R", supriya.osc.OscMessage("/synced", 0)),
     ]
 
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -54,10 +56,12 @@ def test_01(server):
                 1001 group
                 1000 group
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
         """
     )
-    local_state = str(server.query_local_nodes())
+    local_state = str(server.root_node)
     assert local_state == remote_state
 
     with server.osc_protocol.capture() as transcript:
@@ -75,16 +79,18 @@ def test_01(server):
         ("R", supriya.osc.OscMessage("/synced", 1)),
     ]
 
-    remote_state = str(server.query_remote_nodes())
+    remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
         NODE TREE 0 group
             1 group
                 1001 group
                     1003 test
+                        amplitude: 1.0, frequency: 440.0
                     1002 test
+                        amplitude: 1.0, frequency: 440.0
                 1000 group
         """
     )
-    local_state = str(server.query_local_nodes())
+    local_state = str(server.root_node)
     assert local_state == remote_state

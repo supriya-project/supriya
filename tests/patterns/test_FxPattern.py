@@ -37,12 +37,12 @@ synthdef = builder.build()
                 CompositeEvent(
                     [
                         SynthAllocateEvent(
-                            M("A"), add_action=AddAction.ADD_TO_TAIL, synthdef=synthdef,
-                        ),
+                            M("A"), add_action=AddAction.ADD_TO_TAIL, synthdef=synthdef
+                        )
                     ]
                 ),
-                NoteEvent(M("B"), a=1,),
-                NoteEvent(M("C"), a=2,),
+                NoteEvent(M("B"), a=1),
+                NoteEvent(M("C"), a=2),
                 CompositeEvent([NodeFreeEvent(M("A"))]),
             ],
             False,
@@ -61,11 +61,11 @@ synthdef = builder.build()
                             add_action=AddAction.ADD_TO_TAIL,
                             mix=0.25,
                             synthdef=synthdef,
-                        ),
+                        )
                     ]
                 ),
-                NoteEvent(M("B"), a=1,),
-                NoteEvent(M("C"), a=2,),
+                NoteEvent(M("B"), a=1),
+                NoteEvent(M("C"), a=2),
                 CompositeEvent([NullEvent(delta=0.5), NodeFreeEvent(M("A"))]),
             ],
             False,
