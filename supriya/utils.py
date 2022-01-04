@@ -64,7 +64,7 @@ def locate(path: str) -> pathlib.Path:
     if ":" in path:
         module_path, _, file_path = path.partition(":")
         module = importlib.import_module(module_path)
-        if hasattr(module, "__file__"):
+        if hasattr(module, "__file__") and module.__file__ is not None:
             return pathlib.Path(module.__file__).parent / file_path
         return pathlib.Path(module.__path__[0]) / file_path  # type: ignore
     return pathlib.Path(path)
