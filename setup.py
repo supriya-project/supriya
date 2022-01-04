@@ -17,12 +17,6 @@ def read_version():
     return local_dict["__version__"]
 
 
-version = read_version()
-
-with open("README.rst", "r") as file_pointer:
-    long_description = file_pointer.read()
-
-
 if __name__ == "__main__":
     setup(
         author="Josiah Wolf Oberholtzer",
@@ -104,10 +98,10 @@ if __name__ == "__main__":
             "synthesis",
         ],
         license="MIT",
-        long_description=long_description,
+        long_description=pathlib.Path("README.md").read_text(),
         name=package_name,
         packages=[package_name],
         url=f"https://github.com/josiah-wolf-oberholtzer/{package_name}",
-        version=version,
+        version=read_version(),
         zip_safe=False,
     )

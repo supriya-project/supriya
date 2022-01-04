@@ -1,10 +1,17 @@
 Installation
 ============
 
-Supriya works on OSX and Unix/Linux with Python 3.3+.
+Get SuperCollider
+-----------------
 
-Installing Supriya
-------------------
+Supriya uses `SuperCollider`_ as its synthesis engine. `SuperCollider`_ is
+available on OSX, Linux and Windows (although Supriya has not been tested on
+Windows).
+
+You can download `SuperCollider`_ from http://supercollider.github.io/.
+
+Get Supriya
+-----------
 
 Install Supriya from its `GitHub`_ repository, via `git
 <https://git-scm.com/>`_ and `pip`_::
@@ -13,42 +20,19 @@ Install Supriya from its `GitHub`_ repository, via `git
     ~$ cd supriya
     supriya$ pip install -e .
 
-Installing optional dependencies
---------------------------------
-
-With `Cython`_ support::
-
-    supriya$ pip install -e .[accelerated]
+Optional dependencies
+---------------------
 
 With `IPython`_ support::
 
     supriya$ pip install -e .[ipython]
 
-With MIDI support (via `python-rtmidi`_)::
-
-    supriya$ pip install -e .[midi]
-
-With soundfile support (via `libsndfile`_ and `wavefile`_)::
-
-    supriya$ pip install -e .[wave]
-
-On OSX, you can get `libsndfile`_ via `HomeBrew`. On Linux, consult your package manager.
-
 With test dependencies::
 
     supriya$ pip install -e .[test]
 
-Installing SuperCollider
-````````````````````````
-
-Supriya uses `SuperCollider`_ as its synthesis engine. `SuperCollider`_ is
-available on OSX, Linux and Windows (although Supriya has not been tested on
-Windows).
-
-You can download `SuperCollider`_ from http://supercollider.github.io/.
-
-Installing Graphviz (optional)
-``````````````````````````````
+Graphviz
+````````
 
 Supriya uses `Graphviz`_, an open-source graph visualization library, to create
 graphs of rhythm-trees and other tree structures, and to create visualizations
@@ -115,3 +99,17 @@ See the `virtualenvwrapper`_ documentation for instructions on how to use the
 provided tools for working creating, deleting, activating and deactivating
 virtual environments: ``mkvirtualenv``, ``rmvirtualenv``, ``workon`` and
 ``deactivate``.
+
+..  _Cython: https://cython.org/
+..  _GitHub: https://github.com/josiah-wolf-oberholtzer/supriya
+..  _Graphviz: http://graphviz.org/
+..  _Homebrew: http://brew.sh/
+..  _IPython: https://ipython.org/
+..  _PyPI: https://pypi.python.org/pypi
+..  _Python: https://www.python.org/
+..  _SuperCollider: http://supercollider.github.io/
+..  _Supriya: https://github.com/josiah-wolf-oberholtzer/supriya
+..  _pip: https://pip.pypa.io/en/stable/
+..  _python-rtmidi: https://github.com/SpotlightKid/python-rtmidi
+..  _virtualenv: https://readthedocs.org/projects/virtualenv/
+..  _virtualenvwrapper: https://virtualenvwrapper.readthedocs.org/en/latest/

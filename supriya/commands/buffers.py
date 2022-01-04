@@ -581,7 +581,7 @@ class BufferGenerateRequest(Request):
     ::
 
         >>> request.to_osc()
-        OscMessage('/b_gen', 23, 'sine3', 7, 1.0, 1.0, 0.0, 0.5, 2.0, 0.5, 0.25, 3.0, 0.0)
+        OscMessage('/b_gen', 23, 'sine3', 7, 1.0, 1.0, 0.0, 2.0, 0.5, 0.5, 3.0, 0.25, 0.0)
 
     """
 
@@ -649,10 +649,10 @@ class BufferGenerateRequest(Request):
         if self.command_name in ("cheby", "sine1"):
             coefficients = self.amplitudes
         elif self.command_name == "sine2":
-            coefficients = zip(self.amplitudes, self.frequencies)
+            coefficients = zip(self.frequencies, self.amplitudes)
             coefficients = tuple(coefficients)
         elif self.command_name == "sine3":
-            coefficients = zip(self.amplitudes, self.frequencies, self.phases)
+            coefficients = zip(self.frequencies, self.amplitudes, self.phases)
             coefficients = tuple(coefficients)
         coefficients = utils.flatten_iterable(coefficients)
         contents.extend(coefficients)
@@ -665,7 +665,7 @@ class BufferGenerateRequest(Request):
     def chebyshev(
         cls,
         amplitudes=None,
-        as_wavetable=True,
+        as_wavetable=False,
         buffer_id=None,
         should_normalize=True,
         should_clear_first=True,
@@ -685,7 +685,7 @@ class BufferGenerateRequest(Request):
     def sine1(
         cls,
         amplitudes=None,
-        as_wavetable=True,
+        as_wavetable=False,
         buffer_id=None,
         should_normalize=True,
         should_clear_first=True,
@@ -705,7 +705,7 @@ class BufferGenerateRequest(Request):
     def sine2(
         cls,
         amplitudes=None,
-        as_wavetable=True,
+        as_wavetable=False,
         buffer_id=None,
         frequencies=None,
         should_normalize=True,
@@ -727,7 +727,7 @@ class BufferGenerateRequest(Request):
     def sine3(
         cls,
         amplitudes=None,
-        as_wavetable=True,
+        as_wavetable=False,
         buffer_id=None,
         frequencies=None,
         phases=None,
@@ -1704,6 +1704,10 @@ class BufferWriteRequest(Request):
     @property
     def leave_open(self):
         return self._leave_open
+
+    @property
+    def response_patterns(self):
+        return ["/done", "/b_write", self.buffer_id], None
 
     @property
     def sample_format(self):

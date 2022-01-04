@@ -1,2 +1,2 @@
-Sphinx & IPython
+Offline Analysis
 ================

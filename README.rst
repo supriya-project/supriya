@@ -121,7 +121,7 @@ Allocate it on the server as a child of the previously created group::
 
 Query the server's node tree::
 
-    >>> response = server.query_remote_nodes(include_controls=True)
+    >>> response = server.query()
     >>> print(response)
     NODE TREE 0 group
         1 group

@@ -498,7 +498,7 @@ class Server(BaseServer):
         ::
 
             >>> server["b10"]
-            <+ Buffer: 10>
+            <+ Buffer: 10, 1ch, 1>
 
         ::
 
@@ -879,7 +879,7 @@ class Server(BaseServer):
 
             >>> server = supriya.Server().boot()
             >>> server.add_buffer(channel_count=2, frame_count=1024)
-            <+ Buffer: 0>
+            <+ Buffer: 0, 2ch, 1024>
 
         """
         buffer_ = Buffer()
