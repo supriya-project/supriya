@@ -337,9 +337,6 @@ class ProviderMoment:
         init=False, default_factory=contextlib.ExitStack, compare=False
     )
 
-    def __postinit__(self):
-        self.exit_stack = contextlib.ExitStack()
-
     async def __aenter__(self):
         if self.provider.server and not isinstance(self.provider.server, AsyncServer):
             raise RuntimeError(repr(self.provider.server))
