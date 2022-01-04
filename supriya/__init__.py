@@ -39,16 +39,16 @@ del file_pointer
 del pathlib
 
 
-def setup_logging(*loggers):
+def _setup_logging(*loggers):
     logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     for logger in loggers:
         logging.getLogger(logger).setLevel(logging.DEBUG)
 
 
-from supriya._version import __version__, __version_info__  # noqa
-from supriya import utils  # noqa
-from supriya.clocks import AsyncClock, AsyncOfflineClock, Clock, OfflineClock  # noqa
-from supriya.enums import (  # noqa
+from ._version import __version__, __version_info__  # noqa
+from . import utils  # noqa
+from .clocks import AsyncClock, AsyncOfflineClock, Clock, OfflineClock  # noqa
+from .enums import (  # noqa
     AddAction,
     BinaryOperator,
     CalculationRate,
@@ -64,8 +64,8 @@ from supriya.enums import (  # noqa
     UnaryOperator,
     Unit,
 )
-from supriya.io import graph, play, render  # noqa
-from supriya.synthdefs import (  # noqa
+from .io import graph, play, plot, render  # noqa
+from .synthdefs import (  # noqa
     Envelope,
     Parameter,
     Range,
@@ -73,7 +73,7 @@ from supriya.synthdefs import (  # noqa
     SynthDefBuilder,
     SynthDefFactory,
 )
-from supriya.realtime import (  # noqa
+from .realtime import (  # noqa
     AsyncServer,
     Buffer,
     BufferGroup,
@@ -83,11 +83,11 @@ from supriya.realtime import (  # noqa
     Synth,
     Server,
 )
-from supriya import assets  # noqa
-from supriya.nonrealtime import Session  # noqa
-from supriya.providers import Provider  # noqa
-from supriya.scsynth import Options  # noqa
-from supriya.soundfiles import Say, SoundFile  # noqa
-from supriya.system import Assets  # noqa
+from . import assets  # noqa
+from .nonrealtime import Session  # noqa
+from .providers import Provider  # noqa
+from .scsynth import Options  # noqa
+from .soundfiles import Say, SoundFile  # noqa
+from .system import Assets  # noqa
 
 server = Server.default()
