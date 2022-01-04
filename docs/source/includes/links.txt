@@ -1,5 +1,0 @@
-`GitHub`_ |
-`PyPI`_ |
-`Documentation <http://supriya.mbrsi.org/>`_ |
-`Issue Tracker <https://github.com/josiah-wolf-oberholtzer/supriya/issues>`_ |
-`Mailing list <http://groups.google.com/group/supriya-dev>`_

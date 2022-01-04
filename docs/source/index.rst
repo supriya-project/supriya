@@ -3,19 +3,11 @@
 Supriya (|release|)
 ===================
 
-.. include:: includes/links.txt
-
 Introduction
 ------------
 
-.. include:: includes/abstract.txt
-
 Quickstart
 ----------
-
-.. include:: includes/quick-install.txt
-
-.. include:: includes/quick-example.txt
 
 .. toctree::
    :caption: Introduction
@@ -61,5 +53,3 @@ Quickstart
    :caption: Reference
 
    glossary
-
-.. include:: includes/references.txt

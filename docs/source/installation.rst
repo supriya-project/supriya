@@ -115,5 +115,3 @@ See the `virtualenvwrapper`_ documentation for instructions on how to use the
 provided tools for working creating, deleting, activating and deactivating
 virtual environments: ``mkvirtualenv``, ``rmvirtualenv``, ``workon`` and
 ``deactivate``.
-
-..  include:: includes/references.txt
