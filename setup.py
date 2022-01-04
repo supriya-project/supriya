@@ -41,6 +41,13 @@ if __name__ == "__main__":
         ],
         description="A Python API for SuperCollider",
         extras_require={
+            "docs": [
+                "librosa",
+                "matplotlib >= 3.3.0",
+                "sphinx-design",
+                "sphinx-immaterial",
+                "sphinxext-opengraph",
+            ],
             "ipython": [
                 "jupyter",
                 "jupyter_contrib_nbextensions",
@@ -51,6 +58,8 @@ if __name__ == "__main__":
                 "black",
                 "flake8 >= 3.9.0",
                 "isort >= 5.8.0",
+                "librosa",
+                "matplotlib >= 3.3.0",
                 "mypy >= 0.900",
                 "pytest >= 6.2.0",
                 "pytest-asyncio >= 0.14.0",
@@ -79,12 +88,12 @@ if __name__ == "__main__":
         ],
         include_package_data=True,
         install_requires=[
+            "Cython >= 0.29.0",
             "PyYAML >= 5.4.0",
             "appdirs >= 1.4.0",
-            "Cython >= 0.29.0",
             "setuptools >= 18.0",
             "tqdm >= 4.59.0",
-            "uqbar >= 0.5.6",
+            "uqbar >= 0.5.7",
         ],
         keywords=[
             "audio",
