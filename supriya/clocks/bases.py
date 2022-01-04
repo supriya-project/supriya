@@ -476,8 +476,8 @@ class BaseClock:
 
     def cancel(self, event_id) -> Optional[Tuple]:
         logger.debug(f"[{self.name}] Canceling {event_id}")
-        event_id = self._cancel(event_id)
-        return event_id
+        event = self._cancel(event_id)
+        return event
 
     def change(
         self,

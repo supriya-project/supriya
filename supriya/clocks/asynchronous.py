@@ -131,9 +131,9 @@ class AsyncClock(BaseClock):
     ### PUBLIC METHODS ###
 
     def cancel(self, event_id) -> Optional[Tuple]:
-        event_id = super().cancel(event_id)
+        event = super().cancel(event_id)
         self._event.set()
-        return event_id
+        return event
 
     async def start(
         self,
