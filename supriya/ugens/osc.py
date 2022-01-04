@@ -213,6 +213,28 @@ class LFTri(PureUGen):
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
 
+class Osc(PureUGen):
+    """
+    An interpolating wavetable oscillator.
+    """
+
+    _ordered_input_names = collections.OrderedDict(
+        [("buffer_id", 0), ("frequency", 440.0), ("initial_phase", 0.0)]
+    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
+class OscN(PureUGen):
+    """
+    A non-interpolating wavetable oscillator.
+    """
+
+    _ordered_input_names = collections.OrderedDict(
+        [("buffer_id", 0), ("frequency", 440.0), ("initial_phase", 0.0)]
+    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
 class Select(PureUGen):
     """
     A signal selector.
