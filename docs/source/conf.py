@@ -45,9 +45,11 @@ templates_path = ["_templates"]
 
 uqbar_api_member_documenter_classes = [
     "uqbar.apis.FunctionDocumenter",
-    "uqbar.apis.SummarizingClassDocumenter",
+    # "uqbar.apis.ClassDocumenter",
+    "supriya.ext.api.SupriyaClassDocumenter",
 ]
-uqbar_api_module_documenter_class = "uqbar.apis.SummarizingModuleDocumenter"
+# uqbar_api_module_documenter_class = "uqbar.apis.SummarizingModuleDocumenter"
+uqbar_api_module_documenter_class = "supriya.ext.api.SupriyaModuleDocumenter"
 uqbar_api_omit_root = True
 uqbar_api_root_documenter_class = "uqbar.apis.SummarizingRootDocumenter"
 uqbar_api_source_paths = supriya.__path__
