@@ -17,9 +17,6 @@ def read_version():
     return local_dict["__version__"]
 
 
-version = read_version()
-
-
 if __name__ == "__main__":
     setup(
         author="Josiah Wolf Oberholtzer",
@@ -106,6 +103,6 @@ if __name__ == "__main__":
         name=package_name,
         packages=[package_name],
         url=f"https://github.com/josiah-wolf-oberholtzer/{package_name}",
-        version=version,
+        version=read_version(),
         zip_safe=False,
     )
