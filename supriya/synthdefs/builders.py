@@ -1,12 +1,16 @@
 import collections
 import copy
+import inspect
 import uuid
 from collections.abc import Sequence
-from typing import List
+from typing import List, Tuple, Union
 
 from uqbar.objects import new
 
+from supriya.enums import ParameterRate
 from supriya.system import SupriyaObject
+
+from .controls import Parameter
 
 
 class SynthDefBuilder(SupriyaObject):
@@ -177,3 +181,148 @@ class SynthDefBuilder(SupriyaObject):
     @property
     def name(self):
         return self._name
+
+
+def synthdef(*args: Union[str, Tuple[str, float]]):
+    """
+    Decorate for quickly constructing SynthDefs from functions.
+
+    ::
+
+        >>> from supriya.ugens import EnvGen, Out, SinOsc
+        >>> from supriya.synthdefs import Envelope, synthdef
+
+    ::
+
+        >>> @synthdef()
+        ... def sine(freq=440, amp=0.1, gate=1):
+        ...     sig = SinOsc.ar(freq) * amp
+        ...     env = EnvGen.kr(envelope=Envelope.adsr(), gate=gate, done_action=2)
+        ...     Out.ar(0, [sig * env] * 2)
+        ...
+
+    ::
+
+        >>> print(sine)
+        synthdef:
+            name: sine
+            ugens:
+            -   Control.kr: null
+            -   SinOsc.ar:
+                    frequency: Control.kr[1:freq]
+                    phase: 0.0
+            -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                    left: SinOsc.ar[0]
+                    right: Control.kr[0:amp]
+            -   EnvGen.kr:
+                    done_action: 2.0
+                    envelope[0]: 0.0
+                    envelope[10]: 5.0
+                    envelope[11]: -4.0
+                    envelope[12]: 0.0
+                    envelope[13]: 1.0
+                    envelope[14]: 5.0
+                    envelope[15]: -4.0
+                    envelope[1]: 3.0
+                    envelope[2]: 2.0
+                    envelope[3]: -99.0
+                    envelope[4]: 1.0
+                    envelope[5]: 0.01
+                    envelope[6]: 5.0
+                    envelope[7]: -4.0
+                    envelope[8]: 0.5
+                    envelope[9]: 0.3
+                    gate: Control.kr[2:gate]
+                    level_bias: 0.0
+                    level_scale: 1.0
+                    time_scale: 1.0
+            -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                    left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
+                    right: EnvGen.kr[0]
+            -   Out.ar:
+                    bus: 0.0
+                    source[0]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+                    source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+
+    ::
+
+        >>> @synthdef("ar", ("kr", 0.5))
+        ... def sine(freq=440, amp=0.1, gate=1):
+        ...     sig = SinOsc.ar(freq) * amp
+        ...     env = EnvGen.kr(envelope=Envelope.adsr(), gate=gate, done_action=2)
+        ...     Out.ar(0, [sig * env] * 2)
+        ...
+
+    ::
+
+        >>> print(sine)
+        synthdef:
+            name: sine
+            ugens:
+            -   AudioControl.ar: null
+            -   SinOsc.ar:
+                    frequency: AudioControl.ar[0:freq]
+                    phase: 0.0
+            -   LagControl.kr:
+                    lags[0]: 0.5
+                    lags[1]: 0.0
+            -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                    left: SinOsc.ar[0]
+                    right: LagControl.kr[0:amp]
+            -   EnvGen.kr:
+                    done_action: 2.0
+                    envelope[0]: 0.0
+                    envelope[10]: 5.0
+                    envelope[11]: -4.0
+                    envelope[12]: 0.0
+                    envelope[13]: 1.0
+                    envelope[14]: 5.0
+                    envelope[15]: -4.0
+                    envelope[1]: 3.0
+                    envelope[2]: 2.0
+                    envelope[3]: -99.0
+                    envelope[4]: 1.0
+                    envelope[5]: 0.01
+                    envelope[6]: 5.0
+                    envelope[7]: -4.0
+                    envelope[8]: 0.5
+                    envelope[9]: 0.3
+                    gate: LagControl.kr[1:gate]
+                    level_bias: 0.0
+                    level_scale: 1.0
+                    time_scale: 1.0
+            -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                    left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
+                    right: EnvGen.kr[0]
+            -   Out.ar:
+                    bus: 0.0
+                    source[0]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+                    source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+
+    """
+
+    def inner(func):
+        signature = inspect.signature(func)
+        builder = SynthDefBuilder()
+        kwargs = {}
+        for i, (name, parameter) in enumerate(signature.parameters.items()):
+            rate = ParameterRate.CONTROL
+            lag = None
+            try:
+                if isinstance(args[i], str):
+                    rate_expr = args[i]
+                else:
+                    rate_expr, lag = args[i]
+                rate = ParameterRate.from_expr(rate_expr)
+            except (IndexError, TypeError):
+                pass
+            value = parameter.default
+            if value is inspect._empty:
+                value = 0.0
+            parameter = Parameter(lag=lag, name=name, parameter_rate=rate, value=value)
+            kwargs[name] = builder._add_parameter(parameter)
+        with builder:
+            func(**kwargs)
+        return builder.build(name=func.__name__)
+
+    return inner

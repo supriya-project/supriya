@@ -13,7 +13,7 @@ from .bases import (
     UnaryOpUGen,
     WidthFirstUGen,
 )
-from .builders import SynthDefBuilder
+from .builders import SynthDefBuilder, synthdef
 from .compilers import SynthDefCompiler, SynthDefDecompiler
 from .controls import AudioControl, Control, LagControl, Parameter, Range, TrigControl
 from .envelopes import Envelope
@@ -49,4 +49,5 @@ __all__ = [
     "UGenSortBundle",
     "UnaryOpUGen",
     "WidthFirstUGen",
+    "synthdef",
 ]
