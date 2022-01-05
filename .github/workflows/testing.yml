@@ -39,7 +39,7 @@ jobs:
     needs: [cancel]
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         python-version: [3.9]
         os: [ubuntu-latest]
@@ -77,7 +77,7 @@ jobs:
     needs: [cancel]
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         python-version: [3.8, 3.9, "3.10"]
         os: [ubuntu-latest]
@@ -103,7 +103,7 @@ jobs:
     needs: [install]
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         python-version: [3.9]
     steps:
@@ -130,7 +130,7 @@ jobs:
 
   test:
     name: Test Supriya
-    needs: [supercollider]
+    needs: [supercollider, install, packaging]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
