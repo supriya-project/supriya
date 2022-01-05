@@ -88,25 +88,7 @@ class Buffer(SessionObject):
         event_kwargs = dict(buffer_id=self)
         self._set_event(event_type, event_kwargs, offset=offset)
 
-    def copy_from(
-        self,
-        source_buffer_id,
-        frame_count=None,
-        source_starting_frame=None,
-        target_starting_frame=None,
-        offset=None,
-    ):
-        event_type = supriya.commands.BufferCopyRequest
-        event_kwargs = dict(
-            frame_count=frame_count,
-            source_buffer_id=source_buffer_id,
-            source_starting_frame=source_starting_frame,
-            target_buffer_id=self,
-            target_starting_frame=target_starting_frame,
-        )
-        self._set_event(event_type, event_kwargs, offset=offset)
-
-    def copy_to(
+    def copy(
         self,
         target_buffer_id,
         frame_count=None,

@@ -1,10 +1,6 @@
-import supriya.realtime
-
-
 def test_01(server):
 
-    control_bus = supriya.realtime.Bus.control()
-    control_bus.allocate()
+    control_bus = server.add_bus()
 
     assert control_bus.is_allocated
 
