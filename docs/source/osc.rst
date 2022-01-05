@@ -1,22 +1,53 @@
-OSC
-===
+Open Sound Control
+==================
 
-Messages and bundles
---------------------
+- what is osc
+- anatomy of an osc message
 
-Osc I/O
--------
+Messages
+--------
 
-OSC callbacks
--------------
+Bundles
+```````
 
-Requests and responses
-----------------------
+Scheduling
+``````````
+
+Protocols
+---------
+
+Threaded
+````````
+
+Async
+`````
+
+Healthchecks
+````````````
+
+Callbacks
+---------
+
+Registering
+```````````
+
+Unregistering
+`````````````
+
+Requests
+--------
+
+Responses
+`````````
+
+Request bundles
+```````````````
 
 Debugging
 ---------
 
-- Server.debug_osc
-- Server.debug_udp
-- Server.debug_request_names
-- OscIO.capture
+Logging
+```````
+
+Capturing
+`````````
