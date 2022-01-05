@@ -1,8 +1,7 @@
 # Supriya
 
-[![](https://img.shields.io/pypi/pyversions/supriya)]()
 [![](https://img.shields.io/pypi/l/supriya)]()
-[![](https://img.shields.io/github/workflow/status/josiah-wolf-oberholtzer/supriya/Testing/master)]()
+[![](https://img.shields.io/github/workflow/status/josiah-wolf-oberholtzer/supriya/Testing/main)]()
 
 [Supriya](https://github.com/josiah-wolf-oberholtzer/supriya) is a
 [Python](https://www.python.org/) API for
