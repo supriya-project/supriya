@@ -169,7 +169,6 @@ class SynthDefReceiveRequest(Request):
 
     ::
 
-        >>> import supriya
         >>> server = supriya.Server.default().boot()
 
 

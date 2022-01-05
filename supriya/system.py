@@ -1,7 +1,7 @@
 import abc
 import fnmatch
 import os
-from typing import List, Optional, Union
+from typing import List, Union
 
 import uqbar.objects
 

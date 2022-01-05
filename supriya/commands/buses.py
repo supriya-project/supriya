@@ -79,7 +79,6 @@ class ControlBusGetContiguousRequest(Request):
 
     ::
 
-        >>> import supriya
         >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusGetContiguousRequest(
         ...     index_count_pairs=[(0, 2), (4, 1), (8, 2), (12, 1),],
@@ -171,7 +170,6 @@ class ControlBusGetRequest(Request):
 
     ::
 
-        >>> import supriya
         >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusGetRequest(indices=(0, 4, 8, 12),)
         >>> request
@@ -248,7 +246,6 @@ class ControlBusSetContiguousRequest(Request):
 
     ::
 
-        >>> import supriya
         >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusSetContiguousRequest(
         ...     index_values_pairs=[(0, (0.1, 0.2, 0.3)), (4, (0.4, 0.5, 0.6)),],
@@ -386,7 +383,6 @@ class ControlBusSetRequest(Request):
 
     ::
 
-        >>> import supriya
         >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusSetRequest(
         ...     index_value_pairs=[(0, 0.1), (1, 0.2), (2, 0.3), (3, 0.4),],

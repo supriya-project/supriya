@@ -906,30 +906,6 @@ class Buffer(ServerObject):
         )
         request.communicate(server=self.server, sync=sync)
 
-    def play(
-        self, add_action=None, bus=0, level=1, loop=False, rate=1, target_node=None
-    ):
-        import supriya.synthdefs
-        import supriya.ugens
-
-        if not self.is_allocated:
-            raise supriya.exceptions.BufferNotAllocated
-        with supriya.synthdefs.SynthDefBuilder(level=1, rate=1) as builder:
-            player = supriya.ugens.PlayBuf.ar(
-                buffer_id=self.buffer_id,
-                channel_count=self.channel_count,
-                loop=loop,
-                rate=supriya.ugens.BufRateScale.kr(self.buffer_id) * builder["rate"],
-            )
-            if not loop:
-                supriya.ugens.FreeSelfWhenDone.kr(player)
-            source = player * builder["level"]
-            supriya.ugens.Out.ar(bus=bus, source=source)
-        synthdef = builder.build()
-        return synthdef.play(
-            add_action=add_action, level=level, rate=rate, target_node=target_node
-        )
-
     def query(self):
         """
         Queries buffer.
