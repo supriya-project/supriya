@@ -607,24 +607,6 @@ class SynthDef:
         if server.is_running:
             request.communicate(server=server)
 
-    def play(self, add_action=None, target_node=None, **kwargs):
-        """
-        Plays the synthdef on the server.
-
-        ::
-
-            >>> server = supriya.Server.default().boot()
-            >>> synthdef = supriya.assets.synthdefs.default
-            >>> synth = synthdef.play()
-            >>> server = server.quit()
-
-        """
-        import supriya.realtime
-
-        synth = supriya.realtime.Synth(self, **kwargs)
-        synth.allocate(add_action=add_action, sync=True, target_node=target_node)
-        return synth
-
     def to_dict(self):
         """
         Convert SynthDef to JSON-serializable dictionay.
