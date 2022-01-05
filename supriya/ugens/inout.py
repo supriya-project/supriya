@@ -92,7 +92,6 @@ class LocalOut(UGen):
 
     """
 
-    __documentation_section__ = "Input/Output UGens"
     _ordered_input_names = collections.OrderedDict([("source", None)])
     _unexpanded_input_names = ("source",)
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

@@ -45,8 +45,6 @@ class Buffer(ServerObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Main Classes"
-
     __slots__ = ("_buffer_group", "_buffer_id", "_buffer_id_was_set_manually")
 
     ### INITIALIZER ###
@@ -1653,8 +1651,6 @@ class BufferGroup(ServerObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Main Classes"
-
     __slots__ = ("_buffer_id", "_buffers")
 
     ### INITIALIZER ###
@@ -1880,8 +1876,6 @@ class BufferProxy(SupriyaValueObject):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Server Internals"
 
     __slots__ = (
         "_buffer_id",

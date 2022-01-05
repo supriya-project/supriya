@@ -16,8 +16,6 @@ class State(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Session Internals"
-
     __slots__ = (
         "_transitions",
         "_nodes_to_children",
@@ -323,8 +321,6 @@ class Moment(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Session Objects"
-
     __slots__ = ("_offset", "_propagate", "_session", "_state")
 
     ### INITIALIZER ###
@@ -384,8 +380,6 @@ class NodeTransition(SupriyaValueObject):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Session Internals"
 
     __slots__ = ("_source", "_target", "_action")
 
@@ -495,8 +489,6 @@ class DoNotPropagate:
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Session Internals"
 
     _stack: List["DoNotPropagate"] = []
 

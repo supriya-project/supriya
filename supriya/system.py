@@ -47,8 +47,6 @@ class SupriyaObject(metaclass=abc.ABCMeta):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__: Optional[str] = None
-
     __slots__ = ()
 
     ### SPECIAL METHODS ###

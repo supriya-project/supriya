@@ -51,8 +51,6 @@ class SynthDefBuilder(SupriyaObject):
 
     _active_builders: List["SynthDefBuilder"] = []
 
-    __documentation_section__ = "Main Classes"
-
     __slots__ = ("_name", "_parameters", "_ugens", "_uuid")
 
     ### INITIALIZER ###

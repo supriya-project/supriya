@@ -57,8 +57,6 @@ class Range(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Main Classes"
-
     __slots__ = ("_minimum", "_maximum")
 
     ### INITIALIZER ###
@@ -142,8 +140,6 @@ class Range(SupriyaValueObject):
 class Parameter(UGenMethodMixin, SupriyaValueObject):
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Main Classes"
 
     __slots__ = (
         "_lag",
@@ -260,8 +256,6 @@ class Control(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "UGen Internals"
-
     _ordered_input_names: UGenInputMap = collections.OrderedDict([])
 
     __slots__ = ("_parameters",)
@@ -372,12 +366,6 @@ class AudioControl(Control):
     A trigger-rate control ugen.
     """
 
-    ### CLASS VARIABLES ###
-
-    __documentation_section__ = "UGen Internals"
-
-    ### INITIALIZER ##
-
     def __init__(self, parameters, calculation_rate=None, starting_control_index=0):
         Control.__init__(
             self,
@@ -393,8 +381,6 @@ class LagControl(Control):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "UGen Internals"
 
     _ordered_input_names = collections.OrderedDict([("lags", None)])
 

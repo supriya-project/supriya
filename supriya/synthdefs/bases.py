@@ -266,8 +266,6 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__: Optional[str] = "SynthDef Internals"
-
     __slots__ = ("_inputs", "_special_index", "_uuid")
 
     _default_channel_count = 1
@@ -849,12 +847,6 @@ class PureMultiOutUGen(MultiOutUGen):
     compilation.
     """
 
-    ### CLASS VARIABLES ###
-
-    __documentation_section__ = None
-
-    ### PRIVATE METHODS ###
-
     def _optimize_graph(self, sort_bundles):
         self._perform_dead_code_elimination(sort_bundles)
 
@@ -899,8 +891,6 @@ class UnaryOpUGen(PureUGen):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Basic Operator UGens"
 
     _ordered_input_names = collections.OrderedDict([("source", None)])
 
@@ -954,8 +944,6 @@ class BinaryOpUGen(PureUGen):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Basic Operator UGens"
 
     _ordered_input_names = collections.OrderedDict([("left", None), ("right", None)])
 

@@ -524,8 +524,6 @@ class Group(Node, UniqueTreeList):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Main Classes"
-
     __slots__ = ("_children", "_control_interface", "_named_children")
 
     _valid_add_actions: Tuple[int, ...] = (
@@ -849,8 +847,6 @@ class Synth(Node):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Main Classes"
-
     __slots__ = ("_control_interface", "_synthdef")
 
     _valid_add_actions = (AddAction.ADD_BEFORE, AddAction.ADD_AFTER, AddAction.REPLACE)
@@ -991,8 +987,6 @@ class Synth(Node):
 class RootNode(Group):
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Server Internals"
 
     __slots__ = ()
 

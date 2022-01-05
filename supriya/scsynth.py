@@ -26,8 +26,6 @@ class Options:
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Main Classes"
-
     audio_bus_channel_count: int = 1024
     block_size: int = 64
     buffer_count: int = 1024

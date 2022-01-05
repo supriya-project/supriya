@@ -10,10 +10,6 @@ from .bases import MultiOutUGen, UGen
 
 class SynthDefCompiler(SupriyaObject):
 
-    ### CLASS VARIABLES ###
-
-    __documentation_section__ = "SynthDef Internals"
-
     ### PUBLIC METHODS ###
 
     @staticmethod
@@ -226,10 +222,6 @@ class SynthDefDecompiler(SupriyaObject):
         True
 
     """
-
-    ### CLASS VARIABLES ###
-
-    __documentation_section__ = "SynthDef Internals"
 
     ### PRIVATE METHODS ###
 

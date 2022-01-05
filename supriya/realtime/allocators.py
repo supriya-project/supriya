@@ -11,8 +11,6 @@ class Block(Interval):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Server Internals"
-
     __slots__ = ("_used",)
 
     ### INITIALIZER ###
@@ -71,8 +69,6 @@ class BlockAllocator(SupriyaObject):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Server Internals"
 
     __slots__ = ("_free_heap", "_heap_maximum", "_heap_minimum", "_lock", "_used_heap")
 
@@ -237,8 +233,6 @@ class NodeIdAllocator(SupriyaObject):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Server Internals"
 
     __slots__ = (
         "_freed_permanent_ids",

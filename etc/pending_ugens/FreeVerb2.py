@@ -23,8 +23,6 @@ class FreeVerb2(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
     _ordered_input_names = collections.OrderedDict(
         'source',
         'in_2',

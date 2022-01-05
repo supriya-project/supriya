@@ -252,8 +252,6 @@ class Poll(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Utility UGens"
-
     _ordered_input_names = collections.OrderedDict(
         [("trigger", None), ("source", None), ("trigger_id", -1)]
     )

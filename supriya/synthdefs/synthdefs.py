@@ -76,8 +76,6 @@ class SynthDef:
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Main Classes"
-
     __slots__ = (
         "_compiled_ugen_graph",
         "_constants",
@@ -938,10 +936,6 @@ class SynthDef:
 
 class UGenSortBundle(SupriyaObject):
 
-    ### CLASS VARIABLES ###
-
-    __documentation_section__ = "SynthDef Internals"
-
     ### INITIALIZER ###
 
     def __init__(self, ugen, width_first_antecedents):
@@ -993,8 +987,6 @@ class UGenSortBundle(SupriyaObject):
 class SuperColliderSynthDef(SupriyaObject):
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "SynthDef Internals"
 
     __slots__ = ("_body", "_name", "_rates")
 

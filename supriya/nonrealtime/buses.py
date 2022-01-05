@@ -42,8 +42,6 @@ class Bus(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Session Objects"
-
     __slots__ = (
         "_bus_group",
         "_calculation_rate",
@@ -214,8 +212,6 @@ class BusGroup(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Session Objects"
-
     __slots__ = ("_buses", "_calculation_rate", "_session", "_session_id")
 
     ### INITIALIZER ###
@@ -330,8 +326,6 @@ class AudioInputBusGroup(BusGroup):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Session Objects"
-
     __slots__ = ()
 
     ### INITIALIZER ###
@@ -350,8 +344,6 @@ class AudioOutputBusGroup(BusGroup):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Session Objects"
 
     __slots__ = ()
 

@@ -13,8 +13,6 @@ class SessionObject(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Session Internals"
-
     __slots__ = ()
 
     ### INITIALIZER ###

@@ -13,8 +13,6 @@ class ControlInterface(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Server Internals"
-
     __slots__ = ("_synth_controls", "_client")
 
     _bus_pattern = re.compile(r"(?P<type>c|a)(?P<id>\d+)")
@@ -116,8 +114,6 @@ class ControlInterface(SupriyaObject):
 class GroupControl:
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Server Internals"
 
     __slots__ = ("_client", "_name")
 
@@ -302,8 +298,6 @@ class GroupInterface(ControlInterface):
 class SynthControl:
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Server Internals"
 
     __slots__ = (
         "_calculation_rate",

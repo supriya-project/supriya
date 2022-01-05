@@ -20,8 +20,6 @@ class FFTTrigger(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
     _ordered_input_names = collections.OrderedDict(
         'buffer_id',
         'hop',

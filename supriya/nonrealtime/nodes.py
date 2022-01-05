@@ -20,8 +20,6 @@ class Node(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Session Objects"
-
     __slots__ = ("_duration", "_events", "_session", "_session_id", "_start_offset")
 
     _valid_add_actions: Tuple[int, ...] = ()
@@ -554,8 +552,6 @@ class Group(Node):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Session Objects"
-
     __slots__ = ()
 
     _valid_add_actions: Tuple[int, ...] = (
@@ -610,8 +606,6 @@ class Synth(Node):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Session Objects"
 
     __slots__ = ("_synthdef", "_synth_kwargs")
 
@@ -744,8 +738,6 @@ class RootNode(Group):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Session Objects"
 
     __slots__ = ()
 

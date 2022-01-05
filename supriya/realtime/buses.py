@@ -49,8 +49,6 @@ class Bus(ServerObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Main Classes"
-
     __slots__ = (
         "_bus_group",
         "_bus_id",
@@ -308,8 +306,6 @@ class BusGroup(ServerObject):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Main Classes"
 
     __slots__ = ("_bus_id", "_buses", "_calculation_rate")
 
@@ -739,8 +735,6 @@ class BusProxy(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Server Internals"
-
     __slots__ = ("_bus_id", "_calculation_rate", "_server", "_value")
 
     ### INITIALIZER ###
@@ -822,8 +816,6 @@ class AudioInputBusGroup(BusGroup):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Server Internals"
-
     __slots__ = ()
 
     ### INITIALIZER ###
@@ -873,8 +865,6 @@ class AudioOutputBusGroup(BusGroup):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Server Internals"
 
     __slots__ = ()
 

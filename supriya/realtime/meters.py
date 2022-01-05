@@ -49,8 +49,6 @@ class Meters(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Server Internals"
-
     __slots__ = (
         "_input_meter_callback",
         "_input_meter_peak_levels",

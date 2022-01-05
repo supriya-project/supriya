@@ -11,8 +11,6 @@ class Buffer(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Session Objects"
-
     __slots__ = (
         "_buffer_group",
         "_channel_count",
@@ -311,8 +309,6 @@ class BufferGroup(SessionObject):
     """
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Session Objects"
 
     __slots__ = ("_buffers", "_session")
 

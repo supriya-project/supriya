@@ -10,8 +10,6 @@ class UGenMethodMixin(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__: Optional[str] = "SynthDef Internals"
-
     __slots__ = ()
 
     ### SPECIAL METHODS ###
@@ -3232,8 +3230,6 @@ class UGenArray(UGenMethodMixin, collections.abc.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "SynthDef Internals"
-
     __slots__ = ("_ugens",)
 
     ### INITIALIZER ###
@@ -3267,12 +3263,6 @@ class UGenArray(UGenMethodMixin, collections.abc.Sequence):
 
 
 class OutputProxy(UGenMethodMixin):
-
-    ### CLASS VARIABLES ###
-
-    __documentation_section__ = "SynthDef Internals"
-
-    __slots__ = ("_output_index", "_source")
 
     ### INITIALIZER ###
 

@@ -26,8 +26,6 @@ class SessionRenderer(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Session Internals"
-
     __slots__ = (
         "_compiled_sessions",
         "_header_format",

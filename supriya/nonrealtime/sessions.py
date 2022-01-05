@@ -88,8 +88,6 @@ class Session:
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Non-realtime Session"
-
     __is_terminal_ajv_list_item__ = True
 
     _ordered_buffer_post_alloc_request_types = (

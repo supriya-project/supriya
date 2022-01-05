@@ -22,8 +22,6 @@ class Dpoll(DUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
     _ordered_input_names = collections.OrderedDict(
         'source',
         'label',

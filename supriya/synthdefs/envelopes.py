@@ -23,8 +23,6 @@ class Envelope(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Main Classes"
-
     __slots__ = (
         "_envelope_segments",
         "_initial_amplitude",
