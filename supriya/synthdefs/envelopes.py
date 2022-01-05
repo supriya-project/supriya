@@ -83,6 +83,28 @@ class Envelope(SupriyaValueObject):
         return EnvGen.ar(**kwargs)
 
     @classmethod
+    def adsr(
+        cls,
+        attack_time=0.01,
+        decay_time=0.3,
+        sustain=0.5,
+        release_time=1.0,
+        peak=1.0,
+        curve=-4.0,
+        bias=0.0,
+    ):
+        amplitudes = [x + bias for x in [0, peak, peak * sustain, 0]]
+        durations = [attack_time, decay_time, release_time]
+        curves = [curve]
+        release_node = 2
+        return Envelope(
+            amplitudes=amplitudes,
+            durations=durations,
+            curves=curves,
+            release_node=release_node,
+        )
+
+    @classmethod
     def asr(cls, attack_time=0.01, sustain=1.0, release_time=1.0, curve=-4.0):
         amplitudes = (0, float(sustain), 0)
         durations = (float(attack_time), float(release_time))
