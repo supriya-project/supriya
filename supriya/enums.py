@@ -99,6 +99,10 @@ class CalculationRate(IntEnumeration):
     CONTROL = 1
     DEMAND = 3
     SCALAR = 0
+    AR = 2
+    KR = 1
+    DR = 3
+    IR = 0
 
     ### PUBLIC METHODS ###
 
@@ -292,6 +296,10 @@ class ParameterRate(IntEnumeration):
     CONTROL = 3
     SCALAR = 0
     TRIGGER = 1
+    AR = 2
+    KR = 3
+    IR = 0
+    TR = 1
 
 
 class RequestId(IntEnumeration):
