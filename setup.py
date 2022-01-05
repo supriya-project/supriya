@@ -19,9 +19,6 @@ def read_version():
 
 version = read_version()
 
-with open("README.md", "r") as file_pointer:
-    long_description = file_pointer.read()
-
 
 if __name__ == "__main__":
     setup(
@@ -104,7 +101,8 @@ if __name__ == "__main__":
             "synthesis",
         ],
         license="MIT",
-        long_description=long_description,
+        long_description=pathlib.Path("README.md").read_text(),
+        long_description_content_type="text/markdown",
         name=package_name,
         packages=[package_name],
         url=f"https://github.com/josiah-wolf-oberholtzer/{package_name}",
