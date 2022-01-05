@@ -108,8 +108,8 @@ class Bus(ServerObject):
 
             >>> import supriya
             >>> server = supriya.Server.default().boot()
-            >>> control_bus = supriya.Bus.control().allocate()
-            >>> audio_bus = supriya.Bus.audio().allocate()
+            >>> control_bus = server.add_bus("control")
+            >>> audio_bus = server.add_bus("audio")
 
         ::
 
@@ -164,67 +164,6 @@ class Bus(ServerObject):
             self.server.sync()
         return self
 
-    def ar(self):
-        """
-        Creates an audio-rate input ugen subgraph.
-
-        ..  container:: example
-
-            ::
-
-                >>> import supriya.realtime
-                >>> audio_bus = supriya.realtime.Bus(8, "audio")
-                >>> ugen = audio_bus.ar()
-                >>> supriya.graph(ugen)  # doctest: +SKIP
-
-            ::
-
-                >>> print(ugen)
-                synthdef:
-                    name: fb63450852ac2df2fad1242e27a913d6
-                    ugens:
-                    -   In.ar:
-                            bus: 8.0
-
-        ..  container:: example
-
-            ::
-
-                >>> control_bus = supriya.realtime.Bus(8, "control")
-                >>> ugen = control_bus.ar()
-                >>> supriya.graph(ugen)  # doctest: +SKIP
-
-            ::
-
-                >>> print(ugen)
-                synthdef:
-                    name: d48f76506e364201100db95a248cc8e2
-                    ugens:
-                    -   In.kr:
-                            bus: 8.0
-                    -   K2A.ar:
-                            source: In.kr[0]
-
-        Returns ugen.
-        """
-        import supriya.ugens
-
-        channel_count = 1
-        if self.calculation_rate == CalculationRate.AUDIO:
-            ugen = supriya.ugens.In.ar(bus=self.bus_id, channel_count=channel_count)
-        else:
-            ugen = supriya.ugens.In.kr(bus=self.bus_id, channel_count=channel_count)
-            ugen = supriya.ugens.K2A.ar(source=ugen)
-        return ugen
-
-    @classmethod
-    def audio(cls):
-        return cls(calculation_rate=CalculationRate.AUDIO)
-
-    @classmethod
-    def control(cls):
-        return cls(calculation_rate=CalculationRate.CONTROL)
-
     def free(self):
         if not self.is_allocated:
             raise supriya.exceptions.BusNotAllocated
@@ -252,59 +191,6 @@ class Bus(ServerObject):
         assert len(response) == 1
         value = response[0].bus_value
         return value
-
-    def kr(self):
-        """
-        Creates a control-rate input ugen subgraph.
-
-        ..  container:: example
-
-            ::
-
-                >>> import supriya.realtime
-                >>> audio_bus = supriya.realtime.Bus(8, "audio")
-                >>> ugen = audio_bus.kr()
-                >>> supriya.graph(ugen)  # doctest: +SKIP
-
-            ::
-
-                >>> print(ugen)
-                synthdef:
-                    name: 65ceebd3294ae43fa3dd12035e1895fd
-                    ugens:
-                    -   In.ar:
-                            bus: 8.0
-                    -   A2K.kr:
-                            source: In.ar[0]
-
-        ..  container:: example
-
-            ::
-
-                >>> control_bus = supriya.realtime.Bus(8, "control")
-                >>> ugen = control_bus.kr()
-                >>> supriya.graph(ugen)  # doctest: +SKIP
-
-            ::
-
-                >>> print(ugen)
-                synthdef:
-                    name: ef2c11e55da5af28e2ae77c5c8934f3d
-                    ugens:
-                    -   In.kr:
-                            bus: 8.0
-
-        Returns ugen.
-        """
-        import supriya.ugens
-
-        channel_count = 1
-        if self.calculation_rate == CalculationRate.AUDIO:
-            ugen = supriya.ugens.In.ar(bus=self.bus_id, channel_count=channel_count)
-            ugen = supriya.ugens.A2K.kr(source=ugen)
-        else:
-            ugen = supriya.ugens.In.kr(bus=self.bus_id, channel_count=channel_count)
-        return ugen
 
     def set(self, value):
         import supriya.commands
@@ -459,7 +345,7 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> bus = supriya.Bus.audio()
+            >>> bus = supriya.Bus("audio")
             >>> bus in bus_group
             False
 
@@ -529,8 +415,8 @@ class BusGroup(ServerObject):
         ::
 
             >>> server = supriya.Server.default().boot()
-            >>> control_bus_group = supriya.BusGroup.control(4).allocate()
-            >>> audio_bus_group = supriya.BusGroup.audio(4).allocate()
+            >>> control_bus_group = server.add_bus_group(4, "control")
+            >>> audio_bus_group = server.add_bus_group(4, "audio")
 
         ::
 
@@ -639,7 +525,7 @@ class BusGroup(ServerObject):
         ::
 
             >>> server = supriya.Server.default().boot()
-            >>> bus_group = supriya.BusGroup.control(4).allocate()
+            >>> bus_group = server.add_bus_group(4, "control")
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)
 
@@ -654,7 +540,7 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> bus_group = supriya.BusGroup.audio(4)
+            >>> bus_group = supriya.BusGroup(4, "audio")
             >>> bus_group.fill(0.5)
             Traceback (most recent call last):
             ...

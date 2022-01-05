@@ -108,30 +108,12 @@ def test_alloc_read_channel():
     ]
 
 
-def test_copy_from():
+def test_copy():
     session = supriya.nonrealtime.Session()
     with session.at(0):
         buffer_group = session.add_buffer_group(buffer_count=2, frame_count=512)
     with session.at(1):
-        buffer_group[0].copy_from(
-            buffer_group[1],
-            frame_count=128,
-            source_starting_frame=64,
-            target_starting_frame=256,
-        )
-    assert session.to_lists(duration=2) == [
-        [0.0, [["/b_alloc", 0, 512, 1], ["/b_alloc", 1, 512, 1]]],
-        [1.0, [["/b_gen", 0, "copy", 256, 1, 64, 128]]],
-        [2.0, [["/b_free", 0], ["/b_free", 1], [0]]],
-    ]
-
-
-def test_copy_to():
-    session = supriya.nonrealtime.Session()
-    with session.at(0):
-        buffer_group = session.add_buffer_group(buffer_count=2, frame_count=512)
-    with session.at(1):
-        buffer_group[0].copy_to(
+        buffer_group[0].copy(
             buffer_group[1],
             frame_count=256,
             source_starting_frame=128,
@@ -212,8 +194,8 @@ def test_fill_sine_2():
         [
             1.0,
             [
-                ["/b_gen", 0, "sine2", 7, 1.0, 4.0, 2.0, 5.0, 3.0, 6.0],
-                ["/b_gen", 1, "sine2", 0, 0.75, 7.0, 0.5, 8.0],
+                ["/b_gen", 0, "sine2", 7, 4.0, 1.0, 5.0, 2.0, 6.0, 3.0],
+                ["/b_gen", 1, "sine2", 0, 7.0, 0.75, 8.0, 0.5],
             ],
         ],
         [2.0, [["/b_free", 0], ["/b_free", 1], [0]]],
@@ -233,8 +215,8 @@ def test_fill_sine_3():
         [
             1.0,
             [
-                ["/b_gen", 0, "sine3", 7, 1.0, 4.0, 0.1, 2.0, 5.0, 0.2, 3.0, 6.0, 0.3],
-                ["/b_gen", 1, "sine3", 0, 0.75, 7.0, 0.8, 0.5, 8.0, 0.6],
+                ["/b_gen", 0, "sine3", 7, 4.0, 1.0, 0.1, 5.0, 2.0, 0.2, 6.0, 3.0, 0.3],
+                ["/b_gen", 1, "sine3", 0, 7.0, 0.75, 0.8, 8.0, 0.5, 0.6],
             ],
         ],
         [2.0, [["/b_free", 0], ["/b_free", 1], [0]]],

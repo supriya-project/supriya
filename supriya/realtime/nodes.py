@@ -173,17 +173,24 @@ class Node(ServerObject, UniqueTreeNode):
         elif response.action == NodeAction.NODE_DEACTIVATED:
             self._is_paused = True
         elif response.action == NodeAction.NODE_MOVED:
+            old_parent = self.parent
             new_parent = self.server._nodes[response.parent_id]
-            if new_parent is self.parent:
-                new_index = 0
-                if response.previous_node_id is not None:
-                    previous_node = self.server._nodes[response.previous_node_id]
+            old_index = self.parent.index(self)
+            new_index = None
+            if (
+                previous_node := self.server._nodes.get(response.previous_node_id)
+            ) is not None:
+                try:
                     new_index = new_parent.index(previous_node) + 1
-                elif response.next_node_id is not None:
-                    next_node = self.server._nodes[response.next_node_id]
+                except ValueError:
+                    pass
+            if (next_node := self.server._nodes.get(response.next_node_id)) is not None:
+                try:
                     new_index = new_parent.index(next_node)
-                old_index = self.parent.index(self)
-                if new_index != self.parent.index(self):
+                except ValueError:
+                    pass
+            if new_parent is old_parent:
+                if new_index is not None and new_index != old_index:
                     if new_index < old_index:
                         self.parent._children.remove(self)
                         self.parent._children.insert(new_index, self)
@@ -192,14 +199,8 @@ class Node(ServerObject, UniqueTreeNode):
                         self.parent._children.pop(old_index)
             else:
                 self._set_parent(new_parent)
-                index = 0
-                if response.previous_node_id is not None:
-                    previous_node = self.server._nodes[response.previous_node_id]
-                    index = new_parent.index(previous_node) + 1
-                elif response.next_node_id is not None:
-                    next_node = self.server._nodes[response.next_node_id]
-                    index = new_parent.index(next_node)
-                new_parent._children.insert(index, self)
+                new_index = new_index or 0
+                new_parent._children.insert(new_index, self)
 
     def _move_node(self, *, add_action, node):
         target_node = self
@@ -398,9 +399,11 @@ class Node(ServerObject, UniqueTreeNode):
             index = self.parent.index(self)
             self.parent.insert(index + 1, node)
         elif add_action == AddAction.ADD_TO_HEAD:
-            cast(Group, self).insert(0, node)
+            cast(Group, self).prepend(node)
         elif add_action == AddAction.ADD_TO_TAIL:
             cast(Group, self).append(node)
+        elif add_action == AddAction.REPLACE:
+            self.replace_with(node)
         return node
 
     def pause(self):
@@ -783,6 +786,9 @@ class Group(Node, UniqueTreeList):
             node._unregister_with_local_server()
         Node.free(self)
         return self
+
+    def prepend(self, expr):
+        self[0:0] = [expr]
 
     ### PUBLIC PROPERTIES ###
 

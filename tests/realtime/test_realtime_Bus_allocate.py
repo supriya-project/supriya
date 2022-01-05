@@ -4,7 +4,7 @@ import supriya.synthdefs
 
 def test_01(server):
 
-    control_bus = supriya.realtime.Bus.control()
+    control_bus = supriya.realtime.Bus(calculation_rate=supriya.CalculationRate.CONTROL)
 
     assert control_bus.bus_group is None
     assert control_bus.bus_id is None
@@ -32,7 +32,7 @@ def test_01(server):
 
 def test_02(server):
 
-    audio_bus = supriya.realtime.Bus.audio()
+    audio_bus = supriya.realtime.Bus(calculation_rate=supriya.CalculationRate.AUDIO)
 
     assert audio_bus.bus_group is None
     assert audio_bus.bus_id is None
@@ -88,10 +88,10 @@ def test_03(server):
 
 def test_04(server):
 
-    bus_a = supriya.realtime.Bus.control()
-    bus_b = supriya.realtime.Bus.control()
-    bus_c = supriya.realtime.Bus.control()
-    bus_d = supriya.realtime.Bus.control()
+    bus_a = supriya.realtime.Bus(calculation_rate=supriya.CalculationRate.CONTROL)
+    bus_b = supriya.realtime.Bus(calculation_rate=supriya.CalculationRate.CONTROL)
+    bus_c = supriya.realtime.Bus(calculation_rate=supriya.CalculationRate.CONTROL)
+    bus_d = supriya.realtime.Bus(calculation_rate=supriya.CalculationRate.CONTROL)
 
     assert bus_a.bus_id is None
     assert bus_b.bus_id is None
