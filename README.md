@@ -428,6 +428,14 @@ Patterns can be played (and stopped) in real-time contexts:
 
 Supriya also supports asyncio, with async servers, providers and clocks.
 
+Async servers expose a minimal interface (effectively just `.boot()`, `.send()`
+and `.quit()`), and don't support the rich stateful entities their non-async
+siblings do (e.g. `Group`, `Synth`, `Bus`, `Buffer`). To split the difference,
+we'll wrap the async server with a `Provider` that exposes an API of common
+actions and returns lightweight stateless *proxies* we can use as references.
+The proxies know their IDs and provide convenience functions, but otherwise
+don't keep track of changes reported by the server.
+
 Let's grab a couple imports:
 
 ```python
@@ -523,3 +531,8 @@ playing a bird...
 playing a bird...
 ... done!
 ```
+
+Working async means we can hook into other interesting projects like
+[python-prompt-toolkit](https://python-prompt-toolkit.readthedocs.io/),
+[aiohttp](https://docs.aiohttp.org/) and
+[pymonome](https://github.com/artfwo/pymonome).
