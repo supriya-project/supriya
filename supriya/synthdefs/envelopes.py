@@ -1,6 +1,8 @@
 from supriya import EnvelopeShape, utils
 from supriya.system import SupriyaValueObject
 
+from .mixins import OutputProxy
+
 
 class Envelope(SupriyaValueObject):
     """
@@ -15,7 +17,7 @@ class Envelope(SupriyaValueObject):
     ::
 
         >>> envelope.serialize()
-        [0.0, 2, -99, -99, 1.0, 1.0, 1, 0.0, 0.0, 1.0, 1, 0.0]
+        [0.0, 2.0, -99.0, -99.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0]
 
     """
 
@@ -44,30 +46,12 @@ class Envelope(SupriyaValueObject):
     ):
         assert len(amplitudes)
         assert len(durations) and len(durations) == (len(amplitudes) - 1)
-        amplitudes = list(amplitudes)
-        for i, amplitude in enumerate(amplitudes):
-            if isinstance(amplitude, int):
-                amplitudes[i] = float(amplitude)
-        durations = list(durations)
-        for i, duration in enumerate(durations):
-            if isinstance(duration, int):
-                durations[i] = float(duration)
-        if isinstance(curves, (int, float, str, EnvelopeShape)):
-            curves = (curves,)
+        if isinstance(curves, (int, float, str, EnvelopeShape, OutputProxy)):
+            curves = [curves]
         elif curves is None:
-            curves = ()
-        curves = tuple(curves)
-        if release_node is not None:
-            release_node = int(release_node)
-            assert 0 <= release_node < len(amplitudes)
+            curves = []
         self._release_node = release_node
-        if loop_node is not None:
-            assert self._release_node is not None
-            loop_node = int(loop_node)
-            assert 0 <= loop_node <= release_node
         self._loop_node = loop_node
-        if offset is not None:
-            offset = float(offset)
         self._offset = offset
         self._initial_amplitude = amplitudes[0]
         self._envelope_segments = tuple(
@@ -75,12 +59,6 @@ class Envelope(SupriyaValueObject):
         )
 
     ### PUBLIC METHODS ###
-
-    def ar(self, **kwargs):
-        from supriya.ugens import EnvGen
-
-        kwargs["envelope"] = self
-        return EnvGen.ar(**kwargs)
 
     @classmethod
     def adsr(
@@ -106,9 +84,9 @@ class Envelope(SupriyaValueObject):
 
     @classmethod
     def asr(cls, attack_time=0.01, sustain=1.0, release_time=1.0, curve=-4.0):
-        amplitudes = (0, float(sustain), 0)
-        durations = (float(attack_time), float(release_time))
-        curves = (float(curve),)
+        amplitudes = [0, sustain, 0]
+        durations = [attack_time, release_time]
+        curves = [curve]
         release_node = 1
         return Envelope(
             amplitudes=amplitudes,
@@ -142,12 +120,6 @@ class Envelope(SupriyaValueObject):
             offset=offset,
         )
 
-    def kr(self, **kwargs):
-        from supriya.ugens import EnvGen
-
-        kwargs["envelope"] = self
-        return EnvGen.kr(**kwargs)
-
     @classmethod
     def percussive(cls, attack_time=0.01, release_time=1.0, amplitude=1.0, curve=-4.0):
         """
@@ -166,21 +138,21 @@ class Envelope(SupriyaValueObject):
         ::
 
             >>> envelope.serialize()
-            [0.0, 2, -99, -99, 1.0, 0.01, 5, -4.0, 0.0, 1.0, 5, -4.0]
+            [0.0, 2.0, -99.0, -99.0, 1.0, 0.01, 5.0, -4.0, 0.0, 1.0, 5.0, -4.0]
 
         """
-        amplitudes = (0, float(amplitude), 0)
-        durations = (float(attack_time), float(release_time))
-        curves = (float(curve),)
+        amplitudes = [0, amplitude, 0]
+        durations = [attack_time, release_time]
+        curves = [curve]
         return Envelope(amplitudes=amplitudes, durations=durations, curves=curves)
 
     @classmethod
     def linen(
         cls, attack_time=0.01, sustain_time=1.0, release_time=1.0, level=1.0, curve=1
     ):
-        amplitudes = (0, level, level, 0)
-        durations = (attack_time, sustain_time, release_time)
-        curves = (float(curve),)
+        amplitudes = [0, level, level, 0]
+        durations = [attack_time, sustain_time, release_time]
+        curves = [curve]
         return Envelope(amplitudes=amplitudes, durations=durations, curves=curves)
 
     def serialize(self, for_interpolation=False):
@@ -223,7 +195,12 @@ class Envelope(SupriyaValueObject):
                     shape = 5
                 result.append(shape)
                 result.append(curve)
-        return result
+        serialized = []
+        for x in result:
+            if isinstance(x, int):
+                x = float(x)
+            serialized.append(x)
+        return serialized
 
     @classmethod
     def triangle(cls, duration=1.0, amplitude=1.0):
@@ -242,12 +219,12 @@ class Envelope(SupriyaValueObject):
         ::
 
             >>> envelope.serialize()
-            [0.0, 2, -99, -99, 1.0, 0.5, 1, 0.0, 0.0, 0.5, 1, 0.0]
+            [0.0, 2.0, -99.0, -99.0, 1.0, 0.5, 1.0, 0.0, 0.0, 0.5, 1.0, 0.0]
 
         """
-        amplitudes = (0, float(amplitude), 0)
-        duration = float(duration) / 2.0
-        durations = (duration, duration)
+        amplitudes = [0, amplitude, 0]
+        duration = duration / 2.0
+        durations = [duration, duration]
         return Envelope(amplitudes=amplitudes, durations=durations)
 
     ### PUBLIC PROPERTIES ###
