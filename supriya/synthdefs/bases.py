@@ -2,7 +2,7 @@ import abc
 import collections
 import inspect
 from collections.abc import Iterable, Sequence
-from typing import Optional, Tuple
+from typing import Tuple
 
 import uqbar.strings
 

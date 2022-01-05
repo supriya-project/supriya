@@ -10,7 +10,6 @@ class Recorder(SupriyaObject):
 
     ::
 
-        >>> import supriya
         >>> import os, tempfile, time
         >>> server = supriya.Server.default().boot()
         >>> with tempfile.TemporaryDirectory() as tempdir:

@@ -1,6 +1,5 @@
 import collections.abc
 import copy
-from typing import Optional
 
 from supriya import BinaryOperator, SignalRange, UnaryOperator
 from supriya.system import SupriyaObject

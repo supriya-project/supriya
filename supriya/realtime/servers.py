@@ -551,7 +551,6 @@ class Server(BaseServer):
 
         ::
 
-            >>> import supriya
             >>> server = supriya.Server.default().boot()
             >>> group = supriya.Group(
             ...     [supriya.Synth(), supriya.Group([supriya.Synth(), supriya.Synth(),]),]
