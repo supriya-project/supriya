@@ -73,7 +73,10 @@ class ControlInterface(SupriyaObject):
                 n_map_settings[control_name] = -1
                 control._unmap()
             else:
-                raise ValueError(value)
+                try:
+                    control._set_to_number(float(value))
+                except TypeError:
+                    raise ValueError(value)
         requests = []
         if self.client.is_allocated:
             if n_set_settings:
