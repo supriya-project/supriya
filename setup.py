@@ -19,7 +19,7 @@ def read_version():
 
 version = read_version()
 
-with open("README.rst", "r") as file_pointer:
+with open("README.md", "r") as file_pointer:
     long_description = file_pointer.read()
 
 
