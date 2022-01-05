@@ -1,14 +1,21 @@
-global-include *.py
-global-include *.pyx
 global-exclude *.pyc
 
 include LICENSE
 include MANIFEST.in
-include README.rst
-include graph.png
-include requirements.txt
+include README.md
 include setup.cfg
 include setup.py
 
-recursive-include supriya/assets *
-recursive-include supriya/scripts *
+exclude conftest.py
+
+recursive-include supriya/ *.py
+recursive-include supriya/ *.pxd
+recursive-include supriya/ *.pyx
+recursive-include supriya/assets/ *
+recursive-include vendor/ *
+
+recursive-exclude dist/ *
+recursive-exclude docs/ *
+recursive-exclude etc/ *
+recursive-exclude tests/ *
+recursive-exclude tools/ *

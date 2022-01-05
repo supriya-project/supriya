@@ -34,12 +34,50 @@ jobs:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
 
+  packaging:
+    name: Check packaging
+    needs: [cancel]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: [3.9]
+        os: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Build package
+      run: make build
+    - name: Expand package
+      run: |
+        cd dist/
+        tar xvf *.gz
+        rm *.gz
+        mv supriya* supriya
+    - name: Install packaged supriya
+      run: |
+        cd dist/supriya
+        pip install .
+    - name: Wipe out dirs
+      run: |
+        rm -Rf dist/
+        rm -Rf supriya/
+    - name: Sanity-check Supriya
+      run: ls /opt/hostedtoolcache/Python/3.9.9/x64/lib/python3.9/site-packages/supriya/
+    - name: Sanity-check Supriya
+      run: python -c "from supriya import Server; print(Server)"
+    - name: Sanity-check Supriya
+      run: python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
+
   install:
     name: Install Supriya
     needs: [cancel]
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         python-version: [3.8, 3.9, "3.10"]
         os: [ubuntu-latest]
@@ -65,7 +103,7 @@ jobs:
     needs: [install]
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         python-version: [3.9]
     steps:
@@ -92,7 +130,7 @@ jobs:
 
   test:
     name: Test Supriya
-    needs: [supercollider]
+    needs: [supercollider, install, packaging]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
