@@ -26,7 +26,7 @@ def test_allocate_ids_before_remote_application(server):
     message.
     """
     synth = supriya.realtime.Synth()
-    group = supriya.realtime.Group().allocate()
+    group = supriya.realtime.Group().allocate(server)
     assert synth.node_id is None
     assert group.node_id == 1000
     request = supriya.commands.SynthNewRequest(
@@ -50,8 +50,8 @@ def test_no_preexisting_synth_object(server):
     Communicating without a pre-existing synth creates that synth during local
     application.
     """
-    synthdef = supriya.assets.synthdefs.test.allocate()
-    group = supriya.realtime.Group().allocate()
+    synthdef = supriya.assets.synthdefs.test.allocate(server)
+    group = supriya.realtime.Group().allocate(server)
     request = supriya.commands.SynthNewRequest(
         node_id=666, synthdef=synthdef, target_node_id=group
     )
@@ -68,8 +68,8 @@ def test_no_preexisting_synth_object(server):
 
 
 def test_bus_symbol_mapping(server):
-    synthdef = supriya.assets.synthdefs.test.allocate()
-    group = supriya.realtime.Group().allocate()
+    synthdef = supriya.assets.synthdefs.test.allocate(server)
+    group = supriya.realtime.Group().allocate(server)
     request = supriya.commands.SynthNewRequest(
         node_id=666,
         synthdef=synthdef,

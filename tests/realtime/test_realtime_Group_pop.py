@@ -7,7 +7,7 @@ import supriya.realtime
 def test_01(server):
 
     group_a = supriya.realtime.Group()
-    group_a.allocate()
+    group_a.allocate(server)
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group_a.append(synth_a)
     group_b = supriya.realtime.Group()

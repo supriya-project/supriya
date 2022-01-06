@@ -10,8 +10,8 @@ def test_01(server):
     synth_c = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_e = supriya.realtime.Synth(supriya.assets.synthdefs.test)
-    synth_a.allocate()
-    synth_b.allocate()
+    synth_a.allocate(server)
+    synth_b.allocate(server)
     server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """

@@ -9,7 +9,7 @@ def test_Node_parentage_01(server):
     root_node = server.root_node
     default_group = server.default_group
 
-    group_a = supriya.realtime.Group().allocate()
+    group_a = supriya.realtime.Group().allocate(server)
     group_b = supriya.realtime.Group().allocate(target_node=group_a)
     group_c = supriya.realtime.Group().allocate(target_node=group_b)
     group_d = supriya.realtime.Group().allocate(target_node=group_c)

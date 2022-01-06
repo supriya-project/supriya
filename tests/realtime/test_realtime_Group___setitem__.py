@@ -6,7 +6,7 @@ import supriya.realtime
 
 def test_01(server):
 
-    group = supriya.realtime.Group().allocate()
+    group = supriya.realtime.Group().allocate(server)
     assert len(group) == 0
     remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
@@ -54,7 +54,7 @@ def test_01(server):
 
 def test_02(server):
 
-    group = supriya.realtime.Group().allocate()
+    group = supriya.realtime.Group().allocate(server)
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
 
@@ -125,7 +125,7 @@ def test_02(server):
 def test_03(server):
 
     group_a = supriya.realtime.Group()
-    group_a.allocate()
+    group_a.allocate(server)
 
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group_a.append(synth_a)
@@ -353,8 +353,8 @@ def test_03(server):
 
 def test_04(server):
 
-    group_a = supriya.realtime.Group().allocate()
-    group_b = supriya.realtime.Group().allocate()
+    group_a = supriya.realtime.Group().allocate(server)
+    group_b = supriya.realtime.Group().allocate(server)
 
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
@@ -583,7 +583,7 @@ def test_05(server):
 
     synth_e = supriya.realtime.Synth(supriya.assets.synthdefs.test, name="Synth E")
 
-    group_a.allocate()
+    group_a.allocate(server)
 
     remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
@@ -683,8 +683,8 @@ def test_06(server):
     synth_b["amplitude"] = 0.5
     synth_b["frequency"] = 443
 
-    audio_bus = supriya.realtime.Bus(0, "audio").allocate()
-    control_bus = supriya.realtime.Bus(1, "control").allocate()
+    audio_bus = supriya.realtime.Bus(0, "audio").allocate(server)
+    control_bus = supriya.realtime.Bus(1, "control").allocate(server)
 
     synth_c = supriya.realtime.Synth(
         name="Synth C", synthdef=supriya.assets.synthdefs.test
@@ -707,7 +707,7 @@ def test_06(server):
         """
     )
 
-    group.allocate()
+    group.allocate(server)
 
     group_state = str(group)
     assert group_state == uqbar.strings.normalize(

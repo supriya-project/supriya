@@ -13,7 +13,7 @@ def test_allocate_synthdef(server):
     assert synth_a.node_id is None
     assert synth_a not in server
     with server.osc_protocol.capture() as transcript:
-        synth_a.allocate()
+        synth_a.allocate(server)
     assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
@@ -44,14 +44,14 @@ def test_allocate_synthdef(server):
 
 def test_no_reallocate_synthdef(server):
     synthdef = supriya.assets.synthdefs.test
-    supriya.realtime.Synth(synthdef=synthdef).allocate()
+    supriya.realtime.Synth(synthdef=synthdef).allocate(server)
     # SynthDef won't be allocated again
     synth_b = supriya.realtime.Synth(synthdef=synthdef)
     assert not synth_b.is_allocated
     assert synth_b.node_id is None
     assert synth_b not in server
     with server.osc_protocol.capture() as transcript:
-        synth_b.allocate()
+        synth_b.allocate(server)
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", OscMessage("/s_new", "test", 1001, 0, 1)),
         ("R", OscMessage("/n_go", 1001, 1, -1, 1000, 0)),
@@ -78,7 +78,7 @@ def test_replace(server):
     synthdef = supriya.assets.synthdefs.test
     synth_a = supriya.realtime.Synth()
     synth_b = supriya.realtime.Synth(synthdef=synthdef)
-    synth_a.allocate()
+    synth_a.allocate(server)
     assert synth_a.node_id == 1000
     assert server[1000] is synth_a
     assert synth_a in server
@@ -130,7 +130,7 @@ def test_replace(server):
 
 
 def test_settings(server):
-    group = supriya.realtime.Group().allocate()
+    group = supriya.realtime.Group().allocate(server)
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_a.allocate(target_node=group)
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
@@ -186,8 +186,8 @@ def test_settings(server):
     assert synth_a["amplitude"] == 0.5
     assert synth_b["frequency"] == 441.0
     assert synth_b["amplitude"] == 0.25
-    bus_a = supriya.realtime.Bus(calculation_rate="control").allocate()
-    bus_b = supriya.realtime.Bus(calculation_rate="audio").allocate()
+    bus_a = supriya.realtime.Bus(calculation_rate="control").allocate(server)
+    bus_b = supriya.realtime.Bus(calculation_rate="audio").allocate(server)
     synth_a["frequency"] = bus_a
     synth_b["amplitude"] = bus_b
     server_state = str(server.query())
@@ -209,7 +209,7 @@ def test_settings(server):
 
 
 def test_mapping(server):
-    synthdef = supriya.assets.synthdefs.test.allocate()
+    synthdef = supriya.assets.synthdefs.test.allocate(server)
     synth = supriya.realtime.Synth(synthdef=synthdef)
     synth["frequency"] = 443
     synth["amplitude"] = 0.5
@@ -217,7 +217,7 @@ def test_mapping(server):
     assert synth["amplitude"] == 0.5
     # Allocate and verify messaging and server state
     with server.osc_protocol.capture() as transcript:
-        synth.allocate()
+        synth.allocate(server)
     assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
@@ -241,15 +241,15 @@ def test_mapping(server):
     assert synth["frequency"] == 443
     assert synth["amplitude"] == 0.5
     # Map controls to buses
-    control_bus = supriya.realtime.Bus(0, calculation_rate="control").allocate()
-    audio_bus = supriya.realtime.Bus(0, calculation_rate="audio").allocate()
+    control_bus = supriya.realtime.Bus(0, calculation_rate="control").allocate(server)
+    audio_bus = supriya.realtime.Bus(0, calculation_rate="audio").allocate(server)
     synth["frequency"] = control_bus
     synth["amplitude"] = audio_bus
     assert synth["frequency"] == control_bus
     assert synth["amplitude"] == audio_bus
     # Allocate and verify messaging and server state
     with server.osc_protocol.capture() as transcript:
-        synth.allocate()
+        synth.allocate(server)
     assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",

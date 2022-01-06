@@ -507,7 +507,7 @@ class Group(Node, UniqueTreeList):
     ::
 
         >>> group = supriya.realtime.Group()
-        >>> group.allocate()
+        >>> group.allocate(server)
         <+ Group: 1000>
 
     ::
@@ -748,7 +748,7 @@ class Group(Node, UniqueTreeList):
     ### PUBLIC METHODS ###
 
     def allocate(
-        self, add_action=None, node_id_is_permanent=False, sync=False, target_node=None
+        self, target_node, add_action=None, node_id_is_permanent=False, sync=False
     ):
         # TODO: Consolidate this with Group.allocate()
         import supriya.commands
@@ -829,7 +829,7 @@ class Synth(Node):
 
     ::
 
-        >>> synth.allocate()
+        >>> synth.allocate(server)
         <+ Synth: 1000 e41193ac8b7216f49ff0d477876a3bf3>
 
     ::
@@ -931,10 +931,10 @@ class Synth(Node):
 
     def allocate(
         self,
+        target_node,
         add_action=None,
         node_id_is_permanent=False,
         sync=True,
-        target_node=None,
         **kwargs,
     ):
         import supriya.commands

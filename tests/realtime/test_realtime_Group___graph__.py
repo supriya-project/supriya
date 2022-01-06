@@ -48,7 +48,7 @@ def test_01(server):
         }
         """
     )
-    outer_group.allocate()
+    outer_group.allocate(server)
     assert format(outer_group.__graph__(), "graphviz") == uqbar.strings.normalize(
         """
         digraph G {

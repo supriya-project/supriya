@@ -16,7 +16,7 @@ class GroupDeepFreeRequest(Request):
     ::
 
         >>> server = supriya.Server.default().boot()
-        >>> group = supriya.Group().allocate()
+        >>> group = supriya.Group().allocate(server)
         >>> group.extend([supriya.Synth(), supriya.Group()])
         >>> group[1].extend([supriya.Synth(), supriya.Group()])
         >>> group[1][1].extend([supriya.Synth(), supriya.Group()])
@@ -116,7 +116,7 @@ class GroupFreeAllRequest(Request):
     ::
 
         >>> server = supriya.Server.default().boot()
-        >>> group = supriya.Group().allocate()
+        >>> group = supriya.Group().allocate(server)
         >>> group.extend([supriya.Synth(), supriya.Group()])
         >>> group[1].extend([supriya.Synth(), supriya.Group()])
         >>> group[1][1].extend([supriya.Synth(), supriya.Group()])
@@ -213,7 +213,7 @@ class GroupNewRequest(Request):
     ::
 
         >>> server = supriya.Server.default().boot()
-        >>> group = supriya.Group().allocate()
+        >>> group = supriya.Group().allocate(server)
 
     ::
 
@@ -424,7 +424,7 @@ class ParallelGroupNewRequest(GroupNewRequest):
     ::
 
         >>> server = supriya.Server.default().boot()
-        >>> group = supriya.Group().allocate()
+        >>> group = supriya.Group().allocate(server)
 
     ::
 

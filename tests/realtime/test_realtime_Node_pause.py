@@ -3,7 +3,7 @@ from supriya.osc import OscBundle, OscMessage
 
 
 def test_synth_pause_unpause(server):
-    synth = supriya.realtime.Synth().allocate()
+    synth = supriya.realtime.Synth().allocate(server)
     assert not synth.is_paused
     with server.osc_protocol.capture() as transcript:
         synth.pause()
@@ -28,7 +28,7 @@ def test_synth_pause_unpause(server):
 
 
 def test_group_pause_unpause(server):
-    group = supriya.realtime.Group().allocate()
+    group = supriya.realtime.Group().allocate(server)
     assert not group.is_paused
     with server.osc_protocol.capture() as transcript:
         group.pause()
@@ -57,7 +57,7 @@ def test_synth_allocate_free_paused(server):
     synth.pause()
     assert synth.is_paused
     with server.osc_protocol.capture() as transcript:
-        synth.allocate()
+        synth.allocate(server)
     bundle = OscBundle(
         contents=(
             OscMessage("/s_new", "test", 1000, 0, 1),
@@ -86,7 +86,7 @@ def test_group_allocate_paused(server):
     group.pause()
     assert group.is_paused
     with server.osc_protocol.capture() as transcript:
-        group.allocate()
+        group.allocate(server)
     assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
@@ -124,7 +124,7 @@ def test_group_allocate_nested_paused(server):
     assert not group[1].is_paused
     assert group[1][0].is_paused
     with server.osc_protocol.capture() as transcript:
-        group.allocate()
+        group.allocate(server)
     assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",

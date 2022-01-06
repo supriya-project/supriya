@@ -482,7 +482,7 @@ class Server(BaseServer):
         ::
 
             >>> server = supriya.Server.default().boot()
-            >>> supriya.Synth(name="foo").allocate()
+            >>> supriya.Synth(name="foo").allocate(server)
             <+ Synth: 1000 default (foo)>
 
         ::
@@ -554,7 +554,7 @@ class Server(BaseServer):
             >>> server = supriya.Server.default().boot()
             >>> group = supriya.Group(
             ...     [supriya.Synth(), supriya.Group([supriya.Synth(), supriya.Synth(),]),]
-            ... ).allocate()
+            ... ).allocate(server)
 
         ::
 

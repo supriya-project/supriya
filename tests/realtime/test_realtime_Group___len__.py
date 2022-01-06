@@ -7,7 +7,7 @@ import supriya.realtime
 def test_01(server):
 
     group_a = supriya.realtime.Group()
-    group_a.allocate()
+    group_a.allocate(server)
 
     assert len(group_a) == 0
 
