@@ -28,8 +28,6 @@ Supriya lets you:
 
 - Integrate with `IPython`_, `Sphinx`_ and `Graphviz`_
 
-Supriya is compatible with Python 3.8+ only.
-
 Quickstart
 ----------
 
@@ -137,17 +135,16 @@ Quit the server::
 
     >>> server.quit()
 
-Dive in deeper
---------------
-
 .. toctree::
     :caption: Getting Started
+    :hidden:
 
     installation
     concepts
 
 .. toctree::
     :caption: Tutorials
+    :hidden:
 
     realtime/index
     nonrealtime/index
@@ -160,31 +157,30 @@ Dive in deeper
 .. toctree::
     :caption: How-to Guides
     :glob:
+    :hidden:
 
     guides/*
 
 .. toctree::
-    :caption: API
+    :caption: API Reference
+    :hidden:
     :maxdepth: 2
 
     api/supriya/index
 
 .. toctree::
-    :caption: For Developers
+    :caption: Internals
+    :glob:
+    :hidden:
 
-    cicd
-    ipython
-    sphinx
-    graphviz
+    internals/*
+
 
 .. toctree::
-    :caption: Reference
+    :caption: Appendix
+    :hidden:
 
     glossary
-
-Index
------
-:ref:`genindex`
 
 ..  _Cython: https://cython.org/
 ..  _GitHub: https://github.com/josiah-wolf-oberholtzer/supriya
