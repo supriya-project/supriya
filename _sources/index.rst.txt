@@ -36,13 +36,13 @@ Quickstart
 
 .. tab-set::
 
-    .. tab-item:: From `PyPI`_
+    .. tab-item:: From PyPI
 
         ::
 
             pip install supriya
 
-    .. tab-item:: From `GitHub`_
+    .. tab-item:: From source
 
         ::
 
