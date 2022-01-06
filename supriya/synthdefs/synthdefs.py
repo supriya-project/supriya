@@ -46,7 +46,7 @@ class SynthDef:
     ::
 
         >>> import supriya.realtime
-        >>> server = supriya.Server.default().boot()
+        >>> server = supriya.Server().boot()
 
     ::
 

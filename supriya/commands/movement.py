@@ -64,7 +64,7 @@ class GroupHeadRequest(MoveRequest):
 
     ::
 
-        >>> server = supriya.Server.default().boot()
+        >>> server = supriya.Server().boot()
         >>> group = supriya.Group().allocate(server)
         >>> synth = supriya.Synth().allocate(server)
         >>> group.extend([supriya.Group(), supriya.Group()])
@@ -141,7 +141,7 @@ class GroupTailRequest(MoveRequest):
 
     ::
 
-        >>> server = supriya.Server.default().boot()
+        >>> server = supriya.Server().boot()
         >>> group = supriya.Group().allocate(server)
         >>> synth = supriya.Synth().allocate(server)
         >>> group.extend([supriya.Group(), supriya.Group()])
@@ -218,7 +218,7 @@ class NodeAfterRequest(MoveRequest):
 
     ::
 
-        >>> server = supriya.Server.default().boot()
+        >>> server = supriya.Server().boot()
         >>> group_a = supriya.Group([supriya.Group(), supriya.Group()])
         >>> group_b = supriya.Group([supriya.Group(), supriya.Group()])
         >>> synth_a = supriya.Synth()
@@ -311,7 +311,7 @@ class NodeBeforeRequest(MoveRequest):
 
     ::
 
-        >>> server = supriya.Server.default().boot()
+        >>> server = supriya.Server().boot()
         >>> group_a = supriya.Group([supriya.Group(), supriya.Group()])
         >>> group_b = supriya.Group([supriya.Group(), supriya.Group()])
         >>> synth_a = supriya.Synth()

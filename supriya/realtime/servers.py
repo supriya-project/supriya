@@ -417,7 +417,7 @@ class Server(BaseServer):
     ::
 
         >>> import supriya.realtime
-        >>> server = supriya.realtime.Server.default()
+        >>> server = supriya.realtime.Server()
         >>> server.boot()
         <Server: udp://127.0.0.1:57110, 8i8o>
 
@@ -481,7 +481,7 @@ class Server(BaseServer):
 
         ::
 
-            >>> server = supriya.Server.default().boot()
+            >>> server = supriya.Server().boot()
             >>> supriya.Synth(name="foo").allocate(server)
             <+ Synth: 1000 default (foo)>
 
@@ -551,7 +551,7 @@ class Server(BaseServer):
 
         ::
 
-            >>> server = supriya.Server.default().boot()
+            >>> server = supriya.Server().boot()
             >>> group = supriya.Group(
             ...     [supriya.Synth(), supriya.Group([supriya.Synth(), supriya.Synth(),]),]
             ... ).allocate(server)

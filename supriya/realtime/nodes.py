@@ -500,7 +500,7 @@ class Group(Node, UniqueTreeList):
     ::
 
         >>> import supriya.realtime
-        >>> server = supriya.Server.default()
+        >>> server = supriya.Server()
         >>> server.boot()
         <Server: udp://127.0.0.1:57110, 8i8o>
 
@@ -802,7 +802,7 @@ class Synth(Node):
     ::
 
         >>> import supriya.realtime
-        >>> server = supriya.Server.default()
+        >>> server = supriya.Server()
         >>> server.boot()
         <Server: udp://127.0.0.1:57110, 8i8o>
 

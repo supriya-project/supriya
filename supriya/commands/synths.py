@@ -174,7 +174,7 @@ class SynthQueryRequest(Request):
 
     ::
 
-        >>> server = supriya.Server.default().boot()
+        >>> server = supriya.Server().boot()
         >>> synth = supriya.Synth().allocate(server)
         >>> request.communicate(server)
         SynthInfoResponse(

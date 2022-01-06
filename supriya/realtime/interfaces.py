@@ -184,7 +184,7 @@ class GroupInterface(ControlInterface):
 
     ::
 
-        >>> server = supriya.Server.default().boot()
+        >>> server = supriya.Server().boot()
         >>> group = supriya.Group().allocate(server)
         >>> group.extend(
         ...     [

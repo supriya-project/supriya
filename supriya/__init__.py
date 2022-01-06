@@ -89,5 +89,3 @@ from .providers import Provider  # noqa
 from .scsynth import Options  # noqa
 from .soundfiles import Say, SoundFile  # noqa
 from .system import Assets  # noqa
-
-server = Server.default()
