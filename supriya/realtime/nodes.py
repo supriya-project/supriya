@@ -994,7 +994,7 @@ class RootNode(Group):
 
     ### INITIALIZER ###
 
-    def __init__(self, server=None):
+    def __init__(self, server):
         super().__init__()
         self._server = server
 

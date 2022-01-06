@@ -1782,9 +1782,7 @@ class BufferGroup(ServerObject):
         for buffer_, file_path in zip(buffer_group.buffers, file_paths):
             request = buffer_._register_with_remote_server(file_path=file_path)
             requests.append(request)
-        supriya.commands.RequestBundle(contents=requests).communicate(
-            server, sync=sync
-        )
+        supriya.commands.RequestBundle(contents=requests).communicate(server, sync=sync)
         return buffer_group
 
     def zero(self):
