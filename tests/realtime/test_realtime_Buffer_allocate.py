@@ -13,7 +13,7 @@ def test_01(server):
     assert not buffer_.is_allocated
     assert buffer_.server is None
 
-    buffer_.allocate(frame_count=512)
+    buffer_.allocate(server, frame_count=512)
     server.sync()
 
     assert buffer_.buffer_id == 0
@@ -48,7 +48,7 @@ def test_02(server):
     assert not buffer_.is_allocated
     assert buffer_.server is None
 
-    buffer_.allocate(frame_count=512)
+    buffer_.allocate(server, frame_count=512)
     server.sync()
 
     assert buffer_.buffer_id == 23
@@ -91,9 +91,9 @@ def test_03(server):
     assert buffer_c.channel_count == 0
     assert buffer_d.channel_count == 0
 
-    buffer_a.allocate(frame_count=128, channel_count=1, server=server)
-    buffer_b.allocate(frame_count=256, channel_count=2, server=server)
-    buffer_c.allocate(frame_count=512, channel_count=3, server=server)
+    buffer_a.allocate(server, frame_count=128, channel_count=1)
+    buffer_b.allocate(server, frame_count=256, channel_count=2)
+    buffer_c.allocate(server, frame_count=512, channel_count=3)
     server.sync()
 
     assert buffer_a.buffer_id == 0
@@ -111,7 +111,7 @@ def test_03(server):
 
     buffer_c.free()
     buffer_a.free()
-    buffer_d.allocate(frame_count=1024, channel_count=4, server=server)
+    buffer_d.allocate(server, frame_count=1024, channel_count=4)
     server.sync()
 
     assert buffer_a.buffer_id is None

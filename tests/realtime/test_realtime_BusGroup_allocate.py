@@ -18,7 +18,7 @@ def test_01(server):
         assert bus.bus_id is None
         assert bus.calculation_rate == bus_group_one.calculation_rate
 
-    bus_group_one.allocate()
+    bus_group_one.allocate(server)
     server.sync()
 
     assert bus_group_one.is_allocated
@@ -46,7 +46,7 @@ def test_01(server):
         assert bus.bus_id is None
         assert bus.calculation_rate == bus_group_two.calculation_rate
 
-    bus_group_two.allocate()
+    bus_group_two.allocate(server)
     server.sync()
 
     assert bus_group_two.is_allocated

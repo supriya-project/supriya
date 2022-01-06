@@ -5,7 +5,7 @@ import supriya.realtime
 
 def test_01(server):
     buffer_ = supriya.realtime.Buffer()
-    buffer_.allocate(frame_count=8, sync=True)
+    buffer_.allocate(server, frame_count=8, sync=True)
     response = buffer_.get(0)
     result = response.as_dict()
     assert result == collections.OrderedDict([(0, 0)])
@@ -20,7 +20,7 @@ def test_01(server):
 
 def test_02(server):
     buffer_ = supriya.realtime.Buffer()
-    buffer_.allocate(frame_count=8, sync=True)
+    buffer_.allocate(server, frame_count=8, sync=True)
     buffer_.set_contiguous((0, (1, 2, 3, 4, 5, 6, 7, 8)))
     response = buffer_.get(0, 1, 2, 3, 4, 5, 6, 7)
     result = response.as_dict()

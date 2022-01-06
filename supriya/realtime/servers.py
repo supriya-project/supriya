@@ -887,10 +887,10 @@ class Server(BaseServer):
             if channel_count:
                 channel_indices = tuple(range(channel_count))
             buffer_.allocate_from_file(
+                self,
                 file_path,
                 channel_indices=channel_indices,
                 frame_count=frame_count,
-                server=self,
                 starting_frame=starting_frame,
             )
         else:

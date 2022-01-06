@@ -12,7 +12,7 @@ def test_01(server):
     assert control_bus.server is None
     assert not control_bus.is_allocated
 
-    control_bus.allocate()
+    control_bus.allocate(server)
 
     assert control_bus.bus_group is None
     assert control_bus.bus_id == 0
@@ -40,7 +40,7 @@ def test_02(server):
     assert audio_bus.server is None
     assert not audio_bus.is_allocated
 
-    audio_bus.allocate()
+    audio_bus.allocate(server)
 
     assert audio_bus.bus_group is None
     assert audio_bus.bus_id == 16
@@ -69,7 +69,7 @@ def test_03(server):
     assert not bus.is_allocated
     assert bus.server is None
 
-    bus.allocate()
+    bus.allocate(server)
     server.sync()
 
     assert bus.bus_id == 23
@@ -102,9 +102,9 @@ def test_04(server):
     assert bus_c.server is None
     assert bus_d.server is None
 
-    bus_a.allocate()
-    bus_b.allocate()
-    bus_c.allocate()
+    bus_a.allocate(server)
+    bus_b.allocate(server)
+    bus_c.allocate(server)
     server.sync()
 
     assert bus_a.bus_id == 0
@@ -118,7 +118,7 @@ def test_04(server):
 
     bus_c.free()
     bus_a.free()
-    bus_d.allocate()
+    bus_d.allocate(server)
     server.sync()
 
     assert bus_a.bus_id is None

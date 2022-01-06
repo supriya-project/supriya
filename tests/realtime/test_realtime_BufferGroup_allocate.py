@@ -16,7 +16,7 @@ def test_01(server):
         assert buffer_.frame_count == 0
         assert buffer_.channel_count == 0
 
-    buffer_group_one.allocate(frame_count=512)
+    buffer_group_one.allocate(server, frame_count=512)
     server.sync()
 
     assert buffer_group_one.is_allocated
@@ -44,7 +44,7 @@ def test_01(server):
         assert buffer_.frame_count == 0
         assert buffer_.channel_count == 0
 
-    buffer_group_two.allocate(frame_count=1024, channel_count=2)
+    buffer_group_two.allocate(server, frame_count=1024, channel_count=2)
     server.sync()
 
     assert buffer_group_two.is_allocated
