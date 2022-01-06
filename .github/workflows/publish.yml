@@ -1,7 +1,7 @@
 name: Publish
 on:
   release:
-    types: [published]
+    types: [released]
 
 env:
   SC_ORIGIN: https://github.com/josiah-wolf-oberholtzer/supercollider.git
