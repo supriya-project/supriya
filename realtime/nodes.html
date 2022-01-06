@@ -1739,10 +1739,13 @@ the <em>reverb</em>’s reverberation.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">()</span>
 </code></pre></div>
 </div>
+<p>When using a server as the target, allocate the node relative to the current
+user’s “default group” on that server (ID <code class="docutils literal notranslate"><span class="pre">1</span></code> in a single-user scenario):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
 <span class="go">&lt;+ Group: 1004&gt;</span>
 </code></pre></div>
 </div>
+<p>Allocate a node relative to another node:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_TAIL</span><span class="p">)</span>
 <span class="go">&lt;+ Synth: 1005 default&gt;</span>
 </code></pre></div>

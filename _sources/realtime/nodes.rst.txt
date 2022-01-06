@@ -448,9 +448,13 @@ Groups and synths can be created by hand and allocated::
     >>> group = supriya.Group()
     >>> synth = supriya.Synth()
 
-::
+When using a server as the target, allocate the node relative to the current
+user's "default group" on that server (ID ``1`` in a single-user scenario)::
 
     >>> group.allocate(server)
+
+Allocate a node relative to another node::
+
     >>> synth.allocate(group, add_action=supriya.AddAction.ADD_TO_TAIL)
 
 You can use ``.allocate()`` to *re-allocate* nodes previously freed.
