@@ -364,7 +364,8 @@ class GroupQueryTreeRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.GroupQueryTreeRequest(
-        ...     node_id=0, include_controls=True,
+        ...     node_id=0,
+        ...     include_controls=True,
         ... )
         >>> request
         GroupQueryTreeRequest(
@@ -723,13 +724,16 @@ class QueryTreeResponse(Response):
             ...                                 control_value=0.019999999552965,
             ...                             ),
             ...                             supriya.querytree.QueryTreeControl(
-            ...                                 control_name_or_index="gate", control_value=1.0,
+            ...                                 control_name_or_index="gate",
+            ...                                 control_value=1.0,
             ...                             ),
             ...                             supriya.querytree.QueryTreeControl(
-            ...                                 control_name_or_index="in_", control_value=16.0,
+            ...                                 control_name_or_index="in_",
+            ...                                 control_value=16.0,
             ...                             ),
             ...                             supriya.querytree.QueryTreeControl(
-            ...                                 control_name_or_index="out", control_value=0.0,
+            ...                                 control_name_or_index="out",
+            ...                                 control_value=0.0,
             ...                             ),
             ...                         ),
             ...                     ),
@@ -864,10 +868,12 @@ class QueryTreeResponse(Response):
             ...                         control_value=5000.0,
             ...                     ),
             ...                     supriya.querytree.QueryTreeControl(
-            ...                         control_name_or_index="in_", control_value=0.0,
+            ...                         control_name_or_index="in_",
+            ...                         control_value=0.0,
             ...                     ),
             ...                     supriya.querytree.QueryTreeControl(
-            ...                         control_name_or_index="out", control_value=0.0,
+            ...                         control_name_or_index="out",
+            ...                         control_value=0.0,
             ...                     ),
             ...                 ),
             ...             ),
@@ -876,10 +882,12 @@ class QueryTreeResponse(Response):
             ...                 synthdef_name="c1aa521afab5b0c0ce3d744690951649",
             ...                 controls=(
             ...                     supriya.querytree.QueryTreeControl(
-            ...                         control_name_or_index="level", control_value=1.0,
+            ...                         control_name_or_index="level",
+            ...                         control_value=1.0,
             ...                     ),
             ...                     supriya.querytree.QueryTreeControl(
-            ...                         control_name_or_index="out", control_value=0.0,
+            ...                         control_name_or_index="out",
+            ...                         control_value=0.0,
             ...                     ),
             ...                 ),
             ...             ),
@@ -891,7 +899,12 @@ class QueryTreeResponse(Response):
 
             >>> import json
             >>> result = query_tree_response.to_dict()
-            >>> result = json.dumps(result, indent=4, separators=(",", ": "), sort_keys=True,)
+            >>> result = json.dumps(
+            ...     result,
+            ...     indent=4,
+            ...     separators=(",", ": "),
+            ...     sort_keys=True,
+            ... )
             >>> print(result)
             {
                 "server_tree": {
@@ -1016,7 +1029,12 @@ class QueryTreeResponse(Response):
         ::
 
             >>> result = query_tree_response.to_dict(flat=True)
-            >>> result = json.dumps(result, indent=4, separators=(",", ": "), sort_keys=True,)
+            >>> result = json.dumps(
+            ...     result,
+            ...     indent=4,
+            ...     separators=(",", ": "),
+            ...     sort_keys=True,
+            ... )
             >>> print(result)
             {
                 "server_tree": [

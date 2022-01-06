@@ -14,7 +14,9 @@ class NodeFreeRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> request = supriya.commands.NodeFreeRequest(node_ids=1000,)
+        >>> request = supriya.commands.NodeFreeRequest(
+        ...     node_ids=1000,
+        ... )
         >>> request
         NodeFreeRequest(
             node_ids=(1000,),
@@ -309,7 +311,9 @@ class NodeQueryRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> request = supriya.commands.NodeQueryRequest(node_id=1000,)
+        >>> request = supriya.commands.NodeQueryRequest(
+        ...     node_id=1000,
+        ... )
         >>> request
         NodeQueryRequest(
             node_id=1000,
@@ -368,7 +372,12 @@ class NodeRunRequest(Request):
 
     ::
 
-        >>> request = supriya.commands.NodeRunRequest([[synth_a, True], [synth_b, False],])
+        >>> request = supriya.commands.NodeRunRequest(
+        ...     [
+        ...         [synth_a, True],
+        ...         [synth_b, False],
+        ...     ]
+        ... )
         >>> request.to_osc()
         OscMessage('/n_run', 1000, 1, 1001, 0)
 
@@ -395,7 +404,12 @@ class NodeRunRequest(Request):
 
     ::
 
-        >>> request = supriya.commands.NodeRunRequest([[synth_a, False], [synth_b, True],])
+        >>> request = supriya.commands.NodeRunRequest(
+        ...     [
+        ...         [synth_a, False],
+        ...         [synth_b, True],
+        ...     ]
+        ... )
         >>> request.to_osc()
         OscMessage('/n_run', 1000, 0, 1001, 1)
 
@@ -476,7 +490,10 @@ class NodeSetRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.NodeSetRequest(
-        ...     1000, frequency=443.1, phase=0.5, amplitude=0.1,
+        ...     1000,
+        ...     frequency=443.1,
+        ...     phase=0.5,
+        ...     amplitude=0.1,
         ... )
         >>> request
         NodeSetRequest(

@@ -188,13 +188,18 @@ class RequestBundle(Requestable):
     ::
 
         >>> request_one = supriya.commands.BufferAllocateRequest(
-        ...     buffer_id=23, frame_count=512, channel_count=1,
+        ...     buffer_id=23,
+        ...     frame_count=512,
+        ...     channel_count=1,
         ... )
         >>> request_two = supriya.commands.BufferAllocateRequest(
-        ...     buffer_id=24, frame_count=512, channel_count=1,
+        ...     buffer_id=24,
+        ...     frame_count=512,
+        ...     channel_count=1,
         ... )
         >>> request_bundle = supriya.commands.RequestBundle(
-        ...     timestamp=10.5, contents=[request_one, request_two],
+        ...     timestamp=10.5,
+        ...     contents=[request_one, request_two],
         ... )
 
     ::

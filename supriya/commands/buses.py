@@ -15,7 +15,10 @@ class ControlBusFillRequest(Request):
 
         >>> import supriya.commands
         >>> request = supriya.commands.ControlBusFillRequest(
-        ...     index_count_value_triples=[(0, 8, 0.5), (8, 8, 0.25),],
+        ...     index_count_value_triples=[
+        ...         (0, 8, 0.5),
+        ...         (8, 8, 0.25),
+        ...     ],
         ... )
         >>> request
         ControlBusFillRequest(
@@ -81,7 +84,12 @@ class ControlBusGetContiguousRequest(Request):
 
         >>> server = supriya.Server().boot()
         >>> request = supriya.commands.ControlBusGetContiguousRequest(
-        ...     index_count_pairs=[(0, 2), (4, 1), (8, 2), (12, 1),],
+        ...     index_count_pairs=[
+        ...         (0, 2),
+        ...         (4, 1),
+        ...         (8, 2),
+        ...         (12, 1),
+        ...     ],
         ... )
         >>> request
         ControlBusGetContiguousRequest(
@@ -171,7 +179,9 @@ class ControlBusGetRequest(Request):
     ::
 
         >>> server = supriya.Server().boot()
-        >>> request = supriya.commands.ControlBusGetRequest(indices=(0, 4, 8, 12),)
+        >>> request = supriya.commands.ControlBusGetRequest(
+        ...     indices=(0, 4, 8, 12),
+        ... )
         >>> request
         ControlBusGetRequest(
             indices=(0, 4, 8, 12),
@@ -248,7 +258,10 @@ class ControlBusSetContiguousRequest(Request):
 
         >>> server = supriya.Server().boot()
         >>> request = supriya.commands.ControlBusSetContiguousRequest(
-        ...     index_values_pairs=[(0, (0.1, 0.2, 0.3)), (4, (0.4, 0.5, 0.6)),],
+        ...     index_values_pairs=[
+        ...         (0, (0.1, 0.2, 0.3)),
+        ...         (4, (0.4, 0.5, 0.6)),
+        ...     ],
         ... )
         >>> request
         ControlBusSetContiguousRequest(
@@ -385,7 +398,12 @@ class ControlBusSetRequest(Request):
 
         >>> server = supriya.Server().boot()
         >>> request = supriya.commands.ControlBusSetRequest(
-        ...     index_value_pairs=[(0, 0.1), (1, 0.2), (2, 0.3), (3, 0.4),],
+        ...     index_value_pairs=[
+        ...         (0, 0.1),
+        ...         (1, 0.2),
+        ...         (2, 0.3),
+        ...         (3, 0.4),
+        ...     ],
         ... )
         >>> request
         ControlBusSetRequest(

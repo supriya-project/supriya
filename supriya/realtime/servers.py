@@ -551,7 +551,15 @@ class Server(BaseServer):
 
             >>> server = supriya.Server().boot()
             >>> group = supriya.Group(
-            ...     [supriya.Synth(), supriya.Group([supriya.Synth(), supriya.Synth(),]),]
+            ...     [
+            ...         supriya.Synth(),
+            ...         supriya.Group(
+            ...             [
+            ...                 supriya.Synth(),
+            ...                 supriya.Synth(),
+            ...             ]
+            ...         ),
+            ...     ]
             ... ).allocate(server)
 
         ::

@@ -6,7 +6,7 @@ origin := $(shell git config --get remote.origin.url)
 formatPaths = ${project}/ tests/ *.py
 testPaths = ${project}/ tests/
 
-help:  ## This help
+help: ## This help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-z0-9A-Z_-]+:.*?## / {printf "\033[36m%-30s\033]0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
 black-check: ## Check syntax via black
@@ -27,7 +27,7 @@ clean: ## Clean-out transitory files
 	rm -Rif dist/
 	rm -Rif htmlcov/
 
-docs:  ## Build documentation
+docs: ## Build documentation
 	make -C docs/ html
 
 docs-clean: ## Build documentation from scratch

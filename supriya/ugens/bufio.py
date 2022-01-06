@@ -17,7 +17,11 @@ class BufRd(MultiOutUGen):
         ...     stop=supriya.ugens.BufFrames.kr(buffer_id),
         ... )
         >>> buf_rd = supriya.ugens.BufRd.ar(
-        ...     buffer_id=buffer_id, channel_count=2, interpolation=2, loop=1, phase=phase,
+        ...     buffer_id=buffer_id,
+        ...     channel_count=2,
+        ...     interpolation=2,
+        ...     loop=1,
+        ...     phase=phase,
         ... )
         >>> buf_rd
         UGenArray({2})
@@ -46,7 +50,10 @@ class BufWr(UGen):
         ... )
         >>> source = supriya.ugens.SoundIn.ar(bus=(0, 1))
         >>> buf_wr = supriya.ugens.BufWr.ar(
-        ...     buffer_id=buffer_id, loop=1, phase=phase, source=source,
+        ...     buffer_id=buffer_id,
+        ...     loop=1,
+        ...     phase=phase,
+        ...     source=source,
         ... )
         >>> buf_wr
         BufWr.ar()
@@ -66,7 +73,9 @@ class ClearBuf(WidthFirstUGen):
 
     ::
 
-        >>> clear_buf = supriya.ugens.ClearBuf.ir(buffer_id=23,)
+        >>> clear_buf = supriya.ugens.ClearBuf.ir(
+        ...     buffer_id=23,
+        ... )
         >>> clear_buf
         ClearBuf.ir()
 
@@ -82,7 +91,10 @@ class LocalBuf(WidthFirstUGen):
 
     ::
 
-        >>> local_buf = supriya.ugens.LocalBuf(channel_count=1, frame_count=1,)
+        >>> local_buf = supriya.ugens.LocalBuf(
+        ...     channel_count=1,
+        ...     frame_count=1,
+        ... )
         >>> local_buf
         LocalBuf.ir()
 
@@ -94,7 +106,10 @@ class LocalBuf(WidthFirstUGen):
         >>> with supriya.synthdefs.SynthDefBuilder() as builder:
         ...     local_buf = supriya.ugens.LocalBuf(2048)
         ...     source = supriya.ugens.PinkNoise.ar()
-        ...     pv_chain = supriya.ugens.FFT(buffer_id=local_buf, source=source,)
+        ...     pv_chain = supriya.ugens.FFT(
+        ...         buffer_id=local_buf,
+        ...         source=source,
+        ...     )
         ...     ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
         ...     out = supriya.ugens.Out.ar(bus=0, source=ifft)
         ...

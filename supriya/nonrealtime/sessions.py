@@ -50,7 +50,9 @@ class Session:
         >>> builder = supriya.synthdefs.SynthDefBuilder(frequency=440)
         >>> with builder:
         ...     out = supriya.ugens.Out.ar(
-        ...         source=supriya.ugens.SinOsc.ar(frequency=builder["frequency"],)
+        ...         source=supriya.ugens.SinOsc.ar(
+        ...             frequency=builder["frequency"],
+        ...         )
         ...     )
         ...
         >>> synthdef = builder.build()
