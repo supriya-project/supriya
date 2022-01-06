@@ -3,6 +3,10 @@
 Supriya (|release|)
 ===================
 
+.. important::
+
+   Documentation is under construction. Stand by.
+
 `GitHub`_ |
 `PyPI`_ |
 `Documentation <http://josiahwolfoberholtzer.com/supriya/>`_ |
