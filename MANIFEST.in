@@ -14,8 +14,7 @@ recursive-include supriya/ *.pyx
 recursive-include supriya/assets/ *
 recursive-include vendor/ *
 
+recursive-exclude dev/ *
 recursive-exclude dist/ *
 recursive-exclude docs/ *
-recursive-exclude etc/ *
 recursive-exclude tests/ *
-recursive-exclude tools/ *
