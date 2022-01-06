@@ -255,7 +255,7 @@
   
     <li class="md-tabs__item">
       <a href="../api/supriya/index.html" class="md-tabs__link">
-        API
+        API Reference
       </a>
     </li>
   
@@ -270,8 +270,8 @@
   
   
     <li class="md-tabs__item">
-      <a href="../cicd.html" class="md-tabs__link">
-        For Developers
+      <a href="../internals/cicd.html" class="md-tabs__link">
+        Internals
       </a>
     </li>
   
@@ -287,7 +287,7 @@
   
     <li class="md-tabs__item">
       <a href="../glossary.html" class="md-tabs__link">
-        Reference
+        Appendix
       </a>
     </li>
   
@@ -772,13 +772,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
       
       <label class="md-nav__link" for="__nav_4">
-        <a class="" href="../api/supriya/index.html">API</a>
+        <a class="" href="../api/supriya/index.html">API Reference</a>
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="API" data-md-level="1">
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
-          API
+          API Reference
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -814,13 +814,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
       
       <label class="md-nav__link" for="__nav_5">
-        <a class="" href="../cicd.html">For Developers</a>
+        <a class="" href="../internals/cicd.html">Internals</a>
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="For Developers" data-md-level="1">
+      <nav class="md-nav" aria-label="Internals" data-md-level="1">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
-          For Developers
+          Internals
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -829,7 +829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cicd.html" class="md-nav__link">
+      <a href="../internals/cicd.html" class="md-nav__link">
         CICD
       </a>
     </li>
@@ -841,7 +841,19 @@
   
   
     <li class="md-nav__item">
-      <a href="../ipython.html" class="md-nav__link">
+      <a href="../internals/graphviz.html" class="md-nav__link">
+        Graphviz
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internals/ipython.html" class="md-nav__link">
         IPython
       </a>
     </li>
@@ -853,20 +865,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../sphinx.html" class="md-nav__link">
+      <a href="../internals/sphinx.html" class="md-nav__link">
         Sphinx
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../graphviz.html" class="md-nav__link">
-        Graphviz
       </a>
     </li>
   
@@ -892,13 +892,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" data-md-state="indeterminate" type="checkbox" id="__nav_6" checked>
       
       <label class="md-nav__link" for="__nav_6">
-        <a class="" href="../glossary.html">Reference</a>
+        <a class="" href="../glossary.html">Appendix</a>
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <nav class="md-nav" aria-label="Appendix" data-md-level="1">
         <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
-          Reference
+          Appendix
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1078,7 +1078,7 @@ will result in an error:</p>
 <p>Use <a class="reference internal" href="../api/supriya/osc/utils.html#supriya.osc.utils.find_free_port" title="supriya.osc.utils.find_free_port"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code></a> to grab a random unused port to
 successfully boot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">())</span>
-<span class="go">&lt;Server: udp://127.0.0.1:58674, 8i8o&gt;</span>
+<span class="go">&lt;Server: udp://127.0.0.1:61959, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 </div>
@@ -1205,9 +1205,9 @@ properties for inspecting its state.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
 <span class="go">StatusResponse(</span>
 <span class="go">    actual_sample_rate=47999.99999683723,</span>
-<span class="go">    average_cpu_usage=0.046624407172203064,</span>
+<span class="go">    average_cpu_usage=0.025135686621069908,</span>
 <span class="go">    group_count=2,</span>
-<span class="go">    peak_cpu_usage=0.37382811307907104,</span>
+<span class="go">    peak_cpu_usage=0.17233124375343323,</span>
 <span class="go">    synth_count=0,</span>
 <span class="go">    synthdef_count=0,</span>
 <span class="go">    target_sample_rate=48000.0,</span>
@@ -1226,10 +1226,10 @@ complexity of the status output:</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
 <span class="go">StatusResponse(</span>
-<span class="go">    actual_sample_rate=48000.00000023034,</span>
-<span class="go">    average_cpu_usage=0.23622477054595947,</span>
+<span class="go">    actual_sample_rate=48000.000000302614,</span>
+<span class="go">    average_cpu_usage=0.2366228848695755,</span>
 <span class="go">    group_count=2,</span>
-<span class="go">    peak_cpu_usage=1.3717031478881836,</span>
+<span class="go">    peak_cpu_usage=1.4844468832015991,</span>
 <span class="go">    synth_count=1,</span>
 <span class="go">    synthdef_count=33,</span>
 <span class="go">    target_sample_rate=48000.0,</span>
@@ -1392,13 +1392,13 @@ buffers and SynthDefs:</p>
 <p>Get access to the server’s underlying process management subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">process_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span><span class="o">.</span><span class="n">process_protocol</span>
-<span class="go">&lt;supriya.realtime.protocols.SyncProcessProtocol object at 0x7fd6507729d0&gt;</span>
+<span class="go">&lt;supriya.realtime.protocols.SyncProcessProtocol object at 0x7fe230f08b20&gt;</span>
 </code></pre></div>
 </div>
 <p>Get access to the server’s underlying OSC subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">osc_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span>
-<span class="go">&lt;supriya.osc.protocols.ThreadedOscProtocol object at 0x7fd6585f2c10&gt;</span>
+<span class="go">&lt;supriya.osc.protocols.ThreadedOscProtocol object at 0x7fe230f2e8e0&gt;</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
