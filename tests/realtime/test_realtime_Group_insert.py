@@ -5,7 +5,7 @@ import supriya.realtime
 
 
 def test_01(server):
-    group = supriya.realtime.Group().allocate()
+    group = supriya.realtime.Group().allocate(server)
     server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """

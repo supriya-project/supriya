@@ -233,8 +233,8 @@ class Poll(UGen):
 
         ::
 
-            >>> server = supriya.Server.default().boot()
-            >>> synth = supriya.Synth(synthdef).allocate()
+            >>> server = supriya.Server().boot()
+            >>> synth = supriya.Synth(synthdef).allocate(server)
             >>> callback = server.osc_protocol.register(
             ...     pattern="/tr",
             ...     procedure=lambda response: print(

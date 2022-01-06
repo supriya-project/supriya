@@ -357,9 +357,9 @@ class NodeRunRequest(Request):
 
     ::
 
-        >>> server = supriya.Server.default().boot()
-        >>> synth_a = supriya.Synth().allocate()
-        >>> synth_b = supriya.Synth().allocate()
+        >>> server = supriya.Server().boot()
+        >>> synth_a = supriya.Synth().allocate(server)
+        >>> synth_b = supriya.Synth().allocate(server)
         >>> synth_a.is_paused, synth_b.is_paused
         (False, False)
 

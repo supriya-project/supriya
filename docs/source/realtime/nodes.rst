@@ -450,24 +450,8 @@ Groups and synths can be created by hand and allocated::
 
 ::
 
-    >>> group.allocate(target_node=server)
-    >>> synth.allocate(target_node=group, add_action=supriya.AddAction.ADD_TO_TAIL)
-
-.. caution::
-
-    Manually allocating using ``.allocate()`` will position the node relative
-    to ``target_node``. If ``target_node`` is null, the node will be placed
-    relative to the client's default group on the *default server*. This can be
-    confusing if the default server is not booted, because the operation will
-    fail:
-
-    .. book::
-        :allow-exceptions:
-
-        >>> supriya.Group().allocate()
-
-    Use an explicit server, rather than the default server, whenever possible,
-    or use the :term:`fluent interface`.
+    >>> group.allocate(server)
+    >>> synth.allocate(group, add_action=supriya.AddAction.ADD_TO_TAIL)
 
 You can use ``.allocate()`` to *re-allocate* nodes previously freed.
 

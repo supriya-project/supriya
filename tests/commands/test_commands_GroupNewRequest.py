@@ -34,7 +34,7 @@ def test_2(server):
     Local application allocates the groups' IDs before we generate the OSC
     message.
     """
-    group_a = supriya.realtime.Group().allocate()
+    group_a = supriya.realtime.Group().allocate(server)
     group_b = supriya.realtime.Group()
     group_c = supriya.realtime.Group()
     assert group_a.node_id == 1000
@@ -59,7 +59,7 @@ def test_2(server):
         ]
     )
     with server.osc_protocol.capture() as transcript:
-        request.communicate()
+        request.communicate(server)
         server.sync()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage("/g_new", 1001, 0, 1000, 1002, 0, 1001)),
@@ -91,7 +91,7 @@ def test_3(server):
     Communicating without a pre-existing group creates that group during local
     application.
     """
-    group_a = supriya.realtime.Group().allocate()
+    group_a = supriya.realtime.Group().allocate(server)
     server_state = str(server.query(False))
     assert server_state == uqbar.strings.normalize(
         """
@@ -111,7 +111,7 @@ def test_3(server):
         ]
     )
     with server.osc_protocol.capture() as transcript:
-        request.communicate()
+        request.communicate(server)
         server.sync()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage("/g_new", 1001, 0, 1000, 1002, 0, 1001)),

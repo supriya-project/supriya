@@ -276,17 +276,6 @@ buffers and SynthDefs::
 Lower level APIs
 ----------------
 
-Supriya pays lip-service to :term:`SuperCollider`'s concept of a "default"
-server. Some low-level APIs will attempt to use the default server if no other
-server is explicitly specified.  Get a reference to the default server via the
-:py:meth:`~supriya.realtime.servers.Server.default` class method::
-
-    >>> supriya.Server.default()
-
-.. caution::
-
-    Use explicit servers when possible.
-
 You can kill all running ``scsynth`` processes via :py:func:`supriya.scsynth.kill`::
 
     >>> supriya.scsynth.kill()

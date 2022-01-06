@@ -10,6 +10,7 @@ from uqbar.containers import UniqueTreeList, UniqueTreeNode
 from uqbar.objects import new
 
 from supriya.enums import AddAction, NodeAction
+from supriya.exceptions import ServerOffline
 
 from .bases import ServerObject
 
@@ -139,18 +140,15 @@ class Node(ServerObject, UniqueTreeNode):
 
     @staticmethod
     def _expr_as_target(expr):
-        import supriya.realtime
+        from supriya import Server
 
-        if expr is None:
-            expr = Node._expr_as_target(supriya.realtime.Server.default())
-        if hasattr(expr, "_as_node_target"):
-            return expr._as_node_target()
-        if isinstance(expr, (float, int)):
-            server = supriya.realtime.Server.default()
-            return server._nodes[int(expr)]
-        if expr is None:
-            raise supriya.exceptions.ServerOffline
-        raise TypeError(expr)
+        if isinstance(expr, Server):
+            expr = expr.default_group
+        if not isinstance(expr, Node):
+            raise ValueError
+        if not expr.is_allocated:
+            raise ServerOffline
+        return expr
 
     def _get_graphviz_name(self):
         parts = [uqbar.strings.to_dash_case(type(self).__name__)]
@@ -500,14 +498,14 @@ class Group(Node, UniqueTreeList):
     ::
 
         >>> import supriya.realtime
-        >>> server = supriya.Server.default()
+        >>> server = supriya.Server()
         >>> server.boot()
         <Server: udp://127.0.0.1:57110, 8i8o>
 
     ::
 
         >>> group = supriya.realtime.Group()
-        >>> group.allocate()
+        >>> group.allocate(server)
         <+ Group: 1000>
 
     ::
@@ -748,7 +746,7 @@ class Group(Node, UniqueTreeList):
     ### PUBLIC METHODS ###
 
     def allocate(
-        self, add_action=None, node_id_is_permanent=False, sync=False, target_node=None
+        self, target_node, add_action=None, node_id_is_permanent=False, sync=False
     ):
         # TODO: Consolidate this with Group.allocate()
         import supriya.commands
@@ -802,7 +800,7 @@ class Synth(Node):
     ::
 
         >>> import supriya.realtime
-        >>> server = supriya.Server.default()
+        >>> server = supriya.Server()
         >>> server.boot()
         <Server: udp://127.0.0.1:57110, 8i8o>
 
@@ -818,7 +816,7 @@ class Synth(Node):
         ...     out = supriya.ugens.Out.ar(bus=0, source=[sin_osc, sin_osc],)
         ...
         >>> synthdef = builder.build()
-        >>> synthdef.allocate()
+        >>> synthdef.allocate(server)
         <SynthDef: e41193ac8b7216f49ff0d477876a3bf3>
 
     ::
@@ -829,7 +827,7 @@ class Synth(Node):
 
     ::
 
-        >>> synth.allocate()
+        >>> synth.allocate(server)
         <+ Synth: 1000 e41193ac8b7216f49ff0d477876a3bf3>
 
     ::
@@ -931,10 +929,10 @@ class Synth(Node):
 
     def allocate(
         self,
+        target_node,
         add_action=None,
         node_id_is_permanent=False,
         sync=True,
-        target_node=None,
         **kwargs,
     ):
         import supriya.commands
@@ -946,7 +944,7 @@ class Synth(Node):
         target_node = Node._expr_as_target(target_node)
         server = target_node.server
         if not server.is_running:
-            raise supriya.exceptions.ServerOffline
+            raise ServerOffline
         self.controls._set(**kwargs)
         # TODO: Map requests aren't necessary during /s_new
         settings, map_requests = self.controls._make_synth_new_settings()
@@ -994,7 +992,7 @@ class RootNode(Group):
 
     ### INITIALIZER ###
 
-    def __init__(self, server=None):
+    def __init__(self, server):
         super().__init__()
         self._server = server
 

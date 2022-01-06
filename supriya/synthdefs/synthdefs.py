@@ -46,7 +46,7 @@ class SynthDef:
     ::
 
         >>> import supriya.realtime
-        >>> server = supriya.Server.default().boot()
+        >>> server = supriya.Server().boot()
 
     ::
 
@@ -60,7 +60,7 @@ class SynthDef:
 
     ::
 
-        >>> synthdef.free()
+        >>> synthdef.free(server)
 
     ::
 
@@ -583,7 +583,7 @@ class SynthDef:
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, server=None):
+    def allocate(self, server):
         self._allocate_synthdefs((self,), server)
         return self
 
@@ -596,10 +596,9 @@ class SynthDef:
         )
         return result
 
-    def free(self, server=None):
+    def free(self, server):
         import supriya.commands
 
-        server = server or supriya.realtime.Server.default()
         assert self in server
         synthdef_name = self.actual_name
         del server._synthdefs[synthdef_name]

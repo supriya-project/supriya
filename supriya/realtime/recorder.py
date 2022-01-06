@@ -11,7 +11,7 @@ class Recorder(SupriyaObject):
     ::
 
         >>> import os, tempfile, time
-        >>> server = supriya.Server.default().boot()
+        >>> server = supriya.Server().boot()
         >>> with tempfile.TemporaryDirectory() as tempdir:
         ...     server.recorder.start(
         ...         file_path=os.path.join(tempdir, "example.aiff"),
@@ -86,7 +86,9 @@ class Recorder(SupriyaObject):
 
         frame_count = 65536
         buffer_ = supriya.realtime.Buffer().allocate(
-            frame_count=frame_count, channel_count=self.current_channel_count
+            self.server,
+            frame_count=frame_count,
+            channel_count=self.current_channel_count,
         )
         callback = supriya.commands.BufferWriteRequest(
             buffer_id=buffer_,

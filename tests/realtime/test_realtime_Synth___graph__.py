@@ -30,7 +30,7 @@ def test_01(server):
         }
         """
     )
-    synth.allocate()
+    synth.allocate(server)
     assert format(synth.__graph__(), "graphviz") == uqbar.strings.normalize(
         """
         digraph G {

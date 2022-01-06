@@ -23,10 +23,9 @@ class ServerObject(SupriyaObject):
     ### PUBLIC METHODS ###
 
     @abc.abstractmethod
-    def allocate(self, server=None):
+    def allocate(self, server):
         import supriya.realtime
 
-        server = server or supriya.realtime.Server.default()
         if self.is_allocated and self.server is server:
             return
         assert self.server is None, (self, self.server)

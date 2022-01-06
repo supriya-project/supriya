@@ -12,7 +12,7 @@ pytest_plugins = ["helpers_namespace", "sphinx.testing.fixtures"]
 
 @pytest.fixture
 def server():
-    server = supriya.Server.default()
+    server = supriya.Server()
     server.latency = 0.0
     server.boot()
     supriya.assets.synthdefs.default.allocate(server)

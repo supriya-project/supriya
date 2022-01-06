@@ -98,7 +98,7 @@ class Bus(ServerObject):
 
         ::
 
-            >>> server = supriya.Server.default().boot()
+            >>> server = supriya.Server().boot()
             >>> control_bus = server.add_bus("control")
             >>> audio_bus = server.add_bus("audio")
 
@@ -120,8 +120,6 @@ class Bus(ServerObject):
             supriya.exceptions.BusNotAllocated
 
         """
-        if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated
         return self.map_symbol
 
     ### PRIVATE METHODS ###
@@ -136,7 +134,7 @@ class Bus(ServerObject):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, server=None, sync=False):
+    def allocate(self, server, *, sync=False):
         if self.bus_group is not None:
             return
         if self.is_allocated:
@@ -254,14 +252,14 @@ class BusGroup(ServerObject):
 
     ::
 
-        >>> server = supriya.Server.default().boot()
+        >>> server = supriya.Server().boot()
         >>> bus_group = supriya.BusGroup(bus_count=4)
         >>> bus_group
         <- BusGroup{4}: ??? (control)>
 
     ::
 
-        >>> bus_group.allocate()
+        >>> bus_group.allocate(server)
         <+ BusGroup{4}: 0 (control)>
 
     ::
@@ -351,8 +349,8 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> server = supriya.Server.default().boot()
-            >>> bus_group = supriya.BusGroup.control(4).allocate()
+            >>> server = supriya.Server().boot()
+            >>> bus_group = supriya.BusGroup.control(4).allocate(server)
             >>> bus_group[0]
             <+ Bus: 0 (control)>
 
@@ -403,7 +401,7 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> server = supriya.Server.default().boot()
+            >>> server = supriya.Server().boot()
             >>> control_bus_group = server.add_bus_group(4, "control")
             >>> audio_bus_group = server.add_bus_group(4, "audio")
 
@@ -422,7 +420,7 @@ class BusGroup(ServerObject):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, server=None):
+    def allocate(self, server):
         if self.is_allocated:
             raise supriya.exceptions.BusAlreadyAllocated
         ServerObject.allocate(self, server=server)
@@ -450,7 +448,7 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> server = supriya.Server.default().boot()
+            >>> server = supriya.Server().boot()
             >>> bus_group = server.add_bus_group(4, "control")
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)
@@ -474,7 +472,7 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> bus_group.allocate().fill(0.5)
+            >>> bus_group.allocate(server).fill(0.5)
             Traceback (most recent call last):
             ...
             supriya.exceptions.IncompatibleRate
@@ -510,8 +508,8 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> server = supriya.Server.default().boot()
-            >>> bus_group = supriya.BusGroup().control(4).allocate()
+            >>> server = supriya.Server().boot()
+            >>> bus_group = supriya.BusGroup().control(4).allocate(server)
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)
 
@@ -540,8 +538,8 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> server = supriya.Server.default().boot()
-            >>> bus_group = supriya.BusGroup.control(4).allocate()
+            >>> server = supriya.Server().boot()
+            >>> bus_group = supriya.BusGroup.control(4).allocate(server)
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)
 
@@ -563,7 +561,7 @@ class BusGroup(ServerObject):
         request = supriya.commands.ControlBusSetContiguousRequest(
             index_values_pairs=[(self, values)]
         )
-        request.communicate(sync=False)
+        request.communicate(self.server, sync=False)
 
     ### PUBLIC PROPERTIES ###
 
@@ -668,7 +666,7 @@ class AudioInputBusGroup(BusGroup):
 
     ::
 
-        >>> server = supriya.Server.default().boot()
+        >>> server = supriya.Server().boot()
         >>> bus_group = server.audio_input_bus_group
         >>> bus_group
         <+ AudioInputBusGroup{8}: 8 (audio)>
@@ -717,7 +715,7 @@ class AudioOutputBusGroup(BusGroup):
 
     ::
 
-        >>> server = supriya.Server.default().boot()
+        >>> server = supriya.Server().boot()
         >>> bus_group = server.audio_output_bus_group
         >>> bus_group
         <+ AudioOutputBusGroup{8}: 0 (audio)>

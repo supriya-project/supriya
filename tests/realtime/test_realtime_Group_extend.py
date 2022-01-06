@@ -6,7 +6,7 @@ from supriya.osc import OscBundle, OscMessage
 
 
 def test_noop(server):
-    group = supriya.realtime.Group().allocate()
+    group = supriya.realtime.Group().allocate(server)
     server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
@@ -36,7 +36,7 @@ def test_allocate_nested(server):
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test, amplitude=0.0)
     group.extend([synth_a, synth_b])
     with server.osc_protocol.capture() as transcript:
-        group.allocate()
+        group.allocate(server)
     server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """
@@ -73,7 +73,7 @@ def test_allocate_nested(server):
 
 def test_extend_unallocated(server):
     group = supriya.realtime.Group()
-    group.allocate()
+    group.allocate(server)
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test, amplitude=0.0)
     with server.osc_protocol.capture() as transcript:
@@ -106,9 +106,9 @@ def test_extend_unallocated(server):
 
 
 def test_extend_allocate_nested_and_move(server):
-    synth = supriya.realtime.Synth().allocate()
+    synth = supriya.realtime.Synth().allocate(server)
     synthdef = supriya.assets.synthdefs.test
-    group_a = supriya.realtime.Group().allocate()
+    group_a = supriya.realtime.Group().allocate(server)
     group_b = supriya.realtime.Group(
         [
             supriya.realtime.Synth(synthdef=synthdef),
@@ -189,7 +189,7 @@ def test_x(server):
     assert not synth_b.is_allocated
     assert not synth_c.is_allocated
     assert not synth_d.is_allocated
-    synth_a.allocate()
+    synth_a.allocate(server)
     server_state = str(server.query())
     assert server_state == uqbar.strings.normalize(
         """

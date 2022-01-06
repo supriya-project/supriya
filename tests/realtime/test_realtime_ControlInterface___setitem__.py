@@ -9,7 +9,7 @@ def test_01(server):
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test, amplitude=0.0)
     group.extend([synth_a, synth_b])
-    group.allocate()
+    group.allocate(server)
     remote_state = str(server.query())
     assert remote_state == uqbar.strings.normalize(
         """
@@ -24,7 +24,7 @@ def test_01(server):
     )
     local_state = str(server.root_node)
     assert local_state == remote_state
-    bus_a = supriya.realtime.Bus(calculation_rate="control").allocate()
+    bus_a = supriya.realtime.Bus(calculation_rate="control").allocate(server)
     bus_a.set(0.25)
     group.controls["amplitude"] = bus_a
     remote_state = str(server.query())
@@ -41,7 +41,7 @@ def test_01(server):
     )
     local_state = str(server.root_node)
     assert local_state == remote_state
-    bus_b = supriya.realtime.Bus(calculation_rate="control").allocate()
+    bus_b = supriya.realtime.Bus(calculation_rate="control").allocate(server)
     bus_b.set(0.75)
     group.controls["amplitude"] = bus_b
     remote_state = str(server.query())

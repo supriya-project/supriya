@@ -49,7 +49,7 @@ class ControlInterface(SupriyaObject):
                     value = supriya.realtime.Bus(
                         bus_group_or_index=int(group_dict["id"]),
                         calculation_rate=calculation_rate,
-                    ).allocate()
+                    )
             if isinstance(value, (int, float)):
                 n_set_settings[control_name] = float(value)
                 control._set_to_number(value)
@@ -184,8 +184,8 @@ class GroupInterface(ControlInterface):
 
     ::
 
-        >>> server = supriya.Server.default().boot()
-        >>> group = supriya.Group().allocate()
+        >>> server = supriya.Server().boot()
+        >>> group = supriya.Group().allocate(server)
         >>> group.extend(
         ...     [
         ...         supriya.Synth(synthdef=supriya.assets.synthdefs.test),

@@ -417,7 +417,7 @@ class Server(BaseServer):
     ::
 
         >>> import supriya.realtime
-        >>> server = supriya.realtime.Server.default()
+        >>> server = supriya.realtime.Server()
         >>> server.boot()
         <Server: udp://127.0.0.1:57110, 8i8o>
 
@@ -429,8 +429,6 @@ class Server(BaseServer):
     """
 
     ### CLASS VARIABLES ###
-
-    _default_server = None
 
     _servers: Set["Server"] = set()
 
@@ -481,8 +479,8 @@ class Server(BaseServer):
 
         ::
 
-            >>> server = supriya.Server.default().boot()
-            >>> supriya.Synth(name="foo").allocate()
+            >>> server = supriya.Server().boot()
+            >>> supriya.Synth(name="foo").allocate(server)
             <+ Synth: 1000 default (foo)>
 
         ::
@@ -551,10 +549,10 @@ class Server(BaseServer):
 
         ::
 
-            >>> server = supriya.Server.default().boot()
+            >>> server = supriya.Server().boot()
             >>> group = supriya.Group(
             ...     [supriya.Synth(), supriya.Group([supriya.Synth(), supriya.Synth(),]),]
-            ... ).allocate()
+            ... ).allocate(server)
 
         ::
 
@@ -609,9 +607,6 @@ class Server(BaseServer):
         return self.root_node.__graph__()
 
     ### PRIVATE METHODS ###
-
-    def _as_node_target(self):
-        return self.default_group
 
     def _connect(self):
         self._osc_protocol = ThreadedOscProtocol()
@@ -887,10 +882,10 @@ class Server(BaseServer):
             if channel_count:
                 channel_indices = tuple(range(channel_count))
             buffer_.allocate_from_file(
+                self,
                 file_path,
                 channel_indices=channel_indices,
                 frame_count=frame_count,
-                server=self,
                 starting_frame=starting_frame,
             )
         else:
@@ -1065,12 +1060,6 @@ class Server(BaseServer):
             self._process_protocol.quit()
         self._disconnect()
         return self
-
-    @classmethod
-    def default(cls) -> "Server":
-        if cls._default_server is None:
-            cls._default_server = Server()
-        return cls._default_server
 
     def query(self, include_controls=True) -> QueryTreeGroup:
         request = GroupQueryTreeRequest(node_id=0, include_controls=include_controls)

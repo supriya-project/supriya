@@ -53,10 +53,9 @@ class Requestable(SupriyaValueObject):
 
     ### PUBLIC METHODS ###
 
-    def communicate(self, server=None, sync=True, timeout=1.0, apply_local=True):
+    def communicate(self, server, sync=True, timeout=1.0, apply_local=True):
         import supriya.realtime
 
-        server = server or supriya.realtime.Server.default()
         if not isinstance(server, supriya.realtime.servers.BaseServer):
             raise ValueError(server)
         if not server.is_running:
@@ -99,7 +98,7 @@ class Requestable(SupriyaValueObject):
             return None
         return self._response
 
-    async def communicate_async(self, server=None, sync=True, timeout=1.0):
+    async def communicate_async(self, server, sync=True, timeout=1.0):
         (
             success_pattern,
             failure_pattern,

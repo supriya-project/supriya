@@ -9,8 +9,8 @@ import supriya.realtime
 @pytest.mark.flaky(reruns=5)
 def test_01(server):
 
-    group_a = supriya.realtime.Group().allocate()
-    group_b = supriya.realtime.Group().allocate()
+    group_a = supriya.realtime.Group().allocate(server)
+    group_b = supriya.realtime.Group().allocate(server)
 
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
