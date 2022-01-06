@@ -7,52 +7,8 @@ ugens
 
 .. currentmodule:: supriya.ugens
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.ugens
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Subpackages
-   :class: section-header
-
 .. toctree::
    :hidden:
-
-   basic
-   beq
-   bufio
-   chaos
-   convolution
-   delay
-   demand
-   diskio
-   dynamics
-   envelopes
-   ffsinosc
-   filters
-   gendyn
-   granular
-   hilbert
-   info
-   inout
-   lines
-   mac
-   ml
-   noise
-   osc
-   panning
-   physical
-   pv
-   reverb
-   safety
-   triggers
-
-.. autosummary::
-   :nosignatures:
 
    basic
    beq

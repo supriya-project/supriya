@@ -1,0 +1,15 @@
+.. _supriya--clocks--asynchronous:
+
+asynchronous
+============
+
+.. automodule:: supriya.clocks.asynchronous
+
+.. currentmodule:: supriya.clocks.asynchronous
+
+.. autoclass:: AsyncClock
+   :show-inheritance:
+
+   .. automethod:: cancel
+   .. automethod:: start
+   .. automethod:: stop

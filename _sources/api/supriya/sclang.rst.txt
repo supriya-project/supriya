@@ -7,21 +7,4 @@ sclang
 
 .. currentmodule:: supriya.sclang
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.sclang
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Functions
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~find
-
 .. autofunction:: find

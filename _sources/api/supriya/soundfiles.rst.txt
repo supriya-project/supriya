@@ -7,140 +7,23 @@ soundfiles
 
 .. currentmodule:: supriya.soundfiles
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.soundfiles
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Classes
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~Say
-   ~SoundFile
-
 .. autoclass:: Say
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __render__
-      text
-      voice
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: Say.__copy__
-
-   .. container:: inherited
-
-      .. automethod:: Say.__eq__
-
-   .. container:: inherited
-
-      .. automethod:: Say.__hash__
-
-   .. automethod:: Say.__render__
-
-   .. container:: inherited
-
-      .. automethod:: Say.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: Say.text
-
-   .. autoattribute:: Say.voice
+   .. automethod:: __render__
+   .. autoattribute:: text
+   .. autoattribute:: voice
 
 .. autoclass:: SoundFile
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      at_frame
-      at_percent
-      at_second
-      channel_count
-      file_path
-      file_type
-      frame_count
-      sample_rate
-      sample_width
-      seconds
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: SoundFile.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: SoundFile.at_frame
-
-   .. automethod:: SoundFile.at_percent
-
-   .. automethod:: SoundFile.at_second
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: SoundFile.channel_count
-
-   .. autoattribute:: SoundFile.file_path
-
-   .. autoattribute:: SoundFile.file_type
-
-   .. autoattribute:: SoundFile.frame_count
-
-   .. autoattribute:: SoundFile.sample_rate
-
-   .. autoattribute:: SoundFile.sample_width
-
-   .. autoattribute:: SoundFile.seconds
+   .. automethod:: at_frame
+   .. automethod:: at_percent
+   .. automethod:: at_second
+   .. autoattribute:: channel_count
+   .. autoattribute:: file_path
+   .. autoattribute:: file_type
+   .. autoattribute:: frame_count
+   .. autoattribute:: sample_rate
+   .. autoattribute:: sample_width
+   .. autoattribute:: seconds

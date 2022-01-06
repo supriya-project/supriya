@@ -7,124 +7,23 @@ protocols
 
 .. currentmodule:: supriya.realtime.protocols
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.realtime.protocols
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Classes
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~AsyncProcessProtocol
-   ~ProcessProtocol
-   ~SyncProcessProtocol
-
 .. autoclass:: AsyncProcessProtocol
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      boot
-      connection_made
-      pipe_data_received
-      process_exited
-      quit
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: AsyncProcessProtocol.boot
-
-   .. container:: inherited
-
-      .. automethod:: AsyncProcessProtocol.connection_lost
-
-   .. automethod:: AsyncProcessProtocol.connection_made
-
-   .. container:: inherited
-
-      .. automethod:: AsyncProcessProtocol.pause_writing
-
-   .. container:: inherited
-
-      .. automethod:: AsyncProcessProtocol.pipe_connection_lost
-
-   .. automethod:: AsyncProcessProtocol.pipe_data_received
-
-   .. automethod:: AsyncProcessProtocol.process_exited
-
-   .. automethod:: AsyncProcessProtocol.quit
-
-   .. container:: inherited
-
-      .. automethod:: AsyncProcessProtocol.resume_writing
+   .. automethod:: boot
+   .. automethod:: connection_made
+   .. automethod:: pipe_data_received
+   .. automethod:: process_exited
+   .. automethod:: quit
 
 .. autoclass:: ProcessProtocol
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      boot
-      quit
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: ProcessProtocol.boot
-
-   .. automethod:: ProcessProtocol.quit
+   .. automethod:: boot
+   .. automethod:: quit
 
 .. autoclass:: SyncProcessProtocol
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      boot
-      quit
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: SyncProcessProtocol.boot
-
-   .. automethod:: SyncProcessProtocol.quit
+   .. automethod:: boot
+   .. automethod:: quit

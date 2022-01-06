@@ -1,0 +1,28 @@
+.. _supriya--patterns--noise:
+
+noise
+=====
+
+.. automodule:: supriya.patterns.noise
+
+.. currentmodule:: supriya.patterns.noise
+
+.. autoclass:: ChoicePattern
+   :show-inheritance:
+
+   .. autoattribute:: forbid_repetitions
+   .. autoattribute:: weights
+
+.. autoclass:: RandomPattern
+   :show-inheritance:
+
+   .. autoattribute:: distribution
+   .. autoattribute:: is_infinite
+   .. autoattribute:: iterations
+   .. autoattribute:: maximum
+   .. autoattribute:: minimum
+
+.. autoclass:: ShufflePattern
+   :show-inheritance:
+
+   .. autoattribute:: forbid_repetitions

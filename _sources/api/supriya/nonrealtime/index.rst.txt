@@ -7,31 +7,8 @@ nonrealtime
 
 .. currentmodule:: supriya.nonrealtime
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.nonrealtime
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Subpackages
-   :class: section-header
-
 .. toctree::
    :hidden:
-
-   bases
-   buffers
-   buses
-   nodes
-   renderer
-   sessions
-   states
-
-.. autosummary::
-   :nosignatures:
 
    bases
    buffers

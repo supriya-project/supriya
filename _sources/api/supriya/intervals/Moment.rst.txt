@@ -7,64 +7,15 @@ Moment
 
 .. currentmodule:: supriya.intervals.Moment
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.intervals.Moment
-
 .. autoclass:: Moment
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __repr__
-      interval_tree
-      next_moment
-      next_start_offset
-      overlap_intervals
-      previous_moment
-      previous_start_offset
-      start_intervals
-      start_offset
-      stop_intervals
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: Moment.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: Moment.interval_tree
-
-   .. autoattribute:: Moment.next_moment
-
-   .. autoattribute:: Moment.next_start_offset
-
-   .. autoattribute:: Moment.overlap_intervals
-
-   .. autoattribute:: Moment.previous_moment
-
-   .. autoattribute:: Moment.previous_start_offset
-
-   .. autoattribute:: Moment.start_intervals
-
-   .. autoattribute:: Moment.start_offset
-
-   .. autoattribute:: Moment.stop_intervals
+   .. autoattribute:: interval_tree
+   .. autoattribute:: next_moment
+   .. autoattribute:: next_start_offset
+   .. autoattribute:: overlap_intervals
+   .. autoattribute:: previous_moment
+   .. autoattribute:: previous_start_offset
+   .. autoattribute:: start_intervals
+   .. autoattribute:: start_offset
+   .. autoattribute:: stop_intervals

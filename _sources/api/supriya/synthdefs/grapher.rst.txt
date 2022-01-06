@@ -7,42 +7,7 @@ grapher
 
 .. currentmodule:: supriya.synthdefs.grapher
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.synthdefs.grapher
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Classes
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~SynthDefGrapher
-
 .. autoclass:: SynthDefGrapher
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      graph
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. automethod:: SynthDefGrapher.graph
+   .. automethod:: graph

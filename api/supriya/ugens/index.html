@@ -1,1980 +1,1597 @@
 
 
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>ugens &mdash; Supriya 0.4.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
-        <script src="../../../_static/supriya.js"></script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../../_static/favicon.ico">
     
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
     
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="basic" href="basic.html" />
-    <link rel="prev" title="typing" href="../typing.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+      
+        <title>ugens - Supriya</title>
+      
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.4.0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+    
+      <link rel="stylesheet" href="../../../_static/stylesheets/main.91c34c39.min.css">
+      
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <link rel="stylesheet" href="../../../_static/stylesheets/palette.89291e57.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+        <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Supriya" class="md-header__button md-logo" aria-label="Supriya" data-md-component="logo">
+      <img src="../../../_static/icon.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Supriya
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ugens
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
           
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/josiah-wolf-oberholtzer/supriya/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    supriya
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../installation.html" class="md-tabs__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../realtime/index.html" class="md-tabs__link">
+        Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../guides/controllers.html" class="md-tabs__link">
+        How-to Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../clocks/index.html" class="md-tabs__link md-tabs__link--active">
+        API
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../cicd.html" class="md-tabs__link">
+        For Developers
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../glossary.html" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Supriya" class="md-nav__button md-logo" aria-label="Supriya" data-md-component="logo">
+      <img src="../../../_static/icon.svg" alt="logo">
+    </a>
+    Supriya
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/josiah-wolf-oberholtzer/supriya/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    supriya
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" data-md-state="indeterminate" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        <a class="" href="../../../installation.html">Getting Started</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation.html" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../concepts.html" class="md-nav__link">
+        Core concepts
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        <a class="" href="../../../realtime/index.html">Tutorials</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../realtime/index.html" class="md-nav__link">
+        Realtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nonrealtime/index.html" class="md-nav__link">
+        Non-realtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../osc.html" class="md-nav__link">
+        Open Sound Control
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../synthdefs/index.html" class="md-nav__link">
+        Synth Definitions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../providers.html" class="md-nav__link">
+        Providers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../clocks.html" class="md-nav__link">
+        Clocks
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../patterns.html" class="md-nav__link">
+        Patterns
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        <a class="" href="../../../guides/controllers.html">How-to Guides</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="How-to Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          How-to Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/controllers.html" class="md-nav__link">
+        Controllers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dynamics.html" class="md-nav__link">
+        Dynamics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/offline-analysis.html" class="md-nav__link">
+        Offline Analysis
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/routing.html" class="md-nav__link">
+        Routing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/samplers.html" class="md-nav__link">
+        Samplers
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        <a class="" href="../index.html">API</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1" type="checkbox" id="__nav_4_1" checked>
+      
+      <label class="md-nav__link" for="__nav_4_1">
+        <a class="" href="../index.html">supriya</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="supriya" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          supriya
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clocks/index.html" class="md-nav__link">
+        clocks
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/index.html" class="md-nav__link">
+        commands
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conversions.html" class="md-nav__link">
+        conversions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enums.html" class="md-nav__link">
+        enums
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions.html" class="md-nav__link">
+        exceptions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ext/index.html" class="md-nav__link">
+        ext
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intervals/index.html" class="md-nav__link">
+        intervals
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../io.html" class="md-nav__link">
+        io
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nonrealtime/index.html" class="md-nav__link">
+        nonrealtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../osc/index.html" class="md-nav__link">
+        osc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/index.html" class="md-nav__link">
+        patterns
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../providers.html" class="md-nav__link">
+        providers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../querytree.html" class="md-nav__link">
+        querytree
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../realtime/index.html" class="md-nav__link">
+        realtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sclang.html" class="md-nav__link">
+        sclang
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scsynth.html" class="md-nav__link">
+        scsynth
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../soundfiles.html" class="md-nav__link">
+        soundfiles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../synthdefs/index.html" class="md-nav__link">
+        synthdefs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system.html" class="md-nav__link">
+        system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../typing.html" class="md-nav__link">
+        typing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          ugens
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="" class="md-nav__link md-nav__link--active">
+        ugens
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      ugens
+      
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="basic.html" class="md-nav__link">
+    basic
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="beq.html" class="md-nav__link">
+    beq
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="bufio.html" class="md-nav__link">
+    bufio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="chaos.html" class="md-nav__link">
+    chaos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="convolution.html" class="md-nav__link">
+    convolution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="delay.html" class="md-nav__link">
+    delay
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="demand.html" class="md-nav__link">
+    demand
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="diskio.html" class="md-nav__link">
+    diskio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="dynamics.html" class="md-nav__link">
+    dynamics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="envelopes.html" class="md-nav__link">
+    envelopes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="ffsinosc.html" class="md-nav__link">
+    ffsinosc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="filters.html" class="md-nav__link">
+    filters
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="gendyn.html" class="md-nav__link">
+    gendyn
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="granular.html" class="md-nav__link">
+    granular
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="hilbert.html" class="md-nav__link">
+    hilbert
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="info.html" class="md-nav__link">
+    info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="inout.html" class="md-nav__link">
+    inout
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="lines.html" class="md-nav__link">
+    lines
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="mac.html" class="md-nav__link">
+    mac
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="ml.html" class="md-nav__link">
+    ml
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="noise.html" class="md-nav__link">
+    noise
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="osc.html" class="md-nav__link">
+    osc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="panning.html" class="md-nav__link">
+    panning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="physical.html" class="md-nav__link">
+    physical
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="pv.html" class="md-nav__link">
+    pv
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="reverb.html" class="md-nav__link">
+    reverb
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="safety.html" class="md-nav__link">
+    safety
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="triggers.html" class="md-nav__link">
+    triggers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils.html" class="md-nav__link">
+        utils
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        <a class="" href="../../../cicd.html">For Developers</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="For Developers" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          For Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cicd.html" class="md-nav__link">
+        CICD
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ipython.html" class="md-nav__link">
+        IPython
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sphinx.html" class="md-nav__link">
+        Sphinx
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../graphviz.html" class="md-nav__link">
+        Graphviz
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" data-md-state="indeterminate" type="checkbox" id="__nav_6" checked>
+      
+      <label class="md-nav__link" for="__nav_6">
+        <a class="" href="../../../glossary.html">Reference</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary.html" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
             
             
               
-            
-            
-              <p class="caption"><span class="caption-text">Introduction</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Guides</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ugens</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="basic.html">basic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="beq.html">beq</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bufio.html">bufio</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chaos.html">chaos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="convolution.html">convolution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="delay.html">delay</a></li>
-<li class="toctree-l3"><a class="reference internal" href="demand.html">demand</a></li>
-<li class="toctree-l3"><a class="reference internal" href="diskio.html">diskio</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dynamics.html">dynamics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="envelopes.html">envelopes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ffsinosc.html">ffsinosc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="filters.html">filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gendyn.html">gendyn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="granular.html">granular</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hilbert.html">hilbert</a></li>
-<li class="toctree-l3"><a class="reference internal" href="info.html">info</a></li>
-<li class="toctree-l3"><a class="reference internal" href="inout.html">inout</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lines.html">lines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="mac.html">mac</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ml.html">ml</a></li>
-<li class="toctree-l3"><a class="reference internal" href="noise.html">noise</a></li>
-<li class="toctree-l3"><a class="reference internal" href="osc.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="panning.html">panning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="physical.html">physical</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pv.html">pv</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reverb.html">reverb</a></li>
-<li class="toctree-l3"><a class="reference internal" href="safety.html">safety</a></li>
-<li class="toctree-l3"><a class="reference internal" href="triggers.html">triggers</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
-</ul>
-</li>
-</ul>
-<p class="caption"><span class="caption-text">Developers</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">Supriya</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content style-external-links">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">supriya</a> &raquo;</li>
-        
-      <li>ugens</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="../../../_sources/api/supriya/ugens/index.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      ugens
+      
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="basic.html" class="md-nav__link">
+    basic
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="beq.html" class="md-nav__link">
+    beq
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="bufio.html" class="md-nav__link">
+    bufio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="chaos.html" class="md-nav__link">
+    chaos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="convolution.html" class="md-nav__link">
+    convolution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="delay.html" class="md-nav__link">
+    delay
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="demand.html" class="md-nav__link">
+    demand
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="diskio.html" class="md-nav__link">
+    diskio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="dynamics.html" class="md-nav__link">
+    dynamics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="envelopes.html" class="md-nav__link">
+    envelopes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="ffsinosc.html" class="md-nav__link">
+    ffsinosc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="filters.html" class="md-nav__link">
+    filters
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="gendyn.html" class="md-nav__link">
+    gendyn
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="granular.html" class="md-nav__link">
+    granular
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="hilbert.html" class="md-nav__link">
+    hilbert
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="info.html" class="md-nav__link">
+    info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="inout.html" class="md-nav__link">
+    inout
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="lines.html" class="md-nav__link">
+    lines
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="mac.html" class="md-nav__link">
+    mac
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="ml.html" class="md-nav__link">
+    ml
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="noise.html" class="md-nav__link">
+    noise
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="osc.html" class="md-nav__link">
+    osc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="panning.html" class="md-nav__link">
+    panning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="physical.html" class="md-nav__link">
+    physical
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="pv.html" class="md-nav__link">
+    pv
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="reverb.html" class="md-nav__link">
+    reverb
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="safety.html" class="md-nav__link">
+    safety
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="triggers.html" class="md-nav__link">
+    triggers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
             
-  <div class="section" id="module-supriya.ugens">
-<span id="ugens"></span><span id="supriya-ugens"></span><h1>ugens<a class="headerlink" href="#module-supriya.ugens" title="Permalink to this headline">¶</a></h1>
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset" role="main">
+              
+                
+                  <a href="https://github.com/josiah-wolf-oberholtzer/supriya/blob/main/docs/api/supriya/ugens/index.rst" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+  <h1 id="module-supriya.ugens"><span id="ugens"></span><span id="supriya-ugens"></span>ugens<a class="headerlink" href="#module-supriya.ugens" title="Permalink to this headline">¶</a></h1>
 <p>Tools for modeling unit generators (UGens).</p>
-<div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-d6b254b51d4f2e8b7779af9ceff88acbd42e4936.svg" type="image/svg+xml" class="inheritance graphviz">
-<p class="warning">digraph InheritanceGraph {
-	graph [bgcolor=transparent,
-		color=lightsteelblue2,
-		fontname=Arial,
-		fontsize=10,
-		outputorder=edgesfirst,
-		overlap=prism,
-		penwidth=2,
-		rankdir=LR,
-		splines=spline,
-		style=&quot;dashed, rounded&quot;,
-		truecolor=true
-	];
-	node [colorscheme=pastel19,
-		fontname=Arial,
-		fontsize=10,
-		height=0,
-		penwidth=2,
-		shape=box,
-		style=&quot;filled, rounded&quot;,
-		width=0
-	];
-	edge [color=lightslategrey,
-		penwidth=1
-	];
-	subgraph cluster_builtins {
-		graph [label=builtins];
-		node [color=1];
-		&quot;builtins.object&quot;	[URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
-			label=object,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.synthdefs.bases&quot; {
-		graph [label=&quot;supriya.synthdefs.bases&quot;];
-		node [color=2];
-		&quot;supriya.synthdefs.bases.MultiOutUGen&quot;	[URL=&quot;../api/supriya/ugens/../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen&quot;,
-			label=&quot;Multi\nOut\nUGen&quot;,
-			shape=oval,
-			style=bold,
-			target=_top];
-		&quot;supriya.synthdefs.bases.PseudoUGen&quot;	[URL=&quot;../api/supriya/ugens/../synthdefs/bases.html#supriya.synthdefs.bases.PseudoUGen&quot;,
-			label=&quot;Pseudo\nUGen&quot;,
-			target=_top];
-		&quot;supriya.synthdefs.bases.PureUGen&quot;	[URL=&quot;../api/supriya/ugens/../synthdefs/bases.html#supriya.synthdefs.bases.PureUGen&quot;,
-			label=&quot;Pure\nUGen&quot;,
-			shape=oval,
-			style=bold,
-			target=_top];
-		&quot;supriya.synthdefs.bases.UGen&quot;	[URL=&quot;../api/supriya/ugens/../synthdefs/bases.html#supriya.synthdefs.bases.UGen&quot;,
-			label=UGen,
-			shape=oval,
-			style=bold,
-			target=_top];
-		&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.synthdefs.bases.MultiOutUGen&quot;;
-		&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.synthdefs.bases.PureUGen&quot;;
-		&quot;supriya.synthdefs.bases.WidthFirstUGen&quot;	[URL=&quot;../api/supriya/ugens/../synthdefs/bases.html#supriya.synthdefs.bases.WidthFirstUGen&quot;,
-			label=&quot;Width\nFirst\nUGen&quot;,
-			shape=oval,
-			style=bold,
-			target=_top];
-		&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.synthdefs.bases.WidthFirstUGen&quot;;
-	}
-	subgraph &quot;cluster_supriya.synthdefs.mixins&quot; {
-		graph [label=&quot;supriya.synthdefs.mixins&quot;];
-		node [color=3];
-		&quot;supriya.synthdefs.mixins.UGenMethodMixin&quot;	[URL=&quot;../api/supriya/ugens/../synthdefs/mixins.html#supriya.synthdefs.mixins.UGenMethodMixin&quot;,
-			label=&quot;UGen\nMethod\nMixin&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.system&quot; {
-		graph [label=&quot;supriya.system&quot;];
-		node [color=4];
-		&quot;supriya.system.SupriyaObject&quot;	[URL=&quot;../api/supriya/ugens/../system.html#supriya.system.SupriyaObject&quot;,
-			label=&quot;Supriya\nObject&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.basic&quot; {
-		graph [label=&quot;supriya.ugens.basic&quot;];
-		node [color=5];
-		&quot;supriya.ugens.basic.Mix&quot;	[URL=&quot;../api/supriya/ugens/basic.html#supriya.ugens.basic.Mix&quot;,
-			label=Mix,
-			target=_top];
-		&quot;supriya.ugens.basic.MulAdd&quot;	[URL=&quot;../api/supriya/ugens/basic.html#supriya.ugens.basic.MulAdd&quot;,
-			label=&quot;Mul\nAdd&quot;,
-			target=_top];
-		&quot;supriya.ugens.basic.Sum3&quot;	[URL=&quot;../api/supriya/ugens/basic.html#supriya.ugens.basic.Sum3&quot;,
-			label=&quot;Sum\n3&quot;,
-			target=_top];
-		&quot;supriya.ugens.basic.Sum4&quot;	[URL=&quot;../api/supriya/ugens/basic.html#supriya.ugens.basic.Sum4&quot;,
-			label=&quot;Sum\n4&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.beq&quot; {
-		graph [label=&quot;supriya.ugens.beq&quot;];
-		node [color=6];
-		&quot;supriya.ugens.beq.BAllPass&quot;	[URL=&quot;../api/supriya/ugens/beq.html#supriya.ugens.beq.BAllPass&quot;,
-			label=&quot;BAll\nPass&quot;,
-			target=_top];
-		&quot;supriya.ugens.beq.BBandPass&quot;	[URL=&quot;../api/supriya/ugens/beq.html#supriya.ugens.beq.BBandPass&quot;,
-			label=&quot;BBand\nPass&quot;,
-			target=_top];
-		&quot;supriya.ugens.beq.BBandStop&quot;	[URL=&quot;../api/supriya/ugens/beq.html#supriya.ugens.beq.BBandStop&quot;,
-			label=&quot;BBand\nStop&quot;,
-			target=_top];
-		&quot;supriya.ugens.beq.BEQSuite&quot;	[URL=&quot;../api/supriya/ugens/beq.html#supriya.ugens.beq.BEQSuite&quot;,
-			label=BEQSuite,
-			shape=oval,
-			style=bold,
-			target=_top];
-		&quot;supriya.ugens.beq.BEQSuite&quot; -&gt; &quot;supriya.ugens.beq.BAllPass&quot;	[minlen=1];
-		&quot;supriya.ugens.beq.BEQSuite&quot; -&gt; &quot;supriya.ugens.beq.BBandPass&quot;	[minlen=2];
-		&quot;supriya.ugens.beq.BEQSuite&quot; -&gt; &quot;supriya.ugens.beq.BBandStop&quot;	[minlen=3];
-		&quot;supriya.ugens.beq.BHiCut&quot;	[URL=&quot;../api/supriya/ugens/beq.html#supriya.ugens.beq.BHiCut&quot;,
-			label=&quot;BHi\nCut&quot;,
-			target=_top];
-		&quot;supriya.ugens.beq.BEQSuite&quot; -&gt; &quot;supriya.ugens.beq.BHiCut&quot;	[minlen=4];
-		&quot;supriya.ugens.beq.BHiPass&quot;	[URL=&quot;../api/supriya/ugens/beq.html#supriya.ugens.beq.BHiPass&quot;,
-			label=&quot;BHi\nPass&quot;,
-			target=_top];
-		&quot;supriya.ugens.beq.BEQSuite&quot; -&gt; &quot;supriya.ugens.beq.BHiPass&quot;	[minlen=5];
-		&quot;supriya.ugens.beq.BHiShelf&quot;	[URL=&quot;../api/supriya/ugens/beq.html#supriya.ugens.beq.BHiShelf&quot;,
-			label=&quot;BHi\nShelf&quot;,
-			target=_top];
-		&quot;supriya.ugens.beq.BEQSuite&quot; -&gt; &quot;supriya.ugens.beq.BHiShelf&quot;	[minlen=1];
-		&quot;supriya.ugens.beq.BLowCut&quot;	[URL=&quot;../api/supriya/ugens/beq.html#supriya.ugens.beq.BLowCut&quot;,
-			label=&quot;BLow\nCut&quot;,
-			target=_top];
-		&quot;supriya.ugens.beq.BEQSuite&quot; -&gt; &quot;supriya.ugens.beq.BLowCut&quot;	[minlen=2];
-		&quot;supriya.ugens.beq.BLowPass&quot;	[URL=&quot;../api/supriya/ugens/beq.html#supriya.ugens.beq.BLowPass&quot;,
-			label=&quot;BLow\nPass&quot;,
-			target=_top];
-		&quot;supriya.ugens.beq.BEQSuite&quot; -&gt; &quot;supriya.ugens.beq.BLowPass&quot;	[minlen=3];
-		&quot;supriya.ugens.beq.BLowShelf&quot;	[URL=&quot;../api/supriya/ugens/beq.html#supriya.ugens.beq.BLowShelf&quot;,
-			label=&quot;BLow\nShelf&quot;,
-			target=_top];
-		&quot;supriya.ugens.beq.BEQSuite&quot; -&gt; &quot;supriya.ugens.beq.BLowShelf&quot;	[minlen=4];
-		&quot;supriya.ugens.beq.BPeakEQ&quot;	[URL=&quot;../api/supriya/ugens/beq.html#supriya.ugens.beq.BPeakEQ&quot;,
-			label=&quot;BPeak\nEQ&quot;,
-			target=_top];
-		&quot;supriya.ugens.beq.BEQSuite&quot; -&gt; &quot;supriya.ugens.beq.BPeakEQ&quot;	[minlen=5];
-	}
-	subgraph &quot;cluster_supriya.ugens.bufio&quot; {
-		graph [label=&quot;supriya.ugens.bufio&quot;];
-		node [color=7];
-		&quot;supriya.ugens.bufio.BufRd&quot;	[URL=&quot;../api/supriya/ugens/bufio.html#supriya.ugens.bufio.BufRd&quot;,
-			label=&quot;Buf\nRd&quot;,
-			target=_top];
-		&quot;supriya.ugens.bufio.BufWr&quot;	[URL=&quot;../api/supriya/ugens/bufio.html#supriya.ugens.bufio.BufWr&quot;,
-			label=&quot;Buf\nWr&quot;,
-			target=_top];
-		&quot;supriya.ugens.bufio.ClearBuf&quot;	[URL=&quot;../api/supriya/ugens/bufio.html#supriya.ugens.bufio.ClearBuf&quot;,
-			label=&quot;Clear\nBuf&quot;,
-			target=_top];
-		&quot;supriya.ugens.bufio.LocalBuf&quot;	[URL=&quot;../api/supriya/ugens/bufio.html#supriya.ugens.bufio.LocalBuf&quot;,
-			label=&quot;Local\nBuf&quot;,
-			target=_top];
-		&quot;supriya.ugens.bufio.MaxLocalBufs&quot;	[URL=&quot;../api/supriya/ugens/bufio.html#supriya.ugens.bufio.MaxLocalBufs&quot;,
-			label=&quot;Max\nLocal\nBufs&quot;,
-			target=_top];
-		&quot;supriya.ugens.bufio.PlayBuf&quot;	[URL=&quot;../api/supriya/ugens/bufio.html#supriya.ugens.bufio.PlayBuf&quot;,
-			label=&quot;Play\nBuf&quot;,
-			target=_top];
-		&quot;supriya.ugens.bufio.RecordBuf&quot;	[URL=&quot;../api/supriya/ugens/bufio.html#supriya.ugens.bufio.RecordBuf&quot;,
-			label=&quot;Record\nBuf&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.chaos&quot; {
-		graph [label=&quot;supriya.ugens.chaos&quot;];
-		node [color=8];
-		&quot;supriya.ugens.chaos.CuspL&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.CuspL&quot;,
-			label=&quot;Cusp\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.CuspN&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.CuspN&quot;,
-			label=&quot;Cusp\nN&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.FBSineC&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.FBSineC&quot;,
-			label=&quot;FBSine\nC&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.FBSineL&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.FBSineL&quot;,
-			label=&quot;FBSine\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.FBSineN&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.FBSineN&quot;,
-			label=&quot;FBSine\nN&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.GbmanL&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.GbmanL&quot;,
-			label=&quot;Gbman\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.GbmanN&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.GbmanN&quot;,
-			label=&quot;Gbman\nN&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.HenonC&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.HenonC&quot;,
-			label=&quot;Henon\nC&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.HenonL&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.HenonL&quot;,
-			label=&quot;Henon\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.HenonN&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.HenonN&quot;,
-			label=&quot;Henon\nN&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.LatoocarfianC&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.LatoocarfianC&quot;,
-			label=&quot;Latoocarfian\nC&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.LatoocarfianL&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.LatoocarfianL&quot;,
-			label=&quot;Latoocarfian\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.LatoocarfianN&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.LatoocarfianN&quot;,
-			label=&quot;Latoocarfian\nN&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.LinCongC&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.LinCongC&quot;,
-			label=&quot;Lin\nCong\nC&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.LinCongL&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.LinCongL&quot;,
-			label=&quot;Lin\nCong\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.LinCongN&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.LinCongN&quot;,
-			label=&quot;Lin\nCong\nN&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.LorenzL&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.LorenzL&quot;,
-			label=&quot;Lorenz\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.QuadC&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.QuadC&quot;,
-			label=&quot;Quad\nC&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.QuadL&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.QuadL&quot;,
-			label=&quot;Quad\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.QuadN&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.QuadN&quot;,
-			label=&quot;Quad\nN&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.StandardL&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.StandardL&quot;,
-			label=&quot;Standard\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.chaos.StandardN&quot;	[URL=&quot;../api/supriya/ugens/chaos.html#supriya.ugens.chaos.StandardN&quot;,
-			label=&quot;Standard\nN&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.convolution&quot; {
-		graph [label=&quot;supriya.ugens.convolution&quot;];
-		node [color=9];
-		&quot;supriya.ugens.convolution.Convolution&quot;	[URL=&quot;../api/supriya/ugens/convolution.html#supriya.ugens.convolution.Convolution&quot;,
-			label=Convolution,
-			target=_top];
-		&quot;supriya.ugens.convolution.Convolution2&quot;	[URL=&quot;../api/supriya/ugens/convolution.html#supriya.ugens.convolution.Convolution2&quot;,
-			label=&quot;Convolution\n2&quot;,
-			target=_top];
-		&quot;supriya.ugens.convolution.Convolution2L&quot;	[URL=&quot;../api/supriya/ugens/convolution.html#supriya.ugens.convolution.Convolution2L&quot;,
-			label=&quot;Convolution\n2\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.convolution.Convolution3&quot;	[URL=&quot;../api/supriya/ugens/convolution.html#supriya.ugens.convolution.Convolution3&quot;,
-			label=&quot;Convolution\n3&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.delay&quot; {
-		graph [label=&quot;supriya.ugens.delay&quot;];
-		node [color=1];
-		&quot;supriya.ugens.delay.AllpassC&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.AllpassC&quot;,
-			label=&quot;Allpass\nC&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.AllpassL&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.AllpassL&quot;,
-			label=&quot;Allpass\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.AllpassN&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.AllpassN&quot;,
-			label=&quot;Allpass\nN&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.BufAllpassC&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.BufAllpassC&quot;,
-			label=&quot;Buf\nAllpass\nC&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.BufAllpassL&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.BufAllpassL&quot;,
-			label=&quot;Buf\nAllpass\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.BufAllpassN&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.BufAllpassN&quot;,
-			label=&quot;Buf\nAllpass\nN&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.BufCombC&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.BufCombC&quot;,
-			label=&quot;Buf\nComb\nC&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.BufCombL&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.BufCombL&quot;,
-			label=&quot;Buf\nComb\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.BufCombN&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.BufCombN&quot;,
-			label=&quot;Buf\nComb\nN&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.BufDelayC&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.BufDelayC&quot;,
-			label=&quot;Buf\nDelay\nC&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.BufDelayL&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.BufDelayL&quot;,
-			label=&quot;Buf\nDelay\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.BufDelayN&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.BufDelayN&quot;,
-			label=&quot;Buf\nDelay\nN&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.CombC&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.CombC&quot;,
-			label=&quot;Comb\nC&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.CombL&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.CombL&quot;,
-			label=&quot;Comb\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.CombN&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.CombN&quot;,
-			label=&quot;Comb\nN&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.DelTapRd&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.DelTapRd&quot;,
-			label=&quot;Del\nTap\nRd&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.DelTapWr&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.DelTapWr&quot;,
-			label=&quot;Del\nTap\nWr&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.Delay1&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.Delay1&quot;,
-			label=&quot;Delay\n1&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.Delay2&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.Delay2&quot;,
-			label=&quot;Delay\n2&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.DelayC&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.DelayC&quot;,
-			label=&quot;Delay\nC&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.DelayL&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.DelayL&quot;,
-			label=&quot;Delay\nL&quot;,
-			target=_top];
-		&quot;supriya.ugens.delay.DelayN&quot;	[URL=&quot;../api/supriya/ugens/delay.html#supriya.ugens.delay.DelayN&quot;,
-			label=&quot;Delay\nN&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.demand&quot; {
-		graph [label=&quot;supriya.ugens.demand&quot;];
-		node [color=2];
-		&quot;supriya.ugens.demand.DUGen&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.DUGen&quot;,
-			label=DUGen,
-			target=_top];
-		&quot;supriya.ugens.demand.Dbrown&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dbrown&quot;,
-			label=Dbrown,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dbrown&quot;	[minlen=1];
-		&quot;supriya.ugens.demand.Dbufrd&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dbufrd&quot;,
-			label=Dbufrd,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dbufrd&quot;	[minlen=2];
-		&quot;supriya.ugens.demand.Dbufwr&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dbufwr&quot;,
-			label=Dbufwr,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dbufwr&quot;	[minlen=3];
-		&quot;supriya.ugens.demand.Dgeom&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dgeom&quot;,
-			label=Dgeom,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dgeom&quot;	[minlen=4];
-		&quot;supriya.ugens.demand.Dibrown&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dibrown&quot;,
-			label=Dibrown,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dibrown&quot;	[minlen=5];
-		&quot;supriya.ugens.demand.Diwhite&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Diwhite&quot;,
-			label=Diwhite,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Diwhite&quot;	[minlen=1];
-		&quot;supriya.ugens.demand.Drand&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Drand&quot;,
-			label=Drand,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Drand&quot;	[minlen=2];
-		&quot;supriya.ugens.demand.Dreset&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dreset&quot;,
-			label=Dreset,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dreset&quot;	[minlen=3];
-		&quot;supriya.ugens.demand.Dseq&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dseq&quot;,
-			label=Dseq,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dseq&quot;	[minlen=4];
-		&quot;supriya.ugens.demand.Dser&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dser&quot;,
-			label=Dser,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dser&quot;	[minlen=5];
-		&quot;supriya.ugens.demand.Dseries&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dseries&quot;,
-			label=Dseries,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dseries&quot;	[minlen=1];
-		&quot;supriya.ugens.demand.Dshuf&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dshuf&quot;,
-			label=Dshuf,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dshuf&quot;	[minlen=2];
-		&quot;supriya.ugens.demand.Dstutter&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dstutter&quot;,
-			label=Dstutter,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dstutter&quot;	[minlen=3];
-		&quot;supriya.ugens.demand.Dswitch&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dswitch&quot;,
-			label=Dswitch,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dswitch&quot;	[minlen=4];
-		&quot;supriya.ugens.demand.Dswitch1&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dswitch1&quot;,
-			label=&quot;Dswitch\n1&quot;,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dswitch1&quot;	[minlen=5];
-		&quot;supriya.ugens.demand.Dunique&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dunique&quot;,
-			label=Dunique,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dunique&quot;	[minlen=1];
-		&quot;supriya.ugens.demand.Dwhite&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dwhite&quot;,
-			label=Dwhite,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dwhite&quot;	[minlen=2];
-		&quot;supriya.ugens.demand.Dwrand&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dwrand&quot;,
-			label=Dwrand,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dwrand&quot;	[minlen=3];
-		&quot;supriya.ugens.demand.Dxrand&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Dxrand&quot;,
-			label=Dxrand,
-			target=_top];
-		&quot;supriya.ugens.demand.DUGen&quot; -&gt; &quot;supriya.ugens.demand.Dxrand&quot;	[minlen=4];
-		&quot;supriya.ugens.demand.Demand&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Demand&quot;,
-			label=Demand,
-			target=_top];
-		&quot;supriya.ugens.demand.DemandEnvGen&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.DemandEnvGen&quot;,
-			label=&quot;Demand\nEnv\nGen&quot;,
-			target=_top];
-		&quot;supriya.ugens.demand.Duty&quot;	[URL=&quot;../api/supriya/ugens/demand.html#supriya.ugens.demand.Duty&quot;,
-			label=Duty,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.diskio&quot; {
-		graph [label=&quot;supriya.ugens.diskio&quot;];
-		node [color=3];
-		&quot;supriya.ugens.diskio.DiskIn&quot;	[URL=&quot;../api/supriya/ugens/diskio.html#supriya.ugens.diskio.DiskIn&quot;,
-			label=&quot;Disk\nIn&quot;,
-			target=_top];
-		&quot;supriya.ugens.diskio.DiskOut&quot;	[URL=&quot;../api/supriya/ugens/diskio.html#supriya.ugens.diskio.DiskOut&quot;,
-			label=&quot;Disk\nOut&quot;,
-			target=_top];
-		&quot;supriya.ugens.diskio.VDiskIn&quot;	[URL=&quot;../api/supriya/ugens/diskio.html#supriya.ugens.diskio.VDiskIn&quot;,
-			label=&quot;VDisk\nIn&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.dynamics&quot; {
-		graph [label=&quot;supriya.ugens.dynamics&quot;];
-		node [color=4];
-		&quot;supriya.ugens.dynamics.Amplitude&quot;	[URL=&quot;../api/supriya/ugens/dynamics.html#supriya.ugens.dynamics.Amplitude&quot;,
-			label=Amplitude,
-			target=_top];
-		&quot;supriya.ugens.dynamics.Compander&quot;	[URL=&quot;../api/supriya/ugens/dynamics.html#supriya.ugens.dynamics.Compander&quot;,
-			label=Compander,
-			target=_top];
-		&quot;supriya.ugens.dynamics.CompanderD&quot;	[URL=&quot;../api/supriya/ugens/dynamics.html#supriya.ugens.dynamics.CompanderD&quot;,
-			label=&quot;Compander\nD&quot;,
-			target=_top];
-		&quot;supriya.ugens.dynamics.Limiter&quot;	[URL=&quot;../api/supriya/ugens/dynamics.html#supriya.ugens.dynamics.Limiter&quot;,
-			label=Limiter,
-			target=_top];
-		&quot;supriya.ugens.dynamics.Normalizer&quot;	[URL=&quot;../api/supriya/ugens/dynamics.html#supriya.ugens.dynamics.Normalizer&quot;,
-			label=Normalizer,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.envelopes&quot; {
-		graph [label=&quot;supriya.ugens.envelopes&quot;];
-		node [color=5];
-		&quot;supriya.ugens.envelopes.Done&quot;	[URL=&quot;../api/supriya/ugens/envelopes.html#supriya.ugens.envelopes.Done&quot;,
-			label=Done,
-			target=_top];
-		&quot;supriya.ugens.envelopes.EnvGen&quot;	[URL=&quot;../api/supriya/ugens/envelopes.html#supriya.ugens.envelopes.EnvGen&quot;,
-			label=&quot;Env\nGen&quot;,
-			target=_top];
-		&quot;supriya.ugens.envelopes.Free&quot;	[URL=&quot;../api/supriya/ugens/envelopes.html#supriya.ugens.envelopes.Free&quot;,
-			label=Free,
-			target=_top];
-		&quot;supriya.ugens.envelopes.FreeSelf&quot;	[URL=&quot;../api/supriya/ugens/envelopes.html#supriya.ugens.envelopes.FreeSelf&quot;,
-			label=&quot;Free\nSelf&quot;,
-			target=_top];
-		&quot;supriya.ugens.envelopes.FreeSelfWhenDone&quot;	[URL=&quot;../api/supriya/ugens/envelopes.html#supriya.ugens.envelopes.FreeSelfWhenDone&quot;,
-			label=&quot;Free\nSelf\nWhen\nDone&quot;,
-			target=_top];
-		&quot;supriya.ugens.envelopes.Linen&quot;	[URL=&quot;../api/supriya/ugens/envelopes.html#supriya.ugens.envelopes.Linen&quot;,
-			label=Linen,
-			target=_top];
-		&quot;supriya.ugens.envelopes.Pause&quot;	[URL=&quot;../api/supriya/ugens/envelopes.html#supriya.ugens.envelopes.Pause&quot;,
-			label=Pause,
-			target=_top];
-		&quot;supriya.ugens.envelopes.PauseSelf&quot;	[URL=&quot;../api/supriya/ugens/envelopes.html#supriya.ugens.envelopes.PauseSelf&quot;,
-			label=&quot;Pause\nSelf&quot;,
-			target=_top];
-		&quot;supriya.ugens.envelopes.PauseSelfWhenDone&quot;	[URL=&quot;../api/supriya/ugens/envelopes.html#supriya.ugens.envelopes.PauseSelfWhenDone&quot;,
-			label=&quot;Pause\nSelf\nWhen\nDone&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.ffsinosc&quot; {
-		graph [label=&quot;supriya.ugens.ffsinosc&quot;];
-		node [color=6];
-		&quot;supriya.ugens.ffsinosc.Blip&quot;	[URL=&quot;../api/supriya/ugens/ffsinosc.html#supriya.ugens.ffsinosc.Blip&quot;,
-			label=Blip,
-			target=_top];
-		&quot;supriya.ugens.ffsinosc.FSinOsc&quot;	[URL=&quot;../api/supriya/ugens/ffsinosc.html#supriya.ugens.ffsinosc.FSinOsc&quot;,
-			label=&quot;FSin\nOsc&quot;,
-			target=_top];
-		&quot;supriya.ugens.ffsinosc.Klank&quot;	[URL=&quot;../api/supriya/ugens/ffsinosc.html#supriya.ugens.ffsinosc.Klank&quot;,
-			label=Klank,
-			target=_top];
-		&quot;supriya.ugens.ffsinosc.Pulse&quot;	[URL=&quot;../api/supriya/ugens/ffsinosc.html#supriya.ugens.ffsinosc.Pulse&quot;,
-			label=Pulse,
-			target=_top];
-		&quot;supriya.ugens.ffsinosc.Saw&quot;	[URL=&quot;../api/supriya/ugens/ffsinosc.html#supriya.ugens.ffsinosc.Saw&quot;,
-			label=Saw,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.filters&quot; {
-		graph [label=&quot;supriya.ugens.filters&quot;];
-		node [color=7];
-		&quot;supriya.ugens.filters.APF&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.APF&quot;,
-			label=APF,
-			target=_top];
-		&quot;supriya.ugens.filters.BPF&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.BPF&quot;,
-			label=BPF,
-			target=_top];
-		&quot;supriya.ugens.filters.BPZ2&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.BPZ2&quot;,
-			label=BPZ2,
-			target=_top];
-		&quot;supriya.ugens.filters.BRF&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.BRF&quot;,
-			label=BRF,
-			target=_top];
-		&quot;supriya.ugens.filters.BRZ2&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.BRZ2&quot;,
-			label=BRZ2,
-			target=_top];
-		&quot;supriya.ugens.filters.Changed&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Changed&quot;,
-			label=Changed,
-			target=_top];
-		&quot;supriya.ugens.filters.Decay&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Decay&quot;,
-			label=Decay,
-			target=_top];
-		&quot;supriya.ugens.filters.Decay2&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Decay2&quot;,
-			label=&quot;Decay\n2&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.DetectSilence&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.DetectSilence&quot;,
-			label=&quot;Detect\nSilence&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.FOS&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.FOS&quot;,
-			label=FOS,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Filter&quot;,
-			label=Filter,
-			shape=oval,
-			style=bold,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.APF&quot;	[minlen=1];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.BPF&quot;	[minlen=2];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.BPZ2&quot;	[minlen=3];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.BRF&quot;	[minlen=4];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.BRZ2&quot;	[minlen=5];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Decay&quot;	[minlen=1];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Decay2&quot;	[minlen=2];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.DetectSilence&quot;	[minlen=3];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.FOS&quot;	[minlen=4];
-		&quot;supriya.ugens.filters.Formlet&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Formlet&quot;,
-			label=Formlet,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Formlet&quot;	[minlen=5];
-		&quot;supriya.ugens.filters.HPF&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.HPF&quot;,
-			label=HPF,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.HPF&quot;	[minlen=1];
-		&quot;supriya.ugens.filters.HPZ1&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.HPZ1&quot;,
-			label=HPZ1,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.HPZ1&quot;	[minlen=2];
-		&quot;supriya.ugens.filters.HPZ2&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.HPZ2&quot;,
-			label=HPZ2,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.HPZ2&quot;	[minlen=3];
-		&quot;supriya.ugens.filters.Integrator&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Integrator&quot;,
-			label=Integrator,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Integrator&quot;	[minlen=4];
-		&quot;supriya.ugens.filters.LPF&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.LPF&quot;,
-			label=LPF,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.LPF&quot;	[minlen=5];
-		&quot;supriya.ugens.filters.LPZ1&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.LPZ1&quot;,
-			label=LPZ1,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.LPZ1&quot;	[minlen=1];
-		&quot;supriya.ugens.filters.LPZ2&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.LPZ2&quot;,
-			label=LPZ2,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.LPZ2&quot;	[minlen=2];
-		&quot;supriya.ugens.filters.Lag&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Lag&quot;,
-			label=Lag,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Lag&quot;	[minlen=3];
-		&quot;supriya.ugens.filters.Lag2&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Lag2&quot;,
-			label=&quot;Lag\n2&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Lag2&quot;	[minlen=4];
-		&quot;supriya.ugens.filters.Lag2UD&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Lag2UD&quot;,
-			label=&quot;Lag\n2\nUD&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Lag2UD&quot;	[minlen=5];
-		&quot;supriya.ugens.filters.Lag3&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Lag3&quot;,
-			label=&quot;Lag\n3&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Lag3&quot;	[minlen=1];
-		&quot;supriya.ugens.filters.Lag3UD&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Lag3UD&quot;,
-			label=&quot;Lag\n3\nUD&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Lag3UD&quot;	[minlen=2];
-		&quot;supriya.ugens.filters.LagUD&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.LagUD&quot;,
-			label=&quot;Lag\nUD&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.LagUD&quot;	[minlen=3];
-		&quot;supriya.ugens.filters.LeakDC&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.LeakDC&quot;,
-			label=&quot;Leak\nDC&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.LeakDC&quot;	[minlen=4];
-		&quot;supriya.ugens.filters.Median&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Median&quot;,
-			label=Median,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Median&quot;	[minlen=5];
-		&quot;supriya.ugens.filters.MidEQ&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.MidEQ&quot;,
-			label=&quot;Mid\nEQ&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.MidEQ&quot;	[minlen=1];
-		&quot;supriya.ugens.filters.MoogFF&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.MoogFF&quot;,
-			label=&quot;Moog\nFF&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.MoogFF&quot;	[minlen=2];
-		&quot;supriya.ugens.filters.OnePole&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.OnePole&quot;,
-			label=&quot;One\nPole&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.OnePole&quot;	[minlen=3];
-		&quot;supriya.ugens.filters.OneZero&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.OneZero&quot;,
-			label=&quot;One\nZero&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.OneZero&quot;	[minlen=4];
-		&quot;supriya.ugens.filters.RHPF&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.RHPF&quot;,
-			label=RHPF,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.RHPF&quot;	[minlen=5];
-		&quot;supriya.ugens.filters.RLPF&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.RLPF&quot;,
-			label=RLPF,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.RLPF&quot;	[minlen=1];
-		&quot;supriya.ugens.filters.Ramp&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Ramp&quot;,
-			label=Ramp,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Ramp&quot;	[minlen=2];
-		&quot;supriya.ugens.filters.Ringz&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Ringz&quot;,
-			label=Ringz,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Ringz&quot;	[minlen=3];
-		&quot;supriya.ugens.filters.SOS&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.SOS&quot;,
-			label=SOS,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.SOS&quot;	[minlen=4];
-		&quot;supriya.ugens.filters.Slew&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Slew&quot;,
-			label=Slew,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Slew&quot;	[minlen=5];
-		&quot;supriya.ugens.filters.Slope&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.Slope&quot;,
-			label=Slope,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.Slope&quot;	[minlen=1];
-		&quot;supriya.ugens.filters.TwoPole&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.TwoPole&quot;,
-			label=&quot;Two\nPole&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.TwoPole&quot;	[minlen=2];
-		&quot;supriya.ugens.filters.TwoZero&quot;	[URL=&quot;../api/supriya/ugens/filters.html#supriya.ugens.filters.TwoZero&quot;,
-			label=&quot;Two\nZero&quot;,
-			target=_top];
-		&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.filters.TwoZero&quot;	[minlen=3];
-	}
-	subgraph &quot;cluster_supriya.ugens.gendyn&quot; {
-		graph [label=&quot;supriya.ugens.gendyn&quot;];
-		node [color=8];
-		&quot;supriya.ugens.gendyn.Gendy1&quot;	[URL=&quot;../api/supriya/ugens/gendyn.html#supriya.ugens.gendyn.Gendy1&quot;,
-			label=&quot;Gendy\n1&quot;,
-			target=_top];
-		&quot;supriya.ugens.gendyn.Gendy2&quot;	[URL=&quot;../api/supriya/ugens/gendyn.html#supriya.ugens.gendyn.Gendy2&quot;,
-			label=&quot;Gendy\n2&quot;,
-			target=_top];
-		&quot;supriya.ugens.gendyn.Gendy3&quot;	[URL=&quot;../api/supriya/ugens/gendyn.html#supriya.ugens.gendyn.Gendy3&quot;,
-			label=&quot;Gendy\n3&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.granular&quot; {
-		graph [label=&quot;supriya.ugens.granular&quot;];
-		node [color=9];
-		&quot;supriya.ugens.granular.GrainBuf&quot;	[URL=&quot;../api/supriya/ugens/granular.html#supriya.ugens.granular.GrainBuf&quot;,
-			label=&quot;Grain\nBuf&quot;,
-			target=_top];
-		&quot;supriya.ugens.granular.GrainIn&quot;	[URL=&quot;../api/supriya/ugens/granular.html#supriya.ugens.granular.GrainIn&quot;,
-			label=&quot;Grain\nIn&quot;,
-			target=_top];
-		&quot;supriya.ugens.granular.PitchShift&quot;	[URL=&quot;../api/supriya/ugens/granular.html#supriya.ugens.granular.PitchShift&quot;,
-			label=&quot;Pitch\nShift&quot;,
-			target=_top];
-		&quot;supriya.ugens.granular.Warp1&quot;	[URL=&quot;../api/supriya/ugens/granular.html#supriya.ugens.granular.Warp1&quot;,
-			label=&quot;Warp\n1&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.hilbert&quot; {
-		graph [label=&quot;supriya.ugens.hilbert&quot;];
-		node [color=1];
-		&quot;supriya.ugens.hilbert.FreqShift&quot;	[URL=&quot;../api/supriya/ugens/hilbert.html#supriya.ugens.hilbert.FreqShift&quot;,
-			label=&quot;Freq\nShift&quot;,
-			target=_top];
-		&quot;supriya.ugens.hilbert.Hilbert&quot;	[URL=&quot;../api/supriya/ugens/hilbert.html#supriya.ugens.hilbert.Hilbert&quot;,
-			label=Hilbert,
-			target=_top];
-		&quot;supriya.ugens.hilbert.HilbertFIR&quot;	[URL=&quot;../api/supriya/ugens/hilbert.html#supriya.ugens.hilbert.HilbertFIR&quot;,
-			label=&quot;Hilbert\nFIR&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.info&quot; {
-		graph [label=&quot;supriya.ugens.info&quot;];
-		node [color=2];
-		&quot;supriya.ugens.info.BlockSize&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.BlockSize&quot;,
-			label=&quot;Block\nSize&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.BufChannels&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.BufChannels&quot;,
-			label=&quot;Buf\nChannels&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.BufDur&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.BufDur&quot;,
-			label=&quot;Buf\nDur&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.BufFrames&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.BufFrames&quot;,
-			label=&quot;Buf\nFrames&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.BufRateScale&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.BufRateScale&quot;,
-			label=&quot;Buf\nRate\nScale&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.BufSampleRate&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.BufSampleRate&quot;,
-			label=&quot;Buf\nSample\nRate&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.BufSamples&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.BufSamples&quot;,
-			label=&quot;Buf\nSamples&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.ControlDur&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.ControlDur&quot;,
-			label=&quot;Control\nDur&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.ControlRate&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.ControlRate&quot;,
-			label=&quot;Control\nRate&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.NodeID&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.NodeID&quot;,
-			label=&quot;Node\nID&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.NumAudioBuses&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.NumAudioBuses&quot;,
-			label=&quot;Num\nAudio\nBuses&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.NumBuffers&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.NumBuffers&quot;,
-			label=&quot;Num\nBuffers&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.NumControlBuses&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.NumControlBuses&quot;,
-			label=&quot;Num\nControl\nBuses&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.NumInputBuses&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.NumInputBuses&quot;,
-			label=&quot;Num\nInput\nBuses&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.NumOutputBuses&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.NumOutputBuses&quot;,
-			label=&quot;Num\nOutput\nBuses&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.NumRunningSynths&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.NumRunningSynths&quot;,
-			label=&quot;Num\nRunning\nSynths&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.RadiansPerSample&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.RadiansPerSample&quot;,
-			label=&quot;Radians\nPer\nSample&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.SampleDur&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.SampleDur&quot;,
-			label=&quot;Sample\nDur&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.SampleRate&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.SampleRate&quot;,
-			label=&quot;Sample\nRate&quot;,
-			target=_top];
-		&quot;supriya.ugens.info.SubsampleOffset&quot;	[URL=&quot;../api/supriya/ugens/info.html#supriya.ugens.info.SubsampleOffset&quot;,
-			label=&quot;Subsample\nOffset&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.inout&quot; {
-		graph [label=&quot;supriya.ugens.inout&quot;];
-		node [color=3];
-		&quot;supriya.ugens.inout.In&quot;	[URL=&quot;../api/supriya/ugens/inout.html#supriya.ugens.inout.In&quot;,
-			label=In,
-			target=_top];
-		&quot;supriya.ugens.inout.InFeedback&quot;	[URL=&quot;../api/supriya/ugens/inout.html#supriya.ugens.inout.InFeedback&quot;,
-			label=&quot;In\nFeedback&quot;,
-			target=_top];
-		&quot;supriya.ugens.inout.LocalIn&quot;	[URL=&quot;../api/supriya/ugens/inout.html#supriya.ugens.inout.LocalIn&quot;,
-			label=&quot;Local\nIn&quot;,
-			target=_top];
-		&quot;supriya.ugens.inout.LocalOut&quot;	[URL=&quot;../api/supriya/ugens/inout.html#supriya.ugens.inout.LocalOut&quot;,
-			label=&quot;Local\nOut&quot;,
-			target=_top];
-		&quot;supriya.ugens.inout.OffsetOut&quot;	[URL=&quot;../api/supriya/ugens/inout.html#supriya.ugens.inout.OffsetOut&quot;,
-			label=&quot;Offset\nOut&quot;,
-			target=_top];
-		&quot;supriya.ugens.inout.Out&quot;	[URL=&quot;../api/supriya/ugens/inout.html#supriya.ugens.inout.Out&quot;,
-			label=Out,
-			target=_top];
-		&quot;supriya.ugens.inout.ReplaceOut&quot;	[URL=&quot;../api/supriya/ugens/inout.html#supriya.ugens.inout.ReplaceOut&quot;,
-			label=&quot;Replace\nOut&quot;,
-			target=_top];
-		&quot;supriya.ugens.inout.SoundIn&quot;	[URL=&quot;../api/supriya/ugens/inout.html#supriya.ugens.inout.SoundIn&quot;,
-			label=&quot;Sound\nIn&quot;,
-			target=_top];
-		&quot;supriya.ugens.inout.XOut&quot;	[URL=&quot;../api/supriya/ugens/inout.html#supriya.ugens.inout.XOut&quot;,
-			label=XOut,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.lines&quot; {
-		graph [label=&quot;supriya.ugens.lines&quot;];
-		node [color=4];
-		&quot;supriya.ugens.lines.A2K&quot;	[URL=&quot;../api/supriya/ugens/lines.html#supriya.ugens.lines.A2K&quot;,
-			label=&quot;A2\nK&quot;,
-			target=_top];
-		&quot;supriya.ugens.lines.AmpComp&quot;	[URL=&quot;../api/supriya/ugens/lines.html#supriya.ugens.lines.AmpComp&quot;,
-			label=&quot;Amp\nComp&quot;,
-			target=_top];
-		&quot;supriya.ugens.lines.AmpCompA&quot;	[URL=&quot;../api/supriya/ugens/lines.html#supriya.ugens.lines.AmpCompA&quot;,
-			label=&quot;Amp\nComp\nA&quot;,
-			target=_top];
-		&quot;supriya.ugens.lines.DC&quot;	[URL=&quot;../api/supriya/ugens/lines.html#supriya.ugens.lines.DC&quot;,
-			label=DC,
-			target=_top];
-		&quot;supriya.ugens.lines.K2A&quot;	[URL=&quot;../api/supriya/ugens/lines.html#supriya.ugens.lines.K2A&quot;,
-			label=&quot;K2\nA&quot;,
-			target=_top];
-		&quot;supriya.ugens.lines.LinExp&quot;	[URL=&quot;../api/supriya/ugens/lines.html#supriya.ugens.lines.LinExp&quot;,
-			label=&quot;Lin\nExp&quot;,
-			target=_top];
-		&quot;supriya.ugens.lines.LinLin&quot;	[URL=&quot;../api/supriya/ugens/lines.html#supriya.ugens.lines.LinLin&quot;,
-			label=&quot;Lin\nLin&quot;,
-			target=_top];
-		&quot;supriya.ugens.lines.Line&quot;	[URL=&quot;../api/supriya/ugens/lines.html#supriya.ugens.lines.Line&quot;,
-			label=Line,
-			target=_top];
-		&quot;supriya.ugens.lines.Silence&quot;	[URL=&quot;../api/supriya/ugens/lines.html#supriya.ugens.lines.Silence&quot;,
-			label=Silence,
-			target=_top];
-		&quot;supriya.ugens.lines.XLine&quot;	[URL=&quot;../api/supriya/ugens/lines.html#supriya.ugens.lines.XLine&quot;,
-			label=XLine,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.mac&quot; {
-		graph [label=&quot;supriya.ugens.mac&quot;];
-		node [color=5];
-		&quot;supriya.ugens.mac.KeyState&quot;	[URL=&quot;../api/supriya/ugens/mac.html#supriya.ugens.mac.KeyState&quot;,
-			label=&quot;Key\nState&quot;,
-			target=_top];
-		&quot;supriya.ugens.mac.MouseButton&quot;	[URL=&quot;../api/supriya/ugens/mac.html#supriya.ugens.mac.MouseButton&quot;,
-			label=&quot;Mouse\nButton&quot;,
-			target=_top];
-		&quot;supriya.ugens.mac.MouseX&quot;	[URL=&quot;../api/supriya/ugens/mac.html#supriya.ugens.mac.MouseX&quot;,
-			label=&quot;Mouse\nX&quot;,
-			target=_top];
-		&quot;supriya.ugens.mac.MouseY&quot;	[URL=&quot;../api/supriya/ugens/mac.html#supriya.ugens.mac.MouseY&quot;,
-			label=&quot;Mouse\nY&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.ml&quot; {
-		graph [label=&quot;supriya.ugens.ml&quot;];
-		node [color=6];
-		&quot;supriya.ugens.ml.BeatTrack&quot;	[URL=&quot;../api/supriya/ugens/ml.html#supriya.ugens.ml.BeatTrack&quot;,
-			label=&quot;Beat\nTrack&quot;,
-			target=_top];
-		&quot;supriya.ugens.ml.BeatTrack2&quot;	[URL=&quot;../api/supriya/ugens/ml.html#supriya.ugens.ml.BeatTrack2&quot;,
-			label=&quot;Beat\nTrack\n2&quot;,
-			target=_top];
-		&quot;supriya.ugens.ml.KeyTrack&quot;	[URL=&quot;../api/supriya/ugens/ml.html#supriya.ugens.ml.KeyTrack&quot;,
-			label=&quot;Key\nTrack&quot;,
-			target=_top];
-		&quot;supriya.ugens.ml.Loudness&quot;	[URL=&quot;../api/supriya/ugens/ml.html#supriya.ugens.ml.Loudness&quot;,
-			label=Loudness,
-			target=_top];
-		&quot;supriya.ugens.ml.MFCC&quot;	[URL=&quot;../api/supriya/ugens/ml.html#supriya.ugens.ml.MFCC&quot;,
-			label=MFCC,
-			target=_top];
-		&quot;supriya.ugens.ml.Onsets&quot;	[URL=&quot;../api/supriya/ugens/ml.html#supriya.ugens.ml.Onsets&quot;,
-			label=Onsets,
-			target=_top];
-		&quot;supriya.ugens.ml.SpecCentroid&quot;	[URL=&quot;../api/supriya/ugens/ml.html#supriya.ugens.ml.SpecCentroid&quot;,
-			label=&quot;Spec\nCentroid&quot;,
-			target=_top];
-		&quot;supriya.ugens.ml.SpecFlatness&quot;	[URL=&quot;../api/supriya/ugens/ml.html#supriya.ugens.ml.SpecFlatness&quot;,
-			label=&quot;Spec\nFlatness&quot;,
-			target=_top];
-		&quot;supriya.ugens.ml.SpecPcile&quot;	[URL=&quot;../api/supriya/ugens/ml.html#supriya.ugens.ml.SpecPcile&quot;,
-			label=&quot;Spec\nPcile&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.noise&quot; {
-		graph [label=&quot;supriya.ugens.noise&quot;];
-		node [color=7];
-		&quot;supriya.ugens.noise.BrownNoise&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.BrownNoise&quot;,
-			label=&quot;Brown\nNoise&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.ClipNoise&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.ClipNoise&quot;,
-			label=&quot;Clip\nNoise&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.CoinGate&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.CoinGate&quot;,
-			label=&quot;Coin\nGate&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.Crackle&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.Crackle&quot;,
-			label=Crackle,
-			target=_top];
-		&quot;supriya.ugens.noise.Dust&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.Dust&quot;,
-			label=Dust,
-			target=_top];
-		&quot;supriya.ugens.noise.Dust2&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.Dust2&quot;,
-			label=&quot;Dust\n2&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.ExpRand&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.ExpRand&quot;,
-			label=&quot;Exp\nRand&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.GrayNoise&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.GrayNoise&quot;,
-			label=&quot;Gray\nNoise&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.Hasher&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.Hasher&quot;,
-			label=Hasher,
-			target=_top];
-		&quot;supriya.ugens.noise.IRand&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.IRand&quot;,
-			label=IRand,
-			target=_top];
-		&quot;supriya.ugens.noise.LFClipNoise&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.LFClipNoise&quot;,
-			label=&quot;LFClip\nNoise&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.LFDClipNoise&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.LFDClipNoise&quot;,
-			label=&quot;LFDClip\nNoise&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.LFDNoise0&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.LFDNoise0&quot;,
-			label=&quot;LFDNoise\n0&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.LFDNoise1&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.LFDNoise1&quot;,
-			label=&quot;LFDNoise\n1&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.LFDNoise3&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.LFDNoise3&quot;,
-			label=&quot;LFDNoise\n3&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.LFNoise0&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.LFNoise0&quot;,
-			label=&quot;LFNoise\n0&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.LFNoise1&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.LFNoise1&quot;,
-			label=&quot;LFNoise\n1&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.LFNoise2&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.LFNoise2&quot;,
-			label=&quot;LFNoise\n2&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.LinRand&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.LinRand&quot;,
-			label=&quot;Lin\nRand&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.Logistic&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.Logistic&quot;,
-			label=Logistic,
-			target=_top];
-		&quot;supriya.ugens.noise.MantissaMask&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.MantissaMask&quot;,
-			label=&quot;Mantissa\nMask&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.NRand&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.NRand&quot;,
-			label=NRand,
-			target=_top];
-		&quot;supriya.ugens.noise.PinkNoise&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.PinkNoise&quot;,
-			label=&quot;Pink\nNoise&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.Rand&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.Rand&quot;,
-			label=Rand,
-			target=_top];
-		&quot;supriya.ugens.noise.RandID&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.RandID&quot;,
-			label=&quot;Rand\nID&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.RandSeed&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.RandSeed&quot;,
-			label=&quot;Rand\nSeed&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.TExpRand&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.TExpRand&quot;,
-			label=&quot;TExp\nRand&quot;,
-			target=_top];
-		&quot;supriya.ugens.noise.TIRand&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.TIRand&quot;,
-			label=TIRand,
-			target=_top];
-		&quot;supriya.ugens.noise.TRand&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.TRand&quot;,
-			label=TRand,
-			target=_top];
-		&quot;supriya.ugens.noise.TWindex&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.TWindex&quot;,
-			label=TWindex,
-			target=_top];
-		&quot;supriya.ugens.noise.WhiteNoise&quot;	[URL=&quot;../api/supriya/ugens/noise.html#supriya.ugens.noise.WhiteNoise&quot;,
-			label=&quot;White\nNoise&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.osc&quot; {
-		graph [label=&quot;supriya.ugens.osc&quot;];
-		node [color=8];
-		&quot;supriya.ugens.osc.COsc&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.COsc&quot;,
-			label=COsc,
-			target=_top];
-		&quot;supriya.ugens.osc.DegreeToKey&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.DegreeToKey&quot;,
-			label=&quot;Degree\nTo\nKey&quot;,
-			target=_top];
-		&quot;supriya.ugens.osc.Impulse&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.Impulse&quot;,
-			label=Impulse,
-			target=_top];
-		&quot;supriya.ugens.osc.Index&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.Index&quot;,
-			label=Index,
-			target=_top];
-		&quot;supriya.ugens.osc.LFCub&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.LFCub&quot;,
-			label=LFCub,
-			target=_top];
-		&quot;supriya.ugens.osc.LFGauss&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.LFGauss&quot;,
-			label=LFGauss,
-			target=_top];
-		&quot;supriya.ugens.osc.LFPar&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.LFPar&quot;,
-			label=LFPar,
-			target=_top];
-		&quot;supriya.ugens.osc.LFPulse&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.LFPulse&quot;,
-			label=LFPulse,
-			target=_top];
-		&quot;supriya.ugens.osc.LFSaw&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.LFSaw&quot;,
-			label=LFSaw,
-			target=_top];
-		&quot;supriya.ugens.osc.LFTri&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.LFTri&quot;,
-			label=LFTri,
-			target=_top];
-		&quot;supriya.ugens.osc.Select&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.Select&quot;,
-			label=Select,
-			target=_top];
-		&quot;supriya.ugens.osc.SinOsc&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.SinOsc&quot;,
-			label=&quot;Sin\nOsc&quot;,
-			target=_top];
-		&quot;supriya.ugens.osc.SyncSaw&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.SyncSaw&quot;,
-			label=&quot;Sync\nSaw&quot;,
-			target=_top];
-		&quot;supriya.ugens.osc.VOsc&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.VOsc&quot;,
-			label=VOsc,
-			target=_top];
-		&quot;supriya.ugens.osc.VOsc3&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.VOsc3&quot;,
-			label=&quot;VOsc\n3&quot;,
-			target=_top];
-		&quot;supriya.ugens.osc.VarSaw&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.VarSaw&quot;,
-			label=&quot;Var\nSaw&quot;,
-			target=_top];
-		&quot;supriya.ugens.osc.Vibrato&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.Vibrato&quot;,
-			label=Vibrato,
-			target=_top];
-		&quot;supriya.ugens.osc.WrapIndex&quot;	[URL=&quot;../api/supriya/ugens/osc.html#supriya.ugens.osc.WrapIndex&quot;,
-			label=&quot;Wrap\nIndex&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.panning&quot; {
-		graph [label=&quot;supriya.ugens.panning&quot;];
-		node [color=9];
-		&quot;supriya.ugens.panning.Balance2&quot;	[URL=&quot;../api/supriya/ugens/panning.html#supriya.ugens.panning.Balance2&quot;,
-			label=&quot;Balance\n2&quot;,
-			target=_top];
-		&quot;supriya.ugens.panning.BiPanB2&quot;	[URL=&quot;../api/supriya/ugens/panning.html#supriya.ugens.panning.BiPanB2&quot;,
-			label=&quot;Bi\nPan\nB2&quot;,
-			target=_top];
-		&quot;supriya.ugens.panning.DecodeB2&quot;	[URL=&quot;../api/supriya/ugens/panning.html#supriya.ugens.panning.DecodeB2&quot;,
-			label=&quot;Decode\nB2&quot;,
-			target=_top];
-		&quot;supriya.ugens.panning.Pan2&quot;	[URL=&quot;../api/supriya/ugens/panning.html#supriya.ugens.panning.Pan2&quot;,
-			label=&quot;Pan\n2&quot;,
-			target=_top];
-		&quot;supriya.ugens.panning.Pan4&quot;	[URL=&quot;../api/supriya/ugens/panning.html#supriya.ugens.panning.Pan4&quot;,
-			label=&quot;Pan\n4&quot;,
-			target=_top];
-		&quot;supriya.ugens.panning.PanAz&quot;	[URL=&quot;../api/supriya/ugens/panning.html#supriya.ugens.panning.PanAz&quot;,
-			label=&quot;Pan\nAz&quot;,
-			target=_top];
-		&quot;supriya.ugens.panning.PanB&quot;	[URL=&quot;../api/supriya/ugens/panning.html#supriya.ugens.panning.PanB&quot;,
-			label=&quot;Pan\nB&quot;,
-			target=_top];
-		&quot;supriya.ugens.panning.PanB2&quot;	[URL=&quot;../api/supriya/ugens/panning.html#supriya.ugens.panning.PanB2&quot;,
-			label=&quot;Pan\nB2&quot;,
-			target=_top];
-		&quot;supriya.ugens.panning.Rotate2&quot;	[URL=&quot;../api/supriya/ugens/panning.html#supriya.ugens.panning.Rotate2&quot;,
-			label=&quot;Rotate\n2&quot;,
-			target=_top];
-		&quot;supriya.ugens.panning.Splay&quot;	[URL=&quot;../api/supriya/ugens/panning.html#supriya.ugens.panning.Splay&quot;,
-			label=Splay,
-			target=_top];
-		&quot;supriya.ugens.panning.XFade2&quot;	[URL=&quot;../api/supriya/ugens/panning.html#supriya.ugens.panning.XFade2&quot;,
-			label=&quot;XFade\n2&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.physical&quot; {
-		graph [label=&quot;supriya.ugens.physical&quot;];
-		node [color=1];
-		&quot;supriya.ugens.physical.Ball&quot;	[URL=&quot;../api/supriya/ugens/physical.html#supriya.ugens.physical.Ball&quot;,
-			label=Ball,
-			target=_top];
-		&quot;supriya.ugens.physical.Pluck&quot;	[URL=&quot;../api/supriya/ugens/physical.html#supriya.ugens.physical.Pluck&quot;,
-			label=Pluck,
-			target=_top];
-		&quot;supriya.ugens.physical.Spring&quot;	[URL=&quot;../api/supriya/ugens/physical.html#supriya.ugens.physical.Spring&quot;,
-			label=Spring,
-			target=_top];
-		&quot;supriya.ugens.physical.TBall&quot;	[URL=&quot;../api/supriya/ugens/physical.html#supriya.ugens.physical.TBall&quot;,
-			label=TBall,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.pv&quot; {
-		graph [label=&quot;supriya.ugens.pv&quot;];
-		node [color=2];
-		&quot;supriya.ugens.pv.FFT&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.FFT&quot;,
-			label=FFT,
-			target=_top];
-		&quot;supriya.ugens.pv.IFFT&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.IFFT&quot;,
-			label=IFFT,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_Add&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_Add&quot;,
-			label=&quot;PV\nAdd&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_BinScramble&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_BinScramble&quot;,
-			label=&quot;PV\nBin\nScramble&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_BinShift&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_BinShift&quot;,
-			label=&quot;PV\nBin\nShift&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_BinWipe&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_BinWipe&quot;,
-			label=&quot;PV\nBin\nWipe&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_BrickWall&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_BrickWall&quot;,
-			label=&quot;PV\nBrick\nWall&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_ChainUGen&quot;,
-			label=&quot;PV\nChain\nUGen&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.FFT&quot;	[minlen=1];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_Add&quot;	[minlen=2];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_BinScramble&quot;	[minlen=3];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_BinShift&quot;	[minlen=4];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_BinWipe&quot;	[minlen=5];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_BrickWall&quot;	[minlen=1];
-		&quot;supriya.ugens.pv.PV_ConformalMap&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_ConformalMap&quot;,
-			label=&quot;PV\nConformal\nMap&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_ConformalMap&quot;	[minlen=2];
-		&quot;supriya.ugens.pv.PV_Conj&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_Conj&quot;,
-			label=&quot;PV\nConj&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_Conj&quot;	[minlen=3];
-		&quot;supriya.ugens.pv.PV_Copy&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_Copy&quot;,
-			label=&quot;PV\nCopy&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_Copy&quot;	[minlen=4];
-		&quot;supriya.ugens.pv.PV_CopyPhase&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_CopyPhase&quot;,
-			label=&quot;PV\nCopy\nPhase&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_CopyPhase&quot;	[minlen=5];
-		&quot;supriya.ugens.pv.PV_Diffuser&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_Diffuser&quot;,
-			label=&quot;PV\nDiffuser&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_Diffuser&quot;	[minlen=1];
-		&quot;supriya.ugens.pv.PV_Div&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_Div&quot;,
-			label=&quot;PV\nDiv&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_Div&quot;	[minlen=2];
-		&quot;supriya.ugens.pv.PV_HainsworthFoote&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_HainsworthFoote&quot;,
-			label=&quot;PV\nHainsworth\nFoote&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_HainsworthFoote&quot;	[minlen=3];
-		&quot;supriya.ugens.pv.PV_JensenAndersen&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_JensenAndersen&quot;,
-			label=&quot;PV\nJensen\nAndersen&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_JensenAndersen&quot;	[minlen=4];
-		&quot;supriya.ugens.pv.PV_LocalMax&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_LocalMax&quot;,
-			label=&quot;PV\nLocal\nMax&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_LocalMax&quot;	[minlen=5];
-		&quot;supriya.ugens.pv.PV_MagAbove&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_MagAbove&quot;,
-			label=&quot;PV\nMag\nAbove&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_MagAbove&quot;;
-		&quot;supriya.ugens.pv.PV_MagDiv&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_MagDiv&quot;,
-			label=&quot;PV\nMag\nDiv&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_MagDiv&quot;	[minlen=1];
-		&quot;supriya.ugens.pv.PV_MagFreeze&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_MagFreeze&quot;,
-			label=&quot;PV\nMag\nFreeze&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_MagFreeze&quot;	[minlen=2];
-		&quot;supriya.ugens.pv.PV_MagMul&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_MagMul&quot;,
-			label=&quot;PV\nMag\nMul&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_MagMul&quot;	[minlen=3];
-		&quot;supriya.ugens.pv.PV_MagNoise&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_MagNoise&quot;,
-			label=&quot;PV\nMag\nNoise&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_MagNoise&quot;	[minlen=4];
-		&quot;supriya.ugens.pv.PV_MagShift&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_MagShift&quot;,
-			label=&quot;PV\nMag\nShift&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_MagShift&quot;	[minlen=5];
-		&quot;supriya.ugens.pv.PV_MagSmear&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_MagSmear&quot;,
-			label=&quot;PV\nMag\nSmear&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_MagSmear&quot;	[minlen=1];
-		&quot;supriya.ugens.pv.PV_MagSquared&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_MagSquared&quot;,
-			label=&quot;PV\nMag\nSquared&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_MagSquared&quot;	[minlen=2];
-		&quot;supriya.ugens.pv.PV_Max&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_Max&quot;,
-			label=&quot;PV\nMax&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_Max&quot;	[minlen=3];
-		&quot;supriya.ugens.pv.PV_Min&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_Min&quot;,
-			label=&quot;PV\nMin&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_Min&quot;	[minlen=4];
-		&quot;supriya.ugens.pv.PV_Mul&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_Mul&quot;,
-			label=&quot;PV\nMul&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_Mul&quot;	[minlen=5];
-		&quot;supriya.ugens.pv.PV_PhaseShift&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_PhaseShift&quot;,
-			label=&quot;PV\nPhase\nShift&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_PhaseShift&quot;	[minlen=1];
-		&quot;supriya.ugens.pv.PV_PhaseShift270&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_PhaseShift270&quot;,
-			label=&quot;PV\nPhase\nShift\n270&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_PhaseShift270&quot;	[minlen=2];
-		&quot;supriya.ugens.pv.PV_PhaseShift90&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_PhaseShift90&quot;,
-			label=&quot;PV\nPhase\nShift\n90&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_PhaseShift90&quot;	[minlen=3];
-		&quot;supriya.ugens.pv.PV_RandComb&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_RandComb&quot;,
-			label=&quot;PV\nRand\nComb&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_RandComb&quot;	[minlen=4];
-		&quot;supriya.ugens.pv.PV_RandWipe&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_RandWipe&quot;,
-			label=&quot;PV\nRand\nWipe&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_RandWipe&quot;	[minlen=5];
-		&quot;supriya.ugens.pv.PV_RectComb&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_RectComb&quot;,
-			label=&quot;PV\nRect\nComb&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_RectComb&quot;	[minlen=1];
-		&quot;supriya.ugens.pv.PV_RectComb2&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_RectComb2&quot;,
-			label=&quot;PV\nRect\nComb\n2&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_RectComb2&quot;	[minlen=2];
-		&quot;supriya.ugens.pv.PV_MagBelow&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_MagBelow&quot;,
-			label=&quot;PV\nMag\nBelow&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_MagAbove&quot; -&gt; &quot;supriya.ugens.pv.PV_MagBelow&quot;	[minlen=1];
-		&quot;supriya.ugens.pv.PV_MagClip&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.PV_MagClip&quot;,
-			label=&quot;PV\nMag\nClip&quot;,
-			target=_top];
-		&quot;supriya.ugens.pv.PV_MagAbove&quot; -&gt; &quot;supriya.ugens.pv.PV_MagClip&quot;	[minlen=2];
-		&quot;supriya.ugens.pv.RunningSum&quot;	[URL=&quot;../api/supriya/ugens/pv.html#supriya.ugens.pv.RunningSum&quot;,
-			label=&quot;Running\nSum&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.reverb&quot; {
-		graph [label=&quot;supriya.ugens.reverb&quot;];
-		node [color=3];
-		&quot;supriya.ugens.reverb.FreeVerb&quot;	[URL=&quot;../api/supriya/ugens/reverb.html#supriya.ugens.reverb.FreeVerb&quot;,
-			label=&quot;Free\nVerb&quot;,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.safety&quot; {
-		graph [label=&quot;supriya.ugens.safety&quot;];
-		node [color=4];
-		&quot;supriya.ugens.safety.CheckBadValues&quot;	[URL=&quot;../api/supriya/ugens/safety.html#supriya.ugens.safety.CheckBadValues&quot;,
-			label=&quot;Check\nBad\nValues&quot;,
-			target=_top];
-		&quot;supriya.ugens.safety.Sanitize&quot;	[URL=&quot;../api/supriya/ugens/safety.html#supriya.ugens.safety.Sanitize&quot;,
-			label=Sanitize,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.ugens.triggers&quot; {
-		graph [label=&quot;supriya.ugens.triggers&quot;];
-		node [color=5];
-		&quot;supriya.ugens.triggers.Clip&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.Clip&quot;,
-			label=Clip,
-			target=_top];
-		&quot;supriya.ugens.triggers.Fold&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.Fold&quot;,
-			label=Fold,
-			target=_top];
-		&quot;supriya.ugens.triggers.Gate&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.Gate&quot;,
-			label=Gate,
-			target=_top];
-		&quot;supriya.ugens.triggers.InRange&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.InRange&quot;,
-			label=&quot;In\nRange&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Latch&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.Latch&quot;,
-			label=Latch,
-			target=_top];
-		&quot;supriya.ugens.triggers.LeastChange&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.LeastChange&quot;,
-			label=&quot;Least\nChange&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.MostChange&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.MostChange&quot;,
-			label=&quot;Most\nChange&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Peak&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.Peak&quot;,
-			label=Peak,
-			target=_top];
-		&quot;supriya.ugens.triggers.RunningMax&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.RunningMax&quot;,
-			label=&quot;Running\nMax&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Peak&quot; -&gt; &quot;supriya.ugens.triggers.RunningMax&quot;	[minlen=1];
-		&quot;supriya.ugens.triggers.RunningMin&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.RunningMin&quot;,
-			label=&quot;Running\nMin&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Peak&quot; -&gt; &quot;supriya.ugens.triggers.RunningMin&quot;	[minlen=2];
-		&quot;supriya.ugens.triggers.PeakFollower&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.PeakFollower&quot;,
-			label=&quot;Peak\nFollower&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Phasor&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.Phasor&quot;,
-			label=Phasor,
-			target=_top];
-		&quot;supriya.ugens.triggers.Poll&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.Poll&quot;,
-			label=Poll,
-			target=_top];
-		&quot;supriya.ugens.triggers.Schmidt&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.Schmidt&quot;,
-			label=Schmidt,
-			target=_top];
-		&quot;supriya.ugens.triggers.SendPeakRMS&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.SendPeakRMS&quot;,
-			label=&quot;Send\nPeak\nRMS&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.SendTrig&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.SendTrig&quot;,
-			label=&quot;Send\nTrig&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Sweep&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.Sweep&quot;,
-			label=Sweep,
-			target=_top];
-		&quot;supriya.ugens.triggers.TDelay&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.TDelay&quot;,
-			label=TDelay,
-			target=_top];
-		&quot;supriya.ugens.triggers.ToggleFF&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.ToggleFF&quot;,
-			label=&quot;Toggle\nFF&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Trig&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.Trig&quot;,
-			label=Trig,
-			target=_top];
-		&quot;supriya.ugens.triggers.Trig1&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.Trig1&quot;,
-			label=&quot;Trig\n1&quot;,
-			target=_top];
-		&quot;supriya.ugens.triggers.Wrap&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.Wrap&quot;,
-			label=Wrap,
-			target=_top];
-		&quot;supriya.ugens.triggers.ZeroCrossing&quot;	[URL=&quot;../api/supriya/ugens/triggers.html#supriya.ugens.triggers.ZeroCrossing&quot;,
-			label=&quot;Zero\nCrossing&quot;,
-			target=_top];
-	}
-	&quot;builtins.object&quot; -&gt; &quot;supriya.synthdefs.bases.PseudoUGen&quot;;
-	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.bufio.BufRd&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.bufio.PlayBuf&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.demand.Demand&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.diskio.DiskIn&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.diskio.VDiskIn&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.granular.GrainBuf&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.granular.GrainIn&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.granular.Warp1&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.hilbert.Hilbert&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.inout.In&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.inout.InFeedback&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.inout.LocalIn&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.ml.BeatTrack&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.ml.BeatTrack2&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.ml.MFCC&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.panning.Balance2&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.panning.BiPanB2&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.panning.DecodeB2&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.panning.Pan2&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.panning.Pan4&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.panning.PanAz&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.panning.PanB&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.panning.PanB2&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.panning.Rotate2&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.PseudoUGen&quot; -&gt; &quot;supriya.ugens.basic.Mix&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.PseudoUGen&quot; -&gt; &quot;supriya.ugens.dynamics.CompanderD&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.PseudoUGen&quot; -&gt; &quot;supriya.ugens.filters.Changed&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.PseudoUGen&quot; -&gt; &quot;supriya.ugens.inout.SoundIn&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.PseudoUGen&quot; -&gt; &quot;supriya.ugens.lines.LinLin&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.PseudoUGen&quot; -&gt; &quot;supriya.ugens.lines.Silence&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.PseudoUGen&quot; -&gt; &quot;supriya.ugens.panning.Splay&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.AllpassC&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.AllpassL&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.AllpassN&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.BufAllpassC&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.BufAllpassL&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.BufAllpassN&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.BufCombC&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.BufCombL&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.BufCombN&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.BufDelayC&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.BufDelayL&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.BufDelayN&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.CombC&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.CombL&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.CombN&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.Delay1&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.Delay2&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.DelayC&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.DelayL&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.delay.DelayN&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.ffsinosc.Saw&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.filters.Filter&quot;;
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.lines.A2K&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.lines.AmpComp&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.lines.AmpCompA&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.lines.DC&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.lines.K2A&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.lines.LinExp&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.COsc&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.DegreeToKey&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.Impulse&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.Index&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.LFCub&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.LFGauss&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.LFPar&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.LFPulse&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.LFSaw&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.LFTri&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.Select&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.SinOsc&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.SyncSaw&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.VOsc&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.VOsc3&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.VarSaw&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.PureUGen&quot; -&gt; &quot;supriya.ugens.osc.Vibrato&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.basic.MulAdd&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.basic.Sum3&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.basic.Sum4&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.bufio.BufWr&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.bufio.MaxLocalBufs&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.bufio.RecordBuf&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.CuspL&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.CuspN&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.FBSineC&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.FBSineL&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.FBSineN&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.GbmanL&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.GbmanN&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.HenonC&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.HenonL&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.HenonN&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.LatoocarfianC&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.LatoocarfianL&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.LatoocarfianN&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.LinCongC&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.LinCongL&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.LinCongN&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.LorenzL&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.QuadC&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.QuadL&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.QuadN&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.StandardL&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.chaos.StandardN&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.convolution.Convolution&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.convolution.Convolution2&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.convolution.Convolution2L&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.convolution.Convolution3&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.delay.DelTapRd&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.delay.DelTapWr&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.demand.DUGen&quot;;
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.demand.DemandEnvGen&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.demand.Duty&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.diskio.DiskOut&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.dynamics.Amplitude&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.dynamics.Compander&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.dynamics.Limiter&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.dynamics.Normalizer&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.envelopes.Done&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.envelopes.EnvGen&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.envelopes.Free&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.envelopes.FreeSelf&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.envelopes.FreeSelfWhenDone&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.envelopes.Linen&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.envelopes.Pause&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.envelopes.PauseSelf&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.envelopes.PauseSelfWhenDone&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.ffsinosc.Blip&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.ffsinosc.FSinOsc&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.ffsinosc.Klank&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.ffsinosc.Pulse&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.gendyn.Gendy1&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.gendyn.Gendy2&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.gendyn.Gendy3&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.granular.PitchShift&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.hilbert.FreqShift&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.hilbert.HilbertFIR&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.BlockSize&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.BufChannels&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.BufDur&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.BufFrames&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.BufRateScale&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.BufSampleRate&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.BufSamples&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.ControlDur&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.ControlRate&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.NodeID&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.NumAudioBuses&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.NumBuffers&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.NumControlBuses&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.NumInputBuses&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.NumOutputBuses&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.NumRunningSynths&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.RadiansPerSample&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.SampleDur&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.SampleRate&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.info.SubsampleOffset&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.inout.LocalOut&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.inout.OffsetOut&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.inout.Out&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.inout.ReplaceOut&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.inout.XOut&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.lines.Line&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.lines.XLine&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.mac.KeyState&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.mac.MouseButton&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.mac.MouseX&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.mac.MouseY&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.ml.KeyTrack&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.ml.Loudness&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.ml.Onsets&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.ml.SpecCentroid&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.ml.SpecFlatness&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.ml.SpecPcile&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.BrownNoise&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.ClipNoise&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.CoinGate&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.Crackle&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.Dust&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.Dust2&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.ExpRand&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.GrayNoise&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.Hasher&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.IRand&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.LFClipNoise&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.LFDClipNoise&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.LFDNoise0&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.LFDNoise1&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.LFDNoise3&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.LFNoise0&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.LFNoise1&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.LFNoise2&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.LinRand&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.Logistic&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.MantissaMask&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.NRand&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.PinkNoise&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.Rand&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.TExpRand&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.TIRand&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.TRand&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.TWindex&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.noise.WhiteNoise&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.osc.WrapIndex&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.panning.XFade2&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.physical.Ball&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.physical.Pluck&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.physical.Spring&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.physical.TBall&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.pv.RunningSum&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.reverb.FreeVerb&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.safety.CheckBadValues&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.safety.Sanitize&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.Clip&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.Fold&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.Gate&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.InRange&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.Latch&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.LeastChange&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.MostChange&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.Peak&quot;;
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.PeakFollower&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.Phasor&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.Poll&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.Schmidt&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.SendPeakRMS&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.SendTrig&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.Sweep&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.TDelay&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.ToggleFF&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.Trig&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.Trig1&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.Wrap&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.UGen&quot; -&gt; &quot;supriya.ugens.triggers.ZeroCrossing&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.WidthFirstUGen&quot; -&gt; &quot;supriya.ugens.bufio.ClearBuf&quot;	[minlen=1];
-	&quot;supriya.synthdefs.bases.WidthFirstUGen&quot; -&gt; &quot;supriya.ugens.bufio.LocalBuf&quot;	[minlen=2];
-	&quot;supriya.synthdefs.bases.WidthFirstUGen&quot; -&gt; &quot;supriya.ugens.noise.RandID&quot;	[minlen=3];
-	&quot;supriya.synthdefs.bases.WidthFirstUGen&quot; -&gt; &quot;supriya.ugens.noise.RandSeed&quot;	[minlen=4];
-	&quot;supriya.synthdefs.bases.WidthFirstUGen&quot; -&gt; &quot;supriya.ugens.pv.IFFT&quot;	[minlen=5];
-	&quot;supriya.synthdefs.bases.WidthFirstUGen&quot; -&gt; &quot;supriya.ugens.pv.PV_ChainUGen&quot;;
-	&quot;supriya.synthdefs.mixins.UGenMethodMixin&quot; -&gt; &quot;supriya.synthdefs.bases.UGen&quot;;
-	&quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.mixins.UGenMethodMixin&quot;	[minlen=1];
-	&quot;supriya.ugens.filters.Filter&quot; -&gt; &quot;supriya.ugens.beq.BEQSuite&quot;;
-}</p></object></div>
-</div>
-<hr/><p class="section-header rubric">Subpackages</p>
 <div class="toctree-wrapper compound">
 </div>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="basic.html#module-supriya.ugens.basic" title="supriya.ugens.basic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">basic</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="beq.html#module-supriya.ugens.beq" title="supriya.ugens.beq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">beq</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="bufio.html#module-supriya.ugens.bufio" title="supriya.ugens.bufio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bufio</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="chaos.html#module-supriya.ugens.chaos" title="supriya.ugens.chaos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chaos</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="convolution.html#module-supriya.ugens.convolution" title="supriya.ugens.convolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convolution</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="delay.html#module-supriya.ugens.delay" title="supriya.ugens.delay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="demand.html#module-supriya.ugens.demand" title="supriya.ugens.demand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">demand</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="diskio.html#module-supriya.ugens.diskio" title="supriya.ugens.diskio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diskio</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="dynamics.html#module-supriya.ugens.dynamics" title="supriya.ugens.dynamics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dynamics</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="envelopes.html#module-supriya.ugens.envelopes" title="supriya.ugens.envelopes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">envelopes</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="ffsinosc.html#module-supriya.ugens.ffsinosc" title="supriya.ugens.ffsinosc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ffsinosc</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="filters.html#module-supriya.ugens.filters" title="supriya.ugens.filters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filters</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gendyn.html#module-supriya.ugens.gendyn" title="supriya.ugens.gendyn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gendyn</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="granular.html#module-supriya.ugens.granular" title="supriya.ugens.granular"><code class="xref py py-obj docutils literal notranslate"><span class="pre">granular</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="hilbert.html#module-supriya.ugens.hilbert" title="supriya.ugens.hilbert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hilbert</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="info.html#module-supriya.ugens.info" title="supriya.ugens.info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="inout.html#module-supriya.ugens.inout" title="supriya.ugens.inout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inout</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="lines.html#module-supriya.ugens.lines" title="supriya.ugens.lines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lines</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="mac.html#module-supriya.ugens.mac" title="supriya.ugens.mac"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mac</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="ml.html#module-supriya.ugens.ml" title="supriya.ugens.ml"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ml</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="noise.html#module-supriya.ugens.noise" title="supriya.ugens.noise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">noise</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="osc.html#module-supriya.ugens.osc" title="supriya.ugens.osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">osc</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="panning.html#module-supriya.ugens.panning" title="supriya.ugens.panning"><code class="xref py py-obj docutils literal notranslate"><span class="pre">panning</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="physical.html#module-supriya.ugens.physical" title="supriya.ugens.physical"><code class="xref py py-obj docutils literal notranslate"><span class="pre">physical</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pv.html#module-supriya.ugens.pv" title="supriya.ugens.pv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pv</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="reverb.html#module-supriya.ugens.reverb" title="supriya.ugens.reverb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reverb</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="safety.html#module-supriya.ugens.safety" title="supriya.ugens.safety"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safety</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="triggers.html#module-supriya.ugens.triggers" title="supriya.ugens.triggers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">triggers</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-</div>
 
 
-           </div>
-           
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
           </div>
-          <footer>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="basic.html" class="btn btn-neutral float-right" title="basic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        
+        <a href="../typing.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: typing" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              typing
+            </div>
+          </div>
+        </a>
       
       
-        <a href="../typing.html" class="btn btn-neutral float-left" title="typing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        
+        <a href="basic.html" class="md-footer__link md-footer__link--next" aria-label="Next: basic" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              basic
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2014-2022, Josiah Wolf Oberholtzer.
+              
+          </div>
+        
+          Created using
+          <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+          4.3.2.
+           and
+          <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+        
+      </div>
       
     </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright 2014, Josiah Wolf Oberholtzer
-
-    </p>
+    
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
 </footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
     
-   
-
-</body>
+    
+      <script src="../../../_static/javascripts/bundle.c6851205.min.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/design-tabs.js"></script>
+    
+  </body>
 </html>

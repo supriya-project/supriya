@@ -1,0 +1,156 @@
+.. _supriya--providers:
+
+providers
+=========
+
+.. automodule:: supriya.providers
+
+.. currentmodule:: supriya.providers
+
+.. autoclass:: BufferProxy
+   :show-inheritance:
+
+   .. automethod:: __float__
+   .. automethod:: __int__
+   .. automethod:: as_allocate_request
+   .. automethod:: as_free_request
+   .. automethod:: close
+   .. automethod:: free
+   .. automethod:: normalize
+   .. automethod:: read
+   .. automethod:: write
+
+.. autoclass:: BusGroupProxy
+   :show-inheritance:
+
+   .. automethod:: __float__
+   .. automethod:: __getitem__
+   .. automethod:: __int__
+   .. automethod:: __len__
+   .. automethod:: __post_init__
+   .. automethod:: free
+
+.. autoclass:: BusProxy
+   :show-inheritance:
+
+   .. automethod:: __float__
+   .. automethod:: __int__
+   .. automethod:: free
+   .. autoattribute:: map_symbol
+   .. automethod:: set_
+
+.. autoclass:: GroupProxy
+   :show-inheritance:
+
+   .. automethod:: as_add_request
+   .. automethod:: as_free_request
+
+.. autoclass:: NodeProxy
+   :show-inheritance:
+
+   .. automethod:: __float__
+   .. automethod:: __int__
+   .. automethod:: __setitem__
+   .. automethod:: add_group
+   .. automethod:: add_synth
+   .. automethod:: as_move_request
+   .. automethod:: as_set_request
+   .. automethod:: dispose
+   .. automethod:: free
+   .. automethod:: move
+
+.. autoclass:: NonrealtimeProvider
+   :show-inheritance:
+
+   .. automethod:: add_buffer
+   .. automethod:: add_bus
+   .. automethod:: add_bus_group
+   .. automethod:: add_group
+   .. automethod:: add_synth
+   .. automethod:: boot
+   .. automethod:: dispose
+   .. automethod:: free_buffer
+   .. automethod:: free_bus
+   .. automethod:: free_bus_group
+   .. automethod:: free_node
+   .. automethod:: move_node
+   .. automethod:: quit
+   .. automethod:: register_osc_callback
+   .. automethod:: set_bus
+   .. automethod:: set_node
+   .. automethod:: unregister_osc_callback
+
+.. autoclass:: OscCallbackProxy
+   :show-inheritance:
+
+   .. automethod:: unregister
+
+.. autoclass:: Provider
+   :show-inheritance:
+
+   .. automethod:: add_buffer
+   .. automethod:: add_bus
+   .. automethod:: add_bus_group
+   .. automethod:: add_group
+   .. automethod:: add_synth
+   .. autoattribute:: annotation_map
+   .. automethod:: at
+   .. automethod:: boot
+   .. automethod:: dispose
+   .. automethod:: free_buffer
+   .. automethod:: free_bus
+   .. automethod:: free_bus_group
+   .. automethod:: free_node
+   .. automethod:: from_context
+   .. autoattribute:: latency
+   .. autoattribute:: moment
+   .. automethod:: move_node
+   .. automethod:: nonrealtime
+   .. automethod:: quit
+   .. automethod:: realtime
+   .. automethod:: realtime_async
+   .. automethod:: register_osc_callback
+   .. autoattribute:: server
+   .. autoattribute:: session
+   .. automethod:: set_bus
+   .. automethod:: set_node
+   .. automethod:: unregister_osc_callback
+
+.. autoclass:: ProviderMoment
+   :show-inheritance:
+
+   .. automethod:: __aenter__
+   .. automethod:: __aexit__
+   .. automethod:: __enter__
+   .. automethod:: __exit__
+
+.. autoclass:: Proxy
+   :show-inheritance:
+
+
+.. autoclass:: RealtimeProvider
+   :show-inheritance:
+
+   .. automethod:: add_buffer
+   .. automethod:: add_bus
+   .. automethod:: add_bus_group
+   .. automethod:: add_group
+   .. automethod:: add_synth
+   .. automethod:: boot
+   .. automethod:: dispose
+   .. automethod:: free_buffer
+   .. automethod:: free_bus
+   .. automethod:: free_bus_group
+   .. automethod:: free_node
+   .. automethod:: move_node
+   .. automethod:: quit
+   .. automethod:: register_osc_callback
+   .. automethod:: set_bus
+   .. automethod:: set_node
+   .. automethod:: unregister_osc_callback
+
+.. autoclass:: SynthProxy
+   :show-inheritance:
+
+   .. automethod:: as_add_request
+   .. automethod:: as_free_request

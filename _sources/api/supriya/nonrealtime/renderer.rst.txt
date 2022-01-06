@@ -7,115 +7,23 @@ renderer
 
 .. currentmodule:: supriya.nonrealtime.renderer
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.nonrealtime.renderer
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Session Internals
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~SessionRenderer
-
 .. autoclass:: SessionRenderer
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      compiled_sessions
-      dependency_graph
-      get_path_relative_to_render_path
-      header_format
-      prerender_tuples
-      print_transcript
-      render
-      render_directory_path
-      renderable_prefixes
-      sample_format
-      sample_rate
-      session
-      session_input_paths
-      to_lists
-      to_osc_bundles
-      transcript
-      transcript_prefix
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: SessionRenderer.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: SessionRenderer.render
-
-   .. automethod:: SessionRenderer.to_lists
-
-   .. automethod:: SessionRenderer.to_osc_bundles
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. automethod:: SessionRenderer.get_path_relative_to_render_path
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: SessionRenderer.compiled_sessions
-
-   .. autoattribute:: SessionRenderer.dependency_graph
-
-   .. autoattribute:: SessionRenderer.header_format
-
-   .. autoattribute:: SessionRenderer.prerender_tuples
-
-   .. autoattribute:: SessionRenderer.print_transcript
-
-   .. autoattribute:: SessionRenderer.render_directory_path
-
-   .. autoattribute:: SessionRenderer.renderable_prefixes
-
-   .. autoattribute:: SessionRenderer.sample_format
-
-   .. autoattribute:: SessionRenderer.sample_rate
-
-   .. autoattribute:: SessionRenderer.session
-
-   .. autoattribute:: SessionRenderer.session_input_paths
-
-   .. autoattribute:: SessionRenderer.transcript
-
-   .. autoattribute:: SessionRenderer.transcript_prefix
+   .. autoattribute:: compiled_sessions
+   .. autoattribute:: dependency_graph
+   .. automethod:: get_path_relative_to_render_path
+   .. autoattribute:: header_format
+   .. autoattribute:: prerender_tuples
+   .. autoattribute:: print_transcript
+   .. automethod:: render
+   .. autoattribute:: render_directory_path
+   .. autoattribute:: renderable_prefixes
+   .. autoattribute:: sample_format
+   .. autoattribute:: sample_rate
+   .. autoattribute:: session
+   .. autoattribute:: session_input_paths
+   .. automethod:: to_lists
+   .. automethod:: to_osc_bundles
+   .. autoattribute:: transcript
+   .. autoattribute:: transcript_prefix

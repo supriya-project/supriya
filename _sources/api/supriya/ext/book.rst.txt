@@ -7,83 +7,20 @@ book
 
 .. currentmodule:: supriya.ext.book
 
-.. container:: svg-container
+.. autoclass:: PlayExtension
+   :show-inheritance:
 
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.ext.book
+   .. automethod:: render
+   .. automethod:: setup_console
+   .. automethod:: setup_sphinx
+   .. automethod:: to_docutils
+   .. automethod:: visit_block_html
 
-.. raw:: html
+.. autoclass:: PlotExtension
+   :show-inheritance:
 
-   <hr/>
-
-.. rubric:: Classes
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~RenderExtension
-
-.. autoclass:: RenderExtension
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      render
-      render_block
-      setup_console
-      setup_sphinx
-      template
-      to_docutils
-      visit_block_html
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: RenderExtension.to_docutils
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: RenderExtension.add_option
-
-   .. container:: inherited
-
-      .. automethod:: RenderExtension.depart_block_text
-
-   .. automethod:: RenderExtension.render
-
-   .. automethod:: RenderExtension.setup_console
-
-   .. automethod:: RenderExtension.setup_sphinx
-
-   .. container:: inherited
-
-      .. automethod:: RenderExtension.teardown_console
-
-   .. automethod:: RenderExtension.visit_block_html
-
-   .. container:: inherited
-
-      .. automethod:: RenderExtension.visit_block_latex
-
-   .. container:: inherited
-
-      .. automethod:: RenderExtension.visit_block_text
+   .. automethod:: render
+   .. automethod:: setup_console
+   .. automethod:: setup_sphinx
+   .. automethod:: to_docutils
+   .. automethod:: visit_block_html

@@ -7,146 +7,17 @@ messages
 
 .. currentmodule:: supriya.osc.messages
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.osc.messages
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Classes
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~OscBundle
-   ~OscMessage
-
 .. autoclass:: OscBundle
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __str__
-      from_datagram
-      partition
-      to_datagram
-      to_list
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: OscBundle.__copy__
-
-   .. container:: inherited
-
-      .. automethod:: OscBundle.__eq__
-
-   .. container:: inherited
-
-      .. automethod:: OscBundle.__hash__
-
-   .. container:: inherited
-
-      .. automethod:: OscBundle.__repr__
-
-   .. automethod:: OscBundle.__str__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: OscBundle.to_datagram
-
-   .. automethod:: OscBundle.to_list
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. automethod:: OscBundle.from_datagram
-
-   .. automethod:: OscBundle.partition
+   .. automethod:: from_datagram
+   .. automethod:: partition
+   .. automethod:: to_datagram
+   .. automethod:: to_list
 
 .. autoclass:: OscMessage
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __repr__
-      __str__
-      from_datagram
-      to_datagram
-      to_list
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: OscMessage.__copy__
-
-   .. container:: inherited
-
-      .. automethod:: OscMessage.__eq__
-
-   .. container:: inherited
-
-      .. automethod:: OscMessage.__hash__
-
-   .. automethod:: OscMessage.__repr__
-
-   .. automethod:: OscMessage.__str__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: OscMessage.to_datagram
-
-   .. automethod:: OscMessage.to_list
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. automethod:: OscMessage.from_datagram
+   .. automethod:: from_datagram
+   .. automethod:: to_datagram
+   .. automethod:: to_list

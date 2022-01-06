@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xml:space="preserve"
+   width="42.451mm"
+   height="41.2107mm"
+   version="1.0"
+   style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+   viewBox="0 0 2819 2736"
+   id="svg12"
+   sodipodi:docname="icon-white.svg"
+   inkscape:version="1.1 (c4e8f9e, 2021-05-24)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs16" /><sodipodi:namedview
+   id="namedview14"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:document-units="mm"
+   showgrid="false"
+   inkscape:zoom="4.9885405"
+   inkscape:cx="40.793495"
+   inkscape:cy="77.87849"
+   inkscape:window-width="1312"
+   inkscape:window-height="1003"
+   inkscape:window-x="98"
+   inkscape:window-y="57"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="Layer_x0020_1" />
+ <g
+   id="Layer_x0020_1">
+  <path
+   class="fil0"
+   d="M2620 2135c0,-122 -44,-218 -109,-285 -76,-77 -180,-118 -283,-118 -274,0 -565,275 -685,403 120,127 411,402 685,402 103,0 207,-41 283,-117 65,-68 109,-163 109,-285zm-1310 -245l0 -664 -495 0c-403,0 -240,166 -403,166 0,-178 0,-355 0,-532 163,0 0,166 403,166l495 0 0 -366 -317 0c-403,0 -240,166 -403,166 0,-177 0,-354 0,-531 163,0 0,166 403,166l317 0 0 -59c0,-402 -166,-239 -166,-402 177,0 354,0 531,0 0,163 -166,0 -166,402l0 59 326 0c402,0 240,-166 402,-166 0,177 0,354 0,531 -162,0 0,-166 -402,-166l-326 0 0 366 504 0c402,0 240,-166 402,-166 0,177 0,354 0,532 -162,0 0,-166 -402,-166l-504 0 0 664c171,-156 444,-357 719,-357 154,0 311,61 425,178 100,102 166,245 166,424 0,178 -66,321 -166,423 -114,117 -271,178 -425,178 -338,0 -673,-303 -819,-454 -146,151 -481,454 -819,454 -153,0 -310,-61 -424,-178 -100,-102 -166,-245 -166,-423 0,-179 66,-322 166,-424 114,-117 271,-178 424,-178 276,0 549,201 720,357zm-1002 -40c-65,67 -109,163 -109,285 0,122 44,217 109,285 75,76 180,117 282,117 275,0 566,-275 686,-402 -120,-128 -411,-403 -686,-403 -102,0 -207,41 -282,118z"
+   id="path9"
+   style="fill:#ffffff" />
+ </g>
+</svg>

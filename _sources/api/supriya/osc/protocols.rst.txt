@@ -7,449 +7,58 @@ protocols
 
 .. currentmodule:: supriya.osc.protocols
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.osc.protocols
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Classes
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~AsyncOscProtocol
-   ~HealthCheck
-   ~OscCallback
-   ~OscProtocol
-   ~ThreadedOscHandler
-   ~ThreadedOscProtocol
-   ~ThreadedOscServer
-
 .. autoclass:: AsyncOscProtocol
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      connect
-      connection_lost
-      connection_made
-      datagram_received
-      disconnect
-      error_received
-      register
-      send
-      unregister
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: AsyncOscProtocol.capture
-
-   .. automethod:: AsyncOscProtocol.connect
-
-   .. automethod:: AsyncOscProtocol.connection_lost
-
-   .. automethod:: AsyncOscProtocol.connection_made
-
-   .. automethod:: AsyncOscProtocol.datagram_received
-
-   .. automethod:: AsyncOscProtocol.disconnect
-
-   .. automethod:: AsyncOscProtocol.error_received
-
-   .. container:: inherited
-
-      .. automethod:: AsyncOscProtocol.pause_writing
-
-   .. automethod:: AsyncOscProtocol.register
-
-   .. container:: inherited
-
-      .. automethod:: AsyncOscProtocol.resume_writing
-
-   .. automethod:: AsyncOscProtocol.send
-
-   .. automethod:: AsyncOscProtocol.unregister
+   .. automethod:: connect
+   .. automethod:: connection_lost
+   .. automethod:: connection_made
+   .. automethod:: datagram_received
+   .. automethod:: disconnect
+   .. automethod:: error_received
+   .. automethod:: register
+   .. automethod:: send
+   .. automethod:: unregister
 
 .. autoclass:: HealthCheck
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __eq__
-      __repr__
-      backoff_factor
-      max_attempts
-      timeout
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: HealthCheck.__eq__
-
-   .. automethod:: HealthCheck.__repr__
 
 .. autoclass:: OscCallback
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __new__
-      __repr__
-      failure_pattern
-      once
-      pattern
-      procedure
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__add__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__contains__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__eq__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__ge__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__getitem__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__gt__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__hash__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__iter__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__le__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__len__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__lt__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__mul__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__ne__
-
-   .. automethod:: OscCallback.__new__
-
-   .. automethod:: OscCallback.__repr__
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.__rmul__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.count
-
-   .. container:: inherited
-
-      .. automethod:: OscCallback.index
 
 .. autoclass:: OscProtocol
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      capture
-      connect
-      disconnect
-      register
-      send
-      unregister
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: OscProtocol.capture
-
-   .. automethod:: OscProtocol.connect
-
-   .. automethod:: OscProtocol.disconnect
-
-   .. automethod:: OscProtocol.register
-
-   .. automethod:: OscProtocol.send
-
-   .. automethod:: OscProtocol.unregister
-
-.. autoclass:: ThreadedOscHandler
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      handle
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscHandler.finish
-
-   .. automethod:: ThreadedOscHandler.handle
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscHandler.setup
-
-.. autoclass:: ThreadedOscProtocol
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __del__
-      connect
-      disconnect
-      expect
-      register
-      send
-      unregister
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: ThreadedOscProtocol.__del__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscProtocol.capture
-
-   .. automethod:: ThreadedOscProtocol.connect
-
-   .. automethod:: ThreadedOscProtocol.disconnect
-
-   .. automethod:: ThreadedOscProtocol.expect
-
-   .. automethod:: ThreadedOscProtocol.register
-
-   .. automethod:: ThreadedOscProtocol.send
-
-   .. automethod:: ThreadedOscProtocol.unregister
-
-.. autoclass:: ThreadedOscServer
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      service_actions
-      verify_request
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.__enter__
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.__exit__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.close_request
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.fileno
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.finish_request
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.get_request
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.handle_error
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.handle_request
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.handle_timeout
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.process_request
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.serve_forever
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.server_activate
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.server_bind
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.server_close
-
-   .. automethod:: ThreadedOscServer.service_actions
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.shutdown
-
-   .. container:: inherited
-
-      .. automethod:: ThreadedOscServer.shutdown_request
-
-   .. automethod:: ThreadedOscServer.verify_request
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Exceptions
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~OscProtocolAlreadyConnected
-   ~OscProtocolOffline
+   :show-inheritance:
+
+   .. automethod:: capture
+   .. automethod:: connect
+   .. automethod:: disconnect
+   .. automethod:: register
+   .. automethod:: send
+   .. automethod:: unregister
 
 .. autoexception:: OscProtocolAlreadyConnected
 
 .. autoexception:: OscProtocolOffline
+
+.. autoclass:: ThreadedOscHandler
+   :show-inheritance:
+
+   .. automethod:: handle
+
+.. autoclass:: ThreadedOscProtocol
+   :show-inheritance:
+
+   .. automethod:: connect
+   .. automethod:: disconnect
+   .. automethod:: expect
+   .. automethod:: register
+   .. automethod:: send
+   .. automethod:: unregister
+
+.. autoclass:: ThreadedOscServer
+   :show-inheritance:
+
+   .. automethod:: service_actions
+   .. automethod:: verify_request

@@ -7,121 +7,23 @@ compilers
 
 .. currentmodule:: supriya.synthdefs.compilers
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.synthdefs.compilers
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: SynthDef Internals
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~SynthDefCompiler
-   ~SynthDefDecompiler
-
 .. autoclass:: SynthDefCompiler
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      compile_parameters
-      compile_synthdef
-      compile_synthdefs
-      compile_ugen
-      compile_ugen_graph
-      compile_ugen_input_spec
-      encode_float
-      encode_string
-      encode_unsigned_int_16bit
-      encode_unsigned_int_32bit
-      encode_unsigned_int_8bit
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: SynthDefCompiler.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. automethod:: SynthDefCompiler.compile_parameters
-
-   .. automethod:: SynthDefCompiler.compile_synthdef
-
-   .. automethod:: SynthDefCompiler.compile_synthdefs
-
-   .. automethod:: SynthDefCompiler.compile_ugen
-
-   .. automethod:: SynthDefCompiler.compile_ugen_graph
-
-   .. automethod:: SynthDefCompiler.compile_ugen_input_spec
-
-   .. automethod:: SynthDefCompiler.encode_float
-
-   .. automethod:: SynthDefCompiler.encode_string
-
-   .. automethod:: SynthDefCompiler.encode_unsigned_int_16bit
-
-   .. automethod:: SynthDefCompiler.encode_unsigned_int_32bit
-
-   .. automethod:: SynthDefCompiler.encode_unsigned_int_8bit
+   .. automethod:: compile_parameters
+   .. automethod:: compile_synthdef
+   .. automethod:: compile_synthdefs
+   .. automethod:: compile_ugen
+   .. automethod:: compile_ugen_graph
+   .. automethod:: compile_ugen_input_spec
+   .. automethod:: encode_float
+   .. automethod:: encode_string
+   .. automethod:: encode_unsigned_int_16bit
+   .. automethod:: encode_unsigned_int_32bit
+   .. automethod:: encode_unsigned_int_8bit
 
 .. autoclass:: SynthDefDecompiler
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      decompile_synthdef
-      decompile_synthdefs
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: SynthDefDecompiler.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. automethod:: SynthDefDecompiler.decompile_synthdef
-
-   .. automethod:: SynthDefDecompiler.decompile_synthdefs
+   .. automethod:: decompile_synthdef
+   .. automethod:: decompile_synthdefs

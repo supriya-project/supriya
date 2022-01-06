@@ -1,0 +1,16 @@
+.. _supriya--clocks--threaded:
+
+threaded
+========
+
+.. automodule:: supriya.clocks.threaded
+
+.. currentmodule:: supriya.clocks.threaded
+
+.. autoclass:: Clock
+   :show-inheritance:
+
+   .. automethod:: cancel
+   .. automethod:: default
+   .. automethod:: start
+   .. automethod:: stop

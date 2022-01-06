@@ -1,0 +1,47 @@
+.. _supriya--clocks--ephemera:
+
+ephemera
+========
+
+.. automodule:: supriya.clocks.ephemera
+
+.. currentmodule:: supriya.clocks.ephemera
+
+.. autoclass:: CallbackCommand
+   :show-inheritance:
+
+
+.. autoclass:: CallbackEvent
+   :show-inheritance:
+
+
+.. autoclass:: ChangeCommand
+   :show-inheritance:
+
+
+.. autoclass:: ChangeEvent
+   :show-inheritance:
+
+
+.. autoclass:: ClockContext
+   :show-inheritance:
+
+
+.. autoclass:: ClockState
+   :show-inheritance:
+
+
+.. autoclass:: EventType
+   :show-inheritance:
+   :members:
+   :undoc-members:
+
+
+.. autoclass:: Moment
+   :show-inheritance:
+
+
+.. autoclass:: TimeUnit
+   :show-inheritance:
+   :members:
+   :undoc-members:

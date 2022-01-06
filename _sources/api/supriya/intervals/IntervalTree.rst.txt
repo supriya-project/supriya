@@ -7,134 +7,36 @@ IntervalTree
 
 .. currentmodule:: supriya.intervals.IntervalTree
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.intervals.IntervalTree
-
 .. autoclass:: IntervalTree
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __and__
-      __contains__
-      __getitem__
-      __iter__
-      __len__
-      __repr__
-      __setitem__
-      __sub__
-      add
-      all_offsets
-      all_start_offsets
-      all_stop_offsets
-      earliest_start_offset
-      earliest_stop_offset
-      find_intersection
-      find_intervals_starting_at
-      find_intervals_stopping_at
-      get_moment_at
-      get_offset_after
-      get_start_offset_after
-      get_start_offset_before
-      index
-      intervals
-      iterate_moments
-      iterate_moments_nwise
-      latest_start_offset
-      latest_stop_offset
-      remove
-      start_offset
-      stop_offset
-      update
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: IntervalTree.__and__
-
-   .. automethod:: IntervalTree.__contains__
-
-   .. automethod:: IntervalTree.__getitem__
-
-   .. automethod:: IntervalTree.__iter__
-
-   .. automethod:: IntervalTree.__len__
-
-   .. automethod:: IntervalTree.__repr__
-
-   .. automethod:: IntervalTree.__setitem__
-
-   .. automethod:: IntervalTree.__sub__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: IntervalTree.add
-
-   .. automethod:: IntervalTree.find_intersection
-
-   .. automethod:: IntervalTree.find_intervals_starting_at
-
-   .. automethod:: IntervalTree.find_intervals_stopping_at
-
-   .. automethod:: IntervalTree.get_moment_at
-
-   .. automethod:: IntervalTree.get_offset_after
-
-   .. automethod:: IntervalTree.get_start_offset_after
-
-   .. automethod:: IntervalTree.get_start_offset_before
-
-   .. automethod:: IntervalTree.index
-
-   .. automethod:: IntervalTree.iterate_moments
-
-   .. automethod:: IntervalTree.iterate_moments_nwise
-
-   .. automethod:: IntervalTree.remove
-
-   .. automethod:: IntervalTree.update
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: IntervalTree.all_offsets
-
-   .. autoattribute:: IntervalTree.all_start_offsets
-
-   .. autoattribute:: IntervalTree.all_stop_offsets
-
-   .. autoattribute:: IntervalTree.earliest_start_offset
-
-   .. autoattribute:: IntervalTree.earliest_stop_offset
-
-   .. autoattribute:: IntervalTree.intervals
-
-   .. autoattribute:: IntervalTree.latest_start_offset
-
-   .. autoattribute:: IntervalTree.latest_stop_offset
-
-   .. autoattribute:: IntervalTree.start_offset
-
-   .. autoattribute:: IntervalTree.stop_offset
+   .. automethod:: __and__
+   .. automethod:: __contains__
+   .. automethod:: __getitem__
+   .. automethod:: __iter__
+   .. automethod:: __len__
+   .. automethod:: __setitem__
+   .. automethod:: __sub__
+   .. automethod:: add
+   .. autoattribute:: all_offsets
+   .. autoattribute:: all_start_offsets
+   .. autoattribute:: all_stop_offsets
+   .. autoattribute:: earliest_start_offset
+   .. autoattribute:: earliest_stop_offset
+   .. automethod:: find_intersection
+   .. automethod:: find_intervals_starting_at
+   .. automethod:: find_intervals_stopping_at
+   .. automethod:: get_moment_at
+   .. automethod:: get_offset_after
+   .. automethod:: get_start_offset_after
+   .. automethod:: get_start_offset_before
+   .. automethod:: index
+   .. autoattribute:: intervals
+   .. automethod:: iterate_moments
+   .. automethod:: iterate_moments_nwise
+   .. autoattribute:: latest_start_offset
+   .. autoattribute:: latest_stop_offset
+   .. automethod:: remove
+   .. autoattribute:: start_offset
+   .. autoattribute:: stop_offset
+   .. automethod:: update

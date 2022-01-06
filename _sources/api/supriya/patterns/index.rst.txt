@@ -7,38 +7,14 @@ patterns
 
 .. currentmodule:: supriya.patterns
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.patterns
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Subpackages
-   :class: section-header
-
 .. toctree::
    :hidden:
 
-   bases
+   eventpatterns
    events
-   mappings
-   parallel
+   noise
    patterns
    players
-   random
+   sequences
    structure
-
-.. autosummary::
-   :nosignatures:
-
-   bases
-   events
-   mappings
-   parallel
-   patterns
-   players
-   random
-   structure
+   testutils

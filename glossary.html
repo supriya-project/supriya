@@ -1,415 +1,1217 @@
 
 
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Glossary &mdash; Supriya 0.4.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="_static/uqbar.css" type="text/css" />
-  <link rel="stylesheet" href="_static/supriya.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
-        <script src="_static/supriya.js"></script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="_static/favicon.ico">
     
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
     
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Travis-CI" href="dev/travisci.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+      
+        <title>Glossary - Supriya</title>
+      
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Supriya
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.4.0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+    
+      <link rel="stylesheet" href="_static/stylesheets/main.91c34c39.min.css">
+      
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Introduction</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="concepts.html">Core concepts</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Guides</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="realtime.html">Realtime usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nonrealtime.html">Non-realtime usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="time-agnostic.html">Time-agnostic usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="synthdefs.html">SynthDefs</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="examples/filters.html">Filters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/samplers.html">Samplers</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api/supriya/index.html">supriya</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Developers</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="dev/documenation.html">Sphinx &amp; IPython</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev/travisci.html">Travis-CI</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Reference</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a></li>
-</ul>
-
-            
-          
-        </div>
+        <link rel="stylesheet" href="_static/stylesheets/palette.89291e57.min.css">
         
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+        <link rel="stylesheet" type="text/css" href="_static/basic.css" />
+        <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+        <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime">
+  
+    
+    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Supriya" class="md-header__button md-logo" aria-label="Supriya" data-md-component="logo">
+      <img src="_static/icon.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Supriya
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Glossary
+            
+          </span>
+        </div>
       </div>
-    </nav>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/josiah-wolf-oberholtzer/supriya/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    supriya
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="installation.html" class="md-tabs__link">
+        Getting Started
+      </a>
+    </li>
+  
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
         
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Supriya</a>
-        
-      </nav>
+  
+  
 
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content style-external-links">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li>Glossary</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/glossary.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
 
   
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+  
+  
+    <li class="md-tabs__item">
+      <a href="realtime/index.html" class="md-tabs__link">
+        Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="guides/controllers.html" class="md-tabs__link">
+        How-to Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="api/supriya/index.html" class="md-tabs__link">
+        API
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="cicd.html" class="md-tabs__link">
+        For Developers
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="" class="md-tabs__link md-tabs__link--active">
+        Reference
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
             
-  <div class="section" id="glossary">
-<h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Supriya" class="md-nav__button md-logo" aria-label="Supriya" data-md-component="logo">
+      <img src="_static/icon.svg" alt="logo">
+    </a>
+    Supriya
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/josiah-wolf-oberholtzer/supriya/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    supriya
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" data-md-state="indeterminate" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        <a class="" href="installation.html">Getting Started</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation.html" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="concepts.html" class="md-nav__link">
+        Core concepts
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        <a class="" href="realtime/index.html">Tutorials</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="realtime/index.html" class="md-nav__link">
+        Realtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nonrealtime/index.html" class="md-nav__link">
+        Non-realtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="osc.html" class="md-nav__link">
+        Open Sound Control
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="synthdefs/index.html" class="md-nav__link">
+        Synth Definitions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="providers.html" class="md-nav__link">
+        Providers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="clocks.html" class="md-nav__link">
+        Clocks
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="patterns.html" class="md-nav__link">
+        Patterns
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        <a class="" href="guides/controllers.html">How-to Guides</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="How-to Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          How-to Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guides/controllers.html" class="md-nav__link">
+        Controllers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guides/dynamics.html" class="md-nav__link">
+        Dynamics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guides/offline-analysis.html" class="md-nav__link">
+        Offline Analysis
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guides/routing.html" class="md-nav__link">
+        Routing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guides/samplers.html" class="md-nav__link">
+        Samplers
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        <a class="" href="api/supriya/index.html">API</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/supriya/index.html" class="md-nav__link">
+        supriya
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        <a class="" href="cicd.html">For Developers</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="For Developers" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          For Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cicd.html" class="md-nav__link">
+        CICD
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ipython.html" class="md-nav__link">
+        IPython
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sphinx.html" class="md-nav__link">
+        Sphinx
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="graphviz.html" class="md-nav__link">
+        Graphviz
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      <label class="md-nav__link" for="__nav_6">
+        <a class="" href="">Reference</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      <a href="" class="md-nav__link md-nav__link--active">
+        Glossary
+      </a>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset" role="main">
+              
+                
+                  <a href="https://github.com/josiah-wolf-oberholtzer/supriya/blob/main/docs/glossary.rst" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+  <h1 id="glossary">Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
 <dl class="glossary">
-<dt id="term-allocate">allocate<a class="headerlink" href="#term-allocate" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-add-action">add action<a class="headerlink" href="#term-add-action" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-add-action" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-amplitude">amplitude<a class="headerlink" href="#term-amplitude" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-ADSR">ADSR<a class="headerlink" href="#term-ADSR" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-ADSR" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-audio-rate">audio rate<a class="headerlink" href="#term-audio-rate" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-calculation-rate"><span class="xref std std-term">calculation rate</span></a>.</p>
+<dt id="term-allocate">allocate<a class="headerlink" href="#term-allocate" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-allocate" title="Permalink to this term">¶</a></dt><dd><p>To set aside sections of memory in a program to be used to store
+variables, and instances of structures and classes.</p>
 </dd>
-<dt id="term-block-of-samples">block, <em>of samples</em><a class="headerlink" href="#term-block-of-samples" title="Permalink to this term">¶</a></dt><dd><p>A block of samples</p>
+<dt id="term-allocator">allocator<a class="headerlink" href="#term-allocator" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-allocator" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-block-of-IDs">block, <em>of IDs</em><a class="headerlink" href="#term-block-of-IDs" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-amplitude">amplitude<a class="headerlink" href="#term-amplitude" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-amplitude" title="Permalink to this term">¶</a></dt><dd><p>The maximum extent of a vibration or oscillation, measured from the
+position of equilibrium.</p>
+<p>See: <a class="reference internal" href="#term-decibels"><span class="xref std std-term">decibels</span></a></p>
 </dd>
-<dt id="term-block-size">block size<a class="headerlink" href="#term-block-size" title="Permalink to this term">¶</a></dt><dd><p>The size of a block of samples</p>
+<dt id="term-amplitude-modulation">amplitude modulation<a class="headerlink" href="#term-amplitude-modulation" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-amplitude-modulation" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-bit-depth">bit depth<a class="headerlink" href="#term-bit-depth" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-async">async<a class="headerlink" href="#term-async" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-async" title="Permalink to this term">¶</a></dt><dt id="term-async-await">async/await<a class="headerlink" href="#term-async-await" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-async-await" title="Permalink to this term">¶</a></dt><dd><p>In computer programming, the async/await pattern is a syntactic feature
+of many programming languages that allows an asynchronous, non-blocking
+function to be structured in a way similar to an ordinary synchronous
+function. It is semantically related to the concept of a coroutine and is
+often implemented using similar techniques, and is primarily intended to
+provide opportunities for the program to execute other code while waiting
+for a long-running, asynchronous task to complete, usually represented by
+promises or similar data structures.</p>
 </dd>
-<dt id="term-buffer">buffer<a class="headerlink" href="#term-buffer" title="Permalink to this term">¶</a></dt><dd><p>A buffer</p>
+<dt id="term-attack">attack<a class="headerlink" href="#term-attack" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-attack" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-bus">bus<a class="headerlink" href="#term-bus" title="Permalink to this term">¶</a></dt><dd><p>A bus</p>
+<dt id="term-audio-rate">audio rate<a class="headerlink" href="#term-audio-rate" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-audio-rate" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-calculation-rate"><span class="xref std std-term">calculation rate</span></a> where one value is generated for each sample
+in the <a class="reference internal" href="#term-block-of-samples"><span class="xref std std-term">sample block</span></a>.</p>
 </dd>
-<dt id="term-calculation-rate">calculation rate<a class="headerlink" href="#term-calculation-rate" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-bit-depth">bit depth<a class="headerlink" href="#term-bit-depth" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-bit-depth" title="Permalink to this term">¶</a></dt><dd><p>The number of bits of information in each sample, directly corresponding
+to the resolution of each sample.</p>
 </dd>
-<dt id="term-channel">channel<a class="headerlink" href="#term-channel" title="Permalink to this term">¶</a></dt><dd><p>A channel</p>
+<dt id="term-block-size">block size<a class="headerlink" href="#term-block-size" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-block-size" title="Permalink to this term">¶</a></dt><dd><p>The size of a block of samples</p>
 </dd>
-<dt id="term-client">client<a class="headerlink" href="#term-client" title="Permalink to this term">¶</a></dt><dd><p>A client</p>
+<dt id="term-block-of-IDs">block, of IDs<a class="headerlink" href="#term-block-of-IDs" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-block-of-IDs" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-clock">clock<a class="headerlink" href="#term-clock" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-block-of-samples">block, of samples<a class="headerlink" href="#term-block-of-samples" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-block-of-samples" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-control">control<a class="headerlink" href="#term-control" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-buffer">buffer<a class="headerlink" href="#term-buffer" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-buffer" title="Permalink to this term">¶</a></dt><dd><p>An array of sample data, used - for example - for sound files, delay
+lines, convolution reverb, wavetable synthesis, window functions etc.</p>
 </dd>
-<dt id="term-control-rate">control rate<a class="headerlink" href="#term-control-rate" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-calculation-rate"><span class="xref std std-term">calculation rate</span></a>.</p>
+<dt id="term-bundle-OSC">bundle, OSC<a class="headerlink" href="#term-bundle-OSC" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-bundle-OSC" title="Permalink to this term">¶</a></dt><dd><p>A collection of <a class="reference internal" href="#term-OSC"><span class="xref std std-term">OSC</span></a> <a class="reference internal" href="#term-message-OSC"><span class="xref std std-term">messages</span></a> and
+<a class="reference internal" href="#term-bundle-OSC"><span class="xref std std-term">bundles</span></a> whose effects must happen simultaneously at
+a given timestamp.</p>
 </dd>
-<dt id="term-decibels">decibels<a class="headerlink" href="#term-decibels" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-bus">bus<a class="headerlink" href="#term-bus" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-bus" title="Permalink to this term">¶</a></dt><dd><p>In audio engineering, a bus is a signal path which can be used to sum
+individual audio signal paths together.</p>
 </dd>
-<dt id="term-default-group">default group<a class="headerlink" href="#term-default-group" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-group"><span class="xref std std-term">group</span></a>.</p>
+<dt id="term-calculation-rate">calculation rate<a class="headerlink" href="#term-calculation-rate" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-calculation-rate" title="Permalink to this term">¶</a></dt><dd><p>The rate at which values are calculated by a <a class="reference internal" href="#term-UGen"><span class="xref std std-term">unit generator</span></a> or <a class="reference internal" href="#term-bus"><span class="xref std std-term">bus</span></a>.</p>
+<p>See: <a class="reference internal" href="#term-audio-rate"><span class="xref std std-term">audio rate</span></a>, <a class="reference internal" href="#term-control-rate"><span class="xref std std-term">control rate</span></a>, <a class="reference internal" href="#term-demand-rate"><span class="xref std std-term">demand rate</span></a>,
+<a class="reference internal" href="#term-scalar-rate"><span class="xref std std-term">scalar rate</span></a></p>
 </dd>
-<dt id="term-demand-rate">demand rate<a class="headerlink" href="#term-demand-rate" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-calculation-rate"><span class="xref std std-term">calculation rate</span></a>.</p>
+<dt id="term-cent">cent<a class="headerlink" href="#term-cent" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-cent" title="Permalink to this term">¶</a></dt><dd><p>A logarithmic unit of measure used for musical intervals, which divides
+the <a class="reference internal" href="#term-octave"><span class="xref std std-term">octave</span></a> into 12 <a class="reference internal" href="#term-semitone"><span class="xref std std-term">semitones</span></a> of 100 cents each
+in <a class="reference internal" href="#term-equal-temperament-twelve-tone"><span class="xref std std-term">twelve-tone equal temperament</span></a>.</p>
 </dd>
-<dt id="term-envelope">envelope<a class="headerlink" href="#term-envelope" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-channel">channel<a class="headerlink" href="#term-channel" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-channel" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-event-from-a-pattern">event: <em>from a pattern</em><a class="headerlink" href="#term-event-from-a-pattern" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-client">client<a class="headerlink" href="#term-client" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-client" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-FFT">FFT<a class="headerlink" href="#term-FFT" title="Permalink to this term">¶</a></dt><dd><p>A fast Fourier transform</p>
+<dt id="term-clock">clock<a class="headerlink" href="#term-clock" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-clock" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-filter">filter<a class="headerlink" href="#term-filter" title="Permalink to this term">¶</a></dt><dd><p>A filter</p>
+<dt id="term-control">control<a class="headerlink" href="#term-control" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-control" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-frame">frame<a class="headerlink" href="#term-frame" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-control-rate">control rate<a class="headerlink" href="#term-control-rate" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-control-rate" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-calculation-rate"><span class="xref std std-term">calculation rate</span></a> where one value is generated per <a class="reference internal" href="#term-block-of-samples"><span class="xref std std-term">sample
+block</span></a>.</p>
 </dd>
-<dt id="term-free">free<a class="headerlink" href="#term-free" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-decay">decay<a class="headerlink" href="#term-decay" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-decay" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-frequency">frequency<a class="headerlink" href="#term-frequency" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-decibels">decibels<a class="headerlink" href="#term-decibels" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-decibels" title="Permalink to this term">¶</a></dt><dd><p>A unit used to measure the intensity of a sound by comparing it with a
+given level on a logarithmic scale; a degree of loudness.</p>
+<p>See: <a class="reference internal" href="#term-amplitude"><span class="xref std std-term">amplitude</span></a></p>
 </dd>
-<dt id="term-frequency-domain">frequency domain<a class="headerlink" href="#term-frequency-domain" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-default-group">default group<a class="headerlink" href="#term-default-group" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-default-group" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-group"><span class="xref std std-term">group</span></a>.</p>
 </dd>
-<dt id="term-graph">graph<a class="headerlink" href="#term-graph" title="Permalink to this term">¶</a></dt><dd><p>A graph</p>
+<dt id="term-demand-rate">demand rate<a class="headerlink" href="#term-demand-rate" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-demand-rate" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-calculation-rate"><span class="xref std std-term">calculation rate</span></a> where one value is generated each time the
+connected <a class="reference internal" href="api/supriya/ugens/demand.html#supriya.ugens.demand.Demand" title="supriya.ugens.demand.Demand"><code class="xref py py-class docutils literal notranslate"><span class="pre">Demand</span></code></a> <a class="reference internal" href="#term-UGen"><span class="xref std std-term">UGen</span></a> is <a class="reference internal" href="#term-trigger"><span class="xref std std-term">triggered</span></a>.</p>
 </dd>
-<dt id="term-group">group<a class="headerlink" href="#term-group" title="Permalink to this term">¶</a></dt><dd><p>A group</p>
+<dt id="term-depth">depth<a class="headerlink" href="#term-depth" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-depth" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-group-of-buffers">group: <em>of buffers</em><a class="headerlink" href="#term-group-of-buffers" title="Permalink to this term">¶</a></dt><dd><p>A buffer group</p>
+<dt id="term-depth-first">depth-first<a class="headerlink" href="#term-depth-first" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-depth-first" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-group-of-buses">group: <em>of buses</em><a class="headerlink" href="#term-group-of-buses" title="Permalink to this term">¶</a></dt><dd><p>A bus group</p>
+<dt id="term-directed-graph">directed graph<a class="headerlink" href="#term-directed-graph" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-directed-graph" title="Permalink to this term">¶</a></dt><dt id="term-digraph">digraph<a class="headerlink" href="#term-digraph" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-digraph" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-graph"><span class="xref std std-term">graph</span></a> in which edges have orientations.</p>
 </dd>
-<dt id="term-header-format">header format<a class="headerlink" href="#term-header-format" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-envelope">envelope<a class="headerlink" href="#term-envelope" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-envelope" title="Permalink to this term">¶</a></dt><dd><p>A description of how a sound changes over time, typically
+<a class="reference internal" href="#term-amplitude"><span class="xref std std-term">amplitude</span></a>, via a curve joining the successive peaks of a
+modulated wave.</p>
+<p>See: <a class="reference internal" href="#term-envelope-generator"><span class="xref std std-term">envelope generator</span></a></p>
 </dd>
-<dt id="term-Hertz">Hertz<a class="headerlink" href="#term-Hertz" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-envelope-generator">envelope generator<a class="headerlink" href="#term-envelope-generator" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-envelope-generator" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-ID">ID<a class="headerlink" href="#term-ID" title="Permalink to this term">¶</a></dt><dd><p>An ID</p>
+<dt id="term-equal-temperament-twelve-tone">equal temperament, twelve-tone<a class="headerlink" href="#term-equal-temperament-twelve-tone" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-equal-temperament-twelve-tone" title="Permalink to this term">¶</a></dt><dd><p>The musical system that divides the <a class="reference internal" href="#term-octave"><span class="xref std std-term">octave</span></a> into 12 parts, all of
+which are equally tempered (equally spaced) on a logarithmic scale, with
+a ratio equal to the 12th root of 2 (12√2 ≈ 1.05946), whose resulting
+smallest interval, 1⁄12 the width of an octave, is called a
+<a class="reference internal" href="#term-semitone"><span class="xref std std-term">semitone</span></a> or half step.</p>
 </dd>
-<dt id="term-IFFT">IFFT<a class="headerlink" href="#term-IFFT" title="Permalink to this term">¶</a></dt><dd><p>An inverse fast Fourier transform</p>
+<dt id="term-event-from-a-pattern">event, from a pattern<a class="headerlink" href="#term-event-from-a-pattern" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-event-from-a-pattern" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-lag">lag<a class="headerlink" href="#term-lag" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-FFT">FFT<a class="headerlink" href="#term-FFT" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-FFT" title="Permalink to this term">¶</a></dt><dd><p>A fast Fourier transform</p>
 </dd>
-<dt id="term-latency">latency<a class="headerlink" href="#term-latency" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-filter">filter<a class="headerlink" href="#term-filter" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-filter" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-MIDI">MIDI<a class="headerlink" href="#term-MIDI" title="Permalink to this term">¶</a></dt><dd><p>A technical standard that describes a communications protocol, digital
+<dt id="term-fluent-interface">fluent interface<a class="headerlink" href="#term-fluent-interface" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-fluent-interface" title="Permalink to this term">¶</a></dt><dd><p>In software engineering, an object-oriented API whose design relies
+extensively on method chaining.</p>
+</dd>
+<dt id="term-frame">frame<a class="headerlink" href="#term-frame" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-frame" title="Permalink to this term">¶</a></dt><dd><p>A data record that contains the <a class="reference internal" href="#term-sample"><span class="xref std std-term">samples</span></a> for all of the
+<a class="reference internal" href="#term-channel"><span class="xref std std-term">channels</span></a> available in an audio signal.</p>
+</dd>
+<dt id="term-free">free<a class="headerlink" href="#term-free" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-free" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-frequency">frequency<a class="headerlink" href="#term-frequency" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-frequency" title="Permalink to this term">¶</a></dt><dd><p>The rate at which something occurs or is repeated over a particular
+period of time or in a given sample; the rate at which a vibration occurs
+that constitutes a wave, either in a material (as in sound waves), or in
+an electromagnetic field (as in radio waves and light), usually measured
+per second.</p>
+<p>See: <a class="reference internal" href="#term-Hertz"><span class="xref std std-term">Hertz</span></a></p>
+</dd>
+<dt id="term-frequency-domain">frequency domain<a class="headerlink" href="#term-frequency-domain" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-frequency-domain" title="Permalink to this term">¶</a></dt><dd><p>The analysis of mathematical functions or signals with respect to
+frequency, rather than time.</p>
+<p>See: <a class="reference internal" href="#term-time-domain"><span class="xref std std-term">time domain</span></a></p>
+</dd>
+<dt id="term-frequency-modulation">frequency modulation<a class="headerlink" href="#term-frequency-modulation" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-frequency-modulation" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-grain">grain<a class="headerlink" href="#term-grain" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-grain" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-granular-synthesis">granular synthesis<a class="headerlink" href="#term-granular-synthesis" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-granular-synthesis" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-graph">graph<a class="headerlink" href="#term-graph" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-graph" title="Permalink to this term">¶</a></dt><dd><p>In mathematics, and more specifically in graph theory, a graph is a
+structure amounting to a set of objects in which some pairs of the
+objects are in some sense “related”; the objects correspond to
+mathematical abstractions called vertices (also called <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a> or points) and each of the related pairs of vertices is called an
+edge (also called link or line).</p>
+</dd>
+<dt id="term-GraphViz">GraphViz<a class="headerlink" href="#term-GraphViz" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-GraphViz" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-group">group<a class="headerlink" href="#term-group" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-group" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-group-of-buffers">group, of buffers<a class="headerlink" href="#term-group-of-buffers" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-group-of-buffers" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-group-of-buses">group, of buses<a class="headerlink" href="#term-group-of-buses" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-group-of-buses" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-head">head<a class="headerlink" href="#term-head" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-head" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-header-format">header format<a class="headerlink" href="#term-header-format" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-header-format" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-Hertz">Hertz<a class="headerlink" href="#term-Hertz" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-Hertz" title="Permalink to this term">¶</a></dt><dd><p>The <a class="reference internal" href="#term-SI"><span class="xref std std-term">SI</span></a> unit of frequency, equal to one cycle per second.</p>
+<p>See: <a class="reference internal" href="#term-frequency"><span class="xref std std-term">frequency</span></a></p>
+</dd>
+<dt id="term-ID">ID<a class="headerlink" href="#term-ID" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-ID" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-ID-buffer">ID, buffer<a class="headerlink" href="#term-ID-buffer" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-ID-buffer" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-ID-bus">ID, bus<a class="headerlink" href="#term-ID-bus" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-ID-bus" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-ID-node">ID, node<a class="headerlink" href="#term-ID-node" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-ID-node" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-IFFT">IFFT<a class="headerlink" href="#term-IFFT" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-IFFT" title="Permalink to this term">¶</a></dt><dd><p>An inverse fast Fourier transform</p>
+</dd>
+<dt id="term-lag">lag<a class="headerlink" href="#term-lag" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-lag" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-latency">latency<a class="headerlink" href="#term-latency" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-latency" title="Permalink to this term">¶</a></dt><dd><p>In computing, the delay before a transfer of data begins following an
+instruction for its transfer.</p>
+</dd>
+<dt id="term-message-MIDI">message, MIDI<a class="headerlink" href="#term-message-MIDI" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-message-MIDI" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-message-OSC">message, OSC<a class="headerlink" href="#term-message-OSC" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-message-OSC" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-MIDI">MIDI<a class="headerlink" href="#term-MIDI" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-MIDI" title="Permalink to this term">¶</a></dt><dd><p>A technical standard that describes a communications protocol, digital
 interface, and electrical connectors that connect a wide variety of
 electronic musical instruments, computers, and related audio devices for
 playing, editing and recording music.</p>
 <p>See: <a class="reference external" href="https://en.wikipedia.org/wiki/MIDI">https://en.wikipedia.org/wiki/MIDI</a></p>
 </dd>
-<dt id="term-MIDI-message">MIDI message<a class="headerlink" href="#term-MIDI-message" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-moment-non-realtime">moment, non-realtime<a class="headerlink" href="#term-moment-non-realtime" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-moment-non-realtime" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-moment-non-real-time">moment: <em>non-real time</em><a class="headerlink" href="#term-moment-non-real-time" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-multi-channel-expansion">multi-channel expansion<a class="headerlink" href="#term-multi-channel-expansion" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-multi-channel-expansion" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-multi-channel-expansion">multi-channel expansion<a class="headerlink" href="#term-multi-channel-expansion" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-MUSIC-N">MUSIC-N<a class="headerlink" href="#term-MUSIC-N" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-MUSIC-N" title="Permalink to this term">¶</a></dt><dd><p>A family of computer music programs and programming languages descended
+from or influenced by MUSIC, a program written by Max Mathews in 1957 at
+Bell Labs, which was the first computer program for generating digital
+audio waveforms through direct synthesis.</p>
 </dd>
-<dt id="term-node">node<a class="headerlink" href="#term-node" title="Permalink to this term">¶</a></dt><dd><p>A node</p>
+<dt id="term-node">node<a class="headerlink" href="#term-node" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-node" title="Permalink to this term">¶</a></dt><dt id="term-vertex">vertex<a class="headerlink" href="#term-vertex" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-vertex" title="Permalink to this term">¶</a></dt><dd><p>In graph theory, the fundamental unit of which graphs are formed.</p>
 </dd>
-<dt id="term-non-real-time">non-real time<a class="headerlink" href="#term-non-real-time" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-node-tree">node tree<a class="headerlink" href="#term-node-tree" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-node-tree" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-OSC-Open-Sound-Control">OSC (Open Sound Control)<a class="headerlink" href="#term-OSC-Open-Sound-Control" title="Permalink to this term">¶</a></dt><dd><p>An open, transport-independent, message-based protocol developed for
-communication among computers, sound synthesizers, and other multimedia
-devices.</p>
+<dt id="term-non-realtime">non-realtime<a class="headerlink" href="#term-non-realtime" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-non-realtime" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-Nyquist-limit">Nyquist limit<a class="headerlink" href="#term-Nyquist-limit" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-Nyquist-limit" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-octave">octave<a class="headerlink" href="#term-octave" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-octave" title="Permalink to this term">¶</a></dt><dd><p>The interval between one musical pitch and another with double its
+<a class="reference internal" href="#term-frequency"><span class="xref std std-term">frequency</span></a>.</p>
+</dd>
+<dt id="term-OSC">OSC<a class="headerlink" href="#term-OSC" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-OSC" title="Permalink to this term">¶</a></dt><dd><p>Open Sound Control, an open, transport-independent, message-based
+protocol developed for communication among computers, sound synthesizers,
+and other multimedia devices.</p>
+<p><a class="reference internal" href="#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a> <a class="reference internal" href="#term-client"><span class="xref std std-term">clients</span></a> and <a class="reference internal" href="#term-server"><span class="xref std std-term">servers</span></a> communicate via OSC.</p>
 <p>See: <a class="reference external" href="http://opensoundcontrol.org/spec-1_0">http://opensoundcontrol.org/spec-1_0</a></p>
 </dd>
-<dt id="term-OSC-bundle">OSC bundle<a class="headerlink" href="#term-OSC-bundle" title="Permalink to this term">¶</a></dt><dd><p>An OSC bundle</p>
+<dt id="term-oscillator">oscillator<a class="headerlink" href="#term-oscillator" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-oscillator" title="Permalink to this term">¶</a></dt><dd><p>A signal generator that produces a sinusoidal or non-sinusoidal signal of
+some particular <a class="reference internal" href="#term-frequency"><span class="xref std std-term">frequency</span></a>.</p>
 </dd>
-<dt id="term-OSC-message">OSC message<a class="headerlink" href="#term-OSC-message" title="Permalink to this term">¶</a></dt><dd><p>An OSC message</p>
+<dt id="term-output-proxy">output proxy<a class="headerlink" href="#term-output-proxy" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-output-proxy" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-octave">octave<a class="headerlink" href="#term-octave" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-parent">parent<a class="headerlink" href="#term-parent" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-parent" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-oscillator">oscillator<a class="headerlink" href="#term-oscillator" title="Permalink to this term">¶</a></dt><dd><p>An oscillator</p>
+<dt id="term-parentage">parentage<a class="headerlink" href="#term-parentage" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-parentage" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-output-proxy">output proxy<a class="headerlink" href="#term-output-proxy" title="Permalink to this term">¶</a></dt><dd><p>An output proxy</p>
+<dt id="term-pattern">pattern<a class="headerlink" href="#term-pattern" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-pattern" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-PV-Chain">PV Chain<a class="headerlink" href="#term-PV-Chain" title="Permalink to this term">¶</a></dt><dd><p>A phase vocoder chain</p>
+<dt id="term-phase">phase<a class="headerlink" href="#term-phase" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-phase" title="Permalink to this term">¶</a></dt><dd><p>The relationship in time between the successive states or cycles of an
+oscillating or repeating system (such as an alternating electric current
+or a light or sound wave) and either a fixed reference point or the
+states or cycles of another system with which it may or may not be in
+synchrony.</p>
 </dd>
-<dt id="term-pattern">pattern<a class="headerlink" href="#term-pattern" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-phase-vocoder">phase vocoder<a class="headerlink" href="#term-phase-vocoder" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-phase-vocoder" title="Permalink to this term">¶</a></dt><dd><p>A type of vocoder-purposed algorithm which can interpolate information
+present in the frequency and time domains of audio signals by using phase
+information extracted from a frequency transform.</p>
 </dd>
-<dt id="term-phase">phase<a class="headerlink" href="#term-phase" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-proxy">proxy<a class="headerlink" href="#term-proxy" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-proxy" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-phase-vocoder">phase vocoder<a class="headerlink" href="#term-phase-vocoder" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-pseudorandom-number-generator">pseudorandom number generator<a class="headerlink" href="#term-pseudorandom-number-generator" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-pseudorandom-number-generator" title="Permalink to this term">¶</a></dt><dd><p>An algorithm for generating a sequence of numbers whose properties
+approximate the properties of sequences of random numbers.</p>
 </dd>
-<dt id="term-pure-unit-generator">pure unit generator<a class="headerlink" href="#term-pure-unit-generator" title="Permalink to this term">¶</a></dt><dd><p>A pure unit generator</p>
+<dt id="term-pure-unit-generator">pure unit generator<a class="headerlink" href="#term-pure-unit-generator" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-pure-unit-generator" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-UGen"><span class="xref std std-term">unit generator</span></a> which does not have any side effects,
+e.g. accessing (and therefore modifying the state of) a <a class="reference internal" href="#term-random-number-generator"><span class="xref std std-term">random
+number generator</span></a>; typically an <a class="reference internal" href="#term-oscillator"><span class="xref std std-term">oscillator</span></a>.</p>
 </dd>
-<dt id="term-random-number-generator">random number generator<a class="headerlink" href="#term-random-number-generator" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-PV-Chain">PV Chain<a class="headerlink" href="#term-PV-Chain" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-PV-Chain" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-phase-vocoder"><span class="xref std std-term">phase vocoder</span></a> <a class="reference internal" href="#term-UGen"><span class="xref std std-term">UGen</span></a> which operates on blocks of
+<a class="reference internal" href="#term-frequency"><span class="xref std std-term">frequency</span></a> and <a class="reference internal" href="#term-phase"><span class="xref std std-term">phase</span></a> data in order to perform spectral
+analysis or transformations.</p>
 </dd>
-<dt id="term-random-seed">random seed<a class="headerlink" href="#term-random-seed" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-Python">Python<a class="headerlink" href="#term-Python" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-Python" title="Permalink to this term">¶</a></dt><dd><p>An interpreted high-level general-purpose programming language whose
+design philosophy emphasizes code readability with its use of significant
+indentation, and whose language constructs as well as object-oriented
+approach aim to help programmers write clear, logical code for small and
+large-scale projects.</p>
+<p>See: <a class="reference external" href="https://www.python.org/">https://www.python.org/</a></p>
 </dd>
-<dt id="term-real-time">real time<a class="headerlink" href="#term-real-time" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-random-number-generator">random number generator<a class="headerlink" href="#term-random-number-generator" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-random-number-generator" title="Permalink to this term">¶</a></dt><dd><p>A process which generates a sequence of numbers or symbols that cannot be
+reasonably predicted better than by a random chance.</p>
+<p>See <a class="reference internal" href="#term-pseudorandom-number-generator"><span class="xref std std-term">pseudorandom number generator</span></a></p>
 </dd>
-<dt id="term-request">request<a class="headerlink" href="#term-request" title="Permalink to this term">¶</a></dt><dd><p>A request</p>
+<dt id="term-random-seed">random seed<a class="headerlink" href="#term-random-seed" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-random-seed" title="Permalink to this term">¶</a></dt><dd><p>A value used to initialize a pseudorandom number generator.</p>
 </dd>
-<dt id="term-response">response<a class="headerlink" href="#term-response" title="Permalink to this term">¶</a></dt><dd><p>A response</p>
+<dt id="term-realtime">realtime<a class="headerlink" href="#term-realtime" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-realtime" title="Permalink to this term">¶</a></dt><dd><p>Relating to a system in which input data is processed within milliseconds
+so that it is available virtually immediately as feedback, e.g., in a
+missile guidance or airline booking system.</p>
 </dd>
-<dt id="term-root-node">root node<a class="headerlink" href="#term-root-node" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-group"><span class="xref std std-term">group</span></a>.</p>
+<dt id="term-release">release<a class="headerlink" href="#term-release" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-release" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-SuperCollider">SuperCollider<a class="headerlink" href="#term-SuperCollider" title="Permalink to this term">¶</a></dt><dd><p>See: <a class="reference external" href="https://supercollider.github.io/">https://supercollider.github.io/</a></p>
+<dt id="term-repr">repr<a class="headerlink" href="#term-repr" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-repr" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-SynthDef">SynthDef<a class="headerlink" href="#term-SynthDef" title="Permalink to this term">¶</a></dt><dd><p>A synthesizer definition</p>
+<dt id="term-request">request<a class="headerlink" href="#term-request" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-request" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-sample">sample<a class="headerlink" href="#term-sample" title="Permalink to this term">¶</a></dt><dd><p>A sample</p>
+<dt id="term-response">response<a class="headerlink" href="#term-response" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-response" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-sample-format">sample format<a class="headerlink" href="#term-sample-format" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-root">root<a class="headerlink" href="#term-root" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-root" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-sample-rate">sample rate<a class="headerlink" href="#term-sample-rate" title="Permalink to this term">¶</a></dt><dd><p>A sample rate</p>
+<dt id="term-root-node">root node<a class="headerlink" href="#term-root-node" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-root-node" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-scalar-rate">scalar rate<a class="headerlink" href="#term-scalar-rate" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-calculation-rate"><span class="xref std std-term">calculation rate</span></a>.</p>
+<dt id="term-rooted-graph">rooted graph<a class="headerlink" href="#term-rooted-graph" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-rooted-graph" title="Permalink to this term">¶</a></dt><dd><p>A (typically <a class="reference internal" href="#term-digraph"><span class="xref std std-term">directed</span></a>) <a class="reference internal" href="#term-graph"><span class="xref std std-term">graph</span></a> in which one
+<a class="reference internal" href="#term-vertex"><span class="xref std std-term">vertex</span></a> has been distinguished as the root.</p>
 </dd>
-<dt id="term-sclang">sclang<a class="headerlink" href="#term-sclang" title="Permalink to this term">¶</a></dt><dd><p>The <a class="reference internal" href="#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a> language</p>
+<dt id="term-sample">sample<a class="headerlink" href="#term-sample" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-sample" title="Permalink to this term">¶</a></dt><dd><p>A unit of audio data; a single digital measurement of an analog audio
+source.</p>
 </dd>
-<dt id="term-scsynth">scsynth<a class="headerlink" href="#term-scsynth" title="Permalink to this term">¶</a></dt><dd><p>The <a class="reference internal" href="#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a> server</p>
+<dt id="term-sample-format">sample format<a class="headerlink" href="#term-sample-format" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-sample-format" title="Permalink to this term">¶</a></dt><dd><p>The binary representation of a <a class="reference internal" href="#term-sample"><span class="xref std std-term">sample</span></a>, e.g. 16-bit signed
+integers or 32-bit floating-point.</p>
 </dd>
-<dt id="term-semitone">semitone<a class="headerlink" href="#term-semitone" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-sample-rate">sample rate<a class="headerlink" href="#term-sample-rate" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-sample-rate" title="Permalink to this term">¶</a></dt><dd><p>The average number of <a class="reference internal" href="#term-sample"><span class="xref std std-term">samples</span></a> obtained in one second.</p>
 </dd>
-<dt id="term-state-non-real-time">state: <em>non-real time</em><a class="headerlink" href="#term-state-non-real-time" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-scalar-rate">scalar rate<a class="headerlink" href="#term-scalar-rate" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-scalar-rate" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-calculation-rate"><span class="xref std std-term">calculation rate</span></a>, sometimes called “constant” or
+“initialization” rate, where the value is calculated only once regardless
+of input.</p>
 </dd>
-<dt id="term-state-machine">state machine<a class="headerlink" href="#term-state-machine" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-sclang">sclang<a class="headerlink" href="#term-sclang" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-sclang" title="Permalink to this term">¶</a></dt><dd><p>The <a class="reference internal" href="#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a> language.</p>
 </dd>
-<dt id="term-state-transition">state transition<a class="headerlink" href="#term-state-transition" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-scsynth">scsynth<a class="headerlink" href="#term-scsynth" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-scsynth" title="Permalink to this term">¶</a></dt><dd><p>The <a class="reference internal" href="#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a> server.</p>
 </dd>
-<dt id="term-supernova">supernova<a class="headerlink" href="#term-supernova" title="Permalink to this term">¶</a></dt><dd><p>An alternative <a class="reference internal" href="#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a> server implementation that utilizes
+<dt id="term-semitone">semitone<a class="headerlink" href="#term-semitone" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-semitone" title="Permalink to this term">¶</a></dt><dd><p>The interval between two adjacent notes in a 12-tone scale, equal to 100
+<a class="reference internal" href="#term-cent"><span class="xref std std-term">cents</span></a> in twelve-tone equal temperament.</p>
+</dd>
+<dt id="term-server">server<a class="headerlink" href="#term-server" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-server" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-session">session<a class="headerlink" href="#term-session" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-session" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-SI">SI<a class="headerlink" href="#term-SI" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-SI" title="Permalink to this term">¶</a></dt><dd><p>The international system of units of measurement, from the French
+<cite>Système International</cite>.</p>
+</dd>
+<dt id="term-signal">signal<a class="headerlink" href="#term-signal" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-signal" title="Permalink to this term">¶</a></dt><dd><p>A representation of sound, typically using either a changing level of
+electrical voltage for analog signals, or a series of binary numbers for
+digital signals.</p>
+</dd>
+<dt id="term-spatialization">spatialization<a class="headerlink" href="#term-spatialization" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-spatialization" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-Sphinx">Sphinx<a class="headerlink" href="#term-Sphinx" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-Sphinx" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-state-machine">state machine<a class="headerlink" href="#term-state-machine" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-state-machine" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-state-transition">state transition<a class="headerlink" href="#term-state-transition" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-state-transition" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-state-non-realtime">state, non-realtime<a class="headerlink" href="#term-state-non-realtime" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-state-non-realtime" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-subtree">subtree<a class="headerlink" href="#term-subtree" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-subtree" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-SuperCollider">SuperCollider<a class="headerlink" href="#term-SuperCollider" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-SuperCollider" title="Permalink to this term">¶</a></dt><dd><p>An environment and programming language originally released in 1996 by
+James McCartney for real-time audio synthesis and algorithmic
+composition, which has since evolved into a system used and further
+developed by both scientists and artists working with sound.</p>
+<p>See: <a class="reference external" href="https://supercollider.github.io/">https://supercollider.github.io/</a></p>
+</dd>
+<dt id="term-supernova">supernova<a class="headerlink" href="#term-supernova" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-supernova" title="Permalink to this term">¶</a></dt><dd><p>An alternative <a class="reference internal" href="#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a> server implementation that utilizes
 parallel processing.</p>
 </dd>
-<dt id="term-server">server<a class="headerlink" href="#term-server" title="Permalink to this term">¶</a></dt><dd><p>A server</p>
+<dt id="term-Supriya">Supriya<a class="headerlink" href="#term-Supriya" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-Supriya" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-Python"><span class="xref std std-term">Python</span></a> API for <a class="reference internal" href="#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a>.</p>
 </dd>
-<dt id="term-session">session<a class="headerlink" href="#term-session" title="Permalink to this term">¶</a></dt><dd><p>A non-real time session</p>
+<dt id="term-sustain">sustain<a class="headerlink" href="#term-sustain" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-sustain" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-synth">synth<a class="headerlink" href="#term-synth" title="Permalink to this term">¶</a></dt><dd><p>A synth</p>
+<dt id="term-synth">synth<a class="headerlink" href="#term-synth" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-synth" title="Permalink to this term">¶</a></dt><dd><p>Short for <a class="reference internal" href="#term-synthesizer"><span class="xref std std-term">synthesizer</span></a>; in <a class="reference internal" href="#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a>, an instance of a
+<a class="reference internal" href="#term-SynthDef"><span class="xref std std-term">SynthDef</span></a>.</p>
 </dd>
-<dt id="term-TCP">TCP<a class="headerlink" href="#term-TCP" title="Permalink to this term">¶</a></dt><dd><p>Transmission Control Protocol</p>
+<dt id="term-SynthDef">SynthDef<a class="headerlink" href="#term-SynthDef" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-SynthDef" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-graph"><span class="xref std std-term">graph</span></a> of <a class="reference internal" href="#term-UGen"><span class="xref std std-term">unit generators</span></a>.</p>
 </dd>
-<dt id="term-tree">tree<a class="headerlink" href="#term-tree" title="Permalink to this term">¶</a></dt><dd><p>A tree</p>
+<dt id="term-synthesizer">synthesizer<a class="headerlink" href="#term-synthesizer" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-synthesizer" title="Permalink to this term">¶</a></dt><dd><p>An electronic musical instrument, typically operated by a keyboard,
+producing a wide variety of sounds by generating and combining signals of
+different frequencies.</p>
 </dd>
-<dt id="term-trigger">trigger<a class="headerlink" href="#term-trigger" title="Permalink to this term">¶</a></dt><dd><p>A trigger</p>
+<dt id="term-tail">tail<a class="headerlink" href="#term-tail" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-tail" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
-<dt id="term-UDP">UDP<a class="headerlink" href="#term-UDP" title="Permalink to this term">¶</a></dt><dd><p>User Datagram Protocol</p>
+<dt id="term-TCP">TCP<a class="headerlink" href="#term-TCP" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-TCP" title="Permalink to this term">¶</a></dt><dd><p>Transmission Control Protocol, a communications standard that enables
+application programs and computing devices to exchange messages over a
+network, designed to send packets across the internet and ensure the
+successful delivery of data and messages over networks.</p>
 </dd>
-<dt id="term-UGen">UGen<a class="headerlink" href="#term-UGen" title="Permalink to this term">¶</a></dt><dd><p>A unit generator</p>
+<dt id="term-time-domain">time domain<a class="headerlink" href="#term-time-domain" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-time-domain" title="Permalink to this term">¶</a></dt><dd><p>The analysis of mathematical functions, physical signals or time series
+data (e.g. environmental or economic), with respect to time.</p>
+<p>See: <a class="reference internal" href="#term-frequency-domain"><span class="xref std std-term">frequency domain</span></a></p>
+</dd>
+<dt id="term-tree">tree<a class="headerlink" href="#term-tree" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-tree" title="Permalink to this term">¶</a></dt><dd><p>In graph theory, a tree is an undirected <a class="reference internal" href="#term-graph"><span class="xref std std-term">graph</span></a> in which any two
+<a class="reference internal" href="#term-node"><span class="xref std std-term">vertices</span></a> are connected by exactly one path, or
+equivalently a connected acyclic undirected graph; the various kinds of
+data structures referred to as trees in computer science have underlying
+graphs that are trees in graph theory, although such data structures are
+generally rooted trees.</p>
+<p>See: <a class="reference internal" href="#term-rooted-graph"><span class="xref std std-term">rooted graph</span></a></p>
+</dd>
+<dt id="term-trigger">trigger<a class="headerlink" href="#term-trigger" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-trigger" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-UDP">UDP<a class="headerlink" href="#term-UDP" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-UDP" title="Permalink to this term">¶</a></dt><dd><p>User Datagram Protocol, a lightweight data transport protocol that works
+on top of IP, providing a mechanism to detect corrupt data in packets,
+but which does not attempt to solve other problems that arise with
+packets, such as lost or out of order packets.</p>
+</dd>
+<dt id="term-UGen">UGen<a class="headerlink" href="#term-UGen" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-UGen" title="Permalink to this term">¶</a></dt><dd><p>A unit generator, the basic formal units in many <a class="reference internal" href="#term-MUSIC-N"><span class="xref std std-term">MUSIC-N-style</span></a> computer music programming languages, which form the building
+blocks for designing synthesis and signal processing algorithms.</p>
+</dd>
+<dt id="term-wavetable-synthesis">wavetable synthesis<a class="headerlink" href="#term-wavetable-synthesis" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-wavetable-synthesis" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
+</dd>
+<dt id="term-window">window<a class="headerlink" href="#term-window" title="Permalink to this definition">¶</a><a class="headerlink" href="#term-window" title="Permalink to this term">¶</a></dt><dd><p>TBD</p>
 </dd>
 </dl>
-</div>
 
 
-           </div>
-           
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
           </div>
-          <footer>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="graphviz.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Graphviz" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Graphviz
+            </div>
+          </div>
+        </a>
       
       
-        <a href="dev/travisci.html" class="btn btn-neutral float-left" title="Travis-CI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+    </nav>
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2014-2022, Josiah Wolf Oberholtzer.
+              
+          </div>
+        
+          Created using
+          <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+          4.3.2.
+           and
+          <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+        
+      </div>
       
     </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright 2014, Josiah Wolf Oberholtzer
-
-    </p>
+    
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
 </footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
     
-   
-
-</body>
+    
+      <script src="_static/javascripts/bundle.c6851205.min.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/design-tabs.js"></script>
+    
+  </body>
 </html>

@@ -7,378 +7,57 @@ events
 
 .. currentmodule:: supriya.patterns.events
 
-.. container:: svg-container
+.. autoclass:: BusAllocateEvent
+   :show-inheritance:
 
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.patterns.events
+   .. automethod:: perform
 
-.. raw:: html
+.. autoclass:: BusFreeEvent
+   :show-inheritance:
 
-   <hr/>
-
-.. rubric:: Classes
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~BusEvent
-   ~CompositeEvent
-   ~GroupEvent
-   ~NoteEvent
-   ~NullEvent
-   ~SynthEvent
-
-.. autoclass:: BusEvent
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: BusEvent.__copy__
-
-   .. container:: inherited
-
-      .. automethod:: BusEvent.__eq__
-
-   .. container:: inherited
-
-      .. automethod:: BusEvent.__getitem__
-
-   .. container:: inherited
-
-      .. automethod:: BusEvent.__hash__
-
-   .. container:: inherited
-
-      .. automethod:: BusEvent.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: BusEvent.as_dict
-
-   .. container:: inherited
-
-      .. automethod:: BusEvent.get
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. container:: inherited
-
-      .. autoattribute:: BusEvent.delta
-
-   .. container:: inherited
-
-      .. autoattribute:: BusEvent.settings
+   .. automethod:: perform
 
 .. autoclass:: CompositeEvent
+   :show-inheritance:
 
-   .. raw:: html
+   .. automethod:: expand
 
-      <hr/>
+.. autoclass:: Event
+   :show-inheritance:
 
-   .. rubric:: Special methods
-      :class: class-header
+   .. automethod:: expand
+   .. automethod:: perform
 
-   .. container:: inherited
+.. autoclass:: GroupAllocateEvent
+   :show-inheritance:
 
-      .. automethod:: CompositeEvent.__copy__
+   .. automethod:: perform
 
-   .. container:: inherited
+.. autoclass:: NodeFreeEvent
+   :show-inheritance:
 
-      .. automethod:: CompositeEvent.__eq__
-
-   .. container:: inherited
-
-      .. automethod:: CompositeEvent.__getitem__
-
-   .. container:: inherited
-
-      .. automethod:: CompositeEvent.__hash__
-
-   .. container:: inherited
-
-      .. automethod:: CompositeEvent.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: CompositeEvent.as_dict
-
-   .. container:: inherited
-
-      .. automethod:: CompositeEvent.get
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. container:: inherited
-
-      .. autoattribute:: CompositeEvent.delta
-
-   .. container:: inherited
-
-      .. autoattribute:: CompositeEvent.settings
-
-.. autoclass:: GroupEvent
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: GroupEvent.__copy__
-
-   .. container:: inherited
-
-      .. automethod:: GroupEvent.__eq__
-
-   .. container:: inherited
-
-      .. automethod:: GroupEvent.__getitem__
-
-   .. container:: inherited
-
-      .. automethod:: GroupEvent.__hash__
-
-   .. container:: inherited
-
-      .. automethod:: GroupEvent.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: GroupEvent.as_dict
-
-   .. container:: inherited
-
-      .. automethod:: GroupEvent.get
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. container:: inherited
-
-      .. autoattribute:: GroupEvent.delta
-
-   .. container:: inherited
-
-      .. autoattribute:: GroupEvent.settings
+   .. automethod:: perform
 
 .. autoclass:: NoteEvent
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: NoteEvent.__copy__
-
-   .. container:: inherited
-
-      .. automethod:: NoteEvent.__eq__
-
-   .. container:: inherited
-
-      .. automethod:: NoteEvent.__getitem__
-
-   .. container:: inherited
-
-      .. automethod:: NoteEvent.__hash__
-
-   .. container:: inherited
-
-      .. automethod:: NoteEvent.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: NoteEvent.as_dict
-
-   .. container:: inherited
-
-      .. automethod:: NoteEvent.get
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. container:: inherited
-
-      .. autoattribute:: NoteEvent.delta
-
-   .. container:: inherited
-
-      .. autoattribute:: NoteEvent.settings
+   .. automethod:: calculate_duration
+   .. automethod:: expand
+   .. automethod:: merge
+   .. automethod:: perform
 
 .. autoclass:: NullEvent
+   :show-inheritance:
 
-   .. raw:: html
+   .. automethod:: expand
 
-      <hr/>
+.. autoclass:: Priority
+   :show-inheritance:
+   :members:
+   :undoc-members:
 
-   .. rubric:: Special methods
-      :class: class-header
 
-   .. container:: inherited
+.. autoclass:: SynthAllocateEvent
+   :show-inheritance:
 
-      .. automethod:: NullEvent.__copy__
-
-   .. container:: inherited
-
-      .. automethod:: NullEvent.__eq__
-
-   .. container:: inherited
-
-      .. automethod:: NullEvent.__getitem__
-
-   .. container:: inherited
-
-      .. automethod:: NullEvent.__hash__
-
-   .. container:: inherited
-
-      .. automethod:: NullEvent.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: NullEvent.as_dict
-
-   .. container:: inherited
-
-      .. automethod:: NullEvent.get
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. container:: inherited
-
-      .. autoattribute:: NullEvent.delta
-
-   .. container:: inherited
-
-      .. autoattribute:: NullEvent.settings
-
-.. autoclass:: SynthEvent
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: SynthEvent.__copy__
-
-   .. container:: inherited
-
-      .. automethod:: SynthEvent.__eq__
-
-   .. container:: inherited
-
-      .. automethod:: SynthEvent.__getitem__
-
-   .. container:: inherited
-
-      .. automethod:: SynthEvent.__hash__
-
-   .. container:: inherited
-
-      .. automethod:: SynthEvent.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: SynthEvent.as_dict
-
-   .. container:: inherited
-
-      .. automethod:: SynthEvent.get
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. container:: inherited
-
-      .. autoattribute:: SynthEvent.delta
-
-   .. container:: inherited
-
-      .. autoattribute:: SynthEvent.settings
+   .. automethod:: perform

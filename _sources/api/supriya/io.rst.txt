@@ -7,75 +7,30 @@ io
 
 .. currentmodule:: supriya.io
 
-.. container:: svg-container
+.. autoclass:: PlayMemo
+   :show-inheritance:
 
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.io
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Classes
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~Player
+   .. automethod:: __render__
+   .. automethod:: from_path
 
 .. autoclass:: Player
+   :show-inheritance:
 
-   .. raw:: html
+   .. automethod:: __call__
+   .. automethod:: open_output_path
+   .. automethod:: render
 
-      <hr/>
+.. autoclass:: Plotter
+   :show-inheritance:
 
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __call__
-      open_output_path
-      render
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: Player.__call__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: Player.open_output_path
-
-   .. automethod:: Player.render
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Functions
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~graph
-   ~play
-   ~render
+   .. automethod:: __call__
+   .. automethod:: open_output_path
+   .. automethod:: render
 
 .. autofunction:: graph
 
 .. autofunction:: play
+
+.. autofunction:: plot
 
 .. autofunction:: render

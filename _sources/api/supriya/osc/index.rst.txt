@@ -7,28 +7,8 @@ osc
 
 .. currentmodule:: supriya.osc
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.osc
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Subpackages
-   :class: section-header
-
 .. toctree::
    :hidden:
-
-   captures
-   messages
-   protocols
-   utils
-
-.. autosummary::
-   :nosignatures:
 
    captures
    messages

@@ -7,63 +7,8 @@ bases
 
 .. currentmodule:: supriya.nonrealtime.bases
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.nonrealtime.bases
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Session Internals
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~SessionObject
-
 .. autoclass:: SessionObject
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      require_offset
-      session
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: SessionObject.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. automethod:: SessionObject.require_offset
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: SessionObject.session
+   .. automethod:: require_offset
+   .. autoattribute:: session

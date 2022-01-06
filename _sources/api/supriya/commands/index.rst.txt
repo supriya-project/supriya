@@ -7,33 +7,8 @@ commands
 
 .. currentmodule:: supriya.commands
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.commands
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Subpackages
-   :class: section-header
-
 .. toctree::
    :hidden:
-
-   bases
-   buffers
-   buses
-   groups
-   movement
-   nodes
-   server
-   synthdefs
-   synths
-
-.. autosummary::
-   :nosignatures:
 
    bases
    buffers

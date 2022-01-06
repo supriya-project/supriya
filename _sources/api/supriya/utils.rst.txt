@@ -7,27 +7,7 @@ utils
 
 .. currentmodule:: supriya.utils
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.utils
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Functions
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~flatten_iterable
-   ~group_iterable_by_count
-   ~iterate_nwise
-   ~locate
-   ~repeat_sequence_to_length
-   ~zip_sequences
+.. autofunction:: expand
 
 .. autofunction:: flatten_iterable
 

@@ -1,0 +1,29 @@
+.. _supriya--patterns--eventpatterns:
+
+eventpatterns
+=============
+
+.. automodule:: supriya.patterns.eventpatterns
+
+.. currentmodule:: supriya.patterns.eventpatterns
+
+.. autoclass:: ChainPattern
+   :show-inheritance:
+
+   .. autoattribute:: is_infinite
+
+.. autoclass:: EventPattern
+   :show-inheritance:
+
+   .. autoattribute:: event_type
+   .. autoattribute:: is_infinite
+
+.. autoclass:: MonoEventPattern
+   :show-inheritance:
+
+   .. autoattribute:: is_infinite
+
+.. autoclass:: UpdatePattern
+   :show-inheritance:
+
+   .. autoattribute:: is_infinite

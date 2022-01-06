@@ -7,24 +7,6 @@ ipython
 
 .. currentmodule:: supriya.ext.ipython
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.ext.ipython
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Functions
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~load_ipython_extension
-   ~patch_player
-
 .. autofunction:: load_ipython_extension
 
 .. autofunction:: patch_player

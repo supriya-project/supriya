@@ -7,40 +7,11 @@ ext
 
 .. currentmodule:: supriya.ext
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.ext
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Subpackages
-   :class: section-header
-
 .. toctree::
    :hidden:
 
+   api
    book
    ipython
-
-.. autosummary::
-   :nosignatures:
-
-   book
-   ipython
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Functions
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~websafe_audio
 
 .. autofunction:: websafe_audio

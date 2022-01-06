@@ -1,0 +1,15 @@
+.. _supriya--clocks--eventqueue:
+
+eventqueue
+==========
+
+.. automodule:: supriya.clocks.eventqueue
+
+.. currentmodule:: supriya.clocks.eventqueue
+
+.. autoclass:: EventQueue
+   :show-inheritance:
+
+   .. automethod:: clear
+   .. automethod:: peek
+   .. automethod:: remove

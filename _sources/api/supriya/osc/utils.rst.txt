@@ -7,24 +7,6 @@ utils
 
 .. currentmodule:: supriya.osc.utils
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.osc.utils
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Functions
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~find_free_port
-   ~format_datagram
-
 .. autofunction:: find_free_port
 
 .. autofunction:: format_datagram

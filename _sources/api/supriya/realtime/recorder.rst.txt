@@ -7,115 +7,23 @@ recorder
 
 .. currentmodule:: supriya.realtime.recorder
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.realtime.recorder
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Server Internals
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~Recorder
-
 .. autoclass:: Recorder
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      channel_count
-      current_channel_count
-      current_file_path
-      current_header_format
-      current_sample_format
-      header_format
-      is_recording
-      pause
-      prepare
-      record_buffer
-      record_node
-      record_synthdef
-      sample_format
-      server
-      start
-      stop
-      unpause
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: Recorder.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: Recorder.pause
-
-   .. automethod:: Recorder.prepare
-
-   .. automethod:: Recorder.start
-
-   .. automethod:: Recorder.stop
-
-   .. automethod:: Recorder.unpause
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read/write properties
-      :class: class-header
-
-   .. autoattribute:: Recorder.channel_count
-
-   .. autoattribute:: Recorder.header_format
-
-   .. autoattribute:: Recorder.sample_format
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: Recorder.current_channel_count
-
-   .. autoattribute:: Recorder.current_file_path
-
-   .. autoattribute:: Recorder.current_header_format
-
-   .. autoattribute:: Recorder.current_sample_format
-
-   .. autoattribute:: Recorder.is_recording
-
-   .. autoattribute:: Recorder.record_buffer
-
-   .. autoattribute:: Recorder.record_node
-
-   .. autoattribute:: Recorder.record_synthdef
-
-   .. autoattribute:: Recorder.server
+   .. autoattribute:: channel_count
+   .. autoattribute:: current_channel_count
+   .. autoattribute:: current_file_path
+   .. autoattribute:: current_header_format
+   .. autoattribute:: current_sample_format
+   .. autoattribute:: header_format
+   .. autoattribute:: is_recording
+   .. automethod:: pause
+   .. automethod:: prepare
+   .. autoattribute:: record_buffer
+   .. autoattribute:: record_node
+   .. autoattribute:: record_synthdef
+   .. autoattribute:: sample_format
+   .. autoattribute:: server
+   .. automethod:: start
+   .. automethod:: stop
+   .. automethod:: unpause

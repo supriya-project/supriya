@@ -7,18 +7,6 @@ intervals
 
 .. currentmodule:: supriya.intervals
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.intervals
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Classes
-   :class: section-header
-
 .. toctree::
    :hidden:
 
@@ -27,12 +15,3 @@ intervals
    IntervalTreeDriver
    IntervalTreeDriverEx
    Moment
-
-.. autosummary::
-   :nosignatures:
-
-   ~Interval.Interval
-   ~IntervalTree.IntervalTree
-   ~IntervalTreeDriver.IntervalTreeDriver
-   ~IntervalTreeDriverEx.IntervalTreeDriverEx
-   ~Moment.Moment

@@ -7,40 +7,6 @@ exceptions
 
 .. currentmodule:: supriya.exceptions
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.exceptions
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Exceptions
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~AlreadyAllocated
-   ~BufferAlreadyAllocated
-   ~BufferNotAllocated
-   ~BusAlreadyAllocated
-   ~BusNotAllocated
-   ~IncompatibleRate
-   ~NodeAlreadyAllocated
-   ~NodeNotAllocated
-   ~NonrealtimeOutputMissing
-   ~NonrealtimeRenderError
-   ~NotAllocated
-   ~OwnedServerShutdown
-   ~RequestTimeout
-   ~ServerCannotBoot
-   ~ServerOffline
-   ~ServerOnline
-   ~TooManyClients
-   ~UnownedServerShutdown
-
 .. autoexception:: AlreadyAllocated
 
 .. autoexception:: BufferAlreadyAllocated

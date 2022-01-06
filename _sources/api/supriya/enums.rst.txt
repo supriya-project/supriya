@@ -7,88 +7,85 @@ enums
 
 .. currentmodule:: supriya.enums
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.enums
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Enumerations
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~AddAction
-   ~BinaryOperator
-   ~CalculationRate
-   ~DoneAction
-   ~EnvelopeShape
-   ~HeaderFormat
-   ~NodeAction
-   ~ParameterRate
-   ~RequestId
-   ~RequestName
-   ~SampleFormat
-   ~SignalRange
-   ~UnaryOperator
-   ~Unit
-
 .. autoclass:: AddAction
+   :show-inheritance:
    :members:
    :undoc-members:
+
 
 .. autoclass:: BinaryOperator
+   :show-inheritance:
    :members:
    :undoc-members:
+
 
 .. autoclass:: CalculationRate
+   :show-inheritance:
    :members:
    :undoc-members:
+
 
 .. autoclass:: DoneAction
+   :show-inheritance:
    :members:
    :undoc-members:
+
 
 .. autoclass:: EnvelopeShape
+   :show-inheritance:
    :members:
    :undoc-members:
+
 
 .. autoclass:: HeaderFormat
+   :show-inheritance:
    :members:
    :undoc-members:
+
 
 .. autoclass:: NodeAction
+   :show-inheritance:
    :members:
    :undoc-members:
+
 
 .. autoclass:: ParameterRate
+   :show-inheritance:
    :members:
    :undoc-members:
+
 
 .. autoclass:: RequestId
+   :show-inheritance:
    :members:
    :undoc-members:
+
 
 .. autoclass:: RequestName
+   :show-inheritance:
    :members:
    :undoc-members:
+
 
 .. autoclass:: SampleFormat
+   :show-inheritance:
    :members:
    :undoc-members:
+
 
 .. autoclass:: SignalRange
+   :show-inheritance:
    :members:
    :undoc-members:
+
 
 .. autoclass:: UnaryOperator
+   :show-inheritance:
    :members:
    :undoc-members:
 
+
 .. autoclass:: Unit
+   :show-inheritance:
    :members:
    :undoc-members:

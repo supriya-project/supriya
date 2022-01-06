@@ -7,240 +7,44 @@ synthdefs
 
 .. currentmodule:: supriya.synthdefs.synthdefs
 
-.. container:: svg-container
+.. autoclass:: SuperColliderSynthDef
+   :show-inheritance:
 
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.synthdefs.synthdefs
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Main Classes
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~SynthDef
+   .. autoattribute:: body
+   .. automethod:: compile
+   .. autoattribute:: name
+   .. autoattribute:: rates
 
 .. autoclass:: SynthDef
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __eq__
-      __graph__
-      __hash__
-      __repr__
-      __str__
-      actual_name
-      allocate
-      anonymous_name
-      audio_channel_count
-      audio_input_channel_count
-      audio_output_channel_count
-      compile
-      constants
-      control_channel_count
-      control_input_channel_count
-      control_output_channel_count
-      control_ugens
-      done_actions
-      free
-      has_gate
-      indexed_parameters
-      input_ugens
-      is_allocated
-      name
-      output_ugens
-      parameter_names
-      parameters
-      play
-      to_dict
-      ugens
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: SynthDef.__eq__
-
-   .. automethod:: SynthDef.__graph__
-
-   .. automethod:: SynthDef.__hash__
-
-   .. automethod:: SynthDef.__repr__
-
-   .. automethod:: SynthDef.__str__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: SynthDef.allocate
-
-   .. automethod:: SynthDef.compile
-
-   .. automethod:: SynthDef.free
-
-   .. automethod:: SynthDef.play
-
-   .. automethod:: SynthDef.to_dict
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: SynthDef.actual_name
-
-   .. autoattribute:: SynthDef.anonymous_name
-
-   .. autoattribute:: SynthDef.audio_channel_count
-
-   .. autoattribute:: SynthDef.audio_input_channel_count
-
-   .. autoattribute:: SynthDef.audio_output_channel_count
-
-   .. autoattribute:: SynthDef.constants
-
-   .. autoattribute:: SynthDef.control_channel_count
-
-   .. autoattribute:: SynthDef.control_input_channel_count
-
-   .. autoattribute:: SynthDef.control_output_channel_count
-
-   .. autoattribute:: SynthDef.control_ugens
-
-   .. autoattribute:: SynthDef.done_actions
-
-   .. autoattribute:: SynthDef.has_gate
-
-   .. autoattribute:: SynthDef.indexed_parameters
-
-   .. autoattribute:: SynthDef.input_ugens
-
-   .. autoattribute:: SynthDef.is_allocated
-
-   .. autoattribute:: SynthDef.name
-
-   .. autoattribute:: SynthDef.output_ugens
-
-   .. autoattribute:: SynthDef.parameter_names
-
-   .. autoattribute:: SynthDef.parameters
-
-   .. autoattribute:: SynthDef.ugens
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: SynthDef Internals
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~SuperColliderSynthDef
-   ~UGenSortBundle
-
-.. autoclass:: SuperColliderSynthDef
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      body
-      compile
-      name
-      rates
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: SuperColliderSynthDef.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: SuperColliderSynthDef.compile
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: SuperColliderSynthDef.body
-
-   .. autoattribute:: SuperColliderSynthDef.name
-
-   .. autoattribute:: SuperColliderSynthDef.rates
+   :show-inheritance:
+
+   .. automethod:: __graph__
+   .. autoattribute:: actual_name
+   .. automethod:: allocate
+   .. autoattribute:: anonymous_name
+   .. autoattribute:: audio_channel_count
+   .. autoattribute:: audio_input_channel_count
+   .. autoattribute:: audio_output_channel_count
+   .. automethod:: compile
+   .. autoattribute:: constants
+   .. autoattribute:: control_channel_count
+   .. autoattribute:: control_input_channel_count
+   .. autoattribute:: control_output_channel_count
+   .. autoattribute:: control_ugens
+   .. autoattribute:: done_actions
+   .. automethod:: free
+   .. autoattribute:: has_gate
+   .. autoattribute:: indexed_parameters
+   .. autoattribute:: input_ugens
+   .. autoattribute:: is_allocated
+   .. autoattribute:: name
+   .. autoattribute:: output_ugens
+   .. autoattribute:: parameter_names
+   .. autoattribute:: parameters
+   .. automethod:: to_dict
+   .. autoattribute:: ugens
 
 .. autoclass:: UGenSortBundle
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      clear
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: UGenSortBundle.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: UGenSortBundle.clear
+   .. automethod:: clear

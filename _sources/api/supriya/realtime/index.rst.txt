@@ -7,18 +7,6 @@ realtime
 
 .. currentmodule:: supriya.realtime
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.realtime
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Subpackages
-   :class: section-header
-
 .. toctree::
    :hidden:
 
@@ -32,17 +20,4 @@ realtime
    protocols
    recorder
    servers
-
-.. autosummary::
-   :nosignatures:
-
-   allocators
-   bases
-   buffers
-   buses
-   interfaces
-   meters
-   nodes
-   protocols
-   recorder
-   servers
+   shm

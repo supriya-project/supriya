@@ -1,0 +1,15 @@
+.. _supriya--ext--api:
+
+api
+===
+
+.. automodule:: supriya.ext.api
+
+.. currentmodule:: supriya.ext.api
+
+.. autoclass:: SupriyaClassDocumenter
+   :show-inheritance:
+
+
+.. autoclass:: SupriyaModuleDocumenter
+   :show-inheritance:

@@ -7,33 +7,8 @@ synthdefs
 
 .. currentmodule:: supriya.synthdefs
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.synthdefs
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Subpackages
-   :class: section-header
-
 .. toctree::
    :hidden:
-
-   bases
-   builders
-   compilers
-   controls
-   envelopes
-   factories
-   grapher
-   mixins
-   synthdefs
-
-.. autosummary::
-   :nosignatures:
 
    bases
    builders

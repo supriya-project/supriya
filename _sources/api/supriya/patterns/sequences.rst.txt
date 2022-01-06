@@ -1,0 +1,23 @@
+.. _supriya--patterns--sequences:
+
+sequences
+=========
+
+.. automodule:: supriya.patterns.sequences
+
+.. currentmodule:: supriya.patterns.sequences
+
+.. autoclass:: GatePattern
+   :show-inheritance:
+
+
+.. autoclass:: RepeatPattern
+   :show-inheritance:
+
+
+.. autoclass:: RestartPattern
+   :show-inheritance:
+
+
+.. autoclass:: StutterPattern
+   :show-inheritance:

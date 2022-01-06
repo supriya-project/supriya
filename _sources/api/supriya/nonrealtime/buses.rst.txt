@@ -7,380 +7,42 @@ buses
 
 .. currentmodule:: supriya.nonrealtime.buses
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.nonrealtime.buses
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Session Objects
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~AudioInputBusGroup
-   ~AudioOutputBusGroup
-   ~Bus
-   ~BusGroup
-
 .. autoclass:: AudioInputBusGroup
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__contains__
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__getitem__
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__iter__
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__len__
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__repr__
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__str__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.fill
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.get
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.get_map_symbol
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.index
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.require_offset
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioInputBusGroup.bus_count
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioInputBusGroup.buses
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioInputBusGroup.calculation_rate
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioInputBusGroup.session
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioInputBusGroup.session_id
 
 .. autoclass:: AudioOutputBusGroup
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__contains__
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__getitem__
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__iter__
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__len__
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__repr__
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__str__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.fill
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.get
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.get_map_symbol
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.index
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.require_offset
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioOutputBusGroup.bus_count
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioOutputBusGroup.buses
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioOutputBusGroup.calculation_rate
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioOutputBusGroup.session
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioOutputBusGroup.session_id
 
 .. autoclass:: Bus
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __repr__
-      __str__
-      bus_group
-      calculation_rate
-      get
-      get_map_symbol
-      session_id
-      set_
-      start_offset
-      stop_offset
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: Bus.__repr__
-
-   .. automethod:: Bus.__str__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: Bus.get
-
-   .. automethod:: Bus.get_map_symbol
-
-   .. automethod:: Bus.set_
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: Bus.require_offset
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: Bus.bus_group
-
-   .. autoattribute:: Bus.calculation_rate
-
-   .. container:: inherited
-
-      .. autoattribute:: Bus.session
-
-   .. autoattribute:: Bus.session_id
-
-   .. autoattribute:: Bus.start_offset
-
-   .. autoattribute:: Bus.stop_offset
+   .. automethod:: __float__
+   .. automethod:: __int__
+   .. autoattribute:: bus_group
+   .. autoattribute:: calculation_rate
+   .. automethod:: get
+   .. automethod:: get_map_symbol
+   .. autoattribute:: session_id
+   .. automethod:: set_
+   .. autoattribute:: start_offset
+   .. autoattribute:: stop_offset
 
 .. autoclass:: BusGroup
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __contains__
-      __getitem__
-      __iter__
-      __len__
-      __repr__
-      __str__
-      bus_count
-      buses
-      calculation_rate
-      fill
-      get
-      get_map_symbol
-      index
-      session_id
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: BusGroup.__contains__
-
-   .. automethod:: BusGroup.__getitem__
-
-   .. automethod:: BusGroup.__iter__
-
-   .. automethod:: BusGroup.__len__
-
-   .. automethod:: BusGroup.__repr__
-
-   .. automethod:: BusGroup.__str__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: BusGroup.fill
-
-   .. automethod:: BusGroup.get
-
-   .. automethod:: BusGroup.get_map_symbol
-
-   .. automethod:: BusGroup.index
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: BusGroup.require_offset
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: BusGroup.bus_count
-
-   .. autoattribute:: BusGroup.buses
-
-   .. autoattribute:: BusGroup.calculation_rate
-
-   .. container:: inherited
-
-      .. autoattribute:: BusGroup.session
-
-   .. autoattribute:: BusGroup.session_id
+   .. automethod:: __contains__
+   .. automethod:: __float__
+   .. automethod:: __getitem__
+   .. automethod:: __int__
+   .. automethod:: __iter__
+   .. automethod:: __len__
+   .. autoattribute:: bus_count
+   .. autoattribute:: buses
+   .. autoattribute:: calculation_rate
+   .. automethod:: fill
+   .. automethod:: get
+   .. automethod:: get_map_symbol
+   .. automethod:: index
+   .. autoattribute:: session_id

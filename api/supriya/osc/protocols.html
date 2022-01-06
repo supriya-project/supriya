@@ -1,1185 +1,1979 @@
 
 
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>protocols &mdash; Supriya 0.4.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
-        <script src="../../../_static/supriya.js"></script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../../_static/favicon.ico">
     
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
     
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="utils" href="utils.html" />
-    <link rel="prev" title="messages" href="messages.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+      
+        <title>protocols - Supriya</title>
+      
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.4.0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+    
+      <link rel="stylesheet" href="../../../_static/stylesheets/main.91c34c39.min.css">
+      
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <link rel="stylesheet" href="../../../_static/stylesheets/palette.89291e57.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+        <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Supriya" class="md-header__button md-logo" aria-label="Supriya" data-md-component="logo">
+      <img src="../../../_static/icon.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Supriya
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              protocols
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
           
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/josiah-wolf-oberholtzer/supriya/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    supriya
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../installation.html" class="md-tabs__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../realtime/index.html" class="md-tabs__link">
+        Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../guides/controllers.html" class="md-tabs__link">
+        How-to Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../clocks/index.html" class="md-tabs__link md-tabs__link--active">
+        API
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../cicd.html" class="md-tabs__link">
+        For Developers
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../glossary.html" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Supriya" class="md-nav__button md-logo" aria-label="Supriya" data-md-component="logo">
+      <img src="../../../_static/icon.svg" alt="logo">
+    </a>
+    Supriya
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/josiah-wolf-oberholtzer/supriya/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    supriya
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" data-md-state="indeterminate" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        <a class="" href="../../../installation.html">Getting Started</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation.html" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../concepts.html" class="md-nav__link">
+        Core concepts
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        <a class="" href="../../../realtime/index.html">Tutorials</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../realtime/index.html" class="md-nav__link">
+        Realtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nonrealtime/index.html" class="md-nav__link">
+        Non-realtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../osc.html" class="md-nav__link">
+        Open Sound Control
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../synthdefs/index.html" class="md-nav__link">
+        Synth Definitions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../providers.html" class="md-nav__link">
+        Providers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../clocks.html" class="md-nav__link">
+        Clocks
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../patterns.html" class="md-nav__link">
+        Patterns
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        <a class="" href="../../../guides/controllers.html">How-to Guides</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="How-to Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          How-to Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/controllers.html" class="md-nav__link">
+        Controllers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dynamics.html" class="md-nav__link">
+        Dynamics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/offline-analysis.html" class="md-nav__link">
+        Offline Analysis
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/routing.html" class="md-nav__link">
+        Routing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/samplers.html" class="md-nav__link">
+        Samplers
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        <a class="" href="../index.html">API</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1" type="checkbox" id="__nav_4_1" checked>
+      
+      <label class="md-nav__link" for="__nav_4_1">
+        <a class="" href="../index.html">supriya</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="supriya" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          supriya
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clocks/index.html" class="md-nav__link">
+        clocks
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/index.html" class="md-nav__link">
+        commands
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conversions.html" class="md-nav__link">
+        conversions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enums.html" class="md-nav__link">
+        enums
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions.html" class="md-nav__link">
+        exceptions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ext/index.html" class="md-nav__link">
+        ext
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intervals/index.html" class="md-nav__link">
+        intervals
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../io.html" class="md-nav__link">
+        io
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nonrealtime/index.html" class="md-nav__link">
+        nonrealtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1_10" type="checkbox" id="__nav_4_1_10" checked>
+      
+      <label class="md-nav__link" for="__nav_4_1_10">
+        <a class="" href="index.html">osc</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="osc" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_1_10">
+          <span class="md-nav__icon md-icon"></span>
+          osc
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="captures.html" class="md-nav__link">
+        captures
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="messages.html" class="md-nav__link">
+        messages
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          protocols
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="" class="md-nav__link md-nav__link--active">
+        protocols
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      protocols
+      
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.AsyncOscProtocol (Python class)">AsyncOscProtocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncOscProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.connect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.connect (Python method)">connect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.connection_lost" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.connection_lost (Python method)">connection_lost</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.connection_made" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.connection_made (Python method)">connection_made</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.datagram_received" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.datagram_received (Python method)">datagram_received</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.disconnect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.disconnect (Python method)">disconnect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.error_received" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.error_received (Python method)">error_received</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.register" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.register (Python method)">register</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.send" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.send (Python method)">send</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.unregister" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.unregister (Python method)">unregister</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.HealthCheck" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.HealthCheck (Python class)">HealthCheck</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscCallback" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.OscCallback (Python class)">OscCallback</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.OscProtocol (Python class)">OscProtocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OscProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol.capture" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.OscProtocol.capture (Python method)">capture</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol.connect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.OscProtocol.connect (Python method)">connect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol.disconnect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.OscProtocol.disconnect (Python method)">disconnect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol.register" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.OscProtocol.register (Python method)">register</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol.send" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.OscProtocol.send (Python method)">send</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol.unregister" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.OscProtocol.unregister (Python method)">unregister</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocolAlreadyConnected" class="md-nav__link">
+    OscProtocolAlreadyConnected
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocolOffline" class="md-nav__link">
+    OscProtocolOffline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscHandler" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.ThreadedOscHandler (Python class)">ThreadedOscHandler</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ThreadedOscHandler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscHandler.handle" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscHandler.handle (Python method)">handle</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.ThreadedOscProtocol (Python class)">ThreadedOscProtocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ThreadedOscProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol.connect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscProtocol.connect (Python method)">connect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol.disconnect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscProtocol.disconnect (Python method)">disconnect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol.expect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscProtocol.expect (Python method)">expect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol.register" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscProtocol.register (Python method)">register</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol.send" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscProtocol.send (Python method)">send</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol.unregister" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscProtocol.unregister (Python method)">unregister</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscServer" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.ThreadedOscServer (Python class)">ThreadedOscServer</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ThreadedOscServer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscServer.service_actions" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscServer.service_actions (Python method)">service_actions</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscServer.verify_request" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscServer.verify_request (Python method)">verify_request</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utils.html" class="md-nav__link">
+        utils
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/index.html" class="md-nav__link">
+        patterns
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../providers.html" class="md-nav__link">
+        providers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../querytree.html" class="md-nav__link">
+        querytree
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../realtime/index.html" class="md-nav__link">
+        realtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sclang.html" class="md-nav__link">
+        sclang
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scsynth.html" class="md-nav__link">
+        scsynth
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../soundfiles.html" class="md-nav__link">
+        soundfiles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../synthdefs/index.html" class="md-nav__link">
+        synthdefs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system.html" class="md-nav__link">
+        system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../typing.html" class="md-nav__link">
+        typing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ugens/index.html" class="md-nav__link">
+        ugens
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils.html" class="md-nav__link">
+        utils
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        <a class="" href="../../../cicd.html">For Developers</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="For Developers" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          For Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cicd.html" class="md-nav__link">
+        CICD
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ipython.html" class="md-nav__link">
+        IPython
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sphinx.html" class="md-nav__link">
+        Sphinx
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../graphviz.html" class="md-nav__link">
+        Graphviz
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" data-md-state="indeterminate" type="checkbox" id="__nav_6" checked>
+      
+      <label class="md-nav__link" for="__nav_6">
+        <a class="" href="../../../glossary.html">Reference</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary.html" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
             
             
               
-            
-            
-              <p class="caption"><span class="caption-text">Introduction</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Guides</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">osc</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="captures.html">captures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="messages.html">messages</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">protocols</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html">utils</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
-</ul>
-</li>
-</ul>
-<p class="caption"><span class="caption-text">Developers</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">Supriya</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content style-external-links">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">supriya</a> &raquo;</li>
-        
-          <li><a href="index.html">osc</a> &raquo;</li>
-        
-      <li>protocols</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="../../../_sources/api/supriya/osc/protocols.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      protocols
+      
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.AsyncOscProtocol (Python class)">AsyncOscProtocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncOscProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.connect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.connect (Python method)">connect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.connection_lost" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.connection_lost (Python method)">connection_lost</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.connection_made" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.connection_made (Python method)">connection_made</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.datagram_received" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.datagram_received (Python method)">datagram_received</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.disconnect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.disconnect (Python method)">disconnect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.error_received" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.error_received (Python method)">error_received</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.register" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.register (Python method)">register</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.send" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.send (Python method)">send</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.AsyncOscProtocol.unregister" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.AsyncOscProtocol.unregister (Python method)">unregister</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.HealthCheck" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.HealthCheck (Python class)">HealthCheck</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscCallback" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.OscCallback (Python class)">OscCallback</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.OscProtocol (Python class)">OscProtocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OscProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol.capture" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.OscProtocol.capture (Python method)">capture</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol.connect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.OscProtocol.connect (Python method)">connect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol.disconnect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.OscProtocol.disconnect (Python method)">disconnect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol.register" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.OscProtocol.register (Python method)">register</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol.send" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.OscProtocol.send (Python method)">send</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocol.unregister" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.OscProtocol.unregister (Python method)">unregister</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocolAlreadyConnected" class="md-nav__link">
+    OscProtocolAlreadyConnected
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.OscProtocolOffline" class="md-nav__link">
+    OscProtocolOffline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscHandler" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.ThreadedOscHandler (Python class)">ThreadedOscHandler</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ThreadedOscHandler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscHandler.handle" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscHandler.handle (Python method)">handle</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.ThreadedOscProtocol (Python class)">ThreadedOscProtocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ThreadedOscProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol.connect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscProtocol.connect (Python method)">connect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol.disconnect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscProtocol.disconnect (Python method)">disconnect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol.expect" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscProtocol.expect (Python method)">expect</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol.register" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscProtocol.register (Python method)">register</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol.send" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscProtocol.send (Python method)">send</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscProtocol.unregister" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscProtocol.unregister (Python method)">unregister</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscServer" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.osc.protocols.ThreadedOscServer (Python class)">ThreadedOscServer</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ThreadedOscServer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscServer.service_actions" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscServer.service_actions (Python method)">service_actions</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.osc.protocols.ThreadedOscServer.verify_request" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.osc.protocols.ThreadedOscServer.verify_request (Python method)">verify_request</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
             
-  <div class="section" id="module-supriya.osc.protocols">
-<span id="protocols"></span><span id="supriya-osc-protocols"></span><h1>protocols<a class="headerlink" href="#module-supriya.osc.protocols" title="Permalink to this headline">¶</a></h1>
-<div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-73a174f2f97d73d006a422b84797d1f6358d2cfe.svg" type="image/svg+xml" class="inheritance graphviz">
-<p class="warning">digraph InheritanceGraph {
-	graph [bgcolor=transparent,
-		color=lightsteelblue2,
-		fontname=Arial,
-		fontsize=10,
-		outputorder=edgesfirst,
-		overlap=prism,
-		penwidth=2,
-		rankdir=LR,
-		splines=spline,
-		style=&quot;dashed, rounded&quot;,
-		truecolor=true
-	];
-	node [colorscheme=pastel19,
-		fontname=Arial,
-		fontsize=10,
-		height=0,
-		penwidth=2,
-		shape=box,
-		style=&quot;filled, rounded&quot;,
-		width=0
-	];
-	edge [color=lightslategrey,
-		penwidth=1
-	];
-	subgraph &quot;cluster_asyncio.protocols&quot; {
-		graph [label=&quot;asyncio.protocols&quot;];
-		node [color=1];
-		&quot;asyncio.protocols.BaseProtocol&quot;	[label=&quot;Base\nProtocol&quot;];
-		&quot;asyncio.protocols.DatagramProtocol&quot;	[label=&quot;Datagram\nProtocol&quot;];
-		&quot;asyncio.protocols.BaseProtocol&quot; -&gt; &quot;asyncio.protocols.DatagramProtocol&quot;	[minlen=1];
-	}
-	subgraph cluster_builtins {
-		graph [label=builtins];
-		node [color=2];
-		&quot;builtins.BaseException&quot;	[URL=&quot;https://docs.python.org/3/library/exceptions.html#BaseException&quot;,
-			label=&quot;Base\nException&quot;,
-			target=_top];
-		&quot;builtins.Exception&quot;	[URL=&quot;https://docs.python.org/3/library/exceptions.html#Exception&quot;,
-			label=Exception,
-			target=_top];
-		&quot;builtins.BaseException&quot; -&gt; &quot;builtins.Exception&quot;;
-		&quot;builtins.object&quot;	[URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
-			label=object,
-			target=_top];
-		&quot;builtins.object&quot; -&gt; &quot;builtins.BaseException&quot;	[minlen=2];
-		&quot;builtins.tuple&quot;	[URL=&quot;https://docs.python.org/3/library/stdtypes.html#tuple&quot;,
-			label=tuple,
-			target=_top];
-		&quot;builtins.object&quot; -&gt; &quot;builtins.tuple&quot;	[minlen=1];
-	}
-	subgraph cluster_socketserver {
-		graph [label=socketserver];
-		node [color=3];
-		&quot;socketserver.BaseRequestHandler&quot;	[URL=&quot;https://docs.python.org/3/library/socketserver.html#socketserver.BaseRequestHandler&quot;,
-			label=&quot;Base\nRequest\nHandler&quot;,
-			target=_top];
-		&quot;socketserver.BaseServer&quot;	[URL=&quot;https://docs.python.org/3/library/socketserver.html#socketserver.BaseServer&quot;,
-			label=&quot;Base\nServer&quot;,
-			target=_top];
-		&quot;socketserver.TCPServer&quot;	[URL=&quot;https://docs.python.org/3/library/socketserver.html#socketserver.TCPServer&quot;,
-			label=TCPServer,
-			target=_top];
-		&quot;socketserver.BaseServer&quot; -&gt; &quot;socketserver.TCPServer&quot;	[minlen=1];
-		&quot;socketserver.UDPServer&quot;	[URL=&quot;https://docs.python.org/3/library/socketserver.html#socketserver.UDPServer&quot;,
-			label=UDPServer,
-			target=_top];
-		&quot;socketserver.TCPServer&quot; -&gt; &quot;socketserver.UDPServer&quot;	[minlen=1];
-	}
-	subgraph &quot;cluster_supriya.osc.protocols&quot; {
-		graph [label=&quot;supriya.osc.protocols&quot;];
-		node [color=4];
-		&quot;supriya.osc.protocols.AsyncOscProtocol&quot;	[URL=&quot;../api/supriya/osc/protocols.html#supriya.osc.protocols.AsyncOscProtocol&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Async\nOsc\nProtocol&quot;,
-			target=_top];
-		&quot;supriya.osc.protocols.HealthCheck&quot;	[URL=&quot;../api/supriya/osc/protocols.html#supriya.osc.protocols.HealthCheck&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Health\nCheck&quot;,
-			target=_top];
-		&quot;supriya.osc.protocols.OscCallback&quot;	[URL=&quot;../api/supriya/osc/protocols.html#supriya.osc.protocols.OscCallback&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Osc\nCallback&quot;,
-			target=_top];
-		&quot;supriya.osc.protocols.OscProtocol&quot;	[URL=&quot;../api/supriya/osc/protocols.html#supriya.osc.protocols.OscProtocol&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Osc\nProtocol&quot;,
-			target=_top];
-		&quot;supriya.osc.protocols.OscProtocol&quot; -&gt; &quot;supriya.osc.protocols.AsyncOscProtocol&quot;;
-		&quot;supriya.osc.protocols.ThreadedOscProtocol&quot;	[URL=&quot;../api/supriya/osc/protocols.html#supriya.osc.protocols.ThreadedOscProtocol&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Threaded\nOsc\nProtocol&quot;,
-			target=_top];
-		&quot;supriya.osc.protocols.OscProtocol&quot; -&gt; &quot;supriya.osc.protocols.ThreadedOscProtocol&quot;	[minlen=1];
-		&quot;supriya.osc.protocols.OscProtocolAlreadyConnected&quot;	[URL=&quot;../api/supriya/osc/protocols.html#supriya.osc.protocols.OscProtocolAlreadyConnected&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Osc\nProtocol\nAlready\nConnected&quot;,
-			target=_top];
-		&quot;supriya.osc.protocols.OscProtocolOffline&quot;	[URL=&quot;../api/supriya/osc/protocols.html#supriya.osc.protocols.OscProtocolOffline&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Osc\nProtocol\nOffline&quot;,
-			target=_top];
-		&quot;supriya.osc.protocols.ThreadedOscHandler&quot;	[URL=&quot;../api/supriya/osc/protocols.html#supriya.osc.protocols.ThreadedOscHandler&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Threaded\nOsc\nHandler&quot;,
-			target=_top];
-		&quot;supriya.osc.protocols.ThreadedOscServer&quot;	[URL=&quot;../api/supriya/osc/protocols.html#supriya.osc.protocols.ThreadedOscServer&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Threaded\nOsc\nServer&quot;,
-			target=_top];
-	}
-	&quot;asyncio.protocols.DatagramProtocol&quot; -&gt; &quot;supriya.osc.protocols.AsyncOscProtocol&quot;;
-	&quot;builtins.Exception&quot; -&gt; &quot;supriya.osc.protocols.OscProtocolAlreadyConnected&quot;	[minlen=1];
-	&quot;builtins.Exception&quot; -&gt; &quot;supriya.osc.protocols.OscProtocolOffline&quot;	[minlen=2];
-	&quot;builtins.object&quot; -&gt; &quot;asyncio.protocols.BaseProtocol&quot;	[minlen=1];
-	&quot;builtins.object&quot; -&gt; &quot;socketserver.BaseRequestHandler&quot;	[minlen=2];
-	&quot;builtins.object&quot; -&gt; &quot;socketserver.BaseServer&quot;	[minlen=1];
-	&quot;builtins.object&quot; -&gt; &quot;supriya.osc.protocols.HealthCheck&quot;	[minlen=2];
-	&quot;builtins.object&quot; -&gt; &quot;supriya.osc.protocols.OscProtocol&quot;;
-	&quot;builtins.tuple&quot; -&gt; &quot;supriya.osc.protocols.OscCallback&quot;	[minlen=1];
-	&quot;socketserver.BaseRequestHandler&quot; -&gt; &quot;supriya.osc.protocols.ThreadedOscHandler&quot;	[minlen=1];
-	&quot;socketserver.UDPServer&quot; -&gt; &quot;supriya.osc.protocols.ThreadedOscServer&quot;	[minlen=1];
-}</p></object></div>
-</div>
-<hr/><p class="section-header rubric">Classes</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.AsyncOscProtocol" title="supriya.osc.protocols.AsyncOscProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AsyncOscProtocol</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.HealthCheck" title="supriya.osc.protocols.HealthCheck"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HealthCheck</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OscCallback</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.OscProtocol" title="supriya.osc.protocols.OscProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OscProtocol</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscHandler" title="supriya.osc.protocols.ThreadedOscHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThreadedOscHandler</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscProtocol" title="supriya.osc.protocols.ThreadedOscProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThreadedOscProtocol</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscServer" title="supriya.osc.protocols.ThreadedOscServer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThreadedOscServer</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py class">
-<dt id="supriya.osc.protocols.AsyncOscProtocol">
-<em class="property">class </em><code class="sig-prename descclassname">supriya.osc.protocols.</code><code class="sig-name descname">AsyncOscProtocol</code><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#AsyncOscProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol" title="Permalink to this definition">¶</a></dt>
-<dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.AsyncOscProtocol.connect" title="supriya.osc.protocols.AsyncOscProtocol.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.AsyncOscProtocol.connection_lost" title="supriya.osc.protocols.AsyncOscProtocol.connection_lost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connection_lost</span></code></a></p></td>
-<td><p>Called when the connection is lost or closed.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.AsyncOscProtocol.connection_made" title="supriya.osc.protocols.AsyncOscProtocol.connection_made"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connection_made</span></code></a></p></td>
-<td><p>Called when a connection is made.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.AsyncOscProtocol.datagram_received" title="supriya.osc.protocols.AsyncOscProtocol.datagram_received"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datagram_received</span></code></a></p></td>
-<td><p>Called when some datagram is received.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.AsyncOscProtocol.disconnect" title="supriya.osc.protocols.AsyncOscProtocol.disconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disconnect</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.AsyncOscProtocol.error_received" title="supriya.osc.protocols.AsyncOscProtocol.error_received"><code class="xref py py-obj docutils literal notranslate"><span class="pre">error_received</span></code></a></p></td>
-<td><p>Called when a send or receive operation raises an OSError.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.AsyncOscProtocol.register" title="supriya.osc.protocols.AsyncOscProtocol.register"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.AsyncOscProtocol.send" title="supriya.osc.protocols.AsyncOscProtocol.send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.AsyncOscProtocol.unregister" title="supriya.osc.protocols.AsyncOscProtocol.unregister"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unregister</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<hr/><p class="class-header rubric">Methods</p>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.AsyncOscProtocol.capture">
-<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.osc.protocols.OscProtocol" title="supriya.osc.protocols.OscProtocol"><code class="descclassname docutils literal notranslate"><span class="pre">OscProtocol</span></code></a>).</code><code class="sig-name descname">capture</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.capture" title="Permalink to this definition">¶</a></dt>
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset" role="main">
+              
+                
+                  <a href="https://github.com/josiah-wolf-oberholtzer/supriya/blob/main/docs/api/supriya/osc/protocols.rst" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+  <h1 id="module-supriya.osc.protocols"><span id="protocols"></span><span id="supriya-osc-protocols"></span>protocols<a class="headerlink" href="#module-supriya.osc.protocols" title="Permalink to this headline">¶</a></h1>
+<dl class="py class objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.AsyncOscProtocol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AsyncOscProtocol</span></span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">asyncio.protocols.DatagramProtocol</span></code>, <a class="reference internal" href="#supriya.osc.protocols.OscProtocol" title="supriya.osc.protocols.OscProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.osc.protocols.OscProtocol</span></code></a></p>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.osc.protocols.AsyncOscProtocol.connect">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip_address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">healthcheck</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#supriya.osc.protocols.HealthCheck" title="supriya.osc.protocols.HealthCheck"><span class="pre">supriya.osc.protocols.HealthCheck</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.connect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
-<dl class="py method">
-<dt id="supriya.osc.protocols.AsyncOscProtocol.connect">
-<em class="property">overridden </em><em class="property">async </em><code class="sig-name descname">connect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ip_address</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">port</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">healthcheck</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#supriya.osc.protocols.HealthCheck" title="supriya.osc.protocols.HealthCheck">supriya.osc.protocols.HealthCheck</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#AsyncOscProtocol.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.connect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="supriya.osc.protocols.AsyncOscProtocol.connection_lost">
-<em class="property">overridden </em><code class="sig-name descname">connection_lost</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exc</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#AsyncOscProtocol.connection_lost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.connection_lost" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.AsyncOscProtocol.connection_lost">
+<span class="sig-name descname"><span class="pre">connection_lost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.connection_lost" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when the connection is lost or closed.</p>
 <p>The argument is an exception object or None (the latter
 meaning a regular EOF is received or the connection was
 aborted or closed).</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.AsyncOscProtocol.connection_made">
-<em class="property">overridden </em><code class="sig-name descname">connection_made</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transport</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#AsyncOscProtocol.connection_made"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.connection_made" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.AsyncOscProtocol.connection_made">
+<span class="sig-name descname"><span class="pre">connection_made</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transport</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.connection_made" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when a connection is made.</p>
 <p>The argument is the transport representing the pipe connection.
 To receive data, wait for data_received() calls.
 When the connection is closed, connection_lost() is called.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.AsyncOscProtocol.datagram_received">
-<em class="property">overridden </em><code class="sig-name descname">datagram_received</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">addr</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#AsyncOscProtocol.datagram_received"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.datagram_received" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.AsyncOscProtocol.datagram_received">
+<span class="sig-name descname"><span class="pre">datagram_received</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.datagram_received" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when some datagram is received.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.AsyncOscProtocol.disconnect">
-<em class="property">overridden </em><em class="property">async </em><code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#AsyncOscProtocol.disconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.disconnect" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.AsyncOscProtocol.disconnect">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.disconnect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.AsyncOscProtocol.error_received">
-<em class="property">overridden </em><code class="sig-name descname">error_received</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exc</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#AsyncOscProtocol.error_received"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.error_received" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.AsyncOscProtocol.error_received">
+<span class="sig-name descname"><span class="pre">error_received</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.error_received" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when a send or receive operation raises an OSError.</p>
 <p>(Other than BlockingIOError or InterruptedError.)</p>
 </dd></dl>
 
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.AsyncOscProtocol.pause_writing">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">BaseProtocol</span></code>).</code><code class="sig-name descname">pause_writing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.pause_writing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called when the transport’s buffer goes over the high-water mark.</p>
-<p>Pause and resume calls are paired – pause_writing() is called
-once when the buffer goes strictly over the high-water mark
-(even if subsequent writes increases the buffer size even
-more), and eventually resume_writing() is called once when the
-buffer size reaches the low-water mark.</p>
-<p>Note that if the buffer size equals the high-water mark,
-pause_writing() is not called – it must go strictly over.
-Conversely, resume_writing() is called when the buffer size is
-equal or lower than the low-water mark.  These end conditions
-are important to ensure that things go as expected when either
-mark is zero.</p>
-<p>NOTE: This is the only Protocol callback that is not called
-through EventLoop.call_soon() – if it were, it would have no
-effect when it’s most needed (when the app keeps writing
-without yielding until pause_writing() is called).</p>
-</dd></dl>
-
-</div>
-<dl class="py method">
-<dt id="supriya.osc.protocols.AsyncOscProtocol.register">
-<em class="property">overridden </em><code class="sig-name descname">register</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pattern</span></em>, <em class="sig-param"><span class="n">procedure</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">failure_pattern</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">once</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback">supriya.osc.protocols.OscCallback</a><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#AsyncOscProtocol.register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.register" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.osc.protocols.AsyncOscProtocol.register">
+<span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">procedure</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failure_pattern</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">once</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback"><span class="pre">supriya.osc.protocols.OscCallback</span></a></span></span></span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.register" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.AsyncOscProtocol.resume_writing">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">BaseProtocol</span></code>).</code><code class="sig-name descname">resume_writing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.resume_writing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called when the transport’s buffer drains below the low-water mark.</p>
-<p>See pause_writing() for details.</p>
-</dd></dl>
-
-</div>
-<dl class="py method">
-<dt id="supriya.osc.protocols.AsyncOscProtocol.send">
-<em class="property">overridden </em><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#AsyncOscProtocol.send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.send" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.AsyncOscProtocol.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.send" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.AsyncOscProtocol.unregister">
-<em class="property">overridden </em><code class="sig-name descname">unregister</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback">supriya.osc.protocols.OscCallback</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#AsyncOscProtocol.unregister"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.unregister" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.AsyncOscProtocol.unregister">
+<span class="sig-name descname"><span class="pre">unregister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback"><span class="pre">supriya.osc.protocols.OscCallback</span></a></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.AsyncOscProtocol.unregister" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="py class">
-<dt id="supriya.osc.protocols.HealthCheck">
-<em class="property">class </em><code class="sig-prename descclassname">supriya.osc.protocols.</code><code class="sig-name descname">HealthCheck</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request_pattern</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">response_pattern</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">backoff_factor</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">1.5</span></em>, <em class="sig-param"><span class="n">max_attempts</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">5</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#HealthCheck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.HealthCheck" title="Permalink to this definition">¶</a></dt>
-<dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.HealthCheck.__eq__" title="supriya.osc.protocols.HealthCheck.__eq__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__eq__</span></code></a></p></td>
-<td><p>Return self==value.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.HealthCheck.__repr__" title="supriya.osc.protocols.HealthCheck.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
-<td><p>Return repr(self).</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">backoff_factor</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_attempts</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeout</span></code></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<hr/><p class="class-header rubric">Special methods</p>
-<dl class="py method">
-<dt id="supriya.osc.protocols.HealthCheck.__eq__">
-<em class="property">overridden </em><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.HealthCheck.__eq__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return self==value.</p>
+<dl class="py class objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.osc.protocols.HealthCheck">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HealthCheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response_pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Callable</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">1.0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">backoff_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">1.5</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">max_attempts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">5</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.HealthCheck" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.HealthCheck.__repr__">
-<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.HealthCheck.__repr__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return repr(self).</p>
+<dl class="py class objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.OscCallback">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OscCallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">procedure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failure_pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">once</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.NamedTuple" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NamedTuple</span></code></a></p>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="py class">
-<dt id="supriya.osc.protocols.OscCallback">
-<em class="property">class </em><code class="sig-prename descclassname">supriya.osc.protocols.</code><code class="sig-name descname">OscCallback</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pattern</span></em>, <em class="sig-param"><span class="n">procedure</span></em>, <em class="sig-param"><span class="n">failure_pattern</span></em>, <em class="sig-param"><span class="n">once</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#OscCallback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.OscCallback" title="Permalink to this definition">¶</a></dt>
-<dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.OscCallback.__new__" title="supriya.osc.protocols.OscCallback.__new__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__new__</span></code></a></p></td>
-<td><p>Create new instance of OscCallback(pattern, procedure, failure_pattern, once)</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.OscCallback.__repr__" title="supriya.osc.protocols.OscCallback.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
-<td><p>Return a nicely formatted representation string</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">failure_pattern</span></code></p></td>
-<td><p>Alias for field number 2</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">once</span></code></p></td>
-<td><p>Alias for field number 3</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern</span></code></p></td>
-<td><p>Alias for field number 0</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">procedure</span></code></p></td>
-<td><p>Alias for field number 1</p></td>
-</tr>
-</tbody>
-</table>
-<hr/><p class="class-header rubric">Special methods</p>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__add__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__add__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__add__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return self+value.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__contains__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__contains__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return key in self.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__eq__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__eq__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return self==value.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__ge__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__ge__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__ge__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return self&gt;=value.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__getitem__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return self[key].</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__gt__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__gt__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__gt__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return self&gt;value.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__hash__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__hash__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return hash(self).</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__iter__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__iter__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implement iter(self).</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__le__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__le__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__le__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return self&lt;=value.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__len__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__len__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return len(self).</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__lt__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__lt__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__lt__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return self&lt;value.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__mul__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__mul__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__mul__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return self*value.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__ne__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__ne__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__ne__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return self!=value.</p>
-</dd></dl>
-
-</div>
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__new__">
-<em class="property">overridden </em><em class="property">static </em><code class="sig-name descname">__new__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_cls</span></em>, <em class="sig-param"><span class="n">pattern</span><span class="p">:</span> <span class="n">Tuple<span class="p">[</span>Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span><span class="p">, </span><span class="p">…</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">procedure</span><span class="p">:</span> <span class="n">Callable</span></em>, <em class="sig-param"><span class="n">failure_pattern</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Tuple<span class="p">[</span>Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span><span class="p">, </span><span class="p">…</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">once</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__new__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create new instance of OscCallback(pattern, procedure, failure_pattern, once)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__repr__">
-<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__repr__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a nicely formatted representation string</p>
-</dd></dl>
-
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.__rmul__">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">__rmul__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.__rmul__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return value*self.</p>
-</dd></dl>
-
-</div>
-<hr/><p class="class-header rubric">Methods</p>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.count">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">count</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return number of occurrences of value.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscCallback.index">
-<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">tuple</span></code>).</code><code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">stop</span><span class="o">=</span><span class="default_value">9223372036854775807</span></em>, <em class="sig-param"><span class="o">/</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscCallback.index" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return first index of value.</p>
-<p>Raises ValueError if the value is not present.</p>
-</dd></dl>
-
-</div>
-</dd></dl>
-
-<dl class="py class">
-<dt id="supriya.osc.protocols.OscProtocol">
-<em class="property">class </em><code class="sig-prename descclassname">supriya.osc.protocols.</code><code class="sig-name descname">OscProtocol</code><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#OscProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.OscProtocol" title="Permalink to this definition">¶</a></dt>
-<dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.OscProtocol.capture" title="supriya.osc.protocols.OscProtocol.capture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capture</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.OscProtocol.connect" title="supriya.osc.protocols.OscProtocol.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.OscProtocol.disconnect" title="supriya.osc.protocols.OscProtocol.disconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disconnect</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.OscProtocol.register" title="supriya.osc.protocols.OscProtocol.register"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.OscProtocol.send" title="supriya.osc.protocols.OscProtocol.send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.OscProtocol.unregister" title="supriya.osc.protocols.OscProtocol.unregister"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unregister</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<hr/><p class="class-header rubric">Methods</p>
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscProtocol.capture">
-<code class="sig-name descname">capture</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#OscProtocol.capture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.OscProtocol.capture" title="Permalink to this definition">¶</a></dt>
+<dl class="py class objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.OscProtocol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OscProtocol</span></span><a class="headerlink" href="#supriya.osc.protocols.OscProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.OscProtocol.capture">
+<span class="sig-name descname"><span class="pre">capture</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscProtocol.capture" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscProtocol.connect">
-<code class="sig-name descname">connect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ip_address</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">port</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">healthcheck</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#supriya.osc.protocols.HealthCheck" title="supriya.osc.protocols.HealthCheck">supriya.osc.protocols.HealthCheck</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#OscProtocol.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.OscProtocol.connect" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.osc.protocols.OscProtocol.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip_address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">healthcheck</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#supriya.osc.protocols.HealthCheck" title="supriya.osc.protocols.HealthCheck"><span class="pre">supriya.osc.protocols.HealthCheck</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscProtocol.connect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscProtocol.disconnect">
-<code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#OscProtocol.disconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.OscProtocol.disconnect" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.OscProtocol.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscProtocol.disconnect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscProtocol.register">
-<code class="sig-name descname">register</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pattern</span></em>, <em class="sig-param"><span class="n">procedure</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">failure_pattern</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">once</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback">supriya.osc.protocols.OscCallback</a><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#OscProtocol.register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.OscProtocol.register" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.osc.protocols.OscProtocol.register">
+<span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">procedure</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failure_pattern</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">once</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback"><span class="pre">supriya.osc.protocols.OscCallback</span></a></span></span></span><a class="headerlink" href="#supriya.osc.protocols.OscProtocol.register" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscProtocol.send">
-<code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#OscProtocol.send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.OscProtocol.send" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.OscProtocol.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscProtocol.send" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.OscProtocol.unregister">
-<code class="sig-name descname">unregister</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback">supriya.osc.protocols.OscCallback</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#OscProtocol.unregister"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.OscProtocol.unregister" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.OscProtocol.unregister">
+<span class="sig-name descname"><span class="pre">unregister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback"><span class="pre">supriya.osc.protocols.OscCallback</span></a></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.OscProtocol.unregister" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="py class">
-<dt id="supriya.osc.protocols.ThreadedOscHandler">
-<em class="property">class </em><code class="sig-prename descclassname">supriya.osc.protocols.</code><code class="sig-name descname">ThreadedOscHandler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">client_address</span></em>, <em class="sig-param"><span class="n">server</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscHandler" title="Permalink to this definition">¶</a></dt>
-<dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscHandler.handle" title="supriya.osc.protocols.ThreadedOscHandler.handle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handle</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<hr/><p class="class-header rubric">Methods</p>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscHandler.finish">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.BaseRequestHandler" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">BaseRequestHandler</span></code></a>).</code><code class="sig-name descname">finish</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscHandler.finish" title="Permalink to this definition">¶</a></dt>
+<dl class="py exception objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.OscProtocolAlreadyConnected">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OscProtocolAlreadyConnected</span></span><a class="headerlink" href="#supriya.osc.protocols.OscProtocolAlreadyConnected" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscHandler.handle">
-<em class="property">overridden </em><code class="sig-name descname">handle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscHandler.handle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscHandler.handle" title="Permalink to this definition">¶</a></dt>
+<dl class="py exception objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.OscProtocolOffline">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OscProtocolOffline</span></span><a class="headerlink" href="#supriya.osc.protocols.OscProtocolOffline" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscHandler.setup">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.BaseRequestHandler" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">BaseRequestHandler</span></code></a>).</code><code class="sig-name descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscHandler.setup" title="Permalink to this definition">¶</a></dt>
+<dl class="py class objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.ThreadedOscHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ThreadedOscHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.BaseRequestHandler" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">socketserver.BaseRequestHandler</span></code></a></p>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.ThreadedOscHandler.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscHandler.handle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
 </dd></dl>
 
-<dl class="py class">
-<dt id="supriya.osc.protocols.ThreadedOscProtocol">
-<em class="property">class </em><code class="sig-prename descclassname">supriya.osc.protocols.</code><code class="sig-name descname">ThreadedOscProtocol</code><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol" title="Permalink to this definition">¶</a></dt>
-<dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscProtocol.__del__" title="supriya.osc.protocols.ThreadedOscProtocol.__del__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__del__</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscProtocol.connect" title="supriya.osc.protocols.ThreadedOscProtocol.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscProtocol.disconnect" title="supriya.osc.protocols.ThreadedOscProtocol.disconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disconnect</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscProtocol.expect" title="supriya.osc.protocols.ThreadedOscProtocol.expect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expect</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscProtocol.register" title="supriya.osc.protocols.ThreadedOscProtocol.register"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register</span></code></a></p></td>
-<td><p>Register a callback.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscProtocol.send" title="supriya.osc.protocols.ThreadedOscProtocol.send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscProtocol.unregister" title="supriya.osc.protocols.ThreadedOscProtocol.unregister"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unregister</span></code></a></p></td>
-<td><p>Unregister a callback.</p></td>
-</tr>
-</tbody>
-</table>
-<hr/><p class="class-header rubric">Special methods</p>
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscProtocol.__del__">
-<code class="sig-name descname">__del__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscProtocol.__del__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.__del__" title="Permalink to this definition">¶</a></dt>
+<dl class="py class objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.ThreadedOscProtocol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ThreadedOscProtocol</span></span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#supriya.osc.protocols.OscProtocol" title="supriya.osc.protocols.OscProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.osc.protocols.OscProtocol</span></code></a></p>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.osc.protocols.ThreadedOscProtocol.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip_address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">healthcheck</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#supriya.osc.protocols.HealthCheck" title="supriya.osc.protocols.HealthCheck"><span class="pre">supriya.osc.protocols.HealthCheck</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.connect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<hr/><p class="class-header rubric">Methods</p>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscProtocol.capture">
-<code class="sig-prename descclassname">(<a class="reference internal" href="#supriya.osc.protocols.OscProtocol" title="supriya.osc.protocols.OscProtocol"><code class="descclassname docutils literal notranslate"><span class="pre">OscProtocol</span></code></a>).</code><code class="sig-name descname">capture</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.capture" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.ThreadedOscProtocol.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.disconnect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscProtocol.connect">
-<em class="property">overridden </em><code class="sig-name descname">connect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ip_address</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">port</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">healthcheck</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#supriya.osc.protocols.HealthCheck" title="supriya.osc.protocols.HealthCheck">supriya.osc.protocols.HealthCheck</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscProtocol.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.connect" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.ThreadedOscProtocol.expect">
+<span class="sig-name descname"><span class="pre">expect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failure_pattern</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">1.0</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.expect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscProtocol.disconnect">
-<em class="property">overridden </em><code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscProtocol.disconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.disconnect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscProtocol.expect">
-<code class="sig-name descname">expect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">pattern</span></em>, <em class="sig-param"><span class="n">failure_pattern</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscProtocol.expect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.expect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscProtocol.register">
-<em class="property">overridden </em><code class="sig-name descname">register</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pattern</span></em>, <em class="sig-param"><span class="n">procedure</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">failure_pattern</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">once</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback">supriya.osc.protocols.OscCallback</a><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscProtocol.register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.register" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.osc.protocols.ThreadedOscProtocol.register">
+<span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">procedure</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failure_pattern</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">once</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback"><span class="pre">supriya.osc.protocols.OscCallback</span></a></span></span></span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register a callback.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscProtocol.send">
-<em class="property">overridden </em><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscProtocol.send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.send" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.ThreadedOscProtocol.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.send" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscProtocol.unregister">
-<em class="property">overridden </em><code class="sig-name descname">unregister</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback">supriya.osc.protocols.OscCallback</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscProtocol.unregister"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.unregister" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.ThreadedOscProtocol.unregister">
+<span class="sig-name descname"><span class="pre">unregister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="#supriya.osc.protocols.OscCallback" title="supriya.osc.protocols.OscCallback"><span class="pre">supriya.osc.protocols.OscCallback</span></a></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscProtocol.unregister" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unregister a callback.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="py class">
-<dt id="supriya.osc.protocols.ThreadedOscServer">
-<em class="property">class </em><code class="sig-prename descclassname">supriya.osc.protocols.</code><code class="sig-name descname">ThreadedOscServer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server_address</span></em>, <em class="sig-param"><span class="n">RequestHandlerClass</span></em>, <em class="sig-param"><span class="n">bind_and_activate</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscServer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer" title="Permalink to this definition">¶</a></dt>
-<dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscServer.service_actions" title="supriya.osc.protocols.ThreadedOscServer.service_actions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">service_actions</span></code></a></p></td>
-<td><p>Called by the serve_forever() loop.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.ThreadedOscServer.verify_request" title="supriya.osc.protocols.ThreadedOscServer.verify_request"><code class="xref py py-obj docutils literal notranslate"><span class="pre">verify_request</span></code></a></p></td>
-<td><p>Verify the request.</p></td>
-</tr>
-</tbody>
-</table>
-<hr/><p class="class-header rubric">Special methods</p>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.__enter__">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.BaseServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">__enter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.__enter__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.__exit__">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.BaseServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">__exit__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.__exit__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<hr/><p class="class-header rubric">Methods</p>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.close_request">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.UDPServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">UDPServer</span></code></a>).</code><code class="sig-name descname">close_request</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.close_request" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called to clean up an individual request.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.fileno">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.TCPServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">TCPServer</span></code></a>).</code><code class="sig-name descname">fileno</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.fileno" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return socket file number.</p>
-<p>Interface required by selector.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.finish_request">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.BaseServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">finish_request</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">client_address</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.finish_request" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finish one request by instantiating RequestHandlerClass.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.get_request">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.UDPServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">UDPServer</span></code></a>).</code><code class="sig-name descname">get_request</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.get_request" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the request and client address from the socket.</p>
-<p>May be overridden.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.handle_error">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.BaseServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">handle_error</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">client_address</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.handle_error" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle an error gracefully.  May be overridden.</p>
-<p>The default is to print a traceback and continue.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.handle_request">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.BaseServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">handle_request</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.handle_request" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle one request, possibly blocking.</p>
-<p>Respects self.timeout.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.handle_timeout">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.BaseServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">handle_timeout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.handle_timeout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called if no new request arrives within self.timeout.</p>
-<p>Overridden by ForkingMixIn.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.process_request">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.BaseServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">process_request</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">client_address</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.process_request" title="Permalink to this definition">¶</a></dt>
-<dd><p>Call finish_request.</p>
-<p>Overridden by ForkingMixIn and ThreadingMixIn.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.serve_forever">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.BaseServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">serve_forever</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">poll_interval</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.serve_forever" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle one request at a time until shutdown.</p>
-<p>Polls for shutdown every poll_interval seconds. Ignores
-self.timeout. If you need to do periodic tasks, do them in
-another thread.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.server_activate">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.UDPServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">UDPServer</span></code></a>).</code><code class="sig-name descname">server_activate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.server_activate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called by constructor to activate the server.</p>
-<p>May be overridden.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.server_bind">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.TCPServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">TCPServer</span></code></a>).</code><code class="sig-name descname">server_bind</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.server_bind" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called by constructor to bind the socket.</p>
-<p>May be overridden.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.server_close">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.TCPServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">TCPServer</span></code></a>).</code><code class="sig-name descname">server_close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.server_close" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called to clean-up the server.</p>
-<p>May be overridden.</p>
-</dd></dl>
-
-</div>
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.service_actions">
-<em class="property">overridden </em><code class="sig-name descname">service_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscServer.service_actions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.service_actions" title="Permalink to this definition">¶</a></dt>
+<dl class="py class objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.osc.protocols.ThreadedOscServer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ThreadedOscServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RequestHandlerClass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind_and_activate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.UDPServer" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">socketserver.UDPServer</span></code></a></p>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.ThreadedOscServer.service_actions">
+<span class="sig-name descname"><span class="pre">service_actions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.service_actions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called by the serve_forever() loop.</p>
 <p>May be overridden by a subclass / Mixin to implement any code that
 needs to be run during the loop.</p>
 </dd></dl>
 
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.shutdown">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.BaseServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">BaseServer</span></code></a>).</code><code class="sig-name descname">shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.shutdown" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stops the serve_forever loop.</p>
-<p>Blocks until the loop has finished. This must be called while
-serve_forever() is running in another thread, or it will
-deadlock.</p>
-</dd></dl>
-
-</div>
-<div class="inherited docutils container">
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.shutdown_request">
-<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3/library/socketserver.html#socketserver.UDPServer" title="(in Python v3.9)"><code class="descclassname docutils literal notranslate"><span class="pre">UDPServer</span></code></a>).</code><code class="sig-name descname">shutdown_request</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.shutdown_request" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called to shutdown and close an individual request.</p>
-</dd></dl>
-
-</div>
-<dl class="py method">
-<dt id="supriya.osc.protocols.ThreadedOscServer.verify_request">
-<em class="property">overridden </em><code class="sig-name descname">verify_request</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">client_address</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#ThreadedOscServer.verify_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.verify_request" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.osc.protocols.ThreadedOscServer.verify_request">
+<span class="sig-name descname"><span class="pre">verify_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_address</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.osc.protocols.ThreadedOscServer.verify_request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verify the request.  May be overridden.</p>
 <p>Return True if we should proceed with this request.</p>
 </dd></dl>
 
 </dd></dl>
 
-<hr/><p class="section-header rubric">Exceptions</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.osc.protocols.OscProtocolAlreadyConnected" title="supriya.osc.protocols.OscProtocolAlreadyConnected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OscProtocolAlreadyConnected</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.osc.protocols.OscProtocolOffline" title="supriya.osc.protocols.OscProtocolOffline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OscProtocolOffline</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py exception">
-<dt id="supriya.osc.protocols.OscProtocolAlreadyConnected">
-<em class="property">exception </em><code class="sig-prename descclassname">supriya.osc.protocols.</code><code class="sig-name descname">OscProtocolAlreadyConnected</code><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#OscProtocolAlreadyConnected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.OscProtocolAlreadyConnected" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py exception">
-<dt id="supriya.osc.protocols.OscProtocolOffline">
-<em class="property">exception </em><code class="sig-prename descclassname">supriya.osc.protocols.</code><code class="sig-name descname">OscProtocolOffline</code><a class="reference internal" href="../../../_modules/supriya/osc/protocols.html#OscProtocolOffline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.osc.protocols.OscProtocolOffline" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 
 
-           </div>
-           
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
           </div>
-          <footer>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="utils.html" class="btn btn-neutral float-right" title="utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        
+        <a href="messages.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: messages" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              messages
+            </div>
+          </div>
+        </a>
       
       
-        <a href="messages.html" class="btn btn-neutral float-left" title="messages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        
+        <a href="utils.html" class="md-footer__link md-footer__link--next" aria-label="Next: utils" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              utils
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2014-2022, Josiah Wolf Oberholtzer.
+              
+          </div>
+        
+          Created using
+          <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+          4.3.2.
+           and
+          <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+        
+      </div>
       
     </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright 2014, Josiah Wolf Oberholtzer
-
-    </p>
+    
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
 </footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
     
-   
-
-</body>
+    
+      <script src="../../../_static/javascripts/bundle.c6851205.min.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/design-tabs.js"></script>
+    
+  </body>
 </html>

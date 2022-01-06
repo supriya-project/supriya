@@ -7,127 +7,22 @@ envelopes
 
 .. currentmodule:: supriya.synthdefs.envelopes
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.synthdefs.envelopes
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Main Classes
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~Envelope
-
 .. autoclass:: Envelope
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      amplitudes
-      ar
-      asr
-      curves
-      duration
-      durations
-      envelope_segments
-      from_segments
-      initial_amplitude
-      kr
-      linen
-      loop_node
-      offset
-      percussive
-      release_node
-      serialize
-      triangle
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: Envelope.__copy__
-
-   .. container:: inherited
-
-      .. automethod:: Envelope.__eq__
-
-   .. container:: inherited
-
-      .. automethod:: Envelope.__hash__
-
-   .. container:: inherited
-
-      .. automethod:: Envelope.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: Envelope.ar
-
-   .. automethod:: Envelope.kr
-
-   .. automethod:: Envelope.serialize
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. automethod:: Envelope.asr
-
-   .. automethod:: Envelope.from_segments
-
-   .. automethod:: Envelope.linen
-
-   .. automethod:: Envelope.percussive
-
-   .. automethod:: Envelope.triangle
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: Envelope.amplitudes
-
-   .. autoattribute:: Envelope.curves
-
-   .. autoattribute:: Envelope.duration
-
-   .. autoattribute:: Envelope.durations
-
-   .. autoattribute:: Envelope.envelope_segments
-
-   .. autoattribute:: Envelope.initial_amplitude
-
-   .. autoattribute:: Envelope.loop_node
-
-   .. autoattribute:: Envelope.offset
-
-   .. autoattribute:: Envelope.release_node
+   .. automethod:: adsr
+   .. autoattribute:: amplitudes
+   .. automethod:: asr
+   .. autoattribute:: curves
+   .. autoattribute:: duration
+   .. autoattribute:: durations
+   .. autoattribute:: envelope_segments
+   .. automethod:: from_segments
+   .. autoattribute:: initial_amplitude
+   .. automethod:: linen
+   .. autoattribute:: loop_node
+   .. autoattribute:: offset
+   .. automethod:: percussive
+   .. autoattribute:: release_node
+   .. automethod:: serialize
+   .. automethod:: triangle

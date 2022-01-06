@@ -7,583 +7,65 @@ buses
 
 .. currentmodule:: supriya.realtime.buses
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.realtime.buses
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Main Classes
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~Bus
-   ~BusGroup
-
-.. autoclass:: Bus
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __float__
-      __int__
-      __repr__
-      __str__
-      allocate
-      ar
-      audio
-      bus_group
-      bus_id
-      calculation_rate
-      control
-      free
-      get
-      is_allocated
-      kr
-      map_symbol
-      server
-      set
-      value
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: Bus.__float__
-
-   .. automethod:: Bus.__int__
-
-   .. automethod:: Bus.__repr__
-
-   .. automethod:: Bus.__str__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: Bus.allocate
-
-   .. automethod:: Bus.ar
-
-   .. automethod:: Bus.free
-
-   .. automethod:: Bus.get
-
-   .. automethod:: Bus.kr
-
-   .. automethod:: Bus.set
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. automethod:: Bus.audio
-
-   .. automethod:: Bus.control
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: Bus.bus_group
-
-   .. autoattribute:: Bus.bus_id
-
-   .. autoattribute:: Bus.calculation_rate
-
-   .. autoattribute:: Bus.is_allocated
-
-   .. autoattribute:: Bus.map_symbol
-
-   .. autoattribute:: Bus.server
-
-   .. autoattribute:: Bus.value
-
-.. autoclass:: BusGroup
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __contains__
-      __float__
-      __getitem__
-      __int__
-      __iter__
-      __len__
-      __repr__
-      __str__
-      allocate
-      ar
-      audio
-      bus_id
-      buses
-      calculation_rate
-      control
-      fill
-      free
-      get
-      index
-      is_allocated
-      kr
-      map_symbol
-      set
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: BusGroup.__contains__
-
-   .. automethod:: BusGroup.__float__
-
-   .. automethod:: BusGroup.__getitem__
-
-   .. automethod:: BusGroup.__int__
-
-   .. automethod:: BusGroup.__iter__
-
-   .. automethod:: BusGroup.__len__
-
-   .. automethod:: BusGroup.__repr__
-
-   .. automethod:: BusGroup.__str__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: BusGroup.allocate
-
-   .. automethod:: BusGroup.ar
-
-   .. automethod:: BusGroup.fill
-
-   .. automethod:: BusGroup.free
-
-   .. automethod:: BusGroup.get
-
-   .. automethod:: BusGroup.index
-
-   .. automethod:: BusGroup.kr
-
-   .. automethod:: BusGroup.set
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. automethod:: BusGroup.audio
-
-   .. automethod:: BusGroup.control
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: BusGroup.bus_id
-
-   .. autoattribute:: BusGroup.buses
-
-   .. autoattribute:: BusGroup.calculation_rate
-
-   .. autoattribute:: BusGroup.is_allocated
-
-   .. autoattribute:: BusGroup.map_symbol
-
-   .. container:: inherited
-
-      .. autoattribute:: BusGroup.server
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Server Internals
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~AudioInputBusGroup
-   ~AudioOutputBusGroup
-   ~BusProxy
-
 .. autoclass:: AudioInputBusGroup
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      allocate
-      free
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__contains__
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__float__
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__getitem__
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__int__
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__iter__
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__len__
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__repr__
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.__str__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: AudioInputBusGroup.allocate
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.ar
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.fill
-
-   .. automethod:: AudioInputBusGroup.free
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.get
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.index
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.kr
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.set
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.audio
-
-   .. container:: inherited
-
-      .. automethod:: AudioInputBusGroup.control
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioInputBusGroup.bus_id
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioInputBusGroup.buses
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioInputBusGroup.calculation_rate
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioInputBusGroup.is_allocated
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioInputBusGroup.map_symbol
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioInputBusGroup.server
+   .. automethod:: allocate
+   .. automethod:: free
 
 .. autoclass:: AudioOutputBusGroup
+   :show-inheritance:
 
-   .. raw:: html
+   .. automethod:: allocate
+   .. automethod:: free
 
-      <hr/>
+.. autoclass:: Bus
+   :show-inheritance:
 
-   .. rubric:: Attributes Summary
-      :class: class-header
+   .. automethod:: __float__
+   .. automethod:: __int__
+   .. automethod:: allocate
+   .. autoattribute:: bus_group
+   .. autoattribute:: bus_id
+   .. autoattribute:: calculation_rate
+   .. automethod:: free
+   .. automethod:: get
+   .. autoattribute:: is_allocated
+   .. autoattribute:: map_symbol
+   .. autoattribute:: server
+   .. automethod:: set
+   .. autoattribute:: value
 
-   .. autosummary::
-      :nosignatures:
+.. autoclass:: BusGroup
+   :show-inheritance:
 
-      allocate
-      free
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__contains__
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__float__
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__getitem__
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__int__
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__iter__
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__len__
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__repr__
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.__str__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: AudioOutputBusGroup.allocate
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.ar
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.fill
-
-   .. automethod:: AudioOutputBusGroup.free
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.get
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.index
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.kr
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.set
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.audio
-
-   .. container:: inherited
-
-      .. automethod:: AudioOutputBusGroup.control
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioOutputBusGroup.bus_id
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioOutputBusGroup.buses
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioOutputBusGroup.calculation_rate
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioOutputBusGroup.is_allocated
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioOutputBusGroup.map_symbol
-
-   .. container:: inherited
-
-      .. autoattribute:: AudioOutputBusGroup.server
+   .. automethod:: __contains__
+   .. automethod:: __float__
+   .. automethod:: __getitem__
+   .. automethod:: __int__
+   .. automethod:: __iter__
+   .. automethod:: __len__
+   .. automethod:: allocate
+   .. automethod:: audio
+   .. autoattribute:: bus_id
+   .. autoattribute:: buses
+   .. autoattribute:: calculation_rate
+   .. automethod:: control
+   .. automethod:: fill
+   .. automethod:: free
+   .. automethod:: get
+   .. automethod:: index
+   .. autoattribute:: is_allocated
+   .. autoattribute:: map_symbol
+   .. automethod:: set
 
 .. autoclass:: BusProxy
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __float__
-      __int__
-      __str__
-      bus_id
-      calculation_rate
-      map_symbol
-      server
-      value
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: BusProxy.__copy__
-
-   .. container:: inherited
-
-      .. automethod:: BusProxy.__eq__
-
-   .. automethod:: BusProxy.__float__
-
-   .. container:: inherited
-
-      .. automethod:: BusProxy.__hash__
-
-   .. automethod:: BusProxy.__int__
-
-   .. container:: inherited
-
-      .. automethod:: BusProxy.__repr__
-
-   .. automethod:: BusProxy.__str__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: BusProxy.bus_id
-
-   .. autoattribute:: BusProxy.calculation_rate
-
-   .. autoattribute:: BusProxy.map_symbol
-
-   .. autoattribute:: BusProxy.server
-
-   .. autoattribute:: BusProxy.value
+   .. automethod:: __float__
+   .. automethod:: __int__
+   .. autoattribute:: bus_id
+   .. autoattribute:: calculation_rate
+   .. autoattribute:: map_symbol
+   .. autoattribute:: server
+   .. autoattribute:: value

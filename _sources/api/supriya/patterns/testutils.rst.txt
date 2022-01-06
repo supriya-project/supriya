@@ -1,0 +1,20 @@
+.. _supriya--patterns--testutils:
+
+testutils
+=========
+
+.. automodule:: supriya.patterns.testutils
+
+.. currentmodule:: supriya.patterns.testutils
+
+.. autoclass:: MockUUID
+   :show-inheritance:
+
+
+.. autofunction:: run_pattern_test
+
+.. autofunction:: sanitize
+
+.. autofunction:: sanitize_event
+
+.. autofunction:: sanitize_id

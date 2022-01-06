@@ -1,313 +1,1813 @@
 
 
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>sessions &mdash; Supriya 0.4.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/supriya.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
-        <script src="../../../_static/supriya.js"></script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../../_static/favicon.ico">
     
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
     
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="states" href="states.html" />
-    <link rel="prev" title="renderer" href="renderer.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+      
+        <title>sessions - Supriya</title>
+      
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Supriya
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.4.0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+    
+      <link rel="stylesheet" href="../../../_static/stylesheets/main.91c34c39.min.css">
+      
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <link rel="stylesheet" href="../../../_static/stylesheets/palette.89291e57.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+        <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Supriya" class="md-header__button md-logo" aria-label="Supriya" data-md-component="logo">
+      <img src="../../../_static/icon.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Supriya
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              sessions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
           
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/josiah-wolf-oberholtzer/supriya/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    supriya
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../installation.html" class="md-tabs__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../realtime/index.html" class="md-tabs__link">
+        Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../guides/controllers.html" class="md-tabs__link">
+        How-to Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../clocks/index.html" class="md-tabs__link md-tabs__link--active">
+        API
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../cicd.html" class="md-tabs__link">
+        For Developers
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../glossary.html" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Supriya" class="md-nav__button md-logo" aria-label="Supriya" data-md-component="logo">
+      <img src="../../../_static/icon.svg" alt="logo">
+    </a>
+    Supriya
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/josiah-wolf-oberholtzer/supriya/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    supriya
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" data-md-state="indeterminate" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        <a class="" href="../../../installation.html">Getting Started</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation.html" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../concepts.html" class="md-nav__link">
+        Core concepts
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        <a class="" href="../../../realtime/index.html">Tutorials</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../realtime/index.html" class="md-nav__link">
+        Realtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nonrealtime/index.html" class="md-nav__link">
+        Non-realtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../osc.html" class="md-nav__link">
+        Open Sound Control
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../synthdefs/index.html" class="md-nav__link">
+        Synth Definitions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../providers.html" class="md-nav__link">
+        Providers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../clocks.html" class="md-nav__link">
+        Clocks
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../patterns.html" class="md-nav__link">
+        Patterns
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        <a class="" href="../../../guides/controllers.html">How-to Guides</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="How-to Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          How-to Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/controllers.html" class="md-nav__link">
+        Controllers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dynamics.html" class="md-nav__link">
+        Dynamics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/offline-analysis.html" class="md-nav__link">
+        Offline Analysis
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/routing.html" class="md-nav__link">
+        Routing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/samplers.html" class="md-nav__link">
+        Samplers
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        <a class="" href="../index.html">API</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1" type="checkbox" id="__nav_4_1" checked>
+      
+      <label class="md-nav__link" for="__nav_4_1">
+        <a class="" href="../index.html">supriya</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="supriya" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          supriya
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clocks/index.html" class="md-nav__link">
+        clocks
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/index.html" class="md-nav__link">
+        commands
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conversions.html" class="md-nav__link">
+        conversions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enums.html" class="md-nav__link">
+        enums
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions.html" class="md-nav__link">
+        exceptions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ext/index.html" class="md-nav__link">
+        ext
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intervals/index.html" class="md-nav__link">
+        intervals
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../io.html" class="md-nav__link">
+        io
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1_9" type="checkbox" id="__nav_4_1_9" checked>
+      
+      <label class="md-nav__link" for="__nav_4_1_9">
+        <a class="" href="index.html">nonrealtime</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="nonrealtime" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          nonrealtime
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bases.html" class="md-nav__link">
+        bases
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="buffers.html" class="md-nav__link">
+        buffers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="buses.html" class="md-nav__link">
+        buses
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nodes.html" class="md-nav__link">
+        nodes
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="renderer.html" class="md-nav__link">
+        renderer
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          sessions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="" class="md-nav__link md-nav__link--active">
+        sessions
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      sessions
+      
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.nonrealtime.sessions.Session (Python class)">Session</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Session">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.__graph__" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.__graph__ (Python method)">__graph__</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.__render__" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.__render__ (Python method)">__render__</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.__session__" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.__session__ (Python method)">__session__</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.active_moments" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.active_moments (Python attribute)">active_moments</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.add_buffer" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.add_buffer (Python method)">add_buffer</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.add_buffer_group" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.add_buffer_group (Python method)">add_buffer_group</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.add_bus" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.add_bus (Python method)">add_bus</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.add_bus_group" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.add_bus_group (Python method)">add_bus_group</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.add_group" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.add_group (Python method)">add_group</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.add_synth" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.add_synth (Python method)">add_synth</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.at" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.at (Python method)">at</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.audio_input_bus_group" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.audio_input_bus_group (Python attribute)">audio_input_bus_group</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.audio_output_bus_group" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.audio_output_bus_group (Python attribute)">audio_output_bus_group</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.buffers" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.buffers (Python attribute)">buffers</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.buffers_by_session_id" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.buffers_by_session_id (Python attribute)">buffers_by_session_id</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.buses" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.buses (Python attribute)">buses</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.buses_by_session_id" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.buses_by_session_id (Python attribute)">buses_by_session_id</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.cue_soundfile" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.cue_soundfile (Python method)">cue_soundfile</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.duration" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.duration (Python attribute)">duration</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.input_" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.input_ (Python attribute)">input_</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.input_bus_channel_count" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.input_bus_channel_count (Python attribute)">input_bus_channel_count</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.is_session_like" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.is_session_like (Python method)">is_session_like</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.move_node" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.move_node (Python method)">move_node</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.name" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.name (Python attribute)">name</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.nodes" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.nodes (Python attribute)">nodes</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.nodes_by_session_id" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.nodes_by_session_id (Python attribute)">nodes_by_session_id</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.offsets" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.offsets (Python attribute)">offsets</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.options" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.options (Python attribute)">options</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.output_bus_channel_count" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.output_bus_channel_count (Python attribute)">output_bus_channel_count</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.padding" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.padding (Python attribute)">padding</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.rebuild_transitions" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.rebuild_transitions (Python method)">rebuild_transitions</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.render" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.render (Python method)">render</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.root_node" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.root_node (Python attribute)">root_node</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.set_rand_seed" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.set_rand_seed (Python method)">set_rand_seed</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.states" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.states (Python attribute)">states</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.to_lists" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.to_lists (Python method)">to_lists</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.to_osc_bundles" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.to_osc_bundles (Python method)">to_osc_bundles</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.to_strings" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.to_strings (Python method)">to_strings</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.transcript" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.transcript (Python attribute)">transcript</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="states.html" class="md-nav__link">
+        states
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../osc/index.html" class="md-nav__link">
+        osc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/index.html" class="md-nav__link">
+        patterns
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../providers.html" class="md-nav__link">
+        providers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../querytree.html" class="md-nav__link">
+        querytree
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../realtime/index.html" class="md-nav__link">
+        realtime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sclang.html" class="md-nav__link">
+        sclang
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scsynth.html" class="md-nav__link">
+        scsynth
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../soundfiles.html" class="md-nav__link">
+        soundfiles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../synthdefs/index.html" class="md-nav__link">
+        synthdefs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system.html" class="md-nav__link">
+        system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../typing.html" class="md-nav__link">
+        typing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ugens/index.html" class="md-nav__link">
+        ugens
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils.html" class="md-nav__link">
+        utils
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        <a class="" href="../../../cicd.html">For Developers</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="For Developers" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          For Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cicd.html" class="md-nav__link">
+        CICD
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ipython.html" class="md-nav__link">
+        IPython
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sphinx.html" class="md-nav__link">
+        Sphinx
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../graphviz.html" class="md-nav__link">
+        Graphviz
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" data-md-state="indeterminate" type="checkbox" id="__nav_6" checked>
+      
+      <label class="md-nav__link" for="__nav_6">
+        <a class="" href="../../../glossary.html">Reference</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary.html" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
             
             
               
-            
-            
-              <p class="caption"><span class="caption-text">Introduction</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Guides</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">nonrealtime</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="bases.html">bases</a></li>
-<li class="toctree-l3"><a class="reference internal" href="buffers.html">buffers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="buses.html">buses</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nodes.html">nodes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="renderer.html">renderer</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">sessions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="states.html">states</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
-</ul>
-</li>
-</ul>
-<p class="caption"><span class="caption-text">Developers</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">Supriya</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content style-external-links">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">supriya</a> &raquo;</li>
-        
-          <li><a href="index.html">nonrealtime</a> &raquo;</li>
-        
-      <li>sessions</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="../../../_sources/api/supriya/nonrealtime/sessions.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      sessions
+      
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.nonrealtime.sessions.Session (Python class)">Session</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Session">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.__graph__" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.__graph__ (Python method)">__graph__</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.__render__" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.__render__ (Python method)">__render__</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.__session__" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.__session__ (Python method)">__session__</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.active_moments" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.active_moments (Python attribute)">active_moments</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.add_buffer" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.add_buffer (Python method)">add_buffer</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.add_buffer_group" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.add_buffer_group (Python method)">add_buffer_group</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.add_bus" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.add_bus (Python method)">add_bus</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.add_bus_group" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.add_bus_group (Python method)">add_bus_group</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.add_group" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.add_group (Python method)">add_group</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.add_synth" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.add_synth (Python method)">add_synth</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.at" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.at (Python method)">at</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.audio_input_bus_group" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.audio_input_bus_group (Python attribute)">audio_input_bus_group</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.audio_output_bus_group" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.audio_output_bus_group (Python attribute)">audio_output_bus_group</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.buffers" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.buffers (Python attribute)">buffers</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.buffers_by_session_id" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.buffers_by_session_id (Python attribute)">buffers_by_session_id</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.buses" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.buses (Python attribute)">buses</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.buses_by_session_id" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.buses_by_session_id (Python attribute)">buses_by_session_id</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.cue_soundfile" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.cue_soundfile (Python method)">cue_soundfile</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.duration" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.duration (Python attribute)">duration</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.input_" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.input_ (Python attribute)">input_</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.input_bus_channel_count" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.input_bus_channel_count (Python attribute)">input_bus_channel_count</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.is_session_like" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.is_session_like (Python method)">is_session_like</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.move_node" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.move_node (Python method)">move_node</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.name" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.name (Python attribute)">name</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.nodes" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.nodes (Python attribute)">nodes</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.nodes_by_session_id" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.nodes_by_session_id (Python attribute)">nodes_by_session_id</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.offsets" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.offsets (Python attribute)">offsets</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.options" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.options (Python attribute)">options</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.output_bus_channel_count" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.output_bus_channel_count (Python attribute)">output_bus_channel_count</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.padding" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.padding (Python attribute)">padding</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.rebuild_transitions" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.rebuild_transitions (Python method)">rebuild_transitions</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.render" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.render (Python method)">render</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.root_node" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.root_node (Python attribute)">root_node</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.set_rand_seed" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.set_rand_seed (Python method)">set_rand_seed</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.states" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.states (Python attribute)">states</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.to_lists" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.to_lists (Python method)">to_lists</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.to_osc_bundles" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.to_osc_bundles (Python method)">to_osc_bundles</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.to_strings" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.to_strings (Python method)">to_strings</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.transcript" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.nonrealtime.sessions.Session.transcript (Python attribute)">transcript</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
             
-  <div class="section" id="module-supriya.nonrealtime.sessions">
-<span id="sessions"></span><span id="supriya-nonrealtime-sessions"></span><h1>sessions<a class="headerlink" href="#module-supriya.nonrealtime.sessions" title="Permalink to this headline">¶</a></h1>
-<div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-5cd7959bfce923d65842de0cacd976b8235e6e1e.svg" type="image/svg+xml" class="inheritance graphviz">
-<p class="warning">digraph InheritanceGraph {
-    graph [bgcolor=transparent,
-        color=lightsteelblue2,
-        fontname=Arial,
-        fontsize=10,
-        outputorder=edgesfirst,
-        overlap=prism,
-        penwidth=2,
-        rankdir=LR,
-        splines=spline,
-        style=&quot;dashed, rounded&quot;,
-        truecolor=true];
-    node [colorscheme=pastel19,
-        fontname=Arial,
-        fontsize=10,
-        height=0,
-        penwidth=2,
-        shape=box,
-        style=&quot;filled, rounded&quot;,
-        width=0];
-    edge [color=lightslategrey,
-        penwidth=1];
-    subgraph cluster_builtins {
-        graph [label=builtins];
-        node [color=1];
-        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
-            label=object,
-            target=_top];
-    }
-    subgraph &quot;cluster_supriya.nonrealtime.sessions&quot; {
-        graph [label=&quot;supriya.nonrealtime.sessions&quot;];
-        node [color=2];
-        &quot;supriya.nonrealtime.sessions.Session&quot; [URL=&quot;../api/supriya/nonrealtime/sessions.html#supriya.nonrealtime.sessions.Session&quot;,
-            color=black,
-            fontcolor=white,
-            label=Session,
-            target=_top];
-    }
-    &quot;builtins.object&quot; -&gt; &quot;supriya.nonrealtime.sessions.Session&quot;;
-}</p></object></div>
-</div>
-<hr/><p class="section-header rubric">Non-realtime Session</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session" title="supriya.nonrealtime.sessions.Session"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session</span></code></a></p></td>
-<td><p>A non-realtime session.</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py class">
-<dt id="supriya.nonrealtime.sessions.Session">
-<em class="property">class </em><code class="sig-prename descclassname">supriya.nonrealtime.sessions.</code><code class="sig-name descname">Session</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_bus_channel_count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output_bus_channel_count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">input_</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session" title="Permalink to this definition">¶</a></dt>
-<dd><p>A non-realtime session.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset" role="main">
+              
+                
+                  <a href="https://github.com/josiah-wolf-oberholtzer/supriya/blob/main/docs/api/supriya/nonrealtime/sessions.rst" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+  <h1 id="module-supriya.nonrealtime.sessions"><span id="sessions"></span><span id="supriya-nonrealtime-sessions"></span>sessions<a class="headerlink" href="#module-supriya.nonrealtime.sessions" title="Permalink to this headline">¶</a></h1>
+<dl class="py class objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.nonrealtime.sessions.Session">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_bus_channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">output_bus_channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">input_</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A non-realtime session.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.ugens</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">builder</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">builder</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">],)</span>
+<span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">)</span>
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">synth_a</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">synth_b</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">)</span>
 <span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">synth_c</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">)</span>
 <span class="gp">... </span>
-</pre></div>
+</code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">to_lists</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">to_lists</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">==</span> <span class="p">[</span>
 <span class="gp">... </span>    <span class="p">[</span>
 <span class="gp">... </span>        <span class="mf">0.0</span><span class="p">,</span>
@@ -323,147 +1823,14 @@
 <span class="gp">... </span>    <span class="p">[</span><span class="mf">20.0</span><span class="p">,</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]]],</span>
 <span class="gp">... </span><span class="p">]</span>
 <span class="go">True</span>
-</pre></div>
+</code></pre></div>
 </div>
-<hr/><p class="class-header rubric">Attributes Summary</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.__graph__" title="supriya.nonrealtime.sessions.Session.__graph__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__graph__</span></code></a></p></td>
-<td><p>Graphs session.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.__render__" title="supriya.nonrealtime.sessions.Session.__render__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__render__</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.__repr__" title="supriya.nonrealtime.sessions.Session.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
-<td><p>Return repr(self).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.__session__" title="supriya.nonrealtime.sessions.Session.__session__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__session__</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.active_moments" title="supriya.nonrealtime.sessions.Session.active_moments"><code class="xref py py-obj docutils literal notranslate"><span class="pre">active_moments</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.add_buffer" title="supriya.nonrealtime.sessions.Session.add_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_buffer</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.add_buffer_group" title="supriya.nonrealtime.sessions.Session.add_buffer_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_buffer_group</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.add_bus" title="supriya.nonrealtime.sessions.Session.add_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_bus</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.add_bus_group" title="supriya.nonrealtime.sessions.Session.add_bus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_bus_group</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.add_group" title="supriya.nonrealtime.sessions.Session.add_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_group</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.add_synth" title="supriya.nonrealtime.sessions.Session.add_synth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_synth</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.at" title="supriya.nonrealtime.sessions.Session.at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">at</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.audio_input_bus_group" title="supriya.nonrealtime.sessions.Session.audio_input_bus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_input_bus_group</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.audio_output_bus_group" title="supriya.nonrealtime.sessions.Session.audio_output_bus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_output_bus_group</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.buffers" title="supriya.nonrealtime.sessions.Session.buffers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buffers</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.buffers_by_session_id" title="supriya.nonrealtime.sessions.Session.buffers_by_session_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buffers_by_session_id</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.buses" title="supriya.nonrealtime.sessions.Session.buses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buses</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.buses_by_session_id" title="supriya.nonrealtime.sessions.Session.buses_by_session_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buses_by_session_id</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.cue_soundfile" title="supriya.nonrealtime.sessions.Session.cue_soundfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cue_soundfile</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.duration" title="supriya.nonrealtime.sessions.Session.duration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">duration</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.input_" title="supriya.nonrealtime.sessions.Session.input_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.input_bus_channel_count" title="supriya.nonrealtime.sessions.Session.input_bus_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_bus_channel_count</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.inscribe" title="supriya.nonrealtime.sessions.Session.inscribe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inscribe</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.is_session_like" title="supriya.nonrealtime.sessions.Session.is_session_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_session_like</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.move_node" title="supriya.nonrealtime.sessions.Session.move_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_node</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.name" title="supriya.nonrealtime.sessions.Session.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.nodes" title="supriya.nonrealtime.sessions.Session.nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nodes</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.nodes_by_session_id" title="supriya.nonrealtime.sessions.Session.nodes_by_session_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nodes_by_session_id</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.offsets" title="supriya.nonrealtime.sessions.Session.offsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">offsets</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.options" title="supriya.nonrealtime.sessions.Session.options"><code class="xref py py-obj docutils literal notranslate"><span class="pre">options</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.output_bus_channel_count" title="supriya.nonrealtime.sessions.Session.output_bus_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_bus_channel_count</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.padding" title="supriya.nonrealtime.sessions.Session.padding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">padding</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.rebuild_transitions" title="supriya.nonrealtime.sessions.Session.rebuild_transitions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rebuild_transitions</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.render" title="supriya.nonrealtime.sessions.Session.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.root_node" title="supriya.nonrealtime.sessions.Session.root_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_node</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.set_rand_seed" title="supriya.nonrealtime.sessions.Session.set_rand_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rand_seed</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.states" title="supriya.nonrealtime.sessions.Session.states"><code class="xref py py-obj docutils literal notranslate"><span class="pre">states</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.to_lists" title="supriya.nonrealtime.sessions.Session.to_lists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_lists</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.to_osc_bundles" title="supriya.nonrealtime.sessions.Session.to_osc_bundles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc_bundles</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.to_strings" title="supriya.nonrealtime.sessions.Session.to_strings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_strings</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.sessions.Session.transcript" title="supriya.nonrealtime.sessions.Session.transcript"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transcript</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<hr/><p class="class-header rubric">Special methods</p>
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.__graph__">
-<code class="sig-name descname">__graph__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.__graph__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.__graph__" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.__graph__">
+<span class="sig-name descname"><span class="pre">__graph__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.__graph__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Graphs session.</p>
 <p>TODO: Get graphviz to respect node order or reimplement as pure SVG.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">group</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">... </span>    <span class="n">synth_a</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
@@ -479,272 +1846,296 @@
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">synth_d</span><span class="o">.</span><span class="n">move_node</span><span class="p">(</span><span class="n">synth_a</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;ADD_AFTER&quot;</span><span class="p">)</span>
 <span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>  
-</pre></div>
+</code></pre></div>
 </div>
 <div class="uqbar-book"><a href="../../../_images/graphviz-950e09596a91550bbfa2c6634a3139a5ce8ce989bc43d075ba5f2754b4196f15.dot" title=""><img src="../../../_images/graphviz-950e09596a91550bbfa2c6634a3139a5ce8ce989bc43d075ba5f2754b4196f15.svg" alt=""/></a></div></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.__render__">
-<code class="sig-name descname">__render__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_file_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">render_directory_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.__render__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.__render__" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.nonrealtime.sessions.Session.__render__">
+<span class="sig-name descname"><span class="pre">__render__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">render_directory_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.__render__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.__repr__">
-<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.__repr__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return repr(self).</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.__session__">
-<code class="sig-name descname">__session__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.__session__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.__session__" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.__session__">
+<span class="sig-name descname"><span class="pre">__session__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.__session__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<hr/><p class="class-header rubric">Methods</p>
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.add_buffer">
-<code class="sig-name descname">add_buffer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">channel_count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">frame_count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">starting_frame</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">file_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.add_buffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.add_buffer" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.active_moments">
+<span class="sig-name descname"><span class="pre">active_moments</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.active_moments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.add_buffer_group">
-<code class="sig-name descname">add_buffer_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">buffer_count</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">channel_count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">frame_count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.add_buffer_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.add_buffer_group" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.nonrealtime.sessions.Session.add_buffer">
+<span class="sig-name descname"><span class="pre">add_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">frame_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">starting_frame</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.add_buffer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.add_bus">
-<code class="sig-name descname">add_bus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">calculation_rate</span><span class="o">=</span><span class="default_value">'control'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.add_bus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.add_bus" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.nonrealtime.sessions.Session.add_buffer_group">
+<span class="sig-name descname"><span class="pre">add_buffer_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">frame_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.add_buffer_group" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.add_bus_group">
-<code class="sig-name descname">add_bus_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus_count</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">calculation_rate</span><span class="o">=</span><span class="default_value">'control'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.add_bus_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.add_bus_group" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.add_bus">
+<span class="sig-name descname"><span class="pre">add_bus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.add_bus" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.add_group">
-<code class="sig-name descname">add_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">add_action</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.add_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.add_group" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.add_bus_group">
+<span class="sig-name descname"><span class="pre">add_bus_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.add_bus_group" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.add_synth">
-<code class="sig-name descname">add_synth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">add_action</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">synthdef</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">synth_kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.add_synth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.add_synth" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.add_group">
+<span class="sig-name descname"><span class="pre">add_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">add_action</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.add_group" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.at">
-<code class="sig-name descname">at</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span></em>, <em class="sig-param"><span class="n">propagate</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.at" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.nonrealtime.sessions.Session.add_synth">
+<span class="sig-name descname"><span class="pre">add_synth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">add_action</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">synth_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.add_synth" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.cue_soundfile">
-<code class="sig-name descname">cue_soundfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span></em>, <em class="sig-param"><span class="n">channel_count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">frame_count</span><span class="o">=</span><span class="default_value">32768</span></em>, <em class="sig-param"><span class="n">starting_frame</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.cue_soundfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.cue_soundfile" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.at">
+<span class="sig-name descname"><span class="pre">at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">propagate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.inscribe">
-<code class="sig-name descname">inscribe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pattern</span></em>, <em class="sig-param"><span class="n">duration</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.inscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.inscribe" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.audio_input_bus_group">
+<span class="sig-name descname"><span class="pre">audio_input_bus_group</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.audio_input_bus_group" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.move_node">
-<code class="sig-name descname">move_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span></em>, <em class="sig-param"><span class="n">add_action</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.move_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.move_node" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.audio_output_bus_group">
+<span class="sig-name descname"><span class="pre">audio_output_bus_group</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.audio_output_bus_group" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.rebuild_transitions">
-<code class="sig-name descname">rebuild_transitions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.rebuild_transitions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.rebuild_transitions" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.buffers">
+<span class="sig-name descname"><span class="pre">buffers</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.buffers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.render">
-<code class="sig-name descname">render</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_file_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">duration</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">header_format</span><span class="o">=</span><span class="default_value">HeaderFormat.AIFF</span></em>, <em class="sig-param"><span class="n">input_file_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">render_directory_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sample_format</span><span class="o">=</span><span class="default_value">SampleFormat.INT24</span></em>, <em class="sig-param"><span class="n">sample_rate</span><span class="o">=</span><span class="default_value">44100</span></em>, <em class="sig-param"><span class="n">print_transcript</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">transcript_prefix</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.render" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.buffers_by_session_id">
+<span class="sig-name descname"><span class="pre">buffers_by_session_id</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.buffers_by_session_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.set_rand_seed">
-<code class="sig-name descname">set_rand_seed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rand_id</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">rand_seed</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.set_rand_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.set_rand_seed" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.buses">
+<span class="sig-name descname"><span class="pre">buses</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.buses" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.to_lists">
-<code class="sig-name descname">to_lists</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">duration</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">header_format</span><span class="o">=</span><span class="default_value">HeaderFormat.AIFF</span></em>, <em class="sig-param"><span class="n">sample_format</span><span class="o">=</span><span class="default_value">SampleFormat.INT24</span></em>, <em class="sig-param"><span class="n">sample_rate</span><span class="o">=</span><span class="default_value">44100</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.to_lists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.to_lists" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.buses_by_session_id">
+<span class="sig-name descname"><span class="pre">buses_by_session_id</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.buses_by_session_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.to_osc_bundles">
-<code class="sig-name descname">to_osc_bundles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">duration</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">header_format</span><span class="o">=</span><span class="default_value">HeaderFormat.AIFF</span></em>, <em class="sig-param"><span class="n">sample_format</span><span class="o">=</span><span class="default_value">SampleFormat.INT24</span></em>, <em class="sig-param"><span class="n">sample_rate</span><span class="o">=</span><span class="default_value">44100</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.to_osc_bundles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.to_osc_bundles" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.nonrealtime.sessions.Session.cue_soundfile">
+<span class="sig-name descname"><span class="pre">cue_soundfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">frame_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">32768</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">starting_frame</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.cue_soundfile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.to_strings">
-<code class="sig-name descname">to_strings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_controls</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_timespans</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.to_strings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.to_strings" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.duration" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<hr/><p class="class-header rubric">Class &amp; static methods</p>
-<dl class="py method">
-<dt id="supriya.nonrealtime.sessions.Session.is_session_like">
-<em class="property">static </em><code class="sig-name descname">is_session_like</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/sessions.html#Session.is_session_like"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.is_session_like" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.input_">
+<span class="sig-name descname"><span class="pre">input_</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.input_" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<hr/><p class="class-header rubric">Read-only properties</p>
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.active_moments">
-<code class="sig-name descname">active_moments</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.active_moments" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.input_bus_channel_count">
+<span class="sig-name descname"><span class="pre">input_bus_channel_count</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.input_bus_channel_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.audio_input_bus_group">
-<code class="sig-name descname">audio_input_bus_group</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.audio_input_bus_group" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.is_session_like">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_session_like</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.is_session_like" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.audio_output_bus_group">
-<code class="sig-name descname">audio_output_bus_group</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.audio_output_bus_group" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.move_node">
+<span class="sig-name descname"><span class="pre">move_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_action</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.move_node" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.buffers">
-<code class="sig-name descname">buffers</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.buffers" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.buffers_by_session_id">
-<code class="sig-name descname">buffers_by_session_id</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.buffers_by_session_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.nodes">
+<span class="sig-name descname"><span class="pre">nodes</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.nodes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.buses">
-<code class="sig-name descname">buses</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.buses" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.nodes_by_session_id">
+<span class="sig-name descname"><span class="pre">nodes_by_session_id</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.nodes_by_session_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.buses_by_session_id">
-<code class="sig-name descname">buses_by_session_id</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.buses_by_session_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.offsets">
+<span class="sig-name descname"><span class="pre">offsets</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.offsets" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.duration">
-<code class="sig-name descname">duration</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.duration" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.options">
+<span class="sig-name descname"><span class="pre">options</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.options" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.input_">
-<code class="sig-name descname">input_</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.input_" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.output_bus_channel_count">
+<span class="sig-name descname"><span class="pre">output_bus_channel_count</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.output_bus_channel_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.input_bus_channel_count">
-<code class="sig-name descname">input_bus_channel_count</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.input_bus_channel_count" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.padding">
+<span class="sig-name descname"><span class="pre">padding</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.padding" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.name">
-<code class="sig-name descname">name</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.name" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.rebuild_transitions">
+<span class="sig-name descname"><span class="pre">rebuild_transitions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.rebuild_transitions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.nodes">
-<code class="sig-name descname">nodes</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.nodes" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.nonrealtime.sessions.Session.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">header_format</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">render_directory_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">sample_format</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">44100</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">print_transcript</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">transcript_prefix</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.render" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.nodes_by_session_id">
-<code class="sig-name descname">nodes_by_session_id</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.nodes_by_session_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.root_node">
+<span class="sig-name descname"><span class="pre">root_node</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.root_node" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.offsets">
-<code class="sig-name descname">offsets</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.offsets" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.set_rand_seed">
+<span class="sig-name descname"><span class="pre">set_rand_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rand_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">rand_seed</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.set_rand_seed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.options">
-<code class="sig-name descname">options</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.options" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.states">
+<span class="sig-name descname"><span class="pre">states</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.states" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.output_bus_channel_count">
-<code class="sig-name descname">output_bus_channel_count</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.output_bus_channel_count" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.nonrealtime.sessions.Session.to_lists">
+<span class="sig-name descname"><span class="pre">to_lists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">header_format</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">sample_format</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">44100</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.to_lists" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.padding">
-<code class="sig-name descname">padding</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.padding" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py sig-wrap" id="supriya.nonrealtime.sessions.Session.to_osc_bundles">
+<span class="sig-name descname"><span class="pre">to_osc_bundles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">header_format</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">sample_format</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">44100</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.to_osc_bundles" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.root_node">
-<code class="sig-name descname">root_node</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.root_node" title="Permalink to this definition">¶</a></dt>
+<dl class="py method objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.to_strings">
+<span class="sig-name descname"><span class="pre">to_strings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_controls</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">include_timespans</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.to_strings" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.states">
-<code class="sig-name descname">states</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.states" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="supriya.nonrealtime.sessions.Session.transcript">
-<code class="sig-name descname">transcript</code><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.transcript" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object py" id="supriya.nonrealtime.sessions.Session.transcript">
+<span class="sig-name descname"><span class="pre">transcript</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.transcript" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-</div>
 
 
-           </div>
-           
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
           </div>
-          <footer>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="states.html" class="btn btn-neutral float-right" title="states" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        
+        <a href="renderer.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: renderer" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              renderer
+            </div>
+          </div>
+        </a>
       
       
-        <a href="renderer.html" class="btn btn-neutral float-left" title="renderer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        
+        <a href="states.html" class="md-footer__link md-footer__link--next" aria-label="Next: states" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              states
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2014-2022, Josiah Wolf Oberholtzer.
+              
+          </div>
+        
+          Created using
+          <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+          4.3.2.
+           and
+          <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+        
+      </div>
       
     </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright 2014, Josiah Wolf Oberholtzer
-
-    </p>
+    
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
 </footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
     
-   
-
-</body>
+    
+      <script src="../../../_static/javascripts/bundle.c6851205.min.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/design-tabs.js"></script>
+    
+  </body>
 </html>

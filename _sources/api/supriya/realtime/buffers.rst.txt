@@ -7,328 +7,70 @@ buffers
 
 .. currentmodule:: supriya.realtime.buffers
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya.realtime.buffers
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Main Classes
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~Buffer
-   ~BufferGroup
-
 .. autoclass:: Buffer
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __float__
-      __int__
-      __repr__
-      allocate
-      allocate_from_file
-      buffer_group
-      buffer_id
-      channel_count
-      close
-      copy_from
-      copy_to
-      duration_in_seconds
-      fill
-      fill_via_chebyshev
-      fill_via_sine_1
-      fill_via_sine_2
-      fill_via_sine_3
-      frame_count
-      free
-      get
-      get_contiguous
-      get_frame
-      is_allocated
-      normalize
-      play
-      query
-      read
-      sample_count
-      sample_rate
-      server
-      set
-      set_contiguous
-      write
-      zero
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: Buffer.__float__
-
-   .. automethod:: Buffer.__int__
-
-   .. automethod:: Buffer.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: Buffer.allocate
-
-   .. automethod:: Buffer.allocate_from_file
-
-   .. automethod:: Buffer.close
-
-   .. automethod:: Buffer.copy_from
-
-   .. automethod:: Buffer.copy_to
-
-   .. automethod:: Buffer.fill
-
-   .. automethod:: Buffer.fill_via_chebyshev
-
-   .. automethod:: Buffer.fill_via_sine_1
-
-   .. automethod:: Buffer.fill_via_sine_2
-
-   .. automethod:: Buffer.fill_via_sine_3
-
-   .. automethod:: Buffer.free
-
-   .. automethod:: Buffer.get
-
-   .. automethod:: Buffer.get_contiguous
-
-   .. automethod:: Buffer.get_frame
-
-   .. automethod:: Buffer.normalize
-
-   .. automethod:: Buffer.play
-
-   .. automethod:: Buffer.query
-
-   .. automethod:: Buffer.read
-
-   .. automethod:: Buffer.set
-
-   .. automethod:: Buffer.set_contiguous
-
-   .. automethod:: Buffer.write
-
-   .. automethod:: Buffer.zero
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: Buffer.buffer_group
-
-   .. autoattribute:: Buffer.buffer_id
-
-   .. autoattribute:: Buffer.channel_count
-
-   .. autoattribute:: Buffer.duration_in_seconds
-
-   .. autoattribute:: Buffer.frame_count
-
-   .. autoattribute:: Buffer.is_allocated
-
-   .. autoattribute:: Buffer.sample_count
-
-   .. autoattribute:: Buffer.sample_rate
-
-   .. autoattribute:: Buffer.server
+   .. automethod:: __float__
+   .. automethod:: __int__
+   .. automethod:: __plot__
+   .. automethod:: __render__
+   .. automethod:: allocate
+   .. automethod:: allocate_from_file
+   .. autoattribute:: buffer_group
+   .. autoattribute:: buffer_id
+   .. autoattribute:: channel_count
+   .. automethod:: close
+   .. automethod:: copy
+   .. autoattribute:: duration_in_seconds
+   .. automethod:: fill
+   .. automethod:: fill_via_chebyshev
+   .. automethod:: fill_via_sine_1
+   .. automethod:: fill_via_sine_2
+   .. automethod:: fill_via_sine_3
+   .. autoattribute:: frame_count
+   .. automethod:: free
+   .. automethod:: get
+   .. automethod:: get_contiguous
+   .. automethod:: get_frames
+   .. autoattribute:: is_allocated
+   .. automethod:: normalize
+   .. automethod:: query
+   .. automethod:: read
+   .. autoattribute:: sample_count
+   .. autoattribute:: sample_rate
+   .. autoattribute:: server
+   .. automethod:: set
+   .. automethod:: set_contiguous
+   .. automethod:: write
+   .. automethod:: zero
 
 .. autoclass:: BufferGroup
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __contains__
-      __float__
-      __getitem__
-      __int__
-      __iter__
-      __len__
-      __repr__
-      allocate
-      buffer_id
-      buffers
-      free
-      from_file_paths
-      index
-      is_allocated
-      zero
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: BufferGroup.__contains__
-
-   .. automethod:: BufferGroup.__float__
-
-   .. automethod:: BufferGroup.__getitem__
-
-   .. automethod:: BufferGroup.__int__
-
-   .. automethod:: BufferGroup.__iter__
-
-   .. automethod:: BufferGroup.__len__
-
-   .. automethod:: BufferGroup.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Methods
-      :class: class-header
-
-   .. automethod:: BufferGroup.allocate
-
-   .. automethod:: BufferGroup.free
-
-   .. automethod:: BufferGroup.index
-
-   .. automethod:: BufferGroup.zero
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Class & static methods
-      :class: class-header
-
-   .. automethod:: BufferGroup.from_file_paths
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: BufferGroup.buffer_id
-
-   .. autoattribute:: BufferGroup.buffers
-
-   .. autoattribute:: BufferGroup.is_allocated
-
-   .. container:: inherited
-
-      .. autoattribute:: BufferGroup.server
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Server Internals
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~BufferProxy
+   .. automethod:: __contains__
+   .. automethod:: __float__
+   .. automethod:: __getitem__
+   .. automethod:: __int__
+   .. automethod:: __iter__
+   .. automethod:: __len__
+   .. automethod:: allocate
+   .. autoattribute:: buffer_id
+   .. autoattribute:: buffers
+   .. automethod:: free
+   .. automethod:: from_file_paths
+   .. automethod:: index
+   .. autoattribute:: is_allocated
+   .. automethod:: zero
 
 .. autoclass:: BufferProxy
+   :show-inheritance:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      __float__
-      __int__
-      buffer_id
-      channel_count
-      duration_in_seconds
-      frame_count
-      sample_count
-      sample_rate
-      server
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. container:: inherited
-
-      .. automethod:: BufferProxy.__copy__
-
-   .. container:: inherited
-
-      .. automethod:: BufferProxy.__eq__
-
-   .. automethod:: BufferProxy.__float__
-
-   .. container:: inherited
-
-      .. automethod:: BufferProxy.__hash__
-
-   .. automethod:: BufferProxy.__int__
-
-   .. container:: inherited
-
-      .. automethod:: BufferProxy.__repr__
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Read-only properties
-      :class: class-header
-
-   .. autoattribute:: BufferProxy.buffer_id
-
-   .. autoattribute:: BufferProxy.channel_count
-
-   .. autoattribute:: BufferProxy.duration_in_seconds
-
-   .. autoattribute:: BufferProxy.frame_count
-
-   .. autoattribute:: BufferProxy.sample_count
-
-   .. autoattribute:: BufferProxy.sample_rate
-
-   .. autoattribute:: BufferProxy.server
+   .. automethod:: __float__
+   .. automethod:: __int__
+   .. autoattribute:: buffer_id
+   .. autoattribute:: channel_count
+   .. autoattribute:: duration_in_seconds
+   .. autoattribute:: frame_count
+   .. autoattribute:: sample_count
+   .. autoattribute:: sample_rate
+   .. autoattribute:: server

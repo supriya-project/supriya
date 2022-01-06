@@ -7,22 +7,10 @@ supriya
 
 .. currentmodule:: supriya
 
-.. container:: svg-container
-
-   .. inheritance-diagram:: supriya
-      :lineage: supriya
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Subpackages
-   :class: section-header
-
 .. toctree::
    :hidden:
 
-   clock/index
+   clocks/index
    commands/index
    conversions
    enums
@@ -33,7 +21,7 @@ supriya
    nonrealtime/index
    osc/index
    patterns/index
-   provider
+   providers
    querytree
    realtime/index
    sclang
@@ -43,30 +31,4 @@ supriya
    system
    typing
    ugens/index
-   utils
-
-.. autosummary::
-   :nosignatures:
-
-   clock
-   commands
-   conversions
-   enums
-   exceptions
-   ext
-   intervals
-   io
-   nonrealtime
-   osc
-   patterns
-   provider
-   querytree
-   realtime
-   sclang
-   scsynth
-   soundfiles
-   synthdefs
-   system
-   typing
-   ugens
    utils
