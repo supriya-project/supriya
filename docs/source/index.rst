@@ -3,31 +3,30 @@
 Supriya (|release|)
 ===================
 
-.. important::
+.. attention::
 
    Documentation is under construction. Stand by.
-
-`GitHub`_ |
-`PyPI`_ |
-`Documentation <http://josiahwolfoberholtzer.com/supriya/>`_ |
-`Issue Tracker <https://github.com/josiah-wolf-oberholtzer/supriya/issues>`_
 
 :term:`Supriya` is a :term:`Python` API for :term:`SuperCollider`.
 
 Supriya lets you:
 
-- Boot and communicate with SuperCollider's ``scsynth`` synthesis server in
-  realtime
+- Boot and communicate with ``scsynth`` :py:mod:`~supriya.realtime.servers` in
+  :py:mod:`~supriya.realtime`
 
-- Compile SynthDefs natively in Python
+- Compile :py:class:`synth definitions <supriya.synthdefs.synthdefs.SynthDef>`
+  natively in Python code
 
-- Explore non-realtime composition with object-oriented Sessions
+- Explore :py:mod:`~supriya.nonrealtime` composition with object-oriented
+  :py:class:`sessions <supriya.nonrealtime.sessions.Session>`
 
-- Build time-agnostic asyncio applications with Providers
+- Build time-agnostic asyncio applications with
+  :py:mod:`~supriya.providers`
 
-- Schedule patterns and callbacks with tempo- and meter-aware Clocks
+- Schedule :py:mod:`~supriya.patterns` and callbacks with tempo- and
+  meter-aware :py:mod:`~supriya.clocks`
 
-- Integrate with IPython, Sphinx and Graphviz
+- Integrate with `IPython`_, `Sphinx`_ and `Graphviz`_
 
 Supriya is compatible with Python 3.8+ only.
 
@@ -39,13 +38,13 @@ Quickstart
 
 .. tab-set::
 
-    .. tab-item:: From PyPI
+    .. tab-item:: From `PyPI`_
 
         ::
 
             pip install supriya
 
-    .. tab-item:: From GitHub
+    .. tab-item:: From `GitHub`_
 
         ::
 
@@ -194,6 +193,7 @@ Index
 ..  _IPython: https://ipython.org/
 ..  _PyPI: https://pypi.python.org/pypi
 ..  _Python: https://www.python.org/
+..  _Sphinx: https://www.sphinx-doc.org/en/master/
 ..  _SuperCollider: http://supercollider.github.io/
 ..  _Supriya: https://github.com/josiah-wolf-oberholtzer/supriya
 ..  _libsndfile: http://www.mega-nerd.com/libsndfile/

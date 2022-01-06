@@ -10,23 +10,29 @@
 
 Supriya lets you:
 
-- Boot and communicate with SuperCollider's ``scsynth`` synthesis server in
+- Boot and communicate with ``scsynth``
+  [servers](http://josiahwolfoberholtzer.com/supriya/api/supriya/realtime/servers.html)
+  in
   [realtime](http://josiahwolfoberholtzer.com/supriya/api/supriya/realtime/index.html)
 
 - Compile
-  [SynthDef](http://josiahwolfoberholtzer.com/supriya/api/supriya/synthdefs/index.html)s
-  natively in Python
+  [synth definitions](http://josiahwolfoberholtzer.com/supriya/api/supriya/synthdefs/index.html)
+  natively in Python code
 
-- Explore non-realtime composition with object-oriented
-  [Session](http://josiahwolfoberholtzer.com/supriya/api/supriya/nonrealtime/index.html)s
+- Explore
+  [nonrealtime](http://josiahwolfoberholtzer.com/supriya/api/supriya/nonrealtime/index.html)
+  composition with object-oriented
+  [sessions](http://josiahwolfoberholtzer.com/supriya/api/supriya/nonrealtime/index.html)
 
-- Build realtime/non-realtime-agnostic,
+- Build time-agnostic
   [asyncio](https://docs.python.org/3/library/asyncio.html)-aware applications
   with
-  [Provider](http://josiahwolfoberholtzer.com/supriya/api/supriya/provider.html)s
+  [providers](http://josiahwolfoberholtzer.com/supriya/api/supriya/providers.html)
 
-- Schedule callbacks with tempo- and meter-aware
-  [Clock](http://josiahwolfoberholtzer.com/supriya/api/supriya/clock/index.html)s
+- Schedule
+  [patterns](http://josiahwolfoberholtzer.com/supriya/api/supriya/patterns/index.html)
+  and callbacks with tempo- and meter-aware
+  [clocks](http://josiahwolfoberholtzer.com/supriya/api/supriya/clocks/index.html)
 
 - Integrate with [IPython](http://ipython.org/),
   [Sphinx](https://www.sphinx-doc.org/en/master/) and
@@ -37,7 +43,13 @@ Supriya lets you:
 Get [SuperCollider]() from
 [http://supercollider.github.io/](http://supercollider.github.io/).
 
-Get Supriya from source:
+Get Supriya from PyPI:
+
+```bash
+pip install supriya
+```
+
+... or from source:
 
 ```bash
 git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
@@ -356,7 +368,7 @@ Patterns can be manually iterated over:
 ```python
 >>> for event in pattern:
 ...     event
-... 
+...
 CompositeEvent([
     NoteEvent(UUID('ec648473-4e7b-4a9a-9708-6893c054ac0b'), delta=0.0, frequency=440),
     NoteEvent(UUID('32b84a7d-ba7b-4508-81f3-b9f560bc34a7'), delta=0.0, frequency=1500),
