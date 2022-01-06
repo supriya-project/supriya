@@ -11,7 +11,10 @@ class Blip(UGen):
 
     ::
 
-        >>> blip = supriya.ugens.Blip.ar(frequency=440, harmonic_count=200,)
+        >>> blip = supriya.ugens.Blip.ar(
+        ...     frequency=440,
+        ...     harmonic_count=200,
+        ... )
         >>> blip
         Blip.ar()
 
@@ -30,7 +33,10 @@ class FSinOsc(UGen):
 
     ::
 
-        >>> fsin_osc = supriya.ugens.FSinOsc.ar(frequency=440, initial_phase=0,)
+        >>> fsin_osc = supriya.ugens.FSinOsc.ar(
+        ...     frequency=440,
+        ...     initial_phase=0,
+        ... )
         >>> fsin_osc
         FSinOsc.ar()
 
@@ -120,7 +126,10 @@ class Pulse(UGen):
 
     ::
 
-        >>> pulse = supriya.ugens.Pulse.ar(frequency=440, width=0.5,)
+        >>> pulse = supriya.ugens.Pulse.ar(
+        ...     frequency=440,
+        ...     width=0.5,
+        ... )
         >>> pulse
         Pulse.ar()
 

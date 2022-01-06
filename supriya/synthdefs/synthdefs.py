@@ -614,7 +614,12 @@ class SynthDef:
 
             >>> import json
             >>> result = supriya.assets.synthdefs.default.to_dict()
-            >>> result = json.dumps(result, indent=4, separators=(",", ": "), sort_keys=True,)
+            >>> result = json.dumps(
+            ...     result,
+            ...     indent=4,
+            ...     separators=(",", ": "),
+            ...     sort_keys=True,
+            ... )
             >>> print(result)
             {
                 "synthdef": {
@@ -717,7 +722,9 @@ class SynthDef:
             >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
-            ...     sin = supriya.ugens.SinOsc.ar(frequency=audio_in,)
+            ...     sin = supriya.ugens.SinOsc.ar(
+            ...         frequency=audio_in,
+            ...     )
             ...     source = audio_in * control_in[1]
             ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
             ...
@@ -753,7 +760,9 @@ class SynthDef:
             >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
-            ...     sin = supriya.ugens.SinOsc.ar(frequency=audio_in,)
+            ...     sin = supriya.ugens.SinOsc.ar(
+            ...         frequency=audio_in,
+            ...     )
             ...     source = audio_in * control_in[1]
             ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
             ...
@@ -801,7 +810,9 @@ class SynthDef:
             >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
-            ...     sin = supriya.ugens.SinOsc.ar(frequency=audio_in,)
+            ...     sin = supriya.ugens.SinOsc.ar(
+            ...         frequency=audio_in,
+            ...     )
             ...     source = audio_in * control_in[1]
             ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
             ...
@@ -837,7 +848,9 @@ class SynthDef:
             >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
-            ...     sin = supriya.ugens.SinOsc.ar(frequency=audio_in,)
+            ...     sin = supriya.ugens.SinOsc.ar(
+            ...         frequency=audio_in,
+            ...     )
             ...     source = audio_in * control_in[1]
             ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
             ...

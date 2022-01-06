@@ -32,7 +32,10 @@ class InFeedback(MultiOutUGen):
 
     ::
 
-        >>> in_feedback = supriya.ugens.InFeedback.ar(bus=0, channel_count=2,)
+        >>> in_feedback = supriya.ugens.InFeedback.ar(
+        ...     bus=0,
+        ...     channel_count=2,
+        ... )
         >>> in_feedback
         UGenArray({2})
 
@@ -87,7 +90,9 @@ class LocalOut(UGen):
     ::
 
         >>> source = supriya.ugens.SinOsc.ar()
-        >>> supriya.ugens.LocalOut.ar(source=source,)
+        >>> supriya.ugens.LocalOut.ar(
+        ...     source=source,
+        ... )
         LocalOut.ar()
 
     """
@@ -105,7 +110,8 @@ class OffsetOut(UGen):
 
         >>> source = supriya.ugens.SinOsc.ar()
         >>> supriya.ugens.OffsetOut.ar(
-        ...     bus=0, source=source,
+        ...     bus=0,
+        ...     source=source,
         ... )
         OffsetOut.ar()
 
@@ -126,7 +132,8 @@ class Out(UGen):
 
         >>> source = supriya.ugens.SinOsc.ar()
         >>> supriya.ugens.Out.ar(
-        ...     bus=0, source=source,
+        ...     bus=0,
+        ...     source=source,
         ... )
         Out.ar()
 
@@ -147,7 +154,8 @@ class ReplaceOut(UGen):
 
         >>> source = supriya.ugens.SinOsc.ar()
         >>> supriya.ugens.ReplaceOut.ar(
-        ...     bus=0, source=source,
+        ...     bus=0,
+        ...     source=source,
         ... )
         ReplaceOut.ar()
 
@@ -197,7 +205,11 @@ class XOut(UGen):
     ::
 
         >>> source = supriya.ugens.WhiteNoise.ar()
-        >>> xout = supriya.ugens.XOut.ar(bus=0, crossfade=0.5, source=source,)
+        >>> xout = supriya.ugens.XOut.ar(
+        ...     bus=0,
+        ...     crossfade=0.5,
+        ...     source=source,
+        ... )
         >>> xout
         XOut.ar()
 

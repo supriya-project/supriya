@@ -809,11 +809,17 @@ class Synth(Node):
         >>> import supriya.synthdefs
         >>> import supriya.ugens
         >>> with supriya.synthdefs.SynthDefBuilder(
-        ...     amplitude=0.0, frequency=440.0,
+        ...     amplitude=0.0,
+        ...     frequency=440.0,
         ... ) as builder:
-        ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"],)
+        ...     sin_osc = supriya.ugens.SinOsc.ar(
+        ...         frequency=builder["frequency"],
+        ...     )
         ...     sin_osc *= builder["amplitude"]
-        ...     out = supriya.ugens.Out.ar(bus=0, source=[sin_osc, sin_osc],)
+        ...     out = supriya.ugens.Out.ar(
+        ...         bus=0,
+        ...         source=[sin_osc, sin_osc],
+        ...     )
         ...
         >>> synthdef = builder.build()
         >>> synthdef.allocate(server)

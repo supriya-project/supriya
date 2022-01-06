@@ -226,7 +226,11 @@ class IntervalTree(SupriyaObject):
 
             >>> from supriya.intervals import Interval, IntervalTree
             >>> interval_tree = IntervalTree(
-            ...     [Interval(0, 16), Interval(5, 12), Interval(-2, 8),]
+            ...     [
+            ...         Interval(0, 16),
+            ...         Interval(5, 12),
+            ...         Interval(-2, 8),
+            ...     ]
             ... )
 
         ::

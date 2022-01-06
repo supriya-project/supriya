@@ -20,7 +20,11 @@ class APF(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> apf = supriya.ugens.APF.ar(frequency=440, radius=0.8, source=source,)
+        >>> apf = supriya.ugens.APF.ar(
+        ...     frequency=440,
+        ...     radius=0.8,
+        ...     source=source,
+        ... )
         >>> apf
         APF.ar()
 
@@ -58,7 +62,9 @@ class BPZ2(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> bpz_2 = supriya.ugens.BPZ2.ar(source=source,)
+        >>> bpz_2 = supriya.ugens.BPZ2.ar(
+        ...     source=source,
+        ... )
         >>> bpz_2
         BPZ2.ar()
 
@@ -94,7 +100,9 @@ class BRZ2(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> brz_2 = supriya.ugens.BRZ2.ar(source=source,)
+        >>> brz_2 = supriya.ugens.BRZ2.ar(
+        ...     source=source,
+        ... )
         >>> brz_2
         BRZ2.ar()
 
@@ -111,7 +119,10 @@ class Changed(PseudoUGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> changed = supriya.ugens.Changed.ar(source=source, threshold=0,)
+        >>> changed = supriya.ugens.Changed.ar(
+        ...     source=source,
+        ...     threshold=0,
+        ... )
         >>> supriya.graph(changed)  # doctest: +SKIP
 
     ::
@@ -142,7 +153,10 @@ class Changed(PseudoUGen):
         ::
 
             >>> source = supriya.ugens.In.ar(bus=0)
-            >>> changed = supriya.ugens.Changed.ar(source=source, threshold=0,)
+            >>> changed = supriya.ugens.Changed.ar(
+            ...     source=source,
+            ...     threshold=0,
+            ... )
             >>> supriya.graph(changed)  # doctest: +SKIP
 
         ::
@@ -176,7 +190,10 @@ class Changed(PseudoUGen):
         ::
 
             >>> source = supriya.ugens.In.ar(bus=0)
-            >>> changed = supriya.ugens.Changed.kr(source=source, threshold=0,)
+            >>> changed = supriya.ugens.Changed.kr(
+            ...     source=source,
+            ...     threshold=0,
+            ... )
             >>> supriya.graph(changed)  # doctest: +SKIP
 
         ::
@@ -210,7 +227,9 @@ class Decay(Filter):
     ::
 
         >>> source = supriya.ugens.Impulse.ar()
-        >>> decay = supriya.ugens.Decay.ar(source=source,)
+        >>> decay = supriya.ugens.Decay.ar(
+        ...     source=source,
+        ... )
         >>> decay
         Decay.ar()
 
@@ -229,7 +248,9 @@ class Decay2(Filter):
     ::
 
         >>> source = supriya.ugens.Impulse.ar()
-        >>> decay_2 = supriya.ugens.Decay2.ar(source=source,)
+        >>> decay_2 = supriya.ugens.Decay2.ar(
+        ...     source=source,
+        ... )
         >>> decay_2
         Decay2.ar()
 
@@ -285,7 +306,12 @@ class FOS(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> fos = supriya.ugens.FOS.ar(a_0=0, a_1=0, b_1=0, source=source,)
+        >>> fos = supriya.ugens.FOS.ar(
+        ...     a_0=0,
+        ...     a_1=0,
+        ...     b_1=0,
+        ...     source=source,
+        ... )
         >>> fos
         FOS.ar()
 
@@ -305,7 +331,10 @@ class Formlet(Filter):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> formlet = supriya.ugens.Formlet.ar(
-        ...     attack_time=1, decay_time=1, frequency=440, source=source,
+        ...     attack_time=1,
+        ...     decay_time=1,
+        ...     frequency=440,
+        ...     source=source,
         ... )
         >>> formlet
         Formlet.ar()
@@ -348,7 +377,9 @@ class HPZ1(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> hpz_1 = supriya.ugens.HPZ1.ar(source=source,)
+        >>> hpz_1 = supriya.ugens.HPZ1.ar(
+        ...     source=source,
+        ... )
         >>> hpz_1
         HPZ1.ar()
 
@@ -365,7 +396,9 @@ class HPZ2(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> hpz_2 = supriya.ugens.HPZ2.ar(source=source,)
+        >>> hpz_2 = supriya.ugens.HPZ2.ar(
+        ...     source=source,
+        ... )
         >>> hpz_2
         HPZ2.ar()
 
@@ -382,7 +415,10 @@ class Integrator(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> integrator = supriya.ugens.Integrator.ar(coefficient=1, source=source,)
+        >>> integrator = supriya.ugens.Integrator.ar(
+        ...     coefficient=1,
+        ...     source=source,
+        ... )
         >>> integrator
         Integrator.ar()
 
@@ -402,7 +438,8 @@ class Lag(Filter):
 
         >>> source = supriya.ugens.In.kr(bus=0)
         >>> supriya.ugens.Lag.kr(
-        ...     lag_time=0.5, source=source,
+        ...     lag_time=0.5,
+        ...     source=source,
         ... )
         Lag.kr()
 
@@ -422,7 +459,9 @@ class LagUD(Filter):
 
         >>> source = supriya.ugens.In.kr(bus=0)
         >>> supriya.ugens.LagUD.kr(
-        ...     lag_time_down=1.25, lag_time_up=0.5, source=source,
+        ...     lag_time_down=1.25,
+        ...     lag_time_up=0.5,
+        ...     source=source,
         ... )
         LagUD.kr()
 
@@ -441,7 +480,10 @@ class Lag2(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> lag_2 = supriya.ugens.Lag2.ar(lag_time=0.1, source=source,)
+        >>> lag_2 = supriya.ugens.Lag2.ar(
+        ...     lag_time=0.1,
+        ...     source=source,
+        ... )
         >>> lag_2
         Lag2.ar()
 
@@ -461,7 +503,9 @@ class Lag2UD(Filter):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> lag_2_ud = supriya.ugens.Lag2UD.ar(
-        ...     lag_time_d=0.1, lag_time_u=0.1, source=source,
+        ...     lag_time_d=0.1,
+        ...     lag_time_u=0.1,
+        ...     source=source,
         ... )
         >>> lag_2_ud
         Lag2UD.ar()
@@ -481,7 +525,10 @@ class Lag3(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> lag_3 = supriya.ugens.Lag3.ar(lag_time=0.1, source=source,)
+        >>> lag_3 = supriya.ugens.Lag3.ar(
+        ...     lag_time=0.1,
+        ...     source=source,
+        ... )
         >>> lag_3
         Lag3.ar()
 
@@ -501,7 +548,9 @@ class Lag3UD(Filter):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> lag_3_ud = supriya.ugens.Lag3UD.ar(
-        ...     lag_time_d=0.1, lag_time_u=0.1, source=source,
+        ...     lag_time_d=0.1,
+        ...     lag_time_u=0.1,
+        ...     source=source,
         ... )
         >>> lag_3_ud
         Lag3UD.ar()
@@ -521,7 +570,10 @@ class LeakDC(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> leak_d_c = supriya.ugens.LeakDC.ar(source=source, coefficient=0.995,)
+        >>> leak_d_c = supriya.ugens.LeakDC.ar(
+        ...     source=source,
+        ...     coefficient=0.995,
+        ... )
         >>> leak_d_c
         LeakDC.ar()
 
@@ -558,7 +610,9 @@ class LPZ1(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> lpz_1 = supriya.ugens.LPZ1.ar(source=source,)
+        >>> lpz_1 = supriya.ugens.LPZ1.ar(
+        ...     source=source,
+        ... )
         >>> lpz_1
         LPZ1.ar()
 
@@ -575,7 +629,9 @@ class LPZ2(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> lpz_2 = supriya.ugens.LPZ2.ar(source=source,)
+        >>> lpz_2 = supriya.ugens.LPZ2.ar(
+        ...     source=source,
+        ... )
         >>> lpz_2
         LPZ2.ar()
 
@@ -592,7 +648,10 @@ class Median(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> median = supriya.ugens.Median.ar(length=3, source=source,)
+        >>> median = supriya.ugens.Median.ar(
+        ...     length=3,
+        ...     source=source,
+        ... )
         >>> median
         Median.ar()
 
@@ -610,7 +669,10 @@ class MidEQ(Filter):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> mid_eq = supriya.ugens.MidEQ.ar(
-        ...     db=0, frequency=440, reciprocal_of_q=1, source=source,
+        ...     db=0,
+        ...     frequency=440,
+        ...     reciprocal_of_q=1,
+        ...     source=source,
         ... )
         >>> mid_eq
         MidEQ.ar()
@@ -631,7 +693,10 @@ class MoogFF(Filter):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> moog_ff = supriya.ugens.MoogFF.ar(
-        ...     frequency=100, gain=2, reset=0, source=source,
+        ...     frequency=100,
+        ...     gain=2,
+        ...     reset=0,
+        ...     source=source,
         ... )
         >>> moog_ff
         MoogFF.ar()
@@ -651,7 +716,10 @@ class OnePole(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> one_pole = supriya.ugens.OnePole.ar(coefficient=0.5, source=source,)
+        >>> one_pole = supriya.ugens.OnePole.ar(
+        ...     coefficient=0.5,
+        ...     source=source,
+        ... )
         >>> one_pole
         OnePole.ar()
 
@@ -670,7 +738,10 @@ class OneZero(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> one_zero = supriya.ugens.OneZero.ar(coefficient=0.5, source=source,)
+        >>> one_zero = supriya.ugens.OneZero.ar(
+        ...     coefficient=0.5,
+        ...     source=source,
+        ... )
         >>> one_zero
         OneZero.ar()
 
@@ -725,7 +796,10 @@ class Ramp(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> ramp = supriya.ugens.Ramp.ar(lag_time=0.1, source=source,)
+        >>> ramp = supriya.ugens.Ramp.ar(
+        ...     lag_time=0.1,
+        ...     source=source,
+        ... )
         >>> ramp
         Ramp.ar()
 
@@ -744,7 +818,11 @@ class Ringz(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> ringz = supriya.ugens.Ringz.ar(decay_time=1, frequency=440, source=source,)
+        >>> ringz = supriya.ugens.Ringz.ar(
+        ...     decay_time=1,
+        ...     frequency=440,
+        ...     source=source,
+        ... )
         >>> ringz
         Ringz.ar()
 
@@ -767,7 +845,14 @@ class SOS(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> sos = supriya.ugens.SOS.ar(a_0=0, a_1=0, a_2=0, b_1=0, b_2=0, source=source,)
+        >>> sos = supriya.ugens.SOS.ar(
+        ...     a_0=0,
+        ...     a_1=0,
+        ...     a_2=0,
+        ...     b_1=0,
+        ...     b_2=0,
+        ...     source=source,
+        ... )
         >>> sos
         SOS.ar()
 
@@ -786,7 +871,11 @@ class Slew(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> slew = supriya.ugens.Slew.ar(source=source, up=1, down=1,)
+        >>> slew = supriya.ugens.Slew.ar(
+        ...     source=source,
+        ...     up=1,
+        ...     down=1,
+        ... )
         >>> slew
         Slew.ar()
 
@@ -805,7 +894,9 @@ class Slope(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> slope = supriya.ugens.Slope.ar(source=source,)
+        >>> slope = supriya.ugens.Slope.ar(
+        ...     source=source,
+        ... )
         >>> slope
         Slope.ar()
 
@@ -822,7 +913,11 @@ class TwoPole(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> two_pole = supriya.ugens.TwoPole.ar(frequency=440, radius=0.8, source=source,)
+        >>> two_pole = supriya.ugens.TwoPole.ar(
+        ...     frequency=440,
+        ...     radius=0.8,
+        ...     source=source,
+        ... )
         >>> two_pole
         TwoPole.ar()
 
@@ -841,7 +936,11 @@ class TwoZero(Filter):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> two_zero = supriya.ugens.TwoZero.ar(frequency=440, radius=0.8, source=source,)
+        >>> two_zero = supriya.ugens.TwoZero.ar(
+        ...     frequency=440,
+        ...     radius=0.8,
+        ...     source=source,
+        ... )
         >>> two_zero
         TwoZero.ar()
 

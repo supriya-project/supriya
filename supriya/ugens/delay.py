@@ -85,7 +85,8 @@ class BufAllpassC(PureUGen):
         >>> buffer_id = 0
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.BufAllpassC.ar(
-        ...     buffer_id=buffer_id, source=source,
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ... )
         BufAllpassC.ar()
 
@@ -112,7 +113,8 @@ class BufAllpassL(PureUGen):
         >>> buffer_id = 0
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.BufAllpassL.ar(
-        ...     buffer_id=buffer_id, source=source,
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ... )
         BufAllpassL.ar()
 
@@ -139,7 +141,8 @@ class BufAllpassN(PureUGen):
         >>> buffer_id = 0
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.BufAllpassN.ar(
-        ...     buffer_id=buffer_id, source=source,
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ... )
         BufAllpassN.ar()
 
@@ -166,7 +169,8 @@ class BufCombC(PureUGen):
         >>> buffer_id = 0
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.BufCombC.ar(
-        ...     buffer_id=buffer_id, source=source,
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ... )
         BufCombC.ar()
 
@@ -193,7 +197,8 @@ class BufCombL(PureUGen):
         >>> buffer_id = 0
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.BufCombL.ar(
-        ...     buffer_id=buffer_id, source=source,
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ... )
         BufCombL.ar()
 
@@ -220,7 +225,8 @@ class BufCombN(PureUGen):
         >>> buffer_id = 0
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.BufCombN.ar(
-        ...     buffer_id=buffer_id, source=source,
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ... )
         BufCombN.ar()
 
@@ -247,7 +253,8 @@ class BufDelayC(PureUGen):
         >>> buffer_id = 0
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.BufDelayC.ar(
-        ...     buffer_id=buffer_id, source=source,
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ... )
         BufDelayC.ar()
 
@@ -273,7 +280,8 @@ class BufDelayL(PureUGen):
         >>> buffer_id = 0
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.BufDelayL.ar(
-        ...     buffer_id=buffer_id, source=source,
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ... )
         BufDelayL.ar()
 
@@ -299,7 +307,8 @@ class BufDelayN(PureUGen):
         >>> buffer_id = 0
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.BufDelayN.ar(
-        ...     buffer_id=buffer_id, source=source,
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ... )
         BufDelayN.ar()
 
@@ -393,7 +402,10 @@ class DelTapRd(UGen):
 
         >>> buffer_id = 0
         >>> source = supriya.ugens.SoundIn.ar(0)
-        >>> tapin = supriya.ugens.DelTapWr.ar(buffer_id=buffer_id, source=source,)
+        >>> tapin = supriya.ugens.DelTapWr.ar(
+        ...     buffer_id=buffer_id,
+        ...     source=source,
+        ... )
 
     ::
 
@@ -403,7 +415,10 @@ class DelTapRd(UGen):
     ::
 
         >>> tapout = supriya.ugens.DelTapRd.ar(
-        ...     buffer_id=buffer_id, phase=tapin, delay_time=0.1, interpolation=True,
+        ...     buffer_id=buffer_id,
+        ...     phase=tapin,
+        ...     delay_time=0.1,
+        ...     interpolation=True,
         ... )
 
     ::
@@ -432,7 +447,10 @@ class DelTapWr(UGen):
 
         >>> buffer_id = 0
         >>> source = supriya.ugens.SoundIn.ar(0)
-        >>> tapin = supriya.ugens.DelTapWr.ar(buffer_id=buffer_id, source=source,)
+        >>> tapin = supriya.ugens.DelTapWr.ar(
+        ...     buffer_id=buffer_id,
+        ...     source=source,
+        ... )
 
     ::
 
@@ -442,7 +460,10 @@ class DelTapWr(UGen):
     ::
 
         >>> tapout = supriya.ugens.DelTapRd.ar(
-        ...     buffer_id=buffer_id, phase=tapin, delay_time=0.1, interpolation=True,
+        ...     buffer_id=buffer_id,
+        ...     phase=tapin,
+        ...     delay_time=0.1,
+        ...     interpolation=True,
         ... )
 
     ::

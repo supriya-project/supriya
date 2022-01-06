@@ -167,7 +167,9 @@ class Mix(PseudoUGen):
 
                 >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 660, 880])
                 >>> panner = supriya.ugens.PanAz.ar(
-                ...     channel_count=4, source=source, position=supriya.ugens.LFNoise2.kr(),
+                ...     channel_count=4,
+                ...     source=source,
+                ...     position=supriya.ugens.LFNoise2.kr(),
                 ... )
                 >>> mix = supriya.ugens.Mix.multichannel(panner, channel_count=4)
                 >>> out = supriya.ugens.Out.ar(bus=0, source=mix)
@@ -314,7 +316,11 @@ class MulAdd(UGen):
     ::
 
         >>> source = supriya.ugens.SinOsc.ar()
-        >>> mul_add = supriya.ugens.MulAdd.new(addend=0.5, multiplier=-1.5, source=source,)
+        >>> mul_add = supriya.ugens.MulAdd.new(
+        ...     addend=0.5,
+        ...     multiplier=-1.5,
+        ...     source=source,
+        ... )
         >>> mul_add
         MulAdd.ar()
 
@@ -403,7 +409,9 @@ class MulAdd(UGen):
             >>> multiplier = 1.5
             >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
             >>> mul_add = supriya.ugens.MulAdd.new(
-            ...     addend=addend, multiplier=multiplier, source=source,
+            ...     addend=addend,
+            ...     multiplier=multiplier,
+            ...     source=source,
             ... )
             >>> mul_add
             UGenArray({2})
@@ -435,7 +443,9 @@ class Sum3(UGen):
         >>> input_two = supriya.ugens.SinOsc.ar(phase=0.1)
         >>> input_three = supriya.ugens.SinOsc.ar(phase=0.2)
         >>> supriya.ugens.Sum3.new(
-        ...     input_one=input_one, input_two=input_two, input_three=input_three,
+        ...     input_one=input_one,
+        ...     input_two=input_two,
+        ...     input_three=input_three,
         ... )
         Sum3.ar()
 

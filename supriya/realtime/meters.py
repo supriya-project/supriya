@@ -11,7 +11,8 @@ class Meters(SupriyaObject):
 
         >>> import json, supriya, time
         >>> server = supriya.Server().boot(
-        ...     input_bus_channel_count=2, output_bus_channel_count=2,
+        ...     input_bus_channel_count=2,
+        ...     output_bus_channel_count=2,
         ... )
         >>> meters = server.meters.allocate()
         >>> time.sleep(1)

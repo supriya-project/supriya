@@ -12,7 +12,10 @@ class Ball(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> ball = supriya.ugens.Ball.ar(
-        ...     damping=0, friction=0.01, gravity=1, source=source,
+        ...     damping=0,
+        ...     friction=0.01,
+        ...     gravity=1,
+        ...     source=source,
         ... )
         >>> ball
         Ball.ar()
@@ -66,7 +69,11 @@ class Spring(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> spring = supriya.ugens.Spring.ar(damping=0, source=source, spring=1,)
+        >>> spring = supriya.ugens.Spring.ar(
+        ...     damping=0,
+        ...     source=source,
+        ...     spring=1,
+        ... )
         >>> spring
         Spring.ar()
 
@@ -86,7 +93,10 @@ class TBall(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> tball = supriya.ugens.TBall.ar(
-        ...     damping=0, friction=0.01, gravity=10, source=source,
+        ...     damping=0,
+        ...     friction=0.01,
+        ...     gravity=10,
+        ...     source=source,
         ... )
         >>> tball
         TBall.ar()

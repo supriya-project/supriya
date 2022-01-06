@@ -42,7 +42,10 @@ class CoinGate(UGen):
     ::
 
         >>> trigger = supriya.ugens.Impulse.ar()
-        >>> coin_gate = supriya.ugens.CoinGate.ar(probability=0.5, trigger=trigger,)
+        >>> coin_gate = supriya.ugens.CoinGate.ar(
+        ...     probability=0.5,
+        ...     trigger=trigger,
+        ... )
         >>> coin_gate
         CoinGate.ar()
 
@@ -60,7 +63,9 @@ class Crackle(UGen):
 
     ::
 
-        >>> crackle = supriya.ugens.Crackle.ar(chaos_parameter=1.25,)
+        >>> crackle = supriya.ugens.Crackle.ar(
+        ...     chaos_parameter=1.25,
+        ... )
         >>> crackle
         Crackle.ar()
 
@@ -76,7 +81,9 @@ class Dust(UGen):
 
     ::
 
-        >>> dust = supriya.ugens.Dust.ar(density=23,)
+        >>> dust = supriya.ugens.Dust.ar(
+        ...     density=23,
+        ... )
         >>> dust
         Dust.ar()
 
@@ -93,7 +100,9 @@ class Dust2(UGen):
 
     ::
 
-        >>> dust_2 = supriya.ugens.Dust2.ar(density=23,)
+        >>> dust_2 = supriya.ugens.Dust2.ar(
+        ...     density=23,
+        ... )
         >>> dust_2
         Dust2.ar()
 
@@ -151,7 +160,9 @@ class Hasher(UGen):
     ::
 
         >>> source = supriya.ugens.SinOsc.ar()
-        >>> hasher = supriya.ugens.Hasher.ar(source=source,)
+        >>> hasher = supriya.ugens.Hasher.ar(
+        ...     source=source,
+        ... )
         >>> hasher
         Hasher.ar()
 
@@ -302,7 +313,11 @@ class LinRand(UGen):
 
     ::
 
-        >>> lin_rand = supriya.ugens.LinRand.ir(minimum=-1.0, maximum=1.0, skew=0.5,)
+        >>> lin_rand = supriya.ugens.LinRand.ir(
+        ...     minimum=-1.0,
+        ...     maximum=1.0,
+        ...     skew=0.5,
+        ... )
         >>> lin_rand
         LinRand.ir()
 
@@ -321,7 +336,9 @@ class Logistic(UGen):
     ::
 
         >>> logistic = supriya.ugens.Logistic.ar(
-        ...     chaos_parameter=3.0, frequency=1000, initial_y=0.5,
+        ...     chaos_parameter=3.0,
+        ...     frequency=1000,
+        ...     initial_y=0.5,
         ... )
         >>> logistic
         Logistic.ar()
@@ -341,7 +358,10 @@ class MantissaMask(UGen):
     ::
 
         >>> source = supriya.ugens.SinOsc.ar()
-        >>> mantissa_mask = supriya.ugens.MantissaMask.ar(source=source, bits=3,)
+        >>> mantissa_mask = supriya.ugens.MantissaMask.ar(
+        ...     source=source,
+        ...     bits=3,
+        ... )
         >>> mantissa_mask
         MantissaMask.ar()
 
@@ -357,7 +377,11 @@ class NRand(UGen):
 
     ::
 
-        >>> n_rand = supriya.ugens.NRand.ir(minimum=-1, maximum=1, n=1,)
+        >>> n_rand = supriya.ugens.NRand.ir(
+        ...     minimum=-1,
+        ...     maximum=1,
+        ...     n=1,
+        ... )
         >>> n_rand
         NRand.ir()
 
@@ -405,7 +429,9 @@ class RandID(WidthFirstUGen):
 
     ::
 
-        >>> rand_id = supriya.ugens.RandID.ir(rand_id=1,)
+        >>> rand_id = supriya.ugens.RandID.ir(
+        ...     rand_id=1,
+        ... )
         >>> rand_id
         RandID.ir()
 
@@ -422,7 +448,10 @@ class RandSeed(WidthFirstUGen):
     ::
 
         >>> trigger = supriya.ugens.Impulse.ar()
-        >>> rand_seed = supriya.ugens.RandSeed.ar(seed=1, trigger=trigger,)
+        >>> rand_seed = supriya.ugens.RandSeed.ar(
+        ...     seed=1,
+        ...     trigger=trigger,
+        ... )
         >>> rand_seed
         RandSeed.ar()
 
@@ -444,7 +473,9 @@ class TExpRand(UGen):
 
         >>> trigger = supriya.ugens.Impulse.ar()
         >>> t_exp_rand = supriya.ugens.TExpRand.ar(
-        ...     minimum=-1.0, maximum=1.0, trigger=trigger,
+        ...     minimum=-1.0,
+        ...     maximum=1.0,
+        ...     trigger=trigger,
         ... )
         >>> t_exp_rand
         TExpRand.ar()
@@ -464,7 +495,11 @@ class TIRand(UGen):
     ::
 
         >>> trigger = supriya.ugens.Impulse.ar()
-        >>> t_i_rand = supriya.ugens.TIRand.ar(minimum=0, maximum=127, trigger=trigger,)
+        >>> t_i_rand = supriya.ugens.TIRand.ar(
+        ...     minimum=0,
+        ...     maximum=127,
+        ...     trigger=trigger,
+        ... )
         >>> t_i_rand
         TIRand.ar()
 
@@ -498,7 +533,11 @@ class TRand(UGen):
     ::
 
         >>> trigger = supriya.ugens.Impulse.ar()
-        >>> t_rand = supriya.ugens.TRand.ar(minimum=-1.0, maximum=1.0, trigger=trigger,)
+        >>> t_rand = supriya.ugens.TRand.ar(
+        ...     minimum=-1.0,
+        ...     maximum=1.0,
+        ...     trigger=trigger,
+        ... )
         >>> t_rand
         TRand.ar()
 
@@ -518,7 +557,9 @@ class TWindex(UGen):
 
         >>> trigger = supriya.ugens.Impulse.ar()
         >>> t_windex = supriya.ugens.TWindex.ar(
-        ...     trigger=trigger, normalize=0, array=[1, 2, 3],
+        ...     trigger=trigger,
+        ...     normalize=0,
+        ...     array=[1, 2, 3],
         ... )
         >>> t_windex
         TWindex.ar()

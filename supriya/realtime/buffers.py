@@ -299,7 +299,10 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> buffer_two = supriya.realtime.Buffer().allocate(server, frame_count=16,)
+            >>> buffer_two = supriya.realtime.Buffer().allocate(
+            ...     server,
+            ...     frame_count=16,
+            ... )
             >>> buffer_two.query()
             BufferInfoResponse(
                 items=(
@@ -310,7 +313,9 @@ class Buffer(ServerObject):
         ::
 
             >>> buffer_three = supriya.realtime.Buffer().allocate(
-            ...     server, channel_count=2, frame_count=32,
+            ...     server,
+            ...     channel_count=2,
+            ...     frame_count=32,
             ... )
             >>> buffer_three.query()
             BufferInfoResponse(
@@ -448,7 +453,9 @@ class Buffer(ServerObject):
         ::
 
             >>> server = supriya.Server().boot()
-            >>> buffer_ = supriya.realtime.Buffer().allocate(server, channel_count=8, frame_count=8)
+            >>> buffer_ = supriya.realtime.Buffer().allocate(
+            ...     server, channel_count=8, frame_count=8
+            ... )
             >>> buffer_.read(
             ...     supriya.system.Assets["audio/pulse_44100sr_16bit_octo.wav"],
             ...     leave_open=True,
@@ -529,7 +536,9 @@ class Buffer(ServerObject):
 
             >>> server = supriya.Server().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
-            ...     server, frame_count=8, sync=True,
+            ...     server,
+            ...     frame_count=8,
+            ...     sync=True,
             ... )
             >>> buffer_.fill((0, 2, 0.5), (3, 3, 1.0))
             >>> buffer_.get_contiguous((0, 8)).as_dict()
@@ -591,7 +600,8 @@ class Buffer(ServerObject):
             >>> server = supriya.Server().boot()
             >>> buffer_ = server.add_buffer(1, 512)
             >>> buffer_.fill_via_chebyshev(
-            ...     [1, 0.5, 0.25], as_wavetable=False,
+            ...     [1, 0.5, 0.25],
+            ...     as_wavetable=False,
             ... )
             >>> supriya.plot(buffer_)  # doctest: +SKIP
 
@@ -638,7 +648,8 @@ class Buffer(ServerObject):
             >>> server = supriya.Server().boot()
             >>> buffer_ = server.add_buffer(1, 512)
             >>> buffer_.fill_via_sine_1(
-            ...     [1, 1, 1], as_wavetable=False,
+            ...     [1, 1, 1],
+            ...     as_wavetable=False,
             ... )
             >>> supriya.plot(buffer_)  # doctest: +SKIP
 
@@ -788,7 +799,9 @@ class Buffer(ServerObject):
 
             >>> server = supriya.Server().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
-            ...     server, frame_count=4, sync=True,
+            ...     server,
+            ...     frame_count=4,
+            ...     sync=True,
             ... )
             >>> response = buffer_.get(1, 2)
             >>> response.as_dict()
@@ -825,7 +838,9 @@ class Buffer(ServerObject):
 
             >>> server = supriya.Server().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
-            ...     server, frame_count=4, sync=True,
+            ...     server,
+            ...     frame_count=4,
+            ...     sync=True,
             ... )
             >>> response = buffer_.get_contiguous((0, 2), (1, 3))
             >>> response.as_dict()
@@ -916,7 +931,9 @@ class Buffer(ServerObject):
         ::
 
             >>> server = supriya.Server().boot()
-            >>> buffer_ = supriya.realtime.Buffer().allocate(server, channel_count=2, frame_count=16)
+            >>> buffer_ = supriya.realtime.Buffer().allocate(
+            ...     server, channel_count=2, frame_count=16
+            ... )
             >>> buffer_.query()
             BufferInfoResponse(
                 items=(
@@ -964,7 +981,9 @@ class Buffer(ServerObject):
         ::
 
             >>> server = supriya.Server().boot()
-            >>> buffer_ = supriya.realtime.Buffer().allocate(server, channel_count=2, frame_count=8)
+            >>> buffer_ = supriya.realtime.Buffer().allocate(
+            ...     server, channel_count=2, frame_count=8
+            ... )
             >>> for frame_id in range(buffer_.frame_count):
             ...     buffer_.get_frames(frame_id).as_dict()
             ...
@@ -1148,7 +1167,8 @@ class Buffer(ServerObject):
         ::
 
             >>> buffer_one.write(
-            ...     file_path, header_format="wav",
+            ...     file_path,
+            ...     header_format="wav",
             ... )
 
         ::
@@ -1200,7 +1220,8 @@ class Buffer(ServerObject):
         ::
 
             >>> buffer_.set_contiguous(
-            ...     (0, (1, 2, 3, 4, 5, 6, 7, 8)), sync=True,
+            ...     (0, (1, 2, 3, 4, 5, 6, 7, 8)),
+            ...     sync=True,
             ... )
 
         ::
@@ -1364,7 +1385,9 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> buffer_two = supriya.realtime.Buffer().allocate(server, channel_count=4, frame_count=8)
+            >>> buffer_two = supriya.realtime.Buffer().allocate(
+            ...     server, channel_count=4, frame_count=8
+            ... )
 
         ::
 
@@ -1460,10 +1483,14 @@ class Buffer(ServerObject):
             >>> server = supriya.Server().boot()
             >>> buffer_one = supriya.realtime.Buffer().allocate(server, frame_count=16)
             >>> buffer_two = supriya.realtime.Buffer().allocate(
-            ...     server, channel_count=2, frame_count=16,
+            ...     server,
+            ...     channel_count=2,
+            ...     frame_count=16,
             ... )
             >>> buffer_three = supriya.realtime.Buffer().allocate(
-            ...     server, channel_count=8, frame_count=16,
+            ...     server,
+            ...     channel_count=8,
+            ...     frame_count=16,
             ... )
 
         ::
@@ -1618,7 +1645,9 @@ class BufferGroup(ServerObject):
     ::
 
         >>> buffer_group.allocate(
-        ...     server, frame_count=8192, sync=True,
+        ...     server,
+        ...     frame_count=8192,
+        ...     sync=True,
         ... )
         <+ BufferGroup{4}: 0>
 
@@ -1951,7 +1980,10 @@ class BufferProxy(SupriyaValueObject):
         ::
 
             >>> response_item = supriya.commands.BufferInfoResponse.Item(
-            ...     buffer_id=23, channel_count=2, frame_count=512, sample_rate=44100,
+            ...     buffer_id=23,
+            ...     channel_count=2,
+            ...     frame_count=512,
+            ...     sample_rate=44100,
             ... )
 
         ::

@@ -86,7 +86,9 @@ class PitchShift(UGen):
     ::
 
         >>> source = supriya.ugens.SoundIn.ar()
-        >>> supriya.ugens.PitchShift.ar(source=source,)
+        >>> supriya.ugens.PitchShift.ar(
+        ...     source=source,
+        ... )
         PitchShift.ar()
 
     """

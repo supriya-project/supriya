@@ -31,7 +31,9 @@ class SynthDefFreeRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> request = supriya.commands.SynthDefFreeRequest(synthdef="test",)
+        >>> request = supriya.commands.SynthDefFreeRequest(
+        ...     synthdef="test",
+        ... )
         >>> request
         SynthDefFreeRequest(
             synthdef='test',
@@ -176,7 +178,8 @@ class SynthDefReceiveRequest(Request):
 
         >>> with supriya.SynthDefBuilder(out=0, value=0.5) as builder:
         ...     _ = supriya.ugens.Out.ar(
-        ...         bus=builder["out"], source=supriya.ugens.DC.ar(builder["value"]),
+        ...         bus=builder["out"],
+        ...         source=supriya.ugens.DC.ar(builder["value"]),
         ...     )
         ...
         >>> synthdef = builder.build(name="example")
@@ -204,12 +207,15 @@ class SynthDefReceiveRequest(Request):
         ...             supriya.commands.GroupNewRequest(
         ...                 items=[
         ...                     supriya.commands.GroupNewRequest.Item(
-        ...                         node_id=1000, target_node_id=1,
+        ...                         node_id=1000,
+        ...                         target_node_id=1,
         ...                     ),
         ...                 ],
         ...             ),
         ...             supriya.commands.SynthNewRequest(
-        ...                 node_id=1001, synthdef=synthdef, target_node_id=1000,
+        ...                 node_id=1001,
+        ...                 synthdef=synthdef,
+        ...                 target_node_id=1000,
         ...             ),
         ...         ],
         ...     ),

@@ -216,10 +216,12 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
             ...     synthdef_name="c1aa521afab5b0c0ce3d744690951649",
             ...     controls=(
             ...         supriya.querytree.QueryTreeControl(
-            ...             control_name_or_index="level", control_value=1.0,
+            ...             control_name_or_index="level",
+            ...             control_value=1.0,
             ...         ),
             ...         supriya.querytree.QueryTreeControl(
-            ...             control_name_or_index="out", control_value=0.0,
+            ...             control_name_or_index="out",
+            ...             control_value=0.0,
             ...         ),
             ...     ),
             ... )
@@ -228,7 +230,12 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
 
             >>> import json
             >>> result = query_tree_synth.to_dict()
-            >>> result = json.dumps(result, indent=4, separators=(",", ": "), sort_keys=True,)
+            >>> result = json.dumps(
+            ...     result,
+            ...     indent=4,
+            ...     separators=(",", ": "),
+            ...     sort_keys=True,
+            ... )
             >>> print(result)
             {
                 "controls": {
@@ -448,7 +455,8 @@ class QueryTreeGroup(SupriyaValueObject, Sequence):
             ...                     control_value=0.894767701625824,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index="out", control_value=16.0,
+            ...                     control_name_or_index="out",
+            ...                     control_value=16.0,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index="room_size",
@@ -469,7 +477,8 @@ class QueryTreeGroup(SupriyaValueObject, Sequence):
             ...                     control_value=0.959683060646057,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
-            ...                     control_name_or_index="out", control_value=16.0,
+            ...                     control_name_or_index="out",
+            ...                     control_value=16.0,
             ...                 ),
             ...                 supriya.querytree.QueryTreeControl(
             ...                     control_name_or_index="pitch_dispersion",
@@ -496,7 +505,12 @@ class QueryTreeGroup(SupriyaValueObject, Sequence):
 
             >>> import json
             >>> result = query_tree_group.to_dict()
-            >>> result = json.dumps(result, indent=4, separators=(",", ": "), sort_keys=True,)
+            >>> result = json.dumps(
+            ...     result,
+            ...     indent=4,
+            ...     separators=(",", ": "),
+            ...     sort_keys=True,
+            ... )
             >>> print(result)
             {
                 "children": [

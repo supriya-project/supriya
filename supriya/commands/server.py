@@ -137,7 +137,9 @@ class NotifyRequest(Request):
 
         >>> import supriya.commands
 
-        >>> request = supriya.commands.NotifyRequest(notify_status=True,)
+        >>> request = supriya.commands.NotifyRequest(
+        ...     notify_status=True,
+        ... )
         >>> request
         NotifyRequest(
             notify_status=True,
@@ -342,7 +344,12 @@ class StatusResponse(Response):
 
             >>> import json
             >>> result = status_response.to_dict()
-            >>> result = json.dumps(result, indent=4, separators=(",", ": "), sort_keys=True,)
+            >>> result = json.dumps(
+            ...     result,
+            ...     indent=4,
+            ...     separators=(",", ": "),
+            ...     sort_keys=True,
+            ... )
             >>> print(result)
             {
                 "server_status": {
@@ -436,7 +443,9 @@ class SyncRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> request = supriya.commands.SyncRequest(sync_id=1999,)
+        >>> request = supriya.commands.SyncRequest(
+        ...     sync_id=1999,
+        ... )
         >>> request
         SyncRequest(
             sync_id=1999,
