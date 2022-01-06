@@ -14,7 +14,7 @@ def test_unaggregated_anonymous(server):
         supriya.osc.OscMessage("/d_recv", synthdef.compile())
     ]
     with server.osc_protocol.capture() as transcript:
-        synthdef.free()
+        synthdef.free(server)
     assert synthdef not in server
     assert [message for timestamp, message in transcript.sent_messages] == [
         supriya.osc.OscMessage("/d_free", synthdef.anonymous_name)
@@ -34,7 +34,7 @@ def test_unaggregated_named(server):
         supriya.osc.OscMessage("/d_recv", synthdef.compile())
     ]
     with server.osc_protocol.capture() as transcript:
-        synthdef.free()
+        synthdef.free(server)
     assert synthdef not in server
     assert [message for timestamp, message in transcript.sent_messages] == [
         supriya.osc.OscMessage("/d_free", synthdef.name)
@@ -78,7 +78,7 @@ def test_aggregated_anonymous(server):
 
     # just free the synthdef
     with server.osc_protocol.capture() as transcript:
-        synthdef.free()
+        synthdef.free(server)
     assert synthdef not in server
     assert [message for timestamp, message in transcript.sent_messages] == [
         supriya.osc.OscMessage("/d_free", synthdef.anonymous_name)
@@ -134,7 +134,7 @@ def test_aggregated_named(server):
 
     # just free the synthdef
     with server.osc_protocol.capture() as transcript:
-        synthdef.free()
+        synthdef.free(server)
     assert synthdef not in server
     assert [message for timestamp, message in transcript.sent_messages] == [
         supriya.osc.OscMessage("/d_free", synthdef.name)
