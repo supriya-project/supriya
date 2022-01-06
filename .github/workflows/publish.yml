@@ -28,7 +28,7 @@ jobs:
         password: ${{ secrets.PYPI_API_TOKEN }}
 
   update-gh-pages:
-    name: Update 
+    name: Update gh-pages
     needs: [publish]
     runs-on: ubuntu-latest
     steps:
@@ -43,7 +43,7 @@ jobs:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
     - name: Install Supriya
-      run: pip install -e .[docs]
+      run: pip install -e .[docs,ipython,test]
     - name: Install APT deps
       shell: bash
       run: |
