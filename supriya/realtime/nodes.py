@@ -10,6 +10,7 @@ from uqbar.containers import UniqueTreeList, UniqueTreeNode
 from uqbar.objects import new
 
 from supriya.enums import AddAction, NodeAction
+from supriya.exceptions import ServerOffline
 
 from .bases import ServerObject
 
@@ -139,18 +140,15 @@ class Node(ServerObject, UniqueTreeNode):
 
     @staticmethod
     def _expr_as_target(expr):
-        import supriya.realtime
+        from supriya import Server
 
-        if expr is None:
-            expr = Node._expr_as_target(supriya.realtime.Server.default())
-        if hasattr(expr, "_as_node_target"):
-            return expr._as_node_target()
-        if isinstance(expr, (float, int)):
-            server = supriya.realtime.Server.default()
-            return server._nodes[int(expr)]
-        if expr is None:
-            raise supriya.exceptions.ServerOffline
-        raise TypeError(expr)
+        if isinstance(expr, Server):
+            expr = expr.default_group
+        if not isinstance(expr, Node):
+            raise ValueError
+        if not expr.is_allocated:
+            raise ServerOffline
+        return expr
 
     def _get_graphviz_name(self):
         parts = [uqbar.strings.to_dash_case(type(self).__name__)]
@@ -946,7 +944,7 @@ class Synth(Node):
         target_node = Node._expr_as_target(target_node)
         server = target_node.server
         if not server.is_running:
-            raise supriya.exceptions.ServerOffline
+            raise ServerOffline
         self.controls._set(**kwargs)
         # TODO: Map requests aren't necessary during /s_new
         settings, map_requests = self.controls._make_synth_new_settings()
