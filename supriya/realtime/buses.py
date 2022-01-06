@@ -561,7 +561,7 @@ class BusGroup(ServerObject):
         request = supriya.commands.ControlBusSetContiguousRequest(
             index_values_pairs=[(self, values)]
         )
-        request.communicate(sync=False)
+        request.communicate(self.server, sync=False)
 
     ### PUBLIC PROPERTIES ###
 

@@ -818,7 +818,7 @@ class Synth(Node):
         ...     out = supriya.ugens.Out.ar(bus=0, source=[sin_osc, sin_osc],)
         ...
         >>> synthdef = builder.build()
-        >>> synthdef.allocate()
+        >>> synthdef.allocate(server)
         <SynthDef: e41193ac8b7216f49ff0d477876a3bf3>
 
     ::

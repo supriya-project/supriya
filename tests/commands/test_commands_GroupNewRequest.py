@@ -59,7 +59,7 @@ def test_2(server):
         ]
     )
     with server.osc_protocol.capture() as transcript:
-        request.communicate()
+        request.communicate(server)
         server.sync()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage("/g_new", 1001, 0, 1000, 1002, 0, 1001)),
@@ -111,7 +111,7 @@ def test_3(server):
         ]
     )
     with server.osc_protocol.capture() as transcript:
-        request.communicate()
+        request.communicate(server)
         server.sync()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage("/g_new", 1001, 0, 1000, 1002, 0, 1001)),

@@ -1747,7 +1747,7 @@ class BufferGroup(ServerObject):
         return self.buffers.index(item)
 
     @staticmethod
-    def from_file_paths(file_paths, server=None, sync=True):
+    def from_file_paths(server, file_paths, sync=True):
         """
         Create a buffer group from `file_paths`.
 
@@ -1760,7 +1760,7 @@ class BufferGroup(ServerObject):
         ::
 
             >>> server = supriya.Server.default().boot()
-            >>> buffer_group = supriya.realtime.BufferGroup.from_file_paths(file_paths)
+            >>> buffer_group = supriya.realtime.BufferGroup.from_file_paths(server, file_paths)
 
         ::
 
@@ -1783,7 +1783,7 @@ class BufferGroup(ServerObject):
             request = buffer_._register_with_remote_server(file_path=file_path)
             requests.append(request)
         supriya.commands.RequestBundle(contents=requests).communicate(
-            server=server, sync=sync
+            server, sync=sync
         )
         return buffer_group
 
