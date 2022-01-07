@@ -84,7 +84,7 @@ if __name__ == "__main__":
         install_requires=[
             "Cython >= 0.29.0",
             "PyYAML >= 5.4.0",
-            "appdirs >= 1.4.0",
+            "platformdirs >= 2.4.0",
             "setuptools >= 18.0",
             "tqdm >= 4.59.0",
             "uqbar >= 0.5.7",

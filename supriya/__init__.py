@@ -2,7 +2,7 @@ import configparser
 import logging
 import pathlib
 
-import appdirs
+import platformdirs
 
 try:
     import pyximport
@@ -12,7 +12,7 @@ try:
 except ImportError:
     pass
 
-output_path = pathlib.Path(appdirs.user_cache_dir("supriya", "supriya"))
+output_path = pathlib.Path(platformdirs.user_cache_dir("supriya", "supriya"))
 if not output_path.exists():
     try:
         output_path.mkdir(parents=True, exist_ok=True)
@@ -20,8 +20,8 @@ if not output_path.exists():
         pass
 
 config = configparser.ConfigParser()
-config.read_dict({"core": {"editor": "vim", "scsynth_path": "scsynth"}})
-config_path = pathlib.Path(appdirs.user_config_dir("supriya", "supriya"))
+config.read_dict({"core": {"scsynth_path": "scsynth"}})
+config_path = pathlib.Path(platformdirs.user_config_dir("supriya", "supriya"))
 config_path = config_path / "supriya.cfg"
 if not config_path.exists():
     try:
@@ -33,7 +33,7 @@ if not config_path.exists():
 with config_path.open() as file_pointer:
     config.read_file(file_pointer)
 
-del appdirs
+del platformdirs
 del configparser
 del file_pointer
 del pathlib
