@@ -1,4 +1,5 @@
 import collections
+import threading
 from typing import Dict, List, Tuple
 
 import uqbar.graphs
@@ -7,6 +8,10 @@ import supriya.commands
 from supriya.nonrealtime.bases import SessionObject
 from supriya.system import SupriyaValueObject
 from supriya.utils import iterate_nwise
+
+
+_local = threading.local()
+_local._do_not_propagate_stack = []
 
 
 class State(SessionObject):
@@ -490,7 +495,7 @@ class DoNotPropagate:
 
     ### CLASS VARIABLES ###
 
-    _stack: List["DoNotPropagate"] = []
+    _stack: List["DoNotPropagate"] = _local._do_not_propagate_stack
 
     ### SPECIAL METHODS ###
 
