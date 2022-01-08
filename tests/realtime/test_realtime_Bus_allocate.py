@@ -1,5 +1,19 @@
+import pytest
+
 import supriya.realtime
 import supriya.synthdefs
+
+
+@pytest.fixture(autouse=True)
+def shutdown_sync_servers(shutdown_scsynth):
+    pass
+
+
+@pytest.fixture
+def server(persistent_server):
+    persistent_server.reset()
+    persistent_server.add_synthdef(supriya.assets.synthdefs.default)
+    yield persistent_server
 
 
 def test_01(server):

@@ -13,7 +13,7 @@ from supriya.scsynth import Options
 @pytest.mark.timeout(60)
 def test_boot():
     server = supriya.realtime.Server()
-    for i in range(20):
+    for i in range(5):
         assert not server.is_running
         server.boot()
         time.sleep(random.random() * 2)

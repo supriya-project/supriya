@@ -1,5 +1,19 @@
+import pytest
+
 import supriya
 from supriya.osc import OscBundle, OscMessage
+
+
+@pytest.fixture(autouse=True)
+def shutdown_sync_servers(shutdown_scsynth):
+    pass
+
+
+@pytest.fixture
+def server(persistent_server):
+    persistent_server.reset()
+    persistent_server.add_synthdef(supriya.assets.synthdefs.default)
+    yield persistent_server
 
 
 def test_synth_pause_unpause(server):
