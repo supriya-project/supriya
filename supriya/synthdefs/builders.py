@@ -1,6 +1,7 @@
 import collections
 import copy
 import inspect
+import threading
 import uuid
 from collections.abc import Sequence
 from typing import List, Tuple, Union
@@ -11,6 +12,9 @@ from supriya.enums import ParameterRate
 from supriya.system import SupriyaObject
 
 from .controls import Parameter
+
+_local = threading.local()
+_local._active_builders = []
 
 
 class SynthDefBuilder(SupriyaObject):
@@ -55,7 +59,7 @@ class SynthDefBuilder(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    _active_builders: List["SynthDefBuilder"] = []
+    _active_builders: List["SynthDefBuilder"] = _local._active_builders
 
     __slots__ = ("_name", "_parameters", "_ugens", "_uuid")
 
