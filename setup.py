@@ -40,6 +40,7 @@ if __name__ == "__main__":
                 "matplotlib >= 3.3.0",
                 "sphinx-design",
                 "sphinx-immaterial",
+                "sphinx-immaterial @ git+https://git@github.com/josiah-wolf-oberholtzer/sphinx-immaterial@main#egg=sphinx-immaterial",
                 "sphinxext-opengraph",
             ],
             "ipython": [
@@ -85,7 +86,6 @@ if __name__ == "__main__":
             "Cython >= 0.29.0",
             "PyYAML >= 5.4.0",
             "platformdirs >= 2.4.0",
-            "setuptools >= 18.0",
             "tqdm >= 4.59.0",
             "uqbar >= 0.5.7",
         ],
