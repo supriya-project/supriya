@@ -1,7 +1,7 @@
 import supriya.realtime
 
 
-def test_01():
+def test_allocate():
 
     allocator = supriya.realtime.BlockAllocator(heap_minimum=0, heap_maximum=16)
 
