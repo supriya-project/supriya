@@ -1,7 +1,7 @@
 import supriya.realtime
 
 
-def test_01(server):
+def test_allocate(server):
 
     buffer_group_one = supriya.realtime.BufferGroup(buffer_count=4)
 
