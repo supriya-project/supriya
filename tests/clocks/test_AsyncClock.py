@@ -818,10 +818,10 @@ async def test_clock_skew():
                 callback,
                 schedule_at=random.random(),
                 args=[store],
-                kwargs={"limit": 100, "delta": delta, "time_unit": TimeUnit.SECONDS},
+                kwargs={"limit": 50, "delta": delta, "time_unit": TimeUnit.SECONDS},
             )
         await clock.start()
-        await asyncio.sleep(5.0)
+        await asyncio.sleep(2.5)
         await clock.stop()
         stats = calculate_skew(store)
         print(" ".join(f"{key}: {value:f}" for key, value in stats.items()))
