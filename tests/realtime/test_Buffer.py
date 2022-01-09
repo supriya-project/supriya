@@ -1,7 +1,23 @@
+import collections
+
+import pytest
+
 import supriya.realtime
 
 
-def test_01(server):
+@pytest.fixture(autouse=True)
+def shutdown_sync_servers(shutdown_scsynth):
+    pass
+
+
+@pytest.fixture
+def server(persistent_server):
+    persistent_server.reset()
+    persistent_server.add_synthdef(supriya.assets.synthdefs.default)
+    yield persistent_server
+
+
+def test_allocate_01(server):
 
     buffer_ = supriya.realtime.Buffer()
 
@@ -36,7 +52,7 @@ def test_01(server):
     assert buffer_.server is None
 
 
-def test_02(server):
+def test_allocate_02(server):
 
     buffer_ = supriya.realtime.Buffer(buffer_group_or_index=23)
 
@@ -71,7 +87,7 @@ def test_02(server):
     assert buffer_.server is None
 
 
-def test_03(server):
+def test_allocate_03(server):
 
     buffer_a = supriya.realtime.Buffer()
     buffer_b = supriya.realtime.Buffer()
@@ -126,3 +142,45 @@ def test_03(server):
     assert buffer_b.channel_count == 2
     assert buffer_c.channel_count == 0
     assert buffer_d.channel_count == 4
+
+
+def test_get_01(server):
+    buffer_ = supriya.realtime.Buffer()
+    buffer_.allocate(server, frame_count=8, sync=True)
+    response = buffer_.get(0)
+    result = response.as_dict()
+    assert result == collections.OrderedDict([(0, 0)])
+    response = buffer_.get(0, 1, 2, 3)
+    result = response.as_dict()
+    assert result == collections.OrderedDict([(0, 0), (1, 0), (2, 0), (3, 0)])
+    response = buffer_.get(7, 6, 2, 5, 1)
+    result = response.as_dict()
+    assert result == collections.OrderedDict([(7, 0), (6, 0), (2, 0), (5, 0), (1, 0)])
+    buffer_.free()
+
+
+def test_get_02(server):
+    buffer_ = supriya.realtime.Buffer()
+    buffer_.allocate(server, frame_count=8, sync=True)
+    buffer_.set_contiguous((0, (1, 2, 3, 4, 5, 6, 7, 8)))
+    response = buffer_.get(0, 1, 2, 3, 4, 5, 6, 7)
+    result = response.as_dict()
+    assert result == collections.OrderedDict(
+        [(0, 1.0), (1, 2.0), (2, 3.0), (3, 4.0), (4, 5.0), (5, 6.0), (6, 7.0), (7, 8.0)]
+    )
+    buffer_.set((2, -1.5), (4, -2.125))
+    response = buffer_.get(7, 6, 5, 4, 3, 2, 1, 0)
+    result = response.as_dict()
+    assert result == collections.OrderedDict(
+        [
+            (7, 8.0),
+            (6, 7.0),
+            (5, 6.0),
+            (4, -2.125),
+            (3, 4.0),
+            (2, -1.5),
+            (1, 2.0),
+            (0, 1.0),
+        ]
+    )
+    buffer_.free()

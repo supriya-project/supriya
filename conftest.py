@@ -10,7 +10,7 @@ def add_libraries(doctest_namespace):
     doctest_namespace["supriya"] = supriya
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(autouse=True, scope="session")
 def shutdown_scsynth():
     scsynth.kill()
     yield

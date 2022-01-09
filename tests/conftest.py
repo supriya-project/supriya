@@ -15,7 +15,16 @@ def server():
     server = supriya.Server()
     server.latency = 0.0
     server.boot()
-    supriya.assets.synthdefs.default.allocate(server)
+    server.add_synthdef(supriya.assets.synthdefs.default)
+    yield server
+    server.quit()
+
+
+@pytest.fixture(scope="module")
+def persistent_server():
+    server = supriya.Server()
+    server.latency = 0.0
+    server.boot()
     yield server
     server.quit()
 

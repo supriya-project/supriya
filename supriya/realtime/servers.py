@@ -1091,6 +1091,7 @@ class Server(BaseServer):
         self._setup_default_groups()
         self._setup_system_synthdefs()
         self.sync()
+        self._sync_id = 0
         return self
 
     def sync(self, sync_id: Optional[int] = None) -> "Server":

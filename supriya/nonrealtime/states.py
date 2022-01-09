@@ -9,7 +9,6 @@ from supriya.nonrealtime.bases import SessionObject
 from supriya.system import SupriyaValueObject
 from supriya.utils import iterate_nwise
 
-
 _local = threading.local()
 _local._do_not_propagate_stack = []
 

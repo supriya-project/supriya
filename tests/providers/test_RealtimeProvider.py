@@ -18,6 +18,18 @@ from supriya.providers import (
 from supriya.utils import locate
 
 
+@pytest.fixture(autouse=True)
+def shutdown_sync_servers(shutdown_scsynth):
+    pass
+
+
+@pytest.fixture
+def server(persistent_server):
+    persistent_server.reset()
+    persistent_server.add_synthdef(default)
+    yield persistent_server
+
+
 def test_RealtimeProvider_init_error():
     with pytest.raises(ValueError):
         RealtimeProvider(23)
