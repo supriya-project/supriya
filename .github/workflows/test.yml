@@ -146,7 +146,22 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install packages
+    - name: Install Supriya
+      run: |
+        pip install -e .
+    - name: Install SuperCollider
+      uses: ./.github/actions/supercollider
+      with:
+        branch: ${{ env.SC_BRANCH }}
+        origin: ${{ env.SC_ORIGIN }}
+    - name: Sanity-check Supriya
+      run: |
+        python -c 'import supriya; server = supriya.Server(); server.boot(); server.quit(); exit()'
+        python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
+    - name: Install Supriya test dependencies
+      run: |
+        pip install -e .[ipython,test]
+    - name: Install additional packages
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
@@ -160,18 +175,6 @@ jobs:
         elif [ "$RUNNER_OS" == "macOS" ]; then
           brew install ffmpeg graphviz lame
         fi
-    - name: Install Supriya
-      run: |
-        pip install -e .[ipython,test]
-    - name: Install SuperCollider
-      uses: ./.github/actions/supercollider
-      with:
-        branch: ${{ env.SC_BRANCH }}
-        origin: ${{ env.SC_ORIGIN }}
-    - name: Sanity-check Supriya
-      run: |
-        python -c 'import supriya; server = supriya.Server(); server.boot(); server.quit(); exit()'
-        python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
     - name: Run Pytest
       run: pytest
-      timeout-minutes: 15
+      timeout-minutes: 10
