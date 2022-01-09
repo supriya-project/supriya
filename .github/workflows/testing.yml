@@ -1,4 +1,4 @@
-name: Testing
+name: Test
 on:
   pull_request:
     branches:
@@ -34,21 +34,74 @@ jobs:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
 
-  packaging:
-    name: Check packaging
-    needs: [cancel]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: true
-      matrix:
-        python-version: [3.9]
-        os: [ubuntu-latest]
+  docs:
+    name: Build docs
+    needs: [supercollider]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.9
+    - name: Install APT deps
+      shell: bash
+      run: |
+        export DEBIAN_FRONTEND=noninteractive
+        sudo apt-get update --yes
+        sudo apt-get install --yes \
+          espeak \
+          ffmpeg \
+          graphviz \
+          lame
+    - name: Install SuperCollider
+      uses: ./.github/actions/supercollider
+      with:
+        branch: ${{ env.SC_BRANCH }}
+        origin: ${{ env.SC_ORIGIN }}
+    - name: Install Supriya
+      run: |
+        pip install -e .[docs,ipython]
+    - name: Build docs
+      run: make docs
+
+  lint:
+    name: Lint Supriya
+    needs: [cancel]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Supriya
+      run: |
+        pip install -e .[ipython,test]
+    - name: Get Type Hints
+      run: |
+        pip install --target /tmp/typehints --no-deps uqbar
+    - name: Run Black
+      run: |
+        make black-check
+    - name: Run Flake8
+      run: |
+        make flake8
+    - name: Run Mypy
+      run: |
+        make mypy
+
+  package:
+    name: Check packaging
+    needs: [cancel]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
     - name: Build package
       run: make build
     - name: Expand package
@@ -72,71 +125,18 @@ jobs:
     - name: Sanity-check Supriya
       run: python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
 
-  install:
-    name: Install Supriya
-    needs: [cancel]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: true
-      matrix:
-        python-version: [3.8, 3.9, "3.10"]
-        os: [ubuntu-latest]
-        include:
-        - os: macos-latest
-          python-version: "3.10"
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Supriya
-      run: |
-        pip install -e .
-    - name: Sanity-check Supriya
-      run: |
-        python -c "from supriya import Server; print(Server)"
-        python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
-
-  lint:
-    name: Lint Supriya
-    needs: [install]
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        python-version: [3.9]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Supriya
-      run: |
-        pip install -e .[ipython,test]
-    - name: Get Type Hints
-      run: |
-        pip install --target /tmp/typehints --no-deps uqbar
-    - name: Run Black
-      run: |
-        make black-check
-    - name: Run Flake8
-      run: |
-        make flake8
-    - name: Run Mypy
-      run: |
-        make mypy
-
   test:
     name: Test Supriya
-    needs: [supercollider, install, packaging]
+    needs: [supercollider]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
         python-version: [3.8, 3.9]
+        include:
+        - os: macos-latest
+          python-version: 3.9
     timeout-minutes: 30
     steps:
     - uses: actions/checkout@v2
@@ -165,43 +165,7 @@ jobs:
     - name: Sanity-check Supriya
       run: |
         python -c 'import supriya; server = supriya.Server(); server.boot(); server.quit(); exit()'
+        python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
     - name: Run Pytest
       run: pytest
       timeout-minutes: 15
-
-  docs:
-    name: Build docs
-    needs: [supercollider]
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        python-version: [3.9]
-    timeout-minutes: 30
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install APT deps
-      shell: bash
-      run: |
-        export DEBIAN_FRONTEND=noninteractive
-        sudo apt-get update --yes
-        sudo apt-get install --yes \
-          espeak \
-          ffmpeg \
-          graphviz \
-          lame
-    - name: Install SuperCollider
-      uses: ./.github/actions/supercollider
-      with:
-        branch: ${{ env.SC_BRANCH }}
-        origin: ${{ env.SC_ORIGIN }}
-    - name: Install Supriya
-      run: |
-        pip install -e .[docs,ipython]
-    - name: Build docs
-      run: make docs
