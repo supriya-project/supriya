@@ -52,6 +52,7 @@ runs:
           brew install \
             cmake \
             git \
+            jack \
             libsndfile \
             qt5 \
             readline
@@ -108,7 +109,10 @@ runs:
         fi
     - name: Cleanup SuperCollider Install
       shell: bash
-      run: mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
+        fi
     - name: Setup Jack
       shell: bash
       run: |
