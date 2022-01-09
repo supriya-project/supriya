@@ -65,9 +65,9 @@ def test_no_reallocate_synthdef(server):
     assert synth_b not in server
     with server.osc_protocol.capture() as transcript:
         synth_b.allocate(server)
-    # Due to a timing quirk, we typically capture a final /status.reply
-    # so we'll omit it via [:2] subscripting
-    assert [(_.label, _.message) for _ in transcript][:2] == [
+    assert [
+        (_.label, _.message) for _ in transcript if _.message.address != "/status.reply"
+    ] == [
         ("S", OscMessage("/s_new", "test", 1001, 0, 1)),
         ("R", OscMessage("/n_go", 1001, 1, -1, 1000, 0)),
     ]
