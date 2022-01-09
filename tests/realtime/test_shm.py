@@ -1,9 +1,7 @@
-from supriya import Server
 from supriya.realtime.shm import ServerSHM
 
 
-def test():
-    server = Server().boot()
+def test(server):
     shm = ServerSHM(server.port, server.options.control_bus_channel_count)
     bus = server.add_bus()
     assert bus.get() == shm[int(bus)] == 0.0
