@@ -61,7 +61,7 @@ runs:
         fi
     - name: Ensure build directory
       shell: bash
-      run: /tmp/supercollider/build
+      run: mkdir -p /tmp/supercollider/build
     - name: Run cmake
       if: steps.cache.outputs.cache-hit != 'true'
       working-directory: /tmp/supercollider/build
