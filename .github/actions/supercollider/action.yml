@@ -101,17 +101,13 @@ runs:
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo make install
+          mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo "What should happen here?"
+          echo "PATH=/tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/Resources/:$PATH" >> $GITHUB_ENV
         else
           echo "$RUNNER_OS not supported"
           exit 1
-        fi
-    - name: Cleanup SuperCollider Install
-      shell: bash
-      run: |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
         fi
     - name: Setup Jack
       shell: bash
