@@ -25,7 +25,10 @@ jobs:
   supercollider:
     name: Build SuperCollider
     needs: [cancel]
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
     steps:
     - uses: actions/checkout@v2
     - name: Install SuperCollider
@@ -119,16 +122,14 @@ jobs:
         rm -Rf dist/
         rm -Rf supriya/
     - name: Sanity-check Supriya
-      run: ls /opt/hostedtoolcache/Python/3.9.9/x64/lib/python3.9/site-packages/supriya/
-    - name: Sanity-check Supriya
-      run: python -c "from supriya import Server; print(Server)"
-    - name: Sanity-check Supriya
-      run: python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
+      run: |
+        python -c "from supriya import Server; print(Server)"
+        python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
 
   test:
     name: Test Supriya
     needs: [supercollider]
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
