@@ -146,14 +146,14 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install Supriya
-      run: |
-        pip install -e .
     - name: Install SuperCollider
       uses: ./.github/actions/supercollider
       with:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
+    - name: Install Supriya
+      run: |
+        pip install -e .
     - name: Sanity-check Supriya
       run: |
         python -c 'import supriya; server = supriya.Server(); server.boot(); server.quit(); exit()'
