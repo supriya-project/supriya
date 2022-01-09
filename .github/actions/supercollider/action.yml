@@ -116,7 +116,9 @@ runs:
     - name: Setup Jack
       shell: bash
       run: |
-        sudo usermod -a -G audio ${USER}
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo usermod -a -G audio ${USER}
+        fi
         sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
         sleep 1
     - name: Sanity-check SuperCollider
