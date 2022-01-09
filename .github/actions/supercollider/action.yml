@@ -101,6 +101,7 @@ runs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo make install
         elif [ "$RUNNER_OS" == "macOS" ]; then
+          echo "What should happen here?"
         else
           echo "$RUNNER_OS not supported"
           exit 1
