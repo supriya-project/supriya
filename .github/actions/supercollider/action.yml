@@ -29,24 +29,31 @@ runs:
     - name: Install SuperCollider Deps
       shell: bash
       run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
         export DEBIAN_FRONTEND=noninteractive
-        sudo apt-get update --yes
-        sudo apt-get install --yes \
-          alsa-oss \
-          alsa-utils \
-          build-essential \
-          cmake \
-          jackd2 \
-          libasound2-dev \
-          libavahi-client-dev \
-          libfftw3-dev \
-          libicu-dev \
-          libjack-jackd2-dev \
-          libreadline6-dev \
-          libsndfile1-dev \
-          libudev-dev \
-          libxt-dev \
-          pkg-config
+          sudo apt-get update --yes
+          sudo apt-get install --yes \
+            alsa-oss \
+            alsa-utils \
+            build-essential \
+            cmake \
+            jackd2 \
+            libasound2-dev \
+            libavahi-client-dev \
+            libfftw3-dev \
+            libicu-dev \
+            libjack-jackd2-dev \
+            libreadline6-dev \
+            libsndfile1-dev \
+            libudev-dev \
+            libxt-dev \
+            pkg-config
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          brew install git cmake libsndfile readline qt5
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
     - name: Build SuperCollider
       if: steps.cache.outputs.cache-hit != 'true'
       working-directory: /tmp/supercollider/build
