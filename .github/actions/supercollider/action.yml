@@ -49,12 +49,17 @@ runs:
             libxt-dev \
             pkg-config
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          brew install git cmake libsndfile readline qt5
+          brew install \
+            cmake \
+            git \
+            libsndfile \
+            qt5 \
+            readline
         else
           echo "$RUNNER_OS not supported"
           exit 1
         fi
-    - name: Build SuperCollider
+    - name: Run cmake
       if: steps.cache.outputs.cache-hit != 'true'
       working-directory: /tmp/supercollider/build
       shell: bash
@@ -76,7 +81,11 @@ runs:
           echo "$RUNNER_OS not supported"
           exit 1
         fi
-        make
+    - name: Run make
+      if: steps.cache.outputs.cache-hit != 'true'
+      working-directory: /tmp/supercollider/build
+      shell: bash
+      run: make
     - name: Install SuperCollider
       shell: bash
       run: sudo make install
