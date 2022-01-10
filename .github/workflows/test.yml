@@ -157,7 +157,8 @@ jobs:
             graphviz \
             lame
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          brew install ffmpeg graphviz lame
+          brew tap homebrew-ffmpeg/ffmpeg
+          brew install homebrew-ffmpeg/ffmpeg/ffmpeg graphviz lame
         fi
     - name: Run Pytest
       run: pytest
