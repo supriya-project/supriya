@@ -1,0 +1,164 @@
+name: Test
+on:
+  pull_request:
+    branches:
+    - main
+  push:
+    branches:
+    - main
+env:
+  MYPYPATH: /tmp/typehints
+  SC_ORIGIN: https://github.com/josiah-wolf-oberholtzer/supercollider.git
+  SC_BRANCH: s-query
+
+jobs:
+
+  cancel:
+    name: Cancel previous workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+  docs:
+    name: Build docs
+    needs: [cancel]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install APT deps
+      shell: bash
+      run: |
+        export DEBIAN_FRONTEND=noninteractive
+        sudo apt-get update --yes
+        sudo apt-get install --yes \
+          espeak \
+          ffmpeg \
+          graphviz \
+          lame
+    - name: Install SuperCollider
+      uses: ./.github/actions/supercollider
+      with:
+        branch: ${{ env.SC_BRANCH }}
+        origin: ${{ env.SC_ORIGIN }}
+    - name: Install Supriya
+      run: |
+        pip install -e .[docs,ipython]
+    - name: Build docs
+      run: make docs
+
+  lint:
+    name: Lint Supriya
+    needs: [cancel]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Supriya
+      run: |
+        pip install -e .[ipython,test]
+    - name: Get Type Hints
+      run: |
+        pip install --target /tmp/typehints --no-deps uqbar
+    - name: Run Black
+      run: |
+        make black-check
+    - name: Run Flake8
+      run: |
+        make flake8
+    - name: Run Mypy
+      run: |
+        make mypy
+
+  package:
+    name: Check packaging
+    needs: [cancel]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Build package
+      run: make build
+    - name: Expand package
+      run: |
+        cd dist/
+        tar xvf *.gz
+        rm *.gz
+        mv supriya* supriya
+    - name: Install packaged supriya
+      run: |
+        cd dist/supriya
+        pip install .
+    - name: Wipe out dirs
+      run: |
+        rm -Rf dist/
+        rm -Rf supriya/
+    - name: Sanity-check Supriya
+      run: |
+        python -c "from supriya import Server; print(Server)"
+        python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
+
+  test:
+    name: Test Supriya
+    needs: [cancel]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.8, 3.9]
+        include:
+        - os: macos-latest
+          python-version: 3.9
+    timeout-minutes: 45
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install SuperCollider
+      uses: ./.github/actions/supercollider
+      with:
+        branch: ${{ env.SC_BRANCH }}
+        origin: ${{ env.SC_ORIGIN }}
+    - name: Install Supriya
+      run: |
+        pip install -e .
+    - name: Sanity-check Supriya
+      run: |
+        python -c 'import supriya; server = supriya.Server(); server.boot(); server.quit(); exit()'
+        python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
+    - name: Install Supriya test dependencies
+      run: |
+        pip install -e .[ipython,test]
+    - name: Install additional packages
+      shell: bash
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          export DEBIAN_FRONTEND=noninteractive
+          sudo apt-get update --yes
+          sudo apt-get install --yes \
+            espeak \
+            ffmpeg \
+            graphviz \
+            lame
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          brew install ffmpeg graphviz lame
+        fi
+    - name: Run Pytest
+      run: pytest
+      timeout-minutes: 10

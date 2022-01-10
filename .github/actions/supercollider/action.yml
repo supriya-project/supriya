@@ -19,7 +19,14 @@ runs:
         cd /tmp/supercollider
         mkdir build
         echo "SC_COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
-        echo "SC_ORIGIN_MD5=$(echo ${{inputs.origin}} | md5sum | head -c 7)" >> $GITHUB_ENV
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          echo "SC_ORIGIN_MD5=$(echo ${{inputs.origin}} | md5sum | head -c 7)" >> $GITHUB_ENV
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          echo "SC_ORIGIN_MD5=$(echo ${{inputs.origin}} | md5 | head -c 7)" >> $GITHUB_ENV
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
     - name: Cache SuperCollider
       id: cache
       uses: actions/cache@v2
@@ -29,25 +36,38 @@ runs:
     - name: Install SuperCollider Deps
       shell: bash
       run: |
-        export DEBIAN_FRONTEND=noninteractive
-        sudo apt-get update --yes
-        sudo apt-get install --yes \
-          alsa-oss \
-          alsa-utils \
-          build-essential \
-          cmake \
-          jackd2 \
-          libasound2-dev \
-          libavahi-client-dev \
-          libfftw3-dev \
-          libicu-dev \
-          libjack-jackd2-dev \
-          libreadline6-dev \
-          libsndfile1-dev \
-          libudev-dev \
-          libxt-dev \
-          pkg-config
-    - name: Build SuperCollider
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          export DEBIAN_FRONTEND=noninteractive
+          sudo apt-get update --yes
+          sudo apt-get install --yes \
+            alsa-oss \
+            alsa-utils \
+            build-essential \
+            cmake \
+            jackd2 \
+            libasound2-dev \
+            libavahi-client-dev \
+            libfftw3-dev \
+            libicu-dev \
+            libjack-jackd2-dev \
+            libreadline6-dev \
+            libsndfile1-dev \
+            libudev-dev \
+            libxt-dev \
+            pkg-config
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          brew install \
+            cmake \
+            git \
+            jack \
+            libsndfile \
+            qt5 \
+            readline
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
+    - name: Prep SuperCollider build
       if: steps.cache.outputs.cache-hit != 'true'
       working-directory: /tmp/supercollider/build
       shell: bash
@@ -69,18 +89,39 @@ runs:
           echo "$RUNNER_OS not supported"
           exit 1
         fi
-        make
-    - name: Install SuperCollider
-      shell: bash
-      run: sudo make install
+    - name: Build SuperCollider
+      if: steps.cache.outputs.cache-hit != 'true'
       working-directory: /tmp/supercollider/build
-    - name: Cleanup SuperCollider Install
       shell: bash
-      run: mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          make
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          cmake --build . --target install --config RelWithDebInfo
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
+    - name: Install SuperCollider
+      working-directory: /tmp/supercollider/build
+      shell: bash
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo make install
+          mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          echo "PATH=/tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/Resources/:$PATH" >> $GITHUB_ENV
+          mkdir -p "/Users/runner/Library/Application Support/SuperCollider/synthdefs"
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
     - name: Setup Jack
       shell: bash
       run: |
-        sudo usermod -a -G audio ${USER}
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo usermod -a -G audio ${USER}
+        fi
         sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
         sleep 1
     - name: Sanity-check SuperCollider

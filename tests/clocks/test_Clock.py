@@ -1,3 +1,5 @@
+import os
+import platform
 import random
 import statistics
 import time
@@ -802,5 +804,8 @@ def test_clock_skew():
         stats = calculate_skew(store)
         print(" ".join(f"{key}: {value:f}" for key, value in stats.items()))
         all_stats.append(stats)
-    threshold = clock.slop * 1.5
+    multiplier = 1.5
+    if os.environ.get("CI") == "true" and platform.system() == "Darwin":
+        multiplier = 4.0  # GHA's macOS runner is slow!
+    threshold = clock.slop * multiplier
     assert all(stats["median"] < threshold for stats in all_stats)
