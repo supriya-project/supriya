@@ -22,25 +22,9 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-  supercollider:
-    name: Build SuperCollider
-    needs: [cancel]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install SuperCollider
-      uses: ./.github/actions/supercollider
-      with:
-        branch: ${{ env.SC_BRANCH }}
-        origin: ${{ env.SC_ORIGIN }}
-
   docs:
     name: Build docs
-    needs: [supercollider]
+    needs: [cancel]
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -129,7 +113,7 @@ jobs:
 
   test:
     name: Test Supriya
-    needs: [supercollider]
+    needs: [cancel]
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
