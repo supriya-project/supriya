@@ -4,7 +4,6 @@ from collections.abc import Sequence
 import supriya.osc
 from supriya.enums import RequestId
 from supriya.querytree import QueryTreeControl, QueryTreeGroup, QueryTreeSynth
-from supriya.realtime.nodes import Group, Node
 
 from .bases import Request, Response
 
@@ -292,8 +291,6 @@ class GroupNewRequest(Request):
 
     def __init__(self, items=None):
         # TODO: Support multi-group allocation
-        import supriya.realtime
-
         Request.__init__(self)
         if items:
             if not isinstance(items, Sequence):
@@ -311,6 +308,8 @@ class GroupNewRequest(Request):
     ### PRIVATE METHODS ###
 
     def _apply_local(self, server):
+        from supriya.realtime import Group, Node
+
         for item in self.items:
             if isinstance(item.node_id, Group):
                 node_id = None
@@ -323,9 +322,7 @@ class GroupNewRequest(Request):
             else:
                 target_node = server._nodes[item.target_node_id]
             group._register_with_local_server(
-                node_id=node_id,
-                node_id_is_permanent=group.node_id_is_permanent,
-                server=server,
+                server, node_id=node_id, node_id_is_permanent=group.node_id_is_permanent
             )
             target_node._move_node(add_action=item.add_action, node=group)
 

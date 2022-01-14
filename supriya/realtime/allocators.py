@@ -1,4 +1,5 @@
 import threading
+from typing import Set
 
 from uqbar.objects import new
 
@@ -234,34 +235,22 @@ class NodeIdAllocator(SupriyaObject):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = (
-        "_freed_permanent_ids",
-        "_initial_node_id",
-        "_lock",
-        "_mask",
-        "_next_permanent_id",
-        "_temp",
-        "_client_id",
-    )
-
     ### INITIALIZER ###
 
-    def __init__(self, client_id=0, initial_node_id=1000):
-        assert client_id <= 31
-        self._initial_node_id = int(initial_node_id)
-        self._client_id = int(client_id)
+    def __init__(self, client_id: int = 0, initial_node_id: int = 1000):
+        if client_id > 31:
+            raise ValueError
+        self._initial_node_id = initial_node_id
+        self._client_id = client_id
         self._mask = self._client_id << 26
         self._temp = self._initial_node_id
         self._next_permanent_id = 1
-        self._freed_permanent_ids = set()
+        self._freed_permanent_ids: Set[int] = set()
         self._lock = threading.Lock()
 
     ### PUBLIC METHODS ###
 
-    def allocate_node_id(self, count=1):
-        x = None
+    def allocate_node_id(self, count: int = 1) -> int:
         with self._lock:
             x = self._temp
             temp = x + count
@@ -271,8 +260,7 @@ class NodeIdAllocator(SupriyaObject):
             x = x | self._mask
         return x
 
-    def allocate_permanent_node_id(self):
-        x = None
+    def allocate_permanent_node_id(self) -> int:
         with self._lock:
             if self._freed_permanent_ids:
                 x = min(self._freed_permanent_ids)
@@ -283,7 +271,7 @@ class NodeIdAllocator(SupriyaObject):
             x = x | self._mask
         return x
 
-    def free_permanent_node_id(self, node_id):
+    def free_permanent_node_id(self, node_id: int) -> None:
         with self._lock:
             node_id = node_id & 0x03FFFFFF
             if node_id < self._initial_node_id:

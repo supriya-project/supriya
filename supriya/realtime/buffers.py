@@ -2,6 +2,7 @@ import os
 import pathlib
 import tempfile
 from collections.abc import Sequence
+from os import PathLike
 
 import supriya.exceptions
 from supriya.system import SupriyaValueObject
@@ -171,7 +172,7 @@ class Buffer(ServerObject):
             self.write(file_path=file_path, header_format="wav", sample_format="int32")
             return librosa.load(file_path, mono=False, sr=None)
 
-    def __render__(self, **kwargs):
+    def __render__(self, **kwargs) -> PlayMemo:
         with tempfile.TemporaryDirectory() as temp_directory:
             file_path = pathlib.Path(temp_directory) / "tmp.wav"
             self.write(file_path=file_path, header_format="wav", sample_format="int32")
@@ -362,7 +363,7 @@ class Buffer(ServerObject):
     def allocate_from_file(
         self,
         server,
-        file_path,
+        file_path: PathLike,
         *,
         channel_indices=None,
         callback=None,

@@ -3,7 +3,6 @@ from collections.abc import Sequence
 import supriya.osc
 from supriya import AddAction
 from supriya.enums import RequestId
-from supriya.realtime.nodes import Node, Synth
 
 from .bases import Request, Response
 
@@ -89,6 +88,8 @@ class SynthNewRequest(Request):
     ### PRIVATE METHODS ###
 
     def _apply_local(self, server):
+        from supriya.realtime import Node, Synth
+
         if isinstance(self.node_id, Synth):
             node_id = None
             synth = self.node_id
@@ -100,9 +101,7 @@ class SynthNewRequest(Request):
         else:
             target_node = server._nodes[self.target_node_id]
         synth._register_with_local_server(
-            node_id=node_id,
-            node_id_is_permanent=synth.node_id_is_permanent,
-            server=server,
+            server, node_id=node_id, node_id_is_permanent=synth.node_id_is_permanent
         )
         target_node._move_node(add_action=self.add_action, node=synth)
 

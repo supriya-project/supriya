@@ -2,8 +2,10 @@ import bisect
 import collections
 import os
 import pathlib
+from os import PathLike
 from queue import PriorityQueue
 from types import MappingProxyType
+from typing import Dict, List, Optional, Set, Tuple, Type
 
 import uqbar.io
 
@@ -26,11 +28,15 @@ from supriya.commands import (
     BufferWriteRequest,
     BufferZeroRequest,
     NothingRequest,
+    Request,
     RequestBundle,
 )
 from supriya.nonrealtime.bases import SessionObject
 from supriya.nonrealtime.nodes import Synth
+from supriya.osc import OscBundle
 from supriya.querytree import QueryTreeGroup
+from supriya.synthdefs import SynthDef
+from supriya.typing import AddActionLike, CalculationRateLike
 from supriya.utils import iterate_nwise
 
 
@@ -92,7 +98,7 @@ class Session:
 
     __is_terminal_ajv_list_item__ = True
 
-    _ordered_buffer_post_alloc_request_types = (
+    _ordered_buffer_post_alloc_request_types: Tuple[Type[Request], ...] = (
         BufferReadRequest,
         BufferReadChannelRequest,
         BufferZeroRequest,
@@ -104,7 +110,7 @@ class Session:
         BufferCopyRequest,
     )
 
-    _ordered_buffer_pre_free_request_types = (
+    _ordered_buffer_pre_free_request_types: Tuple[Type[Request], ...] = (
         BufferWriteRequest,
         # supriya.commands.BufferCloseRequest,  # should be automatic
     )
@@ -116,9 +122,8 @@ class Session:
         input_bus_channel_count=None,
         output_bus_channel_count=None,
         input_=None,
-        name=None,
-        padding=None,
-        **kwargs,
+        name: Optional[str] = None,
+        padding: Optional[float] = None,
     ):
         import supriya.nonrealtime
 
@@ -127,18 +132,18 @@ class Session:
             output_bus_channel_count=output_bus_channel_count,
         )
 
-        self._active_moments = []
+        self._active_moments: List[supriya.nonrealtime.Moment] = []
         self._buffers = supriya.intervals.IntervalTree(accelerated=True)
-        self._buffers_by_seesion_id = {}
-        self._buses = collections.OrderedDict()
-        self._buses_by_session_id = {}
+        self._buffers_by_seesion_id: Dict = {}
+        self._buses: Dict = collections.OrderedDict()
+        self._buses_by_session_id: Dict = {}
         self._name = name
         self._nodes = supriya.intervals.IntervalTree(accelerated=True)
-        self._nodes_by_session_id = {}
-        self._offsets = []
+        self._nodes_by_session_id: Dict = {}
+        self._offsets: List[float] = []
         self._root_node = supriya.nonrealtime.RootNode(self)
-        self._session_ids = {}
-        self._states = {}
+        self._session_ids: Dict = {}
+        self._states: Dict = {}
         self._transcript = None
 
         if input_ and not self.is_session_like(input_):
@@ -214,18 +219,23 @@ class Session:
                 graphviz_node_one["session_id"].attach(graphviz_node_two["session_id"])
         return graph
 
-    def __render__(self, output_file_path=None, render_directory_path=None, **kwargs):
-        exit_code, output_file_path = self.render(
+    def __render__(
+        self,
+        output_file_path: Optional[PathLike] = None,
+        render_directory_path: Optional[PathLike] = None,
+        **kwargs,
+    ) -> pathlib.Path:
+        _, file_path = self.render(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
             **kwargs,
         )
-        return output_file_path
+        return file_path
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{}>".format(type(self).__name__)
 
-    def __session__(self):
+    def __session__(self) -> "Session":
         return self
 
     ### PRIVATE METHODS ###
@@ -842,14 +852,14 @@ class Session:
         del self.states[offset]
         return state
 
-    def _to_non_xrefd_osc_bundles(self, duration=None):
+    def _to_non_xrefd_osc_bundles(self, duration: Optional[float] = None):
         osc_bundles = []
         request_bundles = self._to_non_xrefd_request_bundles(duration=duration)
         for request_bundle in request_bundles:
             osc_bundles.append(request_bundle.to_osc())
         return osc_bundles
 
-    def _to_non_xrefd_request_bundles(self, duration=None):
+    def _to_non_xrefd_request_bundles(self, duration: Optional[float] = None):
         id_mapping = self._build_id_mapping()
         if self.duration == float("inf"):
             assert duration is not None and 0 < duration < float("inf")
@@ -862,8 +872,8 @@ class Session:
         bus_settings = self._collect_bus_settings(id_mapping)
         is_last_offset = False
         request_bundles = []
-        buffer_open_states = {}
-        visited_synthdefs = set()
+        buffer_open_states: Dict = {}
+        visited_synthdefs: Set[SynthDef] = set()
         for offset in offsets:
             requests = []
             if offset == duration:
@@ -891,7 +901,7 @@ class Session:
 
     ### PUBLIC METHODS ###
 
-    def at(self, offset, propagate=True):
+    def at(self, offset, propagate=True) -> "supriya.nonrealtime.Moment":
         import supriya.nonrealtime
 
         offset = float(offset)
@@ -906,13 +916,13 @@ class Session:
     @SessionObject.require_offset
     def add_buffer(
         self,
-        channel_count=None,
-        duration=None,
-        frame_count=None,
-        starting_frame=None,
-        file_path=None,
-        offset=None,
-    ):
+        channel_count: Optional[int] = None,
+        duration: Optional[float] = None,
+        frame_count: Optional[int] = None,
+        starting_frame: Optional[int] = None,
+        file_path: Optional[PathLike] = None,
+        offset: Optional[float] = None,
+    ) -> "supriya.nonrealtime.Buffer":
         import supriya.nonrealtime
 
         start_moment = self.active_moments[-1]
@@ -936,12 +946,12 @@ class Session:
     @SessionObject.require_offset
     def add_buffer_group(
         self,
-        buffer_count=1,
-        channel_count=None,
-        duration=None,
-        frame_count=None,
-        offset=None,
-    ):
+        buffer_count: int = 1,
+        channel_count: Optional[int] = None,
+        duration: Optional[float] = None,
+        frame_count: Optional[int] = None,
+        offset: Optional[float] = None,
+    ) -> "supriya.nonrealtime.BufferGroup":
         import supriya.nonrealtime
 
         start_moment = self.active_moments[-1]
@@ -961,7 +971,9 @@ class Session:
                 stop_moment.state.stop_buffers.add(buffer_)
         return buffer_group
 
-    def add_bus(self, calculation_rate=CalculationRate.CONTROL):
+    def add_bus(
+        self, calculation_rate: CalculationRateLike = CalculationRate.CONTROL
+    ) -> "supriya.nonrealtime.buses.Bus":
         import supriya.nonrealtime
 
         session_id = self._get_next_session_id("bus")
@@ -972,7 +984,11 @@ class Session:
         self._buses_by_session_id[session_id] = bus
         return bus
 
-    def add_bus_group(self, bus_count=1, calculation_rate=CalculationRate.CONTROL):
+    def add_bus_group(
+        self,
+        bus_count: int = 1,
+        calculation_rate: CalculationRateLike = CalculationRate.CONTROL,
+    ) -> "supriya.nonrealtime.buses.BusGroup":
         import supriya.nonrealtime
 
         session_id = self._get_next_session_id("bus")
@@ -988,14 +1004,24 @@ class Session:
         self._buses_by_session_id[session_id] = bus_group
         return bus_group
 
-    def add_group(self, add_action=None, duration=None, offset=None):
+    def add_group(
+        self,
+        add_action: AddActionLike = None,
+        duration: Optional[float] = None,
+        offset=None,
+    ) -> "supriya.nonrealtime.nodes.Group":
         return self.root_node.add_group(
             add_action=add_action, duration=duration, offset=offset
         )
 
     def add_synth(
-        self, add_action=None, duration=None, synthdef=None, offset=None, **synth_kwargs
-    ):
+        self,
+        add_action: AddActionLike = None,
+        duration: Optional[float] = None,
+        synthdef: Optional[SynthDef] = None,
+        offset: Optional[float] = None,
+        **synth_kwargs,
+    ) -> "supriya.nonrealtime.nodes.Synth":
         return self.root_node.add_synth(
             add_action=add_action,
             duration=duration,
@@ -1007,13 +1033,13 @@ class Session:
     @SessionObject.require_offset
     def cue_soundfile(
         self,
-        file_path,
-        channel_count=None,
-        duration=None,
-        frame_count=1024 * 32,
-        starting_frame=0,
-        offset=None,
-    ):
+        file_path: PathLike,
+        channel_count: Optional[int] = None,
+        duration: Optional[float] = None,
+        frame_count: int = 1024 * 32,
+        starting_frame: int = 0,
+        offset: Optional[float] = None,
+    ) -> "supriya.nonrealtime.buffers.Buffer":
         if isinstance(file_path, str):
             file_path = pathlib.Path(file_path)
         if isinstance(file_path, pathlib.Path):
@@ -1023,7 +1049,9 @@ class Session:
         elif isinstance(file_path, type(self)):
             channel_count = channel_count or len(file_path.audio_output_bus_group)
         elif hasattr(file_path, "__session__"):
-            channel_count = channel_count or file_path.output_bus_channel_count
+            channel_count = channel_count or getattr(
+                file_path, "output_bus_channel_count"
+            )
         buffer_ = self.add_buffer(
             channel_count=channel_count,
             duration=duration,
@@ -1039,17 +1067,22 @@ class Session:
         return buffer_
 
     @staticmethod
-    def is_session_like(expr):
+    def is_session_like(expr) -> bool:
         if hasattr(expr, "__render__"):
             return True
         elif hasattr(expr, "__session__"):
             return True
         return False
 
-    def move_node(self, node, add_action=None, offset=None):
+    def move_node(
+        self,
+        node: "supriya.nonrealtime.nodes.Node",
+        add_action: AddActionLike = None,
+        offset: Optional[float] = None,
+    ) -> None:
         self.root_node.move_node(node, add_action=add_action, offset=offset)
 
-    def rebuild_transitions(self):
+    def rebuild_transitions(self) -> None:
         for state_one, state_two in self._iterate_state_pairs(
             float("-inf"), with_node_tree=True
         ):
@@ -1058,9 +1091,9 @@ class Session:
 
     def render(
         self,
-        output_file_path=None,
+        output_file_path: Optional[PathLike] = None,
         debug=None,
-        duration=None,
+        duration: Optional[float] = None,
         header_format=HeaderFormat.AIFF,
         input_file_path=None,
         render_directory_path=None,
@@ -1069,7 +1102,7 @@ class Session:
         print_transcript=None,
         transcript_prefix=None,
         **kwargs,
-    ):
+    ) -> Tuple[int, pathlib.Path]:
         import supriya.nonrealtime
 
         duration = (duration or self.duration) or 0.0
@@ -1083,14 +1116,16 @@ class Session:
             sample_rate=sample_rate,
             transcript_prefix=transcript_prefix,
         )
-        exit_code, transcript, output_file_path = renderer.render(
+        exit_code, transcript, file_path = renderer.render(
             output_file_path, duration=duration, debug=debug, **kwargs
         )
         self._transcript = transcript
-        return exit_code, output_file_path
+        return exit_code, file_path
 
     @SessionObject.require_offset
-    def set_rand_seed(self, rand_id=0, rand_seed=0, offset=None):
+    def set_rand_seed(
+        self, rand_id: int = 0, rand_seed: int = 0, offset: Optional[float] = None
+    ) -> "supriya.nonrealtime.Synth":
         return self.add_synth(
             add_action="ADD_TO_HEAD",
             duration=0,
@@ -1101,11 +1136,11 @@ class Session:
 
     def to_lists(
         self,
-        duration=None,
+        duration: Optional[float] = None,
         header_format=HeaderFormat.AIFF,
         sample_format=SampleFormat.INT24,
-        sample_rate=44100,
-    ):
+        sample_rate: int = 44100,
+    ) -> List:
         import supriya.nonrealtime
 
         renderer = supriya.nonrealtime.SessionRenderer(
@@ -1118,11 +1153,11 @@ class Session:
 
     def to_osc_bundles(
         self,
-        duration=None,
+        duration: Optional[float] = None,
         header_format=HeaderFormat.AIFF,
         sample_format=SampleFormat.INT24,
-        sample_rate=44100,
-    ):
+        sample_rate: int = 44100,
+    ) -> List[OscBundle]:
         import supriya.nonrealtime
 
         renderer = supriya.nonrealtime.SessionRenderer(
@@ -1133,7 +1168,7 @@ class Session:
         )
         return renderer.to_osc_bundles(duration=duration)
 
-    def to_strings(self, include_controls=False, include_timespans=False):
+    def to_strings(self, include_controls=False, include_timespans=False) -> str:
         result = []
         previous_string = None
         for offset, state in sorted(self.states.items()):
@@ -1156,15 +1191,15 @@ class Session:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def active_moments(self):
+    def active_moments(self) -> List["supriya.nonrealtime.Moment"]:
         return self._active_moments
 
     @property
-    def audio_input_bus_group(self):
+    def audio_input_bus_group(self) -> "supriya.nonrealtime.AudioInputBusGroup":
         return self._audio_input_bus_group
 
     @property
-    def audio_output_bus_group(self):
+    def audio_output_bus_group(self) -> "supriya.nonrealtime.AudioOutputBusGroup":
         return self._audio_output_bus_group
 
     @property
@@ -1184,7 +1219,7 @@ class Session:
         return MappingProxyType(self._buses_by_session_id)
 
     @property
-    def duration(self):
+    def duration(self) -> float:
         duration = 0.0
         for duration in reversed(self.offsets):
             if duration < float("inf"):
@@ -1200,11 +1235,11 @@ class Session:
         return self._input
 
     @property
-    def input_bus_channel_count(self):
+    def input_bus_channel_count(self) -> int:
         return self.options.input_bus_channel_count
 
     @property
-    def name(self):
+    def name(self) -> Optional[str]:
         return self._name
 
     @property
@@ -1216,23 +1251,23 @@ class Session:
         return MappingProxyType(self._nodes_by_session_id)
 
     @property
-    def offsets(self):
+    def offsets(self) -> List[float]:
         return self._offsets
 
     @property
-    def options(self):
+    def options(self) -> scsynth.Options:
         return self._options
 
     @property
-    def output_bus_channel_count(self):
+    def output_bus_channel_count(self) -> int:
         return self.options.output_bus_channel_count
 
     @property
-    def padding(self):
+    def padding(self) -> Optional[float]:
         return self._padding
 
     @property
-    def root_node(self):
+    def root_node(self) -> "supriya.nonrealtime.RootNode":
         return self._root_node
 
     @property

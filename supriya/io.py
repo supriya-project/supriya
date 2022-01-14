@@ -4,10 +4,14 @@ import hashlib
 import pathlib
 import subprocess
 import sys
+from os import PathLike
+from typing import Optional
 
 from uqbar.graphs import Grapher
 
 import supriya
+
+from .typing import SupportsRender
 
 
 @dataclasses.dataclass(frozen=True)
@@ -15,11 +19,20 @@ class PlayMemo:
     contents: bytes
     suffix: str
 
-    def __render__(self, render_directory_path=None, **kwargs):
-        hexdigest = hashlib.sha1(self.contents).hexdigest()
-        file_path = (
-            render_directory_path or supriya.output_path
-        ) / f"audio-{hexdigest}{self.suffix}"
+    def __render__(
+        self,
+        output_file_path: Optional[PathLike] = None,
+        render_directory_path: Optional[PathLike] = None,
+        **kwargs,
+    ) -> pathlib.Path:
+        if output_file_path is None:
+            hexdigest = hashlib.sha1(self.contents).hexdigest()
+            file_name = f"audio-{hexdigest}{self.suffix}"
+            file_path = (
+                pathlib.Path(render_directory_path or supriya.output_path) / file_name
+            )
+        else:
+            file_path = pathlib.Path(output_file_path)
         file_path.write_bytes(self.contents)
         return file_path
 
@@ -103,7 +116,7 @@ def graph(graphable, format_="pdf", layout="dot"):
     )()
 
 
-def play(renderable, **kwargs):
+def play(renderable: SupportsRender, **kwargs):
     return Player(renderable, **kwargs)()
 
 
@@ -111,7 +124,12 @@ def plot(plottable, format_="png", **kwargs):
     return Plotter(plottable, format_=format_, **kwargs)()
 
 
-def render(renderable, output_file_path=None, render_directory_path=None, **kwargs):
+def render(
+    renderable: SupportsRender,
+    output_file_path: Optional[PathLike] = None,
+    render_directory_path: Optional[PathLike] = None,
+    **kwargs,
+):
     return renderable.__render__(
         output_file_path=output_file_path,
         render_directory_path=render_directory_path,

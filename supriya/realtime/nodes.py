@@ -2,24 +2,25 @@ import abc
 import pathlib
 import tempfile
 from collections.abc import Sequence
-from typing import Tuple, cast
+from typing import Optional, Tuple, cast
 
 import uqbar.graphs
 import uqbar.strings
 from uqbar.containers import UniqueTreeList, UniqueTreeNode
 from uqbar.objects import new
 
+import supriya
 from supriya.enums import AddAction, NodeAction
 from supriya.exceptions import ServerOffline
 
-from .bases import ServerObject
+from ..synthdefs.synthdefs import SynthDef
+from ..typing import AddActionLike
+from .interfaces import GroupInterface, SynthInterface  # noqa
 
 
-class Node(ServerObject, UniqueTreeNode):
+class Node(UniqueTreeNode):
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_is_paused", "_name", "_node_id", "_node_id_is_permanent", "_parent")
 
     _valid_add_actions: Tuple[int, ...] = ()
 
@@ -27,11 +28,11 @@ class Node(ServerObject, UniqueTreeNode):
 
     @abc.abstractmethod
     def __init__(self, name=None, node_id_is_permanent=False):
-        ServerObject.__init__(self)
         UniqueTreeNode.__init__(self, name=name)
         self._is_paused = False
         self._node_id = None
         self._node_id_is_permanent = bool(node_id_is_permanent)
+        self._server = None
 
     ### SPECIAL METHODS ###
 
@@ -132,9 +133,6 @@ class Node(ServerObject, UniqueTreeNode):
         node.append(group)
         return node
 
-    def _as_node_target(self):
-        return self
-
     def _cache_control_interface(self):
         return self._control_interface.as_dict()
 
@@ -224,7 +222,10 @@ class Node(ServerObject, UniqueTreeNode):
             target_node._unregister_with_local_server()
 
     def _register_with_local_server(
-        self, node_id=None, node_id_is_permanent=False, server=None
+        self,
+        server: "supriya.realtime.servers.Server",
+        node_id: Optional[int] = None,
+        node_id_is_permanent: bool = False,
     ):
         id_allocator = server.node_id_allocator
         if node_id is None:
@@ -234,7 +235,8 @@ class Node(ServerObject, UniqueTreeNode):
                 node_id = server.node_id_allocator.allocate_node_id()
         else:
             node_id = int(node_id)
-        ServerObject.allocate(self, server=server)
+        if not self.is_allocated or self.server is not server:
+            self._server = server
         self._node_id = node_id
         self._node_id_is_permanent = bool(node_id_is_permanent)
         self._server._nodes[self._node_id] = self
@@ -275,12 +277,12 @@ class Node(ServerObject, UniqueTreeNode):
                 self.server.node_id_allocator.free_permanent_node_id(self.node_id)
         self._node_id = None
         self._node_id_is_permanent = None
-        ServerObject.free(self)
+        self._server = None
         return node_id
 
     ### PUBLIC METHODS ###
 
-    def add_group(self, add_action: int = None) -> "Group":
+    def add_group(self, add_action: AddActionLike = None) -> "Group":
         """
         Add a group relative to this node via ``add_action``.
 
@@ -311,7 +313,12 @@ class Node(ServerObject, UniqueTreeNode):
         group.allocate(add_action=add_action, target_node=self)
         return group
 
-    def add_synth(self, synthdef=None, add_action: int = None, **kwargs) -> "Synth":
+    def add_synth(
+        self,
+        synthdef: Optional[SynthDef] = None,
+        add_action: AddActionLike = None,
+        **kwargs,
+    ) -> "Synth":
         """
         Add a synth relative to this node via ``add_action``.
 
@@ -343,18 +350,18 @@ class Node(ServerObject, UniqueTreeNode):
         synth.allocate(add_action=add_action, target_node=self)
         return synth
 
-    def free(self):
+    def free(self) -> "Node":
         import supriya.commands
 
         self._set_parent(None)
         server = self.server
-        if self.node_id is not None and server.is_running:
+        if self.node_id is not None and server is not None and server.is_running:
             node_id = self._unregister_with_local_server()
             node_free_request = supriya.commands.NodeFreeRequest(node_ids=(node_id,))
             node_free_request.communicate(server=server, sync=False)
         return self
 
-    def move_node(self, node: "Node", add_action: int = None) -> "Node":
+    def move_node(self, node: "Node", add_action: AddActionLike = None) -> "Node":
         """
         Move ``node`` relative to this node via ``add_action``.
 
@@ -473,22 +480,26 @@ class Node(ServerObject, UniqueTreeNode):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def is_allocated(self):
+    def is_allocated(self) -> bool:
         if self.server is not None:
             return self in self.server
         return False
 
     @property
-    def is_paused(self):
+    def is_paused(self) -> bool:
         return self._is_paused
 
     @property
-    def node_id(self):
+    def node_id(self) -> Optional[int]:
         return self._node_id
 
     @property
-    def node_id_is_permanent(self):
+    def node_id_is_permanent(self) -> bool:
         return self._node_id_is_permanent
+
+    @property
+    def server(self) -> Optional["supriya.realtime.servers.Server"]:
+        return self._server
 
 
 class Group(Node, UniqueTreeList):
@@ -522,8 +533,6 @@ class Group(Node, UniqueTreeList):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_children", "_control_interface", "_named_children")
-
     _valid_add_actions: Tuple[int, ...] = (
         AddAction.ADD_TO_HEAD,
         AddAction.ADD_TO_TAIL,
@@ -535,9 +544,7 @@ class Group(Node, UniqueTreeList):
     ### INITIALIZER ###
 
     def __init__(self, children=None, name=None, node_id_is_permanent=False):
-        import supriya.realtime
-
-        self._control_interface = supriya.realtime.GroupInterface(client=self)
+        self._control_interface = GroupInterface(client=self)
         Node.__init__(self, name=name, node_id_is_permanent=node_id_is_permanent)
         UniqueTreeList.__init__(self, children=children, name=name)
 
@@ -614,8 +621,6 @@ class Group(Node, UniqueTreeList):
 
     @staticmethod
     def _iterate_setitem_expr(group, expr, start=0):
-        import supriya.realtime
-
         if not start or not group:
             outer_target_node = group
         else:
@@ -628,10 +633,7 @@ class Group(Node, UniqueTreeList):
             outer_node_was_allocated = outer_node.is_allocated
             yield outer_node, outer_target_node, outer_add_action
             outer_target_node = outer_node
-            if (
-                isinstance(outer_node, supriya.realtime.Group)
-                and not outer_node_was_allocated
-            ):
+            if isinstance(outer_node, Group) and not outer_node_was_allocated:
                 for (
                     inner_node,
                     inner_target_node,
@@ -641,7 +643,6 @@ class Group(Node, UniqueTreeList):
 
     def _collect_requests_and_synthdefs(self, expr, server, start=0):
         import supriya.commands
-        import supriya.realtime
 
         nodes = set()
         paused_nodes = set()
@@ -661,7 +662,7 @@ class Group(Node, UniqueTreeList):
                     )
                 requests.append(request)
             else:
-                if isinstance(node, supriya.realtime.Group):
+                if isinstance(node, Group):
                     request = supriya.commands.GroupNewRequest(
                         items=[
                             supriya.commands.GroupNewRequest.Item(
@@ -693,7 +694,6 @@ class Group(Node, UniqueTreeList):
         # TODO: Consolidate this with Group.allocate()
         # TODO: Perform tree mutations via command apply methods, not here
         import supriya.commands
-        import supriya.realtime
 
         old_nodes = self._children[start:stop]
         self._children.__delitem__(slice(start, stop))
@@ -734,13 +734,11 @@ class Group(Node, UniqueTreeList):
         return Node._unregister_with_local_server(self)
 
     def _validate(self, expr):
-        import supriya.realtime
-
         assert all(isinstance(_, supriya.realtime.Node) for _ in expr)
         parentage = self.parentage
         for x in expr:
-            assert isinstance(x, supriya.realtime.Node)
-            if isinstance(x, supriya.realtime.Group):
+            assert isinstance(x, Node)
+            if isinstance(x, Group):
                 assert x not in parentage
 
     ### PUBLIC METHODS ###
@@ -750,7 +748,6 @@ class Group(Node, UniqueTreeList):
     ):
         # TODO: Consolidate this with Group.allocate()
         import supriya.commands
-        import supriya.realtime
 
         if self.is_allocated:
             return
@@ -783,13 +780,13 @@ class Group(Node, UniqueTreeList):
         Node.free(self)
         return self
 
-    def prepend(self, expr):
+    def prepend(self, expr: Node):
         self[0:0] = [expr]
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def controls(self):
+    def controls(self) -> GroupInterface:
         return self._control_interface
 
 
@@ -851,24 +848,23 @@ class Synth(Node):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_control_interface", "_synthdef")
-
     _valid_add_actions = (AddAction.ADD_BEFORE, AddAction.ADD_AFTER, AddAction.REPLACE)
 
     ### INITIALIZER ###
 
-    def __init__(self, synthdef=None, name=None, node_id_is_permanent=False, **kwargs):
-        import supriya.assets.synthdefs
-        import supriya.realtime
-        import supriya.synthdefs
-
-        Node.__init__(self, name=name, node_id_is_permanent=node_id_is_permanent)
+    def __init__(
+        self,
+        synthdef: Optional[SynthDef] = None,
+        name=None,
+        node_id_is_permanent=False,
+        **kwargs,
+    ):
         synthdef = synthdef or supriya.assets.synthdefs.default
-        assert isinstance(synthdef, supriya.synthdefs.SynthDef)
+        if not isinstance(synthdef, SynthDef):
+            raise ValueError(synthdef)
+        Node.__init__(self, name=name, node_id_is_permanent=node_id_is_permanent)
         self._synthdef = synthdef
-        self._control_interface = supriya.realtime.SynthInterface(
-            client=self, synthdef=self._synthdef
-        )
+        self._control_interface = SynthInterface(client=self, synthdef=self._synthdef)
         self._control_interface._set(**kwargs)
 
     ### SPECIAL METHODS ###
@@ -942,7 +938,6 @@ class Synth(Node):
         **kwargs,
     ):
         import supriya.commands
-        import supriya.realtime
 
         if self.is_allocated:
             return
@@ -980,19 +975,17 @@ class Synth(Node):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def controls(self):
+    def controls(self) -> SynthInterface:
         return self._control_interface
 
     @property
-    def synthdef(self):
+    def synthdef(self) -> SynthDef:
         return self._synthdef
 
 
 class RootNode(Group):
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ()
 
     _valid_add_actions: Tuple[int, ...] = (AddAction.ADD_TO_HEAD, AddAction.ADD_TO_TAIL)
 
@@ -1022,15 +1015,18 @@ class RootNode(Group):
     def free(self):
         pass
 
-    def run(self):
+    def pause(self):
+        pass
+
+    def unpause(self):
         pass
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def node_id(self):
+    def node_id(self) -> int:
         return 0
 
     @property
-    def parent(self):
+    def parent(self) -> None:
         return None

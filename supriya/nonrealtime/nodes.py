@@ -6,11 +6,12 @@ import uqbar.graphs
 from uqbar.objects import new
 
 import supriya  # noqa
-import supriya.realtime
 from supriya.commands import GroupNewRequest, SynthNewRequest
 from supriya.enums import AddAction, ParameterRate
 from supriya.nonrealtime.bases import SessionObject
 from supriya.nonrealtime.states import NodeTransition, State
+from supriya.synthdefs import SynthDef
+from supriya.typing import AddActionLike
 
 
 class Node(SessionObject):
@@ -20,18 +21,16 @@ class Node(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_duration", "_events", "_session", "_session_id", "_start_offset")
-
     _valid_add_actions: Tuple[int, ...] = ()
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        session,
+        session: "supriya.nonrealtime.Session",
         session_id: int,
-        duration: float = None,
-        start_offset: float = None,
+        duration: Optional[float] = None,
+        start_offset: Optional[float] = None,
     ) -> None:
         SessionObject.__init__(self, session)
         self._session_id = int(session_id)
@@ -74,7 +73,7 @@ class Node(SessionObject):
 
     ### PRIVATE METHODS ###
 
-    def _add_node(self, node: "Node", add_action: int) -> "Node":
+    def _add_node(self, node: "Node", add_action: AddActionLike) -> "Node":
         state = self.session._find_state_at(node.start_offset, clone_if_missing=True)
         state.start_nodes.add(node)
         if node not in state.nodes_to_children:
@@ -271,7 +270,10 @@ class Node(SessionObject):
 
     @SessionObject.require_offset
     def add_group(
-        self, add_action: int = None, duration: float = None, offset: float = None
+        self,
+        add_action: AddActionLike = None,
+        duration: Optional[float] = None,
+        offset: Optional[float] = None,
     ) -> "supriya.nonrealtime.Group":
         import supriya.nonrealtime
 
@@ -290,12 +292,12 @@ class Node(SessionObject):
     @SessionObject.require_offset
     def add_synth(
         self,
-        add_action: int = None,
-        duration: float = None,
-        synthdef=None,
-        offset: float = None,
+        add_action: AddActionLike = None,
+        duration: Optional[float] = None,
+        synthdef: Optional[SynthDef] = None,
+        offset: Optional[float] = None,
         **synth_kwargs,
-    ) -> "supriya.nonrealtime.Synth":
+    ) -> "Synth":
         import supriya.assets.synthdefs
         import supriya.nonrealtime
 
@@ -321,7 +323,10 @@ class Node(SessionObject):
 
     @SessionObject.require_offset
     def move_node(
-        self, node: "Node", add_action: int = None, offset: float = None
+        self,
+        node: "Node",
+        add_action: AddActionLike = None,
+        offset: Optional[float] = None,
     ) -> "Node":
         import supriya.nonrealtime
 
@@ -437,7 +442,7 @@ class Node(SessionObject):
         self,
         split_occupiers: bool = True,
         split_traversers: bool = True,
-        offset: float = None,
+        offset: Optional[float] = None,
     ) -> List["Node"]:
         if offset is None:
             raise ValueError
@@ -456,7 +461,7 @@ class Node(SessionObject):
 
     @SessionObject.require_offset
     def inspect_children(
-        self, offset: float = None
+        self, offset: Optional[float] = None
     ) -> Tuple[
         Tuple["Node", ...],
         Tuple["Node", ...],
@@ -503,7 +508,7 @@ class Node(SessionObject):
         )
 
     @SessionObject.require_offset
-    def get_parent(self, offset: float = None) -> Optional["Node"]:
+    def get_parent(self, offset: Optional[float] = None) -> Optional["Node"]:
         state = self.session._find_state_at(offset, clone_if_missing=True)
         if not state.nodes_to_children:
             state = self.session._find_state_before(state.offset, True)
@@ -512,7 +517,7 @@ class Node(SessionObject):
         return state.nodes_to_parents.get(self)
 
     @SessionObject.require_offset
-    def get_parentage(self, offset: float = None) -> List["Node"]:
+    def get_parentage(self, offset: Optional[float] = None) -> List["Node"]:
         state = self.session._find_state_at(offset, clone_if_missing=True)
         if not state.nodes_to_children:
             state = self.session._find_state_before(state.offset, True)
@@ -552,8 +557,6 @@ class Group(Node):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
-
     _valid_add_actions: Tuple[int, ...] = (
         AddAction.ADD_TO_HEAD,
         AddAction.ADD_TO_TAIL,
@@ -591,7 +594,7 @@ class Group(Node):
     ### PUBLIC METHODS ###
 
     @SessionObject.require_offset
-    def get_children(self, offset: float = None) -> List["Node"]:
+    def get_children(self, offset: Optional[float] = None) -> List["Node"]:
         state = self.session._find_state_at(offset, clone_if_missing=True)
         if not state.nodes_to_children:
             state = self.session._find_state_before(state.offset, True)
@@ -607,8 +610,6 @@ class Synth(Node):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_synthdef", "_synth_kwargs")
-
     _valid_add_actions = (AddAction.ADD_BEFORE, AddAction.ADD_AFTER)
 
     ### INITIALIZER ###
@@ -617,9 +618,9 @@ class Synth(Node):
         self,
         session,
         session_id: int,
-        duration: float = None,
-        synthdef=None,
-        start_offset: float = None,
+        duration: Optional[float] = None,
+        synthdef: Optional[SynthDef] = None,
+        start_offset: Optional[float] = None,
         **synth_kwargs,
     ) -> None:
         if synthdef is None:
@@ -724,11 +725,11 @@ class Synth(Node):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def synthdef(self):
+    def synthdef(self) -> SynthDef:
         return self._synthdef
 
     @property
-    def synth_kwargs(self):
+    def synth_kwargs(self) -> Dict[str, Any]:
         return self._synth_kwargs.copy()
 
 
@@ -739,13 +740,11 @@ class RootNode(Group):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
-
     _valid_add_actions: Tuple[int, ...] = (AddAction.ADD_TO_HEAD, AddAction.ADD_TO_TAIL)
 
     ### INITIALIZER ###
 
-    def __init__(self, session):
+    def __init__(self, session: "supriya.nonrealtime.Session"):
         Group.__init__(
             self,
             session=session,
@@ -756,19 +755,19 @@ class RootNode(Group):
 
     ### SPECIAL METHODS ###
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "root"
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def start_offset(self):
+    def start_offset(self) -> float:
         return float("-inf")
 
     @property
-    def stop_offset(self):
+    def stop_offset(self) -> float:
         return float("inf")
 
     @property
-    def duration(self):
+    def duration(self) -> float:
         return float("inf")
