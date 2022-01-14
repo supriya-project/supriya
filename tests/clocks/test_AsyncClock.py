@@ -1,5 +1,7 @@
 import asyncio
 import logging
+import os
+import platform
 import random
 import statistics
 
@@ -826,5 +828,8 @@ async def test_clock_skew():
         stats = calculate_skew(store)
         print(" ".join(f"{key}: {value:f}" for key, value in stats.items()))
         all_stats.append(stats)
-    threshold = clock.slop * 4.0
+    multiplier = 4.0
+    if os.environ.get("CI") == "true" and platform.system() == "Darwin":
+        multiplier = 6.0  # GHA's macOS runner is slow!
+    threshold = clock.slop * multiplier
     assert all(stats["median"] < threshold for stats in all_stats)
