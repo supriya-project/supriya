@@ -1,7 +1,10 @@
+from typing import Optional, Tuple
+
 import supriya.exceptions
 from supriya import CalculationRate
 from supriya.system import SupriyaValueObject
 
+from ..typing import CalculationRateLike
 from .bases import ServerObject
 
 # TODO: Reimplement Bus/BusGroup to stress "leasing" model
@@ -41,19 +44,12 @@ class Bus(ServerObject):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = (
-        "_bus_group",
-        "_bus_id",
-        "_bus_id_was_set_manually",
-        "_calculation_rate",
-    )
-
     ### INITIALIZER ###
 
     def __init__(
-        self, bus_group_or_index=None, calculation_rate=CalculationRate.CONTROL
+        self,
+        bus_group_or_index: Optional[int] = None,
+        calculation_rate: CalculationRateLike = CalculationRate.CONTROL,
     ):
         ServerObject.__init__(self)
         bus_group = None
@@ -69,16 +65,23 @@ class Bus(ServerObject):
         self._bus_id = bus_id
         if calculation_rate is None:
             calculation_rate = "control"
-        calculation_rate = CalculationRate.from_expr(calculation_rate)
-        assert calculation_rate in (CalculationRate.AUDIO, CalculationRate.CONTROL)
-        self._calculation_rate = calculation_rate
+        self._calculation_rate = CalculationRate.from_expr(calculation_rate)
+        if self._calculation_rate not in (
+            CalculationRate.AUDIO,
+            CalculationRate.CONTROL,
+        ):
+            raise ValueError(calculation_rate)
 
     ### SPECIAL METHODS ###
 
-    def __float__(self):
+    def __float__(self) -> float:
+        if self.bus_id is None:
+            raise supriya.exceptions.BusNotAllocated
         return float(self.bus_id)
 
-    def __int__(self):
+    def __int__(self) -> int:
+        if self.bus_id is None:
+            raise supriya.exceptions.BusNotAllocated
         return int(self.bus_id)
 
     def __repr__(self):
@@ -92,7 +95,7 @@ class Bus(ServerObject):
             self.calculation_rate.name.lower(),
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Gets map symbol representation of bus.
 
@@ -134,9 +137,9 @@ class Bus(ServerObject):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, server, *, sync=False):
+    def allocate(self, server: "supriya.realtime.servers.Server") -> "Bus":
         if self.bus_group is not None:
-            return
+            return self
         if self.is_allocated:
             raise supriya.exceptions.BusAlreadyAllocated
         ServerObject.allocate(self, server=server)
@@ -149,11 +152,9 @@ class Bus(ServerObject):
                 ServerObject.free(self)
                 raise ValueError
             self._bus_id = bus_id
-        if sync:
-            self.server.sync()
         return self
 
-    def free(self):
+    def free(self) -> "Bus":
         if not self.is_allocated:
             raise supriya.exceptions.BusNotAllocated
         if not self._bus_id_was_set_manually:
@@ -165,9 +166,8 @@ class Bus(ServerObject):
         ServerObject.free(self)
         return self
 
-    def get(self, completion_callback=None):
+    def get(self, completion_callback=None) -> float:
         import supriya.commands
-        import supriya.realtime
 
         if not self.is_allocated:
             raise supriya.exceptions.BusNotAllocated
@@ -181,9 +181,8 @@ class Bus(ServerObject):
         value = response[0].bus_value
         return value
 
-    def set(self, value):
+    def set(self, value: float) -> None:
         import supriya.commands
-        import supriya.realtime
 
         if not self.is_allocated:
             raise supriya.exceptions.BusNotAllocated
@@ -197,11 +196,11 @@ class Bus(ServerObject):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def bus_group(self):
+    def bus_group(self) -> Optional["BusGroup"]:
         return self._bus_group
 
     @property
-    def bus_id(self):
+    def bus_id(self) -> Optional[int]:
         if self._bus_group is not None:
             if self._bus_group.bus_id is not None:
                 group_id = self._bus_group.bus_id
@@ -211,17 +210,17 @@ class Bus(ServerObject):
         return self._bus_id
 
     @property
-    def calculation_rate(self):
+    def calculation_rate(self) -> CalculationRate:
         return self._calculation_rate
 
     @property
-    def is_allocated(self):
+    def is_allocated(self) -> bool:
         if self.bus_group is not None:
             return self.bus_group.is_allocated
         return self.server is not None
 
     @property
-    def map_symbol(self):
+    def map_symbol(self) -> str:
         if self.bus_id is None:
             raise supriya.exceptions.BusNotAllocated
         if self.calculation_rate == CalculationRate.AUDIO:
@@ -232,17 +231,15 @@ class Bus(ServerObject):
         return map_symbol
 
     @property
-    def server(self):
+    def server(self) -> Optional["supriya.realtime.servers.Server"]:
         if self.bus_group is not None:
             return self.bus_group.server
         return self._server
 
     @property
-    def value(self):
-        if self.is_allocated:
-            if self.calculation_rate == CalculationRate.CONTROL:
-                proxy = self.server._get_control_bus_proxy(self.bus_id)
-                return proxy.value
+    def value(self) -> Optional[float]:
+        if self.server is not None and self.calculation_rate == CalculationRate.CONTROL:
+            return self.server._get_control_bus_proxy(self.bus_id).value
         return None
 
 
@@ -296,37 +293,37 @@ class BusGroup(ServerObject):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_bus_id", "_buses", "_calculation_rate")
-
     ### INITIALIZER ###
 
     def __init__(
         self, bus_count=1, calculation_rate=CalculationRate.CONTROL, *, bus_id=None
     ):
         ServerObject.__init__(self)
-        calculation_rate = CalculationRate.from_expr(calculation_rate)
-        assert calculation_rate in (CalculationRate.AUDIO, CalculationRate.CONTROL)
-        self._calculation_rate = calculation_rate
-        bus_count = int(bus_count)
-        assert 0 < bus_count
+        self._calculation_rate = CalculationRate.from_expr(calculation_rate)
+        if self._calculation_rate not in (
+            CalculationRate.AUDIO,
+            CalculationRate.CONTROL,
+        ):
+            raise ValueError(self._calculation_rate)
+        if (bus_count := int(bus_count)) <= 0:
+            raise ValueError(bus_count)
         self._buses = tuple(
             Bus(bus_group_or_index=self, calculation_rate=self.calculation_rate)
             for _ in range(bus_count)
         )
-        assert isinstance(bus_id, (type(None), int))
+        if not isinstance(bus_id, (type(None), int)):
+            raise ValueError(bus_id)
         self._bus_id = bus_id
 
     ### SPECIAL METHODS ###
 
-    def __contains__(self, item):
+    def __contains__(self, item) -> bool:
         """
         Test if a bus belongs to the bus group.
 
         ::
 
-            >>> bus_group = supriya.BusGroup.control(4)
+            >>> bus_group = supriya.BusGroup(4, "control")
             >>> bus_group[0] in bus_group
             True
 
@@ -340,17 +337,19 @@ class BusGroup(ServerObject):
         # TODO: Should this handle allocated buses that match by ID?
         return self.buses.__contains__(item)
 
-    def __float__(self):
+    def __float__(self) -> float:
+        if self.bus_id is None:
+            raise supriya.exceptions.BusNotAllocated
         return float(self.bus_id)
 
-    def __getitem__(self, item):
+    def __getitem__(self, item: int) -> Bus:
         """
         Get ``item`` in bus group.
 
         ::
 
             >>> server = supriya.Server().boot()
-            >>> bus_group = supriya.BusGroup.control(4).allocate(server)
+            >>> bus_group = supriya.BusGroup(4, "control").allocate(server)
             >>> bus_group[0]
             <+ Bus: 0 (control)>
 
@@ -374,28 +373,27 @@ class BusGroup(ServerObject):
                 bus_group._server = self.server
             return bus_group
 
-    def __int__(self):
+    def __int__(self) -> int:
+        if self.bus_id is None:
+            raise supriya.exceptions.BusNotAllocated
         return int(self.bus_id)
 
     def __iter__(self):
         return iter(self.buses)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._buses)
 
-    def __repr__(self):
-        bus_id = self.bus_id
-        if bus_id is None:
-            bus_id = "???"
+    def __repr__(self) -> str:
         return "<{} {}{{{}}}: {} ({})>".format(
             "+" if self.is_allocated else "-",
             type(self).__name__,
             len(self),
-            bus_id,
+            self.bus_id if self.bus_id is not None else "???",
             self.calculation_rate.name.lower(),
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Gets map symbol representation of bus group.
 
@@ -420,7 +418,7 @@ class BusGroup(ServerObject):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, server):
+    def allocate(self, server: "supriya.realtime.servers.Server") -> "BusGroup":
         if self.is_allocated:
             raise supriya.exceptions.BusAlreadyAllocated
         ServerObject.allocate(self, server=server)
@@ -434,15 +432,7 @@ class BusGroup(ServerObject):
         self._bus_id = bus_id
         return self
 
-    @classmethod
-    def audio(cls, bus_count=1):
-        return cls(bus_count=bus_count, calculation_rate=CalculationRate.AUDIO)
-
-    @classmethod
-    def control(cls, bus_count=1):
-        return cls(bus_count=bus_count, calculation_rate=CalculationRate.CONTROL)
-
-    def fill(self, value):
+    def fill(self, value: float):
         """
         Fill buses in bus group with ``value``.
 
@@ -490,9 +480,9 @@ class BusGroup(ServerObject):
         )
         request.communicate(server=self.server, sync=False)
 
-    def free(self):
+    def free(self) -> "BusGroup":
         if not self.is_allocated:
-            return
+            return self
         allocator = Bus._get_allocator(
             calculation_rate=self.calculation_rate, server=self.server
         )
@@ -502,14 +492,14 @@ class BusGroup(ServerObject):
         ServerObject.free(self)
         return self
 
-    def get(self):
+    def get(self) -> Tuple[float, ...]:
         """
         Get bus group values.
 
         ::
 
             >>> server = supriya.Server().boot()
-            >>> bus_group = supriya.BusGroup().control(4).allocate(server)
+            >>> bus_group = supriya.BusGroup(4, "control").allocate(server)
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)
 
@@ -529,17 +519,17 @@ class BusGroup(ServerObject):
         value = response[0].bus_values
         return value
 
-    def index(self, item):
+    def index(self, item) -> int:
         return self.buses.index(item)
 
-    def set(self, *values):
+    def set(self, *values: float) -> None:
         """
         Set bus group values.
 
         ::
 
             >>> server = supriya.Server().boot()
-            >>> bus_group = supriya.BusGroup.control(4).allocate(server)
+            >>> bus_group = supriya.BusGroup(4, "control").allocate(server)
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)
 
@@ -566,23 +556,23 @@ class BusGroup(ServerObject):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def bus_id(self):
+    def bus_id(self) -> Optional[int]:
         return self._bus_id
 
     @property
-    def buses(self):
+    def buses(self) -> Tuple[Bus, ...]:
         return self._buses
 
     @property
-    def calculation_rate(self):
+    def calculation_rate(self) -> CalculationRate:
         return self._calculation_rate
 
     @property
-    def is_allocated(self):
+    def is_allocated(self) -> bool:
         return self.server is not None
 
     @property
-    def map_symbol(self):
+    def map_symbol(self) -> str:
         if self.bus_id is None:
             raise supriya.exceptions.BusNotAllocated
         if self.calculation_rate == CalculationRate.AUDIO:
@@ -604,45 +594,43 @@ class BusProxy(SupriyaValueObject):
 
     ### INITIALIZER ###
 
-    def __init__(self, bus_id=None, calculation_rate=None, server=None, value=0.0):
-        import supriya.realtime
-        import supriya.synthdefs
-
-        bus_id = int(bus_id)
-        assert 0 <= bus_id
-        calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
-        assert isinstance(server, supriya.realtime.Server)
-        self._bus_id = int(bus_id)
-        self._calculation_rate = calculation_rate
+    def __init__(
+        self,
+        *,
+        bus_id: int,
+        calculation_rate: CalculationRateLike,
+        server: "supriya.realtime.servers.Server",
+        value: float = 0.0,
+    ):
+        self._bus_id = bus_id
+        self._calculation_rate = CalculationRate.from_expr(calculation_rate)
         self._server = server
-        self._value = value or 0.0
+        self._value = value
 
     ### SPECIAL METHODS ###
 
-    def __float__(self):
+    def __float__(self) -> float:
         return float(self.bus_id)
 
-    def __int__(self):
+    def __int__(self) -> int:
         return int(self.bus_id)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.map_symbol
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def bus_id(self):
+    def bus_id(self) -> int:
         return self._bus_id
 
     @property
-    def calculation_rate(self):
+    def calculation_rate(self) -> CalculationRate:
         return self._calculation_rate
 
     @property
-    def map_symbol(self):
-        import supriya.synthdefs
-
-        if self.calculation_rate == supriya.CalculationRate.AUDIO:
+    def map_symbol(self) -> str:
+        if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = "a"
         else:
             map_symbol = "c"
@@ -650,11 +638,11 @@ class BusProxy(SupriyaValueObject):
         return map_symbol
 
     @property
-    def server(self):
+    def server(self) -> "supriya.realtime.servers.Server":
         return self._server
 
     @property
-    def value(self):
+    def value(self) -> float:
         return self._value
 
 
@@ -677,10 +665,6 @@ class AudioInputBusGroup(BusGroup):
         True
 
     """
-
-    ### CLASS VARIABLES ###
-
-    __slots__ = ()
 
     ### INITIALIZER ###
 

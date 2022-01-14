@@ -8,6 +8,8 @@ import shlex
 import sndhdr
 import subprocess
 import wave
+from os import PathLike
+from typing import Optional
 
 import uqbar.strings
 
@@ -91,22 +93,22 @@ class Say(SupriyaValueObject):
 
     def __render__(
         self,
-        output_file_path=None,
-        render_directory_path=None,
-        print_transcript=None,
+        output_file_path: Optional[PathLike] = None,
+        render_directory_path: Optional[PathLike] = None,
+        print_transcript: bool = False,
         **kwargs,
-    ):
-        output_file_path = self._build_output_file_path(
+    ) -> pathlib.Path:
+        file_path = self._build_output_file_path(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
         )
-        assert output_file_path.parent.exists()
-        if output_file_path.is_absolute():
+        assert file_path.parent.exists()
+        if file_path.is_absolute():
             cwd = pathlib.Path.cwd()
             try:
-                relative_file_path = output_file_path.relative_to(cwd)
+                relative_file_path = file_path.relative_to(cwd)
             except ValueError:
-                relative_file_path = output_file_path
+                relative_file_path = file_path
         if print_transcript:
             print("Rendering {}".format(relative_file_path))
         if uqbar.io.find_executable("say"):
@@ -120,12 +122,12 @@ class Say(SupriyaValueObject):
         command = " ".join(command_parts)
         if print_transcript:
             print("    Command: {}".format(command))
-        if output_file_path.exists():
+        if file_path.exists():
             if print_transcript:
                 print(
                     "    Skipping {}. File already exists.".format(relative_file_path)
                 )
-            return output_file_path
+            return file_path
         exit_code = subprocess.call(command, shell=True)
         if print_transcript:
             print(
@@ -135,7 +137,7 @@ class Say(SupriyaValueObject):
             )
         if exit_code:
             raise RuntimeError
-        return output_file_path
+        return file_path
 
     ### PRIVATE METHODS ###
 
@@ -152,7 +154,7 @@ class Say(SupriyaValueObject):
 
     def _build_output_file_path(
         self, output_file_path=None, render_directory_path=None
-    ):
+    ) -> pathlib.Path:
         if output_file_path:
             output_file_path = pathlib.Path(output_file_path).expanduser().absolute()
         elif render_directory_path:

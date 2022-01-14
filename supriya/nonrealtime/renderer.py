@@ -3,6 +3,8 @@ import pathlib
 import shutil
 import struct
 import subprocess
+from os import PathLike
+from typing import Any, Optional, Tuple
 
 import tqdm  # type: ignore
 import uqbar.containers
@@ -17,6 +19,7 @@ import supriya.system
 from supriya import HeaderFormat, SampleFormat, scsynth
 from supriya.exceptions import NonrealtimeOutputMissing, NonrealtimeRenderError
 from supriya.system import SupriyaObject
+from supriya.typing import HeaderFormatLike, SampleFormatLike
 
 
 class SessionRenderer(SupriyaObject):
@@ -24,36 +27,17 @@ class SessionRenderer(SupriyaObject):
     Renders non-realtime sessions as audio files.
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = (
-        "_compiled_sessions",
-        "_header_format",
-        "_prerender_tuples",
-        "_print_transcript",
-        "_render_directory_path",
-        "_sample_format",
-        "_sample_rate",
-        "_session",
-        "_session_input_paths",
-        "_renderable_prefixes",
-        "_transcript",
-        "_transcript_prefix",
-        "_dependency_graph",
-        "_sessionables_to_sessions",
-    )
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        session,
-        header_format=HeaderFormat.AIFF,
-        print_transcript=None,
-        render_directory_path=None,
-        sample_format=SampleFormat.INT24,
-        sample_rate=44100,
-        transcript_prefix=None,
+        session: "supriya.nonrealtime.sessions.Session",
+        header_format: HeaderFormatLike = HeaderFormat.AIFF,
+        print_transcript: bool = False,
+        render_directory_path: Optional[PathLike] = None,
+        sample_format: SampleFormatLike = SampleFormat.INT24,
+        sample_rate: int = 44100,
+        transcript_prefix: Optional[str] = None,
     ):
         self._session = session
 
@@ -428,23 +412,24 @@ class SessionRenderer(SupriyaObject):
 
     def render(
         self,
-        output_file_path=None,
-        debug=None,
-        duration=None,
-        build_render_yml=None,
-        scsynth_path=None,
+        output_file_path: Optional[PathLike] = None,
+        debug: bool = False,
+        duration: Optional[float] = None,
+        build_render_yml: bool = False,
+        scsynth_path: Optional[str] = None,
         **kwargs,
-    ):
+    ) -> Tuple[int, Any, pathlib.Path]:
         import supriya.nonrealtime
 
-        extension = ".{}".format(self.header_format.name.lower())
         if output_file_path is not None:
-            output_file_path = pathlib.Path(output_file_path)
-            output_file_path = output_file_path.expanduser().absolute()
-        original_output_file_path = output_file_path
+            output_file_path = pathlib.Path(output_file_path).expanduser().absolute()
+
         self._collect_prerender_tuples(self.session, duration=duration)
         assert self.prerender_tuples, self.prerender_tuples
+
+        extension = ".{}".format(self.header_format.name.lower())
         visited_renderable_prefixes = []
+
         with uqbar.io.DirectoryChange(directory=str(self.render_directory_path)):
             for prerender_tuple in self.prerender_tuples:
                 renderable = prerender_tuple[0]
@@ -452,7 +437,7 @@ class SessionRenderer(SupriyaObject):
                 visited_renderable_prefixes.append(
                     renderable_prefix.with_suffix("").name
                 )
-                output_file_path = renderable_prefix.with_suffix(extension)
+                relative_output_file_path = renderable_prefix.with_suffix(extension)
                 if isinstance(renderable, supriya.nonrealtime.Session):
                     (session, datagram, input_, _) = prerender_tuple
                     osc_file_path = renderable_prefix.with_suffix(".osc")
@@ -461,7 +446,7 @@ class SessionRenderer(SupriyaObject):
                     exit_code = self._render_datagram(
                         session,
                         input_file_path,
-                        output_file_path,
+                        relative_output_file_path,
                         osc_file_path,
                         scsynth_path=scsynth_path,
                         **kwargs,
@@ -471,20 +456,30 @@ class SessionRenderer(SupriyaObject):
                         raise NonrealtimeRenderError(exit_code)
                 else:
                     renderable.__render__(
-                        output_file_path=output_file_path,
+                        output_file_path=relative_output_file_path,
                         print_transcript=self.print_transcript,
                     )
-        output_file_path = self.render_directory_path / output_file_path
-        if not output_file_path.exists():
+
+        final_rendered_file_path = (
+            self.render_directory_path / relative_output_file_path
+        )
+        if not final_rendered_file_path.exists():
             self._report("    Output file is missing!")
-            raise NonrealtimeOutputMissing(output_file_path)
-        if original_output_file_path is not None:
-            shutil.copy(str(output_file_path), str(original_output_file_path))
+            raise NonrealtimeOutputMissing(final_rendered_file_path)
+
+        if output_file_path is not None:
+            shutil.copy(final_rendered_file_path, output_file_path)
+
         if build_render_yml:
-            output_directory = (original_output_file_path or output_file_path).parent
+            output_directory = (output_file_path or final_rendered_file_path).parent
             render_yaml = self._build_render_yml(visited_renderable_prefixes)
             self._write_render_yml(output_directory / "render.yml", render_yaml)
-        return exit_code, self.transcript, output_file_path
+
+        return (
+            exit_code,
+            self.transcript,
+            output_file_path or final_rendered_file_path,
+        )
 
     ### PUBLIC PROPERTIES ###
 
@@ -497,7 +492,7 @@ class SessionRenderer(SupriyaObject):
         return self._dependency_graph
 
     @property
-    def header_format(self):
+    def header_format(self) -> HeaderFormat:
         return self._header_format
 
     @property
@@ -505,11 +500,11 @@ class SessionRenderer(SupriyaObject):
         return self._prerender_tuples
 
     @property
-    def print_transcript(self):
+    def print_transcript(self) -> bool:
         return self._print_transcript
 
     @property
-    def render_directory_path(self):
+    def render_directory_path(self) -> pathlib.Path:
         return self._render_directory_path
 
     @property
@@ -517,15 +512,15 @@ class SessionRenderer(SupriyaObject):
         return self._renderable_prefixes
 
     @property
-    def sample_format(self):
+    def sample_format(self) -> SampleFormat:
         return self._sample_format
 
     @property
-    def sample_rate(self):
+    def sample_rate(self) -> int:
         return self._sample_rate
 
     @property
-    def session(self):
+    def session(self) -> "supriya.nonrealtime.sessions.Session":
         return self._session
 
     @property

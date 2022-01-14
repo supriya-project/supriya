@@ -806,6 +806,6 @@ def test_clock_skew():
         all_stats.append(stats)
     multiplier = 1.5
     if os.environ.get("CI") == "true" and platform.system() == "Darwin":
-        multiplier = 4.0  # GHA's macOS runner is slow!
+        multiplier = 6.0  # GHA's macOS runner is slow!
     threshold = clock.slop * multiplier
     assert all(stats["median"] < threshold for stats in all_stats)

@@ -2,7 +2,8 @@ import asyncio
 import logging
 import re
 import threading
-from typing import Optional, Set
+from os import PathLike
+from typing import Optional, Set, Union
 
 from uqbar.objects import new
 
@@ -16,6 +17,7 @@ from supriya.commands import (  # type: ignore
     SyncRequest,
 )
 from supriya.enums import CalculationRate, NodeAction
+from supriya.exceptions import ServerOffline
 from supriya.osc.protocols import (
     AsyncOscProtocol,
     HealthCheck,
@@ -25,11 +27,12 @@ from supriya.osc.protocols import (
 from supriya.querytree import QueryTreeGroup, QueryTreeSynth
 from supriya.scsynth import Options, find
 
+from ..typing import AddActionLike, CalculationRateLike
 from .allocators import BlockAllocator, NodeIdAllocator
 from .buffers import Buffer, BufferGroup
-from .buses import Bus, BusGroup
+from .buses import AudioInputBusGroup, AudioOutputBusGroup, Bus, BusGroup
 from .meters import Meters
-from .nodes import Group, Synth
+from .nodes import Group, Node, RootNode, Synth
 from .protocols import AsyncProcessProtocol, SyncProcessProtocol
 from .recorder import Recorder
 
@@ -50,14 +53,14 @@ class BaseServer:
 
     def __init__(self):
         # address
-        self._ip_address = None
-        self._port = None
+        self._ip_address = DEFAULT_IP_ADDRESS
+        self._port = DEFAULT_PORT
         # process
-        self._client_id = None
+        self._client_id = 0
         self._is_owner = False
         self._is_running = False
         self._latency = 0.1
-        self._maximum_logins = None
+        self._maximum_logins = 1
         self._options = Options()
         self._osc_protocol = None
         self._process_protocol = None
@@ -152,7 +155,7 @@ class BaseServer:
         if not message:
             raise ValueError
         if not self.is_running:
-            raise supriya.exceptions.ServerOffline
+            raise ServerOffline
         self._osc_protocol.send(message)
         return self
 
@@ -167,7 +170,7 @@ class BaseServer:
         return self._buffer_allocator
 
     @property
-    def client_id(self):
+    def client_id(self) -> int:
         return self._client_id
 
     @property
@@ -175,19 +178,19 @@ class BaseServer:
         return self._control_bus_allocator
 
     @property
-    def ip_address(self):
+    def ip_address(self) -> str:
         return self._ip_address
 
     @property
-    def is_owner(self):
+    def is_owner(self) -> bool:
         return self._is_owner
 
     @property
-    def is_running(self):
+    def is_running(self) -> bool:
         return self._is_running
 
     @property
-    def latency(self):
+    def latency(self) -> float:
         return self._latency
 
     @latency.setter
@@ -195,11 +198,11 @@ class BaseServer:
         self._latency = float(latency)
 
     @property
-    def maximum_logins(self):
+    def maximum_logins(self) -> int:
         return self._maximum_logins
 
     @property
-    def next_sync_id(self):
+    def next_sync_id(self) -> int:
         sync_id = self._sync_id
         self._sync_id += 1
         return sync_id
@@ -213,11 +216,11 @@ class BaseServer:
         return self._osc_protocol
 
     @property
-    def options(self):
+    def options(self) -> Options:
         return self._options
 
     @property
-    def port(self):
+    def port(self) -> int:
         return self._port
 
     @property
@@ -366,7 +369,7 @@ class AsyncServer(BaseServer):
 
     async def disconnect(self) -> "AsyncServer":
         if not self._is_running:
-            raise supriya.exceptions.ServerOffline
+            raise ServerOffline
         if self._is_owner:
             raise supriya.exceptions.OwnedServerShutdown(
                 "Cannot disconnect from owned server."
@@ -402,7 +405,7 @@ class AsyncServer(BaseServer):
         return self._boot_future
 
     @property
-    def default_group(self):
+    def default_group(self) -> int:
         return self.client_id + 1
 
     @property
@@ -473,7 +476,7 @@ class Server(BaseServer):
             return expr.server is self
         return False
 
-    def __getitem__(self, item):
+    def __getitem__(self, item: Union[int, str]) -> Union[Buffer, Bus, Node]:
         """
         Get ``item`` from server.
 
@@ -520,7 +523,7 @@ class Server(BaseServer):
         import supriya
 
         if not self.is_running:
-            raise supriya.exceptions.ServerOffline
+            raise ServerOffline
         if isinstance(item, str):
             match = re.match(r"b(?P<id>\d+)", item)
             if match:
@@ -534,6 +537,8 @@ class Server(BaseServer):
             if match:
                 id_ = int(match.groupdict()["id"])
                 return supriya.realtime.Bus(id_, "audio").allocate(server=self)
+            if self.root_node is None:
+                raise ServerOffline
             result = self.root_node[item]
         elif isinstance(item, int):
             result = self._nodes.get(item)
@@ -723,7 +728,7 @@ class Server(BaseServer):
                     node = Group()
                 else:
                     node = self._pending_synths.pop(node_id, Synth())
-                node._register_with_local_server(server=self, node_id=response.node_id)
+                node._register_with_local_server(self, node_id=response.node_id)
                 parent = self._nodes[response.parent_id]
                 node._set_parent(parent)
                 if response.previous_node_id:
@@ -748,14 +753,14 @@ class Server(BaseServer):
                 if isinstance(query_tree_child, QueryTreeGroup):
                     group = Group()
                     group._register_with_local_server(
-                        node_id=query_tree_child.node_id, server=self
+                        self, node_id=query_tree_child.node_id
                     )
                     node._children.append(group)
                     recurse(query_tree_child, group)
                 elif isinstance(query_tree_child, QueryTreeSynth):
                     synth = Synth()
                     synth._register_with_local_server(
-                        node_id=query_tree_child.node_id, server=self
+                        self, node_id=query_tree_child.node_id
                     )
                     node._children.append(synth)
                     for query_tree_control in query_tree_child.children:
@@ -782,10 +787,8 @@ class Server(BaseServer):
         self._default_group = default_groups[self.client_id]
 
     def _setup_proxies(self):
-        import supriya.realtime
-
-        self._audio_input_bus_group = supriya.realtime.AudioInputBusGroup(self)
-        self._audio_output_bus_group = supriya.realtime.AudioOutputBusGroup(self)
+        self._audio_input_bus_group = AudioInputBusGroup(self)
+        self._audio_output_bus_group = AudioOutputBusGroup(self)
         self._root_node = supriya.realtime.RootNode(server=self)
         self._nodes[0] = self._root_node
 
@@ -872,7 +875,7 @@ class Server(BaseServer):
         channel_count: int = None,
         frame_count: int = None,
         starting_frame: int = None,
-        file_path: str = None,
+        file_path: Optional[PathLike] = None,
     ) -> Buffer:
         """
         Add a buffer.
@@ -921,7 +924,9 @@ class Server(BaseServer):
         )
         return buffer_group
 
-    def add_bus(self, calculation_rate: int = CalculationRate.CONTROL) -> Bus:
+    def add_bus(
+        self, calculation_rate: CalculationRateLike = CalculationRate.CONTROL
+    ) -> Bus:
         """
         Add a bus.
 
@@ -937,7 +942,9 @@ class Server(BaseServer):
         return bus
 
     def add_bus_group(
-        self, bus_count: int = 1, calculation_rate: int = CalculationRate.CONTROL
+        self,
+        bus_count: int = 1,
+        calculation_rate: CalculationRateLike = CalculationRate.CONTROL,
     ) -> BusGroup:
         """
         Add a bus group.
@@ -953,7 +960,7 @@ class Server(BaseServer):
         bus_group.allocate(server=self)
         return bus_group
 
-    def add_group(self, add_action: int = None) -> Group:
+    def add_group(self, add_action: AddActionLike = None) -> Group:
         """
         Add a group relative to the default group via ``add_action``.
 
@@ -973,9 +980,13 @@ class Server(BaseServer):
                     1000 group
 
         """
+        if self.default_group is None:
+            raise ServerOffline
         return self.default_group.add_group(add_action=add_action)
 
-    def add_synth(self, synthdef=None, add_action: int = None, **kwargs) -> Synth:
+    def add_synth(
+        self, synthdef=None, add_action: AddActionLike = None, **kwargs
+    ) -> Synth:
         """
         Add a synth relative to the default group via ``add_action``.
 
@@ -996,6 +1007,8 @@ class Server(BaseServer):
                         out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
 
         """
+        if self.default_group is None:
+            raise ServerOffline
         return self.default_group.add_synth(
             synthdef=synthdef, add_action=add_action, **kwargs
         )
@@ -1012,7 +1025,7 @@ class Server(BaseServer):
         scsynth_path: Optional[str] = None,
         options: Optional[Options] = None,
         **kwargs,
-    ):
+    ) -> "Server":
         if self.is_running:
             raise supriya.exceptions.ServerOnline
         port = port or DEFAULT_PORT
@@ -1043,7 +1056,7 @@ class Server(BaseServer):
 
     def disconnect(self) -> "Server":
         if not self.is_running:
-            raise supriya.exceptions.ServerOffline
+            raise ServerOffline
         if self._is_owner:
             raise supriya.exceptions.OwnedServerShutdown(
                 "Cannot disconnect from owned server."
@@ -1106,15 +1119,15 @@ class Server(BaseServer):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def audio_input_bus_group(self):
+    def audio_input_bus_group(self) -> Optional[AudioInputBusGroup]:
         return self._audio_input_bus_group
 
     @property
-    def audio_output_bus_group(self):
+    def audio_output_bus_group(self) -> Optional[AudioOutputBusGroup]:
         return self._audio_output_bus_group
 
     @property
-    def default_group(self):
+    def default_group(self) -> Optional[Group]:
         return self._default_group
 
     @property
@@ -1126,5 +1139,5 @@ class Server(BaseServer):
         return self._recorder
 
     @property
-    def root_node(self):
+    def root_node(self) -> Optional[RootNode]:
         return self._root_node
