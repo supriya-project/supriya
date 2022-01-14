@@ -50,7 +50,7 @@ class SupriyaClassDocumenter(SummarizingClassDocumenter):
             if attr.kind in ("method", "class method", "static method"):
                 result.append(f"   .. automethod:: {attr.name}")
             elif attr.kind in ("property"):
-                result.append(f"   .. autoattribute:: {attr.name}")
+                result.append(f"   .. autoproperty:: {attr.name}")
         return "\n".join(result)
 
 
