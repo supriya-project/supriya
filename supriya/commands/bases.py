@@ -339,7 +339,6 @@ class Response(SupriyaValueObject):
             "/n_on": supriya.commands.NodeInfoResponse,
             "/n_set": supriya.commands.NodeSetResponse,
             "/n_setn": supriya.commands.NodeSetContiguousResponse,
-            "/s_info": supriya.commands.SynthInfoResponse,
             "/status.reply": supriya.commands.StatusResponse,
             "/synced": supriya.commands.SyncedResponse,
             "/tr": supriya.commands.TriggerResponse,
