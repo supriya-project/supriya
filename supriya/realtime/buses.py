@@ -305,7 +305,8 @@ class BusGroup(ServerObject):
             CalculationRate.CONTROL,
         ):
             raise ValueError(self._calculation_rate)
-        if (bus_count := int(bus_count)) <= 0:
+        bus_count = int(bus_count)
+        if bus_count <= 0:
             raise ValueError(bus_count)
         self._buses = tuple(
             Bus(bus_group_or_index=self, calculation_rate=self.calculation_rate)

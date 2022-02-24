@@ -309,7 +309,7 @@ class SessionRenderer(SupriyaObject):
                     output_file_path.unlink()
                 raise
             server_options = new(
-                server_options, memory_size=memory_size * (2 ** factor)
+                server_options, memory_size=memory_size * (2**factor)
             )
             if exit_code == -6:
                 self._report(

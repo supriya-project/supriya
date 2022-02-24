@@ -83,12 +83,7 @@ from .synthdefs import (
     SynthDefReceiveRequest,
     SynthDefRemovedResponse,
 )
-from .synths import (
-    SynthInfoResponse,
-    SynthNewRequest,
-    SynthQueryRequest,
-    TriggerResponse,
-)
+from .synths import SynthNewRequest, TriggerResponse
 
 __all__ = [
     "BufferAllocateReadChannelRequest",
@@ -166,8 +161,6 @@ __all__ = [
     "SynthDefLoadRequest",
     "SynthDefReceiveRequest",
     "SynthDefRemovedResponse",
-    "SynthInfoResponse",
     "SynthNewRequest",
-    "SynthQueryRequest",
     "TriggerResponse",
 ]

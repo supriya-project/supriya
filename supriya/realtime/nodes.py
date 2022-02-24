@@ -173,14 +173,14 @@ class Node(UniqueTreeNode):
             new_parent = self.server._nodes[response.parent_id]
             old_index = self.parent.index(self)
             new_index = None
-            if (
-                previous_node := self.server._nodes.get(response.previous_node_id)
-            ) is not None:
+            previous_node = self.server._nodes.get(response.previous_node_id)
+            if previous_node is not None:
                 try:
                     new_index = new_parent.index(previous_node) + 1
                 except ValueError:
                     pass
-            if (next_node := self.server._nodes.get(response.next_node_id)) is not None:
+            next_node = self.server._nodes.get(response.next_node_id)
+            if next_node is not None:
                 try:
                     new_index = new_parent.index(next_node)
                 except ValueError:

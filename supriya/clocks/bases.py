@@ -571,7 +571,8 @@ class BaseClock:
     def reschedule(
         self, event_id, *, schedule_at=0.0, time_unit=TimeUnit.BEATS
     ) -> Optional[int]:
-        if (event_or_command := self.cancel(event_id)) is None:
+        event_or_command = self.cancel(event_id)
+        if event_or_command is None:
             return None
         if isinstance(event_or_command, (CallbackCommand, ChangeCommand)):
             command = event_or_command._replace(

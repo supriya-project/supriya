@@ -11,8 +11,8 @@ from .utils import format_datagram
 
 BUNDLE_PREFIX = b"#bundle\x00"
 IMMEDIATELY = struct.pack(">Q", 1)
-NTP_TIMESTAMP_TO_SECONDS = 1.0 / 2.0 ** 32.0
-SECONDS_TO_NTP_TIMESTAMP = 2.0 ** 32.0
+NTP_TIMESTAMP_TO_SECONDS = 1.0 / 2.0**32.0
+SECONDS_TO_NTP_TIMESTAMP = 2.0**32.0
 SYSTEM_EPOCH = datetime.date(*time.gmtime(0)[0:3])
 NTP_EPOCH = datetime.date(1900, 1, 1)
 NTP_DELTA = (SYSTEM_EPOCH - NTP_EPOCH).days * 24 * 3600
