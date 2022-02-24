@@ -33,7 +33,8 @@ class PatternPlayer:
                     return
                 if offset == float("-inf"):
                     offset = context.desired_moment.offset
-                if delta := offset - context.desired_moment.offset:
+                delta = offset - context.desired_moment.offset
+                if delta:
                     self._queue.put((offset, priority, index, event))
                     self._perform_events(
                         context.desired_moment.seconds, current_offset, events

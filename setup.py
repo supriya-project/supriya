@@ -28,6 +28,7 @@ if __name__ == "__main__":
             "Natural Language :: English",
             "Operating System :: MacOS",
             "Operating System :: POSIX",
+            "Programming Language :: Python :: 3.7",
             "Programming Language :: Python :: 3.8",
             "Programming Language :: Python :: 3.9",
             "Topic :: Artistic Software",
@@ -88,6 +89,7 @@ if __name__ == "__main__":
             "platformdirs >= 2.4.0",
             "tqdm >= 4.59.0",
             "uqbar >= 0.5.7",
+            'typing-extensions; python_version<"3.8"',
         ],
         keywords=[
             "audio",

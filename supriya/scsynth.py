@@ -201,7 +201,8 @@ def find(scsynth_path=None):
     scsynth_path_candidates = uqbar.io.find_executable(scsynth_path.name)
     if scsynth_path_candidates:
         return pathlib.Path(scsynth_path_candidates[0])
-    if (fallback_path := _fallback_scsynth_path()) is not None:
+    fallback_path = _fallback_scsynth_path()
+    if fallback_path is not None:
         return fallback_path
     raise RuntimeError("Failed to locate scsynth")
 

@@ -1,6 +1,11 @@
 from os import PathLike
 from pathlib import Path
-from typing import Dict, Optional, Protocol, SupportsFloat, SupportsInt, Union
+from typing import Dict, Optional, SupportsFloat, SupportsInt, Union
+
+try:
+    from typing import Protocol
+except ImportError:
+    from typing_extensions import Protocol  # type: ignore
 
 from .enums import AddAction, CalculationRate, HeaderFormat, SampleFormat
 
