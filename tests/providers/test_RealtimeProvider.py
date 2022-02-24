@@ -521,9 +521,11 @@ def test_RealtimeProvider_set_node_3(server):
     with server.osc_protocol.capture() as transcript:
         with provider.at(None):
             synth_proxy["frequency"] = bus_proxy
-    assert [entry.message.to_list() for entry in transcript] == [
-        [None, [["/n_set", 1000, "frequency", "c0"]]]
-    ]
+    assert [
+        entry.message.to_list()
+        for entry in transcript
+        if not (entry.label == "R" and entry.message.address == "/status.reply")
+    ] == [[None, [["/n_set", 1000, "frequency", "c0"]]]]
     time.sleep(0.01)
     assert str(server.query()) == normalize(
         """
@@ -537,9 +539,11 @@ def test_RealtimeProvider_set_node_3(server):
     with server.osc_protocol.capture() as transcript:
         with provider.at(None):
             synth_proxy["frequency"] = 443
-    assert [entry.message.to_list() for entry in transcript] == [
-        [None, [["/n_set", 1000, "frequency", 443.0]]]
-    ]
+    assert [
+        entry.message.to_list()
+        for entry in transcript
+        if not (entry.label == "R" and entry.message.address == "/status.reply")
+    ] == [[None, [["/n_set", 1000, "frequency", 443.0]]]]
     time.sleep(0.01)
     assert str(server.query()) == normalize(
         """
