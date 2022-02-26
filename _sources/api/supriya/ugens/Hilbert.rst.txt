@@ -11,19 +11,19 @@ hilbert
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: phase
-   .. autoattribute:: source
+   .. autoproperty:: frequency
+   .. autoproperty:: phase
+   .. autoproperty:: source
 
 .. autoclass:: Hilbert
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: HilbertFIR
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: source
+   .. autoproperty:: buffer_id
+   .. autoproperty:: source

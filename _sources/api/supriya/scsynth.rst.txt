@@ -12,8 +12,8 @@ scsynth
 
    .. automethod:: __post_init__
    .. automethod:: as_options_string
-   .. autoattribute:: first_private_bus_id
-   .. autoattribute:: private_audio_bus_channel_count
+   .. autoproperty:: first_private_bus_id
+   .. autoproperty:: private_audio_bus_channel_count
 
 .. autofunction:: find
 

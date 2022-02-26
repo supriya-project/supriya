@@ -1179,7 +1179,6 @@ the audio processing <a class="reference internal" href="../glossary.html#term-g
 <p>Create a group, and print its <a class="reference internal" href="../glossary.html#term-repr"><span class="xref std std-term">repr</span></a> to the terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group_one</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group_one</span>
-<span class="go">&lt;+ Group: 1000&gt;</span>
 </code></pre></div>
 </div>
 <p>The <a class="reference internal" href="../glossary.html#term-repr"><span class="xref std std-term">repr</span></a> shows the group’s type (<code class="docutils literal notranslate"><span class="pre">Group</span></code>), its <a class="reference internal" href="../glossary.html#term-ID-node"><span class="xref std std-term">ID</span></a>
@@ -1191,10 +1190,6 @@ the audio processing <a class="reference internal" href="../glossary.html#term-g
 </div>
 <p>Where was the second group added? Query the server to see:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1000 group</span>
-<span class="go">            1001 group</span>
 </code></pre></div>
 </div>
 <p>The second group (<code class="docutils literal notranslate"><span class="pre">1001</span></code>) was added <em>within</em> the first (<code class="docutils literal notranslate"><span class="pre">1000</span></code>), which
@@ -1202,11 +1197,6 @@ seems obvious in retrospect. Let’s add a third group to the first, and query
 the server’s node tree again:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group_three</span> <span class="o">=</span> <span class="n">group_one</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1000 group</span>
-<span class="go">            1002 group</span>
-<span class="go">            1001 group</span>
 </code></pre></div>
 </div>
 <p>The third group (<code class="docutils literal notranslate"><span class="pre">1002</span></code>) was - <em>again</em> - added within the first (<code class="docutils literal notranslate"><span class="pre">1000</span></code>), but
@@ -1218,71 +1208,22 @@ to another node - before, after, at the beginning (the head) or at the end (the
 tail) - and we can control that relative position with an <a class="reference internal" href="../glossary.html#term-add-action"><span class="xref std std-term">add action</span></a>.</p>
 <p>Supriya implements <a class="reference internal" href="../glossary.html#term-add-action"><span class="xref std std-term">add actions</span></a> as the enumeration
 <a class="reference internal" href="../api/supriya/enums.html#supriya.enums.AddAction" title="supriya.enums.AddAction"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddAction</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">x</span>
-<span class="gp">... </span>
-<span class="go">AddAction.ADD_TO_HEAD</span>
-<span class="go">AddAction.ADD_TO_TAIL</span>
-<span class="go">AddAction.ADD_BEFORE</span>
-<span class="go">AddAction.ADD_AFTER</span>
-<span class="go">AddAction.REPLACE</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="p">:</span> <span class="n">x</span>
+<span class="gp">...</span>
 </code></pre></div>
 </div>
 <p>Use <a class="reference internal" href="../api/supriya/enums.html#supriya.enums.AddAction" title="supriya.enums.AddAction"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddAction</span></code></a> to position new groups relative to the
 first:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group_four</span> <span class="o">=</span> <span class="n">group_one</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_AFTER</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1000 group</span>
-<span class="go">            1002 group</span>
-<span class="go">            1001 group</span>
-<span class="go">        1003 group</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group_five</span> <span class="o">=</span> <span class="n">group_one</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_BEFORE</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_five</span> <span class="o">=</span> <span class="n">group_one</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_BEFORE</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1004 group</span>
-<span class="go">        1000 group</span>
-<span class="go">            1002 group</span>
-<span class="go">            1001 group</span>
-<span class="go">        1003 group</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group_six</span> <span class="o">=</span> <span class="n">group_one</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_six</span> <span class="o">=</span> <span class="n">group_one</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1004 group</span>
-<span class="go">        1000 group</span>
-<span class="go">            1005 group</span>
-<span class="go">            1002 group</span>
-<span class="go">            1001 group</span>
-<span class="go">        1003 group</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group_seven</span> <span class="o">=</span> <span class="n">group_one</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_TAIL</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_seven</span> <span class="o">=</span> <span class="n">group_one</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_TAIL</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1004 group</span>
-<span class="go">        1000 group</span>
-<span class="go">            1005 group</span>
-<span class="go">            1002 group</span>
-<span class="go">            1001 group</span>
-<span class="go">            1006 group</span>
-<span class="go">        1003 group</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group_eight</span> <span class="o">=</span> <span class="n">group_one</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">REPLACE</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_eight</span> <span class="o">=</span> <span class="n">group_one</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">REPLACE</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1004 group</span>
-<span class="go">        1007 group</span>
-<span class="go">        1003 group</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -1291,18 +1232,12 @@ first:</p>
 <a class="reference internal" href="../api/supriya/enums.html#supriya.enums.AddAction" title="supriya.enums.AddAction"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddAction</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;ADD_TO_HEAD&quot;</span><span class="p">,</span> <span class="s2">&quot;add_to_head&quot;</span><span class="p">,</span> <span class="s2">&quot;add to head&quot;</span><span class="p">]:</span>
 <span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="gp">... </span>
-<span class="go">AddAction.ADD_TO_HEAD</span>
-<span class="go">AddAction.ADD_TO_HEAD</span>
-<span class="go">AddAction.ADD_TO_HEAD</span>
-<span class="go">AddAction.ADD_TO_HEAD</span>
-<span class="go">AddAction.ADD_TO_HEAD</span>
+<span class="gp">...</span>
 </code></pre></div>
 </div>
 <p>This allows you to specify the <a class="reference internal" href="../glossary.html#term-add-action"><span class="xref std std-term">add action</span></a> via a string, saving a
 few keystrokes:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;add to head&quot;</span><span class="p">)</span>
-<span class="go">&lt;+ Group: 1008&gt;</span>
 </code></pre></div>
 </div>
 </div>
@@ -1310,12 +1245,8 @@ few keystrokes:</p>
 <p>Now, reset the server, then create a synth, and print its <a class="reference internal" href="../glossary.html#term-repr"><span class="xref std std-term">repr</span></a> to the
 terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span>
-<span class="go">&lt;+ Synth: 1000 default&gt;</span>
 </code></pre></div>
 </div>
 <p>The <a class="reference internal" href="../glossary.html#term-repr"><span class="xref std std-term">repr</span></a> shows the synths’s type (<code class="docutils literal notranslate"><span class="pre">Synth</span></code>), its <a class="reference internal" href="../glossary.html#term-ID-node"><span class="xref std std-term">ID</span></a>
@@ -1335,15 +1266,13 @@ sawtooth wave. Let’s create two more.</p>
 <span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">],</span>
 <span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">source</span><span class="p">,</span> <span class="n">source</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="p">)</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ticker_synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ticker&quot;</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>This SynthDef reads audio from a bus, reverberates it, then writes back the
 wet audio mixed with the dry:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">damping</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">mix</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">room_size</span><span class="o">=</span><span class="mf">0.5</span>
-<span class="gp">... </span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">damping</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">mix</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">room_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">in_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
 <span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">],</span>
 <span class="gp">... </span>        <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -1358,31 +1287,23 @@ wet audio mixed with the dry:</p>
 <span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">],</span>
 <span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="n">reverb</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="p">)</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reverb_synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;reverb&quot;</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>Create a synth using the “ticker” SynthDef, replacing the “default” synth we
 just created:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">ticker_synthdef</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span>
-<span class="go">&lt;+ Synth: 1001 ticker&gt;</span>
 </code></pre></div>
 </div>
 <p>Then create a second synth using the “reverb” SynthDef, positioning it after
 the previous synth with an <code class="docutils literal notranslate"><span class="pre">ADD_TO_TAIL</span></code> <a class="reference internal" href="../glossary.html#term-add-action"><span class="xref std std-term">add action</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">reverb_synthdef</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;add_to_tail&quot;</span><span class="p">)</span>
-<span class="go">&lt;+ Synth: 1002 reverb&gt;</span>
 </code></pre></div>
 </div>
 <p>Note the order of the two synths (you can tell by their SynthDef names), and
 how the reverberation kicks in when you instantiate the second synth:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1001 ticker</span>
-<span class="go">            amplitude: 0.5, frequency: 4.0, out: 0.0</span>
-<span class="go">        1002 reverb</span>
-<span class="go">            damping: 0.5, mix: 0.5, out: 0.0, room_size: 0.5</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -1395,15 +1316,11 @@ If you need precise timing, make sure to pre-allocate the SynthDefs.</p>
 <h3 id="deleting">Deleting<a class="headerlink" href="#deleting" title="Permalink to this headline">¶</a></h3>
 <p>Reset the server for a clean slate, then add a synth:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <p>You can remove a node from the server by <a class="reference internal" href="../glossary.html#term-free"><span class="xref std std-term">freeing</span></a> it:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-<span class="go">&lt;- Synth: ??? default&gt;</span>
 </code></pre></div>
 </div>
 <p>Note how the audio cuts off abruptly. Freeing nodes terminates them immediately
@@ -1411,7 +1328,6 @@ without any fade-out.</p>
 <p>Now add another synth and <a class="reference internal" href="../glossary.html#term-release"><span class="xref std std-term">release</span></a> it:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
-<span class="go">&lt;+ Synth: 1001 default&gt;</span>
 </code></pre></div>
 </div>
 <p>Some synths can be <a class="reference internal" href="../glossary.html#term-release"><span class="xref std std-term">released</span></a>, depending on their
@@ -1419,10 +1335,12 @@ without any fade-out.</p>
 from the server. By convention with <a class="reference internal" href="../glossary.html#term-sclang"><span class="xref std std-term">sclang</span></a>, synths with a <code class="docutils literal notranslate"><span class="pre">gate</span></code>
 control can be released, although it’s up to the author of the <a class="reference internal" href="../glossary.html#term-SynthDef"><span class="xref std std-term">SynthDef</span></a>
 to guarantee they behave as expected.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</code></pre></div>
+</div>
 <p>Groups can also be freed:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-<span class="go">&lt;- Group: ???&gt;</span>
 </code></pre></div>
 </div>
 <p>A freed group retains its internal structure:</p>
@@ -1430,43 +1348,18 @@ to guarantee they behave as expected.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">parent</span> <span class="o">=</span> <span class="n">grandparent</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">child</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">add_synth</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1003 group</span>
-<span class="go">            1004 group</span>
-<span class="go">                1005 default</span>
-<span class="go">                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">grandparent</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-<span class="go">&lt;- Group: ???&gt;</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">grandparent</span><span class="p">)</span>
-<span class="go">??? group</span>
-<span class="go">    ??? group</span>
-<span class="go">        ??? default</span>
-<span class="go">            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grandparent</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">grandparent</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>… and can be re-allocated:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="o">.</span><span class="n">move_node</span><span class="p">(</span><span class="n">grandparent</span><span class="p">)</span>
-<span class="go">&lt;+ Group: 1006&gt;</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1006 group</span>
-<span class="go">            1007 group</span>
-<span class="go">                1008 default</span>
-<span class="go">                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
 </code></pre></div>
 </div>
 <h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permalink to this headline">¶</a></h2>
 <p>Reset the server for a clean slate:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 <p>… then create a group and add three synths to it:</p>
@@ -1478,51 +1371,33 @@ to guarantee they behave as expected.</p>
 </div>
 <p>Every node has a <code class="docutils literal notranslate"><span class="pre">node_id</span></code> and, if allocated, a reference to its server:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">group</span><span class="o">.</span><span class="n">server</span>
-<span class="go">(1000, &lt;Server: udp://127.0.0.1:57110, 8i8o&gt;)</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">synth_a</span><span class="o">.</span><span class="n">server</span>
-<span class="go">(1001, &lt;Server: udp://127.0.0.1:57110, 8i8o&gt;)</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_b</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">synth_b</span><span class="o">.</span><span class="n">server</span>
-<span class="go">(1002, &lt;Server: udp://127.0.0.1:57110, 8i8o&gt;)</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_c</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">synth_c</span><span class="o">.</span><span class="n">server</span>
-<span class="go">(1003, &lt;Server: udp://127.0.0.1:57110, 8i8o&gt;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">synth_a</span><span class="o">.</span><span class="n">server</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth_b</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">synth_b</span><span class="o">.</span><span class="n">server</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth_c</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">synth_c</span><span class="o">.</span><span class="n">server</span>
 </code></pre></div>
 </div>
 <h3 id="position">Position<a class="headerlink" href="#position" title="Permalink to this headline">¶</a></h3>
 <p>Nodes know about their position in the <a class="reference internal" href="../glossary.html#term-node-tree"><span class="xref std std-term">node tree</span></a>.</p>
 <p>The synths we created know that the group we (also) created is their <a class="reference internal" href="../glossary.html#term-parent"><span class="xref std std-term">parent</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span><span class="o">.</span><span class="n">parent</span>
-<span class="go">&lt;+ Group: 1000&gt;</span>
 </code></pre></div>
 </div>
 <p>They know that the <a class="reference internal" href="../glossary.html#term-root-node"><span class="xref std std-term">root node</span></a> of the server is their <a class="reference internal" href="../glossary.html#term-root"><span class="xref std std-term">root</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span><span class="o">.</span><span class="n">root</span>
-<span class="go">&lt;+ RootNode: 0&gt;</span>
 </code></pre></div>
 </div>
 <p>And they know the entire <a class="reference internal" href="../glossary.html#term-parentage"><span class="xref std std-term">parentage</span></a> between themself and their <a class="reference internal" href="../glossary.html#term-root"><span class="xref std std-term">root</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span><span class="o">.</span><span class="n">parentage</span>
-<span class="go">(&lt;+ Synth: 1001 default&gt;, &lt;+ Group: 1000&gt;, &lt;+ Group: 1&gt;, &lt;+ RootNode: 0&gt;)</span>
 </code></pre></div>
 </div>
 <p>Likewise, the group we created knows about its children:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">children</span>
-<span class="go">(&lt;+ Synth: 1003 default&gt;, &lt;+ Synth: 1002 default&gt;, &lt;+ Synth: 1001 default&gt;)</span>
 </code></pre></div>
 </div>
 <p>And every node knows its <a class="reference internal" href="../glossary.html#term-depth"><span class="xref std std-term">depth</span></a> in the <a class="reference internal" href="../glossary.html#term-node-tree"><span class="xref std std-term">node tree</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">synth_a</span><span class="o">.</span><span class="n">parentage</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">depth</span>
-<span class="gp">... </span>
-<span class="go">(&lt;+ Synth: 1001 default&gt;, 3)</span>
-<span class="go">(&lt;+ Group: 1000&gt;, 2)</span>
-<span class="go">(&lt;+ Group: 1&gt;, 1)</span>
-<span class="go">(&lt;+ RootNode: 0&gt;, 0)</span>
+<span class="gp">...</span>
 </code></pre></div>
 </div>
 <h3 id="querying-controls">Querying controls<a class="headerlink" href="#querying-controls" title="Permalink to this headline">¶</a></h3>
@@ -1530,61 +1405,37 @@ to guarantee they behave as expected.</p>
 <p>We can query each synth’s <code class="docutils literal notranslate"><span class="pre">frequency</span></code> control by looking it up as though the
 synth was a Python dictionary:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">]</span>
-<span class="go">333.0</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_b</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">]</span>
-<span class="go">444.0</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_c</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">]</span>
-<span class="go">555.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth_b</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth_c</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">]</span>
 </code></pre></div>
 </div>
 <p>We can also iterate over the synth’s controls, just like iterating over the
 keys in a dictionary:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">synth_a</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">key</span><span class="p">,</span> <span class="n">synth_a</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-<span class="gp">... </span>
-<span class="go">(&#39;amplitude&#39;, 0.1)</span>
-<span class="go">(&#39;frequency&#39;, 333.0)</span>
-<span class="go">(&#39;gate&#39;, 1.0)</span>
-<span class="go">(&#39;out&#39;, 0.0)</span>
-<span class="go">(&#39;pan&#39;, 0.5)</span>
+<span class="gp">...</span>
 </code></pre></div>
 </div>
 <p>We can access the underlying control interface of the synth:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span><span class="o">.</span><span class="n">controls</span>
-<span class="go">&lt;SynthInterface: &lt;+ Synth: 1001 default&gt;&gt;</span>
 </code></pre></div>
 </div>
 <p>… and iterate over the individual control objects, again just like a dictionary:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">synth_a</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">key</span><span class="p">,</span> <span class="n">synth_a</span><span class="o">.</span><span class="n">controls</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-<span class="gp">... </span>
-<span class="go">(&#39;amplitude&#39;, &lt;SynthControl: &lt;+ Synth: 1001 default&gt; &quot;amplitude&quot;: 0.1 [kr]&gt;)</span>
-<span class="go">(&#39;frequency&#39;, &lt;SynthControl: &lt;+ Synth: 1001 default&gt; &quot;frequency&quot;: 333.0 [kr]&gt;)</span>
-<span class="go">(&#39;gate&#39;, &lt;SynthControl: &lt;+ Synth: 1001 default&gt; &quot;gate&quot;: 1.0 [kr]&gt;)</span>
-<span class="go">(&#39;out&#39;, &lt;SynthControl: &lt;+ Synth: 1001 default&gt; &quot;out&quot;: 0.0 [ir]&gt;)</span>
-<span class="go">(&#39;pan&#39;, &lt;SynthControl: &lt;+ Synth: 1001 default&gt; &quot;pan&quot;: 0.5 [kr]&gt;)</span>
+<span class="gp">...</span>
 </code></pre></div>
 </div>
 <p>The synth controls know not only their control name and current value, but the
 synth they’re associated with and their <a class="reference internal" href="../glossary.html#term-calculation-rate"><span class="xref std std-term">calculation rate</span></a>.</p>
 <p>Groups also expose a control interface:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">controls</span>
-<span class="go">&lt;GroupInterface: &lt;+ Group: 1000&gt;&gt;</span>
 </code></pre></div>
 </div>
 <p>… which can be iterated over:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">key</span><span class="p">,</span> <span class="n">group</span><span class="o">.</span><span class="n">controls</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-<span class="gp">... </span>
-<span class="go">(&#39;amplitude&#39;, &lt;GroupControl: &lt;+ Group: 1000&gt; &quot;amplitude&quot; [kr]&gt;)</span>
-<span class="go">(&#39;frequency&#39;, &lt;GroupControl: &lt;+ Group: 1000&gt; &quot;frequency&quot; [kr]&gt;)</span>
-<span class="go">(&#39;gate&#39;, &lt;GroupControl: &lt;+ Group: 1000&gt; &quot;gate&quot; [kr]&gt;)</span>
-<span class="go">(&#39;out&#39;, &lt;GroupControl: &lt;+ Group: 1000&gt; &quot;out&quot; [ir]&gt;)</span>
-<span class="go">(&#39;pan&#39;, &lt;GroupControl: &lt;+ Group: 1000&gt; &quot;pan&quot; [kr]&gt;)</span>
+<span class="gp">...</span>
 </code></pre></div>
 </div>
 <p>Group’s don’t have <a class="reference internal" href="../glossary.html#term-SynthDef"><span class="xref std std-term">SynthDefs</span></a>, so they don’t actually have
@@ -1593,16 +1444,13 @@ in their <a class="reference internal" href="../glossary.html#term-subtree"><spa
 <h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permalink to this headline">¶</a></h2>
 <p>Reset the server for a clean slate:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 <p>… then add a group, a <em>ticker</em> synth and a <em>reverb</em> synth using the two
 <a class="reference internal" href="../glossary.html#term-SynthDef"><span class="xref std std-term">SynthDefs</span></a> we defined earlier:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ticker_synth</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">ticker_synthdef</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reverb_synth</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;add_to_tail&quot;</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">reverb_synthdef</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reverb_synth</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;add_to_tail&quot;</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">reverb_synthdef</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>Note the click train emitted by the <em>ticker</em> synth and the reverberation added
@@ -1613,29 +1461,13 @@ by the <em>reverb</em> synth.</p>
 <p>Move the <em>reverb</em> synth to the <a class="reference internal" href="../glossary.html#term-head"><span class="xref std std-term">head</span></a> of its parent group - <em>before</em> the
 <em>ticker</em> synth - and notice how the click train’s reverberation dies out:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">move_node</span><span class="p">(</span><span class="n">reverb_synth</span><span class="p">,</span> <span class="s2">&quot;add_to_head&quot;</span><span class="p">)</span>
-<span class="go">&lt;+ Synth: 1002 reverb&gt;</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-<span class="go">1000 group</span>
-<span class="go">    1002 reverb</span>
-<span class="go">        damping: 0.5, mix: 0.5, out: 0.0, room_size: 0.5</span>
-<span class="go">    1001 ticker</span>
-<span class="go">        amplitude: 0.5, frequency: 1.0, out: 0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>Now move the <em>reverb</em> synth <em>after</em> the <em>ticker</em> synth, and listen to the
 reverberation return:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">ticker_synth</span><span class="o">.</span><span class="n">move_node</span><span class="p">(</span><span class="n">reverb_synth</span><span class="p">,</span> <span class="s2">&quot;add_after&quot;</span><span class="p">)</span>
-<span class="go">&lt;+ Synth: 1002 reverb&gt;</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-<span class="go">1000 group</span>
-<span class="go">    1001 ticker</span>
-<span class="go">        amplitude: 0.5, frequency: 1.0, out: 0.0</span>
-<span class="go">    1002 reverb</span>
-<span class="go">        damping: 0.5, mix: 0.5, out: 0.0, room_size: 0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -1643,25 +1475,9 @@ reverberation return:</p>
 <p>Use <a class="reference internal" href="../api/supriya/realtime/nodes.html#supriya.realtime.nodes.Node.move_node" title="supriya.realtime.nodes.Node.move_node"><code class="xref py py-func docutils literal notranslate"><span class="pre">move_node()</span></code></a> to <em>re-allocate</em>
 nodes that have been previously freed (or never allocated at all):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">ticker_synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-<span class="go">&lt;- Synth: ??? ticker&gt;</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-<span class="go">1000 group</span>
-<span class="go">    1002 reverb</span>
-<span class="go">        damping: 0.5, mix: 0.5, out: 0.0, room_size: 0.5</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">move_node</span><span class="p">(</span><span class="n">ticker_synth</span><span class="p">,</span> <span class="s2">&quot;add_to_head&quot;</span><span class="p">)</span>
-<span class="go">&lt;+ Synth: 1003 ticker&gt;</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-<span class="go">1000 group</span>
-<span class="go">    1003 ticker</span>
-<span class="go">        amplitude: 0.5, frequency: 1.0, out: 0.0</span>
-<span class="go">    1002 reverb</span>
-<span class="go">        damping: 0.5, mix: 0.5, out: 0.0, room_size: 0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">move_node</span><span class="p">(</span><span class="n">ticker_synth</span><span class="p">,</span> <span class="s2">&quot;add_to_head&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>Notice that the “ticker” synth now has a new node ID.</p>
@@ -1681,17 +1497,6 @@ of the simulated reverb space:</p>
 <p>Like a Python dictionary, setting non-existent controls on a synth will raise a
 <code class="docutils literal notranslate"><span class="pre">KeyError</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">ticker_synth</span><span class="p">[</span><span class="s2">&quot;nonexistent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">666.666</span>
-<span class="gt">Traceback (most recent call last):</span>
-  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/nodes.py&quot;</span>, line <span class="m">896</span>, in <span class="n">__setitem__</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">553</span>, in <span class="n">__setitem__</span>
-    <span class="n">synth_controls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">522</span>, in <span class="n">__getitem__</span>
-    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_synth_control_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">item</span><span class="p">)</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">522</span>, in <span class="n">&lt;genexpr&gt;</span>
-    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_synth_control_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">item</span><span class="p">)</span>
-<span class="gr">KeyError</span>: <span class="n">&#39;nonexistent&#39;</span>
 </code></pre></div>
 </div>
 <p>Multiple controls can be set on a synth simultaneously by using a tuple of keys
@@ -1742,19 +1547,16 @@ the <em>reverb</em>’s reverberation.</p>
 <p>When using a server as the target, allocate the node relative to the current
 user’s “default group” on that server (ID <code class="docutils literal notranslate"><span class="pre">1</span></code> in a single-user scenario):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
-<span class="go">&lt;+ Group: 1004&gt;</span>
 </code></pre></div>
 </div>
 <p>Allocate a node relative to another node:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_TAIL</span><span class="p">)</span>
-<span class="go">&lt;+ Synth: 1005 default&gt;</span>
 </code></pre></div>
 </div>
 <p>You can use <code class="docutils literal notranslate"><span class="pre">.allocate()</span></code> to <em>re-allocate</em> nodes previously freed.</p>
 <h3 id="sequence-interface">Sequence interface<a class="headerlink" href="#sequence-interface" title="Permalink to this headline">¶</a></h3>
 <p>Reset the server for a clean slate:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 <p>Supriya’s groups support Python’s list interface, allowing appending,
@@ -1763,50 +1565,23 @@ extending, subscripting etc., and allow you to create complex node trees before
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">grandparent</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">parent</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">grandparent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">parent</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="p">[</span>
-<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">111</span><span class="p">),</span>
-<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">222</span><span class="p">),</span>
-<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">333</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">]</span>
-<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parent</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">111</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">222</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">333</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grandparent</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1000 group</span>
-<span class="go">            1001 group</span>
-<span class="go">                1002 default</span>
-<span class="go">                    out: 0.0, amplitude: 0.1, frequency: 111.0, gate: 1.0, pan: 0.5</span>
-<span class="go">                1003 default</span>
-<span class="go">                    out: 0.0, amplitude: 0.1, frequency: 222.0, gate: 1.0, pan: 0.5</span>
-<span class="go">                1004 default</span>
-<span class="go">                    out: 0.0, amplitude: 0.1, frequency: 333.0, gate: 1.0, pan: 0.5</span>
 </code></pre></div>
 </div>
 <p>We can use the list interface to move nodes, and even re-order them:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">parent</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">parent</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1000 group</span>
-<span class="go">            1001 group</span>
-<span class="go">                1003 default</span>
-<span class="go">                    out: 0.0, amplitude: 0.1, frequency: 222.0, gate: 1.0, pan: 0.5</span>
-<span class="go">        1004 default</span>
-<span class="go">            out: 0.0, amplitude: 0.1, frequency: 333.0, gate: 1.0, pan: 0.5</span>
-<span class="go">        1002 default</span>
-<span class="go">            out: 0.0, amplitude: 0.1, frequency: 111.0, gate: 1.0, pan: 0.5</span>
 </code></pre></div>
 </div>
 <p>… or replace nodes entirely:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">parent</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
-<span class="go">NODE TREE 0 group</span>
-<span class="go">    1 group</span>
-<span class="go">        1001 group</span>
-<span class="go">            1003 default</span>
-<span class="go">                out: 0.0, amplitude: 0.1, frequency: 222.0, gate: 1.0, pan: 0.5</span>
 </code></pre></div>
 </div>
 <div class="admonition caution">
@@ -1905,7 +1680,7 @@ replaced nodes, possibly resulting in audible clicks.</p>
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
     
     
-      <script src="../_static/javascripts/bundle.c6851205.min.js"></script>
+      <script src="../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/design-tabs.js"></script>
     

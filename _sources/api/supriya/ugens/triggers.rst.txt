@@ -13,9 +13,9 @@ triggers
    .. automethod:: ar
    .. automethod:: ir
    .. automethod:: kr
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
-   .. autoattribute:: source
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
+   .. autoproperty:: source
 
 .. autoclass:: Fold
    :show-inheritance:
@@ -23,17 +23,17 @@ triggers
    .. automethod:: ar
    .. automethod:: ir
    .. automethod:: kr
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
-   .. autoattribute:: source
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
+   .. autoproperty:: source
 
 .. autoclass:: Gate
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
-   .. autoattribute:: trigger
+   .. autoproperty:: source
+   .. autoproperty:: trigger
 
 .. autoclass:: InRange
    :show-inheritance:
@@ -41,32 +41,32 @@ triggers
    .. automethod:: ar
    .. automethod:: ir
    .. automethod:: kr
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
-   .. autoattribute:: source
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
+   .. autoproperty:: source
 
 .. autoclass:: Latch
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
-   .. autoattribute:: trigger
+   .. autoproperty:: source
+   .. autoproperty:: trigger
 
 .. autoclass:: LeastChange
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
+   .. autoproperty:: b
    .. automethod:: kr
 
 .. autoclass:: MostChange
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
+   .. autoproperty:: b
    .. automethod:: kr
 
 .. autoclass:: Peak
@@ -74,122 +74,122 @@ triggers
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
-   .. autoattribute:: trigger
+   .. autoproperty:: source
+   .. autoproperty:: trigger
 
 .. autoclass:: PeakFollower
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: decay
+   .. autoproperty:: decay
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Phasor
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: rate
-   .. autoattribute:: reset_pos
-   .. autoattribute:: start
-   .. autoattribute:: stop
-   .. autoattribute:: trigger
+   .. autoproperty:: rate
+   .. autoproperty:: reset_pos
+   .. autoproperty:: start
+   .. autoproperty:: stop
+   .. autoproperty:: trigger
 
 .. autoclass:: Poll
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: label
+   .. autoproperty:: label
    .. automethod:: new
-   .. autoattribute:: source
-   .. autoattribute:: trigger
-   .. autoattribute:: trigger_id
+   .. autoproperty:: source
+   .. autoproperty:: trigger
+   .. autoproperty:: trigger_id
 
 .. autoclass:: RunningMax
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
-   .. autoattribute:: trigger
+   .. autoproperty:: source
+   .. autoproperty:: trigger
 
 .. autoclass:: RunningMin
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
-   .. autoattribute:: trigger
+   .. autoproperty:: source
+   .. autoproperty:: trigger
 
 .. autoclass:: Schmidt
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
-   .. autoattribute:: source
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
+   .. autoproperty:: source
 
 .. autoclass:: SendPeakRMS
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: command_name
+   .. autoproperty:: command_name
    .. automethod:: kr
-   .. autoattribute:: peak_lag
-   .. autoattribute:: reply_id
-   .. autoattribute:: reply_rate
-   .. autoattribute:: source
+   .. autoproperty:: peak_lag
+   .. autoproperty:: reply_id
+   .. autoproperty:: reply_rate
+   .. autoproperty:: source
 
 .. autoclass:: SendTrig
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: id_
+   .. autoproperty:: id_
    .. automethod:: kr
-   .. autoattribute:: trigger
-   .. autoattribute:: value
+   .. autoproperty:: trigger
+   .. autoproperty:: value
 
 .. autoclass:: Sweep
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: rate
-   .. autoattribute:: trigger
+   .. autoproperty:: rate
+   .. autoproperty:: trigger
 
 .. autoclass:: TDelay
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: duration
+   .. autoproperty:: duration
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: ToggleFF
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: trigger
+   .. autoproperty:: trigger
 
 .. autoclass:: Trig
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: duration
+   .. autoproperty:: duration
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Trig1
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: duration
+   .. autoproperty:: duration
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Wrap
    :show-inheritance:
@@ -197,13 +197,13 @@ triggers
    .. automethod:: ar
    .. automethod:: ir
    .. automethod:: kr
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
-   .. autoattribute:: source
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
+   .. autoproperty:: source
 
 .. autoclass:: ZeroCrossing
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source

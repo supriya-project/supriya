@@ -10,16 +10,16 @@ bases
 .. autoclass:: BinaryOpUGen
    :show-inheritance:
 
-   .. autoattribute:: left
+   .. autoproperty:: left
    .. automethod:: new
-   .. autoattribute:: operator
-   .. autoattribute:: right
+   .. autoproperty:: operator
+   .. autoproperty:: right
 
 .. autoclass:: MultiOutUGen
    :show-inheritance:
 
    .. automethod:: __len__
-   .. autoattribute:: channel_count
+   .. autoproperty:: channel_count
 
 .. autoclass:: PseudoUGen
    :show-inheritance:
@@ -38,14 +38,14 @@ bases
 
    .. automethod:: __getitem__
    .. automethod:: __len__
-   .. autoattribute:: calculation_rate
-   .. autoattribute:: has_done_flag
-   .. autoattribute:: inputs
-   .. autoattribute:: is_input_ugen
-   .. autoattribute:: is_output_ugen
-   .. autoattribute:: outputs
-   .. autoattribute:: signal_range
-   .. autoattribute:: special_index
+   .. autoproperty:: calculation_rate
+   .. autoproperty:: has_done_flag
+   .. autoproperty:: inputs
+   .. autoproperty:: is_input_ugen
+   .. autoproperty:: is_output_ugen
+   .. autoproperty:: outputs
+   .. autoproperty:: signal_range
+   .. autoproperty:: special_index
 
 .. autoclass:: UGenMeta
    :show-inheritance:
@@ -60,8 +60,8 @@ bases
    :show-inheritance:
 
    .. automethod:: new
-   .. autoattribute:: operator
-   .. autoattribute:: source
+   .. autoproperty:: operator
+   .. autoproperty:: source
 
 .. autoclass:: WidthFirstUGen
    :show-inheritance:

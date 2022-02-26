@@ -10,19 +10,19 @@ structure
 .. autoclass:: BusPattern
    :show-inheritance:
 
-   .. autoattribute:: is_infinite
+   .. autoproperty:: is_infinite
 
 .. autoclass:: FxPattern
    :show-inheritance:
 
-   .. autoattribute:: is_infinite
+   .. autoproperty:: is_infinite
 
 .. autoclass:: GroupPattern
    :show-inheritance:
 
-   .. autoattribute:: is_infinite
+   .. autoproperty:: is_infinite
 
 .. autoclass:: ParallelPattern
    :show-inheritance:
 
-   .. autoattribute:: is_infinite
+   .. autoproperty:: is_infinite

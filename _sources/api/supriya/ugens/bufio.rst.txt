@@ -11,33 +11,33 @@ bufio
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: interpolation
+   .. autoproperty:: buffer_id
+   .. autoproperty:: interpolation
    .. automethod:: kr
-   .. autoattribute:: loop
-   .. autoattribute:: phase
+   .. autoproperty:: loop
+   .. autoproperty:: phase
 
 .. autoclass:: BufWr
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
+   .. autoproperty:: buffer_id
    .. automethod:: kr
-   .. autoattribute:: loop
-   .. autoattribute:: phase
-   .. autoattribute:: source
+   .. autoproperty:: loop
+   .. autoproperty:: phase
+   .. autoproperty:: source
 
 .. autoclass:: ClearBuf
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
+   .. autoproperty:: buffer_id
    .. automethod:: ir
 
 .. autoclass:: LocalBuf
    :show-inheritance:
 
-   .. autoattribute:: channel_count
-   .. autoattribute:: frame_count
+   .. autoproperty:: channel_count
+   .. autoproperty:: frame_count
    .. automethod:: ir
 
 .. autoclass:: MaxLocalBufs
@@ -45,31 +45,31 @@ bufio
 
    .. automethod:: increment
    .. automethod:: ir
-   .. autoattribute:: maximum
+   .. autoproperty:: maximum
 
 .. autoclass:: PlayBuf
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: done_action
+   .. autoproperty:: buffer_id
+   .. autoproperty:: done_action
    .. automethod:: kr
-   .. autoattribute:: loop
-   .. autoattribute:: rate
-   .. autoattribute:: start_position
-   .. autoattribute:: trigger
+   .. autoproperty:: loop
+   .. autoproperty:: rate
+   .. autoproperty:: start_position
+   .. autoproperty:: trigger
 
 .. autoclass:: RecordBuf
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: done_action
+   .. autoproperty:: buffer_id
+   .. autoproperty:: done_action
    .. automethod:: kr
-   .. autoattribute:: loop
-   .. autoattribute:: offset
-   .. autoattribute:: preexisting_level
-   .. autoattribute:: record_level
-   .. autoattribute:: run
-   .. autoattribute:: source
-   .. autoattribute:: trigger
+   .. autoproperty:: loop
+   .. autoproperty:: offset
+   .. autoproperty:: preexisting_level
+   .. autoproperty:: record_level
+   .. autoproperty:: run
+   .. autoproperty:: source
+   .. autoproperty:: trigger

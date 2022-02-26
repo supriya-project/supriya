@@ -13,7 +13,7 @@ nodes
    .. automethod:: __graph__
    .. automethod:: __setitem__
    .. automethod:: allocate
-   .. autoattribute:: controls
+   .. autoproperty:: controls
    .. automethod:: free
    .. automethod:: prepend
 
@@ -26,15 +26,16 @@ nodes
    .. automethod:: add_group
    .. automethod:: add_synth
    .. automethod:: free
-   .. autoattribute:: is_allocated
-   .. autoattribute:: is_paused
+   .. autoproperty:: is_allocated
+   .. autoproperty:: is_paused
    .. automethod:: move_node
-   .. autoattribute:: node_id
-   .. autoattribute:: node_id_is_permanent
+   .. autoproperty:: node_id
+   .. autoproperty:: node_id_is_permanent
    .. automethod:: pause
    .. automethod:: precede_by
    .. automethod:: query
    .. automethod:: replace_with
+   .. autoproperty:: server
    .. automethod:: succeed_by
    .. automethod:: unpause
 
@@ -43,9 +44,10 @@ nodes
 
    .. automethod:: allocate
    .. automethod:: free
-   .. autoattribute:: node_id
-   .. autoattribute:: parent
-   .. automethod:: run
+   .. autoproperty:: node_id
+   .. autoproperty:: parent
+   .. automethod:: pause
+   .. automethod:: unpause
 
 .. autoclass:: Synth
    :show-inheritance:
@@ -54,6 +56,6 @@ nodes
    .. automethod:: __iter__
    .. automethod:: __setitem__
    .. automethod:: allocate
-   .. autoattribute:: controls
+   .. autoproperty:: controls
    .. automethod:: release
-   .. autoattribute:: synthdef
+   .. autoproperty:: synthdef

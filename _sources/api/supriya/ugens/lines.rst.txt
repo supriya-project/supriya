@@ -11,52 +11,52 @@ lines
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: AmpComp
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: exp
-   .. autoattribute:: frequency
+   .. autoproperty:: exp
+   .. autoproperty:: frequency
    .. automethod:: ir
    .. automethod:: kr
-   .. autoattribute:: root
+   .. autoproperty:: root
 
 .. autoclass:: AmpCompA
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: ir
    .. automethod:: kr
-   .. autoattribute:: min_amp
-   .. autoattribute:: root
-   .. autoattribute:: root_amp
+   .. autoproperty:: min_amp
+   .. autoproperty:: root
+   .. autoproperty:: root_amp
 
 .. autoclass:: DC
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: K2A
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: LinExp
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: input_maximum
-   .. autoattribute:: input_minimum
+   .. autoproperty:: input_maximum
+   .. autoproperty:: input_minimum
    .. automethod:: kr
-   .. autoattribute:: output_maximum
-   .. autoattribute:: output_minimum
-   .. autoattribute:: source
+   .. autoproperty:: output_maximum
+   .. autoproperty:: output_minimum
+   .. autoproperty:: source
 
 .. autoclass:: LinLin
    :show-inheritance:
@@ -68,11 +68,11 @@ lines
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: done_action
-   .. autoattribute:: duration
+   .. autoproperty:: done_action
+   .. autoproperty:: duration
    .. automethod:: kr
-   .. autoattribute:: start
-   .. autoattribute:: stop
+   .. autoproperty:: start
+   .. autoproperty:: stop
 
 .. autoclass:: Silence
    :show-inheritance:
@@ -83,8 +83,8 @@ lines
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: done_action
-   .. autoattribute:: duration
+   .. autoproperty:: done_action
+   .. autoproperty:: duration
    .. automethod:: kr
-   .. autoattribute:: start
-   .. autoattribute:: stop
+   .. autoproperty:: start
+   .. autoproperty:: stop

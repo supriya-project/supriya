@@ -10,10 +10,10 @@ patterns
 .. autoclass:: BinaryOpPattern
    :show-inheritance:
 
-   .. autoattribute:: expr_one
-   .. autoattribute:: expr_two
-   .. autoattribute:: is_infinite
-   .. autoattribute:: operator
+   .. autoproperty:: expr_one
+   .. autoproperty:: expr_two
+   .. autoproperty:: is_infinite
+   .. autoproperty:: operator
 
 .. autoclass:: Pattern
    :show-inheritance:
@@ -37,24 +37,24 @@ patterns
    .. automethod:: __rtruediv__
    .. automethod:: __sub__
    .. automethod:: __truediv__
-   .. autoattribute:: is_infinite
+   .. autoproperty:: is_infinite
    .. automethod:: play
 
 .. autoclass:: SeedPattern
    :show-inheritance:
 
-   .. autoattribute:: is_infinite
-   .. autoattribute:: pattern
-   .. autoattribute:: seed
+   .. autoproperty:: is_infinite
+   .. autoproperty:: pattern
+   .. autoproperty:: seed
 
 .. autoclass:: SequencePattern
    :show-inheritance:
 
-   .. autoattribute:: is_infinite
+   .. autoproperty:: is_infinite
 
 .. autoclass:: UnaryOpPattern
    :show-inheritance:
 
-   .. autoattribute:: expr
-   .. autoattribute:: is_infinite
-   .. autoattribute:: operator
+   .. autoproperty:: expr
+   .. autoproperty:: is_infinite
+   .. autoproperty:: operator

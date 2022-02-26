@@ -948,7 +948,7 @@
         
           <li class="md-nav__item">
   <a href="#supriya.synthdefs.builders.SynthDefBuilder.name" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.synthdefs.builders.SynthDefBuilder.name (Python attribute)">name</span>
+    <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.synthdefs.builders.SynthDefBuilder.name (Python property)">name</span>
   </a>
   
 </li>
@@ -1310,7 +1310,7 @@
         
           <li class="md-nav__item">
   <a href="#supriya.synthdefs.builders.SynthDefBuilder.name" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.synthdefs.builders.SynthDefBuilder.name (Python attribute)">name</span>
+    <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.synthdefs.builders.SynthDefBuilder.name (Python property)">name</span>
   </a>
   
 </li>
@@ -1380,14 +1380,14 @@
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="n">enveloped_sin</span> <span class="o">=</span> <span class="n">sin_osc</span> <span class="o">*</span> <span class="n">decay</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">enveloped_sin</span><span class="p">)</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<div class="uqbar-book"><a href="../../../_images/graphviz-6169b1fa712969b1d188f8f018aa0a9c8559817108c24e34c0802b9f9ea9d23d.dot" title=""><img src="../../../_images/graphviz-6169b1fa712969b1d188f8f018aa0a9c8559817108c24e34c0802b9f9ea9d23d.svg" alt=""/></a></div><dl class="py method objdesc">
+<dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.builders.SynthDefBuilder.__enter__">
 <span class="sig-name descname"><span class="pre">__enter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.builders.SynthDefBuilder.__enter__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1407,9 +1407,9 @@
 <span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">optimize</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.builders.SynthDefBuilder.build" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute objdesc">
+<dl class="py property objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.builders.SynthDefBuilder.name">
-<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#supriya.synthdefs.builders.SynthDefBuilder.name" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#supriya.synthdefs.builders.SynthDefBuilder.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method objdesc">
@@ -1432,7 +1432,7 @@
 <span class="gp">... </span>    <span class="n">sig</span> <span class="o">=</span> <span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span> <span class="o">*</span> <span class="n">amp</span>
 <span class="gp">... </span>    <span class="n">env</span> <span class="o">=</span> <span class="n">EnvGen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">envelope</span><span class="o">=</span><span class="n">Envelope</span><span class="o">.</span><span class="n">adsr</span><span class="p">(),</span> <span class="n">gate</span><span class="o">=</span><span class="n">gate</span><span class="p">,</span> <span class="n">done_action</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="n">sig</span> <span class="o">*</span> <span class="n">env</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sine</span><span class="p">)</span>
@@ -1482,7 +1482,7 @@
 <span class="gp">... </span>    <span class="n">sig</span> <span class="o">=</span> <span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span> <span class="o">*</span> <span class="n">amp</span>
 <span class="gp">... </span>    <span class="n">env</span> <span class="o">=</span> <span class="n">EnvGen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">envelope</span><span class="o">=</span><span class="n">Envelope</span><span class="o">.</span><span class="n">adsr</span><span class="p">(),</span> <span class="n">gate</span><span class="o">=</span><span class="n">gate</span><span class="p">,</span> <span class="n">done_action</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="n">sig</span> <span class="o">*</span> <span class="n">env</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sine</span><span class="p">)</span>
@@ -1623,7 +1623,7 @@
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../_static/javascripts/bundle.c6851205.min.js"></script>
+      <script src="../../../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
     

@@ -10,12 +10,12 @@ Moment
 .. autoclass:: Moment
    :show-inheritance:
 
-   .. autoattribute:: interval_tree
-   .. autoattribute:: next_moment
-   .. autoattribute:: next_start_offset
-   .. autoattribute:: overlap_intervals
-   .. autoattribute:: previous_moment
-   .. autoattribute:: previous_start_offset
-   .. autoattribute:: start_intervals
-   .. autoattribute:: start_offset
-   .. autoattribute:: stop_intervals
+   .. autoproperty:: interval_tree
+   .. autoproperty:: next_moment
+   .. autoproperty:: next_start_offset
+   .. autoproperty:: overlap_intervals
+   .. autoproperty:: previous_moment
+   .. autoproperty:: previous_start_offset
+   .. autoproperty:: start_intervals
+   .. autoproperty:: start_offset
+   .. autoproperty:: stop_intervals

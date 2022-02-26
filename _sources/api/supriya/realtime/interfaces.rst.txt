@@ -11,17 +11,17 @@ interfaces
    :show-inheritance:
 
    .. automethod:: __setitem__
-   .. autoattribute:: client
-   .. autoattribute:: node_id
+   .. autoproperty:: client
+   .. autoproperty:: node_id
    .. automethod:: reset
 
 .. autoclass:: GroupControl
    :show-inheritance:
 
-   .. autoattribute:: client
-   .. autoattribute:: group
-   .. autoattribute:: name
-   .. autoattribute:: node
+   .. autoproperty:: client
+   .. autoproperty:: group
+   .. autoproperty:: name
+   .. autoproperty:: node
    .. automethod:: set
 
 .. autoclass:: GroupInterface
@@ -41,21 +41,21 @@ interfaces
    :show-inheritance:
 
    .. automethod:: __call__
-   .. autoattribute:: calculation_rate
-   .. autoattribute:: client
-   .. autoattribute:: default_value
+   .. autoproperty:: calculation_rate
+   .. autoproperty:: client
+   .. autoproperty:: default_value
    .. automethod:: from_parameter
    .. automethod:: get
-   .. autoattribute:: index
-   .. autoattribute:: last_unmapped_value
-   .. autoattribute:: name
-   .. autoattribute:: node
-   .. autoattribute:: range_
+   .. autoproperty:: index
+   .. autoproperty:: last_unmapped_value
+   .. autoproperty:: name
+   .. autoproperty:: node
+   .. autoproperty:: range_
    .. automethod:: reset
    .. automethod:: set
-   .. autoattribute:: synth
-   .. autoattribute:: unit
-   .. autoattribute:: value
+   .. autoproperty:: synth
+   .. autoproperty:: unit
+   .. autoproperty:: value
 
 .. autoclass:: SynthInterface
    :show-inheritance:
@@ -67,5 +67,5 @@ interfaces
    .. automethod:: __setitem__
    .. automethod:: as_dict
    .. automethod:: reset
-   .. autoattribute:: synth_controls
-   .. autoattribute:: synthdef
+   .. autoproperty:: synth_controls
+   .. autoproperty:: synthdef

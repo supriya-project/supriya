@@ -10,26 +10,26 @@ buffers
 .. autoclass:: Buffer
    :show-inheritance:
 
-   .. autoattribute:: buffer_group
-   .. autoattribute:: channel_count
+   .. autoproperty:: buffer_group
+   .. autoproperty:: channel_count
    .. automethod:: close
    .. automethod:: copy
-   .. autoattribute:: duration
-   .. autoattribute:: file_path
+   .. autoproperty:: duration
+   .. autoproperty:: file_path
    .. automethod:: fill
    .. automethod:: fill_via_chebyshev
    .. automethod:: fill_via_sine_1
    .. automethod:: fill_via_sine_2
    .. automethod:: fill_via_sine_3
-   .. autoattribute:: frame_count
+   .. autoproperty:: frame_count
    .. automethod:: normalize
    .. automethod:: read
-   .. autoattribute:: session_id
+   .. autoproperty:: session_id
    .. automethod:: set
    .. automethod:: set_contiguous
-   .. autoattribute:: start_offset
-   .. autoattribute:: starting_frame
-   .. autoattribute:: stop_offset
+   .. autoproperty:: start_offset
+   .. autoproperty:: starting_frame
+   .. autoproperty:: stop_offset
    .. automethod:: write
    .. automethod:: zero
 
@@ -40,11 +40,11 @@ buffers
    .. automethod:: __getitem__
    .. automethod:: __iter__
    .. automethod:: __len__
-   .. autoattribute:: buffer_count
-   .. autoattribute:: buffers
-   .. autoattribute:: channel_count
-   .. autoattribute:: duration
-   .. autoattribute:: frame_count
+   .. autoproperty:: buffer_count
+   .. autoproperty:: buffers
+   .. autoproperty:: channel_count
+   .. autoproperty:: duration
+   .. autoproperty:: frame_count
    .. automethod:: index
-   .. autoattribute:: start_offset
-   .. autoattribute:: stop_offset
+   .. autoproperty:: start_offset
+   .. autoproperty:: stop_offset

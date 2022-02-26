@@ -14,8 +14,8 @@ captures
    .. automethod:: __exit__
    .. automethod:: __iter__
    .. automethod:: __len__
-   .. autoattribute:: received_messages
-   .. autoattribute:: sent_messages
+   .. autoproperty:: received_messages
+   .. autoproperty:: sent_messages
 
 .. autoclass:: CaptureEntry
    :show-inheritance:

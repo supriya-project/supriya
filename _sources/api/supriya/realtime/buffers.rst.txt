@@ -16,29 +16,29 @@ buffers
    .. automethod:: __render__
    .. automethod:: allocate
    .. automethod:: allocate_from_file
-   .. autoattribute:: buffer_group
-   .. autoattribute:: buffer_id
-   .. autoattribute:: channel_count
+   .. autoproperty:: buffer_group
+   .. autoproperty:: buffer_id
+   .. autoproperty:: channel_count
    .. automethod:: close
    .. automethod:: copy
-   .. autoattribute:: duration_in_seconds
+   .. autoproperty:: duration_in_seconds
    .. automethod:: fill
    .. automethod:: fill_via_chebyshev
    .. automethod:: fill_via_sine_1
    .. automethod:: fill_via_sine_2
    .. automethod:: fill_via_sine_3
-   .. autoattribute:: frame_count
+   .. autoproperty:: frame_count
    .. automethod:: free
    .. automethod:: get
    .. automethod:: get_contiguous
    .. automethod:: get_frames
-   .. autoattribute:: is_allocated
+   .. autoproperty:: is_allocated
    .. automethod:: normalize
    .. automethod:: query
    .. automethod:: read
-   .. autoattribute:: sample_count
-   .. autoattribute:: sample_rate
-   .. autoattribute:: server
+   .. autoproperty:: sample_count
+   .. autoproperty:: sample_rate
+   .. autoproperty:: server
    .. automethod:: set
    .. automethod:: set_contiguous
    .. automethod:: write
@@ -54,12 +54,12 @@ buffers
    .. automethod:: __iter__
    .. automethod:: __len__
    .. automethod:: allocate
-   .. autoattribute:: buffer_id
-   .. autoattribute:: buffers
+   .. autoproperty:: buffer_id
+   .. autoproperty:: buffers
    .. automethod:: free
    .. automethod:: from_file_paths
    .. automethod:: index
-   .. autoattribute:: is_allocated
+   .. autoproperty:: is_allocated
    .. automethod:: zero
 
 .. autoclass:: BufferProxy
@@ -67,10 +67,10 @@ buffers
 
    .. automethod:: __float__
    .. automethod:: __int__
-   .. autoattribute:: buffer_id
-   .. autoattribute:: channel_count
-   .. autoattribute:: duration_in_seconds
-   .. autoattribute:: frame_count
-   .. autoattribute:: sample_count
-   .. autoattribute:: sample_rate
-   .. autoattribute:: server
+   .. autoproperty:: buffer_id
+   .. autoproperty:: channel_count
+   .. autoproperty:: duration_in_seconds
+   .. autoproperty:: frame_count
+   .. autoproperty:: sample_count
+   .. autoproperty:: sample_rate
+   .. autoproperty:: server

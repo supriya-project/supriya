@@ -12,14 +12,14 @@ safety
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: post_mode
-   .. autoattribute:: source
-   .. autoattribute:: ugen_id
+   .. autoproperty:: post_mode
+   .. autoproperty:: source
+   .. autoproperty:: ugen_id
 
 .. autoclass:: Sanitize
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: replace
-   .. autoattribute:: source
+   .. autoproperty:: replace
+   .. autoproperty:: source

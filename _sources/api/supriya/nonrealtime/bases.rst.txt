@@ -11,4 +11,4 @@ bases
    :show-inheritance:
 
    .. automethod:: require_offset
-   .. autoattribute:: session
+   .. autoproperty:: session

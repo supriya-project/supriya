@@ -36,7 +36,7 @@ providers
    .. automethod:: __float__
    .. automethod:: __int__
    .. automethod:: free
-   .. autoattribute:: map_symbol
+   .. autoproperty:: map_symbol
    .. automethod:: set_
 
 .. autoclass:: GroupProxy
@@ -93,7 +93,7 @@ providers
    .. automethod:: add_bus_group
    .. automethod:: add_group
    .. automethod:: add_synth
-   .. autoattribute:: annotation_map
+   .. autoproperty:: annotation_map
    .. automethod:: at
    .. automethod:: boot
    .. automethod:: dispose
@@ -102,16 +102,16 @@ providers
    .. automethod:: free_bus_group
    .. automethod:: free_node
    .. automethod:: from_context
-   .. autoattribute:: latency
-   .. autoattribute:: moment
+   .. autoproperty:: latency
+   .. autoproperty:: moment
    .. automethod:: move_node
    .. automethod:: nonrealtime
    .. automethod:: quit
    .. automethod:: realtime
    .. automethod:: realtime_async
    .. automethod:: register_osc_callback
-   .. autoattribute:: server
-   .. autoattribute:: session
+   .. autoproperty:: server
+   .. autoproperty:: session
    .. automethod:: set_bus
    .. automethod:: set_node
    .. automethod:: unregister_osc_callback

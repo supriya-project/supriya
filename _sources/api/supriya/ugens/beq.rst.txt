@@ -11,25 +11,25 @@ beq
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: reciprocal_of_q
-   .. autoattribute:: source
+   .. autoproperty:: frequency
+   .. autoproperty:: reciprocal_of_q
+   .. autoproperty:: source
 
 .. autoclass:: BBandPass
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: bandwidth
-   .. autoattribute:: frequency
-   .. autoattribute:: source
+   .. autoproperty:: bandwidth
+   .. autoproperty:: frequency
+   .. autoproperty:: source
 
 .. autoclass:: BBandStop
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: bandwidth
-   .. autoattribute:: frequency
-   .. autoattribute:: source
+   .. autoproperty:: bandwidth
+   .. autoproperty:: frequency
+   .. autoproperty:: source
 
 .. autoclass:: BEQSuite
    :show-inheritance:
@@ -39,59 +39,59 @@ beq
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: max_order
-   .. autoattribute:: order
-   .. autoattribute:: source
+   .. autoproperty:: frequency
+   .. autoproperty:: max_order
+   .. autoproperty:: order
+   .. autoproperty:: source
 
 .. autoclass:: BHiPass
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: reciprocal_of_q
-   .. autoattribute:: source
+   .. autoproperty:: frequency
+   .. autoproperty:: reciprocal_of_q
+   .. autoproperty:: source
 
 .. autoclass:: BHiShelf
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: gain
-   .. autoattribute:: reciprocal_of_s
-   .. autoattribute:: source
+   .. autoproperty:: frequency
+   .. autoproperty:: gain
+   .. autoproperty:: reciprocal_of_s
+   .. autoproperty:: source
 
 .. autoclass:: BLowCut
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: max_order
-   .. autoattribute:: order
-   .. autoattribute:: source
+   .. autoproperty:: frequency
+   .. autoproperty:: max_order
+   .. autoproperty:: order
+   .. autoproperty:: source
 
 .. autoclass:: BLowPass
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: reciprocal_of_q
-   .. autoattribute:: source
+   .. autoproperty:: frequency
+   .. autoproperty:: reciprocal_of_q
+   .. autoproperty:: source
 
 .. autoclass:: BLowShelf
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: gain
-   .. autoattribute:: reciprocal_of_s
-   .. autoattribute:: source
+   .. autoproperty:: frequency
+   .. autoproperty:: gain
+   .. autoproperty:: reciprocal_of_s
+   .. autoproperty:: source
 
 .. autoclass:: BPeakEQ
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: gain
-   .. autoattribute:: reciprocal_of_q
-   .. autoattribute:: source
+   .. autoproperty:: frequency
+   .. autoproperty:: gain
+   .. autoproperty:: reciprocal_of_q
+   .. autoproperty:: source

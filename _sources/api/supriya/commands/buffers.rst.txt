@@ -10,77 +10,77 @@ buffers
 .. autoclass:: BufferAllocateReadChannelRequest
    :show-inheritance:
 
-   .. autoattribute:: channel_indices
-   .. autoattribute:: response_patterns
+   .. autoproperty:: channel_indices
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: BufferAllocateReadRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: callback
-   .. autoattribute:: file_path
-   .. autoattribute:: frame_count
-   .. autoattribute:: response_patterns
-   .. autoattribute:: starting_frame
+   .. autoproperty:: buffer_id
+   .. autoproperty:: callback
+   .. autoproperty:: file_path
+   .. autoproperty:: frame_count
+   .. autoproperty:: response_patterns
+   .. autoproperty:: starting_frame
    .. automethod:: to_osc
 
 .. autoclass:: BufferAllocateRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: callback
-   .. autoattribute:: channel_count
-   .. autoattribute:: frame_count
-   .. autoattribute:: response_patterns
+   .. autoproperty:: buffer_id
+   .. autoproperty:: callback
+   .. autoproperty:: channel_count
+   .. autoproperty:: frame_count
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: BufferCloseRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: response_patterns
+   .. autoproperty:: buffer_id
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: BufferCopyRequest
    :show-inheritance:
 
-   .. autoattribute:: frame_count
-   .. autoattribute:: response_patterns
-   .. autoattribute:: source_buffer_id
-   .. autoattribute:: source_starting_frame
-   .. autoattribute:: target_buffer_id
-   .. autoattribute:: target_starting_frame
+   .. autoproperty:: frame_count
+   .. autoproperty:: response_patterns
+   .. autoproperty:: source_buffer_id
+   .. autoproperty:: source_starting_frame
+   .. autoproperty:: target_buffer_id
+   .. autoproperty:: target_starting_frame
    .. automethod:: to_osc
 
 .. autoclass:: BufferFillRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: index_count_value_triples
+   .. autoproperty:: buffer_id
+   .. autoproperty:: index_count_value_triples
    .. automethod:: to_osc
 
 .. autoclass:: BufferFreeRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: callback
+   .. autoproperty:: buffer_id
+   .. autoproperty:: callback
    .. automethod:: to_osc
 
 .. autoclass:: BufferGenerateRequest
    :show-inheritance:
 
-   .. autoattribute:: amplitudes
-   .. autoattribute:: as_wavetable
-   .. autoattribute:: buffer_id
+   .. autoproperty:: amplitudes
+   .. autoproperty:: as_wavetable
+   .. autoproperty:: buffer_id
    .. automethod:: chebyshev
-   .. autoattribute:: command_name
-   .. autoattribute:: flags
-   .. autoattribute:: frequencies
-   .. autoattribute:: phases
-   .. autoattribute:: response_patterns
-   .. autoattribute:: should_clear_first
-   .. autoattribute:: should_normalize
+   .. autoproperty:: command_name
+   .. autoproperty:: flags
+   .. autoproperty:: frequencies
+   .. autoproperty:: phases
+   .. autoproperty:: response_patterns
+   .. autoproperty:: should_clear_first
+   .. autoproperty:: should_normalize
    .. automethod:: sine1
    .. automethod:: sine2
    .. automethod:: sine3
@@ -89,17 +89,17 @@ buffers
 .. autoclass:: BufferGetContiguousRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: index_count_pairs
-   .. autoattribute:: response_patterns
+   .. autoproperty:: buffer_id
+   .. autoproperty:: index_count_pairs
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: BufferGetRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: indices
-   .. autoattribute:: response_patterns
+   .. autoproperty:: buffer_id
+   .. autoproperty:: indices
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: BufferInfoResponse
@@ -107,51 +107,51 @@ buffers
 
    .. automethod:: __getitem__
    .. automethod:: __len__
-   .. autoattribute:: buffer_id
+   .. autoproperty:: buffer_id
    .. automethod:: from_osc_message
-   .. autoattribute:: items
+   .. autoproperty:: items
 
 .. autoclass:: BufferNormalizeRequest
    :show-inheritance:
 
-   .. autoattribute:: as_wavetable
-   .. autoattribute:: buffer_id
-   .. autoattribute:: new_maximum
-   .. autoattribute:: response_patterns
+   .. autoproperty:: as_wavetable
+   .. autoproperty:: buffer_id
+   .. autoproperty:: new_maximum
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: BufferQueryRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_ids
-   .. autoattribute:: response_patterns
+   .. autoproperty:: buffer_ids
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: BufferReadChannelRequest
    :show-inheritance:
 
-   .. autoattribute:: channel_indices
-   .. autoattribute:: response_patterns
+   .. autoproperty:: channel_indices
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: BufferReadRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: callback
-   .. autoattribute:: file_path
-   .. autoattribute:: frame_count
-   .. autoattribute:: leave_open
-   .. autoattribute:: response_patterns
-   .. autoattribute:: starting_frame_in_buffer
-   .. autoattribute:: starting_frame_in_file
+   .. autoproperty:: buffer_id
+   .. autoproperty:: callback
+   .. autoproperty:: file_path
+   .. autoproperty:: frame_count
+   .. autoproperty:: leave_open
+   .. autoproperty:: response_patterns
+   .. autoproperty:: starting_frame_in_buffer
+   .. autoproperty:: starting_frame_in_file
    .. automethod:: to_osc
 
 .. autoclass:: BufferSetContiguousRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: index_values_pairs
+   .. autoproperty:: buffer_id
+   .. autoproperty:: index_values_pairs
    .. automethod:: to_osc
 
 .. autoclass:: BufferSetContiguousResponse
@@ -160,15 +160,15 @@ buffers
    .. automethod:: __getitem__
    .. automethod:: __len__
    .. automethod:: as_dict
-   .. autoattribute:: buffer_id
+   .. autoproperty:: buffer_id
    .. automethod:: from_osc_message
-   .. autoattribute:: items
+   .. autoproperty:: items
 
 .. autoclass:: BufferSetRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: index_value_pairs
+   .. autoproperty:: buffer_id
+   .. autoproperty:: index_value_pairs
    .. automethod:: to_osc
 
 .. autoclass:: BufferSetResponse
@@ -177,28 +177,28 @@ buffers
    .. automethod:: __getitem__
    .. automethod:: __len__
    .. automethod:: as_dict
-   .. autoattribute:: buffer_id
+   .. autoproperty:: buffer_id
    .. automethod:: from_osc_message
-   .. autoattribute:: items
+   .. autoproperty:: items
 
 .. autoclass:: BufferWriteRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: callback
-   .. autoattribute:: file_path
-   .. autoattribute:: frame_count
-   .. autoattribute:: header_format
-   .. autoattribute:: leave_open
-   .. autoattribute:: response_patterns
-   .. autoattribute:: sample_format
-   .. autoattribute:: starting_frame
+   .. autoproperty:: buffer_id
+   .. autoproperty:: callback
+   .. autoproperty:: file_path
+   .. autoproperty:: frame_count
+   .. autoproperty:: header_format
+   .. autoproperty:: leave_open
+   .. autoproperty:: response_patterns
+   .. autoproperty:: sample_format
+   .. autoproperty:: starting_frame
    .. automethod:: to_osc
 
 .. autoclass:: BufferZeroRequest
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: callback
-   .. autoattribute:: response_patterns
+   .. autoproperty:: buffer_id
+   .. autoproperty:: callback
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc

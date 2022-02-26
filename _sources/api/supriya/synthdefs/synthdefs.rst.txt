@@ -10,39 +10,39 @@ synthdefs
 .. autoclass:: SuperColliderSynthDef
    :show-inheritance:
 
-   .. autoattribute:: body
+   .. autoproperty:: body
    .. automethod:: compile
-   .. autoattribute:: name
-   .. autoattribute:: rates
+   .. autoproperty:: name
+   .. autoproperty:: rates
 
 .. autoclass:: SynthDef
    :show-inheritance:
 
    .. automethod:: __graph__
-   .. autoattribute:: actual_name
+   .. autoproperty:: actual_name
    .. automethod:: allocate
-   .. autoattribute:: anonymous_name
-   .. autoattribute:: audio_channel_count
-   .. autoattribute:: audio_input_channel_count
-   .. autoattribute:: audio_output_channel_count
+   .. autoproperty:: anonymous_name
+   .. autoproperty:: audio_channel_count
+   .. autoproperty:: audio_input_channel_count
+   .. autoproperty:: audio_output_channel_count
    .. automethod:: compile
-   .. autoattribute:: constants
-   .. autoattribute:: control_channel_count
-   .. autoattribute:: control_input_channel_count
-   .. autoattribute:: control_output_channel_count
-   .. autoattribute:: control_ugens
-   .. autoattribute:: done_actions
+   .. autoproperty:: constants
+   .. autoproperty:: control_channel_count
+   .. autoproperty:: control_input_channel_count
+   .. autoproperty:: control_output_channel_count
+   .. autoproperty:: control_ugens
+   .. autoproperty:: done_actions
    .. automethod:: free
-   .. autoattribute:: has_gate
-   .. autoattribute:: indexed_parameters
-   .. autoattribute:: input_ugens
-   .. autoattribute:: is_allocated
-   .. autoattribute:: name
-   .. autoattribute:: output_ugens
-   .. autoattribute:: parameter_names
-   .. autoattribute:: parameters
+   .. autoproperty:: has_gate
+   .. autoproperty:: indexed_parameters
+   .. autoproperty:: input_ugens
+   .. autoproperty:: is_allocated
+   .. autoproperty:: name
+   .. autoproperty:: output_ugens
+   .. autoproperty:: parameter_names
+   .. autoproperty:: parameters
    .. automethod:: to_dict
-   .. autoattribute:: ugens
+   .. autoproperty:: ugens
 
 .. autoclass:: UGenSortBundle
    :show-inheritance:

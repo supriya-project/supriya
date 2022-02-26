@@ -10,48 +10,48 @@ gendyn
 .. autoclass:: Gendy1
    :show-inheritance:
 
-   .. autoattribute:: adparam
-   .. autoattribute:: ampdist
-   .. autoattribute:: ampscale
+   .. autoproperty:: adparam
+   .. autoproperty:: ampdist
+   .. autoproperty:: ampscale
    .. automethod:: ar
-   .. autoattribute:: ddparam
-   .. autoattribute:: durdist
-   .. autoattribute:: durscale
-   .. autoattribute:: init_cps
-   .. autoattribute:: knum
+   .. autoproperty:: ddparam
+   .. autoproperty:: durdist
+   .. autoproperty:: durscale
+   .. autoproperty:: init_cps
+   .. autoproperty:: knum
    .. automethod:: kr
-   .. autoattribute:: maxfrequency
-   .. autoattribute:: minfrequency
+   .. autoproperty:: maxfrequency
+   .. autoproperty:: minfrequency
 
 .. autoclass:: Gendy2
    :show-inheritance:
 
-   .. autoattribute:: a
-   .. autoattribute:: adparam
-   .. autoattribute:: ampdist
-   .. autoattribute:: ampscale
+   .. autoproperty:: a
+   .. autoproperty:: adparam
+   .. autoproperty:: ampdist
+   .. autoproperty:: ampscale
    .. automethod:: ar
-   .. autoattribute:: c
-   .. autoattribute:: ddparam
-   .. autoattribute:: durdist
-   .. autoattribute:: durscale
-   .. autoattribute:: init_cps
-   .. autoattribute:: knum
+   .. autoproperty:: c
+   .. autoproperty:: ddparam
+   .. autoproperty:: durdist
+   .. autoproperty:: durscale
+   .. autoproperty:: init_cps
+   .. autoproperty:: knum
    .. automethod:: kr
-   .. autoattribute:: maxfrequency
-   .. autoattribute:: minfrequency
+   .. autoproperty:: maxfrequency
+   .. autoproperty:: minfrequency
 
 .. autoclass:: Gendy3
    :show-inheritance:
 
-   .. autoattribute:: adparam
-   .. autoattribute:: ampdist
-   .. autoattribute:: ampscale
+   .. autoproperty:: adparam
+   .. autoproperty:: ampdist
+   .. autoproperty:: ampscale
    .. automethod:: ar
-   .. autoattribute:: ddparam
-   .. autoattribute:: durdist
-   .. autoattribute:: durscale
-   .. autoattribute:: frequency
-   .. autoattribute:: init_cps
-   .. autoattribute:: knum
+   .. autoproperty:: ddparam
+   .. autoproperty:: durdist
+   .. autoproperty:: durscale
+   .. autoproperty:: frequency
+   .. autoproperty:: init_cps
+   .. autoproperty:: knum
    .. automethod:: kr

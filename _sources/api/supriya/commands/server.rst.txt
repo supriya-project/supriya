@@ -15,20 +15,20 @@ server
 .. autoclass:: DoneResponse
    :show-inheritance:
 
-   .. autoattribute:: action
+   .. autoproperty:: action
    .. automethod:: from_osc_message
 
 .. autoclass:: DumpOscRequest
    :show-inheritance:
 
-   .. autoattribute:: osc_status
+   .. autoproperty:: osc_status
    .. automethod:: to_osc
 
 .. autoclass:: FailResponse
    :show-inheritance:
 
-   .. autoattribute:: failed_command
-   .. autoattribute:: failure_reason
+   .. autoproperty:: failed_command
+   .. autoproperty:: failure_reason
    .. automethod:: from_osc_message
 
 .. autoclass:: NothingRequest
@@ -39,45 +39,45 @@ server
 .. autoclass:: NotifyRequest
    :show-inheritance:
 
-   .. autoattribute:: notify_status
-   .. autoattribute:: response_patterns
+   .. autoproperty:: notify_status
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: QuitRequest
    :show-inheritance:
 
-   .. autoattribute:: response_patterns
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: StatusRequest
    :show-inheritance:
 
-   .. autoattribute:: response_patterns
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: StatusResponse
    :show-inheritance:
 
-   .. autoattribute:: actual_sample_rate
-   .. autoattribute:: average_cpu_usage
+   .. autoproperty:: actual_sample_rate
+   .. autoproperty:: average_cpu_usage
    .. automethod:: from_osc_message
-   .. autoattribute:: group_count
-   .. autoattribute:: peak_cpu_usage
-   .. autoattribute:: synth_count
-   .. autoattribute:: synthdef_count
-   .. autoattribute:: target_sample_rate
+   .. autoproperty:: group_count
+   .. autoproperty:: peak_cpu_usage
+   .. autoproperty:: synth_count
+   .. autoproperty:: synthdef_count
+   .. autoproperty:: target_sample_rate
    .. automethod:: to_dict
-   .. autoattribute:: ugen_count
+   .. autoproperty:: ugen_count
 
 .. autoclass:: SyncRequest
    :show-inheritance:
 
-   .. autoattribute:: response_patterns
-   .. autoattribute:: sync_id
+   .. autoproperty:: response_patterns
+   .. autoproperty:: sync_id
    .. automethod:: to_osc
 
 .. autoclass:: SyncedResponse
    :show-inheritance:
 
    .. automethod:: from_osc_message
-   .. autoattribute:: sync_id
+   .. autoproperty:: sync_id

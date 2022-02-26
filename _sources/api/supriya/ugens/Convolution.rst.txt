@@ -11,34 +11,34 @@ convolution
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: framesize
-   .. autoattribute:: kernel
-   .. autoattribute:: source
+   .. autoproperty:: framesize
+   .. autoproperty:: kernel
+   .. autoproperty:: source
 
 .. autoclass:: Convolution2
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: framesize
-   .. autoattribute:: kernel
-   .. autoattribute:: source
-   .. autoattribute:: trigger
+   .. autoproperty:: framesize
+   .. autoproperty:: kernel
+   .. autoproperty:: source
+   .. autoproperty:: trigger
 
 .. autoclass:: Convolution2L
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: crossfade
-   .. autoattribute:: framesize
-   .. autoattribute:: kernel
-   .. autoattribute:: source
-   .. autoattribute:: trigger
+   .. autoproperty:: crossfade
+   .. autoproperty:: framesize
+   .. autoproperty:: kernel
+   .. autoproperty:: source
+   .. autoproperty:: trigger
 
 .. autoclass:: Convolution3
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: framesize
-   .. autoattribute:: kernel
-   .. autoattribute:: source
-   .. autoattribute:: trigger
+   .. autoproperty:: framesize
+   .. autoproperty:: kernel
+   .. autoproperty:: source
+   .. autoproperty:: trigger

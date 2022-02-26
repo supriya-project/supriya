@@ -11,64 +11,64 @@ envelopes
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: EnvGen
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: done_action
-   .. autoattribute:: envelope
-   .. autoattribute:: gate
+   .. autoproperty:: done_action
+   .. autoproperty:: envelope
+   .. autoproperty:: gate
    .. automethod:: kr
-   .. autoattribute:: level_bias
-   .. autoattribute:: level_scale
-   .. autoattribute:: time_scale
+   .. autoproperty:: level_bias
+   .. autoproperty:: level_scale
+   .. autoproperty:: time_scale
 
 .. autoclass:: Free
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: node_id
-   .. autoattribute:: trigger
+   .. autoproperty:: node_id
+   .. autoproperty:: trigger
 
 .. autoclass:: FreeSelf
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: trigger
+   .. autoproperty:: trigger
 
 .. autoclass:: FreeSelfWhenDone
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Linen
    :show-inheritance:
 
-   .. autoattribute:: attack_time
-   .. autoattribute:: done_action
-   .. autoattribute:: gate
+   .. autoproperty:: attack_time
+   .. autoproperty:: done_action
+   .. autoproperty:: gate
    .. automethod:: kr
-   .. autoattribute:: release_time
-   .. autoattribute:: sustain_level
+   .. autoproperty:: release_time
+   .. autoproperty:: sustain_level
 
 .. autoclass:: Pause
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: node_id
-   .. autoattribute:: trigger
+   .. autoproperty:: node_id
+   .. autoproperty:: trigger
 
 .. autoclass:: PauseSelf
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: trigger
+   .. autoproperty:: trigger
 
 .. autoclass:: PauseSelfWhenDone
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source

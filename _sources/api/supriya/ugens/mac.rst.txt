@@ -10,34 +10,34 @@ mac
 .. autoclass:: KeyState
    :show-inheritance:
 
-   .. autoattribute:: keycode
+   .. autoproperty:: keycode
    .. automethod:: kr
-   .. autoattribute:: lag
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
+   .. autoproperty:: lag
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
 
 .. autoclass:: MouseButton
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: lag
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
+   .. autoproperty:: lag
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
 
 .. autoclass:: MouseX
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: lag
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
-   .. autoattribute:: warp
+   .. autoproperty:: lag
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
+   .. autoproperty:: warp
 
 .. autoclass:: MouseY
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: lag
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
-   .. autoattribute:: warp
+   .. autoproperty:: lag
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
+   .. autoproperty:: warp

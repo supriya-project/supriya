@@ -16,15 +16,15 @@ controls
 
    .. automethod:: __getitem__
    .. automethod:: __len__
-   .. autoattribute:: controls
+   .. autoproperty:: controls
    .. automethod:: new
-   .. autoattribute:: parameters
-   .. autoattribute:: starting_control_index
+   .. autoproperty:: parameters
+   .. autoproperty:: starting_control_index
 
 .. autoclass:: LagControl
    :show-inheritance:
 
-   .. autoattribute:: lags
+   .. autoproperty:: lags
    .. automethod:: new
 
 .. autoclass:: Parameter
@@ -32,24 +32,24 @@ controls
 
    .. automethod:: __getitem__
    .. automethod:: __len__
-   .. autoattribute:: calculation_rate
-   .. autoattribute:: has_done_flag
-   .. autoattribute:: inputs
-   .. autoattribute:: lag
-   .. autoattribute:: name
-   .. autoattribute:: parameter_rate
-   .. autoattribute:: range_
-   .. autoattribute:: signal_range
-   .. autoattribute:: unit
-   .. autoattribute:: value
+   .. autoproperty:: calculation_rate
+   .. autoproperty:: has_done_flag
+   .. autoproperty:: inputs
+   .. autoproperty:: lag
+   .. autoproperty:: name
+   .. autoproperty:: parameter_rate
+   .. autoproperty:: range_
+   .. autoproperty:: signal_range
+   .. autoproperty:: unit
+   .. autoproperty:: value
 
 .. autoclass:: Range
    :show-inheritance:
 
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
    .. automethod:: scale
-   .. autoattribute:: width
+   .. autoproperty:: width
 
 .. autoclass:: TrigControl
    :show-inheritance:

@@ -10,27 +10,27 @@ buses
 .. autoclass:: ControlBusFillRequest
    :show-inheritance:
 
-   .. autoattribute:: index_count_value_triples
+   .. autoproperty:: index_count_value_triples
    .. automethod:: to_osc
 
 .. autoclass:: ControlBusGetContiguousRequest
    :show-inheritance:
 
-   .. autoattribute:: index_count_pairs
-   .. autoattribute:: response_patterns
+   .. autoproperty:: index_count_pairs
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: ControlBusGetRequest
    :show-inheritance:
 
-   .. autoattribute:: indices
-   .. autoattribute:: response_patterns
+   .. autoproperty:: indices
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: ControlBusSetContiguousRequest
    :show-inheritance:
 
-   .. autoattribute:: index_values_pairs
+   .. autoproperty:: index_values_pairs
    .. automethod:: to_osc
 
 .. autoclass:: ControlBusSetContiguousResponse
@@ -39,12 +39,12 @@ buses
    .. automethod:: __getitem__
    .. automethod:: __len__
    .. automethod:: from_osc_message
-   .. autoattribute:: items
+   .. autoproperty:: items
 
 .. autoclass:: ControlBusSetRequest
    :show-inheritance:
 
-   .. autoattribute:: index_value_pairs
+   .. autoproperty:: index_value_pairs
    .. automethod:: to_osc
 
 .. autoclass:: ControlBusSetResponse
@@ -53,4 +53,4 @@ buses
    .. automethod:: __getitem__
    .. automethod:: __len__
    .. automethod:: from_osc_message
-   .. autoattribute:: items
+   .. autoproperty:: items

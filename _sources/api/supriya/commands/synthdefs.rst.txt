@@ -15,36 +15,36 @@ synthdefs
 .. autoclass:: SynthDefFreeRequest
    :show-inheritance:
 
-   .. autoattribute:: synthdef
+   .. autoproperty:: synthdef
    .. automethod:: to_osc
 
 .. autoclass:: SynthDefLoadDirectoryRequest
    :show-inheritance:
 
-   .. autoattribute:: callback
-   .. autoattribute:: directory_path
-   .. autoattribute:: response_patterns
+   .. autoproperty:: callback
+   .. autoproperty:: directory_path
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: SynthDefLoadRequest
    :show-inheritance:
 
-   .. autoattribute:: callback
-   .. autoattribute:: response_patterns
-   .. autoattribute:: synthdef_path
+   .. autoproperty:: callback
+   .. autoproperty:: response_patterns
+   .. autoproperty:: synthdef_path
    .. automethod:: to_osc
 
 .. autoclass:: SynthDefReceiveRequest
    :show-inheritance:
 
-   .. autoattribute:: callback
-   .. autoattribute:: response_patterns
-   .. autoattribute:: synthdefs
+   .. autoproperty:: callback
+   .. autoproperty:: response_patterns
+   .. autoproperty:: synthdefs
    .. automethod:: to_osc
-   .. autoattribute:: use_anonymous_names
+   .. autoproperty:: use_anonymous_names
 
 .. autoclass:: SynthDefRemovedResponse
    :show-inheritance:
 
    .. automethod:: from_osc_message
-   .. autoattribute:: synthdef_name
+   .. autoproperty:: synthdef_name

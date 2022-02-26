@@ -10,7 +10,7 @@ allocators
 .. autoclass:: Block
    :show-inheritance:
 
-   .. autoattribute:: used
+   .. autoproperty:: used
 
 .. autoclass:: BlockAllocator
    :show-inheritance:
@@ -18,8 +18,8 @@ allocators
    .. automethod:: allocate
    .. automethod:: allocate_at
    .. automethod:: free
-   .. autoattribute:: heap_maximum
-   .. autoattribute:: heap_minimum
+   .. autoproperty:: heap_maximum
+   .. autoproperty:: heap_minimum
 
 .. autoclass:: NodeIdAllocator
    :show-inheritance:

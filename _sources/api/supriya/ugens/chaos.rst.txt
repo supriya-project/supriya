@@ -10,226 +10,226 @@ chaos
 .. autoclass:: CuspL
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
-   .. autoattribute:: frequency
-   .. autoattribute:: xi
+   .. autoproperty:: b
+   .. autoproperty:: frequency
+   .. autoproperty:: xi
 
 .. autoclass:: CuspN
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
-   .. autoattribute:: frequency
-   .. autoattribute:: xi
+   .. autoproperty:: b
+   .. autoproperty:: frequency
+   .. autoproperty:: xi
 
 .. autoclass:: FBSineC
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: c
-   .. autoattribute:: fb
-   .. autoattribute:: frequency
-   .. autoattribute:: im
-   .. autoattribute:: xi
-   .. autoattribute:: yi
+   .. autoproperty:: c
+   .. autoproperty:: fb
+   .. autoproperty:: frequency
+   .. autoproperty:: im
+   .. autoproperty:: xi
+   .. autoproperty:: yi
 
 .. autoclass:: FBSineL
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: c
-   .. autoattribute:: fb
-   .. autoattribute:: frequency
-   .. autoattribute:: im
-   .. autoattribute:: xi
-   .. autoattribute:: yi
+   .. autoproperty:: c
+   .. autoproperty:: fb
+   .. autoproperty:: frequency
+   .. autoproperty:: im
+   .. autoproperty:: xi
+   .. autoproperty:: yi
 
 .. autoclass:: FBSineN
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: c
-   .. autoattribute:: fb
-   .. autoattribute:: frequency
-   .. autoattribute:: im
-   .. autoattribute:: xi
-   .. autoattribute:: yi
+   .. autoproperty:: c
+   .. autoproperty:: fb
+   .. autoproperty:: frequency
+   .. autoproperty:: im
+   .. autoproperty:: xi
+   .. autoproperty:: yi
 
 .. autoclass:: GbmanL
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: xi
-   .. autoattribute:: yi
+   .. autoproperty:: frequency
+   .. autoproperty:: xi
+   .. autoproperty:: yi
 
 .. autoclass:: GbmanN
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: xi
-   .. autoattribute:: yi
+   .. autoproperty:: frequency
+   .. autoproperty:: xi
+   .. autoproperty:: yi
 
 .. autoclass:: HenonC
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
-   .. autoattribute:: frequency
-   .. autoattribute:: x_0
-   .. autoattribute:: x_1
+   .. autoproperty:: b
+   .. autoproperty:: frequency
+   .. autoproperty:: x_0
+   .. autoproperty:: x_1
 
 .. autoclass:: HenonL
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
-   .. autoattribute:: frequency
-   .. autoattribute:: x_0
-   .. autoattribute:: x_1
+   .. autoproperty:: b
+   .. autoproperty:: frequency
+   .. autoproperty:: x_0
+   .. autoproperty:: x_1
 
 .. autoclass:: HenonN
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
-   .. autoattribute:: frequency
-   .. autoattribute:: x_0
-   .. autoattribute:: x_1
+   .. autoproperty:: b
+   .. autoproperty:: frequency
+   .. autoproperty:: x_0
+   .. autoproperty:: x_1
 
 .. autoclass:: LatoocarfianC
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
-   .. autoattribute:: c
-   .. autoattribute:: d
-   .. autoattribute:: frequency
-   .. autoattribute:: xi
-   .. autoattribute:: yi
+   .. autoproperty:: b
+   .. autoproperty:: c
+   .. autoproperty:: d
+   .. autoproperty:: frequency
+   .. autoproperty:: xi
+   .. autoproperty:: yi
 
 .. autoclass:: LatoocarfianL
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
-   .. autoattribute:: c
-   .. autoattribute:: d
-   .. autoattribute:: frequency
-   .. autoattribute:: xi
-   .. autoattribute:: yi
+   .. autoproperty:: b
+   .. autoproperty:: c
+   .. autoproperty:: d
+   .. autoproperty:: frequency
+   .. autoproperty:: xi
+   .. autoproperty:: yi
 
 .. autoclass:: LatoocarfianN
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
-   .. autoattribute:: c
-   .. autoattribute:: d
-   .. autoattribute:: frequency
-   .. autoattribute:: xi
-   .. autoattribute:: yi
+   .. autoproperty:: b
+   .. autoproperty:: c
+   .. autoproperty:: d
+   .. autoproperty:: frequency
+   .. autoproperty:: xi
+   .. autoproperty:: yi
 
 .. autoclass:: LinCongC
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: c
-   .. autoattribute:: frequency
-   .. autoattribute:: m
-   .. autoattribute:: xi
+   .. autoproperty:: c
+   .. autoproperty:: frequency
+   .. autoproperty:: m
+   .. autoproperty:: xi
 
 .. autoclass:: LinCongL
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: c
-   .. autoattribute:: frequency
-   .. autoattribute:: m
-   .. autoattribute:: xi
+   .. autoproperty:: c
+   .. autoproperty:: frequency
+   .. autoproperty:: m
+   .. autoproperty:: xi
 
 .. autoclass:: LinCongN
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: c
-   .. autoattribute:: frequency
-   .. autoattribute:: m
-   .. autoattribute:: xi
+   .. autoproperty:: c
+   .. autoproperty:: frequency
+   .. autoproperty:: m
+   .. autoproperty:: xi
 
 .. autoclass:: LorenzL
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: b
-   .. autoattribute:: frequency
-   .. autoattribute:: h
-   .. autoattribute:: r
-   .. autoattribute:: s
-   .. autoattribute:: xi
-   .. autoattribute:: yi
-   .. autoattribute:: zi
+   .. autoproperty:: b
+   .. autoproperty:: frequency
+   .. autoproperty:: h
+   .. autoproperty:: r
+   .. autoproperty:: s
+   .. autoproperty:: xi
+   .. autoproperty:: yi
+   .. autoproperty:: zi
 
 .. autoclass:: QuadC
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
-   .. autoattribute:: c
-   .. autoattribute:: frequency
-   .. autoattribute:: xi
+   .. autoproperty:: b
+   .. autoproperty:: c
+   .. autoproperty:: frequency
+   .. autoproperty:: xi
 
 .. autoclass:: QuadL
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
-   .. autoattribute:: c
-   .. autoattribute:: frequency
-   .. autoattribute:: xi
+   .. autoproperty:: b
+   .. autoproperty:: c
+   .. autoproperty:: frequency
+   .. autoproperty:: xi
 
 .. autoclass:: QuadN
    :show-inheritance:
 
-   .. autoattribute:: a
+   .. autoproperty:: a
    .. automethod:: ar
-   .. autoattribute:: b
-   .. autoattribute:: c
-   .. autoattribute:: frequency
-   .. autoattribute:: xi
+   .. autoproperty:: b
+   .. autoproperty:: c
+   .. autoproperty:: frequency
+   .. autoproperty:: xi
 
 .. autoclass:: StandardL
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: k
-   .. autoattribute:: xi
-   .. autoattribute:: yi
+   .. autoproperty:: frequency
+   .. autoproperty:: k
+   .. autoproperty:: xi
+   .. autoproperty:: yi
 
 .. autoclass:: StandardN
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: k
-   .. autoattribute:: xi
-   .. autoattribute:: yi
+   .. autoproperty:: frequency
+   .. autoproperty:: k
+   .. autoproperty:: xi
+   .. autoproperty:: yi

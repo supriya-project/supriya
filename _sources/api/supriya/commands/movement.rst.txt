@@ -18,7 +18,7 @@ movement
 .. autoclass:: MoveRequest
    :show-inheritance:
 
-   .. autoattribute:: node_id_pairs
+   .. autoproperty:: node_id_pairs
    .. automethod:: to_osc
 
 .. autoclass:: NodeAfterRequest

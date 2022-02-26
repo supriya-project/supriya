@@ -10,20 +10,20 @@ renderer
 .. autoclass:: SessionRenderer
    :show-inheritance:
 
-   .. autoattribute:: compiled_sessions
-   .. autoattribute:: dependency_graph
+   .. autoproperty:: compiled_sessions
+   .. autoproperty:: dependency_graph
    .. automethod:: get_path_relative_to_render_path
-   .. autoattribute:: header_format
-   .. autoattribute:: prerender_tuples
-   .. autoattribute:: print_transcript
+   .. autoproperty:: header_format
+   .. autoproperty:: prerender_tuples
+   .. autoproperty:: print_transcript
    .. automethod:: render
-   .. autoattribute:: render_directory_path
-   .. autoattribute:: renderable_prefixes
-   .. autoattribute:: sample_format
-   .. autoattribute:: sample_rate
-   .. autoattribute:: session
-   .. autoattribute:: session_input_paths
+   .. autoproperty:: render_directory_path
+   .. autoproperty:: renderable_prefixes
+   .. autoproperty:: sample_format
+   .. autoproperty:: sample_rate
+   .. autoproperty:: session
+   .. autoproperty:: session_input_paths
    .. automethod:: to_lists
    .. automethod:: to_osc_bundles
-   .. autoattribute:: transcript
-   .. autoattribute:: transcript_prefix
+   .. autoproperty:: transcript
+   .. autoproperty:: transcript_prefix

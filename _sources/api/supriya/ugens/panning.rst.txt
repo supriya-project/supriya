@@ -12,19 +12,19 @@ panning
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: left
-   .. autoattribute:: level
-   .. autoattribute:: position
-   .. autoattribute:: right
+   .. autoproperty:: left
+   .. autoproperty:: level
+   .. autoproperty:: position
+   .. autoproperty:: right
 
 .. autoclass:: BiPanB2
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: azimuth
-   .. autoattribute:: gain
-   .. autoattribute:: in_a
-   .. autoattribute:: in_b
+   .. autoproperty:: azimuth
+   .. autoproperty:: gain
+   .. autoproperty:: in_a
+   .. autoproperty:: in_b
    .. automethod:: kr
 
 .. autoclass:: DecodeB2
@@ -32,67 +32,67 @@ panning
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: orientation
-   .. autoattribute:: w
-   .. autoattribute:: x
-   .. autoattribute:: y
+   .. autoproperty:: orientation
+   .. autoproperty:: w
+   .. autoproperty:: x
+   .. autoproperty:: y
 
 .. autoclass:: Pan2
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: level
-   .. autoattribute:: position
-   .. autoattribute:: source
+   .. autoproperty:: level
+   .. autoproperty:: position
+   .. autoproperty:: source
 
 .. autoclass:: Pan4
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: gain
+   .. autoproperty:: gain
    .. automethod:: kr
-   .. autoattribute:: source
-   .. autoattribute:: x_position
-   .. autoattribute:: y_position
+   .. autoproperty:: source
+   .. autoproperty:: x_position
+   .. autoproperty:: y_position
 
 .. autoclass:: PanAz
    :show-inheritance:
 
-   .. autoattribute:: amplitude
+   .. autoproperty:: amplitude
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: orientation
-   .. autoattribute:: position
-   .. autoattribute:: source
-   .. autoattribute:: width
+   .. autoproperty:: orientation
+   .. autoproperty:: position
+   .. autoproperty:: source
+   .. autoproperty:: width
 
 .. autoclass:: PanB
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: azimuth
-   .. autoattribute:: elevation
-   .. autoattribute:: gain
+   .. autoproperty:: azimuth
+   .. autoproperty:: elevation
+   .. autoproperty:: gain
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: PanB2
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: azimuth
-   .. autoattribute:: gain
+   .. autoproperty:: azimuth
+   .. autoproperty:: gain
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Rotate2
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: position
-   .. autoattribute:: x
-   .. autoattribute:: y
+   .. autoproperty:: position
+   .. autoproperty:: x
+   .. autoproperty:: y
 
 .. autoclass:: Splay
    :show-inheritance:
@@ -104,8 +104,8 @@ panning
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: in_a
-   .. autoattribute:: in_b
+   .. autoproperty:: in_a
+   .. autoproperty:: in_b
    .. automethod:: kr
-   .. autoattribute:: level
-   .. autoattribute:: pan
+   .. autoproperty:: level
+   .. autoproperty:: pan

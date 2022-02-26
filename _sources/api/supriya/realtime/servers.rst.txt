@@ -12,34 +12,34 @@ servers
 
    .. automethod:: __contains__
    .. automethod:: boot
-   .. autoattribute:: boot_future
+   .. autoproperty:: boot_future
    .. automethod:: connect
-   .. autoattribute:: default_group
+   .. autoproperty:: default_group
    .. automethod:: disconnect
    .. automethod:: query
    .. automethod:: quit
-   .. autoattribute:: quit_future
+   .. autoproperty:: quit_future
 
 .. autoclass:: BaseServer
    :show-inheritance:
 
-   .. autoattribute:: audio_bus_allocator
-   .. autoattribute:: buffer_allocator
-   .. autoattribute:: client_id
-   .. autoattribute:: control_bus_allocator
-   .. autoattribute:: ip_address
-   .. autoattribute:: is_owner
-   .. autoattribute:: is_running
-   .. autoattribute:: latency
-   .. autoattribute:: maximum_logins
-   .. autoattribute:: next_sync_id
-   .. autoattribute:: node_id_allocator
-   .. autoattribute:: options
-   .. autoattribute:: osc_protocol
-   .. autoattribute:: port
-   .. autoattribute:: process_protocol
+   .. autoproperty:: audio_bus_allocator
+   .. autoproperty:: buffer_allocator
+   .. autoproperty:: client_id
+   .. autoproperty:: control_bus_allocator
+   .. autoproperty:: ip_address
+   .. autoproperty:: is_owner
+   .. autoproperty:: is_running
+   .. autoproperty:: latency
+   .. autoproperty:: maximum_logins
+   .. autoproperty:: next_sync_id
+   .. autoproperty:: node_id_allocator
+   .. autoproperty:: options
+   .. autoproperty:: osc_protocol
+   .. autoproperty:: port
+   .. autoproperty:: process_protocol
    .. automethod:: send
-   .. autoattribute:: status
+   .. autoproperty:: status
 
 .. autoclass:: Server
    :show-inheritance:
@@ -54,17 +54,17 @@ servers
    .. automethod:: add_group
    .. automethod:: add_synth
    .. automethod:: add_synthdef
-   .. autoattribute:: audio_input_bus_group
-   .. autoattribute:: audio_output_bus_group
+   .. autoproperty:: audio_input_bus_group
+   .. autoproperty:: audio_output_bus_group
    .. automethod:: boot
    .. automethod:: connect
-   .. autoattribute:: default_group
+   .. autoproperty:: default_group
    .. automethod:: disconnect
-   .. autoattribute:: meters
+   .. autoproperty:: meters
    .. automethod:: query
    .. automethod:: quit
    .. automethod:: reboot
-   .. autoattribute:: recorder
+   .. autoproperty:: recorder
    .. automethod:: reset
-   .. autoattribute:: root_node
+   .. autoproperty:: root_node
    .. automethod:: sync

@@ -10,69 +10,69 @@ nodes
 .. autoclass:: NodeFreeRequest
    :show-inheritance:
 
-   .. autoattribute:: node_ids
-   .. autoattribute:: response_patterns
+   .. autoproperty:: node_ids
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: NodeInfoResponse
    :show-inheritance:
 
-   .. autoattribute:: action
+   .. autoproperty:: action
    .. automethod:: from_osc_message
-   .. autoattribute:: head_node_id
-   .. autoattribute:: is_group
-   .. autoattribute:: next_node_id
-   .. autoattribute:: node_id
-   .. autoattribute:: parent_id
-   .. autoattribute:: previous_node_id
-   .. autoattribute:: synthdef_controls
-   .. autoattribute:: synthdef_name
-   .. autoattribute:: tail_node_id
+   .. autoproperty:: head_node_id
+   .. autoproperty:: is_group
+   .. autoproperty:: next_node_id
+   .. autoproperty:: node_id
+   .. autoproperty:: parent_id
+   .. autoproperty:: previous_node_id
+   .. autoproperty:: synthdef_controls
+   .. autoproperty:: synthdef_name
+   .. autoproperty:: tail_node_id
 
 .. autoclass:: NodeMapToAudioBusRequest
    :show-inheritance:
 
    .. automethod:: __getattr__
-   .. autoattribute:: node_id
+   .. autoproperty:: node_id
    .. automethod:: to_osc
 
 .. autoclass:: NodeMapToControlBusRequest
    :show-inheritance:
 
    .. automethod:: __getattr__
-   .. autoattribute:: node_id
+   .. autoproperty:: node_id
    .. automethod:: to_osc
 
 .. autoclass:: NodeQueryRequest
    :show-inheritance:
 
-   .. autoattribute:: node_id
-   .. autoattribute:: response_patterns
+   .. autoproperty:: node_id
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: NodeRunRequest
    :show-inheritance:
 
-   .. autoattribute:: node_id_run_flag_pairs
+   .. autoproperty:: node_id_run_flag_pairs
    .. automethod:: to_osc
 
 .. autoclass:: NodeSetContiguousResponse
    :show-inheritance:
 
    .. automethod:: from_osc_message
-   .. autoattribute:: items
-   .. autoattribute:: node_id
+   .. autoproperty:: items
+   .. autoproperty:: node_id
 
 .. autoclass:: NodeSetRequest
    :show-inheritance:
 
    .. automethod:: __getattr__
-   .. autoattribute:: node_id
+   .. autoproperty:: node_id
    .. automethod:: to_osc
 
 .. autoclass:: NodeSetResponse
    :show-inheritance:
 
    .. automethod:: from_osc_message
-   .. autoattribute:: items
-   .. autoattribute:: node_id
+   .. autoproperty:: items
+   .. autoproperty:: node_id

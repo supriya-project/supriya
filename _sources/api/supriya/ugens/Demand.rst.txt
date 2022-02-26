@@ -14,181 +14,181 @@ demand
 .. autoclass:: Dbrown
    :show-inheritance:
 
-   .. autoattribute:: length
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
+   .. autoproperty:: length
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
    .. automethod:: new
-   .. autoattribute:: step
+   .. autoproperty:: step
 
 .. autoclass:: Dbufrd
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: loop
+   .. autoproperty:: buffer_id
+   .. autoproperty:: loop
    .. automethod:: new
-   .. autoattribute:: phase
+   .. autoproperty:: phase
 
 .. autoclass:: Dbufwr
    :show-inheritance:
 
-   .. autoattribute:: buffer_id
-   .. autoattribute:: loop
+   .. autoproperty:: buffer_id
+   .. autoproperty:: loop
    .. automethod:: new
-   .. autoattribute:: phase
-   .. autoattribute:: source
+   .. autoproperty:: phase
+   .. autoproperty:: source
 
 .. autoclass:: Demand
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: reset
-   .. autoattribute:: source
-   .. autoattribute:: trigger
+   .. autoproperty:: reset
+   .. autoproperty:: source
+   .. autoproperty:: trigger
 
 .. autoclass:: DemandEnvGen
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: curve
-   .. autoattribute:: done_action
-   .. autoattribute:: duration
-   .. autoattribute:: gate
+   .. autoproperty:: curve
+   .. autoproperty:: done_action
+   .. autoproperty:: duration
+   .. autoproperty:: gate
    .. automethod:: kr
-   .. autoattribute:: level
-   .. autoattribute:: level_bias
-   .. autoattribute:: level_scale
-   .. autoattribute:: reset
-   .. autoattribute:: shape
-   .. autoattribute:: time_scale
+   .. autoproperty:: level
+   .. autoproperty:: level_bias
+   .. autoproperty:: level_scale
+   .. autoproperty:: reset
+   .. autoproperty:: shape
+   .. autoproperty:: time_scale
 
 .. autoclass:: Dgeom
    :show-inheritance:
 
-   .. autoattribute:: grow
-   .. autoattribute:: length
+   .. autoproperty:: grow
+   .. autoproperty:: length
    .. automethod:: new
-   .. autoattribute:: start
+   .. autoproperty:: start
 
 .. autoclass:: Dibrown
    :show-inheritance:
 
-   .. autoattribute:: length
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
+   .. autoproperty:: length
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
    .. automethod:: new
-   .. autoattribute:: step
+   .. autoproperty:: step
 
 .. autoclass:: Diwhite
    :show-inheritance:
 
-   .. autoattribute:: length
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
+   .. autoproperty:: length
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
    .. automethod:: new
 
 .. autoclass:: Drand
    :show-inheritance:
 
    .. automethod:: new
-   .. autoattribute:: repeats
-   .. autoattribute:: sequence
+   .. autoproperty:: repeats
+   .. autoproperty:: sequence
 
 .. autoclass:: Dreset
    :show-inheritance:
 
    .. automethod:: new
-   .. autoattribute:: reset
-   .. autoattribute:: source
+   .. autoproperty:: reset
+   .. autoproperty:: source
 
 .. autoclass:: Dseq
    :show-inheritance:
 
    .. automethod:: new
-   .. autoattribute:: repeats
-   .. autoattribute:: sequence
+   .. autoproperty:: repeats
+   .. autoproperty:: sequence
 
 .. autoclass:: Dser
    :show-inheritance:
 
    .. automethod:: new
-   .. autoattribute:: repeats
-   .. autoattribute:: sequence
+   .. autoproperty:: repeats
+   .. autoproperty:: sequence
 
 .. autoclass:: Dseries
    :show-inheritance:
 
-   .. autoattribute:: length
+   .. autoproperty:: length
    .. automethod:: new
-   .. autoattribute:: start
-   .. autoattribute:: step
+   .. autoproperty:: start
+   .. autoproperty:: step
 
 .. autoclass:: Dshuf
    :show-inheritance:
 
    .. automethod:: new
-   .. autoattribute:: repeats
-   .. autoattribute:: sequence
+   .. autoproperty:: repeats
+   .. autoproperty:: sequence
 
 .. autoclass:: Dstutter
    :show-inheritance:
 
-   .. autoattribute:: n
+   .. autoproperty:: n
    .. automethod:: new
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Dswitch
    :show-inheritance:
 
-   .. autoattribute:: index
+   .. autoproperty:: index
    .. automethod:: new
-   .. autoattribute:: sequence
+   .. autoproperty:: sequence
 
 .. autoclass:: Dswitch1
    :show-inheritance:
 
-   .. autoattribute:: index
+   .. autoproperty:: index
    .. automethod:: new
-   .. autoattribute:: sequence
+   .. autoproperty:: sequence
 
 .. autoclass:: Dunique
    :show-inheritance:
 
-   .. autoattribute:: max_buffer_size
+   .. autoproperty:: max_buffer_size
    .. automethod:: new
-   .. autoattribute:: protected
-   .. autoattribute:: source
+   .. autoproperty:: protected
+   .. autoproperty:: source
 
 .. autoclass:: Duty
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: done_action
-   .. autoattribute:: duration
+   .. autoproperty:: done_action
+   .. autoproperty:: duration
    .. automethod:: kr
-   .. autoattribute:: level
-   .. autoattribute:: reset
+   .. autoproperty:: level
+   .. autoproperty:: reset
 
 .. autoclass:: Dwhite
    :show-inheritance:
 
-   .. autoattribute:: length
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
+   .. autoproperty:: length
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
    .. automethod:: new
 
 .. autoclass:: Dwrand
    :show-inheritance:
 
-   .. autoattribute:: length
+   .. autoproperty:: length
    .. automethod:: new
-   .. autoattribute:: repeats
-   .. autoattribute:: sequence
-   .. autoattribute:: weights
+   .. autoproperty:: repeats
+   .. autoproperty:: sequence
+   .. autoproperty:: weights
 
 .. autoclass:: Dxrand
    :show-inheritance:
 
    .. automethod:: new
-   .. autoattribute:: repeats
-   .. autoattribute:: sequence
+   .. autoproperty:: repeats
+   .. autoproperty:: sequence

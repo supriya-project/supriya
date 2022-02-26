@@ -11,7 +11,7 @@ reverb
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: damping
-   .. autoattribute:: mix
-   .. autoattribute:: room_size
-   .. autoattribute:: source
+   .. autoproperty:: damping
+   .. autoproperty:: mix
+   .. autoproperty:: room_size
+   .. autoproperty:: source

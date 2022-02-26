@@ -7,33 +7,21 @@ synths
 
 .. currentmodule:: supriya.commands.synths
 
-.. autoclass:: SynthInfoResponse
-   :show-inheritance:
-
-   .. automethod:: from_osc_message
-
 .. autoclass:: SynthNewRequest
    :show-inheritance:
 
-   .. autoattribute:: add_action
-   .. autoattribute:: kwargs
-   .. autoattribute:: node_id
-   .. autoattribute:: response_patterns
-   .. autoattribute:: synthdef
-   .. autoattribute:: target_node_id
-   .. automethod:: to_osc
-
-.. autoclass:: SynthQueryRequest
-   :show-inheritance:
-
-   .. autoattribute:: node_ids
-   .. autoattribute:: response_patterns
+   .. autoproperty:: add_action
+   .. autoproperty:: kwargs
+   .. autoproperty:: node_id
+   .. autoproperty:: response_patterns
+   .. autoproperty:: synthdef
+   .. autoproperty:: target_node_id
    .. automethod:: to_osc
 
 .. autoclass:: TriggerResponse
    :show-inheritance:
 
    .. automethod:: from_osc_message
-   .. autoattribute:: node_id
-   .. autoattribute:: trigger_id
-   .. autoattribute:: trigger_value
+   .. autoproperty:: node_id
+   .. autoproperty:: trigger_id
+   .. autoproperty:: trigger_value

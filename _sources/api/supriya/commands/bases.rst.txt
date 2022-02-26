@@ -10,18 +10,18 @@ bases
 .. autoclass:: Request
    :show-inheritance:
 
-   .. autoattribute:: request_id
-   .. autoattribute:: request_name
-   .. autoattribute:: response_patterns
+   .. autoproperty:: request_id
+   .. autoproperty:: request_name
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: RequestBundle
    :show-inheritance:
 
-   .. autoattribute:: condition
-   .. autoattribute:: contents
+   .. autoproperty:: condition
+   .. autoproperty:: contents
    .. automethod:: partition
-   .. autoattribute:: timestamp
+   .. autoproperty:: timestamp
    .. automethod:: to_osc
 
 .. autoclass:: Requestable
@@ -29,8 +29,8 @@ bases
 
    .. automethod:: communicate
    .. automethod:: communicate_async
-   .. autoattribute:: condition
-   .. autoattribute:: response
+   .. autoproperty:: condition
+   .. autoproperty:: response
    .. automethod:: to_datagram
    .. automethod:: to_list
 

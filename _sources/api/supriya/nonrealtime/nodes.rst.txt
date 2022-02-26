@@ -20,27 +20,27 @@ nodes
    .. automethod:: add_group
    .. automethod:: add_synth
    .. automethod:: delete
-   .. autoattribute:: duration
+   .. autoproperty:: duration
    .. automethod:: free
    .. automethod:: get_parent
    .. automethod:: get_parentage
    .. automethod:: inspect_children
    .. automethod:: move_node
-   .. autoattribute:: session_id
+   .. autoproperty:: session_id
    .. automethod:: set_duration
    .. automethod:: split
-   .. autoattribute:: start_offset
-   .. autoattribute:: stop_offset
+   .. autoproperty:: start_offset
+   .. autoproperty:: stop_offset
 
 .. autoclass:: RootNode
    :show-inheritance:
 
-   .. autoattribute:: duration
-   .. autoattribute:: start_offset
-   .. autoattribute:: stop_offset
+   .. autoproperty:: duration
+   .. autoproperty:: start_offset
+   .. autoproperty:: stop_offset
 
 .. autoclass:: Synth
    :show-inheritance:
 
-   .. autoattribute:: synth_kwargs
-   .. autoattribute:: synthdef
+   .. autoproperty:: synth_kwargs
+   .. autoproperty:: synthdef

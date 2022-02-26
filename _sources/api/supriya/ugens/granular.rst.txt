@@ -11,46 +11,46 @@ granular
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: duration
-   .. autoattribute:: envelope_buffer_id
-   .. autoattribute:: interpolate
-   .. autoattribute:: maximum_overlap
-   .. autoattribute:: pan
-   .. autoattribute:: position
-   .. autoattribute:: rate
-   .. autoattribute:: trigger
+   .. autoproperty:: buffer_id
+   .. autoproperty:: duration
+   .. autoproperty:: envelope_buffer_id
+   .. autoproperty:: interpolate
+   .. autoproperty:: maximum_overlap
+   .. autoproperty:: pan
+   .. autoproperty:: position
+   .. autoproperty:: rate
+   .. autoproperty:: trigger
 
 .. autoclass:: GrainIn
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: duration
-   .. autoattribute:: envelope_buffer_id
-   .. autoattribute:: maximum_overlap
-   .. autoattribute:: position
-   .. autoattribute:: source
-   .. autoattribute:: trigger
+   .. autoproperty:: duration
+   .. autoproperty:: envelope_buffer_id
+   .. autoproperty:: maximum_overlap
+   .. autoproperty:: position
+   .. autoproperty:: source
+   .. autoproperty:: trigger
 
 .. autoclass:: PitchShift
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: pitch_dispersion
-   .. autoattribute:: pitch_ratio
-   .. autoattribute:: source
-   .. autoattribute:: time_dispersion
-   .. autoattribute:: window_size
+   .. autoproperty:: pitch_dispersion
+   .. autoproperty:: pitch_ratio
+   .. autoproperty:: source
+   .. autoproperty:: time_dispersion
+   .. autoproperty:: window_size
 
 .. autoclass:: Warp1
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: envelope_buffer_id
-   .. autoattribute:: frequency_scaling
-   .. autoattribute:: interpolation
-   .. autoattribute:: overlaps
-   .. autoattribute:: pointer
-   .. autoattribute:: window_rand_ratio
-   .. autoattribute:: window_size
+   .. autoproperty:: buffer_id
+   .. autoproperty:: envelope_buffer_id
+   .. autoproperty:: frequency_scaling
+   .. autoproperty:: interpolation
+   .. autoproperty:: overlaps
+   .. autoproperty:: pointer
+   .. autoproperty:: window_rand_ratio
+   .. autoproperty:: window_size

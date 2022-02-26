@@ -10,19 +10,19 @@ noise
 .. autoclass:: ChoicePattern
    :show-inheritance:
 
-   .. autoattribute:: forbid_repetitions
-   .. autoattribute:: weights
+   .. autoproperty:: forbid_repetitions
+   .. autoproperty:: weights
 
 .. autoclass:: RandomPattern
    :show-inheritance:
 
-   .. autoattribute:: distribution
-   .. autoattribute:: is_infinite
-   .. autoattribute:: iterations
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
+   .. autoproperty:: distribution
+   .. autoproperty:: is_infinite
+   .. autoproperty:: iterations
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
 
 .. autoclass:: ShufflePattern
    :show-inheritance:
 
-   .. autoattribute:: forbid_repetitions
+   .. autoproperty:: forbid_repetitions

@@ -12,19 +12,19 @@ mixins
 
    .. automethod:: __iter__
    .. automethod:: __len__
-   .. autoattribute:: calculation_rate
-   .. autoattribute:: has_done_flag
-   .. autoattribute:: output_index
-   .. autoattribute:: signal_range
-   .. autoattribute:: source
+   .. autoproperty:: calculation_rate
+   .. autoproperty:: has_done_flag
+   .. autoproperty:: output_index
+   .. autoproperty:: signal_range
+   .. autoproperty:: source
 
 .. autoclass:: UGenArray
    :show-inheritance:
 
    .. automethod:: __getitem__
    .. automethod:: __len__
-   .. autoattribute:: signal_range
-   .. autoattribute:: ugens
+   .. autoproperty:: signal_range
+   .. autoproperty:: ugens
 
 .. autoclass:: UGenMethodMixin
    :show-inheritance:

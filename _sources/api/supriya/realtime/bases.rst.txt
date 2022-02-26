@@ -12,5 +12,5 @@ bases
 
    .. automethod:: allocate
    .. automethod:: free
-   .. autoattribute:: is_allocated
-   .. autoattribute:: server
+   .. autoproperty:: is_allocated
+   .. autoproperty:: server

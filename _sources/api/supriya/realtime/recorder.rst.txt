@@ -10,20 +10,20 @@ recorder
 .. autoclass:: Recorder
    :show-inheritance:
 
-   .. autoattribute:: channel_count
-   .. autoattribute:: current_channel_count
-   .. autoattribute:: current_file_path
-   .. autoattribute:: current_header_format
-   .. autoattribute:: current_sample_format
-   .. autoattribute:: header_format
-   .. autoattribute:: is_recording
+   .. autoproperty:: channel_count
+   .. autoproperty:: current_channel_count
+   .. autoproperty:: current_file_path
+   .. autoproperty:: current_header_format
+   .. autoproperty:: current_sample_format
+   .. autoproperty:: header_format
+   .. autoproperty:: is_recording
    .. automethod:: pause
    .. automethod:: prepare
-   .. autoattribute:: record_buffer
-   .. autoattribute:: record_node
-   .. autoattribute:: record_synthdef
-   .. autoattribute:: sample_format
-   .. autoattribute:: server
+   .. autoproperty:: record_buffer
+   .. autoproperty:: record_node
+   .. autoproperty:: record_synthdef
+   .. autoproperty:: sample_format
+   .. autoproperty:: server
    .. automethod:: start
    .. automethod:: stop
    .. automethod:: unpause

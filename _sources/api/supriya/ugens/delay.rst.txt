@@ -11,215 +11,215 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: AllpassL
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: AllpassN
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: BufAllpassC
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
+   .. autoproperty:: buffer_id
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: BufAllpassL
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
+   .. autoproperty:: buffer_id
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: BufAllpassN
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
+   .. autoproperty:: buffer_id
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: BufCombC
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
+   .. autoproperty:: buffer_id
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: BufCombL
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
+   .. autoproperty:: buffer_id
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: BufCombN
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
+   .. autoproperty:: buffer_id
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: BufDelayC
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: delay_time
+   .. autoproperty:: buffer_id
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: BufDelayL
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: delay_time
+   .. autoproperty:: buffer_id
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: BufDelayN
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: delay_time
+   .. autoproperty:: buffer_id
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: CombC
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: CombL
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: CombN
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: DelTapRd
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: delay_time
-   .. autoattribute:: interpolation
+   .. autoproperty:: buffer_id
+   .. autoproperty:: delay_time
+   .. autoproperty:: interpolation
    .. automethod:: kr
-   .. autoattribute:: phase
+   .. autoproperty:: phase
 
 .. autoclass:: DelTapWr
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
+   .. autoproperty:: buffer_id
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Delay1
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Delay2
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: delay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: DelayC
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: delay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: DelayL
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: delay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
 
 .. autoclass:: DelayN
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: delay_time
+   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source

@@ -10,28 +10,28 @@ groups
 .. autoclass:: GroupDeepFreeRequest
    :show-inheritance:
 
-   .. autoattribute:: group_id
+   .. autoproperty:: group_id
    .. automethod:: to_osc
 
 .. autoclass:: GroupFreeAllRequest
    :show-inheritance:
 
-   .. autoattribute:: group_id
+   .. autoproperty:: group_id
    .. automethod:: to_osc
 
 .. autoclass:: GroupNewRequest
    :show-inheritance:
 
-   .. autoattribute:: items
-   .. autoattribute:: response_patterns
+   .. autoproperty:: items
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: GroupQueryTreeRequest
    :show-inheritance:
 
-   .. autoattribute:: include_controls
-   .. autoattribute:: node_id
-   .. autoattribute:: response_patterns
+   .. autoproperty:: include_controls
+   .. autoproperty:: node_id
+   .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
 .. autoclass:: ParallelGroupNewRequest
@@ -42,6 +42,6 @@ groups
    :show-inheritance:
 
    .. automethod:: from_osc_message
-   .. autoattribute:: node_id
-   .. autoattribute:: query_tree_group
+   .. autoproperty:: node_id
+   .. autoproperty:: query_tree_group
    .. automethod:: to_dict

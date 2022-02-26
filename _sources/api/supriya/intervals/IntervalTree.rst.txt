@@ -18,11 +18,11 @@ IntervalTree
    .. automethod:: __setitem__
    .. automethod:: __sub__
    .. automethod:: add
-   .. autoattribute:: all_offsets
-   .. autoattribute:: all_start_offsets
-   .. autoattribute:: all_stop_offsets
-   .. autoattribute:: earliest_start_offset
-   .. autoattribute:: earliest_stop_offset
+   .. autoproperty:: all_offsets
+   .. autoproperty:: all_start_offsets
+   .. autoproperty:: all_stop_offsets
+   .. autoproperty:: earliest_start_offset
+   .. autoproperty:: earliest_stop_offset
    .. automethod:: find_intersection
    .. automethod:: find_intervals_starting_at
    .. automethod:: find_intervals_stopping_at
@@ -31,12 +31,12 @@ IntervalTree
    .. automethod:: get_start_offset_after
    .. automethod:: get_start_offset_before
    .. automethod:: index
-   .. autoattribute:: intervals
+   .. autoproperty:: intervals
    .. automethod:: iterate_moments
    .. automethod:: iterate_moments_nwise
-   .. autoattribute:: latest_start_offset
-   .. autoattribute:: latest_stop_offset
+   .. autoproperty:: latest_start_offset
+   .. autoproperty:: latest_stop_offset
    .. automethod:: remove
-   .. autoattribute:: start_offset
-   .. autoattribute:: stop_offset
+   .. autoproperty:: start_offset
+   .. autoproperty:: stop_offset
    .. automethod:: update

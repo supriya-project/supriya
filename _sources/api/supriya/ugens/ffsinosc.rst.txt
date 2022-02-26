@@ -11,39 +11,39 @@ ffsinosc
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: harmonic_count
+   .. autoproperty:: frequency
+   .. autoproperty:: harmonic_count
    .. automethod:: kr
 
 .. autoclass:: FSinOsc
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: initial_phase
+   .. autoproperty:: frequency
+   .. autoproperty:: initial_phase
    .. automethod:: kr
 
 .. autoclass:: Klank
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: decay_scale
-   .. autoattribute:: frequency_offset
-   .. autoattribute:: frequency_scale
-   .. autoattribute:: source
-   .. autoattribute:: specifications
+   .. autoproperty:: decay_scale
+   .. autoproperty:: frequency_offset
+   .. autoproperty:: frequency_scale
+   .. autoproperty:: source
+   .. autoproperty:: specifications
 
 .. autoclass:: Pulse
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: width
+   .. autoproperty:: width
 
 .. autoclass:: Saw
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr

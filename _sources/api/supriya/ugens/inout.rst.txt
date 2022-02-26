@@ -11,20 +11,20 @@ inout
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: bus
+   .. autoproperty:: bus
    .. automethod:: kr
 
 .. autoclass:: InFeedback
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: bus
+   .. autoproperty:: bus
 
 .. autoclass:: LocalIn
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: default
+   .. autoproperty:: default
    .. automethod:: kr
 
 .. autoclass:: LocalOut
@@ -32,30 +32,30 @@ inout
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: OffsetOut
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: bus
-   .. autoattribute:: source
+   .. autoproperty:: bus
+   .. autoproperty:: source
 
 .. autoclass:: Out
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: bus
+   .. autoproperty:: bus
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: ReplaceOut
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: bus
+   .. autoproperty:: bus
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: SoundIn
    :show-inheritance:
@@ -66,7 +66,7 @@ inout
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: bus
-   .. autoattribute:: crossfade
+   .. autoproperty:: bus
+   .. autoproperty:: crossfade
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source

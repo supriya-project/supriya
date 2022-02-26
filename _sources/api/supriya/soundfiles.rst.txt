@@ -11,8 +11,8 @@ soundfiles
    :show-inheritance:
 
    .. automethod:: __render__
-   .. autoattribute:: text
-   .. autoattribute:: voice
+   .. autoproperty:: text
+   .. autoproperty:: voice
 
 .. autoclass:: SoundFile
    :show-inheritance:
@@ -20,10 +20,10 @@ soundfiles
    .. automethod:: at_frame
    .. automethod:: at_percent
    .. automethod:: at_second
-   .. autoattribute:: channel_count
-   .. autoattribute:: file_path
-   .. autoattribute:: file_type
-   .. autoattribute:: frame_count
-   .. autoattribute:: sample_rate
-   .. autoattribute:: sample_width
-   .. autoattribute:: seconds
+   .. autoproperty:: channel_count
+   .. autoproperty:: file_path
+   .. autoproperty:: file_type
+   .. autoproperty:: frame_count
+   .. autoproperty:: sample_rate
+   .. autoproperty:: sample_width
+   .. autoproperty:: seconds

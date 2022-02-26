@@ -11,18 +11,18 @@ envelopes
    :show-inheritance:
 
    .. automethod:: adsr
-   .. autoattribute:: amplitudes
+   .. autoproperty:: amplitudes
    .. automethod:: asr
-   .. autoattribute:: curves
-   .. autoattribute:: duration
-   .. autoattribute:: durations
-   .. autoattribute:: envelope_segments
+   .. autoproperty:: curves
+   .. autoproperty:: duration
+   .. autoproperty:: durations
+   .. autoproperty:: envelope_segments
    .. automethod:: from_segments
-   .. autoattribute:: initial_amplitude
+   .. autoproperty:: initial_amplitude
    .. automethod:: linen
-   .. autoattribute:: loop_node
-   .. autoattribute:: offset
+   .. autoproperty:: loop_node
+   .. autoproperty:: offset
    .. automethod:: percussive
-   .. autoattribute:: release_node
+   .. autoproperty:: release_node
    .. automethod:: serialize
    .. automethod:: triangle

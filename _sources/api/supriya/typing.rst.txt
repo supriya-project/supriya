@@ -13,3 +13,9 @@ typing
 
 .. autoclass:: Missing
    :show-inheritance:
+
+
+.. autoclass:: SupportsRender
+   :show-inheritance:
+
+   .. automethod:: __render__

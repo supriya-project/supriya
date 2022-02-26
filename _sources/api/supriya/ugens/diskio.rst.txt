@@ -11,21 +11,21 @@ diskio
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: loop
+   .. autoproperty:: buffer_id
+   .. autoproperty:: loop
 
 .. autoclass:: DiskOut
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: source
+   .. autoproperty:: buffer_id
+   .. autoproperty:: source
 
 .. autoclass:: VDiskIn
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: buffer_id
-   .. autoattribute:: loop
-   .. autoattribute:: rate
-   .. autoattribute:: send_id
+   .. autoproperty:: buffer_id
+   .. autoproperty:: loop
+   .. autoproperty:: rate
+   .. autoproperty:: send_id

@@ -25,16 +25,16 @@ buses
    .. automethod:: __float__
    .. automethod:: __int__
    .. automethod:: allocate
-   .. autoattribute:: bus_group
-   .. autoattribute:: bus_id
-   .. autoattribute:: calculation_rate
+   .. autoproperty:: bus_group
+   .. autoproperty:: bus_id
+   .. autoproperty:: calculation_rate
    .. automethod:: free
    .. automethod:: get
-   .. autoattribute:: is_allocated
-   .. autoattribute:: map_symbol
-   .. autoattribute:: server
+   .. autoproperty:: is_allocated
+   .. autoproperty:: map_symbol
+   .. autoproperty:: server
    .. automethod:: set
-   .. autoattribute:: value
+   .. autoproperty:: value
 
 .. autoclass:: BusGroup
    :show-inheritance:
@@ -46,17 +46,15 @@ buses
    .. automethod:: __iter__
    .. automethod:: __len__
    .. automethod:: allocate
-   .. automethod:: audio
-   .. autoattribute:: bus_id
-   .. autoattribute:: buses
-   .. autoattribute:: calculation_rate
-   .. automethod:: control
+   .. autoproperty:: bus_id
+   .. autoproperty:: buses
+   .. autoproperty:: calculation_rate
    .. automethod:: fill
    .. automethod:: free
    .. automethod:: get
    .. automethod:: index
-   .. autoattribute:: is_allocated
-   .. autoattribute:: map_symbol
+   .. autoproperty:: is_allocated
+   .. autoproperty:: map_symbol
    .. automethod:: set
 
 .. autoclass:: BusProxy
@@ -64,8 +62,8 @@ buses
 
    .. automethod:: __float__
    .. automethod:: __int__
-   .. autoattribute:: bus_id
-   .. autoattribute:: calculation_rate
-   .. autoattribute:: map_symbol
-   .. autoattribute:: server
-   .. autoattribute:: value
+   .. autoproperty:: bus_id
+   .. autoproperty:: calculation_rate
+   .. autoproperty:: map_symbol
+   .. autoproperty:: server
+   .. autoproperty:: value

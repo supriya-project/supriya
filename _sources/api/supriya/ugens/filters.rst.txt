@@ -11,42 +11,42 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: radius
-   .. autoattribute:: source
+   .. autoproperty:: radius
+   .. autoproperty:: source
 
 .. autoclass:: BPF
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: reciprocal_of_q
-   .. autoattribute:: source
+   .. autoproperty:: reciprocal_of_q
+   .. autoproperty:: source
 
 .. autoclass:: BPZ2
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: BRF
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: reciprocal_of_q
-   .. autoattribute:: source
+   .. autoproperty:: reciprocal_of_q
+   .. autoproperty:: source
 
 .. autoclass:: BRZ2
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Changed
    :show-inheritance:
@@ -58,38 +58,38 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: decay_time
+   .. autoproperty:: decay_time
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Decay2
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: attack_time
-   .. autoattribute:: decay_time
+   .. autoproperty:: attack_time
+   .. autoproperty:: decay_time
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: DetectSilence
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: done_action
+   .. autoproperty:: done_action
    .. automethod:: kr
-   .. autoattribute:: source
-   .. autoattribute:: threshold
-   .. autoattribute:: time
+   .. autoproperty:: source
+   .. autoproperty:: threshold
+   .. autoproperty:: time
 
 .. autoclass:: FOS
    :show-inheritance:
 
-   .. autoattribute:: a_0
-   .. autoattribute:: a_1
+   .. autoproperty:: a_0
+   .. autoproperty:: a_1
    .. automethod:: ar
-   .. autoattribute:: b_1
+   .. autoproperty:: b_1
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Filter
    :show-inheritance:
@@ -99,244 +99,244 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: attack_time
-   .. autoattribute:: decay_time
-   .. autoattribute:: frequency
+   .. autoproperty:: attack_time
+   .. autoproperty:: decay_time
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: HPF
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: HPZ1
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: HPZ2
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Integrator
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: coefficient
+   .. autoproperty:: coefficient
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: LPF
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: LPZ1
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: LPZ2
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Lag
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: lag_time
-   .. autoattribute:: source
+   .. autoproperty:: lag_time
+   .. autoproperty:: source
 
 .. autoclass:: Lag2
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: lag_time
-   .. autoattribute:: source
+   .. autoproperty:: lag_time
+   .. autoproperty:: source
 
 .. autoclass:: Lag2UD
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: lag_time_d
-   .. autoattribute:: lag_time_u
-   .. autoattribute:: source
+   .. autoproperty:: lag_time_d
+   .. autoproperty:: lag_time_u
+   .. autoproperty:: source
 
 .. autoclass:: Lag3
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: lag_time
-   .. autoattribute:: source
+   .. autoproperty:: lag_time
+   .. autoproperty:: source
 
 .. autoclass:: Lag3UD
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: lag_time_d
-   .. autoattribute:: lag_time_u
-   .. autoattribute:: source
+   .. autoproperty:: lag_time_d
+   .. autoproperty:: lag_time_u
+   .. autoproperty:: source
 
 .. autoclass:: LagUD
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: lag_time_down
-   .. autoattribute:: lag_time_up
-   .. autoattribute:: source
+   .. autoproperty:: lag_time_down
+   .. autoproperty:: lag_time_up
+   .. autoproperty:: source
 
 .. autoclass:: LeakDC
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: coefficient
+   .. autoproperty:: coefficient
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Median
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: length
-   .. autoattribute:: source
+   .. autoproperty:: length
+   .. autoproperty:: source
 
 .. autoclass:: MidEQ
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: db
-   .. autoattribute:: frequency
+   .. autoproperty:: db
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: reciprocal_of_q
-   .. autoattribute:: source
+   .. autoproperty:: reciprocal_of_q
+   .. autoproperty:: source
 
 .. autoclass:: MoogFF
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
-   .. autoattribute:: gain
+   .. autoproperty:: frequency
+   .. autoproperty:: gain
    .. automethod:: kr
-   .. autoattribute:: reset
-   .. autoattribute:: source
+   .. autoproperty:: reset
+   .. autoproperty:: source
 
 .. autoclass:: OnePole
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: coefficient
+   .. autoproperty:: coefficient
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: OneZero
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: coefficient
+   .. autoproperty:: coefficient
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: RHPF
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: reciprocal_of_q
-   .. autoattribute:: source
+   .. autoproperty:: reciprocal_of_q
+   .. autoproperty:: source
 
 .. autoclass:: RLPF
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: reciprocal_of_q
-   .. autoattribute:: source
+   .. autoproperty:: reciprocal_of_q
+   .. autoproperty:: source
 
 .. autoclass:: Ramp
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: lag_time
-   .. autoattribute:: source
+   .. autoproperty:: lag_time
+   .. autoproperty:: source
 
 .. autoclass:: Ringz
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: decay_time
-   .. autoattribute:: frequency
+   .. autoproperty:: decay_time
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: SOS
    :show-inheritance:
 
-   .. autoattribute:: a_0
-   .. autoattribute:: a_1
-   .. autoattribute:: a_2
+   .. autoproperty:: a_0
+   .. autoproperty:: a_1
+   .. autoproperty:: a_2
    .. automethod:: ar
-   .. autoattribute:: b_1
-   .. autoattribute:: b_2
+   .. autoproperty:: b_1
+   .. autoproperty:: b_2
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Slew
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: down
+   .. autoproperty:: down
    .. automethod:: kr
-   .. autoattribute:: source
-   .. autoattribute:: up
+   .. autoproperty:: source
+   .. autoproperty:: up
 
 .. autoclass:: Slope
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: TwoPole
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: radius
-   .. autoattribute:: source
+   .. autoproperty:: radius
+   .. autoproperty:: source
 
 .. autoclass:: TwoZero
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
-   .. autoattribute:: radius
-   .. autoattribute:: source
+   .. autoproperty:: radius
+   .. autoproperty:: source

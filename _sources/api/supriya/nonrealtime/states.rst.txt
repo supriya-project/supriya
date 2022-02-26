@@ -19,31 +19,31 @@ states
    .. automethod:: __enter__
    .. automethod:: __exit__
    .. automethod:: __lt__
-   .. autoattribute:: offset
-   .. autoattribute:: propagate
-   .. autoattribute:: state
+   .. autoproperty:: offset
+   .. autoproperty:: propagate
+   .. autoproperty:: state
 
 .. autoclass:: NodeTransition
    :show-inheritance:
 
-   .. autoattribute:: action
+   .. autoproperty:: action
    .. automethod:: apply_transform
    .. automethod:: free_node
-   .. autoattribute:: source
-   .. autoattribute:: target
+   .. autoproperty:: source
+   .. autoproperty:: target
 
 .. autoclass:: State
    :show-inheritance:
 
-   .. autoattribute:: is_sparse
-   .. autoattribute:: nodes_to_children
-   .. autoattribute:: nodes_to_parents
-   .. autoattribute:: offset
-   .. autoattribute:: overlap_buffers
-   .. autoattribute:: overlap_nodes
+   .. autoproperty:: is_sparse
+   .. autoproperty:: nodes_to_children
+   .. autoproperty:: nodes_to_parents
+   .. autoproperty:: offset
+   .. autoproperty:: overlap_buffers
+   .. autoproperty:: overlap_nodes
    .. automethod:: report
-   .. autoattribute:: start_buffers
-   .. autoattribute:: start_nodes
-   .. autoattribute:: stop_buffers
-   .. autoattribute:: stop_nodes
-   .. autoattribute:: transitions
+   .. autoproperty:: start_buffers
+   .. autoproperty:: start_nodes
+   .. autoproperty:: stop_buffers
+   .. autoproperty:: stop_nodes
+   .. autoproperty:: transitions

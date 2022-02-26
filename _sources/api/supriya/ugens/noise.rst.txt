@@ -24,36 +24,36 @@ noise
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: probability
-   .. autoattribute:: trigger
+   .. autoproperty:: probability
+   .. autoproperty:: trigger
 
 .. autoclass:: Crackle
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: chaos_parameter
+   .. autoproperty:: chaos_parameter
    .. automethod:: kr
 
 .. autoclass:: Dust
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: density
+   .. autoproperty:: density
    .. automethod:: kr
 
 .. autoclass:: Dust2
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: density
+   .. autoproperty:: density
    .. automethod:: kr
 
 .. autoclass:: ExpRand
    :show-inheritance:
 
    .. automethod:: ir
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
 
 .. autoclass:: GrayNoise
    :show-inheritance:
@@ -66,103 +66,103 @@ noise
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: IRand
    :show-inheritance:
 
    .. automethod:: ir
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
 
 .. autoclass:: LFClipNoise
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
 
 .. autoclass:: LFDClipNoise
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
 
 .. autoclass:: LFDNoise0
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
 
 .. autoclass:: LFDNoise1
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
 
 .. autoclass:: LFDNoise3
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
 
 .. autoclass:: LFNoise0
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
 
 .. autoclass:: LFNoise1
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
 
 .. autoclass:: LFNoise2
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: frequency
+   .. autoproperty:: frequency
    .. automethod:: kr
 
 .. autoclass:: LinRand
    :show-inheritance:
 
    .. automethod:: ir
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
-   .. autoattribute:: skew
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
+   .. autoproperty:: skew
 
 .. autoclass:: Logistic
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: chaos_parameter
-   .. autoattribute:: frequency
-   .. autoattribute:: initial_y
+   .. autoproperty:: chaos_parameter
+   .. autoproperty:: frequency
+   .. autoproperty:: initial_y
    .. automethod:: kr
 
 .. autoclass:: MantissaMask
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: bits
+   .. autoproperty:: bits
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: NRand
    :show-inheritance:
 
    .. automethod:: ir
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
-   .. autoattribute:: n
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
+   .. autoproperty:: n
 
 .. autoclass:: PinkNoise
    :show-inheritance:
@@ -174,15 +174,15 @@ noise
    :show-inheritance:
 
    .. automethod:: ir
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
 
 .. autoclass:: RandID
    :show-inheritance:
 
    .. automethod:: ir
    .. automethod:: kr
-   .. autoattribute:: rand_id
+   .. autoproperty:: rand_id
 
 .. autoclass:: RandSeed
    :show-inheritance:
@@ -190,44 +190,44 @@ noise
    .. automethod:: ar
    .. automethod:: ir
    .. automethod:: kr
-   .. autoattribute:: seed
-   .. autoattribute:: trigger
+   .. autoproperty:: seed
+   .. autoproperty:: trigger
 
 .. autoclass:: TExpRand
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
-   .. autoattribute:: trigger
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
+   .. autoproperty:: trigger
 
 .. autoclass:: TIRand
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
-   .. autoattribute:: trigger
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
+   .. autoproperty:: trigger
 
 .. autoclass:: TRand
    :show-inheritance:
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoattribute:: maximum
-   .. autoattribute:: minimum
-   .. autoattribute:: trigger
+   .. autoproperty:: maximum
+   .. autoproperty:: minimum
+   .. autoproperty:: trigger
 
 .. autoclass:: TWindex
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: array
+   .. autoproperty:: array
    .. automethod:: kr
-   .. autoattribute:: normalize
-   .. autoattribute:: trigger
+   .. autoproperty:: normalize
+   .. autoproperty:: trigger
 
 .. autoclass:: WhiteNoise
    :show-inheritance:

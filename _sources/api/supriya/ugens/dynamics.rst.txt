@@ -11,22 +11,22 @@ dynamics
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: attack_time
+   .. autoproperty:: attack_time
    .. automethod:: kr
-   .. autoattribute:: release_time
-   .. autoattribute:: source
+   .. autoproperty:: release_time
+   .. autoproperty:: source
 
 .. autoclass:: Compander
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: clamp_time
-   .. autoattribute:: control
-   .. autoattribute:: relax_time
-   .. autoattribute:: slope_above
-   .. autoattribute:: slope_below
-   .. autoattribute:: source
-   .. autoattribute:: threshold
+   .. autoproperty:: clamp_time
+   .. autoproperty:: control
+   .. autoproperty:: relax_time
+   .. autoproperty:: slope_above
+   .. autoproperty:: slope_below
+   .. autoproperty:: source
+   .. autoproperty:: threshold
 
 .. autoclass:: CompanderD
    :show-inheritance:
@@ -37,14 +37,14 @@ dynamics
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: duration
-   .. autoattribute:: level
-   .. autoattribute:: source
+   .. autoproperty:: duration
+   .. autoproperty:: level
+   .. autoproperty:: source
 
 .. autoclass:: Normalizer
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: duration
-   .. autoattribute:: level
-   .. autoattribute:: source
+   .. autoproperty:: duration
+   .. autoproperty:: level
+   .. autoproperty:: source

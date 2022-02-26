@@ -13,7 +13,7 @@ sessions
    .. automethod:: __graph__
    .. automethod:: __render__
    .. automethod:: __session__
-   .. autoattribute:: active_moments
+   .. autoproperty:: active_moments
    .. automethod:: add_buffer
    .. automethod:: add_buffer_group
    .. automethod:: add_bus
@@ -21,31 +21,31 @@ sessions
    .. automethod:: add_group
    .. automethod:: add_synth
    .. automethod:: at
-   .. autoattribute:: audio_input_bus_group
-   .. autoattribute:: audio_output_bus_group
-   .. autoattribute:: buffers
-   .. autoattribute:: buffers_by_session_id
-   .. autoattribute:: buses
-   .. autoattribute:: buses_by_session_id
+   .. autoproperty:: audio_input_bus_group
+   .. autoproperty:: audio_output_bus_group
+   .. autoproperty:: buffers
+   .. autoproperty:: buffers_by_session_id
+   .. autoproperty:: buses
+   .. autoproperty:: buses_by_session_id
    .. automethod:: cue_soundfile
-   .. autoattribute:: duration
-   .. autoattribute:: input_
-   .. autoattribute:: input_bus_channel_count
+   .. autoproperty:: duration
+   .. autoproperty:: input_
+   .. autoproperty:: input_bus_channel_count
    .. automethod:: is_session_like
    .. automethod:: move_node
-   .. autoattribute:: name
-   .. autoattribute:: nodes
-   .. autoattribute:: nodes_by_session_id
-   .. autoattribute:: offsets
-   .. autoattribute:: options
-   .. autoattribute:: output_bus_channel_count
-   .. autoattribute:: padding
+   .. autoproperty:: name
+   .. autoproperty:: nodes
+   .. autoproperty:: nodes_by_session_id
+   .. autoproperty:: offsets
+   .. autoproperty:: options
+   .. autoproperty:: output_bus_channel_count
+   .. autoproperty:: padding
    .. automethod:: rebuild_transitions
    .. automethod:: render
-   .. autoattribute:: root_node
+   .. autoproperty:: root_node
    .. automethod:: set_rand_seed
-   .. autoattribute:: states
+   .. autoproperty:: states
    .. automethod:: to_lists
    .. automethod:: to_osc_bundles
    .. automethod:: to_strings
-   .. autoattribute:: transcript
+   .. autoproperty:: transcript

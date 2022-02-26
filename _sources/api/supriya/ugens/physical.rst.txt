@@ -11,38 +11,38 @@ physical
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: damping
-   .. autoattribute:: friction
-   .. autoattribute:: gravity
+   .. autoproperty:: damping
+   .. autoproperty:: friction
+   .. autoproperty:: gravity
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source
 
 .. autoclass:: Pluck
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: coefficient
-   .. autoattribute:: decay_time
-   .. autoattribute:: delay_time
-   .. autoattribute:: maximum_delay_time
-   .. autoattribute:: source
-   .. autoattribute:: trigger
+   .. autoproperty:: coefficient
+   .. autoproperty:: decay_time
+   .. autoproperty:: delay_time
+   .. autoproperty:: maximum_delay_time
+   .. autoproperty:: source
+   .. autoproperty:: trigger
 
 .. autoclass:: Spring
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: damping
+   .. autoproperty:: damping
    .. automethod:: kr
-   .. autoattribute:: source
-   .. autoattribute:: spring
+   .. autoproperty:: source
+   .. autoproperty:: spring
 
 .. autoclass:: TBall
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoattribute:: damping
-   .. autoattribute:: friction
-   .. autoattribute:: gravity
+   .. autoproperty:: damping
+   .. autoproperty:: friction
+   .. autoproperty:: gravity
    .. automethod:: kr
-   .. autoattribute:: source
+   .. autoproperty:: source

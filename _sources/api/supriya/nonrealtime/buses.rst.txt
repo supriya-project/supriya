@@ -20,14 +20,14 @@ buses
 
    .. automethod:: __float__
    .. automethod:: __int__
-   .. autoattribute:: bus_group
-   .. autoattribute:: calculation_rate
+   .. autoproperty:: bus_group
+   .. autoproperty:: calculation_rate
    .. automethod:: get
    .. automethod:: get_map_symbol
-   .. autoattribute:: session_id
+   .. autoproperty:: session_id
    .. automethod:: set_
-   .. autoattribute:: start_offset
-   .. autoattribute:: stop_offset
+   .. autoproperty:: start_offset
+   .. autoproperty:: stop_offset
 
 .. autoclass:: BusGroup
    :show-inheritance:
@@ -38,11 +38,11 @@ buses
    .. automethod:: __int__
    .. automethod:: __iter__
    .. automethod:: __len__
-   .. autoattribute:: bus_count
-   .. autoattribute:: buses
-   .. autoattribute:: calculation_rate
+   .. autoproperty:: bus_count
+   .. autoproperty:: buses
+   .. autoproperty:: calculation_rate
    .. automethod:: fill
    .. automethod:: get
    .. automethod:: get_map_symbol
    .. automethod:: index
-   .. autoattribute:: session_id
+   .. autoproperty:: session_id

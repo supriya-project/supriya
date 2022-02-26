@@ -14,7 +14,7 @@ builders
    .. automethod:: __exit__
    .. automethod:: __getitem__
    .. automethod:: build
-   .. autoattribute:: name
+   .. autoproperty:: name
    .. automethod:: poll_ugen
 
 .. autofunction:: synthdef

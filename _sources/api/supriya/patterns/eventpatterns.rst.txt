@@ -10,20 +10,20 @@ eventpatterns
 .. autoclass:: ChainPattern
    :show-inheritance:
 
-   .. autoattribute:: is_infinite
+   .. autoproperty:: is_infinite
 
 .. autoclass:: EventPattern
    :show-inheritance:
 
-   .. autoattribute:: event_type
-   .. autoattribute:: is_infinite
+   .. autoproperty:: event_type
+   .. autoproperty:: is_infinite
 
 .. autoclass:: MonoEventPattern
    :show-inheritance:
 
-   .. autoattribute:: is_infinite
+   .. autoproperty:: is_infinite
 
 .. autoclass:: UpdatePattern
    :show-inheritance:
 
-   .. autoattribute:: is_infinite
+   .. autoproperty:: is_infinite

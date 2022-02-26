@@ -11,72 +11,72 @@ ml
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: lock
-   .. autoattribute:: pv_chain
+   .. autoproperty:: lock
+   .. autoproperty:: pv_chain
 
 .. autoclass:: BeatTrack2
    :show-inheritance:
 
-   .. autoattribute:: bus_index
-   .. autoattribute:: feature_count
+   .. autoproperty:: bus_index
+   .. autoproperty:: feature_count
    .. automethod:: kr
-   .. autoattribute:: lock
-   .. autoattribute:: phase_accuracy
-   .. autoattribute:: weighting_scheme
-   .. autoattribute:: window_size
+   .. autoproperty:: lock
+   .. autoproperty:: phase_accuracy
+   .. autoproperty:: weighting_scheme
+   .. autoproperty:: window_size
 
 .. autoclass:: KeyTrack
    :show-inheritance:
 
-   .. autoattribute:: chroma_leak
-   .. autoattribute:: key_decay
+   .. autoproperty:: chroma_leak
+   .. autoproperty:: key_decay
    .. automethod:: kr
-   .. autoattribute:: pv_chain
+   .. autoproperty:: pv_chain
 
 .. autoclass:: Loudness
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: pv_chain
-   .. autoattribute:: smask
-   .. autoattribute:: tmask
+   .. autoproperty:: pv_chain
+   .. autoproperty:: smask
+   .. autoproperty:: tmask
 
 .. autoclass:: MFCC
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: pv_chain
+   .. autoproperty:: pv_chain
 
 .. autoclass:: Onsets
    :show-inheritance:
 
-   .. autoattribute:: floor
+   .. autoproperty:: floor
    .. automethod:: kr
-   .. autoattribute:: medianspan
-   .. autoattribute:: mingap
-   .. autoattribute:: odftype
-   .. autoattribute:: pv_chain
-   .. autoattribute:: rawodf
-   .. autoattribute:: relaxtime
-   .. autoattribute:: threshold
-   .. autoattribute:: whtype
+   .. autoproperty:: medianspan
+   .. autoproperty:: mingap
+   .. autoproperty:: odftype
+   .. autoproperty:: pv_chain
+   .. autoproperty:: rawodf
+   .. autoproperty:: relaxtime
+   .. autoproperty:: threshold
+   .. autoproperty:: whtype
 
 .. autoclass:: SpecCentroid
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: pv_chain
+   .. autoproperty:: pv_chain
 
 .. autoclass:: SpecFlatness
    :show-inheritance:
 
    .. automethod:: kr
-   .. autoattribute:: pv_chain
+   .. autoproperty:: pv_chain
 
 .. autoclass:: SpecPcile
    :show-inheritance:
 
-   .. autoattribute:: fraction
-   .. autoattribute:: interpolate
+   .. autoproperty:: fraction
+   .. autoproperty:: interpolate
    .. automethod:: kr
-   .. autoattribute:: pv_chain
+   .. autoproperty:: pv_chain

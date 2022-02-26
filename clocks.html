@@ -1136,7 +1136,7 @@ musical patterns.</p>
 <p>Let’s consider a simple callback function:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The current offset is: </span><span class="si">{</span><span class="n">context</span><span class="o">.</span><span class="n">current_moment</span><span class="o">.</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 </code></pre></div>
 </div>
 <p>All clock callbacks need to accept <em>at least</em> a <code class="docutils literal notranslate"><span class="pre">context</span></code> argument, to which
@@ -1144,21 +1144,18 @@ the clock will pass a <a class="reference internal" href="api/supriya/clocks/eph
 <h3 id="id1">Scheduling<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>We can schedule that procedure with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
-<span class="go">0</span>
 </code></pre></div>
 </div>
 <p>Scheduling callbacks returns an event ID.</p>
 <h3 id="canceling">Canceling<a class="headerlink" href="#canceling" title="Permalink to this headline">¶</a></h3>
 <p>We can use the event ID to cancel the callback if it hasn’t already occurred:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="go">CallbackCommand(args=None, event_id=0, event_type=&lt;EventType.SCHEDULE: 1&gt;, kwargs=None, procedure=&lt;function callback at 0x7fb44f8a0dc0&gt;, quantization=None, schedule_at=0.0, time_unit=&lt;TimeUnit.BEATS: 0&gt;)</span>
 </code></pre></div>
 </div>
 <h3 id="cueing">Cueing<a class="headerlink" href="#cueing" title="Permalink to this headline">¶</a></h3>
 <p>We can also <em>cue</em> callbacks, scheduling them to occur at some quantized offset
 in the future, e.g. on the next beat or downbeat:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">cue</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
-<span class="go">1</span>
 </code></pre></div>
 </div>
 <h2 id="callbacks">Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
@@ -1176,7 +1173,7 @@ in the future, e.g. on the next beat or downbeat:</p>
 <span class="gp">... </span>        <span class="k">return</span> <span class="n">delta</span><span class="p">,</span> <span class="n">time_unit</span>
 <span class="gp">... </span>    <span class="k">else</span><span class="p">:</span>
 <span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bailing!&quot;</span><span class="p">)</span>
-<span class="gp">... </span>
+<span class="gp">...</span>
 </code></pre></div>
 </div>
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h3>
@@ -1306,7 +1303,7 @@ quantization relative the current time.</p>
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
     
     
-      <script src="_static/javascripts/bundle.c6851205.min.js"></script>
+      <script src="_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/design-tabs.js"></script>
     
