@@ -54,5 +54,9 @@ jobs:
           ffmpeg \
           graphviz \
           lame
+    - name: Setup up git
+      run: |
+        git config --local user.email "$(git log --format='%ae' HEAD^!)"
+        git config --local user.name "$(git log --format='%an' HEAD^!)"
     - name: Update GH Pages
       run: make gh-pages
