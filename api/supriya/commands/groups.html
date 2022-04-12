@@ -1617,12 +1617,12 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/g_deepFree&#39;, 1000))</span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 2))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/n_end&#39;, 1001, -1, -1, -1, 0))</span>
@@ -1696,12 +1696,12 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/g_freeAll&#39;, 1000))</span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 2))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/n_end&#39;, 1001, -1, -1, -1, 0))</span>
@@ -1773,12 +1773,12 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/g_new&#39;, 1001, 1, 1, 1002, 0, 1001))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/n_go&#39;, 1001, 1, 1000, -1, 1, -1, -1))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/n_go&#39;, 1002, 1001, -1, -1, 1, -1, -1))</span>
@@ -1898,12 +1898,12 @@ instead of <code class="docutils literal notranslate"><span class="pre">supernov
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/p_new&#39;, 1001, 1, 1))</span>
 <span class="go">(&#39;R&#39;, OscMessage(&#39;/n_go&#39;, 1001, 1, 1000, -1, 1, -1, -1))</span>
 <span class="go">(&#39;S&#39;, OscMessage(&#39;/sync&#39;, 0))</span>

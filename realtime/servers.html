@@ -1031,14 +1031,17 @@ with the entities it governs, and query its state.</p>
 </div>
 <p>Instantiated servers are initially <em>offline</em>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span>
+<span class="go">&lt;Server: offline&gt;</span>
 </code></pre></div>
 </div>
 <p>To bring an offline server <em>online</em>, boot the server:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 <p>Quit a running server:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="go">&lt;Server: offline&gt;</span>
 </code></pre></div>
 </div>
 <p>Booting without any additional options will use default settings for the
@@ -1047,9 +1050,7 @@ and port <code class="docutils literal notranslate"><span class="pre">57110</spa
 <a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a> binary via <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.find" title="supriya.scsynth.find"><code class="xref py py-func docutils literal notranslate"><span class="pre">supriya.scsynth.find()</span></code></a>.</p>
 <p>You can override the IP address or port via keyword arguments:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">ip_address</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">56666</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://0.0.0.0:56666, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 <div class="admonition caution">
@@ -1061,45 +1062,77 @@ will result in an error:</p>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_one</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1035</span>, in <span class="n">boot</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_process_protocol</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">,</span> <span class="n">scsynth_path</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/protocols.py&quot;</span>, line <span class="m">55</span>, in <span class="n">boot</span>
+    <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ServerCannotBoot</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="gr">supriya.exceptions.ServerCannotBoot</span>: <span class="n">*** ERROR: failed to open UDP socket: address in use.</span>
 </code></pre></div>
 </div>
 <p>Use <a class="reference internal" href="../api/supriya/osc/utils.html#supriya.osc.utils.find_free_port" title="supriya.osc.utils.find_free_port"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code></a> to grab a random unused port to
 successfully boot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">())</span>
+<span class="go">&lt;Server: udp://127.0.0.1:61538, 8i8o&gt;</span>
 </code></pre></div>
 </div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_one</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-</code></pre></div>
 </div>
 <p>You can also explicitly select the server binary via the <code class="docutils literal notranslate"><span class="pre">scsynth_path</span></code> keyword:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">scsynth_path</span><span class="o">=</span><span class="s2">&quot;scsynth&quot;</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">scsynth_path</span></code> keyword allows you to boot with <code class="docutils literal notranslate"><span class="pre">supernova</span></code> if you have it available:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">scsynth_path</span><span class="o">=</span><span class="s2">&quot;supernova&quot;</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 <h3 id="boot-options">Boot options<a class="headerlink" href="#boot-options" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a> can be booted with a wide variety of command-line arguments,
 which Supriya models via an <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.Options" title="supriya.scsynth.Options"><code class="xref py py-class docutils literal notranslate"><span class="pre">Options</span></code></a> class:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">Options</span><span class="p">()</span>
+<span class="go">Options(</span>
+<span class="go">    audio_bus_channel_count=1024,</span>
+<span class="go">    block_size=64,</span>
+<span class="go">    buffer_count=1024,</span>
+<span class="go">    control_bus_channel_count=16384,</span>
+<span class="go">    hardware_buffer_size=None,</span>
+<span class="go">    initial_node_id=1000,</span>
+<span class="go">    input_bus_channel_count=8,</span>
+<span class="go">    input_device=None,</span>
+<span class="go">    input_stream_mask=&#39;&#39;,</span>
+<span class="go">    load_synthdefs=True,</span>
+<span class="go">    maximum_logins=1,</span>
+<span class="go">    maximum_node_count=1024,</span>
+<span class="go">    maximum_synthdef_count=1024,</span>
+<span class="go">    memory_locking=False,</span>
+<span class="go">    memory_size=8192,</span>
+<span class="go">    output_bus_channel_count=8,</span>
+<span class="go">    output_device=None,</span>
+<span class="go">    output_stream_mask=&#39;&#39;,</span>
+<span class="go">    password=None,</span>
+<span class="go">    protocol=&#39;udp&#39;,</span>
+<span class="go">    random_number_generator_count=64,</span>
+<span class="go">    remote_control_volume=False,</span>
+<span class="go">    restricted_path=None,</span>
+<span class="go">    sample_rate=None,</span>
+<span class="go">    threads=None,</span>
+<span class="go">    ugen_plugins_path=None,</span>
+<span class="go">    verbosity=0,</span>
+<span class="go">    wire_buffer_count=64,</span>
+<span class="go">    zero_configuration=False,</span>
+<span class="go">)</span>
 </code></pre></div>
 </div>
 <p>Pass any of the named options found in <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.Options" title="supriya.scsynth.Options"><code class="xref py py-class docutils literal notranslate"><span class="pre">Options</span></code></a> as
 keyword arguments when booting:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">input_bus_channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">output_bus_channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 2i2o&gt;</span>
 </code></pre></div>
 </div>
 <h3 id="multiple-clients">Multiple clients<a class="headerlink" href="#multiple-clients" title="Permalink to this headline">¶</a></h3>
@@ -1121,13 +1154,26 @@ login count is 1:</p>
 </div>
 <p>Each connected user has their own client ID and default group:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_one</span><span class="o">.</span><span class="n">client_id</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">client_id</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server_one</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
+<span class="go">0</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">client_id</span>
+<span class="go">1</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server_one</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">    2 group</span>
 </code></pre></div>
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">server_one</span></code> is owned, while <code class="docutils literal notranslate"><span class="pre">server_two</span></code> isn’t:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_one</span><span class="o">.</span><span class="n">is_owner</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">is_owner</span>
+<span class="go">True</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">is_owner</span>
+<span class="go">False</span>
 </code></pre></div>
 </div>
 <p>Supriya provides some very limited guard-rails to prevent server shutdown by
@@ -1135,17 +1181,20 @@ non-owners, e.g. a <code class="docutils literal notranslate"><span class="pre">
 if they really want to quit the server. Without <code class="docutils literal notranslate"><span class="pre">force</span></code>, quitting a non-owned
 server will error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1071</span>, in <span class="n">quit</span>
+    <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">UnownedServerShutdown</span><span class="p">(</span>
+<span class="gr">supriya.exceptions.UnownedServerShutdown</span>: <span class="n">Cannot quit unowned server without force flag.</span>
 </code></pre></div>
 </div>
 <p>Finally, disconnect:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+<span class="go">&lt;Server: offline&gt;</span>
 </code></pre></div>
 </div>
 <p>Disconnecting won’t terminate the server. It continues to run from wherever
 <code class="docutils literal notranslate"><span class="pre">server_one</span></code> was originally booted.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_one</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-</code></pre></div>
-</div>
 <h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server" title="supriya.realtime.servers.Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> provides a number of methods and
 properties for inspecting its state.</p>
@@ -1154,6 +1203,16 @@ properties for inspecting its state.</p>
 </div>
 <p>Inspect the “status” of audio processing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
+<span class="go">StatusResponse(</span>
+<span class="go">    actual_sample_rate=44100.00000244759,</span>
+<span class="go">    average_cpu_usage=0.024523131549358368,</span>
+<span class="go">    group_count=2,</span>
+<span class="go">    peak_cpu_usage=0.14920787513256073,</span>
+<span class="go">    synth_count=0,</span>
+<span class="go">    synthdef_count=0,</span>
+<span class="go">    target_sample_rate=44100.0,</span>
+<span class="go">    ugen_count=0,</span>
+<span class="go">)</span>
 </code></pre></div>
 </div>
 <div class="admonition hint">
@@ -1165,11 +1224,17 @@ complexity of the status output:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">()</span>
 </code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">StatusRequest</span><span class="p">()</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
-</code></pre></div>
-</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
+<span class="go">StatusResponse(</span>
+<span class="go">    actual_sample_rate=44099.99999897615,</span>
+<span class="go">    average_cpu_usage=0.11389796435832977,</span>
+<span class="go">    group_count=2,</span>
+<span class="go">    peak_cpu_usage=0.6342820525169373,</span>
+<span class="go">    synth_count=1,</span>
+<span class="go">    synthdef_count=33,</span>
+<span class="go">    target_sample_rate=44100.0,</span>
+<span class="go">    ugen_count=20,</span>
+<span class="go">)</span>
 </code></pre></div>
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">synth_count</span></code>, <code class="docutils literal notranslate"><span class="pre">synthdef_count</span></code> and <code class="docutils literal notranslate"><span class="pre">ugen_count</span></code> have gone up
@@ -1179,27 +1244,71 @@ following sections.</p>
 will return a “query tree” representation, which you can print to generate
 output similar to <a class="reference internal" href="../glossary.html#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a>’s <code class="docutils literal notranslate"><span class="pre">s.queryAllNodes</span></code> server method:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+<span class="go">QueryTreeGroup(</span>
+<span class="go">    children=(</span>
+<span class="go">        QueryTreeGroup(</span>
+<span class="go">            children=(</span>
+<span class="go">                QueryTreeSynth(</span>
+<span class="go">                    controls=(</span>
+<span class="go">                        QueryTreeControl(</span>
+<span class="go">                            control_name_or_index=&#39;out&#39;,</span>
+<span class="go">                            control_value=0.0,</span>
+<span class="go">                        ),</span>
+<span class="go">                        QueryTreeControl(</span>
+<span class="go">                            control_name_or_index=&#39;amplitude&#39;,</span>
+<span class="go">                            control_value=0.10000000149011612,</span>
+<span class="go">                        ),</span>
+<span class="go">                        QueryTreeControl(</span>
+<span class="go">                            control_name_or_index=&#39;frequency&#39;,</span>
+<span class="go">                            control_value=440.0,</span>
+<span class="go">                        ),</span>
+<span class="go">                        QueryTreeControl(</span>
+<span class="go">                            control_name_or_index=&#39;gate&#39;,</span>
+<span class="go">                            control_value=1.0,</span>
+<span class="go">                        ),</span>
+<span class="go">                        QueryTreeControl(</span>
+<span class="go">                            control_name_or_index=&#39;pan&#39;,</span>
+<span class="go">                            control_value=0.5,</span>
+<span class="go">                        ),</span>
+<span class="go">                    ),</span>
+<span class="go">                    node_id=1000,</span>
+<span class="go">                    synthdef_name=&#39;default&#39;,</span>
+<span class="go">                ),</span>
+<span class="go">            ),</span>
+<span class="go">            node_id=1,</span>
+<span class="go">        ),</span>
+<span class="go">    ),</span>
+<span class="go">    node_id=0,</span>
+<span class="go">)</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1000 default</span>
+<span class="go">            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5</span>
 </code></pre></div>
 </div>
 <p>Access the server’s <a class="reference internal" href="../glossary.html#term-root-node"><span class="xref std std-term">root node</span></a> and <a class="reference internal" href="../glossary.html#term-default-group"><span class="xref std std-term">default group</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">root_node</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span>
+<span class="go">&lt;+ RootNode: 0&gt;</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span>
+<span class="go">&lt;+ Group: 1&gt;</span>
 </code></pre></div>
 </div>
 <p>And access the input and output audio <a class="reference internal" href="../glossary.html#term-bus"><span class="xref std std-term">bus</span></a> groups, which represent
 microphone inputs and speaker outputs:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">audio_input_bus_group</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">audio_output_bus_group</span>
+<span class="go">&lt;+ AudioInputBusGroup{8}: 8 (audio)&gt;</span>
 </code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">audio_output_bus_group</span>
+<span class="go">&lt;+ AudioOutputBusGroup{8}: 0 (audio)&gt;</span>
 </code></pre></div>
 </div>
 <h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-</code></pre></div>
-</div>
 <p>The server provides a variety of methods for interacting with it and modifying
 its state.</p>
 <p>You can send <a class="reference internal" href="../glossary.html#term-OSC"><span class="xref std std-term">OSC</span></a> messages via the
@@ -1208,6 +1317,7 @@ explicit <a class="reference internal" href="../api/supriya/osc/messages.html#su
 <a class="reference internal" href="../api/supriya/osc/messages.html#supriya.osc.messages.OscBundle" title="supriya.osc.messages.OscBundle"><code class="xref py py-class docutils literal notranslate"><span class="pre">OscBundle</span></code></a> objects, or as
 <a class="reference internal" href="../api/supriya/commands/bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Requestable</span></code></a> objects:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">([</span><span class="s2">&quot;/g_new&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 <p>Many interactions with <a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a> don’t take effect immediately. In fact,
@@ -1215,6 +1325,7 @@ none of them really do, because the server behaves asynchronously. For
 operations with significant delay, e.g. sending multiple <a class="reference internal" href="../glossary.html#term-SynthDef"><span class="xref std std-term">SynthDefs</span></a>, use <a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server.sync" title="supriya.realtime.servers.Server.sync"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sync()</span></code></a> to block
 until all previously initiated operations complete:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -1224,27 +1335,53 @@ the server, including OSC callbacks.</p>
 </div>
 <p>The server provides methods for allocating <a class="reference internal" href="../glossary.html#term-node"><span class="xref std std-term">nodes</span></a> (<a class="reference internal" href="../glossary.html#term-group"><span class="xref std std-term">groups</span></a> and <a class="reference internal" href="../glossary.html#term-synth"><span class="xref std std-term">synths</span></a>), <a class="reference internal" href="../glossary.html#term-buffer"><span class="xref std std-term">buffers</span></a> and <a class="reference internal" href="../glossary.html#term-bus"><span class="xref std std-term">buses</span></a>, all of which are discussed in the sections following this one:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">441.3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer_group</span><span class="p">(</span><span class="n">buffer_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_bus</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_bus_group</span><span class="p">(</span><span class="n">bus_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;audio&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
+<span class="go">&lt;+ Group: 1000&gt;</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">441.3</span><span class="p">)</span>
+<span class="go">&lt;+ Synth: 1001 default&gt;</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+<span class="go">&lt;+ Buffer: 0, 1ch, 512&gt;</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer_group</span><span class="p">(</span><span class="n">buffer_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
+<span class="go">&lt;+ BufferGroup{8}: 1&gt;</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_bus</span><span class="p">()</span>
+<span class="go">&lt;+ Bus: 0 (control)&gt;</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_bus_group</span><span class="p">(</span><span class="n">bus_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;audio&quot;</span><span class="p">)</span>
+<span class="go">&lt;+ BusGroup{2}: 16 (audio)&gt;</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1001 default</span>
+<span class="go">            out: 0.0, amplitude: 0.25, frequency: 441.299988, gate: 1.0, pan: 0.5</span>
+<span class="go">        1000 group</span>
 </code></pre></div>
 </div>
 <h3 id="resetting">Resetting<a class="headerlink" href="#resetting" title="Permalink to this headline">¶</a></h3>
 <p>Supriya supports <em>resetting</em> the state of the server, similar to
 SuperCollider’s <code class="docutils literal notranslate"><span class="pre">CmdPeriod</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
 </code></pre></div>
 </div>
 <p>You can also just <em>reboot</em> the server, completely resetting all nodes, buses,
 buffers and SynthDefs:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">()</span>
-</code></pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 <h2 id="lower-level-apis">Lower level APIs<a class="headerlink" href="#lower-level-apis" title="Permalink to this headline">¶</a></h2>
@@ -1255,11 +1392,13 @@ buffers and SynthDefs:</p>
 <p>Get access to the server’s underlying process management subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">process_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span><span class="o">.</span><span class="n">process_protocol</span>
+<span class="go">&lt;supriya.realtime.protocols.SyncProcessProtocol object at 0x7fa795fec4c0&gt;</span>
 </code></pre></div>
 </div>
 <p>Get access to the server’s underlying OSC subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">osc_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span>
+<span class="go">&lt;supriya.osc.protocols.ThreadedOscProtocol object at 0x7fa795fe0880&gt;</span>
 </code></pre></div>
 </div>
 <div class="admonition note">

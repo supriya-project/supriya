@@ -2367,11 +2367,11 @@ compilation:</p>
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="n">ifft</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">IFFT</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">pv_chain</span><span class="o">=</span><span class="n">pv_chain</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">ifft</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="n">synthdef</span><span class="o">.</span><span class="n">ugens</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">ugen</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">MaxLocalBufs.ir()</span>
 <span class="go">LocalBuf.ir()</span>
 <span class="go">PinkNoise.ar()</span>

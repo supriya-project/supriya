@@ -1096,7 +1096,7 @@
 </ul>
 <h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permalink to this headline">¶</a></h2>
 <p>Buses can only be added to running servers, so let’s create one and boot it:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <h3 id="creation">Creation<a class="headerlink" href="#creation" title="Permalink to this headline">¶</a></h3>
@@ -1114,10 +1114,12 @@
 <h3 id="deletion">Deletion<a class="headerlink" href="#deletion" title="Permalink to this headline">¶</a></h3>
 <p>Free a bus with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="go">&lt;- Bus: ??? (control)&gt;</span>
 </code></pre></div>
 </div>
 <p>Free a bus group with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="go">&lt;- BusGroup{1}: ??? (control)&gt;</span>
 </code></pre></div>
 </div>
 <h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permalink to this headline">¶</a></h2>

@@ -1648,17 +1648,17 @@
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">bus</span><span class="o">.</span><span class="n">set_</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">bus</span><span class="o">.</span><span class="n">set_</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">offset</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">value</span> <span class="o">=</span> <span class="n">bus</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 <span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">0 0.0</span>
 <span class="go">1 0.5</span>
 <span class="go">2 0.5</span>
@@ -1732,21 +1732,21 @@
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">bus_group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_</span><span class="p">(</span><span class="mf">0.333</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">bus_group</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">bus_group</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_</span><span class="p">(</span><span class="mf">0.666</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">bus_group</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">offset</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">values</span> <span class="o">=</span> <span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 <span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">0 [0.0, 0.0, 0.0]</span>
 <span class="go">1 [0.333, 0.0, 0.0]</span>
 <span class="go">2 [0.333, 0.0, 0.0]</span>

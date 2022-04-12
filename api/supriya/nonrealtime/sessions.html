@@ -1794,17 +1794,17 @@
 <span class="gp">... </span>            <span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">],</span>
 <span class="gp">... </span>        <span class="p">)</span>
 <span class="gp">... </span>    <span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">synth_a</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">synth_b</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">synth_c</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">to_lists</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
@@ -1834,21 +1834,21 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">group</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">... </span>    <span class="n">synth_a</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">synth_b</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">synth_c</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mf">7.5</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">synth_d</span> <span class="o">=</span> <span class="n">synth_b</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;ADD_BEFORE&quot;</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">11</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">synth_d</span><span class="o">.</span><span class="n">move_node</span><span class="p">(</span><span class="n">synth_a</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;ADD_AFTER&quot;</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-</dd></dl>
+<div class="uqbar-book"><a href="../../../_images/graphviz-950e09596a91550bbfa2c6634a3139a5ce8ce989bc43d075ba5f2754b4196f15.dot" title=""><img src="../../../_images/graphviz-950e09596a91550bbfa2c6634a3139a5ce8ce989bc43d075ba5f2754b4196f15.svg" alt=""/></a></div></dd></dl>
 
 <dl class="py method objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.nonrealtime.sessions.Session.__render__">

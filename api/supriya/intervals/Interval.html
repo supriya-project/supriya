@@ -1830,17 +1830,23 @@
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">interval_1</span><span class="p">)</span>
 <span class="go">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">interval_2</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">interval_2</span><span class="p">)</span>
 <span class="go">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">interval_3</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">interval_3</span><span class="p">)</span>
 <span class="go">False</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">interval_4</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">interval_4</span><span class="p">)</span>
 <span class="go">False</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">]:</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">interval_1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">offset</span><span class="p">))</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">-5 False</span>
 <span class="go">0 True</span>
 <span class="go">5 True</span>
@@ -1863,17 +1869,23 @@
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">is_tangent_to</span><span class="p">(</span><span class="n">interval_1</span><span class="p">)</span>
 <span class="go">False</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">is_tangent_to</span><span class="p">(</span><span class="n">interval_2</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">is_tangent_to</span><span class="p">(</span><span class="n">interval_2</span><span class="p">)</span>
 <span class="go">False</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">is_tangent_to</span><span class="p">(</span><span class="n">interval_3</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">is_tangent_to</span><span class="p">(</span><span class="n">interval_3</span><span class="p">)</span>
 <span class="go">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">is_tangent_to</span><span class="p">(</span><span class="n">interval_4</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_1</span><span class="o">.</span><span class="n">is_tangent_to</span><span class="p">(</span><span class="n">interval_4</span><span class="p">)</span>
 <span class="go">False</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">]:</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">interval_1</span><span class="o">.</span><span class="n">is_tangent_to</span><span class="p">(</span><span class="n">offset</span><span class="p">))</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">-5 False</span>
 <span class="go">0 True</span>
 <span class="go">5 False</span>
@@ -1889,11 +1901,12 @@
 <dd><p>Template a new interval:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">interval_one</span> <span class="o">=</span> <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-
 <span class="gp">&gt;&gt;&gt; </span><span class="n">interval_two</span> <span class="o">=</span> <span class="n">interval_one</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">interval_two</span>
 <span class="go">Interval(start_offset=0.0, stop_offset=10.0)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_two</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">interval_one</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_two</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">interval_one</span>
 <span class="go">True</span>
 </code></pre></div>
 </div>
@@ -1916,7 +1929,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">interval</span> <span class="o">=</span> <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">split_interval</span> <span class="ow">in</span> <span class="n">interval</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">split_interval</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">Interval(start_offset=0.0, stop_offset=1.0)</span>
 <span class="go">Interval(start_offset=1.0, stop_offset=3.0)</span>
 <span class="go">Interval(start_offset=3.0, stop_offset=7.0)</span>

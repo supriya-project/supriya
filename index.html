@@ -869,15 +869,15 @@ meter-aware <a class="reference internal" href="api/supriya/clocks/index.html#mo
 <h2 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h2>
 <h3 id="get-supriya">1. Get Supriya<a class="headerlink" href="#get-supriya" title="Permalink to this headline">¶</a></h3>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="a698cc87-1b5e-4935-86b6-71e127c733b1" name="cf7abb02-6db8-467a-8339-313901164e73" type="radio">
-</input><label class="sd-tab-label" for="a698cc87-1b5e-4935-86b6-71e127c733b1">
+<input checked="checked" id="943cc729-8300-4c26-b71a-97dfaf0f76c6" name="72b7d9f4-67f6-4791-bde3-57da6eb2aa95" type="radio">
+</input><label class="sd-tab-label" for="943cc729-8300-4c26-b71a-97dfaf0f76c6">
 From PyPI</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">pip</span> <span class="n">install</span> <span class="n">supriya</span>
 </code></pre></div>
 </div>
 </div>
-<input id="96cb0a98-db91-40c3-a22a-07dbd766f93c" name="cf7abb02-6db8-467a-8339-313901164e73" type="radio">
-</input><label class="sd-tab-label" for="96cb0a98-db91-40c3-a22a-07dbd766f93c">
+<input id="80a7f07a-1403-41bf-a734-75210530942f" name="72b7d9f4-67f6-4791-bde3-57da6eb2aa95" type="radio">
+</input><label class="sd-tab-label" for="80a7f07a-1403-41bf-a734-75210530942f">
 From source</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">josiah</span><span class="o">-</span><span class="n">wolf</span><span class="o">-</span><span class="n">oberholtzer</span><span class="o">/</span><span class="n">supriya</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">supriya</span>
@@ -914,14 +914,14 @@ setting it up, and installing any additional dependencies like <a class="referen
 <span class="gp">... </span>    <span class="n">sine</span> <span class="o">=</span> <span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="p">)</span> <span class="o">*</span> <span class="n">amplitude</span>
 <span class="gp">... </span>    <span class="n">envelope</span> <span class="o">=</span> <span class="n">EnvGen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">envelope</span><span class="o">=</span><span class="n">Envelope</span><span class="o">.</span><span class="n">adsr</span><span class="p">(),</span> <span class="n">gate</span><span class="o">=</span><span class="n">gate</span><span class="p">,</span> <span class="n">done_action</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="n">sine</span> <span class="o">*</span> <span class="n">envelope</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </code></pre></div>
 </div>
 <p>Visualize the SynthDef (requires <a class="reference external" href="http://graphviz.org/">Graphviz</a>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">simple_sine</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<p>Allocate it on the server:</p>
+<div class="uqbar-book"><a href="_images/graphviz-ec5e84ca6ec50354353ae03cf8536460347ac7b42f222d7ff123d5288b191627.dot" title=""><img src="_images/graphviz-ec5e84ca6ec50354353ae03cf8536460347ac7b42f222d7ff123d5288b191627.svg" alt=""/></a></div><p>Allocate it on the server:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synthdef</span><span class="p">(</span><span class="n">simple_sine</span><span class="p">)</span>
 </code></pre></div>
 </div>
@@ -932,32 +932,46 @@ setting it up, and installing any additional dependencies like <a class="referen
 </div>
 <p>Synchronize with the server:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 <p>Create some synthesizers with the previously defined synthesizer definition, and
 allocate them on the server as a child of the previously created group:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">simple_sine</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">111</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </code></pre></div>
 </div>
 <p>Query the server’s node tree:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">())</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1000 group</span>
+<span class="go">            1003 simple_sine</span>
+<span class="go">                amplitude: 0.1, frequency: 333.0, gate: 1.0</span>
+<span class="go">            1002 simple_sine</span>
+<span class="go">                amplitude: 0.1, frequency: 222.0, gate: 1.0</span>
+<span class="go">            1001 simple_sine</span>
+<span class="go">                amplitude: 0.1, frequency: 111.0, gate: 1.0</span>
 </code></pre></div>
 </div>
 <p>Visualize the server’s node tree:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<h3 id="release-and-quit">5. Release and quit<a class="headerlink" href="#release-and-quit" title="Permalink to this headline">¶</a></h3>
+<div class="uqbar-book"><a href="_images/graphviz-4a2a644b832d9fbe7876e0bce0d9a669cd5b51856ca9ba068fa2ede94b6f70e7.dot" title=""><img src="_images/graphviz-4a2a644b832d9fbe7876e0bce0d9a669cd5b51856ca9ba068fa2ede94b6f70e7.svg" alt=""/></a></div><h3 id="release-and-quit">5. Release and quit<a class="headerlink" href="#release-and-quit" title="Permalink to this headline">¶</a></h3>
 <p>Release the synths:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">synth</span> <span class="ow">in</span> <span class="n">group</span><span class="p">[:]:</span>
-<span class="gp">... </span>   <span class="n">synth</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
-<span class="gp">...</span>
+<span class="gp">... </span>    <span class="n">synth</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="gp">... </span>
+<span class="go">&lt;+ Synth: 1003 simple_sine&gt;</span>
+<span class="go">&lt;+ Synth: 1002 simple_sine&gt;</span>
+<span class="go">&lt;+ Synth: 1001 simple_sine&gt;</span>
 </code></pre></div>
 </div>
 <p>Quit the server:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="go">&lt;Server: offline&gt;</span>
 </code></pre></div>
 </div>
 <div class="toctree-wrapper compound">

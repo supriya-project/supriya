@@ -1762,14 +1762,14 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">])</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">sin_osc</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<div class="uqbar-book"><a href="../../../_images/graphviz-a4c75f04fdb98aa1f5469af77dbf48cda6749c444bd7fdc6a39d34b3ef849c87.dot" title=""><img src="../../../_images/graphviz-a4c75f04fdb98aa1f5469af77dbf48cda6749c444bd7fdc6a39d34b3ef849c87.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -1799,10 +1799,10 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">])</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">sin_osc</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="n">synthdef</span><span class="o">.</span><span class="n">__graph__</span><span class="p">(),</span> <span class="s2">&quot;graphviz&quot;</span><span class="p">))</span>
-<span class="go">digraph synthdef_... {</span>
+<span class="go">digraph synthdef_9c4eb4778dc0faf39459fa8a5cd45c19 {</span>
 <span class="go">    graph [bgcolor=transparent,</span>
 <span class="go">        color=lightslategrey,</span>
 <span class="go">        dpi=72,</span>
@@ -1866,14 +1866,14 @@
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">audio_in</span> <span class="o">*</span> <span class="n">control_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="n">audio_out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">audio_input_channel_count</span>
+<div class="uqbar-book"><a href="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.dot" title=""><img src="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">audio_input_channel_count</span>
 <span class="go">1</span>
 </code></pre></div>
 </div>
@@ -1892,14 +1892,14 @@
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">audio_in</span> <span class="o">*</span> <span class="n">control_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="n">audio_out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">audio_output_channel_count</span>
+<div class="uqbar-book"><a href="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.dot" title=""><img src="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">audio_output_channel_count</span>
 <span class="go">4</span>
 </code></pre></div>
 </div>
@@ -1933,14 +1933,14 @@
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">audio_in</span> <span class="o">*</span> <span class="n">control_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="n">audio_out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">control_input_channel_count</span>
+<div class="uqbar-book"><a href="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.dot" title=""><img src="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">control_input_channel_count</span>
 <span class="go">2</span>
 </code></pre></div>
 </div>
@@ -1959,14 +1959,14 @@
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">audio_in</span> <span class="o">*</span> <span class="n">control_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="n">audio_out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">control_output_channel_count</span>
+<div class="uqbar-book"><a href="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.dot" title=""><img src="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">control_output_channel_count</span>
 <span class="go">0</span>
 </code></pre></div>
 </div>

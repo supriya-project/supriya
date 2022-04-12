@@ -1380,14 +1380,14 @@
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="n">enveloped_sin</span> <span class="o">=</span> <span class="n">sin_osc</span> <span class="o">*</span> <span class="n">decay</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">enveloped_sin</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<dl class="py method objdesc">
+<div class="uqbar-book"><a href="../../../_images/graphviz-6169b1fa712969b1d188f8f018aa0a9c8559817108c24e34c0802b9f9ea9d23d.dot" title=""><img src="../../../_images/graphviz-6169b1fa712969b1d188f8f018aa0a9c8559817108c24e34c0802b9f9ea9d23d.svg" alt=""/></a></div><dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.builders.SynthDefBuilder.__enter__">
 <span class="sig-name descname"><span class="pre">__enter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.builders.SynthDefBuilder.__enter__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1432,7 +1432,7 @@
 <span class="gp">... </span>    <span class="n">sig</span> <span class="o">=</span> <span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span> <span class="o">*</span> <span class="n">amp</span>
 <span class="gp">... </span>    <span class="n">env</span> <span class="o">=</span> <span class="n">EnvGen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">envelope</span><span class="o">=</span><span class="n">Envelope</span><span class="o">.</span><span class="n">adsr</span><span class="p">(),</span> <span class="n">gate</span><span class="o">=</span><span class="n">gate</span><span class="p">,</span> <span class="n">done_action</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="n">sig</span> <span class="o">*</span> <span class="n">env</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sine</span><span class="p">)</span>
@@ -1482,7 +1482,7 @@
 <span class="gp">... </span>    <span class="n">sig</span> <span class="o">=</span> <span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span> <span class="o">*</span> <span class="n">amp</span>
 <span class="gp">... </span>    <span class="n">env</span> <span class="o">=</span> <span class="n">EnvGen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">envelope</span><span class="o">=</span><span class="n">Envelope</span><span class="o">.</span><span class="n">adsr</span><span class="p">(),</span> <span class="n">gate</span><span class="o">=</span><span class="n">gate</span><span class="p">,</span> <span class="n">done_action</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="n">sig</span> <span class="o">*</span> <span class="n">env</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sine</span><span class="p">)</span>

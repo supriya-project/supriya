@@ -1,0 +1,24 @@
+digraph synthdef_e4fd4ca786d453fc5dfb955c63b6fbf6 {
+    graph [bgcolor=transparent,
+        color=lightslategrey,
+        dpi=72,
+        fontname=Arial,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        ranksep=1,
+        splines=spline,
+        style="dotted, rounded"];
+    node [fontname=Arial,
+        fontsize=12,
+        penwidth=2,
+        shape=Mrecord,
+        style="filled, rounded"];
+    edge [penwidth=2];
+    ugen_0 [fillcolor=lightsteelblue2,
+        label="<f_0> WhiteNoise\n(audio) | { { <f_1_0_0> 0 } }"];
+    ugen_1 [fillcolor=lightsteelblue2,
+        label="<f_0> UnaryOpUGen\n[HZ_TO_OCTAVE]\n(audio) | { { <f_1_0_0> source } | { <f_1_1_0> 0 } }"];
+    ugen_0:f_1_0_0:e -> ugen_1:f_1_0_0:w [color=steelblue];
+}
