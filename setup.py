@@ -40,8 +40,8 @@ if __name__ == "__main__":
                 "librosa",
                 "matplotlib >= 3.3.0",
                 "sphinx-design",
-                "sphinx-immaterial",
-                "sphinx-immaterial @ git+https://git@github.com/josiah-wolf-oberholtzer/sphinx-immaterial@main#egg=sphinx-immaterial",
+                "sphinx-immaterial >= 0.4.0",
+                # "sphinx-immaterial @ git+https://git@github.com/josiah-wolf-oberholtzer/sphinx-immaterial@main#egg=sphinx-immaterial",
                 "sphinxext-opengraph",
             ],
             "ipython": [
