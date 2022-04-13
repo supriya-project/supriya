@@ -34,7 +34,7 @@ class FFT(PV_ChainUGen):
     ::
 
         >>> buffer_id = supriya.ugens.LocalBuf(2048)
-        >>> source = supriya.ugens.SoundIn.ar(bus=0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> fft = supriya.ugens.FFT(
         ...     active=1,
         ...     buffer_id=buffer_id,

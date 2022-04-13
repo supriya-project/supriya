@@ -4,7 +4,7 @@ inputs:
   branch:
     description: SuperCollider branch
     required: false
-    default: master
+    default: develop
   origin:
     description: SuperCollider repo origin
     required: false

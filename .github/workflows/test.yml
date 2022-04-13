@@ -9,7 +9,7 @@ on:
 env:
   MYPYPATH: /tmp/typehints
   SC_ORIGIN: https://github.com/supercollider/supercollider.git
-  SC_BRANCH: main
+  SC_BRANCH: develop
 
 jobs:
 
