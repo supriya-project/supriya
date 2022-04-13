@@ -37,11 +37,12 @@ if __name__ == "__main__":
         description="A Python API for SuperCollider",
         extras_require={
             "docs": [
+                "jinja2 < 3.1.0",  # sphinx-immaterial imports Markup from jinja2, not markupsafe
                 "librosa",
                 "matplotlib >= 3.3.0",
                 "sphinx-design",
-                "sphinx-immaterial >= 0.4.0",
-                # "sphinx-immaterial @ git+https://git@github.com/josiah-wolf-oberholtzer/sphinx-immaterial@main#egg=sphinx-immaterial",
+                "sphinx-immaterial",
+                "sphinx-immaterial @ git+https://git@github.com/josiah-wolf-oberholtzer/sphinx-immaterial@main#egg=sphinx-immaterial",
                 "sphinxext-opengraph",
             ],
             "ipython": [
