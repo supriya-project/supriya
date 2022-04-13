@@ -48,7 +48,7 @@ class BufWr(UGen):
         ...     start=0,
         ...     stop=supriya.ugens.BufFrames.kr(buffer_id),
         ... )
-        >>> source = supriya.ugens.SoundIn.ar(bus=(0, 1))
+        >>> source = supriya.ugens.In.ar(bus=0, channel_count=2)
         >>> buf_wr = supriya.ugens.BufWr.ar(
         ...     buffer_id=buffer_id,
         ...     loop=1,
@@ -242,7 +242,7 @@ class RecordBuf(UGen):
     ::
 
         >>> buffer_id = 23
-        >>> source = supriya.ugens.SoundIn.ar(bus=(0, 1))
+        >>> source = supriya.ugens.In.ar(bus=0, channel_count=2)
         >>> record_buf = supriya.ugens.RecordBuf.ar(
         ...     buffer_id=buffer_id,
         ...     done_action=0,

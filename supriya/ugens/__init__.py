@@ -170,17 +170,7 @@ from .info import (
     SampleRate,
     SubsampleOffset,
 )
-from .inout import (
-    In,
-    InFeedback,
-    LocalIn,
-    LocalOut,
-    OffsetOut,
-    Out,
-    ReplaceOut,
-    SoundIn,
-    XOut,
-)
+from .inout import In, InFeedback, LocalIn, LocalOut, OffsetOut, Out, ReplaceOut, XOut
 from .lines import A2K, DC, K2A, AmpComp, AmpCompA, LinExp, LinLin, Line, Silence, XLine
 from .mac import KeyState, MouseButton, MouseX, MouseY
 from .ml import (
@@ -637,7 +627,6 @@ __all__ = [
     "SinOsc",
     "Slew",
     "Slope",
-    "SoundIn",
     "SpecCentroid",
     "SpecFlatness",
     "SpecPcile",
