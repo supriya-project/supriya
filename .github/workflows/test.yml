@@ -103,9 +103,7 @@ jobs:
         cd dist/supriya
         pip install .
     - name: Wipe out dirs
-      run: |
-        rm -Rf dist/
-        rm -Rf supriya/
+      run: rm -R *
     - name: Sanity-check Supriya
       run: |
         python -c "from supriya import Server; print(Server)"
