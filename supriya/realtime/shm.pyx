@@ -1,6 +1,6 @@
 # distutils: language = c++
 
-from shm cimport server_shared_memory_client
+from .shm cimport server_shared_memory_client
 
 
 cdef class ServerSHM:
