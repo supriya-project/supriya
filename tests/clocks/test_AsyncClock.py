@@ -6,6 +6,7 @@ import random
 import statistics
 
 import pytest
+import pytest_asyncio
 
 from supriya.clocks import AsyncClock, TimeUnit
 
@@ -19,7 +20,7 @@ def log_everything(caplog):
     caplog.set_level(logging.INFO, logger="supriya")
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def clock(mocker, monkeypatch):
     async def wait_for_event(self, sleep_time):
         await asyncio.sleep(0)
