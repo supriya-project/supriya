@@ -1,4 +1,5 @@
 import pytest
+import pytest_asyncio
 
 import supriya
 from supriya import scsynth
@@ -26,7 +27,7 @@ def shutdown_sync_servers(shutdown_scsynth):
         server._shutdown()
 
 
-@pytest.fixture(autouse=True)
+@pytest_asyncio.fixture(autouse=True)
 async def shutdown_async_servers(shutdown_scsynth, event_loop):
     for server in tuple(AsyncServer._servers):
         await server._shutdown()
