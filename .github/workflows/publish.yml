@@ -54,9 +54,19 @@ jobs:
           ffmpeg \
           graphviz \
           lame
-    - name: Setup up git
-      run: |
-        git config --local user.email "$(git log --format='%ae' HEAD^!)"
-        git config --local user.name "$(git log --format='%an' HEAD^!)"
-    - name: Update GH Pages
-      run: make gh-pages
+    - name: Build docs
+      run: make docs
+    - name: Clone gh-pages
+      run: git clone --branch gh-pages `git config --get remote.origin.url` gh-pages/
+    - name: Rsync docs
+      run: rsync -rtv --del --exclude=.git docs/build/html/ gh-pages/
+    - name: Touch .nojekyll
+      run: touch gh-pages/.nojekyll
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        allow_empty_commit: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: gh-pages
+        user_name: github-actions[bot]
+        user_email: github-actions[bot]@users.noreply.github.com
