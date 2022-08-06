@@ -775,11 +775,10 @@ class SendReply(UGen):
         Returns ugen input.
         """
         index = tuple(self._ordered_input_names).index("reply_id") + 1
-        source_length = int(self._inputs[index])
-        index += source_length + 2
-        characters = self._inputs[index:]
-        characters = [chr(int(_)) for _ in characters]
-        command_name = "".join(characters)
+        size = int(self._inputs[index])
+        command_name = "".join(
+            [chr(int(_)) for _ in self._inputs[index + 1 : index + 1 + size]]
+        )
         return command_name
 
     @property
@@ -802,10 +801,8 @@ class SendReply(UGen):
         Returns ugen input.
         """
         index = tuple(self._ordered_input_names).index("reply_id") + 1
-        source_length = int(self._inputs[index])
-        start = index + 1
-        stop = start + source_length
-        return tuple(self._inputs[start:stop])
+        size = int(self._inputs[index])
+        return tuple(self._inputs[index + 1 + size :])
 
 
 class SendTrig(UGen):

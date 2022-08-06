@@ -483,7 +483,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             self._add_constant_input(name, float(value))
         elif isinstance(value, ugen_prototype):
             self._add_ugen_input(name, value._get_source(), value._get_output_number())
-        elif isinstance(value, (list, tuple)):
+        elif isinstance(value, Sequence):
             if name not in self._unexpanded_input_names:
                 raise ValueError(name, self._unexpanded_input_names)
             for i, x in enumerate(value):
@@ -496,7 +496,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
                 else:
                     raise Exception("{!r} {!r}".format(value, x))
         else:
-            raise ValueError(repr(value))
+            raise ValueError(f"Invalid input: {value!r}")
 
     @staticmethod
     def _expand_dictionary(dictionary, unexpanded_input_names=None):
