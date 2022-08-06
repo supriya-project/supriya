@@ -675,9 +675,7 @@ class SendReply(UGen):
         [("trigger", None), ("reply_id", -1)]
     )
     _unexpanded_argument_names = ("source",)
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO, CalculationRate.CONTROL
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
     ### INITIALIZER ###
 
@@ -690,10 +688,7 @@ class SendReply(UGen):
         source=None,
     ):
         UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            reply_id=reply_id,
-            trigger=trigger,
+            self, calculation_rate=calculation_rate, reply_id=reply_id, trigger=trigger
         )
         command_name = str(command_name)
         if not isinstance(source, Sequence):
@@ -706,9 +701,7 @@ class SendReply(UGen):
             self._configure_input("label", ord(character))
 
     @classmethod
-    def ar(
-        cls, command_name="/reply", reply_id=-1, source=None, trigger=None
-    ):
+    def ar(cls, command_name="/reply", reply_id=-1, source=None, trigger=None):
         """
         Constructs an audio-rate SendReply.
 
@@ -737,9 +730,7 @@ class SendReply(UGen):
         return ugen
 
     @classmethod
-    def kr(
-        cls, command_name="/reply", reply_id=-1, source=None, trigger=None
-    ):
+    def kr(cls, command_name="/reply", reply_id=-1, source=None, trigger=None):
         """
         Constructs a control-rate SendReply.
 
