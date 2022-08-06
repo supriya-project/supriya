@@ -2242,7 +2242,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
-<span class="go">        Item(buffer_id=0, frame_count=1, channel_count=1, sample_rate=44100.0),</span>
+<span class="go">        Item(buffer_id=0, frame_count=1, channel_count=1, sample_rate=48000.0),</span>
 <span class="go">    ),</span>
 <span class="go">)</span>
 </code></pre></div>
@@ -2254,7 +2254,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
-<span class="go">        Item(buffer_id=1, frame_count=16, channel_count=1, sample_rate=44100.0),</span>
+<span class="go">        Item(buffer_id=1, frame_count=16, channel_count=1, sample_rate=48000.0),</span>
 <span class="go">    ),</span>
 <span class="go">)</span>
 </code></pre></div>
@@ -2267,7 +2267,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
-<span class="go">        Item(buffer_id=2, frame_count=32, channel_count=2, sample_rate=44100.0),</span>
+<span class="go">        Item(buffer_id=2, frame_count=32, channel_count=2, sample_rate=48000.0),</span>
 <span class="go">    ),</span>
 <span class="go">)</span>
 </code></pre></div>
@@ -2583,7 +2583,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<object data="../../../_images/plot-47d5f0af715f594f3ca0c83095d6c1b56223e1ce.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<object data="../../../_images/plot-192c45614487b0c32de13b9b562e8685a6b5e0c8.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_chebyshev</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
@@ -2610,7 +2610,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<object data="../../../_images/plot-6d8818c1bf7ef6300b542bafb23a31f7ba8a6d9a.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<object data="../../../_images/plot-0a0c54ecf6befce7ebb80e0016473322774f5dad.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_1</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
@@ -2638,7 +2638,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<object data="../../../_images/plot-d636bc915b72379fc7489779bd5e79442bd1f3fd.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<object data="../../../_images/plot-9bbccc3d5eb28c91ac5c4b240111ca9d8ebf8efb.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_2</span><span class="p">(</span>
@@ -2670,7 +2670,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<object data="../../../_images/plot-1a6ef97d19f43e38732d9b514a94daa90f2e6bb7.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<object data="../../../_images/plot-6c0f2d5cff051c0f011dd1befd3001867dbd757a.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_3</span><span class="p">(</span>
@@ -2850,7 +2850,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
-<span class="go">        Item(buffer_id=0, frame_count=16, channel_count=2, sample_rate=44100.0),</span>
+<span class="go">        Item(buffer_id=0, frame_count=16, channel_count=2, sample_rate=48000.0),</span>
 <span class="go">    ),</span>
 <span class="go">)</span>
 </code></pre></div>
@@ -2983,7 +2983,7 @@ the DiskIn or DiskOut UGens.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">sample_rate</span>
-<span class="go">44100.0</span>
+<span class="go">48000.0</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>

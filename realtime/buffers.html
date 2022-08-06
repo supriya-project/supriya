@@ -1423,7 +1423,7 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">duration_in_seconds</span>
-<span class="go">0.011609977324263039</span>
+<span class="go">0.010666666666666666</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">frame_count</span>
@@ -1435,13 +1435,13 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">sample_rate</span>
-<span class="go">44100.0</span>
+<span class="go">48000.0</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
-<span class="go">        Item(buffer_id=2, frame_count=512, channel_count=2, sample_rate=44100.0),</span>
+<span class="go">        Item(buffer_id=2, frame_count=512, channel_count=2, sample_rate=48000.0),</span>
 <span class="go">    ),</span>
 <span class="go">)</span>
 </code></pre></div>
@@ -1509,21 +1509,21 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-da64a249032df91226723cf6f21428505e554795.svg" type="image/svg+xml"></object><p><code class="docutils literal notranslate"><span class="pre">.fill_via_chebyshev()</span></code>:</p>
+<object data="../_images/plot-21616aa37883ef18f407bb4e88ce35524233e761.svg" type="image/svg+xml"></object><p><code class="docutils literal notranslate"><span class="pre">.fill_via_chebyshev()</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_chebyshev</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-a9ea7b9dda9f8653567fb4830d2d2a7db629bba4.svg" type="image/svg+xml"></object><p><code class="docutils literal notranslate"><span class="pre">.fill_via_sine_1()</span></code>:</p>
+<object data="../_images/plot-e55d28e1032288edf0c7636323b487a93b6c04d9.svg" type="image/svg+xml"></object><p><code class="docutils literal notranslate"><span class="pre">.fill_via_sine_1()</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_1</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-b8323de97c0c394a5cc096bdf931f69521920fd6.svg" type="image/svg+xml"></object><p><code class="docutils literal notranslate"><span class="pre">.fill_via_sine_2()</span></code>:</p>
+<object data="../_images/plot-2c137b8af9cec25eaa75841833606686fa545636.svg" type="image/svg+xml"></object><p><code class="docutils literal notranslate"><span class="pre">.fill_via_sine_2()</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_2</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">frequencies</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
@@ -1531,7 +1531,7 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-ab9f46433c7aaf450bd083eb1151a038c9ee26f3.svg" type="image/svg+xml"></object><p><code class="docutils literal notranslate"><span class="pre">.fill_via_sine_3()</span></code>:</p>
+<object data="../_images/plot-4b8317d46945ad8ee9db987fa6a1c608e4caafb5.svg" type="image/svg+xml"></object><p><code class="docutils literal notranslate"><span class="pre">.fill_via_sine_3()</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_3</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">frequencies</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
@@ -1540,7 +1540,7 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-afbaa03700f3de7e03044c31a23b3dfd0de9bda5.svg" type="image/svg+xml"></object><h3 id="copying">Copying<a class="headerlink" href="#copying" title="Permalink to this headline">¶</a></h3>
+<object data="../_images/plot-f0c53b296e2fe212af15391137e2203f429a049c.svg" type="image/svg+xml"></object><h3 id="copying">Copying<a class="headerlink" href="#copying" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">.copy()</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">source_buffer</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">target_buffer</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
@@ -1548,7 +1548,7 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">source_buffer</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-908dafd0c8e013d5105a6a9f659b68868b87203d.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">source_buffer</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span>
+<object data="../_images/plot-477530ecb42b81e787137a9fe78801d977be72b1.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">source_buffer</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">target_buffer</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">source_starting_frame</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
@@ -1557,29 +1557,29 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">target_buffer</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-bb44618eedaaa08559a9463e19617c5e2e5b78c6.svg" type="image/svg+xml"></object><h3 id="zeroing">Zeroing<a class="headerlink" href="#zeroing" title="Permalink to this headline">¶</a></h3>
+<object data="../_images/plot-14f6c8bfb23a188d5057ef96dd76dceeb930f0c8.svg" type="image/svg+xml"></object><h3 id="zeroing">Zeroing<a class="headerlink" href="#zeroing" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">.zero()</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_1</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-908dafd0c8e013d5105a6a9f659b68868b87203d.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+<object data="../_images/plot-477530ecb42b81e787137a9fe78801d977be72b1.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-058c8c5a5b63d5113295a1b89329bdaab5d8b644.svg" type="image/svg+xml"></object><h3 id="normalizing">Normalizing<a class="headerlink" href="#normalizing" title="Permalink to this headline">¶</a></h3>
+<object data="../_images/plot-944a65d5dcff425c7b129520e95342125a97acaf.svg" type="image/svg+xml"></object><h3 id="normalizing">Normalizing<a class="headerlink" href="#normalizing" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">.normalize()</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">set_contiguous</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4</span><span class="p">]))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-6b88bf43792f956fb4c84b29efed0f23055ddb87.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+<object data="../_images/plot-55eb08de91e8fdcb30e31738d75b9f194f981baf.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-25ac101cced73b40a11038b5f69c955cf944a477.svg" type="image/svg+xml"></object><h2 id="integration">Integration<a class="headerlink" href="#integration" title="Permalink to this headline">¶</a></h2>
+<object data="../_images/plot-0609c333ab19ab6ed11e5eafc510f01d09ed5b61.svg" type="image/svg+xml"></object><h2 id="integration">Integration<a class="headerlink" href="#integration" title="Permalink to this headline">¶</a></h2>
 <h3 id="referencing">Referencing<a class="headerlink" href="#referencing" title="Permalink to this headline">¶</a></h3>
 <h3 id="buffer-io">Buffer IO<a class="headerlink" href="#buffer-io" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -1617,14 +1617,14 @@ demonstrated earlier:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-47bca9b86d404fd61c48ae2269733a473a0ae0b5.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_1</span><span class="p">(</span>
+<object data="../_images/plot-20a0a2878d4633206ebf517e895db5649c8645fd.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_1</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-ed0428f6da5ca0b4ef1c52172f5617d95aad100b.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_2</span><span class="p">(</span>
+<object data="../_images/plot-d7c942040ddf7690fcdfbde53b244615faca860f.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_2</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">frequencies</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -1632,7 +1632,7 @@ demonstrated earlier:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-d4bc8724a4637cf264e355a26acdbe76e821c3e9.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_3</span><span class="p">(</span>
+<object data="../_images/plot-a7db0d553339ef8e9d3ca38fa51043f28ca37c8c.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_3</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">frequencies</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">phases</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.333</span><span class="p">,</span> <span class="mf">0.666</span><span class="p">],</span>
@@ -1641,7 +1641,7 @@ demonstrated earlier:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="../_images/plot-30052866f39d12a866201b836b3d36294d6d4793.svg" type="image/svg+xml"></object><p>While <code class="docutils literal notranslate"><span class="pre">/b_gen</span></code> may be able to create waveforms in the expected wavetable
+<object data="../_images/plot-cc7c1f8388feca7ca909205d6f5f2d106700fa89.svg" type="image/svg+xml"></object><p>While <code class="docutils literal notranslate"><span class="pre">/b_gen</span></code> may be able to create waveforms in the expected wavetable
 format, there’s no functionality built into <a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a> to load arbitrary
 soundfiles and convert them into wavetable format in the process, or to copy an
 existing buffer’s contents into another buffer and convert.</p>
