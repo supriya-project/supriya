@@ -142,7 +142,7 @@ def test_02_ugens(py_synthdef_02):
                     maximum: 2.0
             -   LocalBuf.ir/0:
                     channel_count: 1.0
-                    frame_count: MaxLocalBufs.ir[0]
+                    frame_count: 2048.0
             -   FFT.kr:
                     active: 1.0
                     buffer_id: LocalBuf.ir/0[0]
@@ -154,7 +154,7 @@ def test_02_ugens(py_synthdef_02):
                     buffer_id: LocalBuf.ir/0[0]
             -   LocalBuf.ir/1:
                     channel_count: 1.0
-                    frame_count: MaxLocalBufs.ir[0]
+                    frame_count: BufFrames.ir[0]
             -   PV_Copy.kr:
                     pv_chain_a: FFT.kr[0]
                     pv_chain_b: LocalBuf.ir/1[0]

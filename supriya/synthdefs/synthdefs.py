@@ -264,22 +264,6 @@ class SynthDef:
                     argument_name = input_name
                 else:
                     argument_name = f"{input_name[0]}[{input_name[1]}]"
-
-                """
-                if i < len(ugen._ordered_input_names):
-                    argument_name = tuple(ugen._ordered_input_names)[i]
-                else:
-                    argument_name = tuple(ugen._ordered_input_names)[-1]
-                if (
-                    ugen._unexpanded_input_names
-                    and argument_name in ugen._unexpanded_input_names
-                ):
-                    unexpanded_index = i - tuple(ugen._ordered_input_names).index(
-                        argument_name
-                    )
-                    argument_name += "[{}]".format(unexpanded_index)
-                """
-
                 if isinstance(input_, float):
                     value = input_
                 else:
