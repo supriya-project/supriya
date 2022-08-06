@@ -309,6 +309,7 @@ from .triggers import (
     RunningMin,
     Schmidt,
     SendPeakRMS,
+    SendReply,
     SendTrig,
     Sweep,
     TDelay,
