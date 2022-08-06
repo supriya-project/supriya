@@ -258,7 +258,14 @@ class SynthDef:
         for ugen in self._ugens:
             ugen_dict = {}
             ugen_name = named_ugens[ugen]
-            for i, input_ in enumerate(ugen.inputs):
+            for input_name, input_ in zip(ugen._input_names, ugen._inputs):
+
+                if isinstance(input_name, str):
+                    argument_name = input_name
+                else:
+                    argument_name = f"{input_name[0]}[{input_name[1]}]"
+
+                """
                 if i < len(ugen._ordered_input_names):
                     argument_name = tuple(ugen._ordered_input_names)[i]
                 else:
@@ -271,6 +278,8 @@ class SynthDef:
                         argument_name
                     )
                     argument_name += "[{}]".format(unexpanded_index)
+                """
+
                 if isinstance(input_, float):
                     value = input_
                 else:
@@ -296,7 +305,9 @@ class SynthDef:
                 "ugens": ugens,
             }
         }
-        return yaml.dump(result, default_flow_style=False, indent=4).rstrip()
+        return yaml.dump(
+            result, default_flow_style=False, indent=4, sort_keys=True
+        ).rstrip()
 
     ### PRIVATE METHODS ###
 

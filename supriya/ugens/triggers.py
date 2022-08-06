@@ -674,7 +674,7 @@ class SendReply(UGen):
     _ordered_input_names = collections.OrderedDict(
         [("trigger", None), ("reply_id", -1)]
     )
-    _unexpanded_argument_names = ("source",)
+    _unexpanded_input_names = ("source",)
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
     ### INITIALIZER ###
@@ -690,15 +690,10 @@ class SendReply(UGen):
         UGen.__init__(
             self, calculation_rate=calculation_rate, reply_id=reply_id, trigger=trigger
         )
-        command_name = str(command_name)
-        if not isinstance(source, Sequence):
-            source = (source,)
-        self._configure_input("source", len(source))
-        for input_ in source:
-            self._configure_input("source", input_)
-        self._configure_input("command_name", len(command_name))
-        for character in command_name:
-            self._configure_input("label", ord(character))
+        self._configure_input("size", len(command_name))
+        for i, character in enumerate(command_name):
+            self._configure_input(("char", i), ord(character))
+        self._configure_input("source", source)
 
     @classmethod
     def ar(cls, command_name="/reply", reply_id=-1, source=None, trigger=None):

@@ -266,7 +266,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_inputs", "_special_index", "_uuid")
+    __slots__ = ("_inputs", "_input_names", "_special_index", "_uuid")
 
     _default_channel_count = 1
 
@@ -301,6 +301,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             assert calculation_rate in self._valid_calculation_rates
         self._calculation_rate = calculation_rate
         self._inputs = []
+        self._input_names = []
         self._special_index = special_index
         ugenlike_prototype = (UGen, supriya.synthdefs.Parameter)
         server_id_prototype = (
@@ -424,10 +425,11 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             )
         raise ValueError(expr)
 
-    def _add_constant_input(self, value):
+    def _add_constant_input(self, name, value):
         self._inputs.append(float(value))
+        self._input_names.append(name)
 
-    def _add_ugen_input(self, ugen, output_index=None):
+    def _add_ugen_input(self, name, ugen, output_index=None):
         import supriya.synthdefs
 
         # if isinstance(ugen, supriya.synthdefs.Parameter):
@@ -439,6 +441,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
                 output_index=output_index, source=ugen
             )
         self._inputs.append(output_proxy)
+        self._input_names.append(name)
 
     def _check_inputs_share_same_uuid(self):
         import supriya.synthdefs
@@ -477,21 +480,23 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             UGen,
         )
         if hasattr(value, "__float__"):
-            self._add_constant_input(float(value))
+            self._add_constant_input(name, float(value))
         elif isinstance(value, ugen_prototype):
-            self._add_ugen_input(value._get_source(), value._get_output_number())
-        elif isinstance(value, tuple):
-            assert self._unexpanded_input_names
-            assert name in self._unexpanded_input_names
-            for x in value:
+            self._add_ugen_input(name, value._get_source(), value._get_output_number())
+        elif isinstance(value, (list, tuple)):
+            if name not in self._unexpanded_input_names:
+                raise ValueError(name, self._unexpanded_input_names)
+            for i, x in enumerate(value):
                 if hasattr(x, "__float__"):
-                    self._add_constant_input(float(x))
+                    self._add_constant_input((name, i), float(x))
                 elif isinstance(x, ugen_prototype):
-                    self._add_ugen_input(x._get_source(), x._get_output_number())
+                    self._add_ugen_input(
+                        (name, i), x._get_source(), x._get_output_number()
+                    )
                 else:
                     raise Exception("{!r} {!r}".format(value, x))
         else:
-            raise Exception(repr(value))
+            raise ValueError(repr(value))
 
     @staticmethod
     def _expand_dictionary(dictionary, unexpanded_input_names=None):
