@@ -183,6 +183,39 @@ class Onsets(UGen):
     _valid_calculation_rates = (CalculationRate.CONTROL,)
 
 
+class Pitch(MultiOutUGen):
+    """
+    An autocorrelation pitch follower.
+
+    ::
+
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> pitch = supriya.ugens.Pitch.kr(source=source)
+        >>> pitch
+        UGenArray({2})
+
+    """
+
+    _default_channel_count = 2
+    _has_settable_channel_count = False
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ("source", None),
+            ("initial_frequency", 440),
+            ("min_frequency", 60),
+            ("max_frequency", 4000),
+            ("exec_frequency", 100),
+            ("max_bins_per_octave", 16),
+            ("median", 1),
+            ("amplitude_threshold", 0.01),
+            ("peak_threshold", 0.5),
+            ("down_sample_factor", 1),
+            ("clarity", 0),
+        ]
+    )
+    _valid_calculation_rates = (CalculationRate.CONTROL,)
+
+
 class SpecCentroid(UGen):
     """
     A spectral centroid measure.
