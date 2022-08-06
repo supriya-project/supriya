@@ -16,8 +16,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "3.10"
-    - name: Clone gh-pages
-      run: git clone --branch gh-pages `git config --get remote.origin.url` gh-pages/
     - name: Install SuperCollider
       uses: ./.github/actions/supercollider
       with:
@@ -37,13 +35,17 @@ jobs:
           lame
     - name: Build docs
       run: make docs
+    - name: Clone gh-pages
+      run: git clone --branch gh-pages `git config --get remote.origin.url` gh-pages/
     - name: Rsync docs
       run: rsync -rtv --del --exclude=.git docs/build/html/ gh-pages/
     - name: Touch .nojekyll
       run: touch gh-pages/.nojekyll
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        branch: gh-pages
-        commit_options: "--allow-empty"
-        repository: gh-pages
-
+        allow_empty_commit: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: gh-pages
+        user_name: github-actions[bot]
+        user_email: github-actions[bot]@users.noreply.github.com
