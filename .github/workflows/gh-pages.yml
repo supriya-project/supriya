@@ -16,6 +16,8 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "3.10"
+    - name: Clone gh-pages
+      run: git clone --branch gh-pages `git config --get remote.origin.url` gh-pages/
     - name: Install SuperCollider
       uses: ./.github/actions/supercollider
       with:
@@ -33,8 +35,6 @@ jobs:
           ffmpeg \
           graphviz \
           lame
-    - name: Clone gh-pages
-      run: git clone --branch gh-pages $(shell git config --get remote.origin.url) gh-pages/
     - name: Build docs
       run: make docs
     - name: Rsync docs
