@@ -9,7 +9,6 @@ env:
 jobs:
   update-gh-pages:
     name: Update gh-pages
-    needs: [publish]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
