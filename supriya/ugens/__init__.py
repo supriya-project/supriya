@@ -625,6 +625,7 @@ __all__ = [
     "Schmidt",
     "Select",
     "SendPeakRMS",
+    "SendReply",
     "SendTrig",
     "Silence",
     "SinOsc",
