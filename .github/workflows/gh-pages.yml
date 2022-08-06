@@ -34,10 +34,16 @@ jobs:
           graphviz \
           lame
     - name: Clone gh-pages
-      run: git clone $(shell git config --get remote.origin.url) --branch gh-pages gh-pages/
+      run: git clone --branch gh-pages $(shell git config --get remote.origin.url) gh-pages/
     - name: Build docs
       run: make docs
     - name: Rsync docs
       run: rsync -rtv --del --exclude=.git docs/build/html/ gh-pages/
     - name: Touch .nojekyll
       run: touch gh-pages/.nojekyll
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        branch: gh-pages
+        commit_options: "--allow-empty"
+        repository: gh-pages
+
