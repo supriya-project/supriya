@@ -20,11 +20,11 @@ def test_gate_01():
             -   Control.ir: null
             -   Control.kr: null
             -   Linen.kr:
-                    attack_time: 0.02
-                    done_action: 2.0
                     gate: Control.kr[0:gate]
-                    release_time: 0.02
+                    attack_time: 0.02
                     sustain_level: 1.0
+                    release_time: 0.02
+                    done_action: 2.0
             -   SinOsc.ar:
                     frequency: 440.0
                     phase: 0.0
@@ -54,11 +54,11 @@ def test_gate_02():
             -   Control.ir: null
             -   Control.kr: null
             -   Linen.kr:
-                    attack_time: 0.02
-                    done_action: 2.0
                     gate: Control.kr[0:gate]
-                    release_time: 0.02
+                    attack_time: 0.02
                     sustain_level: 1.0
+                    release_time: 0.02
+                    done_action: 2.0
             -   BinaryOpUGen(MULTIPLICATION).kr:
                     left: Control.kr[1:mix]
                     right: Linen.kr[0]
@@ -88,19 +88,19 @@ def test_gate_03():
             ugens:
             -   Control.ir: null
             -   Line.kr:
-                    done_action: 2.0
-                    duration: Control.ir[0:duration]
                     start: 0.0
                     stop: 1.0
+                    duration: Control.ir[0:duration]
+                    done_action: 2.0
             -   UnaryOpUGen(HANNING_WINDOW).kr:
                     source: Line.kr[0]
             -   Control.kr: null
             -   Linen.kr:
-                    attack_time: 0.02
-                    done_action: 2.0
                     gate: Control.kr[0:gate]
-                    release_time: 0.02
+                    attack_time: 0.02
                     sustain_level: 1.0
+                    release_time: 0.02
+                    done_action: 2.0
             -   BinaryOpUGen(MULTIPLICATION).kr:
                     left: UnaryOpUGen(HANNING_WINDOW).kr[0]
                     right: Linen.kr[0]
@@ -130,19 +130,19 @@ def test_gate_04():
             ugens:
             -   Control.ir: null
             -   Line.kr:
-                    done_action: 2.0
-                    duration: Control.ir[0:duration]
                     start: 0.0
                     stop: 1.0
+                    duration: Control.ir[0:duration]
+                    done_action: 2.0
             -   UnaryOpUGen(HANNING_WINDOW).kr:
                     source: Line.kr[0]
             -   Control.kr: null
             -   Linen.kr:
-                    attack_time: 0.02
-                    done_action: 2.0
                     gate: Control.kr[0:gate]
-                    release_time: 0.02
+                    attack_time: 0.02
                     sustain_level: 1.0
+                    release_time: 0.02
+                    done_action: 2.0
             -   BinaryOpUGen(MULTIPLICATION).kr/0:
                     left: UnaryOpUGen(HANNING_WINDOW).kr[0]
                     right: Control.kr[1:level]

@@ -290,7 +290,7 @@ class SynthDef:
             }
         }
         return yaml.dump(
-            result, default_flow_style=False, indent=4, sort_keys=True
+            result, default_flow_style=False, indent=4, sort_keys=False
         ).rstrip()
 
     ### PRIVATE METHODS ###

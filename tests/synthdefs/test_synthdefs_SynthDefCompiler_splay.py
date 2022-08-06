@@ -33,13 +33,13 @@ def test_Splay_01_sclang(server):
                     left: Control.kr[2:center]
                     right: Control.kr[0:spread]
             -   MulAdd.kr/0:
-                    addend: Control.kr[2:center]
+                    source: Control.kr[0:spread]
                     multiplier: -0.5
-                    source: Control.kr[0:spread]
-            -   MulAdd.kr/1:
                     addend: Control.kr[2:center]
-                    multiplier: 0.5
+            -   MulAdd.kr/1:
                     source: Control.kr[0:spread]
+                    multiplier: 0.5
+                    addend: Control.kr[2:center]
             -   BinaryOpUGen(ADDITION).kr:
                     left: Control.kr[0:spread]
                     right: Control.kr[2:center]
@@ -49,35 +49,35 @@ def test_Splay_01_sclang(server):
             -   In.ar:
                     bus: 0.0
             -   Pan2.ar/0:
-                    level: 1.0
-                    position: BinaryOpUGen(SUBTRACTION).kr[0]
                     source: In.ar[0]
+                    position: BinaryOpUGen(SUBTRACTION).kr[0]
+                    level: 1.0
             -   Pan2.ar/1:
-                    level: 1.0
-                    position: MulAdd.kr/0[0]
                     source: In.ar[1]
+                    position: MulAdd.kr/0[0]
+                    level: 1.0
             -   Pan2.ar/2:
-                    level: 1.0
-                    position: Control.kr[2:center]
                     source: In.ar[2]
+                    position: Control.kr[2:center]
+                    level: 1.0
             -   Pan2.ar/3:
-                    level: 1.0
-                    position: MulAdd.kr/1[0]
                     source: In.ar[3]
-            -   Sum4.ar/0:
-                    input_four: Pan2.ar/0[0]
-                    input_one: Pan2.ar/3[0]
-                    input_three: Pan2.ar/1[0]
-                    input_two: Pan2.ar/2[0]
-            -   Sum4.ar/1:
-                    input_four: Pan2.ar/0[1]
-                    input_one: Pan2.ar/3[1]
-                    input_three: Pan2.ar/1[1]
-                    input_two: Pan2.ar/2[1]
-            -   Pan2.ar/4:
+                    position: MulAdd.kr/1[0]
                     level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr[0]
+            -   Sum4.ar/0:
+                    input_one: Pan2.ar/3[0]
+                    input_two: Pan2.ar/2[0]
+                    input_three: Pan2.ar/1[0]
+                    input_four: Pan2.ar/0[0]
+            -   Sum4.ar/1:
+                    input_one: Pan2.ar/3[1]
+                    input_two: Pan2.ar/2[1]
+                    input_three: Pan2.ar/1[1]
+                    input_four: Pan2.ar/0[1]
+            -   Pan2.ar/4:
                     source: In.ar[4]
+                    position: BinaryOpUGen(ADDITION).kr[0]
+                    level: 1.0
             -   BinaryOpUGen(ADDITION).ar/0:
                     left: Sum4.ar/0[0]
                     right: Pan2.ar/4[0]
@@ -141,35 +141,35 @@ def test_Splay_01_supriya(server):
             -   In.ar:
                     bus: 0.0
             -   Pan2.ar/0:
-                    level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/0[0]
                     source: In.ar[0]
+                    position: BinaryOpUGen(ADDITION).kr/0[0]
+                    level: 1.0
             -   Pan2.ar/1:
-                    level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/1[0]
                     source: In.ar[1]
+                    position: BinaryOpUGen(ADDITION).kr/1[0]
+                    level: 1.0
             -   Pan2.ar/2:
-                    level: 1.0
-                    position: Control.kr[0:center]
                     source: In.ar[2]
+                    position: Control.kr[0:center]
+                    level: 1.0
             -   Pan2.ar/3:
-                    level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/2[0]
                     source: In.ar[3]
-            -   Sum4.ar/0:
-                    input_four: Pan2.ar/3[0]
-                    input_one: Pan2.ar/0[0]
-                    input_three: Pan2.ar/2[0]
-                    input_two: Pan2.ar/1[0]
-            -   Sum4.ar/1:
-                    input_four: Pan2.ar/3[1]
-                    input_one: Pan2.ar/0[1]
-                    input_three: Pan2.ar/2[1]
-                    input_two: Pan2.ar/1[1]
-            -   Pan2.ar/4:
+                    position: BinaryOpUGen(ADDITION).kr/2[0]
                     level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/3[0]
+            -   Sum4.ar/0:
+                    input_one: Pan2.ar/0[0]
+                    input_two: Pan2.ar/1[0]
+                    input_three: Pan2.ar/2[0]
+                    input_four: Pan2.ar/3[0]
+            -   Sum4.ar/1:
+                    input_one: Pan2.ar/0[1]
+                    input_two: Pan2.ar/1[1]
+                    input_three: Pan2.ar/2[1]
+                    input_four: Pan2.ar/3[1]
+            -   Pan2.ar/4:
                     source: In.ar[4]
+                    position: BinaryOpUGen(ADDITION).kr/3[0]
+                    level: 1.0
             -   BinaryOpUGen(ADDITION).ar/0:
                     left: Sum4.ar/0[0]
                     right: Pan2.ar/4[0]
@@ -217,13 +217,13 @@ def test_Splay_02_sclang(server):
                     left: -0.25
                     right: Control.kr[0:spread]
             -   MulAdd.kr/0:
-                    addend: -0.25
+                    source: Control.kr[0:spread]
                     multiplier: -0.5
-                    source: Control.kr[0:spread]
-            -   MulAdd.kr/1:
                     addend: -0.25
-                    multiplier: 0.5
+            -   MulAdd.kr/1:
                     source: Control.kr[0:spread]
+                    multiplier: 0.5
+                    addend: -0.25
             -   BinaryOpUGen(ADDITION).kr/0:
                     left: Control.kr[0:spread]
                     right: -0.25
@@ -234,13 +234,13 @@ def test_Splay_02_sclang(server):
                     left: 0.25
                     right: Control.kr[0:spread]
             -   MulAdd.kr/2:
-                    addend: 0.25
+                    source: Control.kr[0:spread]
                     multiplier: -0.5
-                    source: Control.kr[0:spread]
-            -   MulAdd.kr/3:
                     addend: 0.25
-                    multiplier: 0.5
+            -   MulAdd.kr/3:
                     source: Control.kr[0:spread]
+                    multiplier: 0.5
+                    addend: 0.25
             -   BinaryOpUGen(ADDITION).kr/1:
                     left: Control.kr[0:spread]
                     right: 0.25
@@ -250,35 +250,35 @@ def test_Splay_02_sclang(server):
             -   In.ar:
                     bus: 0.0
             -   Pan2.ar/0:
-                    level: 1.0
-                    position: BinaryOpUGen(SUBTRACTION).kr/0[0]
                     source: In.ar[0]
+                    position: BinaryOpUGen(SUBTRACTION).kr/0[0]
+                    level: 1.0
             -   Pan2.ar/1:
-                    level: 1.0
-                    position: MulAdd.kr/0[0]
                     source: In.ar[1]
+                    position: MulAdd.kr/0[0]
+                    level: 1.0
             -   Pan2.ar/2:
-                    level: 1.0
-                    position: -0.25
                     source: In.ar[2]
+                    position: -0.25
+                    level: 1.0
             -   Pan2.ar/3:
-                    level: 1.0
-                    position: MulAdd.kr/1[0]
                     source: In.ar[3]
-            -   Sum4.ar/0:
-                    input_four: Pan2.ar/0[0]
-                    input_one: Pan2.ar/3[0]
-                    input_three: Pan2.ar/1[0]
-                    input_two: Pan2.ar/2[0]
-            -   Sum4.ar/1:
-                    input_four: Pan2.ar/0[1]
-                    input_one: Pan2.ar/3[1]
-                    input_three: Pan2.ar/1[1]
-                    input_two: Pan2.ar/2[1]
-            -   Pan2.ar/4:
+                    position: MulAdd.kr/1[0]
                     level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/0[0]
+            -   Sum4.ar/0:
+                    input_one: Pan2.ar/3[0]
+                    input_two: Pan2.ar/2[0]
+                    input_three: Pan2.ar/1[0]
+                    input_four: Pan2.ar/0[0]
+            -   Sum4.ar/1:
+                    input_one: Pan2.ar/3[1]
+                    input_two: Pan2.ar/2[1]
+                    input_three: Pan2.ar/1[1]
+                    input_four: Pan2.ar/0[1]
+            -   Pan2.ar/4:
                     source: In.ar[4]
+                    position: BinaryOpUGen(ADDITION).kr/0[0]
+                    level: 1.0
             -   BinaryOpUGen(ADDITION).ar/0:
                     left: Sum4.ar/0[0]
                     right: Pan2.ar/4[0]
@@ -292,35 +292,35 @@ def test_Splay_02_sclang(server):
                     left: BinaryOpUGen(ADDITION).ar/1[0]
                     right: BinaryOpUGen(MULTIPLICATION).kr/0[0]
             -   Pan2.ar/5:
-                    level: 1.0
-                    position: BinaryOpUGen(SUBTRACTION).kr/1[0]
                     source: In.ar[0]
+                    position: BinaryOpUGen(SUBTRACTION).kr/1[0]
+                    level: 1.0
             -   Pan2.ar/6:
-                    level: 1.0
-                    position: MulAdd.kr/2[0]
                     source: In.ar[1]
+                    position: MulAdd.kr/2[0]
+                    level: 1.0
             -   Pan2.ar/7:
-                    level: 1.0
-                    position: 0.25
                     source: In.ar[2]
+                    position: 0.25
+                    level: 1.0
             -   Pan2.ar/8:
-                    level: 1.0
-                    position: MulAdd.kr/3[0]
                     source: In.ar[3]
-            -   Sum4.ar/2:
-                    input_four: Pan2.ar/5[0]
-                    input_one: Pan2.ar/8[0]
-                    input_three: Pan2.ar/6[0]
-                    input_two: Pan2.ar/7[0]
-            -   Sum4.ar/3:
-                    input_four: Pan2.ar/5[1]
-                    input_one: Pan2.ar/8[1]
-                    input_three: Pan2.ar/6[1]
-                    input_two: Pan2.ar/7[1]
-            -   Pan2.ar/9:
+                    position: MulAdd.kr/3[0]
                     level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/1[0]
+            -   Sum4.ar/2:
+                    input_one: Pan2.ar/8[0]
+                    input_two: Pan2.ar/7[0]
+                    input_three: Pan2.ar/6[0]
+                    input_four: Pan2.ar/5[0]
+            -   Sum4.ar/3:
+                    input_one: Pan2.ar/8[1]
+                    input_two: Pan2.ar/7[1]
+                    input_three: Pan2.ar/6[1]
+                    input_four: Pan2.ar/5[1]
+            -   Pan2.ar/9:
                     source: In.ar[4]
+                    position: BinaryOpUGen(ADDITION).kr/1[0]
+                    level: 1.0
             -   BinaryOpUGen(ADDITION).ar/2:
                     left: Sum4.ar/2[0]
                     right: Pan2.ar/9[0]
@@ -412,35 +412,35 @@ def test_Splay_02_supriya(server):
             -   In.ar:
                     bus: 0.0
             -   Pan2.ar/0:
-                    level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/0[0]
                     source: In.ar[0]
+                    position: BinaryOpUGen(ADDITION).kr/0[0]
+                    level: 1.0
             -   Pan2.ar/1:
-                    level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/1[0]
                     source: In.ar[1]
+                    position: BinaryOpUGen(ADDITION).kr/1[0]
+                    level: 1.0
             -   Pan2.ar/2:
-                    level: 1.0
-                    position: -0.25
                     source: In.ar[2]
+                    position: -0.25
+                    level: 1.0
             -   Pan2.ar/3:
-                    level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/2[0]
                     source: In.ar[3]
-            -   Sum4.ar/0:
-                    input_four: Pan2.ar/3[0]
-                    input_one: Pan2.ar/0[0]
-                    input_three: Pan2.ar/2[0]
-                    input_two: Pan2.ar/1[0]
-            -   Sum4.ar/1:
-                    input_four: Pan2.ar/3[1]
-                    input_one: Pan2.ar/0[1]
-                    input_three: Pan2.ar/2[1]
-                    input_two: Pan2.ar/1[1]
-            -   Pan2.ar/4:
+                    position: BinaryOpUGen(ADDITION).kr/2[0]
                     level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/3[0]
+            -   Sum4.ar/0:
+                    input_one: Pan2.ar/0[0]
+                    input_two: Pan2.ar/1[0]
+                    input_three: Pan2.ar/2[0]
+                    input_four: Pan2.ar/3[0]
+            -   Sum4.ar/1:
+                    input_one: Pan2.ar/0[1]
+                    input_two: Pan2.ar/1[1]
+                    input_three: Pan2.ar/2[1]
+                    input_four: Pan2.ar/3[1]
+            -   Pan2.ar/4:
                     source: In.ar[4]
+                    position: BinaryOpUGen(ADDITION).kr/3[0]
+                    level: 1.0
             -   BinaryOpUGen(ADDITION).ar/0:
                     left: Sum4.ar/0[0]
                     right: Pan2.ar/4[0]
@@ -454,35 +454,35 @@ def test_Splay_02_supriya(server):
                     left: BinaryOpUGen(ADDITION).ar/1[0]
                     right: BinaryOpUGen(MULTIPLICATION).kr/3[0]
             -   Pan2.ar/5:
-                    level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/4[0]
                     source: In.ar[0]
+                    position: BinaryOpUGen(ADDITION).kr/4[0]
+                    level: 1.0
             -   Pan2.ar/6:
-                    level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/5[0]
                     source: In.ar[1]
+                    position: BinaryOpUGen(ADDITION).kr/5[0]
+                    level: 1.0
             -   Pan2.ar/7:
-                    level: 1.0
-                    position: 0.25
                     source: In.ar[2]
+                    position: 0.25
+                    level: 1.0
             -   Pan2.ar/8:
-                    level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/6[0]
                     source: In.ar[3]
-            -   Sum4.ar/2:
-                    input_four: Pan2.ar/8[0]
-                    input_one: Pan2.ar/5[0]
-                    input_three: Pan2.ar/7[0]
-                    input_two: Pan2.ar/6[0]
-            -   Sum4.ar/3:
-                    input_four: Pan2.ar/8[1]
-                    input_one: Pan2.ar/5[1]
-                    input_three: Pan2.ar/7[1]
-                    input_two: Pan2.ar/6[1]
-            -   Pan2.ar/9:
+                    position: BinaryOpUGen(ADDITION).kr/6[0]
                     level: 1.0
-                    position: BinaryOpUGen(ADDITION).kr/7[0]
+            -   Sum4.ar/2:
+                    input_one: Pan2.ar/5[0]
+                    input_two: Pan2.ar/6[0]
+                    input_three: Pan2.ar/7[0]
+                    input_four: Pan2.ar/8[0]
+            -   Sum4.ar/3:
+                    input_one: Pan2.ar/5[1]
+                    input_two: Pan2.ar/6[1]
+                    input_three: Pan2.ar/7[1]
+                    input_four: Pan2.ar/8[1]
+            -   Pan2.ar/9:
                     source: In.ar[4]
+                    position: BinaryOpUGen(ADDITION).kr/7[0]
+                    level: 1.0
             -   BinaryOpUGen(ADDITION).ar/2:
                     left: Sum4.ar/2[0]
                     right: Pan2.ar/9[0]

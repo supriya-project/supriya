@@ -280,47 +280,47 @@ class Splay(PseudoUGen):
                     frequency: 333.0
                     phase: 0.0
             -   Pan2.ar/0:
-                    level: 1.0
-                    position: -1.0
                     source: SinOsc.ar/0[0]
+                    position: -1.0
+                    level: 1.0
             -   SinOsc.ar/1:
                     frequency: 444.0
                     phase: 0.0
             -   Pan2.ar/1:
-                    level: 1.0
-                    position: -0.5
                     source: SinOsc.ar/1[0]
+                    position: -0.5
+                    level: 1.0
             -   SinOsc.ar/2:
                     frequency: 555.0
                     phase: 0.0
             -   Pan2.ar/2:
-                    level: 1.0
-                    position: 0.0
                     source: SinOsc.ar/2[0]
+                    position: 0.0
+                    level: 1.0
             -   SinOsc.ar/3:
                     frequency: 666.0
                     phase: 0.0
             -   Pan2.ar/3:
-                    level: 1.0
-                    position: 0.5
                     source: SinOsc.ar/3[0]
+                    position: 0.5
+                    level: 1.0
             -   Sum4.ar/0:
-                    input_four: Pan2.ar/3[0]
                     input_one: Pan2.ar/0[0]
-                    input_three: Pan2.ar/2[0]
                     input_two: Pan2.ar/1[0]
+                    input_three: Pan2.ar/2[0]
+                    input_four: Pan2.ar/3[0]
             -   Sum4.ar/1:
-                    input_four: Pan2.ar/3[1]
                     input_one: Pan2.ar/0[1]
-                    input_three: Pan2.ar/2[1]
                     input_two: Pan2.ar/1[1]
+                    input_three: Pan2.ar/2[1]
+                    input_four: Pan2.ar/3[1]
             -   SinOsc.ar/4:
                     frequency: 777.0
                     phase: 0.0
             -   Pan2.ar/4:
-                    level: 1.0
-                    position: 1.0
                     source: SinOsc.ar/4[0]
+                    position: 1.0
+                    level: 1.0
             -   BinaryOpUGen(ADDITION).ar/0:
                     left: Sum4.ar/0[0]
                     right: Pan2.ar/4[0]

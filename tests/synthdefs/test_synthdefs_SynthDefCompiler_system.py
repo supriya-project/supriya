@@ -18,10 +18,12 @@ def test_system_link_audio_1_supriya():
                     left: Control.kr[1:fade_time]
                     right: 0.0
             -   EnvGen.kr:
+                    gate: Control.kr[2:gate]
+                    level_scale: 1.0
+                    level_bias: 0.0
+                    time_scale: Control.kr[1:fade_time]
                     done_action: Control.kr[0:done_action]
                     envelope[0]: BinaryOpUGen(LESS_THAN_OR_EQUAL).kr[0]
-                    envelope[10]: 5.0
-                    envelope[11]: -3.0
                     envelope[1]: 2.0
                     envelope[2]: 1.0
                     envelope[3]: -99.0
@@ -31,10 +33,8 @@ def test_system_link_audio_1_supriya():
                     envelope[7]: 3.0
                     envelope[8]: 0.0
                     envelope[9]: 1.0
-                    gate: Control.kr[2:gate]
-                    level_bias: 0.0
-                    level_scale: 1.0
-                    time_scale: Control.kr[1:fade_time]
+                    envelope[10]: 5.0
+                    envelope[11]: -3.0
             -   InFeedback.ar:
                     bus: Control.kr[3:in_]
             -   BinaryOpUGen(MULTIPLICATION).ar:
@@ -103,17 +103,19 @@ def test_system_link_audio_1_sclang():
                     left: Control.kr[2:vol]
                     right: Control.kr[3:level]
             -   Lag.kr:
-                    lag_time: Control.kr[4:lag]
                     source: BinaryOpUGen(MULTIPLICATION).kr/0[0]
+                    lag_time: Control.kr[4:lag]
             -   InFeedback.ar:
                     bus: Control.kr[1:in]
             -   Control.kr: null
             -   Control.kr: null
             -   EnvGen.kr:
+                    gate: Control.kr[0:gate]
+                    level_scale: 1.0
+                    level_bias: 0.0
+                    time_scale: Control.kr[0:fadeTime]
                     done_action: Control.ir[0:doneAction]
                     envelope[0]: 0.0
-                    envelope[10]: 3.0
-                    envelope[11]: 0.0
                     envelope[1]: 2.0
                     envelope[2]: 1.0
                     envelope[3]: -99.0
@@ -123,10 +125,8 @@ def test_system_link_audio_1_sclang():
                     envelope[7]: 0.0
                     envelope[8]: 0.0
                     envelope[9]: 1.0
-                    gate: Control.kr[0:gate]
-                    level_bias: 0.0
-                    level_scale: 1.0
-                    time_scale: Control.kr[0:fadeTime]
+                    envelope[10]: 3.0
+                    envelope[11]: 0.0
             -   BinaryOpUGen(MULTIPLICATION).kr/1:
                     left: EnvGen.kr[0]
                     right: Lag.kr[0]
@@ -151,10 +151,12 @@ def test_system_link_audio_2_supriya():
                     left: Control.kr[1:fade_time]
                     right: 0.0
             -   EnvGen.kr:
+                    gate: Control.kr[2:gate]
+                    level_scale: 1.0
+                    level_bias: 0.0
+                    time_scale: Control.kr[1:fade_time]
                     done_action: Control.kr[0:done_action]
                     envelope[0]: BinaryOpUGen(LESS_THAN_OR_EQUAL).kr[0]
-                    envelope[10]: 5.0
-                    envelope[11]: -3.0
                     envelope[1]: 2.0
                     envelope[2]: 1.0
                     envelope[3]: -99.0
@@ -164,10 +166,8 @@ def test_system_link_audio_2_supriya():
                     envelope[7]: 3.0
                     envelope[8]: 0.0
                     envelope[9]: 1.0
-                    gate: Control.kr[2:gate]
-                    level_bias: 0.0
-                    level_scale: 1.0
-                    time_scale: Control.kr[1:fade_time]
+                    envelope[10]: 5.0
+                    envelope[11]: -3.0
             -   InFeedback.ar:
                     bus: Control.kr[3:in_]
             -   BinaryOpUGen(MULTIPLICATION).ar/0:
@@ -243,17 +243,19 @@ def test_system_link_audio_2_sclang():
                     left: Control.kr[2:vol]
                     right: Control.kr[3:level]
             -   Lag.kr:
-                    lag_time: Control.kr[4:lag]
                     source: BinaryOpUGen(MULTIPLICATION).kr/0[0]
+                    lag_time: Control.kr[4:lag]
             -   InFeedback.ar:
                     bus: Control.kr[1:in]
             -   Control.kr: null
             -   Control.kr: null
             -   EnvGen.kr:
+                    gate: Control.kr[0:gate]
+                    level_scale: 1.0
+                    level_bias: 0.0
+                    time_scale: Control.kr[0:fadeTime]
                     done_action: Control.ir[0:doneAction]
                     envelope[0]: 0.0
-                    envelope[10]: 3.0
-                    envelope[11]: 0.0
                     envelope[1]: 2.0
                     envelope[2]: 1.0
                     envelope[3]: -99.0
@@ -263,10 +265,8 @@ def test_system_link_audio_2_sclang():
                     envelope[7]: 0.0
                     envelope[8]: 0.0
                     envelope[9]: 1.0
-                    gate: Control.kr[0:gate]
-                    level_bias: 0.0
-                    level_scale: 1.0
-                    time_scale: Control.kr[0:fadeTime]
+                    envelope[10]: 3.0
+                    envelope[11]: 0.0
             -   BinaryOpUGen(MULTIPLICATION).kr/1:
                     left: EnvGen.kr[0]
                     right: Lag.kr[0]
