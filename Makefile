@@ -10,10 +10,10 @@ help: ## This help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-z0-9A-Z_-]+:.*?## / {printf "\033[36m%-30s\033]0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
 black-check: ## Check syntax via black
-	black --skip-magic-trailing-comma --target-version py310 --check --diff ${formatPaths}
+	black --check --diff ${formatPaths}
 
 black-reformat: ## Reformat via black
-	black --skip-magic-trailing-comma --target-version py310 ${formatPaths}
+	black ${formatPaths}
 
 build: ## Build for distribution
 	python setup.py sdist
@@ -26,6 +26,7 @@ clean: ## Clean-out transitory files
 	rm -Rif build/
 	rm -Rif dist/
 	rm -Rif htmlcov/
+	rm -Rif wheelhouse/
 
 docs: ## Build documentation
 	make -C docs/ html
@@ -50,31 +51,16 @@ gh-pages: docs-clean ## Build and publish documentation to GitHub
 	rm -Rf gh-pages/
 
 isort: ## Reformat via isort
-	isort \
-		--case-sensitive \
-		--multi-line 3 \
-		--skip supriya/__init__.py \
-		--thirdparty uqbar \
-		--thirdparty yaml \
-		--trailing-comma \
-		--use-parentheses \
-		${formatPaths}
+	isort ${formatPaths}
 
 lint: reformat flake8 mypy ## Run all linters
 
 mypy: ## Type-check via mypy
-	mypy --ignore-missing-imports ${project}/
+	mypy ${project}/
 
 pytest: ## Unit test via pytest
 	rm -Rf htmlcov/
-	pytest \
-		--cov-config=.coveragerc \
-		--cov-report=html \
-		--cov-report=term \
-		--cov=${project}/ \
-		--durations=20 \
-		--timeout=60 \
-		${testPaths}
+	pytest ${testPaths}
 
 reformat: ## Reformat codebase
 	make isort
