@@ -37,7 +37,7 @@
     
         <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
@@ -1088,18 +1088,18 @@
                   </a>
                 
                 
-  <h1 id="buses">Buses<a class="headerlink" href="#buses" title="Permalink to this headline">¶</a></h1>
+  <h1 id="buses">Buses<a class="headerlink" href="#buses" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
 <li><p>what is a bus?</p></li>
 <li><p>buses vs bus groups</p></li>
 <li><p>calculation rates</p></li>
 </ul>
-<h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permalink to this headline">¶</a></h2>
+<h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permalink to this heading">¶</a></h2>
 <p>Buses can only be added to running servers, so let’s create one and boot it:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </code></pre></div>
 </div>
-<h3 id="creation">Creation<a class="headerlink" href="#creation" title="Permalink to this headline">¶</a></h3>
+<h3 id="creation">Creation<a class="headerlink" href="#creation" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>what is allocation? leasing, block allocation</p></li>
 </ul>
@@ -1111,7 +1111,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_bus_group</span><span class="p">()</span>
 </code></pre></div>
 </div>
-<h3 id="deletion">Deletion<a class="headerlink" href="#deletion" title="Permalink to this headline">¶</a></h3>
+<h3 id="deletion">Deletion<a class="headerlink" href="#deletion" title="Permalink to this heading">¶</a></h3>
 <p>Free a bus with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 <span class="go">&lt;- Bus: ??? (control)&gt;</span>
@@ -1122,27 +1122,27 @@
 <span class="go">&lt;- BusGroup{1}: ??? (control)&gt;</span>
 </code></pre></div>
 </div>
-<h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permalink to this headline">¶</a></h2>
+<h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>.bus_id</p></li>
 <li><p>.calculation_rate</p></li>
 <li><p>.bus_group.children</p></li>
 <li><p>.get()</p></li>
 </ul>
-<h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permalink to this headline">¶</a></h2>
+<h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>.set_()</p></li>
 </ul>
-<h2 id="integration">Integration<a class="headerlink" href="#integration" title="Permalink to this headline">¶</a></h2>
-<h3 id="referencing">Referencing<a class="headerlink" href="#referencing" title="Permalink to this headline">¶</a></h3>
+<h2 id="integration">Integration<a class="headerlink" href="#integration" title="Permalink to this heading">¶</a></h2>
+<h3 id="referencing">Referencing<a class="headerlink" href="#referencing" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>.__int__()</p></li>
 </ul>
-<h3 id="mapping-controls">Mapping controls<a class="headerlink" href="#mapping-controls" title="Permalink to this headline">¶</a></h3>
+<h3 id="mapping-controls">Mapping controls<a class="headerlink" href="#mapping-controls" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>.map_symbol</p></li>
 </ul>
-<h3 id="inputs-and-outputs">Inputs and outputs<a class="headerlink" href="#inputs-and-outputs" title="Permalink to this headline">¶</a></h3>
+<h3 id="inputs-and-outputs">Inputs and outputs<a class="headerlink" href="#inputs-and-outputs" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>In</p></li>
 <li><p>Out</p></li>
@@ -1151,8 +1151,8 @@
 <li><p>XOut</p></li>
 <li><p>ReplaceOut</p></li>
 </ul>
-<h2 id="lower-level-apis">Lower level APIs<a class="headerlink" href="#lower-level-apis" title="Permalink to this headline">¶</a></h2>
-<h3 id="bare-allocation">Bare allocation<a class="headerlink" href="#bare-allocation" title="Permalink to this headline">¶</a></h3>
+<h2 id="lower-level-apis">Lower level APIs<a class="headerlink" href="#lower-level-apis" title="Permalink to this heading">¶</a></h2>
+<h3 id="bare-allocation">Bare allocation<a class="headerlink" href="#bare-allocation" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>.allocate()</p></li>
 </ul>
@@ -1229,7 +1229,7 @@
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.2.
+          5.1.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -1249,6 +1249,7 @@
     
       <script src="../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/design-tabs.js"></script>
     
   </body>

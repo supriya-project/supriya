@@ -37,7 +37,7 @@
     
         <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
@@ -2113,11 +2113,11 @@
                   </a>
                 
                 
-  <h1 id="module-supriya.realtime.buffers"><span id="buffers"></span><span id="supriya-realtime-buffers"></span>buffers<a class="headerlink" href="#module-supriya.realtime.buffers" title="Permalink to this headline">¶</a></h1>
+  <h1 id="module-supriya.realtime.buffers"><span id="buffers"></span><span id="supriya-realtime-buffers"></span>buffers<a class="headerlink" href="#module-supriya.realtime.buffers" title="Permalink to this heading">¶</a></h1>
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.realtime.buffers.Buffer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer_group_or_index</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buffers.Buffer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.realtime.bases.ServerObject" title="supriya.realtime.bases.ServerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.realtime.bases.ServerObject</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.realtime.bases.ServerObject" title="supriya.realtime.bases.ServerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServerObject</span></code></a></p>
 <p>A buffer.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </code></pre></div>
@@ -2174,7 +2174,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">float</span><span class="p">(</span><span class="n">buffer_three</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">115</span>, in <span class="n">__float__</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">115</span>, in <span class="n">__float__</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2215,7 +2215,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">buffer_three</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">164</span>, in <span class="n">__int__</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">164</span>, in <span class="n">__int__</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2230,7 +2230,7 @@
 
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.realtime.buffers.Buffer.__render__">
-<span class="sig-name descname"><span class="pre">__render__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="../io.html#supriya.io.PlayMemo" title="supriya.io.PlayMemo"><span class="pre">supriya.io.PlayMemo</span></a></span></span></span><a class="headerlink" href="#supriya.realtime.buffers.Buffer.__render__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__render__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="../io.html#supriya.io.PlayMemo" title="supriya.io.PlayMemo"><span class="pre">PlayMemo</span></a></span></span></span><a class="headerlink" href="#supriya.realtime.buffers.Buffer.__render__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method objdesc">
@@ -2242,7 +2242,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
-<span class="go">        Item(buffer_id=0, frame_count=1, channel_count=1, sample_rate=48000.0),</span>
+<span class="go">        Item(buffer_id=0, frame_count=1, channel_count=1, sample_rate=44100.0),</span>
 <span class="go">    ),</span>
 <span class="go">)</span>
 </code></pre></div>
@@ -2254,7 +2254,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
-<span class="go">        Item(buffer_id=1, frame_count=16, channel_count=1, sample_rate=48000.0),</span>
+<span class="go">        Item(buffer_id=1, frame_count=16, channel_count=1, sample_rate=44100.0),</span>
 <span class="go">    ),</span>
 <span class="go">)</span>
 </code></pre></div>
@@ -2267,7 +2267,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
-<span class="go">        Item(buffer_id=2, frame_count=32, channel_count=2, sample_rate=48000.0),</span>
+<span class="go">        Item(buffer_id=2, frame_count=32, channel_count=2, sample_rate=44100.0),</span>
 <span class="go">    ),</span>
 <span class="go">)</span>
 </code></pre></div>
@@ -2275,7 +2275,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">344</span>, in <span class="n">allocate</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">344</span>, in <span class="n">allocate</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferAlreadyAllocated</span>
 <span class="gr">supriya.exceptions.BufferAlreadyAllocated</span>
 </code></pre></div>
@@ -2290,7 +2290,7 @@
 
 <dl class="py method objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.realtime.buffers.Buffer.allocate_from_file">
-<span class="sig-name descname"><span class="pre">allocate_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><span class="pre">os.PathLike</span></a></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_indices</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">frame_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">starting_frame</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">sync</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buffers.Buffer.allocate_from_file" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">allocate_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><span class="pre">PathLike</span></a></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_indices</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">frame_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">starting_frame</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">sync</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buffers.Buffer.allocate_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allocates buffer on <cite>server</cite> with contents read from <cite>file_path</cite>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate_from_file</span><span class="p">(</span>
@@ -2333,7 +2333,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">344</span>, in <span class="n">allocate</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">344</span>, in <span class="n">allocate</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferAlreadyAllocated</span>
 <span class="gr">supriya.exceptions.BufferAlreadyAllocated</span>
 </code></pre></div>
@@ -2482,7 +2482,7 @@ the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">479</span>, in <span class="n">close</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">479</span>, in <span class="n">close</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2510,7 +2510,7 @@ the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">target_buffer_id</span><span class="o">=</span><span class="mi">666</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">522</span>, in <span class="n">copy</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">522</span>, in <span class="n">copy</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2562,7 +2562,7 @@ the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">564</span>, in <span class="n">fill</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">564</span>, in <span class="n">fill</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2583,13 +2583,13 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<object data="../../../_images/plot-192c45614487b0c32de13b9b562e8685a6b5e0c8.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<object data="../../../_images/plot-c84a40ea2e1680800ed6f6d3fe9ec4916cbf4ec1.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_chebyshev</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">625</span>, in <span class="n">fill_via_chebyshev</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">625</span>, in <span class="n">fill_via_chebyshev</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2610,13 +2610,13 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<object data="../../../_images/plot-0a0c54ecf6befce7ebb80e0016473322774f5dad.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<object data="../../../_images/plot-6d8818c1bf7ef6300b542bafb23a31f7ba8a6d9a.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_1</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">673</span>, in <span class="n">fill_via_sine_1</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">673</span>, in <span class="n">fill_via_sine_1</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2638,7 +2638,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<object data="../../../_images/plot-9bbccc3d5eb28c91ac5c4b240111ca9d8ebf8efb.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<object data="../../../_images/plot-d636bc915b72379fc7489779bd5e79442bd1f3fd.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_2</span><span class="p">(</span>
@@ -2647,7 +2647,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">726</span>, in <span class="n">fill_via_sine_2</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">726</span>, in <span class="n">fill_via_sine_2</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2670,7 +2670,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<object data="../../../_images/plot-6c0f2d5cff051c0f011dd1befd3001867dbd757a.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<object data="../../../_images/plot-1a6ef97d19f43e38732d9b514a94daa90f2e6bb7.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_3</span><span class="p">(</span>
@@ -2680,7 +2680,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">783</span>, in <span class="n">fill_via_sine_3</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">783</span>, in <span class="n">fill_via_sine_3</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2713,7 +2713,7 @@ the DiskIn or DiskOut UGens.</p>
 
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.realtime.buffers.Buffer.free">
-<span class="sig-name descname"><span class="pre">free</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="#supriya.realtime.buffers.Buffer" title="supriya.realtime.buffers.Buffer"><span class="pre">supriya.realtime.buffers.Buffer</span></a></span></span></span><a class="headerlink" href="#supriya.realtime.buffers.Buffer.free" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">free</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="#supriya.realtime.buffers.Buffer" title="supriya.realtime.buffers.Buffer"><span class="pre">Buffer</span></a></span></span></span><a class="headerlink" href="#supriya.realtime.buffers.Buffer.free" title="Permalink to this definition">¶</a></dt>
 <dd><p>Frees buffer.</p>
 </dd></dl>
 
@@ -2738,7 +2738,7 @@ the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">827</span>, in <span class="n">get</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">827</span>, in <span class="n">get</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2767,7 +2767,7 @@ the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">866</span>, in <span class="n">get_contiguous</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">866</span>, in <span class="n">get_contiguous</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2803,7 +2803,7 @@ the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">get_frames</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">912</span>, in <span class="n">get_frames</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">912</span>, in <span class="n">get_frames</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2850,7 +2850,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">BufferInfoResponse(</span>
 <span class="go">    items=(</span>
-<span class="go">        Item(buffer_id=0, frame_count=16, channel_count=2, sample_rate=48000.0),</span>
+<span class="go">        Item(buffer_id=0, frame_count=16, channel_count=2, sample_rate=44100.0),</span>
 <span class="go">    ),</span>
 <span class="go">)</span>
 </code></pre></div>
@@ -2861,7 +2861,7 @@ the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">961</span>, in <span class="n">query</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">961</span>, in <span class="n">query</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2913,7 +2913,7 @@ the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1035</span>, in <span class="n">read</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1035</span>, in <span class="n">read</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -2983,7 +2983,7 @@ the DiskIn or DiskOut UGens.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">sample_rate</span>
-<span class="go">48000.0</span>
+<span class="go">44100.0</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
@@ -3036,7 +3036,7 @@ the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1091</span>, in <span class="n">set</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1091</span>, in <span class="n">set</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -3063,7 +3063,7 @@ the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">set_contiguous</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1128</span>, in <span class="n">set_contiguous</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1128</span>, in <span class="n">set_contiguous</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -3112,7 +3112,7 @@ the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1199</span>, in <span class="n">write</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1199</span>, in <span class="n">write</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -3151,7 +3151,7 @@ the DiskIn or DiskOut UGens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1258</span>, in <span class="n">zero</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1258</span>, in <span class="n">zero</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
@@ -3164,7 +3164,7 @@ the DiskIn or DiskOut UGens.</p>
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.realtime.buffers.BufferGroup">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BufferGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buffers.BufferGroup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.realtime.bases.ServerObject" title="supriya.realtime.bases.ServerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.realtime.bases.ServerObject</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.realtime.bases.ServerObject" title="supriya.realtime.bases.ServerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServerObject</span></code></a></p>
 <p>A buffer group.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </code></pre></div>
@@ -3243,7 +3243,7 @@ the DiskIn or DiskOut UGens.</p>
 
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.realtime.buffers.BufferGroup.free">
-<span class="sig-name descname"><span class="pre">free</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="#supriya.realtime.buffers.BufferGroup" title="supriya.realtime.buffers.BufferGroup"><span class="pre">supriya.realtime.buffers.BufferGroup</span></a></span></span></span><a class="headerlink" href="#supriya.realtime.buffers.BufferGroup.free" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">free</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="#supriya.realtime.buffers.BufferGroup" title="supriya.realtime.buffers.BufferGroup"><span class="pre">BufferGroup</span></a></span></span></span><a class="headerlink" href="#supriya.realtime.buffers.BufferGroup.free" title="Permalink to this definition">¶</a></dt>
 <dd><p>Frees all buffers in buffer group.</p>
 </dd></dl>
 
@@ -3295,7 +3295,7 @@ the DiskIn or DiskOut UGens.</p>
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.realtime.buffers.BufferProxy">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BufferProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">frame_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.buffers.BufferProxy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.system.SupriyaValueObject</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a></p>
 <p>A buffer proxy.</p>
 <p>Acts as a singleton reference to a buffer on the server, tracking the state
 of a single buffer id and responding to <cite>/b_info</cite> messages. Multiple Buffer
@@ -3566,7 +3566,7 @@ treated as an implementation detail.</p>
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.2.
+          5.1.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -3586,6 +3586,7 @@ treated as an implementation detail.</p>
     
       <script src="../../../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
     
   </body>

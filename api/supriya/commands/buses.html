@@ -37,7 +37,7 @@
     
         <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
@@ -1689,11 +1689,11 @@
                   </a>
                 
                 
-  <h1 id="module-supriya.commands.buses"><span id="buses"></span><span id="supriya-commands-buses"></span>buses<a class="headerlink" href="#module-supriya.commands.buses" title="Permalink to this headline">¶</a></h1>
+  <h1 id="module-supriya.commands.buses"><span id="buses"></span><span id="supriya-commands-buses"></span>buses<a class="headerlink" href="#module-supriya.commands.buses" title="Permalink to this heading">¶</a></h1>
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.buses.ControlBusFillRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ControlBusFillRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_count_value_triples</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusFillRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /c_fill request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.commands</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusFillRequest</span><span class="p">(</span>
@@ -1730,7 +1730,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.buses.ControlBusGetContiguousRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ControlBusGetContiguousRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_count_pairs</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetContiguousRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /c_getn request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusGetContiguousRequest</span><span class="p">(</span>
@@ -1796,7 +1796,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.buses.ControlBusGetRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ControlBusGetRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusGetRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /c_get request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusGetRequest</span><span class="p">(</span>
@@ -1852,7 +1852,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.buses.ControlBusSetContiguousRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ControlBusSetContiguousRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_values_pairs</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /c_setn request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusSetContiguousRequest</span><span class="p">(</span>
@@ -1903,7 +1903,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.buses.ControlBusSetContiguousResponse">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ControlBusSetContiguousResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Response</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.Sequence</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a></p>
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.commands.buses.ControlBusSetContiguousResponse.__getitem__">
 <span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetContiguousResponse.__getitem__" title="Permalink to this definition">¶</a></dt>
@@ -1929,7 +1929,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.buses.ControlBusSetRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ControlBusSetRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_value_pairs</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /c_set request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">ControlBusSetRequest</span><span class="p">(</span>
@@ -1984,7 +1984,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.buses.ControlBusSetResponse">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ControlBusSetResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Response</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.Sequence</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a></p>
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.commands.buses.ControlBusSetResponse.__getitem__">
 <span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.buses.ControlBusSetResponse.__getitem__" title="Permalink to this definition">¶</a></dt>
@@ -2080,7 +2080,7 @@
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.2.
+          5.1.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -2100,6 +2100,7 @@
     
       <script src="../../../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
     
   </body>

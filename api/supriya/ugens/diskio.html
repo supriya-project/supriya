@@ -37,7 +37,7 @@
     
         <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
@@ -1687,11 +1687,11 @@
                   </a>
                 
                 
-  <h1 id="module-supriya.ugens.diskio"><span id="diskio"></span><span id="supriya-ugens-diskio"></span>diskio<a class="headerlink" href="#module-supriya.ugens.diskio" title="Permalink to this headline">¶</a></h1>
+  <h1 id="module-supriya.ugens.diskio"><span id="diskio"></span><span id="supriya-ugens-diskio"></span>diskio<a class="headerlink" href="#module-supriya.ugens.diskio" title="Permalink to this heading">¶</a></h1>
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.ugens.diskio.DiskIn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DiskIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">0.0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.diskio.DiskIn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.MultiOutUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutUGen</span></code></a></p>
 <p>Streams in audio from a file.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_id</span> <span class="o">=</span> <span class="mi">23</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">disk_in</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">DiskIn</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
@@ -1729,7 +1729,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.ugens.diskio.DiskOut">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DiskOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.diskio.DiskOut" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.UGen" title="supriya.synthdefs.bases.UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.UGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.UGen" title="supriya.synthdefs.bases.UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">UGen</span></code></a></p>
 <p>Records to a soundfile to disk.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_id</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="p">[</span><span class="mi">440</span><span class="p">,</span> <span class="mi">442</span><span class="p">])</span>
@@ -1767,7 +1767,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.ugens.diskio.VDiskIn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VDiskIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">send_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.diskio.VDiskIn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.MultiOutUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutUGen</span></code></a></p>
 <p>Streams in audio from a file, with variable rate.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_id</span> <span class="o">=</span> <span class="mi">23</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vdisk_in</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">VDiskIn</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
@@ -1891,7 +1891,7 @@
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.2.
+          5.1.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -1911,6 +1911,7 @@
     
       <script src="../../../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
     
   </body>

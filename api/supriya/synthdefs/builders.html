@@ -37,7 +37,7 @@
     
         <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
@@ -1351,11 +1351,11 @@
                   </a>
                 
                 
-  <h1 id="module-supriya.synthdefs.builders"><span id="builders"></span><span id="supriya-synthdefs-builders"></span>builders<a class="headerlink" href="#module-supriya.synthdefs.builders" title="Permalink to this headline">¶</a></h1>
+  <h1 id="module-supriya.synthdefs.builders"><span id="builders"></span><span id="supriya-synthdefs-builders"></span>builders<a class="headerlink" href="#module-supriya.synthdefs.builders" title="Permalink to this heading">¶</a></h1>
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.builders.SynthDefBuilder">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SynthDefBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.builders.SynthDefBuilder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.system.SupriyaObject</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a></p>
 <p>A SynthDef builder.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.ugens</span>
@@ -1414,14 +1414,14 @@
 
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.builders.SynthDefBuilder.poll_ugen">
-<span class="sig-name descname"><span class="pre">poll_ugen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ugen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="o">-</span> <span class="mi">1</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.builders.SynthDefBuilder.poll_ugen" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">poll_ugen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ugen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="o">-</span><span class="mi">1</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.builders.SynthDefBuilder.poll_ugen" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.builders.synthdef">
-<span class="sig-name descname"><span class="pre">synthdef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.builders.synthdef" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">synthdef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.builders.synthdef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorate for quickly constructing SynthDefs from functions.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.ugens</span> <span class="kn">import</span> <span class="n">EnvGen</span><span class="p">,</span> <span class="n">Out</span><span class="p">,</span> <span class="n">SinOsc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.synthdefs</span> <span class="kn">import</span> <span class="n">Envelope</span><span class="p">,</span> <span class="n">synthdef</span>
@@ -1447,14 +1447,12 @@
 <span class="go">            left: SinOsc.ar[0]</span>
 <span class="go">            right: Control.kr[0:amp]</span>
 <span class="go">    -   EnvGen.kr:</span>
+<span class="go">            gate: Control.kr[2:gate]</span>
+<span class="go">            level_scale: 1.0</span>
+<span class="go">            level_bias: 0.0</span>
+<span class="go">            time_scale: 1.0</span>
 <span class="go">            done_action: 2.0</span>
 <span class="go">            envelope[0]: 0.0</span>
-<span class="go">            envelope[10]: 5.0</span>
-<span class="go">            envelope[11]: -4.0</span>
-<span class="go">            envelope[12]: 0.0</span>
-<span class="go">            envelope[13]: 1.0</span>
-<span class="go">            envelope[14]: 5.0</span>
-<span class="go">            envelope[15]: -4.0</span>
 <span class="go">            envelope[1]: 3.0</span>
 <span class="go">            envelope[2]: 2.0</span>
 <span class="go">            envelope[3]: -99.0</span>
@@ -1464,10 +1462,12 @@
 <span class="go">            envelope[7]: -4.0</span>
 <span class="go">            envelope[8]: 0.5</span>
 <span class="go">            envelope[9]: 0.3</span>
-<span class="go">            gate: Control.kr[2:gate]</span>
-<span class="go">            level_bias: 0.0</span>
-<span class="go">            level_scale: 1.0</span>
-<span class="go">            time_scale: 1.0</span>
+<span class="go">            envelope[10]: 5.0</span>
+<span class="go">            envelope[11]: -4.0</span>
+<span class="go">            envelope[12]: 0.0</span>
+<span class="go">            envelope[13]: 1.0</span>
+<span class="go">            envelope[14]: 5.0</span>
+<span class="go">            envelope[15]: -4.0</span>
 <span class="go">    -   BinaryOpUGen(MULTIPLICATION).ar/1:</span>
 <span class="go">            left: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
 <span class="go">            right: EnvGen.kr[0]</span>
@@ -1500,14 +1500,12 @@
 <span class="go">            left: SinOsc.ar[0]</span>
 <span class="go">            right: LagControl.kr[0:amp]</span>
 <span class="go">    -   EnvGen.kr:</span>
+<span class="go">            gate: LagControl.kr[1:gate]</span>
+<span class="go">            level_scale: 1.0</span>
+<span class="go">            level_bias: 0.0</span>
+<span class="go">            time_scale: 1.0</span>
 <span class="go">            done_action: 2.0</span>
 <span class="go">            envelope[0]: 0.0</span>
-<span class="go">            envelope[10]: 5.0</span>
-<span class="go">            envelope[11]: -4.0</span>
-<span class="go">            envelope[12]: 0.0</span>
-<span class="go">            envelope[13]: 1.0</span>
-<span class="go">            envelope[14]: 5.0</span>
-<span class="go">            envelope[15]: -4.0</span>
 <span class="go">            envelope[1]: 3.0</span>
 <span class="go">            envelope[2]: 2.0</span>
 <span class="go">            envelope[3]: -99.0</span>
@@ -1517,10 +1515,12 @@
 <span class="go">            envelope[7]: -4.0</span>
 <span class="go">            envelope[8]: 0.5</span>
 <span class="go">            envelope[9]: 0.3</span>
-<span class="go">            gate: LagControl.kr[1:gate]</span>
-<span class="go">            level_bias: 0.0</span>
-<span class="go">            level_scale: 1.0</span>
-<span class="go">            time_scale: 1.0</span>
+<span class="go">            envelope[10]: 5.0</span>
+<span class="go">            envelope[11]: -4.0</span>
+<span class="go">            envelope[12]: 0.0</span>
+<span class="go">            envelope[13]: 1.0</span>
+<span class="go">            envelope[14]: 5.0</span>
+<span class="go">            envelope[15]: -4.0</span>
 <span class="go">    -   BinaryOpUGen(MULTIPLICATION).ar/1:</span>
 <span class="go">            left: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
 <span class="go">            right: EnvGen.kr[0]</span>
@@ -1605,7 +1605,7 @@
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.2.
+          5.1.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -1625,6 +1625,7 @@
     
       <script src="../../../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
     
   </body>

@@ -143,6 +143,16 @@ triggers
    .. autoproperty:: reply_rate
    .. autoproperty:: source
 
+.. autoclass:: SendReply
+   :show-inheritance:
+
+   .. automethod:: ar
+   .. autoproperty:: command_name
+   .. automethod:: kr
+   .. autoproperty:: reply_id
+   .. autoproperty:: source
+   .. autoproperty:: trigger
+
 .. autoclass:: SendTrig
    :show-inheritance:
 

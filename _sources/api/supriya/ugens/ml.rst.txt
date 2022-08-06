@@ -61,6 +61,22 @@ ml
    .. autoproperty:: threshold
    .. autoproperty:: whtype
 
+.. autoclass:: Pitch
+   :show-inheritance:
+
+   .. autoproperty:: amplitude_threshold
+   .. autoproperty:: clarity
+   .. autoproperty:: down_sample_factor
+   .. autoproperty:: exec_frequency
+   .. autoproperty:: initial_frequency
+   .. automethod:: kr
+   .. autoproperty:: max_bins_per_octave
+   .. autoproperty:: max_frequency
+   .. autoproperty:: median
+   .. autoproperty:: min_frequency
+   .. autoproperty:: peak_threshold
+   .. autoproperty:: source
+
 .. autoclass:: SpecCentroid
    :show-inheritance:
 

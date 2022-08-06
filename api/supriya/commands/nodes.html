@@ -37,7 +37,7 @@
     
         <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
@@ -1937,11 +1937,11 @@
                   </a>
                 
                 
-  <h1 id="module-supriya.commands.nodes"><span id="nodes"></span><span id="supriya-commands-nodes"></span>nodes<a class="headerlink" href="#module-supriya.commands.nodes" title="Permalink to this headline">¶</a></h1>
+  <h1 id="module-supriya.commands.nodes"><span id="nodes"></span><span id="supriya-commands-nodes"></span>nodes<a class="headerlink" href="#module-supriya.commands.nodes" title="Permalink to this heading">¶</a></h1>
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.nodes.NodeFreeRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NodeFreeRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_ids</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.nodes.NodeFreeRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /n_free request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.commands</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeFreeRequest</span><span class="p">(</span>
@@ -1977,7 +1977,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.commands.nodes.NodeInfoResponse">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NodeInfoResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">previous_node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">next_node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">is_group</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">head_node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">tail_node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef_name</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef_controls</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.nodes.NodeInfoResponse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Response</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a></p>
 <dl class="py property objdesc">
 <dt class="sig sig-object py" id="supriya.commands.nodes.NodeInfoResponse.action">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">action</span></span><a class="headerlink" href="#supriya.commands.nodes.NodeInfoResponse.action" title="Permalink to this definition">¶</a></dt>
@@ -2038,7 +2038,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.nodes.NodeMapToAudioBusRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NodeMapToAudioBusRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.nodes.NodeMapToAudioBusRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /n_mapa request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.commands</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
@@ -2081,7 +2081,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.nodes.NodeMapToControlBusRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NodeMapToControlBusRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.nodes.NodeMapToControlBusRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /n_map request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.commands</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
@@ -2124,7 +2124,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.nodes.NodeQueryRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NodeQueryRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.nodes.NodeQueryRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /n_query request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.commands</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeQueryRequest</span><span class="p">(</span>
@@ -2160,7 +2160,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.nodes.NodeRunRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NodeRunRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id_run_flag_pairs</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.nodes.NodeRunRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /n_run request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
@@ -2242,7 +2242,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.nodes.NodeSetContiguousResponse">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NodeSetContiguousResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.nodes.NodeSetContiguousResponse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Response</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a></p>
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.commands.nodes.NodeSetContiguousResponse.from_osc_message">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_osc_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">osc_message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.nodes.NodeSetContiguousResponse.from_osc_message" title="Permalink to this definition">¶</a></dt>
@@ -2263,7 +2263,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.nodes.NodeSetRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NodeSetRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.nodes.NodeSetRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /n_set request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.commands</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeSetRequest</span><span class="p">(</span>
@@ -2305,7 +2305,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.nodes.NodeSetResponse">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NodeSetResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.nodes.NodeSetResponse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Response</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a></p>
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.commands.nodes.NodeSetResponse.from_osc_message">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_osc_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">osc_message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.nodes.NodeSetResponse.from_osc_message" title="Permalink to this definition">¶</a></dt>
@@ -2408,7 +2408,7 @@
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.2.
+          5.1.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -2428,6 +2428,7 @@
     
       <script src="../../../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
     
   </body>

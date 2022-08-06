@@ -37,7 +37,7 @@
     
         <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
@@ -1156,7 +1156,7 @@
                   </a>
                 
                 
-  <h1 id="nodes">Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">¶</a></h1>
+  <h1 id="nodes">Nodes<a class="headerlink" href="#nodes" title="Permalink to this heading">¶</a></h1>
 <p>SuperCollider’s <a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a> server processes audio by traversaing a
 <a class="reference internal" href="../glossary.html#term-tree"><span class="xref std std-term">tree</span></a> of <a class="reference internal" href="../glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. Nodes in the tree can be either
 <a class="reference internal" href="../glossary.html#term-group"><span class="xref std std-term">groups</span></a> - which <em>group</em> together other nodes - or <a class="reference internal" href="../glossary.html#term-synth"><span class="xref std std-term">synths</span></a> - which perform some kind of audio processing.</p>
@@ -1170,12 +1170,12 @@ the audio processing <a class="reference internal" href="../glossary.html#term-g
 <p>While <a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a>’s nodes “live” inside the server, Supriya provides
 <a class="reference internal" href="../glossary.html#term-proxy"><span class="xref std std-term">proxy</span></a> classes for manipulating and inspecting them in Python.</p>
 <p>Let’s dig in…</p>
-<h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permalink to this headline">¶</a></h2>
+<h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permalink to this heading">¶</a></h2>
 <p>Nodes can only be added to running servers, so let’s create one and boot it:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </code></pre></div>
 </div>
-<h3 id="creating-groups">Creating groups<a class="headerlink" href="#creating-groups" title="Permalink to this headline">¶</a></h3>
+<h3 id="creating-groups">Creating groups<a class="headerlink" href="#creating-groups" title="Permalink to this heading">¶</a></h3>
 <p>Create a group, and print its <a class="reference internal" href="../glossary.html#term-repr"><span class="xref std std-term">repr</span></a> to the terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group_one</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group_one</span>
@@ -1184,7 +1184,7 @@ the audio processing <a class="reference internal" href="../glossary.html#term-g
 </div>
 <p>The <a class="reference internal" href="../glossary.html#term-repr"><span class="xref std std-term">repr</span></a> shows the group’s type (<code class="docutils literal notranslate"><span class="pre">Group</span></code>), its <a class="reference internal" href="../glossary.html#term-ID-node"><span class="xref std std-term">ID</span></a>
 (<code class="docutils literal notranslate"><span class="pre">1000</span></code>), and indicates it has been allocated (<code class="docutils literal notranslate"><span class="pre">+</span></code>).</p>
-<h3 id="positioning">Positioning<a class="headerlink" href="#positioning" title="Permalink to this headline">¶</a></h3>
+<h3 id="positioning">Positioning<a class="headerlink" href="#positioning" title="Permalink to this heading">¶</a></h3>
 <p>Let’s add another group. Groups can be added relative to other groups:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group_two</span> <span class="o">=</span> <span class="n">group_one</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 </code></pre></div>
@@ -1306,7 +1306,7 @@ few keystrokes:</p>
 </code></pre></div>
 </div>
 </div>
-<h3 id="creating-synths">Creating synths<a class="headerlink" href="#creating-synths" title="Permalink to this headline">¶</a></h3>
+<h3 id="creating-synths">Creating synths<a class="headerlink" href="#creating-synths" title="Permalink to this heading">¶</a></h3>
 <p>Now, reset the server, then create a synth, and print its <a class="reference internal" href="../glossary.html#term-repr"><span class="xref std std-term">repr</span></a> to the
 terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
@@ -1392,7 +1392,7 @@ will automatically allocate them for you when you add synths to the server.
 If you need precise timing, make sure to pre-allocate the SynthDefs.</p>
 <p>See <a class="reference internal" href="../synthdefs/index.html"><span class="doc">Synth Definitions</span></a> and <a class="reference internal" href="../osc.html"><span class="doc">Open Sound Control</span></a> for more details.</p>
 </div>
-<h3 id="deleting">Deleting<a class="headerlink" href="#deleting" title="Permalink to this headline">¶</a></h3>
+<h3 id="deleting">Deleting<a class="headerlink" href="#deleting" title="Permalink to this heading">¶</a></h3>
 <p>Reset the server for a clean slate, then add a synth:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 <span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
@@ -1463,7 +1463,7 @@ to guarantee they behave as expected.</p>
 <span class="go">                    out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5</span>
 </code></pre></div>
 </div>
-<h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permalink to this headline">¶</a></h2>
+<h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permalink to this heading">¶</a></h2>
 <p>Reset the server for a clean slate:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 <span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
@@ -1493,7 +1493,7 @@ to guarantee they behave as expected.</p>
 <span class="go">(1003, &lt;Server: udp://127.0.0.1:57110, 8i8o&gt;)</span>
 </code></pre></div>
 </div>
-<h3 id="position">Position<a class="headerlink" href="#position" title="Permalink to this headline">¶</a></h3>
+<h3 id="position">Position<a class="headerlink" href="#position" title="Permalink to this heading">¶</a></h3>
 <p>Nodes know about their position in the <a class="reference internal" href="../glossary.html#term-node-tree"><span class="xref std std-term">node tree</span></a>.</p>
 <p>The synths we created know that the group we (also) created is their <a class="reference internal" href="../glossary.html#term-parent"><span class="xref std std-term">parent</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span><span class="o">.</span><span class="n">parent</span>
@@ -1525,7 +1525,7 @@ to guarantee they behave as expected.</p>
 <span class="go">(&lt;+ RootNode: 0&gt;, 0)</span>
 </code></pre></div>
 </div>
-<h3 id="querying-controls">Querying controls<a class="headerlink" href="#querying-controls" title="Permalink to this headline">¶</a></h3>
+<h3 id="querying-controls">Querying controls<a class="headerlink" href="#querying-controls" title="Permalink to this heading">¶</a></h3>
 <p>If a synth’s <a class="reference internal" href="../glossary.html#term-SynthDef"><span class="xref std std-term">SynthDef</span></a> exposes controls, we can query them.</p>
 <p>We can query each synth’s <code class="docutils literal notranslate"><span class="pre">frequency</span></code> control by looking it up as though the
 synth was a Python dictionary:</p>
@@ -1590,7 +1590,7 @@ synth they’re associated with and their <a class="reference internal" href="..
 <p>Group’s don’t have <a class="reference internal" href="../glossary.html#term-SynthDef"><span class="xref std std-term">SynthDefs</span></a>, so they don’t actually have
 controls. Their control interface just indicates that they have <em>some</em> children
 in their <a class="reference internal" href="../glossary.html#term-subtree"><span class="xref std std-term">subtree</span></a> with those controls.</p>
-<h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permalink to this headline">¶</a></h2>
+<h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permalink to this heading">¶</a></h2>
 <p>Reset the server for a clean slate:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 <span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
@@ -1608,7 +1608,7 @@ in their <a class="reference internal" href="../glossary.html#term-subtree"><spa
 <p>Note the click train emitted by the <em>ticker</em> synth and the reverberation added
 by the <em>reverb</em> synth.</p>
 <p>Now we’ll interact with these three nodes to modify their sound …</p>
-<h3 id="moving">Moving<a class="headerlink" href="#moving" title="Permalink to this headline">¶</a></h3>
+<h3 id="moving">Moving<a class="headerlink" href="#moving" title="Permalink to this heading">¶</a></h3>
 <p>Nodes can be moved relative to other nodes, using the same <a class="reference internal" href="../glossary.html#term-add-action"><span class="xref std std-term">add actions</span></a> used when allocating nodes.</p>
 <p>Move the <em>reverb</em> synth to the <a class="reference internal" href="../glossary.html#term-head"><span class="xref std std-term">head</span></a> of its parent group - <em>before</em> the
 <em>ticker</em> synth - and notice how the click train’s reverberation dies out:</p>
@@ -1666,7 +1666,7 @@ nodes that have been previously freed (or never allocated at all):</p>
 </div>
 <p>Notice that the “ticker” synth now has a new node ID.</p>
 </div>
-<h3 id="setting-controls">Setting controls<a class="headerlink" href="#setting-controls" title="Permalink to this headline">¶</a></h3>
+<h3 id="setting-controls">Setting controls<a class="headerlink" href="#setting-controls" title="Permalink to this heading">¶</a></h3>
 <p>Setting controls on nodes looks like setting keys on a Python dictionary.</p>
 <p>Change the <em>ticker</em> synth’s frequency control to <code class="docutils literal notranslate"><span class="pre">1</span></code> <a class="reference internal" href="../glossary.html#term-Hertz"><span class="xref std std-term">Hertz</span></a>, clicking
 once every second:</p>
@@ -1683,13 +1683,13 @@ of the simulated reverb space:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">ticker_synth</span><span class="p">[</span><span class="s2">&quot;nonexistent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">666.666</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/nodes.py&quot;</span>, line <span class="m">892</span>, in <span class="n">__setitem__</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/nodes.py&quot;</span>, line <span class="m">892</span>, in <span class="n">__setitem__</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">553</span>, in <span class="n">__setitem__</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">553</span>, in <span class="n">__setitem__</span>
     <span class="n">synth_controls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">522</span>, in <span class="n">__getitem__</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">522</span>, in <span class="n">__getitem__</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_synth_control_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">item</span><span class="p">)</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">522</span>, in <span class="n">&lt;genexpr&gt;</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">522</span>, in <span class="n">&lt;genexpr&gt;</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_synth_control_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">item</span><span class="p">)</span>
 <span class="gr">KeyError</span>: <span class="n">&#39;nonexistent&#39;</span>
 </code></pre></div>
@@ -1709,7 +1709,7 @@ control of any of their children by setting it on the group.</p>
 </div>
 <p>The group does not <em>have</em> a <code class="docutils literal notranslate"><span class="pre">frequency</span></code> control - it just propagates the
 control setting to any synth in its <a class="reference internal" href="../glossary.html#term-subtree"><span class="xref std std-term">subtree</span></a>.</p>
-<h3 id="pausing">Pausing<a class="headerlink" href="#pausing" title="Permalink to this headline">¶</a></h3>
+<h3 id="pausing">Pausing<a class="headerlink" href="#pausing" title="Permalink to this heading">¶</a></h3>
 <p>Nodes can be paused and unpaused. Paused synths perform no audio processing,
 and all children of paused groups are considered paused.</p>
 <p>Let’s pause the <em>ticker</em> synth, and notice how the click train stops:</p>
@@ -1732,8 +1732,8 @@ the <em>reverb</em>’s reverberation.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
 </code></pre></div>
 </div>
-<h2 id="lower-level-apis">Lower level APIs<a class="headerlink" href="#lower-level-apis" title="Permalink to this headline">¶</a></h2>
-<h3 id="bare-allocation">Bare allocation<a class="headerlink" href="#bare-allocation" title="Permalink to this headline">¶</a></h3>
+<h2 id="lower-level-apis">Lower level APIs<a class="headerlink" href="#lower-level-apis" title="Permalink to this heading">¶</a></h2>
+<h3 id="bare-allocation">Bare allocation<a class="headerlink" href="#bare-allocation" title="Permalink to this heading">¶</a></h3>
 <p>Groups and synths can be created by hand and allocated:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">()</span>
@@ -1751,7 +1751,7 @@ user’s “default group” on that server (ID <code class="docutils literal no
 </code></pre></div>
 </div>
 <p>You can use <code class="docutils literal notranslate"><span class="pre">.allocate()</span></code> to <em>re-allocate</em> nodes previously freed.</p>
-<h3 id="sequence-interface">Sequence interface<a class="headerlink" href="#sequence-interface" title="Permalink to this headline">¶</a></h3>
+<h3 id="sequence-interface">Sequence interface<a class="headerlink" href="#sequence-interface" title="Permalink to this heading">¶</a></h3>
 <p>Reset the server for a clean slate:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 <span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
@@ -1887,7 +1887,7 @@ replaced nodes, possibly resulting in audible clicks.</p>
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.2.
+          5.1.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -1907,6 +1907,7 @@ replaced nodes, possibly resulting in audible clicks.</p>
     
       <script src="../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/design-tabs.js"></script>
     
   </body>

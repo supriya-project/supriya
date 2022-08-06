@@ -37,7 +37,7 @@
     
         <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
@@ -2567,11 +2567,11 @@
                   </a>
                 
                 
-  <h1 id="module-supriya.ugens.panning"><span id="panning"></span><span id="supriya-ugens-panning"></span>panning<a class="headerlink" href="#module-supriya.ugens.panning" title="Permalink to this headline">¶</a></h1>
+  <h1 id="module-supriya.ugens.panning"><span id="panning"></span><span id="supriya-ugens-panning"></span>panning<a class="headerlink" href="#module-supriya.ugens.panning" title="Permalink to this heading">¶</a></h1>
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.ugens.panning.Balance2">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Balance2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">0.0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">1.0</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.panning.Balance2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.MultiOutUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutUGen</span></code></a></p>
 <p>A stereo signal balancer.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">left</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">WhiteNoise</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">right</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
@@ -2632,7 +2632,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.ugens.panning.BiPanB2">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BiPanB2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">in_a</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">in_b</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">azimuth</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">1.0</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.panning.BiPanB2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.MultiOutUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutUGen</span></code></a></p>
 <p>A 2D ambisonic b-format panner.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">in_a</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">in_b</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">WhiteNoise</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
@@ -2696,7 +2696,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.ugens.panning.DecodeB2">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DecodeB2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">0.5</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">4</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.panning.DecodeB2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.MultiOutUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutUGen</span></code></a></p>
 <p>A 2D Ambisonic B-format decoder.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">PinkNoise</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">PanB2</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
@@ -2762,7 +2762,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.ugens.panning.Pan2">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Pan2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">0.0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">1.0</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.panning.Pan2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.MultiOutUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutUGen</span></code></a></p>
 <p>A two channel equal power panner.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">WhiteNoise</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pan_2</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Pan2</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
@@ -2805,7 +2805,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.ugens.panning.Pan4">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Pan4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">x_position</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y_position</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.panning.Pan4" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.MultiOutUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutUGen</span></code></a></p>
 <p>A four-channel equal-power panner.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pan_4</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Pan4</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
@@ -2865,7 +2865,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.ugens.panning.PanAz">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PanAz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">2</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">0.5</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.panning.PanAz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.MultiOutUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutUGen</span></code></a></p>
 <p>A multi-channel equal-power panner.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pan_az</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">PanAz</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
@@ -2934,7 +2934,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.ugens.panning.PanB">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PanB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">azimuth</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">elevation</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.panning.PanB" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.MultiOutUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutUGen</span></code></a></p>
 <p>A 3D ambisonic b-format panner.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pan_b</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">PanB</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
@@ -2994,7 +2994,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.ugens.panning.PanB2">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PanB2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">azimuth</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.panning.PanB2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.MultiOutUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutUGen</span></code></a></p>
 <p>A 2D ambisonic b-format panner.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pan_b_2</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">PanB2</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
@@ -3046,7 +3046,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.ugens.panning.Rotate2">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Rotate2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.panning.Rotate2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.MultiOutUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutUGen</span></code></a></p>
 <p>Equal-power sound-field rotator.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">PinkNoise</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.4</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">LFTri</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">880</span><span class="p">)</span>
@@ -3102,7 +3102,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.ugens.panning.Splay">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Splay</span></span><a class="headerlink" href="#supriya.ugens.panning.Splay" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.PseudoUGen" title="supriya.synthdefs.bases.PseudoUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.PseudoUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.PseudoUGen" title="supriya.synthdefs.bases.PseudoUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">PseudoUGen</span></code></a></p>
 <p>A stereo signal spreader.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="p">[</span><span class="mi">333</span><span class="p">,</span> <span class="mi">444</span><span class="p">,</span> <span class="mi">555</span><span class="p">,</span> <span class="mi">666</span><span class="p">,</span> <span class="mi">777</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">splay</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Splay</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
@@ -3118,47 +3118,47 @@
 <span class="go">            frequency: 333.0</span>
 <span class="go">            phase: 0.0</span>
 <span class="go">    -   Pan2.ar/0:</span>
-<span class="go">            level: 1.0</span>
-<span class="go">            position: -1.0</span>
 <span class="go">            source: SinOsc.ar/0[0]</span>
+<span class="go">            position: -1.0</span>
+<span class="go">            level: 1.0</span>
 <span class="go">    -   SinOsc.ar/1:</span>
 <span class="go">            frequency: 444.0</span>
 <span class="go">            phase: 0.0</span>
 <span class="go">    -   Pan2.ar/1:</span>
-<span class="go">            level: 1.0</span>
-<span class="go">            position: -0.5</span>
 <span class="go">            source: SinOsc.ar/1[0]</span>
+<span class="go">            position: -0.5</span>
+<span class="go">            level: 1.0</span>
 <span class="go">    -   SinOsc.ar/2:</span>
 <span class="go">            frequency: 555.0</span>
 <span class="go">            phase: 0.0</span>
 <span class="go">    -   Pan2.ar/2:</span>
-<span class="go">            level: 1.0</span>
-<span class="go">            position: 0.0</span>
 <span class="go">            source: SinOsc.ar/2[0]</span>
+<span class="go">            position: 0.0</span>
+<span class="go">            level: 1.0</span>
 <span class="go">    -   SinOsc.ar/3:</span>
 <span class="go">            frequency: 666.0</span>
 <span class="go">            phase: 0.0</span>
 <span class="go">    -   Pan2.ar/3:</span>
-<span class="go">            level: 1.0</span>
-<span class="go">            position: 0.5</span>
 <span class="go">            source: SinOsc.ar/3[0]</span>
+<span class="go">            position: 0.5</span>
+<span class="go">            level: 1.0</span>
 <span class="go">    -   Sum4.ar/0:</span>
-<span class="go">            input_four: Pan2.ar/3[0]</span>
 <span class="go">            input_one: Pan2.ar/0[0]</span>
-<span class="go">            input_three: Pan2.ar/2[0]</span>
 <span class="go">            input_two: Pan2.ar/1[0]</span>
+<span class="go">            input_three: Pan2.ar/2[0]</span>
+<span class="go">            input_four: Pan2.ar/3[0]</span>
 <span class="go">    -   Sum4.ar/1:</span>
-<span class="go">            input_four: Pan2.ar/3[1]</span>
 <span class="go">            input_one: Pan2.ar/0[1]</span>
-<span class="go">            input_three: Pan2.ar/2[1]</span>
 <span class="go">            input_two: Pan2.ar/1[1]</span>
+<span class="go">            input_three: Pan2.ar/2[1]</span>
+<span class="go">            input_four: Pan2.ar/3[1]</span>
 <span class="go">    -   SinOsc.ar/4:</span>
 <span class="go">            frequency: 777.0</span>
 <span class="go">            phase: 0.0</span>
 <span class="go">    -   Pan2.ar/4:</span>
-<span class="go">            level: 1.0</span>
-<span class="go">            position: 1.0</span>
 <span class="go">            source: SinOsc.ar/4[0]</span>
+<span class="go">            position: 1.0</span>
+<span class="go">            level: 1.0</span>
 <span class="go">    -   BinaryOpUGen(ADDITION).ar/0:</span>
 <span class="go">            left: Sum4.ar/0[0]</span>
 <span class="go">            right: Pan2.ar/4[0]</span>
@@ -3188,7 +3188,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.ugens.panning.XFade2">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">XFade2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">in_a</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">in_b</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">pan</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.ugens.panning.XFade2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.UGen" title="supriya.synthdefs.bases.UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.UGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../synthdefs/bases.html#supriya.synthdefs.bases.UGen" title="supriya.synthdefs.bases.UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">UGen</span></code></a></p>
 <p>Two channel equal power crossfader.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">xfade_3</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">XFade2</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">in_a</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Saw</span><span class="o">.</span><span class="n">ar</span><span class="p">(),</span>
@@ -3317,7 +3317,7 @@
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.2.
+          5.1.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -3337,6 +3337,7 @@
     
       <script src="../../../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
     
   </body>

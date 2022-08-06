@@ -37,7 +37,7 @@
     
         <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
@@ -1336,12 +1336,12 @@
                   </a>
                 
                 
-  <h1 id="module-supriya.soundfiles"><span id="soundfiles"></span><span id="supriya-soundfiles"></span>soundfiles<a class="headerlink" href="#module-supriya.soundfiles" title="Permalink to this headline">¶</a></h1>
+  <h1 id="module-supriya.soundfiles"><span id="soundfiles"></span><span id="supriya-soundfiles"></span>soundfiles<a class="headerlink" href="#module-supriya.soundfiles" title="Permalink to this heading">¶</a></h1>
 <p>Tools for interacting with soundfiles.</p>
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.soundfiles.Say">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Say</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voice</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.Say" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.system.SupriyaValueObject</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a></p>
 <p>Wrapper for OSX <code class="docutils literal notranslate"><span class="pre">say</span></code> command.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">say</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Say</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">,</span> <span class="n">voice</span><span class="o">=</span><span class="s2">&quot;Daniel&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">say</span><span class="p">)</span>  
@@ -1351,7 +1351,7 @@
     Your browser does not support the <code>audio</code> element.
 </audio><dl class="py method objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.soundfiles.Say.__render__">
-<span class="sig-name descname"><span class="pre">__render__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><span class="pre">os.PathLike</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">render_directory_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><span class="pre">os.PathLike</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">print_transcript</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">pathlib.Path</span></a></span></span></span><a class="headerlink" href="#supriya.soundfiles.Say.__render__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__render__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><span class="pre">PathLike</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">render_directory_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><span class="pre">PathLike</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">print_transcript</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">Path</span></a></span></span></span><a class="headerlink" href="#supriya.soundfiles.Say.__render__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property objdesc">
@@ -1369,7 +1369,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.soundfiles.SoundFile">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SoundFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.SoundFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.system.SupriyaObject</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a></p>
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.soundfiles.SoundFile.at_frame">
 <span class="sig-name descname"><span class="pre">at_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.SoundFile.at_frame" title="Permalink to this definition">¶</a></dt>
@@ -1495,7 +1495,7 @@
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.2.
+          5.1.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -1515,6 +1515,7 @@
     
       <script src="../../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/design-tabs.js"></script>
     
   </body>

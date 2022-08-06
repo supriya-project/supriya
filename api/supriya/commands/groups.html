@@ -37,7 +37,7 @@
     
         <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
@@ -1581,11 +1581,11 @@
                   </a>
                 
                 
-  <h1 id="module-supriya.commands.groups"><span id="groups"></span><span id="supriya-commands-groups"></span>groups<a class="headerlink" href="#module-supriya.commands.groups" title="Permalink to this headline">¶</a></h1>
+  <h1 id="module-supriya.commands.groups"><span id="groups"></span><span id="supriya-commands-groups"></span>groups<a class="headerlink" href="#module-supriya.commands.groups" title="Permalink to this heading">¶</a></h1>
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.groups.GroupDeepFreeRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GroupDeepFreeRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.groups.GroupDeepFreeRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /g_deepFree request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
@@ -1664,7 +1664,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.groups.GroupFreeAllRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GroupFreeAllRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.groups.GroupFreeAllRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /g_freeAll request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
@@ -1740,7 +1740,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.groups.GroupNewRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GroupNewRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.groups.GroupNewRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /g_new request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
@@ -1822,7 +1822,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.groups.GroupQueryTreeRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GroupQueryTreeRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">include_controls</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.groups.GroupQueryTreeRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Request</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Request" title="supriya.commands.bases.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A /g_queryTree request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.commands</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">GroupQueryTreeRequest</span><span class="p">(</span>
@@ -1865,7 +1865,7 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.groups.ParallelGroupNewRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ParallelGroupNewRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.groups.ParallelGroupNewRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#supriya.commands.groups.GroupNewRequest" title="supriya.commands.groups.GroupNewRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.groups.GroupNewRequest</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#supriya.commands.groups.GroupNewRequest" title="supriya.commands.groups.GroupNewRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupNewRequest</span></code></a></p>
 <p>A /p_new request.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1929,7 +1929,7 @@ instead of <code class="docutils literal notranslate"><span class="pre">supernov
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.commands.groups.QueryTreeResponse">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QueryTreeResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">query_tree_group</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.groups.QueryTreeResponse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.commands.bases.Response</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="bases.html#supriya.commands.bases.Response" title="supriya.commands.bases.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a></p>
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.commands.groups.QueryTreeResponse.from_osc_message">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_osc_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">osc_message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.groups.QueryTreeResponse.from_osc_message" title="Permalink to this definition">¶</a></dt>
@@ -2649,7 +2649,7 @@ instead of <code class="docutils literal notranslate"><span class="pre">supernov
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.2.
+          5.1.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -2669,6 +2669,7 @@ instead of <code class="docutils literal notranslate"><span class="pre">supernov
     
       <script src="../../../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
     
   </body>

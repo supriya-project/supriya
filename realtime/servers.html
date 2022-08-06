@@ -37,7 +37,7 @@
     
         <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
@@ -1020,11 +1020,11 @@
                   </a>
                 
                 
-  <h1 id="servers">Servers<a class="headerlink" href="#servers" title="Permalink to this headline">¶</a></h1>
+  <h1 id="servers">Servers<a class="headerlink" href="#servers" title="Permalink to this heading">¶</a></h1>
 <p>Supriya’s <a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server" title="supriya.realtime.servers.Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> provides a handle to a
 <code class="docutils literal notranslate"><span class="pre">scsynth</span></code> process, allowing you to control the process’s lifecycle, interact
 with the entities it governs, and query its state.</p>
-<h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permalink to this headline">¶</a></h2>
+<h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permalink to this heading">¶</a></h2>
 <p>Instantiate a server with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span>
 </code></pre></div>
@@ -1068,9 +1068,9 @@ will result in an error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1035</span>, in <span class="n">boot</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1035</span>, in <span class="n">boot</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_process_protocol</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">,</span> <span class="n">scsynth_path</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/protocols.py&quot;</span>, line <span class="m">55</span>, in <span class="n">boot</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/protocols.py&quot;</span>, line <span class="m">55</span>, in <span class="n">boot</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ServerCannotBoot</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 <span class="gr">supriya.exceptions.ServerCannotBoot</span>: <span class="n">*** ERROR: failed to open UDP socket: address in use.</span>
 </code></pre></div>
@@ -1078,7 +1078,7 @@ will result in an error:</p>
 <p>Use <a class="reference internal" href="../api/supriya/osc/utils.html#supriya.osc.utils.find_free_port" title="supriya.osc.utils.find_free_port"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code></a> to grab a random unused port to
 successfully boot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">())</span>
-<span class="go">&lt;Server: udp://127.0.0.1:61402, 8i8o&gt;</span>
+<span class="go">&lt;Server: udp://127.0.0.1:44349, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 </div>
@@ -1092,7 +1092,7 @@ successfully boot:</p>
 <span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
-<h3 id="boot-options">Boot options<a class="headerlink" href="#boot-options" title="Permalink to this headline">¶</a></h3>
+<h3 id="boot-options">Boot options<a class="headerlink" href="#boot-options" title="Permalink to this heading">¶</a></h3>
 <p><a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a> can be booted with a wide variety of command-line arguments,
 which Supriya models via an <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.Options" title="supriya.scsynth.Options"><code class="xref py py-class docutils literal notranslate"><span class="pre">Options</span></code></a> class:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">Options</span><span class="p">()</span>
@@ -1135,7 +1135,7 @@ keyword arguments when booting:</p>
 <span class="go">&lt;Server: udp://127.0.0.1:57110, 2i2o&gt;</span>
 </code></pre></div>
 </div>
-<h3 id="multiple-clients">Multiple clients<a class="headerlink" href="#multiple-clients" title="Permalink to this headline">¶</a></h3>
+<h3 id="multiple-clients">Multiple clients<a class="headerlink" href="#multiple-clients" title="Permalink to this heading">¶</a></h3>
 <p><a class="reference internal" href="../glossary.html#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a> support multiple users interacting with a single server
 simultaneously. One user boots the server and governs the underlying server
 process, and the remaining users simply connect to it.</p>
@@ -1183,7 +1183,7 @@ server will error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1071</span>, in <span class="n">quit</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1071</span>, in <span class="n">quit</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">UnownedServerShutdown</span><span class="p">(</span>
 <span class="gr">supriya.exceptions.UnownedServerShutdown</span>: <span class="n">Cannot quit unowned server without force flag.</span>
 </code></pre></div>
@@ -1195,7 +1195,7 @@ server will error:</p>
 </div>
 <p>Disconnecting won’t terminate the server. It continues to run from wherever
 <code class="docutils literal notranslate"><span class="pre">server_one</span></code> was originally booted.</p>
-<h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permalink to this headline">¶</a></h2>
+<h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server" title="supriya.realtime.servers.Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> provides a number of methods and
 properties for inspecting its state.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
@@ -1204,13 +1204,13 @@ properties for inspecting its state.</p>
 <p>Inspect the “status” of audio processing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
 <span class="go">StatusResponse(</span>
-<span class="go">    actual_sample_rate=47999.99999709916,</span>
-<span class="go">    average_cpu_usage=0.027719061821699142,</span>
+<span class="go">    actual_sample_rate=44106.475547419956,</span>
+<span class="go">    average_cpu_usage=0.11561848968267441,</span>
 <span class="go">    group_count=2,</span>
-<span class="go">    peak_cpu_usage=0.15778124332427979,</span>
+<span class="go">    peak_cpu_usage=0.6085183620452881,</span>
 <span class="go">    synth_count=0,</span>
 <span class="go">    synthdef_count=0,</span>
-<span class="go">    target_sample_rate=48000.0,</span>
+<span class="go">    target_sample_rate=44100.0,</span>
 <span class="go">    ugen_count=0,</span>
 <span class="go">)</span>
 </code></pre></div>
@@ -1226,13 +1226,13 @@ complexity of the status output:</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
 <span class="go">StatusResponse(</span>
-<span class="go">    actual_sample_rate=48000.00000005642,</span>
-<span class="go">    average_cpu_usage=0.23769935965538025,</span>
+<span class="go">    actual_sample_rate=44106.92849642495,</span>
+<span class="go">    average_cpu_usage=0.4832298159599304,</span>
 <span class="go">    group_count=2,</span>
-<span class="go">    peak_cpu_usage=1.3834031820297241,</span>
+<span class="go">    peak_cpu_usage=0.6085183620452881,</span>
 <span class="go">    synth_count=1,</span>
 <span class="go">    synthdef_count=33,</span>
-<span class="go">    target_sample_rate=48000.0,</span>
+<span class="go">    target_sample_rate=44100.0,</span>
 <span class="go">    ugen_count=20,</span>
 <span class="go">)</span>
 </code></pre></div>
@@ -1308,7 +1308,7 @@ microphone inputs and speaker outputs:</p>
 <span class="go">&lt;+ AudioOutputBusGroup{8}: 0 (audio)&gt;</span>
 </code></pre></div>
 </div>
-<h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permalink to this headline">¶</a></h2>
+<h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permalink to this heading">¶</a></h2>
 <p>The server provides a variety of methods for interacting with it and modifying
 its state.</p>
 <p>You can send <a class="reference internal" href="../glossary.html#term-OSC"><span class="xref std std-term">OSC</span></a> messages via the
@@ -1366,7 +1366,7 @@ the server, including OSC callbacks.</p>
 <span class="go">        1000 group</span>
 </code></pre></div>
 </div>
-<h3 id="resetting">Resetting<a class="headerlink" href="#resetting" title="Permalink to this headline">¶</a></h3>
+<h3 id="resetting">Resetting<a class="headerlink" href="#resetting" title="Permalink to this heading">¶</a></h3>
 <p>Supriya supports <em>resetting</em> the state of the server, similar to
 SuperCollider’s <code class="docutils literal notranslate"><span class="pre">CmdPeriod</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
@@ -1384,7 +1384,7 @@ buffers and SynthDefs:</p>
 <span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
-<h2 id="lower-level-apis">Lower level APIs<a class="headerlink" href="#lower-level-apis" title="Permalink to this headline">¶</a></h2>
+<h2 id="lower-level-apis">Lower level APIs<a class="headerlink" href="#lower-level-apis" title="Permalink to this heading">¶</a></h2>
 <p>You can kill all running <code class="docutils literal notranslate"><span class="pre">scsynth</span></code> processes via <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.kill" title="supriya.scsynth.kill"><code class="xref py py-func docutils literal notranslate"><span class="pre">supriya.scsynth.kill()</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">scsynth</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
 </code></pre></div>
@@ -1392,13 +1392,13 @@ buffers and SynthDefs:</p>
 <p>Get access to the server’s underlying process management subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">process_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span><span class="o">.</span><span class="n">process_protocol</span>
-<span class="go">&lt;supriya.realtime.protocols.SyncProcessProtocol object at 0x7f7afcd5dc70&gt;</span>
+<span class="go">&lt;supriya.realtime.protocols.SyncProcessProtocol object at 0x7f396f375120&gt;</span>
 </code></pre></div>
 </div>
 <p>Get access to the server’s underlying OSC subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">osc_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span>
-<span class="go">&lt;supriya.osc.protocols.ThreadedOscProtocol object at 0x7f7afce1f2e0&gt;</span>
+<span class="go">&lt;supriya.osc.protocols.ThreadedOscProtocol object at 0x7f396ec888b0&gt;</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -1485,7 +1485,7 @@ subprocess and OSC communication via
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.2.
+          5.1.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -1505,6 +1505,7 @@ subprocess and OSC communication via
     
       <script src="../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/design-tabs.js"></script>
     
   </body>

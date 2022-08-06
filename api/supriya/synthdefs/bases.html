@@ -37,7 +37,7 @@
     
         <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
@@ -1749,11 +1749,11 @@
                   </a>
                 
                 
-  <h1 id="module-supriya.synthdefs.bases"><span id="bases"></span><span id="supriya-synthdefs-bases"></span>bases<a class="headerlink" href="#module-supriya.synthdefs.bases" title="Permalink to this headline">¶</a></h1>
+  <h1 id="module-supriya.synthdefs.bases"><span id="bases"></span><span id="supriya-synthdefs-bases"></span>bases<a class="headerlink" href="#module-supriya.synthdefs.bases" title="Permalink to this heading">¶</a></h1>
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.synthdefs.bases.BinaryOpUGen">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BinaryOpUGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">special_index</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.bases.BinaryOpUGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#supriya.synthdefs.bases.PureUGen" title="supriya.synthdefs.bases.PureUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.PureUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#supriya.synthdefs.bases.PureUGen" title="supriya.synthdefs.bases.PureUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">PureUGen</span></code></a></p>
 <p>A binary operator ugen, created by applying a binary operator to two
 ugens.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">left_operand</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
@@ -1807,7 +1807,7 @@ ugens.</p>
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.synthdefs.bases.MultiOutUGen">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultiOutUGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">special_index</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.bases.MultiOutUGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#supriya.synthdefs.bases.UGen" title="supriya.synthdefs.bases.UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.UGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#supriya.synthdefs.bases.UGen" title="supriya.synthdefs.bases.UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">UGen</span></code></a></p>
 <p>Abstract base class for ugens with multiple outputs.</p>
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.bases.MultiOutUGen.__len__">
@@ -1834,7 +1834,7 @@ ugens.</p>
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.synthdefs.bases.PureMultiOutUGen">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PureMultiOutUGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">special_index</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.bases.PureMultiOutUGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.MultiOutUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#supriya.synthdefs.bases.MultiOutUGen" title="supriya.synthdefs.bases.MultiOutUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutUGen</span></code></a></p>
 <p>Abstract base class for multi-output ugens with no side-effects.</p>
 <p>These ugens may be optimized out of ugen graphs during SynthDef
 compilation.</p>
@@ -1843,7 +1843,7 @@ compilation.</p>
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.bases.PureUGen">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PureUGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">special_index</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.bases.PureUGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#supriya.synthdefs.bases.UGen" title="supriya.synthdefs.bases.UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.UGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#supriya.synthdefs.bases.UGen" title="supriya.synthdefs.bases.UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">UGen</span></code></a></p>
 <p>Abstract base class for ugens with no side-effects.</p>
 <p>These ugens may be optimized out of ugen graphs during SynthDef
 compilation.</p>
@@ -1852,7 +1852,7 @@ compilation.</p>
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.bases.UGen">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">special_index</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.bases.UGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="mixins.html#supriya.synthdefs.mixins.UGenMethodMixin" title="supriya.synthdefs.mixins.UGenMethodMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.mixins.UGenMethodMixin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="mixins.html#supriya.synthdefs.mixins.UGenMethodMixin" title="supriya.synthdefs.mixins.UGenMethodMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">UGenMethodMixin</span></code></a></p>
 <p>A UGen.</p>
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.bases.UGen.__getitem__">
@@ -1976,7 +1976,7 @@ controls.</p>
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.bases.UGenMeta">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UGenMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.bases.UGenMeta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABCMeta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABCMeta</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABCMeta" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABCMeta</span></code></a></p>
 <dl class="py method objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.bases.UGenMeta.compile">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ugen_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.bases.UGenMeta.compile" title="Permalink to this definition">¶</a></dt>
@@ -2007,7 +2007,7 @@ controls.</p>
 <dl class="py class objdesc">
 <dt class="sig sig-object py sig-wrap" id="supriya.synthdefs.bases.UnaryOpUGen">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UnaryOpUGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">special_index</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.bases.UnaryOpUGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#supriya.synthdefs.bases.PureUGen" title="supriya.synthdefs.bases.PureUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.PureUGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#supriya.synthdefs.bases.PureUGen" title="supriya.synthdefs.bases.PureUGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">PureUGen</span></code></a></p>
 <p>A unary operator ugen, created by applying a unary operator to a ugen.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">ugen</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">unary_op_ugen</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
@@ -2051,7 +2051,7 @@ controls.</p>
 <dl class="py class objdesc">
 <dt class="sig sig-object py" id="supriya.synthdefs.bases.WidthFirstUGen">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WidthFirstUGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculation_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">special_index</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.bases.WidthFirstUGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#supriya.synthdefs.bases.UGen" title="supriya.synthdefs.bases.UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">supriya.synthdefs.bases.UGen</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#supriya.synthdefs.bases.UGen" title="supriya.synthdefs.bases.UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">UGen</span></code></a></p>
 <p>Abstract base class for UGens with a width-first sort order.</p>
 </dd></dl>
 
@@ -2128,7 +2128,7 @@ controls.</p>
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.2.
+          5.1.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -2148,6 +2148,7 @@ controls.</p>
     
       <script src="../../../_static/javascripts/bundle.d39155f9.min.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
     
   </body>
