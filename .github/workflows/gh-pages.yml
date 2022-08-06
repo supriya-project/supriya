@@ -1,0 +1,44 @@
+name: Update gh-pages
+
+on: workflow_dispatch
+
+env:
+  SC_ORIGIN: https://github.com/supercollider/supercollider.git
+  SC_BRANCH: develop
+
+jobs:
+  update-gh-pages:
+    name: Update gh-pages
+    needs: [publish]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.10"
+    - name: Install SuperCollider
+      uses: ./.github/actions/supercollider
+      with:
+        branch: ${{ env.SC_BRANCH }}
+        origin: ${{ env.SC_ORIGIN }}
+    - name: Install Supriya
+      run: pip install -e .[docs,ipython,test]
+    - name: Install APT deps
+      shell: bash
+      run: |
+        export DEBIAN_FRONTEND=noninteractive
+        sudo apt-get update --yes
+        sudo apt-get install --yes \
+          espeak \
+          ffmpeg \
+          graphviz \
+          lame
+    - name: Clone gh-pages
+      run: git clone $(shell git config --get remote.origin.url) --branch gh-pages gh-pages/
+    - name: Build docs
+      run: make docs
+    - name: Rsync docs
+      run: rsync -rtv --del --exclude=.git docs/build/html/ gh-pages/
+    - name: Touch .nojekyll
+      run: touch gh-pages/.nojekyll

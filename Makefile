@@ -10,10 +10,10 @@ help: ## This help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-z0-9A-Z_-]+:.*?## / {printf "\033[36m%-30s\033]0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
 black-check: ## Check syntax via black
-	black --skip-magic-trailing-comma --target-version py38 --check --diff ${formatPaths}
+	black --skip-magic-trailing-comma --target-version py310 --check --diff ${formatPaths}
 
 black-reformat: ## Reformat via black
-	black --skip-magic-trailing-comma --target-version py38 ${formatPaths}
+	black --skip-magic-trailing-comma --target-version py310 ${formatPaths}
 
 build: ## Build for distribution
 	python setup.py sdist

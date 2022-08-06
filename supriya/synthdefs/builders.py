@@ -223,14 +223,12 @@ def synthdef(*args: Union[str, Tuple[str, float]]):
                     left: SinOsc.ar[0]
                     right: Control.kr[0:amp]
             -   EnvGen.kr:
+                    gate: Control.kr[2:gate]
+                    level_scale: 1.0
+                    level_bias: 0.0
+                    time_scale: 1.0
                     done_action: 2.0
                     envelope[0]: 0.0
-                    envelope[10]: 5.0
-                    envelope[11]: -4.0
-                    envelope[12]: 0.0
-                    envelope[13]: 1.0
-                    envelope[14]: 5.0
-                    envelope[15]: -4.0
                     envelope[1]: 3.0
                     envelope[2]: 2.0
                     envelope[3]: -99.0
@@ -240,10 +238,12 @@ def synthdef(*args: Union[str, Tuple[str, float]]):
                     envelope[7]: -4.0
                     envelope[8]: 0.5
                     envelope[9]: 0.3
-                    gate: Control.kr[2:gate]
-                    level_bias: 0.0
-                    level_scale: 1.0
-                    time_scale: 1.0
+                    envelope[10]: 5.0
+                    envelope[11]: -4.0
+                    envelope[12]: 0.0
+                    envelope[13]: 1.0
+                    envelope[14]: 5.0
+                    envelope[15]: -4.0
             -   BinaryOpUGen(MULTIPLICATION).ar/1:
                     left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                     right: EnvGen.kr[0]
@@ -278,14 +278,12 @@ def synthdef(*args: Union[str, Tuple[str, float]]):
                     left: SinOsc.ar[0]
                     right: LagControl.kr[0:amp]
             -   EnvGen.kr:
+                    gate: LagControl.kr[1:gate]
+                    level_scale: 1.0
+                    level_bias: 0.0
+                    time_scale: 1.0
                     done_action: 2.0
                     envelope[0]: 0.0
-                    envelope[10]: 5.0
-                    envelope[11]: -4.0
-                    envelope[12]: 0.0
-                    envelope[13]: 1.0
-                    envelope[14]: 5.0
-                    envelope[15]: -4.0
                     envelope[1]: 3.0
                     envelope[2]: 2.0
                     envelope[3]: -99.0
@@ -295,10 +293,12 @@ def synthdef(*args: Union[str, Tuple[str, float]]):
                     envelope[7]: -4.0
                     envelope[8]: 0.5
                     envelope[9]: 0.3
-                    gate: LagControl.kr[1:gate]
-                    level_bias: 0.0
-                    level_scale: 1.0
-                    time_scale: 1.0
+                    envelope[10]: 5.0
+                    envelope[11]: -4.0
+                    envelope[12]: 0.0
+                    envelope[13]: 1.0
+                    envelope[14]: 5.0
+                    envelope[15]: -4.0
             -   BinaryOpUGen(MULTIPLICATION).ar/1:
                     left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                     right: EnvGen.kr[0]

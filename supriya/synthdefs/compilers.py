@@ -179,8 +179,8 @@ class SynthDefDecompiler(SupriyaObject):
             ugens:
             -   TrigControl.kr: null
             -   Decay.kr:
-                    decay_time: 0.5
                     source: TrigControl.kr[0:trigger]
+                    decay_time: 0.5
             -   Control.kr: null
             -   SinOsc.ar:
                     frequency: Control.kr[0:frequency]
@@ -207,8 +207,8 @@ class SynthDefDecompiler(SupriyaObject):
             ugens:
             -   TrigControl.kr: null
             -   Decay.kr:
-                    decay_time: 0.5
                     source: TrigControl.kr[0:trigger]
+                    decay_time: 0.5
             -   Control.kr: null
             -   SinOsc.ar:
                     frequency: Control.kr[0:frequency]

@@ -142,37 +142,37 @@ def test_02_ugens(py_synthdef_02):
                     maximum: 2.0
             -   LocalBuf.ir/0:
                     channel_count: 1.0
-                    frame_count: MaxLocalBufs.ir[0]
+                    frame_count: 2048.0
             -   FFT.kr:
-                    active: 1.0
                     buffer_id: LocalBuf.ir/0[0]
-                    hop: 0.5
                     source: PinkNoise.ar[0]
-                    window_size: 0.0
+                    hop: 0.5
                     window_type: 0.0
+                    active: 1.0
+                    window_size: 0.0
             -   BufFrames.ir:
                     buffer_id: LocalBuf.ir/0[0]
             -   LocalBuf.ir/1:
                     channel_count: 1.0
-                    frame_count: MaxLocalBufs.ir[0]
+                    frame_count: BufFrames.ir[0]
             -   PV_Copy.kr:
                     pv_chain_a: FFT.kr[0]
                     pv_chain_b: LocalBuf.ir/1[0]
             -   PV_BinScramble.kr:
                     pv_chain: PV_Copy.kr[0]
-                    trigger: 0.0
-                    width: 0.2
                     wipe: 0.0
+                    width: 0.2
+                    trigger: 0.0
             -   PV_MagFreeze.kr:
-                    freeze: 0.0
                     pv_chain: FFT.kr[0]
+                    freeze: 0.0
             -   PV_MagMul.kr:
                     pv_chain_a: PV_BinScramble.kr[0]
                     pv_chain_b: PV_MagFreeze.kr[0]
             -   IFFT.ar:
                     pv_chain: PV_MagMul.kr[0]
-                    window_size: 0.0
                     window_type: 0.0
+                    window_size: 0.0
             -   Out.ar:
                     bus: 0.0
                     source[0]: IFFT.ar[0]

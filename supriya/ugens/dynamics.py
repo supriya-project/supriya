@@ -88,17 +88,17 @@ class CompanderD(PseudoUGen):
                     -   In.ar:
                             bus: 0.0
                     -   DelayN.ar:
-                            delay_time: 0.01
+                            source: In.ar[0]
                             maximum_delay_time: 0.01
-                            source: In.ar[0]
+                            delay_time: 0.01
                     -   Compander.ar:
-                            clamp_time: 0.01
-                            control: DelayN.ar[0]
-                            relax_time: 0.1
-                            slope_above: 1.0
-                            slope_below: 1.0
                             source: In.ar[0]
+                            control: DelayN.ar[0]
                             threshold: 0.5
+                            slope_below: 1.0
+                            slope_above: 1.0
+                            clamp_time: 0.01
+                            relax_time: 0.1
 
         Returns ugen graph.
         """

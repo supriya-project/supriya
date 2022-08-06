@@ -654,6 +654,157 @@ class SendPeakRMS(UGen):
         return tuple(self._inputs[start:stop])
 
 
+class SendReply(UGen):
+    """
+    Sends an array of values from the server to all notified clients.
+
+        >>> source = supriya.ugens.In.ar(channel_count=4)
+        >>> trigger = supriya.ugens.Impulse.kr(1)
+        >>> send_peak_rms = supriya.ugens.SendReply.kr(
+        ...     command_name="/reply",
+        ...     source=source,
+        ...     trigger=trigger,
+        ... )
+
+    """
+
+    ### CLASS VARIABLES ###
+
+    _default_channel_count = 0
+    _ordered_input_names = collections.OrderedDict(
+        [("trigger", None), ("reply_id", -1)]
+    )
+    _unexpanded_input_names = ("source",)
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        command_name="/reply",
+        reply_id=-1,
+        trigger=None,
+        source=None,
+    ):
+        UGen.__init__(
+            self, calculation_rate=calculation_rate, reply_id=reply_id, trigger=trigger
+        )
+        self._configure_input("size", len(command_name))
+        for i, character in enumerate(command_name):
+            self._configure_input(("char", i), ord(character))
+        self._configure_input("source", source)
+
+    @classmethod
+    def ar(cls, command_name="/reply", reply_id=-1, source=None, trigger=None):
+        """
+        Constructs an audio-rate SendReply.
+
+        ::
+
+            >>> source = supriya.ugens.In.ar(channel_count=4)
+            >>> trigger = supriya.ugens.Impulse.kr(1)
+            >>> send_reply = supriya.ugens.SendReply.ar(
+            ...     command_name="/reply",
+            ...     source=source,
+            ...     trigger=trigger,
+            ... )
+            >>> send_reply
+            SendReply.ar()
+
+        Returns ugen graph.
+        """
+        calculation_rate = CalculationRate.AUDIO
+        ugen = cls._new_single(
+            calculation_rate=calculation_rate,
+            command_name=command_name,
+            reply_id=reply_id,
+            source=source,
+            trigger=trigger,
+        )
+        return ugen
+
+    @classmethod
+    def kr(cls, command_name="/reply", reply_id=-1, source=None, trigger=None):
+        """
+        Constructs a control-rate SendReply.
+
+        ::
+
+            >>> source = supriya.ugens.In.ar(channel_count=4)
+            >>> trigger = supriya.ugens.Impulse.kr(1)
+            >>> send_reply = supriya.ugens.SendReply.kr(
+            ...     command_name="/reply",
+            ...     source=source,
+            ...     trigger=trigger,
+            ... )
+            >>> send_reply
+            SendReply.kr()
+
+        Returns ugen graph.
+        """
+        calculation_rate = CalculationRate.CONTROL
+        ugen = cls._new_single(
+            calculation_rate=calculation_rate,
+            command_name=command_name,
+            reply_id=reply_id,
+            source=source,
+            trigger=trigger,
+        )
+        return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def command_name(self):
+        """
+        Gets `command_name` input of SendReply.
+
+        ::
+
+            >>> source = supriya.ugens.In.ar(channel_count=4)
+            >>> trigger = supriya.ugens.Impulse.kr(1)
+            >>> send_reply = supriya.ugens.SendReply.ar(
+            ...     command_name="/reply",
+            ...     source=source,
+            ...     trigger=trigger,
+            ... )
+            >>> send_reply.command_name
+            '/reply'
+
+        Returns ugen input.
+        """
+        index = tuple(self._ordered_input_names).index("reply_id") + 1
+        size = int(self._inputs[index])
+        command_name = "".join(
+            [chr(int(_)) for _ in self._inputs[index + 1 : index + 1 + size]]
+        )
+        return command_name
+
+    @property
+    def source(self):
+        """
+        Gets `source` input of SendReply.
+
+        ::
+
+            >>> source = supriya.ugens.In.ar(channel_count=4)
+            >>> trigger = supriya.ugens.Impulse.kr(1)
+            >>> send_reply = supriya.ugens.SendReply.ar(
+            ...     command_name="/reply",
+            ...     source=source,
+            ...     trigger=trigger,
+            ... )
+            >>> send_reply.source
+            (In.ar()[0], In.ar()[1], In.ar()[2], In.ar()[3])
+
+        Returns ugen input.
+        """
+        index = tuple(self._ordered_input_names).index("reply_id") + 1
+        size = int(self._inputs[index])
+        return tuple(self._inputs[index + 1 + size :])
+
+
 class SendTrig(UGen):
     _ordered_input_names = collections.OrderedDict(
         [("trigger", None), ("id_", 0), ("value", 0)]

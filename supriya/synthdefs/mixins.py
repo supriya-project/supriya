@@ -2196,9 +2196,9 @@ class UGenMethodMixin(SupriyaObject):
                     ugens:
                     -   WhiteNoise.ar: null
                     -   Clip.ar:
-                            maximum: 0.25
-                            minimum: -0.25
                             source: WhiteNoise.ar[0]
+                            minimum: -0.25
+                            maximum: 0.25
 
         ..  container:: example
 
@@ -2225,23 +2225,23 @@ class UGenMethodMixin(SupriyaObject):
                             frequency: 440.0
                             phase: 0.0
                     -   Clip.ar/0:
-                            maximum: 0.25
-                            minimum: -0.25
                             source: SinOsc.ar/0[0]
+                            minimum: -0.25
+                            maximum: 0.25
                     -   SinOsc.ar/1:
                             frequency: 442.0
                             phase: 0.0
                     -   Clip.ar/1:
-                            maximum: 0.25
-                            minimum: -0.25
                             source: SinOsc.ar/1[0]
+                            minimum: -0.25
+                            maximum: 0.25
                     -   SinOsc.ar/2:
                             frequency: 443.0
                             phase: 0.0
                     -   Clip.ar/2:
-                            maximum: 0.25
-                            minimum: -0.25
                             source: SinOsc.ar/2[0]
+                            minimum: -0.25
+                            maximum: 0.25
 
         """
         import supriya.ugens
@@ -2545,8 +2545,8 @@ class UGenMethodMixin(SupriyaObject):
                     ugens:
                     -   WhiteNoise.ar: null
                     -   Lag.ar:
-                            lag_time: 0.5
                             source: WhiteNoise.ar[0]
+                            lag_time: 0.5
 
         ..  container:: example
 
@@ -2571,20 +2571,20 @@ class UGenMethodMixin(SupriyaObject):
                             frequency: 440.0
                             phase: 0.0
                     -   Lag.ar/0:
-                            lag_time: 0.5
                             source: SinOsc.ar/0[0]
+                            lag_time: 0.5
                     -   SinOsc.ar/1:
                             frequency: 442.0
                             phase: 0.0
                     -   Lag.ar/1:
-                            lag_time: 0.5
                             source: SinOsc.ar/1[0]
+                            lag_time: 0.5
                     -   SinOsc.ar/2:
                             frequency: 443.0
                             phase: 0.0
                     -   Lag.ar/2:
-                            lag_time: 0.5
                             source: SinOsc.ar/2[0]
+                            lag_time: 0.5
 
         """
         import supriya.ugens
@@ -2947,9 +2947,9 @@ class UGenMethodMixin(SupriyaObject):
                     ugens:
                     -   WhiteNoise.ar: null
                     -   MulAdd.ar:
-                            addend: 0.625
-                            multiplier: 0.125
                             source: WhiteNoise.ar[0]
+                            multiplier: 0.125
+                            addend: 0.625
 
         ..  container:: example
 
@@ -2974,29 +2974,29 @@ class UGenMethodMixin(SupriyaObject):
                             frequency: 440.0
                             phase: 0.0
                     -   LinExp.ar/0:
-                            input_maximum: 1.0
-                            input_minimum: -1.0
-                            output_maximum: 0.75
-                            output_minimum: 0.5
                             source: SinOsc.ar/0[0]
+                            input_minimum: -1.0
+                            input_maximum: 1.0
+                            output_minimum: 0.5
+                            output_maximum: 0.75
                     -   SinOsc.ar/1:
                             frequency: 442.0
                             phase: 0.0
                     -   LinExp.ar/1:
-                            input_maximum: 1.0
-                            input_minimum: -1.0
-                            output_maximum: 0.75
-                            output_minimum: 0.5
                             source: SinOsc.ar/1[0]
+                            input_minimum: -1.0
+                            input_maximum: 1.0
+                            output_minimum: 0.5
+                            output_maximum: 0.75
                     -   SinOsc.ar/2:
                             frequency: 443.0
                             phase: 0.0
                     -   LinExp.ar/2:
-                            input_maximum: 1.0
-                            input_minimum: -1.0
-                            output_maximum: 0.75
-                            output_minimum: 0.5
                             source: SinOsc.ar/2[0]
+                            input_minimum: -1.0
+                            input_maximum: 1.0
+                            output_minimum: 0.5
+                            output_maximum: 0.75
 
         """
         import supriya.ugens
@@ -3145,8 +3145,8 @@ class UGenMethodMixin(SupriyaObject):
                             phase: 0.0
                     -   Sum3.ar:
                             input_one: SinOsc.ar/0[0]
-                            input_three: SinOsc.ar/2[0]
                             input_two: SinOsc.ar/1[0]
+                            input_three: SinOsc.ar/2[0]
 
         Returns ugen graph.
         """
