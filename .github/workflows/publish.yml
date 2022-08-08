@@ -49,7 +49,7 @@ jobs:
 
   update-gh-pages:
     name: Update gh-pages
-    needs: [publish]
+    needs: [upload-to-pypi]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
