@@ -1,3 +1,4 @@
+# cython: language_level=3
 # distutils: language = c++
 
 from .shm cimport server_shared_memory_client

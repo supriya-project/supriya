@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -53,13 +53,13 @@ jobs:
         pip install -e .[docs,ipython]
     - name: Build docs
       run: make docs
-
+  
   lint:
     name: Lint Supriya
     needs: [cancel]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -81,33 +81,17 @@ jobs:
         make mypy
 
   package:
-    name: Check packaging
+    name: Build wheels on ${{ matrix.os }}
     needs: [cancel]
-    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, windows-2019, macos-11]
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: "3.10"
-    - name: Build package
-      run: make build
-    - name: Expand package
-      run: |
-        cd dist/
-        tar xvf *.gz
-        rm *.gz
-        mv supriya* supriya
-    - name: Install packaged supriya
-      run: |
-        cd dist/supriya
-        pip install .
-    - name: Wipe out dirs
-      run: rm -R *
-    - name: Sanity-check Supriya
-      run: |
-        python -c "from supriya import Server; print(Server)"
-        python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
+    - uses: actions/checkout@v3
+    - name: Build wheels
+      uses: pypa/cibuildwheel@v2.8.1
 
   test:
     name: Test Supriya
@@ -125,7 +109,7 @@ jobs:
         #   python-version: 3.9
     timeout-minutes: 45
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:

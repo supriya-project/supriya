@@ -4,14 +4,6 @@ import pathlib
 
 import platformdirs
 
-try:
-    import pyximport
-
-    pyximport.install(language_level=3)
-    del pyximport
-except ImportError:
-    pass
-
 output_path = pathlib.Path(platformdirs.user_cache_dir("supriya", "supriya"))
 if not output_path.exists():
     try:

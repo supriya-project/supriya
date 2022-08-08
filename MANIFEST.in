@@ -1,20 +1,21 @@
 global-exclude *.pyc
 
+include .flake8
+include CODE_OF_CONDUCT.md
 include LICENSE
 include MANIFEST.in
+include Makefile
 include README.md
-include setup.cfg
+include conftest.py
+include pyproject.toml
 include setup.py
 
-exclude conftest.py
+recursive-include docs *
+recursive-include supriya *.py
+recursive-include supriya *.pxd
+recursive-include supriya *.pyx
+recursive-include supriya/assets *
+recursive-include tests *
+recursive-include vendor *
 
-recursive-include supriya/ *.py
-recursive-include supriya/ *.pxd
-recursive-include supriya/ *.pyx
-recursive-include supriya/assets/ *
-recursive-include vendor/ *
-
-recursive-exclude dev/ *
-recursive-exclude dist/ *
-recursive-exclude docs/ *
-recursive-exclude tests/ *
+recursive-exclude docs/build *

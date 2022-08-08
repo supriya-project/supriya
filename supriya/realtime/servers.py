@@ -36,11 +36,6 @@ from .nodes import Group, Node, RootNode, Synth
 from .protocols import AsyncProcessProtocol, SyncProcessProtocol
 from .recorder import Recorder
 
-try:
-    from .shm import ServerSHM
-except (ImportError, ModuleNotFoundError):
-    ServerSHM = None
-
 logger = logging.getLogger("supriya.server")
 
 DEFAULT_IP_ADDRESS = "127.0.0.1"
@@ -135,9 +130,12 @@ class BaseServer:
         )
 
     def _setup_shm(self):
-        if ServerSHM is None:
-            return
-        self._shm = ServerSHM(self.port, self.options.control_bus_channel_count)
+        try:
+            from .shm import ServerSHM
+
+            self._shm = ServerSHM(self.port, self.options.control_bus_channel_count)
+        except (ImportError, ModuleNotFoundError):
+            pass
 
     def _teardown_allocators(self):
         self._audio_bus_allocator = None

@@ -1,3 +1,5 @@
+# cython: language_level=3
+
 from supriya.intervals.Moment import Moment
 from supriya.system import SupriyaObject
 

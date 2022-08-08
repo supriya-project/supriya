@@ -8,23 +8,44 @@ env:
   SC_BRANCH: develop
 
 jobs:
-  publish:
-    name: Publish release to PyPI
+  build-wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, windows-2019, macos-11]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build wheels
+      uses: pypa/cibuildwheel@v2.8.1
+    - uses: actions/upload-artifact@v3
+      with:
+        path: ./wheelhouse/*.whl
+
+  build-sdist:
+    name: Build source distribution
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - uses: actions/checkout@v3
+    - name: Build sdist
+      run: pipx run build --sdist
+    - uses: actions/upload-artifact@v3
       with:
-        python-version: "3.10"
-    - name: Install pypa/build
-      run: python -m pip install build --user
-    - name: Build a binary wheel and a source tarball
-      run: python -m build --sdist --outdir dist/
-    - name: Publish to PyPI
-      if: startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@release/v1
+        path: dist/*.tar.gz
+
+  upload-to-pypi:
+    name: Publish release to PyPI
+    needs: [build-wheels, build-sdist]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v3
       with:
+        name: artifact
+        path: dist
+    - uses: pypa/gh-action-pypi-publish@v1.5.0
+      with:
+        user: __token__
+        password: ${{ secrets.pypi_password }}
         password: ${{ secrets.PYPI_API_TOKEN }}
 
   update-gh-pages:
@@ -32,7 +53,7 @@ jobs:
     needs: [publish]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v2
       with:

@@ -1,0 +1,128 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["Cython", "setuptools>=40.6.0", "wheel"]
+
+[project]
+authors = [
+  {name = "Josiah Wolf Oberholtzer", email = "josiah.oberholtzer@gmail.com"}
+]
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Operating System :: MacOS",
+  "Operating System :: POSIX",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Artistic Software",
+  "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
+]
+dependencies = [
+  "Cython >= 0.29.0",
+  "PyYAML >= 5.4.0",
+  "platformdirs >= 2.4.0",
+  "tqdm >= 4.59.0",
+  "uqbar >= 0.5.7",
+  'typing-extensions; python_version<"3.8"',
+]
+description = "A Python API for SuperCollider"
+dynamic = ["version"]
+keywords = ["audio", "dsp", "music composition", "scsynth", "supercollider", "synthesis"]
+license = {text = "MIT"}
+name = "supriya"
+readme = "README.md"
+requires-python = ">=3.7"
+
+[project.optional-dependencies]
+docs = [
+  "jinja2 < 3.1.0",  # sphinx-immaterial imports Markup from jinja2, not markupsafe
+  "librosa",
+  "matplotlib >= 3.3.0",
+  "sphinx-design",
+  "sphinx-immaterial",
+  "sphinx-immaterial @ git+https://git@github.com/josiah-wolf-oberholtzer/sphinx-immaterial@main#egg=sphinx-immaterial",
+  "sphinxext-opengraph",
+]
+ipython = [
+  "jupyter",
+  "jupyter_contrib_nbextensions",
+  "jupyter_nbextensions_configurator",
+  "rise",
+]
+test = [
+  "black",
+  "flake8 >= 5.0.0",
+  "isort >= 5.10.0",
+  "librosa >= 0.9.0",
+  "matplotlib >= 3.3.0",
+  "mypy >= 0.971",
+  "pytest >= 7.0.0",
+  "pytest-asyncio >= 0.19.0",
+  "pytest-cov",
+  "pytest-helpers-namespace",
+  "pytest-mock",
+  "pytest-rerunfailures",
+  "pytest-timeout",
+  "types-PyYAML",
+  "types-docutils",
+]
+
+[project.urls]
+homepage = "https://github.com/josiah-wolf-oberholtzer/supriya"
+documentation = "https://josiahwolfoberholtzer.com/supriya"
+repository = "https://github.com/josiah-wolf-oberholtzer/supriya"
+
+[tool.black]
+skip-magic-trailing-comma = true
+target-version = ["py310"]
+
+[tool.cibuildwheel]
+build = "cp38-* cp39-* cp310-*"
+test-command = [
+  "python -c 'from supriya.realtime import shm; print(shm.__file__)'",
+  "python -c 'from supriya.intervals import IntervalTreeDriverEx'",
+]
+
+[tool.cibuildwheel.windows]
+test-command = [
+  # Can't get ServerSHM to build on Windows due to date_time library requirement.
+  # Only double-quotes work on Windows.
+  'python -c "from supriya.intervals import IntervalTreeDriverEx"',
+]
+
+[tool.isort]
+case_sensitive = true
+known_third_party = ["uqbar", "yaml"]
+profile = "black"
+skip = "supriya/__init__.py"
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = [
+  "--cov=supriya",
+  "--cov-branch",
+  "--cov-report=html",
+  "--cov-report=term",
+  "--doctest-modules",
+  "--durations=20",
+  "-rf",
+  "-vv",
+]
+doctest_optionflags = [
+  "ELLIPSIS"
+]
+log_format = "%(asctime)s.%(msecs)03d %(name)s %(levelname)s %(message)s"
+log_date_format = "%Y-%m-%d %H:%M:%S"
+markers = [
+  "sphinx: mark a test as a Sphinx test."
+]
+testpaths = [
+  "tests",
+  "supriya",
+]
+timeout = 60
