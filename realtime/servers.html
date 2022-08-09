@@ -9,7 +9,6 @@
       
       
       
-      
       <link rel="icon" href="../_static/favicon.ico">
     
     
@@ -18,30 +17,28 @@
       
     
     
-      <link rel="stylesheet" href="../_static/stylesheets/main.91c34c39.min.css">
+      <link rel="stylesheet" href="../_static/stylesheets/main.a280224b.min.css">
       
         
-        <link rel="stylesheet" href="../_static/stylesheets/palette.89291e57.min.css">
+        <link rel="stylesheet" href="../_static/stylesheets/palette.92c9fe4a.min.css">
         
       
     
     
     
       
+        
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-    
-        <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -58,9 +55,8 @@
     <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime">
   
     
-    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
-      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -68,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="" class="md-skip">
+        <a href="#lifecycle" class="md-skip">
           Skip to content
         </a>
       
@@ -77,13 +73,16 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+    
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../index.html" title="Supriya" class="md-header__button md-logo" aria-label="Supriya" data-md-component="logo">
       <img src="../_static/icon.svg" alt="logo">
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -109,7 +108,7 @@
           <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
             </label>
           
         
@@ -118,7 +117,7 @@
           <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
             </label>
           
         
@@ -127,22 +126,21 @@
     
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
         <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
       
@@ -162,11 +160,10 @@
     
     
       <div class="md-header__source">
-        
-<a href="https://github.com/josiah-wolf-oberholtzer/supriya/" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/josiah-wolf-oberholtzer/supriya/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     supriya
@@ -175,6 +172,7 @@
       </div>
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
@@ -184,6 +182,7 @@
       
         
           
+            
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
@@ -193,15 +192,11 @@
   
 
 
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../installation.html" class="md-tabs__link">
-        Getting Started
-      </a>
-    </li>
-  
+  <li class="md-tabs__item">
+    <a href="../installation.html" class="md-tabs__link">
+      <span class="md-ellipsis">Getting Started</span>
+    </a>
+  </li>
 
       
         
@@ -211,22 +206,11 @@
   
 
 
-  
-  
-  
-    
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="" class="md-tabs__link md-tabs__link--active">
-        Tutorials
-      </a>
-    </li>
-  
-
-  
+  <li class="md-tabs__item">
+    <a href="index.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">Tutorials</span>
+    </a>
+  </li>
 
       
         
@@ -234,15 +218,11 @@
   
 
 
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../guides/controllers.html" class="md-tabs__link">
-        How-to Guides
-      </a>
-    </li>
-  
+  <li class="md-tabs__item">
+    <a href="../guides/controllers.html" class="md-tabs__link">
+      <span class="md-ellipsis">How-<wbr>to Guides</span>
+    </a>
+  </li>
 
       
         
@@ -250,15 +230,11 @@
   
 
 
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../api/supriya/index.html" class="md-tabs__link">
-        API Reference
-      </a>
-    </li>
-  
+  <li class="md-tabs__item">
+    <a href="../api/supriya/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">API Reference</span>
+    </a>
+  </li>
 
       
         
@@ -266,15 +242,11 @@
   
 
 
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../internals/cicd.html" class="md-tabs__link">
-        Internals
-      </a>
-    </li>
-  
+  <li class="md-tabs__item">
+    <a href="../internals/cicd.html" class="md-tabs__link">
+      <span class="md-ellipsis">Internals</span>
+    </a>
+  </li>
 
       
         
@@ -282,20 +254,17 @@
   
 
 
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../glossary.html" class="md-tabs__link">
-        Appendix
-      </a>
-    </li>
-  
+  <li class="md-tabs__item">
+    <a href="../glossary.html" class="md-tabs__link">
+      <span class="md-ellipsis">Appendix</span>
+    </a>
+  </li>
 
       
     </ul>
   </div>
 </nav>
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -320,11 +289,10 @@
   </label>
   
     <div class="md-nav__source">
-      
-<a href="https://github.com/josiah-wolf-oberholtzer/supriya/" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/josiah-wolf-oberholtzer/supriya/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     supriya
@@ -347,44 +315,54 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" data-md-state="indeterminate" type="checkbox" id="__nav_1" checked>
       
-      <label class="md-nav__link" for="__nav_1">
-        <a class="" href="../installation.html">Getting Started</a>
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">Getting Started</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
         <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
-          Getting Started
+          <span class="md-ellipsis">Getting Started</span>
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../installation.html" class="md-nav__link">
-        Installation
+        <span class="md-ellipsis">Installation</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../concepts.html" class="md-nav__link">
-        Core concepts
+        <span class="md-ellipsis">Core concepts</span>
       </a>
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
+  
   
 
     
@@ -403,18 +381,22 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
-      <label class="md-nav__link" for="__nav_2">
-        <a class="" href="index.html">Tutorials</a>
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">Tutorials</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
-          Tutorials
+          <span class="md-ellipsis">Tutorials</span>
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
   
   
     
@@ -426,50 +408,65 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
       
-      <label class="md-nav__link" for="__nav_2_1">
-        <a class="" href="index.html">Realtime</a>
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="index.html"><span class="md-ellipsis">Realtime</span></a>
+          
+            <label for="__nav_2_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
       <nav class="md-nav" aria-label="Realtime" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_1">
           <span class="md-nav__icon md-icon"></span>
-          Realtime
+          <span class="md-ellipsis">Realtime</span>
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
   
+  
+    
   
     
   
   
     <li class="md-nav__item md-nav__item--active">
       
+      
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Servers
+          <span class="md-ellipsis">Servers</span>
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="" class="md-nav__link md-nav__link--active">
-        Servers
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Servers</span>
       </a>
       
         
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Servers
-      
+      Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#lifecycle" class="md-nav__link">
-    Lifecycle
+    <span class="md-ellipsis">Lifecycle</span>
   </a>
   
     <nav class="md-nav" aria-label="Lifecycle">
@@ -477,14 +474,14 @@
         
           <li class="md-nav__item">
   <a href="#boot-options" class="md-nav__link">
-    Boot options
+    <span class="md-ellipsis">Boot options</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#multiple-clients" class="md-nav__link">
-    Multiple clients
+    <span class="md-ellipsis">Multiple clients</span>
   </a>
   
 </li>
@@ -496,14 +493,14 @@
       
         <li class="md-nav__item">
   <a href="#inspection" class="md-nav__link">
-    Inspection
+    <span class="md-ellipsis">Inspection</span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#interaction" class="md-nav__link">
-    Interaction
+    <span class="md-ellipsis">Interaction</span>
   </a>
   
     <nav class="md-nav" aria-label="Interaction">
@@ -511,7 +508,7 @@
         
           <li class="md-nav__item">
   <a href="#resetting" class="md-nav__link">
-    Resetting
+    <span class="md-ellipsis">Resetting</span>
   </a>
   
 </li>
@@ -523,7 +520,7 @@
       
         <li class="md-nav__item">
   <a href="#lower-level-apis" class="md-nav__link">
-    Lower level APIs
+    <span class="md-ellipsis">Lower level APIs</span>
   </a>
   
 </li>
@@ -535,136 +532,170 @@
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="nodes.html" class="md-nav__link">
-        Nodes
+        <span class="md-ellipsis">Nodes</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="buses.html" class="md-nav__link">
-        Buses
+        <span class="md-ellipsis">Buses</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="buffers.html" class="md-nav__link">
-        Buffers
+        <span class="md-ellipsis">Buffers</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="async.html" class="md-nav__link">
-        Async
+        <span class="md-ellipsis">Async</span>
       </a>
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
   
+  
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../nonrealtime/index.html" class="md-nav__link">
-        Non-realtime
+        <span class="md-ellipsis">Non-<wbr>realtime</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../osc.html" class="md-nav__link">
-        Open Sound Control
+        <span class="md-ellipsis">Open Sound Control</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../synthdefs/index.html" class="md-nav__link">
-        Synth Definitions
+        <span class="md-ellipsis">Synth Definitions</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../providers.html" class="md-nav__link">
-        Providers
+        <span class="md-ellipsis">Providers</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../clocks.html" class="md-nav__link">
-        Clocks
+        <span class="md-ellipsis">Clocks</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../patterns.html" class="md-nav__link">
-        Patterns
+        <span class="md-ellipsis">Patterns</span>
       </a>
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
+  
   
 
     
@@ -681,80 +712,99 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
       
-      <label class="md-nav__link" for="__nav_3">
-        <a class="" href="../guides/controllers.html">How-to Guides</a>
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">How-<wbr>to Guides</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="How-to Guides" data-md-level="1">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          How-to Guides
+          <span class="md-ellipsis">How-<wbr>to Guides</span>
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../guides/controllers.html" class="md-nav__link">
-        Controllers
+        <span class="md-ellipsis">Controllers</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../guides/dynamics.html" class="md-nav__link">
-        Dynamics
+        <span class="md-ellipsis">Dynamics</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../guides/offline-analysis.html" class="md-nav__link">
-        Offline Analysis
+        <span class="md-ellipsis">Offline Analysis</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../guides/routing.html" class="md-nav__link">
-        Routing
+        <span class="md-ellipsis">Routing</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../guides/samplers.html" class="md-nav__link">
-        Samplers
+        <span class="md-ellipsis">Samplers</span>
       </a>
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
+  
   
 
     
@@ -771,32 +821,39 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
       
-      <label class="md-nav__link" for="__nav_4">
-        <a class="" href="../api/supriya/index.html">API Reference</a>
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">API Reference</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="API Reference" data-md-level="1">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
-          API Reference
+          <span class="md-ellipsis">API Reference</span>
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../api/supriya/index.html" class="md-nav__link">
-        supriya
+        <span class="md-ellipsis">supriya</span>
       </a>
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
+  
   
 
     
@@ -813,68 +870,84 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
       
-      <label class="md-nav__link" for="__nav_5">
-        <a class="" href="../internals/cicd.html">Internals</a>
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          <span class="md-ellipsis">Internals</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Internals" data-md-level="1">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
-          Internals
+          <span class="md-ellipsis">Internals</span>
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../internals/cicd.html" class="md-nav__link">
-        CICD
+        <span class="md-ellipsis">CICD</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../internals/graphviz.html" class="md-nav__link">
-        Graphviz
+        <span class="md-ellipsis">Graphviz</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../internals/ipython.html" class="md-nav__link">
-        IPython
+        <span class="md-ellipsis">IPython</span>
       </a>
     </li>
   
 
+            
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../internals/sphinx.html" class="md-nav__link">
-        Sphinx
+        <span class="md-ellipsis">Sphinx</span>
       </a>
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
+  
   
 
     
@@ -891,32 +964,39 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" data-md-state="indeterminate" type="checkbox" id="__nav_6" checked>
       
-      <label class="md-nav__link" for="__nav_6">
-        <a class="" href="../glossary.html">Appendix</a>
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Appendix</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Appendix" data-md-level="1">
         <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
-          Appendix
+          <span class="md-ellipsis">Appendix</span>
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
+  
   
   
   
     <li class="md-nav__item">
       <a href="../glossary.html" class="md-nav__link">
-        Glossary
+        <span class="md-ellipsis">Glossary</span>
       </a>
     </li>
   
 
+            
           
         </ul>
       </nav>
     </li>
+  
   
 
     
@@ -932,19 +1012,20 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+
+<nav class="md-nav md-nav--secondary">
+  
   
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Servers
-      
+      Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#lifecycle" class="md-nav__link">
-    Lifecycle
+    <span class="md-ellipsis">Lifecycle</span>
   </a>
   
     <nav class="md-nav" aria-label="Lifecycle">
@@ -952,14 +1033,14 @@
         
           <li class="md-nav__item">
   <a href="#boot-options" class="md-nav__link">
-    Boot options
+    <span class="md-ellipsis">Boot options</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#multiple-clients" class="md-nav__link">
-    Multiple clients
+    <span class="md-ellipsis">Multiple clients</span>
   </a>
   
 </li>
@@ -971,14 +1052,14 @@
       
         <li class="md-nav__item">
   <a href="#inspection" class="md-nav__link">
-    Inspection
+    <span class="md-ellipsis">Inspection</span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#interaction" class="md-nav__link">
-    Interaction
+    <span class="md-ellipsis">Interaction</span>
   </a>
   
     <nav class="md-nav" aria-label="Interaction">
@@ -986,7 +1067,7 @@
         
           <li class="md-nav__item">
   <a href="#resetting" class="md-nav__link">
-    Resetting
+    <span class="md-ellipsis">Resetting</span>
   </a>
   
 </li>
@@ -998,7 +1079,7 @@
       
         <li class="md-nav__item">
   <a href="#lower-level-apis" class="md-nav__link">
-    Lower level APIs
+    <span class="md-ellipsis">Lower level APIs</span>
   </a>
   
 </li>
@@ -1013,15 +1094,15 @@
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset" role="main">
-              
                 
-                  <a href="https://github.com/josiah-wolf-oberholtzer/supriya/blob/main/docs/realtime/servers.rst" title="Edit this page" class="md-content__button md-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
-                  </a>
-                
-                
+  <a href="https://github.com/josiah-wolf-oberholtzer/supriya/blob/main/docs/realtime/servers.rst" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
   <h1 id="servers">Servers<a class="headerlink" href="#servers" title="Permalink to this heading">¶</a></h1>
-<p>Supriya’s <a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server" title="supriya.realtime.servers.Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> provides a handle to a
+<p>Supriya’s <a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server" title="supriya.realtime.servers.Server (Python class) — Bases: BaseServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> provides a handle to a
 <code class="docutils literal notranslate"><span class="pre">scsynth</span></code> process, allowing you to control the process’s lifecycle, interact
 with the entities it governs, and query its state.</p>
 <h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permalink to this heading">¶</a></h2>
@@ -1045,9 +1126,9 @@ with the entities it governs, and query its state.</p>
 </code></pre></div>
 </div>
 <p>Booting without any additional options will use default settings for the
-<a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a> server process, e.g. listening on the IP address <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code>
+<a class="reference internal" href="../glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a> server process, e.g. listening on the IP address <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code>
 and port <code class="docutils literal notranslate"><span class="pre">57110</span></code>, and will automatically attempt to detect the location of the
-<a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a> binary via <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.find" title="supriya.scsynth.find"><code class="xref py py-func docutils literal notranslate"><span class="pre">supriya.scsynth.find()</span></code></a>.</p>
+<a class="reference internal" href="../glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a> binary via <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.find" title="supriya.scsynth.find (Python function) — Find the scsynth executable."><code class="xref py py-func docutils literal notranslate"><span class="pre">supriya.scsynth.find()</span></code></a>.</p>
 <p>You can override the IP address or port via keyword arguments:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">ip_address</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">56666</span><span class="p">)</span>
 <span class="go">&lt;Server: udp://0.0.0.0:56666, 8i8o&gt;</span>
@@ -1068,17 +1149,17 @@ will result in an error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1035</span>, in <span class="n">boot</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1033</span>, in <span class="n">boot</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_process_protocol</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">,</span> <span class="n">scsynth_path</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/protocols.py&quot;</span>, line <span class="m">55</span>, in <span class="n">boot</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ServerCannotBoot</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 <span class="gr">supriya.exceptions.ServerCannotBoot</span>: <span class="n">*** ERROR: failed to open UDP socket: address in use.</span>
 </code></pre></div>
 </div>
-<p>Use <a class="reference internal" href="../api/supriya/osc/utils.html#supriya.osc.utils.find_free_port" title="supriya.osc.utils.find_free_port"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code></a> to grab a random unused port to
+<p>Use <a class="reference internal" href="../api/supriya/osc/utils.html#supriya.osc.utils.find_free_port" title="supriya.osc.utils.find_free_port (Python function)"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code></a> to grab a random unused port to
 successfully boot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">())</span>
-<span class="go">&lt;Server: udp://127.0.0.1:45344, 8i8o&gt;</span>
+<span class="go">&lt;Server: udp://127.0.0.1:41706, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 </div>
@@ -1093,8 +1174,8 @@ successfully boot:</p>
 </code></pre></div>
 </div>
 <h3 id="boot-options">Boot options<a class="headerlink" href="#boot-options" title="Permalink to this heading">¶</a></h3>
-<p><a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a> can be booted with a wide variety of command-line arguments,
-which Supriya models via an <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.Options" title="supriya.scsynth.Options"><code class="xref py py-class docutils literal notranslate"><span class="pre">Options</span></code></a> class:</p>
+<p><a class="reference internal" href="../glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a> can be booted with a wide variety of command-line arguments,
+which Supriya models via an <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.Options" title="supriya.scsynth.Options (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Options</span></code></a> class:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">Options</span><span class="p">()</span>
 <span class="go">Options(</span>
 <span class="go">    audio_bus_channel_count=1024,</span>
@@ -1129,14 +1210,14 @@ which Supriya models via an <a class="reference internal" href="../api/supriya/s
 <span class="go">)</span>
 </code></pre></div>
 </div>
-<p>Pass any of the named options found in <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.Options" title="supriya.scsynth.Options"><code class="xref py py-class docutils literal notranslate"><span class="pre">Options</span></code></a> as
+<p>Pass any of the named options found in <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.Options" title="supriya.scsynth.Options (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Options</span></code></a> as
 keyword arguments when booting:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">input_bus_channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">output_bus_channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">&lt;Server: udp://127.0.0.1:57110, 2i2o&gt;</span>
 </code></pre></div>
 </div>
 <h3 id="multiple-clients">Multiple clients<a class="headerlink" href="#multiple-clients" title="Permalink to this heading">¶</a></h3>
-<p><a class="reference internal" href="../glossary.html#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a> support multiple users interacting with a single server
+<p><a class="reference internal" href="../glossary.html#term-SuperCollider" title="SuperCollider (glossary term)"><span class="xref std std-term">SuperCollider</span></a> support multiple users interacting with a single server
 simultaneously. One user boots the server and governs the underlying server
 process, and the remaining users simply connect to it.</p>
 <p>Make sure that the server is booting with <code class="docutils literal notranslate"><span class="pre">maximum_logins</span></code> set to the max
@@ -1183,7 +1264,7 @@ server will error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1071</span>, in <span class="n">quit</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1069</span>, in <span class="n">quit</span>
     <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">UnownedServerShutdown</span><span class="p">(</span>
 <span class="gr">supriya.exceptions.UnownedServerShutdown</span>: <span class="n">Cannot quit unowned server without force flag.</span>
 </code></pre></div>
@@ -1196,7 +1277,7 @@ server will error:</p>
 <p>Disconnecting won’t terminate the server. It continues to run from wherever
 <code class="docutils literal notranslate"><span class="pre">server_one</span></code> was originally booted.</p>
 <h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server" title="supriya.realtime.servers.Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> provides a number of methods and
+<p><a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server" title="supriya.realtime.servers.Server (Python class) — Bases: BaseServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> provides a number of methods and
 properties for inspecting its state.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </code></pre></div>
@@ -1204,10 +1285,10 @@ properties for inspecting its state.</p>
 <p>Inspect the “status” of audio processing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
 <span class="go">StatusResponse(</span>
-<span class="go">    actual_sample_rate=44104.777071502656,</span>
-<span class="go">    average_cpu_usage=0.10338599979877472,</span>
+<span class="go">    actual_sample_rate=44105.34321560694,</span>
+<span class="go">    average_cpu_usage=0.09197988361120224,</span>
 <span class="go">    group_count=2,</span>
-<span class="go">    peak_cpu_usage=0.5441368222236633,</span>
+<span class="go">    peak_cpu_usage=0.48410463333129883,</span>
 <span class="go">    synth_count=0,</span>
 <span class="go">    synthdef_count=0,</span>
 <span class="go">    target_sample_rate=44100.0,</span>
@@ -1217,7 +1298,7 @@ properties for inspecting its state.</p>
 </div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>Server status is a great way of tracking <a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a>’s CPU usage.</p>
+<p>Server status is a great way of tracking <a class="reference internal" href="../glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a>’s CPU usage.</p>
 </div>
 <p>Let’s add a synth - explained <a class="reference internal" href="nodes.html"><span class="doc">soon</span></a> - to increase the
 complexity of the status output:</p>
@@ -1226,10 +1307,10 @@ complexity of the status output:</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
 <span class="go">StatusResponse(</span>
-<span class="go">    actual_sample_rate=44104.89029916077,</span>
-<span class="go">    average_cpu_usage=0.43210387229919434,</span>
+<span class="go">    actual_sample_rate=44105.34321560694,</span>
+<span class="go">    average_cpu_usage=0.38443177938461304,</span>
 <span class="go">    group_count=2,</span>
-<span class="go">    peak_cpu_usage=0.5441368222236633,</span>
+<span class="go">    peak_cpu_usage=0.48410463333129883,</span>
 <span class="go">    synth_count=1,</span>
 <span class="go">    synthdef_count=33,</span>
 <span class="go">    target_sample_rate=44100.0,</span>
@@ -1240,9 +1321,9 @@ complexity of the status output:</p>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">synth_count</span></code>, <code class="docutils literal notranslate"><span class="pre">synthdef_count</span></code> and <code class="docutils literal notranslate"><span class="pre">ugen_count</span></code> have gone up
 after adding the synth to our server.  We’ll discuss these concepts in
 following sections.</p>
-<p>Querying the node tree with <a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server.query" title="supriya.realtime.servers.Server.query"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a>
+<p>Querying the node tree with <a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server.query" title="supriya.realtime.servers.Server.query (Python method)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a>
 will return a “query tree” representation, which you can print to generate
-output similar to <a class="reference internal" href="../glossary.html#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a>’s <code class="docutils literal notranslate"><span class="pre">s.queryAllNodes</span></code> server method:</p>
+output similar to <a class="reference internal" href="../glossary.html#term-SuperCollider" title="SuperCollider (glossary term)"><span class="xref std std-term">SuperCollider</span></a>’s <code class="docutils literal notranslate"><span class="pre">s.queryAllNodes</span></code> server method:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 <span class="go">QueryTreeGroup(</span>
 <span class="go">    children=(</span>
@@ -1289,7 +1370,7 @@ output similar to <a class="reference internal" href="../glossary.html#term-Supe
 <span class="go">            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5</span>
 </code></pre></div>
 </div>
-<p>Access the server’s <a class="reference internal" href="../glossary.html#term-root-node"><span class="xref std std-term">root node</span></a> and <a class="reference internal" href="../glossary.html#term-default-group"><span class="xref std std-term">default group</span></a>:</p>
+<p>Access the server’s <a class="reference internal" href="../glossary.html#term-root-node" title="root node (glossary term)"><span class="xref std std-term">root node</span></a> and <a class="reference internal" href="../glossary.html#term-default-group" title="default group (glossary term)"><span class="xref std std-term">default group</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">root_node</span>
 <span class="go">&lt;+ RootNode: 0&gt;</span>
 </code></pre></div>
@@ -1298,7 +1379,7 @@ output similar to <a class="reference internal" href="../glossary.html#term-Supe
 <span class="go">&lt;+ Group: 1&gt;</span>
 </code></pre></div>
 </div>
-<p>And access the input and output audio <a class="reference internal" href="../glossary.html#term-bus"><span class="xref std std-term">bus</span></a> groups, which represent
+<p>And access the input and output audio <a class="reference internal" href="../glossary.html#term-bus" title="bus (glossary term)"><span class="xref std std-term">bus</span></a> groups, which represent
 microphone inputs and speaker outputs:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">audio_input_bus_group</span>
 <span class="go">&lt;+ AudioInputBusGroup{8}: 8 (audio)&gt;</span>
@@ -1311,18 +1392,18 @@ microphone inputs and speaker outputs:</p>
 <h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permalink to this heading">¶</a></h2>
 <p>The server provides a variety of methods for interacting with it and modifying
 its state.</p>
-<p>You can send <a class="reference internal" href="../glossary.html#term-OSC"><span class="xref std std-term">OSC</span></a> messages via the
-<a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server.query" title="supriya.realtime.servers.Server.query"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a> method, either as lists, as
-explicit <a class="reference internal" href="../api/supriya/osc/messages.html#supriya.osc.messages.OscMessage" title="supriya.osc.messages.OscMessage"><code class="xref py py-class docutils literal notranslate"><span class="pre">OscMessage</span></code></a> or
-<a class="reference internal" href="../api/supriya/osc/messages.html#supriya.osc.messages.OscBundle" title="supriya.osc.messages.OscBundle"><code class="xref py py-class docutils literal notranslate"><span class="pre">OscBundle</span></code></a> objects, or as
-<a class="reference internal" href="../api/supriya/commands/bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Requestable</span></code></a> objects:</p>
+<p>You can send <a class="reference internal" href="../glossary.html#term-OSC" title="OSC (glossary term)"><span class="xref std std-term">OSC</span></a> messages via the
+<a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server.query" title="supriya.realtime.servers.Server.query (Python method)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a> method, either as lists, as
+explicit <a class="reference internal" href="../api/supriya/osc/messages.html#supriya.osc.messages.OscMessage" title="supriya.osc.messages.OscMessage (Python class) — Bases: SupriyaValueObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">OscMessage</span></code></a> or
+<a class="reference internal" href="../api/supriya/osc/messages.html#supriya.osc.messages.OscBundle" title="supriya.osc.messages.OscBundle (Python class) — Bases: SupriyaValueObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">OscBundle</span></code></a> objects, or as
+<a class="reference internal" href="../api/supriya/commands/bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable (Python class) — Bases: SupriyaValueObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">Requestable</span></code></a> objects:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">([</span><span class="s2">&quot;/g_new&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
-<p>Many interactions with <a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a> don’t take effect immediately. In fact,
+<p>Many interactions with <a class="reference internal" href="../glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a> don’t take effect immediately. In fact,
 none of them really do, because the server behaves asynchronously. For
-operations with significant delay, e.g. sending multiple <a class="reference internal" href="../glossary.html#term-SynthDef"><span class="xref std std-term">SynthDefs</span></a>, use <a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server.sync" title="supriya.realtime.servers.Server.sync"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sync()</span></code></a> to block
+operations with significant delay, e.g. sending multiple <a class="reference internal" href="../glossary.html#term-SynthDef" title="SynthDef (glossary term)"><span class="xref std std-term">SynthDefs</span></a>, use <a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server.sync" title="supriya.realtime.servers.Server.sync (Python method)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sync()</span></code></a> to block
 until all previously initiated operations complete:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
 <span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
@@ -1333,7 +1414,7 @@ until all previously initiated operations complete:</p>
 <p>See <a class="reference internal" href="../osc.html"><span class="doc">Open Sound Control</span></a> for more information about OSC communication with
 the server, including OSC callbacks.</p>
 </div>
-<p>The server provides methods for allocating <a class="reference internal" href="../glossary.html#term-node"><span class="xref std std-term">nodes</span></a> (<a class="reference internal" href="../glossary.html#term-group"><span class="xref std std-term">groups</span></a> and <a class="reference internal" href="../glossary.html#term-synth"><span class="xref std std-term">synths</span></a>), <a class="reference internal" href="../glossary.html#term-buffer"><span class="xref std std-term">buffers</span></a> and <a class="reference internal" href="../glossary.html#term-bus"><span class="xref std std-term">buses</span></a>, all of which are discussed in the sections following this one:</p>
+<p>The server provides methods for allocating <a class="reference internal" href="../glossary.html#term-node" title="node (glossary term)"><span class="xref std std-term">nodes</span></a> (<a class="reference internal" href="../glossary.html#term-group" title="group (glossary term)"><span class="xref std std-term">groups</span></a> and <a class="reference internal" href="../glossary.html#term-synth" title="synth (glossary term)"><span class="xref std std-term">synths</span></a>), <a class="reference internal" href="../glossary.html#term-buffer" title="buffer (glossary term)"><span class="xref std std-term">buffers</span></a> and <a class="reference internal" href="../glossary.html#term-bus" title="bus (glossary term)"><span class="xref std std-term">buses</span></a>, all of which are discussed in the sections following this one:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="go">&lt;+ Group: 1000&gt;</span>
 </code></pre></div>
@@ -1385,41 +1466,34 @@ buffers and SynthDefs:</p>
 </code></pre></div>
 </div>
 <h2 id="lower-level-apis">Lower level APIs<a class="headerlink" href="#lower-level-apis" title="Permalink to this heading">¶</a></h2>
-<p>You can kill all running <code class="docutils literal notranslate"><span class="pre">scsynth</span></code> processes via <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.kill" title="supriya.scsynth.kill"><code class="xref py py-func docutils literal notranslate"><span class="pre">supriya.scsynth.kill()</span></code></a>:</p>
+<p>You can kill all running <code class="docutils literal notranslate"><span class="pre">scsynth</span></code> processes via <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.kill" title="supriya.scsynth.kill (Python function)"><code class="xref py py-func docutils literal notranslate"><span class="pre">supriya.scsynth.kill()</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">scsynth</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <p>Get access to the server’s underlying process management subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">process_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span><span class="o">.</span><span class="n">process_protocol</span>
-<span class="go">&lt;supriya.realtime.protocols.SyncProcessProtocol object at 0x7f2ee8f15ff0&gt;</span>
+<span class="go">&lt;supriya.realtime.protocols.SyncProcessProtocol object at 0x7f5faeb446d0&gt;</span>
 </code></pre></div>
 </div>
 <p>Get access to the server’s underlying OSC subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">osc_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span>
-<span class="go">&lt;supriya.osc.protocols.ThreadedOscProtocol object at 0x7f2ee8f150f0&gt;</span>
+<span class="go">&lt;supriya.osc.protocols.ThreadedOscProtocol object at 0x7f5faeb46e00&gt;</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server" title="supriya.realtime.servers.Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> manages its <a class="reference internal" href="../glossary.html#term-scsynth"><span class="xref std std-term">scsynth</span></a>
+<p><a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server" title="supriya.realtime.servers.Server (Python class) — Bases: BaseServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> manages its <a class="reference internal" href="../glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a>
 subprocess and OSC communication via
-<a class="reference internal" href="../api/supriya/realtime/protocols.html#supriya.realtime.protocols.SyncProcessProtocol" title="supriya.realtime.protocols.SyncProcessProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">SyncProcessProtocol</span></code></a> and
-<a class="reference internal" href="../api/supriya/osc/protocols.html#supriya.osc.protocols.ThreadedOscProtocol" title="supriya.osc.protocols.ThreadedOscProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThreadedOscProtocol</span></code></a> objects while the
-<a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.AsyncServer" title="supriya.realtime.servers.AsyncServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncServer</span></code></a> discussed later in
+<a class="reference internal" href="../api/supriya/realtime/protocols.html#supriya.realtime.protocols.SyncProcessProtocol" title="supriya.realtime.protocols.SyncProcessProtocol (Python class) — Bases: ProcessProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">SyncProcessProtocol</span></code></a> and
+<a class="reference internal" href="../api/supriya/osc/protocols.html#supriya.osc.protocols.ThreadedOscProtocol" title="supriya.osc.protocols.ThreadedOscProtocol (Python class) — Bases: OscProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThreadedOscProtocol</span></code></a> objects while the
+<a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.AsyncServer" title="supriya.realtime.servers.AsyncServer (Python class) — Bases: BaseServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncServer</span></code></a> discussed later in
 <a class="reference internal" href="async.html"><span class="doc">Async</span></a> uses
-<a class="reference internal" href="../api/supriya/realtime/protocols.html#supriya.realtime.protocols.AsyncProcessProtocol" title="supriya.realtime.protocols.AsyncProcessProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncProcessProtocol</span></code></a> and
-<a class="reference internal" href="../api/supriya/osc/protocols.html#supriya.osc.protocols.AsyncOscProtocol" title="supriya.osc.protocols.AsyncOscProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncOscProtocol</span></code></a> objects.</p>
+<a class="reference internal" href="../api/supriya/realtime/protocols.html#supriya.realtime.protocols.AsyncProcessProtocol" title="supriya.realtime.protocols.AsyncProcessProtocol (Python class) — Bases: SubprocessProtocol, ProcessProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncProcessProtocol</span></code></a> and
+<a class="reference internal" href="../api/supriya/osc/protocols.html#supriya.osc.protocols.AsyncOscProtocol" title="supriya.osc.protocols.AsyncOscProtocol (Python class) — Bases: DatagramProtocol, OscProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncOscProtocol</span></code></a> objects.</p>
 </div>
 
-
-                
-                  
-                
-              
-              
-                
 
 
               
@@ -1428,21 +1502,20 @@ subprocess and OSC communication via
         </div>
         
           <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
           </a>
         
       </main>
       
-        
-<footer class="md-footer">
+        <footer class="md-footer">
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
         <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Realtime" rel="prev">
           <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
           <div class="md-footer__title">
             <div class="md-ellipsis">
@@ -1466,30 +1539,31 @@ subprocess and OSC communication via
             </div>
           </div>
           <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
           </div>
         </a>
       
     </nav>
   
   
+  
   <div class="md-footer-meta md-typeset">
     
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2014-2022, Josiah Wolf Oberholtzer.
         
-          <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2014-2022, Josiah Wolf Oberholtzer.
-              
-          </div>
-        
-          Created using
-          <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          5.1.1.
-           and
-          <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
-        
-      </div>
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    5.1.1.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
       
     </div>
     
@@ -1500,13 +1574,10 @@ subprocess and OSC communication via
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../_static/javascripts/bundle.d39155f9.min.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/design-tabs.js"></script>
+      <script src="../_static/javascripts/bundle.dc1bded0.min.js"></script>
     
   </body>
 </html>

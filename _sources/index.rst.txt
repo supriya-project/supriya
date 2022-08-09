@@ -34,15 +34,15 @@ Quickstart
 1. Get Supriya
 ``````````````
 
-.. tab-set::
+.. md-tab-set::
 
-    .. tab-item:: From PyPI
+    .. md-tab-item:: From PyPI
 
         ::
 
             pip install supriya
 
-    .. tab-item:: From source
+    .. md-tab-item:: From source
 
         ::
 
@@ -128,7 +128,7 @@ Visualize the server's node tree::
 Release the synths::
 
     >>> for synth in group[:]:
-    ...    synth.release()
+    ...     synth.release()
     ...
 
 Quit the server::

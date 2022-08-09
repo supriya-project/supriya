@@ -10,7 +10,6 @@ ext
 .. toctree::
    :hidden:
 
-   api
    book
    ipython
 
