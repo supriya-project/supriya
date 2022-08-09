@@ -65,20 +65,15 @@ jobs:
       with:
         python-version: "3.10"
     - name: Install Supriya
-      run: |
-        pip install -e .[ipython,test]
+      run: pip install -e .[ipython,test]
     - name: Get Type Hints
-      run: |
-        pip install --target /tmp/typehints --no-deps uqbar
+      run: pip install --target /tmp/typehints --no-deps uqbar
     - name: Run Black
-      run: |
-        make black-check
+      run: make black-check
     - name: Run Flake8
-      run: |
-        make flake8
+      run: make flake8
     - name: Run Mypy
-      run: |
-        make mypy
+      run: make mypy
 
   package:
     name: Build wheels on ${{ matrix.os }}
@@ -126,6 +121,7 @@ jobs:
       run: |
         python -c 'import supriya; server = supriya.Server(); server.boot(); server.quit(); exit()'
         python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
+        python -c "from supriya.intervals import IntervalTreeDriverEx; print(IntervalTreeDriverEx)"
     - name: Install Supriya test dependencies
       run: |
         pip install -e .[test]
