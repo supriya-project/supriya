@@ -16,7 +16,6 @@ extensions = [
     "uqbar.sphinx.api",
     "uqbar.sphinx.book",
     "uqbar.sphinx.inheritance",
-    "sphinx_design",
     "sphinx_immaterial",
 ]
 
