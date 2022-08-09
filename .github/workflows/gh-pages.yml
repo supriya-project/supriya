@@ -22,7 +22,7 @@ jobs:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
     - name: Install Supriya
-      run: pip install -e .[docs,ipython,test]
+      run: pip install -e .[docs]
     - name: Install APT deps
       shell: bash
       run: |

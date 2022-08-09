@@ -21,11 +21,10 @@ classifiers = [
   "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
 ]
 dependencies = [
-  "Cython >= 0.29.0",
   "PyYAML >= 5.4.0",
   "platformdirs >= 2.4.0",
   "tqdm >= 4.59.0",
-  "uqbar >= 0.5.7",
+  "uqbar >= 0.6.0",
   'typing-extensions; python_version<"3.8"',
 ]
 description = "A Python API for SuperCollider"
@@ -39,11 +38,11 @@ requires-python = ">=3.7"
 [project.optional-dependencies]
 docs = [
   "jinja2 < 3.1.0",  # sphinx-immaterial imports Markup from jinja2, not markupsafe
+  "jupyter",
   "librosa",
   "matplotlib >= 3.3.0",
-  "sphinx-design",
-  "sphinx-immaterial",
-  "sphinx-immaterial @ git+https://git@github.com/josiah-wolf-oberholtzer/sphinx-immaterial@main#egg=sphinx-immaterial",
+  # "numpy <= 1.22",  # librosa imports numba 0.56 which requires numpy 1.22 or lower
+  "sphinx-immaterial >= 0.8.1",
   "sphinxext-opengraph",
 ]
 ipython = [
@@ -54,11 +53,12 @@ ipython = [
 ]
 test = [
   "black",
-  "flake8 >= 5.0.0",
-  "isort >= 5.10.0",
-  "librosa >= 0.9.0",
+  "flake8",
+  "isort",
+  "jupyter",
+  "librosa",
   "matplotlib >= 3.3.0",
-  "mypy >= 0.971",
+  "mypy",
   "pytest >= 7.0.0",
   "pytest-asyncio >= 0.19.0",
   "pytest-cov",
