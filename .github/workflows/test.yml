@@ -128,7 +128,7 @@ jobs:
         python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
     - name: Install Supriya test dependencies
       run: |
-        pip install -e .[ipython,test]
+        pip install -e .[test]
     - name: Install additional packages
       shell: bash
       run: |
