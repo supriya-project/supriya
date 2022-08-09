@@ -50,7 +50,7 @@ jobs:
         origin: ${{ env.SC_ORIGIN }}
     - name: Install Supriya
       run: |
-        pip install -e .[docs,ipython]
+        pip install -e .[docs]
     - name: Build docs
       run: make docs
   

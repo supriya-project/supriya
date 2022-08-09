@@ -39,6 +39,7 @@ requires-python = ">=3.7"
 [project.optional-dependencies]
 docs = [
   "jinja2 < 3.1.0",  # sphinx-immaterial imports Markup from jinja2, not markupsafe
+  "jupyter",
   "librosa",
   "matplotlib >= 3.3.0",
   "numpy <= 1.22",  # librosa imports numba 0.56 which requires numpy 1.22 or lower
