@@ -43,9 +43,7 @@ if __name__ == "__main__":
     setup(
         ext_modules=cythonize(extensions),
         packages=find_packages(
-            include=["supriya*"],
-            exclude=["*__pycache__*"],
-            where=pathlib.Path(__file__).parent,
+            include=["supriya", "supriya.*"],
         )
         + ["supriya.assets.audio", "supriya.assets.audio.birds"],
         version=read_version(),

@@ -26,6 +26,7 @@ clean: ## Clean-out transitory files
 	rm -Rif build/
 	rm -Rif dist/
 	rm -Rif htmlcov/
+	rm -Rif prof/
 	rm -Rif wheelhouse/
 
 docs: ## Build documentation
