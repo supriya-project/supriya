@@ -21,7 +21,6 @@ classifiers = [
   "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
 ]
 dependencies = [
-  "Cython >= 0.29.0",
   "PyYAML >= 5.4.0",
   "platformdirs >= 2.4.0",
   "tqdm >= 4.59.0",
@@ -42,7 +41,7 @@ docs = [
   "jupyter",
   "librosa",
   "matplotlib >= 3.3.0",
-  "numpy <= 1.22",  # librosa imports numba 0.56 which requires numpy 1.22 or lower
+  # "numpy <= 1.22",  # librosa imports numba 0.56 which requires numpy 1.22 or lower
   "sphinx-immaterial >= 0.8.1",
   "sphinxext-opengraph",
 ]
