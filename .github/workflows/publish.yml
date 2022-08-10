@@ -5,7 +5,7 @@ on:
 
 env:
   SC_ORIGIN: https://github.com/supercollider/supercollider.git
-  SC_BRANCH: develop
+  SC_BRANCH: "3.12"
 
 jobs:
   build-wheels:

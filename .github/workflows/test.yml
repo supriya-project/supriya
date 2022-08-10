@@ -30,7 +30,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "3.10"
     - name: Install APT deps
@@ -49,8 +49,7 @@ jobs:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
     - name: Install Supriya
-      run: |
-        pip install -e .[docs]
+      run: pip install -e .[docs]
     - name: Build docs
       run: make docs
   
@@ -61,7 +60,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "3.10"
     - name: Install Supriya
@@ -78,11 +77,10 @@ jobs:
   package:
     name: Build wheels on ${{ matrix.os }}
     needs: [cancel]
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04, windows-2019, macos-11]
+        os: [ubuntu-20.04, windows-latest, macos-11]
     steps:
     - uses: actions/checkout@v3
     - name: Build wheels
@@ -99,32 +97,51 @@ jobs:
         python-version: [3.7, 3.8, 3.9, "3.10"]
         # OSX builds are currently broken
         # https://github.com/supercollider/supercollider/issues/5756
-        # include:
-        # - os: macos-latest
-        #   python-version: 3.9
+        include:
+        - os: macos-latest
+          python-version: 3.9
+        - os: windows-latest
+          python-version: 3.9
     timeout-minutes: 45
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
+        cache: pip
+        cache-dependency-path: "**/pyproject.toml"
     - name: Install Supriya
-      run: |
-        pip install -e .
-    - name: Install SuperCollider
+      run: pip install -e .
+    - name: Install SuperCollider (Non-Windows)
+      if: ${{ matrix.os != 'windows-latest' }}
       uses: ./.github/actions/supercollider
       with:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
+    - name: Install SuperCollider (Windows)
+      if: ${{ matrix.os == 'windows-latest' }}
+      run: |
+        choco install supercollider
+    - name: Setup audio (Windows) # https://github.com/actions/runner-images/issues/2528#issuecomment-934857719
+      if: ${{ matrix.os == 'windows-latest' }}
+      shell: powershell
+      run: |
+        Invoke-WebRequest https://github.com/duncanthrax/scream/releases/download/3.8/Scream3.8.zip -OutFile Scream3.8.zip
+        Expand-Archive -Path Scream3.8.zip -DestinationPath Scream
+        Import-Certificate -FilePath Scream\Install\driver\x64\Scream.cat -CertStoreLocation Cert:\LocalMachine\TrustedPublisher 
+        Scream\Install\helpers\devcon-x64.exe install Scream\Install\driver\x64\Scream.inf *Scream
+        net start audiosrv
+        Get-CimInstance Win32_SoundDevice | fl *
     - name: Sanity-check Supriya
       run: |
-        python -c 'import supriya; server = supriya.Server(); server.boot(); server.quit(); exit()'
-        python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
+        python -c "import supriya; supriya._setup_logging('supriya'); server = supriya.Server(); server.boot(); server.quit(); exit()"
         python -c "from supriya.intervals import IntervalTreeDriverEx; print(IntervalTreeDriverEx)"
+    - name: Sanity-check Supriya SHM (Non-Windows)
+      if: ${{ matrix.os != 'windows-latest' }}
+      run: python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
     - name: Install Supriya test dependencies
-      run: |
-        pip install -e .[test]
+      run: pip install -e .[test]
     - name: Install additional packages
       shell: bash
       run: |
@@ -138,7 +155,9 @@ jobs:
             lame
         elif [ "$RUNNER_OS" == "macOS" ]; then
           brew install ffmpeg graphviz lame
+        elif [ "$RUNNER_OS" == "Windows" ]; then
+          choco install ffmpeg graphviz lame
         fi
     - name: Run Pytest
-      run: pytest
+      run: pytest --cov supriya
       timeout-minutes: 10

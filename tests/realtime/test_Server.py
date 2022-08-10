@@ -12,36 +12,34 @@ from supriya.realtime import Server
 from supriya.realtime.protocols import SyncProcessProtocol
 from supriya.scsynth import Options
 
-pytestmark = pytest.mark.timeout(60)
-
 
 def test_boot_options():
     server = supriya.realtime.Server()
     try:
-        boot_options = Options(memory_size=8192 * 32, load_synthdefs=False)
+        boot_options = Options(memory_size=8192 * 32, buffer_count=2048)
         # Default
         server.boot()
         assert isinstance(server.options, type(boot_options))
+        assert server.options.buffer_count == 1024
         assert server.options.memory_size == 8192
-        assert server.options.load_synthdefs is True
         server.quit()
         # With Options
         server.boot(options=boot_options)
         assert isinstance(server.options, type(boot_options))
+        assert server.options.buffer_count == 2048
         assert server.options.memory_size == 8192 * 32
-        assert server.options.load_synthdefs is False
         server.quit()
         # With **kwargs
-        server.boot(load_synthdefs=False)
+        server.boot(buffer_count=2048)
         assert isinstance(server.options, type(boot_options))
+        assert server.options.buffer_count == 2048
         assert server.options.memory_size == 8192
-        assert server.options.load_synthdefs is False
         server.quit()
         # With Options and **kwargs
-        server.boot(load_synthdefs=False, options=boot_options)
+        server.boot(buffer_count=4096, options=boot_options)
         assert isinstance(server.options, type(boot_options))
+        assert server.options.buffer_count == 4096
         assert server.options.memory_size == 8192 * 32
-        assert server.options.load_synthdefs is False
         server.quit()
     finally:
         if server.is_running:

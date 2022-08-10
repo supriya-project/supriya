@@ -1,11 +1,15 @@
 import asyncio
+import logging
 
 import pytest
 
 from supriya import exceptions
 from supriya.realtime import AsyncServer
 
-pytestmark = pytest.mark.timeout(15)
+
+@pytest.fixture(autouse=True)
+def setup_logging(caplog):
+    caplog.set_level(logging.INFO, logger="supriya")
 
 
 @pytest.mark.asyncio

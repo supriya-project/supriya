@@ -3,8 +3,11 @@ Fake Docs
 
 ::
 
-    >>> say_hello = supriya.Say("Hello world!", voice="Daniel")
-    >>> supriya.play(say_hello)
+    >>> import platform
+    >>> if platform.system() != "Windows":
+    ...     say_hello = supriya.Say("Hello world!", voice="Daniel")
+    ...     supriya.play(say_hello)
+    ...
 
 ::
 

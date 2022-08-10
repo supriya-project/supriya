@@ -200,9 +200,9 @@ def test_synth_pause_unpause(server):
     assert not synth.is_paused
     with server.osc_protocol.capture() as transcript:
         synth.pause()
-    assert [(_.label, _.message) for _ in transcript] == [
-        ("S", OscMessage("/n_run", 1000, 0))
-    ]
+    assert [
+        (_.label, _.message) for _ in transcript if _.message.address != "/status.reply"
+    ] == [("S", OscMessage("/n_run", 1000, 0))]
     assert synth.is_paused
     with server.osc_protocol.capture() as transcript:
         synth.pause()
@@ -210,9 +210,9 @@ def test_synth_pause_unpause(server):
     assert synth.is_paused
     with server.osc_protocol.capture() as transcript:
         synth.unpause()
-    assert [(_.label, _.message) for _ in transcript] == [
-        ("S", OscMessage("/n_run", 1000, 1))
-    ]
+    assert [
+        (_.label, _.message) for _ in transcript if _.message.address != "/status.reply"
+    ] == [("S", OscMessage("/n_run", 1000, 1))]
     assert not synth.is_paused
     with server.osc_protocol.capture() as transcript:
         synth.unpause()

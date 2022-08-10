@@ -183,7 +183,6 @@ def test___sub__(accelerated):
     ]
 
 
-@pytest.mark.timeout(60)
 @pytest.mark.parametrize("accelerated", [True, False])
 def test_find_intersection_with_offset(accelerated):
     iterations = 10
@@ -205,14 +204,10 @@ def test_find_intersection_with_offset(accelerated):
                         found_by_brute_force.add(_)
                 brute_force += timer.elapsed_time
             assert found_by_search == found_by_brute_force
-        print(
-            "D: {:0.6f}".format(optimized / brute_force),
-            "O: {:0.6f}".format(optimized),
-            "B: {:0.6f}".format(brute_force),
-        )
+        factor = "{:0.6f}".format(optimized / brute_force) if brute_force else "NaN"
+        print(f"D: {factor} O: {optimized} B: {brute_force}")
 
 
-@pytest.mark.timeout(120)
 @pytest.mark.parametrize("accelerated", [True, False])
 def test_find_intersection_with_interval(accelerated):
     iterations = 10
@@ -243,14 +238,10 @@ def test_find_intersection_with_interval(accelerated):
                         found_by_brute_force.add(_)
                 brute_force += timer.elapsed_time
             assert found_by_search == found_by_brute_force
-            print(
-                "D: {:0.6f}".format(optimized / brute_force),
-                "O: {:0.6f}".format(optimized),
-                "B: {:0.6f}".format(brute_force),
-            )
+        factor = "{:0.6f}".format(optimized / brute_force) if brute_force else "NaN"
+        print(f"D: {factor} O: {optimized} B: {brute_force}")
 
 
-@pytest.mark.timeout(60)
 @pytest.mark.parametrize("accelerated", [True, False])
 def test_find_intervals_starting_at(accelerated):
     iterations = 100
@@ -268,7 +259,6 @@ def test_find_intervals_starting_at(accelerated):
             assert found_by_search == found_by_brute_force
 
 
-@pytest.mark.timeout(60)
 @pytest.mark.parametrize("accelerated", [True, False])
 def test_find_intervals_stopping_at(accelerated):
     iterations = 100
@@ -286,7 +276,6 @@ def test_find_intervals_stopping_at(accelerated):
             assert found_by_search == found_by_brute_force
 
 
-@pytest.mark.timeout(60)
 @pytest.mark.parametrize("accelerated", [True, False])
 def test_get_moment_at(accelerated):
     iterations = 100
@@ -313,7 +302,6 @@ def test_get_moment_at(accelerated):
             assert expected.overlap_intervals == actual.overlap_intervals
 
 
-@pytest.mark.timeout(60)
 @pytest.mark.parametrize("accelerated", [True, False])
 def test_get_start_offset(accelerated):
     iterations = 100

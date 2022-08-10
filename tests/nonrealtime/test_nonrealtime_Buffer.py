@@ -1,3 +1,5 @@
+import platform
+
 import pytest
 
 import supriya.nonrealtime
@@ -70,6 +72,7 @@ def test_alloc_read_session():
     ]
 
 
+@pytest.mark.skipif(platform.system() == "Windows", reason="requires say/espeak")
 def test_alloc_read_say():
     say = supriya.soundfiles.Say("Some text.")
     session = supriya.nonrealtime.Session()
