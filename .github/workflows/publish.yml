@@ -5,51 +5,11 @@ on:
 
 env:
   SC_ORIGIN: https://github.com/supercollider/supercollider.git
-  SC_BRANCH: "3.12"
+  SC_BRANCH: develop
 
 jobs:
-  build-wheels:
-    name: Build wheels on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-20.04, windows-2019, macos-11]
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build wheels
-      uses: pypa/cibuildwheel@v2.8.1
-    - uses: actions/upload-artifact@v3
-      with:
-        path: ./wheelhouse/*.whl
-
-  build-sdist:
-    name: Build source distribution
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build sdist
-      run: pipx run build --sdist
-    - uses: actions/upload-artifact@v3
-      with:
-        path: dist/*.tar.gz
-
-  upload-to-pypi:
-    name: Publish release to PyPI
-    needs: [build-wheels, build-sdist]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/download-artifact@v3
-      with:
-        name: artifact
-        path: dist
-    - uses: pypa/gh-action-pypi-publish@v1.5.0
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
-
-  update-gh-pages:
+  build-docs:
     name: Update gh-pages
-    needs: [upload-to-pypi]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -57,6 +17,8 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "3.10"
+        cache: pip
+        cache-dependency-path: "**/pyproject.toml"
     - name: Install SuperCollider
       uses: ./.github/actions/supercollider
       with:
@@ -76,10 +38,65 @@ jobs:
           lame
     - name: Build docs
       run: make docs
+    - uses: actions/upload-artifact@v3
+      with:
+        name: docs
+        path: ./docs/build/html/
+
+  build-wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, windows-2019, macos-11]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build wheels
+      uses: pypa/cibuildwheel@v2.8.1
+    - uses: actions/upload-artifact@v3
+      with:
+        name: dist
+        path: ./wheelhouse/*.whl
+
+  build-sdist:
+    name: Build source distribution
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build sdist
+      run: pipx run build --sdist
+    - uses: actions/upload-artifact@v3
+      with:
+        name: dist
+        path: dist/*.tar.gz
+
+  upload-to-pypi:
+    name: Publish release to PyPI
+    needs: [build-wheels, build-sdist]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: dist
+        path: dist
+    - uses: pypa/gh-action-pypi-publish@v1.5.0
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
+
+  update-gh-pages:
+    name: Update gh-pages
+    needs: [upload-to-pypi]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: docs
+        path: docs
     - name: Clone gh-pages
       run: git clone --branch gh-pages `git config --get remote.origin.url` gh-pages/
     - name: Rsync docs
-      run: rsync -rtv --del --exclude=.git docs/build/html/ gh-pages/
+      run: rsync -rtv --del --exclude=.git docs/ gh-pages/
     - name: Touch .nojekyll
       run: touch gh-pages/.nojekyll
     - name: Deploy
