@@ -16,6 +16,12 @@ protocols
    .. automethod:: process_exited
    .. automethod:: quit
 
+.. autoclass:: LineStatus
+   :show-inheritance:
+   :members:
+   :undoc-members:
+
+
 .. autoclass:: ProcessProtocol
    :show-inheritance:
 
