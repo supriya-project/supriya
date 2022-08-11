@@ -57,7 +57,6 @@ def check(store):
     return moments
 
 
-@pytest.mark.timeout(1)
 @pytest.mark.asyncio
 async def test_basic():
     clock = AsyncOfflineClock()

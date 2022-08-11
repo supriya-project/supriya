@@ -1,5 +1,6 @@
 import hashlib
 import pathlib
+import platform
 import shutil
 import struct
 import subprocess
@@ -112,23 +113,24 @@ class SessionRenderer(SupriyaObject):
     ):
         cwd = pathlib.Path.cwd()
         scsynth_path = scsynth.find(scsynth_path)
-        server_options = server_options or scsynth.Options()
+        if platform.system() == "Windows":
+            scsynth_path = f'"{scsynth_path}"'
+        parts = [scsynth_path]
+        server_options_string = (server_options or scsynth.Options()).as_options_string(
+            realtime=False
+        )
+        if server_options_string:
+            parts.append(server_options_string)
         if session_osc_file_path.is_absolute():
             session_osc_file_path = session_osc_file_path.relative_to(cwd)
-        parts = [scsynth_path, "-N", session_osc_file_path]
-        if input_file_path:
-            parts.append(input_file_path)
-        else:
-            parts.append("_")
+        parts.extend(["-N", session_osc_file_path])
+        parts.append(input_file_path or "_")
         if output_file_path.is_absolute() and cwd in output_file_path.parents:
             output_file_path = output_file_path.relative_to(cwd)
         parts.append(output_file_path)
         parts.append(self.sample_rate)
         parts.append(self.header_format.name.lower())  # Must be lowercase.
         parts.append(self.sample_format.name.lower())  # Must be lowercase.
-        server_options = server_options.as_options_string(realtime=False)
-        if server_options:
-            parts.append(server_options)
         command = " ".join(str(_) for _ in parts)
         return command
 
@@ -452,8 +454,19 @@ class SessionRenderer(SupriyaObject):
                         **kwargs,
                     )
                     if exit_code:
-                        self._report("    SuperCollider errored!")
-                        raise NonrealtimeRenderError(exit_code)
+                        if (
+                            platform.system() == "Windows"
+                            and relative_output_file_path.exists()
+                        ):
+                            # scsynth.exe renders but exits non-zero
+                            # https://github.com/supercollider/supercollider/issues/5769
+                            # self._report(
+                            #     "    SuperCollider exited with non-zero but output exists!"
+                            # )
+                            pass
+                        else:
+                            self._report("    SuperCollider errored!")
+                            raise NonrealtimeRenderError(exit_code)
                 else:
                     renderable.__render__(
                         output_file_path=relative_output_file_path,

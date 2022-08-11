@@ -1,7 +1,11 @@
-from supriya.realtime import shm
+import pytest
+
+pytest.importorskip("supriya.realtime.shm")
 
 
 def test_shared_memory(server):
+    from supriya.realtime import shm
+
     shared_memory = shm.ServerSHM(server.port, server.options.control_bus_channel_count)
     bus = server.add_bus()
     assert bus.get() == shared_memory[int(bus)] == 0.0

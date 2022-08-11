@@ -1,4 +1,5 @@
 import pathlib
+import platform
 import pprint
 
 import pytest
@@ -15,7 +16,7 @@ def test_00a(nonrealtime_paths):
     No input, no output file path specified, no render path specified.
     """
     session = pytest.helpers.make_test_session()
-    exit_code, output_file_path = session.render()
+    exit_code, output_file_path = session.render(print_transcript=True)
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pathlib.Path(supriya.output_path) in output_file_path.parents
     assert pytest.helpers.sample_soundfile(output_file_path) == {
@@ -34,7 +35,8 @@ def test_00b(nonrealtime_paths):
     """
     session = pytest.helpers.make_test_session()
     exit_code, output_file_path = session.render(
-        render_directory_path=nonrealtime_paths.render_directory_path
+        print_transcript=True,
+        render_directory_path=nonrealtime_paths.render_directory_path,
     )
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert (
@@ -68,7 +70,7 @@ def test_00c(nonrealtime_paths):
     if aiff_path.exists():
         aiff_path.unlink()
 
-    exit_code, output_file_path = session.render()
+    exit_code, output_file_path = session.render(print_transcript=True)
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -79,18 +81,20 @@ def test_00c(nonrealtime_paths):
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
     }
     executable = supriya.scsynth.find()
+    if platform.system() == "Windows":
+        executable = f'"{executable}"'
     assert session.transcript == [
         "Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.",
         "    Wrote session-7b3f85710f19667f73f745b8ac8080a0.osc.",
         "Rendering session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-        f"    Command: {executable} -N session-7b3f85710f19667f73f745b8ac8080a0.osc _ session-7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24",
-        "    Rendered session-7b3f85710f19667f73f745b8ac8080a0.osc with exit code 0.",
+        f"    Command: {executable} -D 0 -N session-7b3f85710f19667f73f745b8ac8080a0.osc _ session-7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24",
+        f"    Rendered session-7b3f85710f19667f73f745b8ac8080a0.osc with exit code {exit_code}.",
     ]
     assert output_file_path == aiff_path
     assert osc_path.exists()
     assert aiff_path.exists()
 
-    exit_code, output_file_path = session.render()
+    exit_code, output_file_path = session.render(print_transcript=True)
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -112,7 +116,7 @@ def test_00c(nonrealtime_paths):
 
     osc_path.unlink()
 
-    exit_code, output_file_path = session.render()
+    exit_code, output_file_path = session.render(print_transcript=True)
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -134,7 +138,7 @@ def test_00c(nonrealtime_paths):
 
     aiff_path.unlink()
 
-    exit_code, output_file_path = session.render()
+    exit_code, output_file_path = session.render(print_transcript=True)
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -148,8 +152,8 @@ def test_00c(nonrealtime_paths):
         "Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.",
         "    Skipped session-7b3f85710f19667f73f745b8ac8080a0.osc. File already exists.",
         "Rendering session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-        f"    Command: {executable} -N session-7b3f85710f19667f73f745b8ac8080a0.osc _ session-7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24",
-        "    Rendered session-7b3f85710f19667f73f745b8ac8080a0.osc with exit code 0.",
+        f"    Command: {executable} -D 0 -N session-7b3f85710f19667f73f745b8ac8080a0.osc _ session-7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24",
+        f"    Rendered session-7b3f85710f19667f73f745b8ac8080a0.osc with exit code {exit_code}.",
     ]
     assert output_file_path == aiff_path
     assert osc_path.exists()
@@ -181,6 +185,7 @@ def test_01(nonrealtime_paths):
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
+        print_transcript=True,
     )
     pytest.helpers.assert_soundfile_ok(
         nonrealtime_paths.output_file_path, exit_code, 10.0, 44100, 8
@@ -215,6 +220,7 @@ def test_02(nonrealtime_paths):
         path_one,
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
+        print_transcript=True,
     )
     pytest.helpers.assert_soundfile_ok(path_one, exit_code, 10.0, 44100, 8)
     session_two = supriya.nonrealtime.Session(input_=path_one)
@@ -231,6 +237,7 @@ def test_02(nonrealtime_paths):
         path_two,
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
+        print_transcript=True,
     )
     pytest.helpers.assert_soundfile_ok(path_two, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(path_two) == {
@@ -244,9 +251,12 @@ def test_02(nonrealtime_paths):
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
+        hash_ = "34a8138953258b32d05ed6e09ebdf5b7"
+        if platform.system() == "Windows":
+            hash_ = "f9622613991e873659c324a0f146e072"
         assert file_contents == uqbar.strings.normalize(
-            """
-            render: session-34a8138953258b32d05ed6e09ebdf5b7
+            f"""
+            render: session-{hash_}
             source: null
             """
         )
@@ -263,6 +273,7 @@ def test_03(nonrealtime_paths):
         path_one,
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
+        print_transcript=True,
     )
     pytest.helpers.assert_soundfile_ok(path_one, exit_code, 10.0, 44100, 8)
     session_two = supriya.nonrealtime.Session(
@@ -303,6 +314,7 @@ def test_03(nonrealtime_paths):
         path_two,
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
+        print_transcript=True,
     )
     pytest.helpers.assert_soundfile_ok(path_two, exit_code, 10.0, 44100, 4)
     assert pytest.helpers.sample_soundfile(path_two) == {
@@ -316,9 +328,12 @@ def test_03(nonrealtime_paths):
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
+        hash_ = "f90a25f63698e1c8c4f6fe63d7d87bc4"
+        if platform.system() == "Windows":
+            hash_ = "5985d76e1f437e613e5e6ffef9ee5a0d"
         assert file_contents == uqbar.strings.normalize(
-            """
-            render: session-f90a25f63698e1c8c4f6fe63d7d87bc4
+            f"""
+            render: session-{hash_}
             source: null
             """
         )
@@ -364,6 +379,7 @@ def test_04(nonrealtime_paths):
     exit_code, _ = session_two.render(
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
+        print_transcript=True,
         build_render_yml=True,
     )
     pytest.helpers.assert_soundfile_ok(
@@ -399,6 +415,7 @@ def test_05(nonrealtime_paths):
     exit_code, _ = session_one.render(
         path_one,
         render_directory_path=nonrealtime_paths.render_directory_path,
+        print_transcript=True,
         build_render_yml=True,
     )
     pytest.helpers.assert_soundfile_ok(path_one, exit_code, 10.0, 44100, 8)
@@ -435,6 +452,7 @@ def test_05(nonrealtime_paths):
         path_two,
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
+        print_transcript=True,
     )
     pytest.helpers.assert_soundfile_ok(path_two, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(path_two) == {
@@ -492,6 +510,7 @@ def test_06(nonrealtime_paths):
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
+        print_transcript=True,
     )
     pytest.helpers.assert_soundfile_ok(
         nonrealtime_paths.output_file_path, exit_code, 10.0, 44100, 8
@@ -621,6 +640,7 @@ def test_07(nonrealtime_paths):
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
+        print_transcript=True,
     )
     pytest.helpers.assert_soundfile_ok(buffer_one_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(buffer_one_path) == {
@@ -828,6 +848,7 @@ def test_08(nonrealtime_paths):
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
+        print_transcript=True,
     )
     pytest.helpers.assert_soundfile_ok(session_one_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(session_one_path) == {
@@ -859,24 +880,28 @@ def test_08(nonrealtime_paths):
         0.99: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
     }
     executable = supriya.scsynth.find()
+    render_yml_path = "output/render.yml"
+    if platform.system() == "Windows":
+        executable = f'"{executable}"'
+        render_yml_path = "output\\render.yml"
     assert session_three.transcript == [
         "Writing session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
         "    Wrote session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
         "Rendering session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
-        f"    Command: {executable} -N session-c6d86f3d482a8bac1f7cc6650017da8e.osc _ session-c6d86f3d482a8bac1f7cc6650017da8e.aiff 44100 aiff int24",
-        "    Rendered session-c6d86f3d482a8bac1f7cc6650017da8e.osc with exit code 0.",
+        f"    Command: {executable} -D 0 -N session-c6d86f3d482a8bac1f7cc6650017da8e.osc _ session-c6d86f3d482a8bac1f7cc6650017da8e.aiff 44100 aiff int24",
+        f"    Rendered session-c6d86f3d482a8bac1f7cc6650017da8e.osc with exit code {exit_code}.",
         "Writing session-81d02f16aff7797ca3ac041facb61b95.osc.",
         "    Wrote session-81d02f16aff7797ca3ac041facb61b95.osc.",
         "Rendering session-81d02f16aff7797ca3ac041facb61b95.osc.",
-        f"    Command: {executable} -N session-81d02f16aff7797ca3ac041facb61b95.osc _ session-81d02f16aff7797ca3ac041facb61b95.aiff 44100 aiff int24",
-        "    Rendered session-81d02f16aff7797ca3ac041facb61b95.osc with exit code 0.",
+        f"    Command: {executable} -D 0 -N session-81d02f16aff7797ca3ac041facb61b95.osc _ session-81d02f16aff7797ca3ac041facb61b95.aiff 44100 aiff int24",
+        f"    Rendered session-81d02f16aff7797ca3ac041facb61b95.osc with exit code {exit_code}.",
         "Writing session-1d80bd5d7da1eb8c25d322aa85384513.osc.",
         "    Wrote session-1d80bd5d7da1eb8c25d322aa85384513.osc.",
         "Rendering session-1d80bd5d7da1eb8c25d322aa85384513.osc.",
-        f"    Command: {executable} -N session-1d80bd5d7da1eb8c25d322aa85384513.osc _ session-1d80bd5d7da1eb8c25d322aa85384513.aiff 44100 aiff int24",
-        "    Rendered session-1d80bd5d7da1eb8c25d322aa85384513.osc with exit code 0.",
-        "Writing output/render.yml.",
-        "    Wrote output/render.yml.",
+        f"    Command: {executable} -D 0 -N session-1d80bd5d7da1eb8c25d322aa85384513.osc _ session-1d80bd5d7da1eb8c25d322aa85384513.aiff 44100 aiff int24",
+        f"    Rendered session-1d80bd5d7da1eb8c25d322aa85384513.osc with exit code {exit_code}.",
+        f"Writing {render_yml_path}.",
+        f"    Wrote {render_yml_path}.",
     ]
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
@@ -891,6 +916,7 @@ def test_08(nonrealtime_paths):
         )
 
 
+@pytest.mark.skipif(platform.system() == "Windows", reason="requires say/espeak")
 def test_09(nonrealtime_paths):
     """
     Non-session renderable NRT input.
@@ -932,6 +958,7 @@ def test_09(nonrealtime_paths):
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
+        print_transcript=True,
     )
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
@@ -945,6 +972,7 @@ def test_09(nonrealtime_paths):
         )
 
 
+@pytest.mark.skipif(platform.system() == "Windows", reason="requires say/espeak")
 def test_10(nonrealtime_paths):
     """
     Non-session renderable DiskIn input.
@@ -987,6 +1015,7 @@ def test_10(nonrealtime_paths):
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
+        print_transcript=True,
     )
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
@@ -1000,6 +1029,7 @@ def test_10(nonrealtime_paths):
         )
 
 
+@pytest.mark.skipif(platform.system() == "Windows", reason="requires say/espeak")
 def test_11(nonrealtime_paths):
     """
     Chained session and non-session inputs.
@@ -1073,6 +1103,7 @@ def test_11(nonrealtime_paths):
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
+        print_transcript=True,
     )
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:

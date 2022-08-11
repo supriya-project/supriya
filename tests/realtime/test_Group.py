@@ -1437,7 +1437,11 @@ def test_extend_extend_unallocated(server):
             OscMessage("/s_new", "test", 1002, 3, 1001, "amplitude", 0.0),
         )
     )
-    assert [(_.label, _.message) for _ in transcript] == [
+    assert [
+        (_.label, _.message)
+        for _ in transcript
+        if _.message.address not in ("/status", "/status.reply")
+    ] == [
         ("S", OscMessage("/d_recv", supriya.assets.synthdefs.test.compile(), bundle)),
         ("R", OscMessage("/n_go", 1001, 1000, -1, -1, 0)),
         ("R", OscMessage("/n_go", 1002, 1000, 1001, -1, 0)),
@@ -1477,7 +1481,11 @@ def test_extend_extend_allocate_nested_and_move(server):
             OscMessage("/n_after", 1000, 1002),
         )
     )
-    assert [(_.label, _.message) for _ in transcript] == [
+    assert [
+        (_.label, _.message)
+        for _ in transcript
+        if _.message.address not in ("/status", "/status.reply")
+    ] == [
         ("S", OscMessage("/d_recv", supriya.assets.synthdefs.test.compile(), bundle)),
         ("R", OscMessage("/n_go", 1002, 1001, -1, -1, 1, -1, -1)),
         ("R", OscMessage("/n_go", 1003, 1002, -1, -1, 0)),

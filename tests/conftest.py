@@ -1,4 +1,5 @@
 import pathlib
+import platform
 
 import pytest
 
@@ -42,7 +43,10 @@ def assert_soundfile_ok(
 ):
     file_path = pathlib.Path(file_path)
     assert file_path.exists(), file_path
-    assert exit_code == 0, exit_code
+    if platform.system() != "Windows":
+        # scsynth.exe renders but exits non-zero
+        # https://github.com/supercollider/supercollider/issues/5769
+        assert exit_code == 0, exit_code
     soundfile = supriya.soundfiles.SoundFile(file_path)
     assert round(soundfile.seconds, 2) == expected_duration, round(soundfile.seconds, 2)
     assert soundfile.sample_rate == expected_sample_rate, soundfile.sample_rate

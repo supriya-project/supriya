@@ -1,4 +1,5 @@
 import pathlib
+import platform
 import shutil
 
 import pytest
@@ -32,14 +33,17 @@ def test_sphinx_book_html(app, status, warning, rm_dirs):
         elif path.suffix == ".wav":
             wav_file_names.append(path.name)
     # AIF output for all files
-    assert aif_file_names == [
-        "say-b62c21527eaa5d8536687ce77b85a57c.aiff",
+    expected_file_names = [
         "session-1675b54d9f2b8a493bab995877ba679e.aiff",
         "session-462b5896f380a14a732e461bade2148f.aiff",
         "session-d536a6a4819769a80987605aa31b86ae.aiff",
     ]
-    # Only the Say output is 2-channel and can be converted
-    assert mp3_file_names == ["say-b62c21527eaa5d8536687ce77b85a57c.mp3"]
+    if platform.system() != "Windows":
+        expected_file_names.insert(0, "say-b62c21527eaa5d8536687ce77b85a57c.aiff")
+    assert aif_file_names == expected_file_names
+    if platform.system() != "Windows":
+        # Only the Say output is 2-channel and can be converted
+        assert mp3_file_names == ["say-b62c21527eaa5d8536687ce77b85a57c.mp3"]
     # All Sessions generate an OSC file
     assert osc_file_names == [
         "session-1675b54d9f2b8a493bab995877ba679e.osc",

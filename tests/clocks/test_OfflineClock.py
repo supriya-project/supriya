@@ -56,7 +56,6 @@ def check(store):
     return moments
 
 
-@pytest.mark.timeout(1)
 def test_basic():
     clock = OfflineClock()
     store = []

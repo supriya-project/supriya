@@ -17,10 +17,10 @@ from supriya.scsynth import Options, find
 @pytest.fixture(autouse=True)
 def log_everything(caplog):
     caplog.set_level(logging.DEBUG, logger="supriya.osc")
+    caplog.set_level(logging.DEBUG, logger="supriya.server")
 
 
 @pytest.mark.asyncio
-@pytest.mark.timeout(30)
 async def test_AsyncOscProtocol():
     def on_healthcheck_failed():
         healthcheck_failed.append(True)
@@ -49,7 +49,6 @@ async def test_AsyncOscProtocol():
         process_protocol.quit()
 
 
-@pytest.mark.timeout(30)
 def test_ThreadedOscProtocol():
     def on_healthcheck_failed():
         healthcheck_failed.append(True)

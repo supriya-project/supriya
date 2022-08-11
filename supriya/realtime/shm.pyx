@@ -5,6 +5,16 @@ from .shm cimport server_shared_memory_client
 
 
 cdef class ServerSHM:
+    """
+    Server shared memory interface.
+
+    Currently supports reading control busses only.
+
+    .. warning::
+
+       Not supported on Windows.
+
+    """
     cdef server_shared_memory_client* client
     cdef unsigned int bus_count
 

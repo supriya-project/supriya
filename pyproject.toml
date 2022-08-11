@@ -65,7 +65,6 @@ test = [
   "pytest-helpers-namespace",
   "pytest-mock",
   "pytest-rerunfailures",
-  "pytest-timeout",
   "types-PyYAML",
   "types-docutils",
 ]
@@ -104,7 +103,6 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 addopts = [
-  "--cov=supriya",
   "--cov-branch",
   "--cov-report=html",
   "--cov-report=term",
@@ -125,4 +123,3 @@ testpaths = [
   "tests",
   "supriya",
 ]
-timeout = 60
