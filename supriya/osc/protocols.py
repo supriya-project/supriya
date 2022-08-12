@@ -1,6 +1,7 @@
 import asyncio
 import atexit
 import dataclasses
+import inspect
 import logging
 import queue
 import socketserver
@@ -129,7 +130,8 @@ class OscProtocol:
             pattern = [pattern]
         if isinstance(failure_pattern, (str, int, float)):
             failure_pattern = [failure_pattern]
-        assert callable(procedure)
+        if not callable(procedure):
+            raise ValueError(procedure)
         return OscCallback(
             pattern=tuple(pattern),
             failure_pattern=failure_pattern,
@@ -144,12 +146,12 @@ class OscProtocol:
         except Exception:
             raise
         osc_in_logger.debug(f"{self.ip_address}:{self.port} {message!r}")
-        for callback in self._match_callbacks(message):
-            callback.procedure(message)
         for capture in self.captures:
             capture.messages.append(
                 CaptureEntry(timestamp=time.time(), label="R", message=message)
             )
+        for callback in self._match_callbacks(message):
+            yield callback.procedure, message
 
     def _validate_send(self, message):
         if not self.is_running:
@@ -200,6 +202,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         asyncio.DatagramProtocol.__init__(self)
         OscProtocol.__init__(self)
         self.loop = None
+        self.background_tasks = set()
 
     ### PRIVATE METHODS ###
 
@@ -245,7 +248,13 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         pass
 
     def datagram_received(self, data, addr):
-        self._validate_receive(data)
+        for callback, message in self._validate_receive(data):
+            if inspect.iscoroutinefunction(callback):
+                task = self.loop.create_task(callback(message))
+                self.background_tasks.add(task)
+                task.add_done_callback(self.background_tasks.discard)
+            else:
+                callback(message)
 
     async def disconnect(self):
         if not self.is_running:
@@ -293,7 +302,8 @@ class ThreadedOscServer(socketserver.UDPServer):
 class ThreadedOscHandler(socketserver.BaseRequestHandler):
     def handle(self):
         data = self.request[0]
-        self.server.osc_protocol._validate_receive(data)
+        for procedure, message in self.server.osc_protocol._validate_receive(data):
+            procedure(message)
 
 
 class ThreadedOscProtocol(OscProtocol):

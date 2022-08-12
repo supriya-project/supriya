@@ -986,6 +986,7 @@ class RealtimeProvider(Provider):
     def free_buffer(self, buffer_: BufferProxy):
         if not self.moment:
             raise ValueError("No current moment")
+        self.server.buffer_allocator.free(cast(int, buffer_.identifier))
         self.moment.buffer_removals.append(buffer_)
 
     def free_bus(self, bus_proxy: BusProxy):
