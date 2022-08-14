@@ -95,8 +95,6 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python-version: [3.7, 3.8, 3.9, "3.10"]
-        # OSX builds are currently broken
-        # https://github.com/supercollider/supercollider/issues/5756
         include:
         - os: macos-latest
           python-version: 3.9
