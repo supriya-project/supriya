@@ -1,34 +1,56 @@
-from queue import Empty, PriorityQueue
+from queue import Empty, PriorityQueue, Queue
 from threading import RLock
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union, cast
+from uuid import UUID, uuid4
 
-from .events import Event
+from ..clocks import CallbackEvent, Clock, ClockContext
+from ..providers import Provider
+from .eventpatterns import Pattern
+from .events import Event, Priority, StartEvent, StopEvent
 
 
 class PatternPlayer:
-    def __init__(self, pattern, provider, clock):
+    def __init__(
+        self,
+        pattern: Pattern,
+        provider: Provider,
+        clock: Clock,
+        callback: Optional[
+            Callable[["PatternPlayer", ClockContext, Event], None]
+        ] = None,
+        uuid: Optional[UUID] = None,
+    ):
         self._pattern = pattern
         self._provider = provider
         self._clock = clock
+        self._callback = callback
         self._lock = RLock()
-        self._queue = PriorityQueue()
+        self._queue: Queue[
+            Tuple[float, int, Union[int, Tuple[int, int]], Optional[Event]]
+        ] = PriorityQueue()
         self._is_running = False
         self._is_stopping = False
-        self._proxies_by_uuid = {}
-        self._notes_by_uuid = {}
+        self._proxies_by_uuid: Dict[UUID, Any] = {}
+        self._notes_by_uuid: Dict[UUID, Any] = {}
+        self._uuid = uuid or uuid4()
 
-    def _clock_callback(self, context, *args, **kwargs):
+    def _clock_callback(self, context: ClockContext, *args, **kwargs):
         with self._lock:
             current_offset = None
-            events = []
+            events: List[Tuple[Event, int]] = []
+            if not cast(CallbackEvent, context.event).invocations and self._callback:
+                self._callback(self, context, StartEvent())
             while True:
                 try:
                     offset, priority, index, event = self._queue.get(block=False)
                 except Empty:
                     self._perform_events(
-                        context.desired_moment.seconds, current_offset, events
+                        context, context.desired_moment.seconds, current_offset, events
                     )
                     self._is_running = False
-                    return None
+                    if self._callback:
+                        self._callback(self, context, StopEvent())
+                    return
                 except Exception:
                     return
                 if offset == float("-inf"):
@@ -37,15 +59,17 @@ class PatternPlayer:
                 if delta:
                     self._queue.put((offset, priority, index, event))
                     self._perform_events(
-                        context.desired_moment.seconds, current_offset, events
+                        context, context.desired_moment.seconds, current_offset, events
                     )
                     return delta
                 if not isinstance(event, Event):
                     if self._consume_iterator(offset):
+                        if self._callback:
+                            self._callback(self, context, StopEvent())
                         return
                 elif offset != current_offset:
                     self._perform_events(
-                        context.desired_moment.seconds, current_offset, events
+                        context, context.desired_moment.seconds, current_offset, events
                     )
                     current_offset = offset
                     events = [(event, priority)]
@@ -106,7 +130,9 @@ class PatternPlayer:
                 proxy = self._proxies_by_uuid.pop(uuid)
                 self._provider.free_node(proxy)
 
-    def _perform_events(self, current_seconds, current_offset, events):
+    def _perform_events(
+        self, context: ClockContext, current_seconds, current_offset, events
+    ):
         if not events:
             return
         with self._provider.at(current_seconds):
@@ -118,6 +144,8 @@ class PatternPlayer:
                     notes_mapping=self._notes_by_uuid,
                     priority=priority,
                 )
+                if self._callback:
+                    self._callback(self, context, event)
 
     def _reschedule_queue(self, current_offset):
         events = []
@@ -153,3 +181,7 @@ class PatternPlayer:
             self._clock.cue(
                 self._stop_callback, event_type=2, quantization=quantization
             )
+
+    @property
+    def uuid(self):
+        return self._uuid

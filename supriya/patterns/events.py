@@ -44,6 +44,40 @@ class Event:
         raise NotImplementedError
 
 
+class StartEvent(Event):
+    """
+    The first event injected by a pattern player.
+    """
+
+    def perform(
+        self,
+        provider,
+        proxy_mapping,
+        *,
+        current_offset: float,
+        notes_mapping: Dict[Tuple[UUID, int], float],
+        priority: int,
+    ):
+        pass
+
+
+class StopEvent(Event):
+    """
+    The last event injected by a pattern player.
+    """
+
+    def perform(
+        self,
+        provider,
+        proxy_mapping,
+        *,
+        current_offset: float,
+        notes_mapping: Dict[Tuple[UUID, int], float],
+        priority: int,
+    ):
+        pass
+
+
 class BusAllocateEvent(Event):
     def __init__(self, id_, *, calculation_rate="audio", channel_count=1, delta=0.0):
         Event.__init__(self, delta=delta)
