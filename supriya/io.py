@@ -2,12 +2,13 @@ import dataclasses
 import datetime
 import hashlib
 import pathlib
+import platform
 import subprocess
-import sys
 from os import PathLike
 from typing import Optional
 
 from uqbar.graphs import Grapher
+from uqbar.io import open_path
 
 import supriya
 
@@ -59,10 +60,10 @@ class Player:
     ### PUBLIC METHODS ###
 
     def open_output_path(self, output_path):
-        viewer = "open -a 'QuickTime Player'"
-        if sys.platform.lower().startswith("linux"):
-            viewer = "xdg-open"
-        subprocess.run(f"{viewer} {output_path}", shell=True, check=True)
+        if platform.system() == "Darwin":
+            subprocess.run(["open", "-a", "QuickTime Player", str(output_path)], check=True)
+        else:
+            open_path(output_path)
 
     def render(self):
         result = self.renderable.__render__(**self.render_kwargs)
@@ -89,10 +90,7 @@ class Plotter:
     ### PUBLIC METHODS ###
 
     def open_output_path(self, output_path):
-        viewer = "open"
-        if sys.platform.lower().startswith("linux"):
-            viewer = "xdg-open"
-        subprocess.run(f"{viewer} {output_path}", shell=True, check=True)
+        open_path(output_path)
 
     def render(self):
         import librosa.display
