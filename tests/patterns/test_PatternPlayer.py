@@ -14,6 +14,7 @@ from supriya.patterns import (
     ParallelPattern,
     SequencePattern,
 )
+from supriya.patterns.events import StartEvent, StopEvent, NoteEvent
 from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
 
 
@@ -334,13 +335,33 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
         ),
     ],
 )
-def test(pattern, until, expected):
+def test_provider_calls(pattern, until, expected):
     clock = OfflineClock()
     provider = Provider.realtime()
     spy = Mock(spec=Provider, wraps=provider)
     pattern.play(provider=spy, clock=clock, until=until)
     expected_mock_calls = expected(provider)
     assert spy.mock_calls == expected_mock_calls
+
+
+def test_callback():
+    def callback(player, context, event):
+        callback_calls.append((player, context.desired_moment.offset, type(event)))
+
+    callback_calls = []
+    pattern = EventPattern(frequency=SequencePattern([440, 550, 660]))
+    clock = OfflineClock()
+    player = pattern.play(provider=Provider.realtime(), clock=clock, callback=callback)
+    assert callback_calls == [
+        (player, 0.0, StartEvent),
+        (player, 0.0, NoteEvent),
+        (player, 1.0, NoteEvent),
+        (player, 1.0, NoteEvent),
+        (player, 2.0, NoteEvent),
+        (player, 2.0, NoteEvent),
+        (player, 3.0, NoteEvent),
+        (player, 3.0, StopEvent),
+    ]
 
 
 def test_nonrealtime():
