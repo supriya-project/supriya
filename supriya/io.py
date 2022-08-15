@@ -61,7 +61,9 @@ class Player:
 
     def open_output_path(self, output_path):
         if platform.system() == "Darwin":
-            subprocess.run(["open", "-a", "QuickTime Player", str(output_path)], check=True)
+            subprocess.run(
+                ["open", "-a", "QuickTime Player", str(output_path)], check=True
+            )
         else:
             open_path(output_path)
 

@@ -14,7 +14,7 @@ from supriya.patterns import (
     ParallelPattern,
     SequencePattern,
 )
-from supriya.patterns.events import StartEvent, StopEvent, NoteEvent
+from supriya.patterns.events import NoteEvent, StartEvent, StopEvent
 from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
 
 
