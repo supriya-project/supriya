@@ -16,7 +16,7 @@ class PatternPlayer:
         provider: Provider,
         clock: Clock,
         callback: Optional[
-            Callable[["PatternPlayer", ClockContext, Event], None]
+            Callable[["PatternPlayer", ClockContext, Event, Priority], None]
         ] = None,
         uuid: Optional[UUID] = None,
     ):
@@ -145,7 +145,7 @@ class PatternPlayer:
                     priority=priority,
                 )
                 if self._callback:
-                    self._callback(self, context, event)
+                    self._callback(self, context, event, priority)
 
     def _reschedule_queue(self, current_offset):
         events = []
