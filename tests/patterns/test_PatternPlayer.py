@@ -14,7 +14,7 @@ from supriya.patterns import (
     ParallelPattern,
     SequencePattern,
 )
-from supriya.patterns.events import NoteEvent, StartEvent, StopEvent
+from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
 from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
 
 
@@ -345,22 +345,24 @@ def test_provider_calls(pattern, until, expected):
 
 
 def test_callback():
-    def callback(player, context, event):
-        callback_calls.append((player, context.desired_moment.offset, type(event)))
+    def callback(player, context, event, priority):
+        callback_calls.append(
+            (player, context.desired_moment.offset, type(event), priority)
+        )
 
     callback_calls = []
     pattern = EventPattern(frequency=SequencePattern([440, 550, 660]))
     clock = OfflineClock()
     player = pattern.play(provider=Provider.realtime(), clock=clock, callback=callback)
     assert callback_calls == [
-        (player, 0.0, StartEvent),
-        (player, 0.0, NoteEvent),
-        (player, 1.0, NoteEvent),
-        (player, 1.0, NoteEvent),
-        (player, 2.0, NoteEvent),
-        (player, 2.0, NoteEvent),
-        (player, 3.0, NoteEvent),
-        (player, 3.0, StopEvent),
+        (player, 0.0, StartEvent, Priority.START),
+        (player, 0.0, NoteEvent, Priority.START),
+        (player, 1.0, NoteEvent, Priority.START),
+        (player, 1.0, NoteEvent, Priority.STOP),
+        (player, 2.0, NoteEvent, Priority.START),
+        (player, 2.0, NoteEvent, Priority.STOP),
+        (player, 3.0, NoteEvent, Priority.STOP),
+        (player, 3.0, StopEvent, Priority.STOP),
     ]
 
 

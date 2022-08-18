@@ -39,7 +39,7 @@ class PatternPlayer:
             current_offset = None
             events: List[Tuple[Event, int]] = []
             if not cast(CallbackEvent, context.event).invocations and self._callback:
-                self._callback(self, context, StartEvent())
+                self._callback(self, context, StartEvent(), Priority.START)
             while True:
                 try:
                     offset, priority, index, event = self._queue.get(block=False)
@@ -49,7 +49,7 @@ class PatternPlayer:
                     )
                     self._is_running = False
                     if self._callback:
-                        self._callback(self, context, StopEvent())
+                        self._callback(self, context, StopEvent(), Priority.STOP)
                     return
                 except Exception:
                     return
@@ -65,7 +65,7 @@ class PatternPlayer:
                 if not isinstance(event, Event):
                     if self._consume_iterator(offset):
                         if self._callback:
-                            self._callback(self, context, StopEvent())
+                            self._callback(self, context, StopEvent(), Priority.STOP)
                         return
                 elif offset != current_offset:
                     self._perform_events(
