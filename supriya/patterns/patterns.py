@@ -16,7 +16,7 @@ import supriya.patterns
 from supriya.clocks import Clock, ClockContext, OfflineClock
 from supriya.providers import NonrealtimeProvider, Provider
 
-from .events import CompositeEvent, Event
+from .events import CompositeEvent, Event, Priority
 
 
 class Pattern(metaclass=abc.ABCMeta):
@@ -202,7 +202,9 @@ class Pattern(metaclass=abc.ABCMeta):
         *,
         at: Optional[float] = None,
         callback: Optional[
-            Callable[["supriya.patterns.PatternPlayer", ClockContext, Event], None]
+            Callable[
+                ["supriya.patterns.PatternPlayer", ClockContext, Event, Priority], None
+            ]
         ] = None,
         clock: Optional[Clock] = None,
         quantization: Optional[str] = None,

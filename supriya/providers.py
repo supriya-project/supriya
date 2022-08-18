@@ -881,7 +881,7 @@ class RealtimeProvider(Provider):
         self,
         *,
         channel_count: Optional[int] = None,
-        file_path: Optional[str] = None,
+        file_path: Optional[os.PathLike] = None,
         frame_count: Optional[int] = None,
         starting_frame: Optional[int] = None,
     ) -> BufferProxy:
