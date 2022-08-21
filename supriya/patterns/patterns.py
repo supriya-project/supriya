@@ -7,13 +7,13 @@ import itertools
 import operator
 import random
 from collections.abc import Sequence
-from typing import Callable, Dict, Iterator, Optional, cast
+from typing import Callable, Dict, Iterator, Optional
 from uuid import UUID
 
 from uqbar.objects import get_vars
 
 import supriya.patterns
-from supriya.clocks import BaseClock, ClockContext, OfflineClock
+from supriya.clocks import BaseClock, Clock, ClockContext, OfflineClock
 from supriya.providers import NonrealtimeProvider, Provider
 
 from .events import CompositeEvent, Event, Priority
@@ -219,7 +219,7 @@ class Pattern(metaclass=abc.ABCMeta):
         elif not isinstance(provider, Provider):
             provider = Provider.from_context(provider)
         if isinstance(provider, NonrealtimeProvider):
-            clock = cast(Clock, OfflineClock())
+            clock = OfflineClock()
             at = at or 0.0
         elif clock is None:
             clock = Clock.default()
