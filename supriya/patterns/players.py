@@ -3,7 +3,7 @@ from threading import RLock
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union, cast
 from uuid import UUID, uuid4
 
-from ..clocks import CallbackEvent, Clock, ClockContext
+from ..clocks import BaseClock, CallbackEvent, ClockContext
 from ..providers import Provider
 from .eventpatterns import Pattern
 from .events import Event, Priority, StartEvent, StopEvent
@@ -14,7 +14,7 @@ class PatternPlayer:
         self,
         pattern: Pattern,
         provider: Provider,
-        clock: Clock,
+        clock: BaseClock,
         callback: Optional[
             Callable[["PatternPlayer", ClockContext, Event, Priority], None]
         ] = None,
@@ -101,7 +101,8 @@ class PatternPlayer:
         with self._lock:
             # Do we need to rebuild the queue? Yes.
             # Do we need to free all playing notes? Yes.
-            # How do we handle when there are already stop events in the queue? They'll be no-ops when performed.
+            # How do we handle when there are already stop events in the queue?
+            # They'll be no-ops when performed.
             self._is_stopping = True
             self._clock.reschedule(
                 self._clock_event_id, schedule_at=context.desired_moment.offset

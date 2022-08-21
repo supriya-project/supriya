@@ -13,7 +13,7 @@ from uuid import UUID
 from uqbar.objects import get_vars
 
 import supriya.patterns
-from supriya.clocks import Clock, ClockContext, OfflineClock
+from supriya.clocks import BaseClock, ClockContext, OfflineClock
 from supriya.providers import NonrealtimeProvider, Provider
 
 from .events import CompositeEvent, Event, Priority
@@ -206,7 +206,7 @@ class Pattern(metaclass=abc.ABCMeta):
                 ["supriya.patterns.PatternPlayer", ClockContext, Event, Priority], None
             ]
         ] = None,
-        clock: Optional[Clock] = None,
+        clock: Optional[BaseClock] = None,
         quantization: Optional[str] = None,
         tempo: Optional[float] = None,
         until: Optional[float] = None,
