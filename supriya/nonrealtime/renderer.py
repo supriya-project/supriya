@@ -480,14 +480,14 @@ class SessionRenderer(SupriyaObject):
             self._report("    Output file is missing!")
             raise NonrealtimeOutputMissing(final_rendered_file_path)
 
-        if output_file_path is not None:
-            shutil.copy(final_rendered_file_path, output_file_path)
-
-        if build_render_yml:
-            output_directory = (output_file_path or final_rendered_file_path).parent
-            render_yaml = self._build_render_yml(visited_renderable_prefixes)
-            self._write_render_yml(output_directory / "render.yml", render_yaml)
-
+        # TODO: Make this cross-platform
+        if str(output_file_path) != "/dev/null":
+            if output_file_path is not None:
+                shutil.copy(final_rendered_file_path, output_file_path)
+            if build_render_yml:
+                output_directory = (output_file_path or final_rendered_file_path).parent
+                render_yaml = self._build_render_yml(visited_renderable_prefixes)
+                self._write_render_yml(output_directory / "render.yml", render_yaml)
         return (
             exit_code,
             self.transcript,
