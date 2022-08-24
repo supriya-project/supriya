@@ -365,36 +365,6 @@ class Session:
             supriya.ugens.FreeSelf.kr(trigger=1)
         return builder.build()
 
-    def _build_render_command(
-        self,
-        output_filename,
-        *,
-        input_file_path=None,
-        server_options=None,
-        sample_rate=44100,
-        header_format=HeaderFormat.AIFF,
-        sample_format=SampleFormat.INT24,
-        scsynth_path=None,
-    ):
-        server_options = server_options or scsynth.Options()
-        scsynth_path = scsynth.find(scsynth_path)
-        parts = [str(scsynth_path), "-N", "{}"]
-        if input_file_path:
-            parts.append(os.path.expanduser(input_file_path))
-        else:
-            parts.append("_")
-        parts.append(os.path.expanduser(output_filename))
-        parts.append(str(int(sample_rate)))
-        header_format = HeaderFormat.from_expr(header_format)
-        parts.append(header_format.name.lower())  # Must be lowercase.
-        sample_format = SampleFormat.from_expr(sample_format)
-        parts.append(sample_format.name.lower())  # Must be lowercase.
-        server_options = server_options.as_options_string(realtime=False)
-        if server_options:
-            parts.append(server_options)
-        command = " ".join(parts)
-        return command
-
     def _collect_bus_set_requests(self, bus_settings, offset):
         requests = []
         if offset in bus_settings:
