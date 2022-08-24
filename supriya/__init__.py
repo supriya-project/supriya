@@ -64,6 +64,7 @@ from .synthdefs import (  # noqa
     SynthDef,
     SynthDefBuilder,
     SynthDefFactory,
+    synthdef
 )
 from .realtime import (  # noqa
     AsyncServer,
