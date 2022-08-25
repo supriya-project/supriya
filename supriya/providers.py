@@ -460,7 +460,7 @@ class ProviderMoment:
             # check bundle size, write synthdefs to disk and do /d_load
             if len(request_bundle.to_datagram(with_placeholders=True)) > 8192:
                 directory_path = pathlib.Path(tempfile.mkdtemp())
-                # directory_path = pathlib.Path("~/Desktop").expanduser()
+                # directory_path = pathlib.Path("~/Desktop").resolve()
                 for synthdef in synthdefs:
                     name = synthdef.anonymous_name
                     if synthdef.name:

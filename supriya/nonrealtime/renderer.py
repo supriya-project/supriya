@@ -48,11 +48,9 @@ class SessionRenderer(SupriyaObject):
             print_transcript = bool(print_transcript)
         self._print_transcript = print_transcript
 
-        self._render_directory_path = (
-            pathlib.Path(render_directory_path or supriya.output_path)
-            .expanduser()
-            .absolute()
-        )
+        self._render_directory_path = pathlib.Path(
+            render_directory_path or supriya.output_path
+        ).resolve()
 
         self._sample_format = SampleFormat.from_expr(sample_format)
 
@@ -424,7 +422,7 @@ class SessionRenderer(SupriyaObject):
         import supriya.nonrealtime
 
         if output_file_path is not None:
-            output_file_path = pathlib.Path(output_file_path).expanduser().absolute()
+            output_file_path = pathlib.Path(output_file_path).resolve()
 
         self._collect_prerender_tuples(self.session, duration=duration)
         assert self.prerender_tuples, self.prerender_tuples
