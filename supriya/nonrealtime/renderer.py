@@ -7,7 +7,6 @@ import subprocess
 from os import PathLike
 from typing import Any, Optional, Tuple
 
-import tqdm  # type: ignore
 import uqbar.containers
 import uqbar.io
 import yaml
@@ -198,33 +197,29 @@ class SessionRenderer(SupriyaObject):
         process = subprocess.Popen(
             command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
         )
-        previous_value = 0
-        progress_bar = tqdm.tqdm(
-            bar_format=(), total=int(session_duration * 1000), unit="ms"
-        )
-        with progress_bar:
-            while True:
-                output = process.stdout.readline()
-                if not output:
-                    if process.poll() is not None:
-                        break
+        # previous_value = 0
+        while True:
+            output = process.stdout.readline()
+            if not output:
+                if process.poll() is not None:
+                    break
+                continue
+            output = output.decode().strip()
+            if output.startswith("nextOSCPacket"):
+                # current_value = int(float(output.split()[-1]) * 1000)
+                # difference = current_value - previous_value
+                # previous_value = current_value
+                pass
+            elif output.startswith("FAILURE"):
+                if output.startswith("FAILURE IN SERVER /n_free Node"):
                     continue
-                output = output.decode().strip()
-                if output.startswith("nextOSCPacket"):
-                    current_value = int(float(output.split()[-1]) * 1000)
-                    difference = current_value - previous_value
-                    progress_bar.update(difference)
-                    previous_value = current_value
-                elif output.startswith("FAILURE"):
-                    if output.startswith("FAILURE IN SERVER /n_free Node"):
-                        continue
-                    progress_bar.write(output)
-                elif output.startswith("start time 0"):
-                    continue
-                else:
-                    progress_bar.write("WARNING: {}".format(output))
-                    if output.startswith("alloc failed"):
-                        return -6
+                # progress_bar.write(output)
+            elif output.startswith("start time 0"):
+                continue
+            else:
+                # progress_bar.write("WARNING: {}".format(output))
+                if output.startswith("alloc failed"):
+                    return -6
         return process.poll()
 
     def _collect_prerender_tuples(self, session, duration=None):
@@ -427,7 +422,7 @@ class SessionRenderer(SupriyaObject):
         self._collect_prerender_tuples(self.session, duration=duration)
         assert self.prerender_tuples, self.prerender_tuples
 
-        extension = ".{}".format(self.header_format.name.lower())
+        extension = f".{self.header_format.name.lower()}"
         visited_renderable_prefixes = []
 
         with uqbar.io.DirectoryChange(directory=str(self.render_directory_path)):
@@ -479,13 +474,12 @@ class SessionRenderer(SupriyaObject):
             raise NonrealtimeOutputMissing(final_rendered_file_path)
 
         # TODO: Make this cross-platform
-        if str(output_file_path) != "/dev/null":
-            if output_file_path is not None:
-                shutil.copy(final_rendered_file_path, output_file_path)
-            if build_render_yml:
-                output_directory = (output_file_path or final_rendered_file_path).parent
-                render_yaml = self._build_render_yml(visited_renderable_prefixes)
-                self._write_render_yml(output_directory / "render.yml", render_yaml)
+        if output_file_path is not None:
+            shutil.copy(final_rendered_file_path, output_file_path)
+        if build_render_yml:
+            output_directory = (output_file_path or final_rendered_file_path).parent
+            render_yaml = self._build_render_yml(visited_renderable_prefixes)
+            self._write_render_yml(output_directory / "render.yml", render_yaml)
         return (
             exit_code,
             self.transcript,
