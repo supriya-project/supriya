@@ -1,10 +1,26 @@
 import os
 import pathlib
 import platform
+from pathlib import Path
 
 import uqbar.io
 
 import supriya
+
+
+def _fallback_sclang_path():
+    paths = []
+    system = platform.system()
+    if system == "Linux":
+        paths.extend([Path("/usr/bin/sclang"), Path("/usr/local/bin/sclang")])
+    elif system == "Darwin":
+        paths.append(Path("/Applications/SuperCollider.app/Contents/MacOS/sclang"))
+    elif system == "Windows":
+        paths.extend(Path(r"C:\Program Files").glob(r"SuperCollider*\sclang.exe"))
+    for path in paths:
+        if path.exists():
+            return path
+    return None
 
 
 def find(sclang_path=None):
@@ -31,20 +47,7 @@ def find(sclang_path=None):
     sclang_path_candidates = uqbar.io.find_executable(sclang_path.name)
     if sclang_path_candidates:
         return pathlib.Path(sclang_path_candidates[0])
-    if platform.system() == "Darwin":
-        for path in [
-            pathlib.Path("/Applications/SuperCollider.app/Contents/MacOS/sclang"),
-            pathlib.Path(
-                "/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/sclang"
-            ),
-        ]:
-            if path.exists():
-                return path
-    elif platform.system() == "Linux":
-        for path in [
-            pathlib.Path("/usr/bin/sclang"),
-            pathlib.Path("/usr/local/bin/sclang"),
-        ]:
-            if path.exists():
-                return path
+    fallback_path = _fallback_sclang_path()
+    if fallback_path is not None:
+        return fallback_path
     raise RuntimeError("Failed to locate sclang")
