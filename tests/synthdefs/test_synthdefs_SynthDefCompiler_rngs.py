@@ -18,10 +18,6 @@ def py_synthdef_01():
     return py_synthdef
 
 
-@pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS") == "true",
-    reason="sclang broken under GitHub Actions",
-)
 def test_SynthDefCompiler_rngs_01_supriya_vs_sclang(py_synthdef_01):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "seedednoise",
