@@ -1,4 +1,6 @@
 # flake8: noqa
+import platform
+
 import pytest
 from uqbar.strings import normalize
 
