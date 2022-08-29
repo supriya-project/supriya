@@ -22,7 +22,6 @@ from supriya.exceptions import NonrealtimeOutputMissing, NonrealtimeRenderError
 from supriya.system import SupriyaObject
 from supriya.typing import HeaderFormatLike, SampleFormatLike
 
-
 logger = logging.getLogger(__name__)
 
 
