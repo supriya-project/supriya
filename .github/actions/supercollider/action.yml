@@ -110,7 +110,7 @@ runs:
           sudo make install
           mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          echo "PATH=/tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/Resources/:$PATH" >> $GITHUB_ENV
+          echo "PATH=/tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/MacOS:/tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/Resources/:$PATH" >> $GITHUB_ENV
           mkdir -p "/Users/runner/Library/Application Support/SuperCollider/synthdefs"
         else
           echo "$RUNNER_OS not supported"
