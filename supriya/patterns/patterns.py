@@ -7,15 +7,16 @@ import itertools
 import operator
 import random
 from collections.abc import Sequence
-from typing import Dict, Iterator, Optional
+from typing import Callable, Dict, Iterator, Optional
+from uuid import UUID
 
 from uqbar.objects import get_vars
 
-from supriya.clocks import Clock, OfflineClock
+import supriya.patterns
+from supriya.clocks import BaseClock, Clock, ClockContext, OfflineClock
 from supriya.providers import NonrealtimeProvider, Provider
 
-from .events import CompositeEvent
-from .players import PatternPlayer
+from .events import CompositeEvent, Event, Priority
 
 
 class Pattern(metaclass=abc.ABCMeta):
@@ -197,14 +198,22 @@ class Pattern(metaclass=abc.ABCMeta):
 
     def play(
         self,
-        provider=None,
+        provider: Provider = None,
         *,
-        at=None,
-        clock=None,
-        quantization=None,
-        tempo=None,
-        until=None,
+        at: Optional[float] = None,
+        callback: Optional[
+            Callable[
+                ["supriya.patterns.PatternPlayer", ClockContext, Event, Priority], None
+            ]
+        ] = None,
+        clock: Optional[BaseClock] = None,
+        quantization: Optional[str] = None,
+        tempo: Optional[float] = None,
+        until: Optional[float] = None,
+        uuid: Optional[UUID] = None,
     ):
+        from .players import PatternPlayer  # Avoid circular import
+
         if provider is None:
             provider = Provider.realtime()
         elif not isinstance(provider, Provider):
@@ -212,9 +221,11 @@ class Pattern(metaclass=abc.ABCMeta):
         if isinstance(provider, NonrealtimeProvider):
             clock = OfflineClock()
             at = at or 0.0
-        elif not clock:
+        elif clock is None:
             clock = Clock.default()
-        player = PatternPlayer(pattern=self, provider=provider, clock=clock)
+        player = PatternPlayer(
+            pattern=self, provider=provider, clock=clock, callback=callback, uuid=uuid
+        )
         player.play(quantization=quantization, at=at, until=until)
         return player
 

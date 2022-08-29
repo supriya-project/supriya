@@ -44,6 +44,40 @@ class Event:
         raise NotImplementedError
 
 
+class StartEvent(Event):
+    """
+    The first event injected by a pattern player.
+    """
+
+    def perform(
+        self,
+        provider,
+        proxy_mapping,
+        *,
+        current_offset: float,
+        notes_mapping: Dict[Tuple[UUID, int], float],
+        priority: int,
+    ):
+        pass
+
+
+class StopEvent(Event):
+    """
+    The last event injected by a pattern player.
+    """
+
+    def perform(
+        self,
+        provider,
+        proxy_mapping,
+        *,
+        current_offset: float,
+        notes_mapping: Dict[Tuple[UUID, int], float],
+        priority: int,
+    ):
+        pass
+
+
 class BusAllocateEvent(Event):
     def __init__(self, id_, *, calculation_rate="audio", channel_count=1, delta=0.0):
         Event.__init__(self, delta=delta)
@@ -167,13 +201,10 @@ class NoteEvent(Event):
                 **proxy_mapping,
             )
             start_offset = offset
-            stop_offset = offset + self.calculate_duration()
+            stop_offset = offset + self.duration
             starts.append((start_offset, Priority.START, event))
             stops.append((stop_offset, Priority.STOP, event))
         return starts + stops
-
-    def calculate_duration(self):
-        return self.duration or 1.0
 
     def merge(self, event):
         _, _, kwargs = get_vars(event)
@@ -208,16 +239,20 @@ class NoteEvent(Event):
             else:
                 proxy = proxy_mapping[self.id_]
                 provider.set_node(proxy, **settings)
-            notes_mapping[self.id_] = current_offset + self.calculate_duration()
+            if self.duration:
+                notes_mapping[self.id_] = current_offset + self.duration
         elif priority == Priority.STOP:
-            # check notes mapping for expected completion offset
-            # is expected completion <= current_offset? release
-            # otherwise pass
+            # check notes mapping for expected completion offset:
+            # if expected completion >= current_offset or non-existent? bail
+            # otherwise release
             expected_completion = notes_mapping.get(self.id_)
-            if expected_completion is None or expected_completion > current_offset:
+            if expected_completion is None:
+                proxy_mapping.pop(self.id_, None)
+            elif expected_completion > current_offset:
                 return
-            notes_mapping.pop(self.id_)
-            provider.free_node(proxy_mapping.pop(self.id_))
+            else:
+                notes_mapping.pop(self.id_)
+                provider.free_node(proxy_mapping.pop(self.id_))
 
 
 class NullEvent(Event):

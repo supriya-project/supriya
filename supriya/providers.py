@@ -2,6 +2,7 @@ import abc
 import collections
 import contextlib
 import dataclasses
+import os
 import pathlib
 import re
 import tempfile
@@ -31,9 +32,6 @@ from supriya.nonrealtime import Session
 from supriya.realtime import AsyncServer, BaseServer, Server
 from supriya.synthdefs import SynthDef
 
-# with provider.at(): proxy = provider.add_buffer(file_path=file_path)
-# with provider.at(): proxy.free()
-
 
 @dataclasses.dataclass(frozen=True)
 class Proxy:
@@ -46,7 +44,7 @@ class BufferProxy:
     identifier: Union["supriya.nonrealtime.Buffer", int]
     channel_count: Optional[int] = None
     frame_count: Optional[int] = None
-    file_path: Optional[str] = None
+    file_path: Optional[os.PathLike] = None
     starting_frame: Optional[int] = None
 
     def __float__(self):
@@ -67,12 +65,12 @@ class BufferProxy:
     def normalize(self, new_maximum=1.0):
         pass
 
-    def read(self, file_path, leave_open=False):
+    def read(self, file_path: os.PathLike, leave_open=False):
         pass
 
     def write(
         self,
-        file_path,
+        file_path: os.PathLike,
         frame_count=None,
         header_format="aiff",
         leave_open=False,
@@ -462,7 +460,7 @@ class ProviderMoment:
             # check bundle size, write synthdefs to disk and do /d_load
             if len(request_bundle.to_datagram(with_placeholders=True)) > 8192:
                 directory_path = pathlib.Path(tempfile.mkdtemp())
-                # directory_path = pathlib.Path("~/Desktop").expanduser()
+                # directory_path = pathlib.Path("~/Desktop").resolve()
                 for synthdef in synthdefs:
                     name = synthdef.anonymous_name
                     if synthdef.name:
@@ -510,7 +508,7 @@ class Provider(metaclass=abc.ABCMeta):
         self,
         *,
         channel_count: Optional[int] = None,
-        file_path: Optional[str] = None,
+        file_path: Optional[os.PathLike] = None,
         frame_count: Optional[int] = None,
         starting_frame: Optional[int] = None,
     ) -> BufferProxy:
@@ -693,7 +691,7 @@ class NonrealtimeProvider(Provider):
         self,
         *,
         channel_count: Optional[int] = None,
-        file_path: Optional[str] = None,
+        file_path: Optional[os.PathLike] = None,
         frame_count: Optional[int] = None,
         starting_frame: Optional[int] = None,
     ) -> BufferProxy:
@@ -883,7 +881,7 @@ class RealtimeProvider(Provider):
         self,
         *,
         channel_count: Optional[int] = None,
-        file_path: Optional[str] = None,
+        file_path: Optional[os.PathLike] = None,
         frame_count: Optional[int] = None,
         starting_frame: Optional[int] = None,
     ) -> BufferProxy:
@@ -986,6 +984,7 @@ class RealtimeProvider(Provider):
     def free_buffer(self, buffer_: BufferProxy):
         if not self.moment:
             raise ValueError("No current moment")
+        self.server.buffer_allocator.free(cast(int, buffer_.identifier))
         self.moment.buffer_removals.append(buffer_)
 
     def free_bus(self, bus_proxy: BusProxy):

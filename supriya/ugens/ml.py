@@ -121,17 +121,28 @@ class MFCC(MultiOutUGen):
         >>> pv_chain = supriya.ugens.FFT(source=source)
         >>> mfcc = supriya.ugens.MFCC.kr(
         ...     pv_chain=pv_chain,
-        ...     channel_count=13,
         ... )
         >>> mfcc
         UGenArray({13})
 
     """
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None)])
+    _default_channel_count = 13
+    _has_settable_channel_count = False
+    _ordered_input_names = collections.OrderedDict(
+        [("pv_chain", None), ("coeff_count", 13)]
+    )
     _valid_calculation_rates = (CalculationRate.CONTROL,)
+
+    def __init__(self, calculation_rate=None, coeff_count=13, pv_chain=None):
+        # MFCC wants to have both # of outputs specified the traditional way
+        # but also to have the same value passed in as an input
+        super().__init__(
+            calculation_rate=calculation_rate,
+            channel_count=coeff_count,
+            coeff_count=coeff_count,
+            pv_chain=pv_chain,
+        )
 
 
 class Onsets(UGen):

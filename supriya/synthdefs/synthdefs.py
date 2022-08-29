@@ -1012,12 +1012,10 @@ class SuperColliderSynthDef(SupriyaObject):
         with tempfile.TemporaryDirectory() as directory:
             directory_path = pathlib.Path(directory)
             sc_input = self._build_sc_input(directory_path)
-            print(sc_input)
             sc_file_path = directory_path / f"{self.name}.sc"
             sc_file_path.write_text(sc_input)
-            command = " ".join([str(sclang_path), "-D", str(sc_file_path)])
-            print(command)
-            subprocess.run(command, shell=True)
+            command = [str(sclang_path), "-D", str(sc_file_path)]
+            subprocess.run(command)
             result = (directory_path / f"{self.name}.scsyndef").read_bytes()
         return bytes(result)
 

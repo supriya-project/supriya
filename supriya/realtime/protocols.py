@@ -34,7 +34,7 @@ class ProcessProtocol:
         return command
 
     def _handle_line(self, line):
-        logger.info(f"Boot: {line}")
+        logger.info(f"Received: {line}")
         if line.startswith(("SuperCollider 3 server ready", "Supernova ready")):
             return LineStatus.READY
         elif line.startswith(("Exception", "ERROR", "*** ERROR")):
@@ -54,6 +54,7 @@ class SyncProcessProtocol(ProcessProtocol):
                 self._build_command(options, scsynth_path, port),
                 stderr=subprocess.STDOUT,
                 stdout=subprocess.PIPE,
+                start_new_session=True,
             )
             start_time = time.time()
             timeout = 10
@@ -95,7 +96,9 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
     ### PUBLIC METHODS ###
 
     async def boot(self, options, scsynth_path, port):
+        logger.info("Booting ...")
         if self.is_running:
+            logger.info("... already booted!")
             return
         self.is_running = False
         loop = asyncio.get_running_loop()
@@ -107,11 +110,16 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
             *self._build_command(options, scsynth_path, port),
             stdin=None,
             stderr=None,
+            start_new_session=True,
         )
 
     def connection_made(self, transport):
+        logger.info("Connection made!")
         self.is_running = True
         self.transport = transport
+
+    def pipe_connection_lost(self, fd, exc):
+        logger.info("Pipe connection lost!")
 
     def pipe_data_received(self, fd, data):
         # *nix and OSX return full lines,
@@ -124,8 +132,10 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
                 line_status = self._handle_line(line)
                 if line_status == LineStatus.READY:
                     self.boot_future.set_result(True)
+                    logger.info("... booted!")
                 elif line_status == LineStatus.ERROR:
                     self.boot_future.set_result(False)
+                    logger.info("... failed to boot!")
         else:
             self.buffer_ = text
 
@@ -134,9 +144,12 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         self.exit_future.set_result(None)
         if not self.boot_future.done():
             self.boot_future.set_result(False)
+        logger.info(f"Process exited with {self.transport.get_returncode()}.")
 
     def quit(self):
+        logger.info("Quitting ...")
         if not self.is_running:
+            logger.info("... already quit!")
             return
         if not self.boot_future.done():
             self.boot_future.set_result(False)
@@ -144,3 +157,4 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
             self.exit_future.set_result
         self.transport.close()
         self.is_running = False
+        logger.info("... quit!")

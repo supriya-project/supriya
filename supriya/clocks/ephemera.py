@@ -37,8 +37,8 @@ class Moment:
     beats_per_minute: float
     measure: int
     measure_offset: float
-    offset: float
-    seconds: float
+    offset: float  # the beat since zero
+    seconds: float  # the seconds since zero
     time_signature: Tuple[int, int]
 
 

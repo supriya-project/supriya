@@ -5,7 +5,7 @@ from uqbar.strings import normalize
 
 from supriya import AddAction, CalculationRate
 from supriya.assets.synthdefs import default, system_link_audio_1
-from supriya.clocks import OfflineClock
+from supriya.clocks import AsyncOfflineClock, OfflineClock
 from supriya.patterns import (
     BusPattern,
     EventPattern,
@@ -14,6 +14,7 @@ from supriya.patterns import (
     ParallelPattern,
     SequencePattern,
 )
+from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
 from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
 
 
@@ -334,13 +335,67 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
         ),
     ],
 )
-def test(pattern, until, expected):
+def test_provider_calls(pattern, until, expected):
     clock = OfflineClock()
     provider = Provider.realtime()
     spy = Mock(spec=Provider, wraps=provider)
     pattern.play(provider=spy, clock=clock, until=until)
     expected_mock_calls = expected(provider)
     assert spy.mock_calls == expected_mock_calls
+
+
+def test_callback():
+    def callback(player, context, event, priority):
+        callback_calls.append(
+            (player, context.desired_moment.offset, type(event), priority)
+        )
+
+    callback_calls = []
+    pattern = EventPattern(frequency=SequencePattern([440, 550, 660]))
+    clock = OfflineClock()
+    player = pattern.play(provider=Provider.realtime(), clock=clock, callback=callback)
+    assert callback_calls == [
+        (player, 0.0, StartEvent, Priority.START),
+        (player, 0.0, NoteEvent, Priority.START),
+        (player, 1.0, NoteEvent, Priority.START),
+        (player, 1.0, NoteEvent, Priority.STOP),
+        (player, 2.0, NoteEvent, Priority.START),
+        (player, 2.0, NoteEvent, Priority.STOP),
+        (player, 3.0, NoteEvent, Priority.STOP),
+        (player, 3.0, StopEvent, Priority.STOP),
+    ]
+
+
+@pytest.mark.asyncio
+async def test_callback_async(event_loop):
+    async def callback(player, context, event, priority):
+        print("CALLBACK", player, context, event, priority)
+        callback_calls.append(
+            (player, context.desired_moment.offset, type(event), priority)
+        )
+        if isinstance(event, StopEvent):
+            stop_future.set_result(True)
+
+    stop_future = event_loop.create_future()
+    callback_calls = []
+    pattern = EventPattern(frequency=SequencePattern([440, 550, 660]))
+    clock = AsyncOfflineClock()
+    player = pattern.play(
+        provider=await Provider.realtime_async(), clock=clock, callback=callback
+    )
+    await clock.start()
+    await stop_future
+    await clock.stop()
+    assert callback_calls == [
+        (player, 0.0, StartEvent, Priority.START),
+        (player, 0.0, NoteEvent, Priority.START),
+        (player, 1.0, NoteEvent, Priority.START),
+        (player, 1.0, NoteEvent, Priority.STOP),
+        (player, 2.0, NoteEvent, Priority.START),
+        (player, 2.0, NoteEvent, Priority.STOP),
+        (player, 3.0, NoteEvent, Priority.STOP),
+        (player, 3.0, StopEvent, Priority.STOP),
+    ]
 
 
 def test_nonrealtime():

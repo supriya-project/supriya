@@ -1,5 +1,5 @@
 # flake8: noqa
-import os
+import platform
 
 import pytest
 
@@ -58,10 +58,7 @@ def test_SynthDefCompiler_optimization_01_supriya_vs_bytes(py_synthdef):
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-@pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS") == "true",
-    reason="sclang broken under GitHub Actions",
-)
+@pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 def test_SynthDefCompiler_optimization_01_supriya_vs_sclang(py_synthdef):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "optimized",

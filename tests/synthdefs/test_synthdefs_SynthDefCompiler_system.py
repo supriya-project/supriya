@@ -1,4 +1,4 @@
-import os
+import platform
 
 import pytest
 from uqbar.strings import normalize
@@ -76,10 +76,7 @@ def test_system_link_audio_1_bytes():
     )
 
 
-@pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS") == "true",
-    reason="sclang broken under GitHub Actions",
-)
+@pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 def test_system_link_audio_1_sclang():
     sc_compiled = SuperColliderSynthDef(
         "system_link_audio_1",
@@ -216,10 +213,7 @@ def test_system_link_audio_2_bytes():
     )
 
 
-@pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS") == "true",
-    reason="sclang broken under GitHub Actions",
-)
+@pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 def test_system_link_audio_2_sclang():
     sc_compiled = SuperColliderSynthDef(
         "system_link_audio_2",

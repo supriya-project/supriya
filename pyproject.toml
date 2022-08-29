@@ -23,7 +23,6 @@ classifiers = [
 dependencies = [
   "PyYAML >= 5.4.0",
   "platformdirs >= 2.4.0",
-  "tqdm >= 4.59.0",
   "uqbar >= 0.6.2",
   'typing-extensions; python_version<"3.8"',
 ]

@@ -508,7 +508,7 @@ class BaseClock:
         procedure,
         *,
         args=None,
-        event_type: EventType = EventType.SCHEDULE,
+        event_type: int = EventType.SCHEDULE,
         kwargs=None,
         quantization: str = None,
     ) -> int:
@@ -608,7 +608,7 @@ class BaseClock:
         self,
         procedure,
         *,
-        event_type: EventType = EventType.SCHEDULE,
+        event_type: int = EventType.SCHEDULE,
         schedule_at: float = 0.0,
         time_unit: TimeUnit = TimeUnit.BEATS,
         args=None,
