@@ -31,6 +31,7 @@ def sc_synthdef_mfcc():
     )
 
 
+@pytest.mark.skipif(platform.system() == "Windows", "hangs on Windows")
 def test_ugens(py_synthdef_mfcc, sc_synthdef_mfcc):
     py_ugens = tuple(repr(_) for _ in py_synthdef_mfcc.ugens)
     assert py_ugens == (
@@ -47,6 +48,7 @@ def test_ugens(py_synthdef_mfcc, sc_synthdef_mfcc):
     assert py_ugens == sc_ugens
 
 
+@pytest.mark.skipif(platform.system() == "Windows", "hangs on Windows")
 def test_format(py_synthdef_mfcc, sc_synthdef_mfcc):
     py_format = str(py_synthdef_mfcc)
     assert py_format == normalize(
@@ -94,6 +96,7 @@ def test_format(py_synthdef_mfcc, sc_synthdef_mfcc):
     assert py_format == sc_format
 
 
+@pytest.mark.skipif(platform.system() == "Windows", "hangs on Windows")
 def test_py_compile(py_synthdef_mfcc, sc_synthdef_mfcc):
     py_compiled_synthdef = py_synthdef_mfcc.compile()
     # fmt: off

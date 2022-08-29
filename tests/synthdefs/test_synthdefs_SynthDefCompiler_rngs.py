@@ -1,5 +1,4 @@
-# flake8: noqa
-import os
+import platform
 
 import pytest
 
@@ -18,6 +17,7 @@ def py_synthdef_01():
     return py_synthdef
 
 
+@pytest.mark.skipif(platform.system() == "Windows", "hangs on Windows")
 def test_SynthDefCompiler_rngs_01_supriya_vs_sclang(py_synthdef_01):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "seedednoise",

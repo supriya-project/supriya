@@ -1,9 +1,13 @@
+import platform
+
+import pytest
 from uqbar.strings import normalize
 
 import supriya.synthdefs
 import supriya.ugens
 
 
+@pytest.mark.skipif(platform.system() == "Windows", "hangs on Windows")
 def test_Splay_01_sclang(server):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "test",
@@ -184,6 +188,7 @@ def test_Splay_01_supriya(server):
     py_synthdef.allocate(server=server)
 
 
+@pytest.mark.skipif(platform.system() == "Windows", "hangs on Windows")
 def test_Splay_02_sclang(server):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "test",

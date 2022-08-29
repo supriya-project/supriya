@@ -1,5 +1,4 @@
-# flake8: noqa
-import os
+import platform
 
 import pytest
 
@@ -103,6 +102,7 @@ def test_SynthDefCompiler_ambisonics_supriya_vs_bytes(py_synthdef):
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
+@pytest.mark.skipif(platform.system() == "Windows", "hangs on Windows")
 def test_SynthDefCompiler_ambisonics_supriya_vs_sclang(py_synthdef):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "ambisonics",
