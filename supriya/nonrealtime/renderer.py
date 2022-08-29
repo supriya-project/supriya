@@ -1,4 +1,5 @@
 import hashlib
+import logging
 import pathlib
 import platform
 import shutil
@@ -20,6 +21,9 @@ from supriya import HeaderFormat, SampleFormat, scsynth
 from supriya.exceptions import NonrealtimeOutputMissing, NonrealtimeRenderError
 from supriya.system import SupriyaObject
 from supriya.typing import HeaderFormatLike, SampleFormatLike
+
+
+logger = logging.getLogger(__name__)
 
 
 class SessionRenderer(SupriyaObject):
@@ -209,14 +213,16 @@ class SessionRenderer(SupriyaObject):
                 # current_value = int(float(output.split()[-1]) * 1000)
                 # difference = current_value - previous_value
                 # previous_value = current_value
-                pass
+                logger.info(output)
             elif output.startswith("FAILURE"):
                 if output.startswith("FAILURE IN SERVER /n_free Node"):
                     continue
                 # progress_bar.write(output)
+                logger.warning(output)
             elif output.startswith("start time 0"):
-                continue
+                logger.info(output)
             else:
+                logger.warning(output)
                 # progress_bar.write("WARNING: {}".format(output))
                 if output.startswith("alloc failed"):
                     return -6
