@@ -1,6 +1,3 @@
-import os
-
-import pytest
 from uqbar.strings import normalize
 
 from supriya.assets.synthdefs import system_link_audio_1, system_link_audio_2

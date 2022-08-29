@@ -1,6 +1,3 @@
-import os
-
-import pytest
 from uqbar.strings import normalize
 
 import supriya.synthdefs
