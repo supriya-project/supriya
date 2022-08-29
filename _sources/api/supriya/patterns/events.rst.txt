@@ -41,7 +41,6 @@ events
 .. autoclass:: NoteEvent
    :show-inheritance:
 
-   .. automethod:: calculate_duration
    .. automethod:: expand
    .. automethod:: merge
    .. automethod:: perform
@@ -56,6 +55,16 @@ events
    :members:
    :undoc-members:
 
+
+.. autoclass:: StartEvent
+   :show-inheritance:
+
+   .. automethod:: perform
+
+.. autoclass:: StopEvent
+   :show-inheritance:
+
+   .. automethod:: perform
 
 .. autoclass:: SynthAllocateEvent
    :show-inheritance:

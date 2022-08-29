@@ -12,6 +12,7 @@ protocols
 
    .. automethod:: boot
    .. automethod:: connection_made
+   .. automethod:: pipe_connection_lost
    .. automethod:: pipe_data_received
    .. automethod:: process_exited
    .. automethod:: quit

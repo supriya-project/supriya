@@ -12,3 +12,4 @@ players
 
    .. automethod:: play
    .. automethod:: stop
+   .. autoproperty:: uuid

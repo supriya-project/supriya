@@ -1764,13 +1764,13 @@ of the simulated reverb space:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">ticker_synth</span><span class="p">[</span><span class="s2">&quot;nonexistent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">666.666</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/nodes.py&quot;</span>, line <span class="m">892</span>, in <span class="n">__setitem__</span>
+  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/nodes.py&quot;</span>, line <span class="m">892</span>, in <span class="n">__setitem__</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">553</span>, in <span class="n">__setitem__</span>
+  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">553</span>, in <span class="n">__setitem__</span>
     <span class="n">synth_controls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">522</span>, in <span class="n">__getitem__</span>
+  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">522</span>, in <span class="n">__getitem__</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_synth_control_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">item</span><span class="p">)</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">522</span>, in <span class="n">&lt;genexpr&gt;</span>
+  File <span class="nb">&quot;/Users/josiah/Source/github.com/josiah-wolf-oberholtzer/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">522</span>, in <span class="n">&lt;genexpr&gt;</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_synth_control_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">item</span><span class="p">)</span>
 <span class="gr">KeyError</span>: <span class="n">&#39;nonexistent&#39;</span>
 </code></pre></div>
