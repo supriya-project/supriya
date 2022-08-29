@@ -11,11 +11,12 @@ Supriya (|release|)
 
 Supriya lets you:
 
-- Boot and communicate with ``scsynth`` :py:mod:`~supriya.realtime.servers` in
+- Boot and communicate with SuperCollider's ``scsynth``
+  :py:mod:`~supriya.realtime.servers` synthesis engine in
   :py:mod:`~supriya.realtime`
 
-- Compile :py:class:`synth definitions <supriya.synthdefs.synthdefs.SynthDef>`
-  natively in Python code
+- Compile SuperCollider :py:class:`SynthDefs
+  <supriya.synthdefs.synthdefs.SynthDef>` natively in Python code
 
 - Explore :py:mod:`~supriya.nonrealtime` composition with object-oriented
   :py:class:`sessions <supriya.nonrealtime.sessions.Session>`

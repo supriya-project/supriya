@@ -10,13 +10,13 @@
 
 Supriya lets you:
 
-- Boot and communicate with ``scsynth``
+- Boot and communicate with SuperCollider's ``scsynth`` synthesis engine:
   [servers](http://josiahwolfoberholtzer.com/supriya/api/supriya/realtime/servers.html)
   in
   [realtime](http://josiahwolfoberholtzer.com/supriya/api/supriya/realtime/index.html)
 
-- Compile
-  [synth definitions](http://josiahwolfoberholtzer.com/supriya/api/supriya/synthdefs/index.html)
+- Compile SuperCollider
+  [SynthDefs](http://josiahwolfoberholtzer.com/supriya/api/supriya/synthdefs/index.html)
   natively in Python code
 
 - Explore
