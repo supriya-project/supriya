@@ -5,7 +5,8 @@ requires = ["Cython", "setuptools>=40.6.0", "wheel"]
 [project]
 authors = [
   {name = "Josiah Wolf Oberholtzer", email = "josiah.oberholtzer@gmail.com"}
-] classifiers = [
+]
+classifiers = [
   "Framework :: AsyncIO",
   "Intended Audience :: Developers",
   "License :: OSI Approved :: MIT License",
