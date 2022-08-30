@@ -4,14 +4,18 @@ import inspect
 import threading
 import uuid
 from collections.abc import Sequence
-from typing import List, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 from uqbar.objects import new
 
 from supriya.enums import ParameterRate
 from supriya.system import SupriyaObject
+from supriya.ugens import Impulse, Poll
 
-from .controls import Parameter
+from .bases import UGen
+from .controls import Control, Parameter
+from .mixins import OutputProxy
+from .synthdefs import SynthDef
 
 _local = threading.local()
 _local._active_builders = []
@@ -65,77 +69,63 @@ class SynthDefBuilder(SupriyaObject):
 
     ### INITIALIZER ###
 
-    def __init__(self, name=None, **kwargs):
+    def __init__(self, name: Optional[str] = None, **kwargs):
         self._name = name
         self._uuid = uuid.uuid4()
-        self._parameters = collections.OrderedDict()
-        self._ugens = []
+        self._parameters: Dict[str, Parameter] = collections.OrderedDict()
+        self._ugens: List[Union[Parameter, UGen]] = []
         for key, value in kwargs.items():
             self._add_parameter(key, value)
 
     ### SPECIAL METHODS ###
 
-    def __enter__(self):
+    def __enter__(self) -> "SynthDefBuilder":
         SynthDefBuilder._active_builders.append(self)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         SynthDefBuilder._active_builders.pop()
 
-    def __getitem__(self, item):
+    def __getitem__(self, item: str) -> Parameter:
         return self._parameters[item]
 
     ### PRIVATE METHODS ###
 
-    def _add_ugens(self, ugens):
-        import supriya.synthdefs
-        import supriya.ugens
+    def _add_ugens(self, ugen: Union[OutputProxy, Parameter, UGen]):
+        if not isinstance(ugen, OutputProxy):
+            source = ugen
+        else:
+            source = ugen.source
+        if source._uuid != self._uuid:
+            raise ValueError
+        self._ugens.append(source)
 
-        if not isinstance(ugens, Sequence):
-            ugens = [ugens]
-        prototype = (
-            supriya.synthdefs.OutputProxy,
-            supriya.synthdefs.Parameter,
-            supriya.synthdefs.UGen,
-        )
-        for ugen in ugens:
-            assert isinstance(ugen, prototype), type(ugen)
-            if isinstance(ugen, supriya.synthdefs.OutputProxy):
-                ugen = ugen.source
-            assert ugen._uuid == self._uuid
-            if ugen not in self._ugens:
-                self._ugens.append(ugen)
-
-    def _add_parameter(self, *args):
+    def _add_parameter(self, *args) -> Parameter:
         # TODO: Refactor without *args for clarity
-        import supriya.synthdefs
-
         if 3 < len(args):
             raise ValueError(args)
         if len(args) == 1:
-            assert isinstance(args[0], supriya.synthdefs.Parameter)
+            assert isinstance(args[0], Parameter)
             name, value, parameter_rate = args[0].name, args[0], args[0].parameter_rate
         elif len(args) == 2:
             name, value = args
-            if isinstance(value, supriya.synthdefs.Parameter):
+            if isinstance(value, Parameter):
                 parameter_rate = value.parameter_rate
             else:
-                parameter_rate = supriya.ParameterRate.CONTROL
+                parameter_rate = ParameterRate.CONTROL
                 if name.startswith("a_"):
-                    parameter_rate = supriya.ParameterRate.AUDIO
+                    parameter_rate = ParameterRate.AUDIO
                 elif name.startswith("i_"):
-                    parameter_rate = supriya.ParameterRate.SCALAR
+                    parameter_rate = ParameterRate.SCALAR
                 elif name.startswith("t_"):
-                    parameter_rate = supriya.ParameterRate.TRIGGER
+                    parameter_rate = ParameterRate.TRIGGER
         elif len(args) == 3:
             name, value, parameter_rate = args
-            parameter_rate = supriya.ParameterRate.from_expr(parameter_rate)
+            parameter_rate = ParameterRate.from_expr(parameter_rate)
         else:
             raise ValueError(args)
-        if not isinstance(value, supriya.synthdefs.Parameter):
-            parameter = supriya.synthdefs.Parameter(
-                name=name, parameter_rate=parameter_rate, value=value
-            )
+        if not isinstance(value, Parameter):
+            parameter = Parameter(name=name, parameter_rate=parameter_rate, value=value)
         else:
             parameter = new(value, parameter_rate=parameter_rate, name=name)
         assert parameter._uuid is None
@@ -146,40 +136,30 @@ class SynthDefBuilder(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def build(self, name=None, optimize=True):
-        import supriya.synthdefs
-        import supriya.ugens
-
         # Calling build() creates controls each time, so strip out
         # previously created ones. This could be made cleaner by preventing
         # Control subclasses from being aggregated into SynthDefBuilders in
         # the first place.
-
-        self._ugens[:] = [
-            ugen
-            for ugen in self._ugens
-            if not isinstance(ugen, supriya.synthdefs.Control)
-        ]
+        self._ugens[:] = [ugen for ugen in self._ugens if not isinstance(ugen, Control)]
         name = self.name or name
         with self:
             ugens = list(self._parameters.values()) + list(self._ugens)
             ugens = copy.deepcopy(ugens)
-            ugens, parameters = supriya.synthdefs.SynthDef._extract_parameters(ugens)
+            ugens, parameters = SynthDef._extract_parameters(ugens)
             (
                 control_ugens,
                 control_mapping,
                 indexed_parameters,
-            ) = supriya.synthdefs.SynthDef._build_control_mapping(parameters)
-            supriya.synthdefs.SynthDef._remap_controls(ugens, control_mapping)
+            ) = SynthDef._build_control_mapping(parameters)
+            SynthDef._remap_controls(ugens, control_mapping)
             ugens = control_ugens + ugens
-            synthdef = supriya.synthdefs.SynthDef(ugens, name=name, optimize=optimize)
+            synthdef = SynthDef(ugens, name=name, optimize=optimize)
         return synthdef
 
     def poll_ugen(self, ugen, label=None, trigger=None, trigger_id=-1):
-        import supriya.ugens
-
         if trigger is None:
-            trigger = supriya.ugens.Impulse.kr(1)
-        poll = supriya.ugens.Poll.new(
+            trigger = Impulse.kr(1)
+        poll = Poll.new(
             source=ugen, label=label, trigger=trigger, trigger_id=trigger_id
         )
         self._add_ugens(poll)
@@ -187,7 +167,7 @@ class SynthDefBuilder(SupriyaObject):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def name(self):
+    def name(self) -> Optional[str]:
         return self._name
 
 

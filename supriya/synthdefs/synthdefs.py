@@ -6,12 +6,14 @@ import pathlib
 import shutil
 import subprocess
 import tempfile
+from typing import Dict, List, Tuple, Union
 
 import yaml
 
 from supriya import (
     BinaryOperator,
     CalculationRate,
+    DoneAction,
     ParameterRate,
     UnaryOperator,
     sclang,
@@ -106,7 +108,7 @@ class SynthDef:
 
     ### SPECIAL METHODS ###
 
-    def __eq__(self, expr):
+    def __eq__(self, expr) -> bool:
         if type(expr) != type(self):
             return False
         if expr.name != self.name:
@@ -159,14 +161,14 @@ class SynthDef:
         """
         return SynthDefGrapher.graph(self)
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         hash_values = (type(self), self._name, self._compiled_ugen_graph)
         return hash(hash_values)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{}: {}>".format(type(self).__name__, self.actual_name)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Gets string representation of synth definition.
 
@@ -256,16 +258,15 @@ class SynthDef:
         ugens = []
         named_ugens = get_ugen_names()
         for ugen in self._ugens:
-            ugen_dict = {}
+            ugen_dict: Dict[str, Union[float, str]] = {}
             ugen_name = named_ugens[ugen]
             for input_name, input_ in zip(ugen._input_names, ugen._inputs):
-
                 if isinstance(input_name, str):
                     argument_name = input_name
                 else:
                     argument_name = f"{input_name[0]}[{input_name[1]}]"
                 if isinstance(input_, float):
-                    value = input_
+                    value: Union[float, str] = input_
                 else:
                     output_index = 0
                     if isinstance(input_, OutputProxy):
@@ -278,8 +279,6 @@ class SynthDef:
                         get_parameter_name(input_, output_index),
                     )
                 ugen_dict[argument_name] = value
-            if not ugen_dict:
-                ugen_dict = None
             ugens.append({ugen_name: ugen_dict})
 
         result = {
@@ -484,7 +483,7 @@ class SynthDef:
         return ugens
 
     @staticmethod
-    def _collect_constants(ugens):
+    def _collect_constants(ugens) -> Tuple[float, ...]:
         constants = []
         for ugen in ugens:
             for input_ in ugen._inputs:
@@ -693,22 +692,22 @@ class SynthDef:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def actual_name(self):
+    def actual_name(self) -> str:
         return self.name or self.anonymous_name
 
     @property
-    def anonymous_name(self):
+    def anonymous_name(self) -> str:
         md5 = hashlib.md5()
         md5.update(self._compiled_ugen_graph)
         anonymous_name = md5.hexdigest()
         return anonymous_name
 
     @property
-    def audio_channel_count(self):
+    def audio_channel_count(self) -> int:
         return max(self.audio_input_channel_count, self.audio_output_channel_count)
 
     @property
-    def audio_input_channel_count(self):
+    def audio_input_channel_count(self) -> int:
         """
         Gets audio input channel count of synthdef.
 
@@ -746,7 +745,7 @@ class SynthDef:
         raise ValueError
 
     @property
-    def audio_output_channel_count(self):
+    def audio_output_channel_count(self) -> int:
         """
         Gets audio output channel count of synthdef.
 
@@ -784,19 +783,19 @@ class SynthDef:
         raise ValueError
 
     @property
-    def constants(self):
+    def constants(self) -> Tuple[float, ...]:
         return self._constants
 
     @property
-    def control_ugens(self):
+    def control_ugens(self) -> List[UGen]:
         return self._control_ugens
 
     @property
-    def control_channel_count(self):
+    def control_channel_count(self) -> int:
         return max(self.control_input_channel_count, self.control_output_channel_count)
 
     @property
-    def control_input_channel_count(self):
+    def control_input_channel_count(self) -> int:
         """
         Gets control input channel count of synthdef.
 
@@ -834,7 +833,7 @@ class SynthDef:
         raise ValueError
 
     @property
-    def control_output_channel_count(self):
+    def control_output_channel_count(self) -> int:
         """
         Gets control output channel count of synthdef.
 
@@ -874,7 +873,7 @@ class SynthDef:
         raise ValueError
 
     @property
-    def done_actions(self):
+    def done_actions(self) -> List[DoneAction]:
         done_actions = set()
         for ugen in self.ugens:
             done_action = ugen._get_done_action()
@@ -883,7 +882,7 @@ class SynthDef:
         return sorted(done_actions)
 
     @property
-    def has_gate(self):
+    def has_gate(self) -> bool:
         return "gate" in self.parameter_names
 
     @property
@@ -891,35 +890,29 @@ class SynthDef:
         return self._indexed_parameters
 
     @property
-    def input_ugens(self):
+    def input_ugens(self) -> Tuple[UGen, ...]:
         return tuple(_ for _ in self.ugens if _.is_input_ugen)
 
     @property
-    def is_allocated(self):
-        if self.server is not None:
-            return self in self.server
-        return False
-
-    @property
-    def name(self):
+    def name(self) -> str:
         return self._name
 
     @property
-    def output_ugens(self):
+    def output_ugens(self) -> Tuple[UGen, ...]:
         return tuple(_ for _ in self.ugens if _.is_output_ugen)
 
     @property
-    def parameters(self):
+    def parameters(self) -> Dict[str, Parameter]:
         return {
             parameter.name: parameter for index, parameter in self.indexed_parameters
         }
 
     @property
-    def parameter_names(self):
+    def parameter_names(self) -> List[str]:
         return [parameter.name for index, parameter in self.indexed_parameters]
 
     @property
-    def ugens(self):
+    def ugens(self) -> Tuple[UGen, ...]:
         return self._ugens
 
 
@@ -967,7 +960,7 @@ class UGenSortBundle(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    def clear(self):
+    def clear(self) -> None:
         self.antecedents[:] = []
         self.descendants[:] = []
         self.width_first_antecedents[:] = []
