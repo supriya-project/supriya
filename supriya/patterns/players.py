@@ -24,7 +24,7 @@ class PatternPlayer:
         provider: Provider,
         clock: BaseClock,
         callback: Optional[
-            Callable[["PatternPlayer", ClockContext, Event, Priority], None]
+            Callable[["PatternPlayer", ClockContext, Event, Priority], Any]
         ] = None,
         uuid: Optional[UUID] = None,
     ):
