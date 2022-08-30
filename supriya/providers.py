@@ -31,6 +31,7 @@ from supriya.enums import AddAction, CalculationRate, ParameterRate
 from supriya.nonrealtime import Session
 from supriya.realtime import AsyncServer, BaseServer, Server
 from supriya.synthdefs import SynthDef
+from supriya.typing import AddActionLike, HeaderFormatLike, SampleFormatLike
 
 
 @dataclasses.dataclass(frozen=True)
@@ -69,9 +70,9 @@ class BufferProxy:
         self,
         file_path: os.PathLike,
         frame_count: Optional[int] = None,
-        header_format="aiff",
+        header_format: HeaderFormatLike = "aiff",
         leave_open: bool = False,
-        sample_format="int24",
+        sample_format: SampleFormatLike = "int24",
         starting_frame: Optional[int] = None,
     ) -> None:
         pass
@@ -197,7 +198,10 @@ class NodeProxy(Proxy):
         self.provider.set_node(self, **{key: value})
 
     def add_group(
-        self, *, add_action: int = AddAction.ADD_TO_HEAD, name: Optional[str] = None
+        self,
+        *,
+        add_action: AddActionLike = AddAction.ADD_TO_HEAD,
+        name: Optional[str] = None,
     ) -> "GroupProxy":
         return self.provider.add_group(add_action=add_action, target_node=self)
 
@@ -205,7 +209,7 @@ class NodeProxy(Proxy):
         self,
         *,
         synthdef: Optional[SynthDef] = None,
-        add_action: int = AddAction.ADD_TO_HEAD,
+        add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,
         **settings,
     ) -> "SynthProxy":
@@ -214,7 +218,7 @@ class NodeProxy(Proxy):
         )
 
     def as_move_request(
-        self, add_action: AddAction, target_node: "NodeProxy"
+        self, add_action: AddActionLike, target_node: "NodeProxy"
     ) -> commands.MoveRequest:
         request_classes: Dict[int, Type[commands.MoveRequest]] = {
             AddAction.ADD_TO_HEAD: commands.GroupHeadRequest,
@@ -222,7 +226,9 @@ class NodeProxy(Proxy):
             AddAction.ADD_BEFORE: commands.NodeBeforeRequest,
             AddAction.ADD_AFTER: commands.NodeAfterRequest,
         }
-        request_class: Type[commands.MoveRequest] = request_classes[add_action]
+        request_class: Type[commands.MoveRequest] = request_classes[
+            AddAction.from_expr(add_action)
+        ]
         return request_class(
             node_id_pairs=[request_class.NodeIdPair(int(self), int(target_node))]
         )
@@ -244,7 +250,7 @@ class NodeProxy(Proxy):
     def free(self) -> None:
         self.provider.free_node(self)
 
-    def move(self, add_action: AddAction, target_node: "NodeProxy") -> None:
+    def move(self, add_action: AddActionLike, target_node: "NodeProxy") -> None:
         self.provider.move_node(self, add_action, target_node)
 
 
@@ -567,7 +573,7 @@ class Provider(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def move_node(
-        self, node_proxy: NodeProxy, add_action: AddAction, target_node: NodeProxy
+        self, node_proxy: NodeProxy, add_action: AddActionLike, target_node: NodeProxy
     ) -> None:
         raise NotImplementedError
 
@@ -804,7 +810,7 @@ class NonrealtimeProvider(Provider):
     def move_node(
         self,
         node_proxy: NodeProxy,
-        add_action: AddAction,
+        add_action: AddActionLike,
         target_node: Union[NodeProxy, nonrealtime.Node],
     ) -> None:
         if not self.moment:
@@ -996,12 +1002,14 @@ class RealtimeProvider(Provider):
         self._annotation_map.pop(node_proxy.identifier, None)
 
     def move_node(
-        self, node_proxy: NodeProxy, add_action: AddAction, target_node: NodeProxy
+        self, node_proxy: NodeProxy, add_action: AddActionLike, target_node: NodeProxy
     ) -> None:
         if not self.moment:
             raise ValueError("No current moment")
         target_node = self._resolve_target_node(target_node)
-        self.moment.node_reorderings.append((node_proxy, add_action, target_node))
+        self.moment.node_reorderings.append(
+            (node_proxy, AddAction.from_expr(add_action), target_node)
+        )
 
     def set_bus(self, bus_proxy: BusProxy, value: float) -> None:
         if not self.moment:
