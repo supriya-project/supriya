@@ -5,19 +5,21 @@ requires = ["Cython", "setuptools>=40.6.0", "wheel"]
 [project]
 authors = [
   {name = "Josiah Wolf Oberholtzer", email = "josiah.oberholtzer@gmail.com"}
-]
-classifiers = [
-  "Environment :: Console",
+] classifiers = [
+  "Framework :: AsyncIO",
   "Intended Audience :: Developers",
   "License :: OSI Approved :: MIT License",
   "Natural Language :: English",
   "Operating System :: MacOS",
   "Operating System :: POSIX",
+  "Operating System :: Windows",
   "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Topic :: Artistic Software",
+  "Topic :: Multimedia :: Sound/Audio",
+  "Topic :: Multimedia :: Sound/Audio :: Analysis",
   "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
 ]
 dependencies = [
