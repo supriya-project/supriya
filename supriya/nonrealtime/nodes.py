@@ -43,6 +43,9 @@ class Node(SessionObject):
 
     ### SPECIAL METHODS ###
 
+    def __int__(self) -> int:
+        return self.session_id
+
     def __repr__(self) -> str:
         return "<{} #{} @{}:{}>".format(
             type(self).__name__, self.session_id, self.start_offset, self.stop_offset

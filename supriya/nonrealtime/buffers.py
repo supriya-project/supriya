@@ -59,6 +59,11 @@ class Buffer(SessionObject):
         self._starting_frame = starting_frame
         self._file_path = file_path
 
+    ### SPECIAL METHODS ###
+
+    def __int__(self) -> int:
+        return self.session_id
+
     ### PRIVATE METHODS ###
 
     @SessionObject.require_offset
@@ -353,6 +358,9 @@ class BufferGroup(SessionObject):
             return self._buffers[item]
         elif isinstance(item, slice):
             return tuple(self._buffers[item])
+
+    def __int__(self):
+        return self[0].session_id
 
     def __iter__(self):
         for buffer in self._buffers:
