@@ -2,7 +2,7 @@ import abc
 import pathlib
 import tempfile
 from collections.abc import Sequence
-from typing import Optional, Tuple, cast
+from typing import Optional, Tuple, Union, cast
 
 import uqbar.graphs
 import uqbar.strings
@@ -13,6 +13,8 @@ import supriya
 from supriya.enums import AddAction, NodeAction
 from supriya.exceptions import ServerOffline
 
+from ..commands import NodeQueryRequest, NodeRunRequest
+from ..querytree import QueryTreeGroup, QueryTreeSynth
 from ..synthdefs.synthdefs import SynthDef
 from ..typing import AddActionLike
 from .interfaces import GroupInterface, SynthInterface  # noqa
@@ -36,7 +38,9 @@ class Node(UniqueTreeNode):
 
     ### SPECIAL METHODS ###
 
-    def __float__(self):
+    def __float__(self) -> float:
+        if self.node_id is None:
+            raise ValueError
         return float(self.node_id)
 
     def __graph__(self):
@@ -66,12 +70,14 @@ class Node(UniqueTreeNode):
         )
         return graph
 
-    def __int__(self):
+    def __int__(self) -> int:
+        if self.node_id is None:
+            raise ValueError
         return int(self.node_id)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         class_name = type(self).__name__
-        node_id = "???"
+        node_id: Union[str, int] = "???"
         if self.node_id is not None:
             node_id = self.node_id
         allocated = "+" if self.is_allocated else "-"
@@ -86,7 +92,7 @@ class Node(UniqueTreeNode):
 
         if paused_nodes:
             requests.append(
-                supriya.commands.NodeRunRequest(
+                NodeRunRequest(
                     node_id_run_flag_pairs=[(node, False) for node in paused_nodes]
                 )
             )
@@ -411,28 +417,21 @@ class Node(UniqueTreeNode):
             self.replace_with(node)
         return node
 
-    def pause(self):
-        import supriya.commands
-
+    def pause(self) -> None:
         if self.is_paused:
             return
         self._is_paused = True
         if self.is_allocated:
-            request = supriya.commands.NodeRunRequest(
-                node_id_run_flag_pairs=((self.node_id, False),)
-            )
+            request = NodeRunRequest(node_id_run_flag_pairs=((self.node_id, False),))
             request.communicate(server=self.server, sync=False)
 
-    def precede_by(self, expr):
+    def precede_by(self, expr) -> None:
         if not isinstance(expr, Sequence):
             expr = [expr]
         index = self.parent.index(self)
         self.parent[index:index] = expr
 
-    def query(self):
-        from supriya.commands import NodeQueryRequest
-        from supriya.querytree import QueryTreeGroup, QueryTreeSynth
-
+    def query(self) -> Union[QueryTreeGroup, QueryTreeSynth]:
         query_tree = {}
         stack = [self.node_id]
         while stack:
@@ -744,20 +743,24 @@ class Group(Node, UniqueTreeList):
     ### PUBLIC METHODS ###
 
     def allocate(
-        self, target_node, add_action=None, node_id_is_permanent=False, sync=False
-    ):
+        self,
+        target_node,
+        add_action: AddActionLike = None,
+        node_id_is_permanent: bool = False,
+        sync: bool = False,
+    ) -> "Node":
         # TODO: Consolidate this with Group.allocate()
         import supriya.commands
 
         if self.is_allocated:
-            return
+            return self
         self._node_id_is_permanent = bool(node_id_is_permanent)
         target_node = Node._expr_as_target(target_node)
         server = target_node.server
         group_new_request = supriya.commands.GroupNewRequest(
             items=[
                 supriya.commands.GroupNewRequest.Item(
-                    add_action=add_action,
+                    add_action=AddAction.from_expr(add_action),
                     node_id=self,
                     target_node_id=target_node.node_id,
                 )
@@ -774,13 +777,13 @@ class Group(Node, UniqueTreeList):
             paused_nodes.add(self)
         return self._allocate(paused_nodes, requests, server, synthdefs)
 
-    def free(self):
+    def free(self) -> "Node":
         for node in self:
             node._unregister_with_local_server()
         Node.free(self)
         return self
 
-    def prepend(self, expr: Node):
+    def prepend(self, expr: Node) -> None:
         self[0:0] = [expr]
 
     ### PUBLIC PROPERTIES ###
@@ -875,9 +878,9 @@ class Synth(Node):
     def __iter__(self):
         return iter(self._control_interface)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         class_name = type(self).__name__
-        node_id = "???"
+        node_id: Union[int, str] = "???"
         if self.node_id is not None:
             node_id = self.node_id
         allocated = "+" if self.is_allocated else "-"
@@ -891,11 +894,11 @@ class Synth(Node):
     def __setitem__(self, items, values):
         self.controls.__setitem__(items, values)
 
-    def __str__(self):
+    def __str__(self) -> str:
         result = []
-        node_id = self.node_id
-        if node_id is None:
-            node_id = "???"
+        node_id: Union[int, str] = "???"
+        if self.node_id is not None:
+            node_id = self.node_id
         if self.name:
             string = "{node_id} {synthdef} ({name})"
         else:
@@ -909,10 +912,8 @@ class Synth(Node):
             control = self.controls[parameter.name]
             control_piece = "{}: {!s}".format(control.name, control.value)
             control_pieces.append(control_piece)
-        control_pieces = "    " + ", ".join(control_pieces)
-        result.append(control_pieces)
-        result = "\n".join(result)
-        return result
+        result.append("    " + ", ".join(control_pieces))
+        return "\n".join(result)
 
     ### PRIVATE METHODS ###
 
@@ -932,15 +933,15 @@ class Synth(Node):
     def allocate(
         self,
         target_node,
-        add_action=None,
-        node_id_is_permanent=False,
-        sync=True,
+        add_action: AddActionLike = None,
+        node_id_is_permanent: bool = False,
+        sync: bool = True,
         **kwargs,
-    ):
+    ) -> "Node":
         import supriya.commands
 
         if self.is_allocated:
-            return
+            return self
         self._node_id_is_permanent = bool(node_id_is_permanent)
         target_node = Node._expr_as_target(target_node)
         server = target_node.server
@@ -950,7 +951,7 @@ class Synth(Node):
         # TODO: Map requests aren't necessary during /s_new
         settings, map_requests = self.controls._make_synth_new_settings()
         synth_request = supriya.commands.SynthNewRequest(
-            add_action=add_action,
+            add_action=AddAction.from_expr(add_action),
             node_id=self,
             synthdef=self.synthdef,
             target_node_id=target_node.node_id,
@@ -965,7 +966,7 @@ class Synth(Node):
             synthdefs.add(self.synthdef)
         return self._allocate(paused_nodes, requests, server, synthdefs)
 
-    def release(self):
+    def release(self) -> "Node":
         if self.is_allocated and "gate" in self.controls:
             self["gate"] = 0
         else:
@@ -997,7 +998,7 @@ class RootNode(Group):
 
     ### SPECIAL METHODS ###
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "NODE TREE " + super().__str__()
 
     ### PRIVATE METHODS ###
@@ -1009,16 +1010,16 @@ class RootNode(Group):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self):
+    def allocate(self, *args, **kwargs) -> Node:
+        return self
+
+    def free(self) -> Node:
+        return self
+
+    def pause(self) -> None:
         pass
 
-    def free(self):
-        pass
-
-    def pause(self):
-        pass
-
-    def unpause(self):
+    def unpause(self) -> None:
         pass
 
     ### PUBLIC PROPERTIES ###

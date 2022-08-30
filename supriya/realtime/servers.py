@@ -21,19 +21,21 @@ from supriya.exceptions import ServerOffline
 from supriya.osc.protocols import (
     AsyncOscProtocol,
     HealthCheck,
+    OscProtocol,
     OscProtocolOffline,
     ThreadedOscProtocol,
 )
 from supriya.querytree import QueryTreeGroup, QueryTreeSynth
 from supriya.scsynth import Options, find
 
+from ..commands import StatusResponse
 from ..typing import AddActionLike, CalculationRateLike
 from .allocators import BlockAllocator, NodeIdAllocator
 from .buffers import Buffer, BufferGroup
 from .buses import AudioInputBusGroup, AudioOutputBusGroup, Bus, BusGroup
 from .meters import Meters
 from .nodes import Group, Node, RootNode, Synth
-from .protocols import AsyncProcessProtocol, SyncProcessProtocol
+from .protocols import AsyncProcessProtocol, ProcessProtocol, SyncProcessProtocol
 from .recorder import Recorder
 
 logger = logging.getLogger("supriya.server")
@@ -160,11 +162,11 @@ class BaseServer:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def audio_bus_allocator(self):
+    def audio_bus_allocator(self) -> BlockAllocator:
         return self._audio_bus_allocator
 
     @property
-    def buffer_allocator(self):
+    def buffer_allocator(self) -> BlockAllocator:
         return self._buffer_allocator
 
     @property
@@ -172,7 +174,7 @@ class BaseServer:
         return self._client_id
 
     @property
-    def control_bus_allocator(self):
+    def control_bus_allocator(self) -> BlockAllocator:
         return self._control_bus_allocator
 
     @property
@@ -192,7 +194,7 @@ class BaseServer:
         return self._latency
 
     @latency.setter
-    def latency(self, latency):
+    def latency(self, latency: float):
         self._latency = float(latency)
 
     @property
@@ -206,11 +208,11 @@ class BaseServer:
         return sync_id
 
     @property
-    def node_id_allocator(self):
+    def node_id_allocator(self) -> NodeIdAllocator:
         return self._node_id_allocator
 
     @property
-    def osc_protocol(self):
+    def osc_protocol(self) -> OscProtocol:
         return self._osc_protocol
 
     @property
@@ -222,11 +224,11 @@ class BaseServer:
         return self._port
 
     @property
-    def process_protocol(self):
+    def process_protocol(self) -> ProcessProtocol:
         return self._process_protocol
 
     @property
-    def status(self):
+    def status(self) -> StatusResponse:
         return self._status
 
 
@@ -399,7 +401,7 @@ class AsyncServer(BaseServer):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def boot_future(self):
+    def boot_future(self) -> asyncio.Future:
         return self._boot_future
 
     @property
@@ -407,7 +409,7 @@ class AsyncServer(BaseServer):
         return self.client_id + 1
 
     @property
-    def quit_future(self):
+    def quit_future(self) -> asyncio.Future:
         return self._quit_future
 
 
