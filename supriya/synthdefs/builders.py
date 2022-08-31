@@ -135,7 +135,7 @@ class SynthDefBuilder(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    def build(self, name=None, optimize=True):
+    def build(self, name: Optional[str] = None, optimize: bool = True) -> SynthDef:
         # Calling build() creates controls each time, so strip out
         # previously created ones. This could be made cleaner by preventing
         # Control subclasses from being aggregated into SynthDefBuilders in
@@ -143,7 +143,9 @@ class SynthDefBuilder(SupriyaObject):
         self._ugens[:] = [ugen for ugen in self._ugens if not isinstance(ugen, Control)]
         name = self.name or name
         with self:
-            ugens = list(self._parameters.values()) + list(self._ugens)
+            ugens: List[Union[Parameter, UGen]] = []
+            ugens.extend(self._parameters.values())
+            ugens.extend(self._ugens)
             ugens = copy.deepcopy(ugens)
             ugens, parameters = SynthDef._extract_parameters(ugens)
             (

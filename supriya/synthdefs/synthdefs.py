@@ -279,7 +279,7 @@ class SynthDef:
                         get_parameter_name(input_, output_index),
                     )
                 ugen_dict[argument_name] = value
-            ugens.append({ugen_name: ugen_dict})
+            ugens.append({ugen_name: ugen_dict or None})
 
         result = {
             "synthdef": {
