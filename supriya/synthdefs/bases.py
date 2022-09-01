@@ -839,26 +839,7 @@ class PureUGen(UGen):
     compilation.
     """
 
-    ### CLASS VARIABLES ###
-
     _is_pure = True
-
-    ### PRIVATE METHODS ###
-
-    def _optimize_graph(self, sort_bundles):
-        self._perform_dead_code_elimination(sort_bundles)
-
-
-class PureMultiOutUGen(MultiOutUGen):
-    """
-    Abstract base class for multi-output ugens with no side-effects.
-
-    These ugens may be optimized out of ugen graphs during SynthDef
-    compilation.
-    """
-
-    def _optimize_graph(self, sort_bundles):
-        self._perform_dead_code_elimination(sort_bundles)
 
 
 class WidthFirstUGen(UGen):

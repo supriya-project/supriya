@@ -3,7 +3,6 @@ import copy
 import inspect
 import threading
 import uuid
-from collections.abc import Sequence
 from typing import Dict, List, Optional, Tuple, Union
 
 from uqbar.objects import new
