@@ -1,6 +1,9 @@
 import uqbar.graphs
 
-from supriya import BinaryOperator, UnaryOperator
+from supriya import BinaryOperator, CalculationRate, UnaryOperator
+
+from ..ugens import BinaryOpUGen, OutputProxy, UnaryOpUGen
+from .controls import Control
 
 
 class SynthDefGrapher:
@@ -67,12 +70,10 @@ class SynthDefGrapher:
 
     @staticmethod
     def _connect_nodes(synthdef, ugen_node_mapping):
-        import supriya.synthdefs
-
         for ugen in synthdef.ugens:
             tail_node = ugen_node_mapping[ugen]
             for i, input_ in enumerate(ugen.inputs):
-                if not isinstance(input_, supriya.synthdefs.OutputProxy):
+                if not isinstance(input_, OutputProxy):
                     continue
                 tail_field = tail_node["inputs"][i]
                 source = input_.source
@@ -80,9 +81,9 @@ class SynthDefGrapher:
                 head_field = head_node["outputs"][input_.output_index]
                 edge = uqbar.graphs.Edge(head_port_position="w", tail_port_position="e")
                 edge.attach(head_field, tail_field)
-                if source.calculation_rate == supriya.CalculationRate.CONTROL:
+                if source.calculation_rate == CalculationRate.CONTROL:
                     edge.attributes["color"] = "goldenrod"
-                elif source.calculation_rate == supriya.CalculationRate.AUDIO:
+                elif source.calculation_rate == CalculationRate.AUDIO:
                     edge.attributes["color"] = "steelblue"
                 else:
                     edge.attributes["color"] = "salmon"
@@ -114,15 +115,13 @@ class SynthDefGrapher:
 
     @staticmethod
     def _create_ugen_node_mapping(synthdef):
-        import supriya.synthdefs
-
         ugen_node_mapping = {}
         for ugen in synthdef.ugens:
             ugen_index = synthdef.ugens.index(ugen)
             node = uqbar.graphs.Node(name="ugen_{}".format(ugen_index))
-            if ugen.calculation_rate == supriya.CalculationRate.CONTROL:
+            if ugen.calculation_rate == CalculationRate.CONTROL:
                 node.attributes["fillcolor"] = "lightgoldenrod2"
-            elif ugen.calculation_rate == supriya.CalculationRate.AUDIO:
+            elif ugen.calculation_rate == CalculationRate.AUDIO:
                 node.attributes["fillcolor"] = "lightsteelblue2"
             else:
                 node.attributes["fillcolor"] = "lightsalmon2"
@@ -143,14 +142,12 @@ class SynthDefGrapher:
 
     @staticmethod
     def _create_ugen_output_group(synthdef, ugen, ugen_index):
-        import supriya.ugens
-
         if not ugen.outputs:
             return None
         output_group = uqbar.graphs.RecordGroup(name="outputs")
         for i, output in enumerate(ugen.outputs):
             label = str(i)
-            if isinstance(ugen, supriya.synthdefs.Control):
+            if isinstance(ugen, Control):
                 parameter_index = ugen.special_index + i
                 parameter = dict(synthdef.indexed_parameters)[parameter_index]
                 parameter_name = parameter.name
@@ -164,17 +161,14 @@ class SynthDefGrapher:
 
     @staticmethod
     def _create_ugen_title_field(ugen):
-        import supriya.synthdefs
-        import supriya.ugens
-
         name = type(ugen).__name__
         calculation_rate = ugen.calculation_rate.name.lower()
         label_template = r"{name}\n({calculation_rate})"
         operator = None
-        if isinstance(ugen, supriya.synthdefs.BinaryOpUGen):
+        if isinstance(ugen, BinaryOpUGen):
             operator = BinaryOperator(ugen.special_index).name
             label_template = r"{name}\n[{operator}]\n({calculation_rate})"
-        elif isinstance(ugen, supriya.synthdefs.UnaryOpUGen):
+        elif isinstance(ugen, UnaryOpUGen):
             operator = UnaryOperator(ugen.special_index).name
             label_template = r"{name}\n[{operator}]\n({calculation_rate})"
         title_field = uqbar.graphs.RecordField(

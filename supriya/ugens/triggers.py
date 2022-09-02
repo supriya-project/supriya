@@ -2,7 +2,8 @@ import collections
 from collections.abc import Sequence
 
 from supriya import CalculationRate
-from supriya.synthdefs import UGen
+
+from .bases import OutputProxy, UGen
 
 
 class Clip(UGen):
@@ -310,13 +311,10 @@ class Poll(UGen):
         trigger=None,
         trigger_id=-1,
     ):
-        import supriya.synthdefs
-        import supriya.ugens
-
         if label is None:
-            if isinstance(source, supriya.synthdefs.UGen):
+            if isinstance(source, UGen):
                 label = type(source).__name__
-            elif isinstance(source, supriya.synthdefs.OutputProxy):
+            elif isinstance(source, OutputProxy):
                 label = type(source.source).__name__
         UGen.__init__(
             self,
@@ -334,9 +332,7 @@ class Poll(UGen):
 
     @classmethod
     def ar(cls, label=None, source=None, trigger=None, trigger_id=-1):
-        import supriya.synthdefs
-
-        calculation_rate = supriya.CalculationRate.AUDIO
+        calculation_rate = CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             label=label,
@@ -348,9 +344,7 @@ class Poll(UGen):
 
     @classmethod
     def kr(cls, label=None, source=None, trigger=None, trigger_id=-1):
-        import supriya.synthdefs
-
-        calculation_rate = supriya.CalculationRate.CONTROL
+        calculation_rate = CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             label=label,
@@ -362,13 +356,11 @@ class Poll(UGen):
 
     @classmethod
     def new(cls, label=None, source=None, trigger=None, trigger_id=-1):
-        import supriya.synthdefs
-
         if isinstance(source, Sequence):
             source = (source,)
         calculation_rates = []
         for single_source in source:
-            rate = supriya.CalculationRate.from_expr(single_source)
+            rate = CalculationRate.from_expr(single_source)
             calculation_rates.append(rate)
         ugen = cls._new_expanded(
             calculation_rate=calculation_rates,

@@ -1,8 +1,10 @@
 import abc
 import collections
 
-from supriya import CalculationRate
-from supriya.synthdefs import PseudoUGen, PureUGen, UGen
+from supriya import CalculationRate, DoneAction
+
+from .bases import PseudoUGen, PureUGen, UGen, UGenArray
+from .basic import MulAdd
 
 
 class A2K(PureUGen):
@@ -169,11 +171,9 @@ class LinLin(PseudoUGen):
         output_minimum=1.0,
         output_maximum=2.0,
     ):
-        import supriya.ugens
-
         scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
         offset = output_minimum - (scale * input_minimum)
-        ugen = supriya.ugens.MulAdd.new(source=source, multiplier=scale, addend=offset)
+        ugen = MulAdd.new(source=source, multiplier=scale, addend=offset)
         return ugen
 
     @staticmethod
@@ -184,11 +184,9 @@ class LinLin(PseudoUGen):
         output_minimum=1.0,
         output_maximum=2.0,
     ):
-        import supriya.ugens
-
         scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
         offset = output_minimum - (scale * input_minimum)
-        ugen = supriya.ugens.MulAdd.new(source=source, multiplier=scale, addend=offset)
+        ugen = MulAdd.new(source=source, multiplier=scale, addend=offset)
         return ugen
 
 
@@ -222,9 +220,7 @@ class Line(UGen):
         stop=None,
         start=None,
     ):
-        import supriya.synthdefs
-
-        done_action = supriya.DoneAction.from_expr(int(done_action))
+        done_action = DoneAction.from_expr(int(done_action))
         return super(Line, cls)._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
@@ -247,16 +243,15 @@ class Silence(PseudoUGen):
 
     @classmethod
     def ar(cls, channel_count=1):
-        import supriya.synthdefs
-        import supriya.ugens
+        from . import DC
 
         channel_count = int(channel_count)
         assert 0 <= channel_count
-        silence = supriya.ugens.DC.ar(0)
+        silence = DC.ar(0)
         if channel_count == 1:
             return silence
         output_proxies = [silence[0]] * channel_count
-        return supriya.synthdefs.UGenArray(output_proxies)
+        return UGenArray(output_proxies)
 
 
 class XLine(UGen):

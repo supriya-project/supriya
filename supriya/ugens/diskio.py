@@ -1,7 +1,8 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.synthdefs import MultiOutUGen, UGen
+
+from .bases import MultiOutUGen, UGen
 
 
 class DiskIn(MultiOutUGen):

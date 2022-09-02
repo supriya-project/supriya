@@ -1,7 +1,7 @@
 from supriya import EnvelopeShape, utils
 from supriya.system import SupriyaValueObject
 
-from .mixins import OutputProxy
+from ..ugens import OutputProxy
 
 
 class Envelope(SupriyaValueObject):

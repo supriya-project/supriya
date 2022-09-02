@@ -1,6 +1,22 @@
 """
 Tools for modeling unit generators (UGens).
 """
+
+# Need to import these before anything else
+from .bases import (  # isort:skip
+    BinaryOpUGen,
+    MultiOutUGen,
+    OutputProxy,
+    PseudoUGen,
+    PureUGen,
+    UGen,
+    UGenArray,
+    UGenMeta,
+    UGenMethodMixin,
+    UnaryOpUGen,
+    WidthFirstUGen,
+)
+
 from .basic import Mix, MulAdd, Sum3, Sum4
 from .beq import (
     BAllPass,
@@ -349,6 +365,7 @@ __all__ = [
     "BeatTrack",
     "BeatTrack2",
     "BiPanB2",
+    "BinaryOpUGen",
     "Blip",
     "BlockSize",
     "BrownNoise",
@@ -533,6 +550,7 @@ __all__ = [
     "MouseX",
     "MouseY",
     "MulAdd",
+    "MultiOutUGen",
     "NRand",
     "NodeID",
     "Normalizer",
@@ -547,6 +565,7 @@ __all__ = [
     "OneZero",
     "Onsets",
     "Out",
+    "OutputProxy",
     "PV_Add",
     "PV_BinScramble",
     "PV_BinShift",
@@ -599,7 +618,9 @@ __all__ = [
     "PlayBuf",
     "Pluck",
     "Poll",
+    "PseudoUGen",
     "Pulse",
+    "PureUGen",
     "QuadC",
     "QuadL",
     "QuadN",
@@ -654,6 +675,11 @@ __all__ = [
     "Trig1",
     "TwoPole",
     "TwoZero",
+    "UGen",
+    "UGenArray",
+    "UGenMeta",
+    "UGenMethodMixin",
+    "UnaryOpUGen",
     "VDiskIn",
     "VOsc",
     "VOsc3",
@@ -661,6 +687,7 @@ __all__ = [
     "Vibrato",
     "Warp1",
     "WhiteNoise",
+    "WidthFirstUGen",
     "Wrap",
     "WrapIndex",
     "XFade2",

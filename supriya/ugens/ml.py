@@ -3,7 +3,8 @@ import collections
 from uqbar.enums import IntEnumeration
 
 from supriya import CalculationRate
-from supriya.synthdefs import MultiOutUGen, UGen
+
+from .bases import MultiOutUGen, UGen
 
 
 class BeatTrack(MultiOutUGen):

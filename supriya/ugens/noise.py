@@ -1,8 +1,9 @@
 import collections
 
 from supriya import CalculationRate, SignalRange
-from supriya.synthdefs import UGen, WidthFirstUGen
 from supriya.typing import UGenInputMap
+
+from .bases import UGen, WidthFirstUGen
 
 
 class BrownNoise(UGen):

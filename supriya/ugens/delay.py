@@ -1,7 +1,8 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.synthdefs import PureUGen, UGen
+
+from .bases import PureUGen, UGen
 
 
 class AllpassC(PureUGen):

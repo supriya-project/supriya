@@ -3,7 +3,25 @@ import types
 
 from supriya.system import SupriyaObject
 
-from .mixins import UGenArray
+from .. import DoneAction
+from ..ugens import (
+    DetectSilence,
+    In,
+    InFeedback,
+    Line,
+    Linen,
+    LocalIn,
+    LocalOut,
+    Mix,
+    Out,
+    RandID,
+    ReplaceOut,
+    UGenArray,
+    UGenMethodMixin,
+    XOut,
+)
+from .builders import SynthDefBuilder
+from .controls import Parameter
 
 
 class SynthDefFactory(SupriyaObject):
@@ -227,21 +245,18 @@ class SynthDefFactory(SupriyaObject):
     ### PRIVATE METHODS ###
 
     def _setup_parameters_and_state(self, builder, state, kwargs):
-        import supriya.synthdefs
-        import supriya.ugens
-
         state["channel_count"] = self._channel_count
         state.update(kwargs)
         for parameter_block in self._parameter_blocks:
             parameter_block(builder, state)
         if self._rand_id is not None:
             builder._add_parameter("rand_id", self._rand_id, "SCALAR")
-            supriya.ugens.RandID.ir(rand_id=builder["rand_id"])
+            RandID.ir(rand_id=builder["rand_id"])
         if self._gate:
             builder._add_parameter("gate", 1, "CONTROL")
-            state["gate"] = supriya.ugens.Linen.kr(
+            state["gate"] = Linen.kr(
                 attack_time=self._gate["attack_time"],
-                done_action=supriya.DoneAction.FREE_SYNTH,
+                done_action=DoneAction.FREE_SYNTH,
                 gate=builder["gate"],
                 release_time=self._gate["release_time"],
             )
@@ -251,8 +266,8 @@ class SynthDefFactory(SupriyaObject):
             builder._add_parameter("in_", 0, "SCALAR")
         if self._output.get("windowed") or self._input.get("windowed"):
             builder._add_parameter("duration", 1, "SCALAR")
-            state["line"] = supriya.ugens.Line.kr(
-                done_action=supriya.DoneAction.FREE_SYNTH, duration=builder["duration"]
+            state["line"] = Line.kr(
+                done_action=DoneAction.FREE_SYNTH, duration=builder["duration"]
             )
             state["window"] = state["line"].hanning_window()
         if not self._output.get("windowed") and self._output.get("crossfaded"):
@@ -263,26 +278,22 @@ class SynthDefFactory(SupriyaObject):
             builder._add_parameter(key, value)
 
     def _build_input(self, builder, state):
-        import supriya.ugens
-
         if not self._input:
             return
         parameter = builder["out"]
         if self._input.get("private"):
             parameter = builder["in_"]
-        input_class = supriya.ugens.In
+        input_class = In
         if self._input.get("feedback"):
-            input_class = supriya.ugens.InFeedback
+            input_class = InFeedback
         source = input_class.ar(bus=parameter, channel_count=state["channel_count"])
         if self._input.get("windowed"):
             source *= state["window"]
         return source
 
     def _build_feedback_loop_input(self, builder, source, state):
-        import supriya.ugens
-
         if self._feedback_loop:
-            local_in = supriya.ugens.LocalIn.ar(channel_count=state["channel_count"])
+            local_in = LocalIn.ar(channel_count=state["channel_count"])
             if source is None:
                 source = local_in
             else:
@@ -290,17 +301,13 @@ class SynthDefFactory(SupriyaObject):
         return source
 
     def _build_feedback_loop_output(self, builder, source, state):
-        import supriya.ugens
-
         if not self._feedback_loop:
             return
         if isinstance(self._feedback_loop, types.FunctionType):
             source = self._feedback_loop(builder, source, state)
-        supriya.ugens.LocalOut.ar(source=source)
+        LocalOut.ar(source=source)
 
     def _build_output(self, builder, source, state):
-        import supriya.ugens
-
         if not self._output:
             return
         crossfaded = self._output.get("crossfaded")
@@ -309,12 +316,12 @@ class SynthDefFactory(SupriyaObject):
         gate = state.get("gate")
         if self._output.get("leveled") and not crossfaded:
             source *= builder["level"]
-        out_class = supriya.ugens.Out
+        out_class = Out
         kwargs = dict(bus=builder["out"], source=source)
         if replacing:
-            out_class = supriya.ugens.ReplaceOut
+            out_class = ReplaceOut
         if crossfaded:
-            out_class = supriya.ugens.XOut
+            out_class = XOut
             if windowed:
                 window = state["window"]
                 if self._output.get("leveled"):
@@ -334,15 +341,9 @@ class SynthDefFactory(SupriyaObject):
         out_class.ar(**kwargs)
 
     def _build_silence_detection(self, builder, source, state):
-        import supriya.synthdefs
-        import supriya.ugens
-
         if not self._silence_detection:
             return
-        supriya.ugens.DetectSilence.kr(
-            done_action=supriya.DoneAction.FREE_SYNTH,
-            source=supriya.ugens.Mix.new(source),
-        )
+        DetectSilence.kr(done_action=DoneAction.FREE_SYNTH, source=Mix.new(source))
 
     def _clone(self):
         clone = type(self)()
@@ -357,9 +358,7 @@ class SynthDefFactory(SupriyaObject):
         """
         Build the SynthDef.
         """
-        import supriya.synthdefs
-
-        builder = supriya.synthdefs.SynthDefBuilder()
+        builder = SynthDefBuilder()
         state = self._initial_state.copy()
         with builder:
             state.update(**kwargs)
@@ -368,7 +367,7 @@ class SynthDefFactory(SupriyaObject):
             source = self._build_feedback_loop_input(builder, source, state)
             for signal_block in self._signal_blocks:
                 source = signal_block(builder, source, state)
-                if not isinstance(source, supriya.synthdefs.UGenMethodMixin):
+                if not isinstance(source, UGenMethodMixin):
                     source = UGenArray(source)
             self._build_output(builder, source, state)
             self._build_feedback_loop_output(builder, source, state)
@@ -1566,8 +1565,6 @@ class SynthDefFactory(SupriyaObject):
         return clone
 
     def with_parameter(self, name, value, rate=None):
-        from .controls import Parameter
-
         parameter = Parameter(name=name, value=value, parameter_rate=rate)
         return self.with_parameters(**{name: parameter})
 

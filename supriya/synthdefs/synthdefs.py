@@ -20,11 +20,17 @@ from supriya import (
 )
 from supriya.system import SupriyaObject
 
-from .bases import BinaryOpUGen, UGen, UnaryOpUGen, WidthFirstUGen
+from ..ugens import (
+    BinaryOpUGen,
+    OutputProxy,
+    UGen,
+    UGenMethodMixin,
+    UnaryOpUGen,
+    WidthFirstUGen,
+)
 from .compilers import SynthDefCompiler
 from .controls import AudioControl, Control, LagControl, Parameter, TrigControl
 from .grapher import SynthDefGrapher
-from .mixins import OutputProxy, UGenMethodMixin
 
 
 class SynthDef:

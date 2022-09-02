@@ -144,14 +144,14 @@ class CalculationRate(IntEnumeration):
 
         Return calculation-rate.
         """
-        import supriya.synthdefs
-        import supriya.ugens
+        from .synthdefs import Parameter
+        from .ugens import OutputProxy, UGen
 
         if isinstance(expr, (int, float)) and not isinstance(expr, cls):
             return CalculationRate.SCALAR
-        elif isinstance(expr, (supriya.synthdefs.OutputProxy, supriya.synthdefs.UGen)):
+        elif isinstance(expr, (OutputProxy, UGen)):
             return expr.calculation_rate
-        elif isinstance(expr, supriya.synthdefs.Parameter):
+        elif isinstance(expr, Parameter):
             name = expr.parameter_rate.name
             if name == "TRIGGER":
                 return CalculationRate.CONTROL

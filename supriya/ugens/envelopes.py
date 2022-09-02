@@ -1,7 +1,8 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.synthdefs import UGen
+
+from .bases import UGen
 
 
 class Done(UGen):

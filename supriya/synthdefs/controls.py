@@ -5,8 +5,7 @@ from supriya import CalculationRate, ParameterRate, SignalRange
 from supriya.system import SupriyaValueObject
 from supriya.typing import UGenInputMap
 
-from .bases import MultiOutUGen
-from .mixins import UGenMethodMixin
+from ..ugens import MultiOutUGen, OutputProxy, UGenMethodMixin
 
 
 class Range(SupriyaValueObject):
@@ -284,12 +283,10 @@ class Control(MultiOutUGen):
 
         Returns output proxy.
         """
-        import supriya.synthdefs
-
         if type(i) == int:
             if len(self) == 1:
-                return supriya.synthdefs.OutputProxy(self, 0)
-            return supriya.synthdefs.OutputProxy(self, i)
+                return OutputProxy(self, 0)
+            return OutputProxy(self, i)
         else:
             return self[self._get_control_index(i)]
 
@@ -329,15 +326,10 @@ class Control(MultiOutUGen):
 
         Returns ugen graph.
         """
-        import supriya.synthdefs
-
         if len(self.parameters) == 1:
             result = self
         else:
-            result = [
-                supriya.synthdefs.OutputProxy(self, i)
-                for i in range(len(self.parameters))
-            ]
+            result = [OutputProxy(self, i) for i in range(len(self.parameters))]
         return result
 
     @property

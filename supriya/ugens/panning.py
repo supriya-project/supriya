@@ -2,8 +2,9 @@ import collections
 import math
 
 from supriya import CalculationRate
-from supriya.synthdefs import MultiOutUGen, PseudoUGen, UGen
-from supriya.ugens.basic import Mix
+
+from .bases import MultiOutUGen, PseudoUGen, UGen
+from .basic import Mix
 
 
 class Balance2(MultiOutUGen):

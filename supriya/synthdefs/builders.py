@@ -11,9 +11,8 @@ from supriya.enums import ParameterRate
 from supriya.system import SupriyaObject
 from supriya.ugens import Impulse, Poll
 
-from .bases import UGen
+from ..ugens import OutputProxy, UGen
 from .controls import Control, Parameter
-from .mixins import OutputProxy
 from .synthdefs import SynthDef
 
 _local = threading.local()

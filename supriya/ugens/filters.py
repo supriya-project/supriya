@@ -1,7 +1,8 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.synthdefs import PseudoUGen, PureUGen
+
+from .bases import PseudoUGen, PureUGen
 
 
 class Filter(PureUGen):
@@ -177,9 +178,7 @@ class Changed(PseudoUGen):
 
         Returns ugen graph.
         """
-        import supriya.ugens
-
-        ugen = abs(supriya.ugens.HPZ1.ar(source=source)) > threshold
+        ugen = abs(HPZ1.ar(source=source)) > threshold
         return ugen
 
     @classmethod
@@ -214,9 +213,7 @@ class Changed(PseudoUGen):
 
         Returns ugen graph.
         """
-        import supriya.ugens
-
-        ugen = abs(supriya.ugens.HPZ1.kr(source=source)) > threshold
+        ugen = abs(HPZ1.kr(source=source)) > threshold
         return ugen
 
 

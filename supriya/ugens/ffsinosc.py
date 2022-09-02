@@ -2,7 +2,8 @@ import collections
 from collections.abc import Sequence
 
 from supriya import CalculationRate, utils
-from supriya.synthdefs import PureUGen, UGen
+
+from .bases import PureUGen, UGen
 
 
 class Blip(UGen):

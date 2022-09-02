@@ -1,8 +1,9 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.synthdefs import UGen
 from supriya.typing import UGenInputMap
+
+from .bases import UGen
 
 
 class BlockSize(UGen):

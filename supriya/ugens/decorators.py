@@ -1,8 +1,8 @@
-from typing import NamedTuple, Optional
 from types import FunctionType
+from typing import NamedTuple, Optional
 
-from ..synthdefs import UGen
 from ..enums import CalculationRate
+from .bases import UGen
 
 
 def _create_fn(cls, name, args, body):
@@ -33,21 +33,14 @@ def _set_new_attribute(cls, name, value):
 
 
 def _rate_fn(cls, rate, params):
-    args = ["cls"] + [
-        f"{name}={value}" for name, value in params.items()
-    ]
+    args = ["cls"] + [f"{name}={value}" for name, value in params.items()]
     body = [
         "return cls(",
         f"    calculation_rate={rate!r},",
         *[f"    {name}={name}," for name in params],
         ")",
     ]
-    return classmethod(_create_fn(
-        cls,
-        rate.token,
-        args=args,
-        body=body,
-    ))
+    return classmethod(_create_fn(cls, rate.token, args=args, body=body))
 
 
 class Parameter(NamedTuple):
@@ -55,17 +48,7 @@ class Parameter(NamedTuple):
     unexpanded: bool = False
 
 
-def _process_class(
-    cls,
-    ar,
-    done,
-    input_,
-    ir,
-    kr,
-    output,
-    pure,
-    width_first,
-):
+def _process_class(cls, ar, done, input_, ir, kr, output, pure, width_first):
     if not any([ar, ir, kr]):
         raise ValueError
     params = {}
@@ -110,17 +93,7 @@ def ugen(
     width_first: bool = False,
 ):
     def wrap(cls):
-        return _process_class(
-            cls,
-            ar,
-            done,
-            input_,
-            ir,
-            kr,
-            output,
-            pure,
-            width_first,
-        )
+        return _process_class(cls, ar, done, input_, ir, kr, output, pure, width_first)
 
     if cls is None:
         return wrap

@@ -1,7 +1,8 @@
 import collections
 
 from supriya import CalculationRate, SignalRange
-from supriya.synthdefs import UGen
+
+from .bases import UGen
 
 
 class KeyState(UGen):

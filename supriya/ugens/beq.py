@@ -1,7 +1,8 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.ugens.filters import Filter
+
+from .filters import Filter
 
 
 class BEQSuite(Filter):

@@ -5,7 +5,8 @@ from collections.abc import Sequence
 from supriya import CalculationRate, ParameterRate, utils
 from supriya.system import SupriyaObject
 
-from .bases import MultiOutUGen, UGen
+from ..ugens import MultiOutUGen, OutputProxy, UGen
+from .controls import Control, Parameter
 
 
 class SynthDefCompiler(SupriyaObject):
@@ -105,14 +106,12 @@ class SynthDefCompiler(SupriyaObject):
 
     @staticmethod
     def compile_ugen_input_spec(input_, synthdef):
-        import supriya.synthdefs
-
         result = []
         if isinstance(input_, float):
             result.append(SynthDefCompiler.encode_unsigned_int_32bit(0xFFFFFFFF))
             constant_index = synthdef._constants.index(input_)
             result.append(SynthDefCompiler.encode_unsigned_int_32bit(constant_index))
-        elif isinstance(input_, supriya.synthdefs.OutputProxy):
+        elif isinstance(input_, OutputProxy):
             ugen = input_.source
             output_index = input_.output_index
             ugen_index = synthdef._ugens.index(ugen)
@@ -241,8 +240,6 @@ class SynthDefDecompiler(SupriyaObject):
 
     @staticmethod
     def _decode_parameters(value, index):
-        import supriya.synthdefs
-
         sdd = SynthDefDecompiler
         parameter_values = []
         parameter_count, index = sdd._decode_int_32bit(value, index)
@@ -266,13 +263,13 @@ class SynthDefDecompiler(SupriyaObject):
                 value = parameter_values[index_one:index_two]
                 if len(value) == 1:
                     value = value[0]
-                parameter = supriya.synthdefs.Parameter(name=name_one, value=value)
+                parameter = Parameter(name=name_one, value=value)
                 indexed_parameters.append((index_one, parameter))
             index_one, name_one = pairs[-1]
             value = parameter_values[index_one:]
             if len(value) == 1:
                 value = value[0]
-            parameter = supriya.synthdefs.Parameter(name=name_one, value=value)
+            parameter = Parameter(name=name_one, value=value)
             indexed_parameters.append((index_one, parameter))
             indexed_parameters.sort(key=lambda x: parameter_names.index(x[1].name))
         indexed_parameters = collections.OrderedDict(indexed_parameters)
@@ -282,6 +279,8 @@ class SynthDefDecompiler(SupriyaObject):
     def _decompile_synthdef(value, index):
         import supriya.synthdefs
         import supriya.ugens
+
+        from .synthdefs import SynthDef
 
         sdd = SynthDefDecompiler
         synthdef = None
@@ -293,7 +292,7 @@ class SynthDefDecompiler(SupriyaObject):
         for i in range(ugen_count):
             ugen_name, index = sdd._decode_string(value, index)
             calculation_rate, index = sdd._decode_int_8bit(value, index)
-            calculation_rate = supriya.CalculationRate(calculation_rate)
+            calculation_rate = CalculationRate(calculation_rate)
             input_count, index = sdd._decode_int_32bit(value, index)
             output_count, index = sdd._decode_int_32bit(value, index)
             special_index, index = sdd._decode_int_16bit(value, index)
@@ -314,8 +313,8 @@ class SynthDefDecompiler(SupriyaObject):
             ugen_class = getattr(supriya.ugens, ugen_name, None)
             if ugen_class is None:
                 ugen_class = getattr(supriya.synthdefs, ugen_name)
-            ugen = supriya.synthdefs.UGen.__new__(ugen_class)
-            if issubclass(ugen_class, supriya.synthdefs.Control):
+            ugen = UGen.__new__(ugen_class)
+            if issubclass(ugen_class, Control):
                 starting_control_index = special_index
                 parameters = sdd._collect_parameters_for_control(
                     calculation_rate,
@@ -359,7 +358,7 @@ class SynthDefDecompiler(SupriyaObject):
                     )
             ugens.append(ugen)
         variants_count, index = sdd._decode_int_16bit(value, index)
-        synthdef = supriya.synthdefs.SynthDef(ugens=ugens, name=name, decompiled=True)
+        synthdef = SynthDef(ugens=ugens, name=name, decompiled=True)
         if synthdef.name == synthdef.anonymous_name:
             synthdef._name = None
         return synthdef, index
