@@ -1,17 +1,9 @@
-import collections
-
-from supriya import CalculationRate
-
+from .decorators import param, ugen
 from .filters import Filter
 
 
-class BEQSuite(Filter):
-    """
-    Abstract base class of all BEQSuite UGens.
-    """
-
-
-class BAllPass(BEQSuite):
+@ugen(ar=True, is_pure=True)
+class BAllPass(Filter):
     """
     An all-pass filter.
 
@@ -28,13 +20,13 @@ class BAllPass(BEQSuite):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 1200), ("reciprocal_of_q", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    frequency = param(1200.0)
+    reciprocal_of_q = param(1.0)
 
 
-class BBandPass(BEQSuite):
+@ugen(ar=True, is_pure=True)
+class BBandPass(Filter):
     """
     A band-pass filter.
 
@@ -51,13 +43,13 @@ class BBandPass(BEQSuite):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 1200), ("bandwidth", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    frequency = param(1200.0)
+    bandwidth = param(1.0)
 
 
-class BBandStop(BEQSuite):
+@ugen(ar=True, is_pure=True)
+class BBandStop(Filter):
     """
     A band-stop filter.
 
@@ -74,13 +66,13 @@ class BBandStop(BEQSuite):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 1200), ("bandwidth", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    frequency = param(1200.0)
+    bandwidth = param(1.0)
 
 
-class BHiCut(BEQSuite):
+@ugen(ar=True, is_pure=True)
+class BHiCut(Filter):
     """
     A high-cut filter.
 
@@ -98,13 +90,14 @@ class BHiCut(BEQSuite):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 1200), ("order", 2), ("max_order", 5)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    frequency = param(1200.0)
+    order = param(2.0)
+    max_order = param(5.0)
 
 
-class BHiPass(BEQSuite):
+@ugen(ar=True, is_pure=True)
+class BHiPass(Filter):
     """
     A high-pass filter.
 
@@ -121,13 +114,13 @@ class BHiPass(BEQSuite):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 1200), ("reciprocal_of_q", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    frequency = param(1200.0)
+    reciprocal_of_q = param(1.0)
 
 
-class BHiShelf(BEQSuite):
+@ugen(ar=True, is_pure=True)
+class BHiShelf(Filter):
     """
     A high-shelf filter.
 
@@ -145,13 +138,14 @@ class BHiShelf(BEQSuite):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 1200), ("reciprocal_of_s", 1), ("gain", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    frequency = param(1200.0)
+    reciprocal_of_s = param(1.0)
+    gain = param(0.0)
 
 
-class BLowCut(BEQSuite):
+@ugen(ar=True, is_pure=True)
+class BLowCut(Filter):
     """
     A low-cut filter.
 
@@ -169,13 +163,14 @@ class BLowCut(BEQSuite):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 1200), ("order", 2), ("max_order", 5)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    frequency = param(1200.0)
+    order = param(2.0)
+    max_order = param(5.0)
 
 
-class BLowPass(BEQSuite):
+@ugen(ar=True, is_pure=True)
+class BLowPass(Filter):
     """
     A low-pass filter.
 
@@ -192,13 +187,13 @@ class BLowPass(BEQSuite):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 1200), ("reciprocal_of_q", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    frequency = param(1200.0)
+    reciprocal_of_q = param(1.0)
 
 
-class BLowShelf(BEQSuite):
+@ugen(ar=True, is_pure=True)
+class BLowShelf(Filter):
     """
     A low-shelf filter.
 
@@ -216,13 +211,14 @@ class BLowShelf(BEQSuite):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 1200), ("reciprocal_of_s", 1), ("gain", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    frequency = param(1200.0)
+    reciprocal_of_s = param(1.0)
+    gain = param(0.0)
 
 
-class BPeakEQ(BEQSuite):
+@ugen(ar=True, is_pure=True)
+class BPeakEQ(Filter):
     """
     A parametric equalizer.
 
@@ -240,7 +236,7 @@ class BPeakEQ(BEQSuite):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 1200), ("reciprocal_of_q", 1), ("gain", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    frequency = param(1200.0)
+    reciprocal_of_q = param(1.0)
+    gain = param(0.0)

@@ -1,12 +1,11 @@
-import abc
-import collections
-
-from supriya import CalculationRate, DoneAction
+from supriya import DoneAction
 
 from .bases import PseudoUGen, PureUGen, UGen, UGenArray
 from .basic import MulAdd
+from .decorators import param, ugen
 
 
+@ugen(kr=True, is_pure=True)
 class A2K(PureUGen):
     """
     An audio-rate to control-rate convert unit generator.
@@ -22,10 +21,10 @@ class A2K(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    source = param(None)
 
 
+@ugen(ar=True, ir=True, kr=True, is_pure=True)
 class AmpComp(PureUGen):
     """
     Basic psychoacoustic amplitude compensation.
@@ -42,16 +41,12 @@ class AmpComp(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 1000), ("root", 0), ("exp", 0.3333)]
-    )
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-        CalculationRate.SCALAR,
-    )
+    frequency = param(1000.0)
+    root = param(0.0)
+    exp = param(0.3333)
 
 
+@ugen(ar=True, ir=True, kr=True, is_pure=True)
 class AmpCompA(PureUGen):
     """
     Basic psychoacoustic amplitude compensation (ANSI A-weighting curve).
@@ -69,17 +64,14 @@ class AmpCompA(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 1000), ("root", 0), ("min_amp", 0.32), ("root_amp", 1)]
-    )
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-        CalculationRate.SCALAR,
-    )
+    frequency = param(1000.0)
+    root = param(0.0)
+    min_amp = param(0.32)
+    root_amp = param(1.0)
 
 
-class DC(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class DC(UGen):
     """
     A DC unit generator.
 
@@ -99,10 +91,10 @@ class DC(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param()
 
 
+@ugen(ar=True, is_pure=True)
 class K2A(PureUGen):
     """
     A control-rate to audio-rate converter unit generator.
@@ -118,10 +110,10 @@ class K2A(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class LinExp(PureUGen):
     """
     A linear-to-exponential range mapper.
@@ -141,28 +133,14 @@ class LinExp(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("input_minimum", 0),
-            ("input_maximum", 1),
-            ("output_minimum", 1),
-            ("output_maximum", 2),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    input_minimum = param(0)
+    input_maximum = param(1)
+    output_minimum = param(1)
+    output_maximum = param(2)
 
 
 class LinLin(PseudoUGen):
-
-    ### INITIALIZER ###
-
-    @abc.abstractmethod
-    def __init__(self):
-        raise NotImplementedError
-
-    ### PUBLIC METHODS ###
-
     @staticmethod
     def ar(
         source=None,
@@ -190,6 +168,7 @@ class LinLin(PseudoUGen):
         return ugen
 
 
+@ugen(ar=True, kr=True, has_done_flag=True)
 class Line(UGen):
     """
     A line generating unit generator.
@@ -201,15 +180,10 @@ class Line(UGen):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    _has_done_flag = True
-    _ordered_input_names = collections.OrderedDict(
-        [("start", 0.0), ("stop", 1.0), ("duration", 1.0), ("done_action", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
-
-    ### PRIVATE METHODS ###
+    start = param(0.0)
+    stop = param(1.0)
+    duration = param(1.0)
+    done_action = param(DoneAction(0))
 
     @classmethod
     def _new_expanded(
@@ -254,6 +228,7 @@ class Silence(PseudoUGen):
         return UGenArray(output_proxies)
 
 
+@ugen(ar=True, kr=True, has_done_flag=True)
 class XLine(UGen):
     """
     An exponential line generating unit generator.
@@ -265,8 +240,7 @@ class XLine(UGen):
 
     """
 
-    _has_done_flag = True
-    _ordered_input_names = collections.OrderedDict(
-        [("start", 0.0), ("stop", 1.0), ("duration", 1.0), ("done_action", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    start = param(0.0)
+    stop = param(0.0)
+    duration = param(1.0)
+    done_action = param(DoneAction(0))

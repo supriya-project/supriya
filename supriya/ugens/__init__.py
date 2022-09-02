@@ -16,6 +16,7 @@ from .bases import (  # isort:skip
     UnaryOpUGen,
     WidthFirstUGen,
 )
+from .decorators import param, ugen  # isort:skip
 
 from .basic import Mix, MulAdd, Sum3, Sum4
 from .beq import (
@@ -694,4 +695,6 @@ __all__ = [
     "XLine",
     "XOut",
     "ZeroCrossing",
+    "param",
+    "ugen",
 ]

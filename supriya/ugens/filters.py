@@ -1,10 +1,11 @@
 import collections
 
-from supriya import CalculationRate
+from .. import CalculationRate, DoneAction
+from .bases import PseudoUGen, PureUGen, UGen
+from .decorators import param, ugen
 
-from .bases import PseudoUGen, PureUGen
 
-
+@ugen(is_pure=True)
 class Filter(PureUGen):
     """
     Abstract base class for filter ugens.
@@ -259,7 +260,8 @@ class Decay2(Filter):
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
 
-class DetectSilence(Filter):
+@ugen(ar=True, kr=True)
+class DetectSilence(UGen):
     """
     Evaluates `done_action` when input falls below `threshold`.
 
@@ -280,16 +282,10 @@ class DetectSilence(Filter):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("threshold", 0.0001), ("time", 0.1), ("done_action", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
-
-    ### PRIVATE METHODS ###
-
-    def _optimize_graph(self, sort_bundles):
-        # TODO: Replace with `_is_pure = False` class variable
-        pass
+    source = param(None)
+    threshold = param(0.0001)
+    time = param(0.1)
+    done_action = param(DoneAction(0))
 
 
 class FOS(Filter):
@@ -582,6 +578,7 @@ class LeakDC(Filter):
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class LPF(Filter):
     """
     A lowpass filter unit generator.
@@ -594,10 +591,8 @@ class LPF(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 440)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param()
+    frequency = param(440.0)
 
 
 class LPZ1(Filter):

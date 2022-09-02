@@ -1,10 +1,8 @@
-import collections
-
-from supriya import CalculationRate
-
 from .bases import UGen
+from .decorators import param, ugen
 
 
+@ugen(ar=True)
 class CuspL(UGen):
     """
     A linear-interpolating cusp map chaotic generator.
@@ -22,12 +20,13 @@ class CuspL(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("a", 1.0), ("b", 1.9), ("xi", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1.0)
+    b = param(1.9)
+    xi = param(0.0)
 
 
+@ugen(ar=True)
 class CuspN(UGen):
     """
     A non-interpolating cusp map chaotic generator.
@@ -45,12 +44,13 @@ class CuspN(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("a", 1.0), ("b", 1.9), ("xi", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1.0)
+    b = param(1.9)
+    xi = param(0.0)
 
 
+@ugen(ar=True)
 class FBSineC(UGen):
     """
     A cubic-interpolating feedback sine with chaotic phase indexing.
@@ -71,20 +71,16 @@ class FBSineC(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("frequency", 22050),
-            ("im", 1.0),
-            ("fb", 0.1),
-            ("a", 1.1),
-            ("c", 0.5),
-            ("xi", 0.1),
-            ("yi", 0.1),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    im = param(1.0)
+    fb = param(0.1)
+    a = param(1.1)
+    c = param(0.5)
+    xi = param(0.1)
+    yi = param(0.1)
 
 
+@ugen(ar=True)
 class FBSineL(UGen):
     """
     A linear-interpolating feedback sine with chaotic phase indexing.
@@ -105,20 +101,16 @@ class FBSineL(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("frequency", 22050),
-            ("im", 1.0),
-            ("fb", 0.1),
-            ("a", 1.1),
-            ("c", 0.5),
-            ("xi", 0.1),
-            ("yi", 0.1),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    im = param(1.0)
+    fb = param(0.1)
+    a = param(1.1)
+    c = param(0.5)
+    xi = param(0.1)
+    yi = param(0.1)
 
 
+@ugen(ar=True)
 class FBSineN(UGen):
     """
     A non-interpolating feedback sine with chaotic phase indexing.
@@ -139,20 +131,16 @@ class FBSineN(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("frequency", 22050),
-            ("im", 1.0),
-            ("fb", 0.1),
-            ("a", 1.1),
-            ("c", 0.5),
-            ("xi", 0.1),
-            ("yi", 0.1),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    im = param(1.0)
+    fb = param(0.1)
+    a = param(1.1)
+    c = param(0.5)
+    xi = param(0.1)
+    yi = param(0.1)
 
 
+@ugen(ar=True)
 class GbmanL(UGen):
     """
     A non-interpolating gingerbreadman map chaotic generator.
@@ -169,12 +157,12 @@ class GbmanL(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("xi", 1.2), ("yi", 2.1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    xi = param(1.2)
+    yi = param(2.1)
 
 
+@ugen(ar=True)
 class GbmanN(UGen):
     """
     A non-interpolating gingerbreadman map chaotic generator.
@@ -191,12 +179,12 @@ class GbmanN(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("xi", 1.2), ("yi", 2.1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    xi = param(1.2)
+    yi = param(2.1)
 
 
+@ugen(ar=True)
 class HenonC(UGen):
     """
     A cubic-interpolating henon map chaotic generator.
@@ -215,12 +203,14 @@ class HenonC(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("a", 1.4), ("b", 0.3), ("x_0", 0), ("x_1", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1.4)
+    b = param(0.3)
+    x_0 = param(0)
+    x_1 = param(0)
 
 
+@ugen(ar=True)
 class HenonL(UGen):
     """
     A linear-interpolating henon map chaotic generator.
@@ -239,12 +229,14 @@ class HenonL(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("a", 1.4), ("b", 0.3), ("x_0", 0), ("x_1", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1.4)
+    b = param(0.3)
+    x_0 = param(0)
+    x_1 = param(0)
 
 
+@ugen(ar=True)
 class HenonN(UGen):
     """
     A non-interpolating henon map chaotic generator.
@@ -263,12 +255,14 @@ class HenonN(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("a", 1.4), ("b", 0.3), ("x_0", 0), ("x_1", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1.4)
+    b = param(0.3)
+    x_0 = param(0)
+    x_1 = param(0)
 
 
+@ugen(ar=True)
 class LatoocarfianC(UGen):
     """
     A cubic-interpolating Latoocarfian chaotic generator.
@@ -289,20 +283,16 @@ class LatoocarfianC(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("frequency", 22050),
-            ("a", 1),
-            ("b", 3),
-            ("c", 0.5),
-            ("d", 0.5),
-            ("xi", 0.5),
-            ("yi", 0.5),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1)
+    b = param(3)
+    c = param(0.5)
+    d = param(0.5)
+    xi = param(0.5)
+    yi = param(0.5)
 
 
+@ugen(ar=True)
 class LatoocarfianL(UGen):
     """
     A linear-interpolating Latoocarfian chaotic generator.
@@ -323,20 +313,16 @@ class LatoocarfianL(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("frequency", 22050),
-            ("a", 1),
-            ("b", 3),
-            ("c", 0.5),
-            ("d", 0.5),
-            ("xi", 0.5),
-            ("yi", 0.5),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1)
+    b = param(3)
+    c = param(0.5)
+    d = param(0.5)
+    xi = param(0.5)
+    yi = param(0.5)
 
 
+@ugen(ar=True)
 class LatoocarfianN(UGen):
     """
     A non-interpolating Latoocarfian chaotic generator.
@@ -357,20 +343,16 @@ class LatoocarfianN(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("frequency", 22050),
-            ("a", 1),
-            ("b", 3),
-            ("c", 0.5),
-            ("d", 0.5),
-            ("xi", 0.5),
-            ("yi", 0.5),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1)
+    b = param(3)
+    c = param(0.5)
+    d = param(0.5)
+    xi = param(0.5)
+    yi = param(0.5)
 
 
+@ugen(ar=True)
 class LinCongC(UGen):
     """
     A cubic-interpolating linear congruential chaotic generator.
@@ -389,12 +371,14 @@ class LinCongC(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("a", 1.1), ("c", 0.13), ("m", 1), ("xi", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1.1)
+    c = param(0.13)
+    m = param(1)
+    xi = param(0)
 
 
+@ugen(ar=True)
 class LinCongL(UGen):
     """
     A linear-interpolating linear congruential chaotic generator.
@@ -413,12 +397,14 @@ class LinCongL(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("a", 1.1), ("c", 0.13), ("m", 1), ("xi", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1.1)
+    c = param(0.13)
+    m = param(1)
+    xi = param(0)
 
 
+@ugen(ar=True)
 class LinCongN(UGen):
     """
     A non-interpolating linear congruential chaotic generator.
@@ -437,12 +423,14 @@ class LinCongN(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("a", 1.1), ("c", 0.13), ("m", 1), ("xi", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1.1)
+    c = param(0.13)
+    m = param(1)
+    xi = param(0)
 
 
+@ugen(ar=True)
 class LorenzL(UGen):
     """
     A linear-interpolating Lorenz chaotic generator.
@@ -464,21 +452,17 @@ class LorenzL(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("frequency", 22050),
-            ("s", 10),
-            ("r", 28),
-            ("b", 2.667),
-            ("h", 0.05),
-            ("xi", 0.1),
-            ("yi", 0),
-            ("zi", 0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    s = param(10)
+    r = param(28)
+    b = param(2.667)
+    h = param(0.05)
+    xi = param(0.1)
+    yi = param(0)
+    zi = param(0)
 
 
+@ugen(ar=True)
 class QuadC(UGen):
     """
     A cubic-interpolating general quadratic map chaotic generator.
@@ -497,12 +481,14 @@ class QuadC(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("a", 1), ("b", -1), ("c", -0.75), ("xi", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1)
+    b = param(-1)
+    c = param(-0.75)
+    xi = param(0)
 
 
+@ugen(ar=True)
 class QuadL(UGen):
     """
     A linear-interpolating general quadratic map chaotic generator.
@@ -521,12 +507,14 @@ class QuadL(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("a", 1), ("b", -1), ("c", -0.75), ("xi", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1)
+    b = param(-1)
+    c = param(-0.75)
+    xi = param(0)
 
 
+@ugen(ar=True)
 class QuadN(UGen):
     """
     A non-interpolating general quadratic map chaotic generator.
@@ -545,12 +533,14 @@ class QuadN(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("a", 1), ("b", -1), ("c", -0.75), ("xi", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    a = param(1)
+    b = param(-1)
+    c = param(-0.75)
+    xi = param(0)
 
 
+@ugen(ar=True)
 class StandardL(UGen):
     """
     A linear-interpolating standard map chaotic generator.
@@ -568,12 +558,13 @@ class StandardL(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("k", 1), ("xi", 0.5), ("yi", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    k = param(1)
+    xi = param(0.5)
+    yi = param(0)
 
 
+@ugen(ar=True)
 class StandardN(UGen):
     """
     A non-interpolating standard map chaotic generator.
@@ -591,7 +582,7 @@ class StandardN(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 22050), ("k", 1), ("xi", 0.5), ("yi", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    frequency = param(22050)
+    k = param(1)
+    xi = param(0.5)
+    yi = param(0)

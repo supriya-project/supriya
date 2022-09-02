@@ -1,10 +1,8 @@
-import collections
-
-from supriya import CalculationRate
-
 from .bases import UGen
+from .decorators import param, ugen
 
 
+@ugen(ar=True)
 class Convolution(UGen):
     """
     A real-time convolver.
@@ -26,12 +24,12 @@ class Convolution(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("kernel", None), ("framesize", 512)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    kernel = param(None)
+    framesize = param(512)
 
 
+@ugen(ar=True)
 class Convolution2(UGen):
     """
     Strict convolution with fixed kernel which can be updated using a trigger
@@ -55,12 +53,13 @@ class Convolution2(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("kernel", None), ("trigger", 0), ("framesize", 2048)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    kernel = param(None)
+    trigger = param(0.0)
+    framesize = param(2048)
 
 
+@ugen(ar=True)
 class Convolution2L(UGen):
     """
     Strict convolution with fixed kernel which can be updated using a trigger signal.
@@ -84,18 +83,14 @@ class Convolution2L(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("kernel", None),
-            ("trigger", 0.0),
-            ("framesize", 2048),
-            ("crossfade", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    kernel = param(None)
+    trigger = param(0.0)
+    framesize = param(2048)
+    crossfade = param(1.0)
 
 
+@ugen(ar=True)
 class Convolution3(UGen):
     """
     Strict convolution with fixed kernel which can be updated using a trigger signal.
@@ -118,7 +113,7 @@ class Convolution3(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("kernel", None), ("trigger", 0.0), ("framesize", 2048)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    kernel = param(None)
+    trigger = param(0.0)
+    framesize = param(2048)

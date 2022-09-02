@@ -1,8 +1,8 @@
 import collections
 
-from supriya import CalculationRate
-
+from .. import CalculationRate, DoneAction
 from .bases import MultiOutUGen, UGen, WidthFirstUGen
+from .decorators import param, ugen
 
 
 class BufRd(MultiOutUGen):
@@ -37,6 +37,7 @@ class BufRd(MultiOutUGen):
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
 
+@ugen(ar=True, kr=True, has_done_flag=True)
 class BufWr(UGen):
     """
     A buffer-writing oscillator.
@@ -61,14 +62,13 @@ class BufWr(UGen):
 
     """
 
-    _has_done_flag = True
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("phase", 0.0), ("loop", 1.0), ("source", None)]
-    )
-    _unexpanded_input_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    phase = param(0.0)
+    loop = param(1.0)
+    source = param(None, unexpanded=True)
 
 
+@ugen(ir=True, is_width_first=True)
 class ClearBuf(WidthFirstUGen):
     """
 
@@ -82,10 +82,10 @@ class ClearBuf(WidthFirstUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("buffer_id", None)])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
+    buffer_id = param(None)
 
 
+@ugen(ir=True, is_width_first=True)
 class LocalBuf(WidthFirstUGen):
     """
     A synth-local buffer.
@@ -129,10 +129,8 @@ class LocalBuf(WidthFirstUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [("channel_count", 1), ("frame_count", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
+    channel_count = param(1)
+    frame_count = param(1)
 
     ### INITIALIZER ###
 
@@ -149,6 +147,7 @@ class LocalBuf(WidthFirstUGen):
         )
 
 
+@ugen(ir=True)
 class MaxLocalBufs(UGen):
     """
     Sets the maximum number of local buffers in a synth.
@@ -163,21 +162,12 @@ class MaxLocalBufs(UGen):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    _ordered_input_names = collections.OrderedDict([("maximum", 0)])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
-
-    ### INITIALIZER ###
+    maximum = param(0)
 
     def __init__(self, maximum=0):
-        import supriya.synthdefs
-
         maximum = float(maximum)
-        calculation_rate = supriya.CalculationRate.SCALAR
+        calculation_rate = CalculationRate.SCALAR
         UGen.__init__(self, calculation_rate=calculation_rate, maximum=maximum)
-
-    ### PUBLIC METHODS ###
 
     def increment(self):
         """
@@ -236,6 +226,7 @@ class PlayBuf(MultiOutUGen):
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
 
+@ugen(ar=True, kr=True, has_done_flag=True)
 class RecordBuf(UGen):
     """
     Records or overdubs into a buffer.
@@ -260,19 +251,12 @@ class RecordBuf(UGen):
 
     """
 
-    _has_done_flag = True
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("offset", 0),
-            ("record_level", 1),
-            ("preexisting_level", 0),
-            ("run", 1),
-            ("loop", 1),
-            ("trigger", 1),
-            ("done_action", 0),
-            ("source", None),
-        ]
-    )
-    _unexpanded_input_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    offset = param(0.0)
+    record_level = param(1.0)
+    preexisting_level = param(0.0)
+    run = param(1.0)
+    loop = param(1.0)
+    trigger = param(1.0)
+    done_action = param(DoneAction(0))
+    source = param(None, unexpanded=True)

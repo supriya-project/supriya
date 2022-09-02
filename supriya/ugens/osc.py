@@ -3,6 +3,7 @@ import collections
 from supriya import CalculationRate
 
 from .bases import PureUGen, UGen
+from .decorators import param, ugen
 
 
 class COsc(PureUGen):
@@ -269,6 +270,7 @@ class Select(PureUGen):
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class SinOsc(PureUGen):
     """
     A sinusoid oscillator unit generator.
@@ -290,10 +292,13 @@ class SinOsc(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 440.0), ("phase", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    # _ordered_input_names = collections.OrderedDict(
+    #     [("frequency", 440.0), ("phase", 0.0)]
+    # )
+    # _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+    frequency = param(440.0)
+    phase = param(0.0)
 
 
 class SyncSaw(PureUGen):
@@ -362,6 +367,7 @@ class VOsc3(PureUGen):
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class VarSaw(PureUGen):
     """
     A sawtooth-triangle oscillator with variable duty.
@@ -373,10 +379,9 @@ class VarSaw(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 440.0), ("initial_phase", 0.0), ("width", 0.5)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)
+    initial_phase = param(0.0)
+    width = param(0.5)
 
 
 class Vibrato(PureUGen):

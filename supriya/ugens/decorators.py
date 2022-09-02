@@ -1,12 +1,13 @@
-from types import FunctionType
+from enum import Enum
 from typing import NamedTuple, Optional
 
 from ..enums import CalculationRate
-from .bases import UGen
 
 
-def _create_fn(cls, name, args, body):
-    globals_ = {"CalculationRate": CalculationRate}
+def _create_fn(cls, name, args, body, globals_=None, decorator=None, override=False):
+    if name in cls.__dict__ and not override:
+        return True
+    globals_ = globals_ or {}
     locals_ = {"_return_type": cls}
     args = ", ".join(args)
     body = "\n".join(f"        {line}" for line in body)
@@ -15,68 +16,98 @@ def _create_fn(cls, name, args, body):
     text = f"def __create_fn__({local_vars}):\n{text}\n    return {name}"
     namespace = {}
     exec(text, globals_, namespace)
-    return namespace["__create_fn__"](**locals_)
-
-
-def _set_qualname(cls, value):
-    if isinstance(value, FunctionType):
-        value.__qualname__ = f"{cls.__qualname__}.{value.__name__}"
-    return value
-
-
-def _set_new_attribute(cls, name, value):
-    if name in cls.__dict__:
-        return True
-    _set_qualname(cls, value)
+    value = namespace["__create_fn__"](**locals_)
+    value.__qualname__ = f"{cls.__qualname__}.{value.__name__}"
+    if decorator:
+        value = decorator(value)
     setattr(cls, name, value)
     return False
 
 
-def _rate_fn(cls, rate, params):
+def _add_rate_fn(cls, rate, params):
+    name = rate.token if rate is not None else "new"
     args = ["cls"] + [f"{name}={value}" for name, value in params.items()]
-    body = [
-        "return cls(",
-        f"    calculation_rate={rate!r},",
-        *[f"    {name}={name}," for name in params],
-        ")",
-    ]
-    return classmethod(_create_fn(cls, rate.token, args=args, body=body))
+    body = ["return cls._new_expanded("]
+    if rate is not None:
+        body.append(f"    calculation_rate={rate!r},")
+    body.extend(f"    {name}={name}," for name in params)
+    body.append(")")
+    globals_ = {"CalculationRate": CalculationRate}
+    return _create_fn(
+        cls, name, args=args, body=body, decorator=classmethod, globals_=globals_
+    )
+
+
+def _add_param_fn(cls, name, index, unexpanded):
+    args = ["self"]
+    if unexpanded:
+        body = [f"return self._inputs[{index}:]"]
+    else:
+        body = [f"return self._inputs[{index}]"]
+    return _create_fn(
+        cls, name, args=args, body=body, decorator=property, override=True
+    )
+
+
+class Check(Enum):
+    NONE = 0
+    SAME_AS_FIRST = 1
+    SAME_OR_SLOWER = 2
 
 
 class Parameter(NamedTuple):
     default: Optional[float] = None
+    check: Check = Check.NONE
     unexpanded: bool = False
 
 
-def _process_class(cls, ar, done, input_, ir, kr, output, pure, width_first):
-    if not any([ar, ir, kr]):
-        raise ValueError
+def _process_class(
+    cls, *, ar, ir, kr, new, has_done_flag, is_input, is_output, is_pure, is_width_first
+):
     params = {}
     unexpanded_input_names = []
+    valid_calculation_rates = []
     for name, value in cls.__dict__.items():
         if not isinstance(value, Parameter):
             continue
         params[name] = value.default
         if value.unexpanded:
             unexpanded_input_names.append(name)
-    if ar:
-        _set_new_attribute(cls, "ar", _rate_fn(cls, CalculationRate.AUDIO, params))
-    if ir:
-        _set_new_attribute(cls, "ir", _rate_fn(cls, CalculationRate.SCALAR, params))
-    if kr:
-        _set_new_attribute(cls, "kr", _rate_fn(cls, CalculationRate.CONTROL, params))
-    cls._has_done_flag = bool(done)
-    cls._is_input = bool(input_)
-    cls._is_output = bool(output)
-    cls._is_pure = bool(pure)
-    cls._is_width_first = bool(width_first)
+        _add_param_fn(cls, name, len(params) - 1, value.unexpanded)
+    for should_add, rate in [
+        (ar, CalculationRate.AUDIO),
+        (kr, CalculationRate.CONTROL),
+        (ir, CalculationRate.SCALAR),
+        (new, None),
+    ]:
+        if should_add:
+            _add_rate_fn(cls, rate, params)
+            if rate is not None:
+                valid_calculation_rates.append(rate)
+    cls._has_done_flag = bool(has_done_flag)
+    cls._is_input = bool(is_input)
+    cls._is_output = bool(is_output)
+    cls._is_pure = bool(is_pure)
+    cls._is_width_first = bool(is_width_first)
     cls._ordered_input_names = params
     cls._unexpanded_input_names = tuple(unexpanded_input_names)
+    cls._valid_calculation_rates = tuple(valid_calculation_rates)
     return cls
 
 
-def param(default=None, unexpanded=False):
-    return Parameter(default, unexpanded)
+def param(
+    default: Optional[float] = None,
+    /,
+    *,
+    check: Check = Check.NONE,
+    unexpanded: bool = False,
+):
+    """
+    Define a UGen parameter.
+
+    Akin to dataclasses.field.
+    """
+    return Parameter(default, check, unexpanded)
 
 
 def ugen(
@@ -84,26 +115,37 @@ def ugen(
     /,
     *,
     ar: bool = False,
-    done: bool = False,
-    input_: bool = False,
-    ir: bool = False,
     kr: bool = False,
-    output: bool = False,
-    pure: bool = False,
-    width_first: bool = False,
+    ir: bool = False,
+    new: bool = False,
+    has_done_flag: bool = False,
+    is_input: bool = False,
+    is_multiout: bool = False,
+    is_output: bool = False,
+    is_pure: bool = False,
+    is_width_first: bool = False,
+    channel_count: Optional[int] = None,
 ):
+    """
+    Decorate a UGen class.
+
+    Akin to dataclasses.dataclass.
+    """
+
     def wrap(cls):
-        return _process_class(cls, ar, done, input_, ir, kr, output, pure, width_first)
+        return _process_class(
+            cls,
+            ar=ar,
+            kr=kr,
+            ir=ir,
+            new=new,
+            has_done_flag=has_done_flag,
+            is_input=is_input,
+            is_output=is_output,
+            is_pure=is_pure,
+            is_width_first=is_width_first,
+        )
 
     if cls is None:
         return wrap
     return wrap(cls)
-
-
-@ugen(ar=True, kr=True, pure=True, width_first=True)
-class Foo(UGen):
-    source = param(None, unexpanded=True)
-    windows_size = param(0.2)
-    pitch_ratio = param(1.0)
-    pitch_dispersion = param(0.0)
-    time_dispersion = param(0.0)

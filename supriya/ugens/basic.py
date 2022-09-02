@@ -1,8 +1,7 @@
-import collections
-
 from supriya import CalculationRate, utils
 
 from .bases import PseudoUGen, UGen, UGenArray
+from .decorators import param, ugen
 
 
 class Mix(PseudoUGen):
@@ -303,6 +302,7 @@ class Mix(PseudoUGen):
         return UGenArray(mixes)
 
 
+@ugen(new=True)
 class MulAdd(UGen):
     """
     An Optimized multiplication / addition ugen.
@@ -322,9 +322,9 @@ class MulAdd(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("multiplier", 1.0), ("addend", 0.0)]
-    )
+    source = param(None)
+    multiplier = param(1.0)
+    addend = param(0.0)
 
     ### INITIALIZER ###
 
@@ -427,6 +427,7 @@ class MulAdd(UGen):
         return ugen
 
 
+@ugen(new=True)
 class Sum3(UGen):
     """
     A three-input summing unit generator.
@@ -447,11 +448,9 @@ class Sum3(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [("input_one", None), ("input_two", None), ("input_three", None)]
-    )
-
-    _valid_calculation_rates = ()
+    input_one = param(None)
+    input_two = param(None)
+    input_three = param(None)
 
     ### INITIALIZER ###
 
@@ -485,6 +484,7 @@ class Sum3(UGen):
         return ugen
 
 
+@ugen(new=True)
 class Sum4(UGen):
     """
     A four-input summing unit generator.
@@ -507,16 +507,10 @@ class Sum4(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("input_one", None),
-            ("input_two", None),
-            ("input_three", None),
-            ("input_four", None),
-        ]
-    )
-
-    _valid_calculation_rates = ()
+    input_one = param(None)
+    input_two = param(None)
+    input_three = param(None)
+    input_four = param(None)
 
     ### INITIALIZER ###
 
