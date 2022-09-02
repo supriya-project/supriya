@@ -24,7 +24,7 @@ class UGenMeta(abc.ABCMeta):
         {base_class_name}.__init__(
             self,
             {parameters_indent_two}
-            )
+        )
     """
     )
 
@@ -292,7 +292,6 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     ### INITIALIZER ###
 
-    @abc.abstractmethod
     def __init__(self, calculation_rate=None, special_index=0, **kwargs):
         import supriya.synthdefs
 
