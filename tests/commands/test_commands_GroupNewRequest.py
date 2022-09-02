@@ -2,6 +2,7 @@ import pytest
 import uqbar.strings
 
 import supriya
+from supriya.exceptions import NodeNotAllocated
 
 
 def test_1():
@@ -25,7 +26,7 @@ def test_1():
     assert request.items[0].target_node_id is group_a
     assert request.items[1].node_id is group_c
     assert request.items[1].target_node_id is group_b
-    with pytest.raises(TypeError):
+    with pytest.raises(NodeNotAllocated):
         request.to_osc()
 
 

@@ -2,6 +2,7 @@ import pytest
 import uqbar.strings
 
 import supriya
+from supriya.exceptions import NodeNotAllocated
 
 
 def test_do_not_coerce_arguments():
@@ -16,7 +17,7 @@ def test_do_not_coerce_arguments():
     assert request.target_node_id is group
     assert synth.node_id is None
     assert group.node_id is None
-    with pytest.raises(TypeError):
+    with pytest.raises(NodeNotAllocated):
         request.to_osc()
 
 

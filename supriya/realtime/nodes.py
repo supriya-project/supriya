@@ -11,7 +11,7 @@ from uqbar.objects import new
 
 import supriya
 from supriya.enums import AddAction, NodeAction
-from supriya.exceptions import ServerOffline
+from supriya.exceptions import NodeNotAllocated, ServerOffline
 
 from ..commands import NodeQueryRequest, NodeRunRequest
 from ..querytree import QueryTreeGroup, QueryTreeSynth
@@ -72,7 +72,7 @@ class Node(UniqueTreeNode):
 
     def __int__(self) -> int:
         if self.node_id is None:
-            raise ValueError
+            raise NodeNotAllocated
         return int(self.node_id)
 
     def __repr__(self) -> str:
