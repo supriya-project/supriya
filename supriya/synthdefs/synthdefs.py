@@ -745,7 +745,7 @@ class SynthDef:
             _ for _ in self.input_ugens if _.calculation_rate == CalculationRate.AUDIO
         )
         if len(ugens) == 1:
-            return ugens[0].channel_count
+            return len(ugens[0])
         elif not ugens:
             return 0
         raise ValueError
@@ -833,7 +833,7 @@ class SynthDef:
             _ for _ in self.input_ugens if _.calculation_rate == CalculationRate.CONTROL
         )
         if len(ugens) == 1:
-            return ugens[0].channel_count
+            return len(ugens[0])
         elif not ugens:
             return 0
         raise ValueError

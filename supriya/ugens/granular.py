@@ -123,7 +123,7 @@ class Warp1(MultiOutUGen):
         ...     window_size=0.2,
         ... )
         >>> warp_1
-        Warp1.ar()[0]
+        Warp1.ar()
 
     """
 

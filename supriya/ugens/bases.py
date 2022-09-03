@@ -1,7 +1,6 @@
 import abc
 import collections
 import copy
-import inspect
 from collections.abc import Iterable, Sequence
 from typing import Tuple
 
@@ -3690,9 +3689,8 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         if supriya.synthdefs.SynthDefBuilder._active_builders:
             builder = supriya.synthdefs.SynthDefBuilder._active_builders[-1]
             self._uuid = builder._uuid
-        self._check_inputs_share_same_uuid()
-        if self._uuid is not None:
             builder._add_ugens(self)
+        self._check_inputs_share_same_uuid()
 
     ### SPECIAL METHODS ###
 
@@ -3928,20 +3926,19 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         return False
 
     @classmethod
-    def _new_expanded(cls, special_index=0, **kwargs):
-        input_dicts = UGen._expand_dictionary(
+    def _new_expanded(cls, **kwargs):
+        output_proxies = []
+        for input_dict in UGen._expand_dictionary(
             kwargs, unexpanded_input_names=cls._unexpanded_input_names
-        )
-        ugens = []
-        for input_dict in input_dicts:
-            if "special_index" in inspect.signature(cls.__init__).parameters:
-                ugen = cls._new_single(special_index=special_index, **input_dict)
+        ):
+            ugen = cls._new_single(**input_dict)
+            if len(ugen) <= 1:
+                output_proxies.append(ugen)
             else:
-                ugen = cls._new_single(**input_dict)
-            ugens.append(ugen)
-        if len(ugens) == 1:
-            return ugens[0]
-        return UGenArray(ugens)
+                output_proxies.extend(ugen[:])
+        if len(output_proxies) == 1:
+            return output_proxies[0]
+        return UGenArray(output_proxies)
 
     @classmethod
     def _new_single(cls, **kwargs):
@@ -4096,56 +4093,9 @@ class MultiOutUGen(UGen):
 
     ### INTIALIZER ###
 
-    @abc.abstractmethod
-    def __init__(
-        self, calculation_rate=None, special_index=0, channel_count=1, **kwargs
-    ):
+    def __init__(self, channel_count=1, **kwargs):
         self._channel_count = int(channel_count)
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            special_index=special_index,
-            **kwargs,
-        )
-
-    ### SPECIAL METHODS ###
-
-    def __len__(self):
-        """
-        Gets number of ugen outputs.
-
-        Returns integer.
-        """
-        return self._channel_count
-
-    ### PRIVATE METHODS ###
-
-    @classmethod
-    def _new_expanded(cls, special_index=0, **kwargs):
-        ugen = super(MultiOutUGen, cls)._new_expanded(
-            special_index=special_index, **kwargs
-        )
-        output_proxies = []
-        if isinstance(ugen, UGen):
-            output_proxies.extend(ugen[:])
-        else:
-            for x in ugen:
-                output_proxies.extend(x[:])
-        if len(output_proxies) == 1:
-            return output_proxies[0]
-        result = UGenArray(output_proxies)
-        return result
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def channel_count(self):
-        """
-        Gets channel count of multi-output ugen.
-
-        Returns integer.
-        """
-        return self._channel_count
+        UGen.__init__(self, **kwargs)
 
 
 @ugen(is_pure=True)
