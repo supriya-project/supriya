@@ -1,18 +1,18 @@
-import collections
-
-from supriya import CalculationRate, SignalRange
+from supriya import SignalRange
 
 from .bases import UGen
+from .decorators import param, ugen
 
 
+@ugen(kr=True, signal_range=SignalRange.UNIPOLAR)
 class KeyState(UGen):
-    _ordered_input_names = collections.OrderedDict(
-        [("keycode", 0.0), ("minimum", 0.0), ("maximum", 1.0), ("lag", 0.2)]
-    )
-    _signal_range = SignalRange.UNIPOLAR
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    keycode = param(0.0)
+    minimum = param(0.0)
+    maximum = param(1.0)
+    lag = param(0.2)
 
 
+@ugen(kr=True, signal_range=SignalRange.UNIPOLAR)
 class MouseButton(UGen):
     """
     A mouse-button tracker.
@@ -24,13 +24,12 @@ class MouseButton(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("minimum", 0), ("maximum", 1), ("lag", 0.2)]
-    )
-    _signal_range = SignalRange.UNIPOLAR
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    minimum = param(0.0)
+    maximum = param(1.0)
+    lag = param(0.2)
 
 
+@ugen(kr=True, signal_range=SignalRange.UNIPOLAR)
 class MouseX(UGen):
     """
     A mouse cursor tracker.
@@ -44,13 +43,13 @@ class MouseX(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("minimum", 0), ("maximum", 1), ("warp", 0), ("lag", 0.2)]
-    )
-    _signal_range = SignalRange.UNIPOLAR
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    minimum = param(0.0)
+    maximum = param(1.0)
+    warp = param(0.0)
+    lag = param(0.2)
 
 
+@ugen(kr=True, signal_range=SignalRange.UNIPOLAR)
 class MouseY(UGen):
     """
     A mouse cursor tracker.
@@ -64,8 +63,7 @@ class MouseY(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("minimum", 0), ("maximum", 1), ("warp", 0), ("lag", 0.2)]
-    )
-    _signal_range = SignalRange.UNIPOLAR
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    minimum = param(0.0)
+    maximum = param(1.0)
+    warp = param(0.0)
+    lag = param(0.2)

@@ -2,7 +2,7 @@ import inspect
 from enum import Enum
 from typing import NamedTuple, Optional
 
-from ..enums import CalculationRate
+from ..enums import CalculationRate, SignalRange
 
 
 def _create_fn(cls, name, args, body, globals_=None, decorator=None, override=False):
@@ -103,6 +103,7 @@ def _process_class(
     is_pure,
     is_width_first,
     fixed_channel_count,
+    signal_range,
 ):
     params = {}
     unexpanded_input_names = []
@@ -134,6 +135,8 @@ def _process_class(
     cls._ordered_input_names = params
     cls._unexpanded_input_names = tuple(unexpanded_input_names)
     cls._valid_calculation_rates = tuple(valid_calculation_rates)
+    if signal_range is not None:
+        cls._signal_range = SignalRange.from_expr(signal_range)
     return cls
 
 
@@ -167,6 +170,7 @@ def ugen(
     is_pure: bool = False,
     is_width_first: bool = False,
     fixed_channel_count: Optional[int] = None,
+    signal_range: Optional[SignalRange] = None,
 ):
     """
     Decorate a UGen class.
@@ -188,6 +192,7 @@ def ugen(
             is_pure=is_pure,
             is_width_first=is_width_first,
             fixed_channel_count=fixed_channel_count,
+            signal_range=signal_range,
         )
 
     if cls is None:

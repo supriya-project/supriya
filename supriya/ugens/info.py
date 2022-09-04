@@ -1,11 +1,8 @@
-import collections
-
-from supriya import CalculationRate
-from supriya.typing import UGenInputMap
-
 from .bases import UGen
+from .decorators import param, ugen
 
 
+@ugen(ir=True)
 class BlockSize(UGen):
     """
     A block size info unit generator.
@@ -17,10 +14,8 @@ class BlockSize(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
-
+@ugen(kr=True, ir=True)
 class BufChannels(UGen):
     """
     A buffer channel count info unit generator.
@@ -32,10 +27,10 @@ class BufChannels(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("buffer_id", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.SCALAR)
+    buffer_id = param(None)
 
 
+@ugen(kr=True, ir=True)
 class BufDur(UGen):
     """
     A buffer duration info unit generator.
@@ -47,10 +42,10 @@ class BufDur(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("buffer_id", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.SCALAR)
+    buffer_id = param(None)
 
 
+@ugen(kr=True, ir=True)
 class BufFrames(UGen):
     """
     A buffer frame count info unit generator.
@@ -62,10 +57,10 @@ class BufFrames(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("buffer_id", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.SCALAR)
+    buffer_id = param(None)
 
 
+@ugen(kr=True, ir=True)
 class BufRateScale(UGen):
     """
     A buffer sample-rate scale info unit generator.
@@ -77,10 +72,10 @@ class BufRateScale(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("buffer_id", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.SCALAR)
+    buffer_id = param(None)
 
 
+@ugen(kr=True, ir=True)
 class BufSampleRate(UGen):
     """
     A buffer sample-rate info unit generator.
@@ -92,10 +87,10 @@ class BufSampleRate(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("buffer_id", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.SCALAR)
+    buffer_id = param(None)
 
 
+@ugen(kr=True, ir=True)
 class BufSamples(UGen):
     """
     A buffer sample count info unit generator.
@@ -107,10 +102,10 @@ class BufSamples(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("buffer_id", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.SCALAR)
+    buffer_id = param(None)
 
 
+@ugen(ir=True)
 class ControlDur(UGen):
     """
     A control duration info unit generator.
@@ -122,10 +117,8 @@ class ControlDur(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
-
+@ugen(ir=True)
 class ControlRate(UGen):
     """
     A control rate info unit generator.
@@ -137,10 +130,8 @@ class ControlRate(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
-
+@ugen(ir=True)
 class NodeID(UGen):
     """
     A node ID info unit generator.
@@ -152,10 +143,8 @@ class NodeID(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
-
+@ugen(ir=True)
 class NumAudioBuses(UGen):
     """
     A number of audio buses info unit generator.
@@ -167,10 +156,8 @@ class NumAudioBuses(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
-
+@ugen(ir=True)
 class NumBuffers(UGen):
     """
     A number of buffers info unit generator.
@@ -182,10 +169,8 @@ class NumBuffers(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
-
+@ugen(ir=True)
 class NumControlBuses(UGen):
     """
     A number of control buses info unit generator.
@@ -197,10 +182,8 @@ class NumControlBuses(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
-
+@ugen(ir=True)
 class NumInputBuses(UGen):
     """
     A number of input buses info unit generator.
@@ -212,10 +195,8 @@ class NumInputBuses(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
-
+@ugen(ir=True)
 class NumOutputBuses(UGen):
     """
     A number of output buses info unit generator.
@@ -227,10 +208,8 @@ class NumOutputBuses(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
-
+@ugen(kr=True, ir=True)
 class NumRunningSynths(UGen):
     """
     A number of running synths info unit generator.
@@ -242,10 +221,8 @@ class NumRunningSynths(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.SCALAR)
 
-
+@ugen(ir=True)
 class RadiansPerSample(UGen):
     """
     A radians-per-sample info unit generator.
@@ -257,10 +234,8 @@ class RadiansPerSample(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
-
+@ugen(ir=True)
 class SampleDur(UGen):
     """
     A sample duration info unit generator.
@@ -272,10 +247,8 @@ class SampleDur(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
-
+@ugen(ir=True)
 class SampleRate(UGen):
     """
     A sample-rate info unit generator.
@@ -287,10 +260,8 @@ class SampleRate(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
-
+@ugen(ir=True)
 class SubsampleOffset(UGen):
     """
     A subsample-offset info unit generator.
@@ -301,6 +272,3 @@ class SubsampleOffset(UGen):
         SubsampleOffset.ir()
 
     """
-
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
