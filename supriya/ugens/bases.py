@@ -9,7 +9,6 @@ import uqbar.strings
 from .. import BinaryOperator, CalculationRate, DoneAction, SignalRange, UnaryOperator
 from ..system import SupriyaObject
 from ..typing import UGenInputMap
-from .decorators import ugen
 
 
 class UGenMethodMixin(SupriyaObject):

@@ -1,3 +1,4 @@
+import inspect
 from enum import Enum
 from typing import NamedTuple, Optional
 
@@ -6,7 +7,7 @@ from ..enums import CalculationRate
 
 def _create_fn(cls, name, args, body, globals_=None, decorator=None, override=False):
     if name in cls.__dict__ and not override:
-        return True
+        return
     globals_ = globals_ or {}
     locals_ = {"_return_type": cls}
     args = ", ".join(args)
@@ -20,13 +21,11 @@ def _create_fn(cls, name, args, body, globals_=None, decorator=None, override=Fa
     value.__qualname__ = f"{cls.__qualname__}.{value.__name__}"
     if decorator:
         value = decorator(value)
-    if name == "__init__":
-        print(cls, text)
     setattr(cls, name, value)
-    return False
 
 
 def _add_init(cls, params, is_multichannel, fixed_channel_count):
+    parent_class = inspect.getmro(cls)[1]
     name = "__init__"
     args = ["self", "calculation_rate=None"]
     body = []
@@ -38,26 +37,19 @@ def _add_init(cls, params, is_multichannel, fixed_channel_count):
             body.append("self._channel_count = channel_count")
     body.extend(
         [
-            "return super().__init__(",
+            f"return {parent_class.__name__}.__init__(",
+            "    self,",
             "    calculation_rate=CalculationRate.from_expr(calculation_rate),",
         ]
     )
-    for name, value in params.items():
-        args.append(f"{name}={value}")
-        body.append(f"    {name}={name},")
+    for key, value in params.items():
+        args.append(f"{key}={value}")
+        body.append(f"    {key}={key},")
     args.append("**kwargs")
     body.append("    **kwargs,")
     body.append(")")
-    globals_ = {"CalculationRate": CalculationRate}
-    return _create_fn(
-        cls,
-        name,
-        args=args,
-        body=body,
-        decorator=classmethod,
-        globals_=globals_,
-        override=True,
-    )
+    globals_ = {"CalculationRate": CalculationRate, parent_class.__name__: parent_class}
+    return _create_fn(cls=cls, name=name, args=args, body=body, globals_=globals_)
 
 
 def _add_rate_fn(cls, rate, params):
@@ -122,6 +114,7 @@ def _process_class(
         if value.unexpanded:
             unexpanded_input_names.append(name)
         _add_param_fn(cls, name, len(params) - 1, value.unexpanded)
+    _add_init(cls, params, is_multichannel, fixed_channel_count)
     for should_add, rate in [
         (ar, CalculationRate.AUDIO),
         (kr, CalculationRate.CONTROL),
@@ -133,7 +126,6 @@ def _process_class(
         _add_rate_fn(cls, rate, params)
         if rate is not None:
             valid_calculation_rates.append(rate)
-    _add_init(cls, params, is_multichannel, fixed_channel_count)
     cls._has_done_flag = bool(has_done_flag)
     cls._is_input = bool(is_input)
     cls._is_output = bool(is_output)

@@ -1,19 +1,16 @@
-import collections
-
-from .. import CalculationRate, DoneAction
+from .. import DoneAction
 from .bases import PseudoUGen, PureUGen, UGen
 from .decorators import param, ugen
 
 
+@ugen(is_pure=True)
 class Filter(PureUGen):
     """
     Abstract base class for filter ugens.
     """
 
-    def _validate_inputs(self):
-        self._check_rate_same_as_first_input_rate()
 
-
+@ugen(ar=True, kr=True, is_pure=True)
 class APF(Filter):
     """
     An all-pass filter.
@@ -31,12 +28,12 @@ class APF(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 440.0), ("radius", 0.8)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    frequency = param(440.0)
+    radius = param(0.8)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class BPF(Filter):
     """
     A 2nd order Butterworth bandpass filter.
@@ -50,12 +47,12 @@ class BPF(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 440.0), ("reciprocal_of_q", 1.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    frequency = param(440.0)
+    reciprocal_of_q = param(1.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class BPZ2(Filter):
     """
     A two zero fixed midpass filter.
@@ -71,10 +68,10 @@ class BPZ2(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class BRF(Filter):
     """
     A 2nd order Butterworth band-reject filter.
@@ -88,12 +85,12 @@ class BRF(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 440.0), ("reciprocal_of_q", 1.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    frequency = param(440.0)
+    reciprocal_of_q = param(1.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class BRZ2(Filter):
     """
     A two zero fixed midcut filter.
@@ -109,8 +106,7 @@ class BRZ2(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
 
 
 class Changed(PseudoUGen):
@@ -217,6 +213,7 @@ class Changed(PseudoUGen):
         return ugen
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Decay(Filter):
     """
     A leaky signal integrator.
@@ -232,12 +229,11 @@ class Decay(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("decay_time", 1.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    decay_time = param(1.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Decay2(Filter):
     """
     A leaky signal integrator.
@@ -253,10 +249,9 @@ class Decay2(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("attack_time", 0.01), ("decay_time", 1.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    attack_time = param(0.01)
+    decay_time = param(1.0)
 
 
 @ugen(ar=True, kr=True)
@@ -287,6 +282,7 @@ class DetectSilence(UGen):
     done_action = param(DoneAction(0))
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class FOS(Filter):
     """
     A first order filter section.
@@ -309,12 +305,13 @@ class FOS(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("a_0", 0.0), ("a_1", 0.0), ("b_1", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    a_0 = param(0.0)
+    a_1 = param(0.0)
+    b_1 = param(0.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Formlet(Filter):
     """
     A FOF-like filter.
@@ -333,17 +330,13 @@ class Formlet(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("frequency", 440.0),
-            ("attack_time", 1.0),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    frequency = param(440.0)
+    attack_time = param(1.0)
+    decay_time = param(1.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class HPF(Filter):
     """
     A Highpass filter unit generator.
@@ -356,12 +349,11 @@ class HPF(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 440)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    frequency = param(440.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class HPZ1(Filter):
     """
     A two point difference filter.
@@ -377,10 +369,10 @@ class HPZ1(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class HPZ2(Filter):
     """
     A two zero fixed midcut filter.
@@ -396,10 +388,10 @@ class HPZ2(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Integrator(Filter):
     """
     A leaky integrator.
@@ -416,12 +408,11 @@ class Integrator(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("coefficient", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    coefficient = param(1.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Lag(Filter):
     """
     A lag generator.
@@ -437,12 +428,11 @@ class Lag(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("lag_time", 0.1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    lag_time = param(0.1)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class LagUD(Filter):
     """
     An up/down lag generator.
@@ -459,12 +449,12 @@ class LagUD(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("lag_time_up", 0.1), ("lag_time_down", 0.1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    lag_time_up = param(0.1)
+    lag_time_down = param(0.1)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Lag2(Filter):
     """
     An exponential lag generator.
@@ -481,12 +471,11 @@ class Lag2(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("lag_time", 0.1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    lag_time = param(0.1)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Lag2UD(Filter):
     """
     An up/down exponential lag generator.
@@ -495,8 +484,8 @@ class Lag2UD(Filter):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> lag_2_ud = supriya.ugens.Lag2UD.ar(
-        ...     lag_time_d=0.1,
-        ...     lag_time_u=0.1,
+        ...     lag_time_down=0.1,
+        ...     lag_time_up=0.1,
         ...     source=source,
         ... )
         >>> lag_2_ud
@@ -504,12 +493,12 @@ class Lag2UD(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("lag_time_u", 0.1), ("lag_time_d", 0.1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    lag_time_up = param(0.1)
+    lag_time_down = param(0.1)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Lag3(Filter):
     """
     An exponential lag generator.
@@ -526,12 +515,11 @@ class Lag3(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("lag_time", 0.1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    lag_time = param(0.1)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Lag3UD(Filter):
     """
     An up/down exponential lag generator.
@@ -540,8 +528,8 @@ class Lag3UD(Filter):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> lag_3_ud = supriya.ugens.Lag3UD.ar(
-        ...     lag_time_d=0.1,
-        ...     lag_time_u=0.1,
+        ...     lag_time_down=0.1,
+        ...     lag_time_up=0.1,
         ...     source=source,
         ... )
         >>> lag_3_ud
@@ -549,12 +537,12 @@ class Lag3UD(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("lag_time_u", 0.1), ("lag_time_d", 0.1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    lag_time_up = param(0.1)
+    lag_time_down = param(0.1)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class LeakDC(Filter):
     """
     A DC blocker.
@@ -571,10 +559,8 @@ class LeakDC(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("coefficient", 0.995)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    coefficient = param(0.995)
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -594,6 +580,7 @@ class LPF(Filter):
     frequency = param(440.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class LPZ1(Filter):
     """
     A two point average filter.
@@ -609,10 +596,10 @@ class LPZ1(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class LPZ2(Filter):
     """
     A two zero fixed lowpass filter.
@@ -628,10 +615,10 @@ class LPZ2(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Median(Filter):
     """
     A median filter.
@@ -648,10 +635,11 @@ class Median(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("length", 3), ("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    length = param(3)
+    source = param(None)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class MidEQ(Filter):
     """
     A parametric filter.
@@ -670,12 +658,13 @@ class MidEQ(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 440), ("reciprocal_of_q", 1), ("db", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    frequency = param(440.0)
+    reciprocal_of_q = param(1.0)
+    db = param(0.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class MoogFF(Filter):
     """
     A Moog VCF implementation.
@@ -694,12 +683,13 @@ class MoogFF(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 100), ("gain", 2), ("reset", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    frequency = param(100.0)
+    gain = param(2.0)
+    reset = param(0.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class OnePole(Filter):
     """
     A one pole filter.
@@ -716,12 +706,11 @@ class OnePole(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("coefficient", 0.5)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    coefficient = param(0.5)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class OneZero(Filter):
     """
     A one zero filter.
@@ -738,12 +727,11 @@ class OneZero(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("coefficient", 0.5)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    coefficient = param(0.5)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class RHPF(Filter):
     """
     A resonant highpass filter unit generator.
@@ -756,12 +744,12 @@ class RHPF(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 440), ("reciprocal_of_q", 1.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    frequency = param(440.0)
+    reciprocal_of_q = param(1.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class RLPF(Filter):
     """
     A resonant lowpass filter unit generator.
@@ -774,12 +762,12 @@ class RLPF(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 440), ("reciprocal_of_q", 1.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    frequency = param(440.0)
+    reciprocal_of_q = param(1.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Ramp(Filter):
     """
     Breaks a continuous signal into line segments.
@@ -796,12 +784,11 @@ class Ramp(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("lag_time", 0.1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    lag_time = param(0.1)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Ringz(Filter):
     """
     A ringing filter.
@@ -819,12 +806,12 @@ class Ringz(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 440), ("decay_time", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    frequency = param(440.0)
+    decay_time = param(1.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class SOS(Filter):
     """
     A second-order filter section.
@@ -849,12 +836,15 @@ class SOS(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("a_0", 0), ("a_1", 0), ("a_2", 0), ("b_1", 0), ("b_2", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    a_0 = param(0.0)
+    a_1 = param(0.0)
+    a_2 = param(0.0)
+    b_1 = param(0.0)
+    b_2 = param(0.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Slew(Filter):
     """
     A slew rate limiter.
@@ -872,12 +862,12 @@ class Slew(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("up", 1), ("down", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    up = param(1.0)
+    down = param(1.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class Slope(Filter):
     """
     Calculates slope of signal.
@@ -893,10 +883,10 @@ class Slope(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class TwoPole(Filter):
     """
     A two pole filter.
@@ -914,12 +904,12 @@ class TwoPole(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 440), ("radius", 0.8)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    frequency = param(440.0)
+    radius = param(0.8)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class TwoZero(Filter):
     """
     A two zero filter.
@@ -937,7 +927,6 @@ class TwoZero(Filter):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 440), ("radius", 0.8)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    frequency = param(440.0)
+    radius = param(0.8)
