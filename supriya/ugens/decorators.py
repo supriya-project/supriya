@@ -20,8 +20,44 @@ def _create_fn(cls, name, args, body, globals_=None, decorator=None, override=Fa
     value.__qualname__ = f"{cls.__qualname__}.{value.__name__}"
     if decorator:
         value = decorator(value)
+    if name == "__init__":
+        print(cls, text)
     setattr(cls, name, value)
     return False
+
+
+def _add_init(cls, params, is_multichannel, fixed_channel_count):
+    name = "__init__"
+    args = ["self", "calculation_rate=None"]
+    body = []
+    if is_multichannel:
+        if fixed_channel_count:
+            body.append(f"self._channel_count = {fixed_channel_count}")
+        else:
+            args.append("channel_count=1")
+            body.append("self._channel_count = channel_count")
+    body.extend(
+        [
+            "return super().__init__(",
+            "    calculation_rate=CalculationRate.from_expr(calculation_rate),",
+        ]
+    )
+    for name, value in params.items():
+        args.append(f"{name}={value}")
+        body.append(f"    {name}={name},")
+    args.append("**kwargs")
+    body.append("    **kwargs,")
+    body.append(")")
+    globals_ = {"CalculationRate": CalculationRate}
+    return _create_fn(
+        cls,
+        name,
+        args=args,
+        body=body,
+        decorator=classmethod,
+        globals_=globals_,
+        override=True,
+    )
 
 
 def _add_rate_fn(cls, rate, params):
@@ -62,7 +98,19 @@ class Parameter(NamedTuple):
 
 
 def _process_class(
-    cls, *, ar, ir, kr, new, has_done_flag, is_input, is_output, is_pure, is_width_first
+    cls,
+    *,
+    ar,
+    ir,
+    kr,
+    new,
+    has_done_flag,
+    is_input,
+    is_multichannel,
+    is_output,
+    is_pure,
+    is_width_first,
+    fixed_channel_count,
 ):
     params = {}
     unexpanded_input_names = []
@@ -80,10 +128,12 @@ def _process_class(
         (ir, CalculationRate.SCALAR),
         (new, None),
     ]:
-        if should_add:
-            _add_rate_fn(cls, rate, params)
-            if rate is not None:
-                valid_calculation_rates.append(rate)
+        if not should_add:
+            continue
+        _add_rate_fn(cls, rate, params)
+        if rate is not None:
+            valid_calculation_rates.append(rate)
+    _add_init(cls, params, is_multichannel, fixed_channel_count)
     cls._has_done_flag = bool(has_done_flag)
     cls._is_input = bool(is_input)
     cls._is_output = bool(is_output)
@@ -120,11 +170,11 @@ def ugen(
     new: bool = False,
     has_done_flag: bool = False,
     is_input: bool = False,
-    is_multiout: bool = False,
+    is_multichannel: bool = False,
     is_output: bool = False,
     is_pure: bool = False,
     is_width_first: bool = False,
-    channel_count: Optional[int] = None,
+    fixed_channel_count: Optional[int] = None,
 ):
     """
     Decorate a UGen class.
@@ -141,9 +191,11 @@ def ugen(
             new=new,
             has_done_flag=has_done_flag,
             is_input=is_input,
+            is_multichannel=is_multichannel,
             is_output=is_output,
             is_pure=is_pure,
             is_width_first=is_width_first,
+            fixed_channel_count=fixed_channel_count,
         )
 
     if cls is None:

@@ -156,7 +156,7 @@ class MaxLocalBufs(UGen):
 
     ::
 
-        >>> max_local_bufs = supriya.ugens.MaxLocalBufs(1)
+        >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(1)
         >>> max_local_bufs
         MaxLocalBufs.ir()
 
@@ -164,26 +164,21 @@ class MaxLocalBufs(UGen):
 
     maximum = param(0)
 
-    def __init__(self, maximum=0):
-        maximum = float(maximum)
-        calculation_rate = CalculationRate.SCALAR
-        UGen.__init__(self, calculation_rate=calculation_rate, maximum=maximum)
-
     def increment(self):
         """
         Increments maximum local buffer count.
 
         ::
 
-            >>> max_local_bufs = supriya.ugens.MaxLocalBufs(1)
-            >>> max_local_bufs.maximum
-            1.0
+            >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(1)
+            >>> max_local_bufs.inputs
+            (1.0,)
 
         ::
 
             >>> max_local_bufs.increment()
-            >>> max_local_bufs.maximum
-            2.0
+            >>> max_local_bufs.inputs
+            (2.0,)
 
         Returns none.
         """

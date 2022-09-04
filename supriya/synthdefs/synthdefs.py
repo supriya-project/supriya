@@ -456,7 +456,7 @@ class SynthDef:
                 local_bufs.append(ugen)
             processed_ugens.append(ugen)
         if local_bufs:
-            max_local_bufs = supriya.ugens.MaxLocalBufs(len(local_bufs))
+            max_local_bufs = supriya.ugens.MaxLocalBufs.ir(len(local_bufs))
             for local_buf in local_bufs:
                 inputs = list(local_buf.inputs[:2])
                 inputs.append(max_local_bufs[0])

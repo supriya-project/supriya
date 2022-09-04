@@ -4098,7 +4098,6 @@ class MultiOutUGen(UGen):
         UGen.__init__(self, **kwargs)
 
 
-@ugen(is_pure=True)
 class PureUGen(UGen):
     """
     Abstract base class for ugens with no side-effects.
@@ -4107,12 +4106,15 @@ class PureUGen(UGen):
     compilation.
     """
 
+    _is_pure = True
 
-@ugen(is_width_first=True)
+
 class WidthFirstUGen(UGen):
     """
     Abstract base class for UGens with a width-first sort order.
     """
+
+    _is_width_first = True
 
 
 class UnaryOpUGen(PureUGen):

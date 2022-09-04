@@ -5,7 +5,6 @@ from .bases import PseudoUGen, PureUGen, UGen
 from .decorators import param, ugen
 
 
-@ugen(is_pure=True)
 class Filter(PureUGen):
     """
     Abstract base class for filter ugens.
