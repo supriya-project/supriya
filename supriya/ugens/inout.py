@@ -4,9 +4,11 @@ from collections.abc import Sequence
 from supriya import CalculationRate, utils
 
 from .bases import MultiOutUGen, UGen
+from .decorators import param, ugen
 
 
-class In(MultiOutUGen):
+@ugen(ar=True, kr=True, is_input=True, is_multichannel=True)
+class In(UGen):
     """
     A bus input unit generator.
 
@@ -17,11 +19,7 @@ class In(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _is_input = True
-    _ordered_input_names = collections.OrderedDict([("bus", 0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    bus = param(0.0)
 
 
 class InFeedback(MultiOutUGen):

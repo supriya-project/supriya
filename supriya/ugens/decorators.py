@@ -29,12 +29,11 @@ def _add_init(cls, params, is_multichannel, fixed_channel_count):
     name = "__init__"
     args = ["self", "calculation_rate=None"]
     body = []
-    if is_multichannel:
-        if fixed_channel_count is not None:
-            body.append(f"self._channel_count = {fixed_channel_count}")
-        else:
-            args.append("channel_count=1")
-            body.append("self._channel_count = channel_count")
+    if is_multichannel and fixed_channel_count is None:
+        args.append("channel_count=1")
+        body.append("self._channel_count = channel_count")
+    if fixed_channel_count is not None:
+        body.append(f"self._channel_count = {fixed_channel_count}")
     body.extend(
         [
             f"return {parent_class.__name__}.__init__(",

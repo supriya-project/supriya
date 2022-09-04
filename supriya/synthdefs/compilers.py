@@ -341,21 +341,13 @@ class SynthDefDecompiler(SupriyaObject):
                             kwargs[input_name] = inputs[i]
                         else:
                             kwargs[input_name] = tuple(inputs[i:])
-                if issubclass(ugen_class, MultiOutUGen):
-                    MultiOutUGen.__init__(
-                        ugen,
-                        calculation_rate=calculation_rate,
-                        channel_count=output_count,
-                        special_index=special_index,
-                        **kwargs,
-                    )
-                else:
-                    UGen.__init__(
-                        ugen,
-                        calculation_rate=calculation_rate,
-                        special_index=special_index,
-                        **kwargs,
-                    )
+                ugen._channel_count = output_count
+                UGen.__init__(
+                    ugen,
+                    calculation_rate=calculation_rate,
+                    special_index=special_index,
+                    **kwargs,
+                )
             ugens.append(ugen)
         variants_count, index = sdd._decode_int_16bit(value, index)
         synthdef = SynthDef(ugens=ugens, name=name, decompiled=True)
