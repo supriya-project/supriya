@@ -1,11 +1,11 @@
-import collections
-
 from supriya import CalculationRate
 
 from .bases import PseudoUGen, UGen
+from .decorators import param, ugen
 from .delay import DelayN
 
 
+@ugen(ar=True, kr=True)
 class Amplitude(UGen):
     """
     An amplitude follower.
@@ -23,30 +23,25 @@ class Amplitude(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("attack_time", 0.01), ("release_time", 0.01)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    attack_time = param(0.01)
+    release_time = param(0.01)
 
 
+@ugen(ar=True)
 class Compander(UGen):
     """
     A general purpose hard-knee dynamics processor.
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("control", 0.0),
-            ("threshold", 0.5),
-            ("slope_below", 1.0),
-            ("slope_above", 1.0),
-            ("clamp_time", 0.01),
-            ("relax_time", 0.1),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    control = param(0.0)
+    threshold = param(0.5)
+    slope_below = param(1.0)
+    slope_above = param(1.0)
+    clamp_time = param(0.01)
+    relax_time = param(0.1)
 
 
 class CompanderD(PseudoUGen):
@@ -117,6 +112,7 @@ class CompanderD(PseudoUGen):
         )
 
 
+@ugen(ar=True)
 class Limiter(UGen):
     """
     A peak limiter.
@@ -134,12 +130,12 @@ class Limiter(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("level", 1), ("duration", 0.01)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    level = param(1.0)
+    duration = param(0.01)
 
 
+@ugen(ar=True)
 class Normalizer(UGen):
     """
     A dynamics flattener.
@@ -157,7 +153,6 @@ class Normalizer(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("level", 1), ("duration", 0.01)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    level = param(1.0)
+    duration = param(0.01)

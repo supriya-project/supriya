@@ -1,11 +1,9 @@
-import collections
-
-from supriya import CalculationRate
-
-from .bases import MultiOutUGen, UGen
+from .bases import UGen
+from .decorators import param, ugen
 
 
-class GrainBuf(MultiOutUGen):
+@ugen(ar=True, is_multichannel=True)
+class GrainBuf(UGen):
     """
 
     ::
@@ -27,25 +25,19 @@ class GrainBuf(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("trigger", 0),
-            ("duration", 1),
-            ("buffer_id", None),
-            ("rate", 1),
-            ("position", 0),
-            ("interpolate", 2),
-            ("pan", 0),
-            ("envelope_buffer_id", -1),
-            ("maximum_overlap", 512),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    trigger = param(0)
+    duration = param(1)
+    buffer_id = param(None)
+    rate = param(1)
+    position = param(0)
+    interpolate = param(2)
+    pan = param(0)
+    envelope_buffer_id = param(-1)
+    maximum_overlap = param(512)
 
 
-class GrainIn(MultiOutUGen):
+@ugen(ar=True, is_multichannel=True)
+class GrainIn(UGen):
     """
 
     ::
@@ -65,21 +57,15 @@ class GrainIn(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("trigger", 0),
-            ("duration", 1),
-            ("source", None),
-            ("position", 0),
-            ("envelope_buffer_id", -1),
-            ("maximum_overlap", 512),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    trigger = param(0)
+    duration = param(1)
+    source = param(None)
+    position = param(0)
+    envelope_buffer_id = param(-1)
+    maximum_overlap = param(512)
 
 
+@ugen(ar=True)
 class PitchShift(UGen):
     """
     A pitch shift unit generator.
@@ -94,19 +80,15 @@ class PitchShift(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("window_size", 0.2),
-            ("pitch_ratio", 1.0),
-            ("pitch_dispersion", 0.0),
-            ("time_dispersion", 0.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    window_size = param(0.2)
+    pitch_ratio = param(1.0)
+    pitch_dispersion = param(0.0)
+    time_dispersion = param(0.0)
 
 
-class Warp1(MultiOutUGen):
+@ugen(ar=True, is_multichannel=True)
+class Warp1(UGen):
     """
 
     ::
@@ -127,18 +109,11 @@ class Warp1(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", 0),
-            ("pointer", 0),
-            ("frequency_scaling", 1),
-            ("window_size", 0.2),
-            ("envelope_buffer_id", -1),
-            ("overlaps", 8),
-            ("window_rand_ratio", 0),
-            ("interpolation", 1),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    buffer_id = param(0)
+    pointer = param(0)
+    frequency_scaling = param(1)
+    window_size = param(0.2)
+    envelope_buffer_id = param(-1)
+    overlaps = param(8)
+    window_rand_ratio = param(0)
+    interpolation = param(1)
