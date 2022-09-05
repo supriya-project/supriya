@@ -1,10 +1,8 @@
-import collections
-
-from supriya import CalculationRate
-
 from .bases import UGen
+from .decorators import param, ugen
 
 
+@ugen(ar=True)
 class FreeVerb(UGen):
     """
     A FreeVerb reverb unit generator.
@@ -19,7 +17,7 @@ class FreeVerb(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("mix", 0.33), ("room_size", 0.5), ("damping", 0.5)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    mix = param(0.33)
+    room_size = param(0.5)
+    damping = param(0.5)

@@ -5,7 +5,7 @@ from collections.abc import Sequence
 from supriya import CalculationRate, ParameterRate, utils
 from supriya.system import SupriyaObject
 
-from ..ugens import MultiOutUGen, OutputProxy, UGen
+from ..ugens import OutputProxy, UGen
 from .controls import Control, Parameter
 
 

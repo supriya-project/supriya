@@ -172,7 +172,7 @@ def ugen(
     is_pure: bool = False,
     is_width_first: bool = False,
     fixed_channel_count: Optional[int] = None,
-    signal_range: Optional[SignalRange] = None,
+    signal_range: Optional[int] = None,
 ):
     """
     Decorate a UGen class.
