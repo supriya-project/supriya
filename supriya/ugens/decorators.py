@@ -1,8 +1,9 @@
 import inspect
 from enum import Enum
-from typing import NamedTuple, Optional
+from typing import NamedTuple, Optional, Callable, Union, Any
 
 from ..enums import CalculationRate, SignalRange
+from .bases import UGen
 
 
 def _create_fn(cls, name, args, body, globals_=None, decorator=None, override=False):
@@ -75,7 +76,7 @@ def _add_param_fn(cls, name, index, unexpanded):
     else:
         body = [f"return self._inputs[{index}]"]
     return _create_fn(
-        cls, name, args=args, body=body, decorator=property, override=True
+        cls, name, args=args, body=body, decorator=property
     )
 
 

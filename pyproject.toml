@@ -109,7 +109,6 @@ addopts = [
   "--cov-report=html",
   "--cov-report=term",
   "--doctest-modules",
-  "--durations=20",
   "-rf",
   "-vv",
 ]

@@ -4,8 +4,10 @@ from collections.abc import Sequence
 from supriya import CalculationRate
 
 from .bases import OutputProxy, UGen
+from .decorators import param, ugen
 
 
+@ugen(ar=True, kr=True, ir=True)
 class Clip(UGen):
     """
     Clips a signal outside given thresholds.
@@ -23,16 +25,12 @@ class Clip(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("minimum", 0.0), ("maximum", 1.0)]
-    )
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-        CalculationRate.SCALAR,
-    )
+    source = param(None)
+    minimum = param(0.0)
+    maximum = param(1.0)
 
 
+@ugen(ar=True, kr=True, ir=True)
 class Fold(UGen):
     """
     Folds a signal outside given thresholds.
@@ -50,16 +48,12 @@ class Fold(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("minimum", 0.0), ("maximum", 1.0)]
-    )
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-        CalculationRate.SCALAR,
-    )
+    source = param(None)
+    minimum = param(0.0)
+    maximum = param(1.0)
 
 
+@ugen(ar=True, kr=True)
 class Gate(UGen):
     """
     Gates or holds.
@@ -77,10 +71,11 @@ class Gate(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None), ("trigger", 0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    trigger = param(0)
 
 
+@ugen(ar=True, kr=True, ir=True)
 class InRange(UGen):
     """
     Tests if a signal is within a given range.
@@ -98,16 +93,12 @@ class InRange(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", 0), ("minimum", 0), ("maximum", 1)]
-    )
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-        CalculationRate.SCALAR,
-    )
+    source = param(None)
+    minimum = param(0.0)
+    maximum = param(1.0)
 
 
+@ugen(ar=True, kr=True)
 class Latch(UGen):
     """
     Samples and holds.
@@ -125,10 +116,11 @@ class Latch(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None), ("trigger", 0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    trigger = param(0)
 
 
+@ugen(ar=True, kr=True)
 class LeastChange(UGen):
     """
     Outputs least changed input.
@@ -144,10 +136,11 @@ class LeastChange(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("a", 0), ("b", 0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    a = param(0)
+    b = param(0)
 
 
+@ugen(ar=True, kr=True)
 class MostChange(UGen):
     """
     Outputs most changed input.
@@ -163,10 +156,11 @@ class MostChange(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("a", 0), ("b", 0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    a = param(0)
+    b = param(0)
 
 
+@ugen(ar=True, kr=True)
 class Peak(UGen):
     """
     Tracks peak signal amplitude.
@@ -184,10 +178,11 @@ class Peak(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None), ("trigger", 0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    trigger = param(0)
 
 
+@ugen(ar=True, kr=True)
 class PeakFollower(UGen):
     """
     Tracks peak signal amplitude.
@@ -204,10 +199,11 @@ class PeakFollower(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None), ("decay", 0.999)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    decay = param(0.999)
 
 
+@ugen(ar=True, kr=True)
 class Phasor(UGen):
     """
     A resettable linear ramp between two levels.
@@ -227,12 +223,14 @@ class Phasor(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("trigger", 0), ("rate", 1), ("start", 0), ("stop", 1), ("reset_pos", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    trigger = param(0)
+    rate = param(1.0)
+    start = param(0.0)
+    stop = param(1.0)
+    reset_pos = param(0.0)
 
 
+@ugen(ar=True, kr=True)
 class Poll(UGen):
     """
     A UGen poller.
@@ -295,11 +293,9 @@ class Poll(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [("trigger", None), ("source", None), ("trigger_id", -1)]
-    )
-
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    trigger = param(None)
+    source = param(None)
+    trigger_id = param(-1)
 
     ### INITIALIZER ###
 
@@ -332,9 +328,8 @@ class Poll(UGen):
 
     @classmethod
     def ar(cls, label=None, source=None, trigger=None, trigger_id=-1):
-        calculation_rate = CalculationRate.AUDIO
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+        return cls._new_expanded(
+            calculation_rate=CalculationRate.AUDIO,
             label=label,
             source=source,
             trigger=trigger,
@@ -344,26 +339,8 @@ class Poll(UGen):
 
     @classmethod
     def kr(cls, label=None, source=None, trigger=None, trigger_id=-1):
-        calculation_rate = CalculationRate.CONTROL
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            label=label,
-            source=source,
-            trigger=trigger,
-            trigger_id=trigger_id,
-        )
-        return ugen
-
-    @classmethod
-    def new(cls, label=None, source=None, trigger=None, trigger_id=-1):
-        if isinstance(source, Sequence):
-            source = (source,)
-        calculation_rates = []
-        for single_source in source:
-            rate = CalculationRate.from_expr(single_source)
-            calculation_rates.append(rate)
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rates,
+        return cls._new_expanded(
+            calculation_rate=CalculationRate.CONTROL,
             label=label,
             source=source,
             trigger=trigger,
@@ -400,6 +377,7 @@ class Poll(UGen):
         return label
 
 
+@ugen(ar=True, kr=True)
 class RunningMax(Peak):
     """
     Tracks maximum signal amplitude.
@@ -417,10 +395,11 @@ class RunningMax(Peak):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None), ("trigger", 0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    trigger = param(0)
 
 
+@ugen(ar=True, kr=True)
 class RunningMin(Peak):
     """
     Tracks minimum signal amplitude.
@@ -438,10 +417,11 @@ class RunningMin(Peak):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None), ("trigger", 0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    trigger = param(0)
 
 
+@ugen(ar=True, kr=True)
 class Schmidt(UGen):
     """
     A Schmidt trigger.
@@ -459,25 +439,24 @@ class Schmidt(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", 0), ("minimum", 0), ("maximum", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    minimum = param(0.0)
+    maximum = param(1.0)
 
 
+@ugen(ar=True, kr=True, fixed_channel_count=0)
 class SendPeakRMS(UGen):
     """
     Tracks peak and power of a signal for GUI applications.
 
     ::
 
-        >>> source = supriya.ugens.In.ar(channel_count=4)
         >>> send_peak_rms = supriya.ugens.SendPeakRMS.kr(
         ...     command_name="/reply",
         ...     peak_lag=3,
         ...     reply_id=-1,
         ...     reply_rate=20,
-        ...     source=source,
+        ...     source=[1, 2, 3],
         ... )
         >>> send_peak_rms
         SendPeakRMS.kr()
@@ -486,40 +465,13 @@ class SendPeakRMS(UGen):
 
     ### CLASS VARIABLES ###
 
-    _default_channel_count = 0
-    _ordered_input_names = collections.OrderedDict(
-        [("reply_rate", 20), ("peak_lag", 3), ("reply_id", -1)]
-    )
-    _unexpanded_argument_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        calculation_rate=None,
-        command_name="/reply",
-        peak_lag=3,
-        reply_id=-1,
-        reply_rate=20,
-        source=None,
-    ):
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            peak_lag=peak_lag,
-            reply_id=reply_id,
-            reply_rate=reply_rate,
-        )
-        command_name = str(command_name)
-        if not isinstance(source, Sequence):
-            source = (source,)
-        self._configure_input("source", len(source))
-        for input_ in source:
-            self._configure_input("source", input_)
-        self._configure_input("command_name", len(command_name))
-        for character in command_name:
-            self._configure_input("label", ord(character))
+    reply_rate = param(20)
+    peak_lag = param(3)
+    reply_id = param(-1)
+    source_size = param(None)
+    source = param(None, unexpanded=True)
+    command_size = param(None)
+    char = param(None, unexpanded=True)
 
     ### PUBLIC METHODS ###
 
@@ -545,16 +497,17 @@ class SendPeakRMS(UGen):
 
         Returns ugen graph.
         """
-        calculation_rate = CalculationRate.AUDIO
-        ugen = cls._new_single(
-            calculation_rate=calculation_rate,
-            command_name=command_name,
+        command = str(command_name)
+        return cls._new_single(
+            calculation_rate=CalculationRate.AUDIO,
             peak_lag=peak_lag,
             reply_id=reply_id,
             reply_rate=reply_rate,
             source=source,
+            source_size=len(source),
+            char=[ord(x) for x in command],
+            command_size=len(command),
         )
-        return ugen
 
     @classmethod
     def kr(
@@ -578,81 +531,27 @@ class SendPeakRMS(UGen):
 
         Returns ugen graph.
         """
-        calculation_rate = CalculationRate.CONTROL
-        ugen = cls._new_single(
-            calculation_rate=calculation_rate,
-            command_name=command_name,
+        command = str(command_name)
+        return cls._new_single(
+            calculation_rate=CalculationRate.CONTROL,
             peak_lag=peak_lag,
             reply_id=reply_id,
             reply_rate=reply_rate,
             source=source,
+            source_size=len(source),
+            char=[ord(x) for x in command],
+            command_size=len(command),
         )
-        return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def command_name(self):
-        """
-        Gets `command_name` input of SendPeakRMS.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(channel_count=4)
-            >>> send_peak_rms = supriya.ugens.SendPeakRMS.ar(
-            ...     command_name="/reply",
-            ...     peak_lag=3,
-            ...     reply_id=-1,
-            ...     reply_rate=20,
-            ...     source=source,
-            ... )
-            >>> send_peak_rms.command_name
-            '/reply'
-
-        Returns ugen input.
-        """
-        index = tuple(self._ordered_input_names).index("reply_id") + 1
-        source_length = int(self._inputs[index])
-        index += source_length + 2
-        characters = self._inputs[index:]
-        characters = [chr(int(_)) for _ in characters]
-        command_name = "".join(characters)
-        return command_name
-
-    @property
-    def source(self):
-        """
-        Gets `source` input of SendPeakRMS.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(channel_count=4)
-            >>> send_peak_rms = supriya.ugens.SendPeakRMS.ar(
-            ...     command_name="/reply",
-            ...     peak_lag=3,
-            ...     reply_id=-1,
-            ...     reply_rate=20,
-            ...     source=source,
-            ... )
-            >>> send_peak_rms.source
-            (In.ar()[0], In.ar()[1], In.ar()[2], In.ar()[3])
-
-        Returns ugen input.
-        """
-        index = tuple(self._ordered_input_names).index("reply_id") + 1
-        source_length = int(self._inputs[index])
-        start = index + 1
-        stop = start + source_length
-        return tuple(self._inputs[start:stop])
 
 
+@ugen(ar=True, kr=True, fixed_channel_count=0)
 class SendReply(UGen):
     """
     Sends an array of values from the server to all notified clients.
 
         >>> source = supriya.ugens.In.ar(channel_count=4)
         >>> trigger = supriya.ugens.Impulse.kr(1)
-        >>> send_peak_rms = supriya.ugens.SendReply.kr(
+        >>> send_reply = supriya.ugens.SendReply.kr(
         ...     command_name="/reply",
         ...     source=source,
         ...     trigger=trigger,
@@ -660,32 +559,12 @@ class SendReply(UGen):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    _default_channel_count = 0
-    _ordered_input_names = collections.OrderedDict(
-        [("trigger", None), ("reply_id", -1)]
-    )
-    _unexpanded_input_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        calculation_rate=None,
-        command_name="/reply",
-        reply_id=-1,
-        trigger=None,
-        source=None,
-    ):
-        UGen.__init__(
-            self, calculation_rate=calculation_rate, reply_id=reply_id, trigger=trigger
-        )
-        self._configure_input("size", len(command_name))
-        for i, character in enumerate(command_name):
-            self._configure_input(("char", i), ord(character))
-        self._configure_input("source", source)
+    trigger = param(None)
+    reply_id = param(-1)
+    source_size = param(None)
+    source = param(None, unexpanded=True)
+    command_size = param(None)
+    char = param(None, unexpanded=True)
 
     @classmethod
     def ar(cls, command_name="/reply", reply_id=-1, source=None, trigger=None):
@@ -706,15 +585,16 @@ class SendReply(UGen):
 
         Returns ugen graph.
         """
-        calculation_rate = CalculationRate.AUDIO
-        ugen = cls._new_single(
-            calculation_rate=calculation_rate,
-            command_name=command_name,
+        command = str(command_name)
+        return cls._new_single(
+            calculation_rate=CalculationRate.AUDIO,
+            trigger=trigger,
             reply_id=reply_id,
             source=source,
-            trigger=trigger,
+            source_size=len(source),
+            char=[ord(x) for x in command],
+            command_size=len(command),
         )
-        return ugen
 
     @classmethod
     def kr(cls, command_name="/reply", reply_id=-1, source=None, trigger=None):
@@ -735,75 +615,26 @@ class SendReply(UGen):
 
         Returns ugen graph.
         """
-        calculation_rate = CalculationRate.CONTROL
-        ugen = cls._new_single(
-            calculation_rate=calculation_rate,
-            command_name=command_name,
+        command = str(command_name)
+        return cls._new_single(
+            calculation_rate=CalculationRate.CONTROL,
+            trigger=trigger,
             reply_id=reply_id,
             source=source,
-            trigger=trigger,
+            source_size=len(source),
+            char=[ord(x) for x in command],
+            command_size=len(command),
         )
-        return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def command_name(self):
-        """
-        Gets `command_name` input of SendReply.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(channel_count=4)
-            >>> trigger = supriya.ugens.Impulse.kr(1)
-            >>> send_reply = supriya.ugens.SendReply.ar(
-            ...     command_name="/reply",
-            ...     source=source,
-            ...     trigger=trigger,
-            ... )
-            >>> send_reply.command_name
-            '/reply'
-
-        Returns ugen input.
-        """
-        index = tuple(self._ordered_input_names).index("reply_id") + 1
-        size = int(self._inputs[index])
-        command_name = "".join(
-            [chr(int(_)) for _ in self._inputs[index + 1 : index + 1 + size]]
-        )
-        return command_name
-
-    @property
-    def source(self):
-        """
-        Gets `source` input of SendReply.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(channel_count=4)
-            >>> trigger = supriya.ugens.Impulse.kr(1)
-            >>> send_reply = supriya.ugens.SendReply.ar(
-            ...     command_name="/reply",
-            ...     source=source,
-            ...     trigger=trigger,
-            ... )
-            >>> send_reply.source
-            (In.ar()[0], In.ar()[1], In.ar()[2], In.ar()[3])
-
-        Returns ugen input.
-        """
-        index = tuple(self._ordered_input_names).index("reply_id") + 1
-        size = int(self._inputs[index])
-        return tuple(self._inputs[index + 1 + size :])
 
 
+@ugen(ar=True, kr=True)
 class SendTrig(UGen):
-    _ordered_input_names = collections.OrderedDict(
-        [("trigger", None), ("id_", 0), ("value", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    trigger = param(None)
+    id_ = param(0)
+    value = param(0.0)
 
 
+@ugen(ar=True, kr=True)
 class Sweep(UGen):
     """
     A triggered linear ramp.
@@ -819,10 +650,11 @@ class Sweep(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("trigger", 0), ("rate", 1)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    trigger = param(0)
+    rate = param(1.0)
 
 
+@ugen(ar=True, kr=True)
 class TDelay(UGen):
     """
     A trigger delay.
@@ -839,12 +671,11 @@ class TDelay(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("duration", 0.1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    duration = param(0.1)
 
 
+@ugen(ar=True, kr=True)
 class ToggleFF(UGen):
     """
     A toggle flip-flop.
@@ -860,10 +691,10 @@ class ToggleFF(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("trigger", 0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    trigger = param(0)
 
 
+@ugen(ar=True, kr=True)
 class Trig1(UGen):
     """
     A timed trigger.
@@ -880,12 +711,11 @@ class Trig1(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("duration", 0.1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    duration = param(0.1)
 
 
+@ugen(ar=True, kr=True)
 class Trig(UGen):
     """
     A timed trigger.
@@ -902,12 +732,11 @@ class Trig(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("duration", 0.1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    duration = param(0.1)
 
 
+@ugen(ar=True, kr=True, ir=True)
 class Wrap(UGen):
     """
     Wraps a signal outside given thresholds.
@@ -925,16 +754,12 @@ class Wrap(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", 0), ("minimum", 0), ("maximum", 1)]
-    )
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-        CalculationRate.SCALAR,
-    )
+    source = param(None)
+    minimum = param(0.0)
+    maximum = param(1.0)
 
 
+@ugen(ar=True, kr=True)
 class ZeroCrossing(UGen):
     """
     A zero-crossing frequency follower.
@@ -950,5 +775,4 @@ class ZeroCrossing(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)

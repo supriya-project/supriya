@@ -3941,8 +3941,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     @classmethod
     def _new_single(cls, **kwargs):
-        ugen = cls(**kwargs)
-        return ugen
+        return cls(**kwargs)
 
     def _optimize_graph(self, sort_bundles):
         if self._is_pure:
