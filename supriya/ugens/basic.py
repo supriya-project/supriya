@@ -495,7 +495,7 @@ class Sum4(UGen):
         >>> input_two = supriya.ugens.SinOsc.ar(phase=0.1)
         >>> input_three = supriya.ugens.SinOsc.ar(phase=0.2)
         >>> input_four = supriya.ugens.SinOsc.ar(phase=0.3)
-        >>> Sum4.new(
+        >>> supriya.ugens.Sum4.new(
         ...     input_one=input_one,
         ...     input_two=input_two,
         ...     input_three=input_three,
