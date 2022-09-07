@@ -104,7 +104,7 @@ class LocalBuf(UGen):
         >>> with supriya.synthdefs.SynthDefBuilder() as builder:
         ...     local_buf = supriya.ugens.LocalBuf(2048)
         ...     source = supriya.ugens.PinkNoise.ar()
-        ...     pv_chain = supriya.ugens.FFT(
+        ...     pv_chain = supriya.ugens.FFT.kr(
         ...         buffer_id=local_buf,
         ...         source=source,
         ...     )
