@@ -174,6 +174,8 @@ class CalculationRate(IntEnumeration):
             return "kr"
         elif self == CalculationRate.AUDIO:
             return "ar"
+        elif self == CalculationRate.DEMAND:
+            return "dr"
         return "new"
 
 

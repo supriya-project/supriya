@@ -82,7 +82,6 @@ from .delay import (
     DelayN,
 )
 from .demand import (
-    DUGen,
     Dbrown,
     Dbufrd,
     Dbufwr,

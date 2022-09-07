@@ -2,7 +2,7 @@ import collections
 
 from supriya import CalculationRate
 
-from .bases import UGen, WidthFirstUGen
+from .bases import UGen
 from .decorators import param, ugen
 
 
@@ -16,7 +16,7 @@ class PV_ChainUGen(UGen):
 
     def __init__(self, **kwargs):
         calculation_rate = CalculationRate.CONTROL
-        WidthFirstUGen.__init__(self, calculation_rate=calculation_rate, **kwargs)
+        UGen.__init__(self, calculation_rate=calculation_rate, **kwargs)
 
     ### PUBLIC PROPERTIES ###
 

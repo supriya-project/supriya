@@ -1,88 +1,79 @@
-import collections
 from collections.abc import Sequence
 
 from supriya import CalculationRate
 
-from .bases import MultiOutUGen, UGen
+from .bases import UGen
 from .decorators import param, ugen
 
 
-class DUGen(UGen):
-    """
-    Abstract base class of demand-rate UGens.
-    """
-
-    def __init__(self, **kwargs):
-        kwargs["calculation_rate"] = CalculationRate.DEMAND
-        UGen.__init__(self, **kwargs)
-
-
-class Dbrown(DUGen):
+@ugen(dr=True)
+class Dbrown(UGen):
     """
     A demand-rate brownian movement generator.
 
     ::
 
-        >>> dbrown = supriya.ugens.Dbrown.new(
+        >>> dbrown = supriya.ugens.Dbrown.dr(
         ...     length=float("inf"),
         ...     maximum=1,
         ...     minimum=0,
         ...     step=0.01,
         ... )
         >>> dbrown
-        Dbrown()
+        Dbrown.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("minimum", 0.0), ("maximum", 1.0), ("step", 0.01), ("length", float("inf"))]
-    )
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    minimum = param(0.0)
+    maximum = param(1.0)
+    step = param(0.01)
+    length = param(float("inf"))
 
 
-class Dbufrd(DUGen):
+@ugen(dr=True)
+class Dbufrd(UGen):
     """
     A buffer-reading demand-rate UGen.
 
     ::
 
-        >>> dbufrd = supriya.ugens.Dbufrd(
+        >>> dbufrd = supriya.ugens.Dbufrd.dr(
         ...     buffer_id=0,
         ...     loop=1,
         ...     phase=0,
         ... )
         >>> dbufrd
-        Dbufrd()
+        Dbufrd.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", 0), ("phase", 0), ("loop", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    buffer_id = param(0)
+    phase = param(0)
+    loop = param(1)
 
 
-class Dbufwr(DUGen):
+@ugen(dr=True)
+class Dbufwr(UGen):
     """
     A buffer-writing demand-rate UGen.
 
     ::
 
-        >>> dbufwr = supriya.ugens.Dbufwr(
+        >>> dbufwr = supriya.ugens.Dbufwr.dr(
         ...     buffer_id=0,
         ...     source=0,
         ...     loop=1,
         ...     phase=0,
         ... )
         >>> dbufwr
-        Dbufwr()
+        Dbufwr.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", 0.0), ("buffer_id", 0.0), ("phase", 0.0), ("loop", 1.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    source = param(0.0)
+    buffer_id = param(0.0)
+    phase = param(0.0)
+    loop = param(1.0)
 
 
 @ugen(ar=True, kr=True)
@@ -93,8 +84,8 @@ class Demand(UGen):
     ::
 
         >>> source = [
-        ...     supriya.ugens.Dseries(),
-        ...     supriya.ugens.Dwhite(),
+        ...     supriya.ugens.Dseries.dr(),
+        ...     supriya.ugens.Dwhite.dr(),
         ... ]
         >>> trigger = supriya.ugens.Impulse.kr(1)
         >>> demand = supriya.ugens.Demand.ar(
@@ -164,299 +155,290 @@ class DemandEnvGen(UGen):
     done_action = param(0)
 
 
-class Dgeom(DUGen):
+@ugen(dr=True)
+class Dgeom(UGen):
     """
     A demand-rate geometric series generator.
 
     ::
 
-        >>> dgeom = supriya.ugens.Dgeom.new(
+        >>> dgeom = supriya.ugens.Dgeom.dr(
         ...     grow=2,
         ...     length=float("inf"),
         ...     start=1,
         ... )
         >>> dgeom
-        Dgeom()
+        Dgeom.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("start", 1), ("grow", 2), ("length", float("inf"))]
-    )
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    start = param(1)
+    grow = param(2)
+    length = param(float("inf"))
 
 
-class Dibrown(DUGen):
+@ugen(dr=True)
+class Dibrown(UGen):
     """
     An integer demand-rate brownian movement generator.
 
     ::
 
-        >>> dibrown = supriya.ugens.Dibrown.new(
+        >>> dibrown = supriya.ugens.Dibrown.dr(
         ...     length=float("inf"),
         ...     maximum=1,
         ...     minimum=0,
         ...     step=0.01,
         ... )
         >>> dibrown
-        Dibrown()
+        Dibrown.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("minimum", 0), ("maximum", 12), ("step", 1), ("length", float("inf"))]
-    )
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    minimum = param(0)
+    maximum = param(12)
+    step = param(1)
+    length = param(float("inf"))
 
 
-class Diwhite(DUGen):
+@ugen(dr=True)
+class Diwhite(UGen):
     """
     An integer demand-rate white noise random generator.
 
     ::
 
-        >>> diwhite = supriya.ugens.Diwhite.new(
+        >>> diwhite = supriya.ugens.Diwhite.dr(
         ...     length=float("inf"),
         ...     maximum=1,
         ...     minimum=0,
         ... )
         >>> diwhite
-        Diwhite()
+        Diwhite.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("minimum", 0), ("maximum", 1), ("length", float("inf"))]
-    )
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    minimum = param(0)
+    maximum = param(1)
+    length = param(float("inf"))
 
 
-class Drand(DUGen):
+@ugen(dr=True)
+class Drand(UGen):
     """
     A demand-rate random sequence generator.
 
     ::
 
         >>> sequence = (1, 2, 3)
-        >>> drand = supriya.ugens.Drand.new(
+        >>> drand = supriya.ugens.Drand.dr(
         ...     repeats=1,
         ...     sequence=sequence,
         ... )
         >>> drand
-        Drand()
+        Drand.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("repeats", 1), ("sequence", None)])
-    _unexpanded_input_names = ("sequence",)
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    repeats = param(1)
+    sequence = param(None, unexpanded=True)
 
 
-class Dreset(DUGen):
+@ugen(dr=True)
+class Dreset(UGen):
     """
     Resets demand-rate UGens.
 
     ::
 
-        >>> source = supriya.ugens.Dseries(start=0, step=2)
-        >>> dreset = supriya.ugens.Dreset(
+        >>> source = supriya.ugens.Dseries.dr(start=0, step=2)
+        >>> dreset = supriya.ugens.Dreset.dr(
         ...     reset=0,
         ...     source=source,
         ... )
         >>> dreset
-        Dreset()
+        Dreset.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None), ("reset", 0)])
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    source = param(None)
+    reset = param(0)
 
 
-class Dseq(DUGen):
+@ugen(dr=True)
+class Dseq(UGen):
     """
     A demand-rate sequence generator.
 
     ::
 
         >>> sequence = (1, 2, 3)
-        >>> dseq = supriya.ugens.Dseq.new(
+        >>> dseq = supriya.ugens.Dseq.dr(
         ...     repeats=1,
         ...     sequence=sequence,
         ... )
         >>> dseq
-        Dseq()
+        Dseq.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("repeats", 1), ("sequence", None)])
-    _unexpanded_input_names = ("sequence",)
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    repeats = param(1)
+    sequence = param(None, unexpanded=True)
 
 
-class Dser(DUGen):
+@ugen(dr=True)
+class Dser(UGen):
     """
     A demand-rate sequence generator.
 
     ::
 
         >>> sequence = (1, 2, 3)
-        >>> dser = supriya.ugens.Dser.new(
+        >>> dser = supriya.ugens.Dser.dr(
         ...     repeats=1,
         ...     sequence=sequence,
         ... )
         >>> dser
-        Dser()
+        Dser.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("repeats", 1), ("sequence", None)])
-    _unexpanded_input_names = ("sequence",)
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    repeats = param(1)
+    sequence = param(None, unexpanded=True)
 
 
-class Dseries(DUGen):
+@ugen(dr=True)
+class Dseries(UGen):
     """
     A demand-rate arithmetic series.
 
     ::
 
-        >>> dseries = supriya.ugens.Dseries.new(
+        >>> dseries = supriya.ugens.Dseries.dr(
         ...     length=float("inf"),
         ...     start=1,
         ...     step=1,
         ... )
         >>> dseries
-        Dseries()
+        Dseries.dr()
 
     """
 
-    ### CLASS VARIABLES ###
-
-    _ordered_input_names = collections.OrderedDict(
-        [("start", 1), ("step", 1), ("length", float("inf"))]
-    )
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
-
-    ### INITIALIZER ###
-
-    def __init__(self, calculation_rate=None, length=float("inf"), start=1, step=1):
-        if length is None:
-            length = float("inf")
-        DUGen.__init__(self, length=length, start=start, step=step)
+    start = param(1)
+    step = param(1)
+    length = param(float("inf"))
 
 
-class Dshuf(DUGen):
+@ugen(dr=True)
+class Dshuf(UGen):
     """
     A demand-rate random sequence generator.
 
     ::
 
         >>> sequence = (1, 2, 3)
-        >>> dshuf = supriya.ugens.Dshuf.new(
+        >>> dshuf = supriya.ugens.Dshuf.dr(
         ...     repeats=1,
         ...     sequence=sequence,
         ... )
         >>> dshuf
-        Dshuf()
+        Dshuf.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("repeats", 1), ("sequence", None)])
-    _unexpanded_input_names = ("sequence",)
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    repeats = param(1)
+    sequence = param(None, unexpanded=True)
 
 
-class Dstutter(DUGen):
+@ugen(dr=True)
+class Dstutter(UGen):
     """
     A demand-rate input replicator.
 
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> dstutter = supriya.ugens.Dstutter.new(
+        >>> dstutter = supriya.ugens.Dstutter.dr(
         ...     n=2,
         ...     source=source,
         ... )
         >>> dstutter
-        Dstutter()
+        Dstutter.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("n", 2.0), ("source", None)])
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    n = param(2)
+    source = param(None)
 
 
-class Dswitch(DUGen):
+@ugen(dr=True)
+class Dswitch(UGen):
     """
     A demand-rate generator for embedding different inputs.
 
     ::
 
-        >>> index = supriya.ugens.Dseq(sequence=[0, 1, 2, 1, 0])
+        >>> index = supriya.ugens.Dseq.dr(sequence=[0, 1, 2, 1, 0])
         >>> sequence = (1.0, 2.0, 3.0)
-        >>> dswitch = supriya.ugens.Dswitch.new(
+        >>> dswitch = supriya.ugens.Dswitch.dr(
         ...     index=index,
         ...     sequence=sequence,
         ... )
         >>> dswitch
-        Dswitch()
+        Dswitch.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("index", None), ("sequence", None)]
-    )
-    _unexpanded_input_names = ("sequence",)
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    index = param(None)
+    sequence = param(None, unexpanded=True)
 
 
-class Dswitch1(DUGen):
+@ugen(dr=True)
+class Dswitch1(UGen):
     """
     A demand-rate generator for switching between inputs.
 
     ::
 
-        >>> index = supriya.ugens.Dseq(sequence=[0, 1, 2, 1, 0])
+        >>> index = supriya.ugens.Dseq.dr(sequence=[0, 1, 2, 1, 0])
         >>> sequence = (1.0, 2.0, 3.0)
-        >>> dswitch_1 = supriya.ugens.Dswitch1.new(
+        >>> dswitch_1 = supriya.ugens.Dswitch1.dr(
         ...     index=index,
         ...     sequence=sequence,
         ... )
         >>> dswitch_1
-        Dswitch1()
+        Dswitch1.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("index", None), ("sequence", None)]
-    )
-    _unexpanded_input_names = ("sequence",)
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    index = param(None)
+    sequence = param(None, unexpanded=True)
 
 
-class Dunique(DUGen):
+@ugen(dr=True)
+class Dunique(UGen):
     """
     Returns the same unique series of values for several demand streams.
 
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> dunique = supriya.ugens.Dunique.new(
+        >>> dunique = supriya.ugens.Dunique.dr(
         ...     max_buffer_size=1024,
         ...     protected=True,
         ...     source=source,
         ... )
         >>> dunique
-        Dunique()
+        Dunique.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("max_buffer_size", 1024), ("protected", True)]
-    )
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    source = param(None)
+    max_buffer_size = param(1024)
+    protected = param(True)
 
 
+@ugen(ar=True, kr=True)
 class Duty(UGen):
     """
     A value is demanded of each UGen in the list and output according to a stream of duration values.
@@ -465,12 +447,12 @@ class Duty(UGen):
 
         >>> duty = supriya.ugens.Duty.kr(
         ...     done_action=0,
-        ...     duration=supriya.ugens.Drand(
+        ...     duration=supriya.ugens.Drand.dr(
         ...         sequence=[0.01, 0.2, 0.4],
         ...         repeats=2,
         ...     ),
         ...     reset=0,
-        ...     level=supriya.ugens.Dseq(
+        ...     level=supriya.ugens.Dseq.dr(
         ...         sequence=[204, 400, 201, 502, 300, 200],
         ...         repeats=2,
         ...     ),
@@ -480,35 +462,36 @@ class Duty(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("duration", 1.0), ("reset", 0.0), ("level", 1.0), ("done_action", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    duration = param(1.0)
+    reset = param(0.0)
+    level = param(1.0)
+    done_action = param(0.0)
 
 
-class Dwhite(DUGen):
+@ugen(dr=True)
+class Dwhite(UGen):
     """
     A demand-rate white noise random generator.
 
     ::
 
-        >>> dwhite = supriya.ugens.Dwhite.new(
+        >>> dwhite = supriya.ugens.Dwhite.dr(
         ...     length=float("inf"),
         ...     maximum=1,
         ...     minimum=0,
         ... )
         >>> dwhite
-        Dwhite()
+        Dwhite.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("minimum", 0.0), ("maximum", 1.0), ("length", float("inf"))]
-    )
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    minimum = param(0.0)
+    maximum = param(0.0)
+    length = param(float("inf"))
 
 
-class Dwrand(DUGen):
+@ugen(dr=True)
+class Dwrand(UGen):
     """
     A demand-rate weighted random sequence generator.
 
@@ -516,29 +499,23 @@ class Dwrand(DUGen):
 
         >>> sequence = [0, 1, 2, 7]
         >>> weights = [0.4, 0.4, 0.1, 0.1]
-        >>> dwrand = supriya.ugens.Dwrand.new(
+        >>> dwrand = supriya.ugens.Dwrand.dr(
         ...     repeats=1,
         ...     sequence=sequence,
         ...     weights=weights,
         ... )
         >>> dwrand
-        Dwrand()
+        Dwrand.dr()
 
     """
 
-    ### CLASS VARIABLES ###
+    repeats = param(1)
+    length = param(None)
+    weights = param(None, unexpanded=True)
+    sequence = param(None, unexpanded=True)
 
-    # TODO: We should not include length in the generated methods
-
-    _ordered_input_names = collections.OrderedDict(
-        [("repeats", 1), ("length", None), ("weights", None), ("sequence", None)]
-    )
-    _unexpanded_input_names = ("weights", "sequence")
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
-
-    ### INITIALIZER ###
-
-    def __init__(self, repeats=1, sequence=None, weights=None, **kwargs):
+    @classmethod
+    def dr(cls, repeats=1, sequence=None, weights=None):
         if not isinstance(sequence, Sequence):
             sequence = [sequence]
         sequence = tuple(float(_) for _ in sequence)
@@ -547,8 +524,8 @@ class Dwrand(DUGen):
         weights = tuple(float(_) for _ in weights)
         weights = weights[: len(sequence)]
         weights += (0.0,) * (len(sequence) - len(weights))
-        DUGen.__init__(
-            self,
+        return cls._new_expanded(
+            calculation_rate=CalculationRate.DEMAND,
             repeats=repeats,
             length=len(sequence),
             sequence=sequence,
@@ -556,22 +533,22 @@ class Dwrand(DUGen):
         )
 
 
-class Dxrand(DUGen):
+@ugen(dr=True)
+class Dxrand(UGen):
     """
     A demand-rate random sequence generator.
 
     ::
 
         >>> sequence = (1, 2, 3)
-        >>> dxrand = supriya.ugens.Dxrand.new(
+        >>> dxrand = supriya.ugens.Dxrand.dr(
         ...     repeats=1,
         ...     sequence=sequence,
         ... )
         >>> dxrand
-        Dxrand()
+        Dxrand.dr()
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("repeats", 1), ("sequence", None)])
-    _unexpanded_input_names = ("sequence",)
-    _valid_calculation_rates = (CalculationRate.DEMAND,)
+    repeats = param(1)
+    sequence = param(None, unexpanded=True)

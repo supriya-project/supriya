@@ -20,14 +20,7 @@ from supriya import (
 )
 from supriya.system import SupriyaObject
 
-from ..ugens import (
-    BinaryOpUGen,
-    OutputProxy,
-    UGen,
-    UGenMethodMixin,
-    UnaryOpUGen,
-    WidthFirstUGen,
-)
+from ..ugens import BinaryOpUGen, OutputProxy, UGen, UGenMethodMixin, UnaryOpUGen
 from .compilers import SynthDefCompiler
 from .controls import AudioControl, Control, LagControl, Parameter, TrigControl
 from .grapher import SynthDefGrapher
@@ -536,7 +529,7 @@ class SynthDef:
         width_first_antecedents = []
         for ugen in ugens:
             sort_bundles[ugen] = UGenSortBundle(ugen, width_first_antecedents)
-            if isinstance(ugen, WidthFirstUGen):
+            if ugen._is_width_first:
                 width_first_antecedents.append(ugen)
         for ugen in ugens:
             sort_bundle = sort_bundles[ugen]

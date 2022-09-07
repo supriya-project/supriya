@@ -3739,17 +3739,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
         Returns string.
         """
-        if self.calculation_rate == CalculationRate.DEMAND:
-            return "{}()".format(type(self).__name__)
-        calculation_abbreviations = {
-            CalculationRate.AUDIO: "ar",
-            CalculationRate.CONTROL: "kr",
-            CalculationRate.SCALAR: "ir",
-        }
-        string = "{}.{}()".format(
-            type(self).__name__, calculation_abbreviations[self.calculation_rate]
-        )
-        return string
+        return f"{type(self).__name__}.{self.calculation_rate.token}()"
 
     ### PRIVATE METHODS ###
 

@@ -2,7 +2,7 @@ import inspect
 from enum import Enum
 from typing import NamedTuple, Optional
 
-from ..enums import CalculationRate, SignalRange
+from ..enums import CalculationRate, DoneAction, SignalRange
 
 
 def _create_fn(cls, name, args, body, globals_=None, decorator=None, override=False):
@@ -42,12 +42,21 @@ def _add_init(cls, params, is_multichannel, channel_count, fixed_channel_count):
         ]
     )
     for key, value in params.items():
-        args.append(f"{key}={value}")
+        value_repr = repr(value)
+        if value_repr == "inf":
+            value_repr = 'float("inf")'
+        elif value_repr == "-inf":
+            value_repr = 'float("-inf")'
+        args.append(f"{key}={value_repr}")
         body.append(f"    {key}={key},")
     args.append("**kwargs")
     body.append("    **kwargs,")
     body.append(")")
-    globals_ = {"CalculationRate": CalculationRate, parent_class.__name__: parent_class}
+    globals_ = {
+        "CalculationRate": CalculationRate,
+        "DoneAction": DoneAction,
+        parent_class.__name__: parent_class,
+    }
     return _create_fn(cls=cls, name=name, args=args, body=body, globals_=globals_)
 
 
@@ -55,7 +64,14 @@ def _add_rate_fn(
     cls, rate, params, is_multichannel, channel_count, fixed_channel_count
 ):
     name = rate.token if rate is not None else "new"
-    args = ["cls"] + [f"{name}={value}" for name, value in params.items()]
+    args = ["cls"]
+    for key, value in params.items():
+        value_repr = repr(value)
+        if value_repr == "inf":
+            value_repr = 'float("inf")'
+        elif value_repr == "-inf":
+            value_repr = 'float("-inf")'
+        args.append(f"{key}={value_repr}")
     body = ["return cls._new_expanded("]
     if rate is not None:
         body.append(f"    calculation_rate={rate!r},")
@@ -64,7 +80,7 @@ def _add_rate_fn(
         body.append("    channel_count=channel_count,")
     body.extend(f"    {name}={name}," for name in params)
     body.append(")")
-    globals_ = {"CalculationRate": CalculationRate}
+    globals_ = {"CalculationRate": CalculationRate, "DoneAction": DoneAction}
     return _create_fn(
         cls, name, args=args, body=body, decorator=classmethod, globals_=globals_
     )
@@ -97,8 +113,9 @@ def _process_class(
     cls,
     *,
     ar,
-    ir,
     kr,
+    ir,
+    dr,
     new,
     has_done_flag,
     is_input,
@@ -125,6 +142,7 @@ def _process_class(
         (ar, CalculationRate.AUDIO),
         (kr, CalculationRate.CONTROL),
         (ir, CalculationRate.SCALAR),
+        (dr, CalculationRate.DEMAND),
         (new, None),
     ]:
         if not should_add:
@@ -169,6 +187,7 @@ def ugen(
     ar: bool = False,
     kr: bool = False,
     ir: bool = False,
+    dr: bool = False,
     new: bool = False,
     has_done_flag: bool = False,
     is_input: bool = False,
@@ -195,6 +214,7 @@ def ugen(
             ar=ar,
             kr=kr,
             ir=ir,
+            dr=dr,
             new=new,
             has_done_flag=has_done_flag,
             is_input=is_input,
