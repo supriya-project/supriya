@@ -3,8 +3,10 @@ import collections
 from supriya import CalculationRate
 
 from .bases import UGen, WidthFirstUGen
+from .decorators import param, ugen
 
 
+@ugen(is_width_first=True)
 class PV_ChainUGen(WidthFirstUGen):
     """
     Abstract base class for all phase-vocoder-chain unit generators.
@@ -972,6 +974,7 @@ class PV_RectComb2(PV_ChainUGen):
     )
 
 
+@ugen(ar=True, kr=True)
 class RunningSum(UGen):
     """
     Tracks running sum over ``n`` frames.
@@ -988,7 +991,5 @@ class RunningSum(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("sample_count", 40)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    sample_count = param(40)

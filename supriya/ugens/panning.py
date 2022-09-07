@@ -3,11 +3,13 @@ import math
 
 from supriya import CalculationRate
 
-from .bases import MultiOutUGen, PseudoUGen, UGen
+from .bases import PseudoUGen, UGen
 from .basic import Mix
+from .decorators import param, ugen
 
 
-class Balance2(MultiOutUGen):
+@ugen(ar=True, kr=True, fixed_channel_count=2)
+class Balance2(UGen):
     """
     A stereo signal balancer.
 
@@ -26,15 +28,14 @@ class Balance2(MultiOutUGen):
 
     """
 
-    _default_channel_count = 2
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict(
-        [("left", None), ("right", None), ("position", 0.0), ("level", 1.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    left = param(None)
+    right = param(None)
+    position = param(0.0)
+    level = param(1.0)
 
 
-class BiPanB2(MultiOutUGen):
+@ugen(ar=True, kr=True, fixed_channel_count=3)
+class BiPanB2(UGen):
     """
     A 2D ambisonic b-format panner.
 
@@ -57,15 +58,14 @@ class BiPanB2(MultiOutUGen):
 
     """
 
-    _default_channel_count = 3
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict(
-        [("in_a", None), ("in_b", None), ("azimuth", None), ("gain", 1.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    in_a = param(None)
+    in_b = param(None)
+    azimuth = param(None)
+    gain = param(1.0)
 
 
-class DecodeB2(MultiOutUGen):
+@ugen(ar=True, kr=True, is_multichannel=True, channel_count=4)
+class DecodeB2(UGen):
     """
     A 2D Ambisonic B-format decoder.
 
@@ -76,9 +76,8 @@ class DecodeB2(MultiOutUGen):
         ...     source=source,
         ...     azimuth=supriya.ugens.SinOsc.kr(),
         ... )
-        >>> channel_count = 4
         >>> decode_b_2 = supriya.ugens.DecodeB2.ar(
-        ...     channel_count=channel_count,
+        ...     channel_count=4,
         ...     orientation=0.5,
         ...     w=w,
         ...     x=x,
@@ -89,15 +88,14 @@ class DecodeB2(MultiOutUGen):
 
     """
 
-    _default_channel_count = 4
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict(
-        [("w", None), ("x", None), ("y", None), ("orientation", 0.5)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    w = param(None)
+    x = param(None)
+    y = param(None)
+    orientation = param(0.5)
 
 
-class Pan2(MultiOutUGen):
+@ugen(ar=True, kr=True, fixed_channel_count=2)
+class Pan2(UGen):
     """
     A two channel equal power panner.
 
@@ -112,15 +110,13 @@ class Pan2(MultiOutUGen):
 
     """
 
-    _default_channel_count = 2
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("position", 0.0), ("level", 1.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    position = param(0.0)
+    level = param(1.0)
 
 
-class Pan4(MultiOutUGen):
+@ugen(ar=True, kr=True, fixed_channel_count=4)
+class Pan4(UGen):
     """
     A four-channel equal-power panner.
 
@@ -138,15 +134,14 @@ class Pan4(MultiOutUGen):
 
     """
 
-    _default_channel_count = 4
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("x_position", 0), ("y_position", 0), ("gain", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    x_position = param(0)
+    y_position = param(0)
+    gain = param(1)
 
 
-class PanAz(MultiOutUGen):
+@ugen(ar=True, kr=True, is_multichannel=True)
+class PanAz(UGen):
     """
     A multi-channel equal-power panner.
 
@@ -166,21 +161,15 @@ class PanAz(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("position", 0),
-            ("amplitude", 1),
-            ("width", 2),
-            ("orientation", 0.5),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    position = param(0)
+    amplitude = param(1)
+    width = param(2)
+    orientation = param(0.5)
 
 
-class PanB(MultiOutUGen):
+@ugen(ar=True, kr=True, fixed_channel_count=3)
+class PanB(UGen):
     """
     A 3D ambisonic b-format panner.
 
@@ -198,15 +187,14 @@ class PanB(MultiOutUGen):
 
     """
 
-    _default_channel_count = 3
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("azimuth", 0), ("elevation", 0), ("gain", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    azimuth = param(0)
+    elevation = param(0)
+    gain = param(1)
 
 
-class PanB2(MultiOutUGen):
+@ugen(ar=True, kr=True, fixed_channel_count=3)
+class PanB2(UGen):
     """
     A 2D ambisonic b-format panner.
 
@@ -223,15 +211,13 @@ class PanB2(MultiOutUGen):
 
     """
 
-    _default_channel_count = 3
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("azimuth", 0), ("gain", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    azimuth = param(0)
+    gain = param(1)
 
 
-class Rotate2(MultiOutUGen):
+@ugen(ar=True, kr=True, fixed_channel_count=2)
+class Rotate2(UGen):
     """
     Equal-power sound-field rotator.
 
@@ -252,12 +238,9 @@ class Rotate2(MultiOutUGen):
     Returns an array of the rotator's left and right outputs.
     """
 
-    _default_channel_count = 2
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict(
-        [("x", None), ("y", None), ("position", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    x = param(None)
+    y = param(None)
+    position = param(0)
 
 
 class Splay(PseudoUGen):
@@ -410,6 +393,7 @@ class Splay(PseudoUGen):
         )
 
 
+@ugen(ar=True, kr=True)
 class XFade2(UGen):
     """
     Two channel equal power crossfader.
@@ -427,7 +411,7 @@ class XFade2(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("in_a", None), ("in_b", 0), ("pan", 0), ("level", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    in_a = param(None)
+    in_b = param(0)
+    pan = param(0)
+    level = param(1)

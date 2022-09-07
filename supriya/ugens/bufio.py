@@ -1,11 +1,10 @@
-import collections
-
 from .. import CalculationRate, DoneAction
-from .bases import MultiOutUGen, UGen, WidthFirstUGen
+from .bases import UGen
 from .decorators import param, ugen
 
 
-class BufRd(MultiOutUGen):
+@ugen(ar=True, kr=True, is_multichannel=True)
+class BufRd(UGen):
     """
     A buffer-reading oscillator.
 
@@ -29,12 +28,10 @@ class BufRd(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("phase", 0.0), ("loop", 1.0), ("interpolation", 2.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    phase = param(0.0)
+    loop = param(1)
+    interpolation = param(2)
 
 
 @ugen(ar=True, kr=True, has_done_flag=True)
@@ -69,7 +66,7 @@ class BufWr(UGen):
 
 
 @ugen(ir=True, is_width_first=True)
-class ClearBuf(WidthFirstUGen):
+class ClearBuf(UGen):
     """
 
     ::
@@ -86,7 +83,7 @@ class ClearBuf(WidthFirstUGen):
 
 
 @ugen(ir=True, is_width_first=True)
-class LocalBuf(WidthFirstUGen):
+class LocalBuf(UGen):
     """
     A synth-local buffer.
 
@@ -135,13 +132,9 @@ class LocalBuf(WidthFirstUGen):
     ### INITIALIZER ###
 
     def __init__(self, frame_count=1, channel_count=1, calculation_rate=None):
-        import supriya.synthdefs
-
-        if calculation_rate is None:
-            calculation_rate = supriya.CalculationRate.SCALAR
-        WidthFirstUGen.__init__(
+        UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            calculation_rate=CalculationRate.SCALAR,
             channel_count=channel_count,
             frame_count=frame_count,
         )
@@ -185,7 +178,8 @@ class MaxLocalBufs(UGen):
         self._inputs[0] += 1
 
 
-class PlayBuf(MultiOutUGen):
+@ugen(ar=True, kr=True, is_multichannel=True)
+class PlayBuf(UGen):
     """
     A sample playback oscillator.
 
@@ -206,19 +200,12 @@ class PlayBuf(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("rate", 1),
-            ("trigger", 1),
-            ("start_position", 0),
-            ("loop", 0),
-            ("done_action", 0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    rate = param(1)
+    trigger = param(1)
+    start_position = param(0)
+    loop = param(0)
+    done_action = param(0)
 
 
 @ugen(ar=True, kr=True, has_done_flag=True)
