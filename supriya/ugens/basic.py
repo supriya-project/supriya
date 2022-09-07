@@ -437,7 +437,7 @@ class Sum3(UGen):
         >>> input_one = supriya.ugens.SinOsc.ar()
         >>> input_two = supriya.ugens.SinOsc.ar(phase=0.1)
         >>> input_three = supriya.ugens.SinOsc.ar(phase=0.2)
-        >>> Sum3.new(
+        >>> supriya.ugens.Sum3.new(
         ...     input_one=input_one,
         ...     input_two=input_two,
         ...     input_three=input_three,

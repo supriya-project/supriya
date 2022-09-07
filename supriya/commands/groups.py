@@ -6,6 +6,7 @@ from supriya.enums import RequestId
 from supriya.querytree import QueryTreeControl, QueryTreeGroup, QueryTreeSynth
 
 from .bases import Request, Response
+from ..typing import AddActionLike
 
 
 class GroupDeepFreeRequest(Request):
@@ -281,9 +282,9 @@ class GroupNewRequest(Request):
     ### CLASS VARIABLES ###
 
     class Item(typing.NamedTuple):
-        add_action: int = 0
-        node_id: int = 0
-        target_node_id: int = 0
+        add_action: AddActionLike = 0
+        node_id: typing.SupportsInt = 0
+        target_node_id: typing.SupportsInt = 0
 
     request_id = RequestId.GROUP_NEW
 
