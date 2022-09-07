@@ -1,17 +1,10 @@
 from .. import DoneAction
-from .bases import PseudoUGen, PureUGen, UGen
+from .bases import PseudoUGen, UGen
 from .decorators import param, ugen
 
 
-@ugen(is_pure=True)
-class Filter(PureUGen):
-    """
-    Abstract base class for filter ugens.
-    """
-
-
 @ugen(ar=True, kr=True, is_pure=True)
-class APF(Filter):
+class APF(UGen):
     """
     An all-pass filter.
 
@@ -34,7 +27,7 @@ class APF(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class BPF(Filter):
+class BPF(UGen):
     """
     A 2nd order Butterworth bandpass filter.
 
@@ -53,7 +46,7 @@ class BPF(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class BPZ2(Filter):
+class BPZ2(UGen):
     """
     A two zero fixed midpass filter.
 
@@ -72,7 +65,7 @@ class BPZ2(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class BRF(Filter):
+class BRF(UGen):
     """
     A 2nd order Butterworth band-reject filter.
 
@@ -91,7 +84,7 @@ class BRF(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class BRZ2(Filter):
+class BRZ2(UGen):
     """
     A two zero fixed midcut filter.
 
@@ -214,7 +207,7 @@ class Changed(PseudoUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Decay(Filter):
+class Decay(UGen):
     """
     A leaky signal integrator.
 
@@ -234,7 +227,7 @@ class Decay(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Decay2(Filter):
+class Decay2(UGen):
     """
     A leaky signal integrator.
 
@@ -283,7 +276,7 @@ class DetectSilence(UGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class FOS(Filter):
+class FOS(UGen):
     """
     A first order filter section.
 
@@ -312,7 +305,7 @@ class FOS(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Formlet(Filter):
+class Formlet(UGen):
     """
     A FOF-like filter.
 
@@ -337,7 +330,7 @@ class Formlet(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class HPF(Filter):
+class HPF(UGen):
     """
     A Highpass filter unit generator.
 
@@ -354,7 +347,7 @@ class HPF(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class HPZ1(Filter):
+class HPZ1(UGen):
     """
     A two point difference filter.
 
@@ -373,7 +366,7 @@ class HPZ1(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class HPZ2(Filter):
+class HPZ2(UGen):
     """
     A two zero fixed midcut filter.
 
@@ -392,7 +385,7 @@ class HPZ2(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Integrator(Filter):
+class Integrator(UGen):
     """
     A leaky integrator.
 
@@ -413,7 +406,7 @@ class Integrator(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Lag(Filter):
+class Lag(UGen):
     """
     A lag generator.
 
@@ -433,7 +426,7 @@ class Lag(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class LagUD(Filter):
+class LagUD(UGen):
     """
     An up/down lag generator.
 
@@ -455,7 +448,7 @@ class LagUD(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Lag2(Filter):
+class Lag2(UGen):
     """
     An exponential lag generator.
 
@@ -476,7 +469,7 @@ class Lag2(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Lag2UD(Filter):
+class Lag2UD(UGen):
     """
     An up/down exponential lag generator.
 
@@ -499,7 +492,7 @@ class Lag2UD(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Lag3(Filter):
+class Lag3(UGen):
     """
     An exponential lag generator.
 
@@ -520,7 +513,7 @@ class Lag3(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Lag3UD(Filter):
+class Lag3UD(UGen):
     """
     An up/down exponential lag generator.
 
@@ -543,7 +536,7 @@ class Lag3UD(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class LeakDC(Filter):
+class LeakDC(UGen):
     """
     A DC blocker.
 
@@ -564,7 +557,7 @@ class LeakDC(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class LPF(Filter):
+class LPF(UGen):
     """
     A lowpass filter unit generator.
 
@@ -581,7 +574,7 @@ class LPF(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class LPZ1(Filter):
+class LPZ1(UGen):
     """
     A two point average filter.
 
@@ -600,7 +593,7 @@ class LPZ1(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class LPZ2(Filter):
+class LPZ2(UGen):
     """
     A two zero fixed lowpass filter.
 
@@ -619,7 +612,7 @@ class LPZ2(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Median(Filter):
+class Median(UGen):
     """
     A median filter.
 
@@ -640,7 +633,7 @@ class Median(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class MidEQ(Filter):
+class MidEQ(UGen):
     """
     A parametric filter.
 
@@ -665,7 +658,7 @@ class MidEQ(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class MoogFF(Filter):
+class MoogFF(UGen):
     """
     A Moog VCF implementation.
 
@@ -690,7 +683,7 @@ class MoogFF(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class OnePole(Filter):
+class OnePole(UGen):
     """
     A one pole filter.
 
@@ -711,7 +704,7 @@ class OnePole(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class OneZero(Filter):
+class OneZero(UGen):
     """
     A one zero filter.
 
@@ -732,7 +725,7 @@ class OneZero(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class RHPF(Filter):
+class RHPF(UGen):
     """
     A resonant highpass filter unit generator.
 
@@ -750,7 +743,7 @@ class RHPF(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class RLPF(Filter):
+class RLPF(UGen):
     """
     A resonant lowpass filter unit generator.
 
@@ -768,7 +761,7 @@ class RLPF(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Ramp(Filter):
+class Ramp(UGen):
     """
     Breaks a continuous signal into line segments.
 
@@ -789,7 +782,7 @@ class Ramp(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Ringz(Filter):
+class Ringz(UGen):
     """
     A ringing filter.
 
@@ -812,7 +805,7 @@ class Ringz(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class SOS(Filter):
+class SOS(UGen):
     """
     A second-order filter section.
 
@@ -845,7 +838,7 @@ class SOS(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Slew(Filter):
+class Slew(UGen):
     """
     A slew rate limiter.
 
@@ -868,7 +861,7 @@ class Slew(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Slope(Filter):
+class Slope(UGen):
     """
     Calculates slope of signal.
 
@@ -887,7 +880,7 @@ class Slope(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class TwoPole(Filter):
+class TwoPole(UGen):
     """
     A two pole filter.
 
@@ -910,7 +903,7 @@ class TwoPole(Filter):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class TwoZero(Filter):
+class TwoZero(UGen):
     """
     A two zero filter.
 

@@ -1,6 +1,3 @@
-import collections
-from collections.abc import Sequence
-
 from supriya import CalculationRate
 
 from .bases import OutputProxy, UGen

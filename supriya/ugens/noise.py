@@ -1,6 +1,6 @@
 from supriya import SignalRange
 
-from .bases import UGen, WidthFirstUGen
+from .bases import UGen
 from .decorators import param, ugen
 
 
@@ -412,8 +412,8 @@ class Rand(UGen):
     maximum = param(1.0)
 
 
-@ugen(kr=True, ir=True)
-class RandID(WidthFirstUGen):
+@ugen(kr=True, ir=True, is_width_first=True)
+class RandID(UGen):
     """
     Sets the synth's random generator ID.
 
@@ -430,8 +430,8 @@ class RandID(WidthFirstUGen):
     rand_id = param(1)
 
 
-@ugen(ar=True, kr=True, ir=True)
-class RandSeed(WidthFirstUGen):
+@ugen(ar=True, kr=True, ir=True, is_width_first=True)
+class RandSeed(UGen):
     """
     Sets the synth's random generator seed.
 

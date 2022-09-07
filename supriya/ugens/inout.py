@@ -88,7 +88,7 @@ class LocalOut(UGen):
     source = param(None, unexpanded=True)
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=0)
+@ugen(ar=True, kr=True, is_output=True, fixed_channel_count=0)
 class OffsetOut(UGen):
     """
     A bus output unit generator with sample-accurate timing.
@@ -108,7 +108,7 @@ class OffsetOut(UGen):
     source = param(None, unexpanded=True)
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=0)
+@ugen(ar=True, kr=True, is_output=True, fixed_channel_count=0)
 class Out(UGen):
     """
     A bus output unit generator.
@@ -128,7 +128,7 @@ class Out(UGen):
     source = param(None, unexpanded=True)
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=0)
+@ugen(ar=True, kr=True, is_output=True, fixed_channel_count=0)
 class ReplaceOut(UGen):
     """
     An overwriting bus output unit generator.
@@ -148,7 +148,7 @@ class ReplaceOut(UGen):
     source = param(None, unexpanded=True)
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=0)
+@ugen(ar=True, kr=True, is_output=True, fixed_channel_count=0)
 class XOut(UGen):
     """
     A cross-fading bus output unit generator.

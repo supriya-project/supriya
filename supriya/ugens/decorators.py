@@ -1,9 +1,8 @@
 import inspect
 from enum import Enum
-from typing import Any, Callable, NamedTuple, Optional, Union
+from typing import NamedTuple, Optional
 
 from ..enums import CalculationRate, SignalRange
-from .bases import UGen
 
 
 def _create_fn(cls, name, args, body, globals_=None, decorator=None, override=False):
@@ -52,7 +51,9 @@ def _add_init(cls, params, is_multichannel, channel_count, fixed_channel_count):
     return _create_fn(cls=cls, name=name, args=args, body=body, globals_=globals_)
 
 
-def _add_rate_fn(cls, rate, params, is_multichannel, channel_count, fixed_channel_count):
+def _add_rate_fn(
+    cls, rate, params, is_multichannel, channel_count, fixed_channel_count
+):
     name = rate.token if rate is not None else "new"
     args = ["cls"] + [f"{name}={value}" for name, value in params.items()]
     body = ["return cls._new_expanded("]
@@ -75,7 +76,9 @@ def _add_param_fn(cls, name, index, unexpanded):
         body = [f"return self._inputs[{index}:]"]
     else:
         body = [f"return self._inputs[{index}]"]
-    return _create_fn(cls, name, args=args, body=body, decorator=property)
+    return _create_fn(
+        cls, name, args=args, body=body, decorator=property, override=True
+    )
 
 
 class Check(Enum):

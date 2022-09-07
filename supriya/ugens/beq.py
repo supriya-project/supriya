@@ -1,9 +1,9 @@
+from .bases import UGen
 from .decorators import param, ugen
-from .filters import Filter
 
 
 @ugen(ar=True, is_pure=True)
-class BAllPass(Filter):
+class BAllPass(UGen):
     """
     An all-pass filter.
 
@@ -26,7 +26,7 @@ class BAllPass(Filter):
 
 
 @ugen(ar=True, is_pure=True)
-class BBandPass(Filter):
+class BBandPass(UGen):
     """
     A band-pass filter.
 
@@ -49,7 +49,7 @@ class BBandPass(Filter):
 
 
 @ugen(ar=True, is_pure=True)
-class BBandStop(Filter):
+class BBandStop(UGen):
     """
     A band-stop filter.
 
@@ -72,7 +72,7 @@ class BBandStop(Filter):
 
 
 @ugen(ar=True, is_pure=True)
-class BHiCut(Filter):
+class BHiCut(UGen):
     """
     A high-cut filter.
 
@@ -97,7 +97,7 @@ class BHiCut(Filter):
 
 
 @ugen(ar=True, is_pure=True)
-class BHiPass(Filter):
+class BHiPass(UGen):
     """
     A high-pass filter.
 
@@ -120,7 +120,7 @@ class BHiPass(Filter):
 
 
 @ugen(ar=True, is_pure=True)
-class BHiShelf(Filter):
+class BHiShelf(UGen):
     """
     A high-shelf filter.
 
@@ -145,7 +145,7 @@ class BHiShelf(Filter):
 
 
 @ugen(ar=True, is_pure=True)
-class BLowCut(Filter):
+class BLowCut(UGen):
     """
     A low-cut filter.
 
@@ -170,7 +170,7 @@ class BLowCut(Filter):
 
 
 @ugen(ar=True, is_pure=True)
-class BLowPass(Filter):
+class BLowPass(UGen):
     """
     A low-pass filter.
 
@@ -193,7 +193,7 @@ class BLowPass(Filter):
 
 
 @ugen(ar=True, is_pure=True)
-class BLowShelf(Filter):
+class BLowShelf(UGen):
     """
     A low-shelf filter.
 
@@ -218,7 +218,7 @@ class BLowShelf(Filter):
 
 
 @ugen(ar=True, is_pure=True)
-class BPeakEQ(Filter):
+class BPeakEQ(UGen):
     """
     A parametric equalizer.
 

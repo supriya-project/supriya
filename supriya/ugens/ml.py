@@ -1,10 +1,8 @@
-import collections
-
 from uqbar.enums import IntEnumeration
 
 from supriya import CalculationRate
 
-from .bases import MultiOutUGen, UGen
+from .bases import UGen
 from .decorators import param, ugen
 
 
@@ -106,7 +104,8 @@ class Loudness(UGen):
     tmask = param(1)
 
 
-class MFCC(MultiOutUGen):
+@ugen(kr=True, is_multichannel=True, channel_count=13)
+class MFCC(UGen):
     """
     Mel frequency cepstral coefficients.
 
@@ -122,18 +121,13 @@ class MFCC(MultiOutUGen):
 
     """
 
-    _default_channel_count = 13
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("coeff_count", 13)]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    pv_chain = param(None)
+    coeff_count = param(13)
 
-    def __init__(self, calculation_rate=None, coeff_count=13, pv_chain=None):
-        # MFCC wants to have both # of outputs specified the traditional way
-        # but also to have the same value passed in as an input
-        super().__init__(
-            calculation_rate=calculation_rate,
+    @classmethod
+    def kr(cls, pv_chain=None, coeff_count=13):
+        return cls._new_expanded(
+            calculation_rate=CalculationRate.CONTROL,
             channel_count=coeff_count,
             coeff_count=coeff_count,
             pv_chain=pv_chain,

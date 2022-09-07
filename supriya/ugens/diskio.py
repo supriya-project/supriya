@@ -1,11 +1,9 @@
-import collections
-
-from supriya import CalculationRate
-
-from .bases import MultiOutUGen, UGen
+from .bases import UGen
+from .decorators import param, ugen
 
 
-class DiskIn(MultiOutUGen):
+@ugen(ar=True, is_multichannel=True, has_done_flag=True)
+class DiskIn(UGen):
     """
     Streams in audio from a file.
 
@@ -22,13 +20,11 @@ class DiskIn(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_done_flag = True
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict([("buffer_id", None), ("loop", 0.0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    buffer_id = param(None)
+    loop = param(0)
 
 
+@ugen(ar=True)
 class DiskOut(UGen):
     """
     Records to a soundfile to disk.
@@ -46,14 +42,12 @@ class DiskOut(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("source", None)]
-    )
-    _unexpanded_input_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    buffer_id = param(None)
+    source = param(None, unexpanded=True)
 
 
-class VDiskIn(MultiOutUGen):
+@ugen(ar=True, is_multichannel=True, has_done_flag=True)
+class VDiskIn(UGen):
     """
     Streams in audio from a file, with variable rate.
 
@@ -72,10 +66,7 @@ class VDiskIn(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_done_flag = True
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("rate", 1), ("loop", 0), ("send_id", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    buffer_id = param(None)
+    rate = param(1.0)
+    loop = param(0)
+    send_id = param(0)

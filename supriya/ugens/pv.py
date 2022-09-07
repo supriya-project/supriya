@@ -104,7 +104,8 @@ class FFT(PV_ChainUGen):
         return supriya.ugens.BufFrames.ir(self.buffer_id)
 
 
-class IFFT(WidthFirstUGen):
+@ugen(ar=True, kr=True, is_width_first=True)
+class IFFT(UGen):
     """
     An inverse fast Fourier transform.
 
@@ -121,10 +122,9 @@ class IFFT(WidthFirstUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("window_type", 0), ("window_size", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    pv_chain = param(None)
+    window_type = param(0)
+    window_size = param(0)
 
 
 class PV_Add(PV_ChainUGen):

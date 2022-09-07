@@ -1,13 +1,9 @@
-import collections
-
-from supriya import CalculationRate
-
-from .bases import PureUGen, UGen
+from .bases import UGen
 from .decorators import param, ugen
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class COsc(PureUGen):
+class COsc(UGen):
     """
     A chorusing wavetable oscillator.
 
@@ -29,7 +25,7 @@ class COsc(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class DegreeToKey(PureUGen):
+class DegreeToKey(UGen):
     """
     A signal-to-modal-pitch converter.`
 
@@ -52,7 +48,7 @@ class DegreeToKey(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Impulse(PureUGen):
+class Impulse(UGen):
     """
     A non-band-limited single-sample impulse generator unit generator.
 
@@ -68,7 +64,7 @@ class Impulse(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Index(PureUGen):
+class Index(UGen):
     """
     A clipping buffer indexer.
 
@@ -89,7 +85,7 @@ class Index(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class LFCub(PureUGen):
+class LFCub(UGen):
     """
     A sine-like oscillator unit generator.
 
@@ -105,7 +101,7 @@ class LFCub(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class LFGauss(PureUGen):
+class LFGauss(UGen):
     """
     A non-band-limited gaussian function oscillator.
 
@@ -150,7 +146,7 @@ class LFGauss(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class LFPar(PureUGen):
+class LFPar(UGen):
     """
     A parabolic oscillator unit generator.
 
@@ -166,7 +162,7 @@ class LFPar(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class LFPulse(PureUGen):
+class LFPulse(UGen):
     """
     A non-band-limited pulse oscillator.
 
@@ -183,7 +179,7 @@ class LFPulse(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class LFSaw(PureUGen):
+class LFSaw(UGen):
     """
     A non-band-limited sawtooth oscillator unit generator.
 
@@ -199,7 +195,7 @@ class LFSaw(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class LFTri(PureUGen):
+class LFTri(UGen):
     """
     A non-band-limited triangle oscillator unit generator.
 
@@ -215,7 +211,7 @@ class LFTri(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Osc(PureUGen):
+class Osc(UGen):
     """
     An interpolating wavetable oscillator.
     """
@@ -226,7 +222,7 @@ class Osc(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class OscN(PureUGen):
+class OscN(UGen):
     """
     A non-interpolating wavetable oscillator.
     """
@@ -237,7 +233,7 @@ class OscN(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Select(PureUGen):
+class Select(UGen):
     """
     A signal selector.
 
@@ -259,7 +255,7 @@ class Select(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class SinOsc(PureUGen):
+class SinOsc(UGen):
     """
     A sinusoid oscillator unit generator.
 
@@ -285,7 +281,7 @@ class SinOsc(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class SyncSaw(PureUGen):
+class SyncSaw(UGen):
     """
     A sawtooth wave that is hard synched to a fundamental pitch.
 
@@ -305,7 +301,7 @@ class SyncSaw(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class VOsc(PureUGen):
+class VOsc(UGen):
     """
     A wavetable lookup oscillator which can be swept smoothly across wavetables.
 
@@ -327,7 +323,7 @@ class VOsc(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class VOsc3(PureUGen):
+class VOsc3(UGen):
     """
     A wavetable lookup oscillator which can be swept smoothly across wavetables.
 
@@ -351,7 +347,7 @@ class VOsc3(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class VarSaw(PureUGen):
+class VarSaw(UGen):
     """
     A sawtooth-triangle oscillator with variable duty.
 
@@ -368,7 +364,7 @@ class VarSaw(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class Vibrato(PureUGen):
+class Vibrato(UGen):
     """
     Vibrato is a slow frequency modulation.
 

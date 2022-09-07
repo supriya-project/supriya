@@ -763,10 +763,30 @@ class SynthDef:
             ...     sin = supriya.ugens.SinOsc.ar(
             ...         frequency=audio_in,
             ...     )
-            ...     source = audio_in * control_in[1]
+            ...     source = sin * control_in[0]
             ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
             ...
             >>> synthdef = builder.build()
+            >>> print(synthdef)
+            synthdef:
+                name: ...
+                ugens:
+                -   In.ar:
+                        bus: 0.0
+                -   SinOsc.ar:
+                        frequency: In.ar[0]
+                        phase: 0.0
+                -   In.kr:
+                        bus: 0.0
+                -   BinaryOpUGen(MULTIPLICATION).ar:
+                        left: SinOsc.ar[0]
+                        right: In.kr[0]
+                -   Out.ar:
+                        bus: 0.0
+                        source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
+                        source[1]: BinaryOpUGen(MULTIPLICATION).ar[0]
+                        source[2]: BinaryOpUGen(MULTIPLICATION).ar[0]
+                        source[3]: BinaryOpUGen(MULTIPLICATION).ar[0]
 
         ::
 
