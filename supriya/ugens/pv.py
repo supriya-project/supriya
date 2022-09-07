@@ -1,7 +1,3 @@
-import collections
-
-from supriya import CalculationRate
-
 from .bases import UGen
 from .decorators import param, ugen
 
@@ -11,14 +7,6 @@ class PV_ChainUGen(UGen):
     """
     Abstract base class for all phase-vocoder-chain unit generators.
     """
-
-    ### INITIALIZER ###
-
-    def __init__(self, **kwargs):
-        calculation_rate = CalculationRate.CONTROL
-        UGen.__init__(self, calculation_rate=calculation_rate, **kwargs)
-
-    ### PUBLIC PROPERTIES ###
 
     @property
     def fft_size(self):
@@ -30,6 +18,7 @@ class PV_ChainUGen(UGen):
         return self.pv_chain.fft_size
 
 
+@ugen(kr=True, is_width_first=True)
 class FFT(PV_ChainUGen):
     """
     A fast Fourier transform.
@@ -38,7 +27,7 @@ class FFT(PV_ChainUGen):
 
         >>> buffer_id = supriya.ugens.LocalBuf(2048)
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> fft = supriya.ugens.FFT(
+        >>> fft = supriya.ugens.FFT.kr(
         ...     active=1,
         ...     buffer_id=buffer_id,
         ...     hop=0.5,
@@ -53,22 +42,19 @@ class FFT(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("source", None),
-            ("hop", 0.5),
-            ("window_type", 0),
-            ("active", 1),
-            ("window_size", 0),
-        ]
-    )
+    buffer_id = param(None)
+    source = param(None)
+    hop = param(0.5)
+    window_type = param(0)
+    active = param(1)
+    window_size = param(0)
 
     ### INITIALIZER ###
 
     def __init__(
         self,
         buffer_id=None,
+        calculation_rate=None,
         source=None,
         active=1,
         hop=0.5,
@@ -80,10 +66,11 @@ class FFT(PV_ChainUGen):
         if buffer_id is None:
             buffer_size = window_size or 2048
             buffer_id = supriya.ugens.LocalBuf(buffer_size)
-        PV_ChainUGen.__init__(
+        UGen.__init__(
             self,
             active=active,
             buffer_id=buffer_id,
+            calculation_rate=calculation_rate,
             hop=hop,
             source=source,
             window_size=window_size,
@@ -127,19 +114,20 @@ class IFFT(UGen):
     window_size = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_Add(PV_ChainUGen):
     """
     Complex addition.
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
+        >>> pv_chain_a = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_chain_b = supriya.ugens.FFT(
+        >>> pv_chain_b = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.LFSaw.ar(),
         ... )
-        >>> pv_add = supriya.ugens.PV_Add.new(
+        >>> pv_add = supriya.ugens.PV_Add.kr(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ... )
@@ -148,21 +136,21 @@ class PV_Add(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain_a", None), ("pv_chain_b", None)]
-    )
+    pv_chain_a = param(None)
+    pv_chain_b = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_BinScramble(PV_ChainUGen):
     """
     Scrambles bins.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_bin_scramble = supriya.ugens.PV_BinScramble.new(
+        >>> pv_bin_scramble = supriya.ugens.PV_BinScramble.kr(
         ...     pv_chain=pv_chain,
         ...     trigger=0,
         ...     width=0.2,
@@ -173,21 +161,23 @@ class PV_BinScramble(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("wipe", 0), ("width", 0.2), ("trigger", 0)]
-    )
+    pv_chain = param(None)
+    wipe = param(0)
+    width = param(0.2)
+    trigger = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_BinShift(PV_ChainUGen):
     """
     Shifts and stretches bin positions.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_bin_shift = supriya.ugens.PV_BinShift.new(
+        >>> pv_bin_shift = supriya.ugens.PV_BinShift.kr(
         ...     pv_chain=pv_chain,
         ...     interpolate=0,
         ...     shift=0,
@@ -198,24 +188,26 @@ class PV_BinShift(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("stretch", 1), ("shift", 0), ("interpolate", 0)]
-    )
+    pv_chain = param(None)
+    stretch = param(1.0)
+    shift = param(0.0)
+    interpolate = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_BinWipe(PV_ChainUGen):
     """
     Copies low bins from one input and the high bins of the other.
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
+        >>> pv_chain_a = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_chain_b = supriya.ugens.FFT.new(
+        >>> pv_chain_b = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.LFSaw.ar(),
         ... )
-        >>> pv_bin_wipe = supriya.ugens.PV_BinWipe.new(
+        >>> pv_bin_wipe = supriya.ugens.PV_BinWipe.kr(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ...     wipe=0,
@@ -225,11 +217,12 @@ class PV_BinWipe(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain_a", None), ("pv_chain_b", None), ("wipe", 0)]
-    )
+    pv_chain_a = param(None)
+    pv_chain_b = param(None)
+    wipe = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_BrickWall(PV_ChainUGen):
     """
     Zeros bins.
@@ -242,10 +235,10 @@ class PV_BrickWall(PV_ChainUGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_brick_wall = supriya.ugens.PV_BrickWall.new(
+        >>> pv_brick_wall = supriya.ugens.PV_BrickWall.kr(
         ...     pv_chain=pv_chain,
         ...     wipe=0,
         ... )
@@ -254,19 +247,21 @@ class PV_BrickWall(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None), ("wipe", 0)])
+    pv_chain = param(None)
+    wipe = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_ConformalMap(PV_ChainUGen):
     """
     Complex plane attack.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_conformal_map = supriya.ugens.PV_ConformalMap.new(
+        >>> pv_conformal_map = supriya.ugens.PV_ConformalMap.kr(
         ...     aimag=0,
         ...     areal=0,
         ...     pv_chain=pv_chain,
@@ -276,21 +271,22 @@ class PV_ConformalMap(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("areal", 0), ("aimag", 0)]
-    )
+    pv_chain = param(None)
+    areal = param(0)
+    aimag = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_Conj(PV_ChainUGen):
     """
     Complex conjugate.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_conj = supriya.ugens.PV_Conj.new(
+        >>> pv_conj = supriya.ugens.PV_Conj.kr(
         ...     pv_chain=pv_chain,
         ... )
         >>> pv_conj
@@ -298,22 +294,23 @@ class PV_Conj(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None)])
+    pv_chain = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_Copy(PV_ChainUGen):
     """
     Copies an FFT buffer.
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
+        >>> pv_chain_a = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_chain_b = supriya.ugens.FFT(
+        >>> pv_chain_b = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.LFSaw.ar(),
         ... )
-        >>> pv_copy = supriya.ugens.PV_Copy.new(
+        >>> pv_copy = supriya.ugens.PV_Copy.kr(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ... )
@@ -322,24 +319,24 @@ class PV_Copy(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain_a", None), ("pv_chain_b", None)]
-    )
+    pv_chain_a = param(None)
+    pv_chain_b = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_CopyPhase(PV_ChainUGen):
     """
     Copies magnitudes and phases.
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
+        >>> pv_chain_a = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_chain_b = supriya.ugens.FFT(
+        >>> pv_chain_b = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.LFSaw.ar(),
         ... )
-        >>> pv_copy_phase = supriya.ugens.PV_CopyPhase.new(
+        >>> pv_copy_phase = supriya.ugens.PV_CopyPhase.kr(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ... )
@@ -348,21 +345,21 @@ class PV_CopyPhase(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain_a", None), ("pv_chain_b", None)]
-    )
+    pv_chain_a = param(None)
+    pv_chain_b = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_Diffuser(PV_ChainUGen):
     """
     Shifts phases randomly.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_diffuser = supriya.ugens.PV_Diffuser.new(
+        >>> pv_diffuser = supriya.ugens.PV_Diffuser.kr(
         ...     pv_chain=pv_chain,
         ...     trigger=0,
         ... )
@@ -371,22 +368,24 @@ class PV_Diffuser(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None), ("trigger", 0)])
+    pv_chain = param(None)
+    trigger = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_Div(PV_ChainUGen):
     """
     Complex division.
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
+        >>> pv_chain_a = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_chain_b = supriya.ugens.FFT(
+        >>> pv_chain_b = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.LFSaw.ar(),
         ... )
-        >>> pv_div = supriya.ugens.PV_Div.new(
+        >>> pv_div = supriya.ugens.PV_Div.kr(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ... )
@@ -395,21 +394,21 @@ class PV_Div(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain_a", None), ("pv_chain_b", None)]
-    )
+    pv_chain_a = param(None)
+    pv_chain_b = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_HainsworthFoote(PV_ChainUGen):
     """
     A FFT onset detector.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_hainsworth_foote = supriya.ugens.PV_HainsworthFoote.new(
+        >>> pv_hainsworth_foote = supriya.ugens.PV_HainsworthFoote.kr(
         ...     pv_chain=pv_chain,
         ...     propf=0,
         ...     proph=0,
@@ -421,27 +420,24 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("pv_chain", None),
-            ("proph", 0),
-            ("propf", 0),
-            ("threshold", 1),
-            ("waittime", 0.04),
-        ]
-    )
+    pv_chain = param(None)
+    proph = param(0)
+    propf = param(0)
+    threshold = param(1)
+    waittime = param(0.04)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_JensenAndersen(PV_ChainUGen):
     """
     A FFT feature detector for onset detection.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_jensen_andersen = supriya.ugens.PV_JensenAndersen.new(
+        >>> pv_jensen_andersen = supriya.ugens.PV_JensenAndersen.kr(
         ...     pv_chain=pv_chain,
         ...     prophfc=0.25,
         ...     prophfe=0.25,
@@ -455,29 +451,26 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("pv_chain", None),
-            ("propsc", 0.25),
-            ("prophfe", 0.25),
-            ("prophfc", 0.25),
-            ("propsf", 0.25),
-            ("threshold", 1),
-            ("waittime", 0.04),
-        ]
-    )
+    pv_chain = param(None)
+    propsc = param(0.25)
+    prophfe = param(0.25)
+    prophfc = param(0.25)
+    propsf = param(0.25)
+    threshold = param(1)
+    waittime = param(0.04)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_LocalMax(PV_ChainUGen):
     """
     Passes bins which are local maxima.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_local_max = supriya.ugens.PV_LocalMax.new(
+        >>> pv_local_max = supriya.ugens.PV_LocalMax.kr(
         ...     pv_chain=pv_chain,
         ...     threshold=0,
         ... )
@@ -486,21 +479,21 @@ class PV_LocalMax(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("threshold", 0)]
-    )
+    pv_chain = param(None)
+    threshold = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_MagAbove(PV_ChainUGen):
     """
     Passes magnitudes above threshold.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_mag_above = supriya.ugens.PV_MagAbove.new(
+        >>> pv_mag_above = supriya.ugens.PV_MagAbove.kr(
         ...     pv_chain=pv_chain,
         ...     threshold=0,
         ... )
@@ -509,21 +502,21 @@ class PV_MagAbove(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("threshold", 0)]
-    )
+    pv_chain = param(None)
+    threshold = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_MagBelow(PV_MagAbove):
     """
     Passes magnitudes below threshold.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_mag_below = supriya.ugens.PV_MagBelow.new(
+        >>> pv_mag_below = supriya.ugens.PV_MagBelow.kr(
         ...     pv_chain=pv_chain,
         ...     threshold=0,
         ... )
@@ -532,21 +525,21 @@ class PV_MagBelow(PV_MagAbove):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("threshold", 0)]
-    )
+    pv_chain = param(None)
+    threshold = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_MagClip(PV_MagAbove):
     """
     Clips magnitudes.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_mag_clip = supriya.ugens.PV_MagClip.new(
+        >>> pv_mag_clip = supriya.ugens.PV_MagClip.kr(
         ...     pv_chain=pv_chain,
         ...     threshold=0,
         ... )
@@ -555,24 +548,24 @@ class PV_MagClip(PV_MagAbove):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("threshold", 0)]
-    )
+    pv_chain = param(None)
+    threshold = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_MagDiv(PV_ChainUGen):
     """
     Divides magnitudes.
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
+        >>> pv_chain_a = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_chain_b = supriya.ugens.FFT(
+        >>> pv_chain_b = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.LFSaw.ar(),
         ... )
-        >>> pv_mag_div = supriya.ugens.PV_MagDiv.new(
+        >>> pv_mag_div = supriya.ugens.PV_MagDiv.kr(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ...     zeroed=0.0001,
@@ -582,21 +575,22 @@ class PV_MagDiv(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain_a", None), ("pv_chain_b", None), ("zeroed", 0.0001)]
-    )
+    pv_chain_a = param(None)
+    pv_chain_b = param(None)
+    zeroed = param(0.0001)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_MagFreeze(PV_ChainUGen):
     """
     Freezes magnitudes.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_mag_freeze = supriya.ugens.PV_MagFreeze.new(
+        >>> pv_mag_freeze = supriya.ugens.PV_MagFreeze.kr(
         ...     pv_chain=pv_chain,
         ...     freeze=0,
         ... )
@@ -605,22 +599,24 @@ class PV_MagFreeze(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None), ("freeze", 0)])
+    pv_chain = param(None)
+    freeze = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_MagMul(PV_ChainUGen):
     """
     Multiplies FFT magnitudes.
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
+        >>> pv_chain_a = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_chain_b = supriya.ugens.FFT(
+        >>> pv_chain_b = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.LFSaw.ar(),
         ... )
-        >>> pv_mag_mul = supriya.ugens.PV_MagMul.new(
+        >>> pv_mag_mul = supriya.ugens.PV_MagMul.kr(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ... )
@@ -629,21 +625,21 @@ class PV_MagMul(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain_a", None), ("pv_chain_b", None)]
-    )
+    pv_chain_a = param(None)
+    pv_chain_b = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_MagNoise(PV_ChainUGen):
     """
     Multiplies magnitudes by noise.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_mag_noise = supriya.ugens.PV_MagNoise.new(
+        >>> pv_mag_noise = supriya.ugens.PV_MagNoise.kr(
         ...     pv_chain=pv_chain,
         ... )
         >>> pv_mag_noise
@@ -651,19 +647,20 @@ class PV_MagNoise(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None)])
+    pv_chain = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_MagShift(PV_ChainUGen):
     """
     Shifts and stretches magnitude bin position.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_mag_shift = supriya.ugens.PV_MagShift.new(
+        >>> pv_mag_shift = supriya.ugens.PV_MagShift.kr(
         ...     pv_chain=pv_chain,
         ...     shift=0,
         ...     stretch=1,
@@ -673,21 +670,22 @@ class PV_MagShift(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("stretch", 1), ("shift", 0)]
-    )
+    pv_chain = param(None)
+    stretch = param(1.0)
+    shift = param(0.0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_MagSmear(PV_ChainUGen):
     """
     Averages magnitudes across bins.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_mag_smear = supriya.ugens.PV_MagSmear.new(
+        >>> pv_mag_smear = supriya.ugens.PV_MagSmear.kr(
         ...     bins=0,
         ...     pv_chain=pv_chain,
         ... )
@@ -696,19 +694,21 @@ class PV_MagSmear(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None), ("bins", 0)])
+    pv_chain = param(None)
+    bins = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_MagSquared(PV_ChainUGen):
     """
     Squares magnitudes.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_mag_squared = supriya.ugens.PV_MagSquared.new(
+        >>> pv_mag_squared = supriya.ugens.PV_MagSquared.kr(
         ...     pv_chain=pv_chain,
         ... )
         >>> pv_mag_squared
@@ -716,22 +716,23 @@ class PV_MagSquared(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None)])
+    pv_chain = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_Max(PV_ChainUGen):
     """
     Maximum magnitude.
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
+        >>> pv_chain_a = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_chain_b = supriya.ugens.FFT(
+        >>> pv_chain_b = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.LFSaw.ar(),
         ... )
-        >>> pv_max = supriya.ugens.PV_Max.new(
+        >>> pv_max = supriya.ugens.PV_Max.kr(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ... )
@@ -740,24 +741,24 @@ class PV_Max(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain_a", None), ("pv_chain_b", None)]
-    )
+    pv_chain_a = param(None)
+    pv_chain_b = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_Min(PV_ChainUGen):
     """
     Minimum magnitude.
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
+        >>> pv_chain_a = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_chain_b = supriya.ugens.FFT(
+        >>> pv_chain_b = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.LFSaw.ar(),
         ... )
-        >>> pv_min = supriya.ugens.PV_Min.new(
+        >>> pv_min = supriya.ugens.PV_Min.kr(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ... )
@@ -766,24 +767,24 @@ class PV_Min(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain_a", None), ("pv_chain_b", None)]
-    )
+    pv_chain_a = param(None)
+    pv_chain_b = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_Mul(PV_ChainUGen):
     """
     Complex multiplication.
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
+        >>> pv_chain_a = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_chain_b = supriya.ugens.FFT(
+        >>> pv_chain_b = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.LFSaw.ar(),
         ... )
-        >>> pv_mul = supriya.ugens.PV_Mul.new(
+        >>> pv_mul = supriya.ugens.PV_Mul.kr(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ... )
@@ -792,22 +793,22 @@ class PV_Mul(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain_a", None), ("pv_chain_b", None)]
-    )
+    pv_chain_a = param(None)
+    pv_chain_b = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_PhaseShift(PV_ChainUGen):
     """
     Shifts phase.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
         >>> shift = supriya.ugens.LFNoise2.kr(1).scale(-1, 1, -180, 180)
-        >>> pv_phase_shift = supriya.ugens.PV_PhaseShift.new(
+        >>> pv_phase_shift = supriya.ugens.PV_PhaseShift.kr(
         ...     pv_chain=pv_chain,
         ...     integrate=0,
         ...     shift=shift,
@@ -817,21 +818,22 @@ class PV_PhaseShift(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("shift", None), ("integrate", 0)]
-    )
+    pv_chain = param(None)
+    shift = param(None)
+    integrate = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_PhaseShift270(PV_ChainUGen):
     """
     Shifts phase by 270 degrees.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_phase_shift_270 = supriya.ugens.PV_PhaseShift270.new(
+        >>> pv_phase_shift_270 = supriya.ugens.PV_PhaseShift270.kr(
         ...     pv_chain=pv_chain,
         ... )
         >>> pv_phase_shift_270
@@ -839,19 +841,20 @@ class PV_PhaseShift270(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None)])
+    pv_chain = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_PhaseShift90(PV_ChainUGen):
     """
     Shifts phase by 90 degrees.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_phase_shift_90 = supriya.ugens.PV_PhaseShift90.new(
+        >>> pv_phase_shift_90 = supriya.ugens.PV_PhaseShift90.kr(
         ...     pv_chain=pv_chain,
         ... )
         >>> pv_phase_shift_90
@@ -859,19 +862,20 @@ class PV_PhaseShift90(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None)])
+    pv_chain = param(None)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_RandComb(PV_ChainUGen):
     """
     Passes random bins.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_rand_comb = supriya.ugens.PV_RandComb.new(
+        >>> pv_rand_comb = supriya.ugens.PV_RandComb.kr(
         ...     pv_chain=pv_chain,
         ...     trigger=0,
         ...     wipe=0,
@@ -881,24 +885,25 @@ class PV_RandComb(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("wipe", 0), ("trigger", 0)]
-    )
+    pv_chain = param(None)
+    wipe = param(0)
+    trigger = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_RandWipe(PV_ChainUGen):
     """
     Crossfades in random bin order.
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
+        >>> pv_chain_a = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_chain_b = supriya.ugens.FFT(
+        >>> pv_chain_b = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.LFSaw.ar(),
         ... )
-        >>> pv_rand_wipe = supriya.ugens.PV_RandWipe.new(
+        >>> pv_rand_wipe = supriya.ugens.PV_RandWipe.kr(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ...     trigger=0,
@@ -909,21 +914,23 @@ class PV_RandWipe(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain_a", None), ("pv_chain_b", None), ("wipe", 0), ("trigger", 0)]
-    )
+    pv_chain_a = param(None)
+    pv_chain_b = param(None)
+    wipe = param(0)
+    trigger = param(0)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_RectComb(PV_ChainUGen):
     """
     Makes gaps in the spectrum.
 
     ::
 
-        >>> pv_chain = supriya.ugens.FFT(
+        >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_rect_comb = supriya.ugens.PV_RectComb.new(
+        >>> pv_rect_comb = supriya.ugens.PV_RectComb.kr(
         ...     pv_chain=pv_chain,
         ...     num_teeth=0,
         ...     phase=0,
@@ -934,24 +941,26 @@ class PV_RectComb(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("num_teeth", 0), ("phase", 0), ("width", 0.5)]
-    )
+    pv_chain = param(None)
+    num_teeth = param(0)
+    phase = param(0)
+    width = param(0.5)
 
 
+@ugen(kr=True, is_width_first=True)
 class PV_RectComb2(PV_ChainUGen):
     """
     Makes gaps in the spectrum.
 
     ::
 
-        >>> pv_chain_a = supriya.ugens.FFT(
+        >>> pv_chain_a = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> pv_chain_b = supriya.ugens.FFT(
+        >>> pv_chain_b = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.LFSaw.ar(),
         ... )
-        >>> pv_rect_comb_2 = supriya.ugens.PV_RectComb2.new(
+        >>> pv_rect_comb_2 = supriya.ugens.PV_RectComb2.kr(
         ...     pv_chain_a=pv_chain_a,
         ...     pv_chain_b=pv_chain_b,
         ...     num_teeth=0,
@@ -963,15 +972,11 @@ class PV_RectComb2(PV_ChainUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("pv_chain_a", None),
-            ("pv_chain_b", None),
-            ("num_teeth", 0),
-            ("phase", 0),
-            ("width", 0.5),
-        ]
-    )
+    pv_chain_a = param(None)
+    pv_chain_b = param(None)
+    num_teeth = param(0)
+    phase = param(0)
+    width = param(0.5)
 
 
 @ugen(ar=True, kr=True)

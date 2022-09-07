@@ -469,7 +469,7 @@ class SynthDef:
             for descendant, input_index in descendants[:-1]:
                 fft_size = antecedent.fft_size
                 new_buffer = supriya.ugens.LocalBuf(fft_size)
-                pv_copy = supriya.ugens.PV_Copy(antecedent, new_buffer)
+                pv_copy = supriya.ugens.PV_Copy.kr(antecedent, new_buffer)
                 inputs = list(descendant._inputs)
                 inputs[input_index] = pv_copy[0]
                 descendant._inputs = tuple(inputs)
