@@ -167,7 +167,6 @@ def _process_class(
 
 def param(
     default: Optional[float] = None,
-    /,
     *,
     check: Check = Check.NONE,
     unexpanded: bool = False,
