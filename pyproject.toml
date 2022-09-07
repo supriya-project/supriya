@@ -102,6 +102,9 @@ skip = "supriya/__init__.py"
 
 [tool.mypy]
 ignore_missing_imports = true
+plugins = [
+    # "supriya.ext.mypy",
+]
 
 [tool.pytest.ini_options]
 addopts = [

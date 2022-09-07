@@ -5,8 +5,8 @@ import supriya.osc
 from supriya.enums import RequestId
 from supriya.querytree import QueryTreeControl, QueryTreeGroup, QueryTreeSynth
 
-from .bases import Request, Response
 from ..typing import AddActionLike
+from .bases import Request, Response
 
 
 class GroupDeepFreeRequest(Request):

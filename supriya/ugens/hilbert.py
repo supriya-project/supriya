@@ -24,7 +24,7 @@ class FreqShift(UGen):
     phase = param(0.0)
 
 
-@ugen(ar=True, is_multichannel=True, fixed_channel_count=2)
+@ugen(ar=True, channel_count=2, fixed_channel_count=True)
 class Hilbert(UGen):
     """
     Applies the Hilbert transform.

@@ -1,6 +1,6 @@
 import inspect
 from enum import Enum
-from typing import NamedTuple, Optional
+from typing import Callable, NamedTuple, Optional, Type, Union
 
 from ..enums import CalculationRate, DoneAction, SignalRange
 
@@ -29,11 +29,11 @@ def _add_init(cls, params, is_multichannel, channel_count, fixed_channel_count):
     name = "__init__"
     args = ["self", "calculation_rate=None"]
     body = []
-    if is_multichannel and fixed_channel_count is None:
+    if is_multichannel and not fixed_channel_count:
         args.append(f"channel_count={channel_count or 1}")
         body.append("self._channel_count = channel_count")
-    if fixed_channel_count is not None:
-        body.append(f"self._channel_count = {fixed_channel_count}")
+    if fixed_channel_count:
+        body.append(f"self._channel_count = {channel_count or 1}")
     body.extend(
         [
             f"return {parent_class.__name__}.__init__(",
@@ -75,7 +75,7 @@ def _add_rate_fn(
     body = ["return cls._new_expanded("]
     if rate is not None:
         body.append(f"    calculation_rate={rate!r},")
-    if is_multichannel and fixed_channel_count is None:
+    if is_multichannel and not fixed_channel_count:
         args.append(f"channel_count={channel_count or 1}")
         body.append("    channel_count=channel_count,")
     body.extend(f"    {name}={name}," for name in params)
@@ -193,17 +193,17 @@ def ugen(
     is_output: bool = False,
     is_pure: bool = False,
     is_width_first: bool = False,
-    fixed_channel_count: Optional[int] = None,
-    channel_count: Optional[int] = None,
+    channel_count: int = 1,
+    fixed_channel_count: bool = False,
     signal_range: Optional[int] = None,
-):
+) -> Union[Type, Callable[[Type], Type]]:
     """
     Decorate a UGen class.
 
     Akin to dataclasses.dataclass.
     """
 
-    if channel_count and fixed_channel_count:
+    if is_multichannel and fixed_channel_count:
         raise ValueError
 
     def wrap(cls):

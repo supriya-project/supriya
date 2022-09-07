@@ -6,7 +6,7 @@ from .bases import UGen
 from .decorators import param, ugen
 
 
-@ugen(kr=True, fixed_channel_count=4)
+@ugen(kr=True, channel_count=4, fixed_channel_count=True)
 class BeatTrack(UGen):
     """
     Autocorrelation beat tracker.
@@ -28,7 +28,7 @@ class BeatTrack(UGen):
     lock = param(0.0)
 
 
-@ugen(kr=True, fixed_channel_count=6)
+@ugen(kr=True, channel_count=6, fixed_channel_count=True)
 class BeatTrack2(UGen):
     """
     A template-matching beat-tracker.
@@ -179,7 +179,7 @@ class Onsets(UGen):
     rawodf = param(0)
 
 
-@ugen(kr=True, fixed_channel_count=2)
+@ugen(kr=True, channel_count=2, fixed_channel_count=True)
 class Pitch(UGen):
     """
     An autocorrelation pitch follower.

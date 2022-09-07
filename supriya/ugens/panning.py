@@ -8,7 +8,7 @@ from .basic import Mix
 from .decorators import param, ugen
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=2)
+@ugen(ar=True, kr=True, channel_count=2, fixed_channel_count=True)
 class Balance2(UGen):
     """
     A stereo signal balancer.
@@ -34,7 +34,7 @@ class Balance2(UGen):
     level = param(1.0)
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=3)
+@ugen(ar=True, kr=True, channel_count=3, fixed_channel_count=True)
 class BiPanB2(UGen):
     """
     A 2D ambisonic b-format panner.
@@ -94,7 +94,7 @@ class DecodeB2(UGen):
     orientation = param(0.5)
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=2)
+@ugen(ar=True, kr=True, channel_count=2, fixed_channel_count=True)
 class Pan2(UGen):
     """
     A two channel equal power panner.
@@ -115,7 +115,7 @@ class Pan2(UGen):
     level = param(1.0)
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=4)
+@ugen(ar=True, kr=True, channel_count=4, fixed_channel_count=True)
 class Pan4(UGen):
     """
     A four-channel equal-power panner.
@@ -168,7 +168,7 @@ class PanAz(UGen):
     orientation = param(0.5)
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=3)
+@ugen(ar=True, kr=True, channel_count=3, fixed_channel_count=True)
 class PanB(UGen):
     """
     A 3D ambisonic b-format panner.
@@ -193,7 +193,7 @@ class PanB(UGen):
     gain = param(1)
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=3)
+@ugen(ar=True, kr=True, channel_count=3, fixed_channel_count=True)
 class PanB2(UGen):
     """
     A 2D ambisonic b-format panner.
@@ -216,7 +216,7 @@ class PanB2(UGen):
     gain = param(1)
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=2)
+@ugen(ar=True, kr=True, channel_count=2, fixed_channel_count=True)
 class Rotate2(UGen):
     """
     Equal-power sound-field rotator.

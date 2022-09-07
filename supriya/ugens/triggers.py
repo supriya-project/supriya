@@ -441,7 +441,7 @@ class Schmidt(UGen):
     maximum = param(1.0)
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=0)
+@ugen(ar=True, kr=True, channel_count=0, fixed_channel_count=True)
 class SendPeakRMS(UGen):
     """
     Tracks peak and power of a signal for GUI applications.
@@ -541,7 +541,7 @@ class SendPeakRMS(UGen):
         )
 
 
-@ugen(ar=True, kr=True, fixed_channel_count=0)
+@ugen(ar=True, kr=True, channel_count=0, fixed_channel_count=True)
 class SendReply(UGen):
     """
     Sends an array of values from the server to all notified clients.
