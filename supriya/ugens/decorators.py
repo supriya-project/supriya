@@ -181,7 +181,6 @@ def param(
 
 def ugen(
     cls=None,
-    /,
     *,
     ar: bool = False,
     kr: bool = False,
