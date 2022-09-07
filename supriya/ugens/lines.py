@@ -1,12 +1,12 @@
 from supriya import DoneAction
 
-from .bases import PseudoUGen, PureUGen, UGen, UGenArray
+from .bases import PseudoUGen, UGen, UGenArray
 from .basic import MulAdd
 from .decorators import param, ugen
 
 
 @ugen(kr=True, is_pure=True)
-class A2K(PureUGen):
+class A2K(UGen):
     """
     An audio-rate to control-rate convert unit generator.
 
@@ -25,7 +25,7 @@ class A2K(PureUGen):
 
 
 @ugen(ar=True, ir=True, kr=True, is_pure=True)
-class AmpComp(PureUGen):
+class AmpComp(UGen):
     """
     Basic psychoacoustic amplitude compensation.
 
@@ -47,7 +47,7 @@ class AmpComp(PureUGen):
 
 
 @ugen(ar=True, ir=True, kr=True, is_pure=True)
-class AmpCompA(PureUGen):
+class AmpCompA(UGen):
     """
     Basic psychoacoustic amplitude compensation (ANSI A-weighting curve).
 
@@ -95,7 +95,7 @@ class DC(UGen):
 
 
 @ugen(ar=True, is_pure=True)
-class K2A(PureUGen):
+class K2A(UGen):
     """
     A control-rate to audio-rate converter unit generator.
 
@@ -114,7 +114,7 @@ class K2A(PureUGen):
 
 
 @ugen(ar=True, kr=True, is_pure=True)
-class LinExp(PureUGen):
+class LinExp(UGen):
     """
     A linear-to-exponential range mapper.
 
