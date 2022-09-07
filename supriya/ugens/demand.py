@@ -4,6 +4,7 @@ from collections.abc import Sequence
 from supriya import CalculationRate
 
 from .bases import MultiOutUGen, UGen
+from .decorators import param, ugen
 
 
 class DUGen(UGen):
@@ -84,7 +85,8 @@ class Dbufwr(DUGen):
     _valid_calculation_rates = (CalculationRate.DEMAND,)
 
 
-class Demand(MultiOutUGen):
+@ugen(ar=True, kr=True)
+class Demand(UGen):
     """
     Demands results from demand-rate UGens.
 
@@ -107,29 +109,26 @@ class Demand(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    _default_channel_count = 1
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict(
-        [("trigger", 0), ("reset", 0), ("source", None)]
-    )
-    _unexpanded_input_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    trigger = param(0)
+    reset = param(0)
+    source = param(None, unexpanded=True)
 
     ### INITIALIZER ###
 
     def __init__(self, calculation_rate=None, trigger=None, reset=None, source=None):
         if not isinstance(source, Sequence):
             source = [source]
-        MultiOutUGen.__init__(
+        self._channel_count = len(source)
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             trigger=trigger,
             reset=reset,
             source=source,
-            channel_count=len(source),
         )
 
 
+@ugen(ar=True, kr=True)
 class DemandEnvGen(UGen):
     """
     A demand rate envelope generator.
@@ -153,21 +152,16 @@ class DemandEnvGen(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("level", None),
-            ("duration", None),
-            ("shape", 1),
-            ("curve", 0),
-            ("gate", 1),
-            ("reset", 1),
-            ("level_scale", 1),
-            ("level_bias", 0),
-            ("time_scale", 1),
-            ("done_action", 0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    level = param(None)
+    duration = param(None)
+    shape = param(1)
+    curve = param(0)
+    gate = param(1)
+    reset = param(1)
+    level_scale = param(1)
+    level_bias = param(0)
+    time_scale = param(1)
+    done_action = param(0)
 
 
 class Dgeom(DUGen):

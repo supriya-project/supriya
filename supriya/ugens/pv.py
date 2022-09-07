@@ -7,7 +7,7 @@ from .decorators import param, ugen
 
 
 @ugen(is_width_first=True)
-class PV_ChainUGen(WidthFirstUGen):
+class PV_ChainUGen(UGen):
     """
     Abstract base class for all phase-vocoder-chain unit generators.
     """
