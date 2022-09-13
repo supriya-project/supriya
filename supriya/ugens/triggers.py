@@ -346,9 +346,7 @@ class Poll(UGen):
     @classmethod
     def new(cls, label=None, source=None, trigger=None, trigger_id=-1):
         return cls._new_expanded(
-            calculation_rate=[
-                CalculationRate.from_expr(x) for x in source
-            ],
+            calculation_rate=[CalculationRate.from_expr(x) for x in source],
             label=label,
             source=source,
             trigger=trigger,
