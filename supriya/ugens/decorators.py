@@ -33,7 +33,7 @@ def _add_init(cls, params, is_multichannel, channel_count, fixed_channel_count):
         args.append(f"channel_count={channel_count or 1}")
         body.append("self._channel_count = channel_count")
     if fixed_channel_count:
-        body.append(f"self._channel_count = {channel_count or 1}")
+        body.append(f"self._channel_count = {channel_count}")
     body.extend(
         [
             f"return {parent_class.__name__}.__init__(",
