@@ -332,7 +332,6 @@ class Poll(UGen):
             trigger=trigger,
             trigger_id=trigger_id,
         )
-        return ugen
 
     @classmethod
     def kr(cls, label=None, source=None, trigger=None, trigger_id=-1):
@@ -343,7 +342,18 @@ class Poll(UGen):
             trigger=trigger,
             trigger_id=trigger_id,
         )
-        return ugen
+
+    @classmethod
+    def new(cls, label=None, source=None, trigger=None, trigger_id=-1):
+        return cls._new_expanded(
+            calculation_rate=[
+                CalculationRate.from_expr(x) for x in source
+            ],
+            label=label,
+            source=source,
+            trigger=trigger,
+            trigger_id=trigger_id,
+        )
 
     ### PUBLIC PROPERTIES ###
 

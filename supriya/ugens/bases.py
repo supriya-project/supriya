@@ -2774,8 +2774,8 @@ class UGenMethodMixin(SupriyaObject):
 
     def exponential_range(self, minimum=0.01, maximum=1.0):
         if self.signal_range == SignalRange.BIPOLAR:
-            return self.linexp(-1, 1, minimum, maximum)
-        return self.linexp(0, 1, minimum, maximum)
+            return self.scale(-1, 1, minimum, maximum, exponential=True)
+        return self.scale(0, 1, minimum, maximum, exponential=True)
 
     def ratio_to_semitones(self):
         """

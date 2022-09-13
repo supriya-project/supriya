@@ -156,11 +156,18 @@ class SynthDefBuilder(SupriyaObject):
             synthdef = SynthDef(ugens, name=name, optimize=optimize)
         return synthdef
 
-    def poll_ugen(self, ugen, label=None, trigger=None, trigger_id=-1):
-        if trigger is None:
-            trigger = Impulse.kr(1)
+    def poll_ugen(
+        self,
+        ugen: UGen,
+        label: Optional[str] = None,
+        trigger: Optional[UGen] = None,
+        trigger_id: int = -1,
+    ) -> None:
         poll = Poll.new(
-            source=ugen, label=label, trigger=trigger, trigger_id=trigger_id
+            source=ugen,
+            label=label,
+            trigger=trigger or Impulse.kr(1),
+            trigger_id=trigger_id,
         )
         self._add_ugens(poll)
 
