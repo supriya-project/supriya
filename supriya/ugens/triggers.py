@@ -58,7 +58,7 @@ class Gate(UGen):
     ::
 
         >>> source = supriya.ugens.WhiteNoise.ar()
-        >>> trigger = supriya.ugens.Dust.kr(1)
+        >>> trigger = supriya.ugens.Dust.kr(density=1)
         >>> gate = supriya.ugens.Gate.ar(
         ...     source=source,
         ...     trigger=trigger,
@@ -103,7 +103,7 @@ class Latch(UGen):
     ::
 
         >>> source = supriya.ugens.WhiteNoise.ar()
-        >>> trigger = supriya.ugens.Dust.kr(1)
+        >>> trigger = supriya.ugens.Dust.kr(density=1)
         >>> latch = supriya.ugens.Latch.ar(
         ...     source=source,
         ...     trigger=trigger,
@@ -164,8 +164,8 @@ class Peak(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
-        >>> trigger = supriya.ugens.Impulse.kr(1)
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> trigger = supriya.ugens.Impulse.kr(frequency=1)
         >>> peak = supriya.ugens.Peak.ar(
         ...     source=source,
         ...     trigger=trigger,
@@ -186,7 +186,7 @@ class PeakFollower(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> peak_follower = supriya.ugens.PeakFollower.ar(
         ...     decay=0.999,
         ...     source=source,
@@ -207,7 +207,7 @@ class Phasor(UGen):
 
     ::
 
-        >>> trigger = supriya.ugens.Impulse.kr(0.5)
+        >>> trigger = supriya.ugens.Impulse.kr(frequency=0.5)
         >>> phasor = supriya.ugens.Phasor.ar(
         ...     rate=1,
         ...     reset_pos=0,
@@ -235,7 +235,7 @@ class Poll(UGen):
     ::
 
         >>> sine = supriya.ugens.SinOsc.ar()
-        >>> trigger = supriya.ugens.Impulse.kr(1)
+        >>> trigger = supriya.ugens.Impulse.kr(frequency=1)
         >>> poll = supriya.ugens.Poll.ar(
         ...     source=sine,
         ...     trigger=trigger,
@@ -260,7 +260,7 @@ class Poll(UGen):
 
             >>> with supriya.SynthDefBuilder() as builder:
             ...     sine = supriya.ugens.SinOsc.ar()
-            ...     trigger = supriya.ugens.Impulse.kr(1)
+            ...     trigger = supriya.ugens.Impulse.kr(frequency=1)
             ...     poll = supriya.ugens.Poll.ar(
             ...         source=sine,
             ...         trigger=trigger,
@@ -363,7 +363,7 @@ class Poll(UGen):
         ::
 
             >>> sine = supriya.ugens.SinOsc.ar()
-            >>> trigger = supriya.ugens.Impulse.kr(1)
+            >>> trigger = supriya.ugens.Impulse.kr(frequency=1)
             >>> poll = supriya.ugens.Poll.ar(
             ...     label="Foo",
             ...     source=sine,
@@ -389,8 +389,8 @@ class RunningMax(Peak):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
-        >>> trigger = supriya.ugens.Impulse.kr(1)
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> trigger = supriya.ugens.Impulse.kr(frequency=1)
         >>> running_max = supriya.ugens.RunningMax.ar(
         ...     source=source,
         ...     trigger=0,
@@ -411,8 +411,8 @@ class RunningMin(Peak):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
-        >>> trigger = supriya.ugens.Impulse.kr(1)
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> trigger = supriya.ugens.Impulse.kr(frequency=1)
         >>> running_min = supriya.ugens.RunningMin.ar(
         ...     source=source,
         ...     trigger=trigger,
@@ -555,7 +555,7 @@ class SendReply(UGen):
     Sends an array of values from the server to all notified clients.
 
         >>> source = supriya.ugens.In.ar(channel_count=4)
-        >>> trigger = supriya.ugens.Impulse.kr(1)
+        >>> trigger = supriya.ugens.Impulse.kr(frequency=1)
         >>> send_reply = supriya.ugens.SendReply.kr(
         ...     command_name="/reply",
         ...     source=source,
@@ -579,7 +579,7 @@ class SendReply(UGen):
         ::
 
             >>> source = supriya.ugens.In.ar(channel_count=4)
-            >>> trigger = supriya.ugens.Impulse.kr(1)
+            >>> trigger = supriya.ugens.Impulse.kr(frequency=1)
             >>> send_reply = supriya.ugens.SendReply.ar(
             ...     command_name="/reply",
             ...     source=source,
@@ -609,7 +609,7 @@ class SendReply(UGen):
         ::
 
             >>> source = supriya.ugens.In.ar(channel_count=4)
-            >>> trigger = supriya.ugens.Impulse.kr(1)
+            >>> trigger = supriya.ugens.Impulse.kr(frequency=1)
             >>> send_reply = supriya.ugens.SendReply.kr(
             ...     command_name="/reply",
             ...     source=source,
@@ -666,7 +666,7 @@ class TDelay(UGen):
 
     ::
 
-        >>> source = supriya.ugens.Dust.kr()
+        >>> source = supriya.ugens.Dust.kr(density=1)
         >>> tdelay = supriya.ugens.TDelay.ar(
         ...     duration=0.1,
         ...     source=source,
@@ -687,7 +687,7 @@ class ToggleFF(UGen):
 
     ::
 
-        >>> trigger = supriya.ugens.Dust.kr(1)
+        >>> trigger = supriya.ugens.Dust.kr(density=1)
         >>> toggle_ff = supriya.ugens.ToggleFF.ar(
         ...     trigger=trigger,
         ... )
@@ -706,7 +706,7 @@ class Trig1(UGen):
 
     ::
 
-        >>> source = supriya.ugens.Dust.kr(1)
+        >>> source = supriya.ugens.Dust.kr(density=1)
         >>> trig_1 = supriya.ugens.Trig1.ar(
         ...     duration=0.1,
         ...     source=source,
@@ -727,7 +727,7 @@ class Trig(UGen):
 
     ::
 
-        >>> source = supriya.ugens.Dust.kr(1)
+        >>> source = supriya.ugens.Dust.kr(density=1)
         >>> trig = supriya.ugens.Trig.ar(
         ...     duration=0.1,
         ...     source=source,
