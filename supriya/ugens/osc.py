@@ -308,7 +308,7 @@ class VOsc(UGen):
     ::
 
         >>> vosc = supriya.ugens.VOsc.ar(
-        ...     buffer_id=supriya.ugens.MouseX.kr(0, 7),
+        ...     buffer_id=supriya.ugens.MouseX.kr(minimum=0, maximum=7),
         ...     frequency=440,
         ...     phase=0,
         ... )
@@ -330,7 +330,7 @@ class VOsc3(UGen):
     ::
 
         >>> vosc_3 = supriya.ugens.VOsc3.ar(
-        ...     buffer_id=supriya.ugens.MouseX.kr(0, 7),
+        ...     buffer_id=supriya.ugens.MouseX.kr(minimum=0, maximum=7),
         ...     freq_1=110,
         ...     freq_2=220,
         ...     freq_3=440,

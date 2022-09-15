@@ -13,7 +13,7 @@ class Mix(PseudoUGen):
         ::
 
             >>> with supriya.synthdefs.SynthDefBuilder() as builder:
-            ...     oscillators = [supriya.ugens.DC.ar(1) for _ in range(5)]
+            ...     oscillators = [supriya.ugens.DC.ar(source=1) for _ in range(5)]
             ...     mix = supriya.ugens.Mix.new(oscillators)
             ...
             >>> synthdef = builder.build(name="mix1", optimize=False)
@@ -49,7 +49,7 @@ class Mix(PseudoUGen):
         ::
 
             >>> with supriya.synthdefs.SynthDefBuilder() as builder:
-            ...     oscillators = [supriya.ugens.DC.ar(1) for _ in range(15)]
+            ...     oscillators = [supriya.ugens.DC.ar(source=1) for _ in range(15)]
             ...     mix = supriya.ugens.Mix.new(oscillators)
             ...
             >>> synthdef = builder.build("mix2")

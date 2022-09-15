@@ -35,7 +35,7 @@ class Pluck(UGen):
     ::
 
         >>> source = supriya.ugens.WhiteNoise.ar()
-        >>> trigger = supriya.ugens.Dust.kr(2)
+        >>> trigger = supriya.ugens.Dust.kr(density=2)
         >>> pluck = supriya.ugens.Pluck.ar(
         ...     coefficient=0.5,
         ...     decay_time=1,

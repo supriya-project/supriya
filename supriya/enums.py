@@ -129,15 +129,15 @@ class CalculationRate(IntEnumeration):
         ::
 
             >>> collection = []
-            >>> collection.append(supriya.ugens.DC.ar(0))
-            >>> collection.append(supriya.ugens.DC.kr(1))
+            >>> collection.append(supriya.ugens.DC.ar(source=0))
+            >>> collection.append(supriya.ugens.DC.kr(source=1))
             >>> collection.append(2.0)
             >>> supriya.CalculationRate.from_expr(collection)
             CalculationRate.AUDIO
 
         ::
             >>> collection = []
-            >>> collection.append(supriya.ugens.DC.kr(1))
+            >>> collection.append(supriya.ugens.DC.kr(source=1))
             >>> collection.append(2.0)
             >>> supriya.CalculationRate.from_expr(collection)
             CalculationRate.CONTROL

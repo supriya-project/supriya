@@ -12,9 +12,9 @@ class BufRd(UGen):
 
         >>> buffer_id = 23
         >>> phase = supriya.ugens.Phasor.ar(
-        ...     rate=supriya.ugens.BufRateScale.kr(buffer_id),
+        ...     rate=supriya.ugens.BufRateScale.kr(buffer_id=buffer_id),
         ...     start=0,
-        ...     stop=supriya.ugens.BufFrames.kr(buffer_id),
+        ...     stop=supriya.ugens.BufFrames.kr(buffer_id=buffer_id),
         ... )
         >>> buf_rd = supriya.ugens.BufRd.ar(
         ...     buffer_id=buffer_id,
@@ -43,9 +43,9 @@ class BufWr(UGen):
 
         >>> buffer_id = 23
         >>> phase = supriya.ugens.Phasor.ar(
-        ...     rate=supriya.ugens.BufRateScale.kr(buffer_id),
+        ...     rate=supriya.ugens.BufRateScale.kr(buffer_id=buffer_id),
         ...     start=0,
-        ...     stop=supriya.ugens.BufFrames.kr(buffer_id),
+        ...     stop=supriya.ugens.BufFrames.kr(buffer_id=buffer_id),
         ... )
         >>> source = supriya.ugens.In.ar(bus=0, channel_count=2)
         >>> buf_wr = supriya.ugens.BufWr.ar(
@@ -149,7 +149,7 @@ class MaxLocalBufs(UGen):
 
     ::
 
-        >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(1)
+        >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=1)
         >>> max_local_bufs
         MaxLocalBufs.ir()
 
@@ -163,7 +163,7 @@ class MaxLocalBufs(UGen):
 
         ::
 
-            >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(1)
+            >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=1)
             >>> max_local_bufs.inputs
             (1.0,)
 

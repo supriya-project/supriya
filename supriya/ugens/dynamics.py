@@ -12,7 +12,7 @@ class Amplitude(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> amplitude = supriya.ugens.Amplitude.kr(
         ...     attack_time=0.01,
         ...     release_time=0.01,
@@ -119,7 +119,7 @@ class Limiter(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> limiter = supriya.ugens.Limiter.ar(
         ...     duration=0.01,
         ...     level=1,
@@ -142,7 +142,7 @@ class Normalizer(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> normalizer = supriya.ugens.Normalizer.ar(
         ...     duration=0.01,
         ...     level=1,

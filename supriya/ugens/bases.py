@@ -3099,7 +3099,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = supriya.ugens.SinOsc.ar([440, 442, 443])
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(frequency=[440, 442, 443])
                 >>> result = ugen_graph.sum()
 
             ::

@@ -40,8 +40,8 @@ class SynthDefFactory(SupriyaObject):
             ...     iterations = state.get("iterations") or 2
             ...     for _ in range(iterations):
             ...         source = supriya.ugens.AllpassC.ar(
-            ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
-            ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+            ...             decay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
+            ...             delay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
             ...             source=source,
             ...             maximum_delay_time=0.1,
             ...         )
@@ -390,8 +390,8 @@ class SynthDefFactory(SupriyaObject):
                 ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
-                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             decay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...         )
@@ -573,8 +573,8 @@ class SynthDefFactory(SupriyaObject):
                 ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
-                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             decay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...         )
@@ -726,8 +726,8 @@ class SynthDefFactory(SupriyaObject):
                 ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
-                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             decay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...         )
@@ -819,8 +819,8 @@ class SynthDefFactory(SupriyaObject):
                 ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
-                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             decay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...         )
@@ -922,8 +922,8 @@ class SynthDefFactory(SupriyaObject):
                 ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
-                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             decay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...         )
@@ -1164,8 +1164,8 @@ class SynthDefFactory(SupriyaObject):
                 ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
-                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             decay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...         )
@@ -2087,8 +2087,8 @@ class SynthDefFactory(SupriyaObject):
                 ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
-                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             decay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...         )
@@ -2187,8 +2187,8 @@ class SynthDefFactory(SupriyaObject):
                 ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
-                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             decay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...         )
@@ -2209,7 +2209,7 @@ class SynthDefFactory(SupriyaObject):
                 >>> def signal_block_post(builder, source, state):
                 ...     source = supriya.ugens.LeakDC.ar(source=source)
                 ...     source = supriya.ugens.Limiter.ar(
-                ...         duration=supriya.ugens.Rand.ir(0.005, 0.015),
+                ...         duration=supriya.ugens.Rand.ir(minimum=0.005, maximum=0.015),
                 ...         source=source,
                 ...     )
                 ...     return source
@@ -2286,8 +2286,8 @@ class SynthDefFactory(SupriyaObject):
                 ...     iterations = state.get("iterations") or 2
                 ...     for _ in range(iterations):
                 ...         source = supriya.ugens.AllpassC.ar(
-                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             decay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(minimum=0.01, maximum=0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...         )

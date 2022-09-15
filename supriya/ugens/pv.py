@@ -88,7 +88,7 @@ class FFT(PV_ChainUGen):
         """
         import supriya.ugens
 
-        return supriya.ugens.BufFrames.ir(self.buffer_id)
+        return supriya.ugens.BufFrames.ir(buffer_id=self.buffer_id)
 
 
 @ugen(ar=True, kr=True, is_width_first=True)
@@ -807,7 +807,7 @@ class PV_PhaseShift(PV_ChainUGen):
         >>> pv_chain = supriya.ugens.FFT.kr(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ... )
-        >>> shift = supriya.ugens.LFNoise2.kr(1).scale(-1, 1, -180, 180)
+        >>> shift = supriya.ugens.LFNoise2.kr(frequency=1).scale(-1, 1, -180, 180)
         >>> pv_phase_shift = supriya.ugens.PV_PhaseShift.kr(
         ...     pv_chain=pv_chain,
         ...     integrate=0,

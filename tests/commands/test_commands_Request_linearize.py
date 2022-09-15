@@ -5,13 +5,13 @@ def test_01():
 
     with supriya.SynthDefBuilder(out=0, value=0.5) as builder:
         supriya.ugens.Out.ar(
-            bus=builder["out"], source=supriya.ugens.DC.ar(builder["value"])
+            bus=builder["out"], source=supriya.ugens.DC.ar(source=builder["value"])
         )
     synthdef_A = builder.build(name="synthdef_A")
 
     with supriya.SynthDefBuilder(out=0, value=-0.3) as builder:
         supriya.ugens.Out.ar(
-            bus=builder["out"], source=supriya.ugens.DC.ar(builder["value"])
+            bus=builder["out"], source=supriya.ugens.DC.ar(source=builder["value"])
         )
     synthdef_B = builder.build(name="synthdef_B")
 

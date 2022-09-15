@@ -447,7 +447,7 @@ class SynthDef:
                 local_bufs.append(ugen)
             processed_ugens.append(ugen)
         if local_bufs:
-            max_local_bufs = supriya.ugens.MaxLocalBufs.ir(len(local_bufs))
+            max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=len(local_bufs))
             for local_buf in local_bufs:
                 inputs = list(local_buf.inputs[:2])
                 inputs.append(max_local_bufs[0])
@@ -467,7 +467,9 @@ class SynthDef:
             for descendant, input_index in descendants[:-1]:
                 fft_size = antecedent.fft_size
                 new_buffer = supriya.ugens.LocalBuf(fft_size)
-                pv_copy = supriya.ugens.PV_Copy.kr(antecedent, new_buffer)
+                pv_copy = supriya.ugens.PV_Copy.kr(
+                    pv_chain_a=antecedent, pv_chain_b=new_buffer
+                )
                 inputs = list(descendant._inputs)
                 inputs[input_index] = pv_copy[0]
                 descendant._inputs = tuple(inputs)

@@ -110,7 +110,9 @@ def py_synthdef_02():
         pv_chain = supriya.ugens.FFT.kr(buffer_id=local_buf, source=source)
         pv_chain_a = supriya.ugens.PV_BinScramble.kr(pv_chain=pv_chain)
         pv_chain_b = supriya.ugens.PV_MagFreeze.kr(pv_chain=pv_chain)
-        pv_chain = supriya.ugens.PV_MagMul.kr(pv_chain_a, pv_chain_b)
+        pv_chain = supriya.ugens.PV_MagMul.kr(
+            pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b
+        )
         ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
         supriya.ugens.Out.ar(bus=0, source=ifft)
     py_synthdef = builder.build("PVCopyTest")

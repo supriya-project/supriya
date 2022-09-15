@@ -9,7 +9,7 @@ class BAllPass(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> ball_pass = supriya.ugens.BAllPass.ar(
         ...     frequency=1200,
         ...     reciprocal_of_q=1,
@@ -32,7 +32,7 @@ class BBandPass(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> bband_pass = supriya.ugens.BBandPass.ar(
         ...     bandwidth=1,
         ...     frequency=1200,
@@ -55,7 +55,7 @@ class BBandStop(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> bband_stop = supriya.ugens.BBandStop.ar(
         ...     bandwidth=1,
         ...     frequency=1200,
@@ -78,7 +78,7 @@ class BHiCut(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> bhi_cut = supriya.ugens.BHiCut.ar(
         ...     frequency=1200,
         ...     max_order=5,
@@ -103,7 +103,7 @@ class BHiPass(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> bhi_pass = supriya.ugens.BHiPass.ar(
         ...     frequency=1200,
         ...     reciprocal_of_q=1,
@@ -126,7 +126,7 @@ class BHiShelf(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> bhi_shelf = supriya.ugens.BHiShelf.ar(
         ...     gain=0,
         ...     frequency=1200,
@@ -151,7 +151,7 @@ class BLowCut(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> blow_cut = supriya.ugens.BLowCut.ar(
         ...     frequency=1200,
         ...     max_order=5,
@@ -176,7 +176,7 @@ class BLowPass(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> blow_pass = supriya.ugens.BLowPass.ar(
         ...     frequency=1200,
         ...     reciprocal_of_q=1,
@@ -199,7 +199,7 @@ class BLowShelf(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> blow_shelf = supriya.ugens.BLowShelf.ar(
         ...     frequency=1200,
         ...     gain=0,
@@ -224,7 +224,7 @@ class BPeakEQ(UGen):
 
     ::
 
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> bpeak_eq = supriya.ugens.BPeakEQ.ar(
         ...     frequency=1200,
         ...     gain=0,

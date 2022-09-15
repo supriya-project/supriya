@@ -191,9 +191,9 @@ def synthdef(*args: Union[str, Tuple[str, float]]):
 
         >>> @synthdef()
         ... def sine(freq=440, amp=0.1, gate=1):
-        ...     sig = SinOsc.ar(freq) * amp
+        ...     sig = SinOsc.ar(frequency=freq) * amp
         ...     env = EnvGen.kr(envelope=Envelope.adsr(), gate=gate, done_action=2)
-        ...     Out.ar(0, [sig * env] * 2)
+        ...     Out.ar(bus=0, source=[sig * env] * 2)
         ...
 
     ::
@@ -243,9 +243,9 @@ def synthdef(*args: Union[str, Tuple[str, float]]):
 
         >>> @synthdef("ar", ("kr", 0.5))
         ... def sine(freq=440, amp=0.1, gate=1):
-        ...     sig = SinOsc.ar(freq) * amp
+        ...     sig = SinOsc.ar(frequency=freq) * amp
         ...     env = EnvGen.kr(envelope=Envelope.adsr(), gate=gate, done_action=2)
-        ...     Out.ar(0, [sig * env] * 2)
+        ...     Out.ar(bus=0, source=[sig * env] * 2)
         ...
 
     ::

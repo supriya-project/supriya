@@ -340,7 +340,7 @@ class DelTapRd(UGen):
     ::
 
         >>> buffer_id = 0
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> tapin = supriya.ugens.DelTapWr.ar(
         ...     buffer_id=buffer_id,
         ...     source=source,
@@ -381,7 +381,7 @@ class DelTapWr(UGen):
     ::
 
         >>> buffer_id = 0
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> tapin = supriya.ugens.DelTapWr.ar(
         ...     buffer_id=buffer_id,
         ...     source=source,

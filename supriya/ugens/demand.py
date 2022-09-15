@@ -87,7 +87,7 @@ class Demand(UGen):
         ...     supriya.ugens.Dseries.dr(),
         ...     supriya.ugens.Dwhite.dr(),
         ... ]
-        >>> trigger = supriya.ugens.Impulse.kr(1)
+        >>> trigger = supriya.ugens.Impulse.kr(frequency=1)
         >>> demand = supriya.ugens.Demand.ar(
         ...     reset=0,
         ...     source=source,
