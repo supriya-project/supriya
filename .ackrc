@@ -6,5 +6,6 @@
 --ignore-dir=dist/
 --ignore-dir=docs/
 --ignore-dir=htmlcov/
+--ignore-dir=mypycov/
 --ignore-dir=supriya.egg-info/
 --ignore-file=is:.coverage
