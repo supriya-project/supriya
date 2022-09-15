@@ -6,7 +6,7 @@ import pathlib
 import shutil
 import subprocess
 import tempfile
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 import yaml
 
@@ -88,7 +88,7 @@ class SynthDef:
 
     ### INITIALIZER ###
 
-    def __init__(self, ugens, name=None, optimize=True, parameter_names=None, **kwargs):
+    def __init__(self, ugens, name=None, optimize=True, **kwargs):
         self._name = name
         ugens = list(copy.deepcopy(ugens))
         assert all(isinstance(_, UGen) for _ in ugens)
@@ -100,9 +100,7 @@ class SynthDef:
         self._ugens = tuple(ugens)
         self._constants = self._collect_constants(self._ugens)
         self._control_ugens = self._collect_control_ugens(self._ugens)
-        self._indexed_parameters = self._collect_indexed_parameters(
-            self._control_ugens, parameter_names=parameter_names
-        )
+        self._indexed_parameters = self._collect_indexed_parameters(self._control_ugens)
         self._compiled_ugen_graph = SynthDefCompiler.compile_ugen_graph(self)
 
     ### SPECIAL METHODS ###
@@ -498,7 +496,7 @@ class SynthDef:
         return control_ugens
 
     @staticmethod
-    def _collect_indexed_parameters(control_ugens, parameter_names=None):
+    def _collect_indexed_parameters(control_ugens):
         indexed_parameters = []
         parameters = {}
         for control_ugen in control_ugens:
@@ -506,8 +504,7 @@ class SynthDef:
             for parameter in control_ugen.parameters:
                 parameters[parameter.name] = (index, parameter)
                 index += len(parameter)
-        parameter_names = parameter_names or sorted(parameters)
-        for parameter_name in parameter_names:
+        for parameter_name in sorted(parameters):
             indexed_parameters.append(parameters[parameter_name])
         indexed_parameters = tuple(indexed_parameters)
         return indexed_parameters
@@ -913,7 +910,7 @@ class SynthDef:
         return tuple(_ for _ in self.ugens if _.is_input_ugen)
 
     @property
-    def name(self) -> str:
+    def name(self) -> Optional[str]:
         return self._name
 
     @property

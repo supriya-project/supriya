@@ -67,7 +67,7 @@ class SynthDefBuilder(SupriyaObject):
 
     ### INITIALIZER ###
 
-    def __init__(self, name: Optional[str] = None, **kwargs):
+    def __init__(self, name: Optional[str] = None, **kwargs) -> None:
         self._name = name
         self._uuid = uuid.uuid4()
         self._parameters: Dict[str, Parameter] = collections.OrderedDict()
