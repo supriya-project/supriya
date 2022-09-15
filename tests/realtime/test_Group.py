@@ -1,5 +1,5 @@
 import pytest
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya
 import supriya.assets.synthdefs
@@ -35,7 +35,7 @@ def test___contains___01(server):
     synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group_a.append(synth_d)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -92,7 +92,7 @@ def test___delitem___01(server):
     group_a.append(synth_d)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -109,7 +109,7 @@ def test___delitem___01(server):
     del group_a[-1]
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -125,7 +125,7 @@ def test___delitem___01(server):
     del group_b[1]
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -140,7 +140,7 @@ def test___delitem___01(server):
     del group_a[0]
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -154,7 +154,7 @@ def test___delitem___01(server):
     del group_b[1]
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -167,7 +167,7 @@ def test___delitem___01(server):
     del group_a[0]
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -201,7 +201,7 @@ def test___getitem___01(server):
     group_a.append(synth_d)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -254,7 +254,7 @@ def test___graph___01(server):
     synth_c = supriya.Synth()
     outer_group.extend([synth_a, inner_group, synth_c])
     inner_group.append(synth_b)
-    assert format(outer_group.__graph__(), "graphviz") == uqbar.strings.normalize(
+    assert format(outer_group.__graph__(), "graphviz") == normalize(
         """
         digraph G {
             graph [bgcolor=transparent,
@@ -292,7 +292,7 @@ def test___graph___01(server):
         """
     )
     outer_group.allocate(server)
-    assert format(outer_group.__graph__(), "graphviz") == uqbar.strings.normalize(
+    assert format(outer_group.__graph__(), "graphviz") == normalize(
         """
         digraph G {
             graph [bgcolor=transparent,
@@ -330,7 +330,7 @@ def test___graph___01(server):
         """
     )
     outer_group.free()
-    assert format(outer_group.__graph__(), "graphviz") == uqbar.strings.normalize(
+    assert format(outer_group.__graph__(), "graphviz") == normalize(
         """
         digraph G {
             graph [bgcolor=transparent,
@@ -387,7 +387,7 @@ def test___iter___01(server):
     group_a.append(synth_d)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -445,7 +445,7 @@ def test___len___01(server):
     assert len(group_b) == 2
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -480,7 +480,7 @@ def test___len___01(server):
     assert len(group_a) == 0
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -494,7 +494,7 @@ def test___setitem___01(server):
     group = supriya.realtime.Group().allocate(server)
     assert len(group) == 0
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -512,7 +512,7 @@ def test___setitem___01(server):
     assert synth in group
     assert synth.is_allocated
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -528,7 +528,7 @@ def test___setitem___01(server):
     assert synth not in group
     assert not synth.is_allocated
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -554,7 +554,7 @@ def test___setitem___02(server):
     assert synth_a is group[0]
     assert synth_b is group[1]
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -577,7 +577,7 @@ def test___setitem___02(server):
     assert synth_a is group[1]
     assert synth_b is group[0]
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -598,7 +598,7 @@ def test___setitem___02(server):
     assert not synth_a.is_allocated
     assert not synth_b.is_allocated
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -631,7 +631,7 @@ def test___setitem___03(server):
     group_a.append(synth_d)
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -670,7 +670,7 @@ def test___setitem___03(server):
     del group_a[-1]
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -707,7 +707,7 @@ def test___setitem___03(server):
     del group_b[1]
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -742,7 +742,7 @@ def test___setitem___03(server):
     del group_a[0]
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -775,7 +775,7 @@ def test___setitem___03(server):
     del group_b[1]
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -807,7 +807,7 @@ def test___setitem___03(server):
     del group_a[0]
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -850,7 +850,7 @@ def test___setitem___04(server):
 
     local_state = str(server.root_node)
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -866,7 +866,7 @@ def test___setitem___04(server):
 
     local_state = str(server.root_node)
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -886,7 +886,7 @@ def test___setitem___04(server):
 
     local_state = str(server.root_node)
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -906,7 +906,7 @@ def test___setitem___04(server):
 
     local_state = str(server.root_node)
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -930,7 +930,7 @@ def test___setitem___04(server):
 
     local_state = str(server.root_node)
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -954,7 +954,7 @@ def test___setitem___04(server):
 
     local_state = str(server.root_node)
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -980,7 +980,7 @@ def test___setitem___04(server):
 
     local_state = str(server.root_node)
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1004,7 +1004,7 @@ def test___setitem___04(server):
 
     local_state = str(server.root_node)
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1026,7 +1026,7 @@ def test___setitem___04(server):
 
     local_state = str(server.root_node)
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1071,7 +1071,7 @@ def test___setitem___05(server):
     group_a.allocate(server)
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1090,7 +1090,7 @@ def test___setitem___05(server):
     )
 
     group_a_state = str(group_a)
-    assert group_a_state == uqbar.strings.normalize(
+    assert group_a_state == normalize(
         """
         1000 group (Group A)
             1001 test (Synth A)
@@ -1118,7 +1118,7 @@ def test___setitem___05(server):
     synth_e.allocate(add_action=supriya.AddAction.REPLACE, target_node=group_a)
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1137,7 +1137,7 @@ def test___setitem___05(server):
     assert synth_e.node_id == 1007
 
     group_a_state = str(group_a)
-    assert group_a_state == uqbar.strings.normalize(
+    assert group_a_state == normalize(
         """
         ??? group (Group A)
             ??? test (Synth A)
@@ -1180,7 +1180,7 @@ def test___setitem___06(server):
     group[:] = [synth_a, synth_b, synth_c]
 
     group_state = str(group)
-    assert group_state == uqbar.strings.normalize(
+    assert group_state == normalize(
         """
         ??? group
             ??? test (Synth A)
@@ -1195,7 +1195,7 @@ def test___setitem___06(server):
     group.allocate(server)
 
     group_state = str(group)
-    assert group_state == uqbar.strings.normalize(
+    assert group_state == normalize(
         """
         1000 group
             1001 test (Synth A)
@@ -1208,7 +1208,7 @@ def test___setitem___06(server):
     )
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1226,7 +1226,7 @@ def test___setitem___06(server):
     synth_c["amplitude", "frequency"] = control_bus, audio_bus
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1243,7 +1243,7 @@ def test___setitem___06(server):
     group[:] = [synth_c, synth_b, synth_a]
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1260,7 +1260,7 @@ def test___setitem___06(server):
     group.free()
 
     group_state = str(group)
-    assert group_state == uqbar.strings.normalize(
+    assert group_state == normalize(
         """
         ??? group
             ??? test (Synth C)
@@ -1296,7 +1296,7 @@ def test_append_01(server):
     assert synth_a not in group_b
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1314,7 +1314,7 @@ def test_append_01(server):
     assert synth_a not in group_a
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1333,7 +1333,7 @@ def test_append_01(server):
     assert synth_b.parent is group_b
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1348,7 +1348,7 @@ def test_append_01(server):
 def test_extend_noop(server):
     group = supriya.realtime.Group().allocate(server)
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1360,7 +1360,7 @@ def test_extend_noop(server):
         group.extend([])
     assert [(_.label, _.message) for _ in transcript] == []
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1378,7 +1378,7 @@ def test_extend_allocate_nested(server):
     with server.osc_protocol.capture() as transcript:
         group.allocate(server)
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1419,7 +1419,7 @@ def test_extend_extend_unallocated(server):
     with server.osc_protocol.capture() as transcript:
         group.extend([synth_a, synth_b])
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1460,7 +1460,7 @@ def test_extend_extend_allocate_nested_and_move(server):
         ]
     )
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1495,7 +1495,7 @@ def test_extend_extend_allocate_nested_and_move(server):
         ("R", OscMessage("/done", "/d_recv")),
     ]
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1519,7 +1519,7 @@ def test_extend_x(server):
     group_b = supriya.realtime.Group()
     group_b.allocate(target_node=server)
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1539,7 +1539,7 @@ def test_extend_x(server):
     assert not synth_d.is_allocated
     synth_a.allocate(server)
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1551,7 +1551,7 @@ def test_extend_x(server):
     )
     group_a.extend([synth_a, synth_b])
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1565,7 +1565,7 @@ def test_extend_x(server):
     )
     group_b.extend([synth_c])
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1581,7 +1581,7 @@ def test_extend_x(server):
     )
     group_b.extend([synth_d, synth_b, synth_a])
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1620,7 +1620,7 @@ def test_index_01(server):
     group_a.append(synth_d)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1643,7 +1643,7 @@ def test_index_01(server):
 def test_insert_01(server):
     group = supriya.realtime.Group().allocate(server)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1653,7 +1653,7 @@ def test_insert_01(server):
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group.insert(0, synth_a)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1664,7 +1664,7 @@ def test_insert_01(server):
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group.insert(0, synth_b)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1676,7 +1676,7 @@ def test_insert_01(server):
     synth_c = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group.insert(1, synth_c)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1689,7 +1689,7 @@ def test_insert_01(server):
     synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     group.insert(3, synth_d)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1720,7 +1720,7 @@ def test_pop_01(server):
     group_a.append(synth_d)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1737,7 +1737,7 @@ def test_pop_01(server):
     group_a.pop()
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1753,7 +1753,7 @@ def test_pop_01(server):
     group_b.pop(1)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1768,7 +1768,7 @@ def test_pop_01(server):
     group_a.pop(0)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1782,7 +1782,7 @@ def test_pop_01(server):
     group_b.pop()
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1795,7 +1795,7 @@ def test_pop_01(server):
     group_a.pop()
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1829,7 +1829,7 @@ def test_remove_01(server):
     group_a.append(synth_d)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1846,7 +1846,7 @@ def test_remove_01(server):
     group_a.remove(synth_d)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1862,7 +1862,7 @@ def test_remove_01(server):
     group_b.remove(synth_c)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1877,7 +1877,7 @@ def test_remove_01(server):
     group_a.remove(synth_a)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1891,7 +1891,7 @@ def test_remove_01(server):
     group_b.remove(group_c)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1904,7 +1904,7 @@ def test_remove_01(server):
     group_a.remove(group_b)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group

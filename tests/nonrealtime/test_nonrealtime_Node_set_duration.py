@@ -1,5 +1,5 @@
 import pytest
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya.assets.synthdefs
 import supriya.nonrealtime
@@ -9,7 +9,7 @@ def test_basic():
     session = supriya.nonrealtime.Session()
     with session.at(0):
         node = session.add_group(duration=20)
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -23,7 +23,7 @@ def test_basic():
         [20.0, [["/n_free", 1000], [0]]],
     ]
     node.set_duration(30)
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -37,7 +37,7 @@ def test_basic():
         [30.0, [["/n_free", 1000], [0]]],
     ]
     node.set_duration(10)
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -58,7 +58,7 @@ def test_contained():
         group_one = session.add_group(duration=30)
         group_two = group_one.add_group(duration=20)
         group_three = group_two.add_group(duration=10)
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -91,7 +91,7 @@ def test_contained():
     ]
 
     group_three.set_duration(20)
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -119,7 +119,7 @@ def test_contained():
     ]
 
     group_three.set_duration(25)
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -152,7 +152,7 @@ def test_contained():
     ]
 
     group_three.set_duration(30)
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -181,7 +181,7 @@ def test_contained():
     ]
 
     group_three.set_duration(35)
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -220,7 +220,7 @@ def test_pbus():
         group = session.add_group()
         synth = group.add_synth(add_action="ADD_AFTER")
         group.add_synth(duration=10)
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -236,7 +236,7 @@ def test_pbus():
         """
     )
     synth.set_duration(15)
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -255,7 +255,7 @@ def test_pbus():
         """
     )
     group.set_duration(15)
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -296,7 +296,7 @@ def test_clip_children():
         inner_group.add_synth(duration=20)
         outer_group.add_group(duration=20)
         session.add_group(duration=20)
-    assert session.to_strings(include_timespans=True) == uqbar.strings.normalize(
+    assert session.to_strings(include_timespans=True) == normalize(
         """
         0.0:
             NODE TREE 0 group (timespan: [-inf, inf])
@@ -310,7 +310,7 @@ def test_clip_children():
         """
     )
     outer_group.set_duration(10, clip_children=True)
-    assert session.to_strings(include_timespans=True) == uqbar.strings.normalize(
+    assert session.to_strings(include_timespans=True) == normalize(
         """
         0.0:
             NODE TREE 0 group (timespan: [-inf, inf])

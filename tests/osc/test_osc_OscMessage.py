@@ -1,4 +1,4 @@
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya
 
@@ -16,7 +16,7 @@ def test():
         ),
         ["a", "b", ["c", "d"]],
     )
-    assert repr(osc_message) == uqbar.strings.normalize(
+    assert repr(osc_message) == normalize(
         """
     OscMessage('/foo', 1, 2.5, OscBundle(
         contents=(
@@ -26,7 +26,7 @@ def test():
     ), ['a', 'b', ['c', 'd']])
     """
     )
-    assert str(osc_message) == uqbar.strings.normalize(
+    assert str(osc_message) == normalize(
         """
     size 112
        0   2f 66 6f 6f  00 00 00 00  2c 69 66 62  5b 73 73 5b   |/foo....,ifb[ss[|
@@ -41,7 +41,7 @@ def test():
     datagram = osc_message.to_datagram()
     new_osc_message = supriya.osc.OscMessage.from_datagram(datagram)
     assert osc_message == new_osc_message
-    assert repr(new_osc_message) == uqbar.strings.normalize(
+    assert repr(new_osc_message) == normalize(
         """
     OscMessage('/foo', 1, 2.5, OscBundle(
         contents=(

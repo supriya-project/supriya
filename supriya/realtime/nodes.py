@@ -5,9 +5,9 @@ from collections.abc import Sequence
 from typing import Optional, Tuple, Union, cast
 
 import uqbar.graphs
-import uqbar.strings
 from uqbar.containers import UniqueTreeList, UniqueTreeNode
 from uqbar.objects import new
+from uqbar.strings import to_dash_case
 
 import supriya
 from supriya.enums import AddAction, NodeAction
@@ -155,7 +155,7 @@ class Node(UniqueTreeNode):
         return expr
 
     def _get_graphviz_name(self):
-        parts = [uqbar.strings.to_dash_case(type(self).__name__)]
+        parts = [to_dash_case(type(self).__name__)]
         if self.is_allocated:
             parts.append(str(self.node_id))
         else:

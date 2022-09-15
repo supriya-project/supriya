@@ -1,5 +1,5 @@
 import pytest
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya.assets.synthdefs
 import supriya.nonrealtime
@@ -11,7 +11,7 @@ def test_01():
         session.add_group(duration=20)
         group_b = session.add_group(duration=20)
         group_b.add_synth(duration=20)
-    assert session.to_strings(True) == uqbar.strings.normalize(
+    assert session.to_strings(True) == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -39,7 +39,7 @@ def test_01():
         [20.0, [["/n_free", 1000, 1001], ["/n_set", 1002, "gate", 0], [0]]],
     ]
     session.rebuild_transitions()
-    assert session.to_strings(True) == uqbar.strings.normalize(
+    assert session.to_strings(True) == normalize(
         """
         0.0:
             NODE TREE 0 group

@@ -1,5 +1,5 @@
 import pytest
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya
 from supriya.exceptions import NodeNotAllocated
@@ -95,7 +95,7 @@ def test_bus_symbol_mapping(server):
     assert str(synth.controls["amplitude"].value) == "c0"
     assert str(synth.controls["frequency"].value) == "a1"
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group

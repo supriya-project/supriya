@@ -1,5 +1,5 @@
 import pytest
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya.assets.synthdefs
 import supriya.nonrealtime
@@ -15,7 +15,7 @@ def test_01():
     d_recv_commands = pytest.helpers.build_d_recv_commands(
         [supriya.assets.synthdefs.default]
     )
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -41,7 +41,7 @@ def test_01():
         [20.0, [["/n_free", 1000, 1001, 1003], ["/n_set", 1002, "gate", 0], [0]]],
     ]
     group.delete()
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -76,7 +76,7 @@ def test_02():
         group.move_node(synth_b, "ADD_TO_TAIL")
     with session.at(15):
         session.move_node(synth_a, "ADD_TO_TAIL")
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -123,7 +123,7 @@ def test_02():
         ],
     ]
     group.delete()
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -167,7 +167,7 @@ def test_03():
         subgroup.move_node(synth_b, "ADD_TO_TAIL")
     with session.at(15):
         group.move_node(synth_a, "ADD_TO_TAIL")
-    assert session.to_strings(True) == uqbar.strings.normalize(
+    assert session.to_strings(True) == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -240,7 +240,7 @@ def test_03():
         ],
     ]
     group.delete()
-    assert session.to_strings(True) == uqbar.strings.normalize(
+    assert session.to_strings(True) == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -342,7 +342,7 @@ def test_04():
         [10.0, [["/n_set", 1000, "gate", 0], ["/n_set", 1002, "gate", 0]]],
         [15.0, [["/n_set", 1001, "gate", 0], [0]]],
     ]
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group
@@ -372,7 +372,7 @@ def test_04():
         [10.0, [["/n_set", 1002, "gate", 0]]],
         [15.0, [["/n_set", 1001, "gate", 0], [0]]],
     ]
-    assert session.to_strings() == uqbar.strings.normalize(
+    assert session.to_strings() == normalize(
         """
         0.0:
             NODE TREE 0 group

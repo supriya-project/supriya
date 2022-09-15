@@ -1,5 +1,5 @@
 import pytest
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya.assets.synthdefs
 import supriya.realtime
@@ -44,7 +44,7 @@ def test_allocate_synthdef(server):
     assert server[1000] is synth_a
     assert synth_a in server
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -76,7 +76,7 @@ def test_no_reallocate_synthdef(server):
     assert server[1001] is synth_b
     assert synth_b in server
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -103,7 +103,7 @@ def test_replace(server):
     assert synth_b.node_id is None
     assert synth_b not in server
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -126,7 +126,7 @@ def test_replace(server):
         ("R", OscMessage("/done", "/d_recv")),
     ]
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -151,7 +151,7 @@ def test_settings(server):
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_b.allocate(target_node=group)
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -169,7 +169,7 @@ def test_settings(server):
     synth_a["frequency"] = 443
     synth_a["amplitude"] = 0.5
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -186,7 +186,7 @@ def test_settings(server):
     assert synth_b["amplitude"] == 1.0
     synth_b.controls["frequency", "amplitude"] = 441, 0.25
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -206,7 +206,7 @@ def test_settings(server):
     synth_a["frequency"] = bus_a
     synth_b["amplitude"] = bus_b
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -243,7 +243,7 @@ def test_mapping(server):
         ("R", OscMessage("/n_go", 1000, 1, -1, -1, 0)),
     ]
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -282,7 +282,7 @@ def test_mapping(server):
         ("R", OscMessage("/synced", 0)),
     ]
     server_state = str(server.query())
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -298,7 +298,7 @@ def test_mapping(server):
 
 def test___graph__(server):
     synth = supriya.Synth()
-    assert format(synth.__graph__(), "graphviz") == uqbar.strings.normalize(
+    assert format(synth.__graph__(), "graphviz") == normalize(
         """
         digraph G {
             graph [bgcolor=transparent,
@@ -324,7 +324,7 @@ def test___graph__(server):
         """
     )
     synth.allocate(server)
-    assert format(synth.__graph__(), "graphviz") == uqbar.strings.normalize(
+    assert format(synth.__graph__(), "graphviz") == normalize(
         """
         digraph G {
             graph [bgcolor=transparent,
@@ -350,7 +350,7 @@ def test___graph__(server):
         """
     )
     synth.free()
-    assert format(synth.__graph__(), "graphviz") == uqbar.strings.normalize(
+    assert format(synth.__graph__(), "graphviz") == normalize(
         """
         digraph G {
             graph [bgcolor=transparent,

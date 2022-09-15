@@ -1,5 +1,5 @@
 import pytest
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya
 import supriya.assets.synthdefs
@@ -33,7 +33,7 @@ def test__handle_response_01(server):
     group_b.append(synth_b)
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -63,7 +63,7 @@ def test__handle_response_01(server):
     ]
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -94,7 +94,7 @@ def test__handle_response_01(server):
     ]
 
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -124,7 +124,7 @@ def test_parentage_01(server):
     group_d.extend([synth_a, synth_b])
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -175,7 +175,7 @@ def test_parentage_01(server):
     group_a.succeed_by(group_d)
 
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -363,7 +363,7 @@ def test_precede_by(server):
     synth_e = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_a.allocate(server)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -372,7 +372,7 @@ def test_precede_by(server):
     )
     synth_a.precede_by(synth_b)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -382,7 +382,7 @@ def test_precede_by(server):
     )
     synth_a.precede_by([synth_c, synth_d])
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -394,7 +394,7 @@ def test_precede_by(server):
     )
     synth_a.precede_by([synth_e, synth_b])
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -416,7 +416,7 @@ def test_replace_with(server):
     synth_a.allocate(server)
     synth_b.allocate(server)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -426,7 +426,7 @@ def test_replace_with(server):
     )
     synth_a.replace_with(synth_c)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -436,7 +436,7 @@ def test_replace_with(server):
     )
     synth_b.replace_with([synth_d, synth_e])
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -447,7 +447,7 @@ def test_replace_with(server):
     )
     synth_c.replace_with([synth_a, synth_e])
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -466,7 +466,7 @@ def test_succeed_by(server):
     synth_e = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_a.allocate(server)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -475,7 +475,7 @@ def test_succeed_by(server):
     )
     synth_a.succeed_by(synth_b)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -485,7 +485,7 @@ def test_succeed_by(server):
     )
     synth_a.succeed_by([synth_c, synth_d])
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -497,7 +497,7 @@ def test_succeed_by(server):
     )
     synth_a.succeed_by([synth_e, synth_b])
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group

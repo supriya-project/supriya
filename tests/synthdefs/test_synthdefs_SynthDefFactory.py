@@ -1,4 +1,4 @@
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya.ugens
 from supriya import SynthDefFactory
@@ -12,7 +12,7 @@ def test_gate_01():
     factory = factory.with_signal_block(signal_block)
     factory = factory.with_gate()
     factory = factory.with_output()
-    assert str(factory.build(name="test")) == uqbar.strings.normalize(
+    assert str(factory.build(name="test")) == normalize(
         """
         synthdef:
             name: test
@@ -46,7 +46,7 @@ def test_gate_02():
     factory = factory.with_signal_block(signal_block)
     factory = factory.with_gate()
     factory = factory.with_output(crossfaded=True)
-    assert str(factory.build(name="test")) == uqbar.strings.normalize(
+    assert str(factory.build(name="test")) == normalize(
         """
         synthdef:
             name: test
@@ -81,7 +81,7 @@ def test_gate_03():
     factory = factory.with_signal_block(signal_block)
     factory = factory.with_gate()
     factory = factory.with_output(crossfaded=True, windowed=True)
-    assert str(factory.build(name="test")) == uqbar.strings.normalize(
+    assert str(factory.build(name="test")) == normalize(
         """
         synthdef:
             name: test
@@ -123,7 +123,7 @@ def test_gate_04():
     factory = factory.with_signal_block(signal_block)
     factory = factory.with_gate()
     factory = factory.with_output(crossfaded=True, leveled=True, windowed=True)
-    assert str(factory.build(name="test")) == uqbar.strings.normalize(
+    assert str(factory.build(name="test")) == normalize(
         """
         synthdef:
             name: test
