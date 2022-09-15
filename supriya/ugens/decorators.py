@@ -1,6 +1,6 @@
 import inspect
 from enum import Enum
-from typing import Callable, NamedTuple, Optional, Type, Union
+from typing import Callable, NamedTuple, Optional, SupportsFloat, Type, Union
 
 from ..enums import CalculationRate, DoneAction, SignalRange
 
@@ -65,13 +65,15 @@ def _add_rate_fn(
 ):
     name = rate.token if rate is not None else "new"
     args = ["cls"]
+    if params:
+        args.append("*")
     for key, value in params.items():
         value_repr = repr(value)
         if value_repr == "inf":
             value_repr = 'float("inf")'
         elif value_repr == "-inf":
             value_repr = 'float("-inf")'
-        args.append(f"{key}={value_repr}")
+        args.append(f"{key}: SupportsFloat = {value_repr}")
     body = ["return cls._new_expanded("]
     if rate is not None:
         body.append(f"    calculation_rate={rate!r},")
@@ -80,7 +82,11 @@ def _add_rate_fn(
         body.append("    channel_count=channel_count,")
     body.extend(f"    {name}={name}," for name in params)
     body.append(")")
-    globals_ = {"CalculationRate": CalculationRate, "DoneAction": DoneAction}
+    globals_ = {
+        "CalculationRate": CalculationRate,
+        "DoneAction": DoneAction,
+        "SupportsFloat": SupportsFloat,
+    }
     return _create_fn(
         cls, name, args=args, body=body, decorator=classmethod, globals_=globals_
     )
@@ -126,7 +132,7 @@ def _process_class(
     channel_count,
     fixed_channel_count,
     signal_range,
-):
+) -> Type:
     params = {}
     unexpanded_input_names = []
     valid_calculation_rates = []
@@ -170,7 +176,7 @@ def param(
     *,
     check: Check = Check.NONE,
     unexpanded: bool = False,
-):
+) -> Parameter:
     """
     Define a UGen parameter.
 
@@ -180,7 +186,7 @@ def param(
 
 
 def ugen(
-    cls=None,
+    cls: Optional[Type] = None,
     *,
     ar: bool = False,
     kr: bool = False,
@@ -206,7 +212,7 @@ def ugen(
     if is_multichannel and fixed_channel_count:
         raise ValueError
 
-    def wrap(cls):
+    def wrap(cls: Type) -> Type:
         return _process_class(
             cls,
             ar=ar,

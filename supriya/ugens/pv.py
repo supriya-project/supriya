@@ -9,7 +9,7 @@ class PV_ChainUGen(UGen):
     """
 
     @property
-    def fft_size(self):
+    def fft_size(self) -> int:
         """
         Gets FFT size as UGen input.
 
@@ -60,7 +60,7 @@ class FFT(PV_ChainUGen):
         hop=0.5,
         window_size=0,
         window_type=0,
-    ):
+    ) -> None:
         import supriya.ugens
 
         if buffer_id is None:
@@ -80,7 +80,7 @@ class FFT(PV_ChainUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def fft_size(self):
+    def fft_size(self) -> int:
         """
         Gets FFT size as UGen input.
 
