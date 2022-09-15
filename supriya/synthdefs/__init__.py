@@ -29,12 +29,6 @@ __all__ = [
     "SynthDefFactory",
     "SynthDefGrapher",
     "TrigControl",
-    "UGen",
-    "UGenArray",
-    "UGenMeta",
-    "UGenMethodMixin",
     "UGenSortBundle",
-    "UnaryOpUGen",
-    "WidthFirstUGen",
     "synthdef",
 ]
