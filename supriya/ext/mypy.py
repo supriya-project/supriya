@@ -3,7 +3,7 @@ from typing import Type as TypingType
 
 from mypy.nodes import ARG_OPT, Argument, AssignmentStmt, CallExpr, RefExpr, Var
 from mypy.plugin import ClassDefContext, Plugin
-from mypy.plugins.common import _get_decorator_bool_argument, add_method_to_class
+from mypy.plugins.common import _get_decorator_bool_argument
 from mypy.types import NoneType
 
 
@@ -27,6 +27,9 @@ class UGenTransformer:
         return params
 
     def transform(self) -> bool:
+        # is_classmethod flag is not released yet
+        from mypy.plugins.common import add_method_to_class
+
         api = self._ctx.api
         cls = self._ctx.cls
         info = self._ctx.cls.info
