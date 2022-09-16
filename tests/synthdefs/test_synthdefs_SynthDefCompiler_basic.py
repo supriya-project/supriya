@@ -222,7 +222,7 @@ def test_SynthDefCompiler_basic_03_supriya_vs_sclang(py_synthdef_03):
 def py_synthdef_04():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         sin_osc = supriya.ugens.SinOsc.ar()
-        supriya.ugens.FreeSelf.kr(source=sin_osc)
+        supriya.ugens.FreeSelf.kr(trigger=sin_osc)
         supriya.ugens.Out.ar(bus=0, source=sin_osc)
     py_synthdef = builder.build("test")
     return py_synthdef
