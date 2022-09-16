@@ -16,7 +16,7 @@ def py_synthdef():
         source = supriya.ugens.DecodeB2.ar(
             channel_count=4, w=w, x=x, y=y, orientation=0.5
         )
-        supriya.ugens.Out.ar(0, source)
+        supriya.ugens.Out.ar(bus=0, source=source)
     py_synthdef = builder.build("ambisonics")
     return py_synthdef
 
