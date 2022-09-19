@@ -1,9 +1,7 @@
-import collections
-
-from supriya import CalculationRate
-from supriya.synthdefs import UGen
+from .bases import UGen, param, ugen
 
 
+@ugen(ar=True, kr=True)
 class Gendy1(UGen):
     """
     A dynamic stochastic synthesis generator.
@@ -29,21 +27,16 @@ class Gendy1(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("ampdist", 1),
-            ("durdist", 1),
-            ("adparam", 1),
-            ("ddparam", 1),
-            ("minfrequency", 440),
-            ("maxfrequency", 660),
-            ("ampscale", 0.5),
-            ("durscale", 0.5),
-            ("init_cps", 12),
-            ("knum", None),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    ampdist = param(1)
+    durdist = param(1)
+    adparam = param(1)
+    ddparam = param(1)
+    minfrequency = param(440)
+    maxfrequency = param(660)
+    ampscale = param(0.5)
+    durscale = param(0.5)
+    init_cps = param(12)
+    knum = param(None)
 
     ### INITIALIZER ###
 
@@ -79,6 +72,7 @@ class Gendy1(UGen):
         )
 
 
+@ugen(ar=True, kr=True)
 class Gendy2(UGen):
     """
     A dynamic stochastic synthesis generator.
@@ -104,25 +98,21 @@ class Gendy2(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("ampdist", 1),
-            ("durdist", 1),
-            ("adparam", 1),
-            ("ddparam", 1),
-            ("minfrequency", 440),
-            ("maxfrequency", 660),
-            ("ampscale", 0.5),
-            ("durscale", 0.5),
-            ("init_cps", 12),
-            ("knum", None),
-            ("a", 1.17),
-            ("c", 0.31),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    ampdist = param(1)
+    durdist = param(1)
+    adparam = param(1)
+    ddparam = param(1)
+    minfrequency = param(440)
+    maxfrequency = param(660)
+    ampscale = param(0.5)
+    durscale = param(0.5)
+    init_cps = param(12)
+    knum = param(None)
+    a = param(1.17)
+    c = param(0.31)
 
 
+@ugen(ar=True, kr=True)
 class Gendy3(UGen):
     """
     A dynamic stochastic synthesis generator.
@@ -145,17 +135,12 @@ class Gendy3(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("ampdist", 1),
-            ("durdist", 1),
-            ("adparam", 1),
-            ("ddparam", 1),
-            ("frequency", 440),
-            ("ampscale", 0.5),
-            ("durscale", 0.5),
-            ("init_cps", 12),
-            ("knum", None),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    ampdist = param(1)
+    durdist = param(1)
+    adparam = param(1)
+    ddparam = param(1)
+    frequency = param(440)
+    ampscale = param(0.5)
+    durscale = param(0.5)
+    init_cps = param(12)
+    knum = param(None)

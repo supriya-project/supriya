@@ -1,7 +1,8 @@
 import pytest
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya
+from supriya.exceptions import NodeNotAllocated
 
 
 def test_1():
@@ -25,7 +26,7 @@ def test_1():
     assert request.items[0].target_node_id is group_a
     assert request.items[1].node_id is group_c
     assert request.items[1].target_node_id is group_b
-    with pytest.raises(TypeError):
+    with pytest.raises(NodeNotAllocated):
         request.to_osc()
 
 
@@ -41,7 +42,7 @@ def test_2(server):
     assert group_b.node_id is None
     assert group_c.node_id is None
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -69,7 +70,7 @@ def test_2(server):
         ("R", supriya.osc.OscMessage("/synced", 0)),
     ]
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -93,7 +94,7 @@ def test_3(server):
     """
     group_a = supriya.realtime.Group().allocate(server)
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -121,7 +122,7 @@ def test_3(server):
         ("R", supriya.osc.OscMessage("/synced", 0)),
     ]
     server_state = str(server.query(False))
-    assert server_state == uqbar.strings.normalize(
+    assert server_state == normalize(
         """
         NODE TREE 0 group
             1 group

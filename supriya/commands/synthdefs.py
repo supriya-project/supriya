@@ -179,7 +179,7 @@ class SynthDefReceiveRequest(Request):
         >>> with supriya.SynthDefBuilder(out=0, value=0.5) as builder:
         ...     _ = supriya.ugens.Out.ar(
         ...         bus=builder["out"],
-        ...         source=supriya.ugens.DC.ar(builder["value"]),
+        ...         source=supriya.ugens.DC.ar(source=builder["value"]),
         ...     )
         ...
         >>> synthdef = builder.build(name="example")

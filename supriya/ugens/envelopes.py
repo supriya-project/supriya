@@ -1,9 +1,7 @@
-import collections
-
-from supriya import CalculationRate
-from supriya.synthdefs import UGen
+from .bases import UGen, param, ugen
 
 
+@ugen(kr=True)
 class Done(UGen):
     """
     Triggers when `source` sets its `done` flag.
@@ -19,19 +17,10 @@ class Done(UGen):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
-
-    ### INITIALIZER ###
-
-    def __init__(self, calculation_rate=None, source=None):
-        if not (hasattr(source, "has_done_flag") and source.has_done_flag):
-            raise ValueError(repr(source))
-        UGen.__init__(self, calculation_rate=calculation_rate, source=source)
+    source = param(None)
 
 
+@ugen(ar=True, kr=True, has_done_flag=True)
 class EnvGen(UGen):
     """
     An envelope generator.
@@ -44,23 +33,12 @@ class EnvGen(UGen):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    _has_done_flag = True
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("gate", 1.0),
-            ("level_scale", 1.0),
-            ("level_bias", 0.0),
-            ("time_scale", 1.0),
-            ("done_action", 0.0),
-            ("envelope", None),
-        ]
-    )
-    _unexpanded_input_names = ("envelope",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
-
-    ### PRIVATE METHODS ###
+    gate = param(1.0)
+    level_scale = param(1.0)
+    level_bias = param(0.0)
+    time_scale = param(1.0)
+    done_action = param(0.0)
+    envelope = param(None, unexpanded=True)
 
     @classmethod
     def _new_expanded(
@@ -92,6 +70,7 @@ class EnvGen(UGen):
         )
 
 
+@ugen(kr=True)
 class Free(UGen):
     """
     Frees the node at `node_id` when triggered by `trigger`.
@@ -109,12 +88,11 @@ class Free(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("trigger", 0.0), ("node_id", None)]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    trigger = param(0)
+    node_id = param(None)
 
 
+@ugen(kr=True)
 class FreeSelf(UGen):
     """
     Frees the enclosing synth when triggered by `trigger`.
@@ -130,10 +108,10 @@ class FreeSelf(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("trigger", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    trigger = param(None)
 
 
+@ugen(kr=True)
 class FreeSelfWhenDone(UGen):
     """
     Frees the enclosing synth when `source` sets its `done` flag.
@@ -149,12 +127,7 @@ class FreeSelfWhenDone(UGen):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
-
-    ### INITIALIZER ###
+    source = param(None)
 
     def __init__(self, calculation_rate=None, source=None):
         if not (hasattr(source, "has_done_flag") and source.has_done_flag):
@@ -162,6 +135,7 @@ class FreeSelfWhenDone(UGen):
         UGen.__init__(self, calculation_rate=calculation_rate, source=source)
 
 
+@ugen(kr=True)
 class Pause(UGen):
     """
     Pauses the node at `node_id` when triggered by `trigger`.
@@ -179,12 +153,11 @@ class Pause(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("trigger", None), ("node_id", None)]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    trigger = param(None)
+    node_id = param(None)
 
 
+@ugen(kr=True)
 class PauseSelf(UGen):
     """
     Pauses the enclosing synth when triggered by `trigger`.
@@ -200,10 +173,10 @@ class PauseSelf(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("trigger", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    trigger = param(None)
 
 
+@ugen(kr=True)
 class PauseSelfWhenDone(UGen):
     """
     Pauses the enclosing synth when `source` sets its `done` flag.
@@ -219,12 +192,7 @@ class PauseSelfWhenDone(UGen):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
-
-    ### INITIALIZER ###
+    source = param(None)
 
     def __init__(self, calculation_rate=None, source=None):
         if not (hasattr(source, "has_done_flag") and source.has_done_flag):
@@ -232,6 +200,7 @@ class PauseSelfWhenDone(UGen):
         UGen.__init__(self, calculation_rate=calculation_rate, source=source)
 
 
+@ugen(kr=True, has_done_flag=True)
 class Linen(UGen):
     """
     A simple line generating unit generator.
@@ -243,14 +212,8 @@ class Linen(UGen):
 
     """
 
-    _has_done_flag = True
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("gate", 1.0),
-            ("attack_time", 0.01),
-            ("sustain_level", 1.0),
-            ("release_time", 1.0),
-            ("done_action", 0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    gate = param(1.0)
+    attack_time = param(0.01)
+    sustain_level = param(1.0)
+    release_time = param(1.0)
+    done_action = param(0)

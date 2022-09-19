@@ -1,7 +1,7 @@
 import asyncio
 from queue import Empty, PriorityQueue, Queue
 from threading import RLock
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union, cast
+from typing import Any, Callable, Coroutine, Dict, List, Optional, Tuple, Union, cast
 from uuid import UUID, uuid4
 
 from ..clocks import (
@@ -24,7 +24,9 @@ class PatternPlayer:
         provider: Provider,
         clock: BaseClock,
         callback: Optional[
-            Callable[["PatternPlayer", ClockContext, Event, Priority], Any]
+            Callable[
+                ["PatternPlayer", ClockContext, Event, Priority], Optional[Coroutine]
+            ]
         ] = None,
         uuid: Optional[UUID] = None,
     ):

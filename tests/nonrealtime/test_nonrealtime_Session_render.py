@@ -3,7 +3,7 @@ import platform
 import pprint
 
 import pytest
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya
 import supriya.nonrealtime
@@ -200,8 +200,8 @@ def test_01(nonrealtime_paths):
     }
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
-        assert file_contents == uqbar.strings.normalize(
+        file_contents = normalize(file_pointer.read())
+        assert file_contents == normalize(
             """
             render: session-7b3f85710f19667f73f745b8ac8080a0
             source: null
@@ -250,11 +250,11 @@ def test_02(nonrealtime_paths):
     }
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
+        file_contents = normalize(file_pointer.read())
         hash_ = "34a8138953258b32d05ed6e09ebdf5b7"
         if platform.system() == "Windows":
             hash_ = "f9622613991e873659c324a0f146e072"
-        assert file_contents == uqbar.strings.normalize(
+        assert file_contents == normalize(
             f"""
             render: session-{hash_}
             source: null
@@ -327,11 +327,11 @@ def test_03(nonrealtime_paths):
     }
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
+        file_contents = normalize(file_pointer.read())
         hash_ = "f90a25f63698e1c8c4f6fe63d7d87bc4"
         if platform.system() == "Windows":
             hash_ = "5985d76e1f437e613e5e6ffef9ee5a0d"
-        assert file_contents == uqbar.strings.normalize(
+        assert file_contents == normalize(
             f"""
             render: session-{hash_}
             source: null
@@ -395,8 +395,8 @@ def test_04(nonrealtime_paths):
     }
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
-        assert file_contents == uqbar.strings.normalize(
+        file_contents = normalize(file_pointer.read())
+        assert file_contents == normalize(
             """
             render: session-0038ce94f2ab7825919c1b5e1d5f2e82
             source:
@@ -525,8 +525,8 @@ def test_06(nonrealtime_paths):
     }
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
-        assert file_contents == uqbar.strings.normalize(
+        file_contents = normalize(file_pointer.read())
+        assert file_contents == normalize(
             """
             render: session-fbd50fbec743e7758481debe0450f38c
             source:
@@ -673,8 +673,8 @@ def test_07(nonrealtime_paths):
     }
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
-        assert file_contents == uqbar.strings.normalize(
+        file_contents = normalize(file_pointer.read())
+        assert file_contents == normalize(
             """
             render: session-5657353b9c5dcd1e807fb6bf9919e1f4
             source:
@@ -905,8 +905,8 @@ def test_08(nonrealtime_paths):
     ]
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
-        assert file_contents == uqbar.strings.normalize(
+        file_contents = normalize(file_pointer.read())
+        assert file_contents == normalize(
             """
             render: session-1d80bd5d7da1eb8c25d322aa85384513
             source:
@@ -962,8 +962,8 @@ def test_09(nonrealtime_paths):
     )
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
-        assert file_contents == uqbar.strings.normalize(
+        file_contents = normalize(file_pointer.read())
+        assert file_contents == normalize(
             """
             render: session-ea2ca28c15208db4fce5eb184d0b9257
             source:
@@ -1019,8 +1019,8 @@ def test_10(nonrealtime_paths):
     )
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
-        assert file_contents == uqbar.strings.normalize(
+        file_contents = normalize(file_pointer.read())
+        assert file_contents == normalize(
             """
             render: session-96c65c92f6d0d0bbb08d85720d16a383
             source:
@@ -1107,8 +1107,8 @@ def test_11(nonrealtime_paths):
     )
     assert nonrealtime_paths.render_yml_file_path.exists()
     with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
-        assert file_contents == uqbar.strings.normalize(
+        file_contents = normalize(file_pointer.read())
+        assert file_contents == normalize(
             """
             render: session-9d80db1d391da3ab4f1cab54a0963d44
             source:

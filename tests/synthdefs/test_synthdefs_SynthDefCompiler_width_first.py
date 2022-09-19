@@ -12,7 +12,7 @@ def test_01():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         local_buf = supriya.ugens.LocalBuf(2048)
         source = supriya.ugens.PinkNoise.ar()
-        pv_chain = supriya.ugens.FFT(buffer_id=local_buf, source=source)
+        pv_chain = supriya.ugens.FFT.kr(buffer_id=local_buf, source=source)
         ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
         supriya.ugens.Out.ar(bus=0, source=ifft)
     py_synthdef = builder.build("LocalBufTest")
@@ -107,10 +107,12 @@ def py_synthdef_02():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         source = supriya.ugens.PinkNoise.ar()
         local_buf = supriya.ugens.LocalBuf(2048)
-        pv_chain = supriya.ugens.FFT(buffer_id=local_buf, source=source)
-        pv_chain_a = supriya.ugens.PV_BinScramble(pv_chain=pv_chain)
-        pv_chain_b = supriya.ugens.PV_MagFreeze(pv_chain=pv_chain)
-        pv_chain = supriya.ugens.PV_MagMul(pv_chain_a, pv_chain_b)
+        pv_chain = supriya.ugens.FFT.kr(buffer_id=local_buf, source=source)
+        pv_chain_a = supriya.ugens.PV_BinScramble.kr(pv_chain=pv_chain)
+        pv_chain_b = supriya.ugens.PV_MagFreeze.kr(pv_chain=pv_chain)
+        pv_chain = supriya.ugens.PV_MagMul.kr(
+            pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b
+        )
         ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
         supriya.ugens.Out.ar(bus=0, source=ifft)
     py_synthdef = builder.build("PVCopyTest")

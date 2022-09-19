@@ -1,10 +1,8 @@
-import collections
-
-from supriya import CalculationRate
-from supriya.synthdefs import PureUGen, UGen
+from .bases import UGen, param, ugen
 
 
-class COsc(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class COsc(UGen):
     """
     A chorusing wavetable oscillator.
 
@@ -20,13 +18,13 @@ class COsc(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("frequency", 440.0), ("beats", 0.5)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    frequency = param(440.0)
+    beats = param(0.5)
 
 
-class DegreeToKey(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class DegreeToKey(UGen):
     """
     A signal-to-modal-pitch converter.`
 
@@ -43,13 +41,13 @@ class DegreeToKey(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("source", None), ("octave", 12)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    source = param(None)
+    octave = param(12)
 
 
-class Impulse(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class Impulse(UGen):
     """
     A non-band-limited single-sample impulse generator unit generator.
 
@@ -60,13 +58,12 @@ class Impulse(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 440.0), ("phase", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)
+    phase = param(0.0)
 
 
-class Index(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class Index(UGen):
     """
     A clipping buffer indexer.
 
@@ -82,13 +79,12 @@ class Index(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("source", None)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    source = param(None)
 
 
-class LFCub(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class LFCub(UGen):
     """
     A sine-like oscillator unit generator.
 
@@ -99,13 +95,12 @@ class LFCub(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 440.0), ("initial_phase", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)
+    initial_phase = param(0.0)
 
 
-class LFGauss(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class LFGauss(UGen):
     """
     A non-band-limited gaussian function oscillator.
 
@@ -118,16 +113,11 @@ class LFGauss(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("duration", 1),
-            ("width", 0.1),
-            ("initial_phase", 0),
-            ("loop", 1),
-            ("done_action", 0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    duration = param(1)
+    width = param(0.1)
+    initial_phase = param(0)
+    loop = param(1)
+    done_action = param(0)
 
     ### INITIALIZER ###
 
@@ -154,7 +144,8 @@ class LFGauss(PureUGen):
         )
 
 
-class LFPar(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class LFPar(UGen):
     """
     A parabolic oscillator unit generator.
 
@@ -165,13 +156,12 @@ class LFPar(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 440.0), ("initial_phase", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)
+    initial_phase = param(0.0)
 
 
-class LFPulse(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class LFPulse(UGen):
     """
     A non-band-limited pulse oscillator.
 
@@ -182,13 +172,13 @@ class LFPulse(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 440.0), ("initial_phase", 0), ("width", 0.5)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)
+    initial_phase = param(0.0)
+    width = param(0.5)
 
 
-class LFSaw(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class LFSaw(UGen):
     """
     A non-band-limited sawtooth oscillator unit generator.
 
@@ -199,13 +189,12 @@ class LFSaw(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 440.0), ("initial_phase", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)
+    initial_phase = param(0.0)
 
 
-class LFTri(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class LFTri(UGen):
     """
     A non-band-limited triangle oscillator unit generator.
 
@@ -216,35 +205,34 @@ class LFTri(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 440.0), ("initial_phase", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)
+    initial_phase = param(0.0)
 
 
-class Osc(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class Osc(UGen):
     """
     An interpolating wavetable oscillator.
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", 0), ("frequency", 440.0), ("initial_phase", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    frequency = param(440.0)
+    initial_phase = param(0.0)
 
 
-class OscN(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class OscN(UGen):
     """
     A non-interpolating wavetable oscillator.
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", 0), ("frequency", 440.0), ("initial_phase", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    frequency = param(440.0)
+    initial_phase = param(0.0)
 
 
-class Select(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class Select(UGen):
     """
     A signal selector.
 
@@ -261,14 +249,12 @@ class Select(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("selector", None), ("sources", None)]
-    )
-    _unexpanded_input_names = ("sources",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    selector = param(None)
+    sources = param(None, unexpanded=True)
 
 
-class SinOsc(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class SinOsc(UGen):
     """
     A sinusoid oscillator unit generator.
 
@@ -289,13 +275,12 @@ class SinOsc(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 440.0), ("phase", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)
+    phase = param(0.0)
 
 
-class SyncSaw(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class SyncSaw(UGen):
     """
     A sawtooth wave that is hard synched to a fundamental pitch.
 
@@ -310,20 +295,19 @@ class SyncSaw(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("sync_frequency", 440), ("saw_frequency", 440)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    sync_frequency = param(440.0)
+    saw_frequency = param(440.0)
 
 
-class VOsc(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class VOsc(UGen):
     """
     A wavetable lookup oscillator which can be swept smoothly across wavetables.
 
     ::
 
         >>> vosc = supriya.ugens.VOsc.ar(
-        ...     buffer_id=supriya.ugens.MouseX.kr(0, 7),
+        ...     buffer_id=supriya.ugens.MouseX.kr(minimum=0, maximum=7),
         ...     frequency=440,
         ...     phase=0,
         ... )
@@ -332,20 +316,20 @@ class VOsc(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("frequency", 440), ("phase", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    frequency = param(440.0)
+    phase = param(0.0)
 
 
-class VOsc3(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class VOsc3(UGen):
     """
     A wavetable lookup oscillator which can be swept smoothly across wavetables.
 
     ::
 
         >>> vosc_3 = supriya.ugens.VOsc3.ar(
-        ...     buffer_id=supriya.ugens.MouseX.kr(0, 7),
+        ...     buffer_id=supriya.ugens.MouseX.kr(minimum=0, maximum=7),
         ...     freq_1=110,
         ...     freq_2=220,
         ...     freq_3=440,
@@ -355,13 +339,14 @@ class VOsc3(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("freq_1", 110), ("freq_2", 220), ("freq_3", 440)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    freq_1 = param(110.0)
+    freq_2 = param(220.0)
+    freq_3 = param(440.0)
 
 
-class VarSaw(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class VarSaw(UGen):
     """
     A sawtooth-triangle oscillator with variable duty.
 
@@ -372,13 +357,13 @@ class VarSaw(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 440.0), ("initial_phase", 0.0), ("width", 0.5)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)
+    initial_phase = param(0.0)
+    width = param(0.5)
 
 
-class Vibrato(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class Vibrato(UGen):
     """
     Vibrato is a slow frequency modulation.
 
@@ -399,21 +384,17 @@ class Vibrato(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("frequency", 440),
-            ("rate", 6),
-            ("depth", 0.02),
-            ("delay", 0),
-            ("onset", 0),
-            ("rate_variation", 0.04),
-            ("depth_variation", 0.1),
-            ("initial_phase", 0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440)
+    rate = param(6)
+    depth = param(0.02)
+    delay = param(0)
+    onset = param(0)
+    rate_variation = param(0.04)
+    depth_variation = param(0.1)
+    initial_phase = param(0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class WrapIndex(UGen):
     """
     A wrapping buffer indexer.
@@ -430,7 +411,5 @@ class WrapIndex(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("source", None)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    source = param(None)

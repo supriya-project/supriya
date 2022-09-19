@@ -13,7 +13,7 @@ from supriya.ugens import FFT, MFCC, In, Out
 def py_synthdef_mfcc():
     with SynthDefBuilder() as builder:
         source = In.ar(bus=0)
-        pv_chain = FFT(source=source)
+        pv_chain = FFT.kr(source=source)
         mfcc = MFCC.kr(pv_chain=pv_chain)
         Out.kr(bus=0, source=mfcc)
     return builder.build("MFCCTest")

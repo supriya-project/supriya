@@ -7,7 +7,7 @@ import itertools
 import operator
 import random
 from collections.abc import Sequence
-from typing import Callable, Dict, Iterator, Optional
+from typing import Callable, Coroutine, Dict, Iterator, Optional
 from uuid import UUID
 
 from uqbar.objects import get_vars
@@ -203,7 +203,8 @@ class Pattern(metaclass=abc.ABCMeta):
         at: Optional[float] = None,
         callback: Optional[
             Callable[
-                ["supriya.patterns.PatternPlayer", ClockContext, Event, Priority], None
+                ["supriya.patterns.PatternPlayer", ClockContext, Event, Priority],
+                Optional[Coroutine],
             ]
         ] = None,
         clock: Optional[BaseClock] = None,

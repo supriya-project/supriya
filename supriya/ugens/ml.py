@@ -1,19 +1,19 @@
-import collections
-
 from uqbar.enums import IntEnumeration
 
 from supriya import CalculationRate
-from supriya.synthdefs import MultiOutUGen, UGen
+
+from .bases import UGen, param, ugen
 
 
-class BeatTrack(MultiOutUGen):
+@ugen(kr=True, channel_count=4, fixed_channel_count=True)
+class BeatTrack(UGen):
     """
     Autocorrelation beat tracker.
 
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> pv_chain = supriya.ugens.FFT(source=source)
+        >>> pv_chain = supriya.ugens.FFT.kr(source=source)
         >>> beat_track = supriya.ugens.BeatTrack.kr(
         ...     pv_chain=pv_chain,
         ...     lock=0,
@@ -23,13 +23,12 @@ class BeatTrack(MultiOutUGen):
 
     """
 
-    _default_channel_count = 4
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None), ("lock", 0.0)])
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    pv_chain = param(None)
+    lock = param(0.0)
 
 
-class BeatTrack2(MultiOutUGen):
+@ugen(kr=True, channel_count=6, fixed_channel_count=True)
+class BeatTrack2(UGen):
     """
     A template-matching beat-tracker.
 
@@ -48,21 +47,15 @@ class BeatTrack2(MultiOutUGen):
 
     """
 
-    _default_channel_count = 6
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("bus_index", 0.0),
-            ("feature_count", None),
-            ("window_size", 2),
-            ("phase_accuracy", 0.02),
-            ("lock", 0.0),
-            ("weighting_scheme", -2.1),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    bus_index = param(0.0)
+    feature_count = param(None)
+    window_size = param(2)
+    phase_accuracy = param(0.02)
+    lock = param(0.0)
+    weighting_scheme = param(-2.1)
 
 
+@ugen(kr=True)
 class KeyTrack(UGen):
     """
     A key tracker.
@@ -70,7 +63,7 @@ class KeyTrack(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> pv_chain = supriya.ugens.FFT(source=source)
+        >>> pv_chain = supriya.ugens.FFT.kr(source=source)
         >>> key_track = supriya.ugens.KeyTrack.kr(
         ...     pv_chain=pv_chain,
         ...     chroma_leak=0.5,
@@ -81,12 +74,12 @@ class KeyTrack(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("key_decay", 2), ("chroma_leak", 0.5)]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    pv_chain = param(None)
+    key_decay = param(2)
+    chroma_leak = param(0.5)
 
 
+@ugen(kr=True)
 class Loudness(UGen):
     """
     Extraction of instantaneous loudness in `sones`.
@@ -94,7 +87,7 @@ class Loudness(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> pv_chain = supriya.ugens.FFT(source=source)
+        >>> pv_chain = supriya.ugens.FFT.kr(source=source)
         >>> loudness = supriya.ugens.Loudness.kr(
         ...     pv_chain=pv_chain,
         ...     smask=0.25,
@@ -105,20 +98,20 @@ class Loudness(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("smask", 0.25), ("tmask", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    pv_chain = param(None)
+    smask = param(0.25)
+    tmask = param(1)
 
 
-class MFCC(MultiOutUGen):
+@ugen(kr=True, is_multichannel=True, channel_count=13)
+class MFCC(UGen):
     """
     Mel frequency cepstral coefficients.
 
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> pv_chain = supriya.ugens.FFT(source=source)
+        >>> pv_chain = supriya.ugens.FFT.kr(source=source)
         >>> mfcc = supriya.ugens.MFCC.kr(
         ...     pv_chain=pv_chain,
         ... )
@@ -127,24 +120,20 @@ class MFCC(MultiOutUGen):
 
     """
 
-    _default_channel_count = 13
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("coeff_count", 13)]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    pv_chain = param(None)
+    coeff_count = param(13)
 
-    def __init__(self, calculation_rate=None, coeff_count=13, pv_chain=None):
-        # MFCC wants to have both # of outputs specified the traditional way
-        # but also to have the same value passed in as an input
-        super().__init__(
-            calculation_rate=calculation_rate,
+    @classmethod
+    def kr(cls, pv_chain=None, coeff_count=13):
+        return cls._new_expanded(
+            calculation_rate=CalculationRate.CONTROL,
             channel_count=coeff_count,
             coeff_count=coeff_count,
             pv_chain=pv_chain,
         )
 
 
+@ugen(kr=True)
 class Onsets(UGen):
     """
     An onset detector.
@@ -152,7 +141,7 @@ class Onsets(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> pv_chain = supriya.ugens.FFT(source=source)
+        >>> pv_chain = supriya.ugens.FFT.kr(source=source)
         >>> onsets = supriya.ugens.Onsets.kr(
         ...     pv_chain=pv_chain,
         ...     floor=0.1,
@@ -178,23 +167,19 @@ class Onsets(UGen):
         WPHASE = 5
         MKL = 6
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("pv_chain", None),
-            ("threshold", 0.5),
-            ("odftype", 3),
-            ("relaxtime", 1),
-            ("floor", 0.1),
-            ("mingap", 10),
-            ("medianspan", 11),
-            ("whtype", 1),
-            ("rawodf", 0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    pv_chain = param(None)
+    threshold = param(0.5)
+    odftype = param(3)
+    relaxtime = param(1)
+    floor = param(0.1)
+    mingap = param(10)
+    medianspan = param(11)
+    whtype = param(1)
+    rawodf = param(0)
 
 
-class Pitch(MultiOutUGen):
+@ugen(kr=True, channel_count=2, fixed_channel_count=True)
+class Pitch(UGen):
     """
     An autocorrelation pitch follower.
 
@@ -207,26 +192,20 @@ class Pitch(MultiOutUGen):
 
     """
 
-    _default_channel_count = 2
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("initial_frequency", 440),
-            ("min_frequency", 60),
-            ("max_frequency", 4000),
-            ("exec_frequency", 100),
-            ("max_bins_per_octave", 16),
-            ("median", 1),
-            ("amplitude_threshold", 0.01),
-            ("peak_threshold", 0.5),
-            ("down_sample_factor", 1),
-            ("clarity", 0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    source = param(None)
+    initial_frequency = param(440)
+    min_frequency = param(60)
+    max_frequency = param(4000)
+    exec_frequency = param(100)
+    max_bins_per_octave = param(16)
+    median = param(1)
+    amplitude_threshold = param(0.01)
+    peak_threshold = param(0.5)
+    down_sample_factor = param(1)
+    clarity = param(0)
 
 
+@ugen(kr=True)
 class SpecCentroid(UGen):
     """
     A spectral centroid measure.
@@ -234,7 +213,7 @@ class SpecCentroid(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> pv_chain = supriya.ugens.FFT(source=source)
+        >>> pv_chain = supriya.ugens.FFT.kr(source=source)
         >>> spec_centroid = supriya.ugens.SpecCentroid.kr(
         ...     pv_chain=pv_chain,
         ... )
@@ -243,10 +222,10 @@ class SpecCentroid(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    pv_chain = param(None)
 
 
+@ugen(kr=True)
 class SpecFlatness(UGen):
     """
     A spectral flatness measure.
@@ -254,7 +233,7 @@ class SpecFlatness(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> pv_chain = supriya.ugens.FFT(source=source)
+        >>> pv_chain = supriya.ugens.FFT.kr(source=source)
         >>> spec_flatness = supriya.ugens.SpecFlatness.kr(
         ...     pv_chain=pv_chain,
         ... )
@@ -263,10 +242,10 @@ class SpecFlatness(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("pv_chain", None)])
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    pv_chain = param(None)
 
 
+@ugen(kr=True)
 class SpecPcile(UGen):
     """
     Find a percentile of FFT magnitude spectrum.
@@ -274,7 +253,7 @@ class SpecPcile(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
-        >>> pv_chain = supriya.ugens.FFT(source=source)
+        >>> pv_chain = supriya.ugens.FFT.kr(source=source)
         >>> spec_pcile = supriya.ugens.SpecPcile.kr(
         ...     pv_chain=pv_chain,
         ...     fraction=0.5,
@@ -285,7 +264,6 @@ class SpecPcile(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("pv_chain", None), ("fraction", 0.5), ("interpolate", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL,)
+    pv_chain = param(None)
+    fraction = param(0.5)
+    interpolate = param(0)

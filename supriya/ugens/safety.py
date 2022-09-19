@@ -1,9 +1,7 @@
-import collections
-
-from supriya import CalculationRate
-from supriya.synthdefs import UGen
+from .bases import UGen, param, ugen
 
 
+@ugen(ar=True, kr=True)
 class CheckBadValues(UGen):
     """
     Tests for infinity, not-a-number, and denormals.
@@ -23,14 +21,9 @@ class CheckBadValues(UGen):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("ugen_id", 0.0), ("post_mode", 2.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
-
-    ### INITIALIZER ###
+    source = param(None)
+    ugen_id = param(0)
+    post_mode = param(2)
 
     def __init__(self, calculation_rate=None, ugen_id=0, post_mode=2, source=None):
         assert int(post_mode) in (0, 1, 2)
@@ -43,10 +36,11 @@ class CheckBadValues(UGen):
         )
 
 
+@ugen(ar=True, kr=True)
 class Sanitize(UGen):
     """
     Remove infinity, NaN, and denormals.
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None), ("replace", 0.0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    replace = param(0.0)

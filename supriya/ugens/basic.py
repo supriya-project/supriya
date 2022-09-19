@@ -1,7 +1,6 @@
-import collections
-
 from supriya import CalculationRate, utils
-from supriya.synthdefs import PseudoUGen, UGen
+
+from .bases import PseudoUGen, UGen, UGenArray, param, ugen
 
 
 class Mix(PseudoUGen):
@@ -13,7 +12,7 @@ class Mix(PseudoUGen):
         ::
 
             >>> with supriya.synthdefs.SynthDefBuilder() as builder:
-            ...     oscillators = [supriya.ugens.DC.ar(1) for _ in range(5)]
+            ...     oscillators = [supriya.ugens.DC.ar(source=1) for _ in range(5)]
             ...     mix = supriya.ugens.Mix.new(oscillators)
             ...
             >>> synthdef = builder.build(name="mix1", optimize=False)
@@ -49,7 +48,7 @@ class Mix(PseudoUGen):
         ::
 
             >>> with supriya.synthdefs.SynthDefBuilder() as builder:
-            ...     oscillators = [supriya.ugens.DC.ar(1) for _ in range(15)]
+            ...     oscillators = [supriya.ugens.DC.ar(source=1) for _ in range(15)]
             ...     mix = supriya.ugens.Mix.new(oscillators)
             ...
             >>> synthdef = builder.build("mix2")
@@ -122,30 +121,25 @@ class Mix(PseudoUGen):
 
     @classmethod
     def _flatten_sources(cls, sources):
-        import supriya.synthdefs
-
         flattened_sources = []
         for source in sources:
-            if isinstance(source, supriya.synthdefs.UGenArray):
+            if isinstance(source, UGenArray):
                 flattened_sources.extend(source)
             else:
                 flattened_sources.append(source)
-        return supriya.synthdefs.UGenArray(flattened_sources)
+        return UGenArray(flattened_sources)
 
     ### PUBLIC METHODS ###
 
     @classmethod
     def new(cls, sources):
-        import supriya.synthdefs
-        import supriya.ugens
-
         sources = cls._flatten_sources(sources)
         summed_sources = []
         for part in utils.group_iterable_by_count(sources, 4):
             if len(part) == 4:
-                summed_sources.append(supriya.ugens.Sum4(*part))
+                summed_sources.append(Sum4(*part))
             elif len(part) == 3:
-                summed_sources.append(supriya.ugens.Sum3(*part))
+                summed_sources.append(Sum3(*part))
             elif len(part) == 2:
                 summed_sources.append(part[0] + part[1])
             else:
@@ -298,17 +292,16 @@ class Mix(PseudoUGen):
                             source[0]: Sum3.ar[0]
 
         """
-        import supriya.synthdefs
-
         sources = cls._flatten_sources(sources)
         mixes, parts = [], []
         for i in range(0, len(sources), channel_count):
             parts.append(sources[i : i + channel_count])
         for columns in zip(*parts):
             mixes.append(cls.new(columns))
-        return supriya.synthdefs.UGenArray(mixes)
+        return UGenArray(mixes)
 
 
+@ugen(new=True)
 class MulAdd(UGen):
     """
     An Optimized multiplication / addition ugen.
@@ -328,9 +321,9 @@ class MulAdd(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("multiplier", 1.0), ("addend", 0.0)]
-    )
+    source = param(None)
+    multiplier = param(1.0)
+    addend = param(0.0)
 
     ### INITIALIZER ###
 
@@ -433,6 +426,7 @@ class MulAdd(UGen):
         return ugen
 
 
+@ugen(new=True)
 class Sum3(UGen):
     """
     A three-input summing unit generator.
@@ -453,11 +447,9 @@ class Sum3(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [("input_one", None), ("input_two", None), ("input_three", None)]
-    )
-
-    _valid_calculation_rates = ()
+    input_one = param(None)
+    input_two = param(None)
+    input_three = param(None)
 
     ### INITIALIZER ###
 
@@ -491,6 +483,7 @@ class Sum3(UGen):
         return ugen
 
 
+@ugen(new=True)
 class Sum4(UGen):
     """
     A four-input summing unit generator.
@@ -513,16 +506,10 @@ class Sum4(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("input_one", None),
-            ("input_two", None),
-            ("input_three", None),
-            ("input_four", None),
-        ]
-    )
-
-    _valid_calculation_rates = ()
+    input_one = param(None)
+    input_two = param(None)
+    input_three = param(None)
+    input_four = param(None)
 
     ### INITIALIZER ###
 
@@ -548,22 +535,20 @@ class Sum4(UGen):
     def _new_single(
         cls, input_one=None, input_two=None, input_three=None, input_four=None, **kwargs
     ):
-        import supriya.ugens
-
         if input_one == 0:
-            ugen = supriya.ugens.Sum3.new(
+            ugen = Sum3.new(
                 input_one=input_two, input_two=input_three, input_three=input_four
             )
         elif input_two == 0:
-            ugen = supriya.ugens.Sum3.new(
+            ugen = Sum3.new(
                 input_one=input_one, input_two=input_three, input_three=input_four
             )
         elif input_three == 0:
-            ugen = supriya.ugens.Sum3.new(
+            ugen = Sum3.new(
                 input_one=input_one, input_two=input_two, input_three=input_four
             )
         elif input_four == 0:
-            ugen = supriya.ugens.Sum3.new(
+            ugen = Sum3.new(
                 input_one=input_one, input_two=input_two, input_three=input_three
             )
         else:

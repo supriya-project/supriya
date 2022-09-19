@@ -1,8 +1,262 @@
-import collections.abc
+import abc
 import copy
+import inspect
+from collections.abc import Iterable, Sequence
+from enum import Enum
+from typing import Callable, NamedTuple, Optional, SupportsFloat, Tuple, Type, Union
 
-from supriya import BinaryOperator, SignalRange, UnaryOperator
-from supriya.system import SupriyaObject
+from .. import BinaryOperator, CalculationRate, DoneAction, SignalRange, UnaryOperator
+from ..system import SupriyaObject
+from ..typing import UGenInputMap
+
+
+def _create_fn(
+    cls, name, args, body, return_type, globals_=None, decorator=None, override=False
+):
+    if name in cls.__dict__ and not override:
+        return
+    globals_ = globals_ or {}
+    locals_ = {"_return_type": return_type}
+    args = ", ".join(args)
+    body = "\n".join(f"        {line}" for line in body)
+    text = f"    def {name}({args}) -> _return_type:\n{body}"
+    local_vars = ", ".join(locals_.keys())
+    text = f"def __create_fn__({local_vars}):\n{text}\n    return {name}"
+    namespace = {}
+    exec(text, globals_, namespace)
+    value = namespace["__create_fn__"](**locals_)
+    value.__qualname__ = f"{cls.__qualname__}.{value.__name__}"
+    if decorator:
+        value = decorator(value)
+    setattr(cls, name, value)
+
+
+def _add_init(cls, params, is_multichannel, channel_count, fixed_channel_count):
+    parent_class = inspect.getmro(cls)[1]
+    name = "__init__"
+    args = ["self", "calculation_rate=None"]
+    body = []
+    if is_multichannel and not fixed_channel_count:
+        args.append(f"channel_count={channel_count or 1}")
+        body.append("self._channel_count = channel_count")
+    if fixed_channel_count:
+        body.append(f"self._channel_count = {channel_count}")
+    body.extend(
+        [
+            f"return {parent_class.__name__}.__init__(",
+            "    self,",
+            "    calculation_rate=CalculationRate.from_expr(calculation_rate),",
+        ]
+    )
+    for key, value in params.items():
+        value_repr = repr(value)
+        if value_repr == "inf":
+            value_repr = 'float("inf")'
+        elif value_repr == "-inf":
+            value_repr = 'float("-inf")'
+        args.append(f"{key}={value_repr}")
+        body.append(f"    {key}={key},")
+    args.append("**kwargs")
+    body.append("    **kwargs,")
+    body.append(")")
+    globals_ = {
+        "CalculationRate": CalculationRate,
+        "DoneAction": DoneAction,
+        parent_class.__name__: parent_class,
+    }
+    return _create_fn(
+        cls=cls, name=name, args=args, body=body, globals_=globals_, return_type=None
+    )
+
+
+def _add_rate_fn(
+    cls, rate, params, is_multichannel, channel_count, fixed_channel_count
+):
+    name = rate.token if rate is not None else "new"
+    args = ["cls"]
+    if params:
+        args.append("*")
+    for key, value in params.items():
+        value_repr = repr(value)
+        if value_repr == "inf":
+            value_repr = 'float("inf")'
+        elif value_repr == "-inf":
+            value_repr = 'float("-inf")'
+        args.append(f"{key}: Union[SupportsFloat, UGenMethodMixin] = {value_repr}")
+    body = ["return cls._new_expanded("]
+    if rate is not None:
+        body.append(f"    calculation_rate={rate!r},")
+    if is_multichannel and not fixed_channel_count:
+        args.append(f"channel_count: int = {channel_count or 1}")
+        body.append("    channel_count=channel_count,")
+    body.extend(f"    {name}={name}," for name in params)
+    body.append(")")
+    globals_ = {
+        "CalculationRate": CalculationRate,
+        "DoneAction": DoneAction,
+        "SupportsFloat": SupportsFloat,
+        "UGenMethodMixin": UGenMethodMixin,
+        "Union": Union,
+    }
+    return _create_fn(
+        cls,
+        name,
+        args=args,
+        body=body,
+        decorator=classmethod,
+        globals_=globals_,
+        return_type=cls,
+    )
+
+
+def _add_param_fn(cls, name, index, unexpanded):
+    args = ["self"]
+    if unexpanded:
+        body = [f"return self._inputs[{index}:]"]
+    else:
+        body = [f"return self._inputs[{index}]"]
+    return _create_fn(
+        cls,
+        name,
+        args=args,
+        body=body,
+        decorator=property,
+        override=True,
+        return_type=Union[SupportsFloat, UGenMethodMixin],
+    )
+
+
+class Check(Enum):
+    NONE = 0
+    SAME_AS_FIRST = 1
+    SAME_OR_SLOWER = 2
+
+
+class Param(NamedTuple):
+    default: Optional[float] = None
+    check: Check = Check.NONE
+    unexpanded: bool = False
+
+
+def _process_class(
+    cls,
+    *,
+    ar,
+    kr,
+    ir,
+    dr,
+    new,
+    has_done_flag,
+    is_input,
+    is_multichannel,
+    is_output,
+    is_pure,
+    is_width_first,
+    channel_count,
+    fixed_channel_count,
+    signal_range,
+) -> Type:
+    params = {}
+    unexpanded_input_names = []
+    valid_calculation_rates = []
+    for name, value in cls.__dict__.items():
+        if not isinstance(value, Param):
+            continue
+        params[name] = value.default
+        if value.unexpanded:
+            unexpanded_input_names.append(name)
+        _add_param_fn(cls, name, len(params) - 1, value.unexpanded)
+    _add_init(cls, params, is_multichannel, channel_count, fixed_channel_count)
+    for should_add, rate in [
+        (ar, CalculationRate.AUDIO),
+        (kr, CalculationRate.CONTROL),
+        (ir, CalculationRate.SCALAR),
+        (dr, CalculationRate.DEMAND),
+        (new, None),
+    ]:
+        if not should_add:
+            continue
+        _add_rate_fn(
+            cls, rate, params, is_multichannel, channel_count, fixed_channel_count
+        )
+        if rate is not None:
+            valid_calculation_rates.append(rate)
+    cls._has_done_flag = bool(has_done_flag)
+    cls._is_input = bool(is_input)
+    cls._is_output = bool(is_output)
+    cls._is_pure = bool(is_pure)
+    cls._is_width_first = bool(is_width_first)
+    cls._ordered_input_names = params
+    cls._unexpanded_input_names = tuple(unexpanded_input_names)
+    cls._valid_calculation_rates = tuple(valid_calculation_rates)
+    if signal_range is not None:
+        cls._signal_range = SignalRange.from_expr(signal_range)
+    return cls
+
+
+def param(
+    default: Optional[float] = None,
+    *,
+    check: Check = Check.NONE,
+    unexpanded: bool = False,
+) -> Param:
+    """
+    Define a UGen parameter.
+
+    Akin to dataclasses.field.
+    """
+    return Param(default, check, unexpanded)
+
+
+def ugen(
+    cls: Optional[Type] = None,
+    *,
+    ar: bool = False,
+    kr: bool = False,
+    ir: bool = False,
+    dr: bool = False,
+    new: bool = False,
+    has_done_flag: bool = False,
+    is_input: bool = False,
+    is_multichannel: bool = False,
+    is_output: bool = False,
+    is_pure: bool = False,
+    is_width_first: bool = False,
+    channel_count: int = 1,
+    fixed_channel_count: bool = False,
+    signal_range: Optional[int] = None,
+) -> Union[Type, Callable[[Type], Type]]:
+    """
+    Decorate a UGen class.
+
+    Akin to dataclasses.dataclass.
+    """
+
+    if is_multichannel and fixed_channel_count:
+        raise ValueError
+
+    def wrap(cls: Type) -> Type:
+        return _process_class(
+            cls,
+            ar=ar,
+            kr=kr,
+            ir=ir,
+            dr=dr,
+            new=new,
+            has_done_flag=has_done_flag,
+            is_input=is_input,
+            is_multichannel=is_multichannel,
+            is_output=is_output,
+            is_pure=is_pure,
+            is_width_first=is_width_first,
+            channel_count=channel_count,
+            fixed_channel_count=fixed_channel_count,
+            signal_range=signal_range,
+        )
+
+    if cls is None:
+        return wrap
+    return wrap(cls)
 
 
 class UGenMethodMixin(SupriyaObject):
@@ -1838,7 +2092,7 @@ class UGenMethodMixin(SupriyaObject):
         def recurse(uuid, ugen, all_ugens):
             if hasattr(ugen, "inputs"):
                 for input_ in ugen.inputs:
-                    if not isinstance(input_, supriya.synthdefs.OutputProxy):
+                    if not isinstance(input_, OutputProxy):
                         continue
                     input_ = input_.source
                     input_._uuid = uuid
@@ -1847,42 +2101,39 @@ class UGenMethodMixin(SupriyaObject):
             if ugen not in all_ugens:
                 all_ugens.append(ugen)
 
-        import supriya.ugens
+        from ..synthdefs import SynthDefBuilder
 
-        builder = supriya.synthdefs.SynthDefBuilder()
+        builder = SynthDefBuilder()
         ugens = copy.deepcopy(self)
-        if not isinstance(ugens, supriya.synthdefs.UGenArray):
+        if not isinstance(ugens, UGenArray):
             ugens = [ugens]
         all_ugens = []
-        for ugen in ugens:
-            if isinstance(ugen, supriya.synthdefs.OutputProxy):
-                ugen = ugen.source
-            recurse(builder._uuid, ugen, all_ugens)
-        for ugen in all_ugens:
-            if isinstance(ugen, supriya.synthdefs.UGen):
-                builder._add_ugens(ugen)
+        for u in ugens:
+            if isinstance(u, OutputProxy):
+                u = u.source
+            recurse(builder._uuid, u, all_ugens)
+        for u in all_ugens:
+            if isinstance(u, UGen):
+                builder._add_ugens(u)
             else:
-                builder._add_parameter(ugen)
+                builder._add_parameter(u)
         return builder.build(optimize=False)
 
     @staticmethod
     def _compute_binary_op(left, right, operator):
-        import supriya.synthdefs
-        import supriya.ugens
-
         result = []
-        if not isinstance(left, collections.abc.Sequence):
+        if not isinstance(left, Sequence):
             left = (left,)
-        if not isinstance(right, collections.abc.Sequence):
+        if not isinstance(right, Sequence):
             right = (right,)
         dictionary = {"left": left, "right": right}
         operator = BinaryOperator.from_expr(operator)
         special_index = operator.value
-        for expanded_dict in supriya.synthdefs.UGen._expand_dictionary(dictionary):
+        for expanded_dict in UGen._expand_dictionary(dictionary):
             left = expanded_dict["left"]
             right = expanded_dict["right"]
             calculation_rate = UGenMethodMixin._compute_binary_rate(left, right)
-            ugen = supriya.synthdefs.BinaryOpUGen._new_single(
+            ugen = BinaryOpUGen._new_single(
                 calculation_rate=calculation_rate,
                 left=left,
                 right=right,
@@ -1891,35 +2142,21 @@ class UGenMethodMixin(SupriyaObject):
             result.append(ugen)
         if len(result) == 1:
             return result[0]
-        return supriya.synthdefs.UGenArray(result)
+        return UGenArray(result)
 
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
-        import supriya.synthdefs
-
-        a_rate = supriya.CalculationRate.from_expr(ugen_a)
-        b_rate = supriya.CalculationRate.from_expr(ugen_b)
-        if (
-            a_rate == supriya.CalculationRate.DEMAND
-            or a_rate == supriya.CalculationRate.DEMAND
-        ):
-            return supriya.CalculationRate.DEMAND
-        elif (
-            a_rate == supriya.CalculationRate.AUDIO
-            or b_rate == supriya.CalculationRate.AUDIO
-        ):
-            return supriya.CalculationRate.AUDIO
-        elif (
-            a_rate == supriya.CalculationRate.CONTROL
-            or b_rate == supriya.CalculationRate.CONTROL
-        ):
-            return supriya.CalculationRate.CONTROL
-        return supriya.CalculationRate.SCALAR
+        a_rate = CalculationRate.from_expr(ugen_a)
+        b_rate = CalculationRate.from_expr(ugen_b)
+        if a_rate == CalculationRate.DEMAND or a_rate == CalculationRate.DEMAND:
+            return CalculationRate.DEMAND
+        elif a_rate == CalculationRate.AUDIO or b_rate == CalculationRate.AUDIO:
+            return CalculationRate.AUDIO
+        elif a_rate == CalculationRate.CONTROL or b_rate == CalculationRate.CONTROL:
+            return CalculationRate.CONTROL
+        return CalculationRate.SCALAR
 
     def _compute_ugen_map(self, map_ugen, **kwargs):
-        import supriya.synthdefs
-        import supriya.ugens
-
         sources = []
         ugens = []
         if len(self) == 1:
@@ -1927,28 +2164,25 @@ class UGenMethodMixin(SupriyaObject):
         else:
             sources = self
         for source in sources:
-            method = supriya.synthdefs.UGen._get_method_for_rate(map_ugen, source)
+            method = UGen._get_method_for_rate(map_ugen, source)
             ugen = method(source=source, **kwargs)
             ugens.extend(ugen)
         if 1 < len(ugens):
-            return supriya.synthdefs.UGenArray(ugens)
+            return UGenArray(ugens)
         elif len(ugens) == 1:
             return ugens[0].source
         return []
 
     @staticmethod
     def _compute_unary_op(source, operator):
-        import supriya.synthdefs
-        import supriya.ugens
-
         result = []
-        if not isinstance(source, collections.abc.Sequence):
+        if not isinstance(source, Sequence):
             source = (source,)
         operator = UnaryOperator.from_expr(operator)
         special_index = operator.value
         for single_source in source:
-            calculation_rate = supriya.CalculationRate.from_expr(single_source)
-            ugen = supriya.synthdefs.UnaryOpUGen._new_single(
+            calculation_rate = CalculationRate.from_expr(single_source)
+            ugen = UnaryOpUGen._new_single(
                 calculation_rate=calculation_rate,
                 source=single_source,
                 special_index=special_index,
@@ -1956,22 +2190,18 @@ class UGenMethodMixin(SupriyaObject):
             result.append(ugen)
         if len(result) == 1:
             return result[0]
-        return supriya.synthdefs.UGenArray(result)
+        return UGenArray(result)
 
     def _get_output_proxy(self, i):
-        import supriya.synthdefs
-
         if isinstance(i, int):
             if not (0 <= i < len(self)):
                 raise IndexError(i, len(self))
-            return supriya.synthdefs.OutputProxy(self, i)
+            return OutputProxy(self, i)
         indices = i.indices(len(self))
         if not (0 <= indices[0] <= indices[1] <= len(self)):
             raise IndexError(i, indices, len(self))
-        output_proxies = (
-            supriya.synthdefs.OutputProxy(self, i) for i in range(*indices)
-        )
-        return supriya.synthdefs.UGenArray(output_proxies)
+        output_proxies = (OutputProxy(self, i) for i in range(*indices))
+        return UGenArray(output_proxies)
 
     ### PUBLIC METHODS ###
 
@@ -2244,11 +2474,9 @@ class UGenMethodMixin(SupriyaObject):
                             maximum: 0.25
 
         """
-        import supriya.ugens
+        from . import Clip
 
-        return self._compute_ugen_map(
-            supriya.ugens.Clip, minimum=minimum, maximum=maximum
-        )
+        return self._compute_ugen_map(Clip, minimum=minimum, maximum=maximum)
 
     def cubed(self):
         """
@@ -2587,9 +2815,9 @@ class UGenMethodMixin(SupriyaObject):
                             lag_time: 0.5
 
         """
-        import supriya.ugens
+        from . import Lag
 
-        return self._compute_ugen_map(supriya.ugens.Lag, lag_time=lag_time)
+        return self._compute_ugen_map(Lag, lag_time=lag_time)
 
     def log(self):
         """
@@ -2794,8 +3022,8 @@ class UGenMethodMixin(SupriyaObject):
 
     def exponential_range(self, minimum=0.01, maximum=1.0):
         if self.signal_range == SignalRange.BIPOLAR:
-            return self.linexp(-1, 1, minimum, maximum)
-        return self.linexp(0, 1, minimum, maximum)
+            return self.scale(-1, 1, minimum, maximum, exponential=True)
+        return self.scale(0, 1, minimum, maximum, exponential=True)
 
     def ratio_to_semitones(self):
         """
@@ -2999,11 +3227,11 @@ class UGenMethodMixin(SupriyaObject):
                             output_maximum: 0.75
 
         """
-        import supriya.ugens
+        from . import LinExp, LinLin
 
-        map_ugen = supriya.ugens.LinLin
+        map_ugen = LinLin
         if exponential:
-            map_ugen = supriya.ugens.LinExp
+            map_ugen = LinExp
         return self._compute_ugen_map(
             map_ugen,
             input_minimum=input_minimum,
@@ -3121,7 +3349,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = supriya.ugens.SinOsc.ar([440, 442, 443])
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(frequency=[440, 442, 443])
                 >>> result = ugen_graph.sum()
 
             ::
@@ -3150,9 +3378,9 @@ class UGenMethodMixin(SupriyaObject):
 
         Returns ugen graph.
         """
-        import supriya.ugens
+        from . import Mix
 
-        return supriya.ugens.Mix.new(self)
+        return Mix.new(self)
 
     def tanh(self):
         """
@@ -3287,7 +3515,7 @@ class UGenMethodMixin(SupriyaObject):
         return self._compute_unary_op(self, UnaryOperator.WELCH_WINDOW)
 
 
-class UGenArray(UGenMethodMixin, collections.abc.Sequence):
+class UGenArray(UGenMethodMixin, Sequence):
 
     ### CLASS VARIABLES ###
 
@@ -3296,7 +3524,7 @@ class UGenArray(UGenMethodMixin, collections.abc.Sequence):
     ### INITIALIZER ###
 
     def __init__(self, ugens):
-        assert isinstance(ugens, collections.abc.Iterable)
+        assert isinstance(ugens, Iterable)
         ugens = tuple(ugens)
         assert len(ugens)
         self._ugens = ugens
@@ -3384,3 +3612,638 @@ class OutputProxy(UGenMethodMixin):
     @property
     def source(self):
         return self._source
+
+
+class UGen(UGenMethodMixin):
+    """
+    A UGen.
+    """
+
+    ### CLASS VARIABLES ###
+
+    __slots__ = ("_inputs", "_input_names", "_special_index", "_uuid")
+
+    _default_channel_count = 1
+
+    _has_settable_channel_count = False
+
+    _has_done_flag = False
+
+    _is_input = False
+
+    _is_output = False
+
+    _is_pure = False
+
+    _is_width_first = False
+
+    _ordered_input_names: UGenInputMap = None
+
+    _signal_range: int = SignalRange.BIPOLAR
+
+    _unexpanded_input_names: Tuple[str, ...] = ()
+
+    _valid_calculation_rates: Tuple[int, ...] = ()
+
+    ### INITIALIZER ###
+
+    def __init__(self, calculation_rate=None, special_index=0, **kwargs):
+        import supriya.synthdefs
+
+        calculation_rate = CalculationRate.from_expr(calculation_rate)
+        if self._valid_calculation_rates:
+            assert calculation_rate in self._valid_calculation_rates
+        self._calculation_rate = calculation_rate
+        self._inputs = []
+        self._input_names = []
+        self._special_index = special_index
+        ugenlike_prototype = (UGen, supriya.synthdefs.Parameter)
+        server_id_prototype = (
+            supriya.realtime.ServerObject,
+            supriya.realtime.BusProxy,
+            supriya.realtime.BufferProxy,
+        )
+        for input_name in self._ordered_input_names:
+            input_value = None
+            if input_name in kwargs:
+                input_value = kwargs.pop(input_name)
+            if isinstance(input_value, ugenlike_prototype):
+                assert len(input_value) == 1
+                input_value = input_value[0]
+            elif isinstance(input_value, server_id_prototype):
+                input_value = int(input_value)
+            if self._is_unexpanded_input_name(input_name):
+                if not isinstance(input_value, Sequence):
+                    input_value = (input_value,)
+                if isinstance(input_value, Sequence):
+                    input_value = tuple(input_value)
+                elif not self._is_valid_input(input_value):
+                    raise ValueError(input_name, input_value)
+            elif not self._is_valid_input(input_value):
+                raise ValueError(input_name, input_value)
+            self._configure_input(input_name, input_value)
+        if kwargs:
+            raise ValueError(kwargs)
+        assert all(isinstance(_, (OutputProxy, float)) for _ in self.inputs)
+        self._validate_inputs()
+        self._uuid = None
+        if supriya.synthdefs.SynthDefBuilder._active_builders:
+            builder = supriya.synthdefs.SynthDefBuilder._active_builders[-1]
+            self._uuid = builder._uuid
+            builder._add_ugens(self)
+        self._check_inputs_share_same_uuid()
+
+    ### SPECIAL METHODS ###
+
+    def __getitem__(self, i):
+        """
+        Gets output proxy at index `i`.
+
+        ::
+
+            >>> ugen = supriya.ugens.SinOsc.ar()
+            >>> ugen[0]
+            SinOsc.ar()[0]
+
+        Returns output proxy.
+        """
+        return self._get_output_proxy(i)
+
+    def __len__(self):
+        """
+        Gets number of ugen outputs.
+
+        Returns integer.
+        """
+        return getattr(self, "_channel_count", self._default_channel_count)
+
+    def __repr__(self):
+        """
+        Gets interpreter representation of ugen.
+
+        ::
+
+            >>> ugen = supriya.ugens.SinOsc.ar()
+            >>> repr(ugen)
+            'SinOsc.ar()'
+
+        ::
+
+            >>> ugen = supriya.ugens.WhiteNoise.kr()
+            >>> repr(ugen)
+            'WhiteNoise.kr()'
+
+        ::
+
+            >>> ugen = supriya.ugens.Rand.ir()
+            >>> repr(ugen)
+            'Rand.ir()'
+
+        Returns string.
+        """
+        return f"{type(self).__name__}.{self.calculation_rate.token}()"
+
+    ### PRIVATE METHODS ###
+
+    @staticmethod
+    def _as_audio_rate_input(expr):
+        from . import DC, K2A, Silence
+
+        if isinstance(expr, (int, float)):
+            if expr == 0:
+                return Silence.ar()
+            return DC.ar(expr)
+        elif isinstance(expr, (UGen, OutputProxy)):
+            if expr.calculation_rate == CalculationRate.AUDIO:
+                return expr
+            return K2A.ar(source=expr)
+        elif isinstance(expr, Iterable):
+            return UGenArray(UGen._as_audio_rate_input(x) for x in expr)
+        raise ValueError(expr)
+
+    def _add_constant_input(self, name, value):
+        self._inputs.append(float(value))
+        self._input_names.append(name)
+
+    def _add_ugen_input(self, name, ugen, output_index=None):
+        if isinstance(ugen, OutputProxy):
+            output_proxy = ugen
+        else:
+            output_proxy = OutputProxy(output_index=output_index, source=ugen)
+        self._inputs.append(output_proxy)
+        self._input_names.append(name)
+
+    def _check_inputs_share_same_uuid(self):
+        for input_ in self.inputs:
+            if not isinstance(input_, OutputProxy):
+                continue
+            if input_.source._uuid != self._uuid:
+                message = "UGen input in different scope: {!r}"
+                message = message.format(input_.source)
+                raise ValueError(message)
+
+    def _check_rate_same_as_first_input_rate(self):
+        first_input_rate = CalculationRate.from_expr(self.inputs[0])
+        return self.calculation_rate == first_input_rate
+
+    def _check_range_of_inputs_at_audio_rate(self, start=None, stop=None):
+        if self.calculation_rate != CalculationRate.AUDIO:
+            return True
+        for input_ in self.inputs[start:stop]:
+            calculation_rate = CalculationRate.from_expr(input_)
+            if calculation_rate != CalculationRate.AUDIO:
+                return False
+        return True
+
+    def _configure_input(self, name, value):
+        from ..synthdefs import Parameter
+
+        ugen_prototype = (OutputProxy, Parameter, UGen)
+        if hasattr(value, "__float__"):
+            self._add_constant_input(name, float(value))
+        elif isinstance(value, ugen_prototype):
+            self._add_ugen_input(name, value._get_source(), value._get_output_number())
+        elif isinstance(value, Sequence):
+            if name not in self._unexpanded_input_names:
+                raise ValueError(name, self._unexpanded_input_names)
+            for i, x in enumerate(value):
+                if hasattr(x, "__float__"):
+                    self._add_constant_input((name, i), float(x))
+                elif isinstance(x, ugen_prototype):
+                    self._add_ugen_input(
+                        (name, i), x._get_source(), x._get_output_number()
+                    )
+                else:
+                    raise Exception("{!r} {!r}".format(value, x))
+        else:
+            raise ValueError(f"Invalid input: {value!r}")
+
+    @staticmethod
+    def _expand_dictionary(dictionary, unexpanded_input_names=None):
+        """
+        Expands a dictionary into multichannel dictionaries.
+
+        ::
+
+            >>> dictionary = {"foo": 0, "bar": (1, 2), "baz": (3, 4, 5)}
+            >>> result = UGen._expand_dictionary(dictionary)
+            >>> for x in result:
+            ...     sorted(x.items())
+            ...
+            [('bar', 1), ('baz', 3), ('foo', 0)]
+            [('bar', 2), ('baz', 4), ('foo', 0)]
+            [('bar', 1), ('baz', 5), ('foo', 0)]
+
+        ::
+
+            >>> dictionary = {"bus": (8, 9), "source": (1, 2, 3)}
+            >>> result = UGen._expand_dictionary(
+            ...     dictionary,
+            ...     unexpanded_input_names=("source",),
+            ... )
+            >>> for x in result:
+            ...     sorted(x.items())
+            ...
+            [('bus', 8), ('source', (1, 2, 3))]
+            [('bus', 9), ('source', (1, 2, 3))]
+
+        """
+        import supriya.synthdefs
+
+        dictionary = dictionary.copy()
+        cached_unexpanded_inputs = {}
+        if unexpanded_input_names is not None:
+            for input_name in unexpanded_input_names:
+                if input_name not in dictionary:
+                    continue
+                cached_unexpanded_inputs[input_name] = dictionary[input_name]
+                del dictionary[input_name]
+        maximum_length = 1
+        result = []
+        prototype = (Sequence, UGen, supriya.synthdefs.Parameter)
+        for name, value in dictionary.items():
+            if isinstance(value, prototype) and not isinstance(value, str):
+                maximum_length = max(maximum_length, len(value))
+        for i in range(maximum_length):
+            result.append({})
+            for name, value in dictionary.items():
+                if isinstance(value, prototype) and not isinstance(value, str):
+                    value = value[i % len(value)]
+                    result[i][name] = value
+                else:
+                    result[i][name] = value
+        for expanded_inputs in result:
+            expanded_inputs.update(cached_unexpanded_inputs)
+        return result
+
+    def _get_done_action(self):
+        if "done_action" not in self._ordered_input_names:
+            return None
+        return DoneAction.from_expr(int(self.done_action))
+
+    @staticmethod
+    def _get_method_for_rate(cls, calculation_rate):
+        calculation_rate = CalculationRate.from_expr(calculation_rate)
+        if calculation_rate == CalculationRate.AUDIO:
+            return cls.ar
+        elif calculation_rate == CalculationRate.CONTROL:
+            return cls.kr
+        elif calculation_rate == CalculationRate.SCALAR:
+            if hasattr(cls, "ir"):
+                return cls.ir
+            return cls.kr
+        return cls.new
+
+    def _get_output_number(self):
+        return 0
+
+    def _get_outputs(self):
+        return [self.calculation_rate] * len(self)
+
+    def _get_source(self):
+        return self
+
+    def _is_unexpanded_input_name(self, input_name):
+        if self._unexpanded_input_names:
+            if input_name in self._unexpanded_input_names:
+                return True
+        return False
+
+    def _is_valid_input(self, input_value):
+        if isinstance(input_value, OutputProxy):
+            return True
+        elif hasattr(input_value, "__float__"):
+            return True
+        return False
+
+    @classmethod
+    def _new_expanded(cls, **kwargs):
+        output_proxies = []
+        for input_dict in UGen._expand_dictionary(
+            kwargs, unexpanded_input_names=cls._unexpanded_input_names
+        ):
+            ugen = cls._new_single(**input_dict)
+            if len(ugen) <= 1:
+                output_proxies.append(ugen)
+            else:
+                output_proxies.extend(ugen[:])
+        if len(output_proxies) == 1:
+            return output_proxies[0]
+        return UGenArray(output_proxies)
+
+    @classmethod
+    def _new_single(cls, **kwargs):
+        return cls(**kwargs)
+
+    def _optimize_graph(self, sort_bundles):
+        if self._is_pure:
+            self._perform_dead_code_elimination(sort_bundles)
+
+    def _perform_dead_code_elimination(self, sort_bundles):
+        sort_bundle = sort_bundles.get(self, None)
+        if not sort_bundle or sort_bundle.descendants:
+            return
+        del sort_bundles[self]
+        for antecedent in tuple(sort_bundle.antecedents):
+            antecedent_bundle = sort_bundles.get(antecedent, None)
+            if not antecedent_bundle:
+                continue
+            antecedent_bundle.descendants.remove(self)
+            antecedent._optimize_graph(sort_bundles)
+
+    def _validate_inputs(self):
+        pass
+
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _has_done_action(self):
+        return "done_action" in self._ordered_input_names
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def calculation_rate(self):
+        """
+        Gets calculation-rate of ugen.
+
+        ::
+
+            >>> ugen = supriya.ugens.SinOsc.ar(
+            ...     frequency=supriya.ugens.WhiteNoise.kr(),
+            ...     phase=0.5,
+            ... )
+            >>> ugen.calculation_rate
+            CalculationRate.AUDIO
+
+        Returns calculation-rate.
+        """
+        return self._calculation_rate
+
+    @property
+    def has_done_flag(self):
+        return self._has_done_flag
+
+    @property
+    def inputs(self):
+        """
+        Gets inputs of ugen.
+
+        ::
+
+            >>> ugen = supriya.ugens.SinOsc.ar(
+            ...     frequency=supriya.ugens.WhiteNoise.kr(),
+            ...     phase=0.5,
+            ... )
+            >>> for input_ in ugen.inputs:
+            ...     input_
+            ...
+            WhiteNoise.kr()[0]
+            0.5
+
+        Returns tuple.
+        """
+        return tuple(self._inputs)
+
+    @property
+    def is_input_ugen(self):
+        return self._is_input
+
+    @property
+    def is_output_ugen(self):
+        return self._is_output
+
+    @property
+    def outputs(self):
+        """
+        Gets outputs of ugen.
+
+        ::
+
+            >>> ugen = supriya.ugens.SinOsc.ar(
+            ...     frequency=supriya.ugens.WhiteNoise.kr(),
+            ...     phase=0.5,
+            ... )
+            >>> ugen.outputs
+            (CalculationRate.AUDIO,)
+
+        Returns tuple.
+        """
+        return tuple(self._get_outputs())
+
+    @property
+    def signal_range(self):
+        """
+        Gets signal range of ugen.
+
+        ::
+
+            >>> ugen = supriya.ugens.SinOsc.ar()
+            >>> ugen.signal_range
+            SignalRange.BIPOLAR
+
+        A bipolar signal range indicates that the ugen generates signals above
+        and below zero.
+
+        A unipolar signal range indicates that the ugen only generates signals
+        of 0 or greater.
+
+        Returns signal range.
+        """
+        return self._signal_range
+
+    @property
+    def special_index(self):
+        """
+        Gets special index of ugen.
+
+        ::
+
+            >>> ugen = supriya.ugens.SinOsc.ar(
+            ...     frequency=supriya.ugens.WhiteNoise.kr(),
+            ...     phase=0.5,
+            ... )
+            >>> ugen.special_index
+            0
+
+        The `special index` of most ugens will be 0. SuperColliders's synth
+        definition file format uses the special index to store the operator id
+        for binary and unary operator ugens, and the parameter index of
+        controls.
+
+        Returns integer.
+        """
+        return self._special_index
+
+
+class MultiOutUGen(UGen):
+    """
+    Abstract base class for ugens with multiple outputs.
+    """
+
+    ### INTIALIZER ###
+
+    def __init__(self, channel_count=1, **kwargs):
+        self._channel_count = int(channel_count)
+        UGen.__init__(self, **kwargs)
+
+
+@ugen(is_pure=True)
+class UnaryOpUGen(UGen):
+    """
+    A unary operator ugen, created by applying a unary operator to a ugen.
+
+    ::
+
+        >>> ugen = supriya.ugens.SinOsc.ar()
+        >>> unary_op_ugen = abs(ugen)
+        >>> unary_op_ugen
+        UnaryOpUGen.ar()
+
+    ::
+
+        >>> unary_op_ugen.operator
+        UnaryOperator.ABSOLUTE_VALUE
+
+    """
+
+    ### CLASS VARIABLES ###
+
+    source = param(None)
+
+    ### INITIALIZER ###
+
+    def __init__(self, calculation_rate=None, source=None, special_index=None):
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            source=source,
+            special_index=special_index,
+        )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def operator(self):
+        """
+        Gets operator of UnaryOpUgen.
+
+        ::
+
+            >>> source = supriya.ugens.SinOsc.ar()
+            >>> unary_op_ugen = -source
+            >>> unary_op_ugen.operator
+            UnaryOperator.NEGATIVE
+
+        Returns unary operator.
+        """
+        return UnaryOperator(self.special_index)
+
+
+@ugen(is_pure=True)
+class BinaryOpUGen(UGen):
+    """
+    A binary operator ugen, created by applying a binary operator to two
+    ugens.
+
+    ::
+
+        >>> left_operand = supriya.ugens.SinOsc.ar()
+        >>> right_operand = supriya.ugens.WhiteNoise.kr()
+        >>> binary_op_ugen = left_operand * right_operand
+        >>> binary_op_ugen
+        BinaryOpUGen.ar()
+
+    ::
+
+        >>> binary_op_ugen.operator
+        BinaryOperator.MULTIPLICATION
+
+    """
+
+    ### CLASS VARIABLES ###
+
+    left = param(None)
+    right = param(None)
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self, calculation_rate=None, special_index=None, left=None, right=None
+    ):
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            special_index=special_index,
+            left=left,
+            right=right,
+        )
+
+    ### PRIVATE METHODS ###
+
+    @classmethod
+    def _new_single(
+        cls, calculation_rate=None, special_index=None, left=None, right=None
+    ):
+        a = left
+        b = right
+        if special_index == BinaryOperator.MULTIPLICATION:
+            if a == 0:
+                return 0
+            if b == 0:
+                return 0
+            if a == 1:
+                return b
+            if a == 1:
+                return -b
+            if b == 1:
+                return a
+            if b == -1:
+                return -a
+        if special_index == BinaryOperator.ADDITION:
+            if a == 0:
+                return b
+            if b == 0:
+                return a
+        if special_index == BinaryOperator.SUBTRACTION:
+            if a == 0:
+                return -b
+            if b == 0:
+                return a
+        if special_index == BinaryOperator.FLOAT_DIVISION:
+            if b == 1:
+                return a
+            if b == -1:
+                return -a
+        ugen = cls(
+            calculation_rate=calculation_rate,
+            special_index=special_index,
+            left=a,
+            right=b,
+        )
+        return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def operator(self):
+        """
+        Gets operator of BinaryOpUgen.
+
+        ::
+
+            >>> left = supriya.ugens.SinOsc.ar()
+            >>> right = supriya.ugens.WhiteNoise.kr()
+            >>> binary_op_ugen = left / right
+            >>> binary_op_ugen.operator
+            BinaryOperator.FLOAT_DIVISION
+
+        Returns binary operator.
+        """
+        return BinaryOperator(self.special_index)
+
+
+class PseudoUGen:
+    @abc.abstractmethod
+    def __init__(self):
+        raise NotImplementedError

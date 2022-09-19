@@ -1,9 +1,7 @@
-import collections
-
-from supriya import CalculationRate
-from supriya.synthdefs import UGen
+from .bases import UGen, param, ugen
 
 
+@ugen(ar=True, kr=True)
 class Ball(UGen):
     """
     A bouncing ball physical model.
@@ -22,12 +20,13 @@ class Ball(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("gravity", 1.0), ("damping", 0.0), ("friction", 0.01)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    gravity = param(1.0)
+    damping = param(0.0)
+    friction = param(0.01)
 
 
+@ugen(ar=True)
 class Pluck(UGen):
     """
     A Karplus-String UGen.
@@ -35,7 +34,7 @@ class Pluck(UGen):
     ::
 
         >>> source = supriya.ugens.WhiteNoise.ar()
-        >>> trigger = supriya.ugens.Dust.kr(2)
+        >>> trigger = supriya.ugens.Dust.kr(density=2)
         >>> pluck = supriya.ugens.Pluck.ar(
         ...     coefficient=0.5,
         ...     decay_time=1,
@@ -49,19 +48,15 @@ class Pluck(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("trigger", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1),
-            ("coefficient", 0.5),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    trigger = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1)
+    coefficient = param(0.5)
 
 
+@ugen(ar=True, kr=True)
 class Spring(UGen):
     """
     A resonating spring physical model.
@@ -79,12 +74,12 @@ class Spring(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("spring", 1), ("damping", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    spring = param(1.0)
+    damping = param(0.0)
 
 
+@ugen(ar=True, kr=True)
 class TBall(UGen):
     """
     A bouncing object physical model.
@@ -103,7 +98,7 @@ class TBall(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("gravity", 10), ("damping", 0), ("friction", 0.01)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    gravity = param(10.0)
+    damping = param(0.0)
+    friction = param(0.01)

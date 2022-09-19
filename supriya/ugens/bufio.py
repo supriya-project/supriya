@@ -1,10 +1,9 @@
-import collections
-
-from supriya import CalculationRate
-from supriya.synthdefs import MultiOutUGen, UGen, WidthFirstUGen
+from .. import CalculationRate, DoneAction
+from .bases import UGen, param, ugen
 
 
-class BufRd(MultiOutUGen):
+@ugen(ar=True, kr=True, is_multichannel=True)
+class BufRd(UGen):
     """
     A buffer-reading oscillator.
 
@@ -12,9 +11,9 @@ class BufRd(MultiOutUGen):
 
         >>> buffer_id = 23
         >>> phase = supriya.ugens.Phasor.ar(
-        ...     rate=supriya.ugens.BufRateScale.kr(buffer_id),
+        ...     rate=supriya.ugens.BufRateScale.kr(buffer_id=buffer_id),
         ...     start=0,
-        ...     stop=supriya.ugens.BufFrames.kr(buffer_id),
+        ...     stop=supriya.ugens.BufFrames.kr(buffer_id=buffer_id),
         ... )
         >>> buf_rd = supriya.ugens.BufRd.ar(
         ...     buffer_id=buffer_id,
@@ -28,14 +27,13 @@ class BufRd(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("phase", 0.0), ("loop", 1.0), ("interpolation", 2.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    phase = param(0.0)
+    loop = param(1)
+    interpolation = param(2)
 
 
+@ugen(ar=True, kr=True, has_done_flag=True)
 class BufWr(UGen):
     """
     A buffer-writing oscillator.
@@ -44,9 +42,9 @@ class BufWr(UGen):
 
         >>> buffer_id = 23
         >>> phase = supriya.ugens.Phasor.ar(
-        ...     rate=supriya.ugens.BufRateScale.kr(buffer_id),
+        ...     rate=supriya.ugens.BufRateScale.kr(buffer_id=buffer_id),
         ...     start=0,
-        ...     stop=supriya.ugens.BufFrames.kr(buffer_id),
+        ...     stop=supriya.ugens.BufFrames.kr(buffer_id=buffer_id),
         ... )
         >>> source = supriya.ugens.In.ar(bus=0, channel_count=2)
         >>> buf_wr = supriya.ugens.BufWr.ar(
@@ -60,15 +58,14 @@ class BufWr(UGen):
 
     """
 
-    _has_done_flag = True
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("phase", 0.0), ("loop", 1.0), ("source", None)]
-    )
-    _unexpanded_input_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    phase = param(0.0)
+    loop = param(1.0)
+    source = param(None, unexpanded=True)
 
 
-class ClearBuf(WidthFirstUGen):
+@ugen(ir=True, is_width_first=True)
+class ClearBuf(UGen):
     """
 
     ::
@@ -81,11 +78,11 @@ class ClearBuf(WidthFirstUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("buffer_id", None)])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
+    buffer_id = param(None)
 
 
-class LocalBuf(WidthFirstUGen):
+@ugen(ir=True, is_width_first=True)
+class LocalBuf(UGen):
     """
     A synth-local buffer.
 
@@ -106,7 +103,7 @@ class LocalBuf(WidthFirstUGen):
         >>> with supriya.synthdefs.SynthDefBuilder() as builder:
         ...     local_buf = supriya.ugens.LocalBuf(2048)
         ...     source = supriya.ugens.PinkNoise.ar()
-        ...     pv_chain = supriya.ugens.FFT(
+        ...     pv_chain = supriya.ugens.FFT.kr(
         ...         buffer_id=local_buf,
         ...         source=source,
         ...     )
@@ -128,26 +125,21 @@ class LocalBuf(WidthFirstUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [("channel_count", 1), ("frame_count", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
+    channel_count = param(1)
+    frame_count = param(1)
 
     ### INITIALIZER ###
 
     def __init__(self, frame_count=1, channel_count=1, calculation_rate=None):
-        import supriya.synthdefs
-
-        if calculation_rate is None:
-            calculation_rate = supriya.CalculationRate.SCALAR
-        WidthFirstUGen.__init__(
+        UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            calculation_rate=CalculationRate.SCALAR,
             channel_count=channel_count,
             frame_count=frame_count,
         )
 
 
+@ugen(ir=True)
 class MaxLocalBufs(UGen):
     """
     Sets the maximum number of local buffers in a synth.
@@ -156,27 +148,13 @@ class MaxLocalBufs(UGen):
 
     ::
 
-        >>> max_local_bufs = supriya.ugens.MaxLocalBufs(1)
+        >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=1)
         >>> max_local_bufs
         MaxLocalBufs.ir()
 
     """
 
-    ### CLASS VARIABLES ###
-
-    _ordered_input_names = collections.OrderedDict([("maximum", 0)])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
-
-    ### INITIALIZER ###
-
-    def __init__(self, maximum=0):
-        import supriya.synthdefs
-
-        maximum = float(maximum)
-        calculation_rate = supriya.CalculationRate.SCALAR
-        UGen.__init__(self, calculation_rate=calculation_rate, maximum=maximum)
-
-    ### PUBLIC METHODS ###
+    maximum = param(0)
 
     def increment(self):
         """
@@ -184,22 +162,23 @@ class MaxLocalBufs(UGen):
 
         ::
 
-            >>> max_local_bufs = supriya.ugens.MaxLocalBufs(1)
-            >>> max_local_bufs.maximum
-            1.0
+            >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=1)
+            >>> max_local_bufs.inputs
+            (1.0,)
 
         ::
 
             >>> max_local_bufs.increment()
-            >>> max_local_bufs.maximum
-            2.0
+            >>> max_local_bufs.inputs
+            (2.0,)
 
         Returns none.
         """
         self._inputs[0] += 1
 
 
-class PlayBuf(MultiOutUGen):
+@ugen(ar=True, kr=True, is_multichannel=True)
+class PlayBuf(UGen):
     """
     A sample playback oscillator.
 
@@ -220,21 +199,15 @@ class PlayBuf(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("rate", 1),
-            ("trigger", 1),
-            ("start_position", 0),
-            ("loop", 0),
-            ("done_action", 0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    rate = param(1)
+    trigger = param(1)
+    start_position = param(0)
+    loop = param(0)
+    done_action = param(0)
 
 
+@ugen(ar=True, kr=True, has_done_flag=True)
 class RecordBuf(UGen):
     """
     Records or overdubs into a buffer.
@@ -259,19 +232,12 @@ class RecordBuf(UGen):
 
     """
 
-    _has_done_flag = True
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("offset", 0),
-            ("record_level", 1),
-            ("preexisting_level", 0),
-            ("run", 1),
-            ("loop", 1),
-            ("trigger", 1),
-            ("done_action", 0),
-            ("source", None),
-        ]
-    )
-    _unexpanded_input_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    offset = param(0.0)
+    record_level = param(1.0)
+    preexisting_level = param(0.0)
+    run = param(1.0)
+    loop = param(1.0)
+    trigger = param(1.0)
+    done_action = param(DoneAction(0))
+    source = param(None, unexpanded=True)

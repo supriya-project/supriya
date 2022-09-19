@@ -2,7 +2,7 @@
 import platform
 
 import pytest
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya.synthdefs
 import supriya.ugens
@@ -794,7 +794,7 @@ def test_SynthDefCompiler_parameters_07():
         source = sine * builder["amplitude"]
         supriya.ugens.Out.ar(bus=builder["bus"], source=source)
     synthdef = builder.build(name="simple_sine")
-    assert uqbar.strings.normalize(str(synthdef)) == uqbar.strings.normalize(
+    assert normalize(str(synthdef)) == normalize(
         """
         synthdef:
             name: simple_sine
@@ -822,7 +822,7 @@ def test_SynthDefCompiler_building_is_idempotent():
     synthdef_a = builder.build()
     synthdef_b = builder.build()
     synthdef_c = builder.build()
-    assert uqbar.strings.normalize(str(synthdef_a)) == uqbar.strings.normalize(
+    assert normalize(str(synthdef_a)) == normalize(
         """
         synthdef:
             name: 937772273a43d21bcd7b9f096f42648a

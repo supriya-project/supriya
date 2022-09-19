@@ -43,6 +43,7 @@ docs = [
   "jupyter",
   "librosa",
   "matplotlib >= 3.3.0",
+  "mypy",
   # "numpy <= 1.22",  # librosa imports numba 0.56 which requires numpy 1.22 or lower
   "sphinx-immaterial >= 0.8.1",
   "sphinxext-opengraph",
@@ -102,6 +103,9 @@ skip = "supriya/__init__.py"
 
 [tool.mypy]
 ignore_missing_imports = true
+plugins = [
+    "supriya.ext.mypy",
+]
 
 [tool.pytest.ini_options]
 addopts = [
@@ -109,7 +113,6 @@ addopts = [
   "--cov-report=html",
   "--cov-report=term",
   "--doctest-modules",
-  "--durations=20",
   "-rf",
   "-vv",
 ]

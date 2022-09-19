@@ -11,7 +11,8 @@ import wave
 from os import PathLike
 from typing import Optional
 
-import uqbar.strings
+from uqbar.io import find_executable
+from uqbar.strings import to_dash_case
 
 import supriya
 from supriya.system import SupriyaObject, SupriyaValueObject
@@ -111,7 +112,7 @@ class Say(SupriyaValueObject):
                 relative_file_path = file_path
         if print_transcript:
             print("Rendering {}".format(relative_file_path))
-        if uqbar.io.find_executable("say"):
+        if find_executable("say"):
             command_parts = ["say"]
             command_parts.extend(["-o", str(relative_file_path)])
             if self.voice:
@@ -147,9 +148,7 @@ class Say(SupriyaValueObject):
         if self.voice is not None:
             md5.update(self.voice.encode())
         md5 = md5.hexdigest()
-        file_path = "{}-{}.aiff".format(
-            uqbar.strings.to_dash_case(type(self).__name__), md5
-        )
+        file_path = "{}-{}.aiff".format(to_dash_case(type(self).__name__), md5)
         return pathlib.Path(file_path)
 
     def _build_output_file_path(

@@ -129,29 +129,29 @@ class CalculationRate(IntEnumeration):
         ::
 
             >>> collection = []
-            >>> collection.append(supriya.ugens.DC.ar(0))
-            >>> collection.append(supriya.ugens.DC.kr(1))
+            >>> collection.append(supriya.ugens.DC.ar(source=0))
+            >>> collection.append(supriya.ugens.DC.kr(source=1))
             >>> collection.append(2.0)
             >>> supriya.CalculationRate.from_expr(collection)
             CalculationRate.AUDIO
 
         ::
             >>> collection = []
-            >>> collection.append(supriya.ugens.DC.kr(1))
+            >>> collection.append(supriya.ugens.DC.kr(source=1))
             >>> collection.append(2.0)
             >>> supriya.CalculationRate.from_expr(collection)
             CalculationRate.CONTROL
 
         Return calculation-rate.
         """
-        import supriya.synthdefs
-        import supriya.ugens
+        from .synthdefs import Parameter
+        from .ugens import OutputProxy, UGen
 
         if isinstance(expr, (int, float)) and not isinstance(expr, cls):
             return CalculationRate.SCALAR
-        elif isinstance(expr, (supriya.synthdefs.OutputProxy, supriya.synthdefs.UGen)):
+        elif isinstance(expr, (OutputProxy, UGen)):
             return expr.calculation_rate
-        elif isinstance(expr, supriya.synthdefs.Parameter):
+        elif isinstance(expr, Parameter):
             name = expr.parameter_rate.name
             if name == "TRIGGER":
                 return CalculationRate.CONTROL
@@ -174,6 +174,8 @@ class CalculationRate(IntEnumeration):
             return "kr"
         elif self == CalculationRate.AUDIO:
             return "ar"
+        elif self == CalculationRate.DEMAND:
+            return "dr"
         return "new"
 
 

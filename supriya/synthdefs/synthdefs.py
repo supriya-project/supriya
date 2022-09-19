@@ -6,23 +6,24 @@ import pathlib
 import shutil
 import subprocess
 import tempfile
+from typing import Dict, List, Optional, Tuple, Union
 
 import yaml
 
 from supriya import (
     BinaryOperator,
     CalculationRate,
+    DoneAction,
     ParameterRate,
     UnaryOperator,
     sclang,
 )
 from supriya.system import SupriyaObject
 
-from .bases import BinaryOpUGen, UGen, UnaryOpUGen, WidthFirstUGen
+from ..ugens import BinaryOpUGen, OutputProxy, UGen, UGenMethodMixin, UnaryOpUGen
 from .compilers import SynthDefCompiler
 from .controls import AudioControl, Control, LagControl, Parameter, TrigControl
 from .grapher import SynthDefGrapher
-from .mixins import OutputProxy, UGenMethodMixin
 
 
 class SynthDef:
@@ -87,7 +88,7 @@ class SynthDef:
 
     ### INITIALIZER ###
 
-    def __init__(self, ugens, name=None, optimize=True, parameter_names=None, **kwargs):
+    def __init__(self, ugens, name=None, optimize=True, **kwargs):
         self._name = name
         ugens = list(copy.deepcopy(ugens))
         assert all(isinstance(_, UGen) for _ in ugens)
@@ -99,14 +100,12 @@ class SynthDef:
         self._ugens = tuple(ugens)
         self._constants = self._collect_constants(self._ugens)
         self._control_ugens = self._collect_control_ugens(self._ugens)
-        self._indexed_parameters = self._collect_indexed_parameters(
-            self._control_ugens, parameter_names=parameter_names
-        )
+        self._indexed_parameters = self._collect_indexed_parameters(self._control_ugens)
         self._compiled_ugen_graph = SynthDefCompiler.compile_ugen_graph(self)
 
     ### SPECIAL METHODS ###
 
-    def __eq__(self, expr):
+    def __eq__(self, expr) -> bool:
         if type(expr) != type(self):
             return False
         if expr.name != self.name:
@@ -159,14 +158,14 @@ class SynthDef:
         """
         return SynthDefGrapher.graph(self)
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         hash_values = (type(self), self._name, self._compiled_ugen_graph)
         return hash(hash_values)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{}: {}>".format(type(self).__name__, self.actual_name)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Gets string representation of synth definition.
 
@@ -256,16 +255,15 @@ class SynthDef:
         ugens = []
         named_ugens = get_ugen_names()
         for ugen in self._ugens:
-            ugen_dict = {}
+            ugen_dict: Dict[str, Union[float, str]] = {}
             ugen_name = named_ugens[ugen]
             for input_name, input_ in zip(ugen._input_names, ugen._inputs):
-
                 if isinstance(input_name, str):
                     argument_name = input_name
                 else:
                     argument_name = f"{input_name[0]}[{input_name[1]}]"
                 if isinstance(input_, float):
-                    value = input_
+                    value: Union[float, str] = input_
                 else:
                     output_index = 0
                     if isinstance(input_, OutputProxy):
@@ -278,9 +276,7 @@ class SynthDef:
                         get_parameter_name(input_, output_index),
                     )
                 ugen_dict[argument_name] = value
-            if not ugen_dict:
-                ugen_dict = None
-            ugens.append({ugen_name: ugen_dict})
+            ugens.append({ugen_name: ugen_dict or None})
 
         result = {
             "synthdef": {
@@ -451,7 +447,7 @@ class SynthDef:
                 local_bufs.append(ugen)
             processed_ugens.append(ugen)
         if local_bufs:
-            max_local_bufs = supriya.ugens.MaxLocalBufs(len(local_bufs))
+            max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=len(local_bufs))
             for local_buf in local_bufs:
                 inputs = list(local_buf.inputs[:2])
                 inputs.append(max_local_bufs[0])
@@ -471,7 +467,9 @@ class SynthDef:
             for descendant, input_index in descendants[:-1]:
                 fft_size = antecedent.fft_size
                 new_buffer = supriya.ugens.LocalBuf(fft_size)
-                pv_copy = supriya.ugens.PV_Copy(antecedent, new_buffer)
+                pv_copy = supriya.ugens.PV_Copy.kr(
+                    pv_chain_a=antecedent, pv_chain_b=new_buffer
+                )
                 inputs = list(descendant._inputs)
                 inputs[input_index] = pv_copy[0]
                 descendant._inputs = tuple(inputs)
@@ -484,7 +482,7 @@ class SynthDef:
         return ugens
 
     @staticmethod
-    def _collect_constants(ugens):
+    def _collect_constants(ugens) -> Tuple[float, ...]:
         constants = []
         for ugen in ugens:
             for input_ in ugen._inputs:
@@ -500,7 +498,7 @@ class SynthDef:
         return control_ugens
 
     @staticmethod
-    def _collect_indexed_parameters(control_ugens, parameter_names=None):
+    def _collect_indexed_parameters(control_ugens):
         indexed_parameters = []
         parameters = {}
         for control_ugen in control_ugens:
@@ -508,8 +506,7 @@ class SynthDef:
             for parameter in control_ugen.parameters:
                 parameters[parameter.name] = (index, parameter)
                 index += len(parameter)
-        parameter_names = parameter_names or sorted(parameters)
-        for parameter_name in parameter_names:
+        for parameter_name in sorted(parameters):
             indexed_parameters.append(parameters[parameter_name])
         indexed_parameters = tuple(indexed_parameters)
         return indexed_parameters
@@ -531,7 +528,7 @@ class SynthDef:
         width_first_antecedents = []
         for ugen in ugens:
             sort_bundles[ugen] = UGenSortBundle(ugen, width_first_antecedents)
-            if isinstance(ugen, WidthFirstUGen):
+            if ugen._is_width_first:
                 width_first_antecedents.append(ugen)
         for ugen in ugens:
             sort_bundle = sort_bundles[ugen]
@@ -693,22 +690,22 @@ class SynthDef:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def actual_name(self):
+    def actual_name(self) -> str:
         return self.name or self.anonymous_name
 
     @property
-    def anonymous_name(self):
+    def anonymous_name(self) -> str:
         md5 = hashlib.md5()
         md5.update(self._compiled_ugen_graph)
         anonymous_name = md5.hexdigest()
         return anonymous_name
 
     @property
-    def audio_channel_count(self):
+    def audio_channel_count(self) -> int:
         return max(self.audio_input_channel_count, self.audio_output_channel_count)
 
     @property
-    def audio_input_channel_count(self):
+    def audio_input_channel_count(self) -> int:
         """
         Gets audio input channel count of synthdef.
 
@@ -740,13 +737,13 @@ class SynthDef:
             _ for _ in self.input_ugens if _.calculation_rate == CalculationRate.AUDIO
         )
         if len(ugens) == 1:
-            return ugens[0].channel_count
+            return len(ugens[0])
         elif not ugens:
             return 0
         raise ValueError
 
     @property
-    def audio_output_channel_count(self):
+    def audio_output_channel_count(self) -> int:
         """
         Gets audio output channel count of synthdef.
 
@@ -758,10 +755,30 @@ class SynthDef:
             ...     sin = supriya.ugens.SinOsc.ar(
             ...         frequency=audio_in,
             ...     )
-            ...     source = audio_in * control_in[1]
+            ...     source = sin * control_in[0]
             ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
             ...
             >>> synthdef = builder.build()
+            >>> print(synthdef)
+            synthdef:
+                name: ...
+                ugens:
+                -   In.ar:
+                        bus: 0.0
+                -   SinOsc.ar:
+                        frequency: In.ar[0]
+                        phase: 0.0
+                -   In.kr:
+                        bus: 0.0
+                -   BinaryOpUGen(MULTIPLICATION).ar:
+                        left: SinOsc.ar[0]
+                        right: In.kr[0]
+                -   Out.ar:
+                        bus: 0.0
+                        source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
+                        source[1]: BinaryOpUGen(MULTIPLICATION).ar[0]
+                        source[2]: BinaryOpUGen(MULTIPLICATION).ar[0]
+                        source[3]: BinaryOpUGen(MULTIPLICATION).ar[0]
 
         ::
 
@@ -784,19 +801,19 @@ class SynthDef:
         raise ValueError
 
     @property
-    def constants(self):
+    def constants(self) -> Tuple[float, ...]:
         return self._constants
 
     @property
-    def control_ugens(self):
+    def control_ugens(self) -> List[UGen]:
         return self._control_ugens
 
     @property
-    def control_channel_count(self):
+    def control_channel_count(self) -> int:
         return max(self.control_input_channel_count, self.control_output_channel_count)
 
     @property
-    def control_input_channel_count(self):
+    def control_input_channel_count(self) -> int:
         """
         Gets control input channel count of synthdef.
 
@@ -828,13 +845,13 @@ class SynthDef:
             _ for _ in self.input_ugens if _.calculation_rate == CalculationRate.CONTROL
         )
         if len(ugens) == 1:
-            return ugens[0].channel_count
+            return len(ugens[0])
         elif not ugens:
             return 0
         raise ValueError
 
     @property
-    def control_output_channel_count(self):
+    def control_output_channel_count(self) -> int:
         """
         Gets control output channel count of synthdef.
 
@@ -874,7 +891,7 @@ class SynthDef:
         raise ValueError
 
     @property
-    def done_actions(self):
+    def done_actions(self) -> List[DoneAction]:
         done_actions = set()
         for ugen in self.ugens:
             done_action = ugen._get_done_action()
@@ -883,7 +900,7 @@ class SynthDef:
         return sorted(done_actions)
 
     @property
-    def has_gate(self):
+    def has_gate(self) -> bool:
         return "gate" in self.parameter_names
 
     @property
@@ -891,35 +908,29 @@ class SynthDef:
         return self._indexed_parameters
 
     @property
-    def input_ugens(self):
+    def input_ugens(self) -> Tuple[UGen, ...]:
         return tuple(_ for _ in self.ugens if _.is_input_ugen)
 
     @property
-    def is_allocated(self):
-        if self.server is not None:
-            return self in self.server
-        return False
-
-    @property
-    def name(self):
+    def name(self) -> Optional[str]:
         return self._name
 
     @property
-    def output_ugens(self):
+    def output_ugens(self) -> Tuple[UGen, ...]:
         return tuple(_ for _ in self.ugens if _.is_output_ugen)
 
     @property
-    def parameters(self):
+    def parameters(self) -> Dict[str, Parameter]:
         return {
             parameter.name: parameter for index, parameter in self.indexed_parameters
         }
 
     @property
-    def parameter_names(self):
+    def parameter_names(self) -> List[str]:
         return [parameter.name for index, parameter in self.indexed_parameters]
 
     @property
-    def ugens(self):
+    def ugens(self) -> Tuple[UGen, ...]:
         return self._ugens
 
 
@@ -967,7 +978,7 @@ class UGenSortBundle(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    def clear(self):
+    def clear(self) -> None:
         self.antecedents[:] = []
         self.descendants[:] = []
         self.width_first_antecedents[:] = []

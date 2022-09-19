@@ -1,18 +1,6 @@
 """
 Tools for constructing and compiling synthesizer definitions (SynthDefs).
 """
-from .mixins import OutputProxy, UGenArray, UGenMethodMixin  # isort:skip
-from .bases import (
-    BinaryOpUGen,
-    MultiOutUGen,
-    PseudoUGen,
-    PureMultiOutUGen,
-    PureUGen,
-    UGen,
-    UGenMeta,
-    UnaryOpUGen,
-    WidthFirstUGen,
-)
 from .builders import SynthDefBuilder, synthdef
 from .compilers import SynthDefCompiler, SynthDefDecompiler
 from .controls import AudioControl, Control, LagControl, Parameter, Range, TrigControl
@@ -31,8 +19,6 @@ __all__ = [
     "OutputProxy",
     "Parameter",
     "PseudoUGen",
-    "PureMultiOutUGen",
-    "PureUGen",
     "Range",
     "SuperColliderSynthDef",
     "SynthDef",
@@ -42,12 +28,6 @@ __all__ = [
     "SynthDefFactory",
     "SynthDefGrapher",
     "TrigControl",
-    "UGen",
-    "UGenArray",
-    "UGenMeta",
-    "UGenMethodMixin",
     "UGenSortBundle",
-    "UnaryOpUGen",
-    "WidthFirstUGen",
     "synthdef",
 ]

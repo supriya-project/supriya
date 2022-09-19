@@ -1,10 +1,9 @@
-import collections
+from supriya import SignalRange
 
-from supriya import CalculationRate, SignalRange
-from supriya.synthdefs import UGen, WidthFirstUGen
-from supriya.typing import UGenInputMap
+from .bases import UGen, param, ugen
 
 
+@ugen(ar=True, kr=True)
 class BrownNoise(UGen):
     """
     A brown noise unit generator.
@@ -16,10 +15,8 @@ class BrownNoise(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
-
+@ugen(ar=True, kr=True)
 class ClipNoise(UGen):
     """
     A clipped noise unit generator.
@@ -31,10 +28,8 @@ class ClipNoise(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
-
+@ugen(ar=True, kr=True)
 class CoinGate(UGen):
     """
     A probabilistic trigger gate.
@@ -51,12 +46,11 @@ class CoinGate(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("probability", 0.5), ("trigger", None)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    probability = param(0.5)
+    trigger = param(None)
 
 
+@ugen(ar=True, kr=True)
 class Crackle(UGen):
     """
     A chaotic noise generator.
@@ -71,10 +65,10 @@ class Crackle(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("chaos_parameter", 1.5)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    chaos_parameter = param(1.5)
 
 
+@ugen(ar=True, kr=True, signal_range=SignalRange.UNIPOLAR)
 class Dust(UGen):
     """
     A unipolar random impulse generator.
@@ -89,11 +83,10 @@ class Dust(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("density", 0.0)])
-    _signal_range = SignalRange.UNIPOLAR
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    density = param(0.0)
 
 
+@ugen(ar=True, kr=True)
 class Dust2(UGen):
     """
     A bipolar random impulse generator.
@@ -108,10 +101,10 @@ class Dust2(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("density", 0.0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    density = param(0.0)
 
 
+@ugen(ir=True)
 class ExpRand(UGen):
     """
     An exponential random distribution.
@@ -124,12 +117,8 @@ class ExpRand(UGen):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    _ordered_input_names = collections.OrderedDict([("minimum", 0.0), ("maximum", 1.0)])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
-
-    ### INITIALIZER ###
+    minimum = param(0.0)
+    maximum = param(1.0)
 
     def __init__(self, calculation_rate=None, maximum=None, minimum=None):
         minimum, maximum = sorted([minimum, maximum])
@@ -138,6 +127,7 @@ class ExpRand(UGen):
         )
 
 
+@ugen(ar=True, kr=True)
 class GrayNoise(UGen):
     """
     A gray noise unit generator.
@@ -149,10 +139,8 @@ class GrayNoise(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
-
+@ugen(ar=True, kr=True)
 class Hasher(UGen):
     """
     A signal hasher.
@@ -168,10 +156,10 @@ class Hasher(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
 
 
+@ugen(ir=True)
 class IRand(UGen):
     """
     An integer uniform random distribution.
@@ -183,10 +171,11 @@ class IRand(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("minimum", 0), ("maximum", 127)])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
+    minimum = param(0)
+    maximum = param(127)
 
 
+@ugen(ar=True, kr=True)
 class LFClipNoise(UGen):
     """
     A dynamic clipped noise generator.
@@ -198,10 +187,10 @@ class LFClipNoise(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(500.0)
 
 
+@ugen(ar=True, kr=True)
 class LFDClipNoise(UGen):
     """
     A clipped noise generator.
@@ -213,10 +202,10 @@ class LFDClipNoise(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(500.0)
 
 
+@ugen(ar=True, kr=True)
 class LFDNoise0(UGen):
     """
     A dynamic step noise generator.
@@ -228,10 +217,10 @@ class LFDNoise0(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(500.0)
 
 
+@ugen(ar=True, kr=True)
 class LFDNoise1(UGen):
     """
     A dynamic ramp noise generator.
@@ -243,10 +232,10 @@ class LFDNoise1(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(500.0)
 
 
+@ugen(ar=True, kr=True)
 class LFDNoise3(UGen):
     """
     A dynamic polynomial noise generator.
@@ -258,10 +247,10 @@ class LFDNoise3(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(500.0)
 
 
+@ugen(ar=True, kr=True)
 class LFNoise0(UGen):
     """
     A step noise generator.
@@ -273,10 +262,10 @@ class LFNoise0(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(500.0)
 
 
+@ugen(ar=True, kr=True)
 class LFNoise1(UGen):
     """
     A ramp noise generator.
@@ -288,10 +277,10 @@ class LFNoise1(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(500.0)
 
 
+@ugen(ar=True, kr=True)
 class LFNoise2(UGen):
     """
     A quadratic noise generator.
@@ -303,10 +292,10 @@ class LFNoise2(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(500.0)
 
 
+@ugen(ir=True)
 class LinRand(UGen):
     """
     A skewed linear random distribution.
@@ -323,12 +312,12 @@ class LinRand(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("minimum", 0.0), ("maximum", 1.0), ("skew", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
+    minimum = param(0.0)
+    maximum = param(1.0)
+    skew = param(0)
 
 
+@ugen(ar=True, kr=True)
 class Logistic(UGen):
     """
     A chaotic noise function.
@@ -345,12 +334,12 @@ class Logistic(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("chaos_parameter", 3), ("frequency", 1000), ("initial_y", 0.5)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    chaos_parameter = param(3)
+    frequency = param(1000)
+    initial_y = param(0.5)
 
 
+@ugen(ar=True, kr=True)
 class MantissaMask(UGen):
     """
     A floating-point mantissa mask.
@@ -367,10 +356,11 @@ class MantissaMask(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", 0), ("bits", 3)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(0)
+    bits = param(3)
 
 
+@ugen(ir=True)
 class NRand(UGen):
     """
     A sum of `n` uniform distributions.
@@ -387,12 +377,12 @@ class NRand(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("minimum", 0.0), ("maximum", 1.0), ("n", 1)]
-    )
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
+    minimum = param(0.0)
+    maximum = param(1.0)
+    n = param(1)
 
 
+@ugen(ar=True, kr=True)
 class PinkNoise(UGen):
     """
     A pink noise unit generator.
@@ -404,10 +394,8 @@ class PinkNoise(UGen):
 
     """
 
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
-
+@ugen(ir=True)
 class Rand(UGen):
     """
     A uniform random distribution.
@@ -419,11 +407,12 @@ class Rand(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("minimum", 0.0), ("maximum", 1.0)])
-    _valid_calculation_rates = (CalculationRate.SCALAR,)
+    minimum = param(0.0)
+    maximum = param(1.0)
 
 
-class RandID(WidthFirstUGen):
+@ugen(kr=True, ir=True, is_width_first=True)
+class RandID(UGen):
     """
     Sets the synth's random generator ID.
 
@@ -437,11 +426,11 @@ class RandID(WidthFirstUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("rand_id", 1)])
-    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.SCALAR)
+    rand_id = param(1)
 
 
-class RandSeed(WidthFirstUGen):
+@ugen(ar=True, kr=True, ir=True, is_width_first=True)
+class RandSeed(UGen):
     """
     Sets the synth's random generator seed.
 
@@ -457,14 +446,11 @@ class RandSeed(WidthFirstUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("trigger", 0), ("seed", 56789)])
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-        CalculationRate.SCALAR,
-    )
+    trigger = param(0)
+    seed = param(56789)
 
 
+@ugen(ar=True, kr=True)
 class TExpRand(UGen):
     """
     A triggered exponential random number generator.
@@ -482,12 +468,12 @@ class TExpRand(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("minimum", 0.01), ("maximum", 1), ("trigger", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    minimum = param(0.01)
+    maximum = param(1.0)
+    trigger = param(0)
 
 
+@ugen(ar=True, kr=True)
 class TIRand(UGen):
     """
     A triggered integer random number generator.
@@ -507,10 +493,9 @@ class TIRand(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [("minimum", 0), ("maximum", 127), ("trigger", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    minimum = param(0)
+    maximum = param(127)
+    trigger = param(0)
 
     ### INITIALIZER ###
 
@@ -526,6 +511,7 @@ class TIRand(UGen):
         )
 
 
+@ugen(ar=True, kr=True)
 class TRand(UGen):
     """
     A triggered random number generator.
@@ -543,12 +529,12 @@ class TRand(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("minimum", 0), ("maximum", 1), ("trigger", 0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    minimum = param(0.0)
+    maximum = param(1.0)
+    trigger = param(0)
 
 
+@ugen(ar=True, kr=True)
 class TWindex(UGen):
     """
     A triggered windex.
@@ -566,13 +552,12 @@ class TWindex(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("trigger", None), ("normalize", 0), ("array", None)]
-    )
-    _unexpanded_input_names = ("array",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    trigger = param(None)
+    normalize = param(0)
+    array = param(None, unexpanded=True)
 
 
+@ugen(ar=True, kr=True)
 class WhiteNoise(UGen):
     """
     A white noise unit generator.
@@ -583,6 +568,3 @@ class WhiteNoise(UGen):
         WhiteNoise.ar()
 
     """
-
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

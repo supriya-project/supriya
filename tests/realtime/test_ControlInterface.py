@@ -1,4 +1,4 @@
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya.assets.synthdefs
 import supriya.realtime
@@ -11,7 +11,7 @@ def test_01(server):
     group.extend([synth_a, synth_b])
     group.allocate(server)
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -28,7 +28,7 @@ def test_01(server):
     bus_a.set(0.25)
     group.controls["amplitude"] = bus_a
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -45,7 +45,7 @@ def test_01(server):
     bus_b.set(0.75)
     group.controls["amplitude"] = bus_b
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -60,7 +60,7 @@ def test_01(server):
     assert local_state == remote_state
     bus_b.set(0.675)
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -75,7 +75,7 @@ def test_01(server):
     assert local_state == remote_state
     group.controls["amplitude"] = None
     remote_state = str(server.query())
-    assert remote_state == uqbar.strings.normalize(
+    assert remote_state == normalize(
         """
         NODE TREE 0 group
             1 group

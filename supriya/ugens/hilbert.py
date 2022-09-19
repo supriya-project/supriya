@@ -1,9 +1,7 @@
-import collections
-
-from supriya.enums import CalculationRate
-from supriya.synthdefs import MultiOutUGen, UGen
+from .bases import UGen, param, ugen
 
 
+@ugen(ar=True)
 class FreqShift(UGen):
     """
 
@@ -20,13 +18,13 @@ class FreqShift(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("frequency", 0.0), ("phase", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    frequency = param(0.0)
+    phase = param(0.0)
 
 
-class Hilbert(MultiOutUGen):
+@ugen(ar=True, channel_count=2, fixed_channel_count=True)
+class Hilbert(UGen):
     """
     Applies the Hilbert transform.
 
@@ -41,12 +39,10 @@ class Hilbert(MultiOutUGen):
 
     """
 
-    _default_channel_count = 2
-    _has_settable_channel_count = False
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
 
 
+@ugen(ar=True)
 class HilbertFIR(UGen):
     """
     Applies the Hilbert transform.
@@ -63,8 +59,5 @@ class HilbertFIR(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("buffer_id", None)]
-    )
-
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    source = param(None)
+    buffer_id = param(None)

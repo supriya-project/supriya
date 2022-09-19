@@ -1,10 +1,8 @@
-import collections
-
-from supriya import CalculationRate
-from supriya.synthdefs import PureUGen, UGen
+from .bases import UGen, param, ugen
 
 
-class AllpassC(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class AllpassC(UGen):
     """
     A cubic-interpolating allpass delay line unit generator.
 
@@ -17,18 +15,14 @@ class AllpassC(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1.0)
 
 
-class AllpassL(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class AllpassL(UGen):
     """
     A linear interpolating allpass delay line unit generator.
 
@@ -41,18 +35,14 @@ class AllpassL(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1.0)
 
 
-class AllpassN(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class AllpassN(UGen):
     """
     A non-interpolating allpass delay line unit generator.
 
@@ -65,18 +55,14 @@ class AllpassN(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1.0)
 
 
-class BufAllpassC(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class BufAllpassC(UGen):
     """
     A buffer-based cubic-interpolating allpass delay line unit generator.
 
@@ -92,19 +78,15 @@ class BufAllpassC(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1.0)
 
 
-class BufAllpassL(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class BufAllpassL(UGen):
     """
     A buffer-based linear-interpolating allpass delay line unit generator.
 
@@ -120,19 +102,15 @@ class BufAllpassL(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1.0)
 
 
-class BufAllpassN(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class BufAllpassN(UGen):
     """
     A buffer-based non-interpolating allpass delay line unit generator.
 
@@ -148,19 +126,15 @@ class BufAllpassN(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1.0)
 
 
-class BufCombC(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class BufCombC(UGen):
     """
     A buffer-based cubic-interpolating comb delay line unit generator.
 
@@ -176,19 +150,15 @@ class BufCombC(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.AUDIO)
+    buffer_id = param(None)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1.0)
 
 
-class BufCombL(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class BufCombL(UGen):
     """
     A buffer-based linear-interpolating comb delay line unit generator.
 
@@ -204,19 +174,15 @@ class BufCombL(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.AUDIO)
+    buffer_id = param(None)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1.0)
 
 
-class BufCombN(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class BufCombN(UGen):
     """
     A buffer-based non-interpolating comb delay line unit generator.
 
@@ -232,19 +198,15 @@ class BufCombN(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.AUDIO)
+    buffer_id = param(None)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1.0)
 
 
-class BufDelayC(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class BufDelayC(UGen):
     """
     A buffer-based cubic-interpolating delay line unit generator.
 
@@ -260,18 +222,14 @@ class BufDelayC(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
 
 
-class BufDelayL(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class BufDelayL(UGen):
     """
     A buffer-based linear-interpolating delay line unit generator.
 
@@ -287,18 +245,14 @@ class BufDelayL(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
 
 
-class BufDelayN(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class BufDelayN(UGen):
     """
     A buffer-based non-interpolating delay line unit generator.
 
@@ -314,18 +268,14 @@ class BufDelayN(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
 
 
-class CombC(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class CombC(UGen):
     """
     A cubic-interpolating comb delay line unit generator.
 
@@ -337,18 +287,14 @@ class CombC(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1.0)
 
 
-class CombL(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class CombL(UGen):
     """
     A linear interpolating comb delay line unit generator.
 
@@ -360,18 +306,14 @@ class CombL(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1.0)
 
 
-class CombN(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class CombN(UGen):
     """
     A non-interpolating comb delay line unit generator.
 
@@ -383,17 +325,13 @@ class CombN(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("maximum_delay_time", 0.2),
-            ("delay_time", 0.2),
-            ("decay_time", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
+    decay_time = param(1.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class DelTapRd(UGen):
     """
     A delay tap reader unit generator.
@@ -401,7 +339,7 @@ class DelTapRd(UGen):
     ::
 
         >>> buffer_id = 0
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> tapin = supriya.ugens.DelTapWr.ar(
         ...     buffer_id=buffer_id,
         ...     source=source,
@@ -428,17 +366,13 @@ class DelTapRd(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("buffer_id", None),
-            ("phase", None),
-            ("delay_time", 0.0),
-            ("interpolation", 1.0),
-        ]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    phase = param(None)
+    delay_time = param(0.0)
+    interpolation = param(1.0)
 
 
+@ugen(ar=True, kr=True, is_pure=True)
 class DelTapWr(UGen):
     """
     A delay tap writer unit generator.
@@ -446,7 +380,7 @@ class DelTapWr(UGen):
     ::
 
         >>> buffer_id = 0
-        >>> source = supriya.ugens.In.ar(0)
+        >>> source = supriya.ugens.In.ar(bus=0)
         >>> tapin = supriya.ugens.DelTapWr.ar(
         ...     buffer_id=buffer_id,
         ...     source=source,
@@ -473,13 +407,12 @@ class DelTapWr(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("buffer_id", None), ("source", None)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    buffer_id = param(None)
+    source = param(None)
 
 
-class DelayC(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class DelayC(UGen):
     """
     A cubic-interpolating delay line unit generator.
 
@@ -491,13 +424,13 @@ class DelayC(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("maximum_delay_time", 0.2), ("delay_time", 0.2)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
 
 
-class DelayL(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class DelayL(UGen):
     """
     A linear-interpolating delay line unit generator.
 
@@ -509,13 +442,13 @@ class DelayL(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("maximum_delay_time", 0.2), ("delay_time", 0.2)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
 
 
-class DelayN(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class DelayN(UGen):
     """
     A non-interpolating delay line unit generator.
 
@@ -527,13 +460,13 @@ class DelayN(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("maximum_delay_time", 0.2), ("delay_time", 0.2)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
+    maximum_delay_time = param(0.2)
+    delay_time = param(0.2)
 
 
-class Delay1(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class Delay1(UGen):
     """
     A one-sample delay line unit generator.
 
@@ -545,11 +478,11 @@ class Delay1(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)
 
 
-class Delay2(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class Delay2(UGen):
     """
     A two-sample delay line unit generator.
 
@@ -561,7 +494,4 @@ class Delay2(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("source", None), ("maximum_delay_time", 0.2), ("delay_time", 0.2)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None)

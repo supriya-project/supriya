@@ -1,10 +1,11 @@
-import collections
 from collections.abc import Sequence
 
-from supriya import CalculationRate, utils
-from supriya.synthdefs import PureUGen, UGen
+from supriya import utils
+
+from .bases import UGen, param, ugen
 
 
+@ugen(ar=True, kr=True)
 class Blip(UGen):
     """
     A band limited impulse generator.
@@ -20,12 +21,11 @@ class Blip(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 440.0), ("harmonic_count", 200.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)
+    harmonic_count = param(200.0)
 
 
+@ugen(ar=True, kr=True)
 class FSinOsc(UGen):
     """
     Very fast sine wave generator (2 PowerPC instructions per output sample!)
@@ -42,12 +42,11 @@ class FSinOsc(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict(
-        [("frequency", 440.0), ("initial_phase", 0.0)]
-    )
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)
+    initial_phase = param(0.0)
 
 
+@ugen(ar=True)
 class Klank(UGen):
     """
     A bank of resonators.
@@ -71,21 +70,11 @@ class Klank(UGen):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("source", None),
-            ("frequency_scale", 1),
-            ("frequency_offset", 0),
-            ("decay_scale", 1),
-            ("specifications", None),
-        ]
-    )
-    _unexpanded_input_names = ("specifications",)
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
-
-    ### INITIALIZER ###
+    source = param(None)
+    frequency_scale = param(1)
+    frequency_offset = param(0)
+    decay_scale = param(1)
+    specifications = param(None, unexpanded=True)
 
     def __init__(
         self,
@@ -120,6 +109,7 @@ class Klank(UGen):
         )
 
 
+@ugen(ar=True, kr=True)
 class Pulse(UGen):
     """
     Band limited pulse wave generator with pulse width modulation.
@@ -135,11 +125,12 @@ class Pulse(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("frequency", 440), ("width", 0.5)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)
+    width = param(0.5)
 
 
-class Saw(PureUGen):
+@ugen(ar=True, kr=True, is_pure=True)
+class Saw(UGen):
     """
     A band-limited sawtooth oscillator unit generator.
 
@@ -150,5 +141,4 @@ class Saw(PureUGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("frequency", 440.0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    frequency = param(440.0)

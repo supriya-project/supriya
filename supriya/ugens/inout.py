@@ -1,11 +1,12 @@
-import collections
 from collections.abc import Sequence
 
-from supriya import CalculationRate, utils
-from supriya.synthdefs import MultiOutUGen, UGen
+from supriya import utils
+
+from .bases import UGen, param, ugen
 
 
-class In(MultiOutUGen):
+@ugen(ar=True, kr=True, is_input=True, is_multichannel=True)
+class In(UGen):
     """
     A bus input unit generator.
 
@@ -16,14 +17,11 @@ class In(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _is_input = True
-    _ordered_input_names = collections.OrderedDict([("bus", 0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    bus = param(0.0)
 
 
-class InFeedback(MultiOutUGen):
+@ugen(ar=True, kr=True, is_input=True, is_multichannel=True)
+class InFeedback(UGen):
     """
     A bus input unit generator.
 
@@ -40,14 +38,11 @@ class InFeedback(MultiOutUGen):
 
     """
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _is_input = True
-    _ordered_input_names = collections.OrderedDict([("bus", 0)])
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    bus = param(0.0)
 
 
-class LocalIn(MultiOutUGen):
+@ugen(ar=True, kr=True, is_multichannel=True)
+class LocalIn(UGen):
     """
     A SynthDef-local bus input.
 
@@ -60,28 +55,21 @@ class LocalIn(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    _default_channel_count = 1
-    _has_settable_channel_count = True
-    _ordered_input_names = collections.OrderedDict([("default", 0)])
-    _unexpanded_input_names = ("default",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    default = param(0.0, unexpanded=True)
 
     ### INITIALIZER ###
 
     def __init__(self, calculation_rate=None, channel_count=1, default=0):
+        self._channel_count = int(channel_count)
         if not isinstance(default, Sequence):
             default = (default,)
         default = (float(_) for _ in default)
         default = utils.repeat_sequence_to_length(default, channel_count)
         default = list(default)[:channel_count]
-        MultiOutUGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            channel_count=channel_count,
-            default=default,
-        )
+        UGen.__init__(self, calculation_rate=calculation_rate, default=default)
 
 
+@ugen(ar=True, kr=True, channel_count=0, fixed_channel_count=True)
 class LocalOut(UGen):
     """
     A SynthDef-local bus output.
@@ -96,11 +84,10 @@ class LocalOut(UGen):
 
     """
 
-    _ordered_input_names = collections.OrderedDict([("source", None)])
-    _unexpanded_input_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    source = param(None, unexpanded=True)
 
 
+@ugen(ar=True, kr=True, is_output=True, channel_count=0, fixed_channel_count=True)
 class OffsetOut(UGen):
     """
     A bus output unit generator with sample-accurate timing.
@@ -116,13 +103,11 @@ class OffsetOut(UGen):
 
     """
 
-    _default_channel_count = 0
-    _is_output = True
-    _ordered_input_names = collections.OrderedDict([("bus", 0), ("source", None)])
-    _unexpanded_input_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO,)
+    bus = param(0)
+    source = param(None, unexpanded=True)
 
 
+@ugen(ar=True, kr=True, is_output=True, channel_count=0, fixed_channel_count=True)
 class Out(UGen):
     """
     A bus output unit generator.
@@ -138,13 +123,11 @@ class Out(UGen):
 
     """
 
-    _default_channel_count = 0
-    _is_output = True
-    _ordered_input_names = collections.OrderedDict([("bus", 0.0), ("source", None)])
-    _unexpanded_input_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    bus = param(0)
+    source = param(None, unexpanded=True)
 
 
+@ugen(ar=True, kr=True, is_output=True, channel_count=0, fixed_channel_count=True)
 class ReplaceOut(UGen):
     """
     An overwriting bus output unit generator.
@@ -160,13 +143,11 @@ class ReplaceOut(UGen):
 
     """
 
-    _default_channel_count = 0
-    _is_output = True
-    _ordered_input_names = collections.OrderedDict([("bus", 0), ("source", None)])
-    _unexpanded_input_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    bus = param(0)
+    source = param(None, unexpanded=True)
 
 
+@ugen(ar=True, kr=True, is_output=True, channel_count=0, fixed_channel_count=True)
 class XOut(UGen):
     """
     A cross-fading bus output unit generator.
@@ -184,10 +165,6 @@ class XOut(UGen):
 
     """
 
-    _default_channel_count = 0
-    _is_output = True
-    _ordered_input_names = collections.OrderedDict(
-        [("bus", 0), ("crossfade", 0), ("source", None)]
-    )
-    _unexpanded_input_names = ("source",)
-    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+    bus = param(0)
+    crossfade = param(0.0)
+    source = param(None, unexpanded=True)

@@ -54,7 +54,7 @@ def test_manual_with_gate():
 
 def test_manual_without_gate():
     with supriya.synthdefs.SynthDefBuilder() as builder:
-        source = supriya.ugens.DC.ar(1)
+        source = supriya.ugens.DC.ar(source=1)
         supriya.ugens.Out.ar(bus=0, source=source)
     source_synthdef = builder.build()
     session = supriya.nonrealtime.Session(0, 1)
