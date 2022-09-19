@@ -1,6 +1,5 @@
 from .. import DoneAction
-from .bases import PseudoUGen, UGen
-from .decorators import param, ugen
+from .bases import PseudoUGen, UGen, param, ugen
 
 
 @ugen(ar=True, kr=True, is_pure=True)

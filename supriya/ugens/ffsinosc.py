@@ -2,8 +2,7 @@ from collections.abc import Sequence
 
 from supriya import utils
 
-from .bases import UGen
-from .decorators import param, ugen
+from .bases import UGen, param, ugen
 
 
 @ugen(ar=True, kr=True)

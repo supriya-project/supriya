@@ -1,7 +1,6 @@
 from supriya import CalculationRate
 
-from .bases import OutputProxy, UGen
-from .decorators import param, ugen
+from .bases import OutputProxy, UGen, param, ugen
 
 
 @ugen(ar=True, kr=True, ir=True)

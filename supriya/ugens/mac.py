@@ -1,7 +1,6 @@
 from supriya import SignalRange
 
-from .bases import UGen
-from .decorators import param, ugen
+from .bases import UGen, param, ugen
 
 
 @ugen(kr=True, signal_range=SignalRange.UNIPOLAR)

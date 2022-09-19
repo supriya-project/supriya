@@ -1,5 +1,4 @@
-from .bases import UGen
-from .decorators import param, ugen
+from .bases import UGen, param, ugen
 
 
 @ugen(ar=True, is_multichannel=True, has_done_flag=True)

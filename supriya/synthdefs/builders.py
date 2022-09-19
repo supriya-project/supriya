@@ -166,7 +166,7 @@ class SynthDefBuilder(SupriyaObject):
         poll = Poll.new(
             source=ugen,
             label=label,
-            trigger=trigger or Impulse.kr(1),
+            trigger=trigger or Impulse.kr(frequency=1),
             trigger_id=trigger_id,
         )
         self._add_ugens(poll)

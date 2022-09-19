@@ -1,5 +1,4 @@
-from .bases import UGen, UGenMethodMixin
-from .decorators import param, ugen
+from .bases import UGen, UGenMethodMixin, param, ugen
 from .info import BufFrames
 
 

@@ -22,7 +22,7 @@ class UGenTransformer:
             if (
                 isinstance(expr, CallExpr)
                 and isinstance(expr.callee, RefExpr)
-                and expr.callee.fullname in ["supriya.ugens.decorators.param"]
+                and expr.callee.fullname in ["supriya.ugens.bases.param"]
             ):
                 params.append(stmt.lvalues[0].name)
         return params
@@ -110,7 +110,7 @@ class SupriyaPlugin(Plugin):
     def get_class_decorator_hook(
         self, fullname: str
     ) -> Optional[Callable[[ClassDefContext], None]]:
-        if fullname == "supriya.ugens.decorators.ugen":
+        if fullname == "supriya.ugens.bases.ugen":
             return _ugen_hook
         return None
 

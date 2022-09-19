@@ -8,14 +8,12 @@ from .bases import (  # isort:skip
     MultiOutUGen,
     OutputProxy,
     PseudoUGen,
-    PureUGen,
     UGen,
     UGenArray,
     UGenMethodMixin,
     UnaryOpUGen,
-    WidthFirstUGen,
 )
-from .decorators import param, ugen  # isort:skip
+from .bases import param, ugen  # isort:skip
 
 from .basic import Mix, MulAdd, Sum3, Sum4
 from .beq import (
@@ -617,7 +615,6 @@ __all__ = [
     "Poll",
     "PseudoUGen",
     "Pulse",
-    "PureUGen",
     "QuadC",
     "QuadL",
     "QuadN",
@@ -683,7 +680,6 @@ __all__ = [
     "Vibrato",
     "Warp1",
     "WhiteNoise",
-    "WidthFirstUGen",
     "Wrap",
     "WrapIndex",
     "XFade2",

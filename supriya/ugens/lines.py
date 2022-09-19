@@ -1,8 +1,7 @@
 from supriya import DoneAction
 
-from .bases import PseudoUGen, UGen, UGenArray
+from .bases import PseudoUGen, UGen, UGenArray, param, ugen
 from .basic import MulAdd
-from .decorators import param, ugen
 
 
 @ugen(kr=True, is_pure=True)

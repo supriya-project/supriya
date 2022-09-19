@@ -1,7 +1,6 @@
 from supriya import CalculationRate, utils
 
-from .bases import PseudoUGen, UGen, UGenArray
-from .decorators import param, ugen
+from .bases import PseudoUGen, UGen, UGenArray, param, ugen
 
 
 class Mix(PseudoUGen):

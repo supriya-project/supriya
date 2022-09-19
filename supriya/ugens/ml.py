@@ -2,8 +2,7 @@ from uqbar.enums import IntEnumeration
 
 from supriya import CalculationRate
 
-from .bases import UGen
-from .decorators import param, ugen
+from .bases import UGen, param, ugen
 
 
 @ugen(kr=True, channel_count=4, fixed_channel_count=True)

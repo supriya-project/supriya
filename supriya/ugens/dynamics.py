@@ -1,7 +1,6 @@
 from supriya import CalculationRate
 
-from .bases import PseudoUGen, UGen
-from .decorators import param, ugen
+from .bases import PseudoUGen, UGen, param, ugen
 from .delay import DelayN
 
 

@@ -3,9 +3,8 @@ import math
 
 from supriya import CalculationRate
 
-from .bases import PseudoUGen, UGen
+from .bases import PseudoUGen, UGen, param, ugen
 from .basic import Mix
-from .decorators import param, ugen
 
 
 @ugen(ar=True, kr=True, channel_count=2, fixed_channel_count=True)

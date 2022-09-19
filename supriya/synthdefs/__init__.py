@@ -19,7 +19,6 @@ __all__ = [
     "OutputProxy",
     "Parameter",
     "PseudoUGen",
-    "PureUGen",
     "Range",
     "SuperColliderSynthDef",
     "SynthDef",
