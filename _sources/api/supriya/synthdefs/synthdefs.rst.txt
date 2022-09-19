@@ -36,7 +36,6 @@ synthdefs
    .. autoproperty:: has_gate
    .. autoproperty:: indexed_parameters
    .. autoproperty:: input_ugens
-   .. autoproperty:: is_allocated
    .. autoproperty:: name
    .. autoproperty:: output_ugens
    .. autoproperty:: parameter_names

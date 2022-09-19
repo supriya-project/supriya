@@ -192,9 +192,7 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: delay_time
    .. automethod:: kr
-   .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
 .. autoclass:: DelayC

@@ -12,5 +12,6 @@ ext
 
    book
    ipython
+   mypy
 
 .. autofunction:: websafe_audio

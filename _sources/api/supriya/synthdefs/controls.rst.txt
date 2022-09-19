@@ -17,15 +17,12 @@ controls
    .. automethod:: __getitem__
    .. automethod:: __len__
    .. autoproperty:: controls
-   .. automethod:: new
    .. autoproperty:: parameters
    .. autoproperty:: starting_control_index
 
 .. autoclass:: LagControl
    :show-inheritance:
 
-   .. autoproperty:: lags
-   .. automethod:: new
 
 .. autoclass:: Parameter
    :show-inheritance:

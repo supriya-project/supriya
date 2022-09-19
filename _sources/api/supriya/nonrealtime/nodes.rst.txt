@@ -16,6 +16,7 @@ nodes
    :show-inheritance:
 
    .. automethod:: __getitem__
+   .. automethod:: __int__
    .. automethod:: __setitem__
    .. automethod:: add_group
    .. automethod:: add_synth

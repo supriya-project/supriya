@@ -17,7 +17,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../_static/stylesheets/main.a280224b.min.css">
+      <link rel="stylesheet" href="../../../_static/stylesheets/main.b0359c04.min.css">
       
         
         <link rel="stylesheet" href="../../../_static/stylesheets/palette.92c9fe4a.min.css">
@@ -29,12 +29,11 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/google_fonts.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -888,6 +887,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.buffers.Buffer.__int__" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.buffers.Buffer.__int__ (Python method)" class="md-ellipsis">__<wbr>int__<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#supriya.nonrealtime.buffers.Buffer.buffer_group" class="md-nav__link">
     <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.nonrealtime.buffers.Buffer.buffer_group (Python property)" class="md-ellipsis">buffer_<wbr>group</span>
   </a>
@@ -1064,6 +1070,13 @@
           <li class="md-nav__item">
   <a href="#supriya.nonrealtime.buffers.BufferGroup.__getitem__" class="md-nav__link">
     <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.buffers.BufferGroup.__getitem__ (Python method)" class="md-ellipsis">__<wbr>getitem__<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.buffers.BufferGroup.__int__" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.buffers.BufferGroup.__int__ (Python method)" class="md-ellipsis">__<wbr>int__<wbr></span>
   </a>
   
 </li>
@@ -1620,6 +1633,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.buffers.Buffer.__int__" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.buffers.Buffer.__int__ (Python method)" class="md-ellipsis">__<wbr>int__<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#supriya.nonrealtime.buffers.Buffer.buffer_group" class="md-nav__link">
     <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.nonrealtime.buffers.Buffer.buffer_group (Python property)" class="md-ellipsis">buffer_<wbr>group</span>
   </a>
@@ -1801,6 +1821,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.buffers.BufferGroup.__int__" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.buffers.BufferGroup.__int__ (Python method)" class="md-ellipsis">__<wbr>int__<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#supriya.nonrealtime.buffers.BufferGroup.__iter__" class="md-nav__link">
     <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.buffers.BufferGroup.__iter__ (Python method)" class="md-ellipsis">__<wbr>iter__<wbr></span>
   </a>
@@ -1898,6 +1925,11 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Buffer</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">session_id</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">buffer_group</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">frame_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">start_offset</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">starting_frame</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.buffers.Buffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="bases.html#supriya.nonrealtime.bases.SessionObject" title="supriya.nonrealtime.bases.SessionObject (Python class) — Bases: SupriyaObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SessionObject</span></code></a></p>
 <p>A non-realtime buffer.</p>
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.nonrealtime.buffers.Buffer.__int__">
+<span class="sig-name descname"><span class="pre">__int__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span></span><a class="headerlink" href="#supriya.nonrealtime.buffers.Buffer.__int__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py property objdesc">
 <dt class="sig sig-object highlight py" id="supriya.nonrealtime.buffers.Buffer.buffer_group">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">buffer_group</span></span><a class="headerlink" href="#supriya.nonrealtime.buffers.Buffer.buffer_group" title="Permalink to this definition">¶</a></dt>
@@ -2023,6 +2055,11 @@
 <dl class="py method objdesc">
 <dt class="sig sig-object highlight py" id="supriya.nonrealtime.buffers.BufferGroup.__getitem__">
 <span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">item</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.buffers.BufferGroup.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.nonrealtime.buffers.BufferGroup.__int__">
+<span class="sig-name descname"><span class="pre">__int__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.buffers.BufferGroup.__int__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method objdesc">

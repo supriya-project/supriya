@@ -7,33 +7,29 @@ demand
 
 .. currentmodule:: supriya.ugens.demand
 
-.. autoclass:: DUGen
-   :show-inheritance:
-
-
 .. autoclass:: Dbrown
    :show-inheritance:
 
+   .. automethod:: dr
    .. autoproperty:: length
    .. autoproperty:: maximum
    .. autoproperty:: minimum
-   .. automethod:: new
    .. autoproperty:: step
 
 .. autoclass:: Dbufrd
    :show-inheritance:
 
    .. autoproperty:: buffer_id
+   .. automethod:: dr
    .. autoproperty:: loop
-   .. automethod:: new
    .. autoproperty:: phase
 
 .. autoclass:: Dbufwr
    :show-inheritance:
 
    .. autoproperty:: buffer_id
+   .. automethod:: dr
    .. autoproperty:: loop
-   .. automethod:: new
    .. autoproperty:: phase
    .. autoproperty:: source
 
@@ -65,97 +61,97 @@ demand
 .. autoclass:: Dgeom
    :show-inheritance:
 
+   .. automethod:: dr
    .. autoproperty:: grow
    .. autoproperty:: length
-   .. automethod:: new
    .. autoproperty:: start
 
 .. autoclass:: Dibrown
    :show-inheritance:
 
+   .. automethod:: dr
    .. autoproperty:: length
    .. autoproperty:: maximum
    .. autoproperty:: minimum
-   .. automethod:: new
    .. autoproperty:: step
 
 .. autoclass:: Diwhite
    :show-inheritance:
 
+   .. automethod:: dr
    .. autoproperty:: length
    .. autoproperty:: maximum
    .. autoproperty:: minimum
-   .. automethod:: new
 
 .. autoclass:: Drand
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: dr
    .. autoproperty:: repeats
    .. autoproperty:: sequence
 
 .. autoclass:: Dreset
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: dr
    .. autoproperty:: reset
    .. autoproperty:: source
 
 .. autoclass:: Dseq
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: dr
    .. autoproperty:: repeats
    .. autoproperty:: sequence
 
 .. autoclass:: Dser
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: dr
    .. autoproperty:: repeats
    .. autoproperty:: sequence
 
 .. autoclass:: Dseries
    :show-inheritance:
 
+   .. automethod:: dr
    .. autoproperty:: length
-   .. automethod:: new
    .. autoproperty:: start
    .. autoproperty:: step
 
 .. autoclass:: Dshuf
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: dr
    .. autoproperty:: repeats
    .. autoproperty:: sequence
 
 .. autoclass:: Dstutter
    :show-inheritance:
 
+   .. automethod:: dr
    .. autoproperty:: n
-   .. automethod:: new
    .. autoproperty:: source
 
 .. autoclass:: Dswitch
    :show-inheritance:
 
+   .. automethod:: dr
    .. autoproperty:: index
-   .. automethod:: new
    .. autoproperty:: sequence
 
 .. autoclass:: Dswitch1
    :show-inheritance:
 
+   .. automethod:: dr
    .. autoproperty:: index
-   .. automethod:: new
    .. autoproperty:: sequence
 
 .. autoclass:: Dunique
    :show-inheritance:
 
+   .. automethod:: dr
    .. autoproperty:: max_buffer_size
-   .. automethod:: new
    .. autoproperty:: protected
    .. autoproperty:: source
 
@@ -172,16 +168,16 @@ demand
 .. autoclass:: Dwhite
    :show-inheritance:
 
+   .. automethod:: dr
    .. autoproperty:: length
    .. autoproperty:: maximum
    .. autoproperty:: minimum
-   .. automethod:: new
 
 .. autoclass:: Dwrand
    :show-inheritance:
 
+   .. automethod:: dr
    .. autoproperty:: length
-   .. automethod:: new
    .. autoproperty:: repeats
    .. autoproperty:: sequence
    .. autoproperty:: weights
@@ -189,6 +185,6 @@ demand
 .. autoclass:: Dxrand
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: dr
    .. autoproperty:: repeats
    .. autoproperty:: sequence

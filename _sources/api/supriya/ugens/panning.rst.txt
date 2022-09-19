@@ -41,6 +41,7 @@ panning
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: level
    .. autoproperty:: position
    .. autoproperty:: source

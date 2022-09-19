@@ -17,7 +17,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../_static/stylesheets/main.a280224b.min.css">
+      <link rel="stylesheet" href="../../../_static/stylesheets/main.b0359c04.min.css">
       
         
         <link rel="stylesheet" href="../../../_static/stylesheets/palette.92c9fe4a.min.css">
@@ -29,12 +29,11 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/google_fonts.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -969,21 +968,6 @@
   
   
     <li class="md-nav__item">
-      <a href="bases.html" class="md-nav__link">
-        <span class="md-ellipsis">bases</span>
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="builders.html" class="md-nav__link">
         <span class="md-ellipsis">builders</span>
       </a>
@@ -1196,21 +1180,6 @@
     <li class="md-nav__item">
       <a href="grapher.html" class="md-nav__link">
         <span class="md-ellipsis">grapher</span>
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="mixins.html" class="md-nav__link">
-        <span class="md-ellipsis">mixins</span>
       </a>
     </li>
   
@@ -1616,8 +1585,8 @@
 <span class="gp">... </span>    <span class="n">iterations</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iterations&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">2</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">AllpassC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
 <span class="gp">... </span>            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
 <span class="gp">... </span>            <span class="n">maximum_delay_time</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="p">)</span>
@@ -1798,8 +1767,8 @@
 <span class="gp">... </span>    <span class="n">iterations</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iterations&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">2</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">AllpassC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
 <span class="gp">... </span>            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
 <span class="gp">... </span>            <span class="n">maximum_delay_time</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="p">)</span>
@@ -1967,8 +1936,8 @@ block functions.</p>
 <span class="gp">... </span>    <span class="n">iterations</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iterations&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">2</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">AllpassC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
 <span class="gp">... </span>            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
 <span class="gp">... </span>            <span class="n">maximum_delay_time</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="p">)</span>
@@ -1989,9 +1958,9 @@ block functions.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<div class="uqbar-book"><a href="../../../_images/graphviz-40422bf0444d80e406a00757967b7f2575f1791e8b16f433b7f98a0b3cb83429.dot" title=""><img src="../../../_images/graphviz-40422bf0444d80e406a00757967b7f2575f1791e8b16f433b7f98a0b3cb83429.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>
+<div class="uqbar-book"><a href="../../../_images/graphviz-b129b2fed8fba90b74aafcc126c98f8c15a7c03664db5fdcb26a6e8b3034c8ae.dot" title=""><img src="../../../_images/graphviz-b129b2fed8fba90b74aafcc126c98f8c15a7c03664db5fdcb26a6e8b3034c8ae.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>
 <span class="go">synthdef:</span>
-<span class="go">    name: 6bbbeac53a3cf6df96ca1afd9af3fa95</span>
+<span class="go">    name: 02392c193be8e99778d5f4fbfc5abf48</span>
 <span class="go">    ugens:</span>
 <span class="go">    -   Control.ir: null</span>
 <span class="go">    -   In.ar:</span>
@@ -2044,9 +2013,9 @@ block function:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </code></pre></div>
 </div>
-<div class="uqbar-book"><a href="../../../_images/graphviz-c361ed5d6c1cf07e58b087ba04dd8b9334d8da9823cfb3a30441abd2def57816.dot" title=""><img src="../../../_images/graphviz-c361ed5d6c1cf07e58b087ba04dd8b9334d8da9823cfb3a30441abd2def57816.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>
+<div class="uqbar-book"><a href="../../../_images/graphviz-4aa9aa3a4ecad1fb559b7db6d5177b753b3b2940b8cc7f31896cd01f32891188.dot" title=""><img src="../../../_images/graphviz-4aa9aa3a4ecad1fb559b7db6d5177b753b3b2940b8cc7f31896cd01f32891188.svg" alt=""/></a></div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>
 <span class="go">synthdef:</span>
-<span class="go">    name: e8a51cf53dfa55e0add56de9d2c441f5</span>
+<span class="go">    name: 81e24a174756e1b8fbeea894899796d0</span>
 <span class="go">    ugens:</span>
 <span class="go">    -   Control.ir: null</span>
 <span class="go">    -   In.ar:</span>
@@ -2106,8 +2075,8 @@ block function:</p>
 <span class="gp">... </span>    <span class="n">iterations</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iterations&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">2</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">AllpassC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
 <span class="gp">... </span>            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
 <span class="gp">... </span>            <span class="n">maximum_delay_time</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="p">)</span>
@@ -2189,8 +2158,8 @@ key/value pairs.</p>
 <span class="gp">... </span>    <span class="n">iterations</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iterations&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">2</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">AllpassC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
 <span class="gp">... </span>            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
 <span class="gp">... </span>            <span class="n">maximum_delay_time</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="p">)</span>
@@ -2284,8 +2253,8 @@ signal block function:</p>
 <span class="gp">... </span>    <span class="n">iterations</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iterations&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">2</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">AllpassC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
 <span class="gp">... </span>            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
 <span class="gp">... </span>            <span class="n">maximum_delay_time</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="p">)</span>
@@ -2505,8 +2474,8 @@ re-use the windowing signal:</p>
 <span class="gp">... </span>    <span class="n">iterations</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iterations&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">2</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">AllpassC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
 <span class="gp">... </span>            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
 <span class="gp">... </span>            <span class="n">maximum_delay_time</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="p">)</span>
@@ -3378,8 +3347,8 @@ numbers of bands during the build stage:</p>
 <span class="gp">... </span>    <span class="n">iterations</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iterations&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">2</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">AllpassC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
 <span class="gp">... </span>            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
 <span class="gp">... </span>            <span class="n">maximum_delay_time</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="p">)</span>
@@ -3464,8 +3433,8 @@ signal and parameter block functions</p>
 <span class="gp">... </span>    <span class="n">iterations</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iterations&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">2</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">AllpassC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
 <span class="gp">... </span>            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
 <span class="gp">... </span>            <span class="n">maximum_delay_time</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="p">)</span>
@@ -3484,7 +3453,7 @@ signal and parameter block functions</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">signal_block_post</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">LeakDC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Limiter</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">duration</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Rand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.015</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="n">duration</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Rand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.015</span><span class="p">),</span>
 <span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">source</span>
@@ -3555,8 +3524,8 @@ signal and parameter block functions</p>
 <span class="gp">... </span>    <span class="n">iterations</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iterations&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">2</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">AllpassC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">decay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">delay_time</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ExpRand</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
 <span class="gp">... </span>            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
 <span class="gp">... </span>            <span class="n">maximum_delay_time</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="p">)</span>

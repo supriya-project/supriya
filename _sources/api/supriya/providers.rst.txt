@@ -29,6 +29,7 @@ providers
    .. automethod:: __len__
    .. automethod:: __post_init__
    .. automethod:: free
+   .. autoproperty:: map_symbol
 
 .. autoclass:: BusProxy
    :show-inheritance:
@@ -67,15 +68,14 @@ providers
    .. automethod:: add_bus_group
    .. automethod:: add_group
    .. automethod:: add_synth
-   .. automethod:: boot
    .. automethod:: dispose
    .. automethod:: free_buffer
    .. automethod:: free_bus
    .. automethod:: free_bus_group
    .. automethod:: free_node
    .. automethod:: move_node
-   .. automethod:: quit
    .. automethod:: register_osc_callback
+   .. autoproperty:: session
    .. automethod:: set_bus
    .. automethod:: set_node
    .. automethod:: unregister_osc_callback
@@ -95,7 +95,6 @@ providers
    .. automethod:: add_synth
    .. autoproperty:: annotation_map
    .. automethod:: at
-   .. automethod:: boot
    .. automethod:: dispose
    .. automethod:: free_buffer
    .. automethod:: free_bus
@@ -106,7 +105,6 @@ providers
    .. autoproperty:: moment
    .. automethod:: move_node
    .. automethod:: nonrealtime
-   .. automethod:: quit
    .. automethod:: realtime
    .. automethod:: realtime_async
    .. automethod:: register_osc_callback
@@ -136,15 +134,14 @@ providers
    .. automethod:: add_bus_group
    .. automethod:: add_group
    .. automethod:: add_synth
-   .. automethod:: boot
    .. automethod:: dispose
    .. automethod:: free_buffer
    .. automethod:: free_bus
    .. automethod:: free_bus_group
    .. automethod:: free_node
    .. automethod:: move_node
-   .. automethod:: quit
    .. automethod:: register_osc_callback
+   .. autoproperty:: server
    .. automethod:: set_bus
    .. automethod:: set_node
    .. automethod:: unregister_osc_callback

@@ -1,0 +1,21 @@
+.. _supriya--ext--mypy:
+
+mypy
+====
+
+.. automodule:: supriya.ext.mypy
+
+.. currentmodule:: supriya.ext.mypy
+
+.. autoclass:: SupriyaPlugin
+   :show-inheritance:
+
+   .. automethod:: get_class_decorator_hook
+
+.. autoclass:: UGenTransformer
+   :show-inheritance:
+
+   .. automethod:: collect_params
+   .. automethod:: transform
+
+.. autofunction:: plugin

@@ -1,0 +1,143 @@
+.. _supriya--ugens--bases:
+
+bases
+=====
+
+.. automodule:: supriya.ugens.bases
+
+.. currentmodule:: supriya.ugens.bases
+
+.. autoclass:: BinaryOpUGen
+   :show-inheritance:
+
+   .. autoproperty:: left
+   .. autoproperty:: operator
+   .. autoproperty:: right
+
+.. autoclass:: Check
+   :show-inheritance:
+   :members:
+   :undoc-members:
+
+
+.. autoclass:: MultiOutUGen
+   :show-inheritance:
+
+
+.. autoclass:: OutputProxy
+   :show-inheritance:
+
+   .. automethod:: __iter__
+   .. automethod:: __len__
+   .. autoproperty:: calculation_rate
+   .. autoproperty:: has_done_flag
+   .. autoproperty:: output_index
+   .. autoproperty:: signal_range
+   .. autoproperty:: source
+
+.. autoclass:: Param
+   :show-inheritance:
+
+
+.. autoclass:: PseudoUGen
+   :show-inheritance:
+
+
+.. autoclass:: UGen
+   :show-inheritance:
+
+   .. automethod:: __getitem__
+   .. automethod:: __len__
+   .. autoproperty:: calculation_rate
+   .. autoproperty:: has_done_flag
+   .. autoproperty:: inputs
+   .. autoproperty:: is_input_ugen
+   .. autoproperty:: is_output_ugen
+   .. autoproperty:: outputs
+   .. autoproperty:: signal_range
+   .. autoproperty:: special_index
+
+.. autoclass:: UGenArray
+   :show-inheritance:
+
+   .. automethod:: __getitem__
+   .. automethod:: __len__
+   .. autoproperty:: signal_range
+   .. autoproperty:: ugens
+
+.. autoclass:: UGenMethodMixin
+   :show-inheritance:
+
+   .. automethod:: __abs__
+   .. automethod:: __add__
+   .. automethod:: __div__
+   .. automethod:: __ge__
+   .. automethod:: __graph__
+   .. automethod:: __gt__
+   .. automethod:: __le__
+   .. automethod:: __lt__
+   .. automethod:: __mod__
+   .. automethod:: __mul__
+   .. automethod:: __neg__
+   .. automethod:: __pow__
+   .. automethod:: __radd__
+   .. automethod:: __rdiv__
+   .. automethod:: __rmod__
+   .. automethod:: __rmul__
+   .. automethod:: __rpow__
+   .. automethod:: __rsub__
+   .. automethod:: __rtruediv__
+   .. automethod:: __sub__
+   .. automethod:: __truediv__
+   .. automethod:: absolute_difference
+   .. automethod:: amplitude_to_db
+   .. automethod:: as_int
+   .. automethod:: ceiling
+   .. automethod:: clip
+   .. automethod:: cubed
+   .. automethod:: db_to_amplitude
+   .. automethod:: distort
+   .. automethod:: exponential
+   .. automethod:: exponential_range
+   .. automethod:: floor
+   .. automethod:: fractional_part
+   .. automethod:: hanning_window
+   .. automethod:: hz_to_midi
+   .. automethod:: hz_to_octave
+   .. automethod:: is_equal_to
+   .. automethod:: is_not_equal_to
+   .. automethod:: lag
+   .. automethod:: log
+   .. automethod:: log10
+   .. automethod:: log2
+   .. automethod:: maximum
+   .. automethod:: midi_to_hz
+   .. automethod:: minimum
+   .. automethod:: octave_to_hz
+   .. automethod:: power
+   .. automethod:: range
+   .. automethod:: ratio_to_semitones
+   .. automethod:: reciprocal
+   .. automethod:: rectangle_window
+   .. automethod:: s_curve
+   .. automethod:: scale
+   .. automethod:: semitones_to_ratio
+   .. automethod:: sign
+   .. automethod:: softclip
+   .. automethod:: square_root
+   .. automethod:: squared
+   .. automethod:: sum
+   .. automethod:: tanh
+   .. automethod:: transpose
+   .. automethod:: triangle_window
+   .. automethod:: welch_window
+
+.. autoclass:: UnaryOpUGen
+   :show-inheritance:
+
+   .. autoproperty:: operator
+   .. autoproperty:: source
+
+.. autofunction:: param
+
+.. autofunction:: ugen

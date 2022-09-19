@@ -31,10 +31,6 @@ beq
    .. autoproperty:: frequency
    .. autoproperty:: source
 
-.. autoclass:: BEQSuite
-   :show-inheritance:
-
-
 .. autoclass:: BHiCut
    :show-inheritance:
 

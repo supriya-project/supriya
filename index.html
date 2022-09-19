@@ -17,7 +17,7 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.a280224b.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.b0359c04.min.css">
       
         
         <link rel="stylesheet" href="_static/stylesheets/palette.92c9fe4a.min.css">
@@ -29,12 +29,11 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
         <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+        <link rel="stylesheet" type="text/css" href="_static/google_fonts.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -94,7 +93,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Supriya (22.8b4)
+              Supriya (22.9b0)
             
           </span>
         </div>
@@ -906,7 +905,7 @@
 
 
 
-  <h1 id="supriya-release">Supriya (22.8b4)<a class="headerlink" href="#supriya-release" title="Permalink to this heading">¶</a></h1>
+  <h1 id="supriya-release">Supriya (22.9b0)<a class="headerlink" href="#supriya-release" title="Permalink to this heading">¶</a></h1>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Documentation is under construction. Stand by.</p>
@@ -972,9 +971,9 @@ setting it up, and installing any additional dependencies like <a class="referen
 <p>Make a synthesizer definition:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nd">@synthdef</span><span class="p">()</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">simple_sine</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">,</span> <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">gate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">sine</span> <span class="o">=</span> <span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="p">)</span> <span class="o">*</span> <span class="n">amplitude</span>
+<span class="gp">... </span>    <span class="n">sine</span> <span class="o">=</span> <span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">)</span> <span class="o">*</span> <span class="n">amplitude</span>
 <span class="gp">... </span>    <span class="n">envelope</span> <span class="o">=</span> <span class="n">EnvGen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">envelope</span><span class="o">=</span><span class="n">Envelope</span><span class="o">.</span><span class="n">adsr</span><span class="p">(),</span> <span class="n">gate</span><span class="o">=</span><span class="n">gate</span><span class="p">,</span> <span class="n">done_action</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="n">sine</span> <span class="o">*</span> <span class="n">envelope</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">sine</span> <span class="o">*</span> <span class="n">envelope</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">... </span>
 </code></pre></div>
 </div>

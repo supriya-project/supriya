@@ -19,6 +19,7 @@ inout
 
    .. automethod:: ar
    .. autoproperty:: bus
+   .. automethod:: kr
 
 .. autoclass:: LocalIn
    :show-inheritance:
@@ -39,6 +40,7 @@ inout
 
    .. automethod:: ar
    .. autoproperty:: bus
+   .. automethod:: kr
    .. autoproperty:: source
 
 .. autoclass:: Out

@@ -10,12 +10,10 @@ synthdefs
 .. toctree::
    :hidden:
 
-   bases
    builders
    compilers
    controls
    envelopes
    factories
    grapher
-   mixins
    synthdefs

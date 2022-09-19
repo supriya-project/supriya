@@ -14,7 +14,7 @@ pv
    .. autoproperty:: buffer_id
    .. autoproperty:: fft_size
    .. autoproperty:: hop
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: source
    .. autoproperty:: window_size
    .. autoproperty:: window_type
@@ -31,14 +31,14 @@ pv
 .. autoclass:: PV_Add
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain_a
    .. autoproperty:: pv_chain_b
 
 .. autoclass:: PV_BinScramble
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
    .. autoproperty:: trigger
    .. autoproperty:: width
@@ -48,7 +48,7 @@ pv
    :show-inheritance:
 
    .. autoproperty:: interpolate
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
    .. autoproperty:: shift
    .. autoproperty:: stretch
@@ -56,7 +56,7 @@ pv
 .. autoclass:: PV_BinWipe
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain_a
    .. autoproperty:: pv_chain_b
    .. autoproperty:: wipe
@@ -64,7 +64,7 @@ pv
 .. autoclass:: PV_BrickWall
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
    .. autoproperty:: wipe
 
@@ -78,47 +78,47 @@ pv
 
    .. autoproperty:: aimag
    .. autoproperty:: areal
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
 
 .. autoclass:: PV_Conj
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
 
 .. autoclass:: PV_Copy
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain_a
    .. autoproperty:: pv_chain_b
 
 .. autoclass:: PV_CopyPhase
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain_a
    .. autoproperty:: pv_chain_b
 
 .. autoclass:: PV_Diffuser
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
    .. autoproperty:: trigger
 
 .. autoclass:: PV_Div
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain_a
    .. autoproperty:: pv_chain_b
 
 .. autoclass:: PV_HainsworthFoote
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: propf
    .. autoproperty:: proph
    .. autoproperty:: pv_chain
@@ -128,7 +128,7 @@ pv
 .. autoclass:: PV_JensenAndersen
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: prophfc
    .. autoproperty:: prophfe
    .. autoproperty:: propsc
@@ -140,35 +140,35 @@ pv
 .. autoclass:: PV_LocalMax
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
    .. autoproperty:: threshold
 
 .. autoclass:: PV_MagAbove
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
    .. autoproperty:: threshold
 
 .. autoclass:: PV_MagBelow
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
    .. autoproperty:: threshold
 
 .. autoclass:: PV_MagClip
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
    .. autoproperty:: threshold
 
 .. autoclass:: PV_MagDiv
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain_a
    .. autoproperty:: pv_chain_b
    .. autoproperty:: zeroed
@@ -177,26 +177,26 @@ pv
    :show-inheritance:
 
    .. autoproperty:: freeze
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
 
 .. autoclass:: PV_MagMul
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain_a
    .. autoproperty:: pv_chain_b
 
 .. autoclass:: PV_MagNoise
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
 
 .. autoclass:: PV_MagShift
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
    .. autoproperty:: shift
    .. autoproperty:: stretch
@@ -205,33 +205,33 @@ pv
    :show-inheritance:
 
    .. autoproperty:: bins
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
 
 .. autoclass:: PV_MagSquared
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
 
 .. autoclass:: PV_Max
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain_a
    .. autoproperty:: pv_chain_b
 
 .. autoclass:: PV_Min
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain_a
    .. autoproperty:: pv_chain_b
 
 .. autoclass:: PV_Mul
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain_a
    .. autoproperty:: pv_chain_b
 
@@ -239,26 +239,26 @@ pv
    :show-inheritance:
 
    .. autoproperty:: integrate
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
    .. autoproperty:: shift
 
 .. autoclass:: PV_PhaseShift270
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
 
 .. autoclass:: PV_PhaseShift90
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
 
 .. autoclass:: PV_RandComb
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain
    .. autoproperty:: trigger
    .. autoproperty:: wipe
@@ -266,7 +266,7 @@ pv
 .. autoclass:: PV_RandWipe
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: pv_chain_a
    .. autoproperty:: pv_chain_b
    .. autoproperty:: trigger
@@ -275,7 +275,7 @@ pv
 .. autoclass:: PV_RectComb
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: num_teeth
    .. autoproperty:: phase
    .. autoproperty:: pv_chain
@@ -284,7 +284,7 @@ pv
 .. autoclass:: PV_RectComb2
    :show-inheritance:
 
-   .. automethod:: new
+   .. automethod:: kr
    .. autoproperty:: num_teeth
    .. autoproperty:: phase
    .. autoproperty:: pv_chain_a

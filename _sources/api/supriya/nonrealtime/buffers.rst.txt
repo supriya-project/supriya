@@ -10,6 +10,7 @@ buffers
 .. autoclass:: Buffer
    :show-inheritance:
 
+   .. automethod:: __int__
    .. autoproperty:: buffer_group
    .. autoproperty:: channel_count
    .. automethod:: close
@@ -38,6 +39,7 @@ buffers
 
    .. automethod:: __contains__
    .. automethod:: __getitem__
+   .. automethod:: __int__
    .. automethod:: __iter__
    .. automethod:: __len__
    .. autoproperty:: buffer_count

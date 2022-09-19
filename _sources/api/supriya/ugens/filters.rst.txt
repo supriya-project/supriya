@@ -91,10 +91,6 @@ filters
    .. automethod:: kr
    .. autoproperty:: source
 
-.. autoclass:: Filter
-   :show-inheritance:
-
-
 .. autoclass:: Formlet
    :show-inheritance:
 
@@ -178,8 +174,8 @@ filters
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoproperty:: lag_time_d
-   .. autoproperty:: lag_time_u
+   .. autoproperty:: lag_time_down
+   .. autoproperty:: lag_time_up
    .. autoproperty:: source
 
 .. autoclass:: Lag3
@@ -195,8 +191,8 @@ filters
 
    .. automethod:: ar
    .. automethod:: kr
-   .. autoproperty:: lag_time_d
-   .. autoproperty:: lag_time_u
+   .. autoproperty:: lag_time_down
+   .. autoproperty:: lag_time_up
    .. autoproperty:: source
 
 .. autoclass:: LagUD
