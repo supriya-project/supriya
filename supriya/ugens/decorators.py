@@ -3,13 +3,16 @@ from enum import Enum
 from typing import Callable, NamedTuple, Optional, SupportsFloat, Type, Union
 
 from ..enums import CalculationRate, DoneAction, SignalRange
+from .bases import UGenMethodMixin
 
 
-def _create_fn(cls, name, args, body, globals_=None, decorator=None, override=False):
+def _create_fn(
+    cls, name, args, body, return_type, globals_=None, decorator=None, override=False
+):
     if name in cls.__dict__ and not override:
         return
     globals_ = globals_ or {}
-    locals_ = {"_return_type": cls}
+    locals_ = {"_return_type": return_type}
     args = ", ".join(args)
     body = "\n".join(f"        {line}" for line in body)
     text = f"    def {name}({args}) -> _return_type:\n{body}"
@@ -57,7 +60,9 @@ def _add_init(cls, params, is_multichannel, channel_count, fixed_channel_count):
         "DoneAction": DoneAction,
         parent_class.__name__: parent_class,
     }
-    return _create_fn(cls=cls, name=name, args=args, body=body, globals_=globals_)
+    return _create_fn(
+        cls=cls, name=name, args=args, body=body, globals_=globals_, return_type=None
+    )
 
 
 def _add_rate_fn(
@@ -73,12 +78,12 @@ def _add_rate_fn(
             value_repr = 'float("inf")'
         elif value_repr == "-inf":
             value_repr = 'float("-inf")'
-        args.append(f"{key}: SupportsFloat = {value_repr}")
+        args.append(f"{key}: Union[SupportsFloat, UGenMethodMixin] = {value_repr}")
     body = ["return cls._new_expanded("]
     if rate is not None:
         body.append(f"    calculation_rate={rate!r},")
     if is_multichannel and not fixed_channel_count:
-        args.append(f"channel_count={channel_count or 1}")
+        args.append(f"channel_count: int = {channel_count or 1}")
         body.append("    channel_count=channel_count,")
     body.extend(f"    {name}={name}," for name in params)
     body.append(")")
@@ -86,9 +91,17 @@ def _add_rate_fn(
         "CalculationRate": CalculationRate,
         "DoneAction": DoneAction,
         "SupportsFloat": SupportsFloat,
+        "UGenMethodMixin": UGenMethodMixin,
+        "Union": Union,
     }
     return _create_fn(
-        cls, name, args=args, body=body, decorator=classmethod, globals_=globals_
+        cls,
+        name,
+        args=args,
+        body=body,
+        decorator=classmethod,
+        globals_=globals_,
+        return_type=cls,
     )
 
 
@@ -99,7 +112,13 @@ def _add_param_fn(cls, name, index, unexpanded):
     else:
         body = [f"return self._inputs[{index}]"]
     return _create_fn(
-        cls, name, args=args, body=body, decorator=property, override=True
+        cls,
+        name,
+        args=args,
+        body=body,
+        decorator=property,
+        override=True,
+        return_type=Union[SupportsFloat, UGenMethodMixin],
     )
 
 
@@ -109,7 +128,7 @@ class Check(Enum):
     SAME_OR_SLOWER = 2
 
 
-class Parameter(NamedTuple):
+class Param(NamedTuple):
     default: Optional[float] = None
     check: Check = Check.NONE
     unexpanded: bool = False
@@ -137,7 +156,7 @@ def _process_class(
     unexpanded_input_names = []
     valid_calculation_rates = []
     for name, value in cls.__dict__.items():
-        if not isinstance(value, Parameter):
+        if not isinstance(value, Param):
             continue
         params[name] = value.default
         if value.unexpanded:
@@ -176,13 +195,13 @@ def param(
     *,
     check: Check = Check.NONE,
     unexpanded: bool = False,
-) -> Parameter:
+) -> Param:
     """
     Define a UGen parameter.
 
     Akin to dataclasses.field.
     """
-    return Parameter(default, check, unexpanded)
+    return Param(default, check, unexpanded)
 
 
 def ugen(

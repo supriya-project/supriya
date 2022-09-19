@@ -4,6 +4,7 @@ from typing import Type as TypingType
 from mypy.nodes import ARG_OPT, Argument, AssignmentStmt, CallExpr, RefExpr, Var
 from mypy.plugin import ClassDefContext, Plugin
 from mypy.plugins.common import _get_decorator_bool_argument
+from mypy.typeops import make_simplified_union
 from mypy.types import NoneType
 
 
@@ -28,11 +29,19 @@ class UGenTransformer:
 
     def transform(self) -> bool:
         # is_classmethod flag is not released yet
-        from mypy.plugins.common import add_method_to_class
+        from mypy.plugins.common import add_attribute_to_class, add_method_to_class
 
         api = self._ctx.api
         cls = self._ctx.cls
         info = self._ctx.cls.info
+
+        ugen_input_type = make_simplified_union(
+            [
+                api.named_type("typing.SupportsFloat"),
+                api.named_type("supriya.ugens.bases.UGenMethodMixin"),
+            ]
+        )
+
         decorator_arguments = {
             "ar": _get_decorator_bool_argument(self._ctx, "ar", False),
             "kr": _get_decorator_bool_argument(self._ctx, "kr", False),
@@ -46,15 +55,23 @@ class UGenTransformer:
                 self._ctx, "fixed_channel_count", False
             ),
         }
-        args = [
-            Argument(
-                variable=Var(name, api.named_type("typing.SupportsFloat")),
-                type_annotation=api.named_type("typing.SupportsFloat"),
-                initializer=None,
-                kind=ARG_OPT,
+        args = []
+        for name in self.collect_params():
+            args.append(
+                Argument(
+                    variable=Var(name, ugen_input_type),
+                    type_annotation=ugen_input_type,
+                    initializer=None,
+                    kind=ARG_OPT,
+                )
             )
-            for name in self.collect_params()
-        ]
+            add_attribute_to_class(
+                api=api,
+                cls=cls,
+                name=name,
+                typ=ugen_input_type,
+                override_allow_incompatible=True,
+            )
         if (
             decorator_arguments["is_multichannel"]
             and not decorator_arguments["fixed_channel_count"]

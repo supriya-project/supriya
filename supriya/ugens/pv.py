@@ -1,5 +1,6 @@
-from .bases import UGen
+from .bases import UGen, UGenMethodMixin
 from .decorators import param, ugen
+from .info import BufFrames
 
 
 @ugen(is_width_first=True)
@@ -9,13 +10,13 @@ class PV_ChainUGen(UGen):
     """
 
     @property
-    def fft_size(self) -> int:
+    def fft_size(self) -> UGenMethodMixin:
         """
         Gets FFT size as UGen input.
 
         Returns ugen input.
         """
-        return self.pv_chain.fft_size
+        return self.inputs[0].fft_size
 
 
 @ugen(kr=True, is_width_first=True)
@@ -80,15 +81,13 @@ class FFT(PV_ChainUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def fft_size(self) -> int:
+    def fft_size(self) -> UGenMethodMixin:
         """
         Gets FFT size as UGen input.
 
         Returns ugen input.
         """
-        import supriya.ugens
-
-        return supriya.ugens.BufFrames.ir(buffer_id=self.buffer_id)
+        return BufFrames.ir(buffer_id=self.buffer_id)
 
 
 @ugen(ar=True, kr=True, is_width_first=True)
@@ -507,7 +506,7 @@ class PV_MagAbove(PV_ChainUGen):
 
 
 @ugen(kr=True, is_width_first=True)
-class PV_MagBelow(PV_MagAbove):
+class PV_MagBelow(PV_ChainUGen):
     """
     Passes magnitudes below threshold.
 
@@ -530,7 +529,7 @@ class PV_MagBelow(PV_MagAbove):
 
 
 @ugen(kr=True, is_width_first=True)
-class PV_MagClip(PV_MagAbove):
+class PV_MagClip(PV_ChainUGen):
     """
     Clips magnitudes.
 

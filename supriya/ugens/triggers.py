@@ -383,7 +383,7 @@ class Poll(UGen):
 
 
 @ugen(ar=True, kr=True)
-class RunningMax(Peak):
+class RunningMax(UGen):
     """
     Tracks maximum signal amplitude.
 
@@ -405,7 +405,7 @@ class RunningMax(Peak):
 
 
 @ugen(ar=True, kr=True)
-class RunningMin(Peak):
+class RunningMin(UGen):
     """
     Tracks minimum signal amplitude.
 
