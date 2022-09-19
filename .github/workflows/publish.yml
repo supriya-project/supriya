@@ -72,7 +72,7 @@ jobs:
 
   upload-to-pypi:
     name: Publish release to PyPI
-    needs: [build-wheels, build-sdist]
+    needs: [build-wheels, build-sdist, build-docs]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/download-artifact@v3
