@@ -109,6 +109,13 @@ jobs:
     timeout-minutes: 45
     steps:
     - uses: actions/checkout@v3
+    - name: Cache Homebrew
+      uses: actions/cache@v3
+      if: ${{ matrix.os == 'macos-latest' }}
+      with:
+        path: ~/Library/Caches/Homebrew/downloads
+        key: ${{ runner.os }}-homebrew-${{ steps.current-date.outputs.stamp }}
+        restore-keys: ${{ runner.os }}-homebrew-
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
