@@ -548,3 +548,7 @@ Working async means we can hook into other interesting projects like
 [python-prompt-toolkit](https://python-prompt-toolkit.readthedocs.io/),
 [aiohttp](https://docs.aiohttp.org/) and
 [pymonome](https://github.com/artfwo/pymonome).
+
+## License
+
+This library is made available under the terms of the MIT license.
