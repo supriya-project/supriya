@@ -474,8 +474,8 @@ class SendPeakRMS(UGen):
     reply_id = param(-1)
     source_size = param(None)
     source = param(None, unexpanded=True)
-    command_size = param(None)
-    char = param(None, unexpanded=True)
+    character_count = param(None)
+    character = param(None, unexpanded=True)
 
     ### PUBLIC METHODS ###
 
@@ -509,8 +509,8 @@ class SendPeakRMS(UGen):
             reply_rate=reply_rate,
             source=source,
             source_size=len(source),
-            char=[ord(x) for x in command],
-            command_size=len(command),
+            character_count=len(command),
+            character=[ord(x) for x in command],
         )
 
     @classmethod
@@ -543,8 +543,8 @@ class SendPeakRMS(UGen):
             reply_rate=reply_rate,
             source=source,
             source_size=len(source),
-            char=[ord(x) for x in command],
-            command_size=len(command),
+            character_count=len(command),
+            character=[ord(x) for x in command],
         )
 
 
@@ -565,10 +565,9 @@ class SendReply(UGen):
 
     trigger = param(None)
     reply_id = param(-1)
-    source_size = param(None)
+    character_count = param(None)
+    character = param(None, unexpanded=True)
     source = param(None, unexpanded=True)
-    command_size = param(None)
-    char = param(None, unexpanded=True)
 
     @classmethod
     def ar(cls, command_name="/reply", reply_id=-1, source=None, trigger=None):
@@ -594,10 +593,9 @@ class SendReply(UGen):
             calculation_rate=CalculationRate.AUDIO,
             trigger=trigger,
             reply_id=reply_id,
+            character_count=len(command),
+            character=[ord(x) for x in command],
             source=source,
-            source_size=len(source),
-            char=[ord(x) for x in command],
-            command_size=len(command),
         )
 
     @classmethod
@@ -624,10 +622,9 @@ class SendReply(UGen):
             calculation_rate=CalculationRate.CONTROL,
             trigger=trigger,
             reply_id=reply_id,
+            character_count=len(command),
+            character=[ord(x) for x in command],
             source=source,
-            source_size=len(source),
-            char=[ord(x) for x in command],
-            command_size=len(command),
         )
 
 
