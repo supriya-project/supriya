@@ -74,8 +74,6 @@ def _add_rate_fn(
 ):
     name = rate.token if rate is not None else "new"
     args = ["cls"]
-    if params:
-        args.append("*")
     for key, value in params.items():
         value_repr = repr(value)
         if value_repr == "inf":
