@@ -1158,7 +1158,7 @@ will result in an error:</p>
 <p>Use <a class="reference internal" href="../api/supriya/osc/utils.html#supriya.osc.utils.find_free_port" title="supriya.osc.utils.find_free_port (Python function)"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code></a> to grab a random unused port to
 successfully boot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">())</span>
-<span class="go">&lt;Server: udp://127.0.0.1:53779, 8i8o&gt;</span>
+<span class="go">&lt;Server: udp://127.0.0.1:34109, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 </div>
@@ -1284,10 +1284,10 @@ properties for inspecting its state.</p>
 <p>Inspect the “status” of audio processing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
 <span class="go">StatusResponse(</span>
-<span class="go">    actual_sample_rate=44104.32416668378,</span>
-<span class="go">    average_cpu_usage=0.1013839915394783,</span>
+<span class="go">    actual_sample_rate=44103.19194533011,</span>
+<span class="go">    average_cpu_usage=0.06720753014087677,</span>
 <span class="go">    group_count=2,</span>
-<span class="go">    peak_cpu_usage=0.5335999727249146,</span>
+<span class="go">    peak_cpu_usage=0.35372382402420044,</span>
 <span class="go">    synth_count=0,</span>
 <span class="go">    synthdef_count=0,</span>
 <span class="go">    target_sample_rate=44100.0,</span>
@@ -1306,10 +1306,10 @@ complexity of the status output:</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
 <span class="go">StatusResponse(</span>
-<span class="go">    actual_sample_rate=44104.43739201647,</span>
-<span class="go">    average_cpu_usage=0.42373648285865784,</span>
+<span class="go">    actual_sample_rate=44103.30516484955,</span>
+<span class="go">    average_cpu_usage=0.2808952331542969,</span>
 <span class="go">    group_count=2,</span>
-<span class="go">    peak_cpu_usage=0.5335999727249146,</span>
+<span class="go">    peak_cpu_usage=0.35372382402420044,</span>
 <span class="go">    synth_count=1,</span>
 <span class="go">    synthdef_count=33,</span>
 <span class="go">    target_sample_rate=44100.0,</span>
@@ -1472,13 +1472,13 @@ buffers and SynthDefs:</p>
 <p>Get access to the server’s underlying process management subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">process_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span><span class="o">.</span><span class="n">process_protocol</span>
-<span class="go">&lt;supriya.realtime.protocols.SyncProcessProtocol object at 0x7f9b505be3b0&gt;</span>
+<span class="go">&lt;supriya.realtime.protocols.SyncProcessProtocol object at 0x7f00e40b8460&gt;</span>
 </code></pre></div>
 </div>
 <p>Get access to the server’s underlying OSC subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">osc_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span>
-<span class="go">&lt;supriya.osc.protocols.ThreadedOscProtocol object at 0x7f9b505564d0&gt;</span>
+<span class="go">&lt;supriya.osc.protocols.ThreadedOscProtocol object at 0x7f00e40b9ea0&gt;</span>
 </code></pre></div>
 </div>
 <div class="admonition note">

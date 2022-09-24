@@ -136,8 +136,8 @@ triggers
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: char
-   .. autoproperty:: command_size
+   .. autoproperty:: character
+   .. autoproperty:: character_count
    .. automethod:: kr
    .. autoproperty:: peak_lag
    .. autoproperty:: reply_id
@@ -149,12 +149,11 @@ triggers
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: char
-   .. autoproperty:: command_size
+   .. autoproperty:: character
+   .. autoproperty:: character_count
    .. automethod:: kr
    .. autoproperty:: reply_id
    .. autoproperty:: source
-   .. autoproperty:: source_size
    .. autoproperty:: trigger
 
 .. autoclass:: SendTrig
