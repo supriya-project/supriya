@@ -31,9 +31,10 @@ runs:
       id: cache
       uses: actions/cache@v3
       with:
-        path: /tmp/supercollider
+        path: /tmp/supercollider/build
         key: ${{ runner.os }}-supercollider-${{ env.SC_ORIGIN_MD5 }}-${{ env.SC_COMMIT_SHA }}
-        restore-key: ${{ runner.os }}-supercollider-
+        restore-keys:
+        - ${{ runner.os }}-supercollider-
     - name: Install SuperCollider Deps
       shell: bash
       run: |
