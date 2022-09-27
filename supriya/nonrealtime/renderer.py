@@ -115,24 +115,25 @@ class SessionRenderer(SupriyaObject):
         scsynth_path = scsynth.find(scsynth_path)
         if platform.system() == "Windows":
             scsynth_path = f'"{scsynth_path}"'
-        parts = [scsynth_path]
+        command = [scsynth_path]
         server_options_string = (server_options or scsynth.Options()).as_options_string(
             realtime=False
         )
         if server_options_string:
-            parts.append(server_options_string)
+            command.extend(server_options_string.split())
         if session_osc_file_path.is_absolute():
             session_osc_file_path = session_osc_file_path.relative_to(cwd)
-        parts.extend(["-N", session_osc_file_path])
-        parts.append(input_file_path or "_")
+        command.extend(["-N", session_osc_file_path])
+        command.append(input_file_path or "_")
         if output_file_path.is_absolute() and cwd in output_file_path.parents:
             output_file_path = output_file_path.relative_to(cwd)
-        parts.append(output_file_path)
-        parts.append(self.sample_rate)
-        parts.append(self.header_format.name.lower())  # Must be lowercase.
-        parts.append(self.sample_format.name.lower())  # Must be lowercase.
-        command = " ".join(str(_) for _ in parts)
-        return command
+        command.extend([
+            output_file_path,
+            self.sample_rate,
+            self.header_format.name.lower(),  # Must be lowercase.
+            self.sample_format.name.lower(),  # Must be lowercase.
+        ])
+        return [str(_) for _ in command]
 
     def _build_render_yml(self, session_prefixes):
         session_prefixes = session_prefixes[:]
@@ -198,7 +199,7 @@ class SessionRenderer(SupriyaObject):
 
     def _stream_subprocess(self, command, session_duration):
         process = subprocess.Popen(
-            command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
+            command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
         )
         # previous_value = 0
         while True:
@@ -212,7 +213,7 @@ class SessionRenderer(SupriyaObject):
                 # current_value = int(float(output.split()[-1]) * 1000)
                 # difference = current_value - previous_value
                 # previous_value = current_value
-                logger.info(output)
+                logger.debug(output)
             elif output.startswith("FAILURE"):
                 if output.startswith("FAILURE IN SERVER /n_free Node"):
                     continue
@@ -301,6 +302,7 @@ class SessionRenderer(SupriyaObject):
                 scsynth_path=scsynth_path,
                 server_options=server_options,
             )
+            logger.info(f"{command}")
             self._report("    Command: {}".format(command))
             try:
                 exit_code = self._stream_subprocess(command, session.duration)
