@@ -1051,15 +1051,7 @@ class Server(BaseServer):
         if self.client_id > 0:
             self._setup_system_synthdefs(local_only=True)
             self._rehydrate()
-        # Supernova ignores max_logins value, so clients with large ID
-        # need to allocate their own default group here
-        if self.client_id >= len(self._nodes) - 2:
-            self._default_group = Group().allocate(
-                target_node=self._nodes[0],
-                add_action=supriya.enums.AddAction.ADD_TO_TAIL,
-            )
-        else:
-            self._default_group = self._nodes[self.client_id + 1]
+        self._default_group = self._nodes[self.client_id + 1]
         return self
 
     def disconnect(self) -> "Server":
