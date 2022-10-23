@@ -1,6 +1,6 @@
 import collections
 import threading
-from typing import Dict, List, Tuple
+from typing import Dict, List, Set, Tuple
 
 import uqbar.graphs
 
@@ -36,17 +36,17 @@ class State(SessionObject):
 
     ### INITIALIZER ###
 
-    def __init__(self, session, offset):
-        from supriya.nonrealtime import Node
+    def __init__(self, session, offset: float) -> None:
+        from supriya.nonrealtime import Buffer, Node
 
         SessionObject.__init__(self, session)
-        self._transitions = collections.OrderedDict()
+        self._transitions: Dict[Node, NodeTransition] = collections.OrderedDict()
         self._nodes_to_children: Dict[Node, Tuple[Node]] = {}
         self._nodes_to_parents: Dict[Node, Tuple[Node]] = {}
-        self._start_nodes = set()
-        self._stop_nodes = set()
-        self._start_buffers = set()
-        self._stop_buffers = set()
+        self._start_nodes: Set[Node] = set()
+        self._stop_nodes: Set[Node] = set()
+        self._start_buffers: Set[Buffer] = set()
+        self._stop_buffers: Set[Buffer] = set()
         self._offset = offset
 
     ### SPECIAL METHODS ###
@@ -64,8 +64,6 @@ class State(SessionObject):
         nodes_to_parents=None,
         stop_nodes=None,
     ):
-        import supriya.nonrealtime
-
         if nodes_to_children is not None:
             nodes_to_children = nodes_to_children.copy()
         else:
@@ -79,9 +77,7 @@ class State(SessionObject):
             action.apply_transform(nodes_to_children, nodes_to_parents)
         stop_nodes = stop_nodes or ()
         for stop_node in stop_nodes:
-            supriya.nonrealtime.NodeTransition.free_node(
-                stop_node, nodes_to_children, nodes_to_parents
-            )
+            NodeTransition.free_node(stop_node, nodes_to_children, nodes_to_parents)
         return nodes_to_children, nodes_to_parents
 
     def _as_graphviz_graph(self):
@@ -145,8 +141,6 @@ class State(SessionObject):
     def _find_first_inconsistency(
         cls, root_node, nodes_to_children_one, nodes_to_children_two, stop_nodes
     ):
-        import supriya.nonrealtime
-
         for parent in cls._iterate_nodes(root_node, nodes_to_children_one):
             if parent in stop_nodes:
                 continue
@@ -167,9 +161,7 @@ class State(SessionObject):
                     target = children_one[i]
                 else:
                     continue
-                transition = supriya.nonrealtime.NodeTransition(
-                    source=child, target=target, action=action
-                )
+                transition = NodeTransition(source=child, target=target, action=action)
                 return transition
 
     @classmethod

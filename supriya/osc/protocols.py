@@ -49,7 +49,7 @@ class OscProtocol:
 
     ### INITIALIZER ###
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.callbacks: Dict[Any, Any] = {}
         self.captures: Set[Capture] = set()
         self.healthcheck = None
@@ -176,22 +176,13 @@ class OscProtocol:
     def capture(self):
         return Capture(self)
 
-    def connect(self, ip_address: str, port: int, *, healthcheck: HealthCheck = None):
-        ...
-
-    def disconnect(self):
-        ...
-
     def register(
         self, pattern, procedure, *, failure_pattern=None, once=False
     ) -> OscCallback:
-        ...
-
-    def send(self, message):
-        ...
+        raise NotImplementedError
 
     def unregister(self, callback: OscCallback):
-        ...
+        raise NotImplementedError
 
 
 class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
@@ -226,7 +217,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     ### PUBLIC METHODS ###
 
     async def connect(
-        self, ip_address: str, port: int, *, healthcheck: HealthCheck = None
+        self, ip_address: str, port: int, *, healthcheck: Optional[HealthCheck] = None
     ):
         if self.is_running:
             raise OscProtocolAlreadyConnected
@@ -367,7 +358,9 @@ class ThreadedOscProtocol(OscProtocol):
 
     ### PUBLIC METHODS ###
 
-    def connect(self, ip_address: str, port: int, *, healthcheck: HealthCheck = None):
+    def connect(
+        self, ip_address: str, port: int, *, healthcheck: Optional[HealthCheck] = None
+    ):
         osc_protocol_logger.info(f"{self.ip_address}:{self.port} connecting...")
         if self.is_running:
             osc_protocol_logger.info(
@@ -437,7 +430,7 @@ class ThreadedOscProtocol(OscProtocol):
         self.command_queue.put(("add", callback))
         return callback
 
-    def send(self, message):
+    def send(self, message) -> None:
         datagram = self._validate_send(message)
         try:
             self.osc_server.socket.sendto(datagram, (self.ip_address, self.port))
@@ -445,7 +438,7 @@ class ThreadedOscProtocol(OscProtocol):
             # print(message)
             raise
 
-    def unregister(self, callback: OscCallback):
+    def unregister(self, callback: OscCallback) -> None:
         """
         Unregister a callback.
         """

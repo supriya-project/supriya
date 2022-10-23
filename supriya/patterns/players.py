@@ -192,7 +192,7 @@ class PatternPlayer:
             offset, *rest = event
             self._queue.put((offset - delta, *rest))
 
-    def play(self, quantization: str = None, at=None, until=None):
+    def play(self, quantization: Optional[str] = None, at=None, until=None):
         with self._lock:
             if self._is_running:
                 return
@@ -215,7 +215,7 @@ class PatternPlayer:
         ):
             self._clock.start(initial_time=at)
 
-    def stop(self, quantization: str = None):
+    def stop(self, quantization: Optional[str] = None):
         with self._lock:
             if not self._is_running or self._is_stopping:
                 return

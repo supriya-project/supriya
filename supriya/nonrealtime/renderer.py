@@ -127,12 +127,14 @@ class SessionRenderer(SupriyaObject):
         command.append(input_file_path or "_")
         if output_file_path.is_absolute() and cwd in output_file_path.parents:
             output_file_path = output_file_path.relative_to(cwd)
-        command.extend([
-            output_file_path,
-            self.sample_rate,
-            self.header_format.name.lower(),  # Must be lowercase.
-            self.sample_format.name.lower(),  # Must be lowercase.
-        ])
+        command.extend(
+            [
+                output_file_path,
+                self.sample_rate,
+                self.header_format.name.lower(),  # Must be lowercase.
+                self.sample_format.name.lower(),  # Must be lowercase.
+            ]
+        )
         return [str(_) for _ in command]
 
     def _build_render_yml(self, session_prefixes):
@@ -303,7 +305,7 @@ class SessionRenderer(SupriyaObject):
                 server_options=server_options,
             )
             logger.info(f"{command}")
-            self._report("    Command: {}".format(command))
+            self._report("    Command: {}".format(" ".join(command)))
             try:
                 exit_code = self._stream_subprocess(command, session.duration)
             except KeyboardInterrupt:

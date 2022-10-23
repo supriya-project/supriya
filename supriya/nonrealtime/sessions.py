@@ -975,7 +975,7 @@ class Session:
 
     def add_group(
         self,
-        add_action: AddActionLike = None,
+        add_action: Optional[AddActionLike] = None,
         duration: Optional[float] = None,
         offset=None,
     ) -> "supriya.nonrealtime.nodes.Group":
@@ -985,7 +985,7 @@ class Session:
 
     def add_synth(
         self,
-        add_action: AddActionLike = None,
+        add_action: Optional[AddActionLike] = None,
         duration: Optional[float] = None,
         synthdef: Optional[SynthDef] = None,
         offset: Optional[float] = None,
@@ -1046,7 +1046,7 @@ class Session:
     def move_node(
         self,
         node: "supriya.nonrealtime.nodes.Node",
-        add_action: AddActionLike = None,
+        add_action: Optional[AddActionLike] = None,
         offset: Optional[float] = None,
     ) -> None:
         self.root_node.move_node(node, add_action=add_action, offset=offset)

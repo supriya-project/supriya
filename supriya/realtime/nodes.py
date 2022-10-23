@@ -288,7 +288,7 @@ class Node(UniqueTreeNode):
 
     ### PUBLIC METHODS ###
 
-    def add_group(self, add_action: AddActionLike = None) -> "Group":
+    def add_group(self, add_action: Optional[AddActionLike] = None) -> "Group":
         """
         Add a group relative to this node via ``add_action``.
 
@@ -322,7 +322,7 @@ class Node(UniqueTreeNode):
     def add_synth(
         self,
         synthdef: Optional[SynthDef] = None,
-        add_action: AddActionLike = None,
+        add_action: Optional[AddActionLike] = None,
         **kwargs,
     ) -> "Synth":
         """
@@ -367,7 +367,9 @@ class Node(UniqueTreeNode):
             node_free_request.communicate(server=server, sync=False)
         return self
 
-    def move_node(self, node: "Node", add_action: AddActionLike = None) -> "Node":
+    def move_node(
+        self, node: "Node", add_action: Optional[AddActionLike] = None
+    ) -> "Node":
         """
         Move ``node`` relative to this node via ``add_action``.
 
@@ -745,7 +747,7 @@ class Group(Node, UniqueTreeList):
     def allocate(
         self,
         target_node,
-        add_action: AddActionLike = None,
+        add_action: Optional[AddActionLike] = None,
         node_id_is_permanent: bool = False,
         sync: bool = False,
     ) -> "Node":
@@ -933,7 +935,7 @@ class Synth(Node):
     def allocate(
         self,
         target_node,
-        add_action: AddActionLike = None,
+        add_action: Optional[AddActionLike] = None,
         node_id_is_permanent: bool = False,
         sync: bool = True,
         **kwargs,

@@ -198,7 +198,7 @@ class Pattern(metaclass=abc.ABCMeta):
 
     def play(
         self,
-        provider: Provider = None,
+        provider: Optional[Provider] = None,
         *,
         at: Optional[float] = None,
         callback: Optional[
