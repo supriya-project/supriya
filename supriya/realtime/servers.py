@@ -775,7 +775,7 @@ class Server(BaseServer):
             self._shutdown()
             raise supriya.exceptions.TooManyClients
         if len(response.action) == 2:  # supernova doesn't provide a max logins value
-            self._client_id, self._maximum_logins = response.action[1], 1
+            self._client_id, self._maximum_logins = response.action[1], self._options.maximum_logins
         else:
             self._client_id, self._maximum_logins = response.action[1:3]
 
