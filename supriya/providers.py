@@ -10,6 +10,7 @@ from types import MappingProxyType
 from typing import (
     Any,
     Callable,
+    Counter,
     Dict,
     List,
     Mapping,
@@ -500,9 +501,9 @@ class Provider(metaclass=abc.ABCMeta):
 
     ### INITIALIZER ###
 
-    def __init__(self, latency=0.1):
+    def __init__(self, latency=0.1) -> None:
         self._moments: List[ProviderMoment] = []
-        self._counter = collections.Counter()
+        self._counter: Counter[float] = collections.Counter()
         self._latency: float = latency
         self._annotation_map: Dict[Union["supriya.nonrealtime.Node", int], str] = {}
 
@@ -543,7 +544,7 @@ class Provider(metaclass=abc.ABCMeta):
     def add_synth(
         self,
         *,
-        synthdef: SynthDef = None,
+        synthdef: Optional[SynthDef] = None,
         target_node=None,
         add_action=AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,
@@ -758,7 +759,7 @@ class NonrealtimeProvider(Provider):
     def add_synth(
         self,
         *,
-        synthdef: SynthDef = None,
+        synthdef: Optional[SynthDef] = None,
         target_node=None,
         add_action=AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,
@@ -947,7 +948,7 @@ class RealtimeProvider(Provider):
     def add_synth(
         self,
         *,
-        synthdef: SynthDef = None,
+        synthdef: Optional[SynthDef] = None,
         target_node=None,
         add_action=AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,

@@ -775,7 +775,10 @@ class Server(BaseServer):
             self._shutdown()
             raise supriya.exceptions.TooManyClients
         if len(response.action) == 2:  # supernova doesn't provide a max logins value
-            self._client_id, self._maximum_logins = response.action[1], self._options.maximum_logins
+            self._client_id, self._maximum_logins = (
+                response.action[1],
+                self._options.maximum_logins,
+            )
         else:
             self._client_id, self._maximum_logins = response.action[1:3]
 
@@ -872,10 +875,10 @@ class Server(BaseServer):
 
     def add_buffer(
         self,
-        channel_count: int = None,
-        frame_count: int = None,
-        starting_frame: int = None,
         file_path: Optional[PathLike] = None,
+        channel_count: Optional[int] = None,
+        frame_count: Optional[int] = None,
+        starting_frame: Optional[int] = None,
     ) -> Buffer:
         """
         Add a buffer.
@@ -906,7 +909,10 @@ class Server(BaseServer):
         return buffer_
 
     def add_buffer_group(
-        self, buffer_count: int = 1, channel_count: int = None, frame_count: int = None
+        self,
+        buffer_count: int = 1,
+        channel_count: Optional[int] = None,
+        frame_count: Optional[int] = None,
     ) -> BufferGroup:
         """
         Add a buffer group.
@@ -960,7 +966,7 @@ class Server(BaseServer):
         bus_group.allocate(server=self)
         return bus_group
 
-    def add_group(self, add_action: AddActionLike = None) -> Group:
+    def add_group(self, add_action: Optional[AddActionLike] = None) -> Group:
         """
         Add a group relative to the default group via ``add_action``.
 
@@ -985,7 +991,7 @@ class Server(BaseServer):
         return self.default_group.add_group(add_action=add_action)
 
     def add_synth(
-        self, synthdef=None, add_action: AddActionLike = None, **kwargs
+        self, synthdef=None, add_action: Optional[AddActionLike] = None, **kwargs
     ) -> Synth:
         """
         Add a synth relative to the default group via ``add_action``.

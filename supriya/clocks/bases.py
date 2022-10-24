@@ -510,7 +510,7 @@ class BaseClock:
         args=None,
         event_type: int = EventType.SCHEDULE,
         kwargs=None,
-        quantization: str = None,
+        quantization: Optional[str] = None,
     ) -> int:
         if event_type <= 0:
             raise ValueError(f"Invalid event type {event_type}")
@@ -534,7 +534,7 @@ class BaseClock:
         self,
         *,
         beats_per_minute: Optional[float] = None,
-        quantization: str = None,
+        quantization: Optional[str] = None,
         time_signature: Optional[Tuple[int, int]] = None,
     ) -> int:
         if quantization is not None and quantization not in self._valid_quantizations:

@@ -274,7 +274,7 @@ class Node(SessionObject):
     @SessionObject.require_offset
     def add_group(
         self,
-        add_action: AddActionLike = None,
+        add_action: Optional[AddActionLike] = None,
         duration: Optional[float] = None,
         offset: Optional[float] = None,
     ) -> "supriya.nonrealtime.Group":
@@ -295,7 +295,7 @@ class Node(SessionObject):
     @SessionObject.require_offset
     def add_synth(
         self,
-        add_action: AddActionLike = None,
+        add_action: Optional[AddActionLike] = None,
         duration: Optional[float] = None,
         synthdef: Optional[SynthDef] = None,
         offset: Optional[float] = None,
@@ -328,7 +328,7 @@ class Node(SessionObject):
     def move_node(
         self,
         node: "Node",
-        add_action: AddActionLike = None,
+        add_action: Optional[AddActionLike] = None,
         offset: Optional[float] = None,
     ) -> "Node":
         import supriya.nonrealtime

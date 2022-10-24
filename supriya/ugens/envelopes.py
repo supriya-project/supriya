@@ -135,6 +135,25 @@ class FreeSelfWhenDone(UGen):
         UGen.__init__(self, calculation_rate=calculation_rate, source=source)
 
 
+@ugen(kr=True, has_done_flag=True)
+class Linen(UGen):
+    """
+    A simple line generating unit generator.
+
+    ::
+
+        >>> supriya.ugens.Linen.kr()
+        Linen.kr()
+
+    """
+
+    gate = param(1.0)
+    attack_time = param(0.01)
+    sustain_level = param(1.0)
+    release_time = param(1.0)
+    done_action = param(0)
+
+
 @ugen(kr=True)
 class Pause(UGen):
     """
@@ -198,22 +217,3 @@ class PauseSelfWhenDone(UGen):
         if not (hasattr(source, "has_done_flag") and source.has_done_flag):
             raise ValueError(repr(source))
         UGen.__init__(self, calculation_rate=calculation_rate, source=source)
-
-
-@ugen(kr=True, has_done_flag=True)
-class Linen(UGen):
-    """
-    A simple line generating unit generator.
-
-    ::
-
-        >>> supriya.ugens.Linen.kr()
-        Linen.kr()
-
-    """
-
-    gate = param(1.0)
-    attack_time = param(0.01)
-    sustain_level = param(1.0)
-    release_time = param(1.0)
-    done_action = param(0)
