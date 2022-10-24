@@ -235,9 +235,9 @@ def test_group_pause_unpause(server):
     assert group.is_paused
     with server.osc_protocol.capture() as transcript:
         group.unpause()
-    assert [(_.label, _.message) for _ in transcript] == [
-        ("S", OscMessage("/n_run", 1000, 1))
-    ]
+    assert [
+        (_.label, _.message) for _ in transcript if _.message.address != "/status.reply"
+    ] == [("S", OscMessage("/n_run", 1000, 1))]
     assert not group.is_paused
     with server.osc_protocol.capture() as transcript:
         group.unpause()

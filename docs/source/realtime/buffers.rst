@@ -143,7 +143,7 @@ Inspection
 
 ::
 
-    >>> buffer_ = server.add_buffer(2, 512)
+    >>> buffer_ = server.add_buffer(channel_count=2, frame_count=512)
     >>> buffer_.buffer_id
     >>> int(buffer_)
 
@@ -159,7 +159,7 @@ Querying
 
 ::
 
-    >>> buffer_ = server.add_buffer(2, 512)
+    >>> buffer_ = server.add_buffer(channel_count=2, frame_count=512)
     >>> buffer_.channel_count
     >>> buffer_.duration_in_seconds
     >>> buffer_.frame_count
@@ -204,7 +204,7 @@ Filling
 
 Given a single-channel buffer with 1024 samples::
 
-    >>> buffer_ = server.add_buffer(1, 128)
+    >>> buffer_ = server.add_buffer(channel_count=1, frame_count=128)
 
 ``.fill()``::
 
@@ -247,8 +247,8 @@ Copying
 
 ``.copy()``::
 
-    >>> source_buffer = server.add_buffer(1, 128)
-    >>> target_buffer = server.add_buffer(1, 128)
+    >>> source_buffer = server.add_buffer(channel_count=1, frame_count=128)
+    >>> target_buffer = server.add_buffer(channel_count=1, frame_count=128)
     >>> source_buffer.fill_via_sine_1([1])
     >>> supriya.plot(source_buffer)
     >>> source_buffer.copy(
@@ -264,7 +264,7 @@ Zeroing
 
 ``.zero()``::
 
-    >>> buffer_ = server.add_buffer(1, 128)
+    >>> buffer_ = server.add_buffer(channel_count=1, frame_count=128)
     >>> buffer_.fill_via_sine_1([1])
     >>> supriya.plot(buffer_)
     >>> buffer_.zero()
@@ -275,7 +275,7 @@ Normalizing
 
 ``.normalize()``::
 
-    >>> buffer_ = server.add_buffer(1, 8)
+    >>> buffer_ = server.add_buffer(channel_count=1, frame_count=8)
     >>> buffer_.set_contiguous((0, [0.1, -0.1, 0.2, -0.2, 0.3, -0.3, 0.4, -0.4]))
     >>> supriya.plot(buffer_)
     >>> buffer_.normalize()
@@ -319,7 +319,7 @@ the ``.fill_...()`` methods by setting ``as_wavetable=True``.
 
 Grab a fresh buffer::
 
-    >>> buffer_ = server.add_buffer(1, 128)
+    >>> buffer_ = server.add_buffer(channel_count=1, frame_count=128)
 
 ... and compare the following calls against the non-wavetable versions
 demonstrated earlier::

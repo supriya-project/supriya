@@ -113,8 +113,6 @@ class SessionRenderer(SupriyaObject):
     ):
         cwd = pathlib.Path.cwd()
         scsynth_path = scsynth.find(scsynth_path)
-        if platform.system() == "Windows":
-            scsynth_path = f'"{scsynth_path}"'
         command = [scsynth_path]
         server_options_string = (server_options or scsynth.Options()).as_options_string(
             realtime=False

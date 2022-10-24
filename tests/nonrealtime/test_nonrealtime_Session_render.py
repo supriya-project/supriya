@@ -81,8 +81,6 @@ def test_00c(nonrealtime_paths):
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
     }
     executable = supriya.scsynth.find()
-    if platform.system() == "Windows":
-        executable = f'"{executable}"'
     assert session.transcript == [
         "Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.",
         "    Wrote session-7b3f85710f19667f73f745b8ac8080a0.osc.",
@@ -882,7 +880,6 @@ def test_08(nonrealtime_paths):
     executable = supriya.scsynth.find()
     render_yml_path = "output/render.yml"
     if platform.system() == "Windows":
-        executable = f'"{executable}"'
         render_yml_path = "output\\render.yml"
     assert session_three.transcript == [
         "Writing session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",

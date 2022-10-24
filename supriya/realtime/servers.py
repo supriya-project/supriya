@@ -875,9 +875,9 @@ class Server(BaseServer):
 
     def add_buffer(
         self,
-        file_path: Optional[PathLike] = None,
         channel_count: Optional[int] = None,
         frame_count: Optional[int] = None,
+        file_path: Optional[PathLike] = None,
         starting_frame: Optional[int] = None,
     ) -> Buffer:
         """
