@@ -1,5 +1,6 @@
 import collections
 
+import numpy
 import pytest
 
 import supriya.realtime
@@ -184,3 +185,28 @@ def test_get_02(server):
         ]
     )
     buffer_.free()
+
+
+def test___plot___01(server):
+    buffer_ = server.add_buffer(channel_count=1, frame_count=5)
+    buffer_.set_contiguous([0, [-1.0, 0.5, 0.0, -0.5, 1.0]])
+    assert buffer_.get_contiguous([0, 5]).items[0].sample_values == (
+        -1.0,
+        0.5,
+        0.0,
+        -0.5,
+        1.0,
+    )
+    array, sample_rate = buffer_.__plot__()
+    assert isinstance(array, numpy.ndarray)
+    assert isinstance(sample_rate, int) and sample_rate > 0
+    assert array.tolist() == [-1.0, 0.5, 0.0, -0.5, 1.0]
+
+
+def test___plot___02(server):
+    buffer_ = server.add_buffer(channel_count=1, frame_count=512)
+    buffer_.fill_via_chebyshev([1, 0.5, 0.25], as_wavetable=False)
+    array, sample_rate = buffer_.__plot__()
+    assert isinstance(array, numpy.ndarray)
+    assert isinstance(sample_rate, int) and sample_rate > 0
+    assert len(array.tolist()) == 512

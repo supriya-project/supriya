@@ -13,7 +13,6 @@ runs:
   using: "composite"
   steps:
     - name: Clone SuperCollider
-      shell: bash
       run: |
         git clone --quiet --recursive --branch ${{ inputs.branch }} ${{ inputs.origin }} /tmp/supercollider
         cd /tmp/supercollider
@@ -27,6 +26,7 @@ runs:
           echo "$RUNNER_OS not supported"
           exit 1
         fi
+      shell: bash
     - name: Cache SuperCollider
       id: cache
       uses: actions/cache@v3
@@ -35,9 +35,12 @@ runs:
         key: ${{ runner.os }}-supercollider-${{ env.SC_ORIGIN_MD5 }}-${{ env.SC_COMMIT_SHA }}
         restore-keys: |
           ${{ runner.os }}-supercollider-
-    - name: Install SuperCollider Deps
+    - name: Validate cache
+      run: echo "Cached? ${{ steps.cache.outputs.cache-hit }}"
       shell: bash
+    - name: Install SuperCollider Deps
       run: |
+        echo "Installing SuperCollider deps..."
         if [ "$RUNNER_OS" == "Linux" ]; then
           export DEBIAN_FRONTEND=noninteractive
           sudo apt-get update --yes
@@ -69,11 +72,11 @@ runs:
           echo "$RUNNER_OS not supported"
           exit 1
         fi
+      shell: bash
     - name: Prep SuperCollider build
       if: steps.cache.outputs.cache-hit != 'true'
-      working-directory: /tmp/supercollider/build
-      shell: bash
       run: |
+        echo "[Cache Miss] Configuring SuperCollider..."
         if [ "$RUNNER_OS" == "Linux" ]; then
           cmake \
             --debug-output \
@@ -91,11 +94,12 @@ runs:
           echo "$RUNNER_OS not supported"
           exit 1
         fi
+      shell: bash
+      working-directory: /tmp/supercollider/build
     - name: Build SuperCollider
       if: steps.cache.outputs.cache-hit != 'true'
-      working-directory: /tmp/supercollider/build
-      shell: bash
       run: |
+        echo "[Cache Miss] Building SuperCollider..."
         if [ "$RUNNER_OS" == "Linux" ]; then
           make
         elif [ "$RUNNER_OS" == "macOS" ]; then
@@ -104,12 +108,13 @@ runs:
           echo "$RUNNER_OS not supported"
           exit 1
         fi
-    - name: Install SuperCollider
-      working-directory: /tmp/supercollider/build
       shell: bash
+      working-directory: /tmp/supercollider/build
+    - name: Install SuperCollider
       run: |
+        echo "Installing SuperCollider..."
         if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo make install
+          sudo make install/fast
           mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo "PATH=/tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/MacOS:/tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/Resources/:$PATH" >> $GITHUB_ENV
@@ -118,18 +123,22 @@ runs:
           echo "$RUNNER_OS not supported"
           exit 1
         fi
-    - name: Setup Jack
       shell: bash
+      working-directory: /tmp/supercollider/build
+    - name: Setup Jack
       run: |
+        echo "Setting up Jack..."
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo usermod -a -G audio ${USER}
         fi
         sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
         sleep 1
-    - name: Sanity-check SuperCollider
       shell: bash
+    - name: Sanity-check SuperCollider
       run: |
+        echo "Sanity-checking SuperCollider..."
         scsynth -v
         sudo -E su $USER -c "scsynth -D 0 -H dummy -R 0 -u 57110" &
         sleep 5
         killall scsynth
+      shell: bash

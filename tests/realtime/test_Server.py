@@ -92,7 +92,7 @@ def test_boot_and_quit():
 def test_boot_and_quit_with_resources():
     server = Server()
     server.boot()
-    server.add_buffer(1, 1024)
+    server.add_buffer(channel_count=1, frame_count=1024)
     server.add_bus("audio")
     server.add_bus("control")
     server.add_group()
@@ -365,7 +365,7 @@ def test_reset():
     server.add_synthdef(default)
     server.add_synth()
     server.add_group()
-    server.add_buffer(1, 1024)
+    server.add_buffer(channel_count=1, frame_count=1024)
     server.add_bus("audio")
     server.add_bus("control")
     assert default in server
@@ -388,7 +388,7 @@ def test_reboot():
 def test_reboot_with_resources():
     server = Server()
     server.boot()
-    server.add_buffer(1, 1024)
+    server.add_buffer(channel_count=1, frame_count=1024)
     server.add_bus("audio")
     server.add_bus("control")
     server.add_group()
@@ -407,7 +407,7 @@ def test_reset_and_reboot():
 def test_reset_and_reboot_with_resources():
     server = Server()
     server.boot()
-    server.add_buffer(1, 1024)
+    server.add_buffer(channel_count=1, frame_count=1024)
     server.add_bus("audio")
     server.add_bus("control")
     server.add_group()

@@ -599,7 +599,7 @@ class Buffer(ServerObject):
         ::
 
             >>> server = supriya.Server().boot()
-            >>> buffer_ = server.add_buffer(1, 512)
+            >>> buffer_ = server.add_buffer(channel_count=1, frame_count=512)
             >>> buffer_.fill_via_chebyshev(
             ...     [1, 0.5, 0.25],
             ...     as_wavetable=False,
@@ -647,7 +647,7 @@ class Buffer(ServerObject):
         ::
 
             >>> server = supriya.Server().boot()
-            >>> buffer_ = server.add_buffer(1, 512)
+            >>> buffer_ = server.add_buffer(channel_count=1, frame_count=512)
             >>> buffer_.fill_via_sine_1(
             ...     [1, 1, 1],
             ...     as_wavetable=False,
@@ -696,7 +696,7 @@ class Buffer(ServerObject):
         ::
 
             >>> server = supriya.Server().boot()
-            >>> buffer_ = server.add_buffer(1, 512)
+            >>> buffer_ = server.add_buffer(channel_count=1, frame_count=512)
             >>> buffer_.fill_via_sine_2(
             ...     frequencies=[1, 2, 4],
             ...     amplitudes=[1, 0.5, 0.25],
@@ -751,7 +751,7 @@ class Buffer(ServerObject):
         ::
 
             >>> server = supriya.Server().boot()
-            >>> buffer_ = server.add_buffer(1, 512)
+            >>> buffer_ = server.add_buffer(channel_count=1, frame_count=512)
             >>> buffer_.fill_via_sine_3(
             ...     frequencies=[1, 2, 3],
             ...     amplitudes=[1, 0.5, 0.25],

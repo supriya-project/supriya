@@ -22,10 +22,10 @@ class ProcessProtocol:
         atexit.register(self.quit)
 
     def boot(self, options, scsynth_path, port):
-        ...
+        raise NotImplementedError
 
     def quit(self):
-        ...
+        raise NotImplementedError
 
     def _build_command(sef, options, scsynth_path, port):
         options_string = options.as_options_string(port)
