@@ -160,7 +160,7 @@ def test_RealtimeProvider_add_group_2(server):
         [None, [["/g_new", 1000, 0, 1]]],
         [seconds + 0.01 + provider.latency, [["/g_new", 1001, 0, 1000]]],
     ]
-    time.sleep(0.1)
+    time.sleep(0.2)
     assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
@@ -250,7 +250,7 @@ def test_RealtimeProvider_add_synth_2(server):
             [["/s_new", "default", 1001, 0, 1000, "amplitude", 0.5, "frequency", 666]],
         ],
     ]
-    time.sleep(0.1)
+    time.sleep(0.2)
     assert str(server.query()) == normalize(
         """
         NODE TREE 0 group
