@@ -27,9 +27,8 @@ class ProcessProtocol:
     def quit(self):
         raise NotImplementedError
 
-    def _build_command(sef, options, scsynth_path, port):
-        options_string = options.as_options_string(port)
-        command = [str(scsynth_path), *options_string.split()]
+    def _build_command(self, options, scsynth_path, port):
+        command = [str(scsynth_path)] + options.serialize(port)
         logger.info("Boot: {}".format(command))
         return command
 
