@@ -4,7 +4,7 @@ import signal
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List
 
 import uqbar.io
 import uqbar.objects
@@ -79,68 +79,66 @@ class Options:
 
     ### PUBLIC METHODS ###
 
-    def as_options_string(self, port=57110, realtime=True, supernova=False):
+    def serialize(self, port=57110, realtime=True, supernova=False) -> List[str]:
         result = []
         if realtime:
             if self.protocol == "tcp":
-                result.append("-t {}".format(port))
+                result.extend(["-t", port])
             else:
-                result.append("-u {}".format(port))
+                result.extend(["-u", port])
             if self.input_device:
-                flag = "-H {}".format(self.input_device)
+                result.extend(["-H", self.input_device])
                 if self.output_device != self.input_device:
-                    flag = "{} {}".format(flag, self.output_device)
-                result.append(flag)
+                    result.append(self.output_device)
             if self.maximum_logins != 64:
-                result.append("-l {}".format(self.maximum_logins))
+                result.extend(["-l", self.maximum_logins])
             if self.password:
-                result.append("-p {}".format(self.password))
+                result.extend(["-p", self.password])
             if self.sample_rate is not None:
-                result.append("-S {}".format(int(self.sample_rate)))
+                result.extend(["-S", int(self.sample_rate)])
             if not self.zero_configuration:
-                result.append("-R 0")
+                result.extend(["-R", "0"])
         if self.audio_bus_channel_count != 1024:
-            result.append("-a {}".format(self.audio_bus_channel_count))
+            result.extend(["-a", self.audio_bus_channel_count])
         if self.control_bus_channel_count != 16384:
-            result.append("-c {}".format(self.control_bus_channel_count))
+            result.extend(["-c", self.control_bus_channel_count])
         if self.input_bus_channel_count != 8:
-            result.append("-i {}".format(self.input_bus_channel_count))
+            result.extend(["-i", self.input_bus_channel_count])
         if self.output_bus_channel_count != 8:
-            result.append("-o {}".format(self.output_bus_channel_count))
+            result.extend(["-o", self.output_bus_channel_count])
         if self.buffer_count != 1024:
-            result.append("-b {}".format(self.buffer_count))
+            result.extend(["-b", self.buffer_count])
         if self.maximum_node_count != 1024:
-            result.append("-n {}".format(self.maximum_node_count))
+            result.extend(["-n", self.maximum_node_count])
         if self.maximum_synthdef_count != 1024:
-            result.append("-d {}".format(self.maximum_synthdef_count))
+            result.extend(["-d", self.maximum_synthdef_count])
         if self.block_size != 64:
-            result.append("-z {}".format(self.block_size))
+            result.extend(["-z", self.block_size])
         if self.hardware_buffer_size is not None:
-            result.append("-Z {}".format(int(self.hardware_buffer_size)))
+            result.extend(["-Z", int(self.hardware_buffer_size)])
         if self.memory_size != 8192:
-            result.append("-m {}".format(self.memory_size))
+            result.extend(["-m", self.memory_size])
         if self.random_number_generator_count != 64:
-            result.append("-r {}".format(self.random_number_generator_count))
+            result.extend(["-r", self.random_number_generator_count])
         if self.wire_buffer_count != 64:
-            result.append("-w {}".format(self.wire_buffer_count))
+            result.extend(["-w", self.wire_buffer_count])
         if not self.load_synthdefs:
-            result.append("-D 0")
+            result.extend(["-D", "0"])
         if self.input_stream_mask:
-            result.append("-I {}".format(self.input_stream_mask))
+            result.extend(["-I", self.input_stream_mask])
         if self.output_stream_mask:
-            result.append("-O {}".format(self.output_stream_mask))
+            result.extend(["-O", self.output_stream_mask])
         if 0 < self.verbosity:
-            result.append("-v {}".format(self.verbosity))
+            result.extend(["-v", self.verbosity])
         if self.restricted_path is not None:
-            result.append("-P {}".format(self.restricted_path))
+            result.extend(["-P", self.restricted_path])
         if self.memory_locking:
             result.append("-L")
         if self.ugen_plugins_path:
-            result.append("-U {}".format(self.ugen_plugins_path))
+            result.extend(["-U", self.ugen_plugins_path])
         if supernova and self.threads:
-            result.append("-t {}".format(self.threads))
-        options_string = " ".join(sorted(result))
-        return options_string
+            result.extend(["-t", self.threads])
+        return [str(_) for _ in result]
 
     ### PUBLIC PROPERTIES ###
 

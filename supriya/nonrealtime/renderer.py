@@ -114,11 +114,11 @@ class SessionRenderer(SupriyaObject):
         cwd = pathlib.Path.cwd()
         scsynth_path = scsynth.find(scsynth_path)
         command = [scsynth_path]
-        server_options_string = (server_options or scsynth.Options()).as_options_string(
+        server_options_serial = (server_options or scsynth.Options()).serialize(
             realtime=False
         )
-        if server_options_string:
-            command.extend(server_options_string.split())
+        if server_options_serial:
+            command.extend(server_options_serial)
         if session_osc_file_path.is_absolute():
             session_osc_file_path = session_osc_file_path.relative_to(cwd)
         command.extend(["-N", session_osc_file_path])
