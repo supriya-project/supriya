@@ -138,11 +138,19 @@ runs:
         sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
         sleep 1
       shell: bash
-    - name: Sanity-check SuperCollider
+    - name: Sanity-check scsynth
       run: |
-        echo "Sanity-checking SuperCollider..."
+        echo "Sanity-checking scsynth..."
         scsynth -v
         sudo -E su $USER -c "scsynth -D 0 -H dummy -R 0 -u 57110" &
         sleep 5
         killall scsynth
+      shell: bash
+    - name: Sanity-check supernova
+      run: |
+        echo "Sanity-checking supernova..."
+        supernova -v
+        sudo -E su $USER -c "supernova -D 0 -H dummy -R 0 -u 57110" &
+        sleep 5
+        killall supernova
       shell: bash
