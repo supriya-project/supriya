@@ -160,3 +160,11 @@ runs:
         sleep 5
         killall supernova
       shell: bash
+    - name: Setup Jack Again
+      run: |
+        echo "Setting up Jack... again..."
+        killall jackd
+        sleep 1
+        sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
+        sleep 1
+      shell: bash
