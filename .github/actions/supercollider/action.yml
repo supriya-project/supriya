@@ -152,9 +152,11 @@ runs:
         echo "Sanity-checking supernova..."
         supernova -v
         supernova -h || true
-        sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
+        killall jackd
         sleep 1
-        sudo -E su $USER -c "supernova -D 0 -H dummy -R 0 -u 57110" &
+        sudo -E su ${USER} -c "jackd -r -n test -ddummy -r44100 -p1024" &
+        sleep 1
+        sudo -E su $USER -c "supernova -D 0 -H test -R 0 -u 57110" &
         sleep 5
         killall supernova
       shell: bash
