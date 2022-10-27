@@ -63,9 +63,11 @@ runs:
         elif [ "$RUNNER_OS" == "macOS" ]; then
           brew install \
             cmake \
+            fftw \
             git \
             jack \
             libsndfile \
+            portaudio \
             qt5 \
             readline
         else
@@ -84,10 +86,12 @@ runs:
             -DSC_EL=OFF \
             -DSC_IDE=OFF \
             -DSC_QT=OFF \
+            -DSUPERNOVA=ON \
             /tmp/supercollider
         elif [ "$RUNNER_OS" == "macOS" ]; then
           cmake \
             -DCMAKE_PREFIX_PATH=`brew --prefix qt5` \
+            -DSUPERNOVA=ON \
             -G Xcode \
             /tmp/supercollider
         else
