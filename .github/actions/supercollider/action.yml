@@ -142,7 +142,7 @@ runs:
       run: |
         echo "Sanity-checking scsynth..."
         scsynth -v
-        scsynth -h
+        scsynth -h || true
         sudo -E su $USER -c "scsynth -D 0 -H dummy -R 0 -u 57110" &
         sleep 5
         killall scsynth
@@ -151,7 +151,7 @@ runs:
       run: |
         echo "Sanity-checking supernova..."
         supernova -v
-        supernova -h
+        supernova -h || true
         sudo -E su $USER -c "supernova -D 0 -H dummy -R 0 -u 57110" &
         sleep 5
         killall supernova
