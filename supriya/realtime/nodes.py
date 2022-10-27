@@ -288,7 +288,9 @@ class Node(UniqueTreeNode):
 
     ### PUBLIC METHODS ###
 
-    def add_group(self, add_action: Optional[AddActionLike] = None) -> "Group":
+    def add_group(
+        self, add_action: Optional[AddActionLike] = None, parallel: bool = False
+    ) -> "Group":
         """
         Add a group relative to this node via ``add_action``.
 
@@ -315,7 +317,7 @@ class Node(UniqueTreeNode):
         add_action = AddAction.from_expr(add_action)
         if add_action not in self._valid_add_actions:
             raise ValueError("Invalid add action: {add_action}")
-        group = Group()
+        group = Group(parallel=parallel)
         group.allocate(add_action=add_action, target_node=self)
         return group
 
@@ -544,10 +546,17 @@ class Group(Node, UniqueTreeList):
 
     ### INITIALIZER ###
 
-    def __init__(self, children=None, name=None, node_id_is_permanent=False):
+    def __init__(
+        self,
+        children=None,
+        name=None,
+        node_id_is_permanent=False,
+        parallel: bool = False,
+    ):
         self._control_interface = GroupInterface(client=self)
         Node.__init__(self, name=name, node_id_is_permanent=node_id_is_permanent)
         UniqueTreeList.__init__(self, children=children, name=name)
+        self._parallel = parallel
 
     ### SPECIAL METHODS ###
 
@@ -664,9 +673,13 @@ class Group(Node, UniqueTreeList):
                 requests.append(request)
             else:
                 if isinstance(node, Group):
-                    request = supriya.commands.GroupNewRequest(
+                    if node.parallel:
+                        request_method = supriya.commands.ParallelGroupNewRequest
+                    else:
+                        request_method = supriya.commands.GroupNewRequest
+                    request = request_method(
                         items=[
-                            supriya.commands.GroupNewRequest.Item(
+                            request_method.Item(
                                 add_action=add_action,
                                 node_id=node,
                                 target_node_id=target_node,
@@ -759,9 +772,12 @@ class Group(Node, UniqueTreeList):
         self._node_id_is_permanent = bool(node_id_is_permanent)
         target_node = Node._expr_as_target(target_node)
         server = target_node.server
-        group_new_request = supriya.commands.GroupNewRequest(
+        request_method = supriya.commands.GroupNewRequest
+        if self._parallel:
+            request_method = supriya.commands.ParallelGroupNewRequest
+        group_new_request = request_method(
             items=[
-                supriya.commands.GroupNewRequest.Item(
+                request_method.Item(
                     add_action=AddAction.from_expr(add_action),
                     node_id=self,
                     target_node_id=target_node.node_id,
@@ -793,6 +809,10 @@ class Group(Node, UniqueTreeList):
     @property
     def controls(self) -> GroupInterface:
         return self._control_interface
+
+    @property
+    def parallel(self) -> bool:
+        return self._parallel
 
 
 class Synth(Node):

@@ -263,11 +263,19 @@ class NodeProxy(Proxy):
 class GroupProxy(NodeProxy):
     identifier: Union["supriya.nonrealtime.Node", int]
     provider: "Provider"
+    parallel: bool = False
 
-    def as_add_request(self, add_action, target_node) -> commands.GroupNewRequest:
-        return commands.GroupNewRequest(
+    def as_add_request(
+        self, add_action, target_node
+    ) -> Union[commands.GroupNewRequest, commands.ParallelGroupNewRequest]:
+
+        request_method = commands.GroupNewRequest
+        if self.parallel:
+            request_method = commands.ParallelGroupNewRequest
+
+        return request_method(
             items=[
-                commands.GroupNewRequest.Item(
+                request_method.Item(
                     node_id=int(self.identifier),
                     add_action=add_action,
                     target_node_id=int(target_node),
@@ -543,6 +551,7 @@ class Provider(metaclass=abc.ABCMeta):
         target_node=None,
         add_action=AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,
+        parallel: bool = False,
     ) -> GroupProxy:
         raise NotImplementedError
 
@@ -751,13 +760,15 @@ class NonrealtimeProvider(Provider):
         target_node=None,
         add_action=AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,
+        parallel: bool = False,
     ) -> GroupProxy:
         if not self.moment:
             raise ValueError("No current moment")
+        # TODO: implement (dummy) parallel flag for nonrealtime methods
         identifier = self._resolve_target_node(target_node).add_group(
             add_action=add_action
         )
-        proxy = GroupProxy(identifier=identifier, provider=self)
+        proxy = GroupProxy(identifier=identifier, provider=self, parallel=parallel)
         return proxy
 
     def add_synth(
@@ -938,12 +949,13 @@ class RealtimeProvider(Provider):
         target_node=None,
         add_action=AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,
+        parallel: bool = False,
     ) -> GroupProxy:
         if not self.moment:
             raise ValueError("No current moment")
         target_node = self._resolve_target_node(target_node)
         identifier = self._server.node_id_allocator.allocate_node_id(1)
-        proxy = GroupProxy(identifier=identifier, provider=self)
+        proxy = GroupProxy(identifier=identifier, provider=self, parallel=parallel)
         self.moment.node_additions.append((proxy, add_action, target_node))
         if name:
             self._annotation_map[identifier] = name
