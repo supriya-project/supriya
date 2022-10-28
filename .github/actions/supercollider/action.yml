@@ -70,6 +70,7 @@ runs:
             portaudio \
             qt5 \
             readline
+          sudo update_dyld_shared_cache
         else
           echo "$RUNNER_OS not supported"
           exit 1
