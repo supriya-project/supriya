@@ -46,6 +46,39 @@ def test_boot_options():
             server.quit()
 
 
+def test_boot_options_supernova():
+    server = supriya.realtime.Server()
+    try:
+        boot_options = Options(memory_size=8192 * 32, buffer_count=2048)
+        # Default
+        server.boot(supernova=True)
+        assert isinstance(server.options, type(boot_options))
+        assert server.options.buffer_count == 1024
+        assert server.options.memory_size == 8192
+        server.quit()
+        # With Options
+        server.boot(options=boot_options, supernova=True)
+        assert isinstance(server.options, type(boot_options))
+        assert server.options.buffer_count == 2048
+        assert server.options.memory_size == 8192 * 32
+        server.quit()
+        # With **kwargs
+        server.boot(buffer_count=2048, supernova=True)
+        assert isinstance(server.options, type(boot_options))
+        assert server.options.buffer_count == 2048
+        assert server.options.memory_size == 8192
+        server.quit()
+        # With Options and **kwargs
+        server.boot(buffer_count=4096, options=boot_options, supernova=True)
+        assert isinstance(server.options, type(boot_options))
+        assert server.options.buffer_count == 4096
+        assert server.options.memory_size == 8192 * 32
+        server.quit()
+    finally:
+        if server.is_running:
+            server.quit()
+
+
 @pytest.mark.skip("Reimplementing")
 def test_server_boot_errors(mocker):
     def check_scsynth():
@@ -89,9 +122,32 @@ def test_boot_and_quit():
     assert not server.is_owner
 
 
+def test_boot_and_quit_supernova():
+    server = Server()
+    assert not server.is_running
+    assert not server.is_owner
+    server.boot(supernova=True)
+    assert server.is_running
+    assert server.is_owner
+    server.quit()
+    assert not server.is_running
+    assert not server.is_owner
+
+
 def test_boot_and_quit_with_resources():
     server = Server()
     server.boot()
+    server.add_buffer(channel_count=1, frame_count=1024)
+    server.add_bus("audio")
+    server.add_bus("control")
+    server.add_group()
+    server.add_synth()
+    server.quit()
+
+
+def test_boot_and_quit_with_resources_supernova():
+    server = Server()
+    server.boot(supernova=True)
     server.add_buffer(channel_count=1, frame_count=1024)
     server.add_bus("audio")
     server.add_bus("control")
@@ -113,6 +169,19 @@ def test_boot_and_boot():
     assert server.is_owner
 
 
+def test_boot_and_boot_supernova():
+    server = Server()
+    assert not server.is_running
+    assert not server.is_owner
+    server.boot(supernova=True)
+    assert server.is_running
+    assert server.is_owner
+    with pytest.raises(exceptions.ServerOnline):
+        server.boot(supernova=True)
+    assert server.is_running
+    assert server.is_owner
+
+
 def test_boot_and_quit_and_quit():
     server = Server()
     assert not server.is_running
@@ -128,11 +197,39 @@ def test_boot_and_quit_and_quit():
     assert not server.is_owner
 
 
+def test_boot_and_quit_and_quit_supernova():
+    server = Server()
+    assert not server.is_running
+    assert not server.is_owner
+    server.boot(supernova=True)
+    assert server.is_running
+    assert server.is_owner
+    server.quit()
+    assert not server.is_running
+    assert not server.is_owner
+    server.quit()
+    assert not server.is_running
+    assert not server.is_owner
+
+
 def test_boot_and_connect():
     server = Server()
     assert not server.is_running
     assert not server.is_owner
     server.boot()
+    assert server.is_running
+    assert server.is_owner
+    with pytest.raises(exceptions.ServerOnline):
+        server.connect()
+    assert server.is_running
+    assert server.is_owner
+
+
+def test_boot_and_connect_supernova():
+    server = Server()
+    assert not server.is_running
+    assert not server.is_owner
+    server.boot(supernova=True)
     assert server.is_running
     assert server.is_owner
     with pytest.raises(exceptions.ServerOnline):
@@ -162,6 +259,27 @@ def test_boot_a_and_connect_b():
     assert server_a.query(False) == server_b.query(False)
 
 
+def test_boot_a_and_connect_b_supernova():
+    server_a, server_b = Server(), Server()
+    assert not server_a.is_running and not server_a.is_owner
+    assert not server_b.is_running and not server_b.is_owner
+    server_a.boot(maximum_logins=4, supernova=True)
+    assert server_a.is_running and server_a.is_owner
+    assert not server_b.is_running and not server_b.is_owner
+    server_b.connect()
+    assert server_a.is_running and server_a.is_owner
+    assert server_b.is_running and not server_b.is_owner
+    assert server_a.query(False) == server_b.query(False)
+    assert server_a.client_id == 0 and server_b.client_id == 1
+    assert server_a.default_group.node_id == 1 and server_b.default_group.node_id == 2
+    group = supriya.Group()
+    group.allocate(target_node=server_a)
+    assert server_a.root_node[0][0] is group
+    server_b.sync()
+    assert server_b.root_node[0][0] is not group
+    assert server_a.query(False) == server_b.query(False)
+
+
 def test_boot_a_and_boot_b_cannot_boot():
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner
@@ -171,6 +289,19 @@ def test_boot_a_and_boot_b_cannot_boot():
     assert not server_b.is_running and not server_b.is_owner
     with pytest.raises(exceptions.ServerCannotBoot):
         server_b.boot(maximum_logins=4)
+    assert server_a.is_running and server_a.is_owner
+    assert not server_b.is_running and not server_b.is_owner
+
+
+def test_boot_a_and_boot_b_cannot_boot_supernova():
+    server_a, server_b = Server(), Server()
+    assert not server_a.is_running and not server_a.is_owner
+    assert not server_b.is_running and not server_b.is_owner
+    server_a.boot(maximum_logins=4, supernova=True)
+    assert server_a.is_running and server_a.is_owner
+    assert not server_b.is_running and not server_b.is_owner
+    with pytest.raises(exceptions.ServerCannotBoot):
+        server_b.boot(maximum_logins=4, supernova=True)
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
 
@@ -205,6 +336,23 @@ def test_boot_a_and_connect_b_and_quit_a():
     assert not server_b.is_running and not server_b.is_owner
 
 
+def test_boot_a_and_connect_b_and_quit_a_supernova():
+    server_a, server_b = Server(), Server()
+    assert not server_a.is_running and not server_a.is_owner
+    assert not server_b.is_running and not server_b.is_owner
+    server_a.boot(maximum_logins=2, supernova=True)
+    server_b.connect()
+    assert server_a.is_running and server_a.is_owner
+    assert server_b.is_running and not server_b.is_owner
+    server_a.quit()
+    assert not server_a.is_running and not server_a.is_owner
+    for _ in range(45):
+        time.sleep(1)
+        if not server_b.is_running:
+            break
+    assert not server_b.is_running and not server_b.is_owner
+
+
 def test_boot_a_and_connect_b_and_disconnect_b():
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner
@@ -218,11 +366,38 @@ def test_boot_a_and_connect_b_and_disconnect_b():
     assert not server_b.is_running and not server_b.is_owner
 
 
+def test_boot_a_and_connect_b_and_disconnect_b_supernova():
+    server_a, server_b = Server(), Server()
+    assert not server_a.is_running and not server_a.is_owner
+    assert not server_b.is_running and not server_b.is_owner
+    server_a.boot(maximum_logins=2, supernova=True)
+    server_b.connect()
+    assert server_a.is_running and server_a.is_owner
+    assert server_b.is_running and not server_b.is_owner
+    server_b.disconnect()
+    assert server_a.is_running and server_a.is_owner
+    assert not server_b.is_running and not server_b.is_owner
+
+
 def test_boot_a_and_connect_b_and_disconnect_a():
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
     server_a.boot(maximum_logins=2)
+    server_b.connect()
+    assert server_a.is_running and server_a.is_owner
+    assert server_b.is_running and not server_b.is_owner
+    with pytest.raises(exceptions.OwnedServerShutdown):
+        server_a.disconnect()
+    assert server_a.is_running and server_a.is_owner
+    assert server_b.is_running and not server_b.is_owner
+
+
+def test_boot_a_and_connect_b_and_disconnect_a_supernova():
+    server_a, server_b = Server(), Server()
+    assert not server_a.is_running and not server_a.is_owner
+    assert not server_b.is_running and not server_b.is_owner
+    server_a.boot(maximum_logins=2, supernova=True)
     server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
@@ -246,11 +421,42 @@ def test_boot_a_and_connect_b_and_quit_b():
     assert server_b.is_running and not server_b.is_owner
 
 
+def test_boot_a_and_connect_b_and_quit_b_supernova():
+    server_a, server_b = Server(), Server()
+    assert not server_a.is_running and not server_a.is_owner
+    assert not server_b.is_running and not server_b.is_owner
+    server_a.boot(maximum_logins=2, supernova=True)
+    server_b.connect()
+    assert server_a.is_running and server_a.is_owner
+    assert server_b.is_running and not server_b.is_owner
+    with pytest.raises(exceptions.UnownedServerShutdown):
+        server_b.quit()
+    assert server_a.is_running and server_a.is_owner
+    assert server_b.is_running and not server_b.is_owner
+
+
 def test_boot_a_and_connect_b_and_force_quit_b():
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
     server_a.boot(maximum_logins=2)
+    server_b.connect()
+    assert server_a.is_running and server_a.is_owner
+    assert server_b.is_running and not server_b.is_owner
+    server_b.quit(force=True)
+    assert not server_b.is_running and not server_b.is_owner
+    for _ in range(45):
+        time.sleep(1)
+        if not server_a.is_running:
+            break
+    assert not server_a.is_running and not server_a.is_owner
+
+
+def test_boot_a_and_connect_b_and_force_quit_b_supernova():
+    server_a, server_b = Server(), Server()
+    assert not server_a.is_running and not server_a.is_owner
+    assert not server_b.is_running and not server_b.is_owner
+    server_a.boot(maximum_logins=2, supernova=True)
     server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
@@ -385,6 +591,15 @@ def test_reboot():
     assert server.is_running
 
 
+def test_reboot_supernova():
+    server = Server()
+    server.reboot(supernova=True)
+    assert server.is_running
+    server.reboot(supernova=True)
+    assert server.is_running
+    assert server.is_running
+
+
 def test_reboot_with_resources():
     server = Server()
     server.boot()
@@ -396,11 +611,30 @@ def test_reboot_with_resources():
     server.reboot()
 
 
+def test_reboot_with_resources_supernova():
+    server = Server()
+    server.boot(supernova=True)
+    server.add_buffer(channel_count=1, frame_count=1024)
+    server.add_bus("audio")
+    server.add_bus("control")
+    server.add_group()
+    server.add_synth()
+    server.reboot(supernova=True)
+
+
 def test_reset_and_reboot():
     server = Server()
     server.boot()
     server.reset()
     server.reboot()
+    assert server.is_running
+
+
+def test_reset_and_reboot_supernova():
+    server = Server()
+    server.boot(supernova=True)
+    server.reset()
+    server.reboot(supernova=True)
     assert server.is_running
 
 
@@ -414,4 +648,17 @@ def test_reset_and_reboot_with_resources():
     server.add_synth()
     server.reset()
     server.reboot()
+    assert server.is_running
+
+
+def test_reset_and_reboot_with_resources_supernova():
+    server = Server()
+    server.boot(supernova=True)
+    server.add_buffer(channel_count=1, frame_count=1024)
+    server.add_bus("audio")
+    server.add_bus("control")
+    server.add_group()
+    server.add_synth()
+    server.reset()
+    server.reboot(supernova=True)
     assert server.is_running

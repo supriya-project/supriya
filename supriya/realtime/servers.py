@@ -1101,9 +1101,11 @@ class Server(BaseServer):
         response = request.communicate(server=self)
         return response.query_tree_group
 
-    def reboot(self, options: Optional[Options] = None, **kwargs) -> "Server":
+    def reboot(
+        self, options: Optional[Options] = None, supernova=False, **kwargs
+    ) -> "Server":
         self.quit()
-        self.boot(options=options, **kwargs)
+        self.boot(options=options, supernova=supernova, **kwargs)
         return self
 
     def reset(self) -> "Server":
