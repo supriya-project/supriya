@@ -165,7 +165,7 @@ runs:
     - name: Setup Jack
       run: |
         echo "Setting up Jack..."
-        killall jackd
+        killall jackd || true
         sleep 1
         sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
         sleep 1
