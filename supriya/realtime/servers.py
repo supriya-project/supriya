@@ -1030,13 +1030,14 @@ class Server(BaseServer):
         port: int = DEFAULT_PORT,
         scsynth_path: Optional[str] = None,
         options: Optional[Options] = None,
+        supernova: bool = False,
         **kwargs,
     ) -> "Server":
         if self.is_running:
             raise supriya.exceptions.ServerOnline
         port = port or DEFAULT_PORT
         self._options = new(options or Options(), **kwargs)
-        scsynth_path = find(scsynth_path)
+        scsynth_path = find(scsynth_path, supernova)
         self._process_protocol = SyncProcessProtocol()
         self._process_protocol.boot(self._options, scsynth_path, port)
         self._ip_address = ip_address

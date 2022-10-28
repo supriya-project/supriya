@@ -13,6 +13,7 @@ if not output_path.exists():
 
 config = configparser.ConfigParser()
 config.read_dict({"core": {"scsynth_path": "scsynth"}})
+config.read_dict({"core": {"supernova_path": "supernova"}})
 config_path = pathlib.Path(platformdirs.user_config_dir("supriya", "supriya"))
 config_path = config_path / "supriya.cfg"
 if not config_path.exists():

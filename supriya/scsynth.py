@@ -155,23 +155,30 @@ class Options:
         )
 
 
-def _fallback_scsynth_path():
+def _fallback_scsynth_path(supernova: bool = False):
     paths = []
     system = platform.system()
+    executable = "supernova" if supernova else "scsynth"
     if system == "Linux":
-        paths.extend([Path("/usr/bin/scsynth"), Path("/usr/local/bin/scsynth")])
+        paths.extend(
+            [Path("/usr/bin/" + executable), Path("/usr/local/bin/" + executable)]
+        )
     elif system == "Darwin":
-        paths.append(Path("/Applications/SuperCollider.app/Contents/Resources/scsynth"))
+        paths.append(
+            Path("/Applications/SuperCollider.app/Contents/Resources/" + executable)
+        )
     elif system == "Windows":
-        paths.extend(Path(r"C:\Program Files").glob(r"SuperCollider*\scsynth.exe"))
+        paths.extend(
+            Path(r"C:\Program Files").glob(r"SuperCollider*\\" + executable + ".exe")
+        )
     for path in paths:
         if path.exists():
             return path
     return None
 
 
-def find(scsynth_path=None):
-    """Find the ``scsynth`` executable.
+def find(scsynth_path=None, supernova: bool = False):
+    """Find the ``scsynth`` or ``supernova`` executable.
 
     The following paths, if defined, will be searched (prioritised as ordered):
 
@@ -181,24 +188,25 @@ def find(scsynth_path=None):
     4. The user's ``PATH``
     5. Common installation directories of the SuperCollider application.
 
-    Returns a path to the ``scsynth`` executable.
+    Returns a path to the ``scsynth`` or ``supernova`` executable.
     Raises ``RuntimeError`` if no path is found.
     """
+    executable = "supernova" if supernova else "scsynth"
     scsynth_path = Path(
         scsynth_path
-        or os.environ.get("SCSYNTH_PATH")
-        or supriya.config.get("core", "scsynth_path")
-        or "scsynth"
+        or os.environ.get("SUPERNOVA_PATH" if supernova else "SCSYNTH_PATH")
+        or supriya.config.get("core", executable + "_path")
+        or executable
     )
     if scsynth_path.is_absolute() and uqbar.io.find_executable(scsynth_path):
         return scsynth_path
     scsynth_path_candidates = uqbar.io.find_executable(scsynth_path.name)
     if scsynth_path_candidates:
         return Path(scsynth_path_candidates[0])
-    fallback_path = _fallback_scsynth_path()
+    fallback_path = _fallback_scsynth_path(supernova)
     if fallback_path is not None:
         return fallback_path
-    raise RuntimeError("Failed to locate scsynth")
+    raise RuntimeError("Failed to locate " + executable)
 
 
 def kill(supernova=False):
