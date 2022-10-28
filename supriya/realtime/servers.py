@@ -331,6 +331,7 @@ class AsyncServer(BaseServer):
         port: int = DEFAULT_PORT,
         scsynth_path: Optional[str] = None,
         options: Optional[Options] = None,
+        supernova: bool = False,
         **kwargs,
     ) -> "AsyncServer":
         if self._is_running:
@@ -340,7 +341,7 @@ class AsyncServer(BaseServer):
         self._boot_future = loop.create_future()
         self._quit_future = loop.create_future()
         self._options = new(options or Options(), **kwargs)
-        scsynth_path = find(scsynth_path)
+        scsynth_path = find(scsynth_path, supernova)
         self._process_protocol = AsyncProcessProtocol()
         await self._process_protocol.boot(self._options, scsynth_path, port)
         if not await self._process_protocol.boot_future:
