@@ -309,7 +309,13 @@ class AsyncServer(BaseServer):
         if isinstance(response, FailResponse):
             await self._shutdown()
             raise supriya.exceptions.TooManyClients
-        self._client_id, self._maximum_logins = response.action[1], response.action[2]
+        if len(response.action) == 2:  # supernova doesn't provide a max logins value
+            self._client_id, self._maximum_logins = (
+                response.action[1],
+                self._options.maximum_logins,
+            )
+        else:
+            self._client_id, self._maximum_logins = response.action[1:3]
 
     async def _setup_system_synthdefs(self):
         pass
