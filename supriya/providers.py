@@ -608,19 +608,29 @@ class Provider(metaclass=abc.ABCMeta):
 
     @classmethod
     def realtime(
-        cls, scsynth_path=None, options=None, port=None, **kwargs
+        cls, scsynth_path=None, options=None, port=None, supernova=False, **kwargs
     ) -> "RealtimeProvider":
         server = Server()
-        server.boot(port=port, scsynth_path=scsynth_path, options=options, **kwargs)
+        server.boot(
+            port=port,
+            scsynth_path=scsynth_path,
+            options=options,
+            supernova=supernova,
+            **kwargs,
+        )
         return cast("RealtimeProvider", cls.from_context(server))
 
     @classmethod
     async def realtime_async(
-        cls, scsynth_path=None, options=None, port=None, **kwargs
+        cls, scsynth_path=None, options=None, port=None, supernova=False, **kwargs
     ) -> "RealtimeProvider":
         server = AsyncServer()
         await server.boot(
-            port=port, scsynth_path=scsynth_path, options=options, **kwargs
+            port=port,
+            scsynth_path=scsynth_path,
+            options=options,
+            supernova=supernova,
+            **kwargs,
         )
         return cast("RealtimeProvider", cls.from_context(server))
 
