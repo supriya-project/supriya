@@ -335,9 +335,7 @@ class AsyncServer(BaseServer):
         *,
         ip_address: str = DEFAULT_IP_ADDRESS,
         port: int = DEFAULT_PORT,
-        scsynth_path: Optional[str] = None,
         options: Optional[Options] = None,
-        supernova: bool = False,
         **kwargs,
     ) -> "AsyncServer":
         if self._is_running:
@@ -347,9 +345,10 @@ class AsyncServer(BaseServer):
         self._boot_future = loop.create_future()
         self._quit_future = loop.create_future()
         self._options = new(options or Options(), **kwargs)
-        scsynth_path = find(scsynth_path, supernova)
         self._process_protocol = AsyncProcessProtocol()
-        await self._process_protocol.boot(self._options, scsynth_path, port)
+        await self._process_protocol.boot(
+            self._options, self._options.scsynth_path, port
+        )
         if not await self._process_protocol.boot_future:
             self._boot_future.set_result(False)
             self._quit_future.set_result(True)
@@ -1098,11 +1097,12 @@ class Server(BaseServer):
         response = request.communicate(server=self)
         return response.query_tree_group
 
-    def reboot(
-        self, options: Optional[Options] = None, supernova=False, **kwargs
-    ) -> "Server":
+    def reboot(self, options: Optional[Options] = None, **kwargs) -> "Server":
         self.quit()
-        self.boot(options=options, supernova=supernova, **kwargs)
+        if options:
+            self.boot(options=options, **kwargs)
+        else:
+            self.boot(options=self._options, **kwargs)
         return self
 
     def reset(self) -> "Server":
