@@ -1,6 +1,7 @@
 import pytest
 
 from supriya.providers import NonrealtimeProvider, Provider, RealtimeProvider
+from supriya.scsynth import Options
 
 
 def test_Provider_from_context(session, server):
@@ -14,18 +15,10 @@ def test_Provider_from_context(session, server):
         Provider.from_context(23)
 
 
-def test_Provider_realtime():
-    realtime_provider = Provider.realtime()
-    assert isinstance(realtime_provider, RealtimeProvider)
-    assert realtime_provider.server.is_running
-    assert realtime_provider.server.is_owner
-    realtime_provider.server.quit()
-    assert not realtime_provider.server.is_running
-    assert not realtime_provider.server.is_owner
-
-
-def test_Provider_realtime_supernova():
-    realtime_provider = Provider.realtime(supernova=True)
+@pytest.mark.parametrize("executable", [None, "supernova"])
+def test_Provider_realtime(executable):
+    options = Options(executable=executable)
+    realtime_provider = Provider.realtime(options=options)
     assert isinstance(realtime_provider, RealtimeProvider)
     assert realtime_provider.server.is_running
     assert realtime_provider.server.is_owner
@@ -35,19 +28,10 @@ def test_Provider_realtime_supernova():
 
 
 @pytest.mark.asyncio
-async def test_Provider_realtime_async():
-    realtime_provider = await Provider.realtime_async()
-    assert isinstance(realtime_provider, RealtimeProvider)
-    assert realtime_provider.server.is_running
-    assert realtime_provider.server.is_owner
-    await realtime_provider.server.quit()
-    assert not realtime_provider.server.is_running
-    assert not realtime_provider.server.is_owner
-
-
-@pytest.mark.asyncio
-async def test_Provider_realtime_async_supernova():
-    realtime_provider = await Provider.realtime_async(supernova=True)
+@pytest.mark.parametrize("executable", [None, "supernova"])
+async def test_Provider_realtime_async(executable):
+    options = Options(executable=executable)
+    realtime_provider = await Provider.realtime_async(options=options)
     assert isinstance(realtime_provider, RealtimeProvider)
     assert realtime_provider.server.is_running
     assert realtime_provider.server.is_owner
