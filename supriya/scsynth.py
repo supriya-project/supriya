@@ -4,7 +4,7 @@ import signal
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, List
+from typing import List, Optional
 
 import uqbar.io
 import uqbar.objects
@@ -30,6 +30,7 @@ class Options:
     block_size: int = 64
     buffer_count: int = 1024
     control_bus_channel_count: int = 16384
+    executable: Optional[str] = None
     hardware_buffer_size: Optional[int] = None
     initial_node_id: int = 1000
     input_bus_channel_count: int = 8
@@ -79,7 +80,7 @@ class Options:
 
     ### PUBLIC METHODS ###
 
-    def serialize(self, port=57110, realtime=True, supernova=False) -> List[str]:
+    def serialize(self, port=57110, realtime=True) -> List[str]:
         result = []
         if realtime:
             if self.protocol == "tcp":
@@ -136,7 +137,7 @@ class Options:
             result.append("-L")
         if self.ugen_plugins_path:
             result.extend(["-U", self.ugen_plugins_path])
-        if supernova and self.threads:
+        if self.supernova and self.threads:
             result.extend(["-t", self.threads])
         return [str(_) for _ in result]
 
@@ -154,11 +155,21 @@ class Options:
             - self.output_bus_channel_count
         )
 
+    @property
+    def scsynth_path(self):
+        return supriya.scsynth.find(self.executable)
 
-def _fallback_scsynth_path(supernova: bool = False):
+    @property
+    def supernova(self):
+        return Path(self.scsynth_path).stem == "supernova"
+
+
+def _fallback_scsynth_path(executable: Optional[str] = None):
     paths = []
     system = platform.system()
-    executable = "supernova" if supernova else "scsynth"
+    executable = executable or "scsynth"
+    if Path(executable).stem == "supernova":
+        executable = "supernova"
     if system == "Linux":
         paths.extend(
             [Path("/usr/bin/" + executable), Path("/usr/local/bin/" + executable)]
@@ -177,12 +188,12 @@ def _fallback_scsynth_path(supernova: bool = False):
     return None
 
 
-def find(scsynth_path=None, supernova: bool = False):
+def find(executable: Optional[str] = None):
     """Find the ``scsynth`` or ``supernova`` executable.
 
     The following paths, if defined, will be searched (prioritised as ordered):
 
-    1. The absolute path ``scsynth_path``
+    1. The absolute path ``executable``
     2. The environment variable ``SCSYNTH_PATH`` (pointing to the `scsynth` binary)
     3. ``scsynth_path`` if defined in Supriya's configuration file
     4. The user's ``PATH``
@@ -191,19 +202,17 @@ def find(scsynth_path=None, supernova: bool = False):
     Returns a path to the ``scsynth`` or ``supernova`` executable.
     Raises ``RuntimeError`` if no path is found.
     """
-    executable = "supernova" if supernova else "scsynth"
     scsynth_path = Path(
-        scsynth_path
-        or os.environ.get("SUPERNOVA_PATH" if supernova else "SCSYNTH_PATH")
-        or supriya.config.get("core", executable + "_path")
-        or executable
+        executable
+        or os.environ.get("SCSYNTH_PATH")
+        or supriya.config.get("core", "scsynth_path")
     )
-    if scsynth_path.is_absolute() and uqbar.io.find_executable(scsynth_path):
+    if scsynth_path.is_absolute() and uqbar.io.find_executable(str(scsynth_path)):
         return scsynth_path
     scsynth_path_candidates = uqbar.io.find_executable(scsynth_path.name)
     if scsynth_path_candidates:
         return Path(scsynth_path_candidates[0])
-    fallback_path = _fallback_scsynth_path(supernova)
+    fallback_path = _fallback_scsynth_path(executable)
     if fallback_path is not None:
         return fallback_path
     raise RuntimeError("Failed to locate " + executable)
