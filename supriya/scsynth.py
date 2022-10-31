@@ -215,7 +215,7 @@ def find(executable: Optional[str] = None):
     fallback_path = _fallback_scsynth_path(executable)
     if fallback_path is not None:
         return fallback_path
-    raise RuntimeError("Failed to locate " + executable)
+    raise RuntimeError("Failed to locate executable")
 
 
 def kill(supernova=False):
