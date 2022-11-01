@@ -28,7 +28,7 @@ class ProcessProtocol:
         raise NotImplementedError
 
     def _build_command(self, options, scsynth_path, port):
-        command = [str(scsynth_path)] + options.serialize(port)
+        command = [str(scsynth_path)] + options.serialize()
         logger.info("Boot: {}".format(command))
         return command
 

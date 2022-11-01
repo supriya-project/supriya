@@ -85,13 +85,13 @@ class Options:
 
     ### PUBLIC METHODS ###
 
-    def serialize(self, port=57110, realtime=True) -> List[str]:
+    def serialize(self, realtime=True) -> List[str]:
         result = []
         if realtime:
             if self.protocol == "tcp":
-                result.extend(["-t", port])
+                result.extend(["-t", self.port])
             else:
-                result.extend(["-u", port])
+                result.extend(["-u", self.port])
             if self.input_device:
                 result.extend(["-H", self.input_device])
                 if self.output_device != self.input_device:
