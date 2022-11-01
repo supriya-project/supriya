@@ -129,6 +129,7 @@ class Session:
         self._options = scsynth.Options(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
+            realtime=False,
         )
 
         self._active_moments: List[supriya.nonrealtime.Moment] = []

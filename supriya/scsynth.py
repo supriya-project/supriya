@@ -55,6 +55,7 @@ class Options:
     random_number_generator_count: int = 64
     remote_control_volume: bool = False
     restricted_path: Optional[str] = None
+    realtime: bool = True
     sample_rate: Optional[int] = None
     threads: Optional[int] = None
     ugen_plugins_path: Optional[str] = None
@@ -85,9 +86,9 @@ class Options:
 
     ### PUBLIC METHODS ###
 
-    def serialize(self, realtime=True) -> List[str]:
+    def serialize(self) -> List[str]:
         result = []
-        if realtime:
+        if self.realtime:
             if self.protocol == "tcp":
                 result.extend(["-t", self.port])
             else:
