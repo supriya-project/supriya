@@ -27,11 +27,11 @@ async def test_AsyncOscProtocol():
 
     try:
         healthcheck_failed = []
-        options = Options()
         port = find_free_port()
+        options = Options(executable=find(), port=port)
         healthcheck = HealthCheck(["/status"], ["/status.reply"], on_healthcheck_failed)
         process_protocol = AsyncProcessProtocol()
-        await process_protocol.boot(options, find(), port)
+        await process_protocol.boot(options)
         assert await process_protocol.boot_future
         osc_protocol = AsyncOscProtocol()
         await osc_protocol.connect("127.0.0.1", port, healthcheck=healthcheck)
@@ -54,11 +54,11 @@ def test_ThreadedOscProtocol():
         healthcheck_failed.append(True)
 
     healthcheck_failed = []
-    options = Options()
+    options = Options(executable=find())
     port = find_free_port()
     healthcheck = HealthCheck(["/status"], ["/status.reply"], on_healthcheck_failed)
     process_protocol = SyncProcessProtocol()
-    process_protocol.boot(options, find(), port)
+    process_protocol.boot(options)
     assert process_protocol.is_running
     osc_protocol = ThreadedOscProtocol()
     osc_protocol.connect("127.0.0.1", port, healthcheck=healthcheck)
