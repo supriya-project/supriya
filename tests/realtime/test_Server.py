@@ -36,7 +36,8 @@ def test_boot_options(executable):
         server.boot(buffer_count=2048)
         assert isinstance(server.options, type(boot_options))
         assert server.options.buffer_count == 2048
-        assert server.options.memory_size == 8192
+        # options are sticky now
+        assert server.options.memory_size == 8192 * 32
         server.quit()
         # With Options and **kwargs
         server.boot(buffer_count=4096, options=boot_options)

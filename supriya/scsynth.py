@@ -11,6 +11,9 @@ import uqbar.objects
 
 import supriya
 
+DEFAULT_IP_ADDRESS = "127.0.0.1"
+DEFAULT_PORT = 57110
+
 
 @dataclass(frozen=True)
 class Options:
@@ -36,6 +39,7 @@ class Options:
     input_bus_channel_count: int = 8
     input_device: Optional[str] = None
     input_stream_mask: str = ""
+    ip_address: str = DEFAULT_IP_ADDRESS
     load_synthdefs: bool = False
     maximum_logins: int = 1
     maximum_node_count: int = 1024
@@ -46,6 +50,7 @@ class Options:
     output_device: Optional[str] = None
     output_stream_mask: str = ""
     password: Optional[str] = None
+    port: int = DEFAULT_PORT
     protocol: str = "udp"
     random_number_generator_count: int = 64
     remote_control_volume: bool = False
