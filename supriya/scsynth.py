@@ -84,6 +84,9 @@ class Options:
     def __repr__(self):
         return uqbar.objects.get_repr(self, multiline=True, suppress_defaults=False)
 
+    def __iter__(self):
+        return iter([str(self.scsynth_path)] + self.serialize())
+
     ### PUBLIC METHODS ###
 
     def serialize(self) -> List[str]:

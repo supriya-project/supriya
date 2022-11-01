@@ -349,9 +349,7 @@ class AsyncServer(BaseServer):
         self._quit_future = loop.create_future()
         self._update_options(options, **kwargs)
         self._process_protocol = AsyncProcessProtocol()
-        await self._process_protocol.boot(
-            self._options, self._options.scsynth_path, self._options.port
-        )
+        await self._process_protocol.boot(self._options)
         if not await self._process_protocol.boot_future:
             self._boot_future.set_result(False)
             self._quit_future.set_result(True)
@@ -1034,9 +1032,7 @@ class Server(BaseServer):
             raise supriya.exceptions.ServerOnline
         self._update_options(options, **kwargs)
         self._process_protocol = SyncProcessProtocol()
-        self._process_protocol.boot(
-            self._options, self._options.scsynth_path, self._options.port
-        )
+        self._process_protocol.boot(self._options)
         self._is_owner = True
         self._connect()
         return self
