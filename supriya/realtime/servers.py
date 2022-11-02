@@ -147,12 +147,6 @@ class BaseServer:
         self._shm = None
 
     def _update_options(self, options: Optional[Options] = None, **kwargs):
-        """
-        Update BaseServer options.
-
-        If not None, options argument ovverrides all current instance options.
-        Other keyword arguments update only specific options.
-        """
         self._options = options or self._options
         self._options = new(self._options, **kwargs)
         self._port = self._options.port
@@ -1082,7 +1076,7 @@ class Server(BaseServer):
         response = request.communicate(server=self)
         return response.query_tree_group
 
-    def reboot(self, options: Optional[Options] = None, **kwargs) -> "Server":
+    def reboot(self, *, options: Optional[Options] = None, **kwargs) -> "Server":
         self.quit()
         self.boot(options=options, **kwargs)
         return self
