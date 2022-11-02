@@ -117,7 +117,7 @@ async def test_boot_a_and_connect_b_too_many_clients():
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None])
 async def test_boot_a_and_connect_b_and_quit_a(executable):
     server_a, server_b = AsyncServer(), AsyncServer()
     assert not server_a.is_running and not server_a.is_owner
@@ -183,7 +183,7 @@ async def test_boot_a_and_connect_b_and_quit_b(executable):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None])
 async def test_boot_a_and_connect_b_and_force_quit_b(executable):
     server_a, server_b = AsyncServer(), AsyncServer()
     assert not server_a.is_running and not server_a.is_owner
