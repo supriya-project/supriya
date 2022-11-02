@@ -203,7 +203,7 @@ class Options:
 
     @property
     def executable_path(self) -> str:
-        return str(self._find_executable_path(self.executable))
+        return self._find_executable_path(self.executable)
 
 
 def kill(supernova=False):
