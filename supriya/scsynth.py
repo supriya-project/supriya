@@ -85,12 +85,12 @@ class Options:
         return uqbar.objects.get_repr(self, multiline=True, suppress_defaults=False)
 
     def __iter__(self):
-        return iter([str(self.executable_path)] + self.serialize())
+        return (arg for arg in self.serialize())
 
     ### PUBLIC METHODS ###
 
     def serialize(self) -> List[str]:
-        result = []
+        result = [str(self.executable_path)]
         if self.realtime:
             if self.protocol == "tcp":
                 result.extend(["-t", self.port])
@@ -146,7 +146,7 @@ class Options:
             result.append("-L")
         if self.ugen_plugins_path:
             result.extend(["-U", self.ugen_plugins_path])
-        if self.supernova and self.threads:
+        if self.threads and (Path(self.executable_path).stem == "supernova"):
             result.extend(["-t", self.threads])
         return [str(_) for _ in result]
 
@@ -167,10 +167,6 @@ class Options:
     @property
     def executable_path(self):
         return supriya.scsynth.find(self.executable)
-
-    @property
-    def supernova(self):
-        return Path(self.executable_path).stem == "supernova"
 
 
 def _fallback_scsynth_path(executable: Optional[str] = None):
