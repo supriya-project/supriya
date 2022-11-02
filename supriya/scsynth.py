@@ -127,65 +127,65 @@ class Options:
     ### PUBLIC METHODS ###
 
     def serialize(self) -> List[str]:
-        result = [self.executable_path]
+        result = [str(self.executable_path)]
         if self.realtime:
             if self.protocol == "tcp":
-                result.extend(["-t", self.port])
+                result.extend(["-t", str(self.port)])
             else:
-                result.extend(["-u", self.port])
+                result.extend(["-u", str(self.port)])
             if self.input_device:
-                result.extend(["-H", self.input_device])
+                result.extend(["-H", str(self.input_device)])
                 if self.output_device != self.input_device:
-                    result.append(self.output_device)
+                    result.append(str(self.output_device))
             if self.maximum_logins != 64:
-                result.extend(["-l", self.maximum_logins])
+                result.extend(["-l", str(self.maximum_logins)])
             if self.password:
-                result.extend(["-p", self.password])
+                result.extend(["-p", str(self.password)])
             if self.sample_rate is not None:
-                result.extend(["-S", int(self.sample_rate)])
+                result.extend(["-S", str(self.sample_rate)])
             if not self.zero_configuration:
                 result.extend(["-R", "0"])
         if self.audio_bus_channel_count != 1024:
-            result.extend(["-a", self.audio_bus_channel_count])
+            result.extend(["-a", str(self.audio_bus_channel_count)])
         if self.control_bus_channel_count != 16384:
-            result.extend(["-c", self.control_bus_channel_count])
+            result.extend(["-c", str(self.control_bus_channel_count)])
         if self.input_bus_channel_count != 8:
-            result.extend(["-i", self.input_bus_channel_count])
+            result.extend(["-i", str(self.input_bus_channel_count)])
         if self.output_bus_channel_count != 8:
-            result.extend(["-o", self.output_bus_channel_count])
+            result.extend(["-o", str(self.output_bus_channel_count)])
         if self.buffer_count != 1024:
-            result.extend(["-b", self.buffer_count])
+            result.extend(["-b", str(self.buffer_count)])
         if self.maximum_node_count != 1024:
-            result.extend(["-n", self.maximum_node_count])
+            result.extend(["-n", str(self.maximum_node_count)])
         if self.maximum_synthdef_count != 1024:
-            result.extend(["-d", self.maximum_synthdef_count])
+            result.extend(["-d", str(self.maximum_synthdef_count)])
         if self.block_size != 64:
-            result.extend(["-z", self.block_size])
+            result.extend(["-z", str(self.block_size)])
         if self.hardware_buffer_size is not None:
-            result.extend(["-Z", int(self.hardware_buffer_size)])
+            result.extend(["-Z", str(self.hardware_buffer_size)])
         if self.memory_size != 8192:
-            result.extend(["-m", self.memory_size])
+            result.extend(["-m", str(self.memory_size)])
         if self.random_number_generator_count != 64:
-            result.extend(["-r", self.random_number_generator_count])
+            result.extend(["-r", str(self.random_number_generator_count)])
         if self.wire_buffer_count != 64:
-            result.extend(["-w", self.wire_buffer_count])
+            result.extend(["-w", str(self.wire_buffer_count)])
         if not self.load_synthdefs:
             result.extend(["-D", "0"])
         if self.input_stream_mask:
-            result.extend(["-I", self.input_stream_mask])
+            result.extend(["-I", str(self.input_stream_mask)])
         if self.output_stream_mask:
-            result.extend(["-O", self.output_stream_mask])
+            result.extend(["-O", str(self.output_stream_mask)])
         if 0 < self.verbosity:
-            result.extend(["-v", self.verbosity])
+            result.extend(["-v", str(self.verbosity)])
         if self.restricted_path is not None:
-            result.extend(["-P", self.restricted_path])
+            result.extend(["-P", str(self.restricted_path)])
         if self.memory_locking:
             result.append("-L")
         if self.ugen_plugins_path:
-            result.extend(["-U", self.ugen_plugins_path])
+            result.extend(["-U", str(self.ugen_plugins_path)])
         if self.threads and (Path(self.executable_path).stem == "supernova"):
-            result.extend(["-t", self.threads])
-        return [str(_) for _ in result]
+            result.extend(["-t", str(self.threads)])
+        return result
 
     ### PUBLIC PROPERTIES ###
 
