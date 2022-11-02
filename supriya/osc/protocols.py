@@ -8,7 +8,7 @@ import socketserver
 import threading
 import time
 from collections.abc import Sequence
-from typing import Any, Callable, Dict, NamedTuple, Optional, Set, Tuple, Union
+from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, Union
 
 from .captures import Capture, CaptureEntry
 from .messages import OscBundle, OscMessage
@@ -37,8 +37,8 @@ class OscCallback(NamedTuple):
 
 @dataclasses.dataclass
 class HealthCheck:
-    request_pattern: str
-    response_pattern: str
+    request_pattern: List[str]
+    response_pattern: List[str]
     callback: Callable
     timeout: float = 1.0
     backoff_factor: float = 1.5
