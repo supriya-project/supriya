@@ -11,7 +11,7 @@ from supriya.osc import (
     find_free_port,
 )
 from supriya.realtime.protocols import AsyncProcessProtocol, SyncProcessProtocol
-from supriya.scsynth import Options, find
+from supriya.scsynth import Options
 
 
 @pytest.fixture(autouse=True)
@@ -28,7 +28,7 @@ async def test_AsyncOscProtocol():
     try:
         healthcheck_failed = []
         port = find_free_port()
-        options = Options(executable=find(), port=port)
+        options = Options(port=port)
         healthcheck = HealthCheck(["/status"], ["/status.reply"], on_healthcheck_failed)
         process_protocol = AsyncProcessProtocol()
         await process_protocol.boot(options)
@@ -54,7 +54,7 @@ def test_ThreadedOscProtocol():
         healthcheck_failed.append(True)
 
     healthcheck_failed = []
-    options = Options(executable=find())
+    options = Options()
     port = find_free_port()
     healthcheck = HealthCheck(["/status"], ["/status.reply"], on_healthcheck_failed)
     process_protocol = SyncProcessProtocol()

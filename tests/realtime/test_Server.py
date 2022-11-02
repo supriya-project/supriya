@@ -341,9 +341,7 @@ def test_shared_resources():
 
 def test_connect_and_reconnect():
     try:
-        options = scsynth.Options(
-            maximum_logins=4, port=57110
-        )
+        options = scsynth.Options(maximum_logins=4, port=57110)
         protocol = SyncProcessProtocol()
         protocol.boot(options)
         server = Server()
