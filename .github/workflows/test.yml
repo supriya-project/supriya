@@ -180,5 +180,5 @@ jobs:
     - name: Check for stray processes (Non-Windows)
       if: ${{ matrix.os != 'windows-latest' }}
       run: |
-        ps aux | grep scsynth | grep -v grep
-        ps aux | grep supernova | grep -v grep
+        ! ( ps aux | grep scsynth | grep -v grep )
+        ! ( ps aux | grep supernova | grep -v grep )
