@@ -441,43 +441,9 @@ def test_reset_and_reboot_with_resources(executable):
     assert server.is_running
 
 
-@pytest.mark.parametrize(
-    "executable,maximum_node_count",
-    [
-        (serv, opt)
-        for serv in ["scsynth", "supernova"]
-        for opt in [32, 64, 128, 1204, 8192]
-    ],
-)
-def test_boot_reboot_sticky_options_1(executable, maximum_node_count):
-    server = Server()
-    port = supriya.osc.utils.find_free_port()
-    options = Options(
-        executable=executable, maximum_node_count=maximum_node_count, port=port
-    )
-    server.boot(options=options)
-    assert server.is_running
-    assert server._options.maximum_node_count == options.maximum_node_count
-    assert server.port == options.port
-    server.quit()
-    assert not server.is_running
-    assert server._options.maximum_node_count == options.maximum_node_count
-    assert server.port == options.port
-    server.boot()
-    assert server.is_running
-    assert server._options.maximum_node_count == options.maximum_node_count
-    assert server.port == options.port
-    server.reboot()
-    assert server.is_running
-    assert server._options.maximum_node_count == options.maximum_node_count
-    assert server.port == options.port
-
-
-@pytest.mark.parametrize(
-    "executable,memory_size",
-    [(serv, opt) for serv in ["scsynth", "supernova"] for opt in [11111, 21212, 12345]],
-)
-def test_boot_reboot_sticky_options_2(executable, memory_size):
+@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("memory_size", [8192, 12345])
+def test_boot_reboot_sticky_options(executable, memory_size):
     server = Server()
     port = supriya.osc.utils.find_free_port()
     options = Options(executable=executable, memory_size=memory_size, port=port)
@@ -495,47 +461,15 @@ def test_boot_reboot_sticky_options_2(executable, memory_size):
     assert server.is_running
     assert server._options.memory_size == 8193
     assert server.port == options.port
-
-
-@pytest.mark.parametrize(
-    "executable,control_bus_channel_count",
-    [(serv, opt) for serv in ["scsynth", "supernova"] for opt in [16385, 6388, 12121]],
-)
-def test_boot_reboot_sticky_options_3(executable, control_bus_channel_count):
-    server = Server()
-    port = supriya.osc.utils.find_free_port()
-    options = Options(
-        executable=executable,
-        control_bus_channel_count=control_bus_channel_count,
-        port=port,
-    )
-    server.boot(options=options)
-    assert server.is_running
-    assert (
-        server._options.control_bus_channel_count == options.control_bus_channel_count
-    )
-    assert server.port == options.port
-    server.quit()
-    assert not server.is_running
-    server.boot(options=options, control_bus_channel_count=8888)
-    assert server.is_running
-    assert server._options.control_bus_channel_count == 8888
-    assert server.port == options.port
     server.reboot(options=options)
     assert server.is_running
-    assert server._options.control_bus_channel_count == control_bus_channel_count
+    assert server._options.memory_size == options.memory_size
     assert server.port == options.port
 
 
-@pytest.mark.parametrize(
-    "executable,maximum_node_count",
-    [
-        (serv, opt)
-        for serv in ["scsynth", "supernova"]
-        for opt in [32, 64, 128, 1204, 8192]
-    ],
-)
-def test_connect_and_reconnect_sticky_options_1(executable, maximum_node_count):
+@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("maximum_node_count", [1204, 8192])
+def test_connect_and_reconnect_sticky_options(executable, maximum_node_count):
     try:
         port = supriya.osc.utils.find_free_port()
         options = scsynth.Options(
