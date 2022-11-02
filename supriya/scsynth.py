@@ -9,8 +9,6 @@ from typing import List, Optional
 import uqbar.io
 import uqbar.objects
 
-import supriya
-
 DEFAULT_IP_ADDRESS = "127.0.0.1"
 DEFAULT_PORT = 57110
 ENVVAR_SERVER_EXECUTABLE = "SUPRIYA_SERVER_EXECUTABLE"
@@ -82,9 +80,7 @@ class Options:
 
     def _find_executable_path(self, executable: Optional[str] = None):
         scsynth_path = Path(
-            executable
-            or os.environ.get(ENVVAR_SERVER_EXECUTABLE)
-            or supriya.config.get("core", "scsynth_path")
+            executable or os.environ.get(ENVVAR_SERVER_EXECUTABLE) or "scsynth"
         )
         if scsynth_path.is_absolute() and uqbar.io.find_executable(str(scsynth_path)):
             return scsynth_path
