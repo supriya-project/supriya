@@ -85,7 +85,7 @@ class Options:
         return uqbar.objects.get_repr(self, multiline=True, suppress_defaults=False)
 
     def __iter__(self):
-        return iter([str(self.scsynth_path)] + self.serialize())
+        return iter([str(self.executable_path)] + self.serialize())
 
     ### PUBLIC METHODS ###
 
@@ -165,12 +165,12 @@ class Options:
         )
 
     @property
-    def scsynth_path(self):
+    def executable_path(self):
         return supriya.scsynth.find(self.executable)
 
     @property
     def supernova(self):
-        return Path(self.scsynth_path).stem == "supernova"
+        return Path(self.executable_path).stem == "supernova"
 
 
 def _fallback_scsynth_path(executable: Optional[str] = None):
@@ -213,7 +213,7 @@ def find(executable: Optional[str] = None):
     """
     scsynth_path = Path(
         executable
-        or os.environ.get("SCSYNTH_PATH")
+        or os.environ.get("SUPRIYA_SERVER_EXECUTABLE")
         or supriya.config.get("core", "scsynth_path")
     )
     if scsynth_path.is_absolute() and uqbar.io.find_executable(str(scsynth_path)):
