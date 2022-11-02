@@ -47,7 +47,7 @@ class Pattern(metaclass=abc.ABCMeta):
     def __invert__(self):
         return UnaryOpPattern("~", self)
 
-    def __iter__(self) -> Iterator(Event):
+    def __iter__(self) -> Iterator[Event]:
         should_stop = False
         state: Optional[Dict] = self._setup_state()
         iterator = self._iterate(state)
