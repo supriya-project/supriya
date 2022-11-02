@@ -10,7 +10,13 @@ from supriya.assets.synthdefs import default
 from supriya.osc import OscMessage
 from supriya.realtime import Server
 from supriya.realtime.protocols import SyncProcessProtocol
+from supriya.realtime.servers import DEFAULT_HEALTHCHECK
 from supriya.scsynth import Options
+
+
+@pytest.fixture(autouse=True)
+def healthcheck_attempts(monkeypatch):
+    monkeypatch.setattr(DEFAULT_HEALTHCHECK, "max_attempts", 1)
 
 
 def test_boot_options():

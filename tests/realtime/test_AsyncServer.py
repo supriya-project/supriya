@@ -5,11 +5,18 @@ import pytest
 
 from supriya import exceptions
 from supriya.realtime import AsyncServer
+from supriya.realtime.servers import DEFAULT_HEALTHCHECK
+
+
+@pytest.fixture(autouse=True)
+def healthcheck_attempts(monkeypatch):
+    # TODO: This should be settable at 1, not 2
+    monkeypatch.setattr(DEFAULT_HEALTHCHECK, "max_attempts", 2)
 
 
 @pytest.fixture(autouse=True)
 def setup_logging(caplog):
-    caplog.set_level(logging.INFO, logger="supriya")
+    caplog.set_level(logging.DEBUG, logger="supriya")
 
 
 @pytest.mark.asyncio

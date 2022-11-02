@@ -1,4 +1,5 @@
 import asyncio
+import dataclasses
 import logging
 import re
 import threading
@@ -42,6 +43,14 @@ logger = logging.getLogger("supriya.server")
 
 DEFAULT_IP_ADDRESS = "127.0.0.1"
 DEFAULT_PORT = 57110
+DEFAULT_HEALTHCHECK = HealthCheck(
+    backoff_factor=1.5,
+    callback=lambda: None,
+    max_attempts=5,
+    request_pattern=["/status"],
+    response_pattern=["/status.reply"],
+    timeout=1.0,
+)
 
 
 class BaseServer:
@@ -261,13 +270,8 @@ class AsyncServer(BaseServer):
         await self._osc_protocol.connect(
             ip_address=self._ip_address,
             port=self._port,
-            healthcheck=HealthCheck(
-                request_pattern=["/status"],
-                response_pattern=["/status.reply"],
-                callback=self._shutdown,
-                max_attempts=5,
-                timeout=1.0,
-                backoff_factor=1.5,
+            healthcheck=dataclasses.replace(
+                DEFAULT_HEALTHCHECK, callback=self._shutdown
             ),
         )
         self._is_running = True
@@ -626,13 +630,8 @@ class Server(BaseServer):
         self._osc_protocol.connect(
             ip_address=self.ip_address,
             port=self.port,
-            healthcheck=HealthCheck(
-                request_pattern=["/status"],
-                response_pattern=["/status.reply"],
-                callback=self._shutdown,
-                max_attempts=5,
-                timeout=1.0,
-                backoff_factor=1.5,
+            healthcheck=dataclasses.replace(
+                DEFAULT_HEALTHCHECK, callback=self._shutdown
             ),
         )
         self._is_running = True
