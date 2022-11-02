@@ -108,15 +108,11 @@ class SessionRenderer(SupriyaObject):
         output_file_path,
         session_osc_file_path,
         *,
-        scsynth_path=None,
-        server_options=None,
+        server_options: Optional[scsynth.Options] = None,
     ):
+        options = new(server_options or scsynth.Options(), realtime=False)
+        command = list(options)
         cwd = pathlib.Path.cwd()
-        scsynth_path = scsynth.find(scsynth_path)
-        command = [scsynth_path]
-        server_options_serial = new(server_options or scsynth.Options(), realtime=False).serialize() 
-        if server_options_serial:
-            command.extend(server_options_serial)
         if session_osc_file_path.is_absolute():
             session_osc_file_path = session_osc_file_path.relative_to(cwd)
         command.extend(["-N", session_osc_file_path])
@@ -297,7 +293,6 @@ class SessionRenderer(SupriyaObject):
                 input_file_path,
                 output_file_path,
                 session_osc_file_path,
-                scsynth_path=scsynth_path,
                 server_options=server_options,
             )
             logger.info(f"{command}")
