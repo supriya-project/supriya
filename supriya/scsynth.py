@@ -55,8 +55,8 @@ class Options:
     protocol: str = "udp"
     random_number_generator_count: int = 64
     remote_control_volume: bool = False
-    restricted_path: Optional[str] = None
     realtime: bool = True
+    restricted_path: Optional[str] = None
     sample_rate: Optional[int] = None
     threads: Optional[int] = None
     ugen_plugins_path: Optional[str] = None
