@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import sys
 
 import pytest
 
@@ -8,6 +9,14 @@ from supriya import exceptions
 from supriya.realtime import AsyncServer
 from supriya.scsynth import Options
 from supriya.realtime.servers import DEFAULT_HEALTHCHECK
+
+
+supernova_skip_win = pytest.param(
+    "supernova",
+    marks=pytest.mark.skipif(
+        sys.platform.startswith("win"), reason="Supernova won't boot on Windows"
+    ),
+)
 
 
 @pytest.fixture(autouse=True)
@@ -22,7 +31,7 @@ def setup_logging(caplog):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "scsynth", "supernova"])
+@pytest.mark.parametrize("executable", [None, "scsynth", supernova_skip_win])
 async def test_boot_only(executable):
     server = AsyncServer()
     assert not server.is_running
@@ -33,7 +42,7 @@ async def test_boot_only(executable):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
 async def test_boot_and_quit(executable):
     server = AsyncServer()
     assert not server.is_running
@@ -47,7 +56,7 @@ async def test_boot_and_quit(executable):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
 async def test_boot_and_boot(executable):
     server = AsyncServer()
     assert not server.is_running
@@ -62,7 +71,7 @@ async def test_boot_and_boot(executable):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
 async def test_boot_and_quit_and_quit(executable):
     server = AsyncServer()
     assert not server.is_running
@@ -79,7 +88,7 @@ async def test_boot_and_quit_and_quit(executable):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
 async def test_boot_and_connect(executable):
     server = AsyncServer()
     assert not server.is_running
@@ -94,7 +103,7 @@ async def test_boot_and_connect(executable):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
 async def test_boot_a_and_boot_b_cannot_boot(executable):
     server_a, server_b = AsyncServer(), AsyncServer()
     assert not server_a.is_running and not server_a.is_owner
@@ -143,7 +152,7 @@ async def test_boot_a_and_connect_b_and_quit_a(executable):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
 async def test_boot_a_and_connect_b_and_disconnect_b(executable):
     server_a, server_b = AsyncServer(), AsyncServer()
     assert not server_a.is_running and not server_a.is_owner
@@ -158,7 +167,7 @@ async def test_boot_a_and_connect_b_and_disconnect_b(executable):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
 async def test_boot_a_and_connect_b_and_disconnect_a(executable):
     server_a, server_b = AsyncServer(), AsyncServer()
     assert not server_a.is_running and not server_a.is_owner
@@ -174,7 +183,7 @@ async def test_boot_a_and_connect_b_and_disconnect_a(executable):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
 async def test_boot_a_and_connect_b_and_quit_b(executable):
     server_a, server_b = AsyncServer(), AsyncServer()
     assert not server_a.is_running and not server_a.is_owner
@@ -209,7 +218,7 @@ async def test_boot_a_and_connect_b_and_force_quit_b(executable):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
 @pytest.mark.parametrize("maximum_node_count", [1204, 8192])
 async def test_boot_reboot_sticky_options(executable, maximum_node_count):
     server = AsyncServer()

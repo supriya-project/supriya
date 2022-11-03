@@ -1,7 +1,16 @@
 import pytest
+import sys
 
 from supriya.providers import NonrealtimeProvider, Provider, RealtimeProvider
 from supriya.scsynth import Options
+
+
+supernova_skip_win = pytest.param(
+    "supernova",
+    marks=pytest.mark.skipif(
+        sys.platform.startswith("win"), reason="Supernova won't boot on Windows"
+    ),
+)
 
 
 def test_Provider_from_context(session, server):
@@ -15,7 +24,7 @@ def test_Provider_from_context(session, server):
         Provider.from_context(23)
 
 
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
 def test_Provider_realtime(executable):
     options = Options(executable=executable)
     realtime_provider = Provider.realtime(options=options)
@@ -28,7 +37,7 @@ def test_Provider_realtime(executable):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("executable", [None, "supernova"])
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
 async def test_Provider_realtime_async(executable):
     options = Options(executable=executable)
     realtime_provider = await Provider.realtime_async(options=options)
