@@ -56,6 +56,7 @@ class Options:
     realtime: bool = True
     restricted_path: Optional[str] = None
     sample_rate: Optional[int] = None
+    scsynth_path: Optional[str] = None  # deprecated, use `executable`
     threads: Optional[int] = None
     ugen_plugins_path: Optional[str] = None
     verbosity: int = 0
@@ -199,7 +200,8 @@ class Options:
 
     @property
     def executable_path(self) -> str:
-        return self._find_executable_path(self.executable)
+        path = self.executable or self.scsynth_path
+        return self._find_executable_path(path)
 
 
 def kill(supernova=False):

@@ -50,6 +50,7 @@ DEFAULT_HEALTHCHECK = HealthCheck(
     timeout=1.0,
 )
 
+
 class BaseServer:
 
     ### INITIALIZER ###
