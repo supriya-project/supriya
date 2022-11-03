@@ -177,7 +177,7 @@ class Pattern(metaclass=abc.ABCMeta):
             yield random.random()
 
     @abc.abstractmethod
-    def _iterate(self):
+    def _iterate(self, state=None):
         raise NotImplementedError
 
     def _loop(self, iterations=None):
