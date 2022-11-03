@@ -10,7 +10,13 @@ from supriya.assets.synthdefs import default
 from supriya.osc import OscMessage
 from supriya.realtime import Server
 from supriya.realtime.protocols import SyncProcessProtocol
+from supriya.realtime.servers import DEFAULT_HEALTHCHECK
 from supriya.scsynth import Options
+
+
+@pytest.fixture(autouse=True)
+def healthcheck_attempts(monkeypatch):
+    monkeypatch.setattr(DEFAULT_HEALTHCHECK, "max_attempts", 1)
 
 
 @pytest.mark.parametrize("executable", [None, "scsynth", "supernova"])
@@ -211,8 +217,8 @@ def test_boot_a_and_connect_b_and_quit_a(executable):
     assert server_b.is_running and not server_b.is_owner
     server_a.quit()
     assert not server_a.is_running and not server_a.is_owner
-    for _ in range(45):
-        time.sleep(1)
+    for _ in range(100):
+        time.sleep(0.1)
         if not server_b.is_running:
             break
     assert not server_b.is_running and not server_b.is_owner
@@ -273,8 +279,8 @@ def test_boot_a_and_connect_b_and_force_quit_b(executable):
     assert server_b.is_running and not server_b.is_owner
     server_b.quit(force=True)
     assert not server_b.is_running and not server_b.is_owner
-    for _ in range(45):
-        time.sleep(1)
+    for _ in range(100):
+        time.sleep(0.1)
         if not server_a.is_running:
             break
     assert not server_a.is_running and not server_a.is_owner
