@@ -204,8 +204,8 @@ class Options:
         return self._find_executable_path(path)
 
 
-def find() -> str:
-    return str(Options().executable_path)
+def find(scsynth_path: Optional[str] = None) -> str:
+    return str(Options(executable=scsynth_path).executable_path)
 
 
 def kill(supernova=False):
