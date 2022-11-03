@@ -204,6 +204,10 @@ class Options:
         return self._find_executable_path(path)
 
 
+def find() -> str:
+    return str(Options().executable_path)
+
+
 def kill(supernova=False):
     executable = "supernova" if supernova else "scsynth"
     with subprocess.Popen(

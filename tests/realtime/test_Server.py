@@ -14,7 +14,6 @@ from supriya.realtime.protocols import SyncProcessProtocol
 from supriya.realtime.servers import DEFAULT_HEALTHCHECK
 from supriya.scsynth import Options
 
-
 supernova_skip_win = pytest.param(
     "supernova",
     marks=pytest.mark.skipif(

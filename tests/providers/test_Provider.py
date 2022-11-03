@@ -1,9 +1,9 @@
-import pytest
 import sys
+
+import pytest
 
 from supriya.providers import NonrealtimeProvider, Provider, RealtimeProvider
 from supriya.scsynth import Options
-
 
 supernova_skip_win = pytest.param(
     "supernova",

@@ -7,9 +7,8 @@ import pytest
 import supriya
 from supriya import exceptions
 from supriya.realtime import AsyncServer
-from supriya.scsynth import Options
 from supriya.realtime.servers import DEFAULT_HEALTHCHECK
-
+from supriya.scsynth import Options
 
 supernova_skip_win = pytest.param(
     "supernova",
