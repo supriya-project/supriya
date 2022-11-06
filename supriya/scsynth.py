@@ -11,7 +11,7 @@ import uqbar.objects
 
 DEFAULT_IP_ADDRESS = "127.0.0.1"
 DEFAULT_PORT = 57110
-ENVVAR_SERVER_EXECUTABLE = "SUPRIYA_SERVER_EXECUTABLE"
+ENVAR_SERVER_EXECUTABLE = "SUPRIYA_SERVER_EXECUTABLE"
 
 
 @dataclass(frozen=True)
@@ -78,40 +78,6 @@ class Options:
             self.input_bus_channel_count + self.output_bus_channel_count
         ):
             raise ValueError("Insufficient audio buses")
-
-    def _find_executable_path(self, executable: Optional[str] = None):
-        scsynth_path = Path(
-            executable or os.environ.get(ENVVAR_SERVER_EXECUTABLE) or "scsynth"
-        )
-        if scsynth_path.is_absolute() and uqbar.io.find_executable(str(scsynth_path)):
-            return scsynth_path
-        scsynth_path_candidates = uqbar.io.find_executable(scsynth_path.name)
-        if scsynth_path_candidates:
-            return Path(scsynth_path_candidates[0])
-        # Nothing found, let's try a fallback mechanism before throwing an error
-        paths = []
-        executable = executable or "scsynth"
-        if Path(executable).stem == "supernova":
-            executable = "supernova"
-        system = platform.system()
-        if system == "Linux":
-            paths.extend(
-                [Path("/usr/bin/" + executable), Path("/usr/local/bin/" + executable)]
-            )
-        elif system == "Darwin":
-            paths.append(
-                Path("/Applications/SuperCollider.app/Contents/Resources/" + executable)
-            )
-        elif system == "Windows":
-            paths.extend(
-                Path(r"C:\Program Files").glob(
-                    r"SuperCollider*\\" + executable + ".exe"
-                )
-            )
-        for path in paths:
-            if path.exists():
-                return path
-        raise RuntimeError("Failed to locate executable")
 
     ### CLASS VARIABLES ###
 
@@ -199,13 +165,51 @@ class Options:
         )
 
     @property
-    def executable_path(self) -> str:
+    def executable_path(self):
         path = self.executable or self.scsynth_path
-        return self._find_executable_path(path)
+        return find(path)
 
 
-def find(scsynth_path: Optional[str] = None) -> str:
-    return str(Options(executable=scsynth_path).executable_path)
+def find(scsynth_path=None):
+    """Find the ``scsynth`` executable.
+
+    The following paths, if defined, will be searched (prioritised as ordered):
+
+    1. The absolute path ``scsynth_path``
+    2. The environment variable ``SUPRIYA_SERVER_EXECUTABLE`` (pointing to the `scsynth` binary)
+    3. The user's ``PATH``
+    4. Common installation directories of the SuperCollider application.
+
+    Returns a path to the ``scsynth`` executable.
+    Raises ``RuntimeError`` if no path is found.
+    """
+    path = Path(scsynth_path or os.environ.get(ENVAR_SERVER_EXECUTABLE) or "scsynth")
+    if path.is_absolute() and uqbar.io.find_executable(str(path)):
+        return path
+    path_candidates = uqbar.io.find_executable(path.name)
+    if path_candidates:
+        return Path(path_candidates[0])
+    paths = []
+    executable = scsynth_path or "scsynth"
+    if Path(executable).stem == "supernova":
+        executable = "supernova"
+    system = platform.system()
+    if system == "Linux":
+        paths.extend(
+            [Path("/usr/bin/" + executable), Path("/usr/local/bin/" + executable)]
+        )
+    elif system == "Darwin":
+        paths.append(
+            Path("/Applications/SuperCollider.app/Contents/Resources/" + executable)
+        )
+    elif system == "Windows":
+        paths.extend(
+            Path(r"C:\Program Files").glob(r"SuperCollider*\\" + executable + ".exe")
+        )
+    for p in paths:
+        if p.exists():
+            return p
+    raise RuntimeError("Failed to locate executable")
 
 
 def kill(supernova=False):
