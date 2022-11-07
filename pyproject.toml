@@ -43,7 +43,7 @@ docs = [
   "jupyter",
   "librosa",
   "matplotlib >= 3.3.0",
-  "mypy",
+  "mypy >= 0.990",
   # "numpy <= 1.22",  # librosa imports numba 0.56 which requires numpy 1.22 or lower
   "sphinx-immaterial >= 0.8.1",
   "sphinxext-opengraph",
@@ -61,7 +61,7 @@ test = [
   "jupyter",
   "librosa",
   "matplotlib >= 3.3.0",
-  "mypy",
+  "mypy >= 0.990",
   "pytest >= 7.0.0",
   "pytest-asyncio >= 0.19.0",
   "pytest-cov",

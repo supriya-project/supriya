@@ -69,8 +69,6 @@ jobs:
         cache-dependency-path: "**/pyproject.toml"
     - name: Install Supriya
       run: pip install -e .[ipython,test]
-    - name: Install mypy from master (need https://github.com/python/mypy/pull/13397)
-      run: pip install https://github.com/python/mypy/archive/refs/heads/master.zip
     - name: Get Type Hints
       run: pip install --target /tmp/typehints --no-deps uqbar
     - name: Run Black
