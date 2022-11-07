@@ -165,7 +165,7 @@ jobs:
         fi
     - name: Run Pytest
       run: pytest --cov supriya
-      timeout-minutes: 15
+      timeout-minutes: 20
     - name: Check for stray processes (Non-Windows)
       if: ${{ matrix.os != 'windows-latest' }}
       run: |
