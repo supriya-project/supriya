@@ -7,7 +7,6 @@ import os
 import pathlib
 import re
 import tempfile
-import traceback
 from types import MappingProxyType
 from typing import (
     Any,
@@ -35,7 +34,6 @@ from supriya.nonrealtime import Session
 from supriya.realtime import AsyncServer, BaseServer, Server
 from supriya.synthdefs import SynthDef
 from supriya.typing import AddActionLike, HeaderFormatLike, SampleFormatLike
-
 
 logger = logging.getLogger(__name__)
 
