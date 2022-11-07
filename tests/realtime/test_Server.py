@@ -1,4 +1,5 @@
 import subprocess
+import sys
 import time
 
 import pytest
@@ -13,16 +14,26 @@ from supriya.realtime.protocols import SyncProcessProtocol
 from supriya.realtime.servers import DEFAULT_HEALTHCHECK
 from supriya.scsynth import Options
 
+supernova_skip_win = pytest.param(
+    "supernova",
+    marks=pytest.mark.skipif(
+        sys.platform.startswith("win"), reason="Supernova won't boot on Windows"
+    ),
+)
+
 
 @pytest.fixture(autouse=True)
 def healthcheck_attempts(monkeypatch):
     monkeypatch.setattr(DEFAULT_HEALTHCHECK, "max_attempts", 1)
 
 
-def test_boot_options():
+@pytest.mark.parametrize("executable", [None, "scsynth", supernova_skip_win])
+def test_boot_options(executable):
     server = supriya.realtime.Server()
     try:
-        boot_options = Options(memory_size=8192 * 32, buffer_count=2048)
+        boot_options = Options(
+            memory_size=8192 * 32, buffer_count=2048, executable=executable
+        )
         # Default
         server.boot()
         assert isinstance(server.options, type(boot_options))
@@ -39,7 +50,8 @@ def test_boot_options():
         server.boot(buffer_count=2048)
         assert isinstance(server.options, type(boot_options))
         assert server.options.buffer_count == 2048
-        assert server.options.memory_size == 8192
+        # options are sticky now
+        assert server.options.memory_size == 8192 * 32
         server.quit()
         # With Options and **kwargs
         server.boot(buffer_count=4096, options=boot_options)
@@ -83,11 +95,12 @@ def test_server_boot_errors(mocker):
     assert not server.osc_protocol.is_running
 
 
-def test_boot_and_quit():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_boot_and_quit(executable):
     server = Server()
     assert not server.is_running
     assert not server.is_owner
-    server.boot()
+    server.boot(executable=executable)
     assert server.is_running
     assert server.is_owner
     server.quit()
@@ -95,9 +108,10 @@ def test_boot_and_quit():
     assert not server.is_owner
 
 
-def test_boot_and_quit_with_resources():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_boot_and_quit_with_resources(executable):
     server = Server()
-    server.boot()
+    server.boot(executable=executable)
     server.add_buffer(channel_count=1, frame_count=1024)
     server.add_bus("audio")
     server.add_bus("control")
@@ -106,11 +120,12 @@ def test_boot_and_quit_with_resources():
     server.quit()
 
 
-def test_boot_and_boot():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_boot_and_boot(executable):
     server = Server()
     assert not server.is_running
     assert not server.is_owner
-    server.boot()
+    server.boot(executable=executable)
     assert server.is_running
     assert server.is_owner
     with pytest.raises(exceptions.ServerOnline):
@@ -119,11 +134,12 @@ def test_boot_and_boot():
     assert server.is_owner
 
 
-def test_boot_and_quit_and_quit():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_boot_and_quit_and_quit(executable):
     server = Server()
     assert not server.is_running
     assert not server.is_owner
-    server.boot()
+    server.boot(executable=executable)
     assert server.is_running
     assert server.is_owner
     server.quit()
@@ -134,11 +150,12 @@ def test_boot_and_quit_and_quit():
     assert not server.is_owner
 
 
-def test_boot_and_connect():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_boot_and_connect(executable):
     server = Server()
     assert not server.is_running
     assert not server.is_owner
-    server.boot()
+    server.boot(executable=executable)
     assert server.is_running
     assert server.is_owner
     with pytest.raises(exceptions.ServerOnline):
@@ -147,11 +164,12 @@ def test_boot_and_connect():
     assert server.is_owner
 
 
-def test_boot_a_and_connect_b():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_boot_a_and_connect_b(executable):
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
-    server_a.boot(maximum_logins=4)
+    server_a.boot(maximum_logins=4, executable=executable)
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
     server_b.connect()
@@ -168,19 +186,21 @@ def test_boot_a_and_connect_b():
     assert server_a.query(False) == server_b.query(False)
 
 
-def test_boot_a_and_boot_b_cannot_boot():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_boot_a_and_boot_b_cannot_boot(executable):
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
-    server_a.boot(maximum_logins=4)
+    server_a.boot(maximum_logins=4, executable=executable)
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
     with pytest.raises(exceptions.ServerCannotBoot):
-        server_b.boot(maximum_logins=4)
+        server_b.boot(maximum_logins=4, executable=executable)
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
 
 
+#  scsynth only
 def test_boot_a_and_connect_b_too_many_clients():
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner
@@ -194,11 +214,12 @@ def test_boot_a_and_connect_b_too_many_clients():
     assert not server_b.is_running and not server_b.is_owner
 
 
-def test_boot_a_and_connect_b_and_quit_a():
+@pytest.mark.parametrize("executable", [None])
+def test_boot_a_and_connect_b_and_quit_a(executable):
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
-    server_a.boot(maximum_logins=2)
+    server_a.boot(maximum_logins=2, executable=executable)
     server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
@@ -211,11 +232,12 @@ def test_boot_a_and_connect_b_and_quit_a():
     assert not server_b.is_running and not server_b.is_owner
 
 
-def test_boot_a_and_connect_b_and_disconnect_b():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_boot_a_and_connect_b_and_disconnect_b(executable):
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
-    server_a.boot(maximum_logins=2)
+    server_a.boot(maximum_logins=2, executable=executable)
     server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
@@ -224,11 +246,12 @@ def test_boot_a_and_connect_b_and_disconnect_b():
     assert not server_b.is_running and not server_b.is_owner
 
 
-def test_boot_a_and_connect_b_and_disconnect_a():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_boot_a_and_connect_b_and_disconnect_a(executable):
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
-    server_a.boot(maximum_logins=2)
+    server_a.boot(maximum_logins=2, executable=executable)
     server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
@@ -238,11 +261,12 @@ def test_boot_a_and_connect_b_and_disconnect_a():
     assert server_b.is_running and not server_b.is_owner
 
 
-def test_boot_a_and_connect_b_and_quit_b():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_boot_a_and_connect_b_and_quit_b(executable):
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
-    server_a.boot(maximum_logins=2)
+    server_a.boot(maximum_logins=2, executable=executable)
     server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
@@ -252,11 +276,12 @@ def test_boot_a_and_connect_b_and_quit_b():
     assert server_b.is_running and not server_b.is_owner
 
 
-def test_boot_a_and_connect_b_and_force_quit_b():
+@pytest.mark.parametrize("executable", [None])
+def test_boot_a_and_connect_b_and_force_quit_b(executable):
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
-    server_a.boot(maximum_logins=2)
+    server_a.boot(maximum_logins=2, executable=executable)
     server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
@@ -330,9 +355,9 @@ def test_shared_resources():
 
 def test_connect_and_reconnect():
     try:
-        options = scsynth.Options(maximum_logins=4)
+        options = scsynth.Options(maximum_logins=4, port=57110)
         protocol = SyncProcessProtocol()
-        protocol.boot(options, scsynth.find(), 57110)
+        protocol.boot(options)
         server = Server()
         server.connect(port=57110)
         assert server.is_running and not server.is_owner
@@ -382,37 +407,44 @@ def test_reset():
     assert default in server
 
 
-def test_reboot():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_reboot(executable):
+    options = Options(executable=executable)
     server = Server()
-    server.reboot()
+    server.reboot(options=options)
     assert server.is_running
+    assert server._options == options
     server.reboot()
-    assert server.is_running
     assert server.is_running
 
 
-def test_reboot_with_resources():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_reboot_with_resources(executable):
     server = Server()
-    server.boot()
+    server.boot(executable=executable)
     server.add_buffer(channel_count=1, frame_count=1024)
     server.add_bus("audio")
     server.add_bus("control")
     server.add_group()
     server.add_synth()
     server.reboot()
+    assert server.is_running
+    assert server._options.executable == executable
 
 
-def test_reset_and_reboot():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_reset_and_reboot(executable):
     server = Server()
-    server.boot()
+    server.boot(executable=executable)
     server.reset()
     server.reboot()
     assert server.is_running
 
 
-def test_reset_and_reboot_with_resources():
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+def test_reset_and_reboot_with_resources(executable):
     server = Server()
-    server.boot()
+    server.boot(executable=executable)
     server.add_buffer(channel_count=1, frame_count=1024)
     server.add_bus("audio")
     server.add_bus("control")
@@ -421,3 +453,69 @@ def test_reset_and_reboot_with_resources():
     server.reset()
     server.reboot()
     assert server.is_running
+
+
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+@pytest.mark.parametrize("memory_size", [8192, 12345])
+def test_boot_reboot_sticky_options(executable, memory_size):
+    server = Server()
+    port = supriya.osc.utils.find_free_port()
+    options = Options(executable=executable, memory_size=memory_size, port=port)
+    server.boot(options=options)
+    assert server.is_running
+    assert server._options.memory_size == options.memory_size
+    assert server.port == options.port
+    server.quit()
+    assert not server.is_running
+    server.boot(memory_size=8193)
+    assert server.is_running
+    assert server._options.memory_size == 8193
+    assert server.port == options.port
+    server.reboot()
+    assert server.is_running
+    assert server._options.memory_size == 8193
+    assert server.port == options.port
+    server.reboot(options=options)
+    assert server.is_running
+    assert server._options.memory_size == options.memory_size
+    assert server.port == options.port
+
+
+@pytest.mark.parametrize("executable", [None, supernova_skip_win])
+@pytest.mark.parametrize("maximum_node_count", [1204, 8192])
+def test_connect_and_reconnect_sticky_options(executable, maximum_node_count):
+    try:
+        port = supriya.osc.utils.find_free_port()
+        options = scsynth.Options(
+            executable=executable,
+            maximum_logins=5,
+            maximum_node_count=maximum_node_count,
+            port=port,
+        )
+        protocol = SyncProcessProtocol()
+        protocol.boot(options)
+        server = Server()
+        server.connect(options=options)
+        assert server.is_running and not server.is_owner
+        assert server._options.maximum_node_count == options.maximum_node_count
+        assert server.port == port
+        server.disconnect()
+        server.connect(port=port)
+        assert server._options.maximum_node_count == options.maximum_node_count
+        assert server.port == port
+        server.disconnect()
+        server.connect(maximum_node_count=1101)
+        assert server._options.maximum_node_count == 1101
+        assert server.port == port
+        server.disconnect()
+        server.connect(options=options)
+        assert server._options.maximum_node_count == options.maximum_node_count
+        assert server.port == port
+        server.disconnect()
+        new_options = scsynth.Options(maximum_node_count=1027, port=port)
+        server.connect(options=new_options)
+        assert server._options.maximum_node_count == 1027
+        assert server.port == port
+
+    finally:
+        protocol.quit()

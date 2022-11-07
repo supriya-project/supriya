@@ -32,6 +32,7 @@ from supriya.assets.synthdefs.default import default
 from supriya.enums import AddAction, CalculationRate, ParameterRate
 from supriya.nonrealtime import Session
 from supriya.realtime import AsyncServer, BaseServer, Server
+from supriya.scsynth import Options
 from supriya.synthdefs import SynthDef
 from supriya.typing import AddActionLike, HeaderFormatLike, SampleFormatLike
 
@@ -613,20 +614,18 @@ class Provider(metaclass=abc.ABCMeta):
 
     @classmethod
     def realtime(
-        cls, scsynth_path=None, options=None, port=None, **kwargs
+        cls, *, options: Optional[Options] = None, **kwargs
     ) -> "RealtimeProvider":
         server = Server()
-        server.boot(port=port, scsynth_path=scsynth_path, options=options, **kwargs)
+        server.boot(options=options, **kwargs)
         return cast("RealtimeProvider", cls.from_context(server))
 
     @classmethod
     async def realtime_async(
-        cls, scsynth_path=None, options=None, port=None, **kwargs
+        cls, *, options: Optional[Options] = None, **kwargs
     ) -> "RealtimeProvider":
         server = AsyncServer()
-        await server.boot(
-            port=port, scsynth_path=scsynth_path, options=options, **kwargs
-        )
+        await server.boot(options=options, **kwargs)
         return cast("RealtimeProvider", cls.from_context(server))
 
     @abc.abstractmethod

@@ -63,18 +63,18 @@ You can override the IP address or port via keyword arguments::
     >>> server_one.quit()
     >>> server_two.quit()
 
-You can also explicitly select the server binary via the ``scsynth_path`` keyword::
+You can also explicitly select the server binary via the ``executable`` keyword::
 
-    >>> server.boot(scsynth_path="scsynth")
+    >>> server.boot(executable="scsynth")
 
 .. book::
     :hide:
 
     >>> server.quit()
 
-The ``scsynth_path`` keyword allows you to boot with ``supernova`` if you have it available::
+The ``executable`` keyword allows you to boot with ``supernova`` if you have it available::
 
-    >>> server.boot(scsynth_path="supernova")
+    >>> server.boot(executable="supernova")
 
 .. book::
     :hide:

@@ -10,7 +10,7 @@ from supriya import scsynth
 
 @pytest.fixture
 def mock_env_scsynth_path(monkeypatch):
-    monkeypatch.delenv("SCSYNTH_PATH", raising=False)
+    monkeypatch.delenv(scsynth.ENVAR_SERVER_EXECUTABLE, raising=False)
     monkeypatch.setenv("PATH", "")
 
 
@@ -26,7 +26,7 @@ def test_find_env_var(mock_env_scsynth_path, monkeypatch):
     with NamedTemporaryFile() as tmp:
         expected = pathlib.Path(tmp.name).absolute()
         expected.chmod(expected.stat().st_mode | stat.S_IEXEC)
-        monkeypatch.setenv("SCSYNTH_PATH", str(expected))
+        monkeypatch.setenv(scsynth.ENVAR_SERVER_EXECUTABLE, str(expected))
         got = scsynth.find()
         assert got == expected
 
@@ -40,13 +40,3 @@ def test_find_on_path(mock_env_scsynth_path, monkeypatch):
             got = scsynth.find()
             expected = scsynth_path.absolute()
             assert got == expected
-
-
-def test_find_from_fallback_paths(mock_env_scsynth_path, mocker):
-    with NamedTemporaryFile() as tmp:
-        expected = pathlib.Path(tmp.name).absolute()
-        expected.chmod(expected.stat().st_mode | stat.S_IEXEC)
-        mock = mocker.patch.object(scsynth, "_fallback_scsynth_path")
-        mock.return_value = expected
-        got = scsynth.find()
-        assert got == expected

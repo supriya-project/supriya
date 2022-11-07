@@ -6,6 +6,7 @@ import subprocess
 import time
 
 import supriya.exceptions
+from supriya.scsynth import Options
 
 logger = logging.getLogger("supriya.server.protocol")
 
@@ -21,16 +22,11 @@ class ProcessProtocol:
         self.is_running = False
         atexit.register(self.quit)
 
-    def boot(self, options, scsynth_path, port):
+    def boot(self, options: Options):
         raise NotImplementedError
 
     def quit(self):
         raise NotImplementedError
-
-    def _build_command(self, options, scsynth_path, port):
-        command = [str(scsynth_path)] + options.serialize(port)
-        logger.info("Boot: {}".format(command))
-        return command
 
     def _handle_line(self, line):
         logger.info(f"Received: {line}")
@@ -45,12 +41,13 @@ class SyncProcessProtocol(ProcessProtocol):
 
     ### PUBLIC METHODS ###
 
-    def boot(self, options, scsynth_path, port):
+    def boot(self, options: Options):
         if self.is_running:
             return
         try:
+            logger.info("Boot: {}".format(*options))
             self.process = subprocess.Popen(
-                self._build_command(options, scsynth_path, port),
+                list(options),
                 stderr=subprocess.STDOUT,
                 stdout=subprocess.PIPE,
                 start_new_session=True,
@@ -58,7 +55,7 @@ class SyncProcessProtocol(ProcessProtocol):
             start_time = time.time()
             timeout = 10
             while True:
-                line = self.process.stdout.readline().decode().rstrip()
+                line = self.process.stdout.readline().decode().rstrip()  # type: ignore
                 if not line:
                     continue
                 line_status = self._handle_line(line)
@@ -94,7 +91,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
 
     ### PUBLIC METHODS ###
 
-    async def boot(self, options, scsynth_path, port):
+    async def boot(self, options: Options):
         logger.info("Booting ...")
         if self.is_running:
             logger.info("... already booted!")
@@ -105,11 +102,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         self.exit_future = loop.create_future()
         self.buffer_ = ""
         _, _ = await loop.subprocess_exec(
-            lambda: self,
-            *self._build_command(options, scsynth_path, port),
-            stdin=None,
-            stderr=None,
-            start_new_session=True,
+            lambda: self, *options, stdin=None, stderr=None, start_new_session=True
         )
 
     def connection_made(self, transport):

@@ -27,7 +27,7 @@ from supriya.osc.protocols import (
     ThreadedOscProtocol,
 )
 from supriya.querytree import QueryTreeGroup, QueryTreeSynth
-from supriya.scsynth import Options, find
+from supriya.scsynth import DEFAULT_IP_ADDRESS, DEFAULT_PORT, Options
 
 from ..commands import StatusResponse
 from ..typing import AddActionLike, CalculationRateLike
@@ -41,8 +41,6 @@ from .recorder import Recorder
 
 logger = logging.getLogger("supriya.server")
 
-DEFAULT_IP_ADDRESS = "127.0.0.1"
-DEFAULT_PORT = 57110
 DEFAULT_HEALTHCHECK = HealthCheck(
     backoff_factor=1.5,
     callback=lambda: None,
@@ -157,6 +155,12 @@ class BaseServer:
 
     def _teardown_shm(self):
         self._shm = None
+
+    def _update_options(self, options: Optional[Options] = None, **kwargs):
+        self._options = options or self._options
+        self._options = new(self._options, **kwargs)
+        self._port = self._options.port
+        self._ip_address = self._options.ip_address
 
     ### PUBLIC METHODS ###
 
@@ -313,7 +317,13 @@ class AsyncServer(BaseServer):
         if isinstance(response, FailResponse):
             await self._shutdown()
             raise supriya.exceptions.TooManyClients
-        self._client_id, self._maximum_logins = response.action[1], response.action[2]
+        if len(response.action) == 2:  # supernova doesn't provide a max logins value
+            self._client_id, self._maximum_logins = (
+                response.action[1],
+                self._options.maximum_logins,
+            )
+        else:
+            self._client_id, self._maximum_logins = response.action[1:3]
 
     async def _setup_system_synthdefs(self):
         pass
@@ -329,45 +339,34 @@ class AsyncServer(BaseServer):
     ### PUBLIC METHODS ###
 
     async def boot(
-        self,
-        *,
-        ip_address: str = DEFAULT_IP_ADDRESS,
-        port: int = DEFAULT_PORT,
-        scsynth_path: Optional[str] = None,
-        options: Optional[Options] = None,
-        **kwargs,
+        self, *, options: Optional[Options] = None, **kwargs
     ) -> "AsyncServer":
         if self._is_running:
             raise supriya.exceptions.ServerOnline
-        port = port or DEFAULT_PORT
         loop = asyncio.get_running_loop()
         self._boot_future = loop.create_future()
         self._quit_future = loop.create_future()
-        self._options = new(options or Options(), **kwargs)
-        scsynth_path = find(scsynth_path)
+        self._update_options(options, **kwargs)
         self._process_protocol = AsyncProcessProtocol()
-        await self._process_protocol.boot(self._options, scsynth_path, port)
+        await self._process_protocol.boot(self._options)
         if not await self._process_protocol.boot_future:
             self._boot_future.set_result(False)
             self._quit_future.set_result(True)
             raise supriya.exceptions.ServerCannotBoot
-        self._ip_address = ip_address
         self._is_owner = True
-        self._port = port
         await self._connect()
         return self
 
     async def connect(
-        self, *, ip_address: str = DEFAULT_IP_ADDRESS, port: int = DEFAULT_PORT
+        self, *, options: Optional[Options] = None, **kwargs
     ) -> "AsyncServer":
         if self._is_running:
             raise supriya.exceptions.ServerOnline
         loop = asyncio.get_running_loop()
         self._boot_future = loop.create_future()
         self._quit_future = loop.create_future()
-        self._ip_address = ip_address
+        self._update_options(options, **kwargs)
         self._is_owner = False
-        self._port = port
         await self._connect()
         return self
 
@@ -1022,36 +1021,21 @@ class Server(BaseServer):
         synthdef.allocate(server=self)
         return self
 
-    def boot(
-        self,
-        *,
-        ip_address: str = DEFAULT_IP_ADDRESS,
-        port: int = DEFAULT_PORT,
-        scsynth_path: Optional[str] = None,
-        options: Optional[Options] = None,
-        **kwargs,
-    ) -> "Server":
+    def boot(self, *, options: Optional[Options] = None, **kwargs) -> "Server":
         if self.is_running:
             raise supriya.exceptions.ServerOnline
-        port = port or DEFAULT_PORT
-        self._options = new(options or Options(), **kwargs)
-        scsynth_path = find(scsynth_path)
+        self._update_options(options, **kwargs)
         self._process_protocol = SyncProcessProtocol()
-        self._process_protocol.boot(self._options, scsynth_path, port)
-        self._ip_address = ip_address
+        self._process_protocol.boot(self._options)
         self._is_owner = True
-        self._port = port
         self._connect()
         return self
 
-    def connect(
-        self, *, ip_address: str = DEFAULT_IP_ADDRESS, port: int = DEFAULT_PORT
-    ) -> "Server":
+    def connect(self, *, options: Optional[Options] = None, **kwargs) -> "Server":
         if self.is_running:
             raise supriya.exceptions.ServerOnline
-        self._ip_address = ip_address
+        self._update_options(options, **kwargs)
         self._is_owner = False
-        self._port = port
         self._connect()
         if self.client_id > 0:
             self._setup_system_synthdefs(local_only=True)
@@ -1092,7 +1076,7 @@ class Server(BaseServer):
         response = request.communicate(server=self)
         return response.query_tree_group
 
-    def reboot(self, options: Optional[Options] = None, **kwargs) -> "Server":
+    def reboot(self, *, options: Optional[Options] = None, **kwargs) -> "Server":
         self.quit()
         self.boot(options=options, **kwargs)
         return self
