@@ -55,8 +55,7 @@ class SyncProcessProtocol(ProcessProtocol):
             start_time = time.time()
             timeout = 10
             while True:
-                assert self.process.stdout is not None
-                line = self.process.stdout.readline().decode().rstrip()
+                line = self.process.stdout.readline().decode().rstrip()  # type: ignore
                 if not line:
                     continue
                 line_status = self._handle_line(line)
