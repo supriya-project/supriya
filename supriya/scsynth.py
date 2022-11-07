@@ -200,9 +200,9 @@ def find(scsynth_path=None):
         paths.extend(
             Path(r"C:\Program Files").glob(r"SuperCollider*\\" + executable + ".exe")
         )
-    for p in paths:
-        if p.exists():
-            return p
+    for path in paths:
+        if path.exists():
+            return path
     raise RuntimeError("Failed to locate executable")
 
 
