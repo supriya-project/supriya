@@ -2,6 +2,7 @@ import abc
 import collections
 import contextlib
 import dataclasses
+import logging
 import os
 import pathlib
 import re
@@ -33,6 +34,8 @@ from supriya.nonrealtime import Session
 from supriya.realtime import AsyncServer, BaseServer, Server
 from supriya.synthdefs import SynthDef
 from supriya.typing import AddActionLike, HeaderFormatLike, SampleFormatLike
+
+logger = logging.getLogger(__name__)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -415,6 +418,8 @@ class ProviderMoment:
         self.exit_stack.close()
         self.provider._moments.pop()
         self.provider._counter[self.seconds] -= 1
+        if not self.provider._counter[self.seconds]:
+            self.provider._counter.pop(self.seconds)
         if not self.provider.server:
             return
         elif self.provider._counter[self.seconds]:
