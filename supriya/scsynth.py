@@ -56,7 +56,6 @@ class Options:
     realtime: bool = True
     restricted_path: Optional[str] = None
     sample_rate: Optional[int] = None
-    scsynth_path: Optional[str] = None  # deprecated, use `executable`
     threads: Optional[int] = None
     ugen_plugins_path: Optional[str] = None
     verbosity: int = 0
@@ -90,7 +89,7 @@ class Options:
     ### PUBLIC METHODS ###
 
     def serialize(self) -> List[str]:
-        result = [str(self.executable_path)]
+        result = [str(find(self.executable))]
         if self.realtime:
             if self.protocol == "tcp":
                 result.extend(["-t", str(self.port)])
@@ -146,7 +145,7 @@ class Options:
             result.append("-L")
         if self.ugen_plugins_path:
             result.extend(["-U", str(self.ugen_plugins_path)])
-        if self.threads and (Path(self.executable_path).stem == "supernova"):
+        if self.threads and find(self.executable).stem == "supernova":
             result.extend(["-t", str(self.threads)])
         return result
 
@@ -163,11 +162,6 @@ class Options:
             - self.input_bus_channel_count
             - self.output_bus_channel_count
         )
-
-    @property
-    def executable_path(self):
-        path = self.executable or self.scsynth_path
-        return find(path)
 
 
 def find(scsynth_path=None):
