@@ -11,21 +11,21 @@ pytest_plugins = ["helpers_namespace", "sphinx.testing.fixtures"]
 # ### FIXTURES ### #
 
 
-@pytest.fixture
-def server():
+@pytest.fixture(params=["scsynth", "supernova"])
+def server(request):
     server = supriya.Server()
     server.latency = 0.0
-    server.boot()
+    server.boot(executable=request.param)
     server.add_synthdef(supriya.assets.synthdefs.default)
     yield server
     server.quit()
 
 
-@pytest.fixture(scope="module")
-def persistent_server():
+@pytest.fixture(scope="module", params=["scsynth", "supernova"])
+def persistent_server(request):
     server = supriya.Server()
     server.latency = 0.0
-    server.boot()
+    server.boot(executable=request.param)
     yield server
     server.quit()
 
