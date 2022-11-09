@@ -1918,3 +1918,34 @@ def test_remove_01(server):
     assert not synth_b.is_allocated
     assert not synth_c.is_allocated
     assert not synth_d.is_allocated
+
+
+def test_allocate_parallel(server):
+    group = supriya.realtime.Group(parallel=True)
+    assert group.parallel
+    with server.osc_protocol.capture() as transcript:
+        group.allocate(server)
+    server_state = str(server.query())
+    assert server_state == normalize(
+        """
+        NODE TREE 0 group
+            1 group
+                1000 group
+        """
+    )
+    assert [(_.label, _.message) for _ in transcript] == [
+        ("S", OscMessage("/p_new", 1000, 0, 1)),
+        ("R", OscMessage("/n_go", 1000, 1, -1, -1, 1, -1, -1)),
+    ]
+
+
+def test_add_group_parallel(server):
+    with server.osc_protocol.capture() as transcript:
+        server.add_group(parallel=True)
+        server.default_group.add_group(parallel=True)
+    assert [(_.label, _.message) for _ in transcript] == [
+        ("S", OscMessage("/p_new", 1000, 0, 1)),
+        ("R", OscMessage("/n_go", 1000, 1, -1, -1, 1, -1, -1)),
+        ("S", OscMessage("/p_new", 1001, 0, 1)),
+        ("R", OscMessage("/n_go", 1001, 1, -1, 1000, 1, -1, -1)),
+    ]

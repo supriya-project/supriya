@@ -764,7 +764,6 @@ class NonrealtimeProvider(Provider):
     ) -> GroupProxy:
         if not self.moment:
             raise ValueError("No current moment")
-        # TODO: implement (dummy) parallel flag for nonrealtime methods
         identifier = self._resolve_target_node(target_node).add_group(
             add_action=add_action
         )
