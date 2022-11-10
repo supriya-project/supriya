@@ -272,7 +272,6 @@ class GroupProxy(NodeProxy):
         request_method = commands.GroupNewRequest
         if self.parallel:
             request_method = commands.ParallelGroupNewRequest
-
         return request_method(
             items=[
                 request_method.Item(

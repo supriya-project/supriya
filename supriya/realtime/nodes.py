@@ -673,10 +673,9 @@ class Group(Node, UniqueTreeList):
                 requests.append(request)
             else:
                 if isinstance(node, Group):
+                    request_method = supriya.commands.GroupNewRequest
                     if node.parallel:
                         request_method = supriya.commands.ParallelGroupNewRequest
-                    else:
-                        request_method = supriya.commands.GroupNewRequest
                     request = request_method(
                         items=[
                             request_method.Item(
