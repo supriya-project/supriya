@@ -109,6 +109,31 @@ class GroupDeepFreeRequest(Request):
         return self._group_id
 
 
+class GroupDumpTreeRequest(Request):
+
+    request_id = RequestId.GROUP_DUMP_TREE
+
+    def __init__(self, node_id=None, include_controls=False):
+        Request.__init__(self)
+        self._node_id = node_id
+        self._include_controls = bool(include_controls)
+
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
+        node_id = int(self.node_id)
+        include_controls = int(self.include_controls)
+        message = supriya.osc.OscMessage(request_id, node_id, include_controls)
+        return message
+
+    @property
+    def include_controls(self):
+        return self._include_controls
+
+    @property
+    def node_id(self):
+        return self._node_id
+
+
 class GroupFreeAllRequest(Request):
     """
     A /g_freeAll request.

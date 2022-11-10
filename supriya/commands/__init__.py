@@ -38,6 +38,7 @@ from .buses import (
 )
 from .groups import (
     GroupDeepFreeRequest,
+    GroupDumpTreeRequest,
     GroupFreeAllRequest,
     GroupNewRequest,
     GroupQueryTreeRequest,
