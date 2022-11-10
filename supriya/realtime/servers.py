@@ -964,7 +964,9 @@ class Server(BaseServer):
         bus_group.allocate(server=self)
         return bus_group
 
-    def add_group(self, add_action: Optional[AddActionLike] = None) -> Group:
+    def add_group(
+        self, add_action: Optional[AddActionLike] = None, parallel: bool = False
+    ) -> Group:
         """
         Add a group relative to the default group via ``add_action``.
 
@@ -986,7 +988,7 @@ class Server(BaseServer):
         """
         if self.default_group is None:
             raise ServerOffline
-        return self.default_group.add_group(add_action=add_action)
+        return self.default_group.add_group(add_action=add_action, parallel=parallel)
 
     def add_synth(
         self, synthdef=None, add_action: Optional[AddActionLike] = None, **kwargs

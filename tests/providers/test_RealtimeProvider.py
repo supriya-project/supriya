@@ -5,6 +5,7 @@ from uqbar.strings import normalize
 
 from supriya.assets.synthdefs import default
 from supriya.enums import AddAction, CalculationRate
+from supriya.osc.messages import OscBundle, OscMessage
 from supriya.providers import (
     BufferProxy,
     BusGroupProxy,
@@ -564,3 +565,13 @@ def test_RealtimeProvider_set_node_error(server):
         group_proxy["foo"] = 23
     with pytest.raises(ValueError):
         synth_proxy["foo"] = 23
+
+
+def test_RealtimeProvider_add_group_parallel(server):
+    provider = Provider.from_context(server)
+    with server.osc_protocol.capture() as transcript:
+        with provider.at(None):
+            provider.add_group(parallel=True)
+    assert [(_.label, _.message) for _ in transcript] == [
+        ("S", OscBundle(contents=(OscMessage("/p_new", 1000, 0, 1),)))
+    ]
