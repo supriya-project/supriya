@@ -98,6 +98,19 @@ first::
 
         >>> server.add_group(add_action="add to head")
 
+.. note::
+
+    When using :term:`supernova` as your server executable, you can create
+    _parallel_ groups by specifying ``parallel=True`` in any call you would use
+    to create a group::
+
+        >>> server.add_group(parallel=True)
+
+    Parallel groups will process their child nodes via multiple threads.
+    Because the order of node processing within a parallel group is
+    non-deterministic they're best suited for summing together signals rather
+    than processing in-place.
+
 Creating synths
 ```````````````
 

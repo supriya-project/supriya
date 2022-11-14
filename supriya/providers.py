@@ -207,8 +207,11 @@ class NodeProxy(Proxy):
         *,
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,
+        parallel: bool = False,
     ) -> "GroupProxy":
-        return self.provider.add_group(add_action=add_action, target_node=self)
+        return self.provider.add_group(
+            add_action=add_action, target_node=self, parallel=parallel
+        )
 
     def add_synth(
         self,
@@ -268,7 +271,6 @@ class GroupProxy(NodeProxy):
     def as_add_request(
         self, add_action, target_node
     ) -> Union[commands.GroupNewRequest, commands.ParallelGroupNewRequest]:
-
         request_method = commands.GroupNewRequest
         if self.parallel:
             request_method = commands.ParallelGroupNewRequest
