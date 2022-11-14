@@ -45,4 +45,5 @@ if __name__ == "__main__":
         packages=find_packages(include=["supriya", "supriya.*"])
         + ["supriya.assets.audio", "supriya.assets.audio.birds"],
         version=read_version(),
+        package_data={"supriya": ["py.typed"]},
     )
