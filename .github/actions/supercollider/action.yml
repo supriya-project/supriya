@@ -16,7 +16,6 @@ runs:
       run: |
         git clone --quiet --recursive --branch ${{ inputs.branch }} ${{ inputs.origin }} /tmp/supercollider
         cd /tmp/supercollider
-        mkdir build
         echo "SC_COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
         if [ "$RUNNER_OS" == "Linux" ]; then
           echo "SC_ORIGIN_MD5=$(echo ${{inputs.origin}} | md5sum | head -c 7)" >> $GITHUB_ENV
@@ -27,110 +26,127 @@ runs:
           exit 1
         fi
       shell: bash
-    - name: Cache SuperCollider
-      id: cache
+    - name: Cache current date
+      id: current-date
+      run: echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+      shell: bash
+    - name: '[Linux] Cache ccache'
+      if: runner.os == 'Linux'
       uses: actions/cache@v3
       with:
-        path: /tmp/supercollider/build
-        key: ${{ runner.os }}-supercollider-${{ env.SC_ORIGIN_MD5 }}-${{ env.SC_COMMIT_SHA }}
-        restore-keys: |
-          ${{ runner.os }}-supercollider-
-    - name: Validate cache
-      run: echo "Cached? ${{ steps.cache.outputs.cache-hit }}"
+        path: ~/.ccache
+        key: ccache-${{ runner.os }}-${{ steps.current-date.outputs.stamp }}
+        restore-keys: ccache-${{ runner.os }}-
+    - name: '[macOS] Cache ccache'
+      if: runner.os == 'macOS'
+      uses: actions/cache@v3
+      with:
+        path: ~/Library/Caches/ccache
+        key: ccache-${{ runner.os }}-${{ steps.current-date.outputs.stamp }}
+        restore-keys: ccache-${{ runner.os }}-
+    - name: '[macOS] Cache Homebrew'
+      id: cache-homebrew
+      if: runner.os == 'macOS'
+      uses: actions/cache@v3
+      with:
+        path: ~/Library/Caches/Homebrew/downloads
+        key: homebrew-${{ runner.os }}-${{ steps.current-date.outputs.stamp }}
+        restore-keys: homebrew-${{ runner.os }}-
+    - name: '[macOS] Cleanup Homebrew'
+      if: runner.os == 'macOS' && !steps.cache-homebrew.outputs.cache-hit
+      run: rm -rf $(brew --cache)
       shell: bash
-    - name: Install SuperCollider Deps
+    - name: '[Linux] Install dependencies'
+      if: runner.os == 'Linux'
       run: |
-        echo "Installing SuperCollider deps..."
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          export DEBIAN_FRONTEND=noninteractive
-          sudo apt-get update --yes
-          sudo apt-get install --yes \
-            alsa-oss \
-            alsa-utils \
-            build-essential \
-            cmake \
-            jackd2 \
-            libasound2-dev \
-            libavahi-client-dev \
-            libfftw3-dev \
-            libicu-dev \
-            libjack-jackd2-dev \
-            libreadline6-dev \
-            libsndfile1-dev \
-            libudev-dev \
-            libxt-dev \
-            pkg-config
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          brew install \
-            cmake \
-            fftw \
-            git \
-            jack \
-            libsndfile \
-            portaudio \
-            qt5 \
-            readline
-          echo "Update ld cache"
-          sudo update_dyld_shared_cache
-        else
-          echo "$RUNNER_OS not supported"
-          exit 1
-        fi
-      shell: bash
-    - name: Prep SuperCollider build
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: |
-        echo "[Cache Miss] Configuring SuperCollider..."
-        if [ "$RUNNER_OS" == "Linux" ]; then
+        sudo apt-get update
+        sudo apt-get install --yes \
+          build-essential \
+          ccache \
           cmake \
-            --debug-output \
-            -DCMAKE_build_TYPE=Release \
-            -DSC_EL=OFF \
-            -DSC_IDE=OFF \
-            -DSC_QT=OFF \
-            -DSUPERNOVA=ON \
-            /tmp/supercollider
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          cmake \
-            -DCMAKE_PREFIX_PATH=`brew --prefix qt5` \
-            -DSUPERNOVA=ON \
-            -G Xcode \
-            /tmp/supercollider
-        else
-          echo "$RUNNER_OS not supported"
-          exit 1
-        fi
+          emacs \
+          jackd2 \
+          libasound2-dev \
+          libavahi-client-dev \
+          libfftw3-dev \
+          libicu-dev \
+          libjack-jackd2-dev \
+          libreadline6-dev \
+          libsndfile1-dev \
+          libudev-dev \
+          libxt-dev \
+          pkg-config
       shell: bash
-      working-directory: /tmp/supercollider/build
-    - name: Build SuperCollider
-      if: steps.cache.outputs.cache-hit != 'true'
+    - name: '[macOS] Install dependencies'
+      if: runner.os == 'macOS'
       run: |
-        echo "[Cache Miss] Building SuperCollider..."
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          make
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          cmake --build . --target install --config RelWithDebInfo
-        else
-          echo "$RUNNER_OS not supported"
-          exit 1
-        fi
+        brew install \
+          ccache \
+          fftw \
+          jack \
+          portaudio \
+          qt5 \
+          readline
+        echo "/usr/local/opt/ccache/libexec" >> $GITHUB_PATH
       shell: bash
-      working-directory: /tmp/supercollider/build
-    - name: Install SuperCollider
+    - name: '[Linux] Configure'
+      if: runner.os == 'Linux'
       run: |
-        echo "Installing SuperCollider..."
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo make install/fast
-          mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          echo "PATH=/tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/MacOS:/tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/Resources/:$PATH" >> $GITHUB_ENV
-          mkdir -p "/Users/runner/Library/Application Support/SuperCollider/synthdefs"
-        else
-          echo "$RUNNER_OS not supported"
-          exit 1
-        fi
+        mkdir /tmp/supercollider/build
+        cd /tmp/supercollider/build
+        cmake \
+          -DSC_ED=OFF \
+          -DSC_EL=OFF \
+          -DSC_IDE=OFF \
+          -DSC_VIM=OFF \
+          -DSC_QT=OFF \
+          -DSUPERNOVA=ON \
+          ..
       shell: bash
-      working-directory: /tmp/supercollider/build
+    - name: '[macOS] Configure'
+      if: runner.os == 'macOS'
+      run: |
+        mkdir /tmp/supercollider/build
+        cd /tmp/supercollider/build
+        cmake \
+          -DCMAKE_PREFIX_PATH=`brew --prefix qt5` \
+          -DRULE_LAUNCH_COMPILE=ccache \
+          -DSC_ED=OFF \
+          -DSC_EL=OFF \
+          -DSC_IDE=ON \
+          -DSC_QT=ON \
+          -DSC_VIM=OFF \
+          -DSUPERNOVA=ON \
+          -G Xcode \
+          ..
+      shell: bash
+    - name: '[Linux] Build'
+      if: runner.os == 'Linux'
+      run: |
+        cd /tmp/supercollider/build
+        make -j2
+      shell: bash
+    - name: '[macOS] Build'
+      if: runner.os == 'macOS'
+      run: cmake --build /tmp/supercollider/build --config Release --target install
+      shell: bash
+    - name: '[Linux] Install'
+      if: runner.os == 'Linux'
+      run: |
+        cd /tmp/supercollider/build
+        sudo make install -j2
+        mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
+      shell: bash
+    - name: '[macOS] Install'
+      if: runner.os == 'macOS'
+      run: |
+        echo "/tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/MacOS" >> $GITHUB_PATH
+        echo "/tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/Resources" >> $GITHUB_PATH
+        mkdir -p "/Users/runner/Library/Application Support/SuperCollider/synthdefs"
+      shell: bash
+    - name: Debug ccache
+      run: ccache --show-stats --show-config
+      shell: bash
     - name: Setup Jack
       run: |
         echo "Setting up Jack..."
@@ -159,4 +175,3 @@ runs:
         sleep 5
         killall supernova
       shell: bash
-    

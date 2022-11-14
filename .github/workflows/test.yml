@@ -107,18 +107,6 @@ jobs:
     timeout-minutes: 45
     steps:
     - uses: actions/checkout@v3
-    - name: Setup cache timestamp
-      id: current-date
-      run: |
-        echo "::set-output name=stamp::$(date '+%Y-%m-%d')"
-        echo "::set-output name=week::$(date '+%V')"
-    - name: Cache Homebrew
-      uses: actions/cache@v3
-      if: ${{ matrix.os == 'macos-latest' }}
-      with:
-        path: ~/Library/Caches/Homebrew/downloads
-        key: ${{ runner.os }}-homebrew-${{ steps.current-date.outputs.stamp }}
-        restore-keys: ${{ runner.os }}-homebrew-
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
@@ -156,6 +144,8 @@ jobs:
       run: python -c "from supriya.realtime.shm import ServerSHM; print(ServerSHM)"
     - name: Install Supriya test dependencies
       run: pip install -e .[test]
+    - name: Install ffmpeg
+      uses: FedericoCarboni/setup-ffmpeg@v2
     - name: Install additional packages
       shell: bash
       run: |
@@ -164,17 +154,18 @@ jobs:
           sudo apt-get update --yes
           sudo apt-get install --yes \
             espeak \
-            ffmpeg \
             graphviz \
             lame
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          brew install ffmpeg graphviz lame
+          brew install \
+            graphviz
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          choco install ffmpeg graphviz lame
+          choco install \
+            graphviz
         fi
     - name: Run Pytest
       run: pytest --cov supriya
-      timeout-minutes: 10
+      timeout-minutes: 15
     - name: Check for stray processes (Non-Windows)
       if: ${{ matrix.os != 'windows-latest' }}
       run: |

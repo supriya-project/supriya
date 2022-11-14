@@ -1026,7 +1026,7 @@ class SuperColliderSynthDef(SupriyaObject):
             sc_file_path = directory_path / f"{self.name}.sc"
             sc_file_path.write_text(sc_input)
             command = [str(sclang_path), "-D", str(sc_file_path)]
-            subprocess.run(command)
+            subprocess.run(command, timeout=10)
             result = (directory_path / f"{self.name}.scsyndef").read_bytes()
         return bytes(result)
 
