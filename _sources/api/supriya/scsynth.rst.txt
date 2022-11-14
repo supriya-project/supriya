@@ -10,10 +10,11 @@ scsynth
 .. autoclass:: Options
    :show-inheritance:
 
+   .. automethod:: __iter__
    .. automethod:: __post_init__
-   .. automethod:: as_options_string
    .. autoproperty:: first_private_bus_id
    .. autoproperty:: private_audio_bus_channel_count
+   .. automethod:: serialize
 
 .. autofunction:: find
 

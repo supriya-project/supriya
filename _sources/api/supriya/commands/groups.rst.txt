@@ -13,6 +13,13 @@ groups
    .. autoproperty:: group_id
    .. automethod:: to_osc
 
+.. autoclass:: GroupDumpTreeRequest
+   :show-inheritance:
+
+   .. autoproperty:: include_controls
+   .. autoproperty:: node_id
+   .. automethod:: to_osc
+
 .. autoclass:: GroupFreeAllRequest
    :show-inheritance:
 

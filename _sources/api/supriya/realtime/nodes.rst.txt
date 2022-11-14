@@ -15,6 +15,7 @@ nodes
    .. automethod:: allocate
    .. autoproperty:: controls
    .. automethod:: free
+   .. autoproperty:: parallel
    .. automethod:: prepend
 
 .. autoclass:: Node

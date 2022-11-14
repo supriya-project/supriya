@@ -32,10 +32,7 @@ protocols
    :show-inheritance:
 
    .. automethod:: capture
-   .. automethod:: connect
-   .. automethod:: disconnect
    .. automethod:: register
-   .. automethod:: send
    .. automethod:: unregister
 
 .. autoexception:: OscProtocolAlreadyConnected
