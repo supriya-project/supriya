@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import pathlib
 import platform
@@ -1107,3 +1108,21 @@ def test_11(nonrealtime_paths):
             - say-5f2b51ca2fdc5baa31ec02e002f69aec
             """
         )
+
+
+@pytest.mark.asyncio
+async def test_async(nonrealtime_paths):
+    session_a = pytest.helpers.make_test_session()
+    session_b = pytest.helpers.make_test_session()
+    session_c = pytest.helpers.make_test_session()
+    results = await asyncio.gather(
+        session_a.render_async(duration=10),
+        session_b.render_async(duration=11),
+        session_c.render_async(duration=12),
+    )
+    assert len(results) == 3
+    for (exit_code, output_file_path), duration in zip(results, [10, 11, 12]):
+        pytest.helpers.assert_soundfile_ok(
+            output_file_path, exit_code, duration, 44100, 8
+        )
+        assert pathlib.Path(supriya.output_path) in output_file_path.parents
