@@ -1,3 +1,4 @@
+import asyncio
 import bisect
 import collections
 import pathlib
@@ -1062,34 +1063,53 @@ class Session:
     def render(
         self,
         output_file_path: Optional[PathLike] = None,
-        debug=None,
         duration: Optional[float] = None,
         header_format=HeaderFormat.AIFF,
         input_file_path=None,
         render_directory_path=None,
         sample_format=SampleFormat.INT24,
         sample_rate=44100,
-        print_transcript=None,
-        transcript_prefix=None,
+        **kwargs,
+    ) -> Tuple[int, pathlib.Path]:
+        task = self.render_async(
+            output_file_path=output_file_path,
+            duration=duration,
+            header_format=header_format,
+            input_file_path=input_file_path,
+            render_directory_path=render_directory_path,
+            sample_format=sample_format,
+            sample_rate=sample_rate,
+            **kwargs,
+        )
+        loop = asyncio.get_event_loop()
+        return loop.run_until_complete(task)
+
+    async def render_async(
+        self,
+        output_file_path: Optional[PathLike] = None,
+        duration: Optional[float] = None,
+        header_format=HeaderFormat.AIFF,
+        input_file_path=None,
+        render_directory_path=None,
+        sample_format=SampleFormat.INT24,
+        sample_rate=44100,
         **kwargs,
     ) -> Tuple[int, pathlib.Path]:
         import supriya.nonrealtime
 
         duration = (duration or self.duration) or 0.0
-        assert 0.0 < duration < float("inf")
+        if not (0.0 < duration < float("inf")):
+            raise ValueError(f"Invalid duration: {duration}")
         renderer = supriya.nonrealtime.SessionRenderer(
             session=self,
             header_format=header_format,
-            print_transcript=print_transcript,
             render_directory_path=render_directory_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
-            transcript_prefix=transcript_prefix,
         )
-        exit_code, transcript, file_path = renderer.render(
-            output_file_path, duration=duration, debug=debug, **kwargs
+        exit_code, file_path = await renderer.render(
+            output_file_path, duration=duration, **kwargs
         )
-        self._transcript = transcript
         return exit_code, file_path
 
     @SessionObject.require_offset
