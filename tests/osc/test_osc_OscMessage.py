@@ -51,3 +51,8 @@ def test():
     ), ['a', 'b', ['c', 'd']])
     """
     )
+
+
+def test_new_ntp_era():
+    datagram = supriya.osc.OscBundle._encode_date(seconds=2085978496)
+    assert datagram.hex() == "0000000000000000"
