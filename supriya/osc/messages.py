@@ -362,7 +362,8 @@ class OscBundle(SupriyaValueObject):
             return IMMEDIATELY
         if realtime:
             seconds = seconds + NTP_DELTA
-            return struct.pack(">Q", int(seconds * SECONDS_TO_NTP_TIMESTAMP))
+        if seconds >= 4294967296:  # 2**32
+            seconds = seconds % 4294967296
         return struct.pack(">Q", int(seconds * SECONDS_TO_NTP_TIMESTAMP))
 
     ### PUBLIC METHODS ###
