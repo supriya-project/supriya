@@ -51,3 +51,12 @@ def test():
     ), ['a', 'b', ['c', 'd']])
     """
     )
+
+
+def test_new_ntp_era():
+    """
+    Check for NTP timestamp overflow.
+    """
+    seconds = 2**32 - supriya.osc.messages.NTP_DELTA + 1
+    datagram = supriya.osc.OscBundle._encode_date(seconds=seconds)
+    assert datagram.hex() == "0000000100000000"
