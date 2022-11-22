@@ -163,6 +163,8 @@ class BlockAllocator(SupriyaObject):
             blocks = sorted(
                 set(cursor.start_intervals) or set(cursor.overlap_intervals)
             )
+            if len(blocks) == 0:
+                return None
             assert len(blocks) == 1
             used_block = blocks[0]
             self._used_heap.remove(used_block)
