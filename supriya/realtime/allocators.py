@@ -137,6 +137,8 @@ class BlockAllocator(SupriyaObject):
                 stop_cursor.overlap_intervals + stop_cursor.stop_intervals
             )
             if starting_blocks == stop_blocks:
+                if len(starting_blocks) == 0:
+                    return None
                 assert len(starting_blocks) == 1
                 free_block = starting_blocks[0]
                 used_block = supriya.realtime.Block(
@@ -161,6 +163,8 @@ class BlockAllocator(SupriyaObject):
             blocks = sorted(
                 set(cursor.start_intervals) or set(cursor.overlap_intervals)
             )
+            if len(blocks) == 0:
+                return None
             assert len(blocks) == 1
             used_block = blocks[0]
             self._used_heap.remove(used_block)

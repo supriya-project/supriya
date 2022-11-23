@@ -26,3 +26,18 @@ def test_allocate():
 
     assert allocator.allocate(1) == 4
     assert allocator.allocate(1) == 5
+
+
+def test_allocate_block_within_block():
+    allocator = supriya.realtime.BlockAllocator()
+    assert allocator.allocate_at(0, 3) == 0
+    assert allocator.allocate_at(0, 2) is None
+    assert allocator.allocate_at(1, 2) is None
+    assert allocator.allocate_at(2, 2) is None
+    assert allocator.allocate_at(6, 3) == 6
+    assert allocator.allocate_at(5, 2) is None
+    assert allocator.allocate_at(2, 5) is None
+    assert allocator.allocate_at(0, 9) is None
+    assert allocator.allocate_at(3, 3) == 3
+
+    assert allocator.free(99) is None
