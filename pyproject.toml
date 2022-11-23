@@ -57,6 +57,7 @@ ipython = [
 test = [
   "black",
   "flake8",
+  "hypothesis",
   "isort",
   "jupyter",
   "librosa",

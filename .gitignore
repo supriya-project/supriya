@@ -32,6 +32,7 @@ prof/
 htmlcov/
 .mypy_cache/
 mypycov/
+.hypothesis
 
 # Translations
 *.mo
