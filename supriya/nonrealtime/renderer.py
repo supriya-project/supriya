@@ -108,14 +108,6 @@ class SessionRenderer(SupriyaObject):
         )
         return [str(_) for _ in command]
 
-    def _build_render_yml(self, session_prefixes):
-        session_prefixes = session_prefixes[:]
-        render_data = {"render": session_prefixes.pop(), "source": None}
-        if session_prefixes:
-            render_data["source"] = list(reversed(session_prefixes))
-        render_yaml = yaml.dump(render_data, default_flow_style=False, indent=4)
-        return render_yaml
-
     def _build_xrefd_bundles(self, osc_bundles):
         extension = ".{}".format(self.header_format.name.lower())
         for osc_bundle in osc_bundles:
@@ -254,9 +246,9 @@ class SessionRenderer(SupriyaObject):
             )
         return exit_code
 
-    def _read(self, file_path, mode=""):
+    def _read_datagram(self, file_path):
         try:
-            with open(str(file_path), "r" + mode) as file_pointer:
+            with open(str(file_path), "rb") as file_pointer:
                 return file_pointer.read()
         except FileNotFoundError:
             return None
@@ -277,19 +269,14 @@ class SessionRenderer(SupriyaObject):
         return expr
 
     def _write_datagram(self, file_path, new_contents):
-        self._write(file_path, new_contents, mode="b")
-
-    def _write_render_yml(self, file_path, render_yaml):
-        self._write(file_path, render_yaml)
-
-    def _write(self, file_path, new_contents, mode=""):
         logger.info(f"Writing {file_path.name}.")
-        old_contents = self._read(file_path, mode=mode)
+        old_contents = None
+        if file_path.exists():
+            old_contents = file_path.read_bytes()
         if old_contents == new_contents:
             logger.info(f"    Skipped {file_path.name}. File already exists.")
         else:
-            with open(str(file_path), "w" + mode) as file_pointer:
-                file_pointer.write(new_contents)
+            file_path.write_bytes(new_contents)
             logger.info(f"    Wrote {file_path.name}.")
 
     ### PUBLIC METHODS ###
@@ -328,7 +315,6 @@ class SessionRenderer(SupriyaObject):
         self,
         output_file_path: Optional[PathLike] = None,
         duration: Optional[float] = None,
-        build_render_yml: bool = False,
         scsynth_path: Optional[str] = None,
         **kwargs,
     ) -> Tuple[int, pathlib.Path]:
@@ -390,10 +376,6 @@ class SessionRenderer(SupriyaObject):
         # TODO: Make this cross-platform
         if output_file_path is not None:
             shutil.copy(final_rendered_file_path, output_file_path)
-        if build_render_yml:
-            output_directory = (output_file_path or final_rendered_file_path).parent
-            render_yaml = self._build_render_yml(visited_renderable_prefixes)
-            self._write_render_yml(output_directory / "render.yml", render_yaml)
         return (exit_code, output_file_path or final_rendered_file_path)
 
     ### PUBLIC PROPERTIES ###
