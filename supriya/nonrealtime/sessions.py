@@ -211,15 +211,15 @@ class Renderer:
     def _build_dependency_graph_and_nonxrefd_osc_bundles_conditionally(
         self, expr, parent
     ):
-        import supriya.nonrealtime
-
         expr = self._sessionable_to_session(expr)
-        if isinstance(expr, supriya.nonrealtime.Session):
+        if isinstance(expr, Session):
             if expr not in self.dependency_graph:
                 self._build_dependency_graph_and_nonxrefd_osc_bundles(expr)
             self.dependency_graph.add(expr, parent=parent)
         elif hasattr(expr, "__render__"):
             self.dependency_graph.add(expr, parent=parent)
+        if not self.dependency_graph.is_acyclic():
+            raise RuntimeError
 
     def _build_dependency_graph_and_nonxrefd_osc_bundles(self, session, duration=None):
         input_ = session.input_
@@ -241,20 +241,16 @@ class Renderer:
                     )
 
     def _collect_prerender_tuples(self, session):
-        import supriya.nonrealtime
-
         self._build_dependency_graph_and_nonxrefd_osc_bundles(
             session, duration=self.duration
         )
-        assert self.dependency_graph.is_acyclic()
         extension = ".{}".format(self.header_format.name.lower())
         for renderable in self.dependency_graph:
-            if isinstance(renderable, supriya.nonrealtime.Session):
+            if isinstance(renderable, Session):
                 result = self._collect_session_prerender_tuple(renderable, extension)
-                prerender_tuple, renderable_prefix = result
             else:
                 result = self._collect_renderable_prerender_tuple(renderable)
-                prerender_tuple, renderable_prefix = result
+            prerender_tuple, renderable_prefix = result
             self.prerender_tuples.append(prerender_tuple)
             self.renderable_prefixes[renderable] = renderable_prefix
         return self.prerender_tuples
@@ -378,10 +374,7 @@ class Renderer:
         return Path().joinpath(*parts)
 
     async def render(self) -> Tuple[int, Path]:
-        import supriya.nonrealtime
-
         self._collect_prerender_tuples(self.session)
-        assert self.prerender_tuples, self.prerender_tuples
         extension = f".{self.header_format.name.lower()}"
         visited_renderable_prefixes = []
         for prerender_tuple in self.prerender_tuples:
@@ -389,7 +382,7 @@ class Renderer:
             renderable_prefix = self.renderable_prefixes[renderable]
             visited_renderable_prefixes.append(renderable_prefix.with_suffix("").name)
             relative_output_file_path = renderable_prefix.with_suffix(extension)
-            if not isinstance(renderable, supriya.nonrealtime.Session):
+            if not isinstance(renderable, Session):
                 result = renderable.__render__(
                     output_file_path=self.render_directory_path
                     / relative_output_file_path
@@ -444,7 +437,7 @@ class Session:
     ::
 
         >>> import supriya.nonrealtime
-        >>> session = supriya.nonrealtime.Session()
+        >>> session = Session()
 
     ::
 
