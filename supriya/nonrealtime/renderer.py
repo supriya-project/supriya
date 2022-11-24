@@ -41,17 +41,12 @@ class SessionRenderer(SupriyaObject):
         sample_rate: int = 44100,
     ):
         self._session = session
-
         self._header_format = HeaderFormat.from_expr(header_format)
-
         self._render_directory_path = pathlib.Path(
             render_directory_path or supriya.output_path
         ).resolve()
-
         self._sample_format = SampleFormat.from_expr(sample_format)
-
         self._sample_rate = int(sample_rate)
-
         self._reset()
 
     ### PRIVATE METHODS ###
@@ -101,13 +96,8 @@ class SessionRenderer(SupriyaObject):
     ):
         options = new(server_options or scsynth.Options(), realtime=False)
         command = list(options)
-        cwd = pathlib.Path.cwd()
-        if session_osc_file_path.is_absolute():
-            session_osc_file_path = session_osc_file_path.relative_to(cwd)
         command.extend(["-N", session_osc_file_path])
         command.append(input_file_path or "_")
-        if output_file_path.is_absolute() and cwd in output_file_path.parents:
-            output_file_path = output_file_path.relative_to(cwd)
         command.extend(
             [
                 output_file_path,
@@ -228,16 +218,10 @@ class SessionRenderer(SupriyaObject):
         **kwargs,
     ):
         relative_session_osc_file_path = session_osc_file_path
-        if relative_session_osc_file_path.is_absolute():
-            relative_session_osc_file_path = session_osc_file_path.relative_to(
-                pathlib.Path.cwd()
-            )
-        logger.info("Rendering {}.".format(relative_session_osc_file_path))
+        logger.info(f"Rendering {relative_session_osc_file_path}.")
         if output_file_path.exists():
             logger.info(
-                "    Skipped {}. Output already exists.".format(
-                    relative_session_osc_file_path
-                )
+                f"    Skipped {relative_session_osc_file_path}. Output already exists."
             )
             return 0
         server_options = session._options
@@ -246,27 +230,23 @@ class SessionRenderer(SupriyaObject):
         for factor in range(1, 6):
             command = self._build_render_command(
                 input_file_path,
-                output_file_path,
+                output_file_path.name,
                 session_osc_file_path,
                 server_options=server_options,
             )
-            logger.info("    Command: {}".format(" ".join(command)))
+            logger.info(f"    Command: {' '.join(command)}")
             exit_future = asyncio.get_running_loop().create_future()
             protocol = AsyncProcessProtocol(exit_future)
-            await protocol.run(command)
+            await protocol.run(command, self.render_directory_path)
             await exit_future
             exit_code = exit_future.result()
             if exit_code == -6:
                 logger.info(
-                    "    Out of memory. Increasing to {}.".format(
-                        server_options.memory_size
-                    )
+                    f"    Out of memory. Increasing to {server_options.memory_size}."
                 )
             else:
                 logger.info(
-                    "    Rendered {} with exit code {}.".format(
-                        relative_session_osc_file_path, exit_code
-                    )
+                    f"    Rendered {relative_session_osc_file_path} with exit code {exit_code}."
                 )
                 break
             server_options = new(
@@ -303,20 +283,14 @@ class SessionRenderer(SupriyaObject):
         self._write(file_path, render_yaml)
 
     def _write(self, file_path, new_contents, mode=""):
-        cwd = pathlib.Path.cwd()
-        relative_file_path = file_path
-        if file_path.is_absolute() and cwd in file_path.parents:
-            relative_file_path = file_path.relative_to(cwd)
-        logger.info("Writing {}.".format(relative_file_path))
+        logger.info(f"Writing {file_path.name}.")
         old_contents = self._read(file_path, mode=mode)
         if old_contents == new_contents:
-            logger.info(
-                "    Skipped {}. File already exists.".format(relative_file_path)
-            )
+            logger.info(f"    Skipped {file_path.name}. File already exists.")
         else:
             with open(str(file_path), "w" + mode) as file_pointer:
                 file_pointer.write(new_contents)
-            logger.info("    Wrote {}.".format(relative_file_path))
+            logger.info(f"    Wrote {file_path.name}.")
 
     ### PUBLIC METHODS ###
 
@@ -362,54 +336,51 @@ class SessionRenderer(SupriyaObject):
 
         if output_file_path is not None:
             output_file_path = pathlib.Path(output_file_path).resolve()
-
         self._collect_prerender_tuples(self.session, duration=duration)
         assert self.prerender_tuples, self.prerender_tuples
-
         extension = f".{self.header_format.name.lower()}"
         visited_renderable_prefixes = []
-
-        with uqbar.io.DirectoryChange(directory=str(self.render_directory_path)):
-            for prerender_tuple in self.prerender_tuples:
-                renderable = prerender_tuple[0]
-                renderable_prefix = self.renderable_prefixes[renderable]
-                visited_renderable_prefixes.append(
-                    renderable_prefix.with_suffix("").name
+        for prerender_tuple in self.prerender_tuples:
+            renderable = prerender_tuple[0]
+            renderable_prefix = self.renderable_prefixes[renderable]
+            visited_renderable_prefixes.append(renderable_prefix.with_suffix("").name)
+            relative_output_file_path = renderable_prefix.with_suffix(extension)
+            if not isinstance(renderable, supriya.nonrealtime.Session):
+                result = renderable.__render__(
+                    output_file_path=self.render_directory_path
+                    / relative_output_file_path
                 )
-                relative_output_file_path = renderable_prefix.with_suffix(extension)
-                if not isinstance(renderable, supriya.nonrealtime.Session):
-                    result = renderable.__render__(
-                        output_file_path=relative_output_file_path
-                    )
-                    if asyncio.iscoroutine(result):
-                        await result
-                    continue
-                (session, datagram, input_, _) = prerender_tuple
-                osc_file_path = renderable_prefix.with_suffix(".osc")
-                input_file_path = self.session_input_paths.get(session)
-                self._write_datagram(osc_file_path, datagram)
-                exit_code = await self._render_datagram(
-                    session,
-                    input_file_path,
-                    relative_output_file_path,
-                    osc_file_path,
-                    scsynth_path=scsynth_path,
-                    **kwargs,
-                )
-                if exit_code:
-                    if (
-                        platform.system() == "Windows"
-                        and relative_output_file_path.exists()
-                    ):
-                        # scsynth.exe renders but exits non-zero
-                        # https://github.com/supercollider/supercollider/issues/5769
-                        # logger.info(
-                        #     "    SuperCollider exited with non-zero but output exists!"
-                        # )
-                        pass
-                    else:
-                        logger.info("    SuperCollider errored!")
-                        raise NonrealtimeRenderError(exit_code)
+                if asyncio.iscoroutine(result):
+                    await result
+                continue
+            (session, datagram, input_, _) = prerender_tuple
+            osc_file_path = renderable_prefix.with_suffix(".osc")
+            input_file_path = self.session_input_paths.get(session)
+            self._write_datagram(self.render_directory_path / osc_file_path, datagram)
+            exit_code = await self._render_datagram(
+                session,
+                input_file_path,
+                self.render_directory_path / relative_output_file_path,
+                osc_file_path,
+                scsynth_path=scsynth_path,
+                **kwargs,
+            )
+            if exit_code:
+                if (
+                    platform.system() == "Windows"
+                    and (
+                        self.render_directory_path / relative_output_file_path
+                    ).exists()
+                ):
+                    # scsynth.exe renders but exits non-zero
+                    # https://github.com/supercollider/supercollider/issues/5769
+                    # logger.info(
+                    #     "    SuperCollider exited with non-zero but output exists!"
+                    # )
+                    pass
+                else:
+                    logger.info("    SuperCollider errored!")
+                    raise NonrealtimeRenderError(exit_code)
         final_rendered_file_path = (
             self.render_directory_path / relative_output_file_path
         )
@@ -473,9 +444,14 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol):
         self.buffer_ = ""
         self.exit_future = exit_future
 
-    async def run(self, command: List[str]):
+    async def run(self, command: List[str], render_directory_path: pathlib.Path):
         _, _ = await asyncio.get_running_loop().subprocess_exec(
-            lambda: self, *command, stdin=None, stderr=None, start_new_session=True
+            lambda: self,
+            *command,
+            stdin=None,
+            stderr=None,
+            start_new_session=True,
+            cwd=render_directory_path,
         )
 
     def handle_line(self, line):
