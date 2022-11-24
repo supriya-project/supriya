@@ -240,14 +240,11 @@ class Renderer:
                         x, session
                     )
 
-    def _collect_prerender_tuples(self, session: "Session"):
-        self._build_dependency_graph_and_nonxrefd_osc_bundles(
-            session, duration=self.duration
-        )
+    def _collect_prerender_tuples(self):
         extension = ".{}".format(self.header_format.name.lower())
         for renderable in self.dependency_graph:
             if isinstance(renderable, Session):
-                input_, non_xrefd_bundles = self.compiled_sessions[session]
+                input_, non_xrefd_bundles = self.compiled_sessions[renderable]
                 osc_bundles = self._build_xrefd_bundles(non_xrefd_bundles)
                 input_file_path = input_
                 if input_ and input_ in self.renderable_prefixes:
@@ -257,12 +254,12 @@ class Renderer:
                     input_file_path = self.get_path_relative_to_render_path(
                         input_file_path, self.render_directory_path
                     )
-                    self.session_input_paths[session] = input_file_path
+                    self.session_input_paths[renderable] = input_file_path
                 datagram = self._build_datagram(osc_bundles)
                 renderable_prefix = self._build_file_path(
-                    datagram, input_file_path, session
+                    datagram, input_file_path, renderable
                 ).with_suffix("")
-                prerender_tuple = (session, datagram, input_, osc_bundles)
+                prerender_tuple = (renderable, datagram, input_, osc_bundles)
             else:
                 renderable_prefix = renderable._build_file_path().with_suffix("")
                 prerender_tuple = (renderable,)
@@ -341,7 +338,10 @@ class Renderer:
         return [osc_bundle.to_list() for osc_bundle in osc_bundles]
 
     def to_osc_bundles(self):
-        self._collect_prerender_tuples(self.session)
+        self._build_dependency_graph_and_nonxrefd_osc_bundles(
+            self.session, duration=self.duration
+        )
+        self._collect_prerender_tuples()
         (session, datagram, input_file_path, osc_bundles) = self.prerender_tuples[-1]
         return osc_bundles
 
@@ -367,7 +367,10 @@ class Renderer:
         return Path().joinpath(*parts)
 
     async def render(self) -> Tuple[int, Path]:
-        self._collect_prerender_tuples(self.session)
+        self._build_dependency_graph_and_nonxrefd_osc_bundles(
+            self.session, duration=self.duration
+        )
+        self._collect_prerender_tuples()
         extension = f".{self.header_format.name.lower()}"
         visited_renderable_prefixes = []
         for prerender_tuple in self.prerender_tuples:
@@ -421,6 +424,10 @@ class Renderer:
         if self.output_file_path is not None:
             shutil.copy(final_rendered_file_path, self.output_file_path)
         return (exit_code, self.output_file_path or final_rendered_file_path)
+
+    async def render_new(self):
+        # Build dependency graph and OSC bundles
+        pass
 
 
 class Session:
