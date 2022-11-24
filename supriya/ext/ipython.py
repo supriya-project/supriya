@@ -1,5 +1,4 @@
-from IPython.core.display import display  # type: ignore
-from IPython.display import Audio  # type: ignore
+from IPython.display import Audio, display  # type: ignore
 
 from supriya.ext import websafe_audio
 from supriya.io import Player
