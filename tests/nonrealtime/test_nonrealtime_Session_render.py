@@ -876,9 +876,9 @@ def test_08(caplog, nonrealtime_paths):
         0.99: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
     }
     executable = supriya.scsynth.find()
-    render_yml_path = "output/render.yml"
+    render_yml_path = "render.yml"
     if platform.system() == "Windows":
-        render_yml_path = "output\\render.yml"
+        render_yml_path = "render.yml"
     assert [record.msg for record in caplog.records] == [
         "Writing session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
         "    Wrote session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
@@ -1111,18 +1111,30 @@ def test_11(nonrealtime_paths):
 
 
 @pytest.mark.asyncio
-async def test_async(nonrealtime_paths):
-    session_a = pytest.helpers.make_test_session()
-    session_b = pytest.helpers.make_test_session()
-    session_c = pytest.helpers.make_test_session()
-    results = await asyncio.gather(
-        session_a.render_async(duration=10),
-        session_b.render_async(duration=11),
-        session_c.render_async(duration=12),
-    )
-    assert len(results) == 3
-    for (exit_code, output_file_path), duration in zip(results, [10, 11, 12]):
+@pytest.mark.parametrize(
+    "durations",
+    (
+        [10],
+        [10, 10],  # both repeat
+        [10, 11],  # no repeats
+        [10, 11, 12],  # no repeats
+        [10, 10, 13],  # first two repeats
+        [10, 13, 13],  # last two repeats
+        [11, 14, 11],  # interleaved repeats
+    ),
+)
+async def test_render_async(caplog, nonrealtime_paths, durations):
+    session = pytest.helpers.make_test_session()
+    with caplog.at_level(logging.DEBUG, logger="supriya.nonrealtime"):
+        tasks = [
+            session.render_async(
+                duration=duration,
+                render_directory_path=nonrealtime_paths.render_directory_path,
+            )
+            for duration in durations
+        ]
+        results = await asyncio.gather(*tasks)
+    for (exit_code, output_file_path), duration in zip(results, durations):
         pytest.helpers.assert_soundfile_ok(
             output_file_path, exit_code, duration, 44100, 8
         )
-        assert pathlib.Path(supriya.output_path) in output_file_path.parents

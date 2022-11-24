@@ -1071,18 +1071,18 @@ class Session:
         sample_rate=44100,
         **kwargs,
     ) -> Tuple[int, pathlib.Path]:
-        task = self.render_async(
-            output_file_path=output_file_path,
-            duration=duration,
-            header_format=header_format,
-            input_file_path=input_file_path,
-            render_directory_path=render_directory_path,
-            sample_format=sample_format,
-            sample_rate=sample_rate,
-            **kwargs,
+        return asyncio.run(
+            self.render_async(
+                output_file_path=output_file_path,
+                duration=duration,
+                header_format=header_format,
+                input_file_path=input_file_path,
+                render_directory_path=render_directory_path,
+                sample_format=sample_format,
+                sample_rate=sample_rate,
+                **kwargs,
+            )
         )
-        loop = asyncio.get_event_loop()
-        return loop.run_until_complete(task)
 
     async def render_async(
         self,

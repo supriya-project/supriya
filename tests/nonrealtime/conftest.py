@@ -1,6 +1,4 @@
-import os
 import pathlib
-import shutil
 import types
 
 import pytest
@@ -22,15 +20,9 @@ def nonrealtime_paths(tmpdir):
         output_file_path=output_file_path,
         render_yml_file_path=render_yml_file_path,
     )
-    original_directory = pathlib.Path.cwd()
     for directory_path in [output_directory_path, render_directory_path]:
         directory_path.mkdir(parents=True, exist_ok=True)
-    os.chdir(test_directory_path)
     yield nonrealtime_paths
-    os.chdir(original_directory)
-    for directory_path in [output_directory_path, render_directory_path]:
-        if directory_path.exists():
-            shutil.rmtree(directory_path)
 
 
 @pytest.helpers.register
