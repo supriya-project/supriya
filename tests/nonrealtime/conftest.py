@@ -35,7 +35,6 @@ def make_test_session(
     session = Session(
         input_bus_channel_count=input_bus_channel_count,
         output_bus_channel_count=output_bus_channel_count,
-        name="inner-session",
     )
     output_bus_channel_count = session.options.output_bus_channel_count
     synthdef = pytest.helpers.build_dc_synthdef(channel_count=output_bus_channel_count)

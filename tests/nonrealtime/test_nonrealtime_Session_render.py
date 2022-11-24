@@ -302,7 +302,7 @@ def test_04(nonrealtime_paths):
     Session NRT input, matched channels.
     """
     session_one = pytest.helpers.make_test_session()
-    session_two = supriya.nonrealtime.Session(input_=session_one, name="outer-session")
+    session_two = supriya.nonrealtime.Session(input_=session_one)
     synthdef = pytest.helpers.build_multiplier_synthdef(8)
     with session_two.at(0):
         session_two.add_synth(
@@ -410,7 +410,7 @@ def test_06(nonrealtime_paths):
     Session DiskIn input.
     """
     session_one = pytest.helpers.make_test_session()
-    session_two = supriya.nonrealtime.Session(name="outer-session")
+    session_two = supriya.nonrealtime.Session()
     synthdef = pytest.helpers.build_diskin_synthdef(channel_count=8)
     with session_two.at(0):
         buffer_ = session_two.cue_soundfile(session_one, duration=10)
@@ -465,8 +465,8 @@ def test_07(nonrealtime_paths):
     Chained Session DiskIn input.
     """
     session_one = pytest.helpers.make_test_session()
-    session_two = supriya.nonrealtime.Session(name="middle-session")
-    session_three = supriya.nonrealtime.Session(name="outer-session")
+    session_two = supriya.nonrealtime.Session()
+    session_three = supriya.nonrealtime.Session()
     diskin_synthdef = pytest.helpers.build_diskin_synthdef(channel_count=8)
     multiplier_synthdef = pytest.helpers.build_multiplier_synthdef(channel_count=8)
     with session_two.at(0):
@@ -601,8 +601,8 @@ def test_08(caplog, nonrealtime_paths):
     Fanned Session DiskIn input and NRT input.
     """
     session_one = pytest.helpers.make_test_session(multiplier=0.25)
-    session_two = supriya.nonrealtime.Session(name="middle-session")
-    session_three = supriya.nonrealtime.Session(name="outer-session")
+    session_two = supriya.nonrealtime.Session()
+    session_three = supriya.nonrealtime.Session()
     diskin_synthdef = pytest.helpers.build_diskin_synthdef(channel_count=8)
     with session_two.at(0):
         buffer_one = session_two.cue_soundfile(session_one, duration=10)

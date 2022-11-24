@@ -108,19 +108,19 @@ class Renderer:
         sample_format: SampleFormatLike = SampleFormat.INT24,
         sample_rate: int = 44100,
     ) -> None:
-        self._session = session
-        self._header_format = HeaderFormat.from_expr(header_format)
-        self._render_directory_path = pathlib.Path(
+        self.session = session
+        self.header_format = HeaderFormat.from_expr(header_format)
+        self.render_directory_path = pathlib.Path(
             render_directory_path or supriya.output_path
         ).resolve()
-        self._sample_format = SampleFormat.from_expr(sample_format)
-        self._sample_rate = int(sample_rate)
-
-        self._dependency_graph = DependencyGraph()
-        self._prerender_tuples: List[Tuple] = []
-        self._renderable_prefixes: Dict = {}
-        self._session_input_paths: Dict = {}
-        self._sessionables_to_sessions: Dict = {}
+        self.sample_format = SampleFormat.from_expr(sample_format)
+        self.sample_rate = int(sample_rate)
+        self.compiled_sessions: Dict = {}
+        self.dependency_graph = DependencyGraph()
+        self.prerender_tuples: List[Tuple] = []
+        self.renderable_prefixes: Dict = {}
+        self.session_input_paths: Dict = {}
+        self.sessionables_to_sessions: Dict = {}
 
     ### PRIVATE METHODS ###
 
@@ -180,7 +180,7 @@ class Renderer:
         )
         return [str(_) for _ in command]
 
-    def _build_xrefd_bundles(self, osc_bundles):
+    def _build_xrefd_bundles(self, osc_bundles: List[OscBundle]) -> List[OscBundle]:
         extension = ".{}".format(self.header_format.name.lower())
         for osc_bundle in osc_bundles:
             for osc_message in osc_bundle.contents:
@@ -318,18 +318,11 @@ class Renderer:
             )
         return exit_code
 
-    def _read_datagram(self, file_path):
-        try:
-            with open(str(file_path), "rb") as file_pointer:
-                return file_pointer.read()
-        except FileNotFoundError:
-            return None
-
     def _sessionable_to_session(self, expr):
         if hasattr(expr, "__session__"):
-            if expr not in self._sessionables_to_sessions:
-                self._sessionables_to_sessions[expr] = expr.__session__()
-            return self._sessionables_to_sessions[expr]
+            if expr not in self.sessionables_to_sessions:
+                self.sessionables_to_sessions[expr] = expr.__session__()
+            return self.sessionables_to_sessions[expr]
         return expr
 
     def _write_datagram(self, file_path, new_contents):
@@ -442,44 +435,6 @@ class Renderer:
             shutil.copy(final_rendered_file_path, output_file_path)
         return (exit_code, output_file_path or final_rendered_file_path)
 
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def dependency_graph(self):
-        return self._dependency_graph
-
-    @property
-    def header_format(self) -> HeaderFormat:
-        return self._header_format
-
-    @property
-    def prerender_tuples(self):
-        return self._prerender_tuples
-
-    @property
-    def render_directory_path(self) -> pathlib.Path:
-        return self._render_directory_path
-
-    @property
-    def renderable_prefixes(self):
-        return self._renderable_prefixes
-
-    @property
-    def sample_format(self) -> SampleFormat:
-        return self._sample_format
-
-    @property
-    def sample_rate(self) -> int:
-        return self._sample_rate
-
-    @property
-    def session(self) -> "Session":
-        return self._session
-
-    @property
-    def session_input_paths(self):
-        return self._session_input_paths
-
 
 class Session:
     """
@@ -561,7 +516,6 @@ class Session:
         input_bus_channel_count=None,
         output_bus_channel_count=None,
         input_=None,
-        name: Optional[str] = None,
         padding: Optional[float] = None,
     ):
         import supriya.nonrealtime
