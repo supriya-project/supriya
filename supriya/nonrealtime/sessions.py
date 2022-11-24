@@ -102,32 +102,33 @@ class Renderer:
     def __init__(
         self,
         session: "Session",
+        *,
         header_format: HeaderFormatLike = HeaderFormat.AIFF,
         render_directory_path: Optional[PathLike] = None,
         sample_format: SampleFormatLike = SampleFormat.INT24,
         sample_rate: int = 44100,
-    ):
-        self._dependency_graph = DependencyGraph()
+    ) -> None:
+        self._session = session
         self._header_format = HeaderFormat.from_expr(header_format)
-        self._prerender_tuples = []
         self._render_directory_path = pathlib.Path(
             render_directory_path or supriya.output_path
         ).resolve()
-        self._renderable_prefixes = {}
         self._sample_format = SampleFormat.from_expr(sample_format)
         self._sample_rate = int(sample_rate)
-        self._session = session
-        self._session_input_paths = {}
-        self._sessionables_to_sessions = {}
+
+        self._dependency_graph = DependencyGraph()
+        self._prerender_tuples: List[Tuple] = []
+        self._renderable_prefixes: Dict = {}
+        self._session_input_paths: Dict = {}
+        self._sessionables_to_sessions: Dict = {}
 
     ### PRIVATE METHODS ###
 
-    def _build_datagram(self, osc_bundles):
-        datagrams = []
+    def _build_datagram(self, osc_bundles: List[OscBundle]) -> bytes:
+        datagrams: List[bytes] = []
         for osc_bundle in osc_bundles:
             datagram = osc_bundle.to_datagram(realtime=False)
-            size = len(datagram)
-            size = struct.pack(">i", size)
+            size = struct.pack(">i", len(datagram))
             datagrams.append(size)
             datagrams.append(datagram)
         datagram = b"".join(datagrams)
@@ -159,12 +160,12 @@ class Renderer:
 
     def _build_render_command(
         self,
-        input_file_path,
-        output_file_path,
-        session_osc_file_path,
+        input_file_path: PathLike,
+        output_file_path: PathLike,
+        session_osc_file_path: PathLike,
         *,
         server_options: Optional[scsynth.Options] = None,
-    ):
+    ) -> List[str]:
         options = new(server_options or scsynth.Options(), realtime=False)
         command = list(options)
         command.extend(["-N", session_osc_file_path])
