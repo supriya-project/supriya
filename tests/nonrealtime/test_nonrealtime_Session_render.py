@@ -71,7 +71,7 @@ def test_00c(caplog, nonrealtime_paths):
     if aiff_path.exists():
         aiff_path.unlink()
 
-    with caplog.at_level(logging.INFO, logger="supriya.nonrealtime.renderer"):
+    with caplog.at_level(logging.INFO, logger="supriya.nonrealtime"):
         exit_code, output_file_path = session.render()
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(output_file_path) == {
@@ -95,7 +95,7 @@ def test_00c(caplog, nonrealtime_paths):
     assert aiff_path.exists()
 
     caplog.clear()
-    with caplog.at_level(logging.INFO, logger="supriya.nonrealtime.renderer"):
+    with caplog.at_level(logging.INFO, logger="supriya.nonrealtime"):
         exit_code, output_file_path = session.render()
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(output_file_path) == {
@@ -119,7 +119,7 @@ def test_00c(caplog, nonrealtime_paths):
     osc_path.unlink()
 
     caplog.clear()
-    with caplog.at_level(logging.INFO, logger="supriya.nonrealtime.renderer"):
+    with caplog.at_level(logging.INFO, logger="supriya.nonrealtime"):
         exit_code, output_file_path = session.render()
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(output_file_path) == {
@@ -143,7 +143,7 @@ def test_00c(caplog, nonrealtime_paths):
     aiff_path.unlink()
 
     caplog.clear()
-    with caplog.at_level(logging.INFO, logger="supriya.nonrealtime.renderer"):
+    with caplog.at_level(logging.INFO, logger="supriya.nonrealtime"):
         exit_code, output_file_path = session.render()
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(output_file_path) == {
@@ -757,7 +757,7 @@ def test_08(caplog, nonrealtime_paths):
     session_two_path = nonrealtime_paths.render_directory_path.joinpath(
         "session-81d02f16aff7797ca3ac041facb61b95.aiff"
     )
-    with caplog.at_level(logging.INFO, logger="supriya.nonrealtime.renderer"):
+    with caplog.at_level(logging.INFO, logger="supriya.nonrealtime"):
         exit_code, _ = session_three.render(
             nonrealtime_paths.output_file_path,
             render_directory_path=nonrealtime_paths.render_directory_path,
