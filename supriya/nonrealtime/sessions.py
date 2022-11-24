@@ -425,10 +425,6 @@ class Renderer:
             shutil.copy(final_rendered_file_path, self.output_file_path)
         return (exit_code, self.output_file_path or final_rendered_file_path)
 
-    async def render_new(self):
-        # Build dependency graph and OSC bundles
-        pass
-
 
 class Session:
     """
