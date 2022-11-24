@@ -5,7 +5,6 @@ import platform
 import pprint
 
 import pytest
-from uqbar.strings import normalize
 
 import supriya
 import supriya.nonrealtime
