@@ -3,11 +3,11 @@ import bisect
 import collections
 import hashlib
 import logging
-import pathlib
 import platform
 import shutil
 import struct
 from os import PathLike
+from pathlib import Path
 from queue import PriorityQueue
 from types import MappingProxyType
 from typing import Dict, List, Optional, Set, Tuple, Type
@@ -60,7 +60,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol):
         self.buffer_ = ""
         self.exit_future = exit_future
 
-    async def run(self, command: List[str], render_directory_path: pathlib.Path):
+    async def run(self, command: List[str], render_directory_path: Path):
         _, _ = await asyncio.get_running_loop().subprocess_exec(
             lambda: self,
             *command,
@@ -104,21 +104,25 @@ class Renderer:
         session: "Session",
         *,
         header_format: HeaderFormatLike = HeaderFormat.AIFF,
+        output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         sample_format: SampleFormatLike = SampleFormat.INT24,
         sample_rate: int = 44100,
     ) -> None:
-        self.session = session
-        self.header_format = HeaderFormat.from_expr(header_format)
-        self.render_directory_path = pathlib.Path(
-            render_directory_path or supriya.output_path
-        ).resolve()
-        self.sample_format = SampleFormat.from_expr(sample_format)
-        self.sample_rate = int(sample_rate)
         self.compiled_sessions: Dict = {}
         self.dependency_graph = DependencyGraph()
+        self.header_format = HeaderFormat.from_expr(header_format)
+        self.output_file_path = (
+            Path(output_file_path).resolve() if output_file_path is not None else None
+        )
         self.prerender_tuples: List[Tuple] = []
+        self.render_directory_path = Path(
+            render_directory_path or supriya.output_path
+        ).resolve()
         self.renderable_prefixes: Dict = {}
+        self.sample_format = SampleFormat.from_expr(sample_format)
+        self.sample_rate = int(sample_rate)
+        self.session = session
         self.session_input_paths: Dict = {}
         self.sessionables_to_sessions: Dict = {}
 
@@ -156,7 +160,7 @@ class Renderer:
             md5.update(value)
         md5 = md5.hexdigest()
         file_path = "session-{}.osc".format(md5)
-        return pathlib.Path(file_path)
+        return Path(file_path)
 
     def _build_render_command(
         self,
@@ -215,7 +219,7 @@ class Renderer:
     def _build_dependency_graph_and_nonxrefd_osc_bundles(self, session, duration=None):
         input_ = session.input_
         if isinstance(input_, str):
-            input_ = pathlib.Path(input_)
+            input_ = Path(input_)
         input_ = self._sessionable_to_session(input_)
         non_xrefd_bundles = session._to_non_xrefd_osc_bundles(duration)
         self.compiled_sessions[session] = input_, non_xrefd_bundles
@@ -349,14 +353,14 @@ class Renderer:
 
     @classmethod
     def get_path_relative_to_render_path(cls, target_path, render_path):
-        target_path = pathlib.Path(target_path)
-        render_path = pathlib.Path(render_path)
+        target_path = Path(target_path)
+        render_path = Path(render_path)
         try:
             return target_path.relative_to(render_path)
         except ValueError:
             pass
-        target_path = pathlib.Path(target_path)
-        render_path = pathlib.Path(render_path)
+        target_path = Path(target_path)
+        render_path = Path(render_path)
         target_path_parents = set(target_path.parents)
         render_path_parents = set(render_path.parents)
         common_parents = target_path_parents.intersection(render_path_parents)
@@ -366,19 +370,16 @@ class Renderer:
         target_path = target_path.relative_to(common_parent)
         render_path = render_path.relative_to(common_parent)
         parts = [".." for _ in render_path.parts] + [target_path]
-        return pathlib.Path().joinpath(*parts)
+        return Path().joinpath(*parts)
 
     async def render(
         self,
-        output_file_path: Optional[PathLike] = None,
         duration: Optional[float] = None,
         scsynth_path: Optional[str] = None,
         **kwargs,
-    ) -> Tuple[int, pathlib.Path]:
+    ) -> Tuple[int, Path]:
         import supriya.nonrealtime
 
-        if output_file_path is not None:
-            output_file_path = pathlib.Path(output_file_path).resolve()
         self._collect_prerender_tuples(self.session, duration=duration)
         assert self.prerender_tuples, self.prerender_tuples
         extension = f".{self.header_format.name.lower()}"
@@ -431,9 +432,9 @@ class Renderer:
             logger.info("    Output file is missing!")
             raise NonrealtimeOutputMissing(final_rendered_file_path)
         # TODO: Make this cross-platform
-        if output_file_path is not None:
-            shutil.copy(final_rendered_file_path, output_file_path)
-        return (exit_code, output_file_path or final_rendered_file_path)
+        if self.output_file_path is not None:
+            shutil.copy(final_rendered_file_path, self.output_file_path)
+        return (exit_code, self.output_file_path or final_rendered_file_path)
 
 
 class Session:
@@ -616,7 +617,7 @@ class Session:
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> pathlib.Path:
+    ) -> Path:
         _, file_path = self.render(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
@@ -1403,8 +1404,8 @@ class Session:
         offset: Optional[float] = None,
     ) -> "supriya.nonrealtime.buffers.Buffer":
         if isinstance(file_path, str):
-            file_path = pathlib.Path(file_path)
-        if isinstance(file_path, pathlib.Path):
+            file_path = Path(file_path)
+        if isinstance(file_path, Path):
             assert file_path.exists()
             soundfile = supriya.soundfiles.SoundFile(str(file_path))
             channel_count = channel_count or soundfile.channel_count
@@ -1461,7 +1462,7 @@ class Session:
         sample_format=SampleFormat.INT24,
         sample_rate=44100,
         **kwargs,
-    ) -> Tuple[int, pathlib.Path]:
+    ) -> Tuple[int, Path]:
         return asyncio.run(
             self.render_async(
                 output_file_path=output_file_path,
@@ -1485,19 +1486,20 @@ class Session:
         sample_format=SampleFormat.INT24,
         sample_rate=44100,
         **kwargs,
-    ) -> Tuple[int, pathlib.Path]:
+    ) -> Tuple[int, Path]:
         duration = (duration or self.duration) or 0.0
         if not (0.0 < duration < float("inf")):
             raise ValueError(f"Invalid duration: {duration}")
         renderer = Renderer(
             session=self,
             header_format=header_format,
+            output_file_path=output_file_path,
             render_directory_path=render_directory_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
         )
         exit_code, file_path = await renderer.render(
-            output_file_path, duration=duration, **kwargs
+            duration=duration, **kwargs
         )
         return exit_code, file_path
 
