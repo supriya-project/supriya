@@ -101,13 +101,12 @@ class Renderer:
 
     def __init__(
         self,
-        session: "supriya.nonrealtime.sessions.Session",
+        session: "Session",
         header_format: HeaderFormatLike = HeaderFormat.AIFF,
         render_directory_path: Optional[PathLike] = None,
         sample_format: SampleFormatLike = SampleFormat.INT24,
         sample_rate: int = 44100,
     ):
-        self._compiled_sessions = {}
         self._dependency_graph = DependencyGraph()
         self._header_format = HeaderFormat.from_expr(header_format)
         self._prerender_tuples = []
@@ -445,10 +444,6 @@ class Renderer:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def compiled_sessions(self):
-        return self._compiled_sessions
-
-    @property
     def dependency_graph(self):
         return self._dependency_graph
 
@@ -477,7 +472,7 @@ class Renderer:
         return self._sample_rate
 
     @property
-    def session(self) -> "supriya.nonrealtime.sessions.Session":
+    def session(self) -> "Session":
         return self._session
 
     @property
@@ -581,14 +576,12 @@ class Session:
         self._buffers_by_seesion_id: Dict = {}
         self._buses: Dict = collections.OrderedDict()
         self._buses_by_session_id: Dict = {}
-        self._name = name
         self._nodes = supriya.intervals.IntervalTree(accelerated=True)
         self._nodes_by_session_id: Dict = {}
         self._offsets: List[float] = []
         self._root_node = supriya.nonrealtime.RootNode(self)
         self._session_ids: Dict = {}
         self._states: Dict = {}
-        self._transcript = None
 
         if input_ and not self.is_session_like(input_):
             input_ = str(input_)
@@ -1666,10 +1659,6 @@ class Session:
         return self.options.input_bus_channel_count
 
     @property
-    def name(self) -> Optional[str]:
-        return self._name
-
-    @property
     def nodes(self):
         return self._nodes
 
@@ -1700,7 +1689,3 @@ class Session:
     @property
     def states(self):
         return self._states
-
-    @property
-    def transcript(self):
-        return self._transcript
