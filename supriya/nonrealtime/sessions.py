@@ -103,6 +103,7 @@ class Renderer:
         self,
         session: "Session",
         *,
+        duration: Optional[float] = None,
         executable: Optional[str] = None,
         header_format: HeaderFormatLike = HeaderFormat.AIFF,
         output_file_path: Optional[PathLike] = None,
@@ -112,6 +113,7 @@ class Renderer:
     ) -> None:
         self.compiled_sessions: Dict = {}
         self.dependency_graph = DependencyGraph()
+        self.duration = duration
         self.executable = executable
         self.header_format = HeaderFormat.from_expr(header_format)
         self.output_file_path = (
@@ -236,11 +238,11 @@ class Renderer:
                         x, session
                     )
 
-    def _collect_prerender_tuples(self, session, duration=None):
+    def _collect_prerender_tuples(self, session):
         import supriya.nonrealtime
 
         self._build_dependency_graph_and_nonxrefd_osc_bundles(
-            session, duration=duration
+            session, duration=self.duration
         )
         assert self.dependency_graph.is_acyclic()
         extension = ".{}".format(self.header_format.name.lower())
@@ -343,12 +345,12 @@ class Renderer:
 
     ### PUBLIC METHODS ###
 
-    def to_lists(self, duration=None):
-        osc_bundles = self.to_osc_bundles(duration=duration)
+    def to_lists(self):
+        osc_bundles = self.to_osc_bundles()
         return [osc_bundle.to_list() for osc_bundle in osc_bundles]
 
-    def to_osc_bundles(self, duration=None):
-        self._collect_prerender_tuples(self.session, duration=duration)
+    def to_osc_bundles(self):
+        self._collect_prerender_tuples(self.session)
         (session, datagram, input_file_path, osc_bundles) = self.prerender_tuples[-1]
         return osc_bundles
 
@@ -374,11 +376,11 @@ class Renderer:
         return Path().joinpath(*parts)
 
     async def render(
-        self, duration: Optional[float] = None, **kwargs
+        self, **kwargs
     ) -> Tuple[int, Path]:
         import supriya.nonrealtime
 
-        self._collect_prerender_tuples(self.session, duration=duration)
+        self._collect_prerender_tuples(self.session)
         assert self.prerender_tuples, self.prerender_tuples
         extension = f".{self.header_format.name.lower()}"
         visited_renderable_prefixes = []
@@ -1490,13 +1492,14 @@ class Session:
             raise ValueError(f"Invalid duration: {duration}")
         renderer = Renderer(
             session=self,
+            duration=duration,
             header_format=header_format,
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
         )
-        exit_code, file_path = await renderer.render(duration=duration, **kwargs)
+        exit_code, file_path = await renderer.render(**kwargs)
         return exit_code, file_path
 
     @SessionObject.require_offset
@@ -1519,12 +1522,13 @@ class Session:
         sample_rate: int = 44100,
     ) -> List:
         renderer = Renderer(
-            session=self,
+            duration=duration,
             header_format=header_format,
             sample_format=sample_format,
             sample_rate=sample_rate,
+            session=self,
         )
-        return renderer.to_lists(duration=duration)
+        return renderer.to_lists()
 
     def to_osc_bundles(
         self,
@@ -1534,12 +1538,13 @@ class Session:
         sample_rate: int = 44100,
     ) -> List[OscBundle]:
         renderer = Renderer(
-            session=self,
+            duration=duration,
             header_format=header_format,
             sample_format=sample_format,
             sample_rate=sample_rate,
+            session=self,
         )
-        return renderer.to_osc_bundles(duration=duration)
+        return renderer.to_osc_bundles()
 
     def to_strings(self, include_controls=False, include_timespans=False) -> str:
         result = []
