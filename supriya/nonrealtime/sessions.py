@@ -103,6 +103,7 @@ class Renderer:
         self,
         session: "Session",
         *,
+        executable: Optional[str] = None,
         header_format: HeaderFormatLike = HeaderFormat.AIFF,
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
@@ -111,6 +112,7 @@ class Renderer:
     ) -> None:
         self.compiled_sessions: Dict = {}
         self.dependency_graph = DependencyGraph()
+        self.executable = executable
         self.header_format = HeaderFormat.from_expr(header_format)
         self.output_file_path = (
             Path(output_file_path).resolve() if output_file_path is not None else None
@@ -139,7 +141,6 @@ class Renderer:
         return datagram
 
     def _build_file_path(self, datagram, input_file_path, session):
-        # print('BUILDING FILE PATH')
         md5 = hashlib.md5()
         md5.update(datagram)
         hash_values = []
@@ -373,10 +374,7 @@ class Renderer:
         return Path().joinpath(*parts)
 
     async def render(
-        self,
-        duration: Optional[float] = None,
-        scsynth_path: Optional[str] = None,
-        **kwargs,
+        self, duration: Optional[float] = None, **kwargs
     ) -> Tuple[int, Path]:
         import supriya.nonrealtime
 
@@ -406,7 +404,7 @@ class Renderer:
                 input_file_path,
                 self.render_directory_path / relative_output_file_path,
                 osc_file_path,
-                scsynth_path=scsynth_path,
+                scsynth_path=self.executable,
                 **kwargs,
             )
             if exit_code:
@@ -1498,9 +1496,7 @@ class Session:
             sample_format=sample_format,
             sample_rate=sample_rate,
         )
-        exit_code, file_path = await renderer.render(
-            duration=duration, **kwargs
-        )
+        exit_code, file_path = await renderer.render(duration=duration, **kwargs)
         return exit_code, file_path
 
     @SessionObject.require_offset
