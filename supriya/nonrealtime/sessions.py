@@ -110,12 +110,14 @@ class Renderer:
         render_directory_path: Optional[PathLike] = None,
         sample_format: SampleFormatLike = SampleFormat.INT24,
         sample_rate: int = 44100,
+        **kwargs,
     ) -> None:
         self.compiled_sessions: Dict = {}
         self.dependency_graph = DependencyGraph()
         self.duration = duration
         self.executable = executable
         self.header_format = HeaderFormat.from_expr(header_format)
+        self.kwargs = kwargs
         self.output_file_path = (
             Path(output_file_path).resolve() if output_file_path is not None else None
         )
@@ -375,9 +377,7 @@ class Renderer:
         parts = [".." for _ in render_path.parts] + [target_path]
         return Path().joinpath(*parts)
 
-    async def render(
-        self, **kwargs
-    ) -> Tuple[int, Path]:
+    async def render(self) -> Tuple[int, Path]:
         import supriya.nonrealtime
 
         self._collect_prerender_tuples(self.session)
@@ -407,7 +407,7 @@ class Renderer:
                 self.render_directory_path / relative_output_file_path,
                 osc_file_path,
                 scsynth_path=self.executable,
-                **kwargs,
+                **self.kwargs,
             )
             if exit_code:
                 if (
@@ -1498,8 +1498,9 @@ class Session:
             render_directory_path=render_directory_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
+            **kwargs,
         )
-        exit_code, file_path = await renderer.render(**kwargs)
+        exit_code, file_path = await renderer.render()
         return exit_code, file_path
 
     @SessionObject.require_offset
