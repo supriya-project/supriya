@@ -240,42 +240,35 @@ class Renderer:
                         x, session
                     )
 
-    def _collect_prerender_tuples(self, session):
+    def _collect_prerender_tuples(self, session: "Session"):
         self._build_dependency_graph_and_nonxrefd_osc_bundles(
             session, duration=self.duration
         )
         extension = ".{}".format(self.header_format.name.lower())
         for renderable in self.dependency_graph:
             if isinstance(renderable, Session):
-                result = self._collect_session_prerender_tuple(renderable, extension)
+                input_, non_xrefd_bundles = self.compiled_sessions[session]
+                osc_bundles = self._build_xrefd_bundles(non_xrefd_bundles)
+                input_file_path = input_
+                if input_ and input_ in self.renderable_prefixes:
+                    input_file_path = self.renderable_prefixes[input_]
+                    input_file_path = input_file_path.with_suffix(extension)
+                if input_file_path:
+                    input_file_path = self.get_path_relative_to_render_path(
+                        input_file_path, self.render_directory_path
+                    )
+                    self.session_input_paths[session] = input_file_path
+                datagram = self._build_datagram(osc_bundles)
+                renderable_prefix = self._build_file_path(
+                    datagram, input_file_path, session
+                ).with_suffix("")
+                prerender_tuple = (session, datagram, input_, osc_bundles)
             else:
-                result = self._collect_renderable_prerender_tuple(renderable)
-            prerender_tuple, renderable_prefix = result
+                renderable_prefix = renderable._build_file_path().with_suffix("")
+                prerender_tuple = (renderable,)
             self.prerender_tuples.append(prerender_tuple)
             self.renderable_prefixes[renderable] = renderable_prefix
         return self.prerender_tuples
-
-    def _collect_renderable_prerender_tuple(self, renderable):
-        renderable_prefix = renderable._build_file_path().with_suffix("")
-        return (renderable,), renderable_prefix
-
-    def _collect_session_prerender_tuple(self, session, extension):
-        input_, non_xrefd_bundles = self.compiled_sessions[session]
-        osc_bundles = self._build_xrefd_bundles(non_xrefd_bundles)
-        input_file_path = input_
-        if input_ and input_ in self.renderable_prefixes:
-            input_file_path = self.renderable_prefixes[input_]
-            input_file_path = input_file_path.with_suffix(extension)
-        if input_file_path:
-            input_file_path = self.get_path_relative_to_render_path(
-                input_file_path, self.render_directory_path
-            )
-            self.session_input_paths[session] = input_file_path
-        datagram = self._build_datagram(osc_bundles)
-        renderable_prefix = self._build_file_path(
-            datagram, input_file_path, session
-        ).with_suffix("")
-        return (session, datagram, input_, osc_bundles), renderable_prefix
 
     async def _render_datagram(
         self,
@@ -436,17 +429,17 @@ class Session:
 
     ::
 
-        >>> import supriya.nonrealtime
+        >>> from supriya.nonrealtime import Session
         >>> session = Session()
 
     ::
 
-        >>> import supriya.synthdefs
-        >>> import supriya.ugens
-        >>> builder = supriya.synthdefs.SynthDefBuilder(frequency=440)
+        >>> from supriya.synthdefs import SynthDefBuilder
+        >>> from supriya.ugens import Out, SinOsc
+        >>> builder = SynthDefBuilder(frequency=440)
         >>> with builder:
-        ...     out = supriya.ugens.Out.ar(
-        ...         source=supriya.ugens.SinOsc.ar(
+        ...     out = Out.ar(
+        ...         source=SinOsc.ar(
         ...             frequency=builder["frequency"],
         ...         )
         ...     )
