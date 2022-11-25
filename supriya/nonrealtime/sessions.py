@@ -18,7 +18,6 @@ from uqbar.objects import new
 
 import supriya.commands
 import supriya.intervals
-import supriya.osc
 import supriya.realtime
 import supriya.soundfiles
 import supriya.synthdefs
@@ -41,7 +40,7 @@ from supriya.commands import (
 from supriya.exceptions import NonrealtimeOutputMissing, NonrealtimeRenderError
 from supriya.nonrealtime.bases import SessionObject
 from supriya.nonrealtime.nodes import Synth
-from supriya.osc import OscBundle
+from supriya.osc import OscBundle, OscMessage
 from supriya.querytree import QueryTreeGroup
 from supriya.synthdefs import SynthDef
 from supriya.typing import (
@@ -58,14 +57,15 @@ logger = logging.getLogger(__name__)
 
 @dataclasses.dataclass
 class RenderableMemo:
-    output_filename: str
     renderable: SupportsRender
+    output_filename: str = ""
 
 
 @dataclasses.dataclass
 class SessionRenderableMemo(RenderableMemo):
-    datagram: bytes
-    osc_bundles: List[OscBundle]
+    datagram: bytes = b""
+    osc_bundles: List[OscBundle] = dataclasses.field(default_factory=list)
+    xrefable_osc_messages: List[OscMessage] = dataclasses.field(default_factory=list)
 
 
 class AsyncProcessProtocol(asyncio.SubprocessProtocol):
@@ -444,7 +444,6 @@ class Renderer:
         dependency_graph.add(self.session)
         dependency_graph_stack: List[SupportsRender] = [self.session]
         renderables: Dict[SupportsRender, RenderableMemo] = {}
-        xrefable_osc_bundles: List[OscBundle] = []
         while dependency_graph_stack:
             renderable = dependency_graph_stack.pop()
             if renderable in dependency_graph:
@@ -454,8 +453,6 @@ class Renderer:
             if isinstance(renderable, Session):
                 renderables[renderable] = memo = SessionRenderableMemo(
                     renderable=renderable,
-                    datagram=b"",
-                    output_filename="",
                     osc_bundles=renderable._to_non_xrefd_osc_bundles(
                         self.duration if renderable is self.session else None
                     ),
@@ -464,19 +461,17 @@ class Renderer:
                     dependency_graph_stack.append(renderable.input_)
                     dependency_graph.add(renderable.input_, parent=renderable)
                 for osc_bundle in memo.osc_bundles:
-                    found = False
-                    for message in osc_bundle.contents:
-                        for x in message.contents:
+                    for osc_message in osc_bundle.contents:
+                        found = False
+                        for x in osc_message.contents:
                             if isinstance(x, SupportsRender):
                                 found = True
                                 dependency_graph_stack.append(x)
                                 dependency_graph.add(x, parent=renderable)
-                    if found:
-                        xrefable_osc_bundles.append(osc_bundle)
+                        if found:
+                            memo.xrefable_osc_messages.append(osc_message)
             else:
-                renderables[renderable] = RenderableMemo(
-                    renderable=renderable, output_filename=""
-                )
+                renderables[renderable] = RenderableMemo(renderable=renderable)
         # Validate dependency graph
         if not dependency_graph.is_acyclic():
             raise RuntimeError("Cycles detected")
