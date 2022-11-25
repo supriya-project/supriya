@@ -1,6 +1,6 @@
 from os import PathLike
 from pathlib import Path
-from typing import Dict, Optional, SupportsFloat, SupportsInt, Union
+from typing import Dict, Optional, SupportsFloat, SupportsInt, Union, runtime_checkable
 
 try:
     from typing import Protocol
@@ -18,6 +18,7 @@ class Missing:
     pass
 
 
+@runtime_checkable
 class SupportsRender(Protocol):
     def __render__(
         self,

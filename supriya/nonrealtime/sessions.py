@@ -1,6 +1,6 @@
 import asyncio
 import bisect
-import collections
+import dataclasses
 import hashlib
 import logging
 import platform
@@ -49,10 +49,23 @@ from supriya.typing import (
     CalculationRateLike,
     HeaderFormatLike,
     SampleFormatLike,
+    SupportsRender,
 )
 from supriya.utils import iterate_nwise
 
 logger = logging.getLogger(__name__)
+
+
+@dataclasses.dataclass
+class RenderableMemo:
+    output_filename: str
+    renderable: SupportsRender
+
+
+@dataclasses.dataclass
+class SessionRenderableMemo(RenderableMemo):
+    datagram: bytes
+    osc_bundles: List[OscBundle]
 
 
 class AsyncProcessProtocol(asyncio.SubprocessProtocol):
@@ -425,6 +438,52 @@ class Renderer:
             shutil.copy(final_rendered_file_path, self.output_file_path)
         return (exit_code, self.output_file_path or final_rendered_file_path)
 
+    async def render_new(self) -> None:
+        # Build dependency graph
+        dependency_graph = DependencyGraph()
+        dependency_graph.add(self.session)
+        dependency_graph_stack: List[SupportsRender] = [self.session]
+        renderables: Dict[SupportsRender, RenderableMemo] = {}
+        xrefable_osc_bundles: List[OscBundle] = []
+        while dependency_graph_stack:
+            renderable = dependency_graph_stack.pop()
+            if renderable in dependency_graph:
+                continue
+            if not hasattr(renderable, "__render__"):
+                raise TypeError("Non-renderable: {renderable!r}")
+            if isinstance(renderable, Session):
+                renderables[renderable] = memo = SessionRenderableMemo(
+                    renderable=renderable,
+                    datagram=b"",
+                    output_filename="",
+                    osc_bundles=renderable._to_non_xrefd_osc_bundles(
+                        self.duration if renderable is self.session else None
+                    ),
+                )
+                if isinstance(renderable.input_, SupportsRender):
+                    dependency_graph_stack.append(renderable.input_)
+                    dependency_graph.add(renderable.input_, parent=renderable)
+                for osc_bundle in memo.osc_bundles:
+                    found = False
+                    for message in osc_bundle.contents:
+                        for x in message.contents:
+                            if isinstance(x, SupportsRender):
+                                found = True
+                                dependency_graph_stack.append(x)
+                                dependency_graph.add(x, parent=renderable)
+                    if found:
+                        xrefable_osc_bundles.append(osc_bundle)
+            else:
+                renderables[renderable] = RenderableMemo(
+                    renderable=renderable, output_filename=""
+                )
+        # Validate dependency graph
+        if not dependency_graph.is_acyclic():
+            raise RuntimeError("Cycles detected")
+        # Render dependency graph
+        for renderable in dependency_graph:
+            pass
+
 
 class Session:
     """
@@ -519,7 +578,7 @@ class Session:
         self._active_moments: List[supriya.nonrealtime.Moment] = []
         self._buffers = supriya.intervals.IntervalTree(accelerated=True)
         self._buffers_by_seesion_id: Dict = {}
-        self._buses: Dict = collections.OrderedDict()
+        self._buses: Dict = {}
         self._buses_by_session_id: Dict = {}
         self._nodes = supriya.intervals.IntervalTree(accelerated=True)
         self._nodes_by_session_id: Dict = {}
@@ -967,7 +1026,7 @@ class Session:
         return requests
 
     def _collect_node_settings(self, offset, state, id_mapping):
-        result = collections.OrderedDict()
+        result = {}
         if state.nodes_to_children is None:
             # Current state is sparse;
             # Use previous non-sparse state's nodes to order settings.
@@ -1173,7 +1232,7 @@ class Session:
     def _setup_buses(self):
         import supriya.nonrealtime
 
-        self._buses = collections.OrderedDict()
+        self._buses = {}
         self._audio_input_bus_group = None
         if self._options.input_bus_channel_count:
             self._audio_input_bus_group = supriya.nonrealtime.AudioInputBusGroup(self)
