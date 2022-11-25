@@ -25,7 +25,7 @@ class SupportsRender(Protocol):
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Union[Path, "SupportsRender"]:
+    ) -> Path:
         ...
 
 

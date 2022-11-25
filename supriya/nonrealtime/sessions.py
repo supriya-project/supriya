@@ -10,7 +10,7 @@ from os import PathLike
 from pathlib import Path
 from queue import PriorityQueue
 from types import MappingProxyType
-from typing import Dict, List, Optional, Set, Tuple, Type
+from typing import Dict, List, Optional, Set, Tuple, Type, cast
 
 import uqbar.io
 from uqbar.containers import DependencyGraph
@@ -64,6 +64,7 @@ class RenderableMemo:
 @dataclasses.dataclass
 class SessionRenderableMemo(RenderableMemo):
     datagram: bytes = b""
+    input_path: Optional[Path] = None
     osc_bundles: List[OscBundle] = dataclasses.field(default_factory=list)
     xrefable_osc_messages: List[OscMessage] = dataclasses.field(default_factory=list)
 
@@ -157,7 +158,9 @@ class Renderer:
         datagram = b"".join(datagrams)
         return datagram
 
-    def _build_file_path(self, datagram, input_file_path, session):
+    def _build_file_path(
+        self, datagram: bytes, input_file_path: Optional[Path], session: "Session"
+    ) -> Path:
         md5 = hashlib.md5()
         md5.update(datagram)
         hash_values = []
@@ -176,9 +179,7 @@ class Renderer:
                 value = str(value)
             value = value.encode()
             md5.update(value)
-        md5 = md5.hexdigest()
-        file_path = "session-{}.osc".format(md5)
-        return Path(file_path)
+        return Path("session-{}.osc".format(md5.hexdigest()))
 
     def _build_render_command(
         self,
@@ -438,20 +439,24 @@ class Renderer:
             shutil.copy(final_rendered_file_path, self.output_file_path)
         return (exit_code, self.output_file_path or final_rendered_file_path)
 
-    async def render_new(self) -> None:
+    async def render_new(self) -> Tuple[int, Path]:
         # Build dependency graph
         dependency_graph = DependencyGraph()
-        dependency_graph.add(self.session)
         dependency_graph_stack: List[SupportsRender] = [self.session]
-        renderables: Dict[SupportsRender, RenderableMemo] = {}
+        renderable_memos: Dict[SupportsRender, RenderableMemo] = {}
+        print("Origin:", self.session, id(self.session))
         while dependency_graph_stack:
             renderable = dependency_graph_stack.pop()
-            if renderable in dependency_graph:
+            print("Popped:", renderable, id(renderable))
+            if renderable in renderable_memos:
+                print("Skipping:", renderable, id(renderable))
                 continue
             if not hasattr(renderable, "__render__"):
                 raise TypeError("Non-renderable: {renderable!r}")
+            print("Processing:", renderable, id(renderable))
+            dependency_graph.add(renderable)
             if isinstance(renderable, Session):
-                renderables[renderable] = memo = SessionRenderableMemo(
+                renderable_memos[renderable] = memo = SessionRenderableMemo(
                     renderable=renderable,
                     osc_bundles=renderable._to_non_xrefd_osc_bundles(
                         self.duration if renderable is self.session else None
@@ -471,13 +476,63 @@ class Renderer:
                         if found:
                             memo.xrefable_osc_messages.append(osc_message)
             else:
-                renderables[renderable] = RenderableMemo(renderable=renderable)
+                renderable_memos[renderable] = RenderableMemo(renderable=renderable)
         # Validate dependency graph
         if not dependency_graph.is_acyclic():
             raise RuntimeError("Cycles detected")
         # Render dependency graph
+        exit_code = 0
         for renderable in dependency_graph:
-            pass
+            memo_2 = renderable_memos[renderable]
+            if isinstance(memo_2, SessionRenderableMemo):
+                session = cast(Session, memo_2.renderable)
+                for osc_message in memo_2.xrefable_osc_messages:
+                    contents = list(osc_message.contents)
+                    for i, x in enumerate(contents):
+                        if x in renderable_memos:
+                            contents[i] = str(renderable_memos[x].output_filename)
+                    osc_message.contents = tuple(contents)
+                input_ = session.input_
+                if input_ in renderable_memos:
+                    memo_2.input_path = Path(renderable_memos[input_].output_filename)
+                elif input_ is not None:
+                    memo_2.input_path = Path(input_)
+                memo_2.datagram = self._build_datagram(memo_2.osc_bundles)
+                memo_2.output_filename = str(
+                    self._build_file_path(
+                        memo_2.datagram, memo_2.input_path, session
+                    ).with_suffix(f".{self.header_format.name.lower()}")
+                )
+                # write the .osc file
+                (self.render_directory_path / memo_2.output_filename).with_suffix(
+                    ".osc"
+                ).write_bytes(memo_2.datagram)
+                # render the datagram
+                exit_future = asyncio.get_running_loop().create_future()
+                protocol = AsyncProcessProtocol(exit_future)
+                command = new(session.options, **self.kwargs).serialize() + [
+                    "-N",
+                    str(Path(memo_2.output_filename).with_suffix(".osc")),
+                    str(memo_2.input_path or "_"),
+                    str(memo_2.output_filename),
+                    str(self.sample_rate),
+                    self.header_format.name.lower(),  # Must be lowercase.
+                    self.sample_format.name.lower(),  # Must be lowercase.
+                ]
+                await protocol.run(command, self.render_directory_path)
+                await exit_future
+                exit_code = exit_future.result()
+                if exit_code:
+                    raise RuntimeError(f"Non-zero exit code: {exit_code}")
+            else:
+                # TODO: Make these handle async transparently
+                memo_2.output_filename = memo_2.renderable.__render__(
+                    render_directory_path=self.render_directory_path
+                ).name
+        final_rendered_file_path = self.render_directory_path / memo_2.output_filename
+        if self.output_file_path is not None:
+            shutil.copy(final_rendered_file_path, self.output_file_path)
+        return (exit_code, self.output_file_path or final_rendered_file_path)
 
 
 class Session:
@@ -1504,6 +1559,7 @@ class Session:
         render_directory_path=None,
         sample_format=SampleFormat.INT24,
         sample_rate=44100,
+        new=False,
         **kwargs,
     ) -> Tuple[int, Path]:
         return asyncio.run(
@@ -1515,6 +1571,7 @@ class Session:
                 render_directory_path=render_directory_path,
                 sample_format=sample_format,
                 sample_rate=sample_rate,
+                new=new,
                 **kwargs,
             )
         )
@@ -1528,6 +1585,7 @@ class Session:
         render_directory_path=None,
         sample_format=SampleFormat.INT24,
         sample_rate=44100,
+        new=False,
         **kwargs,
     ) -> Tuple[int, Path]:
         duration = (duration or self.duration) or 0.0
@@ -1543,7 +1601,7 @@ class Session:
             sample_rate=sample_rate,
             **kwargs,
         )
-        exit_code, file_path = await renderer.render()
+        exit_code, file_path = await (renderer.render_new if new else renderer.render)()
         return exit_code, file_path
 
     @SessionObject.require_offset
