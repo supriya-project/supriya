@@ -462,14 +462,14 @@ class Renderer:
                         self.duration if renderable is self.session else None
                     ),
                 )
-                if isinstance(renderable.input_, SupportsRender):
+                if hasattr(renderable.input_, "__render__"):
                     dependency_graph_stack.append(renderable.input_)
                     dependency_graph.add(renderable.input_, parent=renderable)
                 for osc_bundle in memo.osc_bundles:
                     for osc_message in osc_bundle.contents:
                         found = False
                         for x in osc_message.contents:
-                            if isinstance(x, SupportsRender):
+                            if hasattr(x, "__render__"):
                                 found = True
                                 dependency_graph_stack.append(x)
                                 dependency_graph.add(x, parent=renderable)
