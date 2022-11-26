@@ -1,11 +1,12 @@
+import asyncio
 import dataclasses
 import datetime
 import hashlib
-import pathlib
 import platform
 import subprocess
 from os import PathLike
-from typing import Optional
+from pathlib import Path
+from typing import Optional, Tuple
 
 from uqbar.graphs import Grapher
 from uqbar.io import open_path
@@ -25,20 +26,18 @@ class PlayMemo:
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> pathlib.Path:
+    ) -> Path:
         if output_file_path is None:
             hexdigest = hashlib.sha1(self.contents).hexdigest()
             file_name = f"audio-{hexdigest}{self.suffix}"
-            file_path = (
-                pathlib.Path(render_directory_path or supriya.output_path) / file_name
-            )
+            file_path = Path(render_directory_path or supriya.output_path) / file_name
         else:
-            file_path = pathlib.Path(output_file_path)
+            file_path = Path(output_file_path)
         file_path.write_bytes(self.contents)
         return file_path
 
     @classmethod
-    def from_path(cls, path: pathlib.Path) -> "PlayMemo":
+    def from_path(cls, path: Path) -> "PlayMemo":
         return cls(contents=path.read_bytes(), suffix=path.suffix)
 
 
@@ -129,12 +128,14 @@ def render(
     output_file_path: Optional[PathLike] = None,
     render_directory_path: Optional[PathLike] = None,
     **kwargs,
-):
-    return renderable.__render__(
+) -> Tuple[int, Path]:
+    coroutine, path = renderable.__render__(
         output_file_path=output_file_path,
         render_directory_path=render_directory_path,
         **kwargs,
     )
+    exit_code = asyncio.run(coroutine)
+    return exit_code, path
 
 
 __all__ = ["Player", "Plotter", "graph", "play", "plot", "render"]

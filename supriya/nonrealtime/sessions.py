@@ -3,14 +3,13 @@ import bisect
 import dataclasses
 import hashlib
 import logging
-import platform
 import shutil
 import struct
 from os import PathLike
 from pathlib import Path
 from queue import PriorityQueue
 from types import MappingProxyType
-from typing import Dict, List, Optional, Set, Tuple, Type, cast
+from typing import Coroutine, Dict, List, Optional, Set, Tuple, Type, cast
 
 import uqbar.io
 from uqbar.containers import DependencyGraph
@@ -37,7 +36,6 @@ from supriya.commands import (
     Request,
     RequestBundle,
 )
-from supriya.exceptions import NonrealtimeOutputMissing, NonrealtimeRenderError
 from supriya.nonrealtime.bases import SessionObject
 from supriya.nonrealtime.nodes import Synth
 from supriya.osc import OscBundle, OscMessage
@@ -158,288 +156,9 @@ class Renderer:
         datagram = b"".join(datagrams)
         return datagram
 
-    def _build_file_path(
-        self, datagram: bytes, input_file_path: Optional[Path], session: "Session"
-    ) -> Path:
-        md5 = hashlib.md5()
-        md5.update(datagram)
-        hash_values = []
-        if input_file_path is not None:
-            hash_values.append(input_file_path)
-        for value in (
-            session.options.input_bus_channel_count,
-            session.options.output_bus_channel_count,
-            self.sample_rate,
-            self.header_format,
-            self.sample_format,
-        ):
-            hash_values.append(value)
-        for value in hash_values:
-            if not isinstance(value, str):
-                value = str(value)
-            value = value.encode()
-            md5.update(value)
-        return Path("session-{}.osc".format(md5.hexdigest()))
-
-    def _build_render_command(
+    def _build_dependency_graph(
         self,
-        input_file_path: PathLike,
-        output_file_path: PathLike,
-        session_osc_file_path: PathLike,
-        *,
-        server_options: Optional[scsynth.Options] = None,
-    ) -> List[str]:
-        options = new(server_options or scsynth.Options(), realtime=False)
-        command = list(options)
-        command.extend(["-N", session_osc_file_path])
-        command.append(input_file_path or "_")
-        command.extend(
-            [
-                output_file_path,
-                self.sample_rate,
-                self.header_format.name.lower(),  # Must be lowercase.
-                self.sample_format.name.lower(),  # Must be lowercase.
-            ]
-        )
-        return [str(_) for _ in command]
-
-    def _build_xrefd_bundles(self, osc_bundles: List[OscBundle]) -> List[OscBundle]:
-        extension = ".{}".format(self.header_format.name.lower())
-        for osc_bundle in osc_bundles:
-            for osc_message in osc_bundle.contents:
-                contents = list(osc_message.contents)
-                for i, x in enumerate(contents):
-                    x = self._sessionable_to_session(x)
-                    try:
-                        if x not in self.renderable_prefixes:
-                            continue
-                    except TypeError:
-                        continue
-                    renderable_file_path = self.renderable_prefixes[x].with_suffix(
-                        extension
-                    )
-                    contents[i] = str(renderable_file_path)
-                osc_message.contents = tuple(contents)
-        return osc_bundles
-
-    def _build_dependency_graph_and_nonxrefd_osc_bundles_conditionally(
-        self, expr, parent
-    ):
-        expr = self._sessionable_to_session(expr)
-        if isinstance(expr, Session):
-            if expr not in self.dependency_graph:
-                self._build_dependency_graph_and_nonxrefd_osc_bundles(expr)
-            self.dependency_graph.add(expr, parent=parent)
-        elif hasattr(expr, "__render__"):
-            self.dependency_graph.add(expr, parent=parent)
-        if not self.dependency_graph.is_acyclic():
-            raise RuntimeError
-
-    def _build_dependency_graph_and_nonxrefd_osc_bundles(self, session, duration=None):
-        input_ = session.input_
-        if isinstance(input_, str):
-            input_ = Path(input_)
-        input_ = self._sessionable_to_session(input_)
-        non_xrefd_bundles = session._to_non_xrefd_osc_bundles(duration)
-        self.compiled_sessions[session] = input_, non_xrefd_bundles
-        if session is self.session:
-            self.dependency_graph.add(session)
-        self._build_dependency_graph_and_nonxrefd_osc_bundles_conditionally(
-            input_, session
-        )
-        for non_xrefd_bundle in non_xrefd_bundles:
-            for request in non_xrefd_bundle.contents:
-                for x in request.contents:
-                    self._build_dependency_graph_and_nonxrefd_osc_bundles_conditionally(
-                        x, session
-                    )
-
-    def _collect_prerender_tuples(self):
-        extension = ".{}".format(self.header_format.name.lower())
-        for renderable in self.dependency_graph:
-            if isinstance(renderable, Session):
-                input_, non_xrefd_bundles = self.compiled_sessions[renderable]
-                osc_bundles = self._build_xrefd_bundles(non_xrefd_bundles)
-                input_file_path = input_
-                if input_ and input_ in self.renderable_prefixes:
-                    input_file_path = self.renderable_prefixes[input_]
-                    input_file_path = input_file_path.with_suffix(extension)
-                if input_file_path:
-                    input_file_path = self.get_path_relative_to_render_path(
-                        input_file_path, self.render_directory_path
-                    )
-                    self.session_input_paths[renderable] = input_file_path
-                datagram = self._build_datagram(osc_bundles)
-                renderable_prefix = self._build_file_path(
-                    datagram, input_file_path, renderable
-                ).with_suffix("")
-                prerender_tuple = (renderable, datagram, input_, osc_bundles)
-            else:
-                renderable_prefix = renderable._build_file_path().with_suffix("")
-                prerender_tuple = (renderable,)
-            self.prerender_tuples.append(prerender_tuple)
-            self.renderable_prefixes[renderable] = renderable_prefix
-        return self.prerender_tuples
-
-    async def _render_datagram(
-        self,
-        session,
-        input_file_path,
-        output_file_path,
-        session_osc_file_path,
-        scsynth_path=None,
-        **kwargs,
-    ):
-        relative_session_osc_file_path = session_osc_file_path
-        logger.info(f"Rendering {relative_session_osc_file_path}.")
-        if output_file_path.exists():
-            logger.info(
-                f"    Skipped {relative_session_osc_file_path}. Output already exists."
-            )
-            return 0
-        server_options = session._options
-        server_options = new(server_options, **kwargs)
-        memory_size = server_options.memory_size
-        for factor in range(1, 6):
-            command = self._build_render_command(
-                input_file_path,
-                output_file_path.name,
-                session_osc_file_path,
-                server_options=server_options,
-            )
-            logger.info(f"    Command: {' '.join(command)}")
-            exit_future = asyncio.get_running_loop().create_future()
-            protocol = AsyncProcessProtocol(exit_future)
-            await protocol.run(command, self.render_directory_path)
-            await exit_future
-            exit_code = exit_future.result()
-            if exit_code == -6:
-                logger.info(
-                    f"    Out of memory. Increasing to {server_options.memory_size}."
-                )
-            else:
-                logger.info(
-                    f"    Rendered {relative_session_osc_file_path} with exit code {exit_code}."
-                )
-                break
-            server_options = new(
-                server_options, memory_size=memory_size * (2**factor)
-            )
-        return exit_code
-
-    def _sessionable_to_session(self, expr):
-        if hasattr(expr, "__session__"):
-            if expr not in self.sessionables_to_sessions:
-                self.sessionables_to_sessions[expr] = expr.__session__()
-            return self.sessionables_to_sessions[expr]
-        return expr
-
-    def _write_datagram(self, file_path, new_contents):
-        logger.info(f"Writing {file_path.name}.")
-        old_contents = None
-        if file_path.exists():
-            old_contents = file_path.read_bytes()
-        if old_contents == new_contents:
-            logger.info(f"    Skipped {file_path.name}. File already exists.")
-        else:
-            file_path.write_bytes(new_contents)
-            logger.info(f"    Wrote {file_path.name}.")
-
-    ### PUBLIC METHODS ###
-
-    def to_lists(self):
-        osc_bundles = self.to_osc_bundles()
-        return [osc_bundle.to_list() for osc_bundle in osc_bundles]
-
-    def to_osc_bundles(self):
-        self._build_dependency_graph_and_nonxrefd_osc_bundles(
-            self.session, duration=self.duration
-        )
-        self._collect_prerender_tuples()
-        (session, datagram, input_file_path, osc_bundles) = self.prerender_tuples[-1]
-        return osc_bundles
-
-    @classmethod
-    def get_path_relative_to_render_path(cls, target_path, render_path):
-        target_path = Path(target_path)
-        render_path = Path(render_path)
-        try:
-            return target_path.relative_to(render_path)
-        except ValueError:
-            pass
-        target_path = Path(target_path)
-        render_path = Path(render_path)
-        target_path_parents = set(target_path.parents)
-        render_path_parents = set(render_path.parents)
-        common_parents = target_path_parents.intersection(render_path_parents)
-        if not common_parents:
-            return target_path
-        common_parent = sorted(common_parents)[-1]
-        target_path = target_path.relative_to(common_parent)
-        render_path = render_path.relative_to(common_parent)
-        parts = [".." for _ in render_path.parts] + [target_path]
-        return Path().joinpath(*parts)
-
-    async def render(self) -> Tuple[int, Path]:
-        self._build_dependency_graph_and_nonxrefd_osc_bundles(
-            self.session, duration=self.duration
-        )
-        self._collect_prerender_tuples()
-        extension = f".{self.header_format.name.lower()}"
-        visited_renderable_prefixes = []
-        for prerender_tuple in self.prerender_tuples:
-            renderable = prerender_tuple[0]
-            renderable_prefix = self.renderable_prefixes[renderable]
-            visited_renderable_prefixes.append(renderable_prefix.with_suffix("").name)
-            relative_output_file_path = renderable_prefix.with_suffix(extension)
-            if not isinstance(renderable, Session):
-                result = renderable.__render__(
-                    output_file_path=self.render_directory_path
-                    / relative_output_file_path
-                )
-                if asyncio.iscoroutine(result):
-                    await result
-                continue
-            (session, datagram, input_, _) = prerender_tuple
-            osc_file_path = renderable_prefix.with_suffix(".osc")
-            input_file_path = self.session_input_paths.get(session)
-            self._write_datagram(self.render_directory_path / osc_file_path, datagram)
-            exit_code = await self._render_datagram(
-                session,
-                input_file_path,
-                self.render_directory_path / relative_output_file_path,
-                osc_file_path,
-                scsynth_path=self.executable,
-                **self.kwargs,
-            )
-            if exit_code:
-                if (
-                    platform.system() == "Windows"
-                    and (
-                        self.render_directory_path / relative_output_file_path
-                    ).exists()
-                ):
-                    # scsynth.exe renders but exits non-zero
-                    # https://github.com/supercollider/supercollider/issues/5769
-                    # logger.info(
-                    #     "    SuperCollider exited with non-zero but output exists!"
-                    # )
-                    pass
-                else:
-                    logger.info("    SuperCollider errored!")
-                    raise NonrealtimeRenderError(exit_code)
-        final_rendered_file_path = (
-            self.render_directory_path / relative_output_file_path
-        )
-        if not final_rendered_file_path.exists():
-            logger.info("    Output file is missing!")
-            raise NonrealtimeOutputMissing(final_rendered_file_path)
-        # TODO: Make this cross-platform
-        if self.output_file_path is not None:
-            shutil.copy(final_rendered_file_path, self.output_file_path)
-        return (exit_code, self.output_file_path or final_rendered_file_path)
-
-    async def render_new(self) -> Tuple[int, Path]:
+    ) -> Tuple[DependencyGraph, Dict[SupportsRender, RenderableMemo]]:
         # Build dependency graph
         dependency_graph = DependencyGraph()
         dependency_graph_stack: List[SupportsRender] = [self.session]
@@ -477,44 +196,54 @@ class Renderer:
                             memo.xrefable_osc_messages.append(osc_message)
             else:
                 renderable_memos[renderable] = RenderableMemo(renderable=renderable)
-        # Validate dependency graph
         if not dependency_graph.is_acyclic():
             raise RuntimeError("Cycles detected")
-        # Render dependency graph
-        exit_code = 0
+        return dependency_graph, renderable_memos
+
+    def _build_file_path(
+        self, datagram: bytes, input_file_path: Optional[Path], session: "Session"
+    ) -> Path:
+        md5 = hashlib.md5()
+        md5.update(datagram)
+        hash_values = []
+        if input_file_path is not None:
+            hash_values.append(input_file_path)
+        for value in (
+            session.options.input_bus_channel_count,
+            session.options.output_bus_channel_count,
+            self.sample_rate,
+            self.header_format,
+            self.sample_format,
+        ):
+            hash_values.append(value)
+        for value in hash_values:
+            if not isinstance(value, str):
+                value = str(value)
+            value = value.encode()
+            md5.update(value)
+        return Path("session-{}.osc".format(md5.hexdigest()))
+
+    async def _render_dependency_graph(
+        self,
+        dependency_graph: DependencyGraph,
+        renderable_memos: Dict[SupportsRender, RenderableMemo],
+    ) -> Path:
         for renderable in dependency_graph:
-            memo_2 = renderable_memos[renderable]
-            if isinstance(memo_2, SessionRenderableMemo):
-                session = cast(Session, memo_2.renderable)
-                for osc_message in memo_2.xrefable_osc_messages:
-                    contents = list(osc_message.contents)
-                    for i, x in enumerate(contents):
-                        if x in renderable_memos:
-                            contents[i] = str(renderable_memos[x].output_filename)
-                    osc_message.contents = tuple(contents)
-                input_ = session.input_
-                if input_ in renderable_memos:
-                    memo_2.input_path = Path(renderable_memos[input_].output_filename)
-                elif input_ is not None:
-                    memo_2.input_path = Path(input_)
-                memo_2.datagram = self._build_datagram(memo_2.osc_bundles)
-                memo_2.output_filename = str(
-                    self._build_file_path(
-                        memo_2.datagram, memo_2.input_path, session
-                    ).with_suffix(f".{self.header_format.name.lower()}")
-                )
+            memo = renderable_memos[renderable]
+            if isinstance(memo, SessionRenderableMemo):
+                session = cast(Session, memo.renderable)
                 # write the .osc file
-                (self.render_directory_path / memo_2.output_filename).with_suffix(
+                (self.render_directory_path / memo.output_filename).with_suffix(
                     ".osc"
-                ).write_bytes(memo_2.datagram)
+                ).write_bytes(memo.datagram)
                 # render the datagram
                 exit_future = asyncio.get_running_loop().create_future()
                 protocol = AsyncProcessProtocol(exit_future)
                 command = new(session.options, **self.kwargs).serialize() + [
                     "-N",
-                    str(Path(memo_2.output_filename).with_suffix(".osc")),
-                    str(memo_2.input_path or "_"),
-                    str(memo_2.output_filename),
+                    str(Path(memo.output_filename).with_suffix(".osc")),
+                    str(memo.input_path or "_"),
+                    str(memo.output_filename),
                     str(self.sample_rate),
                     self.header_format.name.lower(),  # Must be lowercase.
                     self.sample_format.name.lower(),  # Must be lowercase.
@@ -522,17 +251,96 @@ class Renderer:
                 await protocol.run(command, self.render_directory_path)
                 await exit_future
                 exit_code = exit_future.result()
-                if exit_code:
-                    raise RuntimeError(f"Non-zero exit code: {exit_code}")
             else:
                 # TODO: Make these handle async transparently
-                memo_2.output_filename = memo_2.renderable.__render__(
+                coroutine, _ = memo.renderable.__render__(
                     render_directory_path=self.render_directory_path
-                ).name
-        final_rendered_file_path = self.render_directory_path / memo_2.output_filename
+                )
+                exit_code = await coroutine
+            if exit_code:
+                raise RuntimeError(f"Non-zero exit code: {exit_code}")
         if self.output_file_path is not None:
-            shutil.copy(final_rendered_file_path, self.output_file_path)
-        return (exit_code, self.output_file_path or final_rendered_file_path)
+            shutil.copy(
+                self.render_directory_path / memo.output_filename, self.output_file_path
+            )
+        return exit_code
+
+    def _xref_dependency_graph(
+        self,
+        dependency_graph: DependencyGraph,
+        renderable_memos: Dict[SupportsRender, RenderableMemo],
+    ) -> None:
+        for renderable in dependency_graph:
+            memo = renderable_memos[renderable]
+            if isinstance(memo, SessionRenderableMemo):
+                session = cast(Session, memo.renderable)
+                for osc_message in memo.xrefable_osc_messages:
+                    contents = list(osc_message.contents)
+                    for i, x in enumerate(contents):
+                        if x in renderable_memos:
+                            contents[i] = str(renderable_memos[x].output_filename)
+                    osc_message.contents = tuple(contents)
+                input_ = session.input_
+                if input_ in renderable_memos:
+                    memo.input_path = Path(renderable_memos[input_].output_filename)
+                elif input_ is not None:
+                    memo.input_path = Path(input_)
+                memo.datagram = self._build_datagram(memo.osc_bundles)
+                memo.output_filename = str(
+                    self._build_file_path(
+                        memo.datagram, memo.input_path, session
+                    ).with_suffix(f".{self.header_format.name.lower()}")
+                )
+            else:
+                # TODO: Make these handle async transparently
+                _, path = memo.renderable.__render__(
+                    render_directory_path=self.render_directory_path
+                )
+                memo.output_filename = path.name
+
+    ### PUBLIC METHODS ###
+
+    def to_lists(self) -> List:
+        osc_bundles = self.to_osc_bundles()
+        return [osc_bundle.to_list() for osc_bundle in osc_bundles]
+
+    def to_osc_bundles(self) -> List[OscBundle]:
+        dependency_graph, renderable_memos = self._build_dependency_graph()
+        self._xref_dependency_graph(dependency_graph, renderable_memos)
+        memo = cast(SessionRenderableMemo, renderable_memos[self.session])
+        return memo.osc_bundles
+
+    @classmethod
+    def get_path_relative_to_render_path(cls, target_path, render_path):
+        target_path = Path(target_path)
+        render_path = Path(render_path)
+        try:
+            return target_path.relative_to(render_path)
+        except ValueError:
+            pass
+        target_path = Path(target_path)
+        render_path = Path(render_path)
+        target_path_parents = set(target_path.parents)
+        render_path_parents = set(render_path.parents)
+        common_parents = target_path_parents.intersection(render_path_parents)
+        if not common_parents:
+            return target_path
+        common_parent = sorted(common_parents)[-1]
+        target_path = target_path.relative_to(common_parent)
+        render_path = render_path.relative_to(common_parent)
+        parts = [".." for _ in render_path.parts] + [target_path]
+        return Path().joinpath(*parts)
+
+    def render(self) -> Tuple[Coroutine, Path]:
+        dependency_graph, renderable_memos = self._build_dependency_graph()
+        self._xref_dependency_graph(dependency_graph, renderable_memos)
+        path = (
+            self.output_file_path
+            or self.render_directory_path
+            / renderable_memos[self.session].output_filename
+        )
+        coroutine = self._render_dependency_graph(dependency_graph, renderable_memos)
+        return coroutine, path
 
 
 class Session:
@@ -714,20 +522,30 @@ class Session:
         self,
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
+        duration: Optional[float] = None,
+        header_format=HeaderFormat.AIFF,
+        input_file_path=None,
+        sample_format=SampleFormat.INT24,
+        sample_rate=44100,
         **kwargs,
-    ) -> Path:
-        _, file_path = self.render(
+    ) -> Tuple[Coroutine, Path]:
+        duration = (duration or self.duration) or 0.0
+        if not (0.0 < duration < float("inf")):
+            raise ValueError(f"Invalid duration: {duration}")
+        renderer = Renderer(
+            session=self,
+            duration=duration,
+            header_format=header_format,
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
+            sample_format=sample_format,
+            sample_rate=sample_rate,
             **kwargs,
         )
-        return file_path
+        return renderer.render()
 
     def __repr__(self) -> str:
         return "<{}>".format(type(self).__name__)
-
-    def __session__(self) -> "Session":
-        return self
 
     ### PRIVATE METHODS ###
 
@@ -1553,56 +1371,48 @@ class Session:
     def render(
         self,
         output_file_path: Optional[PathLike] = None,
+        render_directory_path=None,
         duration: Optional[float] = None,
         header_format=HeaderFormat.AIFF,
         input_file_path=None,
-        render_directory_path=None,
         sample_format=SampleFormat.INT24,
         sample_rate=44100,
-        new=False,
         **kwargs,
     ) -> Tuple[int, Path]:
-        return asyncio.run(
-            self.render_async(
-                output_file_path=output_file_path,
-                duration=duration,
-                header_format=header_format,
-                input_file_path=input_file_path,
-                render_directory_path=render_directory_path,
-                sample_format=sample_format,
-                sample_rate=sample_rate,
-                new=new,
-                **kwargs,
-            )
-        )
-
-    async def render_async(
-        self,
-        output_file_path: Optional[PathLike] = None,
-        duration: Optional[float] = None,
-        header_format=HeaderFormat.AIFF,
-        input_file_path=None,
-        render_directory_path=None,
-        sample_format=SampleFormat.INT24,
-        sample_rate=44100,
-        new=False,
-        **kwargs,
-    ) -> Tuple[int, Path]:
-        duration = (duration or self.duration) or 0.0
-        if not (0.0 < duration < float("inf")):
-            raise ValueError(f"Invalid duration: {duration}")
-        renderer = Renderer(
-            session=self,
-            duration=duration,
-            header_format=header_format,
+        coroutine, path = self.__render__(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
+            duration=duration,
+            header_format=header_format,
+            input_file_path=input_file_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
             **kwargs,
         )
-        exit_code, file_path = await (renderer.render_new if new else renderer.render)()
-        return exit_code, file_path
+        return asyncio.run(coroutine), path
+
+    async def render_async(
+        self,
+        output_file_path: Optional[PathLike] = None,
+        render_directory_path=None,
+        duration: Optional[float] = None,
+        header_format=HeaderFormat.AIFF,
+        input_file_path=None,
+        sample_format=SampleFormat.INT24,
+        sample_rate=44100,
+        **kwargs,
+    ) -> Tuple[int, Path]:
+        coroutine, path = self.__render__(
+            output_file_path=output_file_path,
+            render_directory_path=render_directory_path,
+            duration=duration,
+            header_format=header_format,
+            input_file_path=input_file_path,
+            sample_format=sample_format,
+            sample_rate=sample_rate,
+            **kwargs,
+        )
+        return await coroutine, path
 
     @SessionObject.require_offset
     def set_rand_seed(

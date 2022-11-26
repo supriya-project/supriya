@@ -12,13 +12,12 @@ import supriya.scsynth
 import supriya.soundfiles
 
 
-@pytest.mark.parametrize("new", [True, False])
-def test_00a(nonrealtime_paths, new):
+def test_00a(nonrealtime_paths):
     """
     No input, no output file path specified, no render path specified.
     """
     session = pytest.helpers.make_test_session()
-    exit_code, output_file_path = session.render(new=new)
+    exit_code, output_file_path = session.render()
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pathlib.Path(supriya.output_path) in output_file_path.parents
     assert pytest.helpers.sample_soundfile(output_file_path) == {
@@ -31,14 +30,13 @@ def test_00a(nonrealtime_paths, new):
     }
 
 
-@pytest.mark.parametrize("new", [True, False])
-def test_00b(nonrealtime_paths, new):
+def test_00b(nonrealtime_paths):
     """
     No input, no output file path specified, render path specified.
     """
     session = pytest.helpers.make_test_session()
     exit_code, output_file_path = session.render(
-        new=new, render_directory_path=nonrealtime_paths.render_directory_path
+        render_directory_path=nonrealtime_paths.render_directory_path
     )
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert (
@@ -55,8 +53,7 @@ def test_00b(nonrealtime_paths, new):
     }
 
 
-@pytest.mark.parametrize("new", [True, False])
-def test_00c(caplog, nonrealtime_paths, new):
+def test_00c(caplog, nonrealtime_paths):
     """
     No input, no output file path specified, no render path specified,
     output already exists.
@@ -74,7 +71,7 @@ def test_00c(caplog, nonrealtime_paths, new):
         aiff_path.unlink()
 
     with caplog.at_level(logging.INFO, logger="supriya.nonrealtime"):
-        exit_code, output_file_path = session.render(new=new)
+        exit_code, output_file_path = session.render()
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -84,22 +81,13 @@ def test_00c(caplog, nonrealtime_paths, new):
         0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
     }
-    executable = supriya.scsynth.find()
-    if not new:
-        assert [record.msg for record in caplog.records] == [
-            "Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-            "    Wrote session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-            "Rendering session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-            f"    Command: {executable} -D 0 -N session-7b3f85710f19667f73f745b8ac8080a0.osc _ session-7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24",
-            f"    Rendered session-7b3f85710f19667f73f745b8ac8080a0.osc with exit code {exit_code}.",
-        ]
     assert output_file_path == aiff_path
     assert osc_path.exists()
     assert aiff_path.exists()
 
     caplog.clear()
     with caplog.at_level(logging.INFO, logger="supriya.nonrealtime"):
-        exit_code, output_file_path = session.render(new=new)
+        exit_code, output_file_path = session.render()
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -109,13 +97,6 @@ def test_00c(caplog, nonrealtime_paths, new):
         0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
     }
-    if not new:
-        assert [record.msg for record in caplog.records] == [
-            "Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-            "    Skipped session-7b3f85710f19667f73f745b8ac8080a0.osc. File already exists.",
-            "Rendering session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-            "    Skipped session-7b3f85710f19667f73f745b8ac8080a0.osc. Output already exists.",
-        ]
     assert output_file_path == aiff_path
     assert osc_path.exists()
     assert aiff_path.exists()
@@ -124,7 +105,7 @@ def test_00c(caplog, nonrealtime_paths, new):
 
     caplog.clear()
     with caplog.at_level(logging.INFO, logger="supriya.nonrealtime"):
-        exit_code, output_file_path = session.render(new=new)
+        exit_code, output_file_path = session.render()
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -134,13 +115,6 @@ def test_00c(caplog, nonrealtime_paths, new):
         0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
     }
-    if not new:
-        assert [record.msg for record in caplog.records] == [
-            "Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-            "    Wrote session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-            "Rendering session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-            "    Skipped session-7b3f85710f19667f73f745b8ac8080a0.osc. Output already exists.",
-        ]
     assert output_file_path == aiff_path
     assert osc_path.exists()
     assert aiff_path.exists()
@@ -149,7 +123,7 @@ def test_00c(caplog, nonrealtime_paths, new):
 
     caplog.clear()
     with caplog.at_level(logging.INFO, logger="supriya.nonrealtime"):
-        exit_code, output_file_path = session.render(new=new)
+        exit_code, output_file_path = session.render()
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -159,21 +133,12 @@ def test_00c(caplog, nonrealtime_paths, new):
         0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
     }
-    if not new:
-        assert [record.msg for record in caplog.records] == [
-            "Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-            "    Skipped session-7b3f85710f19667f73f745b8ac8080a0.osc. File already exists.",
-            "Rendering session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-            f"    Command: {executable} -D 0 -N session-7b3f85710f19667f73f745b8ac8080a0.osc _ session-7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24",
-            f"    Rendered session-7b3f85710f19667f73f745b8ac8080a0.osc with exit code {exit_code}.",
-        ]
     assert output_file_path == aiff_path
     assert osc_path.exists()
     assert aiff_path.exists()
 
 
-@pytest.mark.parametrize("new", [True, False])
-def test_01(nonrealtime_paths, new):
+def test_01(nonrealtime_paths):
     """
     No input.
     """
@@ -197,7 +162,6 @@ def test_01(nonrealtime_paths, new):
     exit_code, _ = session.render(
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
-        new=new,
     )
     pytest.helpers.assert_soundfile_ok(
         nonrealtime_paths.output_file_path, exit_code, 10.0, 44100, 8
@@ -212,8 +176,7 @@ def test_01(nonrealtime_paths, new):
     }
 
 
-@pytest.mark.parametrize("new", [True, False])
-def test_02(nonrealtime_paths, new):
+def test_02(nonrealtime_paths):
     """
     Soundfile NRT input, matched channels.
     """
@@ -221,7 +184,7 @@ def test_02(nonrealtime_paths, new):
     path_two = nonrealtime_paths.output_directory_path / "output-two.aiff"
     session_one = pytest.helpers.make_test_session()
     exit_code, _ = session_one.render(
-        path_one, render_directory_path=nonrealtime_paths.render_directory_path, new=new
+        path_one, render_directory_path=nonrealtime_paths.render_directory_path
     )
     pytest.helpers.assert_soundfile_ok(path_one, exit_code, 10.0, 44100, 8)
     session_two = supriya.nonrealtime.Session(input_=path_one)
@@ -235,7 +198,7 @@ def test_02(nonrealtime_paths, new):
             multiplier=-0.5,
         )
     exit_code, _ = session_two.render(
-        path_two, render_directory_path=nonrealtime_paths.render_directory_path, new=new
+        path_two, render_directory_path=nonrealtime_paths.render_directory_path
     )
     pytest.helpers.assert_soundfile_ok(path_two, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(path_two) == {
@@ -248,8 +211,7 @@ def test_02(nonrealtime_paths, new):
     }
 
 
-@pytest.mark.parametrize("new", [True, False])
-def test_03(nonrealtime_paths, new):
+def test_03(nonrealtime_paths):
     """
     Soundfile NRT input, mismatched channels.
     """
@@ -257,7 +219,7 @@ def test_03(nonrealtime_paths, new):
     path_two = nonrealtime_paths.output_directory_path / "output-two.aiff"
     session_one = pytest.helpers.make_test_session()
     exit_code, _ = session_one.render(
-        path_one, render_directory_path=nonrealtime_paths.render_directory_path, new=new
+        path_one, render_directory_path=nonrealtime_paths.render_directory_path
     )
     pytest.helpers.assert_soundfile_ok(path_one, exit_code, 10.0, 44100, 8)
     session_two = supriya.nonrealtime.Session(
@@ -295,7 +257,7 @@ def test_03(nonrealtime_paths, new):
         [10.0, [["/n_free", 1000], [0]]],
     ]
     exit_code, _ = session_two.render(
-        path_two, render_directory_path=nonrealtime_paths.render_directory_path, new=new
+        path_two, render_directory_path=nonrealtime_paths.render_directory_path
     )
     pytest.helpers.assert_soundfile_ok(path_two, exit_code, 10.0, 44100, 4)
     assert pytest.helpers.sample_soundfile(path_two) == {
@@ -308,8 +270,7 @@ def test_03(nonrealtime_paths, new):
     }
 
 
-@pytest.mark.parametrize("new", [True, False])
-def test_04(nonrealtime_paths, new):
+def test_04(nonrealtime_paths):
     """
     Session NRT input, matched channels.
     """
@@ -349,7 +310,6 @@ def test_04(nonrealtime_paths, new):
     exit_code, _ = session_two.render(
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
-        new=new,
     )
     pytest.helpers.assert_soundfile_ok(
         nonrealtime_paths.output_file_path, exit_code, 10.0, 44100, 8
@@ -364,8 +324,7 @@ def test_04(nonrealtime_paths, new):
     }
 
 
-@pytest.mark.parametrize("new", [True, False])
-def test_05(nonrealtime_paths, new):
+def test_05(nonrealtime_paths):
     """
     Soundfile DiskIn input.
     """
@@ -373,7 +332,7 @@ def test_05(nonrealtime_paths, new):
     path_two = nonrealtime_paths.output_directory_path / "output-two.aiff"
     session_one = pytest.helpers.make_test_session()
     exit_code, _ = session_one.render(
-        path_one, render_directory_path=nonrealtime_paths.render_directory_path, new=new
+        path_one, render_directory_path=nonrealtime_paths.render_directory_path
     )
     pytest.helpers.assert_soundfile_ok(path_one, exit_code, 10.0, 44100, 8)
     session_two = supriya.nonrealtime.Session()
@@ -406,7 +365,7 @@ def test_05(nonrealtime_paths, new):
         [10.0, [["/n_free", 1000], ["/b_close", 0], ["/b_free", 0], [0]]],
     ]
     exit_code, _ = session_two.render(
-        path_two, render_directory_path=nonrealtime_paths.render_directory_path, new=new
+        path_two, render_directory_path=nonrealtime_paths.render_directory_path
     )
     pytest.helpers.assert_soundfile_ok(path_two, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(path_two) == {
@@ -419,8 +378,7 @@ def test_05(nonrealtime_paths, new):
     }
 
 
-@pytest.mark.parametrize("new", [True, False])
-def test_06(nonrealtime_paths, new):
+def test_06(nonrealtime_paths):
     """
     Session DiskIn input.
     """
@@ -461,7 +419,6 @@ def test_06(nonrealtime_paths, new):
     exit_code, _ = session_two.render(
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
-        new=new,
     )
     pytest.helpers.assert_soundfile_ok(
         nonrealtime_paths.output_file_path, exit_code, 10.0, 44100, 8
@@ -476,8 +433,7 @@ def test_06(nonrealtime_paths, new):
     }
 
 
-@pytest.mark.parametrize("new", [True, False])
-def test_07(nonrealtime_paths, new):
+def test_07(nonrealtime_paths):
     """
     Chained Session DiskIn input.
     """
@@ -581,7 +537,6 @@ def test_07(nonrealtime_paths, new):
     exit_code, _ = session_three.render(
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
-        new=new,
     )
     pytest.helpers.assert_soundfile_ok(buffer_one_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(buffer_one_path) == {
@@ -614,8 +569,7 @@ def test_07(nonrealtime_paths, new):
     }
 
 
-@pytest.mark.parametrize("new", [True, False])
-def test_08(caplog, nonrealtime_paths, new):
+def test_08(caplog, nonrealtime_paths):
     """
     Fanned Session DiskIn input and NRT input.
     """
@@ -779,7 +733,6 @@ def test_08(caplog, nonrealtime_paths, new):
         exit_code, _ = session_three.render(
             nonrealtime_paths.output_file_path,
             render_directory_path=nonrealtime_paths.render_directory_path,
-            new=new,
         )
     pytest.helpers.assert_soundfile_ok(session_one_path, exit_code, 10.0, 44100, 8)
     assert pytest.helpers.sample_soundfile(session_one_path) == {
@@ -810,30 +763,10 @@ def test_08(caplog, nonrealtime_paths, new):
         0.81: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
         0.99: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
     }
-    if not new:
-        executable = supriya.scsynth.find()
-        assert [record.msg for record in caplog.records] == [
-            "Writing session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
-            "    Wrote session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
-            "Rendering session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
-            f"    Command: {executable} -D 0 -N session-c6d86f3d482a8bac1f7cc6650017da8e.osc _ session-c6d86f3d482a8bac1f7cc6650017da8e.aiff 44100 aiff int24",
-            f"    Rendered session-c6d86f3d482a8bac1f7cc6650017da8e.osc with exit code {exit_code}.",
-            "Writing session-81d02f16aff7797ca3ac041facb61b95.osc.",
-            "    Wrote session-81d02f16aff7797ca3ac041facb61b95.osc.",
-            "Rendering session-81d02f16aff7797ca3ac041facb61b95.osc.",
-            f"    Command: {executable} -D 0 -N session-81d02f16aff7797ca3ac041facb61b95.osc _ session-81d02f16aff7797ca3ac041facb61b95.aiff 44100 aiff int24",
-            f"    Rendered session-81d02f16aff7797ca3ac041facb61b95.osc with exit code {exit_code}.",
-            "Writing session-1d80bd5d7da1eb8c25d322aa85384513.osc.",
-            "    Wrote session-1d80bd5d7da1eb8c25d322aa85384513.osc.",
-            "Rendering session-1d80bd5d7da1eb8c25d322aa85384513.osc.",
-            f"    Command: {executable} -D 0 -N session-1d80bd5d7da1eb8c25d322aa85384513.osc _ session-1d80bd5d7da1eb8c25d322aa85384513.aiff 44100 aiff int24",
-            f"    Rendered session-1d80bd5d7da1eb8c25d322aa85384513.osc with exit code {exit_code}.",
-        ]
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="requires say/espeak")
-@pytest.mark.parametrize("new", [True, False])
-def test_09(nonrealtime_paths, new):
+def test_09(nonrealtime_paths):
     """
     Non-session renderable NRT input.
     """
@@ -873,13 +806,11 @@ def test_09(nonrealtime_paths, new):
     exit_code, _ = session.render(
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
-        new=new,
     )
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="requires say/espeak")
-@pytest.mark.parametrize("new", [True, False])
-def test_10(nonrealtime_paths, new):
+def test_10(nonrealtime_paths):
     """
     Non-session renderable DiskIn input.
     """
@@ -920,13 +851,11 @@ def test_10(nonrealtime_paths, new):
     exit_code, _ = session.render(
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
-        new=new,
     )
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="requires say/espeak")
-@pytest.mark.parametrize("new", [True, False])
-def test_11(nonrealtime_paths, new):
+def test_11(nonrealtime_paths):
     """
     Chained session and non-session inputs.
     """
@@ -998,7 +927,6 @@ def test_11(nonrealtime_paths, new):
     exit_code, _ = session_two.render(
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
-        new=new,
     )
 
 
@@ -1015,15 +943,13 @@ def test_11(nonrealtime_paths, new):
         [11, 14, 11],  # interleaved repeats
     ),
 )
-@pytest.mark.parametrize("new", [True, False])
-async def test_render_async(caplog, nonrealtime_paths, durations, new):
+async def test_render_async(caplog, nonrealtime_paths, durations):
     session = pytest.helpers.make_test_session()
     with caplog.at_level(logging.DEBUG, logger="supriya.nonrealtime"):
         tasks = [
             session.render_async(
                 duration=duration,
                 render_directory_path=nonrealtime_paths.render_directory_path,
-                new=new,
             )
             for duration in durations
         ]
