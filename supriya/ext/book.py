@@ -70,12 +70,12 @@ class PlayExtension(Extension):
             base64.b64decode("".join(node[0].split()))
         )
         if callable(renderable):
-            coroutine, path = renderable()
+            render_function, path = renderable()
         else:
-            coroutine, path = renderable.__render__(
+            render_function, path = renderable.__render__(
                 render_directory_path=output_path, **render_kwargs
             )
-        asyncio.run(coroutine)
+        asyncio.run(render_function())
         return websafe_audio(path)
 
     @staticmethod

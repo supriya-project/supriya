@@ -9,7 +9,7 @@ import sndhdr
 import wave
 from os import PathLike
 from pathlib import Path
-from typing import Coroutine, Optional, Tuple
+from typing import Callable, Coroutine, Optional, Tuple
 
 from uqbar.io import find_executable
 from uqbar.strings import to_dash_case
@@ -97,7 +97,7 @@ class Say(SupriyaValueObject):
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Tuple[Coroutine[None, None, int], Path]:
+    ) -> Tuple[Callable[[], Coroutine[None, None, int]], Path]:
         async def render():
             if path.exists():
                 return 0
@@ -118,7 +118,7 @@ class Say(SupriyaValueObject):
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
         )
-        return render(), path
+        return render, path
 
     ### PRIVATE METHODS ###
 

@@ -175,7 +175,7 @@ class Buffer(ServerObject):
 
     def __render__(
         self, **kwargs
-    ) -> Callable[[], Tuple[Coroutine[None, None, int], Path]]:
+    ) -> Callable[[], Tuple[Callable[[], Coroutine[None, None, int]], Path]]:
         with tempfile.TemporaryDirectory() as temp_directory:
             file_path = Path(temp_directory) / "tmp.wav"
             self.write(file_path=file_path, header_format="wav", sample_format="int32")

@@ -6,7 +6,7 @@ import platform
 import subprocess
 from os import PathLike
 from pathlib import Path
-from typing import Coroutine, Optional, Tuple
+from typing import Callable, Coroutine, Optional, Tuple
 
 from uqbar.graphs import Grapher
 from uqbar.io import open_path
@@ -26,8 +26,8 @@ class PlayMemo:
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Tuple[Coroutine[None, None, int], Path]:
-        async def render():
+    ) -> Tuple[Callable[[], Coroutine[None, None, int]], Path]:
+        async def render_function():
             path.write_bytes(self.contents)
             return 0
 
@@ -37,7 +37,7 @@ class PlayMemo:
             path = Path(render_directory_path or supriya.output_path) / file_name
         else:
             path = Path(output_file_path)
-        return render(), path
+        return render_function, path
 
     @classmethod
     def from_path(cls, path: Path) -> "PlayMemo":
@@ -140,10 +140,10 @@ def render(
         **kwargs,
     )
     if callable(result):
-        coroutine, path = result()
+        render_function, path = result()
     else:
-        coroutine, path = result
-    exit_code = asyncio.run(coroutine)
+        render_function, path = result
+    exit_code = asyncio.run(render_function())
     return exit_code, path
 
 

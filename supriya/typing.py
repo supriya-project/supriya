@@ -34,8 +34,8 @@ class SupportsRender(Protocol):
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
     ) -> Union[
-        Callable[[], Tuple[Coroutine[None, None, int], Path]],
-        Tuple[Coroutine[None, None, int], Path],
+        Callable[[], Tuple[Callable[[], Coroutine[None, None, int]], Path]],
+        Tuple[Callable[[], Coroutine[None, None, int]], Path],
     ]:
         ...
 

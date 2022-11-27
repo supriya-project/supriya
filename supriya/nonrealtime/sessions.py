@@ -10,7 +10,18 @@ from os import PathLike
 from pathlib import Path
 from queue import PriorityQueue
 from types import MappingProxyType
-from typing import Any, Coroutine, Dict, List, Optional, Set, Tuple, Type, cast
+from typing import (
+    Any,
+    Callable,
+    Coroutine,
+    Dict,
+    List,
+    Optional,
+    Set,
+    Tuple,
+    Type,
+    cast,
+)
 
 import uqbar.io
 from uqbar.containers import DependencyGraph
@@ -67,6 +78,7 @@ logger = logging.getLogger(__name__)
 @dataclasses.dataclass
 class RenderableMemo:
     renderable: SupportsRender
+    render_function: Optional[Callable[[], Coroutine[None, None, int]]] = None
     output_filename: str = ""
 
 
@@ -259,15 +271,9 @@ class Renderer:
                 await exit_future
                 exit_code = exit_future.result()
             else:
-                # TODO: Make these handle async transparently
-                result = memo.renderable.__render__(
-                    render_directory_path=self.render_directory_path
-                )
-                if callable(result):
-                    coroutine, _ = result()
-                else:
-                    coroutine, _ = result
-                exit_code = await coroutine
+                if not memo.render_function:
+                    raise RuntimeError("How did we get here")
+                exit_code = await memo.render_function()
             if exit_code and not (
                 platform.system()
                 and (self.render_directory_path / memo.output_filename).exists()
@@ -310,9 +316,10 @@ class Renderer:
                     render_directory_path=self.render_directory_path
                 )
                 if callable(result):
-                    _, path = result()
+                    render_function, path = result()
                 else:
-                    _, path = result
+                    render_function, path = result
+                memo.render_function = render_function
                 memo.output_filename = path.name
 
     ### PUBLIC METHODS ###
@@ -348,7 +355,10 @@ class Renderer:
         parts = [".." for _ in render_path.parts] + [target_path]
         return Path().joinpath(*parts)
 
-    def render(self) -> Tuple[Coroutine, Path]:
+    def render(self) -> Tuple[Callable[[], Coroutine[None, None, int]], Path]:
+        def render_function():
+            return self._render_dependency_graph(dependency_graph, renderable_memos)
+
         dependency_graph, renderable_memos = self._build_dependency_graph()
         self._xref_dependency_graph(dependency_graph, renderable_memos)
         path = (
@@ -356,8 +366,7 @@ class Renderer:
             or self.render_directory_path
             / renderable_memos[self.session].output_filename
         )
-        coroutine = self._render_dependency_graph(dependency_graph, renderable_memos)
-        return coroutine, path
+        return render_function, path
 
 
 class Session:
@@ -545,7 +554,7 @@ class Session:
         sample_format=SampleFormat.INT24,
         sample_rate=44100,
         **kwargs,
-    ) -> Tuple[Coroutine, Path]:
+    ) -> Tuple[Callable[[], Coroutine[None, None, int]], Path]:
         duration = (duration or self.duration) or 0.0
         if not (0.0 < duration < float("inf")):
             raise ValueError(f"Invalid duration: {duration}")
@@ -1379,7 +1388,7 @@ class Session:
         sample_rate: int = 44100,
         **kwargs,
     ) -> Tuple[int, Path]:
-        coroutine, path = self.__render__(
+        render_function, path = self.__render__(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
             duration=duration,
@@ -1389,7 +1398,7 @@ class Session:
             sample_rate=sample_rate,
             **kwargs,
         )
-        return asyncio.run(coroutine), path
+        return asyncio.run(render_function()), path
 
     async def render_async(
         self,
@@ -1402,7 +1411,7 @@ class Session:
         sample_rate: int = 44100,
         **kwargs,
     ) -> Tuple[int, Path]:
-        coroutine, path = self.__render__(
+        render_function, path = self.__render__(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
             duration=duration,
@@ -1412,7 +1421,7 @@ class Session:
             sample_rate=sample_rate,
             **kwargs,
         )
-        return await coroutine, path
+        return await render_function(), path
 
     @SessionObject.require_offset
     def set_rand_seed(
