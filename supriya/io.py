@@ -6,7 +6,7 @@ import platform
 import subprocess
 from os import PathLike
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Coroutine, Optional, Tuple
 
 from uqbar.graphs import Grapher
 from uqbar.io import open_path
@@ -21,20 +21,23 @@ class PlayMemo:
     contents: bytes
     suffix: str
 
-    def __render__(
+    def __call__(
         self,
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Path:
+    ) -> Tuple[Coroutine[None, None, int], Path]:
+        async def render():
+            path.write_bytes(self.contents)
+            return 0
+
         if output_file_path is None:
             hexdigest = hashlib.sha1(self.contents).hexdigest()
             file_name = f"audio-{hexdigest}{self.suffix}"
-            file_path = Path(render_directory_path or supriya.output_path) / file_name
+            path = Path(render_directory_path or supriya.output_path) / file_name
         else:
-            file_path = Path(output_file_path)
-        file_path.write_bytes(self.contents)
-        return file_path
+            path = Path(output_file_path)
+        return render(), path
 
     @classmethod
     def from_path(cls, path: Path) -> "PlayMemo":
@@ -131,11 +134,15 @@ def render(
     render_directory_path: Optional[PathLike] = None,
     **kwargs,
 ) -> Tuple[int, Path]:
-    coroutine, path = renderable.__render__(
+    result = renderable.__render__(
         output_file_path=output_file_path,
         render_directory_path=render_directory_path,
         **kwargs,
     )
+    if callable(result):
+        coroutine, path = result()
+    else:
+        coroutine, path = result
     exit_code = asyncio.run(coroutine)
     return exit_code, path
 

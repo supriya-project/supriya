@@ -259,9 +259,13 @@ class Renderer:
                 exit_code = exit_future.result()
             else:
                 # TODO: Make these handle async transparently
-                coroutine, _ = memo.renderable.__render__(
+                result = memo.renderable.__render__(
                     render_directory_path=self.render_directory_path
                 )
+                if callable(result):
+                    coroutine, _ = result()
+                else:
+                    coroutine, _ = result
                 exit_code = await coroutine
             if exit_code:
                 raise RuntimeError(f"Non-zero exit code: {exit_code}")
@@ -298,10 +302,13 @@ class Renderer:
                     ).with_suffix(f".{self.header_format.name.lower()}")
                 )
             else:
-                # TODO: Make these handle async transparently
-                _, path = memo.renderable.__render__(
+                result = memo.renderable.__render__(
                     render_directory_path=self.render_directory_path
                 )
+                if callable(result):
+                    _, path = result()
+                else:
+                    _, path = result
                 memo.output_filename = path.name
 
     ### PUBLIC METHODS ###

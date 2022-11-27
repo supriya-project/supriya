@@ -1,6 +1,15 @@
 from os import PathLike
 from pathlib import Path
-from typing import Coroutine, Dict, Optional, SupportsFloat, SupportsInt, Tuple, Union
+from typing import (
+    Callable,
+    Coroutine,
+    Dict,
+    Optional,
+    SupportsFloat,
+    SupportsInt,
+    Tuple,
+    Union,
+)
 
 try:
     from typing import Protocol
@@ -24,7 +33,10 @@ class SupportsRender(Protocol):
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Tuple[Coroutine[None, None, int], Path]:
+    ) -> Union[
+        Callable[[], Tuple[Coroutine[None, None, int], Path]],
+        Tuple[Coroutine[None, None, int], Path],
+    ]:
         ...
 
 

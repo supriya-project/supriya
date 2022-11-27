@@ -69,9 +69,12 @@ class PlayExtension(Extension):
         renderable, render_kwargs = pickle.loads(
             base64.b64decode("".join(node[0].split()))
         )
-        coroutine, path = renderable.__render__(
-            render_directory_path=output_path, **render_kwargs
-        )
+        if callable(renderable):
+            coroutine, path = renderable()
+        else:
+            coroutine, path = renderable.__render__(
+                render_directory_path=output_path, **render_kwargs
+            )
         asyncio.run(coroutine)
         return websafe_audio(path)
 

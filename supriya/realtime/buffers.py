@@ -1,8 +1,9 @@
 import os
-import pathlib
 import tempfile
 from collections.abc import Sequence
 from os import PathLike
+from pathlib import Path
+from typing import Callable, Coroutine, Tuple
 
 import supriya.exceptions
 from supriya.system import SupriyaValueObject
@@ -168,13 +169,15 @@ class Buffer(ServerObject):
         import librosa
 
         with tempfile.TemporaryDirectory() as temp_directory:
-            file_path = pathlib.Path(temp_directory) / "tmp.wav"
+            file_path = Path(temp_directory) / "tmp.wav"
             self.write(file_path=file_path, header_format="wav", sample_format="int32")
             return librosa.load(file_path, mono=False, sr=None)
 
-    def __render__(self, **kwargs) -> PlayMemo:
+    def __render__(
+        self, **kwargs
+    ) -> Callable[[], Tuple[Coroutine[None, None, int], Path]]:
         with tempfile.TemporaryDirectory() as temp_directory:
-            file_path = pathlib.Path(temp_directory) / "tmp.wav"
+            file_path = Path(temp_directory) / "tmp.wav"
             self.write(file_path=file_path, header_format="wav", sample_format="int32")
             return PlayMemo.from_path(file_path)
 
