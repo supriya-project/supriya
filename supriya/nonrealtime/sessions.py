@@ -9,7 +9,7 @@ from os import PathLike
 from pathlib import Path
 from queue import PriorityQueue
 from types import MappingProxyType
-from typing import Coroutine, Dict, List, Optional, Set, Tuple, Type, cast
+from typing import Any, Coroutine, Dict, List, Optional, Set, Tuple, Type, cast
 
 import uqbar.io
 from uqbar.containers import DependencyGraph
@@ -296,7 +296,7 @@ class Renderer:
 
     ### PUBLIC METHODS ###
 
-    def to_lists(self) -> List:
+    def to_lists(self) -> List[Any]:
         osc_bundles = self.to_osc_bundles()
         return [osc_bundle.to_list() for osc_bundle in osc_bundles]
 
@@ -420,7 +420,7 @@ class Session:
         output_bus_channel_count=None,
         input_=None,
         padding: Optional[float] = None,
-    ):
+    ) -> None:
         import supriya.nonrealtime
 
         self._options = scsynth.Options(
@@ -1367,12 +1367,12 @@ class Session:
     def render(
         self,
         output_file_path: Optional[PathLike] = None,
-        render_directory_path=None,
+        render_directory_path: Optional[PathLike] = None,
         duration: Optional[float] = None,
-        header_format=HeaderFormat.AIFF,
+        header_format: HeaderFormatLike = HeaderFormat.AIFF,
         input_file_path=None,
-        sample_format=SampleFormat.INT24,
-        sample_rate=44100,
+        sample_format: SampleFormatLike = SampleFormat.INT24,
+        sample_rate: int = 44100,
         **kwargs,
     ) -> Tuple[int, Path]:
         coroutine, path = self.__render__(
@@ -1390,12 +1390,12 @@ class Session:
     async def render_async(
         self,
         output_file_path: Optional[PathLike] = None,
-        render_directory_path=None,
+        render_directory_path: Optional[PathLike] = None,
         duration: Optional[float] = None,
-        header_format=HeaderFormat.AIFF,
-        input_file_path=None,
-        sample_format=SampleFormat.INT24,
-        sample_rate=44100,
+        header_format: HeaderFormatLike = HeaderFormat.AIFF,
+        input_file_path: Optional[PathLike] = None,
+        sample_format: SampleFormatLike = SampleFormat.INT24,
+        sample_rate: int = 44100,
         **kwargs,
     ) -> Tuple[int, Path]:
         coroutine, path = self.__render__(

@@ -1,3 +1,4 @@
+import asyncio
 import base64
 import hashlib
 import pathlib
@@ -68,9 +69,11 @@ class PlayExtension(Extension):
         renderable, render_kwargs = pickle.loads(
             base64.b64decode("".join(node[0].split()))
         )
-        return websafe_audio(
-            renderable.__render__(render_directory_path=output_path, **render_kwargs)
+        coroutine, path = renderable.__render__(
+            render_directory_path=output_path, **render_kwargs
         )
+        asyncio.run(coroutine)
+        return websafe_audio(path)
 
     @staticmethod
     def visit_block_html(self, node):
