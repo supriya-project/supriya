@@ -3,6 +3,7 @@ import bisect
 import dataclasses
 import hashlib
 import logging
+import platform
 import shutil
 import struct
 from os import PathLike
@@ -267,7 +268,10 @@ class Renderer:
                 else:
                     coroutine, _ = result
                 exit_code = await coroutine
-            if exit_code:
+            if exit_code and not (
+                platform.system()
+                and (self.render_directory_path / memo.output_filename).exists()
+            ):
                 raise RuntimeError(f"Non-zero exit code: {exit_code}")
         if self.output_file_path is not None:
             shutil.copy(
