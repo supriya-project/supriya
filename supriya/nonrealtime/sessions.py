@@ -163,16 +163,12 @@ class Renderer:
         dependency_graph = DependencyGraph()
         dependency_graph_stack: List[SupportsRender] = [self.session]
         renderable_memos: Dict[SupportsRender, RenderableMemo] = {}
-        print("Origin:", self.session, id(self.session))
         while dependency_graph_stack:
             renderable = dependency_graph_stack.pop()
-            print("Popped:", renderable, id(renderable))
             if renderable in renderable_memos:
-                print("Skipping:", renderable, id(renderable))
                 continue
             if not hasattr(renderable, "__render__"):
                 raise TypeError("Non-renderable: {renderable!r}")
-            print("Processing:", renderable, id(renderable))
             dependency_graph.add(renderable)
             if isinstance(renderable, Session):
                 renderable_memos[renderable] = memo = SessionRenderableMemo(

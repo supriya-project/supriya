@@ -2,14 +2,14 @@
 Tools for interacting with soundfiles.
 """
 import aifc
+import asyncio
 import hashlib
-import pathlib
 import shlex
 import sndhdr
-import subprocess
 import wave
 from os import PathLike
-from typing import Optional
+from pathlib import Path
+from typing import Coroutine, Optional, Tuple
 
 from uqbar.io import find_executable
 from uqbar.strings import to_dash_case
@@ -96,49 +96,29 @@ class Say(SupriyaValueObject):
         self,
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
-        print_transcript: bool = False,
         **kwargs,
-    ) -> pathlib.Path:
-        file_path = self._build_output_file_path(
+    ) -> Tuple[Coroutine[None, None, int], Path]:
+        async def render():
+            if path.exists():
+                return 0
+            if find_executable("say"):
+                command = ["say", "-o", str(path)]
+                if self.voice:
+                    command.extend(["-v", self.voice])
+            else:
+                command = ["espeak", "-w", str(path)]
+            command.append(shlex.quote(self.text))
+            process = await asyncio.create_subprocess_exec(
+                *command, cwd=render_directory_path
+            )
+            await process.communicate()
+            return process.returncode
+
+        path = self._build_output_file_path(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
         )
-        assert file_path.parent.exists()
-        if file_path.is_absolute():
-            cwd = pathlib.Path.cwd()
-            try:
-                relative_file_path = file_path.relative_to(cwd)
-            except ValueError:
-                relative_file_path = file_path
-        if print_transcript:
-            print("Rendering {}".format(relative_file_path))
-        if find_executable("say"):
-            command_parts = ["say"]
-            command_parts.extend(["-o", str(relative_file_path)])
-            if self.voice:
-                command_parts.extend(["-v", self.voice])
-        else:
-            command_parts = ["espeak", "-w", str(relative_file_path)]
-        command_parts.append(shlex.quote(self.text))
-        command = " ".join(command_parts)
-        if print_transcript:
-            print("    Command: {}".format(command))
-        if file_path.exists():
-            if print_transcript:
-                print(
-                    "    Skipping {}. File already exists.".format(relative_file_path)
-                )
-            return file_path
-        exit_code = subprocess.call(command, shell=True)
-        if print_transcript:
-            print(
-                "    Rendered {} with exit code {}.".format(
-                    relative_file_path, exit_code
-                )
-            )
-        if exit_code:
-            raise RuntimeError
-        return file_path
+        return render(), path
 
     ### PRIVATE METHODS ###
 
@@ -149,19 +129,19 @@ class Say(SupriyaValueObject):
             md5.update(self.voice.encode())
         md5 = md5.hexdigest()
         file_path = "{}-{}.aiff".format(to_dash_case(type(self).__name__), md5)
-        return pathlib.Path(file_path)
+        return Path(file_path)
 
     def _build_output_file_path(
         self, output_file_path=None, render_directory_path=None
-    ) -> pathlib.Path:
+    ) -> Path:
         if output_file_path:
-            output_file_path = pathlib.Path(output_file_path).resolve()
+            output_file_path = Path(output_file_path).resolve()
         elif render_directory_path:
-            render_directory_path = pathlib.Path(render_directory_path).resolve()
+            render_directory_path = Path(render_directory_path).resolve()
             output_file_path = render_directory_path / self._build_file_path()
         else:
             output_file_path = self._build_file_path()
-            render_directory_path = pathlib.Path(supriya.output_path).resolve()
+            render_directory_path = Path(supriya.output_path).resolve()
             output_file_path = render_directory_path / self._build_file_path()
         return output_file_path
 
@@ -181,7 +161,7 @@ class SoundFile(SupriyaObject):
     ### INITIALIZER ###
 
     def __init__(self, file_path):
-        self._file_path = pathlib.Path(file_path)
+        self._file_path = Path(file_path)
         if not self._file_path.exists():
             raise ValueError(self._file_path)
         headers = sndhdr.what(self._file_path)
