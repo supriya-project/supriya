@@ -55,3 +55,10 @@ Fake Docs
 ::
 
     >>> supriya.play(session_three)
+
+::
+
+    >>> server = supriya.Server().boot()
+    >>> buffer_ = server.add_buffer(channel_count=1, frame_count=512)
+    >>> supriya.play(buffer_)
+    >>> supriya.plot(buffer_)
