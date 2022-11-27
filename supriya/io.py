@@ -70,7 +70,9 @@ class Player:
         result = self.renderable.__render__(**self.render_kwargs)
         if hasattr(result, "__render__"):
             result = result.__render__(**self.render_kwargs)
-        return result
+        coroutine, path = result
+        exit_code = asyncio.run(coroutine)
+        return exit_code, path
 
 
 class Plotter:
