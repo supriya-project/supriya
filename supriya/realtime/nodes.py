@@ -13,8 +13,7 @@ import supriya
 from supriya.enums import AddAction, NodeAction
 from supriya.exceptions import NodeNotAllocated, ServerOffline
 
-from ..commands import NodeQueryRequest, NodeRunRequest
-from ..querytree import QueryTreeGroup, QueryTreeSynth
+from ..commands import NodeRunRequest
 from ..synthdefs.synthdefs import SynthDef
 from ..typing import AddActionLike
 from .interfaces import GroupInterface, SynthInterface  # noqa
