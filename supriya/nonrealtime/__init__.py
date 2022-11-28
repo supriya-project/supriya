@@ -5,8 +5,7 @@ from .bases import SessionObject
 from .buffers import Buffer, BufferGroup
 from .buses import AudioInputBusGroup, AudioOutputBusGroup, Bus, BusGroup
 from .nodes import Group, Node, RootNode, Synth
-from .renderer import SessionRenderer
-from .sessions import Session
+from .sessions import Renderer, Session
 from .states import DoNotPropagate, Moment, NodeTransition, State
 
 __all__ = [
@@ -21,10 +20,10 @@ __all__ = [
     "Moment",
     "Node",
     "NodeTransition",
+    "Renderer",
     "RootNode",
     "Session",
     "SessionObject",
-    "SessionRenderer",
     "State",
     "Synth",
 ]

@@ -11,9 +11,7 @@ Fake Docs
 
 ::
 
-    >>> session_one = supriya.Session(
-    ...     name="inner-session",
-    ... )
+    >>> session_one = supriya.Session()
     >>> with session_one.at(0):
     ...     synth = session_one.add_synth(duration=10)
     ...
@@ -30,7 +28,7 @@ Fake Docs
 
 ::
 
-    >>> session_two = supriya.Session(name="middle-session")
+    >>> session_two = supriya.Session()
     >>> with session_two.at(0):
     ...     buffer_one = session_two.cue_soundfile(session_one, duration=10)
     ...     buffer_two = session_two.cue_soundfile(session_one, duration=10)
@@ -43,7 +41,7 @@ Fake Docs
 
 ::
 
-    >>> session_three = supriya.Session(name="outer-session")
+    >>> session_three = supriya.Session()
     >>> with session_three.at(0):
     ...     buffer_one = session_three.cue_soundfile(session_one, duration=10)
     ...     buffer_two = session_three.cue_soundfile(session_two, duration=10)
@@ -57,3 +55,10 @@ Fake Docs
 ::
 
     >>> supriya.play(session_three)
+
+::
+
+    >>> server = supriya.Server().boot()
+    >>> buffer_ = server.add_buffer(channel_count=1, frame_count=512)
+    >>> supriya.play(buffer_)
+    >>> supriya.plot(buffer_)

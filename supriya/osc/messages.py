@@ -182,7 +182,7 @@ class OscMessage(SupriyaValueObject):
 
     ### PUBLIC METHODS ###
 
-    def to_datagram(self):
+    def to_datagram(self) -> bytes:
         # address can be a string or (in SuperCollider) an int
         if isinstance(self.address, str):
             encoded_address = self._encode_string(self.address)
@@ -406,7 +406,7 @@ class OscBundle(SupriyaValueObject):
             bundles.append(cls(timestamp=timestamp, contents=contents))
         return bundles
 
-    def to_datagram(self, realtime=True):
+    def to_datagram(self, realtime=True) -> bytes:
         datagram = BUNDLE_PREFIX
         datagram += self._encode_date(self.timestamp, realtime=realtime)
         for content in self.contents:

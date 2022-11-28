@@ -1,24 +1,42 @@
 import asyncio
 import bisect
-import collections
-import pathlib
+import dataclasses
+import hashlib
+import logging
+import platform
+import shutil
+import struct
 from os import PathLike
+from pathlib import Path
 from queue import PriorityQueue
 from types import MappingProxyType
-from typing import Dict, List, Optional, Set, Tuple, Type
+from typing import (
+    Any,
+    Callable,
+    Coroutine,
+    Dict,
+    List,
+    Optional,
+    Set,
+    Tuple,
+    Type,
+    cast,
+)
 
 import uqbar.io
+from uqbar.containers import DependencyGraph
+from uqbar.objects import new
 
-import supriya.commands
-import supriya.intervals
-import supriya.osc
-import supriya.realtime
-import supriya.soundfiles
-import supriya.synthdefs
+import supriya
 from supriya import CalculationRate, HeaderFormat, ParameterRate, SampleFormat, scsynth
 from supriya.commands import (
+    BufferAllocateReadChannelRequest,
+    BufferAllocateReadRequest,
+    BufferAllocateRequest,
+    BufferCloseRequest,
     BufferCopyRequest,
     BufferFillRequest,
+    BufferFreeRequest,
     BufferGenerateRequest,
     BufferNormalizeRequest,
     BufferReadChannelRequest,
@@ -27,17 +45,356 @@ from supriya.commands import (
     BufferSetRequest,
     BufferWriteRequest,
     BufferZeroRequest,
+    ControlBusSetRequest,
+    NodeFreeRequest,
+    NodeMapToAudioBusRequest,
+    NodeMapToControlBusRequest,
+    NodeSetRequest,
     NothingRequest,
     Request,
     RequestBundle,
+    SynthDefReceiveRequest,
 )
+from supriya.intervals.IntervalTree import IntervalTree
 from supriya.nonrealtime.bases import SessionObject
 from supriya.nonrealtime.nodes import Synth
-from supriya.osc import OscBundle
+from supriya.osc import OscBundle, OscMessage
 from supriya.querytree import QueryTreeGroup
+from supriya.realtime import BlockAllocator, NodeIdAllocator
+from supriya.soundfiles import SoundFile
 from supriya.synthdefs import SynthDef
-from supriya.typing import AddActionLike, CalculationRateLike
+from supriya.typing import (
+    AddActionLike,
+    CalculationRateLike,
+    HeaderFormatLike,
+    SampleFormatLike,
+    SupportsRender,
+)
 from supriya.utils import iterate_nwise
+
+logger = logging.getLogger(__name__)
+
+
+@dataclasses.dataclass
+class RenderableMemo:
+    renderable: SupportsRender
+    render_function: Optional[Callable[[], Coroutine[None, None, int]]] = None
+    output_filename: str = ""
+
+
+@dataclasses.dataclass
+class SessionRenderableMemo(RenderableMemo):
+    datagram: bytes = b""
+    input_path: Optional[Path] = None
+    osc_bundles: List[OscBundle] = dataclasses.field(default_factory=list)
+    xrefable_osc_messages: List[OscMessage] = dataclasses.field(default_factory=list)
+
+
+class AsyncProcessProtocol(asyncio.SubprocessProtocol):
+    def __init__(self, exit_future: asyncio.Future) -> None:
+        self.buffer_ = ""
+        self.exit_future = exit_future
+
+    async def run(self, command: List[str], render_directory_path: Path) -> None:
+        _, _ = await asyncio.get_running_loop().subprocess_exec(
+            lambda: self,
+            *command,
+            stdin=None,
+            stderr=None,
+            start_new_session=True,
+            cwd=render_directory_path,
+        )
+
+    def handle_line(self, line: str) -> None:
+        logger.debug(f"Received: {line}")
+
+    def connection_made(self, transport):
+        self.transport = transport
+
+    def pipe_data_received(self, fd, data):
+        # *nix and OSX return full lines,
+        # but Windows will return partial lines
+        # which obligates us to reconstruct them.
+        text = self.buffer_ + data.decode().replace("\r\n", "\n")
+        if "\n" in text:
+            text, _, self.buffer_ = text.rpartition("\n")
+            for line in text.splitlines():
+                self.handle_line(line)
+        else:
+            self.buffer_ = text
+
+    def process_exited(self):
+        self.exit_future.set_result(self.transport.get_returncode())
+
+
+class Renderer:
+    """
+    Renders non-realtime sessions as audio files.
+    """
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        session: "Session",
+        *,
+        duration: Optional[float] = None,
+        executable: Optional[str] = None,
+        header_format: HeaderFormatLike = HeaderFormat.AIFF,
+        output_file_path: Optional[PathLike] = None,
+        render_directory_path: Optional[PathLike] = None,
+        sample_format: SampleFormatLike = SampleFormat.INT24,
+        sample_rate: int = 44100,
+        suppress_output: bool = False,
+        **kwargs,
+    ) -> None:
+        self.compiled_sessions: Dict = {}
+        self.dependency_graph = DependencyGraph()
+        self.duration = duration
+        self.executable = executable
+        self.header_format = HeaderFormat.from_expr(header_format)
+        self.kwargs = kwargs
+        self.prerender_tuples: List[Tuple] = []
+        self.render_directory_path = Path(
+            render_directory_path or supriya.output_path
+        ).resolve()
+        self.renderable_prefixes: Dict = {}
+        self.sample_format = SampleFormat.from_expr(sample_format)
+        self.sample_rate = int(sample_rate)
+        self.session = session
+        self.session_input_paths: Dict = {}
+        self.sessionables_to_sessions: Dict = {}
+        self.suppress_output = suppress_output
+        self.output_file_path = (
+            Path(output_file_path).resolve() if output_file_path is not None else None
+        )
+        if self.output_file_path and self.suppress_output:
+            raise ValueError
+
+    ### PRIVATE METHODS ###
+
+    def _build_datagram(self, osc_bundles: List[OscBundle]) -> bytes:
+        datagrams: List[bytes] = []
+        for osc_bundle in osc_bundles:
+            datagram = osc_bundle.to_datagram(realtime=False)
+            size = struct.pack(">i", len(datagram))
+            datagrams.append(size)
+            datagrams.append(datagram)
+        datagram = b"".join(datagrams)
+        return datagram
+
+    def _build_dependency_graph(
+        self,
+    ) -> Tuple[DependencyGraph, Dict[SupportsRender, RenderableMemo]]:
+        # Build dependency graph
+        dependency_graph = DependencyGraph()
+        dependency_graph_stack: List[SupportsRender] = [self.session]
+        renderable_memos: Dict[SupportsRender, RenderableMemo] = {}
+        while dependency_graph_stack:
+            renderable = dependency_graph_stack.pop()
+            if renderable in renderable_memos:
+                continue
+            if not hasattr(renderable, "__render__"):
+                raise TypeError("Non-renderable: {renderable!r}")
+            dependency_graph.add(renderable)
+            if isinstance(renderable, Session):
+                renderable_memos[renderable] = memo = SessionRenderableMemo(
+                    renderable=renderable,
+                    osc_bundles=renderable._to_non_xrefd_osc_bundles(
+                        self.duration if renderable is self.session else None
+                    ),
+                )
+                if hasattr(renderable.input_, "__render__"):
+                    dependency_graph_stack.append(renderable.input_)
+                    dependency_graph.add(renderable.input_, parent=renderable)
+                for osc_bundle in memo.osc_bundles:
+                    for osc_message in osc_bundle.contents:
+                        found = False
+                        for x in osc_message.contents:
+                            if hasattr(x, "__render__"):
+                                found = True
+                                dependency_graph_stack.append(x)
+                                dependency_graph.add(x, parent=renderable)
+                        if found:
+                            memo.xrefable_osc_messages.append(osc_message)
+            else:
+                renderable_memos[renderable] = RenderableMemo(renderable=renderable)
+        if not dependency_graph.is_acyclic():
+            raise RuntimeError("Cycles detected")
+        return dependency_graph, renderable_memos
+
+    def _build_file_path(
+        self, datagram: bytes, input_file_path: Optional[Path], session: "Session"
+    ) -> Path:
+        md5 = hashlib.md5()
+        md5.update(datagram)
+        hash_values = []
+        if input_file_path is not None:
+            hash_values.append(input_file_path)
+        for value in (
+            session.options.input_bus_channel_count,
+            session.options.output_bus_channel_count,
+            self.sample_rate,
+            self.header_format,
+            self.sample_format,
+        ):
+            hash_values.append(value)
+        for value in hash_values:
+            if not isinstance(value, str):
+                value = str(value)
+            value = value.encode()
+            md5.update(value)
+        return Path("session-{}.osc".format(md5.hexdigest()))
+
+    async def _render_dependency_graph(
+        self,
+        dependency_graph: DependencyGraph,
+        renderable_memos: Dict[SupportsRender, RenderableMemo],
+    ) -> int:
+        for renderable in dependency_graph:
+            memo = renderable_memos[renderable]
+            # We can skip rendering iff
+            # - We're not suppressing output (the output path is not /dev/null) AND
+            #   output already exists
+            # - We're suppressing, but the renderable is not the final session AND
+            #   output already exists
+            if (
+                not (self.suppress_output and memo.renderable is self.session)
+                and (self.render_directory_path / memo.output_filename).exists()
+            ):
+                exit_code = 0
+                continue
+            if isinstance(memo, SessionRenderableMemo):
+                session = cast(Session, memo.renderable)
+                # write the .osc file
+                (self.render_directory_path / memo.output_filename).with_suffix(
+                    ".osc"
+                ).write_bytes(memo.datagram)
+                # render the datagram
+                exit_future = asyncio.get_running_loop().create_future()
+                protocol = AsyncProcessProtocol(exit_future)
+                output_filename = memo.output_filename
+                if session is self.session and self.suppress_output:
+                    output_filename = (
+                        "NUL" if platform.system() == "Windows" else "/dev/null"
+                    )
+                command = new(session.options, **self.kwargs).serialize() + [
+                    "-N",
+                    str(Path(memo.output_filename).with_suffix(".osc")),
+                    str(memo.input_path or "_"),
+                    output_filename,
+                    str(self.sample_rate),
+                    self.header_format.name.lower(),  # Must be lowercase.
+                    self.sample_format.name.lower(),  # Must be lowercase.
+                ]
+                await protocol.run(command, self.render_directory_path)
+                await exit_future
+                exit_code = exit_future.result()
+            else:
+                if not memo.render_function:
+                    raise RuntimeError("How did we get here")
+                exit_code = await memo.render_function()
+            if (
+                exit_code
+                and not self.suppress_output
+                and not (
+                    platform.system() == "Windows"
+                    and (self.render_directory_path / memo.output_filename).exists()
+                )
+            ):
+                raise RuntimeError(f"Non-zero exit code: {exit_code}")
+        if self.output_file_path is not None:
+            shutil.copy(
+                self.render_directory_path / memo.output_filename, self.output_file_path
+            )
+        return exit_code
+
+    def _xref_dependency_graph(
+        self,
+        dependency_graph: DependencyGraph,
+        renderable_memos: Dict[SupportsRender, RenderableMemo],
+    ) -> None:
+        for renderable in dependency_graph:
+            memo = renderable_memos[renderable]
+            if isinstance(memo, SessionRenderableMemo):
+                session = cast(Session, memo.renderable)
+                for osc_message in memo.xrefable_osc_messages:
+                    contents = list(osc_message.contents)
+                    for i, x in enumerate(contents):
+                        if x in renderable_memos:
+                            contents[i] = str(renderable_memos[x].output_filename)
+                    osc_message.contents = tuple(contents)
+                input_ = session.input_
+                if input_ in renderable_memos:
+                    memo.input_path = Path(renderable_memos[input_].output_filename)
+                elif input_ is not None:
+                    memo.input_path = Path(input_)
+                memo.datagram = self._build_datagram(memo.osc_bundles)
+                memo.output_filename = str(
+                    self._build_file_path(
+                        memo.datagram, memo.input_path, session
+                    ).with_suffix(f".{self.header_format.name.lower()}")
+                )
+            else:
+                result = memo.renderable.__render__(
+                    render_directory_path=self.render_directory_path
+                )
+                if callable(result):
+                    render_function, path = result()
+                else:
+                    render_function, path = result
+                memo.render_function = render_function
+                memo.output_filename = path.name
+
+    ### PUBLIC METHODS ###
+
+    def to_lists(self) -> List[Any]:
+        osc_bundles = self.to_osc_bundles()
+        return [osc_bundle.to_list() for osc_bundle in osc_bundles]
+
+    def to_osc_bundles(self) -> List[OscBundle]:
+        dependency_graph, renderable_memos = self._build_dependency_graph()
+        self._xref_dependency_graph(dependency_graph, renderable_memos)
+        memo = cast(SessionRenderableMemo, renderable_memos[self.session])
+        return memo.osc_bundles
+
+    @classmethod
+    def get_path_relative_to_render_path(cls, target_path, render_path):
+        target_path = Path(target_path)
+        render_path = Path(render_path)
+        try:
+            return target_path.relative_to(render_path)
+        except ValueError:
+            pass
+        target_path = Path(target_path)
+        render_path = Path(render_path)
+        target_path_parents = set(target_path.parents)
+        render_path_parents = set(render_path.parents)
+        common_parents = target_path_parents.intersection(render_path_parents)
+        if not common_parents:
+            return target_path
+        common_parent = sorted(common_parents)[-1]
+        target_path = target_path.relative_to(common_parent)
+        render_path = render_path.relative_to(common_parent)
+        parts = [".." for _ in render_path.parts] + [target_path]
+        return Path().joinpath(*parts)
+
+    def render(self) -> Tuple[Callable[[], Coroutine[None, None, int]], Path]:
+        def render_function():
+            return self._render_dependency_graph(dependency_graph, renderable_memos)
+
+        dependency_graph, renderable_memos = self._build_dependency_graph()
+        self._xref_dependency_graph(dependency_graph, renderable_memos)
+        if self.suppress_output:
+            return render_function, Path(
+                "NUL" if platform.system() == "Windows" else "/dev/null"
+            )
+        path = (
+            self.output_file_path
+            or self.render_directory_path
+            / renderable_memos[self.session].output_filename
+        )
+        return render_function, path
 
 
 class Session:
@@ -46,17 +403,17 @@ class Session:
 
     ::
 
-        >>> import supriya.nonrealtime
-        >>> session = supriya.nonrealtime.Session()
+        >>> from supriya.nonrealtime import Session
+        >>> session = Session()
 
     ::
 
-        >>> import supriya.synthdefs
-        >>> import supriya.ugens
-        >>> builder = supriya.synthdefs.SynthDefBuilder(frequency=440)
+        >>> from supriya.synthdefs import SynthDefBuilder
+        >>> from supriya.ugens import Out, SinOsc
+        >>> builder = SynthDefBuilder(frequency=440)
         >>> with builder:
-        ...     out = supriya.ugens.Out.ar(
-        ...         source=supriya.ugens.SinOsc.ar(
+        ...     out = Out.ar(
+        ...         source=SinOsc.ar(
         ...             frequency=builder["frequency"],
         ...         )
         ...     )
@@ -96,8 +453,6 @@ class Session:
 
     ### CLASS VARIABLES ###
 
-    __is_terminal_ajv_list_item__ = True
-
     _ordered_buffer_post_alloc_request_types: Tuple[Type[Request], ...] = (
         BufferReadRequest,
         BufferReadChannelRequest,
@@ -122,9 +477,8 @@ class Session:
         input_bus_channel_count=None,
         output_bus_channel_count=None,
         input_=None,
-        name: Optional[str] = None,
         padding: Optional[float] = None,
-    ):
+    ) -> None:
         import supriya.nonrealtime
 
         self._options = scsynth.Options(
@@ -134,18 +488,16 @@ class Session:
         )
 
         self._active_moments: List[supriya.nonrealtime.Moment] = []
-        self._buffers = supriya.intervals.IntervalTree(accelerated=True)
+        self._buffers = IntervalTree(accelerated=True)
         self._buffers_by_seesion_id: Dict = {}
-        self._buses: Dict = collections.OrderedDict()
+        self._buses: Dict = {}
         self._buses_by_session_id: Dict = {}
-        self._name = name
-        self._nodes = supriya.intervals.IntervalTree(accelerated=True)
+        self._nodes = IntervalTree(accelerated=True)
         self._nodes_by_session_id: Dict = {}
         self._offsets: List[float] = []
         self._root_node = supriya.nonrealtime.RootNode(self)
         self._session_ids: Dict = {}
         self._states: Dict = {}
-        self._transcript = None
 
         if input_ and not self.is_session_like(input_):
             input_ = str(input_)
@@ -224,20 +576,30 @@ class Session:
         self,
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
+        duration: Optional[float] = None,
+        header_format=HeaderFormat.AIFF,
+        input_file_path=None,
+        sample_format=SampleFormat.INT24,
+        sample_rate=44100,
         **kwargs,
-    ) -> pathlib.Path:
-        _, file_path = self.render(
+    ) -> Tuple[Callable[[], Coroutine[None, None, int]], Path]:
+        duration = (duration or self.duration) or 0.0
+        if not (0.0 < duration < float("inf")):
+            raise ValueError(f"Invalid duration: {duration}")
+        renderer = Renderer(
+            session=self,
+            duration=duration,
+            header_format=header_format,
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
+            sample_format=sample_format,
+            sample_rate=sample_rate,
             **kwargs,
         )
-        return file_path
+        return renderer.render()
 
     def __repr__(self) -> str:
         return "<{}>".format(type(self).__name__)
-
-    def __session__(self) -> "Session":
-        return self
 
     ### PRIVATE METHODS ###
 
@@ -313,10 +675,8 @@ class Session:
         output_count = self._options.output_bus_channel_count
         first_private_bus_id = input_count + output_count
         allocators = {
-            CalculationRate.AUDIO: supriya.realtime.BlockAllocator(
-                heap_minimum=first_private_bus_id
-            ),
-            CalculationRate.CONTROL: supriya.realtime.BlockAllocator(),
+            CalculationRate.AUDIO: BlockAllocator(heap_minimum=first_private_bus_id),
+            CalculationRate.CONTROL: BlockAllocator(),
         }
         mapping = {}
         if output_count:
@@ -345,7 +705,7 @@ class Session:
         return mapping
 
     def _build_id_mapping_for_nodes(self):
-        allocator = supriya.realtime.NodeIdAllocator()
+        allocator = NodeIdAllocator()
         mapping = {self.root_node: 0}
         for offset in self.offsets[1:]:
             state = self.states[offset]
@@ -370,9 +730,7 @@ class Session:
         requests = []
         if offset in bus_settings:
             index_value_pairs = sorted(bus_settings[offset].items())
-            request = supriya.commands.ControlBusSetRequest(
-                index_value_pairs=index_value_pairs
-            )
+            request = ControlBusSetRequest(index_value_pairs=index_value_pairs)
             requests.append(request)
         return requests
 
@@ -386,19 +744,19 @@ class Session:
             arguments = dict(
                 buffer_id=id_mapping[buffer_], frame_count=buffer_.frame_count
             )
-            request_class = supriya.commands.BufferAllocateRequest
+            request_class = BufferAllocateRequest
             if buffer_.file_path is not None:
-                request_class = supriya.commands.BufferAllocateReadRequest
+                request_class = BufferAllocateReadRequest
                 arguments["file_path"] = buffer_.file_path
                 arguments["starting_frame"] = buffer_.starting_frame
                 channel_indices = buffer_.channel_count
                 if isinstance(channel_indices, int):
                     channel_indices = tuple(range(buffer_.channel_count))
                     arguments["channel_indices"] = channel_indices
-                    request_class = supriya.commands.BufferAllocateReadChannelRequest
+                    request_class = BufferAllocateReadChannelRequest
                 elif isinstance(buffer_.channel_count, tuple):
                     arguments["channel_indices"] = channel_indices
-                    request_class = supriya.commands.BufferAllocateReadChannelRequest
+                    request_class = BufferAllocateReadChannelRequest
             else:
                 arguments["channel_count"] = buffer_.channel_count or 1
                 arguments["frame_count"] = arguments["frame_count"] or 1
@@ -418,11 +776,9 @@ class Session:
             return requests
         for buffer_ in sorted(stop_buffers, key=lambda x: x.session_id):
             if buffer_open_states[id_mapping[buffer_]]:
-                close_request = supriya.commands.BufferCloseRequest(
-                    buffer_id=id_mapping[buffer_]
-                )
+                close_request = BufferCloseRequest(buffer_id=id_mapping[buffer_])
                 requests.append(close_request)
-            request = supriya.commands.BufferFreeRequest(buffer_id=id_mapping[buffer_])
+            request = BufferFreeRequest(buffer_id=id_mapping[buffer_])
             requests.append(request)
             del buffer_open_states[id_mapping[buffer_]]
         return requests
@@ -445,17 +801,15 @@ class Session:
             if not buffer_requests:
                 continue
             if request_type in (
-                supriya.commands.BufferReadRequest,
-                supriya.commands.BufferReadChannelRequest,
-                supriya.commands.BufferWriteRequest,
+                BufferReadRequest,
+                BufferReadChannelRequest,
+                BufferWriteRequest,
             ):
                 for request in buffer_requests:
                     buffer_id = request.buffer_id
                     open_state = buffer_open_states[buffer_id]
                     if open_state:
-                        close_request = supriya.commands.BufferCloseRequest(
-                            buffer_id=buffer_id
-                        )
+                        close_request = BufferCloseRequest(buffer_id=buffer_id)
                         requests.append(close_request)
                     requests.append(request)
                     open_state = bool(request.leave_open)
@@ -476,17 +830,15 @@ class Session:
                                 payload[key] = id_mapping[value]
                         except TypeError:  # unhashable
                             continue
-                    if event_type is supriya.commands.BufferReadRequest:
+                    if event_type is BufferReadRequest:
                         if "channel_indices" in payload:
                             if payload["channel_indices"] is not None:
-                                event = supriya.commands.BufferReadChannelRequest(
-                                    **payload
-                                )
+                                event = BufferReadChannelRequest(**payload)
                             else:
                                 payload.pop("channel_indices")
-                                event = supriya.commands.BufferReadRequest(**payload)
+                                event = BufferReadRequest(**payload)
                         else:
-                            event = supriya.commands.BufferReadRequest(**payload)
+                            event = BufferReadRequest(**payload)
                     else:
                         event = event_type(**payload)
                     offset_settings = buffer_settings.setdefault(offset, {})
@@ -577,16 +929,16 @@ class Session:
             free_ids.sort()
             gate_ids.sort()
             if free_ids:
-                request = supriya.commands.NodeFreeRequest(node_ids=free_ids)
+                request = NodeFreeRequest(node_ids=free_ids)
                 requests.append(request)
             if gate_ids:
                 for node_id in gate_ids:
-                    request = supriya.commands.NodeSetRequest(node_id=node_id, gate=0)
+                    request = NodeSetRequest(node_id=node_id, gate=0)
                     requests.append(request)
         return requests
 
     def _collect_node_settings(self, offset, state, id_mapping):
-        result = collections.OrderedDict()
+        result = {}
         if state.nodes_to_children is None:
             # Current state is sparse;
             # Use previous non-sparse state's nodes to order settings.
@@ -627,10 +979,7 @@ class Session:
                 if isinstance(value, bus_prototype):
                     if value is None:
                         c_settings[key] = -1
-                    elif (
-                        value.calculation_rate
-                        == supriya.realtime.CalculationRate.CONTROL
-                    ):
+                    elif value.calculation_rate == CalculationRate.CONTROL:
                         c_settings[key] = id_mapping[value]
                     else:
                         a_settings[key] = id_mapping[value]
@@ -639,17 +988,13 @@ class Session:
                         value = id_mapping[value]
                     n_settings[key] = value
             if n_settings:
-                request = supriya.commands.NodeSetRequest(node_id=node_id, **n_settings)
+                request = NodeSetRequest(node_id=node_id, **n_settings)
                 requests.append(request)
             if a_settings:
-                request = supriya.commands.NodeMapToAudioBusRequest(
-                    node_id=node_id, **a_settings
-                )
+                request = NodeMapToAudioBusRequest(node_id=node_id, **a_settings)
                 requests.append(request)
             if c_settings:
-                request = supriya.commands.NodeMapToControlBusRequest(
-                    node_id=node_id, **c_settings
-                )
+                request = NodeMapToControlBusRequest(node_id=node_id, **c_settings)
                 requests.append(request)
         return requests
 
@@ -721,7 +1066,7 @@ class Session:
             visited_synthdefs.add(node.synthdef)
         synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
         for synthdef in synthdefs:
-            request = supriya.commands.SynthDefReceiveRequest(
+            request = SynthDefReceiveRequest(
                 synthdefs=synthdef, use_anonymous_names=True
             )
             requests.append(request)
@@ -792,7 +1137,7 @@ class Session:
     def _setup_buses(self):
         import supriya.nonrealtime
 
-        self._buses = collections.OrderedDict()
+        self._buses = {}
         self._audio_input_bus_group = None
         if self._options.input_bus_channel_count:
             self._audio_input_bus_group = supriya.nonrealtime.AudioInputBusGroup(self)
@@ -1012,10 +1357,10 @@ class Session:
         offset: Optional[float] = None,
     ) -> "supriya.nonrealtime.buffers.Buffer":
         if isinstance(file_path, str):
-            file_path = pathlib.Path(file_path)
-        if isinstance(file_path, pathlib.Path):
+            file_path = Path(file_path)
+        if isinstance(file_path, Path):
             assert file_path.exists()
-            soundfile = supriya.soundfiles.SoundFile(str(file_path))
+            soundfile = SoundFile(str(file_path))
             channel_count = channel_count or soundfile.channel_count
         elif isinstance(file_path, type(self)):
             channel_count = channel_count or len(file_path.audio_output_bus_group)
@@ -1063,54 +1408,48 @@ class Session:
     def render(
         self,
         output_file_path: Optional[PathLike] = None,
+        render_directory_path: Optional[PathLike] = None,
         duration: Optional[float] = None,
-        header_format=HeaderFormat.AIFF,
+        header_format: HeaderFormatLike = HeaderFormat.AIFF,
         input_file_path=None,
-        render_directory_path=None,
-        sample_format=SampleFormat.INT24,
-        sample_rate=44100,
+        sample_format: SampleFormatLike = SampleFormat.INT24,
+        sample_rate: int = 44100,
         **kwargs,
-    ) -> Tuple[int, pathlib.Path]:
-        return asyncio.run(
-            self.render_async(
-                output_file_path=output_file_path,
-                duration=duration,
-                header_format=header_format,
-                input_file_path=input_file_path,
-                render_directory_path=render_directory_path,
-                sample_format=sample_format,
-                sample_rate=sample_rate,
-                **kwargs,
-            )
+    ) -> Tuple[int, Path]:
+        render_function, path = self.__render__(
+            output_file_path=output_file_path,
+            render_directory_path=render_directory_path,
+            duration=duration,
+            header_format=header_format,
+            input_file_path=input_file_path,
+            sample_format=sample_format,
+            sample_rate=sample_rate,
+            **kwargs,
         )
+        return asyncio.run(render_function()), path
 
     async def render_async(
         self,
         output_file_path: Optional[PathLike] = None,
+        render_directory_path: Optional[PathLike] = None,
         duration: Optional[float] = None,
-        header_format=HeaderFormat.AIFF,
-        input_file_path=None,
-        render_directory_path=None,
-        sample_format=SampleFormat.INT24,
-        sample_rate=44100,
+        header_format: HeaderFormatLike = HeaderFormat.AIFF,
+        input_file_path: Optional[PathLike] = None,
+        sample_format: SampleFormatLike = SampleFormat.INT24,
+        sample_rate: int = 44100,
         **kwargs,
-    ) -> Tuple[int, pathlib.Path]:
-        import supriya.nonrealtime
-
-        duration = (duration or self.duration) or 0.0
-        if not (0.0 < duration < float("inf")):
-            raise ValueError(f"Invalid duration: {duration}")
-        renderer = supriya.nonrealtime.SessionRenderer(
-            session=self,
-            header_format=header_format,
+    ) -> Tuple[int, Path]:
+        render_function, path = self.__render__(
+            output_file_path=output_file_path,
             render_directory_path=render_directory_path,
+            duration=duration,
+            header_format=header_format,
+            input_file_path=input_file_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
+            **kwargs,
         )
-        exit_code, file_path = await renderer.render(
-            output_file_path, duration=duration, **kwargs
-        )
-        return exit_code, file_path
+        return await render_function(), path
 
     @SessionObject.require_offset
     def set_rand_seed(
@@ -1131,15 +1470,14 @@ class Session:
         sample_format=SampleFormat.INT24,
         sample_rate: int = 44100,
     ) -> List:
-        import supriya.nonrealtime
-
-        renderer = supriya.nonrealtime.SessionRenderer(
-            session=self,
+        renderer = Renderer(
+            duration=duration,
             header_format=header_format,
             sample_format=sample_format,
             sample_rate=sample_rate,
+            session=self,
         )
-        return renderer.to_lists(duration=duration)
+        return renderer.to_lists()
 
     def to_osc_bundles(
         self,
@@ -1148,15 +1486,14 @@ class Session:
         sample_format=SampleFormat.INT24,
         sample_rate: int = 44100,
     ) -> List[OscBundle]:
-        import supriya.nonrealtime
-
-        renderer = supriya.nonrealtime.SessionRenderer(
-            session=self,
+        renderer = Renderer(
+            duration=duration,
             header_format=header_format,
             sample_format=sample_format,
             sample_rate=sample_rate,
+            session=self,
         )
-        return renderer.to_osc_bundles(duration=duration)
+        return renderer.to_osc_bundles()
 
     def to_strings(self, include_controls=False, include_timespans=False) -> str:
         result = []
@@ -1229,10 +1566,6 @@ class Session:
         return self.options.input_bus_channel_count
 
     @property
-    def name(self) -> Optional[str]:
-        return self._name
-
-    @property
     def nodes(self):
         return self._nodes
 
@@ -1263,7 +1596,3 @@ class Session:
     @property
     def states(self):
         return self._states
-
-    @property
-    def transcript(self):
-        return self._transcript

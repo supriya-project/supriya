@@ -8,6 +8,7 @@ uqbar_book_console_setup = ["import supriya"]
 uqbar_book_extensions = [
     "uqbar.book.extensions.GraphExtension",
     "supriya.ext.book.PlayExtension",
+    "supriya.ext.book.PlotExtension",
 ]
 uqbar_book_strict = True
 uqbar_book_use_black = True
