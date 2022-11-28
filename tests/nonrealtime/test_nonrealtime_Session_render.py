@@ -936,10 +936,11 @@ def test_12(nonrealtime_paths):
         render_directory_path=nonrealtime_paths.render_directory_path,
         suppress_output=True,
     )
-    assert exit_code == 0
     if platform.system() == "Windows":
+        assert exit_code == 3221226505
         assert output_file_path == Path("NUL")
     else:
+        assert exit_code == 0
         assert output_file_path == Path("/dev/null")
     assert list(nonrealtime_paths.render_directory_path.iterdir()) == [
         nonrealtime_paths.render_directory_path
