@@ -1,8 +1,8 @@
 import asyncio
 import logging
-import pathlib
 import platform
 import pprint
+from pathlib import Path
 
 import pytest
 
@@ -19,7 +19,7 @@ def test_00a(nonrealtime_paths):
     session = pytest.helpers.make_test_session()
     exit_code, output_file_path = session.render()
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
-    assert pathlib.Path(supriya.output_path) in output_file_path.parents
+    assert Path(supriya.output_path) in output_file_path.parents
     assert pytest.helpers.sample_soundfile(output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
@@ -39,10 +39,7 @@ def test_00b(nonrealtime_paths):
         render_directory_path=nonrealtime_paths.render_directory_path
     )
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10.0, 44100, 8)
-    assert (
-        pathlib.Path(nonrealtime_paths.render_directory_path)
-        in output_file_path.parents
-    )
+    assert Path(nonrealtime_paths.render_directory_path) in output_file_path.parents
     assert pytest.helpers.sample_soundfile(output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
@@ -59,10 +56,10 @@ def test_00c(caplog, nonrealtime_paths):
     output already exists.
     """
     session = pytest.helpers.make_test_session()
-    osc_path = pathlib.Path().joinpath(
+    osc_path = Path().joinpath(
         supriya.output_path, "session-7b3f85710f19667f73f745b8ac8080a0.osc"
     )
-    aiff_path = pathlib.Path().joinpath(
+    aiff_path = Path().joinpath(
         supriya.output_path, "session-7b3f85710f19667f73f745b8ac8080a0.aiff"
     )
     if osc_path.exists():
@@ -116,7 +113,7 @@ def test_00c(caplog, nonrealtime_paths):
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
     }
     assert output_file_path == aiff_path
-    assert osc_path.exists()
+    assert not osc_path.exists()  # OSC file not recreated if output exists
     assert aiff_path.exists()
 
     aiff_path.unlink()
@@ -928,6 +925,26 @@ def test_11(nonrealtime_paths):
         nonrealtime_paths.output_file_path,
         render_directory_path=nonrealtime_paths.render_directory_path,
     )
+
+
+def test_12(nonrealtime_paths):
+    """
+    No input, no output file path specified, render path specified, output suppressed
+    """
+    session = pytest.helpers.make_test_session()
+    exit_code, output_file_path = session.render(
+        render_directory_path=nonrealtime_paths.render_directory_path,
+        suppress_output=True,
+    )
+    assert exit_code == 0
+    if platform.system() == "Windows":
+        assert output_file_path == Path("NUL")
+    else:
+        assert output_file_path == Path("/dev/null")
+    assert list(nonrealtime_paths.render_directory_path.iterdir()) == [
+        nonrealtime_paths.render_directory_path
+        / "session-7b3f85710f19667f73f745b8ac8080a0.osc"
+    ]
 
 
 @pytest.mark.asyncio

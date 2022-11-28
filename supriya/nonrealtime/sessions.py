@@ -253,7 +253,15 @@ class Renderer:
     ) -> int:
         for renderable in dependency_graph:
             memo = renderable_memos[renderable]
-            if (self.render_directory_path / memo.output_filename).exists():
+            # We can skip rendering iff
+            # - We're not suppressing output (the output path is not /dev/null) AND
+            #   output already exists
+            # - We're suppressing, but the renderable is not the final session AND
+            #   output already exists
+            if (
+                not (self.suppress_output and memo.renderable is self.session)
+                and (self.render_directory_path / memo.output_filename).exists()
+            ):
                 exit_code = 0
                 continue
             if isinstance(memo, SessionRenderableMemo):
@@ -265,11 +273,16 @@ class Renderer:
                 # render the datagram
                 exit_future = asyncio.get_running_loop().create_future()
                 protocol = AsyncProcessProtocol(exit_future)
+                output_filename = memo.output_filename
+                if session is self.session and self.suppress_output:
+                    output_filename = (
+                        "NUL" if platform.system() == "Windows" else "/dev/null"
+                    )
                 command = new(session.options, **self.kwargs).serialize() + [
                     "-N",
                     str(Path(memo.output_filename).with_suffix(".osc")),
                     str(memo.input_path or "_"),
-                    str(memo.output_filename),
+                    output_filename,
                     str(self.sample_rate),
                     self.header_format.name.lower(),  # Must be lowercase.
                     self.sample_format.name.lower(),  # Must be lowercase.
@@ -313,16 +326,11 @@ class Renderer:
                 elif input_ is not None:
                     memo.input_path = Path(input_)
                 memo.datagram = self._build_datagram(memo.osc_bundles)
-                if session is self.session and self.suppress_output:
-                    memo.output_filename = (
-                        "NUL" if platform.system() == "Windows" else "/dev/null"
-                    )
-                else:
-                    memo.output_filename = str(
-                        self._build_file_path(
-                            memo.datagram, memo.input_path, session
-                        ).with_suffix(f".{self.header_format.name.lower()}")
-                    )
+                memo.output_filename = str(
+                    self._build_file_path(
+                        memo.datagram, memo.input_path, session
+                    ).with_suffix(f".{self.header_format.name.lower()}")
+                )
             else:
                 result = memo.renderable.__render__(
                     render_directory_path=self.render_directory_path
