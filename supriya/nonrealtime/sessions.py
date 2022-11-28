@@ -91,11 +91,11 @@ class SessionRenderableMemo(RenderableMemo):
 
 
 class AsyncProcessProtocol(asyncio.SubprocessProtocol):
-    def __init__(self, exit_future: asyncio.Future):
+    def __init__(self, exit_future: asyncio.Future) -> None:
         self.buffer_ = ""
         self.exit_future = exit_future
 
-    async def run(self, command: List[str], render_directory_path: Path):
+    async def run(self, command: List[str], render_directory_path: Path) -> None:
         _, _ = await asyncio.get_running_loop().subprocess_exec(
             lambda: self,
             *command,
@@ -105,7 +105,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol):
             cwd=render_directory_path,
         )
 
-    def handle_line(self, line):
+    def handle_line(self, line: str) -> None:
         logger.debug(f"Received: {line}")
 
     def connection_made(self, transport):
@@ -246,9 +246,12 @@ class Renderer:
         self,
         dependency_graph: DependencyGraph,
         renderable_memos: Dict[SupportsRender, RenderableMemo],
-    ) -> Path:
+    ) -> int:
         for renderable in dependency_graph:
             memo = renderable_memos[renderable]
+            if (self.render_directory_path / memo.output_filename).exists():
+                exit_code = 0
+                continue
             if isinstance(memo, SessionRenderableMemo):
                 session = cast(Session, memo.renderable)
                 # write the .osc file
