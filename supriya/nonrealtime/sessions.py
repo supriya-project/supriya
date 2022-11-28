@@ -294,9 +294,13 @@ class Renderer:
                 if not memo.render_function:
                     raise RuntimeError("How did we get here")
                 exit_code = await memo.render_function()
-            if exit_code and not (
-                platform.system()
-                and (self.render_directory_path / memo.output_filename).exists()
+            if (
+                exit_code
+                and not self.suppress_output
+                and not (
+                    platform.system() == "Windows"
+                    and (self.render_directory_path / memo.output_filename).exists()
+                )
             ):
                 raise RuntimeError(f"Non-zero exit code: {exit_code}")
         if self.output_file_path is not None:
