@@ -145,6 +145,7 @@ class Renderer:
         render_directory_path: Optional[PathLike] = None,
         sample_format: SampleFormatLike = SampleFormat.INT24,
         sample_rate: int = 44100,
+        suppress_output: bool = False,
         **kwargs,
     ) -> None:
         self.compiled_sessions: Dict = {}
@@ -153,9 +154,6 @@ class Renderer:
         self.executable = executable
         self.header_format = HeaderFormat.from_expr(header_format)
         self.kwargs = kwargs
-        self.output_file_path = (
-            Path(output_file_path).resolve() if output_file_path is not None else None
-        )
         self.prerender_tuples: List[Tuple] = []
         self.render_directory_path = Path(
             render_directory_path or supriya.output_path
@@ -166,6 +164,12 @@ class Renderer:
         self.session = session
         self.session_input_paths: Dict = {}
         self.sessionables_to_sessions: Dict = {}
+        self.suppress_output = suppress_output
+        self.output_file_path = (
+            Path(output_file_path).resolve() if output_file_path is not None else None
+        )
+        if self.output_file_path and self.suppress_output:
+            raise ValueError
 
     ### PRIVATE METHODS ###
 
@@ -309,11 +313,16 @@ class Renderer:
                 elif input_ is not None:
                     memo.input_path = Path(input_)
                 memo.datagram = self._build_datagram(memo.osc_bundles)
-                memo.output_filename = str(
-                    self._build_file_path(
-                        memo.datagram, memo.input_path, session
-                    ).with_suffix(f".{self.header_format.name.lower()}")
-                )
+                if session is self.session and self.suppress_output:
+                    memo.output_filename = (
+                        "NUL" if platform.system() == "Windows" else "/dev/null"
+                    )
+                else:
+                    memo.output_filename = str(
+                        self._build_file_path(
+                            memo.datagram, memo.input_path, session
+                        ).with_suffix(f".{self.header_format.name.lower()}")
+                    )
             else:
                 result = memo.renderable.__render__(
                     render_directory_path=self.render_directory_path
@@ -364,6 +373,10 @@ class Renderer:
 
         dependency_graph, renderable_memos = self._build_dependency_graph()
         self._xref_dependency_graph(dependency_graph, renderable_memos)
+        if self.suppress_output:
+            return render_function, Path(
+                "NUL" if platform.system() == "Windows" else "/dev/null"
+            )
         path = (
             self.output_file_path
             or self.render_directory_path
