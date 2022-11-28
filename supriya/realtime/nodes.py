@@ -435,27 +435,6 @@ class Node(UniqueTreeNode):
         index = self.parent.index(self)
         self.parent[index:index] = expr
 
-    def query(self) -> Union[QueryTreeGroup, QueryTreeSynth]:
-        query_tree = {}
-        stack = [self.node_id]
-        while stack:
-            node_id = stack.pop()
-            if node_id in query_tree:
-                continue
-            request = NodeQueryRequest(node_id)
-            response = request.communicate(server=self.server)
-            if (response.next_node_id or -1) > 0:
-                stack.append(response.next_node_id)
-            if (response.head_node_id or -1) > 0:
-                stack.append(response.head_node_id)
-            if response.is_group:
-                query_tree[node_id] = QueryTreeGroup.from_response(response)
-            else:
-                query_tree[node_id] = QueryTreeSynth.from_response(response)
-            if response.parent_id in query_tree:
-                query_tree[response.parent_id]._children += (query_tree[node_id],)
-        return query_tree[self.node_id]
-
     def replace_with(self, expr):
         if not isinstance(expr, Sequence):
             expr = [expr]
