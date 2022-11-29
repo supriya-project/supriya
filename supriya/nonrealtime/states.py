@@ -4,10 +4,18 @@ from typing import Dict, List, Set, Tuple
 
 import uqbar.graphs
 
-import supriya.commands
-from supriya.nonrealtime.bases import SessionObject
-from supriya.system import SupriyaValueObject
-from supriya.utils import iterate_nwise
+import supriya.nonrealtime
+
+from ..commands import (
+    BufferZeroRequest,
+    GroupHeadRequest,
+    GroupTailRequest,
+    NodeAfterRequest,
+    NodeBeforeRequest,
+)
+from ..system import SupriyaValueObject
+from ..utils import iterate_nwise
+from .bases import SessionObject
 
 _local = threading.local()
 _local._do_not_propagate_stack = []
@@ -32,7 +40,7 @@ class State(SessionObject):
         "_stop_nodes",
     )
 
-    _ordered_buffer_request_types = (supriya.commands.BufferZeroRequest,)
+    _ordered_buffer_request_types = (BufferZeroRequest,)
 
     ### INITIALIZER ###
 
@@ -440,13 +448,13 @@ class NodeTransition(SupriyaValueObject):
     def _to_request(self, id_mapping):
         node_id_pair = (id_mapping[self.source], id_mapping[self.target])
         if self.action == supriya.AddAction.ADD_TO_HEAD:
-            request_class = supriya.commands.GroupHeadRequest
+            request_class = GroupHeadRequest
         elif self.action == supriya.AddAction.ADD_TO_TAIL:
-            request_class = supriya.commands.GroupTailRequest
+            request_class = GroupTailRequest
         elif self.action == supriya.AddAction.ADD_BEFORE:
-            request_class = supriya.commands.NodeBeforeRequest
+            request_class = NodeBeforeRequest
         elif self.action == supriya.AddAction.ADD_AFTER:
-            request_class = supriya.commands.NodeAfterRequest
+            request_class = NodeAfterRequest
         request = request_class(node_id_pairs=[node_id_pair])
         return request
 

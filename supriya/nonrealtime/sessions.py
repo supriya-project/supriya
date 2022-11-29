@@ -27,9 +27,9 @@ import uqbar.io
 from uqbar.containers import DependencyGraph
 from uqbar.objects import new
 
-import supriya
-from supriya import CalculationRate, HeaderFormat, ParameterRate, SampleFormat, scsynth
-from supriya.commands import (
+from .. import output_path, ugens
+from ..allocators import BlockAllocator, NodeIdAllocator
+from ..commands import (
     BufferAllocateReadChannelRequest,
     BufferAllocateReadRequest,
     BufferAllocateRequest,
@@ -55,22 +55,26 @@ from supriya.commands import (
     RequestBundle,
     SynthDefReceiveRequest,
 )
-from supriya.intervals.IntervalTree import IntervalTree
-from supriya.nonrealtime.bases import SessionObject
-from supriya.nonrealtime.nodes import Synth
-from supriya.osc import OscBundle, OscMessage
-from supriya.querytree import QueryTreeGroup
-from supriya.realtime import BlockAllocator, NodeIdAllocator
-from supriya.soundfiles import SoundFile
-from supriya.synthdefs import SynthDef
-from supriya.typing import (
+from ..enums import CalculationRate, HeaderFormat, ParameterRate, SampleFormat
+from ..intervals.IntervalTree import IntervalTree
+from ..osc import OscBundle, OscMessage
+from ..querytree import QueryTreeGroup
+from ..scsynth import Options
+from ..soundfiles import SoundFile
+from ..synthdefs import SynthDef, SynthDefBuilder
+from ..typing import (
     AddActionLike,
     CalculationRateLike,
     HeaderFormatLike,
     SampleFormatLike,
     SupportsRender,
 )
-from supriya.utils import iterate_nwise
+from ..utils import iterate_nwise
+from .bases import SessionObject
+from .buffers import Buffer, BufferGroup
+from .buses import AudioInputBusGroup, AudioOutputBusGroup, Bus, BusGroup
+from .nodes import Group, Node, RootNode, Synth
+from .states import Moment, State
 
 logger = logging.getLogger(__name__)
 
@@ -156,7 +160,7 @@ class Renderer:
         self.kwargs = kwargs
         self.prerender_tuples: List[Tuple] = []
         self.render_directory_path = Path(
-            render_directory_path or supriya.output_path
+            render_directory_path or output_path
         ).resolve()
         self.renderable_prefixes: Dict = {}
         self.sample_format = SampleFormat.from_expr(sample_format)
@@ -479,15 +483,13 @@ class Session:
         input_=None,
         padding: Optional[float] = None,
     ) -> None:
-        import supriya.nonrealtime
-
-        self._options = scsynth.Options(
+        self._options = Options(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
             realtime=False,
         )
 
-        self._active_moments: List[supriya.nonrealtime.Moment] = []
+        self._active_moments: List[Moment] = []
         self._buffers = IntervalTree(accelerated=True)
         self._buffers_by_seesion_id: Dict = {}
         self._buses: Dict = {}
@@ -495,7 +497,7 @@ class Session:
         self._nodes = IntervalTree(accelerated=True)
         self._nodes_by_session_id: Dict = {}
         self._offsets: List[float] = []
-        self._root_node = supriya.nonrealtime.RootNode(self)
+        self._root_node = RootNode(self)
         self._session_ids: Dict = {}
         self._states: Dict = {}
 
@@ -632,7 +634,7 @@ class Session:
                 continue
             previous_state = self._find_state_before(offset, with_node_tree=True)
             assert previous_state is not None
-            result = supriya.nonrealtime.State._apply_transitions(
+            result = State._apply_transitions(
                 state.transitions,
                 previous_state.nodes_to_children,
                 previous_state.nodes_to_parents,
@@ -717,13 +719,10 @@ class Session:
 
     @staticmethod
     def _build_rand_seed_synthdef():
-        import supriya.ugens
-        from supriya import SynthDefBuilder
-
         with SynthDefBuilder(rand_id=0, rand_seed=0) as builder:
-            supriya.ugens.RandID.ir(rand_id=builder["rand_id"])
-            supriya.ugens.RandSeed.ir(seed=builder["rand_seed"], trigger=1)
-            supriya.ugens.FreeSelf.kr(trigger=1)
+            ugens.RandID.ir(rand_id=builder["rand_id"])
+            ugens.RandSeed.ir(seed=builder["rand_seed"], trigger=1)
+            ugens.FreeSelf.kr(trigger=1)
         return builder.build()
 
     def _collect_bus_set_requests(self, bus_settings, offset):
@@ -880,12 +879,10 @@ class Session:
     def _collect_node_action_requests(
         self, duration, id_mapping, node_actions, node_settings, start_nodes
     ):
-        import supriya.nonrealtime
-
         requests = []
         for source, action in node_actions.items():
             if source in start_nodes:
-                if isinstance(source, supriya.nonrealtime.Synth):
+                if isinstance(source, Synth):
                     synth_kwargs = source.synth_kwargs
                     if source in node_settings:
                         synth_kwargs.update(node_settings.pop(source))
@@ -955,19 +952,13 @@ class Session:
         return result
 
     def _collect_node_set_requests(self, id_mapping, node_settings):
-        import supriya.nonrealtime
-
-        scalar_rate = supriya.ParameterRate.SCALAR
+        scalar_rate = ParameterRate.SCALAR
         requests = []
-        bus_prototype = (
-            supriya.nonrealtime.Bus,
-            supriya.nonrealtime.BusGroup,
-            type(None),
-        )
-        buffer_prototype = (supriya.nonrealtime.Buffer, supriya.nonrealtime.BufferGroup)
+        bus_prototype = (Bus, BusGroup, type(None))
+        buffer_prototype = (Buffer, BufferGroup)
         for node, settings in node_settings.items():
             parameters = {}
-            if isinstance(node, supriya.nonrealtime.Synth):
+            if isinstance(node, Synth):
                 parameters = node.synthdef.parameters
             node_id = id_mapping[node]
             a_settings = {}
@@ -1053,12 +1044,10 @@ class Session:
         return requests
 
     def _collect_synthdef_requests(self, start_nodes, visited_synthdefs):
-        import supriya.nonrealtime
-
         requests = []
         synthdefs = set()
         for node in start_nodes:
-            if not isinstance(node, supriya.nonrealtime.Synth):
+            if not isinstance(node, Synth):
                 continue
             elif node.synthdef in visited_synthdefs:
                 continue
@@ -1135,21 +1124,17 @@ class Session:
             )
 
     def _setup_buses(self):
-        import supriya.nonrealtime
-
         self._buses = {}
         self._audio_input_bus_group = None
         if self._options.input_bus_channel_count:
-            self._audio_input_bus_group = supriya.nonrealtime.AudioInputBusGroup(self)
+            self._audio_input_bus_group = AudioInputBusGroup(self)
         self._audio_output_bus_group = None
         if self._options.output_bus_channel_count:
-            self._audio_output_bus_group = supriya.nonrealtime.AudioOutputBusGroup(self)
+            self._audio_output_bus_group = AudioOutputBusGroup(self)
 
     def _setup_initial_states(self):
-        import supriya.nonrealtime
-
         offset = float("-inf")
-        state = supriya.nonrealtime.State(self, offset)
+        state = State(self, offset)
         state._nodes_to_children = {self.root_node: None}
         state._nodes_to_parents = {self.root_node: None}
         self.states[offset] = state
@@ -1217,9 +1202,7 @@ class Session:
 
     ### PUBLIC METHODS ###
 
-    def at(self, offset, propagate=True) -> "supriya.nonrealtime.Moment":
-        import supriya.nonrealtime
-
+    def at(self, offset, propagate=True) -> Moment:
         offset = float(offset)
         assert 0 <= offset
         state = self._find_state_at(offset)
@@ -1227,7 +1210,7 @@ class Session:
             assert state.offset in self.states
         if not state:
             state = self._add_state_at(offset)
-        return supriya.nonrealtime.Moment(self, offset, state, propagate)
+        return Moment(self, offset, state, propagate)
 
     @SessionObject.require_offset
     def add_buffer(
@@ -1238,12 +1221,10 @@ class Session:
         starting_frame: Optional[int] = None,
         file_path: Optional[PathLike] = None,
         offset: Optional[float] = None,
-    ) -> "supriya.nonrealtime.Buffer":
-        import supriya.nonrealtime
-
+    ) -> Buffer:
         start_moment = self.active_moments[-1]
         session_id = self._get_next_session_id("buffer")
-        buffer_ = supriya.nonrealtime.Buffer(
+        buffer_ = Buffer(
             self,
             channel_count=channel_count,
             duration=duration,
@@ -1267,11 +1248,9 @@ class Session:
         duration: Optional[float] = None,
         frame_count: Optional[int] = None,
         offset: Optional[float] = None,
-    ) -> "supriya.nonrealtime.BufferGroup":
-        import supriya.nonrealtime
-
+    ) -> BufferGroup:
         start_moment = self.active_moments[-1]
-        buffer_group = supriya.nonrealtime.BufferGroup(
+        buffer_group = BufferGroup(
             self,
             buffer_count=buffer_count,
             channel_count=channel_count,
@@ -1289,13 +1268,9 @@ class Session:
 
     def add_bus(
         self, calculation_rate: CalculationRateLike = CalculationRate.CONTROL
-    ) -> "supriya.nonrealtime.buses.Bus":
-        import supriya.nonrealtime
-
+    ) -> Bus:
         session_id = self._get_next_session_id("bus")
-        bus = supriya.nonrealtime.Bus(
-            self, calculation_rate=calculation_rate, session_id=session_id
-        )
+        bus = Bus(self, calculation_rate=calculation_rate, session_id=session_id)
         self._buses[bus] = None  # ordered dictionary
         self._buses_by_session_id[session_id] = bus
         return bus
@@ -1304,11 +1279,9 @@ class Session:
         self,
         bus_count: int = 1,
         calculation_rate: CalculationRateLike = CalculationRate.CONTROL,
-    ) -> "supriya.nonrealtime.buses.BusGroup":
-        import supriya.nonrealtime
-
+    ) -> BusGroup:
         session_id = self._get_next_session_id("bus")
-        bus_group = supriya.nonrealtime.BusGroup(
+        bus_group = BusGroup(
             self,
             bus_count=bus_count,
             calculation_rate=calculation_rate,
@@ -1325,7 +1298,7 @@ class Session:
         add_action: Optional[AddActionLike] = None,
         duration: Optional[float] = None,
         offset=None,
-    ) -> "supriya.nonrealtime.nodes.Group":
+    ) -> Group:
         return self.root_node.add_group(
             add_action=add_action, duration=duration, offset=offset
         )
@@ -1337,7 +1310,7 @@ class Session:
         synthdef: Optional[SynthDef] = None,
         offset: Optional[float] = None,
         **synth_kwargs,
-    ) -> "supriya.nonrealtime.nodes.Synth":
+    ) -> Synth:
         return self.root_node.add_synth(
             add_action=add_action,
             duration=duration,
@@ -1355,7 +1328,7 @@ class Session:
         frame_count: int = 1024 * 32,
         starting_frame: int = 0,
         offset: Optional[float] = None,
-    ) -> "supriya.nonrealtime.buffers.Buffer":
+    ) -> Buffer:
         if isinstance(file_path, str):
             file_path = Path(file_path)
         if isinstance(file_path, Path):
@@ -1392,7 +1365,7 @@ class Session:
 
     def move_node(
         self,
-        node: "supriya.nonrealtime.nodes.Node",
+        node: Node,
         add_action: Optional[AddActionLike] = None,
         offset: Optional[float] = None,
     ) -> None:
@@ -1454,7 +1427,7 @@ class Session:
     @SessionObject.require_offset
     def set_rand_seed(
         self, rand_id: int = 0, rand_seed: int = 0, offset: Optional[float] = None
-    ) -> "supriya.nonrealtime.Synth":
+    ) -> Synth:
         return self.add_synth(
             add_action="ADD_TO_HEAD",
             duration=0,
@@ -1518,15 +1491,15 @@ class Session:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def active_moments(self) -> List["supriya.nonrealtime.Moment"]:
+    def active_moments(self) -> List[Moment]:
         return self._active_moments
 
     @property
-    def audio_input_bus_group(self) -> "supriya.nonrealtime.AudioInputBusGroup":
+    def audio_input_bus_group(self) -> AudioInputBusGroup:
         return self._audio_input_bus_group
 
     @property
-    def audio_output_bus_group(self) -> "supriya.nonrealtime.AudioOutputBusGroup":
+    def audio_output_bus_group(self) -> AudioOutputBusGroup:
         return self._audio_output_bus_group
 
     @property
@@ -1578,7 +1551,7 @@ class Session:
         return self._offsets
 
     @property
-    def options(self) -> scsynth.Options:
+    def options(self) -> Options:
         return self._options
 
     @property
@@ -1590,7 +1563,7 @@ class Session:
         return self._padding
 
     @property
-    def root_node(self) -> "supriya.nonrealtime.RootNode":
+    def root_node(self) -> RootNode:
         return self._root_node
 
     @property
