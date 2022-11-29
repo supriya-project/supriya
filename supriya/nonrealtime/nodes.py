@@ -1,17 +1,24 @@
 import bisect
 import collections
-from typing import Any, Dict, List, Optional, Set, Tuple, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Set, Tuple, Union, cast
 
 import uqbar.graphs
 from uqbar.objects import new
 
 import supriya  # noqa
-from supriya.commands import GroupNewRequest, SynthNewRequest
-from supriya.enums import AddAction, ParameterRate
-from supriya.nonrealtime.bases import SessionObject
-from supriya.nonrealtime.states import NodeTransition, State
-from supriya.synthdefs import SynthDef
-from supriya.typing import AddActionLike
+from supriya.assets.synthdefs.default import default
+
+from ..commands import GroupNewRequest, SynthNewRequest
+from ..enums import AddAction, ParameterRate
+from ..synthdefs import SynthDef
+from ..typing import AddActionLike
+from .bases import SessionObject
+from .buffers import Buffer, BufferGroup
+from .buses import Bus, BusGroup
+from .states import DoNotPropagate, NodeTransition, State
+
+if TYPE_CHECKING:
+    from .sessions import Session
 
 
 class Node(SessionObject):
@@ -27,7 +34,7 @@ class Node(SessionObject):
 
     def __init__(
         self,
-        session: "supriya.nonrealtime.Session",
+        session: "Session",
         session_id: int,
         duration: Optional[float] = None,
         start_offset: Optional[float] = None,
@@ -53,25 +60,15 @@ class Node(SessionObject):
 
     ### SPECIAL METHODS ###
 
-    def __getitem__(
-        self, item: str
-    ) -> Union[float, "supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"]:
+    def __getitem__(self, item: str) -> Union[float, Bus, BusGroup]:
         assert self.session._active_moments
         offset = self.session._active_moments[-1].offset
         return self._get_at_offset(offset, item)[0] or 0
 
-    def __setitem__(
-        self,
-        item: str,
-        value: Union[float, "supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"],
-    ) -> None:
-        import supriya.nonrealtime
-
+    def __setitem__(self, item: str, value: Union[float, Bus, BusGroup]) -> None:
         assert self.session._active_moments
         offset = self.session._active_moments[-1].offset
-        assert isinstance(
-            value, (int, float, supriya.nonrealtime.Bus, supriya.nonrealtime.BusGroup)
-        )
+        assert isinstance(value, (int, float, Bus, BusGroup))
         self._set_at_offset(offset, item, value)
 
     ### PRIVATE METHODS ###
@@ -96,10 +93,9 @@ class Node(SessionObject):
             if not persistent and actual_offset != offset:
                 continue
             if id_mapping and value in id_mapping:
-                settings[key] = cast(
-                    Union["supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"],
-                    value,
-                ).get_map_symbol(id_mapping[value])
+                settings[key] = cast(Union[Bus, BusGroup], value).get_map_symbol(
+                    id_mapping[value]
+                )
             elif value is not None:
                 settings[key] = float(value)
         return settings
@@ -154,12 +150,7 @@ class Node(SessionObject):
 
     def _get_at_offset(
         self, offset: float, item: str
-    ) -> Tuple[
-        Optional[
-            Union[float, "supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"]
-        ],
-        Optional[float],
-    ]:
+    ) -> Tuple[Optional[Union[float, Bus, BusGroup]], Optional[float]]:
         """
         Relative to Node start offset.
         """
@@ -206,8 +197,6 @@ class Node(SessionObject):
         split_occupiers: bool = True,
         split_traversers: bool = True,
     ) -> List["Node"]:
-        import supriya.nonrealtime
-
         new_nodes = new_nodes or []
         state = self.session.states[split_offset]
         entering, exiting, occupying, starting, _ = self.inspect_children()
@@ -216,8 +205,8 @@ class Node(SessionObject):
         if start_offset < split_offset < stop_offset:
             old_actions = state.transitions
             new_duration = stop_offset - split_offset
-            with supriya.nonrealtime.DoNotPropagate():
-                if isinstance(self, supriya.nonrealtime.Synth):
+            with DoNotPropagate():
+                if isinstance(self, Synth):
                     new_node = self.add_synth(
                         add_action="ADD_BEFORE",
                         duration=new_duration,
@@ -240,7 +229,7 @@ class Node(SessionObject):
             for child in reversed(children):
                 if child in old_actions:
                     old_actions.pop(child)
-                action = supriya.nonrealtime.NodeTransition(
+                action = NodeTransition(
                     source=child, target=new_node, action="ADD_TO_TAIL"
                 )
                 new_actions[child] = action
@@ -277,16 +266,14 @@ class Node(SessionObject):
         add_action: Optional[AddActionLike] = None,
         duration: Optional[float] = None,
         offset: Optional[float] = None,
-    ) -> "supriya.nonrealtime.Group":
-        import supriya.nonrealtime
-
+    ) -> "Group":
         if add_action is None:
             add_action = self._valid_add_actions[0]
         add_action = AddAction.from_expr(add_action)
         if add_action not in self._valid_add_actions:
             raise ValueError(f"Invalid add action: {add_action}")
         session_id = self.session._get_next_session_id("node")
-        node = supriya.nonrealtime.Group(
+        node = Group(
             self.session, duration=duration, session_id=session_id, start_offset=offset
         )
         self._add_node(node, add_action)
@@ -301,22 +288,18 @@ class Node(SessionObject):
         offset: Optional[float] = None,
         **synth_kwargs,
     ) -> "Synth":
-        import supriya.assets.synthdefs
-        import supriya.nonrealtime
-
         if add_action is None:
             add_action = self._valid_add_actions[0]
         add_action = AddAction.from_expr(add_action)
         if add_action not in self._valid_add_actions:
             raise ValueError(f"Invalid add action: {add_action}")
         session_id = self.session._get_next_session_id("node")
-        synthdef = synthdef or supriya.assets.synthdefs.default
-        node = supriya.nonrealtime.Synth(
+        node = Synth(
             self.session,
             session_id=session_id,
             duration=duration,
             start_offset=offset,
-            synthdef=synthdef,
+            synthdef=synthdef or default,
             **synth_kwargs,
         )
         self._add_node(node, add_action)
@@ -331,8 +314,6 @@ class Node(SessionObject):
         add_action: Optional[AddActionLike] = None,
         offset: Optional[float] = None,
     ) -> "Node":
-        import supriya.nonrealtime
-
         state: State = self.session.active_moments[-1].state
         if state.nodes_to_parents is None:
             state._desparsify()
@@ -343,9 +324,7 @@ class Node(SessionObject):
         add_action = AddAction.from_expr(add_action)
         if add_action not in self._valid_add_actions:
             raise ValueError("Invalid add action: {add_action}")
-        node_action = supriya.nonrealtime.NodeTransition(
-            source=node, target=self, action=add_action
-        )
+        node_action = NodeTransition(source=node, target=self, action=add_action)
         state.transitions[node] = node_action
         self.session._apply_transitions([state.offset, node.stop_offset])
         return node
@@ -388,8 +367,6 @@ class Node(SessionObject):
         return self.set_duration(new_duration, clip_children=True)
 
     def set_duration(self, new_duration: float, clip_children: bool = False) -> "Node":
-        import supriya.nonrealtime
-
         assert new_duration > 0
         if self.duration == new_duration:
             return self
@@ -426,7 +403,7 @@ class Node(SessionObject):
                 moment.state._sparsify()
             while parent is not None and parent.stop_offset < new_stop_offset:
                 with self.session.at(parent.stop_offset, propagate=False) as moment:
-                    action = supriya.nonrealtime.NodeTransition(
+                    action = NodeTransition(
                         source=self, target=parent, action="ADD_BEFORE"
                     )
                     moment.state.transitions[self] = action
@@ -626,12 +603,10 @@ class Synth(Node):
         start_offset: Optional[float] = None,
         **synth_kwargs,
     ) -> None:
-        if synthdef is None:
-            synthdef = supriya.assets.synthdefs.default
         Node.__init__(
             self, session, session_id, duration=duration, start_offset=start_offset
         )
-        self._synthdef = synthdef
+        self._synthdef = synthdef or default
         self._synth_kwargs: Dict[str, Any] = synth_kwargs
 
     ### SPECIAL METHODS ###
@@ -675,22 +650,16 @@ class Synth(Node):
                     value = id_mapping[value]
                 settings[key] = float(value)
             elif isinstance(value, (Bus, BusGroup)) and value in id_mapping:
-                settings[key] = cast(
-                    Union["supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"],
-                    value,
-                ).get_map_symbol(id_mapping[value])
+                settings[key] = cast(Union[Bus, BusGroup], value).get_map_symbol(
+                    id_mapping[value]
+                )
             else:
                 settings[key] = float(value)
         return settings
 
     def _get_at_offset(
         self, offset: float, item: str
-    ) -> Tuple[
-        Optional[
-            Union[float, "supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"]
-        ],
-        Optional[float],
-    ]:
+    ) -> Tuple[Optional[Union[float, Bus, BusGroup]], Optional[float]]:
         default = self.synthdef.parameters[item].value
         default = self._synth_kwargs.get(item, default)
         value, actual_offset = super()._get_at_offset(offset=offset, item=item)
@@ -702,13 +671,11 @@ class Synth(Node):
         id_mapping: Dict[SessionObject, int],
         **synth_kwargs,
     ) -> SynthNewRequest:
-        import supriya.nonrealtime
-
         source_id = id_mapping[action.source]
         target_id = id_mapping[action.target]
         add_action = action.action
-        bus_prototype = (supriya.nonrealtime.Bus, supriya.nonrealtime.BusGroup)
-        buffer_prototype = (supriya.nonrealtime.Buffer, supriya.nonrealtime.BufferGroup)
+        bus_prototype = (Bus, BusGroup)
+        buffer_prototype = (Buffer, BufferGroup)
         for key, value in synth_kwargs.items():
             if isinstance(value, bus_prototype):
                 bus_id = id_mapping[value]
@@ -747,7 +714,7 @@ class RootNode(Group):
 
     ### INITIALIZER ###
 
-    def __init__(self, session: "supriya.nonrealtime.Session"):
+    def __init__(self, session: "Session"):
         Group.__init__(
             self,
             session=session,

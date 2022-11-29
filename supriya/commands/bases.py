@@ -39,24 +39,20 @@ class Requestable(SupriyaValueObject):
         return int(node_id)
 
     def _set_response(self, message):
-        from supriya.commands import Response
-
         with self.condition:
             self._response = Response.from_osc_message(message)
             self.condition.notify()
 
     def _set_response_async(self, message):
-        from supriya.commands import Response
-
         self._response = Response.from_osc_message(message)
         self._response_future.set_result(True)
 
     ### PUBLIC METHODS ###
 
     def communicate(self, server, sync=True, timeout=1.0, apply_local=True):
-        import supriya.realtime
+        from ..realtime.servers import BaseServer
 
-        if not isinstance(server, supriya.realtime.servers.BaseServer):
+        if not isinstance(server, BaseServer):
             raise ValueError(server)
         if not server.is_running:
             raise ServerOffline
@@ -223,12 +219,10 @@ class RequestBundle(Requestable):
     ### INITIALIZER ###
 
     def __init__(self, timestamp=None, contents=None):
-        import supriya.commands
-
         self._condition = threading.Condition()
         self._timestamp = timestamp
         if contents is not None:
-            prototype = (supriya.commands.Request, type(self))
+            prototype = (Request, type(self))
             assert all(isinstance(x, prototype) for x in contents)
             contents = tuple(contents)
         else:
@@ -239,7 +233,7 @@ class RequestBundle(Requestable):
     ### PRIVATE METHODS ###
 
     def _get_response_patterns_and_requestable(self, server):
-        from supriya.commands import SyncRequest
+        from .server import SyncRequest
 
         sync_id = server.next_sync_id
         contents = list(self.contents)

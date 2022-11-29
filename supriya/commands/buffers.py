@@ -129,12 +129,12 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
         frame_count=None,
         starting_frame=None,
     ):
-        import supriya.nonrealtime
+        from ..nonrealtime import Session
 
         BufferAllocateRequest.__init__(
             self, buffer_id=buffer_id, frame_count=frame_count, callback=callback
         )
-        if not supriya.nonrealtime.Session.is_session_like(file_path):
+        if not Session.is_session_like(file_path):
             file_path = str(file_path)
             if not str(file_path).isascii():
                 raise ValueError(f"Path contains non-ascii characters: {file_path}")
@@ -1162,14 +1162,14 @@ class BufferReadRequest(Request):
         starting_frame_in_buffer=None,
         starting_frame_in_file=None,
     ):
-        import supriya.nonrealtime
+        from ..nonrealtime import Session
 
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         if callback is not None:
             assert isinstance(callback, (Request, RequestBundle))
         self._callback = callback
-        if not supriya.nonrealtime.Session.is_session_like(file_path):
+        if not Session.is_session_like(file_path):
             file_path = str(file_path)
             if not str(file_path).isascii():
                 raise ValueError(f"Path contains non-ascii characters: {file_path}")

@@ -4,10 +4,18 @@ from typing import Dict, List, Set, Tuple
 
 import uqbar.graphs
 
-import supriya.commands
-from supriya.nonrealtime.bases import SessionObject
-from supriya.system import SupriyaValueObject
-from supriya.utils import iterate_nwise
+import supriya.nonrealtime
+
+from ..commands import (
+    BufferZeroRequest,
+    GroupHeadRequest,
+    GroupTailRequest,
+    NodeAfterRequest,
+    NodeBeforeRequest,
+)
+from ..system import SupriyaValueObject
+from ..utils import iterate_nwise
+from .bases import SessionObject
 
 _local = threading.local()
 _local._do_not_propagate_stack = []
@@ -20,24 +28,13 @@ class State(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        "_transitions",
-        "_nodes_to_children",
-        "_nodes_to_parents",
-        "_offset",
-        "_session",
-        "_start_buffers",
-        "_start_nodes",
-        "_stop_buffers",
-        "_stop_nodes",
-    )
-
-    _ordered_buffer_request_types = (supriya.commands.BufferZeroRequest,)
+    _ordered_buffer_request_types = (BufferZeroRequest,)
 
     ### INITIALIZER ###
 
     def __init__(self, session, offset: float) -> None:
-        from supriya.nonrealtime import Buffer, Node
+        from .buffers import Buffer
+        from .nodes import Node
 
         SessionObject.__init__(self, session)
         self._transitions: Dict[Node, NodeTransition] = collections.OrderedDict()
@@ -315,10 +312,6 @@ class Moment(SessionObject):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_offset", "_propagate", "_session", "_state")
-
     ### INITIALIZER ###
 
     def __init__(self, session, offset, state, propagate=True):
@@ -374,10 +367,6 @@ class NodeTransition(SupriyaValueObject):
     """
     A non-realtime state transition.
     """
-
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_source", "_target", "_action")
 
     ### INITIALIZER ###
 
@@ -440,13 +429,13 @@ class NodeTransition(SupriyaValueObject):
     def _to_request(self, id_mapping):
         node_id_pair = (id_mapping[self.source], id_mapping[self.target])
         if self.action == supriya.AddAction.ADD_TO_HEAD:
-            request_class = supriya.commands.GroupHeadRequest
+            request_class = GroupHeadRequest
         elif self.action == supriya.AddAction.ADD_TO_TAIL:
-            request_class = supriya.commands.GroupTailRequest
+            request_class = GroupTailRequest
         elif self.action == supriya.AddAction.ADD_BEFORE:
-            request_class = supriya.commands.NodeBeforeRequest
+            request_class = NodeBeforeRequest
         elif self.action == supriya.AddAction.ADD_AFTER:
-            request_class = supriya.commands.NodeAfterRequest
+            request_class = NodeAfterRequest
         request = request_class(node_id_pairs=[node_id_pair])
         return request
 

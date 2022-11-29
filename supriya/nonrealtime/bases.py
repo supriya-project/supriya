@@ -1,9 +1,13 @@
 import abc
 import functools
+from typing import TYPE_CHECKING
 
 from uqbar.objects import get_repr
 
-from supriya.system import SupriyaObject
+from ..system import SupriyaObject
+
+if TYPE_CHECKING:
+    from .sessions import Session
 
 
 class SessionObject(SupriyaObject):
@@ -11,17 +15,13 @@ class SessionObject(SupriyaObject):
     A non-realtime session object, analogous to ServerObject.
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ()
-
     ### INITIALIZER ###
 
     @abc.abstractmethod
-    def __init__(self, session):
-        import supriya.nonrealtime
+    def __init__(self, session: "Session"):
+        from .sessions import Session
 
-        prototype = (supriya.nonrealtime.Session, type(None))
+        prototype = (Session, type(None))
         assert isinstance(session, prototype)
         self._session = session
 
@@ -36,9 +36,9 @@ class SessionObject(SupriyaObject):
     def require_offset(function):
         @functools.wraps(function)
         def wrapper(self, *args, **kwargs):
-            import supriya.nonrealtime
+            from .sessions import Session
 
-            if isinstance(self, supriya.nonrealtime.Session):
+            if isinstance(self, Session):
                 session = self
             else:
                 session = self.session
@@ -62,5 +62,5 @@ class SessionObject(SupriyaObject):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def session(self):
+    def session(self) -> "Session":
         return self._session

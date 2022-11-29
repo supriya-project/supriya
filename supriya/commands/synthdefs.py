@@ -53,21 +53,21 @@ class SynthDefFreeRequest(Request):
     ### INITIALIZER ###
 
     def __init__(self, synthdef=None):
-        import supriya.synthdefs
+        from ..synthdefs import SynthDef
 
         Request.__init__(self)
-        prototype = (str, supriya.synthdefs.SynthDef)
+        prototype = (str, SynthDef)
         assert isinstance(synthdef, prototype)
         self._synthdef = synthdef
 
     ### PUBLIC METHODS ###
 
     def to_osc(self, *, with_placeholders=False):
-        import supriya.synthdefs
+        from ..synthdefs import SynthDef
 
         request_id = self.request_name
         synthdef = self.synthdef
-        if isinstance(synthdef, supriya.synthdefs.SynthDef):
+        if isinstance(synthdef, SynthDef):
             synthdef = synthdef.actual_name
         message = supriya.osc.OscMessage(request_id, synthdef)
         return message
@@ -281,14 +281,14 @@ class SynthDefReceiveRequest(Request):
     ### INITIALIZER ###
 
     def __init__(self, callback=None, synthdefs=None, use_anonymous_names=None):
-        import supriya.synthdefs
+        from ..synthdefs import SynthDef
 
         Request.__init__(self)
         if callback is not None:
             assert isinstance(callback, (Request, RequestBundle))
         self._callback = callback
         if synthdefs:
-            prototype = supriya.synthdefs.SynthDef
+            prototype = SynthDef
             if isinstance(synthdefs, prototype):
                 synthdefs = (synthdefs,)
             assert all(isinstance(x, prototype) for x in synthdefs)
@@ -307,10 +307,10 @@ class SynthDefReceiveRequest(Request):
     ### PUBLIC METHODS ###
 
     def to_osc(self, *, with_placeholders=False):
-        import supriya.synthdefs
+        from ..synthdefs import SynthDefCompiler
 
         request_id = self.request_name
-        compiled_synthdefs = supriya.synthdefs.SynthDefCompiler.compile_synthdefs(
+        compiled_synthdefs = SynthDefCompiler.compile_synthdefs(
             self.synthdefs, use_anonymous_names=self.use_anonymous_names
         )
         compiled_synthdefs = bytearray(compiled_synthdefs)

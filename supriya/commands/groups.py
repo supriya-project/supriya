@@ -334,7 +334,7 @@ class GroupNewRequest(Request):
     ### PRIVATE METHODS ###
 
     def _apply_local(self, server):
-        from supriya.realtime import Group, Node
+        from ..realtime.nodes import Group, Node
 
         for item in self.items:
             if isinstance(item.node_id, Group):

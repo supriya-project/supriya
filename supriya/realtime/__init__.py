@@ -2,7 +2,6 @@
 Tools for interacting with and modeling objects on the SuperCollider
 ``scsynth`` synthesis server.
 """
-from .allocators import Block, BlockAllocator, NodeIdAllocator
 from .bases import ServerObject
 from .buffers import Buffer, BufferGroup, BufferProxy
 from .buses import AudioInputBusGroup, AudioOutputBusGroup, Bus, BusGroup, BusProxy
@@ -23,8 +22,6 @@ __all__ = [
     "AudioOutputBusGroup",
     "AsyncServer",
     "BaseServer",
-    "Block",
-    "BlockAllocator",
     "Buffer",
     "BufferGroup",
     "BufferProxy",
@@ -37,7 +34,6 @@ __all__ = [
     "GroupInterface",
     "Meters",
     "Node",
-    "NodeIdAllocator",
     "Recorder",
     "RootNode",
     "Server",

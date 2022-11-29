@@ -8,32 +8,41 @@ from typing import Optional, Set, Union
 
 from uqbar.objects import new
 
-import supriya.exceptions
-from supriya.commands import (  # type: ignore
+from ..allocators import BlockAllocator, NodeIdAllocator
+from ..assets import synthdefs
+from ..commands import (
     FailResponse,
     GroupNewRequest,
     GroupQueryTreeRequest,
     NotifyRequest,
     QuitRequest,
+    Response,
+    StatusResponse,
     SyncRequest,
 )
-from supriya.enums import CalculationRate, NodeAction
-from supriya.exceptions import ServerOffline
-from supriya.osc.protocols import (
+from ..enums import CalculationRate, NodeAction
+from ..exceptions import (
+    OwnedServerShutdown,
+    ServerCannotBoot,
+    ServerOffline,
+    ServerOnline,
+    TooManyClients,
+    UnownedServerShutdown,
+)
+from ..osc.protocols import (
     AsyncOscProtocol,
     HealthCheck,
     OscProtocol,
     OscProtocolOffline,
     ThreadedOscProtocol,
 )
-from supriya.querytree import QueryTreeGroup, QueryTreeSynth
-from supriya.scsynth import DEFAULT_IP_ADDRESS, DEFAULT_PORT, Options
-
-from ..commands import StatusResponse
+from ..querytree import QueryTreeGroup, QueryTreeSynth
+from ..scsynth import DEFAULT_IP_ADDRESS, DEFAULT_PORT, Options
+from ..synthdefs import SynthDef
 from ..typing import AddActionLike, CalculationRateLike
-from .allocators import BlockAllocator, NodeIdAllocator
-from .buffers import Buffer, BufferGroup
-from .buses import AudioInputBusGroup, AudioOutputBusGroup, Bus, BusGroup
+from .bases import ServerObject
+from .buffers import Buffer, BufferGroup, BufferProxy
+from .buses import AudioInputBusGroup, AudioOutputBusGroup, Bus, BusGroup, BusProxy
 from .meters import Meters
 from .nodes import Group, Node, RootNode, Synth
 from .protocols import AsyncProcessProtocol, ProcessProtocol, SyncProcessProtocol
@@ -101,14 +110,10 @@ class BaseServer:
         logger.warning("Fail: {}".format(message))
 
     def _handle_status_reply_response(self, message):
-        from supriya.commands import Response
-
         response = Response.from_osc_message(message)
         self._status = response
 
     def _handle_synthdef_removed_response(self, message):
-        from supriya.commands import Response
-
         response = Response.from_osc_message(message)
         synthdef_name = response.synthdef_name
         self._synthdefs.pop(synthdef_name, None)
@@ -261,7 +266,7 @@ class AsyncServer(BaseServer):
     ### SPECIAL METHODS ###
 
     def __contains__(self, expr):
-        if isinstance(expr, supriya.synthdefs.SynthDef):
+        if isinstance(expr, SynthDef):
             name = expr.actual_name
             if name in self._synthdefs and self._synthdefs[name] == expr:
                 return True
@@ -316,7 +321,7 @@ class AsyncServer(BaseServer):
         response = await request.communicate_async(server=self)
         if isinstance(response, FailResponse):
             await self._shutdown()
-            raise supriya.exceptions.TooManyClients
+            raise TooManyClients
         if len(response.action) == 2:  # supernova doesn't provide a max logins value
             self._client_id, self._maximum_logins = (
                 response.action[1],
@@ -342,7 +347,7 @@ class AsyncServer(BaseServer):
         self, *, options: Optional[Options] = None, **kwargs
     ) -> "AsyncServer":
         if self._is_running:
-            raise supriya.exceptions.ServerOnline
+            raise ServerOnline
         loop = asyncio.get_running_loop()
         self._boot_future = loop.create_future()
         self._quit_future = loop.create_future()
@@ -352,7 +357,7 @@ class AsyncServer(BaseServer):
         if not await self._process_protocol.boot_future:
             self._boot_future.set_result(False)
             self._quit_future.set_result(True)
-            raise supriya.exceptions.ServerCannotBoot
+            raise ServerCannotBoot
         self._is_owner = True
         await self._connect()
         return self
@@ -361,7 +366,7 @@ class AsyncServer(BaseServer):
         self, *, options: Optional[Options] = None, **kwargs
     ) -> "AsyncServer":
         if self._is_running:
-            raise supriya.exceptions.ServerOnline
+            raise ServerOnline
         loop = asyncio.get_running_loop()
         self._boot_future = loop.create_future()
         self._quit_future = loop.create_future()
@@ -374,9 +379,7 @@ class AsyncServer(BaseServer):
         if not self._is_running:
             raise ServerOffline
         if self._is_owner:
-            raise supriya.exceptions.OwnedServerShutdown(
-                "Cannot disconnect from owned server."
-            )
+            raise OwnedServerShutdown("Cannot disconnect from owned server.")
         await self._disconnect()
         return self
 
@@ -389,7 +392,7 @@ class AsyncServer(BaseServer):
         if not self._is_running:
             return self
         if not self._is_owner and not force:
-            raise supriya.exceptions.UnownedServerShutdown(
+            raise UnownedServerShutdown(
                 "Cannot quit unowned server without force flag."
             )
         try:
@@ -462,20 +465,17 @@ class Server(BaseServer):
     ### SPECIAL METHODS ###
 
     def __contains__(self, expr):
-        import supriya.realtime
-        import supriya.synthdefs
-
-        if isinstance(expr, supriya.realtime.Node):
+        if isinstance(expr, Node):
             if expr.server is not self:
                 return False
             node_id = expr.node_id
             if node_id in self._nodes and self._nodes[node_id] is expr:
                 return True
-        elif isinstance(expr, supriya.synthdefs.SynthDef):
+        elif isinstance(expr, SynthDef):
             name = expr.actual_name
             if name in self._synthdefs and self._synthdefs[name] == expr:
                 return True
-        elif isinstance(expr, supriya.realtime.ServerObject):
+        elif isinstance(expr, ServerObject):
             return expr.server is self
         return False
 
@@ -523,23 +523,21 @@ class Server(BaseServer):
             supriya.exceptions.ServerOffline
 
         """
-        import supriya
-
         if not self.is_running:
             raise ServerOffline
         if isinstance(item, str):
             match = re.match(r"b(?P<id>\d+)", item)
             if match:
                 id_ = int(match.groupdict()["id"])
-                return supriya.realtime.Buffer(id_).allocate(server=self)
+                return Buffer(id_).allocate(server=self)
             match = re.match(r"c(?P<id>\d+)", item)
             if match:
                 id_ = int(match.groupdict()["id"])
-                return supriya.realtime.Bus(id_, "control").allocate(server=self)
+                return Bus(id_, "control").allocate(server=self)
             match = re.match(r"a(?P<id>\d+)", item)
             if match:
                 id_ = int(match.groupdict()["id"])
-                return supriya.realtime.Bus(id_, "audio").allocate(server=self)
+                return Bus(id_, "audio").allocate(server=self)
             if self.root_node is None:
                 raise ServerOffline
             result = self.root_node[item]
@@ -658,33 +656,23 @@ class Server(BaseServer):
         logger.info("disconnected")
 
     def _get_buffer_proxy(self, buffer_id):
-        import supriya.realtime
-
         buffer_proxy = self._buffer_proxies.get(buffer_id)
         if not buffer_proxy:
-            buffer_proxy = supriya.realtime.BufferProxy(
-                buffer_id=buffer_id, server=self
-            )
+            buffer_proxy = BufferProxy(buffer_id=buffer_id, server=self)
             self._buffer_proxies[buffer_id] = buffer_proxy
         return buffer_proxy
 
     def _get_control_bus_proxy(self, bus_id):
-        import supriya.realtime
-        import supriya.synthdefs
 
         control_bus_proxy = self._control_bus_proxies.get(bus_id)
         if not control_bus_proxy:
-            control_bus_proxy = supriya.realtime.BusProxy(
-                bus_id=bus_id,
-                calculation_rate=supriya.CalculationRate.CONTROL,
-                server=self,
+            control_bus_proxy = BusProxy(
+                bus_id=bus_id, calculation_rate=CalculationRate.CONTROL, server=self
             )
             self._control_bus_proxies[bus_id] = control_bus_proxy
         return control_bus_proxy
 
     def _handle_buffer_info_response(self, message):
-        from supriya.commands import Response
-
         response = Response.from_osc_message(message)
         for item in response.items:
             buffer_proxy = self._get_buffer_proxy(item.buffer_id)
@@ -692,8 +680,6 @@ class Server(BaseServer):
                 buffer_proxy._handle_response(item)
 
     def _handle_control_bus_set_response(self, message):
-        from supriya.commands import Response
-
         response = Response.from_osc_message(message)
         for item in response:
             bus_id = item.bus_id
@@ -701,8 +687,6 @@ class Server(BaseServer):
             bus_proxy._value = item.bus_value
 
     def _handle_control_bus_setn_response(self, message):
-        from supriya.commands import Response
-
         response = Response.from_osc_message(message)
         for item in response:
             starting_bus_id = item.starting_bus_id
@@ -712,9 +696,6 @@ class Server(BaseServer):
                 bus_proxy._value = value
 
     def _handle_node_info_response(self, message):
-        from supriya.commands import Response
-        from supriya.realtime import Group, Synth
-
         response = Response.from_osc_message(message)
         with self._lock:
             node_id = response.node_id
@@ -737,15 +718,11 @@ class Server(BaseServer):
                     parent._children.append(node)
 
     def _handle_synthdef_removed_response(self, message):
-        from supriya.commands import Response
-
         response = Response.from_osc_message(message)
         synthdef_name = response.synthdef_name
         self._synthdefs.pop(synthdef_name, None)
 
     def _rehydrate(self):
-        from supriya.realtime import Group, Synth
-
         def recurse(query_tree_node, node):
             for query_tree_child in query_tree_node.children:
                 if isinstance(query_tree_child, QueryTreeGroup):
@@ -771,7 +748,7 @@ class Server(BaseServer):
         response = request.communicate(server=self)
         if isinstance(response, FailResponse):
             self._shutdown()
-            raise supriya.exceptions.TooManyClients
+            raise TooManyClients
         if len(response.action) == 2:  # supernova doesn't provide a max logins value
             self._client_id, self._maximum_logins = (
                 response.action[1],
@@ -782,7 +759,7 @@ class Server(BaseServer):
 
     def _setup_default_groups(self):
         default_groups = [
-            supriya.Group(node_id_is_permanent=True) for _ in range(self.maximum_logins)
+            Group(node_id_is_permanent=True) for _ in range(self.maximum_logins)
         ]
         self.root_node.extend(default_groups)
         self._default_group = default_groups[self.client_id]
@@ -790,7 +767,7 @@ class Server(BaseServer):
     def _setup_proxies(self):
         self._audio_input_bus_group = AudioInputBusGroup(self)
         self._audio_output_bus_group = AudioOutputBusGroup(self)
-        self._root_node = supriya.realtime.RootNode(server=self)
+        self._root_node = RootNode(server=self)
         self._nodes[0] = self._root_node
 
     def _setup_osc_callbacks(self):
@@ -819,22 +796,19 @@ class Server(BaseServer):
             )
 
     def _setup_system_synthdefs(self, local_only=False):
-        import supriya.assets.synthdefs
-        import supriya.synthdefs
-
         system_synthdefs = []
-        for name in dir(supriya.assets.synthdefs):
+        for name in dir(synthdefs):
             if not name.startswith("system_"):
                 continue
-            system_synthdef = getattr(supriya.assets.synthdefs, name)
-            if not isinstance(system_synthdef, supriya.synthdefs.SynthDef):
+            system_synthdef = getattr(synthdefs, name)
+            if not isinstance(system_synthdef, SynthDef):
                 continue
             system_synthdefs.append(system_synthdef)
         if local_only:
             for synthdef in system_synthdefs:
                 synthdef._register_with_local_server(self)
         else:
-            supriya.synthdefs.SynthDef._allocate_synthdefs(system_synthdefs, self)
+            SynthDef._allocate_synthdefs(system_synthdefs, self)
 
     def _teardown_proxies(self):
         for set_ in tuple(self._audio_buses.values()):
@@ -1025,7 +999,7 @@ class Server(BaseServer):
 
     def boot(self, *, options: Optional[Options] = None, **kwargs) -> "Server":
         if self.is_running:
-            raise supriya.exceptions.ServerOnline
+            raise ServerOnline
         self._update_options(options, **kwargs)
         self._process_protocol = SyncProcessProtocol()
         self._process_protocol.boot(self._options)
@@ -1035,7 +1009,7 @@ class Server(BaseServer):
 
     def connect(self, *, options: Optional[Options] = None, **kwargs) -> "Server":
         if self.is_running:
-            raise supriya.exceptions.ServerOnline
+            raise ServerOnline
         self._update_options(options, **kwargs)
         self._is_owner = False
         self._connect()
@@ -1049,9 +1023,7 @@ class Server(BaseServer):
         if not self.is_running:
             raise ServerOffline
         if self._is_owner:
-            raise supriya.exceptions.OwnedServerShutdown(
-                "Cannot disconnect from owned server."
-            )
+            raise OwnedServerShutdown("Cannot disconnect from owned server.")
         self._disconnect()
         return self
 
@@ -1059,7 +1031,7 @@ class Server(BaseServer):
         if not self.is_running:
             return self
         if not self._is_owner and not force:
-            raise supriya.exceptions.UnownedServerShutdown(
+            raise UnownedServerShutdown(
                 "Cannot quit unowned server without force flag."
             )
         if self.recorder.is_recording:

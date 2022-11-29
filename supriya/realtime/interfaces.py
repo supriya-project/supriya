@@ -4,7 +4,16 @@ import copy
 import re
 from collections.abc import Iterable
 
-from supriya.system import SupriyaObject
+from ..commands import (
+    NodeMapToAudioBusRequest,
+    NodeMapToControlBusRequest,
+    NodeSetRequest,
+    RequestBundle,
+)
+from ..enums import CalculationRate
+from ..synthdefs import Parameter, Range, SynthDef
+from ..system import SupriyaObject
+from .buses import Bus, BusGroup
 
 
 class ControlInterface(SupriyaObject):
@@ -27,10 +36,6 @@ class ControlInterface(SupriyaObject):
 
     def _set(self, **settings):
         # TODO: Reimplement as _apply_local() on request classes
-        import supriya.commands
-        import supriya.realtime
-        import supriya.synthdefs
-
         n_set_settings = {}
         n_map_settings = {}
         n_mapa_settings = {}
@@ -46,25 +51,25 @@ class ControlInterface(SupriyaObject):
                         calculation_rate = "control"
                     else:
                         calculation_rate = "audio"
-                    value = supriya.realtime.Bus(
+                    value = Bus(
                         bus_group_or_index=int(group_dict["id"]),
                         calculation_rate=calculation_rate,
                     )
             if isinstance(value, (int, float)):
                 n_set_settings[control_name] = float(value)
                 control._set_to_number(value)
-            elif isinstance(value, (supriya.realtime.Bus, supriya.realtime.BusGroup)):
+            elif isinstance(value, (Bus, BusGroup)):
                 value_rate = value.calculation_rate
                 if (
-                    isinstance(self.client, supriya.realtime.Synth)
+                    hasattr(self.client, "synthdef")
                     and not self.client.is_allocated
-                    and control.calculation_rate == supriya.CalculationRate.SCALAR
+                    and control.calculation_rate == CalculationRate.SCALAR
                 ):
                     control._set_to_number(int(value))
-                elif value_rate == supriya.CalculationRate.CONTROL:
+                elif value_rate == CalculationRate.CONTROL:
                     n_map_settings[control_name] = value
                     control._map_to_bus(value)
-                elif value_rate == supriya.CalculationRate.AUDIO:
+                elif value_rate == CalculationRate.AUDIO:
                     n_mapa_settings[control_name] = value
                     control._map_to_bus(value)
             elif value is None:
@@ -78,19 +83,13 @@ class ControlInterface(SupriyaObject):
         requests = []
         if self.client.is_allocated:
             if n_set_settings:
-                request = supriya.commands.NodeSetRequest(
-                    self.node_id, **n_set_settings
-                )
+                request = NodeSetRequest(self.node_id, **n_set_settings)
                 requests.append(request)
             if n_map_settings:
-                request = supriya.commands.NodeMapToControlBusRequest(
-                    self.node_id, **n_map_settings
-                )
+                request = NodeMapToControlBusRequest(self.node_id, **n_map_settings)
                 requests.append(request)
             if n_mapa_settings:
-                request = supriya.commands.NodeMapToAudioBusRequest(
-                    self.node_id, **n_mapa_settings
-                )
+                request = NodeMapToAudioBusRequest(self.node_id, **n_mapa_settings)
                 requests.append(request)
         return tuple(requests)
 
@@ -234,8 +233,6 @@ class GroupInterface(ControlInterface):
         return "<{}: {!r}>".format(class_name, self.client)
 
     def __setitem__(self, items, values):
-        import supriya.realtime
-
         if not isinstance(items, tuple):
             items = (items,)
         assert all(_ in self._synth_controls for _ in items)
@@ -246,28 +243,26 @@ class GroupInterface(ControlInterface):
         for key, value in settings.items():
             for synth in self._synth_controls.get(key, ()):
                 control = synth.controls[key]
-                if isinstance(value, supriya.realtime.Bus):
+                if isinstance(value, Bus):
                     control._map_to_bus(value)
                 elif value is None:
                     control._unmap()
                 else:
                     control._set_to_number(value)
         requests = self._set(**settings)
-        supriya.commands.RequestBundle(contents=requests).communicate(
+        RequestBundle(contents=requests).communicate(
             server=self.client.server, sync=True
         )
 
     ### PUBLIC METHODS ###
 
     def add_controls(self, control_interface_dict):
-        import supriya.realtime
-
         for control_name in control_interface_dict:
             if control_name not in self._synth_controls:
                 self._synth_controls[control_name] = copy.copy(
                     control_interface_dict[control_name]
                 )
-                proxy = supriya.realtime.GroupControl(client=self, name=control_name)
+                proxy = GroupControl(client=self, name=control_name)
                 self._group_controls[control_name] = proxy
             else:
                 self._synth_controls[control_name].update(
@@ -324,20 +319,17 @@ class SynthControl:
         unit=None,
         value=None,
     ):
-        import supriya.realtime
-        import supriya.synthdefs
-
         self._client = client
         self._name = str(name)
-        if isinstance(range_, supriya.synthdefs.Range):
+        if isinstance(range_, Range):
             self._range = range_
         else:
             self._range = None
-        self._calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
+        self._calculation_rate = CalculationRate.from_expr(calculation_rate)
         self._unit = unit
         self._value = value
         self._default_value = value
-        if not isinstance(value, supriya.realtime.Bus):
+        if not isinstance(value, Bus):
             self._last_unmapped_value = self._value
         else:
             self._last_unmapped_value = self._default_value
@@ -366,9 +358,7 @@ class SynthControl:
     ### PRIVATE METHODS ###
 
     def _map_to_bus(self, bus):
-        import supriya.realtime
-
-        if not isinstance(self.value, supriya.realtime.Bus):
+        if not isinstance(self.value, Bus):
             self._last_unmapped_value = self._value
         self._value = bus
 
@@ -383,12 +373,10 @@ class SynthControl:
 
     @classmethod
     def from_parameter(cls, parameter, index=0, client=None):
-        import supriya.synthdefs
-
-        assert isinstance(parameter, supriya.synthdefs.Parameter)
+        assert isinstance(parameter, Parameter)
         name = parameter.name
         range_ = parameter.range_
-        calculation_rate = supriya.CalculationRate.from_expr(parameter)
+        calculation_rate = CalculationRate.from_expr(parameter)
         unit = parameter.unit
         value = parameter.value
         synth_control = SynthControl(
@@ -409,30 +397,22 @@ class SynthControl:
         self._value = self._default_value
 
     def set(self, expr):
-        import supriya.commands
-        import supriya.realtime
-        import supriya.synthdefs
-
-        if isinstance(expr, supriya.realtime.Bus):
+        if isinstance(expr, Bus):
             self._map_to_bus(expr)
-            if expr.calculation_rate == supriya.CalculationRate.CONTROL:
-                request = supriya.commands.NodeMapToControlBusRequest(
+            if expr.calculation_rate == CalculationRate.CONTROL:
+                request = NodeMapToControlBusRequest(
                     self.node, **{self.name: self._value}
                 )
             else:
-                request = supriya.commands.NodeMapToAudioBusRequest(
+                request = NodeMapToAudioBusRequest(
                     self.node, **{self.name: self._value}
                 )
         elif expr is None:
             self._unmap()
-            request = supriya.commands.NodeMapToControlBusRequest(
-                self.node, **{self.name: -1}
-            )
+            request = NodeMapToControlBusRequest(self.node, **{self.name: -1})
         else:
             self._set_to_number(expr)
-            request = supriya.commands.NodeSetRequest(
-                self.node, **{self.name: self._value}
-            )
+            request = NodeSetRequest(self.node, **{self.name: self._value})
         if self.node.is_allocated:
             request.communicate(server=self.node.server)
         return self.get()
@@ -493,15 +473,12 @@ class SynthInterface(ControlInterface):
     ### INITIALIZER ###
 
     def __init__(self, client=None, synthdef=None):
-        import supriya.realtime
-        import supriya.synthdefs
-
-        assert isinstance(synthdef, supriya.synthdefs.SynthDef)
+        assert isinstance(synthdef, SynthDef)
         self._client = client
         synth_controls = []
         synth_control_map = collections.OrderedDict()
         for index, parameter in synthdef.indexed_parameters:
-            synth_control = supriya.realtime.SynthControl.from_parameter(
+            synth_control = SynthControl.from_parameter(
                 parameter, client=self, index=index
             )
             synth_controls.append(synth_control)
@@ -543,8 +520,6 @@ class SynthInterface(ControlInterface):
         return "<{}: {!r}>".format(class_name, self.client)
 
     def __setitem__(self, items, values):
-        import supriya.realtime
-
         if not isinstance(items, tuple):
             items = (items,)
         if not isinstance(values, tuple):
@@ -556,7 +531,7 @@ class SynthInterface(ControlInterface):
         requests = self._set(**settings)
         if not self.client.is_allocated:
             return
-        supriya.commands.RequestBundle(contents=requests).communicate(
+        RequestBundle(contents=requests).communicate(
             server=self.client.server, sync=True
         )
 
@@ -597,34 +572,23 @@ class SynthInterface(ControlInterface):
     ### PRIVATE METHODS ###
 
     def _make_synth_new_settings(self):
-        import supriya.commands
-        import supriya.realtime
-        import supriya.synthdefs
-
         audio_map = {}
         control_map = {}
         requests = []
         settings = {}
         for synth_control in self.synth_controls:
-            if isinstance(synth_control.value, supriya.realtime.Bus):
-                if (
-                    synth_control.value.calculation_rate
-                    == supriya.CalculationRate.AUDIO
-                ):
+            if isinstance(synth_control.value, Bus):
+                if synth_control.value.calculation_rate == CalculationRate.AUDIO:
                     audio_map[synth_control.name] = synth_control.value
                 else:
                     control_map[synth_control.name] = synth_control.value
             elif synth_control.value != synth_control.default_value:
                 settings[synth_control.name] = synth_control.value
         if audio_map:
-            request = supriya.commands.NodeMapToAudioBusRequest(
-                node_id=self.client, **audio_map
-            )
+            request = NodeMapToAudioBusRequest(node_id=self.client, **audio_map)
             requests.append(request)
         if control_map:
-            request = supriya.commands.NodeMapToControlBusRequest(
-                node_id=self.client, **control_map
-            )
+            request = NodeMapToControlBusRequest(node_id=self.client, **control_map)
             requests.append(request)
         return settings, requests
 

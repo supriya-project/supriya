@@ -1,7 +1,7 @@
 import bisect
 
-import supriya.synthdefs
-from supriya.nonrealtime.bases import SessionObject
+from ..enums import CalculationRate
+from .bases import SessionObject
 
 
 class Bus(SessionObject):
@@ -53,15 +53,13 @@ class Bus(SessionObject):
     ### INITIALIZER ###
 
     def __init__(self, session, bus_group=None, calculation_rate=None, session_id=None):
-        import supriya.nonrealtime
-
         SessionObject.__init__(self, session)
         self._session_id = session_id
         if bus_group is not None:
-            assert isinstance(bus_group, supriya.nonrealtime.BusGroup)
+            assert isinstance(bus_group, BusGroup)
         self._bus_group = bus_group
         assert calculation_rate is not None
-        calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
+        calculation_rate = CalculationRate.from_expr(calculation_rate)
         self._calculation_rate = calculation_rate
         self._events = []
 
@@ -78,7 +76,7 @@ class Bus(SessionObject):
 
     def __str__(self):
         map_symbol = "c"
-        if self.calculation_rate == supriya.CalculationRate.AUDIO:
+        if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = "a"
         session_id = self._session_id
         if session_id is None:
@@ -109,7 +107,7 @@ class Bus(SessionObject):
         return value
 
     def _set_at_offset(self, offset, value):
-        assert self.calculation_rate == supriya.CalculationRate.CONTROL
+        assert self.calculation_rate == CalculationRate.CONTROL
         events = self._events
         event = (offset, value)
         if not events:
@@ -132,9 +130,7 @@ class Bus(SessionObject):
         return value
 
     def get_map_symbol(self, bus_id):
-        import supriya.synthdefs
-
-        if self.calculation_rate == supriya.CalculationRate.AUDIO:
+        if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = "a"
         else:
             map_symbol = "c"
@@ -217,17 +213,15 @@ class BusGroup(SessionObject):
     ### INITIALIZER ###
 
     def __init__(self, session, bus_count=1, calculation_rate=None, session_id=None):
-        import supriya.nonrealtime
-
         SessionObject.__init__(self, session)
         self._session_id = session_id
         assert calculation_rate is not None
-        calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
+        calculation_rate = CalculationRate.from_expr(calculation_rate)
         self._calculation_rate = calculation_rate
         bus_count = int(bus_count)
         assert 0 < bus_count
         self._buses = tuple(
-            supriya.nonrealtime.Bus(
+            Bus(
                 session,
                 bus_group=self,
                 calculation_rate=self.calculation_rate,
@@ -264,7 +258,7 @@ class BusGroup(SessionObject):
 
     def __str__(self):
         map_symbol = "c"
-        if self.calculation_rate == supriya.CalculationRate.AUDIO:
+        if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = "a"
         session_id = self._session_id
         if session_id is None:
@@ -288,9 +282,7 @@ class BusGroup(SessionObject):
         return values
 
     def get_map_symbol(self, bus_id):
-        import supriya.synthdefs
-
-        if self.calculation_rate == supriya.CalculationRate.AUDIO:
+        if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = "a"
         else:
             map_symbol = "c"
@@ -331,7 +323,7 @@ class AudioInputBusGroup(BusGroup):
     ### INITIALIZER ###
 
     def __init__(self, session):
-        calculation_rate = supriya.CalculationRate.AUDIO
+        calculation_rate = CalculationRate.AUDIO
         bus_count = session.options.input_bus_channel_count
         BusGroup.__init__(
             self, session, bus_count=bus_count, calculation_rate=calculation_rate
@@ -350,7 +342,7 @@ class AudioOutputBusGroup(BusGroup):
     ### INITIALIZER ###
 
     def __init__(self, session):
-        calculation_rate = supriya.CalculationRate.AUDIO
+        calculation_rate = CalculationRate.AUDIO
         bus_count = session.options.output_bus_channel_count
         BusGroup.__init__(
             self, session, bus_count=bus_count, calculation_rate=calculation_rate

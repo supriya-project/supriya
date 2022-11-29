@@ -10,16 +10,20 @@ from typing import Dict, List, Optional, Tuple, Union
 
 import yaml
 
-from supriya import (
+from .. import sclang
+from ..commands import (
+    SynthDefFreeRequest,
+    SynthDefLoadDirectoryRequest,
+    SynthDefReceiveRequest,
+)
+from ..enums import (
     BinaryOperator,
     CalculationRate,
     DoneAction,
     ParameterRate,
     UnaryOperator,
-    sclang,
 )
-from supriya.system import SupriyaObject
-
+from ..system import SupriyaObject
 from ..ugens import BinaryOpUGen, OutputProxy, UGen, UGenMethodMixin, UnaryOpUGen
 from .compilers import SynthDefCompiler
 from .controls import AudioControl, Control, LagControl, Parameter, TrigControl
@@ -294,8 +298,6 @@ class SynthDef:
     @staticmethod
     def _allocate_synthdefs(synthdefs, server):
         # TODO: Should sync be configurable here?
-        import supriya.commands
-
         d_recv_synthdef_groups = []
         d_recv_synth_group = []
         current_total = 0
@@ -317,9 +319,7 @@ class SynthDef:
         if d_recv_synth_group:
             d_recv_synthdef_groups.append(d_recv_synth_group)
         for d_recv_synth_group in d_recv_synthdef_groups:
-            d_recv_request = supriya.commands.SynthDefReceiveRequest(
-                synthdefs=tuple(d_recv_synth_group)
-            )
+            d_recv_request = SynthDefReceiveRequest(synthdefs=tuple(d_recv_synth_group))
 
             d_recv_request.communicate(server=server, sync=True)
         if d_load_synthdefs:
@@ -329,7 +329,7 @@ class SynthDef:
                 file_path = os.path.join(temp_directory_path, file_name)
                 with open(file_path, "wb") as file_pointer:
                     file_pointer.write(synthdef.compile())
-            d_load_dir_request = supriya.commands.SynthDefLoadDirectoryRequest(
+            d_load_dir_request = SynthDefLoadDirectoryRequest(
                 directory_path=temp_directory_path
             )
             d_load_dir_request.communicate(server=server, sync=True)
@@ -415,19 +415,19 @@ class SynthDef:
 
     @staticmethod
     def _build_input_mapping(ugens):
-        import supriya.ugens
+        from ..ugens import PV_ChainUGen, PV_Copy
 
         input_mapping = {}
         for ugen in ugens:
-            if not isinstance(ugen, supriya.ugens.PV_ChainUGen):
+            if not isinstance(ugen, PV_ChainUGen):
                 continue
-            if isinstance(ugen, supriya.ugens.PV_Copy):
+            if isinstance(ugen, PV_Copy):
                 continue
             for i, input_ in enumerate(ugen.inputs):
                 if not isinstance(input_, OutputProxy):
                     continue
                 source = input_.source
-                if not isinstance(source, supriya.ugens.PV_ChainUGen):
+                if not isinstance(source, PV_ChainUGen):
                     continue
                 if source not in input_mapping:
                     input_mapping[source] = []
@@ -436,18 +436,18 @@ class SynthDef:
 
     @staticmethod
     def _cleanup_local_bufs(ugens):
-        import supriya.ugens
+        from ..ugens import LocalBuf, MaxLocalBufs
 
         local_bufs = []
         processed_ugens = []
         for ugen in ugens:
-            if isinstance(ugen, supriya.ugens.MaxLocalBufs):
+            if isinstance(ugen, MaxLocalBufs):
                 continue
-            if isinstance(ugen, supriya.ugens.LocalBuf):
+            if isinstance(ugen, LocalBuf):
                 local_bufs.append(ugen)
             processed_ugens.append(ugen)
         if local_bufs:
-            max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=len(local_bufs))
+            max_local_bufs = MaxLocalBufs.ir(maximum=len(local_bufs))
             for local_buf in local_bufs:
                 inputs = list(local_buf.inputs[:2])
                 inputs.append(max_local_bufs[0])
@@ -458,7 +458,7 @@ class SynthDef:
 
     @staticmethod
     def _cleanup_pv_chains(ugens):
-        import supriya.ugens
+        from ..ugens import LocalBuf, PV_Copy
 
         input_mapping = SynthDef._build_input_mapping(ugens)
         for antecedent, descendants in input_mapping.items():
@@ -466,10 +466,8 @@ class SynthDef:
                 continue
             for descendant, input_index in descendants[:-1]:
                 fft_size = antecedent.fft_size
-                new_buffer = supriya.ugens.LocalBuf(fft_size)
-                pv_copy = supriya.ugens.PV_Copy.kr(
-                    pv_chain_a=antecedent, pv_chain_b=new_buffer
-                )
+                new_buffer = LocalBuf(fft_size)
+                pv_copy = PV_Copy.kr(pv_chain_a=antecedent, pv_chain_b=new_buffer)
                 inputs = list(descendant._inputs)
                 inputs[input_index] = pv_copy[0]
                 descendant._inputs = tuple(inputs)
@@ -580,7 +578,7 @@ class SynthDef:
         return self
 
     def compile(self, use_anonymous_name=False):
-        from supriya.synthdefs import SynthDefCompiler
+        from .synthdefs import SynthDefCompiler
 
         synthdefs = [self]
         result = SynthDefCompiler.compile_synthdefs(
@@ -589,12 +587,10 @@ class SynthDef:
         return result
 
     def free(self, server):
-        import supriya.commands
-
         assert self in server
         synthdef_name = self.actual_name
         del server._synthdefs[synthdef_name]
-        request = supriya.commands.SynthDefFreeRequest(synthdef=self)
+        request = SynthDefFreeRequest(synthdef=self)
         if server.is_running:
             request.communicate(server=server)
 

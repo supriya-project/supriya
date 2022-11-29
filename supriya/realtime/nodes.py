@@ -2,21 +2,35 @@ import abc
 import pathlib
 import tempfile
 from collections.abc import Sequence
-from typing import Optional, Tuple, Union, cast
+from typing import TYPE_CHECKING, Optional, Tuple, Union, cast
 
 import uqbar.graphs
 from uqbar.containers import UniqueTreeList, UniqueTreeNode
 from uqbar.objects import new
 from uqbar.strings import to_dash_case
 
-import supriya
-from supriya.enums import AddAction, NodeAction
-from supriya.exceptions import NodeNotAllocated, ServerOffline
-
-from ..commands import NodeRunRequest
+from ..assets.synthdefs.default import default
+from ..commands import (
+    GroupHeadRequest,
+    GroupNewRequest,
+    NodeAfterRequest,
+    NodeFreeRequest,
+    NodeInfoResponse,
+    NodeRunRequest,
+    ParallelGroupNewRequest,
+    RequestBundle,
+    SynthDefLoadDirectoryRequest,
+    SynthDefReceiveRequest,
+    SynthNewRequest,
+)
+from ..enums import AddAction, NodeAction
+from ..exceptions import NodeNotAllocated, ServerOffline
 from ..synthdefs.synthdefs import SynthDef
 from ..typing import AddActionLike
 from .interfaces import GroupInterface, SynthInterface  # noqa
+
+if TYPE_CHECKING:
+    from .servers import Server
 
 
 class Node(UniqueTreeNode):
@@ -87,8 +101,6 @@ class Node(UniqueTreeNode):
     ### PRIVATE METHODS ###
 
     def _allocate(self, paused_nodes, requests, server, synthdefs):
-        import supriya.commands
-
         if paused_nodes:
             requests.append(
                 NodeRunRequest(
@@ -98,17 +110,17 @@ class Node(UniqueTreeNode):
         if not requests:
             return self
         elif 1 < len(requests):
-            request = supriya.commands.RequestBundle(contents=requests)
+            request = RequestBundle(contents=requests)
         else:
             request = requests[0]
         requests[:] = [request]
         if synthdefs:
-            synthdef_request = supriya.commands.SynthDefReceiveRequest(
+            synthdef_request = SynthDefReceiveRequest(
                 synthdefs=synthdefs, callback=requests[0]
             )
             if len(synthdef_request.to_datagram(with_placeholders=True)) > 8192:
                 directory_path = pathlib.Path(tempfile.mkdtemp())
-                synthdef_request = supriya.commands.SynthDefLoadDirectoryRequest(
+                synthdef_request = SynthDefLoadDirectoryRequest(
                     directory_path=directory_path, callback=requests[0]
                 )
                 for synthdef in synthdefs:
@@ -143,7 +155,7 @@ class Node(UniqueTreeNode):
 
     @staticmethod
     def _expr_as_target(expr):
-        from supriya import Server
+        from .servers import Server
 
         if isinstance(expr, Server):
             expr = expr.default_group
@@ -162,9 +174,7 @@ class Node(UniqueTreeNode):
         return "-".join(parts)
 
     def _handle_response(self, response):
-        import supriya.commands
-
-        if not isinstance(response, supriya.commands.NodeInfoResponse):
+        if not isinstance(response, NodeInfoResponse):
             return
         if response.action == NodeAction.NODE_REMOVED:
             self._set_parent(None)
@@ -228,7 +238,7 @@ class Node(UniqueTreeNode):
 
     def _register_with_local_server(
         self,
-        server: "supriya.realtime.servers.Server",
+        server: "Server",
         node_id: Optional[int] = None,
         node_id_is_permanent: bool = False,
     ):
@@ -358,13 +368,11 @@ class Node(UniqueTreeNode):
         return synth
 
     def free(self) -> "Node":
-        import supriya.commands
-
         self._set_parent(None)
         server = self.server
         if self.node_id is not None and server is not None and server.is_running:
             node_id = self._unregister_with_local_server()
-            node_free_request = supriya.commands.NodeFreeRequest(node_ids=(node_id,))
+            node_free_request = NodeFreeRequest(node_ids=(node_id,))
             node_free_request.communicate(server=server, sync=False)
         return self
 
@@ -447,15 +455,11 @@ class Node(UniqueTreeNode):
         self.parent[index + 1 : index + 1] = expr
 
     def unpause(self):
-        import supriya.commands
-
         if not self.is_paused:
             return
         self._is_paused = False
         if self.is_allocated:
-            request = supriya.commands.NodeRunRequest(
-                node_id_run_flag_pairs=((self.node_id, True),)
-            )
+            request = NodeRunRequest(node_id_run_flag_pairs=((self.node_id, True),))
             request.communicate(server=self.server, sync=False)
 
     ### PUBLIC PROPERTIES ###
@@ -479,7 +483,7 @@ class Node(UniqueTreeNode):
         return self._node_id_is_permanent
 
     @property
-    def server(self) -> Optional["supriya.realtime.servers.Server"]:
+    def server(self) -> Optional["Server"]:
         return self._server
 
 
@@ -630,8 +634,6 @@ class Group(Node, UniqueTreeList):
                     yield inner_node, inner_target_node, inner_add_action
 
     def _collect_requests_and_synthdefs(self, expr, server, start=0):
-        import supriya.commands
-
         nodes = set()
         paused_nodes = set()
         synthdefs = set()
@@ -641,19 +643,15 @@ class Group(Node, UniqueTreeList):
             nodes.add(node)
             if node.is_allocated:
                 if add_action == AddAction.ADD_TO_HEAD:
-                    request = supriya.commands.GroupHeadRequest(
-                        node_id_pairs=[(node, target_node)]
-                    )
+                    request = GroupHeadRequest(node_id_pairs=[(node, target_node)])
                 else:
-                    request = supriya.commands.NodeAfterRequest(
-                        node_id_pairs=[(node, target_node)]
-                    )
+                    request = NodeAfterRequest(node_id_pairs=[(node, target_node)])
                 requests.append(request)
             else:
                 if isinstance(node, Group):
-                    request_method = supriya.commands.GroupNewRequest
+                    request_method = GroupNewRequest
                     if node.parallel:
-                        request_method = supriya.commands.ParallelGroupNewRequest
+                        request_method = ParallelGroupNewRequest
                     request = request_method(
                         items=[
                             request_method.Item(
@@ -668,7 +666,7 @@ class Group(Node, UniqueTreeList):
                     if node.synthdef not in server:
                         synthdefs.add(node.synthdef)
                     (settings, map_requests) = node.controls._make_synth_new_settings()
-                    request = supriya.commands.SynthNewRequest(
+                    request = SynthNewRequest(
                         add_action=add_action,
                         node_id=node,
                         synthdef=node.synthdef,
@@ -684,8 +682,6 @@ class Group(Node, UniqueTreeList):
     def _set_allocated(self, expr, start, stop):
         # TODO: Consolidate this with Group.allocate()
         # TODO: Perform tree mutations via command apply methods, not here
-        import supriya.commands
-
         old_nodes = self._children[start:stop]
         self._children.__delitem__(slice(start, stop))
         for old_node in old_nodes:
@@ -704,9 +700,7 @@ class Group(Node, UniqueTreeList):
         nodes_to_free = [_ for _ in old_nodes if _ not in new_nodes]
         if nodes_to_free:
             requests.append(
-                supriya.commands.NodeFreeRequest(
-                    node_ids=sorted(nodes_to_free, key=lambda x: x.node_id)
-                )
+                NodeFreeRequest(node_ids=sorted(nodes_to_free, key=lambda x: x.node_id))
             )
         return self._allocate(paused_nodes, requests, self.server, synthdefs)
 
@@ -725,7 +719,7 @@ class Group(Node, UniqueTreeList):
         return Node._unregister_with_local_server(self)
 
     def _validate(self, expr):
-        assert all(isinstance(_, supriya.realtime.Node) for _ in expr)
+        assert all(isinstance(_, Node) for _ in expr)
         parentage = self.parentage
         for x in expr:
             assert isinstance(x, Node)
@@ -742,16 +736,14 @@ class Group(Node, UniqueTreeList):
         sync: bool = False,
     ) -> "Node":
         # TODO: Consolidate this with Group.allocate()
-        import supriya.commands
-
         if self.is_allocated:
             return self
         self._node_id_is_permanent = bool(node_id_is_permanent)
         target_node = Node._expr_as_target(target_node)
         server = target_node.server
-        request_method = supriya.commands.GroupNewRequest
+        request_method = GroupNewRequest
         if self._parallel:
-            request_method = supriya.commands.ParallelGroupNewRequest
+            request_method = ParallelGroupNewRequest
         group_new_request = request_method(
             items=[
                 request_method.Item(
@@ -861,11 +853,10 @@ class Synth(Node):
         node_id_is_permanent=False,
         **kwargs,
     ):
-        synthdef = synthdef or supriya.assets.synthdefs.default
-        if not isinstance(synthdef, SynthDef):
+        if synthdef is not None and not isinstance(synthdef, SynthDef):
             raise ValueError(synthdef)
         Node.__init__(self, name=name, node_id_is_permanent=node_id_is_permanent)
-        self._synthdef = synthdef
+        self._synthdef = synthdef or default
         self._control_interface = SynthInterface(client=self, synthdef=self._synthdef)
         self._control_interface._set(**kwargs)
 
@@ -937,8 +928,6 @@ class Synth(Node):
         sync: bool = True,
         **kwargs,
     ) -> "Node":
-        import supriya.commands
-
         if self.is_allocated:
             return self
         self._node_id_is_permanent = bool(node_id_is_permanent)
@@ -949,7 +938,7 @@ class Synth(Node):
         self.controls._set(**kwargs)
         # TODO: Map requests aren't necessary during /s_new
         settings, map_requests = self.controls._make_synth_new_settings()
-        synth_request = supriya.commands.SynthNewRequest(
+        synth_request = SynthNewRequest(
             add_action=AddAction.from_expr(add_action),
             node_id=self,
             synthdef=self.synthdef,

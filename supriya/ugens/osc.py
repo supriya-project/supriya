@@ -1,3 +1,4 @@
+from ..enums import DoneAction
 from .bases import UGen, param, ugen
 
 
@@ -130,9 +131,7 @@ class LFGauss(UGen):
         loop=1,
         width=0.1,
     ):
-        import supriya.synthdefs
-
-        done_action = supriya.DoneAction.from_expr(done_action)
+        done_action = DoneAction.from_expr(done_action)
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
