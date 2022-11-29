@@ -3,9 +3,9 @@ from typing import Set
 
 from uqbar.objects import new
 
-from supriya.intervals import IntervalTree
-from supriya.intervals.Interval import Interval
-from supriya.system import SupriyaObject
+from .intervals.Interval import Interval
+from .intervals.IntervalTree import IntervalTree
+from .system import SupriyaObject
 
 
 class Block(Interval):
@@ -38,7 +38,7 @@ class BlockAllocator(SupriyaObject):
 
     ::
 
-        >>> from supriya.realtime import BlockAllocator
+        >>> from supriya.allocators import BlockAllocator
         >>> allocator = BlockAllocator(
         ...     heap_maximum=16,
         ... )
@@ -78,14 +78,12 @@ class BlockAllocator(SupriyaObject):
     ### INITIALIZER ###
 
     def __init__(self, heap_maximum=None, heap_minimum=0):
-        import supriya.realtime
-
         self._free_heap = IntervalTree(accelerated=True)
         self._heap_maximum = heap_maximum
         self._heap_minimum = heap_minimum
         self._lock = threading.Lock()
         self._used_heap = IntervalTree(accelerated=True)
-        free_block = supriya.realtime.Block(
+        free_block = Block(
             start_offset=heap_minimum, stop_offset=heap_maximum, used=False
         )
         self._free_heap.add(free_block)
@@ -120,8 +118,6 @@ class BlockAllocator(SupriyaObject):
         return int(block_id)
 
     def allocate_at(self, index=None, desired_block_size=1):
-        import supriya.realtime
-
         index = int(index)
         desired_block_size = int(desired_block_size)
         block_id = None
@@ -141,7 +137,7 @@ class BlockAllocator(SupriyaObject):
                     return None
                 assert len(starting_blocks) == 1
                 free_block = starting_blocks[0]
-                used_block = supriya.realtime.Block(
+                used_block = Block(
                     start_offset=start_offset, stop_offset=stop_offset, used=True
                 )
                 self._used_heap.add(used_block)
@@ -155,8 +151,6 @@ class BlockAllocator(SupriyaObject):
         return int(block_id)
 
     def free(self, block_id):
-        import supriya.realtime
-
         block_id = int(block_id)
         with self._lock:
             cursor = self._used_heap.get_moment_at(block_id)
@@ -182,7 +176,7 @@ class BlockAllocator(SupriyaObject):
                 starting_block = starting_blocks[0]
                 self._free_heap.remove(starting_block)
                 stop_offset = starting_block.stop_offset
-            free_block = supriya.realtime.Block(
+            free_block = Block(
                 start_offset=start_offset, stop_offset=stop_offset, used=False
             )
             self._free_heap.add(free_block)
@@ -210,7 +204,7 @@ class NodeIdAllocator(SupriyaObject):
 
     ::
 
-        >>> from supriya.realtime import NodeIdAllocator
+        >>> from supriya.allocators import NodeIdAllocator
         >>> allocator = NodeIdAllocator()
         >>> for _ in range(3):
         ...     allocator.allocate_node_id()
