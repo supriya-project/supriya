@@ -6,12 +6,13 @@ import uqbar.graphs
 from uqbar.objects import new
 
 import supriya  # noqa
-from supriya.commands import GroupNewRequest, SynthNewRequest
-from supriya.enums import AddAction, ParameterRate
-from supriya.nonrealtime.bases import SessionObject
 from supriya.nonrealtime.states import NodeTransition, State
-from supriya.synthdefs import SynthDef
-from supriya.typing import AddActionLike
+
+from ..commands import GroupNewRequest, SynthNewRequest
+from ..enums import AddAction, ParameterRate
+from ..synthdefs import SynthDef
+from ..typing import AddActionLike
+from .bases import SessionObject
 
 
 class Node(SessionObject):

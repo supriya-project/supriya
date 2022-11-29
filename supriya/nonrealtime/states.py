@@ -28,18 +28,6 @@ class State(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        "_transitions",
-        "_nodes_to_children",
-        "_nodes_to_parents",
-        "_offset",
-        "_session",
-        "_start_buffers",
-        "_start_nodes",
-        "_stop_buffers",
-        "_stop_nodes",
-    )
-
     _ordered_buffer_request_types = (BufferZeroRequest,)
 
     ### INITIALIZER ###
@@ -323,10 +311,6 @@ class Moment(SessionObject):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_offset", "_propagate", "_session", "_state")
-
     ### INITIALIZER ###
 
     def __init__(self, session, offset, state, propagate=True):
@@ -382,10 +366,6 @@ class NodeTransition(SupriyaValueObject):
     """
     A non-realtime state transition.
     """
-
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_source", "_target", "_action")
 
     ### INITIALIZER ###
 

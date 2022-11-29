@@ -3,7 +3,7 @@ import functools
 
 from uqbar.objects import get_repr
 
-from supriya.system import SupriyaObject
+from ..system import SupriyaObject
 
 
 class SessionObject(SupriyaObject):
