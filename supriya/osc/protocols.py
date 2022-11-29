@@ -391,32 +391,6 @@ class ThreadedOscProtocol(OscProtocol):
             self.osc_server_thread = None
         osc_protocol_logger.info(f"{self.ip_address}:{self.port} ...disconnected")
 
-    def expect(self, message, pattern, failure_pattern=None, timeout=1.0):
-        def set_response(message):
-            with condition:
-                result["result"] = message
-                condition.notify()
-
-        result = {"result": None}
-        condition = threading.Condition()
-        start_time = time.time()
-        with condition:
-            callback = self.register(
-                pattern,
-                lambda x: set_response(x),
-                failure_pattern=failure_pattern,
-                once=True,
-            )
-            self.send(message)
-            while result["result"] is None:
-                condition.wait(timeout)
-                current_time = time.time()
-                delta_time = current_time - start_time
-                if timeout <= delta_time:
-                    break
-        self.unregister(callback)
-        return result["result"]
-
     def register(
         self, pattern, procedure, *, failure_pattern=None, once=False
     ) -> OscCallback:
