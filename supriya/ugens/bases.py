@@ -3646,7 +3646,7 @@ class UGen(UGenMethodMixin):
     ### INITIALIZER ###
 
     def __init__(self, calculation_rate=None, special_index=0, **kwargs):
-        import supriya.synthdefs
+        from ..synthdefs import Parameter, SynthDefBuilder
 
         calculation_rate = CalculationRate.from_expr(calculation_rate)
         if self._valid_calculation_rates:
@@ -3655,7 +3655,7 @@ class UGen(UGenMethodMixin):
         self._inputs = []
         self._input_names = []
         self._special_index = special_index
-        ugenlike_prototype = (UGen, supriya.synthdefs.Parameter)
+        ugenlike_prototype = (UGen, Parameter)
         for input_name in self._ordered_input_names:
             input_value = None
             if input_name in kwargs:
@@ -3683,8 +3683,8 @@ class UGen(UGenMethodMixin):
         assert all(isinstance(_, (OutputProxy, float)) for _ in self.inputs)
         self._validate_inputs()
         self._uuid = None
-        if supriya.synthdefs.SynthDefBuilder._active_builders:
-            builder = supriya.synthdefs.SynthDefBuilder._active_builders[-1]
+        if SynthDefBuilder._active_builders:
+            builder = SynthDefBuilder._active_builders[-1]
             self._uuid = builder._uuid
             builder._add_ugens(self)
         self._check_inputs_share_same_uuid()
@@ -3844,7 +3844,7 @@ class UGen(UGenMethodMixin):
             [('bus', 9), ('source', (1, 2, 3))]
 
         """
-        import supriya.synthdefs
+        from ..synthdefs import Parameter
 
         dictionary = dictionary.copy()
         cached_unexpanded_inputs = {}
@@ -3856,7 +3856,7 @@ class UGen(UGenMethodMixin):
                 del dictionary[input_name]
         maximum_length = 1
         result = []
-        prototype = (Sequence, UGen, supriya.synthdefs.Parameter)
+        prototype = (Sequence, UGen, Parameter)
         for name, value in dictionary.items():
             if isinstance(value, prototype) and not isinstance(value, str):
                 maximum_length = max(maximum_length, len(value))

@@ -277,9 +277,7 @@ class SynthDefDecompiler(SupriyaObject):
 
     @staticmethod
     def _decompile_synthdef(value, index):
-        import supriya.synthdefs
-        import supriya.ugens
-
+        from .. import synthdefs, ugens
         from .synthdefs import SynthDef
 
         sdd = SynthDefDecompiler
@@ -287,7 +285,7 @@ class SynthDefDecompiler(SupriyaObject):
         name, index = sdd._decode_string(value, index)
         constants, index = sdd._decode_constants(value, index)
         indexed_parameters, index = sdd._decode_parameters(value, index)
-        ugens = []
+        decompiled_ugens = []
         ugen_count, index = sdd._decode_int_32bit(value, index)
         for i in range(ugen_count):
             ugen_name, index = sdd._decode_string(value, index)
@@ -304,15 +302,15 @@ class SynthDefDecompiler(SupriyaObject):
                     constant_index = int(constant_index)
                     inputs.append(constants[constant_index])
                 else:
-                    ugen = ugens[ugen_index]
+                    ugen = decompiled_ugens[ugen_index]
                     ugen_output_index, index = sdd._decode_int_32bit(value, index)
                     output_proxy = ugen[ugen_output_index]
                     inputs.append(output_proxy)
             for _ in range(output_count):
                 output_rate, index = sdd._decode_int_8bit(value, index)
-            ugen_class = getattr(supriya.ugens, ugen_name, None)
+            ugen_class = getattr(ugens, ugen_name, None)
             if ugen_class is None:
-                ugen_class = getattr(supriya.synthdefs, ugen_name)
+                ugen_class = getattr(synthdefs, ugen_name)
             ugen = UGen.__new__(ugen_class)
             if issubclass(ugen_class, Control):
                 starting_control_index = special_index
@@ -348,9 +346,9 @@ class SynthDefDecompiler(SupriyaObject):
                     special_index=special_index,
                     **kwargs,
                 )
-            ugens.append(ugen)
+            decompiled_ugens.append(ugen)
         variants_count, index = sdd._decode_int_16bit(value, index)
-        synthdef = SynthDef(ugens=ugens, name=name, decompiled=True)
+        synthdef = SynthDef(ugens=decompiled_ugens, name=name, decompiled=True)
         if synthdef.name == synthdef.anonymous_name:
             synthdef._name = None
         return synthdef, index
@@ -397,11 +395,10 @@ class SynthDefDecompiler(SupriyaObject):
         starting_control_index,
         ugen_class,
     ):
-        import supriya.synthdefs
-        import supriya.ugens
+        from .controls import TrigControl
 
         parameter_rate = ParameterRate.CONTROL
-        if issubclass(ugen_class, supriya.synthdefs.TrigControl):
+        if issubclass(ugen_class, TrigControl):
             parameter_rate = ParameterRate.TRIGGER
         elif calculation_rate == CalculationRate.SCALAR:
             parameter_rate = ParameterRate.SCALAR

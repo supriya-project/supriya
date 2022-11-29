@@ -155,7 +155,7 @@ class Node(UniqueTreeNode):
 
     @staticmethod
     def _expr_as_target(expr):
-        from supriya import Server
+        from .servers import Server
 
         if isinstance(expr, Server):
             expr = expr.default_group

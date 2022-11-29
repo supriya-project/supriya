@@ -32,10 +32,10 @@ class QueryTreeControl(SupriyaValueObject):
 
     @classmethod
     def from_control(cls, control):
-        import supriya.realtime
+        from .realtime import Bus
 
         control_name = control.name
-        if isinstance(control.value, supriya.realtime.Bus):
+        if isinstance(control.value, Bus):
             control_value = str(control.value)
         else:
             control_value = float(control.value)
@@ -98,8 +98,8 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
         include_timespans=False,
         id_mapping=None,
     ):
-        from supriya.nonrealtime import Bus, BusGroup, Synth
-        from supriya.synthdefs import SynthDef
+        from .nonrealtime import Bus, BusGroup, Synth
+        from .synthdefs import SynthDef
 
         assert isinstance(node, Synth)
         node_id = node.session_id
@@ -186,14 +186,13 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
 
     @classmethod
     def from_synth(cls, synth, include_controls=False):
-        import supriya.commands
-        import supriya.realtime
-        import supriya.synthdefs
+        from .realtime import Synth
+        from .synthdefs import SynthDef
 
-        assert isinstance(synth, supriya.realtime.Synth)
+        assert isinstance(synth, Synth)
         node_id = synth.node_id
         synthdef_name = synth.synthdef
-        if isinstance(synthdef_name, supriya.synthdefs.SynthDef):
+        if isinstance(synthdef_name, SynthDef):
             synthdef_name = synthdef_name.actual_name
         controls = []
         if include_controls:
@@ -325,14 +324,13 @@ class QueryTreeGroup(SupriyaValueObject, Sequence):
         include_timespans=False,
         id_mapping=None,
     ):
-        import supriya.commands
-        import supriya.nonrealtime
+        from .nonrealtime import Group, Synth
 
-        assert isinstance(node, supriya.nonrealtime.Group)
+        assert isinstance(node, Group)
         node_id = node.session_id
         children = []
         for child in state.nodes_to_children.get(node) or ():
-            if isinstance(child, supriya.nonrealtime.Group):
+            if isinstance(child, Group):
                 child = QueryTreeGroup._from_nrt_group(
                     state,
                     child,
@@ -340,7 +338,7 @@ class QueryTreeGroup(SupriyaValueObject, Sequence):
                     include_timespans=include_timespans,
                     id_mapping=id_mapping,
                 )
-            elif isinstance(child, supriya.nonrealtime.Synth):
+            elif isinstance(child, Synth):
                 child = QueryTreeSynth._from_nrt_synth(
                     state,
                     child,
@@ -390,18 +388,17 @@ class QueryTreeGroup(SupriyaValueObject, Sequence):
 
     @classmethod
     def from_group(cls, group, include_controls=False):
-        import supriya.commands
-        import supriya.realtime
+        from .realtime import Group, Synth
 
-        assert isinstance(group, supriya.realtime.Group)
+        assert isinstance(group, Group)
         node_id = group.node_id
         children = []
         for child in group.children:
-            if isinstance(child, supriya.realtime.Group):
+            if isinstance(child, Group):
                 child = QueryTreeGroup.from_group(
                     child, include_controls=include_controls
                 )
-            elif isinstance(child, supriya.realtime.Synth):
+            elif isinstance(child, Synth):
                 child = QueryTreeSynth.from_synth(
                     child, include_controls=include_controls
                 )

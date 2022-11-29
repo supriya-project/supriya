@@ -578,7 +578,7 @@ class SynthDef:
         return self
 
     def compile(self, use_anonymous_name=False):
-        from supriya.synthdefs import SynthDefCompiler
+        from .synthdefs import SynthDefCompiler
 
         synthdefs = [self]
         result = SynthDefCompiler.compile_synthdefs(

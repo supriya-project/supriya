@@ -52,13 +52,13 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
     ):
-        import supriya.synthdefs
+        from ..synthdefs import Envelope, Parameter
 
-        if not isinstance(done_action, supriya.synthdefs.Parameter):
+        if not isinstance(done_action, Parameter):
             done_action = DoneAction.from_expr(done_action)
         if envelope is None:
-            envelope = supriya.synthdefs.Envelope()
-        assert isinstance(envelope, supriya.synthdefs.Envelope)
+            envelope = Envelope()
+        assert isinstance(envelope, Envelope)
         envelope = envelope.serialize()
         return super(EnvGen, cls)._new_expanded(
             calculation_rate=calculation_rate,

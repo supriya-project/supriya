@@ -1,6 +1,7 @@
 from supriya import AddAction
 from supriya.enums import RequestId
 
+from ..osc import OscMessage
 from .bases import Request, Response
 
 
@@ -50,12 +51,12 @@ class SynthNewRequest(Request):
         target_node_id=None,
         **kwargs,
     ):
-        import supriya.synthdefs
+        from ..synthdefs import SynthDef
 
         Request.__init__(self)
         self._add_action = AddAction.from_expr(add_action)
         self._node_id = node_id
-        prototype = (str, supriya.synthdefs.SynthDef)
+        prototype = (str, SynthDef)
         assert isinstance(synthdef, prototype)
         self._synthdef = synthdef
         self._target_node_id = target_node_id
@@ -64,7 +65,7 @@ class SynthNewRequest(Request):
     ### PRIVATE METHODS ###
 
     def _apply_local(self, server):
-        from supriya.realtime import Node, Synth
+        from ..realtime.nodes import Node, Synth
 
         if isinstance(self.node_id, Synth):
             node_id = None
@@ -84,11 +85,11 @@ class SynthNewRequest(Request):
     ### PUBLIC METHODS ###
 
     def to_osc(self, *, with_placeholders=False):
-        import supriya.synthdefs
+        from ..synthdefs import SynthDef
 
         request_id = self.request_name
         synthdef = self.synthdef
-        if isinstance(synthdef, supriya.synthdefs.SynthDef):
+        if isinstance(synthdef, SynthDef):
             synthdef = synthdef.actual_name
         node_id = self._sanitize_node_id(self.node_id, with_placeholders)
         add_action = int(self.add_action)
@@ -99,7 +100,7 @@ class SynthNewRequest(Request):
         for key, value in self._kwargs:
             contents.append(key)
             contents.append(value)
-        message = supriya.osc.OscMessage(*contents)
+        message = OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

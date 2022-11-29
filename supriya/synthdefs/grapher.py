@@ -210,9 +210,9 @@ class SynthDefGrapher:
 
     @staticmethod
     def graph(synthdef):
-        import supriya.synthdefs
+        from .synthdefs import SynthDef
 
-        assert isinstance(synthdef, supriya.synthdefs.SynthDef)
+        assert isinstance(synthdef, SynthDef)
         graph = uqbar.graphs.Graph(name="synthdef_{}".format(synthdef.actual_name))
         ugen_node_mapping = SynthDefGrapher._create_ugen_node_mapping(synthdef)
         for node in sorted(ugen_node_mapping.values(), key=lambda x: x.name):
