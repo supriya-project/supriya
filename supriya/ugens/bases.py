@@ -3656,11 +3656,6 @@ class UGen(UGenMethodMixin):
         self._input_names = []
         self._special_index = special_index
         ugenlike_prototype = (UGen, supriya.synthdefs.Parameter)
-        server_id_prototype = (
-            supriya.realtime.ServerObject,
-            supriya.realtime.BusProxy,
-            supriya.realtime.BufferProxy,
-        )
         for input_name in self._ordered_input_names:
             input_value = None
             if input_name in kwargs:
@@ -3668,8 +3663,11 @@ class UGen(UGenMethodMixin):
             if isinstance(input_value, ugenlike_prototype):
                 assert len(input_value) == 1
                 input_value = input_value[0]
-            elif isinstance(input_value, server_id_prototype):
-                input_value = int(input_value)
+            else:
+                try:
+                    input_value = float(input_value)
+                except TypeError:
+                    pass
             if self._is_unexpanded_input_name(input_name):
                 if not isinstance(input_value, Sequence):
                     input_value = (input_value,)
