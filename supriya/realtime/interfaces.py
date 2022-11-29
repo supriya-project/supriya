@@ -4,7 +4,7 @@ import copy
 import re
 from collections.abc import Iterable
 
-from supriya.system import SupriyaObject
+from ..system import SupriyaObject
 
 
 class ControlInterface(SupriyaObject):

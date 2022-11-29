@@ -1,11 +1,20 @@
-from typing import Optional, Tuple
+from typing import TYPE_CHECKING, Optional, Tuple
 
-import supriya.exceptions
-from supriya import CalculationRate
-from supriya.system import SupriyaValueObject
-
+from ..commands import (
+    ControlBusFillRequest,
+    ControlBusGetContiguousRequest,
+    ControlBusGetRequest,
+    ControlBusSetContiguousRequest,
+    ControlBusSetRequest,
+)
+from ..enums import CalculationRate
+from ..exceptions import BusAlreadyAllocated, BusNotAllocated, IncompatibleRate
+from ..system import SupriyaValueObject
 from ..typing import CalculationRateLike
 from .bases import ServerObject
+
+if TYPE_CHECKING:
+    from .servers import Server
 
 # TODO: Reimplement Bus/BusGroup to stress "leasing" model
 
@@ -76,12 +85,12 @@ class Bus(ServerObject):
 
     def __float__(self) -> float:
         if self.bus_id is None:
-            raise supriya.exceptions.BusNotAllocated
+            raise BusNotAllocated
         return float(self.bus_id)
 
     def __int__(self) -> int:
         if self.bus_id is None:
-            raise supriya.exceptions.BusNotAllocated
+            raise BusNotAllocated
         return int(self.bus_id)
 
     def __repr__(self):
@@ -137,11 +146,11 @@ class Bus(ServerObject):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, server: "supriya.realtime.servers.Server") -> "Bus":
+    def allocate(self, server: "Server") -> "Bus":
         if self.bus_group is not None:
             return self
         if self.is_allocated:
-            raise supriya.exceptions.BusAlreadyAllocated
+            raise BusAlreadyAllocated
         ServerObject.allocate(self, server=server)
         if self.bus_id is None:
             allocator = self._get_allocator(
@@ -156,7 +165,7 @@ class Bus(ServerObject):
 
     def free(self) -> "Bus":
         if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated
+            raise BusNotAllocated
         if not self._bus_id_was_set_manually:
             allocator = self._get_allocator(
                 calculation_rate=self.calculation_rate, server=self.server
@@ -167,13 +176,11 @@ class Bus(ServerObject):
         return self
 
     def get(self, completion_callback=None) -> float:
-        import supriya.commands
-
         if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated
+            raise BusNotAllocated
         elif not self.calculation_rate == CalculationRate.CONTROL:
-            raise supriya.exceptions.IncompatibleRate
-        request = supriya.commands.ControlBusGetRequest(indices=(self,))
+            raise IncompatibleRate
+        request = ControlBusGetRequest(indices=(self,))
         if callable(completion_callback):
             raise NotImplementedError
         response = request.communicate(server=self.server)
@@ -182,15 +189,11 @@ class Bus(ServerObject):
         return value
 
     def set(self, value: float) -> None:
-        import supriya.commands
-
         if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated
+            raise BusNotAllocated
         elif not self.calculation_rate == CalculationRate.CONTROL:
-            raise supriya.exceptions.IncompatibleRate
-        request = supriya.commands.ControlBusSetRequest(
-            index_value_pairs=((self, value),)
-        )
+            raise IncompatibleRate
+        request = ControlBusSetRequest(index_value_pairs=((self, value),))
         request.communicate(server=self.server, sync=False)
 
     ### PUBLIC PROPERTIES ###
@@ -222,7 +225,7 @@ class Bus(ServerObject):
     @property
     def map_symbol(self) -> str:
         if self.bus_id is None:
-            raise supriya.exceptions.BusNotAllocated
+            raise BusNotAllocated
         if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = "a"
         else:
@@ -231,7 +234,7 @@ class Bus(ServerObject):
         return map_symbol
 
     @property
-    def server(self) -> Optional["supriya.realtime.servers.Server"]:
+    def server(self) -> Optional["Server"]:
         if self.bus_group is not None:
             return self.bus_group.server
         return self._server
@@ -340,7 +343,7 @@ class BusGroup(ServerObject):
 
     def __float__(self) -> float:
         if self.bus_id is None:
-            raise supriya.exceptions.BusNotAllocated
+            raise BusNotAllocated
         return float(self.bus_id)
 
     def __getitem__(self, item: int) -> Bus:
@@ -376,7 +379,7 @@ class BusGroup(ServerObject):
 
     def __int__(self) -> int:
         if self.bus_id is None:
-            raise supriya.exceptions.BusNotAllocated
+            raise BusNotAllocated
         return int(self.bus_id)
 
     def __iter__(self):
@@ -419,9 +422,9 @@ class BusGroup(ServerObject):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, server: "supriya.realtime.servers.Server") -> "BusGroup":
+    def allocate(self, server: "Server") -> "BusGroup":
         if self.is_allocated:
-            raise supriya.exceptions.BusAlreadyAllocated
+            raise BusAlreadyAllocated
         ServerObject.allocate(self, server=server)
         allocator = Bus._get_allocator(
             calculation_rate=self.calculation_rate, server=self.server
@@ -469,14 +472,12 @@ class BusGroup(ServerObject):
             supriya.exceptions.IncompatibleRate
 
         """
-        import supriya.commands
-
         if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated
+            raise BusNotAllocated
         if self.calculation_rate != CalculationRate.CONTROL:
-            raise supriya.exceptions.IncompatibleRate
+            raise IncompatibleRate
         index_count_value_triples = [(self.bus_id, len(self), value)]
-        request = supriya.commands.ControlBusFillRequest(
+        request = ControlBusFillRequest(
             index_count_value_triples=index_count_value_triples
         )
         request.communicate(server=self.server, sync=False)
@@ -505,16 +506,12 @@ class BusGroup(ServerObject):
             (0.0, 0.0, 0.0, 0.0)
 
         """
-        import supriya.commands
-
         if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated
+            raise BusNotAllocated
         if self.calculation_rate != CalculationRate.CONTROL:
-            raise supriya.exceptions.IncompatibleRate
+            raise IncompatibleRate
         index_count_pairs = [(self.bus_id, len(self))]
-        request = supriya.commands.ControlBusGetContiguousRequest(
-            index_count_pairs=index_count_pairs
-        )
+        request = ControlBusGetContiguousRequest(index_count_pairs=index_count_pairs)
         response = request.communicate(server=self.server)
         assert len(response) == 1
         value = response[0].bus_values
@@ -541,17 +538,13 @@ class BusGroup(ServerObject):
             (-0.5, 0.5, -0.5, 0.5)
 
         """
-        import supriya.commands
-
         if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated(self)
+            raise BusNotAllocated(self)
         if self.calculation_rate != CalculationRate.CONTROL:
-            raise supriya.exceptions.IncompatibleRate(self)
+            raise IncompatibleRate(self)
         if len(values) != len(self):
             raise ValueError(values)
-        request = supriya.commands.ControlBusSetContiguousRequest(
-            index_values_pairs=[(self, values)]
-        )
+        request = ControlBusSetContiguousRequest(index_values_pairs=[(self, values)])
         request.communicate(self.server, sync=False)
 
     ### PUBLIC PROPERTIES ###
@@ -575,7 +568,7 @@ class BusGroup(ServerObject):
     @property
     def map_symbol(self) -> str:
         if self.bus_id is None:
-            raise supriya.exceptions.BusNotAllocated
+            raise BusNotAllocated
         if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = "a"
         else:
@@ -600,7 +593,7 @@ class BusProxy(SupriyaValueObject):
         *,
         bus_id: int,
         calculation_rate: CalculationRateLike,
-        server: "supriya.realtime.servers.Server",
+        server: "Server",
         value: float = 0.0,
     ):
         self._bus_id = bus_id
@@ -639,7 +632,7 @@ class BusProxy(SupriyaValueObject):
         return map_symbol
 
     @property
-    def server(self) -> "supriya.realtime.servers.Server":
+    def server(self) -> "Server":
         return self._server
 
     @property
@@ -671,14 +664,13 @@ class AudioInputBusGroup(BusGroup):
 
     def __init__(self, server):
         import supriya.realtime
-        import supriya.synthdefs
 
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         BusGroup.__init__(
             self,
             bus_count=server.options.input_bus_channel_count,
-            calculation_rate=supriya.CalculationRate.AUDIO,
+            calculation_rate=CalculationRate.AUDIO,
         )
         self._bus_id = server.options.output_bus_channel_count
         self._server = server
@@ -720,14 +712,13 @@ class AudioOutputBusGroup(BusGroup):
 
     def __init__(self, server):
         import supriya.realtime
-        import supriya.synthdefs
 
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         BusGroup.__init__(
             self,
             bus_count=server.options.input_bus_channel_count,
-            calculation_rate=supriya.CalculationRate.AUDIO,
+            calculation_rate=CalculationRate.AUDIO,
         )
         self._bus_id = 0
         self._server = server

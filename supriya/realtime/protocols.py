@@ -5,8 +5,8 @@ import logging
 import subprocess
 import time
 
-import supriya.exceptions
-from supriya.scsynth import Options
+from ..exceptions import ServerCannotBoot
+from ..scsynth import Options
 
 logger = logging.getLogger("supriya.server.protocol")
 
@@ -62,11 +62,11 @@ class SyncProcessProtocol(ProcessProtocol):
                 if line_status == LineStatus.READY:
                     break
                 elif line_status == LineStatus.ERROR:
-                    raise supriya.exceptions.ServerCannotBoot(line)
+                    raise ServerCannotBoot(line)
                 elif (time.time() - start_time) > timeout:
-                    raise supriya.exceptions.ServerCannotBoot(line)
+                    raise ServerCannotBoot(line)
             self.is_running = True
-        except supriya.exceptions.ServerCannotBoot:
+        except ServerCannotBoot:
             self.process.terminate()
             self.process.wait()
             raise

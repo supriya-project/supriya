@@ -1,7 +1,10 @@
 import os
 
-from supriya import HeaderFormat, SampleFormat
-from supriya.system import SupriyaObject
+from ..commands import BufferWriteRequest
+from ..enums import AddAction, HeaderFormat, SampleFormat
+from ..system import SupriyaObject
+from .buffers import Buffer
+from .nodes import Synth
 
 
 class Recorder(SupriyaObject):
@@ -81,16 +84,13 @@ class Recorder(SupriyaObject):
         return file_path
 
     def _setup_buffer(self):
-        import supriya.commands
-        import supriya.realtime
-
         frame_count = 65536
-        buffer_ = supriya.realtime.Buffer().allocate(
+        buffer_ = Buffer().allocate(
             self.server,
             frame_count=frame_count,
             channel_count=self.current_channel_count,
         )
-        callback = supriya.commands.BufferWriteRequest(
+        callback = BufferWriteRequest(
             buffer_id=buffer_,
             file_path=self.current_file_path,
             frame_count=0,
@@ -103,11 +103,9 @@ class Recorder(SupriyaObject):
         self._record_buffer = buffer_
 
     def _setup_node(self):
-        import supriya.realtime
-
-        synth = supriya.realtime.Synth(self.record_synthdef)
+        synth = Synth(self.record_synthdef)
         synth.allocate(
-            add_action=supriya.AddAction.ADD_TO_TAIL,
+            add_action=AddAction.ADD_TO_TAIL,
             target_node=self.server.root_node,
             node_id_is_permanent=True,
         )

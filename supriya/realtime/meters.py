@@ -1,6 +1,6 @@
-import supriya.system
-from supriya import utils
-from supriya.system import SupriyaObject
+from ..exceptions import NotAllocated
+from ..system import SupriyaObject
+from ..utils import group_iterable_by_count
 
 
 class Meters(SupriyaObject):
@@ -81,7 +81,7 @@ class Meters(SupriyaObject):
         contents = message.contents[2:]
         peak_levels = []
         rms_levels = []
-        for peak, rms in utils.group_iterable_by_count(contents, 2):
+        for peak, rms in group_iterable_by_count(contents, 2):
             peak_levels.append(peak)
             rms_levels.append(rms)
         self._input_meter_peak_levels = tuple(peak_levels)
@@ -91,7 +91,7 @@ class Meters(SupriyaObject):
         contents = message.contents[2:]
         peak_levels = []
         rms_levels = []
-        for peak, rms in utils.group_iterable_by_count(contents, 2):
+        for peak, rms in group_iterable_by_count(contents, 2):
             peak_levels.append(peak)
             rms_levels.append(rms)
         self._output_meter_peak_levels = tuple(peak_levels)
@@ -154,7 +154,7 @@ class Meters(SupriyaObject):
 
     def to_dict(self):
         if not self.is_allocated:
-            raise supriya.exceptions.NotAllocated(self)
+            raise NotAllocated(self)
         input_meter_levels, output_meter_levels = [], []
         for peak, rms in zip(
             self._input_meter_peak_levels or [], self._input_meter_rms_levels or []

@@ -1,6 +1,6 @@
 import abc
 
-from supriya.system import SupriyaObject
+from ..system import SupriyaObject
 
 
 class ServerObject(SupriyaObject):
