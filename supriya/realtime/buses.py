@@ -662,10 +662,7 @@ class AudioInputBusGroup(BusGroup):
 
     ### INITIALIZER ###
 
-    def __init__(self, server):
-        import supriya.realtime
-
-        assert isinstance(server, supriya.realtime.Server)
+    def __init__(self, server: "Server"):
         assert server.is_running
         BusGroup.__init__(
             self,
@@ -710,10 +707,7 @@ class AudioOutputBusGroup(BusGroup):
 
     ### INITIALIZER ###
 
-    def __init__(self, server):
-        import supriya.realtime
-
-        assert isinstance(server, supriya.realtime.Server)
+    def __init__(self, server: "Server"):
         assert server.is_running
         BusGroup.__init__(
             self,

@@ -9,7 +9,7 @@ from uqbar.containers import UniqueTreeList, UniqueTreeNode
 from uqbar.objects import new
 from uqbar.strings import to_dash_case
 
-from ..assets.synthdefs import default
+from ..assets.synthdefs.default import default
 from ..commands import (
     GroupHeadRequest,
     GroupNewRequest,
@@ -853,11 +853,10 @@ class Synth(Node):
         node_id_is_permanent=False,
         **kwargs,
     ):
-        synthdef = synthdef or default
-        if not isinstance(synthdef, SynthDef):
+        if synthdef is not None and not isinstance(synthdef, SynthDef):
             raise ValueError(synthdef)
         Node.__init__(self, name=name, node_id_is_permanent=node_id_is_permanent)
-        self._synthdef = synthdef
+        self._synthdef = synthdef or default
         self._control_interface = SynthInterface(client=self, synthdef=self._synthdef)
         self._control_interface._set(**kwargs)
 

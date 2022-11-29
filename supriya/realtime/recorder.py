@@ -2,7 +2,9 @@ import os
 
 from ..commands import BufferWriteRequest
 from ..enums import AddAction, HeaderFormat, SampleFormat
+from ..synthdefs import SynthDefBuilder
 from ..system import SupriyaObject
+from ..ugens import DiskOut, In
 from .buffers import Buffer
 from .nodes import Synth
 
@@ -112,15 +114,9 @@ class Recorder(SupriyaObject):
         self._record_node = synth
 
     def _setup_synthdef(self):
-        import supriya.synthdefs
-        import supriya.ugens
-
-        with supriya.synthdefs.SynthDefBuilder() as builder:
-            source = supriya.ugens.In.ar(
-                bus=0, channel_count=self.current_channel_count
-            )
-            buffer_id = int(self.record_buffer)
-            supriya.ugens.DiskOut.ar(buffer_id=buffer_id, source=source)
+        with SynthDefBuilder() as builder:
+            source = In.ar(bus=0, channel_count=self.current_channel_count)
+            DiskOut.ar(buffer_id=self.record_buffer, source=source)
         synthdef = builder.build()
         synthdef.allocate(server=self.server)
         self._record_synthdef = synthdef

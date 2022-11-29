@@ -24,12 +24,12 @@ class ServerObject(SupriyaObject):
 
     @abc.abstractmethod
     def allocate(self, server):
-        import supriya.realtime
+        from .servers import Server
 
         if self.is_allocated and self.server is server:
             return
         assert self.server is None, (self, self.server)
-        assert isinstance(server, supriya.realtime.Server)
+        assert isinstance(server, Server)
         assert server.is_running
         self._server = server
 

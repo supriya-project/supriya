@@ -1,5 +1,8 @@
+from ..enums import AddAction
 from ..exceptions import NotAllocated
+from ..synthdefs import SynthDefBuilder
 from ..system import SupriyaObject
+from ..ugens import In, SendPeakRMS
 from ..utils import group_iterable_by_count
 
 
@@ -100,26 +103,21 @@ class Meters(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def allocate(self):
-        import supriya.osc
-        import supriya.realtime
-
         self._input_meter_callback = self.server.osc_protocol.register(
             pattern=self.input_meter_command, procedure=self._handle_input_levels
         )
         self._output_meter_callback = self.server.osc_protocol.register(
             pattern=self.output_meter_command, procedure=self._handle_output_levels
         )
-        input_meter_synthdef = self.input_meter_synthdef
-        output_meter_synthdef = self.output_meter_synthdef
-        self._input_meter_synth = supriya.realtime.Synth(input_meter_synthdef)
-        self._output_meter_synth = supriya.realtime.Synth(output_meter_synthdef)
-        self._input_meter_synth.allocate(
-            add_action=supriya.AddAction.ADD_TO_HEAD,
+        self._input_meter_synth = self.server.add_synth(
+            synthdef=self.input_meter_synthdef,
+            add_action=AddAction.ADD_TO_HEAD,
             node_id_is_permanent=True,
             target_node=self.server.root_node,
         )
-        self._output_meter_synth.allocate(
-            add_action=supriya.AddAction.ADD_TO_TAIL,
+        self._output_meter_synth = self.server.add_synth(
+            synthdef=self.output_meter_synthdef,
+            add_action=AddAction.ADD_TO_TAIL,
             node_id_is_permanent=True,
             target_node=self.server.root_node,
         )
@@ -137,12 +135,9 @@ class Meters(SupriyaObject):
 
     @staticmethod
     def make_meter_synthdef(channel_count=1, command_name="/reply", initial_bus=0):
-        import supriya.synthdefs
-        import supriya.ugens
-
-        with supriya.synthdefs.SynthDefBuilder() as builder:
-            source = supriya.ugens.In.ar(bus=initial_bus, channel_count=channel_count)
-            supriya.ugens.SendPeakRMS.kr(
+        with SynthDefBuilder() as builder:
+            source = In.ar(bus=initial_bus, channel_count=channel_count)
+            SendPeakRMS.kr(
                 command_name=command_name, peak_lag=1, reply_rate=20, source=source
             )
         synthdef = builder.build()
