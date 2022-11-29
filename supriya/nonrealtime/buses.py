@@ -53,15 +53,13 @@ class Bus(SessionObject):
     ### INITIALIZER ###
 
     def __init__(self, session, bus_group=None, calculation_rate=None, session_id=None):
-        import supriya.nonrealtime
-
         SessionObject.__init__(self, session)
         self._session_id = session_id
         if bus_group is not None:
-            assert isinstance(bus_group, supriya.nonrealtime.BusGroup)
+            assert isinstance(bus_group, BusGroup)
         self._bus_group = bus_group
         assert calculation_rate is not None
-        calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
+        calculation_rate = CalculationRate.from_expr(calculation_rate)
         self._calculation_rate = calculation_rate
         self._events = []
 
@@ -215,17 +213,15 @@ class BusGroup(SessionObject):
     ### INITIALIZER ###
 
     def __init__(self, session, bus_count=1, calculation_rate=None, session_id=None):
-        import supriya.nonrealtime
-
         SessionObject.__init__(self, session)
         self._session_id = session_id
         assert calculation_rate is not None
-        calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
+        calculation_rate = CalculationRate.from_expr(calculation_rate)
         self._calculation_rate = calculation_rate
         bus_count = int(bus_count)
         assert 0 < bus_count
         self._buses = tuple(
-            supriya.nonrealtime.Bus(
+            Bus(
                 session,
                 bus_group=self,
                 calculation_rate=self.calculation_rate,

@@ -1,4 +1,5 @@
 from .bases import UGen, UGenMethodMixin, param, ugen
+from .bufio import LocalBuf
 from .info import BufFrames
 
 
@@ -61,11 +62,9 @@ class FFT(PV_ChainUGen):
         window_size=0,
         window_type=0,
     ) -> None:
-        import supriya.ugens
-
         if buffer_id is None:
             buffer_size = window_size or 2048
-            buffer_id = supriya.ugens.LocalBuf(buffer_size)
+            buffer_id = LocalBuf(buffer_size)
         UGen.__init__(
             self,
             active=active,

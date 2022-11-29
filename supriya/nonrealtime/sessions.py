@@ -613,9 +613,9 @@ class Session:
         return state
 
     def _apply_transitions(self, offsets, chain=True):
-        import supriya.nonrealtime
+        from .states import DoNotPropagate
 
-        if supriya.nonrealtime.DoNotPropagate._stack:
+        if DoNotPropagate._stack:
             return
         queue = PriorityQueue()
         try:

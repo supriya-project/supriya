@@ -33,7 +33,8 @@ class State(SessionObject):
     ### INITIALIZER ###
 
     def __init__(self, session, offset: float) -> None:
-        from supriya.nonrealtime import Buffer, Node
+        from .buffers import Buffer
+        from .nodes import Node
 
         SessionObject.__init__(self, session)
         self._transitions: Dict[Node, NodeTransition] = collections.OrderedDict()

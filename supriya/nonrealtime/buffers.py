@@ -339,15 +339,13 @@ class BufferGroup(SessionObject):
         frame_count=1,
         start_offset=None,
     ):
-        import supriya.nonrealtime
-
         SessionObject.__init__(self, session)
         buffer_count = int(buffer_count)
         assert 0 < buffer_count
         buffers = []
         start_id = len(self.session.buffers)
         for session_id in range(start_id, buffer_count + start_id):
-            buffer_ = supriya.nonrealtime.Buffer(
+            buffer_ = Buffer(
                 session,
                 session_id=session_id,
                 buffer_group=self,
