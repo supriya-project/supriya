@@ -95,6 +95,11 @@ test-command = [
   'python -c "from supriya.intervals import IntervalTreeDriverEx"',
 ]
 
+[tool.coverage.report]
+exclude_lines = [
+  "raise NotImplementedError",
+]
+
 [tool.isort]
 case_sensitive = true
 known_third_party = ["uqbar", "yaml"]
