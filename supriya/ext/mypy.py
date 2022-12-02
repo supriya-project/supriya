@@ -87,12 +87,18 @@ class UGenTransformer:
         for name in ["ar", "kr", "ir", "dr", "new"]:
             if not decorator_arguments[name] or name in info.names:
                 continue
+            return_type = api.named_type("supriya.ugens.bases.UGenMethodMixin")
+            if (
+                decorator_arguments["is_multichannel"]
+                or decorator_arguments["fixed_channel_count"]
+            ):
+                return_type = api.named_type("supriya.ugens.bases.UGenArray")
             add_method_to_class(
                 api=api,
                 cls=cls,
                 name=name,
                 args=args,
-                return_type=api.named_type("supriya.ugens.bases.UGenMethodMixin"),
+                return_type=return_type,
                 is_classmethod=True,
             )
         if "__init__" not in info.names:
