@@ -1,11 +1,11 @@
-.. _supriya--realtime--allocators:
+.. _supriya--allocators:
 
 allocators
 ==========
 
-.. automodule:: supriya.realtime.allocators
+.. automodule:: supriya.allocators
 
-.. currentmodule:: supriya.realtime.allocators
+.. currentmodule:: supriya.allocators
 
 .. autoclass:: Block
    :show-inheritance:

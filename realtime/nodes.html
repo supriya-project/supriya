@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="../_static/stylesheets/main.95d89437.min.css">
       
         
-        <link rel="stylesheet" href="../_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -36,6 +34,7 @@
     
         <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
         <link rel="stylesheet" type="text/css" href="../_static/google_fonts.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/stylesheets/sphinx_immaterial_theme.e10f1df50225cf229.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1370,7 +1369,7 @@ first:</p>
 <span class="go">        1003 group</span>
 </code></pre></div>
 </div>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>Supriya will attempt to coerce a variety of inputs into a valid
 <a class="reference internal" href="../api/supriya/enums.html#supriya.enums.AddAction" title="supriya.enums.AddAction (Python class) — Bases: IntEnumeration"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddAction</span></code></a>:</p>
@@ -1391,7 +1390,7 @@ few keystrokes:</p>
 </code></pre></div>
 </div>
 </div>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>When using <a class="reference internal" href="../glossary.html#term-supernova" title="supernova (glossary term)"><span class="xref std std-term">supernova</span></a> as your server executable, you can create
 _parallel_ groups by specifying <code class="docutils literal notranslate"><span class="pre">parallel=True</span></code> in any call you would use
@@ -1484,7 +1483,7 @@ how the reverberation kicks in when you instantiate the second synth:</p>
 <span class="go">            damping: 0.5, mix: 0.5, out: 0.0, room_size: 0.5</span>
 </code></pre></div>
 </div>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>Supriya keeps track of which SynthDefs have already been allocated, and
 will automatically allocate them for you when you add synths to the server.
@@ -1737,7 +1736,7 @@ reverberation return:</p>
 <span class="go">        damping: 0.5, mix: 0.5, out: 0.0, room_size: 0.5</span>
 </code></pre></div>
 </div>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>Use <a class="reference internal" href="../api/supriya/realtime/nodes.html#supriya.realtime.nodes.Node.move_node" title="supriya.realtime.nodes.Node.move_node (Python method) — Move node relative to this node via add_action."><code class="xref py py-func docutils literal notranslate"><span class="pre">move_node()</span></code></a> to <em>re-allocate</em>
 nodes that have been previously freed (or never allocated at all):</p>
@@ -1782,13 +1781,13 @@ of the simulated reverb space:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">ticker_synth</span><span class="p">[</span><span class="s2">&quot;nonexistent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">666.666</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/nodes.py&quot;</span>, line <span class="m">916</span>, in <span class="n">__setitem__</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/nodes.py&quot;</span>, line <span class="m">885</span>, in <span class="n">__setitem__</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">553</span>, in <span class="n">__setitem__</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">528</span>, in <span class="n">__setitem__</span>
     <span class="n">synth_controls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">522</span>, in <span class="n">__getitem__</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">499</span>, in <span class="n">__getitem__</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_synth_control_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">item</span><span class="p">)</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">522</span>, in <span class="n">&lt;genexpr&gt;</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/interfaces.py&quot;</span>, line <span class="m">499</span>, in <span class="n">&lt;genexpr&gt;</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_synth_control_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">item</span><span class="p">)</span>
 <span class="gr">KeyError</span>: <span class="n">&#39;nonexistent&#39;</span>
 </code></pre></div>
@@ -1908,7 +1907,7 @@ extending, subscripting etc., and allow you to create complex node trees before
 <span class="go">                out: 0.0, amplitude: 0.1, frequency: 222.0, gate: 1.0, pan: 0.5</span>
 </code></pre></div>
 </div>
-<div class="admonition caution">
+<div class="caution admonition">
 <p class="admonition-title">Caution</p>
 <p>Replacing group contents via subscripting will immediately free the
 replaced nodes, possibly resulting in audible clicks.</p>
@@ -2004,7 +2003,7 @@ replaced nodes, possibly resulting in audible clicks.</p>
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../_static/javascripts/bundle.309d5c42.min.js"></script>
+      <script src="../_static/javascripts/bundle.444abb77.min.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
     
   </body>

@@ -34,7 +34,6 @@ nodes
    .. autoproperty:: node_id_is_permanent
    .. automethod:: pause
    .. automethod:: precede_by
-   .. automethod:: query
    .. automethod:: replace_with
    .. autoproperty:: server
    .. automethod:: succeed_by

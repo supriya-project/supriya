@@ -10,7 +10,6 @@ realtime
 .. toctree::
    :hidden:
 
-   allocators
    bases
    buffers
    buses

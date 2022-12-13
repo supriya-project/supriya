@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="../_static/stylesheets/main.95d89437.min.css">
       
         
-        <link rel="stylesheet" href="../_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -36,6 +34,7 @@
     
         <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
         <link rel="stylesheet" type="text/css" href="../_static/google_fonts.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/stylesheets/sphinx_immaterial_theme.e10f1df50225cf229.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1373,7 +1372,7 @@ block of buffers.</p>
 <h3 id="creation">Creation<a class="headerlink" href="#creation" title="Permalink to this heading">¶</a></h3>
 <p>Buffers can be allocated empty or immediately filled with all or part of a
 soundfile read from disk.</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>You must specify the number of channels and frames when allocating a buffer.</p>
 <p>These properties cannot be changed during the lifetime of the buffer.</p>
@@ -1399,7 +1398,7 @@ soundfile read from disk.</p>
 </div>
 <p>The <a class="reference internal" href="../glossary.html#term-repr" title="repr (glossary term)"><span class="xref std std-term">repr</span></a> shows the buffer group’s type (<code class="docutils literal notranslate"><span class="pre">BufferGroup</span></code>), the <a class="reference internal" href="../glossary.html#term-ID-buffer" title="ID, buffer (glossary term)"><span class="xref std std-term">ID</span></a> of the first buffer in the group (<code class="docutils literal notranslate"><span class="pre">1</span></code>) and indicates it has
 been allocated (<code class="docutils literal notranslate"><span class="pre">+</span></code>).</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>Why use a <a class="reference internal" href="../api/supriya/realtime/buffers.html#supriya.realtime.buffers.BufferGroup" title="supriya.realtime.buffers.BufferGroup (Python class) — Bases: ServerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">BufferGroup</span></code></a>?</p>
 <p>While you could allocate multiple single buffers, allocating a group of
@@ -1730,7 +1729,7 @@ demonstrated earlier:</p>
 format, there’s no functionality built into <a class="reference internal" href="../glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a> to load arbitrary
 soundfiles and convert them into wavetable format in the process, or to copy an
 existing buffer’s contents into another buffer and convert.</p>
-<div class="admonition-todo admonition" id="id1">
+<div class="todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
 <p>Implement wavetable utilities for loading arbitrary audio.</p>
 </div>
@@ -1827,7 +1826,7 @@ existing buffer’s contents into another buffer and convert.</p>
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../_static/javascripts/bundle.309d5c42.min.js"></script>
+      <script src="../_static/javascripts/bundle.444abb77.min.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
     
   </body>

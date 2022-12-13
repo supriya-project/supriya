@@ -7,12 +7,32 @@ sessions
 
 .. currentmodule:: supriya.nonrealtime.sessions
 
+.. autoclass:: AsyncProcessProtocol
+   :show-inheritance:
+
+   .. automethod:: connection_made
+   .. automethod:: handle_line
+   .. automethod:: pipe_data_received
+   .. automethod:: process_exited
+   .. automethod:: run
+
+.. autoclass:: RenderableMemo
+   :show-inheritance:
+
+
+.. autoclass:: Renderer
+   :show-inheritance:
+
+   .. automethod:: get_path_relative_to_render_path
+   .. automethod:: render
+   .. automethod:: to_lists
+   .. automethod:: to_osc_bundles
+
 .. autoclass:: Session
    :show-inheritance:
 
    .. automethod:: __graph__
    .. automethod:: __render__
-   .. automethod:: __session__
    .. autoproperty:: active_moments
    .. automethod:: add_buffer
    .. automethod:: add_buffer_group
@@ -33,7 +53,6 @@ sessions
    .. autoproperty:: input_bus_channel_count
    .. automethod:: is_session_like
    .. automethod:: move_node
-   .. autoproperty:: name
    .. autoproperty:: nodes
    .. autoproperty:: nodes_by_session_id
    .. autoproperty:: offsets
@@ -42,10 +61,13 @@ sessions
    .. autoproperty:: padding
    .. automethod:: rebuild_transitions
    .. automethod:: render
+   .. automethod:: render_async
    .. autoproperty:: root_node
    .. automethod:: set_rand_seed
    .. autoproperty:: states
    .. automethod:: to_lists
    .. automethod:: to_osc_bundles
    .. automethod:: to_strings
-   .. autoproperty:: transcript
+
+.. autoclass:: SessionRenderableMemo
+   :show-inheritance:

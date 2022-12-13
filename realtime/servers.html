@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="../_static/stylesheets/main.95d89437.min.css">
       
         
-        <link rel="stylesheet" href="../_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -36,6 +34,7 @@
     
         <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
         <link rel="stylesheet" type="text/css" href="../_static/google_fonts.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/stylesheets/sphinx_immaterial_theme.e10f1df50225cf229.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1138,7 +1137,7 @@ and port <code class="docutils literal notranslate"><span class="pre">57110</spa
 <span class="go">&lt;Server: udp://0.0.0.0:56666, 8i8o&gt;</span>
 </code></pre></div>
 </div>
-<div class="admonition caution">
+<div class="caution admonition">
 <p class="admonition-title">Caution</p>
 <p>Attempting to boot a server on a port where another server is already running
 will result in an error:</p>
@@ -1153,17 +1152,17 @@ will result in an error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1031</span>, in <span class="n">boot</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1005</span>, in <span class="n">boot</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_process_protocol</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">)</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/protocols.py&quot;</span>, line <span class="m">65</span>, in <span class="n">boot</span>
-    <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ServerCannotBoot</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="n">ServerCannotBoot</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 <span class="gr">supriya.exceptions.ServerCannotBoot</span>: <span class="n">*** ERROR: failed to open UDP socket: address in use.</span>
 </code></pre></div>
 </div>
 <p>Use <a class="reference internal" href="../api/supriya/osc/utils.html#supriya.osc.utils.find_free_port" title="supriya.osc.utils.find_free_port (Python function)"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code></a> to grab a random unused port to
 successfully boot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">())</span>
-<span class="go">&lt;Server: udp://127.0.0.1:53606, 8i8o&gt;</span>
+<span class="go">&lt;Server: udp://127.0.0.1:36980, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 </div>
@@ -1272,8 +1271,8 @@ server will error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1062</span>, in <span class="n">quit</span>
-    <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">UnownedServerShutdown</span><span class="p">(</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1034</span>, in <span class="n">quit</span>
+    <span class="k">raise</span> <span class="n">UnownedServerShutdown</span><span class="p">(</span>
 <span class="gr">supriya.exceptions.UnownedServerShutdown</span>: <span class="n">Cannot quit unowned server without force flag.</span>
 </code></pre></div>
 </div>
@@ -1293,10 +1292,10 @@ properties for inspecting its state.</p>
 <p>Inspect the “status” of audio processing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
 <span class="go">StatusResponse(</span>
-<span class="go">    actual_sample_rate=44102.6258564523,</span>
-<span class="go">    average_cpu_usage=0.09205086529254913,</span>
+<span class="go">    actual_sample_rate=44112.47787683333,</span>
+<span class="go">    average_cpu_usage=0.13594377040863037,</span>
 <span class="go">    group_count=2,</span>
-<span class="go">    peak_cpu_usage=0.484478235244751,</span>
+<span class="go">    peak_cpu_usage=0.7154935002326965,</span>
 <span class="go">    synth_count=0,</span>
 <span class="go">    synthdef_count=0,</span>
 <span class="go">    target_sample_rate=44100.0,</span>
@@ -1304,7 +1303,7 @@ properties for inspecting its state.</p>
 <span class="go">)</span>
 </code></pre></div>
 </div>
-<div class="admonition hint">
+<div class="hint admonition">
 <p class="admonition-title">Hint</p>
 <p>Server status is a great way of tracking <a class="reference internal" href="../glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a>’s CPU usage.</p>
 </div>
@@ -1315,10 +1314,10 @@ complexity of the status output:</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
 <span class="go">StatusResponse(</span>
-<span class="go">    actual_sample_rate=44102.512640420595,</span>
-<span class="go">    average_cpu_usage=0.38472846150398254,</span>
+<span class="go">    actual_sample_rate=44112.13807871946,</span>
+<span class="go">    average_cpu_usage=0.568179726600647,</span>
 <span class="go">    group_count=2,</span>
-<span class="go">    peak_cpu_usage=0.484478235244751,</span>
+<span class="go">    peak_cpu_usage=0.7154935002326965,</span>
 <span class="go">    synth_count=1,</span>
 <span class="go">    synthdef_count=33,</span>
 <span class="go">    target_sample_rate=44100.0,</span>
@@ -1417,7 +1416,7 @@ until all previously initiated operations complete:</p>
 <span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
 </code></pre></div>
 </div>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>See <a class="reference internal" href="../osc.html"><span class="doc">Open Sound Control</span></a> for more information about OSC communication with
 the server, including OSC callbacks.</p>
@@ -1481,16 +1480,16 @@ buffers and SynthDefs:</p>
 <p>Get access to the server’s underlying process management subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">process_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span><span class="o">.</span><span class="n">process_protocol</span>
-<span class="go">&lt;supriya.realtime.protocols.SyncProcessProtocol object at 0x7fee5cbc6920&gt;</span>
+<span class="go">&lt;supriya.realtime.protocols.SyncProcessProtocol object at 0x7f7d02c17ee0&gt;</span>
 </code></pre></div>
 </div>
 <p>Get access to the server’s underlying OSC subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">osc_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span>
-<span class="go">&lt;supriya.osc.protocols.ThreadedOscProtocol object at 0x7fee5cbc6b00&gt;</span>
+<span class="go">&lt;supriya.osc.protocols.ThreadedOscProtocol object at 0x7f7d02c152a0&gt;</span>
 </code></pre></div>
 </div>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server" title="supriya.realtime.servers.Server (Python class) — Bases: BaseServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> manages its <a class="reference internal" href="../glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a>
 subprocess and OSC communication via
@@ -1592,7 +1591,7 @@ subprocess and OSC communication via
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../_static/javascripts/bundle.309d5c42.min.js"></script>
+      <script src="../_static/javascripts/bundle.444abb77.min.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
     
   </body>

@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="../../../_static/stylesheets/main.95d89437.min.css">
       
         
-        <link rel="stylesheet" href="../../../_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -36,6 +34,7 @@
     
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/google_fonts.css" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/stylesheets/sphinx_immaterial_theme.e10f1df50225cf229.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -66,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#supriya.nonrealtime.sessions.Session" class="md-skip">
+        <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol" class="md-skip">
           Skip to content
         </a>
       
@@ -684,6 +683,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../allocators.html" class="md-nav__link">
+        <span class="md-ellipsis">allocators</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../clocks/index.html" class="md-nav__link">
         <span class="md-ellipsis">clocks</span>
       </a>
@@ -808,7 +822,7 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1_9" type="checkbox" id="__nav_4_1_9" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1_10" type="checkbox" id="__nav_4_1_10" checked>
       
       
       
@@ -816,14 +830,14 @@
         <div class="md-nav__link md-nav__link--index ">
           <a href="index.html"><span class="md-ellipsis">nonrealtime</span></a>
           
-            <label for="__nav_4_1_9">
+            <label for="__nav_4_1_10">
               <span class="md-nav__icon md-icon"></span>
             </label>
           
         </div>
       
       <nav class="md-nav" aria-label="nonrealtime" data-md-level="3">
-        <label class="md-nav__title" for="__nav_4_1_9">
+        <label class="md-nav__title" for="__nav_4_1_10">
           <span class="md-nav__icon md-icon"></span>
           <span class="md-ellipsis">nonrealtime</span>
         </label>
@@ -893,21 +907,6 @@
               
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="renderer.html" class="md-nav__link">
-        <span class="md-ellipsis">renderer</span>
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
     
   
     
@@ -942,6 +941,102 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.nonrealtime.sessions.AsyncProcessProtocol (Python class) — Bases: SubprocessProtocol" class="md-ellipsis">Async<wbr>Process<wbr>Protocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncProcessProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.connection_made" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.AsyncProcessProtocol.connection_made (Python method) — Called when a connection is made." class="md-ellipsis">connection_<wbr>made</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.handle_line" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.AsyncProcessProtocol.handle_line (Python method)" class="md-ellipsis">handle_<wbr>line</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.pipe_data_received" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.AsyncProcessProtocol.pipe_data_received (Python method) — Called when the subprocess writes data into stdout/stderr pipe." class="md-ellipsis">pipe_<wbr>data_<wbr>received</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.process_exited" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.AsyncProcessProtocol.process_exited (Python method) — Called when subprocess has exited." class="md-ellipsis">process_<wbr>exited</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.run" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.AsyncProcessProtocol.run (Python method)" class="md-ellipsis">run</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.RenderableMemo" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.nonrealtime.sessions.RenderableMemo (Python class) — Bases: object" class="md-ellipsis">Renderable<wbr>Memo</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Renderer" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.nonrealtime.sessions.Renderer (Python class) — Bases: object" class="md-ellipsis">Renderer</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Renderer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Renderer.get_path_relative_to_render_path" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Renderer.get_path_relative_to_render_path (Python method)" class="md-ellipsis">get_<wbr>path_<wbr>relative_<wbr>to_<wbr>render_<wbr>path</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Renderer.render" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Renderer.render (Python method)" class="md-ellipsis">render</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Renderer.to_lists" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Renderer.to_lists (Python method)" class="md-ellipsis">to_<wbr>lists</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Renderer.to_osc_bundles" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Renderer.to_osc_bundles (Python method)" class="md-ellipsis">to_<wbr>osc_<wbr>bundles</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#supriya.nonrealtime.sessions.Session" class="md-nav__link">
     <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.nonrealtime.sessions.Session (Python class) — Bases: object" class="md-ellipsis">Session</span>
   </a>
@@ -959,13 +1054,6 @@
           <li class="md-nav__item">
   <a href="#supriya.nonrealtime.sessions.Session.__render__" class="md-nav__link">
     <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.__render__ (Python method)" class="md-ellipsis">__<wbr>render__<wbr></span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#supriya.nonrealtime.sessions.Session.__session__" class="md-nav__link">
-    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.__session__ (Python method)" class="md-ellipsis">__<wbr>session__<wbr></span>
   </a>
   
 </li>
@@ -1111,13 +1199,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#supriya.nonrealtime.sessions.Session.name" class="md-nav__link">
-    <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.nonrealtime.sessions.Session.name (Python property)" class="md-ellipsis">name</span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#supriya.nonrealtime.sessions.Session.nodes" class="md-nav__link">
     <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.nonrealtime.sessions.Session.nodes (Python property)" class="md-ellipsis">nodes</span>
   </a>
@@ -1174,6 +1255,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.render_async" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.render_async (Python method)" class="md-ellipsis">render_<wbr>async</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#supriya.nonrealtime.sessions.Session.root_node" class="md-nav__link">
     <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.nonrealtime.sessions.Session.root_node (Python property)" class="md-ellipsis">root_<wbr>node</span>
   </a>
@@ -1215,15 +1303,15 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#supriya.nonrealtime.sessions.Session.transcript" class="md-nav__link">
-    <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.nonrealtime.sessions.Session.transcript (Python property)" class="md-ellipsis">transcript</span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.SessionRenderableMemo" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.nonrealtime.sessions.SessionRenderableMemo (Python class) — Bases: RenderableMemo" class="md-ellipsis">Session<wbr>Renderable<wbr>Memo</span>
+  </a>
   
 </li>
       
@@ -1636,6 +1724,102 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.nonrealtime.sessions.AsyncProcessProtocol (Python class) — Bases: SubprocessProtocol" class="md-ellipsis">Async<wbr>Process<wbr>Protocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncProcessProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.connection_made" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.AsyncProcessProtocol.connection_made (Python method) — Called when a connection is made." class="md-ellipsis">connection_<wbr>made</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.handle_line" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.AsyncProcessProtocol.handle_line (Python method)" class="md-ellipsis">handle_<wbr>line</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.pipe_data_received" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.AsyncProcessProtocol.pipe_data_received (Python method) — Called when the subprocess writes data into stdout/stderr pipe." class="md-ellipsis">pipe_<wbr>data_<wbr>received</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.process_exited" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.AsyncProcessProtocol.process_exited (Python method) — Called when subprocess has exited." class="md-ellipsis">process_<wbr>exited</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.run" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.AsyncProcessProtocol.run (Python method)" class="md-ellipsis">run</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.RenderableMemo" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.nonrealtime.sessions.RenderableMemo (Python class) — Bases: object" class="md-ellipsis">Renderable<wbr>Memo</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Renderer" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.nonrealtime.sessions.Renderer (Python class) — Bases: object" class="md-ellipsis">Renderer</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Renderer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Renderer.get_path_relative_to_render_path" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Renderer.get_path_relative_to_render_path (Python method)" class="md-ellipsis">get_<wbr>path_<wbr>relative_<wbr>to_<wbr>render_<wbr>path</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Renderer.render" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Renderer.render (Python method)" class="md-ellipsis">render</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Renderer.to_lists" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Renderer.to_lists (Python method)" class="md-ellipsis">to_<wbr>lists</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Renderer.to_osc_bundles" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Renderer.to_osc_bundles (Python method)" class="md-ellipsis">to_<wbr>osc_<wbr>bundles</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#supriya.nonrealtime.sessions.Session" class="md-nav__link">
     <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.nonrealtime.sessions.Session (Python class) — Bases: object" class="md-ellipsis">Session</span>
   </a>
@@ -1653,13 +1837,6 @@
           <li class="md-nav__item">
   <a href="#supriya.nonrealtime.sessions.Session.__render__" class="md-nav__link">
     <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.__render__ (Python method)" class="md-ellipsis">__<wbr>render__<wbr></span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#supriya.nonrealtime.sessions.Session.__session__" class="md-nav__link">
-    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.__session__ (Python method)" class="md-ellipsis">__<wbr>session__<wbr></span>
   </a>
   
 </li>
@@ -1805,13 +1982,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#supriya.nonrealtime.sessions.Session.name" class="md-nav__link">
-    <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.nonrealtime.sessions.Session.name (Python property)" class="md-ellipsis">name</span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#supriya.nonrealtime.sessions.Session.nodes" class="md-nav__link">
     <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.nonrealtime.sessions.Session.nodes (Python property)" class="md-ellipsis">nodes</span>
   </a>
@@ -1868,6 +2038,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.Session.render_async" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.nonrealtime.sessions.Session.render_async (Python method)" class="md-ellipsis">render_<wbr>async</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#supriya.nonrealtime.sessions.Session.root_node" class="md-nav__link">
     <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.nonrealtime.sessions.Session.root_node (Python property)" class="md-ellipsis">root_<wbr>node</span>
   </a>
@@ -1909,15 +2086,15 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#supriya.nonrealtime.sessions.Session.transcript" class="md-nav__link">
-    <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.nonrealtime.sessions.Session.transcript (Python property)" class="md-ellipsis">transcript</span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.nonrealtime.sessions.SessionRenderableMemo" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.nonrealtime.sessions.SessionRenderableMemo (Python class) — Bases: RenderableMemo" class="md-ellipsis">Session<wbr>Renderable<wbr>Memo</span>
+  </a>
   
 </li>
       
@@ -1942,20 +2119,92 @@
 
 <h1 id="module-supriya.nonrealtime.sessions"><span id="sessions"></span><span id="supriya-nonrealtime-sessions"></span>sessions<a class="headerlink" href="#module-supriya.nonrealtime.sessions" title="Permalink to this heading">¶</a></h1>
 <dl class="py class objdesc">
+<dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.AsyncProcessProtocol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AsyncProcessProtocol</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">exit_future</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><span class="pre">Future</span></span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.AsyncProcessProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SubprocessProtocol</span></code></p>
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.AsyncProcessProtocol.connection_made">
+<span class="sig-name descname"><span class="pre">connection_made</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">transport</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.connection_made" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when a connection is made.</p>
+<p>The argument is the transport representing the pipe connection.
+To receive data, wait for data_received() calls.
+When the connection is closed, connection_lost() is called.</p>
+</dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.AsyncProcessProtocol.handle_line">
+<span class="sig-name descname"><span class="pre">handle_line</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.handle_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.AsyncProcessProtocol.pipe_data_received">
+<span class="sig-name descname"><span class="pre">pipe_data_received</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">fd</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">data</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.pipe_data_received" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when the subprocess writes data into stdout/stderr pipe.</p>
+<p>fd is int file descriptor.
+data is bytes object.</p>
+</dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.AsyncProcessProtocol.process_exited">
+<span class="sig-name descname"><span class="pre">process_exited</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.process_exited" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when subprocess has exited.</p>
+</dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.AsyncProcessProtocol.run">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">render_directory_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><span class="pre">Path</span></a></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.AsyncProcessProtocol.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="supriya.nonrealtime.sessions.RenderableMemo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RenderableMemo</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">renderable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="../typing.html#supriya.typing.SupportsRender" title="supriya.typing.SupportsRender (Python class) — Bases: Protocol"><span class="pre">supriya.typing.SupportsRender</span></a></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">render_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.11)"><span class="pre">collections.abc.Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Coroutine</span><span class="p"><span class="pre">[</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="s1">&#39;&#39;</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.RenderableMemo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="supriya.nonrealtime.sessions.Renderer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Renderer</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="#supriya.nonrealtime.sessions.Session" title="supriya.nonrealtime.sessions.Session (Python class) — Bases: object"><span class="pre">Session</span></a></span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">header_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="../enums.html#supriya.enums.HeaderFormat" title="supriya.enums.HeaderFormat (Python class) — Bases: IntEnumeration"><span class="pre">HeaderFormat</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsInt" title="(in Python v3.11)"><span class="pre">SupportsInt</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">render_directory_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">sample_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="../enums.html#supriya.enums.SampleFormat" title="supriya.enums.SampleFormat (Python class) — Bases: IntEnumeration"><span class="pre">SampleFormat</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsInt" title="(in Python v3.11)"><span class="pre">SupportsInt</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">44100</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">suppress_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Renderer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Renders non-realtime sessions as audio files.</p>
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="supriya.nonrealtime.sessions.Renderer.get_path_relative_to_render_path">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_path_relative_to_render_path</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">target_path</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">render_path</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Renderer.get_path_relative_to_render_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.Renderer.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.11)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Coroutine" title="(in Python v3.11)"><span class="pre">Coroutine</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><span class="pre">Path</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Renderer.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.Renderer.to_lists">
+<span class="sig-name descname"><span class="pre">to_lists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Renderer.to_lists" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.Renderer.to_osc_bundles">
+<span class="sig-name descname"><span class="pre">to_osc_bundles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../osc/messages.html#supriya.osc.messages.OscBundle" title="supriya.osc.messages.OscBundle (Python class) — Bases: SupriyaValueObject"><span class="pre">OscBundle</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Renderer.to_osc_bundles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class objdesc">
 <dt class="sig sig-object highlight sig-wrap py" id="supriya.nonrealtime.sessions.Session">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Session</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">input_bus_channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_bus_channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">input_</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Session</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">input_bus_channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_bus_channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">input_</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A non-realtime session.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.nonrealtime</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
 </code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.ugens</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">builder</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.synthdefs</span> <span class="kn">import</span> <span class="n">SynthDefBuilder</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.ugens</span> <span class="kn">import</span> <span class="n">Out</span><span class="p">,</span> <span class="n">SinOsc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">builder</span> <span class="o">=</span> <span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">builder</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
 <span class="gp">... </span>            <span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">],</span>
 <span class="gp">... </span>        <span class="p">)</span>
 <span class="gp">... </span>    <span class="p">)</span>
@@ -2017,12 +2266,7 @@
 
 <dl class="py method objdesc">
 <dt class="sig sig-object highlight sig-wrap py" id="supriya.nonrealtime.sessions.Session.__render__">
-<span class="sig-name descname"><span class="pre">__render__</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">render_directory_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><span class="pre">Path</span></a></span></span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.__render__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method objdesc">
-<dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.Session.__session__">
-<span class="sig-name descname"><span class="pre">__session__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="#supriya.nonrealtime.sessions.Session" title="supriya.nonrealtime.sessions.Session (Python class) — Bases: object"><span class="pre">Session</span></a></span></span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.__session__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__render__</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">render_directory_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">header_format</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">sample_format</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">44100</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.11)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Coroutine" title="(in Python v3.11)"><span class="pre">Coroutine</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><span class="pre">Path</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.__render__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property objdesc">
@@ -2126,11 +2370,6 @@
 <dd></dd></dl>
 
 <dl class="py property objdesc">
-<dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.Session.name">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property objdesc">
 <dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.Session.nodes">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nodes</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.nodes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2167,7 +2406,12 @@
 
 <dl class="py method objdesc">
 <dt class="sig sig-object highlight sig-wrap py" id="supriya.nonrealtime.sessions.Session.render">
-<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">header_format</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">render_directory_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">sample_format</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">44100</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">print_transcript</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">transcript_prefix</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><span class="pre">Path</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.render" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">render_directory_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">header_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="../enums.html#supriya.enums.HeaderFormat" title="supriya.enums.HeaderFormat (Python class) — Bases: IntEnumeration"><span class="pre">HeaderFormat</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsInt" title="(in Python v3.11)"><span class="pre">SupportsInt</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">sample_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="../enums.html#supriya.enums.SampleFormat" title="supriya.enums.SampleFormat (Python class) — Bases: IntEnumeration"><span class="pre">SampleFormat</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsInt" title="(in Python v3.11)"><span class="pre">SupportsInt</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">44100</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><span class="pre">Path</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="supriya.nonrealtime.sessions.Session.render_async">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">render_async</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">render_directory_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">header_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="../enums.html#supriya.enums.HeaderFormat" title="supriya.enums.HeaderFormat (Python class) — Bases: IntEnumeration"><span class="pre">HeaderFormat</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsInt" title="(in Python v3.11)"><span class="pre">SupportsInt</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">sample_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="../enums.html#supriya.enums.SampleFormat" title="supriya.enums.SampleFormat (Python class) — Bases: IntEnumeration"><span class="pre">SampleFormat</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsInt" title="(in Python v3.11)"><span class="pre">SupportsInt</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">44100</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><span class="pre">Path</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.render_async" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property objdesc">
@@ -2200,11 +2444,12 @@
 <span class="sig-name descname"><span class="pre">to_strings</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">include_controls</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">include_timespans</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.to_strings" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py property objdesc">
-<dt class="sig sig-object highlight py" id="supriya.nonrealtime.sessions.Session.transcript">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transcript</span></span><a class="headerlink" href="#supriya.nonrealtime.sessions.Session.transcript" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="supriya.nonrealtime.sessions.SessionRenderableMemo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SessionRenderableMemo</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">renderable:</span> <span class="pre">supriya.typing.SupportsRender</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">render_function:</span> <span class="pre">Optional[Callable[[]</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">Coroutine[NoneType</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">NoneType</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">int]]]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_filename:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">datagram:</span> <span class="pre">bytes</span> <span class="pre">=</span> <span class="pre">b''</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">input_path:</span> <span class="pre">Optional[pathlib.Path]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">osc_bundles:</span> <span class="pre">List[supriya.osc.messages.OscBundle]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">xrefable_osc_messages:</span> <span class="pre">List[supriya.osc.messages.OscMessage]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.sessions.SessionRenderableMemo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#supriya.nonrealtime.sessions.RenderableMemo" title="supriya.nonrealtime.sessions.RenderableMemo (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">RenderableMemo</span></code></a></p>
 </dd></dl>
 
 
@@ -2233,7 +2478,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="renderer.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: renderer" rel="prev">
+        <a href="nodes.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: nodes" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -2242,7 +2487,7 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              renderer
+              nodes
             </div>
           </div>
         </a>
@@ -2298,7 +2543,7 @@
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../../../_static/javascripts/bundle.309d5c42.min.js"></script>
+      <script src="../../../_static/javascripts/bundle.444abb77.min.js"></script>
         <script src="../../../_static/sphinx_highlight.js"></script>
     
   </body>

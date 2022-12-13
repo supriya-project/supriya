@@ -10,7 +10,7 @@ io
 .. autoclass:: PlayMemo
    :show-inheritance:
 
-   .. automethod:: __render__
+   .. automethod:: __call__
    .. automethod:: from_path
 
 .. autoclass:: Player

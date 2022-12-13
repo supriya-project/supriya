@@ -49,7 +49,6 @@ protocols
 
    .. automethod:: connect
    .. automethod:: disconnect
-   .. automethod:: expect
    .. automethod:: register
    .. automethod:: send
    .. automethod:: unregister
