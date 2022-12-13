@@ -10,7 +10,6 @@ on:
   - cron: "0 0 * * 0"
 
 env:
-  MYPYPATH: /tmp/typehints
   SC_ORIGIN: https://github.com/supercollider/supercollider.git
   SC_BRANCH: develop
 
@@ -72,8 +71,6 @@ jobs:
         cache-dependency-path: "**/pyproject.toml"
     - name: Install Supriya
       run: pip install -e .[ipython,test]
-    - name: Get Type Hints
-      run: pip install --target /tmp/typehints --no-deps uqbar
     - name: Run Black
       run: make black-check
     - name: Run Flake8
