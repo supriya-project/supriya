@@ -6,6 +6,9 @@ on:
   push:
     branches:
     - main
+  schedule:
+  - cron: "0 0 * * 0"
+
 env:
   MYPYPATH: /tmp/typehints
   SC_ORIGIN: https://github.com/supercollider/supercollider.git
