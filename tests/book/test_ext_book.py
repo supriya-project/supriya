@@ -23,9 +23,6 @@ def test_sphinx_book_html(app, status, warning, rm_dirs):
     assert not warning.getvalue().strip()
     image_path = pathlib.Path(app.outdir) / "_images"
     expected_file_names = [
-        "audio-838b1f6946d1fbbc947f9e6658e77055028fef3f.mp3",
-        "audio-838b1f6946d1fbbc947f9e6658e77055028fef3f.wav",
-        "plot-f46471ac74ea8ba66e38333bd574323ff613faae.svg",
         "session-1675b54d9f2b8a493bab995877ba679e.aiff",
         "session-1675b54d9f2b8a493bab995877ba679e.osc",
         "session-462b5896f380a14a732e461bade2148f.aiff",
@@ -41,9 +38,12 @@ def test_sphinx_book_html(app, status, warning, rm_dirs):
                 "say-b62c21527eaa5d8536687ce77b85a57c.mp3",
             ]
         )
-    assert sorted(path.name for path in image_path.iterdir()) == sorted(
-        expected_file_names
-    )
+    actual_file_names = sorted(path.name for path in image_path.iterdir())
+    assert all(file_name in actual_file_names for file_name in expected_file_names)
+    # audio and plot names are not stable across platforms
+    assert len(list(image_path.glob("audio-*.mp3"))) == 1
+    assert len(list(image_path.glob("audio-*.wav"))) == 1
+    assert len(list(image_path.glob("plot-*.svg"))) == 1
 
 
 @pytest.mark.sphinx("text", testroot="book")
