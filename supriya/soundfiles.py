@@ -14,8 +14,8 @@ from typing import Callable, Coroutine, Optional, Tuple
 from uqbar.io import find_executable
 from uqbar.strings import to_dash_case
 
-import supriya
-from supriya.system import SupriyaObject, SupriyaValueObject
+from . import output_path
+from .system import SupriyaObject, SupriyaValueObject
 
 
 class Say(SupriyaValueObject):
@@ -141,7 +141,7 @@ class Say(SupriyaValueObject):
             output_file_path = render_directory_path / self._build_file_path()
         else:
             output_file_path = self._build_file_path()
-            render_directory_path = Path(supriya.output_path).resolve()
+            render_directory_path = Path(output_path).resolve()
             output_file_path = render_directory_path / self._build_file_path()
         return output_file_path
 

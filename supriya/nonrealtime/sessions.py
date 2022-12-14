@@ -417,9 +417,9 @@ class Session:
         >>> builder = SynthDefBuilder(frequency=440)
         >>> with builder:
         ...     out = Out.ar(
-        ...         source=SinOsc.ar(
+        ...         source=[SinOsc.ar(
         ...             frequency=builder["frequency"],
-        ...         )
+        ...         )] * 2
         ...     )
         ...
         >>> synthdef = builder.build()
@@ -452,6 +452,11 @@ class Session:
         ...     [20.0, [[0]]],
         ... ]
         True
+
+    ::
+
+        >>> from supriya import play
+        >>> _ = play(session)
 
     """
 
