@@ -74,7 +74,7 @@ class Player:
         if hasattr(result, "__render__"):
             result = result.__render__(**self.render_kwargs)
         coroutine, path = result
-        exit_code = asyncio.run(coroutine)
+        exit_code = asyncio.run(coroutine())
         return exit_code, path
 
 

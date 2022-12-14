@@ -41,9 +41,12 @@ def test_sphinx_book_html(app, status, warning, rm_dirs):
     actual_file_names = sorted(path.name for path in image_path.iterdir())
     assert all(file_name in actual_file_names for file_name in expected_file_names)
     # audio and plot names are not stable across platforms
-    assert len(list(image_path.glob("audio-*.mp3"))) == 1
-    assert len(list(image_path.glob("audio-*.wav"))) == 1
-    assert len(list(image_path.glob("plot-*.svg"))) == 1
+    audio_mp3_paths = list(image_path.glob("audio-*.mp3"))
+    audio_wav_paths = list(image_path.glob("audio-*.wav"))
+    plot_svg_paths = list(image_path.glob("plot-*.svg"))
+    assert len(audio_mp3_paths) == 1
+    assert len(audio_wav_paths) == 1
+    assert len(plot_svg_paths) == 1
 
 
 @pytest.mark.sphinx("text", testroot="book")
