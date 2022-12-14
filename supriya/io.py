@@ -55,7 +55,7 @@ class Player:
     ### SPECIAL METHODS ###
 
     def __call__(self):
-        output_path = self.render()
+        _, output_path = self.render()
         self.open_output_path(output_path)
         return output_path
 
