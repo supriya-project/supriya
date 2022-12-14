@@ -30,20 +30,13 @@ runs:
       id: current-date
       run: echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
       shell: bash
-    - name: '[Linux] Cache ccache'
-      if: runner.os == 'Linux'
-      uses: actions/cache@v3
-      with:
-        path: ~/.ccache
-        key: ccache-${{ runner.os }}-${{ steps.current-date.outputs.stamp }}
-        restore-keys: ccache-${{ runner.os }}-
-    - name: '[macOS] Cache ccache'
-      if: runner.os == 'macOS'
-      uses: actions/cache@v3
-      with:
-        path: ~/Library/Caches/ccache
-        key: ccache-${{ runner.os }}-${{ steps.current-date.outputs.stamp }}
-        restore-keys: ccache-${{ runner.os }}-
+    - name: Setup ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+    - name: Setup ccache path
+      run: |
+        echo "/usr/lib/ccache" >> $GITHUB_PATH
+        echo "/usr/local/opt/ccache/libexec" >> $GITHUB_PATH
+      shell: bash
     - name: '[macOS] Cache Homebrew'
       id: cache-homebrew
       if: runner.os == 'macOS'
@@ -62,7 +55,6 @@ runs:
         sudo apt-get update
         sudo apt-get install --yes \
           build-essential \
-          ccache \
           cmake \
           emacs \
           jackd2 \
@@ -81,13 +73,11 @@ runs:
       if: runner.os == 'macOS'
       run: |
         brew install \
-          ccache \
           fftw \
           jack \
           portaudio \
           qt5 \
           readline
-        echo "/usr/local/opt/ccache/libexec" >> $GITHUB_PATH
       shell: bash
     - name: '[Linux] Configure'
       if: runner.os == 'Linux'
