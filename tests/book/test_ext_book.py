@@ -22,36 +22,31 @@ def test_sphinx_book_html(app, status, warning, rm_dirs):
             print(path)
     assert not warning.getvalue().strip()
     image_path = pathlib.Path(app.outdir) / "_images"
-    aif_file_names, mp3_file_names, osc_file_names, wav_file_names = [], [], [], []
-    for path in sorted(image_path.iterdir()):
-        if path.suffix.startswith(".aif"):
-            aif_file_names.append(path.name)
-        elif path.suffix == ".mp3":
-            mp3_file_names.append(path.name)
-        elif path.suffix == ".osc":
-            osc_file_names.append(path.name)
-        elif path.suffix == ".wav":
-            wav_file_names.append(path.name)
-    # AIF output for all files
     expected_file_names = [
         "session-1675b54d9f2b8a493bab995877ba679e.aiff",
-        "session-462b5896f380a14a732e461bade2148f.aiff",
-        "session-d536a6a4819769a80987605aa31b86ae.aiff",
-    ]
-    if platform.system() != "Windows":
-        expected_file_names.insert(0, "say-b62c21527eaa5d8536687ce77b85a57c.aiff")
-    assert aif_file_names == expected_file_names
-    if platform.system() != "Windows":
-        # Only the Say output is 2-channel and can be converted
-        assert mp3_file_names == ["say-b62c21527eaa5d8536687ce77b85a57c.mp3"]
-    # All Sessions generate an OSC file
-    assert osc_file_names == [
         "session-1675b54d9f2b8a493bab995877ba679e.osc",
+        "session-462b5896f380a14a732e461bade2148f.aiff",
         "session-462b5896f380a14a732e461bade2148f.osc",
+        "session-d536a6a4819769a80987605aa31b86ae.aiff",
         "session-d536a6a4819769a80987605aa31b86ae.osc",
+        "session-d536a6a4819769a80987605aa31b86ae.wav",
     ]
-    # Only the played session is converted to WAV
-    assert wav_file_names == ["session-d536a6a4819769a80987605aa31b86ae.wav"]
+    if platform.system() != "Windows":
+        expected_file_names.extend(
+            [
+                "say-b62c21527eaa5d8536687ce77b85a57c.aiff",
+                "say-b62c21527eaa5d8536687ce77b85a57c.mp3",
+            ]
+        )
+    actual_file_names = sorted(path.name for path in image_path.iterdir())
+    assert all(file_name in actual_file_names for file_name in expected_file_names)
+    # audio and plot names are not stable across platforms
+    audio_mp3_paths = list(image_path.glob("audio-*.mp3"))
+    audio_wav_paths = list(image_path.glob("audio-*.wav"))
+    plot_svg_paths = list(image_path.glob("plot-*.svg"))
+    assert len(audio_mp3_paths) == 1
+    assert len(audio_wav_paths) == 1
+    assert len(plot_svg_paths) == 1
 
 
 @pytest.mark.sphinx("text", testroot="book")

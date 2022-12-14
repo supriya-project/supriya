@@ -3,7 +3,7 @@ import tempfile
 from collections.abc import Sequence
 from os import PathLike
 from pathlib import Path
-from typing import Callable, Coroutine, Tuple
+from typing import Callable, Coroutine, Optional, Tuple
 
 from ..commands import (
     BufferAllocateReadChannelRequest,
@@ -196,12 +196,15 @@ class Buffer(ServerObject):
             return librosa.load(file_path, mono=False, sr=None)
 
     def __render__(
-        self, **kwargs
+        self,
+        output_file_path: Optional[PathLike] = None,
+        render_directory_path: Optional[PathLike] = None,
+        **kwargs,
     ) -> Callable[[], Tuple[Callable[[], Coroutine[None, None, int]], Path]]:
         with tempfile.TemporaryDirectory() as temp_directory:
-            file_path = Path(temp_directory) / "tmp.wav"
-            self.write(file_path=file_path, header_format="wav", sample_format="int32")
-            return PlayMemo.from_path(file_path)
+            path = Path(temp_directory) / "tmp.wav"
+            self.write(file_path=path, header_format="wav", sample_format="int32")
+            return PlayMemo.from_path(path)
 
     def __repr__(self):
         """

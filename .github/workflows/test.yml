@@ -161,7 +161,8 @@ jobs:
             graphviz
         elif [ "$RUNNER_OS" == "Windows" ]; then
           choco install \
-            graphviz
+            graphviz \
+            lame
         fi
     - name: Run Pytest
       run: pytest --cov supriya

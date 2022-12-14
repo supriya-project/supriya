@@ -55,7 +55,7 @@ class Player:
     ### SPECIAL METHODS ###
 
     def __call__(self):
-        output_path = self.render()
+        _, output_path = self.render()
         self.open_output_path(output_path)
         return output_path
 
@@ -74,7 +74,7 @@ class Player:
         if hasattr(result, "__render__"):
             result = result.__render__(**self.render_kwargs)
         coroutine, path = result
-        exit_code = asyncio.run(coroutine)
+        exit_code = asyncio.run(coroutine())
         return exit_code, path
 
 

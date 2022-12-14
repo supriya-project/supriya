@@ -49,7 +49,7 @@ class PlayExtension(Extension):
         try:
             self.renderable = pickle.loads(pickle.dumps(renderable))
         except TypeError:
-            self.renderable = renderable.__render__()
+            self.renderable = renderable.__render__(**render_kwargs)
         self.render_kwargs = pickle.loads(pickle.dumps(render_kwargs))
 
     def to_docutils(self):
@@ -70,8 +70,12 @@ class PlayExtension(Extension):
             base64.b64decode("".join(node[0].split()))
         )
         if callable(renderable):
-            render_function, path = renderable()
+            # PlayMemo is rendered here
+            render_function, path = renderable(
+                render_directory_path=output_path, **render_kwargs
+            )
         else:
+            # Session, Say, etc. are rendered here
             render_function, path = renderable.__render__(
                 render_directory_path=output_path, **render_kwargs
             )
