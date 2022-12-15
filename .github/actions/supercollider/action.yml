@@ -18,17 +18,12 @@ runs:
       shell: bash
     - name: Clone SuperCollider
       run: |
-        git clone --quiet --recursive --branch ${{ inputs.branch }} ${{ inputs.origin }} /tmp/supercollider
-        cd /tmp/supercollider
-        echo "SC_COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          echo "SC_ORIGIN_MD5=$(echo ${{inputs.origin}} | md5sum | head -c 7)" >> $GITHUB_ENV
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          echo "SC_ORIGIN_MD5=$(echo ${{inputs.origin}} | md5 | head -c 7)" >> $GITHUB_ENV
-        else
-          echo "$RUNNER_OS not supported"
-          exit 1
-        fi
+        git clone \
+          --quiet \
+          --recursive \
+          --branch ${{ inputs.branch }} \
+          ${{ inputs.origin }} \
+          /tmp/supercollider
       shell: bash
     - name: '[macOS] Cache Homebrew'
       id: cache-homebrew
