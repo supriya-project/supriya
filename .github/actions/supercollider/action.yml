@@ -26,15 +26,11 @@ runs:
           exit 1
         fi
       shell: bash
-    - name: Cache current date
-      id: current-date
-      run: echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
-      shell: bash
     - name: Setup ccache
       uses: hendrikmuhs/ccache-action@v1.2
       with:
-        key: ${{ runner.os }}-${{ steps.current-date.outputs.stamp }}
-        restore-keys: ${{ runner.os }}-
+        key: ${{ runner.os }}
+        restore-keys: ${{ runner.os }}
     - name: Setup ccache path
       run: |
         echo "/usr/lib/ccache" >> $GITHUB_PATH
