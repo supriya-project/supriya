@@ -1,4 +1,5 @@
 # flake8: noqa
+import os
 import platform
 
 import pytest
@@ -30,6 +31,10 @@ def test_SynthDefCompiler_parameters_01_parameters(py_synthdef_01):
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
+@pytest.mark.skipif(
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
+    reason="sclang hangs without QT",
+)
 def test_SynthDefCompiler_parameters_01_supriya_vs_sclang(py_synthdef_01):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "test",
@@ -117,6 +122,10 @@ def test_SynthDefCompiler_parameters_02_parameters(py_synthdef_02):
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
+@pytest.mark.skipif(
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
+    reason="sclang hangs without QT",
+)
 def test_SynthDefCompiler_parameters_02_supriya_vs_sclang(py_synthdef_02):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "test",
@@ -223,6 +232,10 @@ def test_SynthDefCompiler_parameters_03_parameters(py_synthdef_03):
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
+@pytest.mark.skipif(
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
+    reason="sclang hangs without QT",
+)
 def test_SynthDefCompiler_parameters_03_supriya_vs_sclang(py_synthdef_03):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "test",
@@ -361,6 +374,10 @@ def test_SynthDefCompiler_parameters_04_parameters(py_synthdef_04):
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
+@pytest.mark.skipif(
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
+    reason="sclang hangs without QT",
+)
 def test_SynthDefCompiler_parameters_04_supriya_vs_sclang(py_synthdef_04):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "trigTest",
@@ -539,6 +556,10 @@ def test_SynthDefCompiler_parameters_05_parameters(py_synthdef_05):
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
+@pytest.mark.skipif(
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
+    reason="sclang hangs without QT",
+)
 def test_SynthDefCompiler_parameters_05_supriya_vs_sclang(py_synthdef_05):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "arrayarg",
@@ -678,6 +699,10 @@ def test_SynthDefCompiler_parameters_06_parameters(py_synthdef_06):
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
+@pytest.mark.skipif(
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
+    reason="sclang hangs without QT",
+)
 def test_SynthDefCompiler_parameters_06_supriya_vs_sclang(py_synthdef_06):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "arrayarg",

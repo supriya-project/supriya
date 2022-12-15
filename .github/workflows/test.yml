@@ -113,6 +113,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
         cache: pip
         cache-dependency-path: "**/pyproject.toml"
+    - name: Upgrade pip
+      run: pip install -U pip
     - name: Install Supriya
       run: pip install -e .
     - name: Install SuperCollider (Non-Windows)

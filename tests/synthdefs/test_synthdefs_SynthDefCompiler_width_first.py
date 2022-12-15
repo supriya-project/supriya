@@ -1,4 +1,5 @@
 # flake8: noqa
+import os
 import platform
 
 import pytest
@@ -183,6 +184,10 @@ def test_02_ugens(py_synthdef_02):
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
+@pytest.mark.skipif(
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
+    reason="sclang hangs without QT",
+)
 def test_02_supriya_vs_sclang(py_synthdef_02):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "PVCopyTest",
