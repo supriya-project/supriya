@@ -1,3 +1,4 @@
+import os
 import platform
 
 import pytest
@@ -77,6 +78,10 @@ def test_system_link_audio_1_bytes():
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
+@pytest.mark.skipif(
+    platform.system() == "Darwin" and os.environ.get("CI"),
+    reason="sclang hangs without QT",
+)
 def test_system_link_audio_1_sclang():
     sc_compiled = SuperColliderSynthDef(
         "system_link_audio_1",
@@ -214,6 +219,10 @@ def test_system_link_audio_2_bytes():
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
+@pytest.mark.skipif(
+    platform.system() == "Darwin" and os.environ.get("CI"),
+    reason="sclang hangs without QT",
+)
 def test_system_link_audio_2_sclang():
     sc_compiled = SuperColliderSynthDef(
         "system_link_audio_2",

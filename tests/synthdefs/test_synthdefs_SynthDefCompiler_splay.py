@@ -1,3 +1,4 @@
+import os
 import platform
 
 import pytest
@@ -8,6 +9,10 @@ import supriya.ugens
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
+@pytest.mark.skipif(
+    platform.system() == "Darwin" and os.environ.get("CI"),
+    reason="sclang hangs without QT",
+)
 def test_Splay_01_sclang(server):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "test",
@@ -189,6 +194,10 @@ def test_Splay_01_supriya(server):
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
+@pytest.mark.skipif(
+    platform.system() == "Darwin" and os.environ.get("CI"),
+    reason="sclang hangs without QT",
+)
 def test_Splay_02_sclang(server):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "test",
