@@ -74,9 +74,7 @@ runs:
         brew install \
           fftw \
           jack \
-          portaudio \
-          qt5 \
-          readline
+          portaudio
       shell: bash
     - name: '[Linux] Configure'
       if: runner.os == 'Linux'
