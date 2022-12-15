@@ -10,7 +10,7 @@ import supriya.ugens
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 @pytest.mark.skipif(
-    platform.system() == "Darwin" and os.environ.get("CI"),
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
 def test_Splay_01_sclang(server):
@@ -195,7 +195,7 @@ def test_Splay_01_supriya(server):
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 @pytest.mark.skipif(
-    platform.system() == "Darwin" and os.environ.get("CI"),
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
 def test_Splay_02_sclang(server):

@@ -106,7 +106,7 @@ def test_SynthDefCompiler_ambisonics_supriya_vs_bytes(py_synthdef):
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 @pytest.mark.skipif(
-    platform.system() == "Darwin" and os.environ.get("CI"),
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
 def test_SynthDefCompiler_ambisonics_supriya_vs_sclang(py_synthdef):

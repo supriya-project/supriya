@@ -36,7 +36,7 @@ def sc_synthdef_mfcc():
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 @pytest.mark.skipif(
-    platform.system() == "Darwin" and os.environ.get("CI"),
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
 def test_ugens(py_synthdef_mfcc, sc_synthdef_mfcc):
@@ -57,7 +57,7 @@ def test_ugens(py_synthdef_mfcc, sc_synthdef_mfcc):
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 @pytest.mark.skipif(
-    platform.system() == "Darwin" and os.environ.get("CI"),
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
 def test_format(py_synthdef_mfcc, sc_synthdef_mfcc):
@@ -109,7 +109,7 @@ def test_format(py_synthdef_mfcc, sc_synthdef_mfcc):
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 @pytest.mark.skipif(
-    platform.system() == "Darwin" and os.environ.get("CI"),
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
 def test_py_compile(py_synthdef_mfcc, sc_synthdef_mfcc):

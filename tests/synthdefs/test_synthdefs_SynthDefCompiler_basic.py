@@ -81,7 +81,7 @@ def test_SynthDefCompiler_basic_01_supriya_vs_bytes(py_synthdef_01):
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 @pytest.mark.skipif(
-    platform.system() == "Darwin" and os.environ.get("CI"),
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
 def test_SynthDefCompiler_basic_01_supriya_vs_sclang(py_synthdef_01):
@@ -153,7 +153,7 @@ def test_SynthDefCompiler_basic_02_supriya_vs_bytes(py_synthdef_02):
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 @pytest.mark.skipif(
-    platform.system() == "Darwin" and os.environ.get("CI"),
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
 def test_SynthDefCompiler_basic_02_supriya_vs_sclang(py_synthdef_02):
@@ -216,7 +216,7 @@ def test_SynthDefCompiler_basic_03_supriya_vs_bytes(py_synthdef_03):
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 @pytest.mark.skipif(
-    platform.system() == "Darwin" and os.environ.get("CI"),
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
 def test_SynthDefCompiler_basic_03_supriya_vs_sclang(py_synthdef_03):
@@ -293,7 +293,7 @@ def test_SynthDefCompiler_basic_04_supriya_vs_bytes(py_synthdef_04):
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 @pytest.mark.skipif(
-    platform.system() == "Darwin" and os.environ.get("CI"),
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
 def test_SynthDefCompiler_basic_04_supriya_vs_sclang(py_synthdef_04):
@@ -310,7 +310,7 @@ def test_SynthDefCompiler_basic_04_supriya_vs_sclang(py_synthdef_04):
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
 @pytest.mark.skipif(
-    platform.system() == "Darwin" and os.environ.get("CI"),
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
 def test_SynthDefCompiler_basic_05_supriya_vs_sclang():
