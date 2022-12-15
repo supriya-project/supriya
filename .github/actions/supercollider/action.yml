@@ -102,8 +102,8 @@ runs:
           -DRULE_LAUNCH_COMPILE=ccache \
           -DSC_ED=OFF \
           -DSC_EL=OFF \
-          -DSC_IDE=ON \
-          -DSC_QT=ON \
+          -DSC_IDE=OFF \
+          -DSC_QT=OFF \
           -DSC_VIM=OFF \
           -DSUPERNOVA=ON \
           -G Xcode \
