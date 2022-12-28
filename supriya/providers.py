@@ -17,6 +17,7 @@ from typing import (
     Mapping,
     Optional,
     Sequence,
+    Set,
     Tuple,
     Type,
     Union,
@@ -60,27 +61,54 @@ class BufferProxy:
         return int(self.identifier)
 
     def close(self) -> None:
-        pass
+        self.provider.close_buffer(self)
 
     def free(self) -> None:
         self.provider.free_buffer(self)
 
     def normalize(self, new_maximum: float = 1.0) -> None:
-        pass
+        self.provider.normalize_buffer(self, new_maximum=new_maximum)
 
-    def read(self, file_path: os.PathLike, leave_open: bool = False) -> None:
-        pass
+    def read(
+        self,
+        file_path: os.PathLike,
+        *,
+        buffer_starting_frame: Optional[int] = None,
+        channel_indices: Optional[List[int]] = None,
+        frame_count: Optional[int] = None,
+        leave_open: bool = False,
+        starting_frame: Optional[int] = None,
+    ) -> None:
+        self.provider.read_buffer(
+            self,
+            buffer_starting_frame=buffer_starting_frame,
+            channel_indices=channel_indices,
+            file_path=file_path,
+            frame_count=frame_count,
+            leave_open=leave_open,
+            starting_frame=starting_frame,
+        )
 
     def write(
         self,
         file_path: os.PathLike,
+        *,
+        buffer_starting_frame: Optional[int] = None,
         frame_count: Optional[int] = None,
         header_format: HeaderFormatLike = "aiff",
         leave_open: bool = False,
         sample_format: SampleFormatLike = "int24",
         starting_frame: Optional[int] = None,
     ) -> None:
-        pass
+        self.provider.write_buffer(
+            self,
+            file_path=file_path,
+            frame_count=frame_count,
+            header_format=header_format,
+            leave_open=leave_open,
+            sample_format=sample_format,
+            starting_frame=starting_frame,
+        )
 
     def as_allocate_request(
         self,
@@ -351,6 +379,7 @@ class ProviderMoment:
     node_settings: List[
         Tuple[NodeProxy, Dict[str, Union[float, BusGroupProxy]]]
     ] = dataclasses.field(default_factory=list)
+    synthdef_additions: Set[SynthDef] = dataclasses.field(default_factory=set)
     wait: bool = dataclasses.field(default=False)
     exit_stack: contextlib.ExitStack = dataclasses.field(
         init=False, default_factory=contextlib.ExitStack, compare=False
@@ -435,7 +464,7 @@ class ProviderMoment:
         elif self.provider._counter[self.seconds]:
             return
         requests = []
-        synthdefs = set()
+        synthdefs = self.synthdef_additions
         new_nodes = set()
         for buffer_proxy in self.buffer_additions:
             requests.append(buffer_proxy.as_allocate_request())
@@ -569,6 +598,14 @@ class Provider(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
+    def add_synthdef(self, synthdef: SynthDef) -> None:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def close_buffer(self, buffer_proxy: BufferProxy) -> None:
+        raise NotImplementedError
+
+    @abc.abstractmethod
     def dispose(self, node_proxy: NodeProxy) -> None:
         raise NotImplementedError
 
@@ -591,6 +628,39 @@ class Provider(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def move_node(
         self, node_proxy: NodeProxy, add_action: AddActionLike, target_node: NodeProxy
+    ) -> None:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def normalize_buffer(self, buffer_proxy: BufferProxy, new_maximum: float = 1.0) -> None:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def read_buffer(
+        self,
+        buffer_proxy: BufferProxy,
+        file_path: os.PathLike,
+        *,
+        buffer_starting_frame: Optional[int] = None,
+        channel_indices: Optional[List[int]] = None,
+        frame_count: Optional[int] = None,
+        leave_open: bool = False,
+        starting_frame: Optional[int] = None,
+    ) -> None:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def write_buffer(
+        self,
+        buffer_proxy: BufferProxy,
+        file_path: os.PathLike,
+        *,
+        buffer_starting_frame: Optional[int] = None,
+        frame_count: Optional[int] = None,
+        header_format: HeaderFormatLike = "aiff",
+        leave_open: bool = False,
+        sample_format: SampleFormatLike = "int24",
+        starting_frame: Optional[int] = None,
     ) -> None:
         raise NotImplementedError
 
@@ -798,6 +868,11 @@ class NonrealtimeProvider(Provider):
         )
         return proxy
 
+    def add_synthdef(self, synthdef: SynthDef) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        pass  # no-op
+
     def free_buffer(self, buffer_: BufferProxy) -> None:
         if not self.moment:
             raise ValueError("No current moment")
@@ -984,6 +1059,11 @@ class RealtimeProvider(Provider):
         if name:
             self._annotation_map[identifier] = name
         return proxy
+
+    def add_synthdef(self, synthdef: SynthDef) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        self.moment.synthdef_additions.add(synthdef)
 
     def dispose(self, node_proxy: NodeProxy) -> None:
         if not self.moment:
