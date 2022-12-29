@@ -632,7 +632,9 @@ class Provider(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def normalize_buffer(self, buffer_proxy: BufferProxy, new_maximum: float = 1.0) -> None:
+    def normalize_buffer(
+        self, buffer_proxy: BufferProxy, new_maximum: float = 1.0
+    ) -> None:
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -650,26 +652,25 @@ class Provider(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
+    def set_bus(self, bus_proxy: BusProxy, value: float) -> None:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def set_node(self, node_proxy: NodeProxy, **settings) -> None:
+        raise NotImplementedError
+
+    @abc.abstractmethod
     def write_buffer(
         self,
         buffer_proxy: BufferProxy,
         file_path: os.PathLike,
         *,
-        buffer_starting_frame: Optional[int] = None,
         frame_count: Optional[int] = None,
         header_format: HeaderFormatLike = "aiff",
         leave_open: bool = False,
         sample_format: SampleFormatLike = "int24",
         starting_frame: Optional[int] = None,
     ) -> None:
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def set_bus(self, bus_proxy: BusProxy, value: float) -> None:
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def set_node(self, node_proxy: NodeProxy, **settings) -> None:
         raise NotImplementedError
 
     def at(self, seconds=None, wait=False) -> ProviderMoment:
@@ -873,12 +874,17 @@ class NonrealtimeProvider(Provider):
             raise ValueError("No current moment")
         pass  # no-op
 
-    def free_buffer(self, buffer_: BufferProxy) -> None:
+    def close_buffer(self, buffer_proxy: BufferProxy) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        cast(nonrealtime.Buffer, buffer_proxy.identifier).close()
+
+    def dispose(self, node_proxy: NodeProxy) -> None:
         if not self.moment:
             raise ValueError("No current moment")
         return  # This is currently a no-op
 
-    def dispose(self, node_proxy: NodeProxy) -> None:
+    def free_buffer(self, buffer_: BufferProxy) -> None:
         if not self.moment:
             raise ValueError("No current moment")
         return  # This is currently a no-op
@@ -910,6 +916,42 @@ class NonrealtimeProvider(Provider):
             node_proxy.identifier, add_action=add_action
         )
 
+    def normalize_buffer(
+        self, buffer_proxy: BufferProxy, new_maximum: float = 1.0
+    ) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        cast(nonrealtime.Buffer, buffer_proxy.identifier).normalize(
+            new_maximum=new_maximum
+        )
+
+    def read_buffer(
+        self,
+        buffer_proxy: BufferProxy,
+        file_path: os.PathLike,
+        *,
+        buffer_starting_frame: Optional[int] = None,
+        channel_indices: Optional[List[int]] = None,
+        frame_count: Optional[int] = None,
+        leave_open: bool = False,
+        starting_frame: Optional[int] = None,
+    ) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        cast(nonrealtime.Buffer, buffer_proxy.identifier).read(
+            channel_indices=channel_indices,
+            file_path=file_path,
+            frame_count=frame_count,
+            leave_open=leave_open,
+            starting_frame_in_buffer=buffer_starting_frame,
+            starting_frame_in_file=starting_frame,
+        )
+
+    def register_osc_callback(
+        self, pattern: Tuple[Union[str, float], ...], procedure: Callable
+    ) -> OscCallbackProxy:
+        return OscCallbackProxy(provider=self, identifier=None)
+
     def set_bus(self, bus_proxy: BusProxy, value: float) -> None:
         if not self.moment:
             raise ValueError("No current moment")
@@ -925,10 +967,27 @@ class NonrealtimeProvider(Provider):
                 value = value.identifier
             cast(nonrealtime.Node, node_proxy.identifier)[key] = value
 
-    def register_osc_callback(
-        self, pattern: Tuple[Union[str, float], ...], procedure: Callable
-    ) -> OscCallbackProxy:
-        return OscCallbackProxy(provider=self, identifier=None)
+    def write_buffer(
+        self,
+        buffer_proxy: BufferProxy,
+        file_path: os.PathLike,
+        *,
+        frame_count: Optional[int] = None,
+        header_format: HeaderFormatLike = "aiff",
+        leave_open: bool = False,
+        sample_format: SampleFormatLike = "int24",
+        starting_frame: Optional[int] = None,
+    ) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        cast(nonrealtime.Buffer, buffer_proxy.identifier).write(
+            file_path=file_path,
+            frame_count=frame_count,
+            header_format=header_format,
+            leave_open=leave_open,
+            sample_format=sample_format,
+            starting_frame=starting_frame,
+        )
 
     def unregister_osc_callback(self, proxy: OscCallbackProxy) -> None:
         pass  # no-op

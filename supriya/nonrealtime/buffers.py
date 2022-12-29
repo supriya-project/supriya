@@ -209,9 +209,7 @@ class Buffer(SessionObject):
         )
         self._set_event(event_type, event_kwargs, offset=offset)
 
-    def normalize(
-        self, as_wavetable=None, buffer_id=None, new_maximum=1.0, offset=None
-    ):
+    def normalize(self, as_wavetable=None, new_maximum=1.0, offset=None):
         event_type = BufferNormalizeRequest
         event_kwargs = dict(
             buffer_id=self, new_maximum=new_maximum, as_wavetable=as_wavetable
