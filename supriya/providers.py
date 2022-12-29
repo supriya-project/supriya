@@ -60,6 +60,29 @@ class BufferProxy:
     def __int__(self) -> int:
         return int(self.identifier)
 
+    def as_allocate_request(
+        self,
+    ) -> Union[
+        commands.BufferAllocateRequest,
+        commands.BufferAllocateReadRequest,
+        commands.BufferAllocateReadChannelRequest,
+    ]:
+        kwargs: Dict[str, Any] = dict(buffer_id=int(self), frame_count=self.frame_count)
+        if self.file_path is None:
+            return commands.BufferAllocateRequest(
+                **kwargs, channel_count=self.channel_count
+            )
+        kwargs["file_path"] = self.file_path
+        kwargs["starting_frame"] = self.starting_frame
+        if self.channel_count is None:
+            return commands.BufferAllocateReadRequest(**kwargs)
+        return commands.BufferAllocateReadChannelRequest(
+            **kwargs, channel_indices=list(range(self.channel_count))
+        )
+
+    def as_free_request(self) -> commands.BufferFreeRequest:
+        return commands.BufferFreeRequest(buffer_id=int(self))
+
     def close(self) -> None:
         self.provider.close_buffer(self)
 
@@ -109,29 +132,6 @@ class BufferProxy:
             sample_format=sample_format,
             starting_frame=starting_frame,
         )
-
-    def as_allocate_request(
-        self,
-    ) -> Union[
-        commands.BufferAllocateRequest,
-        commands.BufferAllocateReadRequest,
-        commands.BufferAllocateReadChannelRequest,
-    ]:
-        kwargs: Dict[str, Any] = dict(buffer_id=int(self), frame_count=self.frame_count)
-        if self.file_path is None:
-            return commands.BufferAllocateRequest(
-                **kwargs, channel_count=self.channel_count
-            )
-        kwargs["file_path"] = self.file_path
-        kwargs["starting_frame"] = self.starting_frame
-        if self.channel_count is None:
-            return commands.BufferAllocateReadRequest(**kwargs)
-        return commands.BufferAllocateReadChannelRequest(
-            **kwargs, channel_indices=list(range(self.channel_count))
-        )
-
-    def as_free_request(self) -> commands.BufferFreeRequest:
-        return commands.BufferFreeRequest(buffer_id=int(self))
 
 
 @dataclasses.dataclass(frozen=True)
@@ -367,6 +367,7 @@ class ProviderMoment:
     provider: "Provider"
     seconds: float
     bus_settings: List[Tuple[BusProxy, float]] = dataclasses.field(default_factory=list)
+    buffer_actions: Dict[Type[commands.Request], commands.Request] = dataclasses.field(default_factory=dict)
     buffer_additions: List[BufferProxy] = dataclasses.field(default_factory=list)
     buffer_removals: List[BufferProxy] = dataclasses.field(default_factory=list)
     node_reorderings: List[Tuple[NodeProxy, AddAction, NodeProxy]] = dataclasses.field(
@@ -454,6 +455,8 @@ class ProviderMoment:
         return self
 
     def _exit(self):
+        # TODO: Harmonize how requests are ordered (and grouped) here with how NRT does it:
+        #       There may be opportunities to consolidate the logic.
         self.exit_stack.close()
         self.provider._moments.pop()
         self.provider._counter[self.seconds] -= 1
