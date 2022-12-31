@@ -473,6 +473,8 @@ class ProviderMoment:
         new_nodes = set()
         for buffer_proxy in self.buffer_additions:
             requests.append(buffer_proxy.as_allocate_request())
+        for request_type in sorted(self.buffer_actions, key=lambda x: x.__name__):
+            requests.extend(self.buffer_actions[request_type])
         for node_proxy, add_action, target_node in self.node_additions:
             request = node_proxy.as_add_request(add_action, target_node)
             if isinstance(request, commands.SynthNewRequest):
