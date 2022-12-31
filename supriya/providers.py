@@ -367,7 +367,9 @@ class ProviderMoment:
     provider: "Provider"
     seconds: float
     bus_settings: List[Tuple[BusProxy, float]] = dataclasses.field(default_factory=list)
-    buffer_actions: Dict[Type[commands.Request], commands.Request] = dataclasses.field(default_factory=dict)
+    buffer_actions: Dict[
+        Type[commands.Request], List[commands.Request]
+    ] = dataclasses.field(default_factory=dict)
     buffer_additions: List[BufferProxy] = dataclasses.field(default_factory=list)
     buffer_removals: List[BufferProxy] = dataclasses.field(default_factory=list)
     node_reorderings: List[Tuple[NodeProxy, AddAction, NodeProxy]] = dataclasses.field(
@@ -1127,6 +1129,14 @@ class RealtimeProvider(Provider):
             raise ValueError("No current moment")
         self.moment.synthdef_additions.add(synthdef)
 
+    def close_buffer(self, buffer_proxy: BufferProxy) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        request = commands.BufferCloseRequest(
+            buffer_id=cast(int, buffer_proxy.identifier)
+        )
+        self.moment.buffer_actions.setdefault(type(request), []).append(request)
+
     def dispose(self, node_proxy: NodeProxy) -> None:
         if not self.moment:
             raise ValueError("No current moment")
@@ -1170,6 +1180,53 @@ class RealtimeProvider(Provider):
             (node_proxy, AddAction.from_expr(add_action), target_node)
         )
 
+    def normalize_buffer(
+        self, buffer_proxy: BufferProxy, new_maximum: float = 1.0
+    ) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        request = commands.BufferNormalizeRequest(
+            buffer_id=cast(int, buffer_proxy.identifier), new_maximum=new_maximum
+        )
+        self.moment.buffer_actions.setdefault(type(request), []).append(request)
+
+    def read_buffer(
+        self,
+        buffer_proxy: BufferProxy,
+        file_path: os.PathLike,
+        *,
+        buffer_starting_frame: Optional[int] = None,
+        channel_indices: Optional[List[int]] = None,
+        frame_count: Optional[int] = None,
+        leave_open: bool = False,
+        starting_frame: Optional[int] = None,
+    ) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        kwargs = dict(
+            buffer_id=cast(int, buffer_proxy.identifier),
+            file_path=file_path,
+            frame_count=frame_count,
+            leave_open=leave_open,
+            starting_frame_in_buffer=buffer_starting_frame,
+            starting_frame_in_file=starting_frame,
+        )
+        if channel_indices:
+            request: commands.Request = commands.BufferReadChannelRequest(
+                **kwargs, channel_indices=channel_indices
+            )
+        else:
+            request = commands.BufferReadRequest(**kwargs)
+        self.moment.buffer_actions.setdefault(type(request), []).append(request)
+
+    def register_osc_callback(
+        self, pattern: Tuple[Union[str, float], ...], procedure: Callable
+    ) -> OscCallbackProxy:
+        identifier = self._server.osc_protocol.register(
+            pattern=pattern, procedure=procedure
+        )
+        return OscCallbackProxy(provider=self, identifier=identifier)
+
     def set_bus(self, bus_proxy: BusProxy, value: float) -> None:
         if not self.moment:
             raise ValueError("No current moment")
@@ -1182,16 +1239,32 @@ class RealtimeProvider(Provider):
             raise ValueError("No current moment")
         self.moment.node_settings.append((node_proxy, settings))
 
-    def register_osc_callback(
-        self, pattern: Tuple[Union[str, float], ...], procedure: Callable
-    ) -> OscCallbackProxy:
-        identifier = self._server.osc_protocol.register(
-            pattern=pattern, procedure=procedure
-        )
-        return OscCallbackProxy(provider=self, identifier=identifier)
-
     def unregister_osc_callback(self, proxy: OscCallbackProxy) -> None:
         self._server.osc_protocol.unregister(proxy.identifier)
+
+    def write_buffer(
+        self,
+        buffer_proxy: BufferProxy,
+        file_path: os.PathLike,
+        *,
+        frame_count: Optional[int] = None,
+        header_format: HeaderFormatLike = "aiff",
+        leave_open: bool = False,
+        sample_format: SampleFormatLike = "int24",
+        starting_frame: Optional[int] = None,
+    ) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        request = commands.BufferWriteRequest(
+            buffer_id=cast(int, buffer_proxy.identifier),
+            file_path=file_path,
+            frame_count=frame_count,
+            header_format=header_format,
+            leave_open=leave_open,
+            sample_format=sample_format,
+            starting_frame=starting_frame,
+        )
+        self.moment.buffer_actions.setdefault(type(request), []).append(request)
 
     @property
     def server(self) -> Optional[BaseServer]:
