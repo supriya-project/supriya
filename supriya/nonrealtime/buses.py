@@ -1,5 +1,5 @@
 import bisect
-from typing import TYPE_CHECKING, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Iterator, List, Optional, Tuple, Union
 
 from ..enums import CalculationRate
 from ..typing import CalculationRateLike
@@ -19,7 +19,7 @@ class Bus(SessionObject):
         >>> session = supriya.nonrealtime.Session()
         >>> bus = session.add_bus("control")
         >>> print(repr(bus))
-        <Bus(<Session>, calculation_rate=CalculationRate.CONTROL, session_id=0)>
+        <Bus(<Session>, calculation_rate=CalculationRate.CONTROL, session_id=2)>
 
     ::
 
@@ -176,7 +176,7 @@ class BusGroup(SessionObject):
         >>> session = supriya.nonrealtime.Session()
         >>> bus_group = session.add_bus_group(3)
         >>> print(repr(bus_group))
-        <BusGroup(<Session>, bus_count=3, calculation_rate=CalculationRate.CONTROL, session_id=0)>
+        <BusGroup(<Session>, bus_count=3, calculation_rate=CalculationRate.CONTROL, session_id=2)>
 
     ::
 
@@ -237,7 +237,7 @@ class BusGroup(SessionObject):
 
     ### SPECIAL METHODS ###
 
-    def __contains__(self, item):
+    def __contains__(self, item) -> bool:
         return self.buses.__contains__(item)
 
     def __float__(self):
@@ -252,16 +252,16 @@ class BusGroup(SessionObject):
     def __int__(self):
         return int(self._session_id)
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator["Bus"]:
         return iter(self.buses)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._buses)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{}>".format(super(BusGroup, self).__repr__())
 
-    def __str__(self):
+    def __str__(self) -> str:
         map_symbol = "c"
         if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = "a"
@@ -275,23 +275,20 @@ class BusGroup(SessionObject):
     ### PUBLIC METHODS ###
 
     def fill(self, value):
-        assert self.session._active_moments
         offset = self.session._active_moments[-1].offset
         for bus in self:
             bus._set_at_offset(offset, value)
 
     def get(self):
-        assert self.session._active_moments
         offset = self.session._active_moments[-1].offset
-        values = [bus._get_at_offset(offset) for bus in self]
-        return values
+        return [bus._get_at_offset(offset) for bus in self]
 
     def get_map_symbol(self, bus_id: int) -> str:
         if self.calculation_rate == CalculationRate.AUDIO:
             return f"a{bus_id}"
         return f"c{bus_id}"
 
-    def index(self, item):
+    def index(self, item) -> int:
         return self.buses.index(item)
 
     ### PUBLIC PROPERTIES ###
