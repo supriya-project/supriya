@@ -629,11 +629,11 @@ class Synth(Node):
         return uqbar.graphs.Node(children=[uqbar.graphs.RecordGroup([group])])
 
     def _collect_settings(
-        self, offset: float, *, id_mapping: Dict[Any, float], persistent=False
-    ):
+        self, offset: float, *, id_mapping: Dict[Any, int], persistent=False
+    ) -> Dict[str, Union[str, float]]:
         from .buses import Bus, BusGroup
 
-        settings: Dict[str, float] = {}
+        settings: Dict[str, Union[str, float]] = {}
         parameters = self.synthdef.parameters
         for key in self._events:
             parameter = parameters[key]

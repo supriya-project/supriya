@@ -16,6 +16,7 @@ from typing import (
     Coroutine,
     Dict,
     List,
+    Mapping,
     Optional,
     Set,
     Tuple,
@@ -1521,7 +1522,7 @@ class Session:
         return self._buffers
 
     @property
-    def buffers_by_session_id(self) -> MappingProxyType[int, Buffer]:
+    def buffers_by_session_id(self) -> Mapping[int, Buffer]:
         return MappingProxyType(self._buffers_by_session_id)
 
     @property
@@ -1529,7 +1530,7 @@ class Session:
         return self._buses
 
     @property
-    def buses_by_session_id(self) -> MappingProxyType[int, Union[Bus, BusGroup]]:
+    def buses_by_session_id(self) -> Mapping[int, Union[Bus, BusGroup]]:
         return MappingProxyType(self._buses_by_session_id)
 
     @property
@@ -1557,7 +1558,7 @@ class Session:
         return self._nodes
 
     @property
-    def nodes_by_session_id(self) -> MappingProxyType[int, Node]:
+    def nodes_by_session_id(self) -> Mapping[int, Node]:
         return MappingProxyType(self._nodes_by_session_id)
 
     @property

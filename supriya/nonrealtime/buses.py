@@ -66,18 +66,14 @@ class Bus(SessionObject):
         bus_group: Optional["BusGroup"] = None,
     ) -> None:
         SessionObject.__init__(self, session)
-        self._session_id = session_id
-        if bus_group is not None:
-            assert isinstance(bus_group, BusGroup)
         self._bus_group = bus_group
-        assert calculation_rate is not None
-        calculation_rate = CalculationRate.from_expr(calculation_rate)
-        self._calculation_rate = calculation_rate
+        self._calculation_rate = CalculationRate.from_expr(calculation_rate)
         self._events: List[Tuple[float, float]] = []
+        self._session_id = session_id
 
     ### SPECIAL METHODS ###
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{}>".format(super(Bus, self).__repr__())
 
     def __float__(self):
@@ -86,18 +82,15 @@ class Bus(SessionObject):
     def __int__(self):
         return int(self._session_id)
 
-    def __str__(self):
+    def __str__(self) -> str:
         map_symbol = "c"
         if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = "a"
-        session_id = self._session_id
-        if session_id is None:
-            session_id = "?"
-        elif isinstance(session_id, tuple):
-            session_id = "{}:{}".format(session_id[0], session_id[1])
-        return "{map_symbol}{session_id}".format(
-            map_symbol=map_symbol, session_id=session_id
-        )
+        if self.session_id is None:
+            return f"{map_symbol}?"
+        elif isinstance(self.session_id, tuple):
+            return f"{map_symbol}{self.session_id[0]}:{self.session_id[1]}"
+        return f"{map_symbol}{self.session_id}"
 
     ### PRIVATE METHODS ###
 
@@ -137,30 +130,27 @@ class Bus(SessionObject):
     ### PUBLIC METHODS ###
 
     @SessionObject.require_offset
-    def get(self, offset=None):
+    def get(self, offset=None) -> float:
         value = self._get_at_offset(offset)
         return value
 
-    def get_map_symbol(self, bus_id):
+    def get_map_symbol(self, bus_id: int) -> str:
         if self.calculation_rate == CalculationRate.AUDIO:
-            map_symbol = "a"
-        else:
-            map_symbol = "c"
-        map_symbol += str(bus_id)
-        return map_symbol
+            return f"a{bus_id}"
+        return f"c{bus_id}"
 
     @SessionObject.require_offset
-    def set_(self, value, offset=None):
+    def set_(self, value, offset=None) -> None:
         self._set_at_offset(offset, value)
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def bus_group(self):
+    def bus_group(self) -> Optional["BusGroup"]:
         return self._bus_group
 
     @property
-    def calculation_rate(self):
+    def calculation_rate(self) -> CalculationRate:
         return self._calculation_rate
 
     @property
@@ -168,11 +158,11 @@ class Bus(SessionObject):
         return self._session_id
 
     @property
-    def start_offset(self):
+    def start_offset(self) -> float:
         return float("-inf")
 
     @property
-    def stop_offset(self):
+    def stop_offset(self) -> float:
         return float("inf")
 
 
@@ -233,21 +223,17 @@ class BusGroup(SessionObject):
         bus_count: int = 1,
     ) -> None:
         SessionObject.__init__(self, session)
-        self._session_id = session_id
-        assert calculation_rate is not None
-        calculation_rate = CalculationRate.from_expr(calculation_rate)
-        self._calculation_rate = calculation_rate
-        bus_count = int(bus_count)
-        assert 0 < bus_count
         self._buses = tuple(
             Bus(
                 session,
                 bus_group=self,
-                calculation_rate=self.calculation_rate,
+                calculation_rate=CalculationRate.from_expr(calculation_rate),
                 session_id=(session_id, i),
             )
             for i in range(bus_count)
         )
+        self._calculation_rate = CalculationRate.from_expr(calculation_rate)
+        self._session_id = session_id
 
     ### SPECIAL METHODS ###
 
@@ -300,13 +286,10 @@ class BusGroup(SessionObject):
         values = [bus._get_at_offset(offset) for bus in self]
         return values
 
-    def get_map_symbol(self, bus_id):
+    def get_map_symbol(self, bus_id: int) -> str:
         if self.calculation_rate == CalculationRate.AUDIO:
-            map_symbol = "a"
-        else:
-            map_symbol = "c"
-        map_symbol += str(bus_id)
-        return map_symbol
+            return f"a{bus_id}"
+        return f"c{bus_id}"
 
     def index(self, item):
         return self.buses.index(item)
@@ -314,15 +297,15 @@ class BusGroup(SessionObject):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def bus_count(self):
+    def bus_count(self) -> int:
         return len(self._buses)
 
     @property
-    def buses(self):
+    def buses(self) -> Tuple["Bus", ...]:
         return self._buses
 
     @property
-    def calculation_rate(self):
+    def calculation_rate(self) -> CalculationRate:
         return self._calculation_rate
 
     @property
@@ -335,20 +318,14 @@ class AudioInputBusGroup(BusGroup):
     A non-realtime audio input bus group.
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ()
-
     ### INITIALIZER ###
 
     def __init__(self, session: "Session", *, session_id: int) -> None:
-        calculation_rate = CalculationRate.AUDIO
-        bus_count = session.options.input_bus_channel_count
         BusGroup.__init__(
             self,
             session,
-            bus_count=bus_count,
-            calculation_rate=calculation_rate,
+            bus_count=session.options.input_bus_channel_count,
+            calculation_rate=CalculationRate.AUDIO,
             session_id=session_id,
         )
 
@@ -358,19 +335,13 @@ class AudioOutputBusGroup(BusGroup):
     A non-realtime audio output bus group.
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ()
-
     ### INITIALIZER ###
 
     def __init__(self, session: "Session", *, session_id: int) -> None:
-        calculation_rate = CalculationRate.AUDIO
-        bus_count = session.options.output_bus_channel_count
         BusGroup.__init__(
             self,
             session,
-            bus_count=bus_count,
-            calculation_rate=calculation_rate,
+            bus_count=session.options.output_bus_channel_count,
+            calculation_rate=CalculationRate.AUDIO,
             session_id=session_id,
         )
