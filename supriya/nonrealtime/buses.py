@@ -1,7 +1,12 @@
 import bisect
+from typing import TYPE_CHECKING, List, Optional, Tuple, Union
 
 from ..enums import CalculationRate
+from ..typing import CalculationRateLike
 from .bases import SessionObject
+
+if TYPE_CHECKING:
+    from .sessions import Session
 
 
 class Bus(SessionObject):
@@ -52,7 +57,14 @@ class Bus(SessionObject):
 
     ### INITIALIZER ###
 
-    def __init__(self, session, bus_group=None, calculation_rate=None, session_id=None):
+    def __init__(
+        self,
+        session: "Session",
+        *,
+        calculation_rate: CalculationRateLike,
+        session_id: Union[int, Tuple[int, int]],
+        bus_group: Optional["BusGroup"] = None,
+    ) -> None:
         SessionObject.__init__(self, session)
         self._session_id = session_id
         if bus_group is not None:
@@ -61,7 +73,7 @@ class Bus(SessionObject):
         assert calculation_rate is not None
         calculation_rate = CalculationRate.from_expr(calculation_rate)
         self._calculation_rate = calculation_rate
-        self._events = []
+        self._events: List[Tuple[float, float]] = []
 
     ### SPECIAL METHODS ###
 
@@ -212,7 +224,14 @@ class BusGroup(SessionObject):
 
     ### INITIALIZER ###
 
-    def __init__(self, session, bus_count=1, calculation_rate=None, session_id=None):
+    def __init__(
+        self,
+        session: "Session",
+        *,
+        calculation_rate: CalculationRateLike,
+        session_id: int,
+        bus_count: int = 1,
+    ) -> None:
         SessionObject.__init__(self, session)
         self._session_id = session_id
         assert calculation_rate is not None
@@ -322,11 +341,15 @@ class AudioInputBusGroup(BusGroup):
 
     ### INITIALIZER ###
 
-    def __init__(self, session):
+    def __init__(self, session: "Session", *, session_id: int) -> None:
         calculation_rate = CalculationRate.AUDIO
         bus_count = session.options.input_bus_channel_count
         BusGroup.__init__(
-            self, session, bus_count=bus_count, calculation_rate=calculation_rate
+            self,
+            session,
+            bus_count=bus_count,
+            calculation_rate=calculation_rate,
+            session_id=session_id,
         )
 
 
@@ -341,9 +364,13 @@ class AudioOutputBusGroup(BusGroup):
 
     ### INITIALIZER ###
 
-    def __init__(self, session):
+    def __init__(self, session: "Session", *, session_id: int) -> None:
         calculation_rate = CalculationRate.AUDIO
         bus_count = session.options.output_bus_channel_count
         BusGroup.__init__(
-            self, session, bus_count=bus_count, calculation_rate=calculation_rate
+            self,
+            session,
+            bus_count=bus_count,
+            calculation_rate=calculation_rate,
+            session_id=session_id,
         )

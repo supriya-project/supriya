@@ -1134,10 +1134,14 @@ class Session:
         self._buses = {}
         self._audio_input_bus_group = None
         if self._options.input_bus_channel_count:
-            self._audio_input_bus_group = AudioInputBusGroup(self)
+            self._audio_input_bus_group = AudioInputBusGroup(
+                session=self, session_id=self._get_next_session_id("bus")
+            )
         self._audio_output_bus_group = None
         if self._options.output_bus_channel_count:
-            self._audio_output_bus_group = AudioOutputBusGroup(self)
+            self._audio_output_bus_group = AudioOutputBusGroup(
+                session=self, session_id=self._get_next_session_id("bus")
+            )
 
     def _setup_initial_states(self):
         offset = float("-inf")
