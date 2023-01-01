@@ -20,6 +20,7 @@ from typing import (
     Set,
     Tuple,
     Type,
+    Union,
     cast,
 )
 
@@ -497,15 +498,15 @@ class Session:
 
         self._active_moments: List[Moment] = []
         self._buffers = IntervalTree(accelerated=True)
-        self._buffers_by_seesion_id: Dict = {}
-        self._buses: Dict = {}
-        self._buses_by_session_id: Dict = {}
+        self._buffers_by_session_id: Dict[int, Buffer] = {}
+        self._buses: Dict[Union[Bus, BusGroup], None] = {}
+        self._buses_by_session_id: Dict[int, Union[Bus, BusGroup]] = {}
         self._nodes = IntervalTree(accelerated=True)
-        self._nodes_by_session_id: Dict = {}
+        self._nodes_by_session_id: Dict[int, Node] = {}
         self._offsets: List[float] = []
         self._root_node = RootNode(self)
-        self._session_ids: Dict = {}
-        self._states: Dict = {}
+        self._session_ids: Dict[str, int] = {}
+        self._states: Dict[float, State] = {}
 
         if input_ and not self.is_session_like(input_):
             input_ = str(input_)
@@ -1228,6 +1229,7 @@ class Session:
         file_path: Optional[PathLike] = None,
         offset: Optional[float] = None,
     ) -> Buffer:
+        # TODO: Handle no active moment
         start_moment = self.active_moments[-1]
         session_id = self._get_next_session_id("buffer")
         buffer_ = Buffer(
@@ -1255,6 +1257,7 @@ class Session:
         frame_count: Optional[int] = None,
         offset: Optional[float] = None,
     ) -> BufferGroup:
+        # TODO: Handle no active moment
         start_moment = self.active_moments[-1]
         buffer_group = BufferGroup(
             self,
@@ -1509,19 +1512,19 @@ class Session:
         return self._audio_output_bus_group
 
     @property
-    def buffers(self):
+    def buffers(self) -> IntervalTree:
         return self._buffers
 
     @property
-    def buffers_by_session_id(self):
+    def buffers_by_session_id(self) -> MappingProxyType[int, Buffer]:
         return MappingProxyType(self._buffers_by_session_id)
 
     @property
-    def buses(self):
+    def buses(self) -> Dict[Union[Bus, BusGroup], None]:
         return self._buses
 
     @property
-    def buses_by_session_id(self):
+    def buses_by_session_id(self) -> MappingProxyType[int, Union[Bus, BusGroup]]:
         return MappingProxyType(self._buses_by_session_id)
 
     @property
@@ -1545,11 +1548,11 @@ class Session:
         return self.options.input_bus_channel_count
 
     @property
-    def nodes(self):
+    def nodes(self) -> IntervalTree:
         return self._nodes
 
     @property
-    def nodes_by_session_id(self):
+    def nodes_by_session_id(self) -> MappingProxyType[int, Node]:
         return MappingProxyType(self._nodes_by_session_id)
 
     @property
@@ -1573,5 +1576,5 @@ class Session:
         return self._root_node
 
     @property
-    def states(self):
+    def states(self) -> Dict[float, State]:
         return self._states
