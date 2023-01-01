@@ -1246,6 +1246,7 @@ class Session:
         with self.at(buffer_.stop_offset) as stop_moment:
             stop_moment.state.stop_buffers.add(buffer_)
         self._buffers.add(buffer_)
+        self._buffers_by_session_id[session_id] = buffer_
         return buffer_
 
     @SessionObject.require_offset

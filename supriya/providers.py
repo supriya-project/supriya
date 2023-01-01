@@ -48,7 +48,7 @@ class Proxy:
 @dataclasses.dataclass(frozen=True)
 class BufferProxy:
     provider: "Provider"
-    identifier: Union["supriya.nonrealtime.Buffer", int]
+    identifier: int
     channel_count: Optional[int] = None
     frame_count: Optional[int] = None
     file_path: Optional[os.PathLike] = None
@@ -787,7 +787,7 @@ class NonrealtimeProvider(Provider):
     ) -> BufferProxy:
         if not self.moment:
             raise ValueError("No current moment")
-        identifier = self._session.add_buffer(
+        buffer_ = self._session.add_buffer(
             channel_count=channel_count,
             file_path=file_path,
             frame_count=frame_count,
@@ -797,7 +797,7 @@ class NonrealtimeProvider(Provider):
             channel_count=channel_count,
             file_path=file_path,
             frame_count=frame_count,
-            identifier=identifier,
+            identifier=buffer_.session_id,
             provider=self,
             starting_frame=starting_frame,
         )
@@ -884,7 +884,7 @@ class NonrealtimeProvider(Provider):
     def close_buffer(self, buffer_proxy: BufferProxy) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        cast(nonrealtime.Buffer, buffer_proxy.identifier).close()
+        self._session.buffers_by_session_id[buffer_proxy.identifier].close()
 
     def dispose(self, node_proxy: NodeProxy) -> None:
         if not self.moment:
@@ -928,7 +928,7 @@ class NonrealtimeProvider(Provider):
     ) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        cast(nonrealtime.Buffer, buffer_proxy.identifier).normalize(
+        self._session.buffers_by_session_id[buffer_proxy.identifier].normalize(
             new_maximum=new_maximum
         )
 
@@ -945,7 +945,7 @@ class NonrealtimeProvider(Provider):
     ) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        cast(nonrealtime.Buffer, buffer_proxy.identifier).read(
+        self._session.buffers_by_session_id[buffer_proxy.identifier].read(
             channel_indices=channel_indices,
             file_path=file_path,
             frame_count=frame_count,
@@ -987,7 +987,7 @@ class NonrealtimeProvider(Provider):
     ) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        cast(nonrealtime.Buffer, buffer_proxy.identifier).write(
+        self._session.buffers_by_session_id[buffer_proxy.identifier].write(
             file_path=file_path,
             frame_count=frame_count,
             header_format=header_format,
