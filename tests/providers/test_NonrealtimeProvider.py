@@ -215,6 +215,17 @@ def test_NonrealtimeProvider_add_synth_error(session):
         provider.add_synth()
 
 
+def test_NonrealtimeProvider_close_buffer(session):
+    provider = Provider.from_context(session)
+    with provider.at(1.2345):
+        buffer_proxy = provider.add_buffer(channel_count=1, frame_count=512)
+        buffer_proxy.close()
+    assert session.to_lists(10) == [
+        [1.2345, [["/b_alloc", 0, 512, 1], ["/b_close", 0]]],
+        [10.0, [["/b_free", 0], [0]]],
+    ]
+
+
 @pytest.mark.skip("NRT doesn't implement freeing buffers")
 def test_NonrealtimeProvider_free_buffer(session):
     ...
@@ -311,6 +322,45 @@ def test_NonrealtimeProvider_move_node_error(session):
         group_proxy_two = provider.add_group()
     with pytest.raises(ValueError):
         group_proxy_one.move(AddAction.ADD_TO_HEAD, group_proxy_two)
+
+
+def test_NonrealtimeProvider_normalize_buffer(session):
+    provider = Provider.from_context(session)
+    with provider.at(1.2345):
+        buffer_proxy = provider.add_buffer(channel_count=1, frame_count=512)
+        buffer_proxy.normalize(0.5)
+    assert session.to_lists(10) == [
+        [1.2345, [["/b_alloc", 0, 512, 1], ["/b_gen", 0, "normalize", 0.5]]],
+        [10.0, [["/b_free", 0], [0]]],
+    ]
+
+
+def test_NonrealtimeProvider_read_buffer(session):
+    provider = Provider.from_context(session)
+    with provider.at(1.2345):
+        buffer_proxy = provider.add_buffer(channel_count=1, frame_count=512)
+        buffer_proxy.read("foo.aiff")
+    assert session.to_lists(10) == [
+        [1.2345, [["/b_alloc", 0, 512, 1], ["/b_read", 0, "foo.aiff", 0, -1, 0, 0]]],
+        [10.0, [["/b_free", 0], [0]]],
+    ]
+
+
+def test_NonrealtimeProvider_write_buffer(session, tmp_path):
+    provider = Provider.from_context(session)
+    with provider.at(1.2345):
+        buffer_proxy = provider.add_buffer(channel_count=1, frame_count=512)
+        buffer_proxy.write(file_path=tmp_path / "foo.aiff")
+    assert session.to_lists(10) == [
+        [
+            1.2345,
+            [
+                ["/b_alloc", 0, 512, 1],
+                ["/b_write", 0, str(tmp_path / "foo.aiff"), "aiff", "int24", -1, 0, 0],
+            ],
+        ],
+        [10.0, [["/b_free", 0], [0]]],
+    ]
 
 
 def test_NonrealtimeProvider_set_bus_1(session):

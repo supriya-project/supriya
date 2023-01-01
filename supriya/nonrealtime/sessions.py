@@ -472,6 +472,7 @@ class Session:
         BufferSetContiguousRequest,
         BufferNormalizeRequest,
         BufferCopyRequest,
+        BufferCloseRequest,
     )
 
     _ordered_buffer_pre_free_request_types: Tuple[Type[Request], ...] = (

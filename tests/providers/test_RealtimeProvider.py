@@ -181,6 +181,16 @@ def test_RealtimeProvider_add_group_error(server):
         provider.add_group()
 
 
+def test_RealtimeProvider_add_group_parallel(server):
+    provider = Provider.from_context(server)
+    with server.osc_protocol.capture() as transcript:
+        with provider.at(None):
+            provider.add_group(parallel=True)
+    assert [(_.label, _.message) for _ in transcript] == [
+        ("S", OscBundle(contents=(OscMessage("/p_new", 1000, 0, 1),)))
+    ]
+
+
 def test_RealtimeProvider_add_synth_1(server):
     provider = Provider.from_context(server)
     seconds = time.time()
@@ -298,6 +308,17 @@ def test_RealtimeProvider_add_synth_error(server):
     provider = Provider.from_context(server)
     with pytest.raises(ValueError):
         provider.add_synth()
+
+
+def test_RealtimeProvider_close_buffer(server):
+    provider = Provider.from_context(server)
+    with server.osc_protocol.capture() as transcript:
+        with provider.at(1.2345):
+            buffer_proxy = provider.add_buffer(channel_count=1, frame_count=512)
+            buffer_proxy.close()
+    assert [entry.message.to_list() for entry in transcript] == [
+        [1.3345, [["/b_alloc", 0, 512, 1], ["/b_close", 0]]]
+    ]
 
 
 def test_RealtimeProvider_free_buffer(server):
@@ -446,6 +467,28 @@ def test_RealtimeProvider_move_node_error(server):
         group_proxy_one.move(AddAction.ADD_TO_HEAD, group_proxy_two)
 
 
+def test_RealtimeProvider_normalize_buffer(server):
+    provider = Provider.from_context(server)
+    with server.osc_protocol.capture() as transcript:
+        with provider.at(1.2345):
+            buffer_proxy = provider.add_buffer(channel_count=1, frame_count=512)
+            buffer_proxy.normalize(0.5)
+    assert [entry.message.to_list() for entry in transcript] == [
+        [1.3345, [["/b_alloc", 0, 512, 1], ["/b_gen", 0, "normalize", 0.5]]]
+    ]
+
+
+def test_RealtimeProvider_read_buffer(server):
+    provider = Provider.from_context(server)
+    with server.osc_protocol.capture() as transcript:
+        with provider.at(1.2345):
+            buffer_proxy = provider.add_buffer(channel_count=1, frame_count=512)
+            buffer_proxy.read("foo.aiff")
+    assert [entry.message.to_list() for entry in transcript] == [
+        [1.3345, [["/b_alloc", 0, 512, 1], ["/b_read", 0, "foo.aiff", 0, -1, 0, 0]]]
+    ]
+
+
 def test_RealtimeProvider_set_bus_1(server):
     provider = Provider.from_context(server)
     seconds = time.time()
@@ -567,11 +610,18 @@ def test_RealtimeProvider_set_node_error(server):
         synth_proxy["foo"] = 23
 
 
-def test_RealtimeProvider_add_group_parallel(server):
+def test_RealtimeProvider_write_buffer(server, tmp_path):
     provider = Provider.from_context(server)
     with server.osc_protocol.capture() as transcript:
-        with provider.at(None):
-            provider.add_group(parallel=True)
-    assert [(_.label, _.message) for _ in transcript] == [
-        ("S", OscBundle(contents=(OscMessage("/p_new", 1000, 0, 1),)))
+        with provider.at(1.2345):
+            buffer_proxy = provider.add_buffer(channel_count=1, frame_count=512)
+            buffer_proxy.write(file_path=tmp_path / "foo.aiff")
+    assert [entry.message.to_list() for entry in transcript] == [
+        [
+            1.3345,
+            [
+                ["/b_alloc", 0, 512, 1],
+                ["/b_write", 0, str(tmp_path / "foo.aiff"), "aiff", "int24", -1, 0, 0],
+            ],
+        ]
     ]
