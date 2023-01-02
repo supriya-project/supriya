@@ -506,8 +506,10 @@ class Session:
         self._nodes_by_session_id: Dict[int, Node] = {}
         self._offsets: List[float] = []
         self._root_node = RootNode(self)
-        self._session_ids: Dict[str, int] = {}
         self._states: Dict[float, State] = {}
+        self._node_id_allocator = NodeIdAllocator()
+        self._buffer_allocator = BlockAllocator()
+        self._bus_allocator = BlockAllocator()
 
         if input_ and not self.is_session_like(input_):
             input_ = str(input_)
@@ -1111,14 +1113,6 @@ class Session:
             return None
         return self.states[self.offsets[index]]
 
-    def _get_next_session_id(self, kind="node"):
-        default = 0
-        if kind == "node":
-            default = 1000
-        session_id = self._session_ids.setdefault(kind, default)
-        self._session_ids[kind] += 1
-        return session_id
-
     def _iterate_state_pairs(self, offset, with_node_tree=None):
         state_one = self._find_state_at(offset, clone_if_missing=True)
         state_two = self._find_state_after(
@@ -1132,16 +1126,21 @@ class Session:
             )
 
     def _setup_buses(self):
-        self._buses = {}
-        self._audio_input_bus_group = None
-        if self._options.input_bus_channel_count:
-            self._audio_input_bus_group = AudioInputBusGroup(
-                session=self, session_id=self._get_next_session_id("bus")
-            )
         self._audio_output_bus_group = None
         if self._options.output_bus_channel_count:
             self._audio_output_bus_group = AudioOutputBusGroup(
-                session=self, session_id=self._get_next_session_id("bus")
+                session=self,
+                session_id=self._bus_allocator.allocate(
+                    self._options.output_bus_channel_count
+                ),
+            )
+        self._audio_input_bus_group = None
+        if self._options.input_bus_channel_count:
+            self._audio_input_bus_group = AudioInputBusGroup(
+                session=self,
+                session_id=self._bus_allocator.allocate(
+                    self._options.input_bus_channel_count
+                ),
             )
 
     def _setup_initial_states(self):
@@ -1236,7 +1235,7 @@ class Session:
     ) -> Buffer:
         # TODO: Handle no active moment
         start_moment = self.active_moments[-1]
-        session_id = self._get_next_session_id("buffer")
+        session_id = self._buffer_allocator.allocate()
         buffer_ = Buffer(
             self,
             channel_count=channel_count,
@@ -1284,7 +1283,7 @@ class Session:
     def add_bus(
         self, calculation_rate: CalculationRateLike = CalculationRate.CONTROL
     ) -> Bus:
-        session_id = self._get_next_session_id("bus")
+        session_id = self._bus_allocator.allocate()
         bus = Bus(self, calculation_rate=calculation_rate, session_id=session_id)
         self._buses[bus] = None  # ordered dictionary
         self._buses_by_session_id[session_id] = bus
@@ -1295,7 +1294,7 @@ class Session:
         bus_count: int = 1,
         calculation_rate: CalculationRateLike = CalculationRate.CONTROL,
     ) -> BusGroup:
-        session_id = self._get_next_session_id("bus")
+        session_id = self._bus_allocator.allocate(bus_count)
         bus_group = BusGroup(
             self,
             bus_count=bus_count,
@@ -1305,7 +1304,6 @@ class Session:
         for bus in bus_group:
             self._buses[bus] = None  # ordered dictionary
             self._buses_by_session_id[bus.session_id] = bus
-        self._buses_by_session_id[session_id] = bus_group
         return bus_group
 
     def add_group(

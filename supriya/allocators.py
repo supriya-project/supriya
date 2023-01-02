@@ -10,10 +10,6 @@ from .system import SupriyaObject
 
 class Block(Interval):
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_used",)
-
     ### INITIALIZER ###
 
     def __init__(
@@ -71,10 +67,6 @@ class BlockAllocator(SupriyaObject):
 
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_free_heap", "_heap_maximum", "_heap_minimum", "_lock", "_used_heap")
-
     ### INITIALIZER ###
 
     def __init__(self, heap_maximum=None, heap_minimum=0):
@@ -87,6 +79,17 @@ class BlockAllocator(SupriyaObject):
             start_offset=heap_minimum, stop_offset=heap_maximum, used=False
         )
         self._free_heap.add(free_block)
+
+    ### SPECIAL METHODS ###
+
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        del state["_lock"]
+        return state
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
+        self._lock = threading.Lock()
 
     ### PUBLIC METHODS ###
 
@@ -235,7 +238,7 @@ class NodeIdAllocator(SupriyaObject):
 
     ### INITIALIZER ###
 
-    def __init__(self, client_id: int = 0, initial_node_id: int = 1000):
+    def __init__(self, client_id: int = 0, initial_node_id: int = 1000, locked=True):
         if client_id > 31:
             raise ValueError
         self._initial_node_id = initial_node_id
@@ -244,6 +247,17 @@ class NodeIdAllocator(SupriyaObject):
         self._temp = self._initial_node_id
         self._next_permanent_id = 1
         self._freed_permanent_ids: Set[int] = set()
+        self._lock = threading.Lock()
+
+    ### SPECIAL METHODS ###
+
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        del state["_lock"]
+        return state
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
         self._lock = threading.Lock()
 
     ### PUBLIC METHODS ###
@@ -256,7 +270,7 @@ class NodeIdAllocator(SupriyaObject):
                 temp = (temp % 0x03FFFFFF) + self._initial_node_id
             self._temp = temp
             x = x | self._mask
-        return x
+            return x
 
     def allocate_permanent_node_id(self) -> int:
         with self._lock:
@@ -267,7 +281,7 @@ class NodeIdAllocator(SupriyaObject):
                 x = self._next_permanent_id
                 self._next_permanent_id = min(x + 1, self._initial_node_id - 1)
             x = x | self._mask
-        return x
+            return x
 
     def free_permanent_node_id(self, node_id: int) -> None:
         with self._lock:
