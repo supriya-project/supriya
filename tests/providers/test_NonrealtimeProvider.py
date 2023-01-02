@@ -38,12 +38,12 @@ def test_NonrealtimeProvider_add_bus_1(session):
         bus_proxy_two = provider.add_bus()
     assert bus_proxy_one == BusProxy(
         calculation_rate=CalculationRate.AUDIO,
-        identifier=session.buses_by_session_id[2],
+        identifier=session.buses_by_session_id[16],
         provider=provider,
     )
     assert bus_proxy_two == BusProxy(
         calculation_rate=CalculationRate.CONTROL,
-        identifier=session.buses_by_session_id[3],
+        identifier=session.buses_by_session_id[17],
         provider=provider,
     )
     assert session.to_lists(10) == [[10.0, [[0]]]]
@@ -66,16 +66,18 @@ def test_NonrealtimeProvider_add_bus_group_1(session):
     with provider.at(1.2345):
         bus_group_proxy_one = provider.add_bus_group(channel_count=2)
         bus_group_proxy_two = provider.add_bus_group(channel_count=4)
+    print(bus_group_proxy_one)
+    print(bus_group_proxy_two)
     assert bus_group_proxy_one == BusGroupProxy(
         calculation_rate=CalculationRate.CONTROL,
         channel_count=2,
-        identifier=session.buses_by_session_id[2],
+        identifier=session.buses_by_session_id[16],
         provider=provider,
     )
     assert bus_group_proxy_two == BusGroupProxy(
         calculation_rate=CalculationRate.CONTROL,
         channel_count=4,
-        identifier=session.buses_by_session_id[3],
+        identifier=session.buses_by_session_id[18],
         provider=provider,
     )
     assert session.to_lists(10) == [[10.0, [[0]]]]
