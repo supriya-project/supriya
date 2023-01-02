@@ -37,14 +37,10 @@ def test_NonrealtimeProvider_add_bus_1(session):
         bus_proxy_one = provider.add_bus(calculation_rate="audio")
         bus_proxy_two = provider.add_bus()
     assert bus_proxy_one == BusProxy(
-        calculation_rate=CalculationRate.AUDIO,
-        identifier=16,
-        provider=provider,
+        calculation_rate=CalculationRate.AUDIO, identifier=16, provider=provider
     )
     assert bus_proxy_two == BusProxy(
-        calculation_rate=CalculationRate.CONTROL,
-        identifier=17,
-        provider=provider,
+        calculation_rate=CalculationRate.CONTROL, identifier=17, provider=provider
     )
     assert session.to_lists(10) == [[10.0, [[0]]]]
 
