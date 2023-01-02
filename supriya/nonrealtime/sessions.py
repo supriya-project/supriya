@@ -21,7 +21,6 @@ from typing import (
     Set,
     Tuple,
     Type,
-    Union,
     cast,
 )
 
@@ -500,8 +499,8 @@ class Session:
         self._active_moments: List[Moment] = []
         self._buffers = IntervalTree(accelerated=True)
         self._buffers_by_session_id: Dict[int, Buffer] = {}
-        self._buses: Dict[Union[Bus, BusGroup], None] = {}
-        self._buses_by_session_id: Dict[int, Union[Bus, BusGroup]] = {}
+        self._buses: Dict[Bus, None] = {}
+        self._buses_by_session_id: Dict[int, Bus] = {}
         self._nodes = IntervalTree(accelerated=True)
         self._nodes_by_session_id: Dict[int, Node] = {}
         self._offsets: List[float] = []
@@ -1524,11 +1523,11 @@ class Session:
         return MappingProxyType(self._buffers_by_session_id)
 
     @property
-    def buses(self) -> Dict[Union[Bus, BusGroup], None]:
+    def buses(self) -> Dict[Bus, None]:
         return self._buses
 
     @property
-    def buses_by_session_id(self) -> Mapping[int, Union[Bus, BusGroup]]:
+    def buses_by_session_id(self) -> Mapping[int, Bus]:
         return MappingProxyType(self._buses_by_session_id)
 
     @property

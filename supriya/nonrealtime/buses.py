@@ -1,5 +1,5 @@
 import bisect
-from typing import TYPE_CHECKING, Iterator, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Iterator, List, Optional, Tuple
 
 from ..enums import CalculationRate
 from ..typing import CalculationRateLike
@@ -62,7 +62,7 @@ class Bus(SessionObject):
         session: "Session",
         *,
         calculation_rate: CalculationRateLike,
-        session_id: Union[int, Tuple[int, int]],
+        session_id: int,
         bus_group: Optional["BusGroup"] = None,
     ) -> None:
         SessionObject.__init__(self, session)
@@ -228,7 +228,7 @@ class BusGroup(SessionObject):
                 session,
                 bus_group=self,
                 calculation_rate=CalculationRate.from_expr(calculation_rate),
-                session_id=(session_id, i),
+                session_id=session_id + i,
             )
             for i in range(bus_count)
         )

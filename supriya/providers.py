@@ -147,7 +147,7 @@ class OscCallbackProxy(Proxy):
 class BusProxy(Proxy):
     calculation_rate: CalculationRate
     provider: "Provider"
-    identifier: Union["supriya.nonrealtime.Bus", int]
+    identifier: int
 
     def __float__(self) -> float:
         return float(int(self))
@@ -172,17 +172,11 @@ class BusProxy(Proxy):
 class BusGroupProxy(Proxy):
     calculation_rate: CalculationRate
     channel_count: int
-    identifier: Union["supriya.nonrealtime.BusGroup", int]
+    identifier: int
     provider: "Provider"
     buses: Sequence["BusProxy"] = dataclasses.field(init=False)
 
     def __post_init__(self):
-        if isinstance(self.identifier, int):
-            bus_identifiers = range(
-                self.identifier, self.identifier + self.channel_count
-            )
-        else:
-            bus_identifiers = self.identifier[:]
         object.__setattr__(
             self,
             "buses",
@@ -192,7 +186,9 @@ class BusGroupProxy(Proxy):
                     provider=self.provider,
                     identifier=bus_identifier,
                 )
-                for bus_identifier in bus_identifiers
+                for bus_identifier in range(
+                    self.identifier, self.identifier + self.channel_count
+                )
             ),
         )
 
@@ -808,9 +804,12 @@ class NonrealtimeProvider(Provider):
         calculation_rate = CalculationRate.from_expr(calculation_rate)
         if calculation_rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
             raise ValueError(f"Invalid calculation rate: {calculation_rate!r}")
-        identifier = self._session.add_bus(calculation_rate=calculation_rate)
         return BusProxy(
-            calculation_rate=calculation_rate, identifier=identifier, provider=self
+            calculation_rate=calculation_rate,
+            identifier=self._session.add_bus(
+                calculation_rate=calculation_rate
+            ).session_id,
+            provider=self,
         )
 
     def add_bus_group(
@@ -823,13 +822,12 @@ class NonrealtimeProvider(Provider):
             raise ValueError(f"Invalid calculation rate: {calculation_rate!r}")
         if channel_count < 1:
             raise ValueError("Channel-count must be positive, non-zero integer")
-        identifier = self._session.add_bus_group(
-            bus_count=channel_count, calculation_rate=calculation_rate
-        )
         return BusGroupProxy(
             calculation_rate=calculation_rate,
             channel_count=channel_count,
-            identifier=identifier,
+            identifier=self._session.add_bus_group(
+                bus_count=channel_count, calculation_rate=calculation_rate
+            ).session_id,
             provider=self,
         )
 
@@ -964,15 +962,17 @@ class NonrealtimeProvider(Provider):
             raise ValueError("No current moment")
         elif bus_proxy.calculation_rate != CalculationRate.CONTROL:
             raise ValueError("Can only set control-rate buses")
-        cast(nonrealtime.Bus, bus_proxy.identifier).set_(value)
+        self._session.buses_by_session_id[bus_proxy.identifier].set_(value)
 
     def set_node(self, node_proxy: NodeProxy, **settings) -> None:
         if not self.moment:
             raise ValueError("No current moment")
+        node = cast(nonrealtime.Node, node_proxy.identifier)
         for key, value in settings.items():
             if isinstance(value, (BusProxy, BusGroupProxy)):
-                value = value.identifier
-            cast(nonrealtime.Node, node_proxy.identifier)[key] = value
+                node[key] = self._session.buses_by_session_id[value.identifier]
+            else:
+                node[key] = value
 
     def write_buffer(
         self,
