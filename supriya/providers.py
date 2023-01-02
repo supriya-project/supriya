@@ -1134,9 +1134,7 @@ class RealtimeProvider(Provider):
     def close_buffer(self, buffer_proxy: BufferProxy) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        request = commands.BufferCloseRequest(
-            buffer_id=cast(int, buffer_proxy.identifier)
-        )
+        request = commands.BufferCloseRequest(buffer_id=buffer_proxy.identifier)
         self.moment.buffer_actions.setdefault(type(request), []).append(request)
 
     def dispose(self, node_proxy: NodeProxy) -> None:
@@ -1147,7 +1145,7 @@ class RealtimeProvider(Provider):
     def free_buffer(self, buffer_: BufferProxy) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        self._server.buffer_allocator.free(cast(int, buffer_.identifier))
+        self._server.buffer_allocator.free(buffer_.identifier)
         self.moment.buffer_removals.append(buffer_)
 
     def free_bus(self, bus_proxy: BusProxy) -> None:
@@ -1156,7 +1154,7 @@ class RealtimeProvider(Provider):
         allocator = realtime.Bus._get_allocator(
             bus_proxy.calculation_rate, server=self._server
         )
-        allocator.free(cast(int, bus_proxy.identifier))
+        allocator.free(bus_proxy.identifier)
 
     def free_bus_group(self, bus_group_proxy: BusGroupProxy) -> None:
         if not self.moment:
@@ -1164,7 +1162,7 @@ class RealtimeProvider(Provider):
         allocator = realtime.Bus._get_allocator(
             bus_group_proxy.calculation_rate, server=self._server
         )
-        allocator.free(cast(int, bus_group_proxy.identifier))
+        allocator.free(bus_group_proxy.identifier)
 
     def free_node(self, node_proxy: NodeProxy) -> None:
         if not self.moment:
@@ -1188,7 +1186,7 @@ class RealtimeProvider(Provider):
         if not self.moment:
             raise ValueError("No current moment")
         request = commands.BufferNormalizeRequest(
-            buffer_id=cast(int, buffer_proxy.identifier), new_maximum=new_maximum
+            buffer_id=buffer_proxy.identifier, new_maximum=new_maximum
         )
         self.moment.buffer_actions.setdefault(type(request), []).append(request)
 
@@ -1206,7 +1204,7 @@ class RealtimeProvider(Provider):
         if not self.moment:
             raise ValueError("No current moment")
         kwargs = dict(
-            buffer_id=cast(int, buffer_proxy.identifier),
+            buffer_id=buffer_proxy.identifier,
             file_path=file_path,
             frame_count=frame_count,
             leave_open=leave_open,
@@ -1258,7 +1256,7 @@ class RealtimeProvider(Provider):
         if not self.moment:
             raise ValueError("No current moment")
         request = commands.BufferWriteRequest(
-            buffer_id=cast(int, buffer_proxy.identifier),
+            buffer_id=buffer_proxy.identifier,
             file_path=file_path,
             frame_count=frame_count,
             header_format=header_format,
