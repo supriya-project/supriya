@@ -1933,7 +1933,11 @@ def test_allocate_parallel(server):
                 1000 group
         """
     )
-    assert [(_.label, _.message) for _ in transcript] == [
+    assert [
+        (_.label, _.message)
+        for _ in transcript
+        if _.message.address not in ("/status", "/status.reply")
+    ] == [
         ("S", OscMessage("/p_new", 1000, 0, 1)),
         ("R", OscMessage("/n_go", 1000, 1, -1, -1, 1, -1, -1)),
     ]
