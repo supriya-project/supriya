@@ -240,10 +240,11 @@ class BaseServer:
     @property
     def next_sync_id(self) -> int:
         with self._lock:
+            sync_id = self._sync_id
             self._sync_id += 1
             if self._sync_id > self._sync_id_maximum:
                 self._sync_id = self._sync_id_minimum
-            return self._sync_id
+            return sync_id
 
     @property
     def node_id_allocator(self) -> NodeIdAllocator:
