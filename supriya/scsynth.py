@@ -4,7 +4,7 @@ import signal
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 import uqbar.io
 import uqbar.objects
@@ -87,6 +87,29 @@ class Options:
         return (arg for arg in self.serialize())
 
     ### PUBLIC METHODS ###
+
+    def get_audio_bus_ids(self, client_id: int) -> Tuple[int, int]:
+        audio_buses_per_client = (
+            self.private_audio_bus_channel_count // self.maximum_logins
+        )
+        minimum = self.first_private_bus_id + (client_id * audio_buses_per_client)
+        maximum = self.first_private_bus_id + ((client_id + 1) * audio_buses_per_client)
+        return minimum, maximum
+
+    def get_buffer_ids(self, client_id: int) -> Tuple[int, int]:
+        buffers_per_client = self.buffer_count // self.maximum_logins
+        minimum = client_id * buffers_per_client
+        maximum = (client_id + 1) * buffers_per_client
+        return minimum, maximum
+
+    def get_control_bus_ids(self, client_id: int) -> Tuple[int, int]:
+        control_buses_per_client = self.control_bus_channel_count // self.maximum_logins
+        minimum = client_id * control_buses_per_client
+        maximum = (client_id + 1) * control_buses_per_client
+        return minimum, maximum
+
+    def get_sync_ids(self, client_id: int) -> Tuple[int, int]:
+        return client_id << 26, (client_id + 1) << 26
 
     def serialize(self) -> List[str]:
         result = [str(find(self.executable))]

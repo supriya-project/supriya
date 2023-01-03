@@ -65,6 +65,8 @@ class BaseServer:
     ### INITIALIZER ###
 
     def __init__(self):
+        # concurrency
+        self._lock = threading.RLock()
         # address
         self._ip_address = DEFAULT_IP_ADDRESS
         self._port = DEFAULT_PORT
@@ -84,7 +86,8 @@ class BaseServer:
         self._buffer_allocator = None
         self._control_bus_allocator = None
         self._node_id_allocator = None
-        self._sync_id = 0
+        self._sync_id = self._sync_id_minimum = 0
+        self._sync_id_maximum = 32 << 26
         # proxy mappings
         self._synthdefs = {}
 
@@ -119,18 +122,34 @@ class BaseServer:
         self._synthdefs.pop(synthdef_name, None)
 
     def _setup_allocators(self):
+        # audio buses
+        audio_bus_minimum, audio_bus_maximum = self.options.get_audio_bus_ids(
+            self.client_id
+        )
         self._audio_bus_allocator = BlockAllocator(
-            heap_maximum=self._options.audio_bus_channel_count,
-            heap_minimum=self._options.first_private_bus_id,
+            heap_minimum=audio_bus_minimum, heap_maximum=audio_bus_maximum
         )
-        self._buffer_allocator = BlockAllocator(heap_maximum=self._options.buffer_count)
+        # control buses
+        control_bus_minimum, control_bus_maximum = self.options.get_control_bus_ids(
+            self.client_id
+        )
         self._control_bus_allocator = BlockAllocator(
-            heap_maximum=self._options.control_bus_channel_count
+            heap_minimum=control_bus_minimum, heap_maximum=control_bus_maximum
         )
+        # buffers
+        buffer_minimum, buffer_maximum = self.options.get_buffer_ids(self.client_id)
+        self._buffer_allocator = BlockAllocator(
+            heap_minimum=buffer_minimum, heap_maximum=buffer_maximum
+        )
+        # node IDs
         self._node_id_allocator = NodeIdAllocator(
-            initial_node_id=self._options.initial_node_id, client_id=self.client_id
+            initial_node_id=self.options.initial_node_id, client_id=self.client_id
         )
-        self._sync_id = self.client_id << 26
+        # sync IDs
+        self._sync_id_minimum, self._sync_id_maximum = self.options.get_sync_ids(
+            self.client_id
+        )
+        self._sync_id = self._sync_id_minimum
 
     def _setup_osc_callbacks(self):
         self._osc_protocol.register(
@@ -156,7 +175,6 @@ class BaseServer:
         self._buffer_allocator = None
         self._control_bus_allocator = None
         self._node_id_allocator = None
-        self._sync_id = 0
 
     def _teardown_shm(self):
         self._shm = None
@@ -221,9 +239,11 @@ class BaseServer:
 
     @property
     def next_sync_id(self) -> int:
-        sync_id = self._sync_id
-        self._sync_id += 1
-        return sync_id
+        with self._lock:
+            self._sync_id += 1
+            if self._sync_id > self._sync_id_maximum:
+                self._sync_id = self._sync_id_minimum
+            return self._sync_id
 
     @property
     def node_id_allocator(self) -> NodeIdAllocator:
@@ -445,7 +465,6 @@ class Server(BaseServer):
 
     def __init__(self):
         BaseServer.__init__(self)
-        self._lock = threading.RLock()
         # proxies
         self._audio_input_bus_group = None
         self._audio_output_bus_group = None
@@ -663,7 +682,6 @@ class Server(BaseServer):
         return buffer_proxy
 
     def _get_control_bus_proxy(self, bus_id):
-
         control_bus_proxy = self._control_bus_proxies.get(bus_id)
         if not control_bus_proxy:
             control_bus_proxy = BusProxy(
