@@ -32,19 +32,22 @@ def test_NonrealtimeProvider_add_buffer_1(session):
 
 
 def test_NonrealtimeProvider_add_bus_1(session):
+    """
+    Buses have separate session ID arenas by calculation rate.
+    """
     provider = Provider.from_context(session)
     with provider.at(1.2345):
         bus_proxy_one = provider.add_bus(calculation_rate="audio")
         bus_proxy_two = provider.add_bus()
+        bus_proxy_three = provider.add_bus()
     assert bus_proxy_one == BusProxy(
-        calculation_rate=CalculationRate.AUDIO,
-        identifier=session.buses_by_session_id[0],
-        provider=provider,
+        calculation_rate=CalculationRate.AUDIO, identifier=16, provider=provider
     )
     assert bus_proxy_two == BusProxy(
-        calculation_rate=CalculationRate.CONTROL,
-        identifier=session.buses_by_session_id[1],
-        provider=provider,
+        calculation_rate=CalculationRate.CONTROL, identifier=0, provider=provider
+    )
+    assert bus_proxy_three == BusProxy(
+        calculation_rate=CalculationRate.CONTROL, identifier=1, provider=provider
     )
     assert session.to_lists(10) == [[10.0, [[0]]]]
 
@@ -66,16 +69,34 @@ def test_NonrealtimeProvider_add_bus_group_1(session):
     with provider.at(1.2345):
         bus_group_proxy_one = provider.add_bus_group(channel_count=2)
         bus_group_proxy_two = provider.add_bus_group(channel_count=4)
+        bus_group_proxy_three = provider.add_bus_group(
+            channel_count=4, calculation_rate="audio"
+        )
+        bus_group_proxy_four = provider.add_bus_group(
+            channel_count=2, calculation_rate="audio"
+        )
     assert bus_group_proxy_one == BusGroupProxy(
         calculation_rate=CalculationRate.CONTROL,
         channel_count=2,
-        identifier=session.buses_by_session_id[0],
+        identifier=0,
         provider=provider,
     )
     assert bus_group_proxy_two == BusGroupProxy(
         calculation_rate=CalculationRate.CONTROL,
         channel_count=4,
-        identifier=session.buses_by_session_id[1],
+        identifier=2,
+        provider=provider,
+    )
+    assert bus_group_proxy_three == BusGroupProxy(
+        calculation_rate=CalculationRate.AUDIO,
+        channel_count=4,
+        identifier=16,
+        provider=provider,
+    )
+    assert bus_group_proxy_four == BusGroupProxy(
+        calculation_rate=CalculationRate.AUDIO,
+        channel_count=2,
+        identifier=20,
         provider=provider,
     )
     assert session.to_lists(10) == [[10.0, [[0]]]]
@@ -100,9 +121,7 @@ def test_NonrealtimeProvider_add_group_1(session):
     seconds = 1.2345
     with provider.at(seconds):
         group_proxy = provider.add_group()
-    assert group_proxy == GroupProxy(
-        identifier=session.nodes_by_session_id[1000], provider=provider
-    )
+    assert group_proxy == GroupProxy(identifier=1000, provider=provider)
     assert session.to_lists(10) == [
         [1.2345, [["/g_new", 1000, 0, 0]]],
         [10.0, [["/n_free", 1000], [0]]],
@@ -120,12 +139,8 @@ def test_NonrealtimeProvider_add_group_2(session):
         [2.3456, [["/g_new", 1001, 0, 1000]]],
         [10.0, [["/n_free", 1000, 1001], [0]]],
     ]
-    assert group_proxy_one == GroupProxy(
-        identifier=session.nodes_by_session_id[1000], provider=provider
-    )
-    assert group_proxy_two == GroupProxy(
-        identifier=session.nodes_by_session_id[1001], provider=provider
-    )
+    assert group_proxy_one == GroupProxy(identifier=1000, provider=provider)
+    assert group_proxy_two == GroupProxy(identifier=1001, provider=provider)
 
 
 def test_NonrealtimeProvider_add_group_error(session):
@@ -142,7 +157,7 @@ def test_NonrealtimeProvider_add_synth_1(session):
     with provider.at(1.2345):
         synth_proxy = provider.add_synth(amplitude=0.3, frequency=333)
     assert synth_proxy == SynthProxy(
-        identifier=session.nodes_by_session_id[1000],
+        identifier=1000,
         provider=provider,
         synthdef=default,
         settings=dict(amplitude=0.3, frequency=333),
@@ -178,7 +193,7 @@ def test_NonrealtimeProvider_add_synth_2(session):
             target_node=group_proxy, amplitude=0.5, frequency=666
         )
     assert synth_proxy == SynthProxy(
-        identifier=session.nodes_by_session_id[1001],
+        identifier=1001,
         provider=provider,
         synthdef=default,
         settings=dict(amplitude=0.5, frequency=666),

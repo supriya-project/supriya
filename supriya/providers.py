@@ -48,17 +48,17 @@ class Proxy:
 @dataclasses.dataclass(frozen=True)
 class BufferProxy:
     provider: "Provider"
-    identifier: Union["supriya.nonrealtime.Buffer", int]
+    identifier: int
     channel_count: Optional[int] = None
     frame_count: Optional[int] = None
     file_path: Optional[os.PathLike] = None
     starting_frame: Optional[int] = None
 
     def __float__(self) -> float:
-        return float(int(self))
+        return float(self.identifier)
 
     def __int__(self) -> int:
-        return int(self.identifier)
+        return self.identifier
 
     def as_allocate_request(
         self,
@@ -147,13 +147,13 @@ class OscCallbackProxy(Proxy):
 class BusProxy(Proxy):
     calculation_rate: CalculationRate
     provider: "Provider"
-    identifier: Union["supriya.nonrealtime.Bus", int]
+    identifier: int
 
     def __float__(self) -> float:
-        return float(int(self))
+        return float(self.identifier)
 
     def __int__(self) -> int:
-        return int(self.identifier)
+        return self.identifier
 
     def set_(self, value) -> None:
         self.provider.set_bus(self, value)
@@ -172,17 +172,11 @@ class BusProxy(Proxy):
 class BusGroupProxy(Proxy):
     calculation_rate: CalculationRate
     channel_count: int
-    identifier: Union["supriya.nonrealtime.BusGroup", int]
+    identifier: int
     provider: "Provider"
     buses: Sequence["BusProxy"] = dataclasses.field(init=False)
 
     def __post_init__(self):
-        if isinstance(self.identifier, int):
-            bus_identifiers = range(
-                self.identifier, self.identifier + self.channel_count
-            )
-        else:
-            bus_identifiers = self.identifier[:]
         object.__setattr__(
             self,
             "buses",
@@ -192,18 +186,20 @@ class BusGroupProxy(Proxy):
                     provider=self.provider,
                     identifier=bus_identifier,
                 )
-                for bus_identifier in bus_identifiers
+                for bus_identifier in range(
+                    self.identifier, self.identifier + self.channel_count
+                )
             ),
         )
 
     def __float__(self) -> float:
-        return float(int(self))
+        return float(self.identifier)
 
     def __getitem__(self, item) -> BusProxy:
         return self.buses[item]
 
     def __int__(self) -> int:
-        return int(self.identifier)
+        return self.identifier
 
     def __len__(self) -> int:
         return self.channel_count
@@ -218,14 +214,14 @@ class BusGroupProxy(Proxy):
 
 @dataclasses.dataclass(frozen=True)
 class NodeProxy(Proxy):
-    identifier: Union["supriya.nonrealtime.Node", int]
+    identifier: int
     provider: "Provider"
 
     def __float__(self) -> float:
-        return float(int(self))
+        return float(self.identifier)
 
     def __int__(self) -> int:
-        return int(self.identifier)
+        return self.identifier
 
     def __setitem__(self, key, value) -> None:
         self.provider.set_node(self, **{key: value})
@@ -292,7 +288,7 @@ class NodeProxy(Proxy):
 
 @dataclasses.dataclass(frozen=True)
 class GroupProxy(NodeProxy):
-    identifier: Union["supriya.nonrealtime.Node", int]
+    identifier: int
     provider: "Provider"
     parallel: bool = False
 
@@ -305,7 +301,7 @@ class GroupProxy(NodeProxy):
         return request_method(
             items=[
                 request_method.Item(
-                    node_id=int(self.identifier),
+                    node_id=self.identifier,
                     add_action=add_action,
                     target_node_id=int(target_node),
                 )
@@ -318,7 +314,7 @@ class GroupProxy(NodeProxy):
 
 @dataclasses.dataclass(frozen=True)
 class SynthProxy(NodeProxy):
-    identifier: Union["supriya.nonrealtime.Node", int]
+    identifier: int
     provider: "Provider"
     synthdef: SynthDef
     settings: Dict[str, Union[float, BusGroupProxy]]
@@ -347,7 +343,7 @@ class SynthProxy(NodeProxy):
                 synthdef_kwargs[parameter.name] = float(value)
 
         return commands.SynthNewRequest(
-            node_id=int(self.identifier),
+            node_id=self.identifier,
             add_action=add_action,
             target_node_id=int(target_node),
             synthdef=synthdef,
@@ -495,7 +491,7 @@ class ProviderMoment:
         if self.bus_settings:
             sorted_pairs = sorted(
                 dict(
-                    (int(bus_proxy.identifier), value)
+                    (bus_proxy.identifier, value)
                     for bus_proxy, value in self.bus_settings
                 ).items()
             )
@@ -768,11 +764,15 @@ class NonrealtimeProvider(Provider):
 
     ### PRIVATE METHODS ###
 
-    def _resolve_target_node(self, target_node) -> nonrealtime.Node:
+    def _resolve_target_node(
+        self, target_node: Union[None, int, NodeProxy, nonrealtime.Node]
+    ) -> nonrealtime.Node:
         if target_node is None:
-            target_node = self._session.root_node
+            return self._session.root_node
         elif isinstance(target_node, NodeProxy):
-            target_node = target_node.identifier
+            return self._session.nodes_by_session_id[target_node.identifier]
+        elif isinstance(target_node, int):
+            return self._session.nodes_by_session_id[target_node]
         return target_node
 
     ### PUBLIC METHODS ###
@@ -787,7 +787,7 @@ class NonrealtimeProvider(Provider):
     ) -> BufferProxy:
         if not self.moment:
             raise ValueError("No current moment")
-        identifier = self._session.add_buffer(
+        buffer_ = self._session.add_buffer(
             channel_count=channel_count,
             file_path=file_path,
             frame_count=frame_count,
@@ -797,7 +797,7 @@ class NonrealtimeProvider(Provider):
             channel_count=channel_count,
             file_path=file_path,
             frame_count=frame_count,
-            identifier=identifier,
+            identifier=buffer_.session_id,
             provider=self,
             starting_frame=starting_frame,
         )
@@ -808,9 +808,12 @@ class NonrealtimeProvider(Provider):
         calculation_rate = CalculationRate.from_expr(calculation_rate)
         if calculation_rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
             raise ValueError(f"Invalid calculation rate: {calculation_rate!r}")
-        identifier = self._session.add_bus(calculation_rate=calculation_rate)
         return BusProxy(
-            calculation_rate=calculation_rate, identifier=identifier, provider=self
+            calculation_rate=calculation_rate,
+            identifier=self._session.add_bus(
+                calculation_rate=calculation_rate
+            ).session_id,
+            provider=self,
         )
 
     def add_bus_group(
@@ -823,13 +826,12 @@ class NonrealtimeProvider(Provider):
             raise ValueError(f"Invalid calculation rate: {calculation_rate!r}")
         if channel_count < 1:
             raise ValueError("Channel-count must be positive, non-zero integer")
-        identifier = self._session.add_bus_group(
-            bus_count=channel_count, calculation_rate=calculation_rate
-        )
         return BusGroupProxy(
             calculation_rate=calculation_rate,
             channel_count=channel_count,
-            identifier=identifier,
+            identifier=self._session.add_bus_group(
+                bus_count=channel_count, calculation_rate=calculation_rate
+            ).session_id,
             provider=self,
         )
 
@@ -843,10 +845,13 @@ class NonrealtimeProvider(Provider):
     ) -> GroupProxy:
         if not self.moment:
             raise ValueError("No current moment")
-        identifier = self._resolve_target_node(target_node).add_group(
-            add_action=add_action
+        proxy = GroupProxy(
+            identifier=self._resolve_target_node(target_node)
+            .add_group(add_action=add_action)
+            .session_id,
+            provider=self,
+            parallel=parallel,
         )
-        proxy = GroupProxy(identifier=identifier, provider=self, parallel=parallel)
         return proxy
 
     def add_synth(
@@ -863,13 +868,18 @@ class NonrealtimeProvider(Provider):
         sanitized_settings = {}
         for key, value in settings.items():
             if isinstance(value, (BusProxy, BusGroupProxy)):
-                value = value.identifier
-            sanitized_settings[key] = value
-        identifier = self._resolve_target_node(target_node).add_synth(
+                sanitized_settings[key] = self._session.get_object_by_session_id(
+                    type_=nonrealtime.Bus,
+                    session_id=value.identifier,
+                    calculation_rate=value.calculation_rate,
+                )
+            else:
+                sanitized_settings[key] = value
+        synth = self._resolve_target_node(target_node).add_synth(
             add_action=add_action, synthdef=synthdef, **sanitized_settings
         )
         proxy = SynthProxy(
-            identifier=identifier,
+            identifier=synth.session_id,
             provider=self,
             synthdef=synthdef or default,
             settings=settings,
@@ -884,7 +894,7 @@ class NonrealtimeProvider(Provider):
     def close_buffer(self, buffer_proxy: BufferProxy) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        cast(nonrealtime.Buffer, buffer_proxy.identifier).close()
+        self._session.buffers_by_session_id[buffer_proxy.identifier].close()
 
     def dispose(self, node_proxy: NodeProxy) -> None:
         if not self.moment:
@@ -909,7 +919,7 @@ class NonrealtimeProvider(Provider):
     def free_node(self, node_proxy: NodeProxy) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        cast(nonrealtime.Node, node_proxy.identifier).free()
+        self._session.nodes_by_session_id[node_proxy.identifier].free()
 
     def move_node(
         self,
@@ -920,7 +930,8 @@ class NonrealtimeProvider(Provider):
         if not self.moment:
             raise ValueError("No current moment")
         self._resolve_target_node(target_node).move_node(
-            node_proxy.identifier, add_action=add_action
+            self._session.nodes_by_session_id[node_proxy.identifier],
+            add_action=add_action,
         )
 
     def normalize_buffer(
@@ -928,7 +939,7 @@ class NonrealtimeProvider(Provider):
     ) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        cast(nonrealtime.Buffer, buffer_proxy.identifier).normalize(
+        self._session.buffers_by_session_id[buffer_proxy.identifier].normalize(
             new_maximum=new_maximum
         )
 
@@ -945,7 +956,7 @@ class NonrealtimeProvider(Provider):
     ) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        cast(nonrealtime.Buffer, buffer_proxy.identifier).read(
+        self._session.buffers_by_session_id[buffer_proxy.identifier].read(
             channel_indices=channel_indices,
             file_path=file_path,
             frame_count=frame_count,
@@ -964,15 +975,25 @@ class NonrealtimeProvider(Provider):
             raise ValueError("No current moment")
         elif bus_proxy.calculation_rate != CalculationRate.CONTROL:
             raise ValueError("Can only set control-rate buses")
-        cast(nonrealtime.Bus, bus_proxy.identifier).set_(value)
+        self._session.get_object_by_session_id(
+            type_=nonrealtime.Bus,
+            session_id=bus_proxy.identifier,
+            calculation_rate=bus_proxy.calculation_rate,
+        ).set_(value)
 
     def set_node(self, node_proxy: NodeProxy, **settings) -> None:
         if not self.moment:
             raise ValueError("No current moment")
+        node = self._session.nodes_by_session_id[node_proxy.identifier]
         for key, value in settings.items():
             if isinstance(value, (BusProxy, BusGroupProxy)):
-                value = value.identifier
-            cast(nonrealtime.Node, node_proxy.identifier)[key] = value
+                node[key] = self._session.get_object_by_session_id(
+                    type_=nonrealtime.Bus,
+                    session_id=value.identifier,
+                    calculation_rate=value.calculation_rate,
+                )
+            else:
+                node[key] = value
 
     def write_buffer(
         self,
@@ -987,7 +1008,7 @@ class NonrealtimeProvider(Provider):
     ) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        cast(nonrealtime.Buffer, buffer_proxy.identifier).write(
+        self._session.buffers_by_session_id[buffer_proxy.identifier].write(
             file_path=file_path,
             frame_count=frame_count,
             header_format=header_format,
@@ -1134,9 +1155,7 @@ class RealtimeProvider(Provider):
     def close_buffer(self, buffer_proxy: BufferProxy) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        request = commands.BufferCloseRequest(
-            buffer_id=cast(int, buffer_proxy.identifier)
-        )
+        request = commands.BufferCloseRequest(buffer_id=buffer_proxy.identifier)
         self.moment.buffer_actions.setdefault(type(request), []).append(request)
 
     def dispose(self, node_proxy: NodeProxy) -> None:
@@ -1147,7 +1166,7 @@ class RealtimeProvider(Provider):
     def free_buffer(self, buffer_: BufferProxy) -> None:
         if not self.moment:
             raise ValueError("No current moment")
-        self._server.buffer_allocator.free(cast(int, buffer_.identifier))
+        self._server.buffer_allocator.free(buffer_.identifier)
         self.moment.buffer_removals.append(buffer_)
 
     def free_bus(self, bus_proxy: BusProxy) -> None:
@@ -1156,7 +1175,7 @@ class RealtimeProvider(Provider):
         allocator = realtime.Bus._get_allocator(
             bus_proxy.calculation_rate, server=self._server
         )
-        allocator.free(cast(int, bus_proxy.identifier))
+        allocator.free(bus_proxy.identifier)
 
     def free_bus_group(self, bus_group_proxy: BusGroupProxy) -> None:
         if not self.moment:
@@ -1164,7 +1183,7 @@ class RealtimeProvider(Provider):
         allocator = realtime.Bus._get_allocator(
             bus_group_proxy.calculation_rate, server=self._server
         )
-        allocator.free(cast(int, bus_group_proxy.identifier))
+        allocator.free(bus_group_proxy.identifier)
 
     def free_node(self, node_proxy: NodeProxy) -> None:
         if not self.moment:
@@ -1188,7 +1207,7 @@ class RealtimeProvider(Provider):
         if not self.moment:
             raise ValueError("No current moment")
         request = commands.BufferNormalizeRequest(
-            buffer_id=cast(int, buffer_proxy.identifier), new_maximum=new_maximum
+            buffer_id=buffer_proxy.identifier, new_maximum=new_maximum
         )
         self.moment.buffer_actions.setdefault(type(request), []).append(request)
 
@@ -1206,7 +1225,7 @@ class RealtimeProvider(Provider):
         if not self.moment:
             raise ValueError("No current moment")
         kwargs = dict(
-            buffer_id=cast(int, buffer_proxy.identifier),
+            buffer_id=buffer_proxy.identifier,
             file_path=file_path,
             frame_count=frame_count,
             leave_open=leave_open,
@@ -1258,7 +1277,7 @@ class RealtimeProvider(Provider):
         if not self.moment:
             raise ValueError("No current moment")
         request = commands.BufferWriteRequest(
-            buffer_id=cast(int, buffer_proxy.identifier),
+            buffer_id=buffer_proxy.identifier,
             file_path=file_path,
             frame_count=frame_count,
             header_format=header_format,

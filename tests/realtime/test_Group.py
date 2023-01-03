@@ -1933,7 +1933,11 @@ def test_allocate_parallel(server):
                 1000 group
         """
     )
-    assert [(_.label, _.message) for _ in transcript] == [
+    assert [
+        (_.label, _.message)
+        for _ in transcript
+        if _.message.address not in ("/status", "/status.reply")
+    ] == [
         ("S", OscMessage("/p_new", 1000, 0, 1)),
         ("R", OscMessage("/n_go", 1000, 1, -1, -1, 1, -1, -1)),
     ]
@@ -1943,7 +1947,11 @@ def test_add_group_parallel(server):
     with server.osc_protocol.capture() as transcript:
         server.add_group(parallel=True)
         server.default_group.add_group(parallel=True)
-    assert [(_.label, _.message) for _ in transcript] == [
+    assert [
+        (_.label, _.message)
+        for _ in transcript
+        if _.message.address not in ("/status", "/status.reply")
+    ] == [
         ("S", OscMessage("/p_new", 1000, 0, 1)),
         ("R", OscMessage("/n_go", 1000, 1, -1, -1, 1, -1, -1)),
         ("S", OscMessage("/p_new", 1001, 0, 1)),

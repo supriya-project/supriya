@@ -272,7 +272,7 @@ class Node(SessionObject):
         add_action = AddAction.from_expr(add_action)
         if add_action not in self._valid_add_actions:
             raise ValueError(f"Invalid add action: {add_action}")
-        session_id = self.session._get_next_session_id("node")
+        session_id = self.session._node_id_allocator.allocate_node_id()
         node = Group(
             self.session, duration=duration, session_id=session_id, start_offset=offset
         )
@@ -293,7 +293,7 @@ class Node(SessionObject):
         add_action = AddAction.from_expr(add_action)
         if add_action not in self._valid_add_actions:
             raise ValueError(f"Invalid add action: {add_action}")
-        session_id = self.session._get_next_session_id("node")
+        session_id = self.session._node_id_allocator.allocate_node_id()
         node = Synth(
             self.session,
             session_id=session_id,
@@ -629,11 +629,11 @@ class Synth(Node):
         return uqbar.graphs.Node(children=[uqbar.graphs.RecordGroup([group])])
 
     def _collect_settings(
-        self, offset: float, *, id_mapping: Dict[Any, float], persistent=False
-    ):
+        self, offset: float, *, id_mapping: Dict[Any, int], persistent=False
+    ) -> Dict[str, Union[str, float]]:
         from .buses import Bus, BusGroup
 
-        settings: Dict[str, float] = {}
+        settings: Dict[str, Union[str, float]] = {}
         parameters = self.synthdef.parameters
         for key in self._events:
             parameter = parameters[key]
