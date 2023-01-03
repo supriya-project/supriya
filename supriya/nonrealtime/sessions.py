@@ -497,18 +497,21 @@ class Session:
         )
 
         self._active_moments: List[Moment] = []
+        self._audio_bus_allocator = BlockAllocator()
+        self._audio_buses: Dict[Bus, None] = {}
+        self._audio_buses_by_session_id: Dict[int, Bus] = {}
+        self._buffer_allocator = BlockAllocator()
         self._buffers = IntervalTree(accelerated=True)
         self._buffers_by_session_id: Dict[int, Buffer] = {}
-        self._buses: Dict[Bus, None] = {}
-        self._buses_by_session_id: Dict[int, Bus] = {}
+        self._control_bus_allocator = BlockAllocator()
+        self._control_buses: Dict[Bus, None] = {}
+        self._control_buses_by_session_id: Dict[int, Bus] = {}
+        self._node_id_allocator = NodeIdAllocator()
         self._nodes = IntervalTree(accelerated=True)
         self._nodes_by_session_id: Dict[int, Node] = {}
         self._offsets: List[float] = []
         self._root_node = RootNode(self)
         self._states: Dict[float, State] = {}
-        self._node_id_allocator = NodeIdAllocator()
-        self._buffer_allocator = BlockAllocator()
-        self._bus_allocator = BlockAllocator()
 
         if input_ and not self.is_session_like(input_):
             input_ = str(input_)
@@ -700,7 +703,7 @@ class Session:
             mapping[bus_group] = output_count
             for bus_id, bus in enumerate(bus_group, output_count):
                 mapping[bus] = bus_id
-        for bus in self._buses:
+        for bus in list(self._audio_buses) + list(self._control_buses):
             if bus in mapping or bus.bus_group in mapping:
                 continue
             allocator = allocators[bus.calculation_rate]
@@ -856,7 +859,7 @@ class Session:
 
     def _collect_bus_settings(self, id_mapping):
         bus_settings = {}
-        for bus in self._buses:
+        for bus in list(self._audio_buses) + list(self._control_buses):
             if bus.calculation_rate != CalculationRate.CONTROL:
                 continue
             bus_id = id_mapping[bus]
@@ -1129,7 +1132,7 @@ class Session:
         if self._options.output_bus_channel_count:
             self._audio_output_bus_group = AudioOutputBusGroup(
                 session=self,
-                session_id=self._bus_allocator.allocate(
+                session_id=self._audio_bus_allocator.allocate(
                     self._options.output_bus_channel_count
                 ),
             )
@@ -1137,7 +1140,7 @@ class Session:
         if self._options.input_bus_channel_count:
             self._audio_input_bus_group = AudioInputBusGroup(
                 session=self,
-                session_id=self._bus_allocator.allocate(
+                session_id=self._audio_bus_allocator.allocate(
                     self._options.input_bus_channel_count
                 ),
             )
@@ -1282,10 +1285,20 @@ class Session:
     def add_bus(
         self, calculation_rate: CalculationRateLike = CalculationRate.CONTROL
     ) -> Bus:
-        session_id = self._bus_allocator.allocate()
-        bus = Bus(self, calculation_rate=calculation_rate, session_id=session_id)
-        self._buses[bus] = None  # ordered dictionary
-        self._buses_by_session_id[session_id] = bus
+        rate = CalculationRate.from_expr(calculation_rate)
+        if rate is CalculationRate.CONTROL:
+            session_id = self._control_bus_allocator.allocate()
+            session_id_mapping = self._control_buses_by_session_id
+            object_mapping = self._control_buses
+        elif rate is CalculationRate.AUDIO:
+            session_id = self._audio_bus_allocator.allocate()
+            session_id_mapping = self._audio_buses_by_session_id
+            object_mapping = self._audio_buses
+        else:
+            raise ValueError(rate)
+        bus = Bus(self, calculation_rate=rate, session_id=session_id)
+        session_id_mapping[session_id] = bus
+        object_mapping[bus] = None
         return bus
 
     def add_bus_group(
@@ -1293,16 +1306,23 @@ class Session:
         bus_count: int = 1,
         calculation_rate: CalculationRateLike = CalculationRate.CONTROL,
     ) -> BusGroup:
-        session_id = self._bus_allocator.allocate(bus_count)
+        rate = CalculationRate.from_expr(calculation_rate)
+        if rate is CalculationRate.CONTROL:
+            session_id = self._control_bus_allocator.allocate(bus_count)
+            session_id_mapping = self._control_buses_by_session_id
+            object_mapping = self._control_buses
+        elif rate is CalculationRate.AUDIO:
+            session_id = self._audio_bus_allocator.allocate(bus_count)
+            session_id_mapping = self._audio_buses_by_session_id
+            object_mapping = self._audio_buses
+        else:
+            raise ValueError(rate)
         bus_group = BusGroup(
-            self,
-            bus_count=bus_count,
-            calculation_rate=calculation_rate,
-            session_id=session_id,
+            self, bus_count=bus_count, calculation_rate=rate, session_id=session_id
         )
         for bus in bus_group:
-            self._buses[bus] = None  # ordered dictionary
-            self._buses_by_session_id[bus.session_id] = bus
+            session_id_mapping[bus.session_id] = bus
+            object_mapping[bus] = None
         return bus_group
 
     def add_group(
@@ -1366,6 +1386,21 @@ class Session:
             offset=offset,
         )
         return buffer_
+
+    def get_object_by_session_id(
+        self, type_: Type, session_id: int, calculation_rate: CalculationRateLike = None
+    ):
+        if issubclass(type_, Node):
+            return self._nodes_by_session_id[session_id]
+        if issubclass(type_, (Buffer, BufferGroup)):
+            return self._buffers_by_session_id[session_id]
+        if issubclass(type_, (Bus, BusGroup)):
+            rate = CalculationRate.from_expr(calculation_rate)
+            if rate is CalculationRate.AUDIO:
+                return self._audio_buses_by_session_id[session_id]
+            elif rate is CalculationRate.CONTROL:
+                return self._control_buses_by_session_id[session_id]
+        raise ValueError
 
     @staticmethod
     def is_session_like(expr) -> bool:
@@ -1507,6 +1542,14 @@ class Session:
         return self._active_moments
 
     @property
+    def audio_buses(self) -> Dict[Bus, None]:
+        return self._audio_buses
+
+    @property
+    def audio_buses_by_session_id(self) -> Mapping[int, Bus]:
+        return MappingProxyType(self._audio_buses_by_session_id)
+
+    @property
     def audio_input_bus_group(self) -> AudioInputBusGroup:
         return self._audio_input_bus_group
 
@@ -1523,12 +1566,12 @@ class Session:
         return MappingProxyType(self._buffers_by_session_id)
 
     @property
-    def buses(self) -> Dict[Bus, None]:
-        return self._buses
+    def control_buses(self) -> Dict[Bus, None]:
+        return self._control_buses
 
     @property
-    def buses_by_session_id(self) -> Mapping[int, Bus]:
-        return MappingProxyType(self._buses_by_session_id)
+    def control_buses_by_session_id(self) -> Mapping[int, Bus]:
+        return MappingProxyType(self._control_buses_by_session_id)
 
     @property
     def duration(self) -> float:

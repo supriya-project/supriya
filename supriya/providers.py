@@ -868,9 +868,11 @@ class NonrealtimeProvider(Provider):
         sanitized_settings = {}
         for key, value in settings.items():
             if isinstance(value, (BusProxy, BusGroupProxy)):
-                sanitized_settings[key] = self._session.buses_by_session_id[
-                    value.identifier
-                ]
+                sanitized_settings[key] = self._session.get_object_by_session_id(
+                    type_=nonrealtime.Bus,
+                    session_id=value.identifier,
+                    calculation_rate=value.calculation_rate,
+                )
             else:
                 sanitized_settings[key] = value
         synth = self._resolve_target_node(target_node).add_synth(
@@ -973,7 +975,11 @@ class NonrealtimeProvider(Provider):
             raise ValueError("No current moment")
         elif bus_proxy.calculation_rate != CalculationRate.CONTROL:
             raise ValueError("Can only set control-rate buses")
-        self._session.buses_by_session_id[bus_proxy.identifier].set_(value)
+        self._session.get_object_by_session_id(
+            type_=nonrealtime.Bus,
+            session_id=bus_proxy.identifier,
+            calculation_rate=bus_proxy.calculation_rate,
+        ).set_(value)
 
     def set_node(self, node_proxy: NodeProxy, **settings) -> None:
         if not self.moment:
@@ -981,7 +987,11 @@ class NonrealtimeProvider(Provider):
         node = self._session.nodes_by_session_id[node_proxy.identifier]
         for key, value in settings.items():
             if isinstance(value, (BusProxy, BusGroupProxy)):
-                node[key] = self._session.buses_by_session_id[value.identifier]
+                node[key] = self._session.get_object_by_session_id(
+                    type_=nonrealtime.Bus,
+                    session_id=value.identifier,
+                    calculation_rate=value.calculation_rate,
+                )
             else:
                 node[key] = value
 
