@@ -941,7 +941,7 @@ class BufferGetRequest(Request):
         return ["/b_set", self.buffer_id], ["/fail", "/b_get"]
 
 
-class BufferInfoResponse(Response):
+class BufferInfo(Response):
 
     ### CLASS VARIABLES ###
 
@@ -974,8 +974,8 @@ class BufferInfoResponse(Response):
         ::
 
             >>> message = supriya.osc.OscMessage("/b_info", 1100, 512, 1, 44100.0)
-            >>> supriya.commands.BufferInfoResponse.from_osc_message(message)
-            BufferInfoResponse(
+            >>> supriya.commands.BufferInfo.from_osc_message(message)
+            BufferInfo(
                 items=(
                     Item(buffer_id=1100, frame_count=512, channel_count=1, sample_rate=44100.0),
                 ),

@@ -316,7 +316,7 @@ class Response(SupriyaValueObject):
         import supriya.commands
 
         return {
-            "/b_info": supriya.commands.BufferInfoResponse,
+            "/b_info": supriya.commands.BufferInfo,
             "/b_set": supriya.commands.BufferSetResponse,
             "/b_setn": supriya.commands.BufferSetContiguousResponse,
             "/c_set": supriya.commands.ControlBusSetResponse,
@@ -325,12 +325,12 @@ class Response(SupriyaValueObject):
             "/done": supriya.commands.DoneResponse,
             "/fail": supriya.commands.FailResponse,
             "/g_queryTree.reply": supriya.commands.QueryTreeResponse,
-            "/n_end": supriya.commands.NodeInfoResponse,
-            "/n_go": supriya.commands.NodeInfoResponse,
-            "/n_info": supriya.commands.NodeInfoResponse,
-            "/n_move": supriya.commands.NodeInfoResponse,
-            "/n_off": supriya.commands.NodeInfoResponse,
-            "/n_on": supriya.commands.NodeInfoResponse,
+            "/n_end": supriya.commands.NodeInfo,
+            "/n_go": supriya.commands.NodeInfo,
+            "/n_info": supriya.commands.NodeInfo,
+            "/n_move": supriya.commands.NodeInfo,
+            "/n_off": supriya.commands.NodeInfo,
+            "/n_on": supriya.commands.NodeInfo,
             "/n_set": supriya.commands.NodeSetResponse,
             "/n_setn": supriya.commands.NodeSetContiguousResponse,
             "/status.reply": supriya.commands.StatusResponse,
