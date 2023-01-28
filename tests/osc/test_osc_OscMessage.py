@@ -1,17 +1,17 @@
 from uqbar.strings import normalize
 
-import supriya
+from supriya.osc import NTP_DELTA, OscBundle, OscMessage
 
 
 def test():
-    osc_message = supriya.osc.OscMessage(
+    osc_message = OscMessage(
         "/foo",
         1,
         2.5,
-        supriya.osc.OscBundle(
+        OscBundle(
             contents=(
-                supriya.osc.OscMessage("/bar", "baz", 3.0),
-                supriya.osc.OscMessage("/ffff", False, True, None),
+                OscMessage("/bar", "baz", 3.0),
+                OscMessage("/ffff", False, True, None),
             )
         ),
         ["a", "b", ["c", "d"]],
@@ -39,7 +39,7 @@ def test():
     """
     )
     datagram = osc_message.to_datagram()
-    new_osc_message = supriya.osc.OscMessage.from_datagram(datagram)
+    new_osc_message = OscMessage.from_datagram(datagram)
     assert osc_message == new_osc_message
     assert repr(new_osc_message) == normalize(
         """
@@ -57,6 +57,6 @@ def test_new_ntp_era():
     """
     Check for NTP timestamp overflow.
     """
-    seconds = 2**32 - supriya.osc.messages.NTP_DELTA + 1
-    datagram = supriya.osc.OscBundle._encode_date(seconds=seconds)
+    seconds = 2**32 - NTP_DELTA + 1
+    datagram = OscBundle._encode_date(seconds=seconds)
     assert datagram.hex() == "0000000100000000"

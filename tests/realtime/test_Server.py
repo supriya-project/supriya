@@ -8,7 +8,7 @@ from uqbar.strings import normalize
 import supriya
 from supriya import exceptions, scsynth
 from supriya.assets.synthdefs import default
-from supriya.osc import OscMessage
+from supriya.osc import OscMessage, find_free_port
 from supriya.realtime import Server
 from supriya.realtime.protocols import SyncProcessProtocol
 from supriya.realtime.servers import DEFAULT_HEALTHCHECK
@@ -459,7 +459,7 @@ def test_reset_and_reboot_with_resources(executable):
 @pytest.mark.parametrize("memory_size", [8192, 12345])
 def test_boot_reboot_sticky_options(executable, memory_size):
     server = Server()
-    port = supriya.osc.utils.find_free_port()
+    port = find_free_port()
     options = Options(executable=executable, memory_size=memory_size, port=port)
     server.boot(options=options)
     assert server.is_running
@@ -485,7 +485,7 @@ def test_boot_reboot_sticky_options(executable, memory_size):
 @pytest.mark.parametrize("maximum_node_count", [1204, 8192])
 def test_connect_and_reconnect_sticky_options(executable, maximum_node_count):
     try:
-        port = supriya.osc.utils.find_free_port()
+        port = find_free_port()
         options = scsynth.Options(
             executable=executable,
             maximum_logins=5,
