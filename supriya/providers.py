@@ -2,11 +2,9 @@ import abc
 import collections
 import contextlib
 import dataclasses
+import itertools
 import logging
 import os
-import pathlib
-import re
-import tempfile
 from types import MappingProxyType
 from typing import (
     Any,
@@ -17,14 +15,11 @@ from typing import (
     Mapping,
     Optional,
     Sequence,
-    Set,
     Tuple,
     Type,
     Union,
     cast,
 )
-
-from uqbar.objects import new
 
 import supriya.nonrealtime  # noqa
 import supriya.realtime  # noqa
@@ -35,9 +30,54 @@ from supriya.nonrealtime import Session
 from supriya.realtime import AsyncServer, BaseServer, Server
 from supriya.scsynth import Options
 from supriya.synthdefs import SynthDef
-from supriya.typing import AddActionLike, HeaderFormatLike, SampleFormatLike
+from supriya.typing import (
+    AddActionLike,
+    CalculationRateLike,
+    HeaderFormatLike,
+    SampleFormatLike,
+)
+
+from .commands import (
+    BufferAllocateReadChannelRequest,
+    BufferAllocateReadRequest,
+    BufferAllocateRequest,
+    BufferCloseRequest,
+    BufferFreeRequest,
+    BufferReadChannelRequest,
+    BufferReadRequest,
+    BufferWriteRequest,
+    BufferZeroRequest,
+    ControlBusSetRequest,
+    GroupHeadRequest,
+    GroupNewRequest,
+    GroupTailRequest,
+    NodeAfterRequest,
+    NodeBeforeRequest,
+    NodeFreeRequest,
+    NodeSetRequest,
+    ParallelGroupNewRequest,
+    Request,
+    RequestBundle,
+    SynthDefReceiveRequest,
+    SynthNewRequest,
+)
 
 logger = logging.getLogger(__name__)
+
+
+def _process_requests(
+    pairs: List[Tuple[Request, Optional["Completion"]]]
+) -> List[Request]:
+    requests: List[Request] = []
+    for key, group in itertools.groupby(
+        [
+            request if completion is None else completion(request)
+            for request, completion in pairs
+        ],
+        key=lambda x: type(x),
+    ):
+        requests.extend(key.merge(list(group)))
+    return requests
 
 
 @dataclasses.dataclass(frozen=True)
@@ -46,10 +86,12 @@ class Proxy:
 
 
 @dataclasses.dataclass(frozen=True)
-class BufferProxy:
+class BufferProxy(Proxy):
     provider: "Provider"
     identifier: int
+    completion: "Completion"
     channel_count: Optional[int] = None
+    channel_indices: Optional[List[int]] = None
     frame_count: Optional[int] = None
     file_path: Optional[os.PathLike] = None
     starting_frame: Optional[int] = None
@@ -60,34 +102,11 @@ class BufferProxy:
     def __int__(self) -> int:
         return self.identifier
 
-    def as_allocate_request(
-        self,
-    ) -> Union[
-        commands.BufferAllocateRequest,
-        commands.BufferAllocateReadRequest,
-        commands.BufferAllocateReadChannelRequest,
-    ]:
-        kwargs: Dict[str, Any] = dict(buffer_id=int(self), frame_count=self.frame_count)
-        if self.file_path is None:
-            return commands.BufferAllocateRequest(
-                **kwargs, channel_count=self.channel_count
-            )
-        kwargs["file_path"] = self.file_path
-        kwargs["starting_frame"] = self.starting_frame
-        if self.channel_count is None:
-            return commands.BufferAllocateReadRequest(**kwargs)
-        return commands.BufferAllocateReadChannelRequest(
-            **kwargs, channel_indices=list(range(self.channel_count))
-        )
+    def close(self) -> "Completion":
+        return self.provider.close_buffer(self)
 
-    def as_free_request(self) -> commands.BufferFreeRequest:
-        return commands.BufferFreeRequest(buffer_id=int(self))
-
-    def close(self) -> None:
-        self.provider.close_buffer(self)
-
-    def free(self) -> None:
-        self.provider.free_buffer(self)
+    def free(self) -> "Completion":
+        return self.provider.free_buffer(self)
 
     def normalize(self, new_maximum: float = 1.0) -> None:
         self.provider.normalize_buffer(self, new_maximum=new_maximum)
@@ -101,8 +120,8 @@ class BufferProxy:
         frame_count: Optional[int] = None,
         leave_open: bool = False,
         starting_frame: Optional[int] = None,
-    ) -> None:
-        self.provider.read_buffer(
+    ) -> "Completion":
+        return self.provider.read_buffer(
             self,
             buffer_starting_frame=buffer_starting_frame,
             channel_indices=channel_indices,
@@ -122,8 +141,8 @@ class BufferProxy:
         leave_open: bool = False,
         sample_format: SampleFormatLike = "int24",
         starting_frame: Optional[int] = None,
-    ) -> None:
-        self.provider.write_buffer(
+    ) -> "Completion":
+        return self.provider.write_buffer(
             self,
             file_path=file_path,
             frame_count=frame_count,
@@ -132,6 +151,9 @@ class BufferProxy:
             sample_format=sample_format,
             starting_frame=starting_frame,
         )
+
+    def zero(self) -> "Completion":
+        return self.provider.zero_buffer(self)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -240,44 +262,14 @@ class NodeProxy(Proxy):
     def add_synth(
         self,
         *,
-        synthdef: Optional[SynthDef] = None,
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,
+        synthdef: Optional[SynthDef] = None,
         **settings,
     ) -> "SynthProxy":
         return self.provider.add_synth(
             add_action=add_action, synthdef=synthdef, target_node=self, **settings
         )
-
-    def as_move_request(
-        self, add_action: AddActionLike, target_node: "NodeProxy"
-    ) -> commands.MoveRequest:
-        request_classes: Dict[int, Type[commands.MoveRequest]] = {
-            AddAction.ADD_TO_HEAD: commands.GroupHeadRequest,
-            AddAction.ADD_TO_TAIL: commands.GroupTailRequest,
-            AddAction.ADD_BEFORE: commands.NodeBeforeRequest,
-            AddAction.ADD_AFTER: commands.NodeAfterRequest,
-        }
-        request_class: Type[commands.MoveRequest] = request_classes[
-            AddAction.from_expr(add_action)
-        ]
-        return request_class(
-            node_id_pairs=[request_class.NodeIdPair(int(self), int(target_node))]
-        )
-
-    def as_set_request(self, **settings) -> commands.NodeSetRequest:
-        coerced_settings = {}
-        for key, value in settings.items():
-            if isinstance(value, (BusProxy, BusGroupProxy)):
-                if value.calculation_rate == CalculationRate.AUDIO:
-                    value = f"a{value.identifier}"
-                else:
-                    value = f"c{value.identifier}"
-            coerced_settings[key] = value
-        return commands.NodeSetRequest(node_id=int(self), **coerced_settings)
-
-    def dispose(self) -> None:
-        self.provider.dispose(self)
 
     def free(self) -> None:
         self.provider.free_node(self)
@@ -292,253 +284,86 @@ class GroupProxy(NodeProxy):
     provider: "Provider"
     parallel: bool = False
 
-    def as_add_request(
-        self, add_action, target_node
-    ) -> Union[commands.GroupNewRequest, commands.ParallelGroupNewRequest]:
-        request_method = commands.GroupNewRequest
-        if self.parallel:
-            request_method = commands.ParallelGroupNewRequest
-        return request_method(
-            items=[
-                request_method.Item(
-                    node_id=self.identifier,
-                    add_action=add_action,
-                    target_node_id=int(target_node),
-                )
-            ]
-        )
-
-    def as_free_request(self, force=False) -> commands.NodeFreeRequest:
-        return commands.NodeFreeRequest(node_ids=[int(self)])
-
 
 @dataclasses.dataclass(frozen=True)
 class SynthProxy(NodeProxy):
     identifier: int
     provider: "Provider"
     synthdef: SynthDef
-    settings: Dict[str, Union[float, BusGroupProxy]]
-
-    def as_add_request(self, add_action, target_node) -> commands.SynthNewRequest:
-        # TODO: Handle map symbols
-        #       If arg is a bus proxy, and synth param is scalar, cast to int
-        #       Elif arg is a bus proxy, and synth param not scalar, map
-        #       Else cast to float
-        synthdef = self.synthdef or default
-
-        synthdef_kwargs: Dict[str, Union[float, str]] = {}
-        for _, parameter in synthdef.indexed_parameters:
-            if parameter.name not in self.settings:
-                continue
-            value = self.settings[parameter.name]
-            if value == parameter.value:
-                continue
-            if parameter.parameter_rate == ParameterRate.SCALAR:
-                synthdef_kwargs[parameter.name] = float(value)
-            elif parameter.name in ("in_", "out"):
-                synthdef_kwargs[parameter.name] = float(value)
-            elif isinstance(value, (BusProxy, BusGroupProxy)):
-                synthdef_kwargs[parameter.name] = value.map_symbol
-            else:
-                synthdef_kwargs[parameter.name] = float(value)
-
-        return commands.SynthNewRequest(
-            node_id=self.identifier,
-            add_action=add_action,
-            target_node_id=int(target_node),
-            synthdef=synthdef,
-            **synthdef_kwargs,
-        )
-
-    def as_free_request(
-        self, force=False
-    ) -> Union[commands.NodeFreeRequest, commands.NodeSetRequest]:
-        if force or "gate" not in self.synthdef.parameters:
-            return commands.NodeFreeRequest(node_ids=[int(self)])
-        return commands.NodeSetRequest(node_id=int(self), gate=0)
+    settings: Dict[str, Union[float, str, BusProxy, BusGroupProxy]]
 
 
 @dataclasses.dataclass(frozen=True)
 class ProviderMoment:
     provider: "Provider"
     seconds: float
-    bus_settings: List[Tuple[BusProxy, float]] = dataclasses.field(default_factory=list)
-    buffer_actions: Dict[
-        Type[commands.Request], List[commands.Request]
-    ] = dataclasses.field(default_factory=dict)
-    buffer_additions: List[BufferProxy] = dataclasses.field(default_factory=list)
-    buffer_removals: List[BufferProxy] = dataclasses.field(default_factory=list)
-    node_reorderings: List[Tuple[NodeProxy, AddAction, NodeProxy]] = dataclasses.field(
+    requests: List[Tuple[Request, Optional["Completion"]]] = dataclasses.field(
         default_factory=list
     )
-    node_additions: List[Tuple[NodeProxy, AddAction, NodeProxy]] = dataclasses.field(
-        default_factory=list
-    )
-    node_removals: List[NodeProxy] = dataclasses.field(default_factory=list)
-    node_settings: List[
-        Tuple[NodeProxy, Dict[str, Union[float, BusGroupProxy]]]
-    ] = dataclasses.field(default_factory=list)
-    synthdef_additions: Set[SynthDef] = dataclasses.field(default_factory=set)
-    wait: bool = dataclasses.field(default=False)
     exit_stack: contextlib.ExitStack = dataclasses.field(
         init=False, default_factory=contextlib.ExitStack, compare=False
     )
 
     async def __aenter__(self):
-        if self.provider.server and not isinstance(self.provider.server, AsyncServer):
-            raise RuntimeError(repr(self.provider.server))
-        return self._enter()
+        self._enter()
+        return self
 
     async def __aexit__(self, *args):
-        results = self._exit()
-        if not results:
-            return
-        timestamp, request_bundle, synthdefs = results
-        server = self.provider.server
-        # The underlying asyncio UDP transport will silently drop oversize packets
-        if len(request_bundle.to_datagram()) <= 8192:
-            if self.wait:
-                # If waiting, the original ProviderMoment timestamp can be ignored
-                await request_bundle.communicate_async(server=server, sync=True)
-            else:
-                server.send(request_bundle.to_osc())
-        else:
-            # If over the UDP packet limit, partition the message
-            requests = request_bundle.contents
-            # Always wait for SynthDefs to load.
-            if synthdefs:
-                synthdef_request = requests[0]
-                requests = synthdef_request.callback.contents or []
-                synthdef_request = new(synthdef_request, callback=None)
-                await synthdef_request.communicate_async(sync=True, server=server)
-            if self.wait:
-                # If waiting, the original ProviderMoment timestamp can be ignored
-                for bundle in commands.RequestBundle.partition(requests):
-                    await bundle.communicate_async(server=server, sync=True)
-            else:
-                for bundle in commands.RequestBundle.partition(
-                    requests, timestamp=timestamp
-                ):
-                    server.send(bundle.to_osc())
+        request_bundle = self._exit()
+        if self.provider.server is not None and request_bundle:
+            self.provider.server.send(request_bundle.to_osc())
 
     def __enter__(self):
-        if self.provider.session is not None:
-            self.exit_stack.enter_context(self.provider.session.at(self.seconds or 0))
-        if self.provider.server and not isinstance(self.provider.server, Server):
-            raise RuntimeError(repr(self.provider.server))
-        return self._enter()
+        self._enter()
+        return self
 
     def __exit__(self, *args):
-        results = self._exit()
-        if not results:
-            return
-        timestamp, request_bundle, synthdefs = results
-        try:
+        request_bundle = self._exit()
+        if self.provider.server is not None and request_bundle:
             self.provider.server.send(request_bundle.to_osc())
-        except OSError:
-            requests = request_bundle.contents
-            if synthdefs:
-                synthdef_request = requests[0]
-                requests = synthdef_request.callback.contents or []
-                synthdef_request = new(synthdef_request, callback=None)
-                synthdef_request.communicate(sync=True, server=self.provider.server)
-            for bundle in commands.RequestBundle.partition(
-                requests, timestamp=timestamp
-            ):
-                self.provider.server.send(bundle.to_osc())
 
     def _enter(self):
         self.provider._moments.append(self)
-        self.provider._counter[self.seconds] += 1
-        return self
+        if self.provider.session is not None:
+            self.exit_stack.enter_context(self.provider.session.at(self.seconds))
 
-    def _exit(self):
-        # TODO: Harmonize how requests are ordered (and grouped) here with how NRT does it:
-        #       There may be opportunities to consolidate the logic.
-        self.exit_stack.close()
+    def _exit(self) -> Optional[RequestBundle]:
         self.provider._moments.pop()
-        self.provider._counter[self.seconds] -= 1
-        if not self.provider._counter[self.seconds]:
-            self.provider._counter.pop(self.seconds)
-        if not self.provider.server:
-            return
-        elif self.provider._counter[self.seconds]:
-            return
-        requests = []
-        synthdefs = self.synthdef_additions
-        new_nodes = set()
-        for buffer_proxy in self.buffer_additions:
-            requests.append(buffer_proxy.as_allocate_request())
-        for request_type in sorted(self.buffer_actions, key=lambda x: x.__name__):
-            requests.extend(self.buffer_actions[request_type])
-        for node_proxy, add_action, target_node in self.node_additions:
-            request = node_proxy.as_add_request(add_action, target_node)
-            if isinstance(request, commands.SynthNewRequest):
-                if request.synthdef not in self.provider.server:
-                    synthdefs.add(request.synthdef)
-            requests.append(request)
-            new_nodes.add(node_proxy.identifier)
-        for node_proxy, add_action, target_node in self.node_reorderings:
-            requests.append(node_proxy.as_move_request(add_action, target_node))
-        for node_proxy, settings in self.node_settings:
-            requests.append(node_proxy.as_set_request(**settings))
-        for node_proxy in self.node_removals:
-            requests.append(
-                node_proxy.as_free_request(force=node_proxy.identifier in new_nodes)
-            )
-        for buffer_proxy in self.buffer_removals:
-            requests.append(buffer_proxy.as_free_request())
-        if self.bus_settings:
-            sorted_pairs = sorted(
-                dict(
-                    (bus_proxy.identifier, value)
-                    for bus_proxy, value in self.bus_settings
-                ).items()
-            )
-            request = commands.ControlBusSetRequest(index_value_pairs=sorted_pairs)
-            requests.append(request)
+        if self.provider.session is not None:
+            self.exit_stack.close()
+            return None
+        timestamp = (
+            self.seconds + self.provider._latency if self.seconds is not None else None
+        )
+        requests = _process_requests(self.requests)
         if not requests:
-            return
-        timestamp = self.seconds
-        if timestamp is not None:
-            timestamp += self.provider._latency
-        if synthdefs:
-            request_bundle = commands.RequestBundle(
-                timestamp=timestamp,
-                contents=[
-                    commands.SynthDefReceiveRequest(
-                        synthdefs=sorted(synthdefs, key=lambda x: x.actual_name),
-                        callback=commands.RequestBundle(contents=requests),
-                    )
-                ],
-            )
-            # check bundle size, write synthdefs to disk and do /d_load
-            if len(request_bundle.to_datagram(with_placeholders=True)) > 8192:
-                directory_path = pathlib.Path(tempfile.mkdtemp())
-                # directory_path = pathlib.Path("~/Desktop").resolve()
-                for synthdef in synthdefs:
-                    name = synthdef.anonymous_name
-                    if synthdef.name:
-                        name += "-" + re.sub(r"[^\w]", "-", synthdef.name)
-                    file_name = "{}.scsyndef".format(name)
-                    synthdef_path = directory_path / file_name
-                    synthdef_path.write_bytes(synthdef.compile())
-                request_bundle = commands.RequestBundle(
-                    timestamp=timestamp,
-                    contents=[
-                        supriya.commands.SynthDefLoadDirectoryRequest(
-                            directory_path=directory_path,
-                            callback=commands.RequestBundle(contents=requests),
-                        )
-                    ],
-                )
-        else:
-            request_bundle = commands.RequestBundle(
-                timestamp=timestamp, contents=requests
-            )
-        for synthdef in synthdefs:
-            synthdef._register_with_local_server(server=self.provider.server)
-        return timestamp, request_bundle, synthdefs
+            return None
+        request_bundle = RequestBundle(contents=requests, timestamp=timestamp)
+        return request_bundle
+
+
+@dataclasses.dataclass
+class Completion:
+    provider: "Provider"
+    requests: List[Tuple[Request, Optional["Completion"]]] = dataclasses.field(
+        default_factory=list
+    )
+
+    def __enter__(self) -> None:
+        self.provider._completions.append(self)
+
+    def __exit__(self, *args) -> None:
+        self.provider._completions.pop()
+
+    def __call__(self, request: Request) -> Request:
+        if not hasattr(request, "callback"):
+            raise ValueError(request)
+        requests = _process_requests(self.requests)
+        if len(requests) > 1:
+            request.callback = RequestBundle(contents=requests)
+        elif len(requests) == 1:
+            request.callback = requests[0]
+        return request
 
 
 class Provider(metaclass=abc.ABCMeta):
@@ -550,9 +375,85 @@ class Provider(metaclass=abc.ABCMeta):
 
     def __init__(self, latency=0.1) -> None:
         self._moments: List[ProviderMoment] = []
+        self._completions: List[Completion] = []
         self._counter: Counter[float] = collections.Counter()
         self._latency: float = latency
         self._annotation_map: Dict[Union["supriya.nonrealtime.Node", int], str] = {}
+
+    ### PRIVATE METHODS ###
+
+    def _add_request(
+        self, request: commands.Request, completion: Optional[Completion] = None
+    ) -> None:
+        if not self._moments:
+            raise ValueError
+        requests = self._moments[-1].requests
+        if self._completions:
+            requests = self._completions[-1].requests
+        requests.append((request, completion))
+
+    def _allocate_id(
+        self,
+        proxy_type: Type[Proxy],
+        calculation_rate: Optional[CalculationRate] = None,
+        count: int = 1,
+    ) -> int:
+        context = self.server or self.session
+        if not context:
+            raise ValueError
+        if proxy_type is NodeProxy:
+            return context._node_id_allocator.allocate_node_id()
+        if proxy_type is BufferProxy:
+            return context._buffer_allocator.allocate(count)
+        if proxy_type is BusProxy:
+            if calculation_rate is CalculationRate.AUDIO:
+                return context._audio_bus_allocator.allocate(count)
+            elif calculation_rate is CalculationRate.CONTROL:
+                return context._control_bus_allocator.allocate(count)
+        raise ValueError
+
+    def _free_id(
+        self,
+        proxy_type: Type[Proxy],
+        id_: int,
+        calculation_rate: Optional[CalculationRate] = None,
+    ) -> None:
+        if self.session:
+            return None
+        if not self.server:
+            raise ValueError
+        if proxy_type is NodeProxy:
+            return None
+        if proxy_type is BufferProxy:
+            self.server._buffer_allocator.free(id_)
+            return None
+        if proxy_type is BusProxy:
+            if calculation_rate is CalculationRate.AUDIO:
+                self.server._audio_bus_allocator.free(id_)
+                return None
+            elif calculation_rate is CalculationRate.CONTROL:
+                self.server._control_bus_allocator.free(id_)
+                return None
+        raise ValueError
+
+    def _resolve_target_node_id(
+        self, target: Union[None, NodeProxy, int, nonrealtime.Node, realtime.Node]
+    ) -> int:
+        if isinstance(target, int):
+            return target
+        elif isinstance(target, NodeProxy):
+            return target.identifier
+        elif self.session:
+            if target is None:
+                return 0
+            elif isinstance(target, nonrealtime.Node):
+                return int(target)
+        elif self.server:
+            if target is None:
+                return self.server.client_id + 1
+            elif isinstance(target, realtime.Node):
+                return int(target)
+        raise ValueError(target)
 
     ### PUBLIC METHODS ###
 
@@ -561,84 +462,281 @@ class Provider(metaclass=abc.ABCMeta):
         self,
         *,
         channel_count: Optional[int] = None,
+        channel_indices: Optional[List[int]] = None,
         file_path: Optional[os.PathLike] = None,
         frame_count: Optional[int] = None,
         starting_frame: Optional[int] = None,
     ) -> BufferProxy:
-        raise NotImplementedError
+        if not self.moment:
+            raise ValueError("No current moment")
+        if not (frame_count or file_path):
+            raise ValueError
+        if channel_count and channel_indices:
+            raise ValueError
+        id_ = self._allocate_id(BufferProxy)
+        completion = Completion(provider=self)
+        if file_path and channel_indices:
+            self._add_request(
+                BufferAllocateReadChannelRequest(
+                    buffer_id=id_,
+                    channel_indices=channel_indices,
+                    file_path=file_path,
+                    frame_count=frame_count,
+                    starting_frame=starting_frame,
+                ),
+                completion,
+            )
+        elif file_path:
+            self._add_request(
+                BufferAllocateReadRequest(
+                    buffer_id=id_,
+                    file_path=file_path,
+                    frame_count=frame_count,
+                    starting_frame=starting_frame,
+                ),
+                completion,
+            )
+        else:
+            self._add_request(
+                BufferAllocateRequest(
+                    buffer_id=id_, channel_count=channel_count, frame_count=frame_count
+                ),
+                completion,
+            )
+        proxy = BufferProxy(
+            channel_count=channel_count,
+            channel_indices=channel_indices,
+            completion=completion,
+            file_path=file_path,
+            frame_count=frame_count,
+            identifier=id_,
+            provider=self,
+            starting_frame=starting_frame,
+        )
+        return proxy
 
     @abc.abstractmethod
-    def add_bus(self, calculation_rate=CalculationRate.CONTROL) -> BusProxy:
-        raise NotImplementedError
+    def add_bus(
+        self, calculation_rate: CalculationRateLike = CalculationRate.CONTROL
+    ) -> BusProxy:
+        if not self.moment:
+            raise ValueError("No current moment")
+        rate = CalculationRate.from_expr(calculation_rate)
+        if rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
+            raise ValueError(f"Invalid calculation rate: {rate!r}")
+        id_ = self._allocate_id(BusProxy, calculation_rate=rate)
+        return BusProxy(calculation_rate=rate, identifier=id_, provider=self)
 
     @abc.abstractmethod
     def add_bus_group(
-        self, channel_count=1, calculation_rate=CalculationRate.CONTROL
+        self,
+        channel_count=1,
+        calculation_rate: CalculationRateLike = CalculationRate.CONTROL,
     ) -> BusGroupProxy:
-        raise NotImplementedError
+        if not self.moment:
+            raise ValueError("No current moment")
+        rate = CalculationRate.from_expr(calculation_rate)
+        if rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
+            raise ValueError(f"Invalid calculation rate: {rate!r}")
+        if channel_count < 1:
+            raise ValueError("Channel-count must be positive, non-zero integer")
+        id_ = self._allocate_id(BusProxy, calculation_rate=rate, count=channel_count)
+        return BusGroupProxy(
+            calculation_rate=rate,
+            channel_count=channel_count,
+            identifier=id_,
+            provider=self,
+        )
 
     @abc.abstractmethod
     def add_group(
         self,
         *,
-        target_node=None,
-        add_action=AddAction.ADD_TO_HEAD,
+        add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,
         parallel: bool = False,
+        target_node: Optional[Union[NodeProxy, int]] = None,
     ) -> GroupProxy:
-        raise NotImplementedError
+        if not self.moment:
+            raise ValueError("No current moment")
+        target_node_id = self._resolve_target_node_id(target_node)
+        add_action_ = AddAction.from_expr(add_action)
+        id_ = self._allocate_id(NodeProxy)
+        if name:
+            self._annotation_map[id_] = name
+        proxy = GroupProxy(identifier=id_, provider=self, parallel=parallel)
+        kwargs = dict(
+            add_action=add_action_, node_id=id_, target_node_id=target_node_id
+        )
+        if parallel:
+            self._add_request(
+                ParallelGroupNewRequest(items=[GroupNewRequest.Item(**kwargs)])
+            )
+        else:
+            self._add_request(GroupNewRequest(items=[GroupNewRequest.Item(**kwargs)]))
+        return proxy
 
     @abc.abstractmethod
     def add_synth(
         self,
         *,
-        synthdef: Optional[SynthDef] = None,
-        target_node=None,
-        add_action=AddAction.ADD_TO_HEAD,
+        add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,
+        synthdef: Optional[SynthDef] = None,
+        target_node: Optional[Union[NodeProxy, int]] = None,
         **settings,
     ) -> SynthProxy:
-        raise NotImplementedError
+        if not self.moment:
+            raise ValueError("No current moment")
+        target_node_id = self._resolve_target_node_id(target_node)
+        add_action_ = AddAction.from_expr(add_action)
+        id_ = self._allocate_id(NodeProxy)
+        if name:
+            self._annotation_map[id_] = name
+        synthdef = synthdef or default
+        synthdef_kwargs: Dict[str, Union[float, str, BusProxy, BusGroupProxy]] = {}
+        for _, parameter in synthdef.indexed_parameters:
+            if parameter.name not in settings:
+                continue
+            value = settings[parameter.name]
+            if value == parameter.value:
+                continue
+            if parameter.parameter_rate == ParameterRate.SCALAR:
+                synthdef_kwargs[parameter.name] = float(value)
+            elif parameter.name in ("in_", "out"):
+                synthdef_kwargs[parameter.name] = float(value)
+            elif isinstance(value, (BusProxy, BusGroupProxy)):
+                synthdef_kwargs[parameter.name] = value.map_symbol
+            else:
+                synthdef_kwargs[parameter.name] = float(value)
+        proxy = SynthProxy(
+            identifier=id_, provider=self, synthdef=synthdef, settings=synthdef_kwargs
+        )
+        self._add_request(
+            SynthNewRequest(
+                add_action=add_action_,
+                node_id=id_,
+                synthdef=synthdef,
+                target_node_id=target_node_id,
+                **synthdef_kwargs,
+            )
+        )
+        return proxy
 
     @abc.abstractmethod
-    def add_synthdef(self, synthdef: SynthDef) -> None:
-        raise NotImplementedError
+    def add_synthdefs(self, *synthdefs: SynthDef) -> Completion:
+        if not self.moment:
+            raise ValueError("No current moment")
+        completion = Completion(self)
+        self._add_request(SynthDefReceiveRequest(*synthdefs), completion)
+        return completion
+
+    def at(self, seconds=None) -> ProviderMoment:
+        return ProviderMoment(provider=self, seconds=seconds)
 
     @abc.abstractmethod
-    def close_buffer(self, buffer_proxy: BufferProxy) -> None:
-        raise NotImplementedError
+    def close_buffer(self, buffer_proxy: BufferProxy) -> Completion:
+        if not self.moment:
+            raise ValueError("No current moment")
+        request = BufferCloseRequest(buffer_id=buffer_proxy.identifier)
+        completion = Completion(provider=self)
+        self._add_request(request, completion)
+        return completion
 
     @abc.abstractmethod
-    def dispose(self, node_proxy: NodeProxy) -> None:
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def free_buffer(self, buffer_proxy) -> None:
-        raise NotImplementedError
+    def free_buffer(self, buffer_proxy) -> Completion:
+        if not self.moment:
+            raise ValueError("No current moment")
+        self._free_id(BufferProxy, buffer_proxy.identifier)
+        request = BufferFreeRequest(buffer_id=buffer_proxy.identifier)
+        completion = Completion(provider=self)
+        self._add_request(request, completion)
+        return completion
 
     @abc.abstractmethod
     def free_bus(self, bus_proxy: BusProxy) -> None:
-        raise NotImplementedError
+        if not self.moment:
+            raise ValueError("No current moment")
+        self._free_id(
+            BusProxy, bus_proxy.identifier, calculation_rate=bus_proxy.calculation_rate
+        )
+        return None
 
     @abc.abstractmethod
     def free_bus_group(self, bus_group_proxy: BusGroupProxy) -> None:
-        raise NotImplementedError
+        if not self.moment:
+            raise ValueError("No current moment")
+        self._free_id(
+            BusProxy,
+            bus_group_proxy.identifier,
+            calculation_rate=bus_group_proxy.calculation_rate,
+        )
+        return None
 
     @abc.abstractmethod
     def free_node(self, node_proxy: NodeProxy) -> None:
-        raise NotImplementedError
+        # TODO: Create a NodeReleaseRequest class
+        #       ... which formats to either `/n_set ID gate 0` or `/n_free ID`
+        #       ... and teach Session to recognize it
+        if not self.moment:
+            raise ValueError("No current moment")
+        self._annotation_map.pop(node_proxy.identifier, None)
+        self._free_id(NodeProxy, node_proxy.identifier)
+        if (
+            isinstance(node_proxy, SynthProxy)
+            and "gate" in node_proxy.synthdef.parameters
+        ):
+            # TODO: How to signal to NRT that this is a free?
+            self._add_request(NodeSetRequest(node_id=node_proxy.identifier, gate=0))
+        else:
+            self._add_request(NodeFreeRequest(node_ids=[node_proxy.identifier]))
+        return None
+
+    @classmethod
+    def from_context(cls, context, latency=0.1) -> "Provider":
+        if isinstance(context, Session):
+            return NonrealtimeProvider(context, latency=latency)
+        elif isinstance(context, BaseServer):
+            return RealtimeProvider(context, latency=latency)
+        raise ValueError("Unknown context")
 
     @abc.abstractmethod
     def move_node(
         self, node_proxy: NodeProxy, add_action: AddActionLike, target_node: NodeProxy
     ) -> None:
-        raise NotImplementedError
+        if not self.moment:
+            raise ValueError("No current moment")
+        target_node_id = self._resolve_target_node_id(target_node)
+        add_action_ = AddAction.from_expr(add_action)
+        pairs = [[int(node_proxy), target_node_id]]
+        if add_action_ is AddAction.ADD_AFTER:
+            self._add_request(NodeAfterRequest(pairs))
+        elif add_action_ is AddAction.ADD_BEFORE:
+            self._add_request(NodeBeforeRequest(pairs))
+        elif add_action_ is AddAction.ADD_TO_HEAD:
+            self._add_request(GroupHeadRequest(pairs))
+        elif add_action_ is AddAction.ADD_TO_TAIL:
+            self._add_request(GroupTailRequest(pairs))
+        else:
+            raise ValueError
+        return None
+
+    @classmethod
+    def nonrealtime(cls) -> "NonrealtimeProvider":
+        session = Session()
+        return cast("NonrealtimeProvider", cls.from_context(session))
 
     @abc.abstractmethod
     def normalize_buffer(
         self, buffer_proxy: BufferProxy, new_maximum: float = 1.0
     ) -> None:
-        raise NotImplementedError
+        if not self.moment:
+            raise ValueError("No current moment")
+        request = commands.BufferNormalizeRequest(
+            buffer_id=buffer_proxy.identifier, new_maximum=new_maximum
+        )
+        self._add_request(request)
+        return None
 
     @abc.abstractmethod
     def read_buffer(
@@ -651,50 +749,26 @@ class Provider(metaclass=abc.ABCMeta):
         frame_count: Optional[int] = None,
         leave_open: bool = False,
         starting_frame: Optional[int] = None,
-    ) -> None:
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def set_bus(self, bus_proxy: BusProxy, value: float) -> None:
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def set_node(self, node_proxy: NodeProxy, **settings) -> None:
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def write_buffer(
-        self,
-        buffer_proxy: BufferProxy,
-        file_path: os.PathLike,
-        *,
-        frame_count: Optional[int] = None,
-        header_format: HeaderFormatLike = "aiff",
-        leave_open: bool = False,
-        sample_format: SampleFormatLike = "int24",
-        starting_frame: Optional[int] = None,
-    ) -> None:
-        raise NotImplementedError
-
-    def at(self, seconds=None, wait=False) -> ProviderMoment:
-        if self._moments and self._moments[-1].seconds == seconds:
-            provider_moment = self._moments[-1]
+    ) -> Completion:
+        if not self.moment:
+            raise ValueError("No current moment")
+        kwargs = dict(
+            buffer_id=buffer_proxy.identifier,
+            file_path=file_path,
+            frame_count=frame_count,
+            leave_open=leave_open,
+            starting_frame_in_buffer=buffer_starting_frame,
+            starting_frame_in_file=starting_frame,
+        )
+        if channel_indices:
+            request: commands.Request = BufferReadChannelRequest(
+                **kwargs, channel_indices=channel_indices
+            )
         else:
-            provider_moment = ProviderMoment(provider=self, seconds=seconds, wait=wait)
-        return provider_moment
-
-    @classmethod
-    def from_context(cls, context, latency=0.1) -> "Provider":
-        if isinstance(context, Session):
-            return NonrealtimeProvider(context, latency=latency)
-        elif isinstance(context, BaseServer):
-            return RealtimeProvider(context, latency=latency)
-        raise ValueError("Unknown context")
-
-    @classmethod
-    def nonrealtime(cls) -> "NonrealtimeProvider":
-        session = Session()
-        return cast("NonrealtimeProvider", cls.from_context(session))
+            request = BufferReadRequest(**kwargs)
+        completion = Completion(provider=self)
+        self._add_request(request, completion)
+        return completion
 
     @classmethod
     def realtime(
@@ -719,8 +793,68 @@ class Provider(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
+    def set_bus(self, bus_proxy: BusProxy, value: float) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        if bus_proxy.calculation_rate != CalculationRate.CONTROL:
+            raise ValueError("Can only set control-rate buses")
+        self._add_request(
+            ControlBusSetRequest(index_value_pairs=[[int(bus_proxy), value]])
+        )
+        return None
+
+    @abc.abstractmethod
+    def set_node(self, node_proxy: NodeProxy, **settings) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        coerced_settings: Dict[str, Union[float, str]] = {}
+        for key, value in settings.items():
+            if isinstance(value, (BusProxy, BusGroupProxy)):
+                coerced_settings[key] = value.map_symbol
+            else:
+                coerced_settings[key] = float(value)
+        self._add_request(NodeSetRequest(node_id=int(node_proxy), **coerced_settings))
+        return None
+
+    @abc.abstractmethod
     def unregister_osc_callback(self, proxy: OscCallbackProxy) -> None:
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def write_buffer(
+        self,
+        buffer_proxy: BufferProxy,
+        file_path: os.PathLike,
+        *,
+        frame_count: Optional[int] = None,
+        header_format: HeaderFormatLike = "aiff",
+        leave_open: bool = False,
+        sample_format: SampleFormatLike = "int24",
+        starting_frame: Optional[int] = None,
+    ) -> Completion:
+        if not self.moment:
+            raise ValueError("No current moment")
+        request = BufferWriteRequest(
+            buffer_id=buffer_proxy.identifier,
+            file_path=file_path,
+            frame_count=frame_count,
+            header_format=header_format,
+            leave_open=leave_open,
+            sample_format=sample_format,
+            starting_frame=starting_frame,
+        )
+        completion = Completion(provider=self)
+        self._add_request(request, completion)
+        return completion
+
+    @abc.abstractmethod
+    def zero_buffer(self, buffer_proxy: BufferProxy):
+        if not self.moment:
+            raise ValueError("No current moment")
+        request = BufferZeroRequest(buffer_id=buffer_proxy.identifier)
+        completion = Completion(provider=self)
+        self._add_request(request, completion)
+        return completion
 
     ### PUBLIC PROPERTIES ###
 
@@ -780,6 +914,7 @@ class NonrealtimeProvider(Provider):
         self,
         *,
         channel_count: Optional[int] = None,
+        channel_indices: Optional[List[int]] = None,
         file_path: Optional[os.PathLike] = None,
         frame_count: Optional[int] = None,
         starting_frame: Optional[int] = None,
@@ -788,12 +923,15 @@ class NonrealtimeProvider(Provider):
             raise ValueError("No current moment")
         buffer_ = self._session.add_buffer(
             channel_count=channel_count,
+            channel_indices=channel_indices,
             file_path=file_path,
             frame_count=frame_count,
             starting_frame=starting_frame,
         )
         return BufferProxy(
             channel_count=channel_count,
+            channel_indices=channel_indices,
+            completion=Completion(self),
             file_path=file_path,
             frame_count=frame_count,
             identifier=buffer_.session_id,
@@ -801,14 +939,16 @@ class NonrealtimeProvider(Provider):
             starting_frame=starting_frame,
         )
 
-    def add_bus(self, calculation_rate=CalculationRate.CONTROL) -> BusProxy:
+    def add_bus(
+        self, calculation_rate: CalculationRateLike = CalculationRate.CONTROL
+    ) -> BusProxy:
         if not self.moment:
             raise ValueError("No current moment")
-        calculation_rate = CalculationRate.from_expr(calculation_rate)
-        if calculation_rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
-            raise ValueError(f"Invalid calculation rate: {calculation_rate!r}")
+        rate = CalculationRate.from_expr(calculation_rate)
+        if rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
+            raise ValueError(f"Invalid calculation rate: {rate!r}")
         return BusProxy(
-            calculation_rate=calculation_rate,
+            calculation_rate=rate,
             identifier=self._session.add_bus(
                 calculation_rate=calculation_rate
             ).session_id,
@@ -816,17 +956,19 @@ class NonrealtimeProvider(Provider):
         )
 
     def add_bus_group(
-        self, channel_count=1, calculation_rate=CalculationRate.CONTROL
+        self,
+        channel_count=1,
+        calculation_rate: CalculationRateLike = CalculationRate.CONTROL,
     ) -> BusGroupProxy:
         if not self.moment:
             raise ValueError("No current moment")
-        calculation_rate = CalculationRate.from_expr(calculation_rate)
-        if calculation_rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
-            raise ValueError(f"Invalid calculation rate: {calculation_rate!r}")
+        rate = CalculationRate.from_expr(calculation_rate)
+        if rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
+            raise ValueError(f"Invalid calculation rate: {rate!r}")
         if channel_count < 1:
             raise ValueError("Channel-count must be positive, non-zero integer")
         return BusGroupProxy(
-            calculation_rate=calculation_rate,
+            calculation_rate=rate,
             channel_count=channel_count,
             identifier=self._session.add_bus_group(
                 bus_count=channel_count, calculation_rate=calculation_rate
@@ -885,25 +1027,21 @@ class NonrealtimeProvider(Provider):
         )
         return proxy
 
-    def add_synthdef(self, synthdef: SynthDef) -> None:
+    def add_synthdefs(self, *synthdef: SynthDef) -> Completion:
         if not self.moment:
             raise ValueError("No current moment")
-        pass  # no-op
+        return Completion(self)
 
-    def close_buffer(self, buffer_proxy: BufferProxy) -> None:
+    def close_buffer(self, buffer_proxy: BufferProxy) -> Completion:
         if not self.moment:
             raise ValueError("No current moment")
         self._session.buffers_by_session_id[buffer_proxy.identifier].close()
+        return Completion(self)
 
-    def dispose(self, node_proxy: NodeProxy) -> None:
+    def free_buffer(self, buffer_: BufferProxy) -> Completion:
         if not self.moment:
             raise ValueError("No current moment")
-        return  # This is currently a no-op
-
-    def free_buffer(self, buffer_: BufferProxy) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        return  # This is currently a no-op
+        return Completion(self)
 
     def free_bus(self, bus: BusProxy) -> None:
         if not self.moment:
@@ -952,7 +1090,7 @@ class NonrealtimeProvider(Provider):
         frame_count: Optional[int] = None,
         leave_open: bool = False,
         starting_frame: Optional[int] = None,
-    ) -> None:
+    ) -> Completion:
         if not self.moment:
             raise ValueError("No current moment")
         self._session.buffers_by_session_id[buffer_proxy.identifier].read(
@@ -963,6 +1101,7 @@ class NonrealtimeProvider(Provider):
             starting_frame_in_buffer=buffer_starting_frame,
             starting_frame_in_file=starting_frame,
         )
+        return Completion(self)
 
     def register_osc_callback(
         self, pattern: Tuple[Union[str, float], ...], procedure: Callable
@@ -994,6 +1133,9 @@ class NonrealtimeProvider(Provider):
             else:
                 node[key] = value
 
+    def unregister_osc_callback(self, proxy: OscCallbackProxy) -> None:
+        pass  # no-op
+
     def write_buffer(
         self,
         buffer_proxy: BufferProxy,
@@ -1004,7 +1146,7 @@ class NonrealtimeProvider(Provider):
         leave_open: bool = False,
         sample_format: SampleFormatLike = "int24",
         starting_frame: Optional[int] = None,
-    ) -> None:
+    ) -> Completion:
         if not self.moment:
             raise ValueError("No current moment")
         self._session.buffers_by_session_id[buffer_proxy.identifier].write(
@@ -1015,9 +1157,14 @@ class NonrealtimeProvider(Provider):
             sample_format=sample_format,
             starting_frame=starting_frame,
         )
+        return Completion(self)
 
-    def unregister_osc_callback(self, proxy: OscCallbackProxy) -> None:
-        pass  # no-op
+    def zero_buffer(self, buffer_proxy: BufferProxy) -> None:
+        if not self.moment:
+            raise ValueError("No current moment")
+        self._session.buffers_by_session_id[buffer_proxy.identifier].zero()
+
+    ### PUBLIC PROPERTIES ###
 
     @property
     def session(self) -> Optional[Session]:
@@ -1052,162 +1199,91 @@ class RealtimeProvider(Provider):
         self,
         *,
         channel_count: Optional[int] = None,
+        channel_indices: Optional[List[int]] = None,
         file_path: Optional[os.PathLike] = None,
         frame_count: Optional[int] = None,
         starting_frame: Optional[int] = None,
     ) -> BufferProxy:
-        if not self.moment:
-            raise ValueError("No current moment")
-        identifier = self._server.buffer_allocator.allocate(1)
-        proxy = BufferProxy(
+        return super().add_buffer(
             channel_count=channel_count,
+            channel_indices=channel_indices,
             file_path=file_path,
             frame_count=frame_count,
-            identifier=identifier,
-            provider=self,
             starting_frame=starting_frame,
         )
-        self.moment.buffer_additions.append(proxy)
-        return proxy
 
-    def add_bus(self, calculation_rate=CalculationRate.CONTROL) -> BusProxy:
-        if not self.moment:
-            raise ValueError("No current moment")
-        calculation_rate = CalculationRate.from_expr(calculation_rate)
-        if calculation_rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
-            raise ValueError(f"Invalid calculation rate: {calculation_rate!r}")
-        allocator = realtime.Bus._get_allocator(calculation_rate, server=self._server)
-        identifier = allocator.allocate(1)
-        return BusProxy(
-            calculation_rate=calculation_rate, identifier=identifier, provider=self
-        )
+    def add_bus(
+        self, calculation_rate: CalculationRateLike = CalculationRate.CONTROL
+    ) -> BusProxy:
+        return super().add_bus(calculation_rate=calculation_rate)
 
     def add_bus_group(
-        self, channel_count=1, calculation_rate=CalculationRate.CONTROL
+        self,
+        channel_count=1,
+        calculation_rate: CalculationRateLike = CalculationRate.CONTROL,
     ) -> BusGroupProxy:
-        if not self.moment:
-            raise ValueError("No current moment")
-        calculation_rate = CalculationRate.from_expr(calculation_rate)
-        if calculation_rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
-            raise ValueError(f"Invalid calculation rate: {calculation_rate!r}")
-        if channel_count < 1:
-            raise ValueError("Channel-count must be positive, non-zero integer")
-        allocator = realtime.Bus._get_allocator(calculation_rate, server=self._server)
-        identifier = allocator.allocate(channel_count)
-        if identifier is None:
-            raise RuntimeError
-        return BusGroupProxy(
-            calculation_rate=calculation_rate,
-            channel_count=channel_count,
-            identifier=identifier,
-            provider=self,
+        return super().add_bus_group(
+            calculation_rate=calculation_rate, channel_count=channel_count
         )
 
     def add_group(
         self,
         *,
-        target_node=None,
         add_action=AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,
         parallel: bool = False,
+        target_node=None,
     ) -> GroupProxy:
-        if not self.moment:
-            raise ValueError("No current moment")
-        target_node = self._resolve_target_node(target_node)
-        identifier = self._server.node_id_allocator.allocate_node_id(1)
-        proxy = GroupProxy(identifier=identifier, provider=self, parallel=parallel)
-        self.moment.node_additions.append((proxy, add_action, target_node))
-        if name:
-            self._annotation_map[identifier] = name
-        return proxy
+        return super().add_group(
+            add_action=add_action, name=name, parallel=parallel, target_node=target_node
+        )
 
     def add_synth(
         self,
         *,
-        synthdef: Optional[SynthDef] = None,
-        target_node=None,
         add_action=AddAction.ADD_TO_HEAD,
         name: Optional[str] = None,
+        synthdef: Optional[SynthDef] = None,
+        target_node=None,
         **settings,
     ) -> SynthProxy:
-        if not self.moment:
-            raise ValueError("No current moment")
-        target_node = self._resolve_target_node(target_node)
-        identifier = self._server.node_id_allocator.allocate_node_id(1)
-        proxy = SynthProxy(
-            identifier=identifier,
-            provider=self,
-            synthdef=synthdef or default,
-            settings=settings,
+        return super().add_synth(
+            synthdef=synthdef,
+            target_node=target_node,
+            add_action=add_action,
+            name=name,
+            **settings,
         )
-        self.moment.node_additions.append((proxy, add_action, target_node))
-        if name:
-            self._annotation_map[identifier] = name
-        return proxy
 
-    def add_synthdef(self, synthdef: SynthDef) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        self.moment.synthdef_additions.add(synthdef)
+    def add_synthdefs(self, *synthdefs: SynthDef) -> Completion:
+        return super().add_synthdefs(*synthdefs)
 
-    def close_buffer(self, buffer_proxy: BufferProxy) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        request = commands.BufferCloseRequest(buffer_id=buffer_proxy.identifier)
-        self.moment.buffer_actions.setdefault(type(request), []).append(request)
+    def close_buffer(self, buffer_proxy: BufferProxy) -> Completion:
+        return super().close_buffer(buffer_proxy)
 
-    def dispose(self, node_proxy: NodeProxy) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        return  # This is currently a no-op
-
-    def free_buffer(self, buffer_: BufferProxy) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        self._server.buffer_allocator.free(buffer_.identifier)
-        self.moment.buffer_removals.append(buffer_)
+    def free_buffer(self, buffer_proxy: BufferProxy) -> Completion:
+        return super().free_buffer(buffer_proxy)
 
     def free_bus(self, bus_proxy: BusProxy) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        allocator = realtime.Bus._get_allocator(
-            bus_proxy.calculation_rate, server=self._server
-        )
-        allocator.free(bus_proxy.identifier)
+        return super().free_bus(bus_proxy)
 
     def free_bus_group(self, bus_group_proxy: BusGroupProxy) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        allocator = realtime.Bus._get_allocator(
-            bus_group_proxy.calculation_rate, server=self._server
-        )
-        allocator.free(bus_group_proxy.identifier)
+        return super().free_bus_group(bus_group_proxy)
 
     def free_node(self, node_proxy: NodeProxy) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        self.moment.node_removals.append(node_proxy)
-        self._annotation_map.pop(node_proxy.identifier, None)
+        return super().free_node(node_proxy)
 
     def move_node(
         self, node_proxy: NodeProxy, add_action: AddActionLike, target_node: NodeProxy
     ) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        target_node = self._resolve_target_node(target_node)
-        self.moment.node_reorderings.append(
-            (node_proxy, AddAction.from_expr(add_action), target_node)
+        return super().move_node(
+            node_proxy=node_proxy, add_action=add_action, target_node=target_node
         )
 
     def normalize_buffer(
         self, buffer_proxy: BufferProxy, new_maximum: float = 1.0
     ) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        request = commands.BufferNormalizeRequest(
-            buffer_id=buffer_proxy.identifier, new_maximum=new_maximum
-        )
-        self.moment.buffer_actions.setdefault(type(request), []).append(request)
+        return super().normalize_buffer(buffer_proxy, new_maximum=new_maximum)
 
     def read_buffer(
         self,
@@ -1219,24 +1295,16 @@ class RealtimeProvider(Provider):
         frame_count: Optional[int] = None,
         leave_open: bool = False,
         starting_frame: Optional[int] = None,
-    ) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        kwargs = dict(
-            buffer_id=buffer_proxy.identifier,
+    ) -> Completion:
+        return super().read_buffer(
+            buffer_proxy=buffer_proxy,
             file_path=file_path,
+            buffer_starting_frame=buffer_starting_frame,
+            channel_indices=channel_indices,
             frame_count=frame_count,
             leave_open=leave_open,
-            starting_frame_in_buffer=buffer_starting_frame,
-            starting_frame_in_file=starting_frame,
+            starting_frame=starting_frame,
         )
-        if channel_indices:
-            request: commands.Request = commands.BufferReadChannelRequest(
-                **kwargs, channel_indices=channel_indices
-            )
-        else:
-            request = commands.BufferReadRequest(**kwargs)
-        self.moment.buffer_actions.setdefault(type(request), []).append(request)
 
     def register_osc_callback(
         self, pattern: Tuple[Union[str, float], ...], procedure: Callable
@@ -1247,16 +1315,10 @@ class RealtimeProvider(Provider):
         return OscCallbackProxy(provider=self, identifier=identifier)
 
     def set_bus(self, bus_proxy: BusProxy, value: float) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        elif bus_proxy.calculation_rate != CalculationRate.CONTROL:
-            raise ValueError("Can only set control-rate buses")
-        self.moment.bus_settings.append((bus_proxy, value))
+        return super().set_bus(bus_proxy, value)
 
     def set_node(self, node_proxy: NodeProxy, **settings) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        self.moment.node_settings.append((node_proxy, settings))
+        return super().set_node(node_proxy, **settings)
 
     def unregister_osc_callback(self, proxy: OscCallbackProxy) -> None:
         self._server.osc_protocol.unregister(proxy.identifier)
@@ -1271,11 +1333,9 @@ class RealtimeProvider(Provider):
         leave_open: bool = False,
         sample_format: SampleFormatLike = "int24",
         starting_frame: Optional[int] = None,
-    ) -> None:
-        if not self.moment:
-            raise ValueError("No current moment")
-        request = commands.BufferWriteRequest(
-            buffer_id=buffer_proxy.identifier,
+    ) -> Completion:
+        return super().write_buffer(
+            buffer_proxy=buffer_proxy,
             file_path=file_path,
             frame_count=frame_count,
             header_format=header_format,
@@ -1283,7 +1343,11 @@ class RealtimeProvider(Provider):
             sample_format=sample_format,
             starting_frame=starting_frame,
         )
-        self.moment.buffer_actions.setdefault(type(request), []).append(request)
+
+    def zero_buffer(self, buffer_proxy: BufferProxy) -> Completion:
+        return super().zero_buffer(buffer_proxy)
+
+    ### PUBLIC PROPERTIES ###
 
     @property
     def server(self) -> Optional[BaseServer]:

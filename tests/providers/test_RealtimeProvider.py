@@ -4,6 +4,7 @@ import pytest
 from uqbar.strings import normalize
 
 from supriya.assets.synthdefs import default
+from supriya.commands import GroupNewRequest, SynthNewRequest
 from supriya.enums import AddAction, CalculationRate
 from supriya.osc import OscBundle, OscMessage
 from supriya.providers import (
@@ -120,11 +121,20 @@ def test_RealtimeProvider_add_group_1(server):
     assert provider_moment == ProviderMoment(
         provider=provider,
         seconds=seconds,
-        bus_settings=[],
-        node_additions=[(group_proxy, AddAction.ADD_TO_HEAD, server.default_group)],
-        node_removals=[],
-        node_reorderings=[],
-        node_settings=[],
+        requests=[
+            (
+                GroupNewRequest(
+                    items=[
+                        GroupNewRequest.Item(
+                            add_action=AddAction.ADD_TO_HEAD,
+                            node_id=1000,
+                            target_node_id=1,
+                        )
+                    ]
+                ),
+                None,
+            )
+        ],
     )
     assert [entry.message.to_list() for entry in transcript] == [
         [seconds + provider.latency, [["/g_new", 1000, 0, 1]]]
@@ -151,11 +161,20 @@ def test_RealtimeProvider_add_group_2(server):
     assert provider_moment == ProviderMoment(
         provider=provider,
         seconds=seconds + 0.01,
-        bus_settings=[],
-        node_additions=[(group_proxy_two, AddAction.ADD_TO_HEAD, group_proxy_one)],
-        node_removals=[],
-        node_reorderings=[],
-        node_settings=[],
+        requests=[
+            (
+                GroupNewRequest(
+                    items=[
+                        GroupNewRequest.Item(
+                            add_action=AddAction.ADD_TO_HEAD,
+                            node_id=1001,
+                            target_node_id=1000,
+                        )
+                    ]
+                ),
+                None,
+            )
+        ],
     )
     assert [entry.message.to_list() for entry in transcript] == [
         [None, [["/g_new", 1000, 0, 1]]],
@@ -206,11 +225,19 @@ def test_RealtimeProvider_add_synth_1(server):
     assert provider_moment == ProviderMoment(
         provider=provider,
         seconds=seconds,
-        bus_settings=[],
-        node_additions=[(synth_proxy, AddAction.ADD_TO_HEAD, server.default_group)],
-        node_removals=[],
-        node_reorderings=[],
-        node_settings=[],
+        requests=[
+            (
+                SynthNewRequest(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    amplitude=0.3,
+                    frequency=333.0,
+                    node_id=1000,
+                    synthdef=default,
+                    target_node_id=1,
+                ),
+                None,
+            )
+        ],
     )
     assert [entry.message.to_list() for entry in transcript] == [
         [
@@ -248,11 +275,19 @@ def test_RealtimeProvider_add_synth_2(server):
     assert provider_moment == ProviderMoment(
         provider=provider,
         seconds=seconds + 0.01,
-        bus_settings=[],
-        node_additions=[(synth_proxy, AddAction.ADD_TO_HEAD, group_proxy)],
-        node_removals=[],
-        node_reorderings=[],
-        node_settings=[],
+        requests=[
+            (
+                SynthNewRequest(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    amplitude=0.5,
+                    frequency=666.0,
+                    node_id=1001,
+                    synthdef=default,
+                    target_node_id=1000,
+                ),
+                None,
+            )
+        ],
     )
     assert [entry.message.to_list() for entry in transcript] == [
         [None, [["/g_new", 1000, 0, 1]]],
@@ -286,7 +321,7 @@ def test_RealtimeProvider_add_synth_3(server):
         identifier=1000,
         provider=provider,
         synthdef=default,
-        settings=dict(amplitude=control_bus_proxy, out=audio_bus_proxy),
+        settings=dict(amplitude="c0", out=16.0),
     )
     assert [entry.message.to_list() for entry in transcript] == [
         [None, [["/s_new", "default", 1000, 0, 1, "amplitude", "c0", "out", 16.0]]]
@@ -441,7 +476,7 @@ def test_RealtimeProvider_move_node_1(server):
     assert [entry.message.to_list() for entry in transcript] == [
         [
             seconds + provider.latency,
-            [["/g_new", 1000, 0, 1], ["/g_new", 1001, 0, 1], ["/g_tail", 1001, 1000]],
+            [["/g_new", 1000, 0, 1, 1001, 0, 1], ["/g_tail", 1001, 1000]],
         ]
     ]
     time.sleep(0.1)

@@ -49,7 +49,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         provider=provider,
                         identifier=1000,
                         synthdef=default,
-                        settings={"frequency": 440},
+                        settings={},
                     )
                 ),
                 call.at(4.0),
@@ -88,7 +88,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         provider=provider,
                         identifier=1003,
                         synthdef=default,
-                        settings={"frequency": 440},
+                        settings={},
                     ),
                     frequency=550,
                 ),
@@ -98,7 +98,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         provider=provider,
                         identifier=1003,
                         synthdef=default,
-                        settings={"frequency": 440},
+                        settings={},
                     ),
                     frequency=660,
                 ),
@@ -108,7 +108,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         provider=provider,
                         identifier=1003,
                         synthdef=default,
-                        settings={"frequency": 440},
+                        settings={},
                     )
                 ),
             ],
@@ -136,7 +136,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         provider=provider,
                         identifier=1000,
                         synthdef=default,
-                        settings={"frequency": 440},
+                        settings={},
                     )
                 ),
                 call.at(3.0),
@@ -191,7 +191,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         provider=provider,
                         identifier=1000,
                         synthdef=default,
-                        settings={"frequency": 440},
+                        settings={},
                     )
                 ),
                 call.free_node(
@@ -243,10 +243,10 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                     amplitude=1.0,
                     fade_time=0.25,
                     in_=BusGroupProxy(
-                        provider=provider,
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=1,
                         identifier=16,
+                        provider=provider,
                     ),
                 ),
                 call.add_synth(
@@ -255,10 +255,10 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                     target_node=GroupProxy(provider=provider, identifier=1001),
                     frequency=440,
                     out=BusGroupProxy(
-                        provider=provider,
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=1,
                         identifier=16,
+                        provider=provider,
                     ),
                 ),
                 call.at(2.0),
@@ -267,22 +267,14 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         provider=provider,
                         identifier=1003,
                         synthdef=default,
-                        settings={
-                            "frequency": 440,
-                            "out": BusGroupProxy(
-                                provider=provider,
-                                calculation_rate=CalculationRate.AUDIO,
-                                channel_count=1,
-                                identifier=16,
-                            ),
-                        },
+                        settings={"out": 16.0},
                     ),
                     frequency=550,
                     out=BusGroupProxy(
-                        provider=provider,
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=1,
                         identifier=16,
+                        provider=provider,
                     ),
                 ),
                 call.at(3.0),
@@ -291,15 +283,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         provider=provider,
                         identifier=1003,
                         synthdef=default,
-                        settings={
-                            "frequency": 440,
-                            "out": BusGroupProxy(
-                                provider=provider,
-                                calculation_rate=CalculationRate.AUDIO,
-                                channel_count=1,
-                                identifier=16,
-                            ),
-                        },
+                        settings={"out": 16.0},
                     )
                 ),
                 call.at(3.0),  # Can we coalesce these moments?
@@ -308,16 +292,7 @@ from supriya.providers import BusGroupProxy, GroupProxy, Provider, SynthProxy
                         provider=provider,
                         identifier=1002,
                         synthdef=system_link_audio_1,
-                        settings={
-                            "amplitude": 1.0,
-                            "fade_time": 0.25,
-                            "in_": BusGroupProxy(
-                                provider=provider,
-                                calculation_rate=CalculationRate.AUDIO,
-                                channel_count=1,
-                                identifier=16,
-                            ),
-                        },
+                        settings={"fade_time": 0.25, "in_": 16.0},
                     )
                 ),
                 call.at(3.5),
