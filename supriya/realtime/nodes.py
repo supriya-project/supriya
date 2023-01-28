@@ -15,7 +15,7 @@ from ..commands import (
     GroupNewRequest,
     NodeAfterRequest,
     NodeFreeRequest,
-    NodeInfoResponse,
+    NodeInfo,
     NodeRunRequest,
     ParallelGroupNewRequest,
     RequestBundle,
@@ -174,7 +174,7 @@ class Node(UniqueTreeNode):
         return "-".join(parts)
 
     def _handle_response(self, response):
-        if not isinstance(response, NodeInfoResponse):
+        if not isinstance(response, NodeInfo):
             return
         if response.action == NodeAction.NODE_REMOVED:
             self._set_parent(None)

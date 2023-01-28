@@ -54,7 +54,7 @@ from .movement import (
 )
 from .nodes import (
     NodeFreeRequest,
-    NodeInfoResponse,
+    NodeInfo,
     NodeMapToAudioBusRequest,
     NodeMapToControlBusRequest,
     NodeQueryRequest,
@@ -132,7 +132,7 @@ __all__ = [
     "NodeCommandRequest",
     "NodeFillRequest",
     "NodeFreeRequest",
-    "NodeInfoResponse",
+    "NodeInfo",
     "NodeMapToAudioBusRequest",
     "NodeMapToControlBusRequest",
     "NodeOrderRequest",

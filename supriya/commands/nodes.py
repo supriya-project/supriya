@@ -71,7 +71,7 @@ class NodeFreeRequest(Request):
         return ["/n_end", int(self.node_ids[-1])], None
 
 
-class NodeInfoResponse(Response):
+class NodeInfo(Response):
 
     ### INITIALIZER ###
 
