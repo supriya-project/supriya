@@ -1229,6 +1229,7 @@ class Session:
     def add_buffer(
         self,
         channel_count: Optional[int] = None,
+        channel_indices: Optional[List[int]] = None,
         duration: Optional[float] = None,
         frame_count: Optional[int] = None,
         starting_frame: Optional[int] = None,
@@ -1241,6 +1242,7 @@ class Session:
         buffer_ = Buffer(
             self,
             channel_count=channel_count,
+            channel_indices=channel_indices,
             duration=duration,
             file_path=file_path,
             frame_count=frame_count,

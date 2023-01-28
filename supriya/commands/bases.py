@@ -4,10 +4,10 @@ import logging
 import threading
 import time
 from collections import deque
+from typing import List, Optional, Sequence, Union
 
 from uqbar.objects import new
 
-from ..exceptions import ServerOffline
 from ..osc import BUNDLE_PREFIX, OscBundle
 from ..system import SupriyaValueObject
 
@@ -50,12 +50,12 @@ class Requestable(SupriyaValueObject):
     ### PUBLIC METHODS ###
 
     def communicate(self, server, sync=True, timeout=1.0, apply_local=True):
-        from ..realtime.servers import BaseServer
+        # from ..realtime.servers import BaseServer
 
-        if not isinstance(server, BaseServer):
-            raise ValueError(server)
-        if not server.is_running:
-            raise ServerOffline
+        # if not isinstance(server, BaseServer):
+        #    raise ValueError(server)
+        # if not server.is_running:
+        #    raise ServerOffline
         if apply_local:
             with server._lock:
                 for request in self._linearize():
@@ -72,7 +72,7 @@ class Requestable(SupriyaValueObject):
         timed_out = False
         with self.condition:
             try:
-                server.osc_protocol.register(
+                server._osc_protocol.register(
                     pattern=success_pattern,
                     failure_pattern=failure_pattern,
                     procedure=self._set_response,
@@ -104,7 +104,7 @@ class Requestable(SupriyaValueObject):
             return
         loop = asyncio.get_running_loop()
         self._response_future = loop.create_future()
-        server.osc_protocol.register(
+        server._osc_protocol.register(
             pattern=success_pattern,
             failure_pattern=failure_pattern,
             procedure=self._set_response_async,
@@ -119,6 +119,10 @@ class Requestable(SupriyaValueObject):
 
     def to_list(self, *, with_placeholders=False):
         return self.to_osc(with_placeholders=with_placeholders).to_list()
+
+    @abc.abstractmethod
+    def to_osc(self, *, with_placeholders=False):
+        raise NotImplementedError
 
     ### PUBLIC PROPERTIES ###
 
@@ -157,9 +161,9 @@ class Request(Requestable):
 
     ### PUBLIC METHODS ###
 
-    @abc.abstractmethod
-    def to_osc(self, *, with_placeholders=False):
-        raise NotImplementedError
+    @classmethod
+    def merge(cls, requests: List["Request"]) -> List["Request"]:
+        return requests
 
     ### PUBLIC PROPERTIES ###
 
@@ -218,7 +222,11 @@ class RequestBundle(Requestable):
 
     ### INITIALIZER ###
 
-    def __init__(self, timestamp=None, contents=None):
+    def __init__(
+        self,
+        timestamp: Optional[float] = None,
+        contents: Optional[Sequence[Union[Request, "RequestBundle"]]] = None,
+    ) -> None:
         self._condition = threading.Condition()
         self._timestamp = timestamp
         if contents is not None:
