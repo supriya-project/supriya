@@ -1,8 +1,11 @@
+import asyncio
+
 import pytest
 import pytest_asyncio
 
 import supriya
 from supriya import scsynth
+from supriya.contexts.realtime import RealtimeContext
 from supriya.realtime.servers import AsyncServer, Server
 
 
@@ -34,3 +37,16 @@ async def shutdown_async_servers(shutdown_scsynth, event_loop):
     yield
     for server in tuple(AsyncServer._servers):
         await server._shutdown()
+
+
+@pytest_asyncio.fixture(autouse=True)
+async def shutdown_realtime_contexts(shutdown_scsynth, event_loop):
+    for context in tuple(RealtimeContext._contexts):
+        result = context._shutdown()
+        if asyncio.iscoroutine(result):
+            await result
+    yield
+    for context in tuple(RealtimeContext._contexts):
+        result = context._shutdown()
+        if asyncio.iscoroutine(result):
+            await result
