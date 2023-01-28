@@ -16,7 +16,7 @@ from ..commands import (
     BufferGenerateRequest,
     BufferGetContiguousRequest,
     BufferGetRequest,
-    BufferInfoResponse,
+    BufferInfo,
     BufferNormalizeRequest,
     BufferQueryRequest,
     BufferReadChannelRequest,
@@ -314,7 +314,7 @@ class Buffer(ServerObject):
             >>> server = supriya.Server().boot()
             >>> buffer_one = supriya.realtime.Buffer().allocate(server)
             >>> buffer_one.query()
-            BufferInfoResponse(
+            BufferInfo(
                 items=(
                     Item(buffer_id=0, frame_count=1, channel_count=1, sample_rate=4...00.0),
                 ),
@@ -327,7 +327,7 @@ class Buffer(ServerObject):
             ...     frame_count=16,
             ... )
             >>> buffer_two.query()
-            BufferInfoResponse(
+            BufferInfo(
                 items=(
                     Item(buffer_id=1, frame_count=16, channel_count=1, sample_rate=4...00.0),
                 ),
@@ -341,7 +341,7 @@ class Buffer(ServerObject):
             ...     frame_count=32,
             ... )
             >>> buffer_three.query()
-            BufferInfoResponse(
+            BufferInfo(
                 items=(
                     Item(buffer_id=2, frame_count=32, channel_count=2, sample_rate=4...00.0),
                 ),
@@ -404,7 +404,7 @@ class Buffer(ServerObject):
             ...     supriya.system.Assets["audio/pulse_44100sr_16bit_octo.wav"],
             ... )
             >>> buffer_one.query()
-            BufferInfoResponse(
+            BufferInfo(
                 items=(
                     Item(buffer_id=0, frame_count=8, channel_count=8, sample_rate=4...00.0),
                 ),
@@ -421,7 +421,7 @@ class Buffer(ServerObject):
             ...     sync=True,
             ... )
             >>> buffer_two.query()
-            BufferInfoResponse(
+            BufferInfo(
                 items=(
                     Item(buffer_id=1, frame_count=4, channel_count=2, sample_rate=4...00.0),
                 ),
@@ -940,7 +940,7 @@ class Buffer(ServerObject):
             ...     server, channel_count=2, frame_count=16
             ... )
             >>> buffer_.query()
-            BufferInfoResponse(
+            BufferInfo(
                 items=(
                     Item(buffer_id=0, frame_count=16, channel_count=2, sample_rate=4...00.0),
                 ),
@@ -1963,7 +1963,7 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> response_item = supriya.commands.BufferInfoResponse.Item(
+            >>> response_item = supriya.commands.BufferInfo.Item(
             ...     buffer_id=23,
             ...     channel_count=2,
             ...     frame_count=512,
@@ -1984,7 +1984,7 @@ class BufferProxy(SupriyaValueObject):
 
         Returns none.
         """
-        if isinstance(response, BufferInfoResponse.Item):
+        if isinstance(response, BufferInfo.Item):
             assert response.buffer_id == self.buffer_id
             self._channel_count = response.channel_count
             self._frame_count = response.frame_count

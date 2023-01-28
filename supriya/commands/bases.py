@@ -316,7 +316,7 @@ class Response(SupriyaValueObject):
         import supriya.commands
 
         return {
-            "/b_info": supriya.commands.BufferInfoResponse,
+            "/b_info": supriya.commands.BufferInfo,
             "/b_set": supriya.commands.BufferSetResponse,
             "/b_setn": supriya.commands.BufferSetContiguousResponse,
             "/c_set": supriya.commands.ControlBusSetResponse,
