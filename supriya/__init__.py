@@ -77,6 +77,7 @@ from .realtime import (  # noqa
     Server,
 )
 from . import assets  # noqa
+from .assets.synthdefs import default  # noqa
 from .nonrealtime import Session  # noqa
 from .providers import Provider  # noqa
 from .scsynth import Options  # noqa
