@@ -1,13 +1,22 @@
+import asyncio
+import atexit
+import enum
+import logging
 import os
 import platform
 import signal
 import subprocess
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Tuple
 
 import uqbar.io
 import uqbar.objects
+
+from .exceptions import ServerCannotBoot
+
+logger = logging.getLogger(__name__)
 
 DEFAULT_IP_ADDRESS = "127.0.0.1"
 DEFAULT_PORT = 57110
@@ -229,15 +238,157 @@ def find(scsynth_path=None):
     raise RuntimeError("Failed to locate executable")
 
 
-def kill(supernova=False):
-    executable = "supernova" if supernova else "scsynth"
+def kill():
     with subprocess.Popen(
         ["ps", "-Af"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT
     ) as process:
         output = process.stdout.read()
     for line in output.decode().splitlines():
         parts = line.split()
-        if not any(part == executable for part in parts):
+        if not any(part in ["supernova", "scsynth"] for part in parts):
             continue
         pid = int(parts[1])
         os.kill(pid, signal.SIGKILL)
+
+
+class LineStatus(enum.IntEnum):
+    CONTINUE = 0
+    READY = 1
+    ERROR = 2
+
+
+class ProcessProtocol:
+    def __init__(self):
+        self.is_running = False
+        atexit.register(self.quit)
+
+    def boot(self, options: Options):
+        raise NotImplementedError
+
+    def quit(self):
+        raise NotImplementedError
+
+    def _handle_line(self, line):
+        logger.info(f"Received: {line}")
+        if line.startswith(("SuperCollider 3 server ready", "Supernova ready")):
+            return LineStatus.READY
+        elif line.startswith(("Exception", "ERROR", "*** ERROR")):
+            return LineStatus.ERROR
+        return LineStatus.CONTINUE
+
+
+class SyncProcessProtocol(ProcessProtocol):
+
+    ### PUBLIC METHODS ###
+
+    def boot(self, options: Options):
+        if self.is_running:
+            return
+        try:
+            logger.info("Boot: {}".format(*options))
+            self.process = subprocess.Popen(
+                list(options),
+                stderr=subprocess.STDOUT,
+                stdout=subprocess.PIPE,
+                start_new_session=True,
+            )
+            start_time = time.time()
+            timeout = 10
+            while True:
+                line = self.process.stdout.readline().decode().rstrip()  # type: ignore
+                if not line:
+                    continue
+                line_status = self._handle_line(line)
+                if line_status == LineStatus.READY:
+                    break
+                elif line_status == LineStatus.ERROR:
+                    raise ServerCannotBoot(line)
+                elif (time.time() - start_time) > timeout:
+                    raise ServerCannotBoot(line)
+            self.is_running = True
+        except ServerCannotBoot:
+            self.process.terminate()
+            self.process.wait()
+            raise
+
+    def quit(self):
+        if not self.is_running:
+            return
+        self.process.terminate()
+        self.process.wait()
+        self.is_running = False
+
+
+class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
+
+    ### INITIALIZER ###
+
+    def __init__(self):
+        ProcessProtocol.__init__(self)
+        asyncio.SubprocessProtocol.__init__(self)
+        self.boot_future = asyncio.Future()
+        self.exit_future = asyncio.Future()
+
+    ### PUBLIC METHODS ###
+
+    async def boot(self, options: Options):
+        logger.info("Booting ...")
+        if self.is_running:
+            logger.info("... already booted!")
+            return
+        self.is_running = False
+        loop = asyncio.get_running_loop()
+        self.boot_future = loop.create_future()
+        self.exit_future = loop.create_future()
+        self.buffer_ = ""
+        _, _ = await loop.subprocess_exec(
+            lambda: self, *options, stdin=None, stderr=None, start_new_session=True
+        )
+        await self.boot_future
+
+    def connection_made(self, transport):
+        logger.info("Connection made!")
+        self.is_running = True
+        self.transport = transport
+
+    def pipe_connection_lost(self, fd, exc):
+        logger.info("Pipe connection lost!")
+
+    def pipe_data_received(self, fd, data):
+        # *nix and OSX return full lines,
+        # but Windows will return partial lines
+        # which obligates us to reconstruct them.
+        text = self.buffer_ + data.decode().replace("\r\n", "\n")
+        if "\n" in text:
+            text, _, self.buffer_ = text.rpartition("\n")
+            for line in text.splitlines():
+                line_status = self._handle_line(line)
+                if line_status == LineStatus.READY:
+                    self.boot_future.set_result(True)
+                    logger.info("... booted!")
+                elif line_status == LineStatus.ERROR:
+                    if not self.boot_future.done():
+                        self.boot_future.set_result(False)
+                    logger.info("... failed to boot!")
+        else:
+            self.buffer_ = text
+
+    def process_exited(self):
+        self.is_running = False
+        self.exit_future.set_result(None)
+        if not self.boot_future.done():
+            self.boot_future.set_result(False)
+        logger.info(f"Process exited with {self.transport.get_returncode()}.")
+
+    def quit(self):
+        logger.info("Quitting ...")
+        if not self.is_running:
+            logger.info("... already quit!")
+            return
+        if not self.boot_future.done():
+            self.boot_future.set_result(False)
+        if not self.exit_future.done():
+            self.exit_future.set_result
+        self.transport.close()
+        self.is_running = False
+        logger.info("... quit!")
