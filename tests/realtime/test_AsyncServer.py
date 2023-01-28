@@ -4,8 +4,8 @@ import sys
 
 import pytest
 
-import supriya
 from supriya import exceptions
+from supriya.osc import find_free_port
 from supriya.realtime import AsyncServer
 from supriya.realtime.servers import DEFAULT_HEALTHCHECK
 from supriya.scsynth import Options
@@ -221,7 +221,7 @@ async def test_boot_a_and_connect_b_and_force_quit_b(executable):
 @pytest.mark.parametrize("maximum_node_count", [1204, 8192])
 async def test_boot_reboot_sticky_options(executable, maximum_node_count):
     server = AsyncServer()
-    port = supriya.osc.utils.find_free_port()
+    port = find_free_port()
     options = Options(
         executable=executable, maximum_node_count=maximum_node_count, port=port
     )

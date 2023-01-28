@@ -7,9 +7,9 @@ from collections import deque
 
 from uqbar.objects import new
 
-from supriya.exceptions import ServerOffline
-from supriya.osc.messages import BUNDLE_PREFIX, OscBundle
-from supriya.system import SupriyaValueObject
+from ..exceptions import ServerOffline
+from ..osc import BUNDLE_PREFIX, OscBundle
+from ..system import SupriyaValueObject
 
 logger = logging.getLogger("supriya.osc")
 

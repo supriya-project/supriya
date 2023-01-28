@@ -29,7 +29,7 @@ from ..exceptions import (
     TooManyClients,
     UnownedServerShutdown,
 )
-from ..osc.protocols import (
+from ..osc import (
     AsyncOscProtocol,
     HealthCheck,
     OscProtocol,
