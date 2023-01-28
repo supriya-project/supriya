@@ -274,7 +274,9 @@ class NodeAction(IntEnumeration):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def from_address(cls, address):
+    def from_expr(cls, address):
+        if isinstance(address, cls):
+            return address
         addresses = {
             "/n_end": cls.NODE_REMOVED,
             "/n_go": cls.NODE_CREATED,

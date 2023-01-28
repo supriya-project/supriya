@@ -88,7 +88,7 @@ class NodeInfo(Response):
         synthdef_name=None,
         synthdef_controls=None,
     ):
-        self._action = NodeAction.from_address(action)
+        self._action = NodeAction.from_expr(action)
         self._is_group = bool(is_group)
         self._head_node_id = self._coerce_node_id(head_node_id)
         self._next_node_id = self._coerce_node_id(next_node_id)
