@@ -262,6 +262,9 @@ class NodeIdAllocator(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
+    def allocate(self, count: int = 1) -> int:
+        return self.allocate_node_id(count)
+
     def allocate_node_id(self, count: int = 1) -> int:
         with self._lock:
             x = self._temp
@@ -282,6 +285,10 @@ class NodeIdAllocator(SupriyaObject):
                 self._next_permanent_id = min(x + 1, self._initial_node_id - 1)
             x = x | self._mask
             return x
+
+    def free(self, node_id: int) -> None:
+        if node_id < self._initial_node_id:
+            self.free_permanent_node_id(node_id)
 
     def free_permanent_node_id(self, node_id: int) -> None:
         with self._lock:
