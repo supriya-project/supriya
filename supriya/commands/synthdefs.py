@@ -1,9 +1,13 @@
 import pathlib
+from typing import TYPE_CHECKING, Union
 
 import supriya.osc
 from supriya.enums import RequestId
 
 from .bases import Request, RequestBundle, Response
+
+if TYPE_CHECKING:
+    from supriya.synthdefs import SynthDef
 
 
 class SynthDefFreeAllRequest(Request):
@@ -16,12 +20,11 @@ class SynthDefFreeAllRequest(Request):
 
     def __init__(self):
         Request.__init__(self)
-        raise NotImplementedError
 
     ### PUBLIC METHODS ###
 
     def to_osc(self, *, with_placeholders=False):
-        raise NotImplementedError
+        return supriya.osc.OscMessage("/d_freeAll")
 
 
 class SynthDefFreeRequest(Request):
@@ -31,12 +34,10 @@ class SynthDefFreeRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> request = supriya.commands.SynthDefFreeRequest(
-        ...     synthdef="test",
-        ... )
+        >>> request = supriya.commands.SynthDefFreeRequest("test")
         >>> request
         SynthDefFreeRequest(
-            synthdef='test',
+            'test',
         )
 
     ::
@@ -52,31 +53,30 @@ class SynthDefFreeRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(self, synthdef=None):
-        from ..synthdefs import SynthDef
-
+    def __init__(self, *synthdefs: Union["SynthDef", str]):
         Request.__init__(self)
-        prototype = (str, SynthDef)
-        assert isinstance(synthdef, prototype)
-        self._synthdef = synthdef
+        self._synthdefs = synthdefs
 
     ### PUBLIC METHODS ###
 
     def to_osc(self, *, with_placeholders=False):
         from ..synthdefs import SynthDef
 
-        request_id = self.request_name
-        synthdef = self.synthdef
-        if isinstance(synthdef, SynthDef):
-            synthdef = synthdef.actual_name
-        message = supriya.osc.OscMessage(request_id, synthdef)
-        return message
+        return supriya.osc.OscMessage(
+            self.request_name,
+            *(
+                synthdef.actual_name
+                if isinstance(synthdef, SynthDef)
+                else str(synthdef)
+                for synthdef in self.synthdefs
+            ),
+        )
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def synthdef(self):
-        return self._synthdef
+    def synthdefs(self):
+        return self._synthdefs
 
 
 class SynthDefLoadDirectoryRequest(Request):
@@ -90,18 +90,18 @@ class SynthDefLoadDirectoryRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(self, callback=None, directory_path=None):
+    def __init__(self, callback=None, path=None):
         Request.__init__(self)
         if callback is not None:
             assert isinstance(callback, (Request, RequestBundle))
         self._callback = callback
-        self._directory_path = pathlib.Path(directory_path).absolute()
+        self._path = pathlib.Path(path).absolute()
 
     ### PUBLIC METHODS ###
 
     def to_osc(self, *, with_placeholders=False):
         request_id = self.request_name
-        contents = [request_id, str(self.directory_path)]
+        contents = [request_id, str(self.path)]
         if self.callback:
             contents.append(self.callback.to_osc(with_placeholders=with_placeholders))
         message = supriya.osc.OscMessage(*contents)
@@ -118,8 +118,8 @@ class SynthDefLoadDirectoryRequest(Request):
         return ["/done", "/d_loadDir"], None
 
     @property
-    def directory_path(self):
-        return self._directory_path
+    def path(self):
+        return self._path
 
 
 class SynthDefLoadRequest(Request):
@@ -133,18 +133,18 @@ class SynthDefLoadRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(self, callback=None, synthdef_path=None):
+    def __init__(self, callback=None, path=None):
         Request.__init__(self)
         if callback is not None:
             assert isinstance(callback, (Request, RequestBundle))
         self._callback = callback
-        self._synthdef_path = pathlib.Path(synthdef_path).absolute()
+        self._path = pathlib.Path(path).absolute()
 
     ### PUBLIC METHODS ###
 
     def to_osc(self, *, with_placeholders=False):
         request_id = self.request_name
-        contents = [request_id, str(self.synthdef_path)]
+        contents = [request_id, str(self.path)]
         if self.callback:
             contents.append(self.callback.to_osc(with_placeholders=with_placeholders))
         message = supriya.osc.OscMessage(*contents)
@@ -161,8 +161,8 @@ class SynthDefLoadRequest(Request):
         return ["/done", "/d_load"], None
 
     @property
-    def synthdef_path(self):
-        return self._synthdef_path
+    def path(self):
+        return self._path
 
 
 class SynthDefReceiveRequest(Request):
@@ -237,7 +237,7 @@ class SynthDefReceiveRequest(Request):
         >>> for entry in transcript:
         ...     (entry.label, entry.message)
         ...
-        ('S', OscMessage('/d_recv', bytearray(b'SCgf...example...'), OscBundle(
+        ('S', OscMessage('/d_recv', b'SCgf...example...', OscBundle(
             contents=(
                 OscMessage('/g_new', 1000, 0, 1),
                 OscMessage('/s_new', 'example', 1001, 0, 1000),
@@ -313,7 +313,6 @@ class SynthDefReceiveRequest(Request):
         compiled_synthdefs = SynthDefCompiler.compile_synthdefs(
             self.synthdefs, use_anonymous_names=self.use_anonymous_names
         )
-        compiled_synthdefs = bytearray(compiled_synthdefs)
         contents = [request_id, compiled_synthdefs]
         if self.callback:
             contents.append(self.callback.to_osc(with_placeholders=with_placeholders))

@@ -25,6 +25,7 @@ class Buffer(SessionObject):
     __slots__ = (
         "_buffer_group",
         "_channel_count",
+        "_channel_indices",
         "_duration",
         "_events",
         "_frame_count",
@@ -43,6 +44,7 @@ class Buffer(SessionObject):
         session_id,
         buffer_group=None,
         channel_count=None,
+        channel_indices=None,
         frame_count=1,
         duration=None,
         start_offset=None,
@@ -65,6 +67,7 @@ class Buffer(SessionObject):
         else:
             channel_count = int(channel_count or 1)
             frame_count = int(frame_count or 1)
+        self._channel_indices = channel_indices
         self._frame_count = frame_count
         self._channel_count = channel_count
         self._starting_frame = starting_frame

@@ -1,6 +1,6 @@
 import collections
 from collections.abc import Sequence
-from typing import NamedTuple
+from typing import Dict, List, NamedTuple, Tuple
 
 import supriya.osc
 from supriya import HeaderFormat, SampleFormat, utils
@@ -301,16 +301,22 @@ class BufferCloseRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(self, buffer_id=None):
+    def __init__(self, buffer_id=None, callback=None):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
+        if callback is not None:
+            assert isinstance(callback, (Request, RequestBundle))
+        self._callback = callback
 
     ### PUBLIC METHODS ###
 
     def to_osc(self, *, with_placeholders=False):
         request_id = self.request_name
         buffer_id = int(self.buffer_id)
-        message = supriya.osc.OscMessage(request_id, buffer_id)
+        contents = [request_id, buffer_id]
+        if self.callback:
+            contents.append(self.callback.to_osc())
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###
@@ -318,6 +324,10 @@ class BufferCloseRequest(Request):
     @property
     def buffer_id(self):
         return self._buffer_id
+
+    @property
+    def callback(self):
+        return self._callback
 
     @property
     def response_patterns(self):
@@ -477,6 +487,19 @@ class BufferFillRequest(Request):
         self._index_count_value_triples = triples
 
     ### PUBLIC METHODS ###
+
+    @classmethod
+    def merge(cls, requests: List["Request"]) -> List["Request"]:
+        triples_by_buffer_id: Dict[int, List[Tuple[int, int, float]]] = {}
+        for request in requests:
+            if isinstance(request, cls):
+                triples_by_buffer_id.setdefault(request.buffer_id, []).extend(
+                    request.index_count_value_triples
+                )
+        return [
+            cls(buffer_id, triples)
+            for buffer_id, triples in sorted(triples_by_buffer_id.items())
+        ]
 
     def to_osc(self, *, with_placeholders=False):
         request_id = self.request_name

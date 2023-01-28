@@ -1,5 +1,5 @@
 from collections.abc import Sequence
-from typing import NamedTuple, Tuple
+from typing import List, NamedTuple, Tuple
 
 import supriya.osc
 from supriya.enums import RequestId
@@ -57,6 +57,14 @@ class ControlBusFillRequest(Request):
         self._index_count_value_triples = index_count_value_triples
 
     ### PUBLIC METHODS ###
+
+    @classmethod
+    def merge(cls, requests: List["Request"]) -> List["Request"]:
+        items: List[Tuple[int, int, float]] = []
+        for request in requests:
+            if isinstance(request, cls):
+                items.extend(request.index_count_value_triples)
+        return [cls(items)]
 
     def to_osc(self, *, with_placeholders=False):
         request_id = self.request_name
@@ -466,6 +474,14 @@ class ControlBusSetRequest(Request):
             bus_proxy._value = value
 
     ### PUBLIC METHODS ###
+
+    @classmethod
+    def merge(cls, requests: List["Request"]) -> List["Request"]:
+        merged_pairs: List[Tuple[int, float]] = []
+        for request in requests:
+            if isinstance(request, cls):
+                merged_pairs.extend(request.index_value_pairs)
+        return [cls(merged_pairs)]
 
     def to_osc(self, *, with_placeholders=False):
         request_id = self.request_name

@@ -590,7 +590,7 @@ class SynthDef:
         assert self in server
         synthdef_name = self.actual_name
         del server._synthdefs[synthdef_name]
-        request = SynthDefFreeRequest(synthdef=self)
+        request = SynthDefFreeRequest(self)
         if server.is_running:
             request.communicate(server=server)
 

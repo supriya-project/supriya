@@ -1,5 +1,6 @@
 import typing
 from collections.abc import Sequence
+from typing import List
 
 import supriya.osc
 from supriya.enums import RequestId
@@ -353,6 +354,14 @@ class GroupNewRequest(Request):
             target_node._move_node(add_action=item.add_action, node=group)
 
     ### PUBLIC METHODS ###
+
+    @classmethod
+    def merge(cls, requests: List["Request"]) -> List["Request"]:
+        items: List[GroupNewRequest.Item] = []
+        for request in requests:
+            if isinstance(request, cls):
+                items.extend(request.items)
+        return [cls(items=items)]
 
     def to_osc(self, *, with_placeholders=False):
         request_id = self.request_name

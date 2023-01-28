@@ -1,9 +1,10 @@
 from collections.abc import Sequence
-from typing import NamedTuple, Tuple, Union
+from typing import List, NamedTuple, SupportsInt, Tuple, Union
 
 import supriya.osc
-from supriya.enums import NodeAction, RequestId
 
+from ..enums import AddAction, NodeAction, RequestId
+from ..typing import AddActionLike
 from .bases import Request, Response
 
 
@@ -304,6 +305,31 @@ class NodeMapToControlBusRequest(Request):
         return self._node_id
 
 
+class NodeOrderRequest(Request):
+
+    request_id = RequestId.NODE_ORDER
+
+    def __init__(
+        self,
+        add_action: AddActionLike,
+        target_node_id: SupportsInt,
+        *node_ids: SupportsInt,
+    ):
+        if not node_ids:
+            raise ValueError
+        self.add_action = AddAction.from_expr(add_action)
+        self.target_node_id = target_node_id
+        self.node_ids = node_ids
+
+    def to_osc(self, *, with_placeholders=False):
+        return supriya.osc.OscMessage(
+            self.request_name,
+            int(self.add_action),
+            int(self.target_node_id),
+            *(int(node_id) for node_id in self.node_ids),
+        )
+
+
 class NodeQueryRequest(Request):
     """
     A /n_query request.
@@ -352,7 +378,24 @@ class NodeQueryRequest(Request):
 
     @property
     def response_patterns(self):
-        return ["/n_info", self.node_id], ["/fail"]
+        return ["/n_info", int(self.node_id)], ["/fail"]
+
+
+class NodeReleaseRequest(Request):
+    """
+    A synthetic request.
+    """
+
+    request_id = RequestId.NODE_FREE
+
+    def __init__(self, node_id: int, has_gate: bool):
+        self.node_id = node_id
+        self.has_gate = has_gate
+
+    def to_osc(self, *, with_placeholders=False):
+        if self.has_gate:
+            return NodeSetRequest(node_id=self.node_id, gate=0).to_osc()
+        return NodeFreeRequest(node_ids=[self.node_id]).to_osc()
 
 
 class NodeRunRequest(Request):
@@ -462,6 +505,14 @@ class NodeRunRequest(Request):
             node._run(run_flag)
 
     ### PUBLIC METHODS ###
+
+    @classmethod
+    def merge(cls, requests: List["Request"]) -> List["Request"]:
+        pairs: List[Tuple[int, int]] = []
+        for request in requests:
+            if isinstance(request, cls):
+                pairs.extend(request.node_id_run_flag_pairs)
+        return [cls(pairs)]
 
     def to_osc(self, *, with_placeholders=False):
         request_id = self.request_name
