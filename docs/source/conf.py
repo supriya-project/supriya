@@ -65,9 +65,7 @@ uqbar_api_title = "Supriya API Reference"
 
 ### UQBAR BOOK ###
 
-uqbar_book_console_setup = [
-    "import supriya"
-]
+uqbar_book_console_setup = ["import supriya"]
 uqbar_book_console_teardown = [
     "for server in tuple(supriya.Server._servers):",
     "    server._shutdown()",
@@ -86,7 +84,7 @@ uqbar_book_use_cache = False
 ### THEME ###
 
 html_css_files = [
-    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
 ]
 html_domain_indices = True
 html_favicon = "favicon.ico"
@@ -95,18 +93,16 @@ html_logo = "icon.svg"
 html_static_path = ["_static"]
 html_theme = "sphinx_immaterial"
 html_theme_options = {
-    "icon": {
-        "repo": "fontawesome/brands/github",
-    },
+    "icon": {"repo": "fontawesome/brands/github"},
     "site_url": "https://josiahwolfoberholtzer.com/supriya/",
     "repo_url": "https://github.com/josiah-wolf-oberholtzer/supriya/",
     "repo_name": "supriya",
     "repo_type": "github",
     "edit_uri": "blob/main/docs",
-    "globaltoc_collapse": True,
+    "globaltoc_collapse": False,
     "features": [
         # "header.autohide",
-        "navigation.expand",
+        # "navigation.expand",
         # "navigation.instant",
         # "navigation.sections",
         "navigation.tabs",
@@ -141,3 +137,8 @@ html_theme_options = {
 }
 html_title = "Supriya"
 html_use_index = True
+object_description_options = [
+    ("py:.*", dict(include_fields_in_toc=False)),  # Hide "Parameters" in TOC
+    ("py:parameter", dict(include_in_toc=False)),  # Hide "p" parameter entries in TOC
+    ("py:exception", {"toc_icon_class": "data", "toc_icon_text": "X"}),
+]

@@ -9,7 +9,7 @@ import subprocess
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import uqbar.io
 import uqbar.objects
@@ -47,7 +47,7 @@ class Options:
     input_device: Optional[str] = None
     input_stream_mask: str = ""
     ip_address: str = DEFAULT_IP_ADDRESS
-    load_synthdefs: bool = False
+    load_synthdefs: bool = True
     maximum_logins: int = 1
     maximum_node_count: int = 1024
     maximum_synthdef_count: int = 1024
@@ -121,63 +121,66 @@ class Options:
 
     def serialize(self) -> List[str]:
         result = [str(find(self.executable))]
+        pairs: Dict[str, Optional[str]] = {}
         if self.realtime:
             if self.protocol == "tcp":
-                result.extend(["-t", str(self.port)])
+                pairs["-t"] = str(self.port)
             else:
-                result.extend(["-u", str(self.port)])
+                pairs["-u"] = str(self.port)
             if self.input_device:
-                result.extend(["-H", str(self.input_device)])
+                pairs["-H"] = str(self.input_device)
                 if self.output_device != self.input_device:
                     result.append(str(self.output_device))
             if self.maximum_logins != 64:
-                result.extend(["-l", str(self.maximum_logins)])
+                pairs["-l"] = str(self.maximum_logins)
             if self.password:
-                result.extend(["-p", str(self.password)])
+                pairs["-p"] = str(self.password)
             if self.sample_rate is not None:
-                result.extend(["-S", str(self.sample_rate)])
+                pairs["-S"] = str(self.sample_rate)
             if not self.zero_configuration:
-                result.extend(["-R", "0"])
+                pairs["-R"] = "0"
         if self.audio_bus_channel_count != 1024:
-            result.extend(["-a", str(self.audio_bus_channel_count)])
+            pairs["-a"] = str(self.audio_bus_channel_count)
         if self.control_bus_channel_count != 16384:
-            result.extend(["-c", str(self.control_bus_channel_count)])
+            pairs["-c"] = str(self.control_bus_channel_count)
         if self.input_bus_channel_count != 8:
-            result.extend(["-i", str(self.input_bus_channel_count)])
+            pairs["-i"] = str(self.input_bus_channel_count)
         if self.output_bus_channel_count != 8:
-            result.extend(["-o", str(self.output_bus_channel_count)])
+            pairs["-o"] = str(self.output_bus_channel_count)
         if self.buffer_count != 1024:
-            result.extend(["-b", str(self.buffer_count)])
+            pairs["-b"] = str(self.buffer_count)
         if self.maximum_node_count != 1024:
-            result.extend(["-n", str(self.maximum_node_count)])
+            pairs["-n"] = str(self.maximum_node_count)
         if self.maximum_synthdef_count != 1024:
-            result.extend(["-d", str(self.maximum_synthdef_count)])
+            pairs["-d"] = str(self.maximum_synthdef_count)
         if self.block_size != 64:
-            result.extend(["-z", str(self.block_size)])
+            pairs["-z"] = str(self.block_size)
         if self.hardware_buffer_size is not None:
-            result.extend(["-Z", str(self.hardware_buffer_size)])
+            pairs["-Z"] = str(self.hardware_buffer_size)
         if self.memory_size != 8192:
-            result.extend(["-m", str(self.memory_size)])
+            pairs["-m"] = str(self.memory_size)
         if self.random_number_generator_count != 64:
-            result.extend(["-r", str(self.random_number_generator_count)])
+            pairs["-r"] = str(self.random_number_generator_count)
         if self.wire_buffer_count != 64:
-            result.extend(["-w", str(self.wire_buffer_count)])
+            pairs["-w"] = str(self.wire_buffer_count)
         if not self.load_synthdefs:
-            result.extend(["-D", "0"])
+            pairs["-D"] = "0"
         if self.input_stream_mask:
-            result.extend(["-I", str(self.input_stream_mask)])
+            pairs["-I"] = str(self.input_stream_mask)
         if self.output_stream_mask:
-            result.extend(["-O", str(self.output_stream_mask)])
+            pairs["-O"] = str(self.output_stream_mask)
         if 0 < self.verbosity:
-            result.extend(["-v", str(self.verbosity)])
+            pairs["-v"] = str(self.verbosity)
         if self.restricted_path is not None:
-            result.extend(["-P", str(self.restricted_path)])
+            pairs["-P"] = str(self.restricted_path)
         if self.memory_locking:
-            result.append("-L")
+            pairs["-L"] = None
         if self.ugen_plugins_path:
-            result.extend(["-U", str(self.ugen_plugins_path)])
+            pairs["-U"] = str(self.ugen_plugins_path)
         if self.threads and find(self.executable).stem == "supernova":
-            result.extend(["-t", str(self.threads)])
+            pairs["-t"] = str(self.threads)
+        for key, value in sorted(pairs.items()):
+            result.extend([key, value] if value is not None else [key])
         return result
 
     ### PUBLIC PROPERTIES ###
@@ -327,6 +330,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         asyncio.SubprocessProtocol.__init__(self)
         self.boot_future = asyncio.Future()
         self.exit_future = asyncio.Future()
+        self.error_text = ""
 
     ### PUBLIC METHODS ###
 
@@ -339,11 +343,13 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         loop = asyncio.get_running_loop()
         self.boot_future = loop.create_future()
         self.exit_future = loop.create_future()
+        self.error_text = ""
         self.buffer_ = ""
         _, _ = await loop.subprocess_exec(
             lambda: self, *options, stdin=None, stderr=None, start_new_session=True
         )
-        await self.boot_future
+        if not (await self.boot_future):
+            raise ServerCannotBoot(self.error_text)
 
     def connection_made(self, transport):
         logger.info("Connection made!")
@@ -368,6 +374,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
                 elif line_status == LineStatus.ERROR:
                     if not self.boot_future.done():
                         self.boot_future.set_result(False)
+                        self.error_text = line
                     logger.info("... failed to boot!")
         else:
             self.buffer_ = text
@@ -391,3 +398,44 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         self.transport.close()
         self.is_running = False
         logger.info("... quit!")
+
+
+class AsyncNonrealtimeProcessProtocol(asyncio.SubprocessProtocol):
+    def __init__(self, exit_future: asyncio.Future) -> None:
+        self.buffer_ = ""
+        self.exit_future = exit_future
+
+    async def run(self, command: List[str], render_directory_path: Path) -> None:
+        logger.info(f"Running: {' '.join(command)}")
+        _, _ = await asyncio.get_running_loop().subprocess_exec(
+            lambda: self,
+            *command,
+            stdin=None,
+            stderr=None,
+            start_new_session=True,
+            cwd=render_directory_path,
+        )
+
+    def handle_line(self, line: str) -> None:
+        logger.debug(f"Received: {line}")
+
+    def connection_made(self, transport):
+        logger.debug("Connecting")
+        self.transport = transport
+
+    def pipe_data_received(self, fd, data):
+        logger.debug(f"Data: {data}")
+        # *nix and OSX return full lines,
+        # but Windows will return partial lines
+        # which obligates us to reconstruct them.
+        text = self.buffer_ + data.decode().replace("\r\n", "\n")
+        if "\n" in text:
+            text, _, self.buffer_ = text.rpartition("\n")
+            for line in text.splitlines():
+                self.handle_line(line)
+        else:
+            self.buffer_ = text
+
+    def process_exited(self):
+        logger.debug(f"Exiting with {self.transport.get_returncode()}")
+        self.exit_future.set_result(self.transport.get_returncode())

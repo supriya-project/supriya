@@ -371,7 +371,6 @@ class RequestId(IntEnumeration):
     SYNTH_NEW = 9
     SYNTH_NEWARGS = 59
     SYNTH_NOID = 49
-    SYNTH_QUERY = 65
     UGEN_COMMAND = 20
     VERSION = 64
 
@@ -434,21 +433,20 @@ class RequestName(StrictEnumeration):
     NODE_SET = "/n_set"
     NODE_SET_CONTIGUOUS = "/n_setn"
     NODE_TRACE = "/n_trace"
-    # NOTHING = None
+    NOTHING = None
     NOTIFY = "/notify"
     PARALLEL_GROUP_NEW = "/p_new"
     QUIT = "/quit"
     STATUS = "/status"
     SYNC = "/sync"
     SYNTHDEF_FREE = "/d_free"
-    # SYNTHDEF_FREE_ALL = None
+    SYNTHDEF_FREE_ALL = "/d_freeAll"
     SYNTHDEF_LOAD = "/d_load"
     SYNTHDEF_LOAD_DIR = "/d_loadDir"
     SYNTHDEF_RECEIVE = "/d_recv"
     SYNTH_GET = "/s_get"
     SYNTH_GET_CONTIGUOUS = "/s_getn"
     SYNTH_NEW = "/s_new"
-    SYNTH_QUERY = "/s_query"
     # SYNTH_NEWARGS = None
     SYNTH_NOID = "/s_noid"
     UGEN_COMMAND = "/u_cmd"

@@ -1,0 +1,1244 @@
+"""
+Core interfaces for interfacting with :term:`scsynth`-compatible execution contexts.
+
+Context subclasses expose a common interface for realtime and non-realtime synthesis.
+"""
+
+import abc
+import contextlib
+import dataclasses
+import itertools
+import threading
+from os import PathLike
+from typing import (
+    Callable,
+    Dict,
+    List,
+    Optional,
+    Sequence,
+    SupportsFloat,
+    SupportsInt,
+    Tuple,
+    Type,
+    Union,
+)
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal  # type: ignore
+
+from uqbar.objects import new
+
+from ..allocators import BlockAllocator, NodeIdAllocator
+from ..enums import AddAction, CalculationRate, ParameterRate
+from ..scsynth import Options
+from ..synthdefs import SynthDef
+from ..typing import (
+    AddActionLike,
+    CalculationRateLike,
+    HeaderFormatLike,
+    SampleFormatLike,
+    SupportsOsc,
+)
+from .entities import Buffer, Bus, ContextObject, Group, Node, RootNode, Synth
+from .errors import ContextError, InvalidCalculationRate, MomentClosed
+from .requests import (
+    AllocateBuffer,
+    AllocateReadBuffer,
+    AllocateReadBufferChannel,
+    ClearSchedule,
+    CloseBuffer,
+    CopyBuffer,
+    DoNothing,
+    FillBuffer,
+    FillControlBusRange,
+    FreeAllSynthDefs,
+    FreeBuffer,
+    FreeGroupChildren,
+    FreeGroupDeep,
+    FreeSynthDef,
+    GenerateBuffer,
+    LoadSynthDefDirectory,
+    LoadSynthDefs,
+    MapAudioBusToNode,
+    MapControlBusToNode,
+    MoveNodeAfter,
+    MoveNodeBefore,
+    MoveNodeToGroupHead,
+    MoveNodeToGroupTail,
+    NewGroup,
+    NewParallelGroup,
+    NewSynth,
+    NormalizeBuffer,
+    OrderNodes,
+    ReadBuffer,
+    ReadBufferChannel,
+    ReceiveSynthDefs,
+    ReleaseNode,
+    Request,
+    RequestBundle,
+    RunNode,
+    SetBuffer,
+    SetBufferRange,
+    SetControlBus,
+    SetControlBusRange,
+    SetNodeControl,
+    WriteBuffer,
+    ZeroBuffer,
+)
+
+
+@dataclasses.dataclass
+class Moment:
+    """
+    A context manager representing a moment in time when requests are made to an execution context.
+
+    Multiple requests made inside a moment are bundled together.
+
+    :param context: The moment's context.
+    :param seconds: The moment's timestamp.
+    """
+
+    context: "Context"
+    seconds: Optional[float] = None
+    closed: bool = dataclasses.field(default=False, init=False)
+    requests: List[Tuple[Request, Optional["Completion"]]] = dataclasses.field(
+        default_factory=list, init=False
+    )
+
+    def __enter__(self) -> "Moment":
+        """
+        Set this moment the current "request context".
+        """
+        if self.closed:
+            raise MomentClosed
+        self.context._push_moment(self)
+        return self
+
+    def __exit__(self, *args) -> None:
+        """
+        Unset this moment as the current "request context".
+        """
+        self.context._pop_moment()
+        requests = self.context._apply_completions(self.requests)
+        timestamp = (
+            self.seconds + self.context._latency if self.seconds is not None else None
+        )
+        if len(requests) > 1 or timestamp is not None:
+            self.context.send(RequestBundle(timestamp=timestamp, contents=requests))
+        else:
+            self.context.send(requests[0])
+        self.closed = True
+
+
+@dataclasses.dataclass
+class Completion:
+    """
+    A context manager for collecting requests to be made "on completion" of another request.
+
+    Multiple requests made inside a completion are bundled together.
+
+    :param context: The completion's context.
+    :param moment: The completion's moment.
+    """
+
+    context: "Context"
+    moment: Moment
+    requests: List[Tuple[Request, Optional["Completion"]]] = dataclasses.field(
+        default_factory=list, init=False
+    )
+
+    def __call__(self, request: Request) -> Request:
+        """
+        Bundle this completion's collected requests into the ``on_completion`` argument of the request.
+
+        :param request: The request to complete.
+        """
+        if not hasattr(request, "on_completion"):
+            raise ValueError(request)
+        requests = self.context._apply_completions(self.requests)
+        if len(requests) > 1:
+            request = new(request, on_completion=RequestBundle(contents=requests))
+        elif len(requests) == 1:
+            request = new(request, on_completion=requests[0])
+        return request
+
+    def __enter__(self) -> "Completion":
+        """
+        Set this completion as the current "request context".
+        """
+        if self.moment.closed:
+            raise MomentClosed
+        self.context._push_completion(self)
+        return self
+
+    def __exit__(self, *args) -> None:
+        """
+        Unset this completion as the current "request context".
+        """
+        self.context._pop_completion()
+
+
+class Context(metaclass=abc.ABCMeta):
+    """
+    A synthesis execution context.
+
+    :param options: The context's options.
+    :param kwargs: Keyword arguments for options.
+    """
+
+    ### INITIALIZER ###
+
+    def __init__(self, options: Optional[Options], **kwargs) -> None:
+        self._audio_bus_allocator = BlockAllocator()
+        self._buffer_allocator = BlockAllocator()
+        self._client_id = 0
+        self._control_bus_allocator = BlockAllocator()
+        self._latency = 0.0
+        self._lock = threading.RLock()
+        self._node_id_allocator = NodeIdAllocator()
+        self._options = new(options or Options(), **kwargs)
+        self._sync_id = self._sync_id_minimum = 0
+        self._sync_id_maximum = 32 << 26
+        self._thread_local = threading.local()
+        self._setup_allocators(self.client_id, self.options)
+
+    ### PRIVATE METHODS ###
+
+    def _add_requests(self, *requests: Request) -> None:
+        with contextlib.ExitStack() as stack:
+            current_requests = (
+                self._get_request_context() or stack.enter_context(self.at())
+            ).requests
+            for request in requests:
+                current_requests.append((request, None))
+
+    def _add_request_with_completion(
+        self, request: Request, on_completion: Optional[Callable[["Context"], None]]
+    ) -> Completion:
+        with contextlib.ExitStack() as stack:
+            current_requests = (
+                self._get_request_context() or stack.enter_context(self.at())
+            ).requests
+            moment = self._get_moment()
+            if moment is None:
+                raise ContextError
+            completion = Completion(context=self, moment=moment)
+            current_requests.append((request, completion))
+            if on_completion:
+                stack.enter_context(completion)
+                on_completion(self)
+        return completion
+
+    def _allocate_id(
+        self,
+        type_: Type[ContextObject],
+        calculation_rate: Optional[CalculationRate] = None,
+        count: int = 1,
+        permanent: bool = False,
+    ) -> int:
+        if type_ is Node:
+            if permanent:
+                return self._node_id_allocator.allocate_permanent_node_id()
+            return self._node_id_allocator.allocate_node_id()
+        if type_ is Buffer:
+            return self._buffer_allocator.allocate(count)
+        if type_ is Bus:
+            if calculation_rate is CalculationRate.AUDIO:
+                return self._audio_bus_allocator.allocate(count)
+            elif calculation_rate is CalculationRate.CONTROL:
+                return self._control_bus_allocator.allocate(count)
+        raise ValueError
+
+    @staticmethod
+    def _apply_completions(
+        pairs: List[Tuple[Request, Optional[Completion]]]
+    ) -> List[Request]:
+        requests: List[Request] = []
+        for key, group in itertools.groupby(
+            [
+                request if completion is None else completion(request)
+                for request, completion in pairs
+            ],
+            key=lambda x: type(x),
+        ):
+            requests.extend(key.merge(list(group)))
+        return requests
+
+    @abc.abstractmethod
+    def _free_id(
+        self,
+        type_: Type[ContextObject],
+        id_: int,
+        calculation_rate: Optional[CalculationRate] = None,
+    ) -> None:
+        raise NotImplementedError
+
+    def _get_allocator(
+        self,
+        type_: Type[ContextObject],
+        calculation_rate: Optional[CalculationRate] = None,
+    ) -> Union[BlockAllocator, NodeIdAllocator]:
+        if type_ is Node:
+            return self._node_id_allocator
+        if type_ is Buffer:
+            return self._buffer_allocator
+        if type_ is Bus:
+            if calculation_rate is CalculationRate.AUDIO:
+                return self._audio_bus_allocator
+            elif calculation_rate is CalculationRate.CONTROL:
+                return self._control_bus_allocator
+        raise ValueError
+
+    def _get_moment(self) -> Optional[Moment]:
+        moments = self._thread_local.__dict__.get("moments", [])
+        if not moments:
+            return None
+        return moments[-1]
+
+    def _get_next_sync_id(self) -> int:
+        with self._lock:
+            sync_id = self._sync_id
+            self._sync_id += 1
+            if self._sync_id > self._sync_id_maximum:
+                self._sync_id = self._sync_id_minimum
+            return sync_id
+
+    def _get_request_context(self) -> Optional[Union[Completion, Moment]]:
+        moments = self._thread_local.__dict__.get("moments", [])
+        completions = self._thread_local.__dict__.get("completions", [])
+        if completions:
+            return completions[-1]
+        if moments:
+            return moments[-1]
+        return None
+
+    def _pop_completion(self) -> None:
+        self._thread_local.__dict__.setdefault("completions", []).pop()
+
+    def _pop_moment(self) -> None:
+        self._thread_local.__dict__.setdefault("moments", []).pop()
+
+    def _push_completion(self, completion: Completion) -> None:
+        self._thread_local.__dict__.setdefault("completions", []).append(completion)
+
+    def _push_moment(self, moment: Moment) -> None:
+        self._thread_local.__dict__.setdefault("moments", []).append(moment)
+
+    @abc.abstractmethod
+    def _resolve_node(self, node: Union[Node, SupportsInt, None]) -> int:
+        raise NotImplementedError
+
+    def _setup_allocators(self, client_id: int, options: Options) -> None:
+        # audio buses
+        audio_bus_minimum, audio_bus_maximum = options.get_audio_bus_ids(client_id)
+        self._audio_bus_allocator = BlockAllocator(
+            heap_minimum=audio_bus_minimum, heap_maximum=audio_bus_maximum
+        )
+        # control buses
+        control_bus_minimum, control_bus_maximum = options.get_control_bus_ids(
+            client_id
+        )
+        self._control_bus_allocator = BlockAllocator(
+            heap_minimum=control_bus_minimum, heap_maximum=control_bus_maximum
+        )
+        # buffers
+        buffer_minimum, buffer_maximum = options.get_buffer_ids(client_id)
+        self._buffer_allocator = BlockAllocator(
+            heap_minimum=buffer_minimum, heap_maximum=buffer_maximum
+        )
+        # node IDs
+        self._node_id_allocator = NodeIdAllocator(
+            initial_node_id=options.initial_node_id, client_id=client_id
+        )
+        # sync IDs
+        self._sync_id_minimum, self._sync_id_maximum = options.get_sync_ids(client_id)
+        self._sync_id = self._sync_id_minimum
+
+    @abc.abstractmethod
+    def _validate_can_request(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def _validate_moment_timestamp(self, seconds: Optional[float]):
+        raise NotImplementedError
+
+    ### PUBLIC METHODS ###
+
+    def add_buffer(
+        self,
+        *,
+        channel_count: Optional[int] = None,
+        channel_indices: Optional[List[int]] = None,
+        file_path: Optional[PathLike] = None,
+        frame_count: Optional[int] = None,
+        starting_frame: Optional[int] = None,
+        on_completion: Optional[Callable[["Context"], None]] = None,
+    ) -> Buffer:
+        """
+        Add a new buffer to the context.
+
+        Emit ``/b_alloc``, ``/b_allocRead`` or ``/b_allocReadChannel`` requests
+        depending on parameters.
+
+        :param channel_count: The channel count of the new buffer. Cannot be used when
+            reading from file paths.
+        :param channel_indices: The channels to read from a file when reading from a
+            file.
+        :param file_path: The (optional) file to read from.
+        :param frame_count: The frame count of the new buffer.
+        :param starting_frame: The frame to start reading from when reading from a file.
+        :param on_completion: A callable with the buffer's context as the only argument.
+            Permits building an "on completion" argument to this method's request
+            without an active moment.
+        """
+        self._validate_can_request()
+        if not (frame_count or file_path):
+            raise ValueError
+        if channel_count and channel_indices:
+            raise ValueError
+        if channel_count and file_path:
+            raise ValueError
+        id_ = self._allocate_id(Buffer)
+        if file_path and channel_indices:
+            request: Request = AllocateReadBufferChannel(
+                buffer_id=id_,
+                channel_indices=channel_indices,
+                path=file_path,
+                frame_count=frame_count or 0,
+                starting_frame=starting_frame or 0,
+            )
+        elif file_path:
+            request = AllocateReadBuffer(
+                buffer_id=id_,
+                path=file_path,
+                frame_count=frame_count or 0,
+                starting_frame=starting_frame or 0,
+            )
+        elif frame_count:
+            request = AllocateBuffer(
+                buffer_id=id_, channel_count=channel_count or 1, frame_count=frame_count
+            )
+        else:
+            raise ValueError
+        completion = self._add_request_with_completion(request, on_completion)
+        return Buffer(context=self, id_=id_, completion=completion)
+
+    def add_buffer_group(
+        self,
+        *,
+        channel_count: Optional[int] = None,
+        count: int = 1,
+        frame_count: Optional[int] = None,
+    ) -> List[Buffer]:
+        """
+        Add a group of new buffers to the context.
+
+        Emit ``/b_alloc`` requests.
+
+        :param channel_count: The channel count of the new buffers.
+        :param count: The number of buffers to add.
+        :param frame_count: The frame count of the new buffers.
+        """
+        self._validate_can_request()
+        if not (channel_count and frame_count):
+            raise ValueError
+        if count < 1:
+            raise ValueError
+        id_ = self._allocate_id(Buffer, count=count)
+        buffers: List[Buffer] = []
+        requests: List[Request] = []
+        for i in range(count):
+            buffers.append(Buffer(context=self, id_=id_ + i))
+            requests.append(
+                AllocateBuffer(
+                    buffer_id=id_ + i,
+                    channel_count=channel_count,
+                    frame_count=frame_count,
+                )
+            )
+        self._add_requests(*requests)
+        return buffers
+
+    def add_bus(
+        self, calculation_rate: CalculationRateLike = CalculationRate.CONTROL
+    ) -> Bus:
+        """
+        Add a new bus to the context.
+
+        Emit no requests.
+
+        :param calculation_rate: The calculation rate of the new bus.
+        """
+        self._validate_can_request()
+        rate = CalculationRate.from_expr(calculation_rate)
+        if rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
+            raise InvalidCalculationRate(rate)
+        id_ = self._allocate_id(Bus, calculation_rate=rate)
+        return Bus(calculation_rate=rate, context=self, id_=id_)
+
+    def add_bus_group(
+        self,
+        calculation_rate: CalculationRateLike = CalculationRate.CONTROL,
+        count: int = 1,
+    ) -> List[Bus]:
+        """
+        Add a group of new buses to the context.
+
+        Emit no requests.
+
+        :param calculation_rate: The calculation rate of the new bus.
+        :param count: The number of buses to add.
+        """
+        self._validate_can_request()
+        rate = CalculationRate.from_expr(calculation_rate)
+        if rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
+            raise InvalidCalculationRate(rate)
+        if count < 1:
+            raise ValueError
+        id_ = self._allocate_id(Bus, calculation_rate=rate, count=count)
+        return [
+            Bus(calculation_rate=rate, context=self, id_=id_ + i) for i in range(count)
+        ]
+
+    def add_group(
+        self,
+        *,
+        add_action: AddActionLike = AddAction.ADD_TO_HEAD,
+        target_node: Optional[SupportsInt] = None,
+        parallel: bool = False,
+        permanent: bool = False,
+    ) -> Group:
+        """
+        Add a new group node to the context.
+
+        Emit ``/g_new`` or ``/p_new`` requests depending on parameters.
+
+        :param add_action: The :term:`add action` to use when placing the new group.
+        :param target_node: The node to place the new group relative to.
+        :param parallel: Flag for parallel vs non-parallel groups.
+        :param permanent: Flag for using a permanent node ID.
+        """
+        self._validate_can_request()
+        add_action_ = AddAction.from_expr(add_action)
+        if isinstance(target_node, Node):
+            if add_action_ not in target_node._valid_add_actions:
+                raise ValueError(add_action_)
+        target_node_id = self._resolve_node(target_node)
+        id_ = self._allocate_id(Node, permanent=permanent)
+        items = [(id_, add_action_, target_node_id)]
+        if parallel:
+            request: Request = NewParallelGroup(items=items)
+        else:
+            request = NewGroup(items=items)
+        self._add_requests(request)
+        return Group(context=self, id_=id_, parallel=parallel)
+
+    def add_synth(
+        self,
+        synthdef: SynthDef,
+        *,
+        add_action: AddActionLike = AddAction.ADD_TO_HEAD,
+        target_node: Optional[SupportsInt] = None,
+        permanent: bool = False,
+        **settings,
+    ) -> Synth:
+        """
+        Add a new synth node to the context.
+
+        Emit ``/s_new`` requests.
+
+        :param synthdef: The :term:`SynthDef` to use for the new synth.
+        :param add_action: The :term:`add action` to use when placing the new synth.
+        :param target_node: The node to place the new synth relative to.
+        :param permanent: Flag for using a permanent node ID.
+        :param settings: The new synth's control settings.
+        """
+        self._validate_can_request()
+        add_action_ = AddAction.from_expr(add_action)
+        if isinstance(target_node, Node):
+            if add_action_ not in target_node._valid_add_actions:
+                raise ValueError(add_action_)
+        target_node_id = self._resolve_node(target_node)
+        synthdef_kwargs: Dict[Union[int, str], Union[SupportsFloat, str]] = {}
+        for _, parameter in synthdef.indexed_parameters:
+            if parameter.name not in settings:
+                continue
+            value = settings[parameter.name]
+            if value == parameter.value:
+                continue
+            if parameter.parameter_rate is ParameterRate.SCALAR:
+                synthdef_kwargs[parameter.name] = float(value)
+            elif parameter.name in ("in_", "out"):
+                synthdef_kwargs[parameter.name] = float(value)
+            elif isinstance(value, Bus):
+                synthdef_kwargs[parameter.name] = value.map_symbol()
+            elif isinstance(value, str):
+                synthdef_kwargs[parameter.name] = value
+            else:
+                synthdef_kwargs[parameter.name] = float(value)
+        id_ = self._allocate_id(Node, permanent=permanent)
+        self._add_requests(
+            NewSynth(
+                add_action=add_action_,
+                synth_id=id_,
+                synthdef=synthdef,
+                target_node_id=target_node_id,
+                controls=synthdef_kwargs,
+            )
+        )
+        return Synth(context=self, id_=id_, synthdef=synthdef)
+
+    def add_synthdefs(
+        self,
+        *synthdefs: SynthDef,
+        on_completion: Optional[Callable[["Context"], None]] = None,
+    ) -> Completion:
+        """
+        Add one or more SynthDefs to the context.
+
+        Emit ``/d_recv`` requests.
+
+        :param synthdefs: The synthdefs to add.
+        :param on_completion: A callable with the buffer's context as the only argument.
+            Permits building an "on completion" argument to this method's request
+            without an active moment.
+        """
+        self._validate_can_request()
+        if not synthdefs:
+            raise ValueError
+        request = ReceiveSynthDefs(synthdefs=synthdefs)
+        return self._add_request_with_completion(request, on_completion)
+
+    def at(self, seconds=None) -> Moment:
+        """
+        Create a Moment.
+
+        :param seconds: The timestamp of the new moment.
+        """
+        self._validate_moment_timestamp(seconds)
+        return Moment(context=self, seconds=seconds)
+
+    def clear_schedule(self) -> None:
+        """
+        Clear all scheduled bundles.
+
+        Emit ``/clearSched`` requests.
+        """
+        self._validate_can_request()
+        request = ClearSchedule()
+        self._add_requests(request)
+
+    def close_buffer(
+        self,
+        buffer: Buffer,
+        on_completion: Optional[Callable[["Context"], None]] = None,
+    ) -> Completion:
+        """
+        Close a buffer.
+
+        Emit ``/b_close`` requests.
+
+        :param buffer: The buffer to close.
+        :param on_completion: A callable with the buffer's context as the only argument.
+            Permits building an "on completion" argument to this method's request
+            without an active moment.
+        """
+        self._validate_can_request()
+        request = CloseBuffer(buffer_id=buffer.id_)
+        return self._add_request_with_completion(request, on_completion)
+
+    def copy_buffer(
+        self,
+        *,
+        source_buffer: Buffer,
+        target_buffer: Buffer,
+        source_starting_frame: int,
+        target_starting_frame: int,
+        frame_count: int,
+    ):
+        """
+        Copy a buffer.
+
+        Emit ``/b_gen <buffer.id_> copy ...`` requests.
+
+        :param source_buffer: The buffer to copy from.
+        :param target_buffer: The buffer to copy to.
+        :param source_starting_frame: The frame index in the source buffer to start
+            reading from.
+        :param target_starting_frame: The frame index in the target buffer to start
+            writing at.
+        :param frame_count: The number of frames to copy.
+        """
+        self._validate_can_request()
+        request = CopyBuffer(
+            frame_count=frame_count,
+            source_buffer_id=source_buffer,
+            source_starting_frame=source_starting_frame,
+            target_buffer_id=target_buffer,
+            target_starting_frame=target_starting_frame,
+        )
+        self._add_requests(request)
+
+    def do_nothing(self):
+        """
+        Emit a no-op "nothing" command.
+        """
+        self._validate_can_request()
+        self._add_requests(DoNothing())
+
+    def fill_buffer(
+        self, buffer: Buffer, starting_frame: int, frame_count: int, value: float
+    ) -> None:
+        """
+        Fill a buffer with a single value.
+
+        Emit ``/b_fill`` requests.
+
+        :param buffer: The buffer to fill.
+        :param starting_frame: The frame index to start filling at.
+        :param frame_count: The number of frames to fill.
+        :param value: The value to fill with.
+        """
+        self._validate_can_request()
+        request = FillBuffer(
+            buffer_id=buffer, items=[(starting_frame, frame_count, value)]
+        )
+        self._add_requests(request)
+
+    def fill_buses(self, bus: Bus, count: int, value: float) -> None:
+        """
+        Fill contiguous buses with a single value.
+
+        Emit ``/c_fill`` requests.
+
+        :param count: The number of buses to fill.
+        :param value: The value to fill with.
+        """
+        self._validate_can_request()
+        if bus.calculation_rate != CalculationRate.CONTROL:
+            raise InvalidCalculationRate
+        request = FillControlBusRange(items=[(bus.id_, count, value)])
+        self._add_requests(request)
+
+    def free_buffer(
+        self,
+        buffer: Buffer,
+        on_completion: Optional[Callable[["Context"], None]] = None,
+    ) -> Completion:
+        """
+        Free a buffer.
+
+        Emit ``/b_free`` requests.
+
+        :param buffer: The buffer to free.
+        :param on_completion: A callable with the buffer's context as the only argument.
+            Permits building an "on completion" argument to this method's request
+            without an active moment.
+        """
+        self._validate_can_request()
+        request = FreeBuffer(buffer_id=buffer)
+        return self._add_request_with_completion(request, on_completion)
+
+    def free_bus(self, bus: Bus) -> None:
+        """
+        Free a bus.
+
+        Emit no requests.
+
+        :param bus: The bus to free.
+        """
+        self._validate_can_request()
+        self._free_id(Bus, bus.id_, calculation_rate=bus.calculation_rate)
+
+    def free_group_children(self, group: Group, synths_only: bool = False) -> None:
+        """
+        Free a group's children.
+
+        Emit ``/g_deepFree`` or ``/g_freeAll`` requests depending on parameters.
+
+        :param group: The group whose children will be freed.
+        :param synths_only: Flag for freeing only child synths, or all children.
+        """
+        self._validate_can_request()
+        if synths_only:
+            request: Request = FreeGroupDeep(node_ids=[group.id_])
+        else:
+            request = FreeGroupChildren(node_ids=[group.id_])
+        self._add_requests(request)
+
+    def free_node(self, node: Node, force: bool = False) -> None:
+        """
+        Free a node.
+
+        Emit ``/n_free`` for groups, for synths without a ``gate`` control, or when
+        ``force`` is ``True``.
+
+        Emit ``/n_set <node.id_> gate 0`` for synths with ``gate`` controls.
+
+        :param node: The node to free.
+        :param force: Flag for force-freeing, without releasing.
+        """
+        self._validate_can_request()
+        request = ReleaseNode(
+            node.id_,
+            force=force,
+            has_gate=isinstance(node, Synth) and "gate" in node.synthdef.parameters,
+        )
+        self._add_requests(request)
+
+    def free_synthdefs(self, *synthdefs: SynthDef) -> None:
+        """
+        Free one or more SynthDefs.
+
+        Emit ``/d_free`` requests.
+
+        :param synthdefs: The synthdefs to free.
+        """
+        self._validate_can_request()
+        if not synthdefs:
+            raise ValueError
+        request = FreeSynthDef(synthdefs=synthdefs)
+        self._add_requests(request)
+
+    def free_all_synthdefs(self) -> None:
+        """
+        Free all SynthDefs.
+
+        Emit ``/d_freeAll`` requests.
+        """
+        self._validate_can_request()
+        request = FreeAllSynthDefs()
+        self._add_requests(request)
+
+    def generate_buffer(
+        self,
+        buffer: Buffer,
+        command_name: Literal["sine1", "sine2", "sine3", "cheby"],
+        amplitudes: Sequence[float],
+        frequencies: Optional[Sequence[float]] = None,
+        phases: Optional[Sequence[float]] = None,
+        as_wavetable: bool = False,
+        should_clear_first: bool = False,
+        should_normalize: bool = False,
+    ) -> None:
+        """
+        Generate a buffer.
+
+        Emit ``/b_gen`` requests.
+
+        :param buffer: The buffer to generate.
+        :param command_name: The generation command name.
+        :param amplitudes: A sequence of partial amplitudes.
+        :param frequencies: A sequence of partial frequencies.
+        :param phases: A sequence of partial phases.
+        :param as_wavetable: Flag for generating the output in wavetable format.
+        :param should_clear_first: Flag for clearing the buffer before generating.
+        :param should_normalize: Flag for normalizing the generated output.
+        """
+        self._validate_can_request()
+        if not amplitudes:
+            raise ValueError
+        if command_name == "sine2":
+            if not frequencies:
+                raise ValueError
+            elif not (len(amplitudes) == len(frequencies)):
+                raise ValueError
+        elif command_name == "sine3":
+            if not frequencies or not phases:
+                raise ValueError
+            elif not (len(amplitudes) == len(frequencies) == len(phases)):
+                raise ValueError
+        request = GenerateBuffer(
+            buffer_id=buffer,
+            command_name=command_name,
+            amplitudes=amplitudes,
+            frequencies=frequencies,
+            phases=phases,
+            as_wavetable=as_wavetable,
+            should_clear_first=should_clear_first,
+            should_normalize=should_normalize,
+        )
+        self._add_requests(request)
+
+    def load_synthdefs(
+        self,
+        path: PathLike,
+        on_completion: Optional[Callable[["Context"], None]] = None,
+    ) -> Completion:
+        """
+        Load SynthDefs from a path.
+
+        Emit ``/d_load`` requests.
+
+        :param path: The file path to load from. Globbing characters (e.g. ``*``) are
+            permitted.
+        :param on_completion: A callable with the buffer's context as the only argument.
+            Permits building an "on completion" argument to this method's request
+            without an active moment.
+        """
+        self._validate_can_request()
+        request = LoadSynthDefs(path=path)
+        return self._add_request_with_completion(request, on_completion)
+
+    def load_synthdefs_directory(
+        self,
+        path: PathLike,
+        on_completion: Optional[Callable[["Context"], None]] = None,
+    ) -> Completion:
+        """
+        Load all SynthDefs from a directory.
+
+        Emit ``/d_loadDir`` requests.
+
+        :param path: The directory path to load from.
+        :param on_completion: A callable with the buffer's context as the only argument.
+            Permits building an "on completion" argument to this method's request
+            without an active moment.
+        """
+        self._validate_can_request()
+        request = LoadSynthDefDirectory(path=path)
+        return self._add_request_with_completion(request, on_completion)
+
+    def map_node(self, node: Node, **settings: Union[Bus, None]) -> None:
+        """
+        Map a node's controls to buses.
+
+        Emit ``/n_map`` and ``/n_mapa`` requests.
+
+        :param node: The node whose controls will be mapped.
+        :param settings: A mapping of control names to buses (or to ``None`` to unmap
+            the control).
+        """
+        self._validate_can_request()
+        control, audio = {}, {}
+        for key, value in settings.items():
+            if isinstance(value, Bus):
+                if value.calculation_rate is CalculationRate.AUDIO:
+                    audio[key] = int(value)
+                else:
+                    control[key] = int(value)
+            elif value is None:
+                control[key] = -1
+        requests: List[Request] = []
+        if control:
+            requests.append(
+                MapControlBusToNode(node_id=node, items=sorted(control.items()))
+            )
+        if audio:
+            requests.append(
+                MapAudioBusToNode(node_id=node, items=sorted(audio.items()))
+            )
+        self._add_requests(*requests)
+
+    def move_node(
+        self, node: Node, add_action: AddActionLike, target_node: Node
+    ) -> None:
+        """
+        Move a node.
+
+        Emit ``/n_after``, ``/n_before``, ``/g_head`` and ``/g_tail`` requests depending
+        on parameters.
+
+        :param node: The node to move.
+        :param add_action: The :term:`add action` to use when moving the node.
+        :param target_node: The target node to place the node relative to.
+        """
+        self._validate_can_request()
+        add_action_ = AddAction.from_expr(add_action)
+        items = [(node, target_node)]
+        if add_action_ is AddAction.ADD_BEFORE:
+            request: Request = MoveNodeBefore(items)
+        elif add_action_ is AddAction.ADD_AFTER:
+            request = MoveNodeAfter(items)
+        elif add_action_ is AddAction.ADD_TO_TAIL:
+            request = MoveNodeToGroupTail(items)
+        elif add_action_ is AddAction.ADD_TO_HEAD:
+            request = MoveNodeToGroupHead(items)
+        else:
+            raise ValueError
+        self._add_requests(request)
+
+    def normalize_buffer(
+        self, buffer: Buffer, new_maximum: float = 1.0, as_wavetable: bool = False
+    ) -> None:
+        """
+        Normalize a buffer.
+
+        Emit ``/b_gen <buffer.id_> (w)?normalize`` requests depending on parameters.
+
+        :param buffer: The buffer to normalize.
+        :param new_maximum: The new maximum to normalize to.
+        :param as_wavetable: Flag for treating the buffer contents as a wavetable.
+        """
+        self._validate_can_request()
+        request = NormalizeBuffer(
+            buffer_id=buffer.id_, new_maximum=new_maximum, as_wavetable=as_wavetable
+        )
+        self._add_requests(request)
+
+    def order_nodes(
+        self, target_node: Node, *nodes: Node, add_action: AddActionLike = None
+    ) -> None:
+        """
+        Re-order nodes.
+
+        Emit ``/n_order`` requests.
+
+        :param target_node: The node to re-order the other nodes relative to.
+        :param nodes: The nodes to re-order.
+        :param add_action: The :term:`add action` to use when re-ordering the nodes.
+        """
+        self._validate_can_request()
+        request = OrderNodes(
+            add_action=add_action, target_node_id=target_node, node_ids=nodes
+        )
+        self._add_requests(request)
+
+    def pause_node(self, node: Node) -> None:
+        """
+        Pause a node.
+
+        Emit ``/n_run <node.id_> 0`` requests.
+
+        :param node: The node to pause.
+        """
+        self._validate_can_request()
+        request = RunNode(items=[(node, False)])
+        self._add_requests(request)
+
+    def read_buffer(
+        self,
+        buffer: Buffer,
+        file_path: PathLike,
+        *,
+        buffer_starting_frame: Optional[int] = None,
+        channel_indices: Optional[List[int]] = None,
+        frame_count: Optional[int] = None,
+        leave_open: bool = False,
+        starting_frame: Optional[int] = None,
+        on_completion: Optional[Callable[["Context"], None]] = None,
+    ) -> Completion:
+        """
+        Read a file into a buffer.
+
+        Emit ``/b_read`` or ``/b_readChannel`` requests, depending on parameters.
+
+        :param buffer: The buffer to read into.
+        :param file_path: The file path to read from.
+        :param channel_indices: A list of channel indices to read from when reading from
+            a file.
+        :param frame_count: The number of frames to read.
+        :param leave_open: Flag for leaving the file open (e.g. to continue reading via
+            :py:class:`~supriya.ugens.diskio.DiskIn`) or close it.
+        :param starting_frame: The starting frame in the buffer to begin reading into
+            at.
+        :param on_completion: A callable with the buffer's context as the only argument.
+            Permits building an "on completion" argument to this method's request
+            without an active moment.
+        """
+        self._validate_can_request()
+        frame_count_ = frame_count or 0
+        if channel_indices:
+            request: Request = ReadBufferChannel(
+                buffer_id=buffer.id_,
+                path=file_path,
+                frame_count=frame_count_ or -1,
+                leave_open=leave_open,
+                starting_frame_in_buffer=buffer_starting_frame or 0,
+                starting_frame_in_file=starting_frame or 0,
+                channel_indices=channel_indices,
+            )
+        else:
+            request = ReadBuffer(
+                buffer_id=buffer.id_,
+                path=file_path,
+                frame_count=frame_count_ or -1,
+                leave_open=leave_open,
+                starting_frame_in_buffer=buffer_starting_frame or 0,
+                starting_frame_in_file=starting_frame or 0,
+            )
+        return self._add_request_with_completion(request, on_completion)
+
+    @abc.abstractmethod
+    def send(self, message: SupportsOsc):
+        """
+        Send a message to the execution context.
+
+        :param message: The message to send.
+        """
+        raise NotImplementedError
+
+    def set_buffer(self, buffer: Buffer, index: int, value: float) -> None:
+        """
+        Set a buffer sample.
+
+        Emit ``/b_set`` requests.
+
+        :param buffer: The buffer to modify.
+        :param index: The sample index to write at.
+        :param value: The value to write.
+        """
+        self._validate_can_request()
+        request = SetBuffer(buffer_id=buffer, items=[(index, value)])
+        self._add_requests(request)
+
+    def set_buffer_range(
+        self, buffer: Buffer, index: int, values: Sequence[float]
+    ) -> None:
+        """
+        Set a buffer sample range.
+
+        Emit ``/b_setn`` requests.
+
+        :param buffer: The buffer to modify.
+        :param index: The sample index to start writing at.
+        :param values: The values to write.
+        """
+        self._validate_can_request()
+        request = SetBufferRange(buffer_id=buffer, items=[(index, values)])
+        self._add_requests(request)
+
+    def set_bus(self, bus: Bus, value: float) -> None:
+        """
+        Set a control bus to a value.
+
+        Emit ``/c_set`` requests.
+
+        :param bus: The control bus to set.
+        :param value: The value to set the control bus to.
+        """
+        self._validate_can_request()
+        if bus.calculation_rate != CalculationRate.CONTROL:
+            raise InvalidCalculationRate
+        request = SetControlBus(items=[(bus.id_, value)])
+        self._add_requests(request)
+
+    def set_bus_range(self, bus: Bus, values: Sequence[float]) -> None:
+        """
+        Set a range of control buses.
+
+        Emit ``/c_setn`` requests.
+
+        :param bus: The bus to start writing at.
+        :param values: The values to write.
+        """
+        self._validate_can_request()
+        if bus.calculation_rate != CalculationRate.CONTROL:
+            raise InvalidCalculationRate
+        request = SetControlBusRange(items=[(bus.id_, values)])
+        self._add_requests(request)
+
+    def set_node(self, node: Node, **settings: SupportsFloat) -> None:
+        """
+        Set a node's controls.
+
+        Emit ``/n_set`` requests.
+
+        :param node: The node whose controls will be set.
+        :param settings: A mapping of control names to values.
+        """
+        self._validate_can_request()
+        coerced_settings: Dict[Union[int, str], float] = {}
+        for key, value in settings.items():
+            coerced_settings[key] = float(value)
+        request = SetNodeControl(
+            node_id=node.id_, items=sorted(coerced_settings.items())
+        )
+        self._add_requests(request)
+
+    def unpause_node(self, node: Node) -> None:
+        """
+        Unpause a node.
+
+        Emit ``/n_run <node.id_> 1`` requests.
+
+        :param node: The node to unpause.
+        """
+        self._validate_can_request()
+        request = RunNode(items=[(node, True)])
+        self._add_requests(request)
+
+    def write_buffer(
+        self,
+        buffer: Buffer,
+        file_path: PathLike,
+        *,
+        frame_count: Optional[int] = None,
+        header_format: HeaderFormatLike = "aiff",
+        leave_open: bool = False,
+        sample_format: SampleFormatLike = "int24",
+        starting_frame: Optional[int] = None,
+        on_completion: Optional[Callable[["Context"], None]] = None,
+    ) -> Completion:
+        """
+        Write a buffer to disk.
+
+        Emit ``/b_write`` requests.
+
+        :param buffer: The buffer to write to disk.
+        :param file_path: The file path to write into.
+        :param frame_count: The number of frames to write.
+        :param header_format: The header format to use, e.g. ``AIFF`` or ``WAVE``.
+        :param leave_open: Flag for leaving the file open (e.g. to continue writing via
+            :py:class:`~supriya.ugens.diskio.DiskOut`) or close it.
+        :param sample_format: The sample format to use, e.g. ``INT24`` or ``FLOAT``.
+        :param starting_frame: The starting frame in the buffer to start writing from.
+        :param on_completion: A callable with the buffer's context as the only argument.
+            Permits building an "on completion" argument to this method's request
+            without an active moment.
+        """
+        self._validate_can_request()
+        request = WriteBuffer(
+            buffer_id=buffer.id_,
+            path=file_path,
+            frame_count=frame_count or -1,
+            header_format=header_format,
+            leave_open=leave_open,
+            sample_format=sample_format,
+            starting_frame=starting_frame or 0,
+        )
+        return self._add_request_with_completion(request, on_completion)
+
+    def zero_buffer(
+        self,
+        buffer: Buffer,
+        on_completion: Optional[Callable[["Context"], None]] = None,
+    ) -> Completion:
+        """
+        Set a buffer's contents to zero.
+
+        Emit ``/b_zero`` requests.
+
+        :param buffer: The buffer to zero.
+        :param on_completion: A callable with the buffer's context as the only argument.
+            Permits building an "on completion" argument to this method's request
+            without an active moment.
+        """
+        self._validate_can_request()
+        request = ZeroBuffer(buffer_id=buffer)
+        return self._add_request_with_completion(request, on_completion)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def client_id(self) -> int:
+        """
+        Get the context's client ID.
+        """
+        return self._client_id
+
+    @property
+    def options(self) -> Options:
+        """
+        Get the context's scsynth options.
+        """
+        return self._options
+
+    @property
+    def root_node(self) -> RootNode:
+        """
+        Get the context's root node.
+        """
+        return RootNode(context=self, id_=0)

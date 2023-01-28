@@ -137,6 +137,7 @@ jobs:
       if: ${{ matrix.os == 'windows-latest' }}
       run: |
         choco install supercollider
+        mkdir C:\Users\runneradmin\AppData\Local\SuperCollider\synthdefs
     - name: Setup audio (Windows) # https://github.com/actions/runner-images/issues/2528#issuecomment-934857719
       if: ${{ matrix.os == 'windows-latest' }}
       shell: powershell
