@@ -37,7 +37,14 @@ from ..osc import (
     ThreadedOscProtocol,
 )
 from ..querytree import QueryTreeGroup, QueryTreeSynth
-from ..scsynth import DEFAULT_IP_ADDRESS, DEFAULT_PORT, Options
+from ..scsynth import (
+    DEFAULT_IP_ADDRESS,
+    DEFAULT_PORT,
+    AsyncProcessProtocol,
+    Options,
+    ProcessProtocol,
+    SyncProcessProtocol,
+)
 from ..synthdefs import SynthDef
 from ..typing import AddActionLike, CalculationRateLike
 from .bases import ServerObject
@@ -45,7 +52,6 @@ from .buffers import Buffer, BufferGroup, BufferProxy
 from .buses import AudioInputBusGroup, AudioOutputBusGroup, Bus, BusGroup, BusProxy
 from .meters import Meters
 from .nodes import Group, Node, RootNode, Synth
-from .protocols import AsyncProcessProtocol, ProcessProtocol, SyncProcessProtocol
 from .recorder import Recorder
 
 logger = logging.getLogger("supriya.server")

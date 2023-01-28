@@ -10,9 +10,8 @@ from supriya import exceptions, scsynth
 from supriya.assets.synthdefs import default
 from supriya.osc import OscMessage, find_free_port
 from supriya.realtime import Server
-from supriya.realtime.protocols import SyncProcessProtocol
 from supriya.realtime.servers import DEFAULT_HEALTHCHECK
-from supriya.scsynth import Options
+from supriya.scsynth import Options, SyncProcessProtocol
 
 supernova_skip_win = pytest.param(
     "supernova",
