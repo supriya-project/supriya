@@ -11,7 +11,6 @@ logger = logging.getLogger("supriya.clocks")
 
 
 class Clock(BaseClock):
-
     ### CLASS VARIABLES ###
 
     _default_clock = None

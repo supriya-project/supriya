@@ -2,7 +2,6 @@ from .Interval import Interval
 
 
 class _CInterval:
-
     __slots__ = ("start_offset", "stop_offset", "original_interval")
 
     def __init__(self, start_offset, stop_offset, original_interval):
@@ -54,7 +53,6 @@ class _CInterval:
 
 
 class _CNode:
-
     __slots__ = (
         "balance",
         "height",
@@ -86,7 +84,6 @@ class _CNode:
 
 
 class IntervalTreeDriver:
-
     ### CLASS VARIABLES ###
 
     __slots__ = ("_root_node",)

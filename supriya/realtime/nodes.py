@@ -34,7 +34,6 @@ if TYPE_CHECKING:
 
 
 class Node(UniqueTreeNode):
-
     ### CLASS VARIABLES ###
 
     _valid_add_actions: Tuple[int, ...] = ()
@@ -973,7 +972,6 @@ class Synth(Node):
 
 
 class RootNode(Group):
-
     ### CLASS VARIABLES ###
 
     _valid_add_actions: Tuple[int, ...] = (AddAction.ADD_TO_HEAD, AddAction.ADD_TO_TAIL)

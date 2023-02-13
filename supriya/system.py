@@ -25,7 +25,6 @@ def _search(pattern: str, root_path: str):
 
 
 class _AssetsMeta(abc.ABCMeta):
-
     root_path: str = supriya.__path__[0]  # type: ignore
 
     def __getitem__(self, pattern) -> Union[str, List[str]]:
@@ -56,7 +55,6 @@ class SupriyaObject(metaclass=abc.ABCMeta):
 
 
 class SupriyaValueObject(SupriyaObject):
-
     ### CLASS VARIABLES ###
 
     __slots__ = ()

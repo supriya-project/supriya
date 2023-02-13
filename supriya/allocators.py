@@ -9,7 +9,6 @@ from .system import SupriyaObject
 
 
 class Block(Interval):
-
     ### INITIALIZER ###
 
     def __init__(

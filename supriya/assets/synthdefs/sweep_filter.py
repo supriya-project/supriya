@@ -3,7 +3,6 @@ import supriya.ugens
 
 
 def _build_synthdef():
-
     builder = supriya.synthdefs.SynthDefBuilder(bus=0, cutoff=0.5)
     with builder:
         source = supriya.ugens.In.ar(bus=builder["bus"])

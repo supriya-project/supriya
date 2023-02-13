@@ -73,7 +73,6 @@ class NodeFreeRequest(Request):
 
 
 class NodeInfo(Response):
-
     ### INITIALIZER ###
 
     def __init__(
@@ -306,7 +305,6 @@ class NodeMapToControlBusRequest(Request):
 
 
 class NodeOrderRequest(Request):
-
     request_id = RequestId.NODE_ORDER
 
     def __init__(
@@ -599,7 +597,6 @@ class NodeSetRequest(Request):
 
 
 class NodeSetResponse(Response):
-
     ### CLASS VARIABLES ###
 
     class Item(NamedTuple):
@@ -652,7 +649,6 @@ class NodeSetResponse(Response):
 
 
 class NodeSetContiguousResponse(Response):
-
     ### CLASS VARIABLES ###
 
     class Item(NamedTuple):

@@ -96,7 +96,6 @@ class PlayExtension(Extension):
 
 
 class PlotExtension(Extension):
-
     template = normalize(
         """
         <object data="{file_path}" type="image/svg+xml"></object>

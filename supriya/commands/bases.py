@@ -15,7 +15,6 @@ logger = logging.getLogger("supriya.osc")
 
 
 class Requestable(SupriyaValueObject):
-
     ### INITIALIZER ###
 
     def __init__(self):
@@ -136,7 +135,6 @@ class Requestable(SupriyaValueObject):
 
 
 class Request(Requestable):
-
     ### PRIVATE METHODS ###
 
     def _apply_local(self, server):
@@ -308,7 +306,6 @@ class RequestBundle(Requestable):
 
 
 class Response(SupriyaValueObject):
-
     ### PRIVATE METHODS ###
 
     @staticmethod

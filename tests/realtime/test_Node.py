@@ -22,7 +22,6 @@ def server(persistent_server):
 
 @pytest.mark.flaky(reruns=5)
 def test__handle_response_01(server):
-
     group_a = supriya.realtime.Group().allocate(server)
     group_b = supriya.realtime.Group().allocate(server)
 
@@ -111,7 +110,6 @@ def test__handle_response_01(server):
 
 
 def test_parentage_01(server):
-
     root_node = server.root_node
     default_group = server.default_group
 

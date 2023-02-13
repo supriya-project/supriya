@@ -19,7 +19,6 @@ def server(persistent_server):
 
 
 def test_allocate_01(server):
-
     buffer_ = supriya.realtime.Buffer()
 
     assert buffer_.buffer_id is None
@@ -54,7 +53,6 @@ def test_allocate_01(server):
 
 
 def test_allocate_02(server):
-
     buffer_ = supriya.realtime.Buffer(buffer_group_or_index=23)
 
     assert buffer_.buffer_id == 23
@@ -89,7 +87,6 @@ def test_allocate_02(server):
 
 
 def test_allocate_03(server):
-
     buffer_a = supriya.realtime.Buffer()
     buffer_b = supriya.realtime.Buffer()
     buffer_c = supriya.realtime.Buffer()

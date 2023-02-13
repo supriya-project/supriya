@@ -965,7 +965,6 @@ class BufferGetRequest(Request):
 
 
 class BufferInfo(Response):
-
     ### CLASS VARIABLES ###
 
     class Item(NamedTuple):
@@ -1438,7 +1437,6 @@ class BufferSetContiguousRequest(Request):
 
 
 class BufferSetContiguousResponse(Response, Sequence):
-
     ### CLASS VARIABLES ###
 
     class Item(NamedTuple):
@@ -1588,7 +1586,6 @@ class BufferSetRequest(Request):
 
 
 class BufferSetResponse(Response, Sequence):
-
     ### CLASS VARIABLES ###
 
     class Item(NamedTuple):

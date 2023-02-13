@@ -2,7 +2,6 @@ import supriya
 
 
 def test_01():
-
     with supriya.SynthDefBuilder(out=0, value=0.5) as builder:
         supriya.ugens.Out.ar(
             bus=builder["out"], source=supriya.ugens.DC.ar(source=builder["value"])

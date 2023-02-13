@@ -11,7 +11,6 @@ if TYPE_CHECKING:
 
 
 class SynthDefFreeAllRequest(Request):
-
     ### CLASS VARIABLES ###
 
     request_id = RequestId.SYNTHDEF_FREE_ALL
@@ -339,7 +338,6 @@ class SynthDefReceiveRequest(Request):
 
 
 class SynthDefRemovedResponse(Response):
-
     ### INITIALIZER ###
 
     def __init__(self, synthdef_name=None):

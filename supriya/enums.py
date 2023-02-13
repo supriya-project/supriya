@@ -22,7 +22,6 @@ class AddAction(IntEnumeration):
 
 
 class BinaryOperator(IntEnumeration):
-
     ### CLASS VARIABLES ###
 
     ABSOLUTE_DIFFERENCE = 38  # |a - b|
@@ -216,7 +215,6 @@ class DoneAction(IntEnumeration):
 
 
 class EnvelopeShape(IntEnumeration):
-
     ### CLASS VARIABLES ###
 
     CUBED = 7
@@ -261,7 +259,6 @@ class HeaderFormat(IntEnumeration):
 
 
 class NodeAction(IntEnumeration):
-
     ### CLASS VARIABLES ###
 
     NODE_CREATED = 0
@@ -523,7 +520,6 @@ class SignalRange(IntEnumeration):
 
 
 class UnaryOperator(IntEnumeration):
-
     ### CLASS VARIABLES ###
 
     ABSOLUTE_VALUE = 5
@@ -583,7 +579,6 @@ class UnaryOperator(IntEnumeration):
 
 
 class Unit(IntEnumeration):
-
     ### CLASS VARIABLES ###
 
     UNDEFINED = 0

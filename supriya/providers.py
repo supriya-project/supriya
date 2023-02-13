@@ -748,7 +748,6 @@ class Provider(metaclass=abc.ABCMeta):
 
 
 class NonrealtimeProvider(Provider):
-
     ### INITIALIZER ###
 
     def __init__(self, session: Session, latency: float = 0.1):
@@ -1026,7 +1025,6 @@ class NonrealtimeProvider(Provider):
 
 
 class RealtimeProvider(Provider):
-
     ### INITIALIZER ###
 
     def __init__(self, server: BaseServer, latency: float = 0.1):

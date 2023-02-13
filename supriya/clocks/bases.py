@@ -26,7 +26,6 @@ logger = logging.getLogger("supriya.clocks")
 
 
 class BaseClock:
-
     ### CLASS VARIABLES ###
 
     _valid_quantizations = frozenset(

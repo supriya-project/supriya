@@ -258,7 +258,6 @@ def ugen(
 
 
 class UGenMethodMixin(SupriyaObject):
-
     ### CLASS VARIABLES ###
 
     __slots__ = ()
@@ -3514,7 +3513,6 @@ class UGenMethodMixin(SupriyaObject):
 
 
 class UGenArray(UGenMethodMixin, Sequence):
-
     ### CLASS VARIABLES ###
 
     __slots__ = ("_ugens",)
@@ -3550,7 +3548,6 @@ class UGenArray(UGenMethodMixin, Sequence):
 
 
 class OutputProxy(UGenMethodMixin):
-
     ### INITIALIZER ###
 
     def __init__(self, source=None, output_index=None):

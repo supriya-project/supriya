@@ -137,7 +137,6 @@ class Range(SupriyaValueObject):
 
 
 class Parameter(UGenMethodMixin, SupriyaValueObject):
-
     ### CLASS VARIABLES ###
 
     __slots__ = (

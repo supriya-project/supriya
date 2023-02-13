@@ -5,7 +5,6 @@ from supriya.system import SupriyaValueObject
 
 
 class QueryTreeControl(SupriyaValueObject):
-
     ### CLASS VARIABLES ###
 
     __slots__ = ("_control_value", "_control_name_or_index")
@@ -53,7 +52,6 @@ class QueryTreeControl(SupriyaValueObject):
 
 
 class QueryTreeSynth(SupriyaValueObject, Sequence):
-
     ### CLASS VARIABLES ###
 
     __slots__ = ("_controls", "_extra", "_name", "_node_id", "_synthdef_name")
@@ -280,7 +278,6 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
 
 
 class QueryTreeGroup(SupriyaValueObject, Sequence):
-
     ### CLASS VARIABLES ###
 
     __slots__ = ("_children", "_extra", "_name", "_node_id")

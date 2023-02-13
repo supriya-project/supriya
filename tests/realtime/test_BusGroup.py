@@ -3,7 +3,6 @@ import supriya.synthdefs
 
 
 def test_allocate(server):
-
     bus_group_one = supriya.realtime.BusGroup(
         bus_count=4, calculation_rate=supriya.CalculationRate.CONTROL
     )

@@ -40,9 +40,7 @@ SynthDef("clap", {
 
 
 def _build_clap_synthdef():
-
     with supriya.synthdefs.SynthDefBuilder(out=0, amplitude=0.5) as builder:
-
         envelope_one = supriya.synthdefs.Envelope(
             amplitudes=(0, 1, 0, 1, 0, 1, 0, 1, 0),
             durations=(0.001, 0.013, 0, 0.01, 0, 0.01, 0, 0.03),

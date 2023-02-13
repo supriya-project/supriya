@@ -278,7 +278,6 @@ class ProcessProtocol:
 
 
 class SyncProcessProtocol(ProcessProtocol):
-
     ### PUBLIC METHODS ###
 
     def boot(self, options: Options):
@@ -320,7 +319,6 @@ class SyncProcessProtocol(ProcessProtocol):
 
 
 class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
-
     ### INITIALIZER ###
 
     def __init__(self):

@@ -3,11 +3,9 @@ import supriya.ugens
 
 
 def _build_kick_synthdef():
-
     builder = supriya.synthdefs.SynthDefBuilder(out=0)
 
     with builder:
-
         ### ENVELOPE ###
 
         gate = supriya.ugens.Impulse.ar(frequency=2)

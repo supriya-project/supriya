@@ -931,7 +931,6 @@ class SynthDef:
 
 
 class UGenSortBundle(SupriyaObject):
-
     ### INITIALIZER ###
 
     def __init__(self, ugen, width_first_antecedents):
@@ -981,7 +980,6 @@ class UGenSortBundle(SupriyaObject):
 
 
 class SuperColliderSynthDef(SupriyaObject):
-
     ### CLASS VARIABLES ###
 
     __slots__ = ("_body", "_name", "_rates")

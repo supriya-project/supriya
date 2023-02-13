@@ -157,7 +157,6 @@ class Say(SupriyaValueObject):
 
 
 class SoundFile(SupriyaObject):
-
     ### INITIALIZER ###
 
     def __init__(self, file_path):

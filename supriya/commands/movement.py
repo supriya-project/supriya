@@ -8,7 +8,6 @@ from .bases import Request
 
 
 class MoveRequest(Request):
-
     ### CLASS VARIABLES ###
 
     class NodeIdPair(typing.NamedTuple):

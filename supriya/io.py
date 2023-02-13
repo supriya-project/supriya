@@ -45,7 +45,6 @@ class PlayMemo:
 
 
 class Player:
-
     ### INITIALIZER ###
 
     def __init__(self, renderable, **kwargs):
@@ -79,7 +78,6 @@ class Player:
 
 
 class Plotter:
-
     ### INITIALIZER ###
 
     def __init__(self, plottable, **kwargs):

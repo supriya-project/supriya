@@ -5,7 +5,6 @@ from .bases import Request, Response
 
 
 class ClearScheduleRequest(Request):
-
     ### CLASS VARIABLES ###
 
     request_id = RequestId.CLEAR_SCHEDULE
@@ -20,7 +19,6 @@ class ClearScheduleRequest(Request):
 
 
 class DoneResponse(Response):
-
     ### INITIALIZER ###
 
     def __init__(self, action=None):
@@ -88,7 +86,6 @@ class DumpOscRequest(Request):
 
 
 class FailResponse(Response):
-
     ### INITIALIZER ###
 
     def __init__(self, failed_command=None, failure_reason=None):
@@ -118,7 +115,6 @@ class FailResponse(Response):
 
 
 class NothingRequest(Request):
-
     ### CLASS VARIABLES ###
 
     request_id = RequestId.NOTHING
@@ -182,7 +178,6 @@ class NotifyRequest(Request):
 
 
 class QuitRequest(Request):
-
     ### CLASS VARIABLES ###
 
     request_id = RequestId.QUIT
@@ -243,7 +238,6 @@ class StatusRequest(Request):
 
 
 class StatusResponse(Response):
-
     ### INITIALIZER ###
 
     def __init__(
@@ -415,7 +409,6 @@ class StatusResponse(Response):
 
 
 class SyncedResponse(Response):
-
     ### INITIALIZER ###
 
     def __init__(self, sync_id=None):

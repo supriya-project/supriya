@@ -2,7 +2,6 @@ import supriya.realtime
 
 
 def test_allocate(server):
-
     buffer_group_one = supriya.realtime.BufferGroup(buffer_count=4)
 
     assert not buffer_group_one.is_allocated

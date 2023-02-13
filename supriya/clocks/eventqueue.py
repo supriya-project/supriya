@@ -2,7 +2,6 @@ import queue
 
 
 class EventQueue(queue.PriorityQueue):
-
     ### PRIVATE METHODS ###
 
     def _init(self, maxsize):

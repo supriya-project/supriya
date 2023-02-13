@@ -131,7 +131,6 @@ class SynthNewRequest(Request):
 
 
 class TriggerResponse(Response):
-
     ### INITIALIZER ###
 
     def __init__(self, node_id=None, trigger_id=None, trigger_value=None):

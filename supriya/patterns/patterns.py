@@ -20,7 +20,6 @@ from .events import CompositeEvent, Event, Priority
 
 
 class Pattern(metaclass=abc.ABCMeta):
-
     ### CLASSMETHODS ###
 
     _rngs: Dict[int, Iterator[float]] = {}
@@ -238,7 +237,6 @@ class Pattern(metaclass=abc.ABCMeta):
 
 
 class BinaryOpPattern(Pattern):
-
     ### INITIALIZER ###
 
     def __init__(self, operator, expr_one, expr_two):
@@ -299,7 +297,6 @@ class BinaryOpPattern(Pattern):
 
 
 class UnaryOpPattern(Pattern):
-
     ### INITIALIZER ###
 
     def __init__(self, operator, expr):
@@ -342,7 +339,6 @@ class UnaryOpPattern(Pattern):
 
 
 class SeedPattern(Pattern):
-
     ### INITIALIZER ###
 
     def __init__(self, pattern, seed=0):
@@ -378,7 +374,6 @@ class SeedPattern(Pattern):
 
 
 class SequencePattern(Pattern):
-
     ### INITIALIZER ###
 
     def __init__(self, sequence, iterations=1):

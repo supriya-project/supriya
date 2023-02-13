@@ -67,7 +67,6 @@ DEFAULT_HEALTHCHECK = HealthCheck(
 
 
 class BaseServer:
-
     ### INITIALIZER ###
 
     def __init__(self):
@@ -278,7 +277,6 @@ class BaseServer:
 
 
 class AsyncServer(BaseServer):
-
     ### CLASS VARIABLES ###
 
     _servers: Set["AsyncServer"] = set()

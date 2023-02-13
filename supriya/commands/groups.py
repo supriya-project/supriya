@@ -111,7 +111,6 @@ class GroupDeepFreeRequest(Request):
 
 
 class GroupDumpTreeRequest(Request):
-
     request_id = RequestId.GROUP_DUMP_TREE
 
     def __init__(self, node_id=None, include_controls=False):
@@ -521,7 +520,6 @@ class ParallelGroupNewRequest(GroupNewRequest):
 
 
 class QueryTreeResponse(Response):
-
     ### INITIALIZER ###
 
     def __init__(self, node_id=None, query_tree_group=None):

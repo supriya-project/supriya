@@ -17,7 +17,6 @@ from .buses import Bus, BusGroup
 
 
 class ControlInterface(SupriyaObject):
-
     # TODO: This should inherit from collections.Mapping
 
     ### CLASS VARIABLES ###
@@ -111,7 +110,6 @@ class ControlInterface(SupriyaObject):
 
 
 class GroupControl:
-
     ### CLASS VARIABLES ###
 
     __slots__ = ("_client", "_name")
@@ -291,7 +289,6 @@ class GroupInterface(ControlInterface):
 
 
 class SynthControl:
-
     ### CLASS VARIABLES ###
 
     __slots__ = (
@@ -465,7 +462,6 @@ class SynthControl:
 
 
 class SynthInterface(ControlInterface):
-
     ### CLASS VARIABLES ###
 
     __slots__ = ("_synthdef", "_synth_control_map")

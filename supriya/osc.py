@@ -480,7 +480,6 @@ class HealthCheck:
 
 
 class OscProtocol(metaclass=abc.ABCMeta):
-
     ### INITIALIZER ###
 
     def __init__(self) -> None:
@@ -636,7 +635,6 @@ class OscProtocol(metaclass=abc.ABCMeta):
 
 
 class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
-
     ### INITIALIZER ###
 
     def __init__(self) -> None:
@@ -779,7 +777,6 @@ class ThreadedOscHandler(socketserver.BaseRequestHandler):
 
 
 class ThreadedOscProtocol(OscProtocol):
-
     ### INITIALIZER ###
 
     def __init__(self):
@@ -922,7 +919,6 @@ class CaptureEntry(NamedTuple):
 
 
 class Capture:
-
     ### INITIALIZER ###
 
     def __init__(self, osc_protocol):

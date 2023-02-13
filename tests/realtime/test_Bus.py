@@ -17,7 +17,6 @@ def server(persistent_server):
 
 
 def test_allocate_01(server):
-
     control_bus = supriya.realtime.Bus(calculation_rate=supriya.CalculationRate.CONTROL)
 
     assert control_bus.bus_group is None
@@ -45,7 +44,6 @@ def test_allocate_01(server):
 
 
 def test_allocate_02(server):
-
     audio_bus = supriya.realtime.Bus(calculation_rate=supriya.CalculationRate.AUDIO)
 
     assert audio_bus.bus_group is None
@@ -73,7 +71,6 @@ def test_allocate_02(server):
 
 
 def test_allocate_03(server):
-
     bus = supriya.realtime.Bus(
         bus_group_or_index=23, calculation_rate=supriya.CalculationRate.CONTROL
     )
@@ -101,7 +98,6 @@ def test_allocate_03(server):
 
 
 def test_allocate_04(server):
-
     bus_a = supriya.realtime.Bus(calculation_rate=supriya.CalculationRate.CONTROL)
     bus_b = supriya.realtime.Bus(calculation_rate=supriya.CalculationRate.CONTROL)
     bus_c = supriya.realtime.Bus(calculation_rate=supriya.CalculationRate.CONTROL)
@@ -146,7 +142,6 @@ def test_allocate_04(server):
 
 
 def test_set(server):
-
     control_bus = server.add_bus()
 
     assert control_bus.is_allocated

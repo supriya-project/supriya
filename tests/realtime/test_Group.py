@@ -75,7 +75,6 @@ def test___contains___01(server):
 
 
 def test___delitem___01(server):
-
     group_a = supriya.realtime.Group()
     group_a.allocate(server)
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
@@ -184,7 +183,6 @@ def test___delitem___01(server):
 
 
 def test___getitem___01(server):
-
     group_a = supriya.realtime.Group()
     group_a.allocate(server)
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
@@ -370,7 +368,6 @@ def test___graph___01(server):
 
 
 def test___iter___01(server):
-
     group_a = supriya.realtime.Group()
     group_a.allocate(server)
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
@@ -409,7 +406,6 @@ def test___iter___01(server):
 
 
 def test___len___01(server):
-
     group_a = supriya.realtime.Group()
     group_a.allocate(server)
 
@@ -490,7 +486,6 @@ def test___len___01(server):
 
 
 def test___setitem___01(server):
-
     group = supriya.realtime.Group().allocate(server)
     assert len(group) == 0
     remote_state = str(server.query())
@@ -538,7 +533,6 @@ def test___setitem___01(server):
 
 
 def test___setitem___02(server):
-
     group = supriya.realtime.Group().allocate(server)
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
@@ -608,7 +602,6 @@ def test___setitem___02(server):
 
 
 def test___setitem___03(server):
-
     group_a = supriya.realtime.Group()
     group_a.allocate(server)
 
@@ -837,7 +830,6 @@ def test___setitem___03(server):
 
 
 def test___setitem___04(server):
-
     group_a = supriya.realtime.Group().allocate(server)
     group_b = supriya.realtime.Group().allocate(server)
 
@@ -1046,7 +1038,6 @@ def test___setitem___04(server):
 
 
 def test___setitem___05(server):
-
     group_a = supriya.realtime.Group(name="Group A")
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test, name="Synth A")
     group_a.append(synth_a)
@@ -1155,7 +1146,6 @@ def test___setitem___05(server):
 
 
 def test___setitem___06(server):
-
     group = supriya.realtime.Group()
 
     synth_a = supriya.realtime.Synth(
@@ -1274,7 +1264,6 @@ def test___setitem___06(server):
 
 
 def test_append_01(server):
-
     group_a = supriya.realtime.Group()
     group_a.allocate(target_node=server)
 
@@ -1600,7 +1589,6 @@ def test_extend_x(server):
 
 
 def test_index_01(server):
-
     group_a = supriya.realtime.Group()
     group_a.allocate(server)
 
@@ -1703,7 +1691,6 @@ def test_insert_01(server):
 
 
 def test_pop_01(server):
-
     group_a = supriya.realtime.Group()
     group_a.allocate(server)
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
@@ -1812,7 +1799,6 @@ def test_pop_01(server):
 
 
 def test_remove_01(server):
-
     group_a = supriya.realtime.Group()
     group_a.allocate(server)
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)

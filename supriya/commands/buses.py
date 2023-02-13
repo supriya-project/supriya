@@ -354,7 +354,6 @@ class ControlBusSetContiguousRequest(Request):
 
 
 class ControlBusSetContiguousResponse(Response, Sequence):
-
     ### CLASS VARIABLES ###
 
     class Item(NamedTuple):
@@ -500,7 +499,6 @@ class ControlBusSetRequest(Request):
 
 
 class ControlBusSetResponse(Response, Sequence):
-
     ### CLASS VARIABLES ###
 
     class Item(NamedTuple):

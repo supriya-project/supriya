@@ -10,7 +10,6 @@ from .controls import Control, Parameter
 
 
 class SynthDefCompiler(SupriyaObject):
-
     ### PUBLIC METHODS ###
 
     @staticmethod

@@ -19,7 +19,6 @@ from .patterns import Pattern
 
 
 class BusPattern(Pattern):
-
     ### INITIALIZER ###
 
     def __init__(
@@ -90,7 +89,6 @@ class BusPattern(Pattern):
 
 
 class FxPattern(Pattern):
-
     ### INITIALIZER ###
 
     def __init__(self, pattern, synthdef, release_time=0.25, **kwargs):
@@ -129,7 +127,6 @@ class FxPattern(Pattern):
 
 
 class GroupPattern(Pattern):
-
     ### INITIALIZER ###
 
     def __init__(self, pattern, release_time=0.25):
@@ -167,7 +164,6 @@ class GroupPattern(Pattern):
 
 
 class ParallelPattern(Pattern):
-
     ### INITIALIZER ###
 
     def __init__(self, patterns):
