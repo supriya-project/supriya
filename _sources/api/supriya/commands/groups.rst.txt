@@ -30,6 +30,7 @@ groups
    :show-inheritance:
 
    .. autoproperty:: items
+   .. automethod:: merge
    .. autoproperty:: response_patterns
    .. automethod:: to_osc
 

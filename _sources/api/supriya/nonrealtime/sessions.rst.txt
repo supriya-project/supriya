@@ -41,14 +41,17 @@ sessions
    .. automethod:: add_group
    .. automethod:: add_synth
    .. automethod:: at
+   .. autoproperty:: audio_buses
+   .. autoproperty:: audio_buses_by_session_id
    .. autoproperty:: audio_input_bus_group
    .. autoproperty:: audio_output_bus_group
    .. autoproperty:: buffers
    .. autoproperty:: buffers_by_session_id
-   .. autoproperty:: buses
-   .. autoproperty:: buses_by_session_id
+   .. autoproperty:: control_buses
+   .. autoproperty:: control_buses_by_session_id
    .. automethod:: cue_soundfile
    .. autoproperty:: duration
+   .. automethod:: get_object_by_session_id
    .. autoproperty:: input_
    .. autoproperty:: input_bus_channel_count
    .. automethod:: is_session_like

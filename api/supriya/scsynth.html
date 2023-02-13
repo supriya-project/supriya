@@ -32,9 +32,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.fa3fbbd75cfdd7cef.min.css" />
         <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../../_static/google_fonts.css" />
-        <link rel="stylesheet" type="text/css" href="../../_static/stylesheets/sphinx_immaterial_theme.e10f1df50225cf229.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -65,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#supriya.scsynth.Options" class="md-skip">
+        <a href="#supriya.scsynth.AsyncProcessProtocol" class="md-skip">
           Skip to content
         </a>
       
@@ -833,7 +832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="osc/index.html" class="md-nav__link">
+      <a href="osc.html" class="md-nav__link">
         <span class="md-ellipsis">osc</span>
       </a>
     </li>
@@ -954,6 +953,95 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.scsynth.AsyncProcessProtocol (Python class) — Bases: SubprocessProtocol, ProcessProtocol" class="md-ellipsis">Async<wbr>Process<wbr>Protocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncProcessProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol.boot" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.AsyncProcessProtocol.boot (Python method)" class="md-ellipsis">boot</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol.connection_made" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.AsyncProcessProtocol.connection_made (Python method) — Called when a connection is made." class="md-ellipsis">connection_<wbr>made</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol.pipe_connection_lost" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.AsyncProcessProtocol.pipe_connection_lost (Python method) — Called when a file descriptor associated with the child process is closed." class="md-ellipsis">pipe_<wbr>connection_<wbr>lost</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol.pipe_data_received" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.AsyncProcessProtocol.pipe_data_received (Python method) — Called when the subprocess writes data into stdout/stderr pipe." class="md-ellipsis">pipe_<wbr>data_<wbr>received</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol.process_exited" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.AsyncProcessProtocol.process_exited (Python method) — Called when subprocess has exited." class="md-ellipsis">process_<wbr>exited</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol.quit" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.AsyncProcessProtocol.quit (Python method)" class="md-ellipsis">quit</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.scsynth.LineStatus" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.scsynth.LineStatus (Python class) — Bases: IntEnum" class="md-ellipsis">Line<wbr>Status</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LineStatus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.LineStatus.CONTINUE" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.scsynth.LineStatus.CONTINUE (Python attribute)" class="md-ellipsis">CONTINUE</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.LineStatus.ERROR" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.scsynth.LineStatus.ERROR (Python attribute)" class="md-ellipsis">ERROR</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.LineStatus.READY" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.scsynth.LineStatus.READY (Python attribute)" class="md-ellipsis">READY</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#supriya.scsynth.Options" class="md-nav__link">
     <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.scsynth.Options (Python class) — Bases: object" class="md-ellipsis">Options</span>
   </a>
@@ -983,6 +1071,34 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#supriya.scsynth.Options.get_audio_bus_ids" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.Options.get_audio_bus_ids (Python method)" class="md-ellipsis">get_<wbr>audio_<wbr>bus_<wbr>ids</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.Options.get_buffer_ids" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.Options.get_buffer_ids (Python method)" class="md-ellipsis">get_<wbr>buffer_<wbr>ids</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.Options.get_control_bus_ids" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.Options.get_control_bus_ids (Python method)" class="md-ellipsis">get_<wbr>control_<wbr>bus_<wbr>ids</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.Options.get_sync_ids" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.Options.get_sync_ids (Python method)" class="md-ellipsis">get_<wbr>sync_<wbr>ids</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#supriya.scsynth.Options.private_audio_bus_channel_count" class="md-nav__link">
     <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.scsynth.Options.private_audio_bus_channel_count (Python property)" class="md-ellipsis">private_<wbr>audio_<wbr>bus_<wbr>channel_<wbr>count</span>
   </a>
@@ -992,6 +1108,60 @@
           <li class="md-nav__item">
   <a href="#supriya.scsynth.Options.serialize" class="md-nav__link">
     <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.Options.serialize (Python method)" class="md-ellipsis">serialize</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.scsynth.ProcessProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.scsynth.ProcessProtocol (Python class) — Bases: object" class="md-ellipsis">Process<wbr>Protocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ProcessProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.ProcessProtocol.boot" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.ProcessProtocol.boot (Python method)" class="md-ellipsis">boot</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.ProcessProtocol.quit" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.ProcessProtocol.quit (Python method)" class="md-ellipsis">quit</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.scsynth.SyncProcessProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.scsynth.SyncProcessProtocol (Python class) — Bases: ProcessProtocol" class="md-ellipsis">Sync<wbr>Process<wbr>Protocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SyncProcessProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.SyncProcessProtocol.boot" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.SyncProcessProtocol.boot (Python method)" class="md-ellipsis">boot</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.SyncProcessProtocol.quit" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.SyncProcessProtocol.quit (Python method)" class="md-ellipsis">quit</span>
   </a>
   
 </li>
@@ -1296,6 +1466,95 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.scsynth.AsyncProcessProtocol (Python class) — Bases: SubprocessProtocol, ProcessProtocol" class="md-ellipsis">Async<wbr>Process<wbr>Protocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncProcessProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol.boot" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.AsyncProcessProtocol.boot (Python method)" class="md-ellipsis">boot</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol.connection_made" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.AsyncProcessProtocol.connection_made (Python method) — Called when a connection is made." class="md-ellipsis">connection_<wbr>made</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol.pipe_connection_lost" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.AsyncProcessProtocol.pipe_connection_lost (Python method) — Called when a file descriptor associated with the child process is closed." class="md-ellipsis">pipe_<wbr>connection_<wbr>lost</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol.pipe_data_received" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.AsyncProcessProtocol.pipe_data_received (Python method) — Called when the subprocess writes data into stdout/stderr pipe." class="md-ellipsis">pipe_<wbr>data_<wbr>received</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol.process_exited" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.AsyncProcessProtocol.process_exited (Python method) — Called when subprocess has exited." class="md-ellipsis">process_<wbr>exited</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.AsyncProcessProtocol.quit" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.AsyncProcessProtocol.quit (Python method)" class="md-ellipsis">quit</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.scsynth.LineStatus" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.scsynth.LineStatus (Python class) — Bases: IntEnum" class="md-ellipsis">Line<wbr>Status</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LineStatus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.LineStatus.CONTINUE" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.scsynth.LineStatus.CONTINUE (Python attribute)" class="md-ellipsis">CONTINUE</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.LineStatus.ERROR" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.scsynth.LineStatus.ERROR (Python attribute)" class="md-ellipsis">ERROR</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.LineStatus.READY" class="md-nav__link">
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="supriya.scsynth.LineStatus.READY (Python attribute)" class="md-ellipsis">READY</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#supriya.scsynth.Options" class="md-nav__link">
     <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.scsynth.Options (Python class) — Bases: object" class="md-ellipsis">Options</span>
   </a>
@@ -1325,6 +1584,34 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#supriya.scsynth.Options.get_audio_bus_ids" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.Options.get_audio_bus_ids (Python method)" class="md-ellipsis">get_<wbr>audio_<wbr>bus_<wbr>ids</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.Options.get_buffer_ids" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.Options.get_buffer_ids (Python method)" class="md-ellipsis">get_<wbr>buffer_<wbr>ids</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.Options.get_control_bus_ids" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.Options.get_control_bus_ids (Python method)" class="md-ellipsis">get_<wbr>control_<wbr>bus_<wbr>ids</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.Options.get_sync_ids" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.Options.get_sync_ids (Python method)" class="md-ellipsis">get_<wbr>sync_<wbr>ids</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#supriya.scsynth.Options.private_audio_bus_channel_count" class="md-nav__link">
     <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="supriya.scsynth.Options.private_audio_bus_channel_count (Python property)" class="md-ellipsis">private_<wbr>audio_<wbr>bus_<wbr>channel_<wbr>count</span>
   </a>
@@ -1334,6 +1621,60 @@
           <li class="md-nav__item">
   <a href="#supriya.scsynth.Options.serialize" class="md-nav__link">
     <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.Options.serialize (Python method)" class="md-ellipsis">serialize</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.scsynth.ProcessProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.scsynth.ProcessProtocol (Python class) — Bases: object" class="md-ellipsis">Process<wbr>Protocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ProcessProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.ProcessProtocol.boot" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.ProcessProtocol.boot (Python method)" class="md-ellipsis">boot</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.ProcessProtocol.quit" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.ProcessProtocol.quit (Python method)" class="md-ellipsis">quit</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supriya.scsynth.SyncProcessProtocol" class="md-nav__link">
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.scsynth.SyncProcessProtocol (Python class) — Bases: ProcessProtocol" class="md-ellipsis">Sync<wbr>Process<wbr>Protocol</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SyncProcessProtocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.SyncProcessProtocol.boot" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.SyncProcessProtocol.boot (Python method)" class="md-ellipsis">boot</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.scsynth.SyncProcessProtocol.quit" class="md-nav__link">
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="supriya.scsynth.SyncProcessProtocol.quit (Python method)" class="md-ellipsis">quit</span>
   </a>
   
 </li>
@@ -1378,6 +1719,75 @@
 
 <h1 id="module-supriya.scsynth"><span id="scsynth"></span><span id="supriya-scsynth"></span>scsynth<a class="headerlink" href="#module-supriya.scsynth" title="Permalink to this heading">¶</a></h1>
 <dl class="py class objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.AsyncProcessProtocol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AsyncProcessProtocol</span></span><a class="headerlink" href="#supriya.scsynth.AsyncProcessProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SubprocessProtocol</span></code>, <a class="reference internal" href="#supriya.scsynth.ProcessProtocol" title="supriya.scsynth.ProcessProtocol (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessProtocol</span></code></a></p>
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.AsyncProcessProtocol.boot">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">boot</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="#supriya.scsynth.Options" title="supriya.scsynth.Options (Python class) — Bases: object"><span class="pre">Options</span></a></span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.AsyncProcessProtocol.boot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.AsyncProcessProtocol.connection_made">
+<span class="sig-name descname"><span class="pre">connection_made</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">transport</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.AsyncProcessProtocol.connection_made" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when a connection is made.</p>
+<p>The argument is the transport representing the pipe connection.
+To receive data, wait for data_received() calls.
+When the connection is closed, connection_lost() is called.</p>
+</dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.AsyncProcessProtocol.pipe_connection_lost">
+<span class="sig-name descname"><span class="pre">pipe_connection_lost</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">fd</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">exc</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.AsyncProcessProtocol.pipe_connection_lost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when a file descriptor associated with the child process is
+closed.</p>
+<p>fd is the int file descriptor that was closed.</p>
+</dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.AsyncProcessProtocol.pipe_data_received">
+<span class="sig-name descname"><span class="pre">pipe_data_received</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">fd</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">data</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.AsyncProcessProtocol.pipe_data_received" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when the subprocess writes data into stdout/stderr pipe.</p>
+<p>fd is int file descriptor.
+data is bytes object.</p>
+</dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.AsyncProcessProtocol.process_exited">
+<span class="sig-name descname"><span class="pre">process_exited</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.AsyncProcessProtocol.process_exited" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when subprocess has exited.</p>
+</dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.AsyncProcessProtocol.quit">
+<span class="sig-name descname"><span class="pre">quit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.AsyncProcessProtocol.quit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.LineStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LineStatus</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">value</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.LineStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a></p>
+<p>An enumeration.</p>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.LineStatus.CONTINUE">
+<span class="sig-name descname"><span class="pre">CONTINUE</span></span><span class="p"> <span class="pre">=</span> </span><code class="code python docutils literal highlight highlight-python"><span class="mi">0</span></code><a class="headerlink" href="#supriya.scsynth.LineStatus.CONTINUE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.LineStatus.ERROR">
+<span class="sig-name descname"><span class="pre">ERROR</span></span><span class="p"> <span class="pre">=</span> </span><code class="code python docutils literal highlight highlight-python"><span class="mi">2</span></code><a class="headerlink" href="#supriya.scsynth.LineStatus.ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.LineStatus.READY">
+<span class="sig-name descname"><span class="pre">READY</span></span><span class="p"> <span class="pre">=</span> </span><code class="code python docutils literal highlight highlight-python"><span class="mi">1</span></code><a class="headerlink" href="#supriya.scsynth.LineStatus.READY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class objdesc">
 <dt class="sig sig-object highlight sig-wrap py" id="supriya.scsynth.Options">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Options</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">audio_bus_channel_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1024</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">64</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">buffer_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1024</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">control_bus_channel_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">16384</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">hardware_buffer_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">initial_node_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1000</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">input_bus_channel_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">8</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">input_device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">input_stream_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="s1">&#39;&#39;</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">ip_address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="s1">&#39;127.0.0.1&#39;</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">load_synthdefs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">maximum_logins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">maximum_node_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1024</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">maximum_synthdef_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1024</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">memory_locking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">memory_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">8192</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_bus_channel_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">8</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">output_stream_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="s1">&#39;&#39;</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">57110</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="s1">&#39;udp&#39;</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">random_number_generator_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">64</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">remote_control_volume</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">realtime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">restricted_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">ugen_plugins_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">wire_buffer_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">64</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">zero_configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.Options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
@@ -1401,6 +1811,26 @@
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">first_private_bus_id</span></span><a class="headerlink" href="#supriya.scsynth.Options.first_private_bus_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.Options.get_audio_bus_ids">
+<span class="sig-name descname"><span class="pre">get_audio_bus_ids</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.scsynth.Options.get_audio_bus_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.Options.get_buffer_ids">
+<span class="sig-name descname"><span class="pre">get_buffer_ids</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.scsynth.Options.get_buffer_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.Options.get_control_bus_ids">
+<span class="sig-name descname"><span class="pre">get_control_bus_ids</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.scsynth.Options.get_control_bus_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.Options.get_sync_ids">
+<span class="sig-name descname"><span class="pre">get_sync_ids</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.scsynth.Options.get_sync_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py property objdesc">
 <dt class="sig sig-object highlight py" id="supriya.scsynth.Options.private_audio_bus_channel_count">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">private_audio_bus_channel_count</span></span><a class="headerlink" href="#supriya.scsynth.Options.private_audio_bus_channel_count" title="Permalink to this definition">¶</a></dt>
@@ -1409,6 +1839,38 @@
 <dl class="py method objdesc">
 <dt class="sig sig-object highlight py" id="supriya.scsynth.Options.serialize">
 <span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.scsynth.Options.serialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.ProcessProtocol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProcessProtocol</span></span><a class="headerlink" href="#supriya.scsynth.ProcessProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.ProcessProtocol.boot">
+<span class="sig-name descname"><span class="pre">boot</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="#supriya.scsynth.Options" title="supriya.scsynth.Options (Python class) — Bases: object"><span class="pre">Options</span></a></span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.ProcessProtocol.boot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.ProcessProtocol.quit">
+<span class="sig-name descname"><span class="pre">quit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.ProcessProtocol.quit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.SyncProcessProtocol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SyncProcessProtocol</span></span><a class="headerlink" href="#supriya.scsynth.SyncProcessProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#supriya.scsynth.ProcessProtocol" title="supriya.scsynth.ProcessProtocol (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessProtocol</span></code></a></p>
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.SyncProcessProtocol.boot">
+<span class="sig-name descname"><span class="pre">boot</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="#supriya.scsynth.Options" title="supriya.scsynth.Options (Python class) — Bases: object"><span class="pre">Options</span></a></span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.SyncProcessProtocol.boot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.scsynth.SyncProcessProtocol.quit">
+<span class="sig-name descname"><span class="pre">quit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.SyncProcessProtocol.quit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1430,7 +1892,7 @@ Raises <code class="docutils literal notranslate"><span class="pre">RuntimeError
 
 <dl class="py function objdesc">
 <dt class="sig sig-object highlight py" id="supriya.scsynth.kill">
-<span class="sig-name descname"><span class="pre">kill</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">supernova</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.kill" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">kill</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.scsynth.kill" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 
@@ -1499,7 +1961,7 @@ Raises <code class="docutils literal notranslate"><span class="pre">RuntimeError
       <div class="md-copyright">
   
     <div class="md-footer-copyright__highlight">
-        &#169; Copyright 2014-2022, Josiah Wolf Oberholtzer.
+        &#169; Copyright 2014-2023, Josiah Wolf Oberholtzer.
         
     </div>
   
@@ -1523,9 +1985,8 @@ Raises <code class="docutils literal notranslate"><span class="pre">RuntimeError
     
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
-    
-      <script src="../../_static/javascripts/bundle.444abb77.min.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+      
+        <script src="../../_static/sphinx_immaterial_theme.cea6a0c1d5b0618cf.min.js"></script>
     
   </body>
 </html>

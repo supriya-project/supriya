@@ -32,9 +32,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.fa3fbbd75cfdd7cef.min.css" />
         <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../_static/google_fonts.css" />
-        <link rel="stylesheet" type="text/css" href="../_static/stylesheets/sphinx_immaterial_theme.e10f1df50225cf229.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1152,17 +1151,17 @@ will result in an error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1005</span>, in <span class="n">boot</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_process_protocol</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">)</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/protocols.py&quot;</span>, line <span class="m">65</span>, in <span class="n">boot</span>
-    <span class="k">raise</span> <span class="n">ServerCannotBoot</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1028</span>, in <span class="n">boot</span>
+<span class="w">    </span><span class="bp">self</span><span class="o">.</span><span class="n">_process_protocol</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">)</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/scsynth.py&quot;</span>, line <span class="m">304</span>, in <span class="n">boot</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">ServerCannotBoot</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 <span class="gr">supriya.exceptions.ServerCannotBoot</span>: <span class="n">*** ERROR: failed to open UDP socket: address in use.</span>
 </code></pre></div>
 </div>
-<p>Use <a class="reference internal" href="../api/supriya/osc/utils.html#supriya.osc.utils.find_free_port" title="supriya.osc.utils.find_free_port (Python function)"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code></a> to grab a random unused port to
+<p>Use <code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code> to grab a random unused port to
 successfully boot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">())</span>
-<span class="go">&lt;Server: udp://127.0.0.1:39521, 8i8o&gt;</span>
+<span class="go">&lt;Server: udp://127.0.0.1:36320, 8i8o&gt;</span>
 </code></pre></div>
 </div>
 </div>
@@ -1271,8 +1270,8 @@ server will error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1034</span>, in <span class="n">quit</span>
-    <span class="k">raise</span> <span class="n">UnownedServerShutdown</span><span class="p">(</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/servers.py&quot;</span>, line <span class="m">1057</span>, in <span class="n">quit</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">UnownedServerShutdown</span><span class="p">(</span>
 <span class="gr">supriya.exceptions.UnownedServerShutdown</span>: <span class="n">Cannot quit unowned server without force flag.</span>
 </code></pre></div>
 </div>
@@ -1292,10 +1291,10 @@ properties for inspecting its state.</p>
 <p>Inspect the “status” of audio processing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
 <span class="go">StatusResponse(</span>
-<span class="go">    actual_sample_rate=44108.51389120673,</span>
-<span class="go">    average_cpu_usage=0.06317926943302155,</span>
+<span class="go">    actual_sample_rate=44113.950395821725,</span>
+<span class="go">    average_cpu_usage=0.1304570436477661,</span>
 <span class="go">    group_count=2,</span>
-<span class="go">    peak_cpu_usage=0.332522451877594,</span>
+<span class="go">    peak_cpu_usage=0.6866160035133362,</span>
 <span class="go">    synth_count=0,</span>
 <span class="go">    synthdef_count=0,</span>
 <span class="go">    target_sample_rate=44100.0,</span>
@@ -1314,10 +1313,10 @@ complexity of the status output:</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
 <span class="go">StatusResponse(</span>
-<span class="go">    actual_sample_rate=44108.627138052325,</span>
-<span class="go">    average_cpu_usage=0.26405903697013855,</span>
+<span class="go">    actual_sample_rate=44113.49730258546,</span>
+<span class="go">    average_cpu_usage=0.5452478528022766,</span>
 <span class="go">    group_count=2,</span>
-<span class="go">    peak_cpu_usage=0.332522451877594,</span>
+<span class="go">    peak_cpu_usage=0.6866160035133362,</span>
 <span class="go">    synth_count=1,</span>
 <span class="go">    synthdef_count=33,</span>
 <span class="go">    target_sample_rate=44100.0,</span>
@@ -1401,8 +1400,8 @@ microphone inputs and speaker outputs:</p>
 its state.</p>
 <p>You can send <a class="reference internal" href="../glossary.html#term-OSC" title="OSC (glossary term)"><span class="xref std std-term">OSC</span></a> messages via the
 <a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server.query" title="supriya.realtime.servers.Server.query (Python method)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">query()</span></code></a> method, either as lists, as
-explicit <a class="reference internal" href="../api/supriya/osc/messages.html#supriya.osc.messages.OscMessage" title="supriya.osc.messages.OscMessage (Python class) — Bases: SupriyaValueObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">OscMessage</span></code></a> or
-<a class="reference internal" href="../api/supriya/osc/messages.html#supriya.osc.messages.OscBundle" title="supriya.osc.messages.OscBundle (Python class) — Bases: SupriyaValueObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">OscBundle</span></code></a> objects, or as
+explicit <code class="xref py py-class docutils literal notranslate"><span class="pre">OscMessage</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">OscBundle</span></code> objects, or as
 <a class="reference internal" href="../api/supriya/commands/bases.html#supriya.commands.bases.Requestable" title="supriya.commands.bases.Requestable (Python class) — Bases: SupriyaValueObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">Requestable</span></code></a> objects:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">([</span><span class="s2">&quot;/g_new&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="go">&lt;Server: udp://127.0.0.1:57110, 8i8o&gt;</span>
@@ -1480,25 +1479,25 @@ buffers and SynthDefs:</p>
 <p>Get access to the server’s underlying process management subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">process_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span><span class="o">.</span><span class="n">process_protocol</span>
-<span class="go">&lt;supriya.realtime.protocols.SyncProcessProtocol object at 0x7f14be533ac0&gt;</span>
+<span class="go">&lt;supriya.scsynth.SyncProcessProtocol object at 0x7fd5014745b0&gt;</span>
 </code></pre></div>
 </div>
 <p>Get access to the server’s underlying OSC subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">osc_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span>
-<span class="go">&lt;supriya.osc.protocols.ThreadedOscProtocol object at 0x7f14be597490&gt;</span>
+<span class="go">&lt;supriya.osc.ThreadedOscProtocol object at 0x7fd501474610&gt;</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.Server" title="supriya.realtime.servers.Server (Python class) — Bases: BaseServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> manages its <a class="reference internal" href="../glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a>
 subprocess and OSC communication via
-<a class="reference internal" href="../api/supriya/realtime/protocols.html#supriya.realtime.protocols.SyncProcessProtocol" title="supriya.realtime.protocols.SyncProcessProtocol (Python class) — Bases: ProcessProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">SyncProcessProtocol</span></code></a> and
-<a class="reference internal" href="../api/supriya/osc/protocols.html#supriya.osc.protocols.ThreadedOscProtocol" title="supriya.osc.protocols.ThreadedOscProtocol (Python class) — Bases: OscProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThreadedOscProtocol</span></code></a> objects while the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">SyncProcessProtocol</span></code> and
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ThreadedOscProtocol</span></code> objects while the
 <a class="reference internal" href="../api/supriya/realtime/servers.html#supriya.realtime.servers.AsyncServer" title="supriya.realtime.servers.AsyncServer (Python class) — Bases: BaseServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncServer</span></code></a> discussed later in
 <a class="reference internal" href="async.html"><span class="doc">Async</span></a> uses
-<a class="reference internal" href="../api/supriya/realtime/protocols.html#supriya.realtime.protocols.AsyncProcessProtocol" title="supriya.realtime.protocols.AsyncProcessProtocol (Python class) — Bases: SubprocessProtocol, ProcessProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncProcessProtocol</span></code></a> and
-<a class="reference internal" href="../api/supriya/osc/protocols.html#supriya.osc.protocols.AsyncOscProtocol" title="supriya.osc.protocols.AsyncOscProtocol (Python class) — Bases: DatagramProtocol, OscProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncOscProtocol</span></code></a> objects.</p>
+<code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncProcessProtocol</span></code> and
+<code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncOscProtocol</span></code> objects.</p>
 </div>
 
 
@@ -1566,7 +1565,7 @@ subprocess and OSC communication via
       <div class="md-copyright">
   
     <div class="md-footer-copyright__highlight">
-        &#169; Copyright 2014-2022, Josiah Wolf Oberholtzer.
+        &#169; Copyright 2014-2023, Josiah Wolf Oberholtzer.
         
     </div>
   
@@ -1590,9 +1589,8 @@ subprocess and OSC communication via
     
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
-    
-      <script src="../_static/javascripts/bundle.444abb77.min.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+      
+        <script src="../_static/sphinx_immaterial_theme.cea6a0c1d5b0618cf.min.js"></script>
     
   </body>
 </html>

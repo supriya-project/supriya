@@ -11,6 +11,7 @@ buses
    :show-inheritance:
 
    .. autoproperty:: index_count_value_triples
+   .. automethod:: merge
    .. automethod:: to_osc
 
 .. autoclass:: ControlBusGetContiguousRequest
@@ -45,6 +46,7 @@ buses
    :show-inheritance:
 
    .. autoproperty:: index_value_pairs
+   .. automethod:: merge
    .. automethod:: to_osc
 
 .. autoclass:: ControlBusSetResponse

@@ -16,7 +16,6 @@ realtime
    interfaces
    meters
    nodes
-   protocols
    recorder
    servers
    shm

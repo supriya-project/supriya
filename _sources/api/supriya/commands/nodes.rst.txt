@@ -14,7 +14,7 @@ nodes
    .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
-.. autoclass:: NodeInfoResponse
+.. autoclass:: NodeInfo
    :show-inheritance:
 
    .. autoproperty:: action
@@ -43,6 +43,11 @@ nodes
    .. autoproperty:: node_id
    .. automethod:: to_osc
 
+.. autoclass:: NodeOrderRequest
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
 .. autoclass:: NodeQueryRequest
    :show-inheritance:
 
@@ -50,9 +55,15 @@ nodes
    .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
+.. autoclass:: NodeReleaseRequest
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
 .. autoclass:: NodeRunRequest
    :show-inheritance:
 
+   .. automethod:: merge
    .. autoproperty:: node_id_run_flag_pairs
    .. automethod:: to_osc
 

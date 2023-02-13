@@ -32,9 +32,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_immaterial_theme.fa3fbbd75cfdd7cef.min.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/google_fonts.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/stylesheets/sphinx_immaterial_theme.e10f1df50225cf229.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1257,7 +1256,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../osc/index.html" class="md-nav__link">
+      <a href="../osc.html" class="md-nav__link">
         <span class="md-ellipsis">osc</span>
       </a>
     </li>
@@ -1926,7 +1925,7 @@
 <h1 id="module-supriya.nonrealtime.buffers"><span id="buffers"></span><span id="supriya-nonrealtime-buffers"></span>buffers<a class="headerlink" href="#module-supriya.nonrealtime.buffers" title="Permalink to this heading">¶</a></h1>
 <dl class="py class objdesc">
 <dt class="sig sig-object highlight sig-wrap py" id="supriya.nonrealtime.buffers.Buffer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Buffer</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">session_id</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">buffer_group</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">frame_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">start_offset</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">starting_frame</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.buffers.Buffer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Buffer</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">session_id</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">buffer_group</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">channel_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">channel_indices</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">frame_count</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">1</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">start_offset</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">starting_frame</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.buffers.Buffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="bases.html#supriya.nonrealtime.bases.SessionObject" title="supriya.nonrealtime.bases.SessionObject (Python class) — Bases: SupriyaObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SessionObject</span></code></a></p>
 <p>A non-realtime buffer.</p>
 <dl class="py method objdesc">
@@ -1995,8 +1994,8 @@
 <dd></dd></dl>
 
 <dl class="py method objdesc">
-<dt class="sig sig-object highlight sig-wrap py" id="supriya.nonrealtime.buffers.Buffer.normalize">
-<span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">as_wavetable</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">buffer_id</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">new_maximum</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">1.0</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.buffers.Buffer.normalize" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object highlight py" id="supriya.nonrealtime.buffers.Buffer.normalize">
+<span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">as_wavetable</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">new_maximum</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mf">1.0</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.buffers.Buffer.normalize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method objdesc">
@@ -2184,7 +2183,7 @@
       <div class="md-copyright">
   
     <div class="md-footer-copyright__highlight">
-        &#169; Copyright 2014-2022, Josiah Wolf Oberholtzer.
+        &#169; Copyright 2014-2023, Josiah Wolf Oberholtzer.
         
     </div>
   
@@ -2208,9 +2207,8 @@
     
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
-    
-      <script src="../../../_static/javascripts/bundle.444abb77.min.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+      
+        <script src="../../../_static/sphinx_immaterial_theme.cea6a0c1d5b0618cf.min.js"></script>
     
   </body>
 </html>

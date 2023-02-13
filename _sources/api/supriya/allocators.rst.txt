@@ -24,6 +24,8 @@ allocators
 .. autoclass:: NodeIdAllocator
    :show-inheritance:
 
+   .. automethod:: allocate
    .. automethod:: allocate_node_id
    .. automethod:: allocate_permanent_node_id
+   .. automethod:: free
    .. automethod:: free_permanent_node_id

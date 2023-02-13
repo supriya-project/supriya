@@ -10,10 +10,10 @@ bases
 .. autoclass:: Request
    :show-inheritance:
 
+   .. automethod:: merge
    .. autoproperty:: request_id
    .. autoproperty:: request_name
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: RequestBundle
    :show-inheritance:
@@ -33,6 +33,7 @@ bases
    .. autoproperty:: response
    .. automethod:: to_datagram
    .. automethod:: to_list
+   .. automethod:: to_osc
 
 .. autoclass:: Response
    :show-inheritance:

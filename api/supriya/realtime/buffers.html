@@ -32,9 +32,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_immaterial_theme.fa3fbbd75cfdd7cef.min.css" />
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/google_fonts.css" />
-        <link rel="stylesheet" type="text/css" href="../../../_static/stylesheets/sphinx_immaterial_theme.e10f1df50225cf229.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -833,7 +832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../osc/index.html" class="md-nav__link">
+      <a href="../osc.html" class="md-nav__link">
         <span class="md-ellipsis">osc</span>
       </a>
     </li>
@@ -1464,21 +1463,6 @@
     <li class="md-nav__item">
       <a href="nodes.html" class="md-nav__link">
         <span class="md-ellipsis">nodes</span>
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocols.html" class="md-nav__link">
-        <span class="md-ellipsis">protocols</span>
       </a>
     </li>
   
@@ -2351,7 +2335,7 @@
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">138</span>, in <span class="n">__float__</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -2392,7 +2376,7 @@
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">187</span>, in <span class="n">__int__</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -2416,7 +2400,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
-<span class="go">BufferInfoResponse(</span>
+<span class="go">BufferInfo(</span>
 <span class="go">    items=(</span>
 <span class="go">        Item(buffer_id=0, frame_count=1, channel_count=1, sample_rate=44100.0),</span>
 <span class="go">    ),</span>
@@ -2428,7 +2412,7 @@
 <span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
-<span class="go">BufferInfoResponse(</span>
+<span class="go">BufferInfo(</span>
 <span class="go">    items=(</span>
 <span class="go">        Item(buffer_id=1, frame_count=16, channel_count=1, sample_rate=44100.0),</span>
 <span class="go">    ),</span>
@@ -2441,7 +2425,7 @@
 <span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
-<span class="go">BufferInfoResponse(</span>
+<span class="go">BufferInfo(</span>
 <span class="go">    items=(</span>
 <span class="go">        Item(buffer_id=2, frame_count=32, channel_count=2, sample_rate=44100.0),</span>
 <span class="go">    ),</span>
@@ -2452,7 +2436,7 @@
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">366</span>, in <span class="n">allocate</span>
-    <span class="k">raise</span> <span class="n">BufferAlreadyAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferAlreadyAllocated</span>
 <span class="gr">supriya.exceptions.BufferAlreadyAllocated</span>
 </code></pre></div>
 </div>
@@ -2474,7 +2458,7 @@
 <span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s2">&quot;audio/pulse_44100sr_16bit_octo.wav&quot;</span><span class="p">],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
-<span class="go">BufferInfoResponse(</span>
+<span class="go">BufferInfo(</span>
 <span class="go">    items=(</span>
 <span class="go">        Item(buffer_id=0, frame_count=8, channel_count=8, sample_rate=44100.0),</span>
 <span class="go">    ),</span>
@@ -2490,7 +2474,7 @@
 <span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
-<span class="go">BufferInfoResponse(</span>
+<span class="go">BufferInfo(</span>
 <span class="go">    items=(</span>
 <span class="go">        Item(buffer_id=1, frame_count=4, channel_count=2, sample_rate=44100.0),</span>
 <span class="go">    ),</span>
@@ -2510,7 +2494,7 @@
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">366</span>, in <span class="n">allocate</span>
-    <span class="k">raise</span> <span class="n">BufferAlreadyAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferAlreadyAllocated</span>
 <span class="gr">supriya.exceptions.BufferAlreadyAllocated</span>
 </code></pre></div>
 </div>
@@ -2659,7 +2643,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">499</span>, in <span class="n">close</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -2687,7 +2671,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">540</span>, in <span class="n">copy</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -2739,7 +2723,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">580</span>, in <span class="n">fill</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -2766,7 +2750,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">639</span>, in <span class="n">fill_via_chebyshev</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -2793,7 +2777,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">685</span>, in <span class="n">fill_via_sine_1</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -2824,7 +2808,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">736</span>, in <span class="n">fill_via_sine_2</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -2857,7 +2841,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">791</span>, in <span class="n">fill_via_sine_3</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -2915,7 +2899,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">833</span>, in <span class="n">get</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -2944,7 +2928,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">870</span>, in <span class="n">get_contiguous</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -2980,7 +2964,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">916</span>, in <span class="n">get_frames</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -3024,7 +3008,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gp">... </span>    <span class="n">server</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
-<span class="go">BufferInfoResponse(</span>
+<span class="go">BufferInfo(</span>
 <span class="go">    items=(</span>
 <span class="go">        Item(buffer_id=0, frame_count=16, channel_count=2, sample_rate=44100.0),</span>
 <span class="go">    ),</span>
@@ -3038,7 +3022,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">963</span>, in <span class="n">query</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -3090,7 +3074,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1035</span>, in <span class="n">read</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -3213,7 +3197,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1089</span>, in <span class="n">set</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -3240,7 +3224,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1122</span>, in <span class="n">set_contiguous</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -3289,7 +3273,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1191</span>, in <span class="n">write</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -3328,7 +3312,7 @@ the DiskIn or DiskOut UGens.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/realtime/buffers.py&quot;</span>, line <span class="m">1248</span>, in <span class="n">zero</span>
-    <span class="k">raise</span> <span class="n">BufferNotAllocated</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">BufferNotAllocated</span>
 <span class="gr">supriya.exceptions.BufferNotAllocated</span>
 </code></pre></div>
 </div>
@@ -3735,7 +3719,7 @@ treated as an implementation detail.</p>
       <div class="md-copyright">
   
     <div class="md-footer-copyright__highlight">
-        &#169; Copyright 2014-2022, Josiah Wolf Oberholtzer.
+        &#169; Copyright 2014-2023, Josiah Wolf Oberholtzer.
         
     </div>
   
@@ -3759,9 +3743,8 @@ treated as an implementation detail.</p>
     
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
-    
-      <script src="../../../_static/javascripts/bundle.444abb77.min.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+      
+        <script src="../../../_static/sphinx_immaterial_theme.cea6a0c1d5b0618cf.min.js"></script>
     
   </body>
 </html>

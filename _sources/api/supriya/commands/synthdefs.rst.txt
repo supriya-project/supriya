@@ -15,14 +15,14 @@ synthdefs
 .. autoclass:: SynthDefFreeRequest
    :show-inheritance:
 
-   .. autoproperty:: synthdef
+   .. autoproperty:: synthdefs
    .. automethod:: to_osc
 
 .. autoclass:: SynthDefLoadDirectoryRequest
    :show-inheritance:
 
    .. autoproperty:: callback
-   .. autoproperty:: directory_path
+   .. autoproperty:: path
    .. autoproperty:: response_patterns
    .. automethod:: to_osc
 
@@ -30,8 +30,8 @@ synthdefs
    :show-inheritance:
 
    .. autoproperty:: callback
+   .. autoproperty:: path
    .. autoproperty:: response_patterns
-   .. autoproperty:: synthdef_path
    .. automethod:: to_osc
 
 .. autoclass:: SynthDefReceiveRequest

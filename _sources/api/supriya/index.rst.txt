@@ -20,7 +20,7 @@ supriya
    intervals/index
    io
    nonrealtime/index
-   osc/index
+   osc
    patterns/index
    providers
    querytree
