@@ -1,9 +1,8 @@
 import abc
 import asyncio
 import logging
-import threading
-import time
 from collections import deque
+from concurrent.futures import Future
 from typing import List, Optional, Sequence, Union
 
 from uqbar.objects import new
@@ -15,12 +14,6 @@ logger = logging.getLogger("supriya.osc")
 
 
 class Requestable(SupriyaValueObject):
-    ### INITIALIZER ###
-
-    def __init__(self):
-        self._condition = threading.Condition()
-        self._response = None
-
     ### PRIVATE METHODS ###
 
     def _get_response_patterns_and_requestable(self, server):
@@ -37,29 +30,13 @@ class Requestable(SupriyaValueObject):
             return -1
         return int(node_id)
 
-    def _set_response(self, message):
-        with self.condition:
-            self._response = Response.from_osc_message(message)
-            self.condition.notify()
-
-    def _set_response_async(self, message):
-        self._response = Response.from_osc_message(message)
-        self._response_future.set_result(True)
-
     ### PUBLIC METHODS ###
 
     def communicate(self, server, sync=True, timeout=1.0, apply_local=True):
-        # from ..realtime.servers import BaseServer
-
-        # if not isinstance(server, BaseServer):
-        #    raise ValueError(server)
-        # if not server.is_running:
-        #    raise ServerOffline
         if apply_local:
             with server._lock:
                 for request in self._linearize():
                     request._apply_local(server)
-        # handle non-sync
         if self._handle_async(sync, server):
             return
         (
@@ -67,31 +44,21 @@ class Requestable(SupriyaValueObject):
             failure_pattern,
             requestable,
         ) = self._get_response_patterns_and_requestable(server)
-        start_time = time.time()
-        timed_out = False
-        with self.condition:
-            try:
-                server._osc_protocol.register(
-                    pattern=success_pattern,
-                    failure_pattern=failure_pattern,
-                    procedure=self._set_response,
-                    once=True,
-                )
-            except Exception:
-                print(self)
-                raise
-            server.send(requestable.to_osc())
-            while self.response is None:
-                self.condition.wait(timeout)
-                current_time = time.time()
-                delta_time = current_time - start_time
-                if timeout <= delta_time:
-                    timed_out = True
-                    break
-        if timed_out:
+        future = Future()
+        server._osc_protocol.register(
+            pattern=success_pattern,
+            failure_pattern=failure_pattern,
+            procedure=lambda message: future.set_result(
+                Response.from_osc_message(message)
+            ),
+            once=True,
+        )
+        server.send(requestable.to_osc())
+        try:
+            return future.result(timeout=timeout)
+        except TimeoutError:
             logger.warning("Timed out: {!r}".format(self))
             return None
-        return self._response
 
     async def communicate_async(self, server, sync=True, timeout=1.0):
         (
@@ -101,17 +68,18 @@ class Requestable(SupriyaValueObject):
         ) = self._get_response_patterns_and_requestable(server)
         if self._handle_async(sync, server):
             return
-        loop = asyncio.get_running_loop()
-        self._response_future = loop.create_future()
+        future = asyncio.get_running_loop().create_future()
         server._osc_protocol.register(
             pattern=success_pattern,
             failure_pattern=failure_pattern,
-            procedure=self._set_response_async,
+            procedure=lambda message: future.set_result(
+                Response.from_osc_message(message)
+            ),
             once=True,
         )
         server.send(requestable.to_osc())
-        await asyncio.wait_for(self._response_future, timeout=timeout)
-        return self._response
+        await asyncio.wait_for(future, timeout=timeout)
+        return future.result()
 
     def to_datagram(self, *, with_placeholders=False):
         return self.to_osc(with_placeholders=with_placeholders).to_datagram()
@@ -122,16 +90,6 @@ class Requestable(SupriyaValueObject):
     @abc.abstractmethod
     def to_osc(self, *, with_placeholders=False):
         raise NotImplementedError
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def condition(self):
-        return self._condition
-
-    @property
-    def response(self):
-        return self._response
 
 
 class Request(Requestable):
@@ -225,7 +183,6 @@ class RequestBundle(Requestable):
         timestamp: Optional[float] = None,
         contents: Optional[Sequence[Union[Request, "RequestBundle"]]] = None,
     ) -> None:
-        self._condition = threading.Condition()
         self._timestamp = timestamp
         if contents is not None:
             prototype = (Request, type(self))
@@ -234,7 +191,6 @@ class RequestBundle(Requestable):
         else:
             contents = ()
         self._contents = contents
-        self._response = None
 
     ### PRIVATE METHODS ###
 
@@ -291,10 +247,6 @@ class RequestBundle(Requestable):
         return bundles
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def condition(self):
-        return self._condition
 
     @property
     def contents(self):
