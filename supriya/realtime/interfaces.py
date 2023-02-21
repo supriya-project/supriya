@@ -198,7 +198,6 @@ class GroupInterface(ControlInterface):
     ::
 
         >>> group.controls["frequency"] = 777
-
     """
 
     ### CLASS VARIABLES ###
@@ -510,7 +509,6 @@ class SynthInterface(ControlInterface):
             >>> synth = supriya.Synth()
             >>> print(repr(synth.controls))
             <SynthInterface: <- Synth: ??? default>>
-
         """
         class_name = type(self).__name__
         return "<{}: {!r}>".format(class_name, self.client)
@@ -545,7 +543,6 @@ class SynthInterface(ControlInterface):
                 (kr) gate:      1.0
                 (ir) out:       0.0
                 (kr) pan:       0.5
-
         """
         result = []
         string = "{!r}:".format(self.client)

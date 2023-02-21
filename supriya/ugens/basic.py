@@ -7,7 +7,7 @@ class Mix(PseudoUGen):
     """
     A down-to-mono signal mixer.
 
-    ..  container:: example
+    .. container:: example
 
         ::
 
@@ -43,7 +43,7 @@ class Mix(PseudoUGen):
                         left: Sum4.ar[0]
                         right: DC.ar/4[0]
 
-    ..  container:: example
+    .. container:: example
 
         ::
 
@@ -114,7 +114,6 @@ class Mix(PseudoUGen):
                         input_two: Sum4.ar/1[0]
                         input_three: Sum4.ar/2[0]
                         input_four: Sum3.ar[0]
-
     """
 
     ### PRIVATE METHODS ###
@@ -153,7 +152,7 @@ class Mix(PseudoUGen):
         """
         Segment by channel count and mix down in parallel.
 
-        ..  container:: example
+        .. container:: example
 
             Combine panner outputs, first with first, second with second, etc.
 
@@ -229,6 +228,8 @@ class Mix(PseudoUGen):
 
             Compare with a non-multichannel mixdown:
 
+            ::
+
                 >>> mix = supriya.ugens.Mix.new(panner)
                 >>> out = supriya.ugens.Out.ar(bus=0, source=mix)
                 >>> supriya.graph(out)  # doctest: +SKIP
@@ -290,7 +291,6 @@ class Mix(PseudoUGen):
                     -   Out.ar:
                             bus: 0.0
                             source[0]: Sum3.ar[0]
-
         """
         sources = cls._flatten_sources(sources)
         mixes, parts = [], []
@@ -316,7 +316,6 @@ class MulAdd(UGen):
         ... )
         >>> mul_add
         MulAdd.ar()
-
     """
 
     ### CLASS VARIABLES ###
@@ -438,7 +437,6 @@ class Sum3(UGen):
         ...     input_three=input_three,
         ... )
         Sum3.ar()
-
     """
 
     ### CLASS VARIABLES ###
@@ -497,7 +495,6 @@ class Sum4(UGen):
         ...     input_four=input_four,
         ... )
         Sum4.ar()
-
     """
 
     ### CLASS VARIABLES ###

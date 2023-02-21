@@ -48,7 +48,6 @@ class Meters(SupriyaObject):
     ::
 
         >>> meters.free()
-
     """
 
     ### CLASS VARIABLES ###

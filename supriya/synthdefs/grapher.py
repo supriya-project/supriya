@@ -10,7 +10,7 @@ class SynthDefGrapher:
     r"""
     Graphs SynthDefs.
 
-    ..  container:: example
+    .. container:: example
 
         ::
 
@@ -63,7 +63,6 @@ class SynthDefGrapher:
                 ugen_3:f_1_1_0:e -> ugen_4:f_1_0_0:w [color=steelblue];
                 ugen_5:f_1_1_0:e -> ugen_6:f_1_0_0:w [color=steelblue];
             }
-
     """
 
     ### PRIVATE METHODS ###

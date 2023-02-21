@@ -21,7 +21,6 @@ class IntervalTree(SupriyaObject):
         ...     Interval(6, 9),
         ... )
         >>> interval_tree = IntervalTree(intervals)
-
     """
 
     ### INITIALIZER ###
@@ -52,8 +51,7 @@ class IntervalTree(SupriyaObject):
 
     def __contains__(self, interval):
         """
-        Is true if this interval tree contains `interval`. Otherwise
-        false.
+        Is true if this interval tree contains `interval`. Otherwise false.
 
         ::
 
@@ -273,7 +271,7 @@ class IntervalTree(SupriyaObject):
         """
         Find intervals intersecting a interval or offset.
 
-        ..  container:: example
+        .. container:: example
 
             Finds intervals overlapping `offset`.
 
@@ -298,7 +296,7 @@ class IntervalTree(SupriyaObject):
                 Interval(start_offset=1.0, stop_offset=2.0)
                 Interval(start_offset=1.0, stop_offset=3.0)
 
-        ..  container:: example
+        .. container:: example
 
             Finds intervals overlapping `interval`.
 
@@ -322,7 +320,6 @@ class IntervalTree(SupriyaObject):
                 Interval(start_offset=0.0, stop_offset=3.0)
                 Interval(start_offset=1.0, stop_offset=3.0)
                 Interval(start_offset=2.0, stop_offset=5.0)
-
         """
         if self._is_interval(interval_or_offset):
             return self._driver.find_intervals_intersecting_interval(interval_or_offset)
@@ -359,7 +356,6 @@ class IntervalTree(SupriyaObject):
 
             >>> interval_tree.get_moment_at(6.5)
             <Moment(6.5 <<1>>)>
-
         """
         stop_intervals = self.find_intervals_stopping_at(offset)
         start_intervals, overlap_intervals = [], []
@@ -410,7 +406,6 @@ class IntervalTree(SupriyaObject):
             8 9.0
             9 None
             10 None
-
         """
         return self._driver.get_offset_after(float(offset))
 
@@ -454,7 +449,6 @@ class IntervalTree(SupriyaObject):
 
             >>> interval_tree.get_start_offset_after(6) is None
             True
-
         """
         return self._driver.get_start_offset_after(float(offset))
 
@@ -498,7 +492,6 @@ class IntervalTree(SupriyaObject):
 
             >>> interval_tree.get_start_offset_before(0) is None
             True
-
         """
         return self._driver.get_start_offset_before(float(offset))
 
@@ -569,8 +562,7 @@ class IntervalTree(SupriyaObject):
 
     def iterate_moments_nwise(self, n=3, reverse=False):
         """
-        Iterates moments in this interval tree in groups of
-        `n`.
+        Iterates moments in this interval tree in groups of `n`.
 
         ::
 
@@ -656,7 +648,6 @@ class IntervalTree(SupriyaObject):
             ...
             Interval(start_offset=0.0, stop_offset=3.0)
             Interval(start_offset=6.0, stop_offset=9.0)
-
         """
         self._driver.remove(interval)
 

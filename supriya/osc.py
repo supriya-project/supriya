@@ -54,7 +54,7 @@ class OscMessage(SupriyaValueObject):
     """
     An OSC message.
 
-    ..  container:: example
+    .. container:: example
 
         ::
 
@@ -69,7 +69,7 @@ class OscMessage(SupriyaValueObject):
             >>> OscMessage.from_datagram(datagram)
             OscMessage('/g_new', 0, 0)
 
-    ..  container:: example
+    .. container:: example
 
         ::
 
@@ -83,7 +83,7 @@ class OscMessage(SupriyaValueObject):
             >>> OscMessage.from_datagram(datagram)
             OscMessage('/foo', True, [None, [3.25]], OscMessage('/bar'))
 
-    ..  container:: example
+    .. container:: example
 
         ::
 
@@ -117,7 +117,6 @@ class OscMessage(SupriyaValueObject):
                     OscMessage('/ffff', False, True, None),
                 ),
             ), ['a', 'b', ['c', 'd']])
-
     """
 
     ### CLASS VARIABLES ###
@@ -355,7 +354,6 @@ class OscBundle(SupriyaValueObject):
 
         >>> decoded_bundle == outer_bundle
         True
-
     """
 
     ### CLASS VARIABLES ###

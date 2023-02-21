@@ -19,7 +19,6 @@ class Amplitude(UGen):
         ... )
         >>> amplitude
         Amplitude.kr()
-
     """
 
     source = param(None)
@@ -31,7 +30,6 @@ class Amplitude(UGen):
 class Compander(UGen):
     """
     A general purpose hard-knee dynamics processor.
-
     """
 
     source = param(None)
@@ -63,7 +61,7 @@ class CompanderD(PseudoUGen):
         """
         Constructs an audio-rate dynamics processor.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -126,7 +124,6 @@ class Limiter(UGen):
         ... )
         >>> limiter
         Limiter.ar()
-
     """
 
     source = param(None)
@@ -149,7 +146,6 @@ class Normalizer(UGen):
         ... )
         >>> normalizer
         Normalizer.ar()
-
     """
 
     source = param(None)

@@ -242,7 +242,6 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
                 "node_id": 1001,
                 "synthdef": "c1aa521afab5b0c0ce3d744690951649"
             }
-
         """
         result = {
             "node_id": self.node_id,
@@ -535,7 +534,6 @@ class QueryTreeGroup(SupriyaValueObject, Sequence):
                 ],
                 "node_id": 1002
             }
-
         """
         result = {
             "node_id": self.node_id,

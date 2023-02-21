@@ -16,7 +16,6 @@ class DiskIn(UGen):
         ... )
         >>> disk_in
         UGenArray({2})
-
     """
 
     buffer_id = param(None)
@@ -38,7 +37,6 @@ class DiskOut(UGen):
         ... )
         >>> disk_out
         DiskOut.ar()
-
     """
 
     buffer_id = param(None)
@@ -62,7 +60,6 @@ class VDiskIn(UGen):
         ... )
         >>> vdisk_in
         UGenArray({2})
-
     """
 
     buffer_id = param(None)

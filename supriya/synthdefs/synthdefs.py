@@ -76,7 +76,6 @@ class SynthDef:
 
         >>> server.quit()
         <Server: offline>
-
     """
 
     ### CLASS VARIABLES ###
@@ -662,7 +661,6 @@ class SynthDef:
                     }
                 }
             }
-
         """
         result = {
             "name": self.actual_name,

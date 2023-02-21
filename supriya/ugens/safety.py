@@ -18,7 +18,6 @@ class CheckBadValues(UGen):
         ... )
         >>> check_bad_values
         CheckBadValues.ar()
-
     """
 
     source = param(None)

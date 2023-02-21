@@ -16,7 +16,6 @@ class CuspL(UGen):
         ... )
         >>> cusp_l
         CuspL.ar()
-
     """
 
     frequency = param(22050)
@@ -40,7 +39,6 @@ class CuspN(UGen):
         ... )
         >>> cusp_n
         CuspN.ar()
-
     """
 
     frequency = param(22050)
@@ -67,7 +65,6 @@ class FBSineC(UGen):
         ... )
         >>> fbsine_c
         FBSineC.ar()
-
     """
 
     frequency = param(22050)
@@ -97,7 +94,6 @@ class FBSineL(UGen):
         ... )
         >>> fbsine_l
         FBSineL.ar()
-
     """
 
     frequency = param(22050)
@@ -127,7 +123,6 @@ class FBSineN(UGen):
         ... )
         >>> fbsine_n
         FBSineN.ar()
-
     """
 
     frequency = param(22050)
@@ -153,7 +148,6 @@ class GbmanL(UGen):
         ... )
         >>> gbman_l
         GbmanL.ar()
-
     """
 
     frequency = param(22050)
@@ -175,7 +169,6 @@ class GbmanN(UGen):
         ... )
         >>> gbman_n
         GbmanN.ar()
-
     """
 
     frequency = param(22050)
@@ -199,7 +192,6 @@ class HenonC(UGen):
         ... )
         >>> henon_c
         HenonC.ar()
-
     """
 
     frequency = param(22050)
@@ -225,7 +217,6 @@ class HenonL(UGen):
         ... )
         >>> henon_l
         HenonL.ar()
-
     """
 
     frequency = param(22050)
@@ -251,7 +242,6 @@ class HenonN(UGen):
         ... )
         >>> henon_n
         HenonN.ar()
-
     """
 
     frequency = param(22050)
@@ -279,7 +269,6 @@ class LatoocarfianC(UGen):
         ... )
         >>> latoocarfian_c
         LatoocarfianC.ar()
-
     """
 
     frequency = param(22050)
@@ -309,7 +298,6 @@ class LatoocarfianL(UGen):
         ... )
         >>> latoocarfian_l
         LatoocarfianL.ar()
-
     """
 
     frequency = param(22050)
@@ -339,7 +327,6 @@ class LatoocarfianN(UGen):
         ... )
         >>> latoocarfian_n
         LatoocarfianN.ar()
-
     """
 
     frequency = param(22050)
@@ -367,7 +354,6 @@ class LinCongC(UGen):
         ... )
         >>> lin_cong_c
         LinCongC.ar()
-
     """
 
     frequency = param(22050)
@@ -393,7 +379,6 @@ class LinCongL(UGen):
         ... )
         >>> lin_cong_l
         LinCongL.ar()
-
     """
 
     frequency = param(22050)
@@ -419,7 +404,6 @@ class LinCongN(UGen):
         ... )
         >>> lin_cong_n
         LinCongN.ar()
-
     """
 
     frequency = param(22050)
@@ -448,7 +432,6 @@ class LorenzL(UGen):
         ... )
         >>> lorenz_l
         LorenzL.ar()
-
     """
 
     frequency = param(22050)
@@ -477,7 +460,6 @@ class QuadC(UGen):
         ... )
         >>> quad_c
         QuadC.ar()
-
     """
 
     frequency = param(22050)
@@ -503,7 +485,6 @@ class QuadL(UGen):
         ... )
         >>> quad_l
         QuadL.ar()
-
     """
 
     frequency = param(22050)
@@ -529,7 +510,6 @@ class QuadN(UGen):
         ... )
         >>> quad_n
         QuadN.ar()
-
     """
 
     frequency = param(22050)
@@ -554,7 +534,6 @@ class StandardL(UGen):
         ... )
         >>> standard_l
         StandardL.ar()
-
     """
 
     frequency = param(22050)
@@ -578,7 +557,6 @@ class StandardN(UGen):
         ... )
         >>> standard_n
         StandardN.ar()
-
     """
 
     frequency = param(22050)

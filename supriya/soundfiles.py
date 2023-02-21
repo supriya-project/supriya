@@ -26,7 +26,6 @@ class Say(SupriyaValueObject):
 
         >>> say = supriya.Say("Hello World!", voice="Daniel")
         >>> supriya.play(say)  # doctest: +SKIP
-
     """
 
     ### CLASS VARIABLES ###

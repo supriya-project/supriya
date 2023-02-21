@@ -20,7 +20,6 @@ class Dbrown(UGen):
         ... )
         >>> dbrown
         Dbrown.dr()
-
     """
 
     minimum = param(0.0)
@@ -43,7 +42,6 @@ class Dbufrd(UGen):
         ... )
         >>> dbufrd
         Dbufrd.dr()
-
     """
 
     buffer_id = param(0)
@@ -66,7 +64,6 @@ class Dbufwr(UGen):
         ... )
         >>> dbufwr
         Dbufwr.dr()
-
     """
 
     source = param(0.0)
@@ -94,7 +91,6 @@ class Demand(UGen):
         ... )
         >>> demand
         UGenArray({2})
-
     """
 
     ### CLASS VARIABLES ###
@@ -139,7 +135,6 @@ class DemandEnvGen(UGen):
         ... )
         >>> demand_env_gen
         DemandEnvGen.ar()
-
     """
 
     level = param(None)
@@ -168,7 +163,6 @@ class Dgeom(UGen):
         ... )
         >>> dgeom
         Dgeom.dr()
-
     """
 
     start = param(1)
@@ -191,7 +185,6 @@ class Dibrown(UGen):
         ... )
         >>> dibrown
         Dibrown.dr()
-
     """
 
     minimum = param(0)
@@ -214,7 +207,6 @@ class Diwhite(UGen):
         ... )
         >>> diwhite
         Diwhite.dr()
-
     """
 
     minimum = param(0)
@@ -236,7 +228,6 @@ class Drand(UGen):
         ... )
         >>> drand
         Drand.dr()
-
     """
 
     repeats = param(1)
@@ -257,7 +248,6 @@ class Dreset(UGen):
         ... )
         >>> dreset
         Dreset.dr()
-
     """
 
     source = param(None)
@@ -278,7 +268,6 @@ class Dseq(UGen):
         ... )
         >>> dseq
         Dseq.dr()
-
     """
 
     repeats = param(1)
@@ -299,7 +288,6 @@ class Dser(UGen):
         ... )
         >>> dser
         Dser.dr()
-
     """
 
     repeats = param(1)
@@ -320,7 +308,6 @@ class Dseries(UGen):
         ... )
         >>> dseries
         Dseries.dr()
-
     """
 
     start = param(1)
@@ -342,7 +329,6 @@ class Dshuf(UGen):
         ... )
         >>> dshuf
         Dshuf.dr()
-
     """
 
     repeats = param(1)
@@ -363,7 +349,6 @@ class Dstutter(UGen):
         ... )
         >>> dstutter
         Dstutter.dr()
-
     """
 
     n = param(2)
@@ -385,7 +370,6 @@ class Dswitch(UGen):
         ... )
         >>> dswitch
         Dswitch.dr()
-
     """
 
     index = param(None)
@@ -407,7 +391,6 @@ class Dswitch1(UGen):
         ... )
         >>> dswitch_1
         Dswitch1.dr()
-
     """
 
     index = param(None)
@@ -429,7 +412,6 @@ class Dunique(UGen):
         ... )
         >>> dunique
         Dunique.dr()
-
     """
 
     source = param(None)
@@ -458,7 +440,6 @@ class Duty(UGen):
         ... )
         >>> duty
         Duty.kr()
-
     """
 
     duration = param(1.0)
@@ -481,7 +462,6 @@ class Dwhite(UGen):
         ... )
         >>> dwhite
         Dwhite.dr()
-
     """
 
     minimum = param(0.0)
@@ -505,7 +485,6 @@ class Dwrand(UGen):
         ... )
         >>> dwrand
         Dwrand.dr()
-
     """
 
     repeats = param(1)
@@ -546,7 +525,6 @@ class Dxrand(UGen):
         ... )
         >>> dxrand
         Dxrand.dr()
-
     """
 
     repeats = param(1)

@@ -4,7 +4,6 @@ from .bases import UGen, param, ugen
 @ugen(ar=True)
 class FreqShift(UGen):
     """
-
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
@@ -15,7 +14,6 @@ class FreqShift(UGen):
         ... )
         >>> freq_shift
         FreqShift.ar()
-
     """
 
     source = param(None)
@@ -36,7 +34,6 @@ class Hilbert(UGen):
         ... )
         >>> hilbert
         UGenArray({2})
-
     """
 
     source = param(None)
@@ -56,7 +53,6 @@ class HilbertFIR(UGen):
         ... )
         >>> hilbert_fir
         HilbertFIR.ar()
-
     """
 
     source = param(None)

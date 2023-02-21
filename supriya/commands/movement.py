@@ -124,7 +124,6 @@ class GroupHeadRequest(MoveRequest):
                         out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                     1002 group
                     1003 group
-
     """
 
     ### CLASS VARIABLES ###
@@ -201,7 +200,6 @@ class GroupTailRequest(MoveRequest):
                     1003 group
                     1001 default
                         out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
-
     """
 
     ### CLASS VARIABLES ###
@@ -297,7 +295,6 @@ class NodeAfterRequest(MoveRequest):
                     1007 group
                 1001 default
                     out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
-
     """
 
     ### CLASS VARIABLES ###
@@ -393,7 +390,6 @@ class NodeBeforeRequest(MoveRequest):
                 1005 group
                     1006 group
                     1007 group
-
     """
 
     ### CLASS VARIABLES ###

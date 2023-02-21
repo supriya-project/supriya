@@ -458,7 +458,6 @@ class Session:
 
         >>> from supriya import play
         >>> _ = play(session)  # doctest: +SKIP
-
     """
 
     ### CLASS VARIABLES ###
@@ -549,7 +548,6 @@ class Session:
             ...     _ = synth_d.move_node(synth_a, add_action="ADD_AFTER")
             ...
             >>> supriya.graph(session)  # doctest: +SKIP
-
         """
         node_mappings = []
         graph = uqbar.graphs.Graph(

@@ -4,7 +4,6 @@ from .bases import UGen, param, ugen
 @ugen(ar=True, is_multichannel=True)
 class GrainBuf(UGen):
     """
-
     ::
 
         >>> grain_buf = supriya.ugens.GrainBuf.ar(
@@ -21,7 +20,6 @@ class GrainBuf(UGen):
         ... )
         >>> grain_buf
         UGenArray({2})
-
     """
 
     trigger = param(0)
@@ -38,7 +36,6 @@ class GrainBuf(UGen):
 @ugen(ar=True, is_multichannel=True)
 class GrainIn(UGen):
     """
-
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0)
@@ -53,7 +50,6 @@ class GrainIn(UGen):
         ... )
         >>> grain_in
         UGenArray({2})
-
     """
 
     trigger = param(0)
@@ -76,7 +72,6 @@ class PitchShift(UGen):
         ...     source=source,
         ... )
         PitchShift.ar()
-
     """
 
     source = param(None)
@@ -89,7 +84,6 @@ class PitchShift(UGen):
 @ugen(ar=True, is_multichannel=True)
 class Warp1(UGen):
     """
-
     ::
 
         >>> warp_1 = supriya.ugens.Warp1.ar(
@@ -105,7 +99,6 @@ class Warp1(UGen):
         ... )
         >>> warp_1
         Warp1.ar()
-
     """
 
     buffer_id = param(0)

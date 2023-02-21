@@ -51,7 +51,6 @@ class Range(SupriyaValueObject):
             maximum=3.0,
             minimum=-3.0,
         )
-
     """
 
     ### CLASS VARIABLES ###
@@ -247,9 +246,9 @@ class Control(MultiOutUGen):
     """
     A control-rate control ugen.
 
-    Control ugens can be set and routed externally to interact with a running
-    synth. Controls are created from the parameters of a synthesizer
-    definition, and typically do not need to be created by hand.
+    Control ugens can be set and routed externally to interact with a running synth.
+    Controls are created from the parameters of a synthesizer definition, and typically
+    do not need to be created by hand.
     """
 
     ### CLASS VARIABLES ###

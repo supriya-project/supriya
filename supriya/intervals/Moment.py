@@ -49,8 +49,7 @@ class Moment(SupriyaObject):
     @property
     def next_moment(self):
         """
-        Gets the next moment in this moment's interval
-        collection.
+        Gets the next moment in this moment's interval collection.
         """
         # TODO: This doesn't take into account stop offsets
         tree = self._interval_tree
@@ -64,8 +63,7 @@ class Moment(SupriyaObject):
     @property
     def next_start_offset(self):
         """
-        Gets the next moment start offset in this moment's
-        interval tree.
+        Gets the next moment start offset in this moment's interval tree.
         """
         tree = self._interval_tree
         if tree is None:
@@ -76,16 +74,14 @@ class Moment(SupriyaObject):
     @property
     def overlap_intervals(self):
         """
-        Gets the intervals in this moment which overlap this
-        moment's start offset.
+        Gets the intervals in this moment which overlap this moment's start offset.
         """
         return self._overlap_intervals
 
     @property
     def previous_moment(self):
         """
-        Gets the previous moment in this moment's interval
-        collection.
+        Gets the previous moment in this moment's interval collection.
         """
         # TODO: This doesn't take into account stop offsets
         tree = self._interval_tree
@@ -99,8 +95,7 @@ class Moment(SupriyaObject):
     @property
     def previous_start_offset(self):
         """
-        Gets the previous moment start offset in this moment's
-        interval tree.
+        Gets the previous moment start offset in this moment's interval tree.
         """
         tree = self._interval_tree
         if tree is None:
@@ -118,16 +113,14 @@ class Moment(SupriyaObject):
     @property
     def start_intervals(self):
         """
-        Gets the intervals in this moment which start at this
-        moment's start offset.
+        Gets the intervals in this moment which start at this moment's start offset.
         """
         return self._start_intervals
 
     @property
     def stop_intervals(self):
         """
-        Gets the intervals in this moment which stop at this
-        moment's start offset.
+        Gets the intervals in this moment which stop at this moment's start offset.
         """
         return self._stop_intervals
 

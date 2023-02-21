@@ -1,6 +1,5 @@
 """
-Tools for interacting with and modeling objects on the SuperCollider
-``scsynth`` synthesis server.
+Tools for interacting with and modeling objects on the SuperCollider ``scsynth`` synthesis server.
 """
 from .bases import ServerObject
 from .buffers import Buffer, BufferGroup, BufferProxy

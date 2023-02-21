@@ -28,7 +28,7 @@ class SynthDefFactory(SupriyaObject):
     """
     A factory class for building SynthDefs with common signal flow structures.
 
-    ..  container:: example
+    .. container:: example
 
         ::
 
@@ -90,7 +90,7 @@ class SynthDefFactory(SupriyaObject):
                         bus: Control.ir[0:out]
                         source[0]: AllpassC.ar/1[0]
 
-    ..  container:: example
+    .. container:: example
 
         ::
 
@@ -154,7 +154,7 @@ class SynthDefFactory(SupriyaObject):
                         bus: Control.ir[0:out]
                         source[0]: AllpassC.ar/3[0]
 
-    ..  container:: example
+    .. container:: example
 
         ::
 
@@ -206,7 +206,6 @@ class SynthDefFactory(SupriyaObject):
                         bus: Control.ir[0:out]
                         source[0]: AllpassC.ar/2[0]
                         source[1]: AllpassC.ar/3[0]
-
     """
 
     ### CLASS VARIABLES ###
@@ -378,7 +377,7 @@ class SynthDefFactory(SupriyaObject):
         """
         Return a new factory configured with `channel_count`.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -403,7 +402,7 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_output()
                 >>> factory = factory.with_signal_block(signal_block)
 
-        ..  container:: example
+        .. container:: example
 
             Configure the factory with 4 channels:
 
@@ -481,7 +480,7 @@ class SynthDefFactory(SupriyaObject):
                             source[2]: AllpassC.ar/6[0]
                             source[3]: AllpassC.ar/7[0]
 
-        ..  container:: example
+        .. container:: example
 
             Channel count can be overridden at build time:
 
@@ -546,7 +545,6 @@ class SynthDefFactory(SupriyaObject):
                             source[0]: AllpassC.ar/3[0]
                             source[1]: AllpassC.ar/4[0]
                             source[2]: AllpassC.ar/5[0]
-
         """
         channel_count = int(channel_count)
         assert channel_count > 0
@@ -558,10 +556,10 @@ class SynthDefFactory(SupriyaObject):
         """
         Return a new factory configured with a feedback loop.
 
-        Feedback block functions follow the same guidelines as other signal
-        block functions.
+        Feedback block functions follow the same guidelines as other signal block
+        functions.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -586,7 +584,7 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_output()
                 >>> factory = factory.with_signal_block(signal_block)
 
-        ..  container:: example
+        .. container:: example
 
             Configure the factory with a basic feedback loop:
 
@@ -638,10 +636,10 @@ class SynthDefFactory(SupriyaObject):
                     -   LocalOut.ar:
                             source[0]: AllpassC.ar/1[0]
 
-        ..  container:: example
+        .. container:: example
 
-            Configure the factory with a modulated feedback loop via a signal
-            block function:
+            Configure the factory with a modulated feedback loop via a signal block
+            function:
 
             ::
 
@@ -701,7 +699,6 @@ class SynthDefFactory(SupriyaObject):
                             right: SinOsc.kr[0]
                     -   LocalOut.ar:
                             source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
-
         """
         clone = self._clone()
         if block_function:
@@ -714,7 +711,7 @@ class SynthDefFactory(SupriyaObject):
         """
         Return a new factory configured with a gate.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -739,10 +736,9 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_output()
                 >>> factory = factory.with_signal_block(signal_block)
 
-        ..  container:: example
+        .. container:: example
 
-            Configure the factory with a gate envelope and corresponding gate
-            parameter:
+            Configure the factory with a gate envelope and corresponding gate parameter:
 
             ::
 
@@ -794,7 +790,6 @@ class SynthDefFactory(SupriyaObject):
                     -   Out.ar:
                             bus: Control.ir[0:out]
                             source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
-
         """
         clone = self._clone()
         clone._gate.update(
@@ -804,10 +799,9 @@ class SynthDefFactory(SupriyaObject):
 
     def with_initial_state(self, **state):
         """
-        Return a new factory configured with an inital state comprised of
-        key/value pairs.
+        Return a new factory configured with an inital state comprised of key/value pairs.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -832,11 +826,11 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_output()
                 >>> factory = factory.with_signal_block(signal_block)
 
-        ..  container:: example
+        .. container:: example
 
-            Configure the factory with an initial state consisting of a single
-            key/value pair which can be accessed in the previously configured
-            signal block function:
+            Configure the factory with an initial state consisting of a single key/value
+            pair which can be accessed in the previously configured signal block
+            function:
 
             ::
 
@@ -900,7 +894,6 @@ class SynthDefFactory(SupriyaObject):
                     -   Out.ar:
                             bus: Control.ir[0:out]
                             source[0]: AllpassC.ar/3[0]
-
         """
         clone = self._clone()
         clone._initial_state.update(**state)
@@ -910,7 +903,7 @@ class SynthDefFactory(SupriyaObject):
         """
         Return a new factory configured with a bus input.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -934,7 +927,7 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_signal_block(signal_block)
                 >>> factory = factory.with_output()
 
-        ..  container:: example
+        .. container:: example
 
             Configure the factory with a basic bus input:
 
@@ -979,7 +972,7 @@ class SynthDefFactory(SupriyaObject):
                             bus: Control.ir[0:out]
                             source[0]: AllpassC.ar/1[0]
 
-        ..  container:: example
+        .. container:: example
 
             Configure the factory with a private bus input:
 
@@ -1024,7 +1017,7 @@ class SynthDefFactory(SupriyaObject):
                             bus: Control.ir[1:out]
                             source[0]: AllpassC.ar/1[0]
 
-        ..  container:: example
+        .. container:: example
 
             Configure the factory with a windowed bus input:
 
@@ -1079,10 +1072,10 @@ class SynthDefFactory(SupriyaObject):
                             bus: Control.ir[1:out]
                             source[0]: AllpassC.ar/1[0]
 
-        ..  container:: example
+        .. container:: example
 
-            A factory configured with both a windowed bus input and output will
-            re-use the windowing signal:
+            A factory configured with both a windowed bus input and output will re-use
+            the windowing signal:
 
             ::
 
@@ -1138,7 +1131,6 @@ class SynthDefFactory(SupriyaObject):
                     -   Out.ar:
                             bus: Control.ir[1:out]
                             source[0]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-
         """
         clone = self._clone()
         clone._input.update(
@@ -1152,7 +1144,7 @@ class SynthDefFactory(SupriyaObject):
         """
         Return a new factory configured with a bus output.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -1176,8 +1168,7 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_input()
                 >>> factory = factory.with_signal_block(signal_block)
 
-        ..  container:: example
-
+        .. container:: example
 
             Configure the factory with a basic bus output:
 
@@ -1222,7 +1213,7 @@ class SynthDefFactory(SupriyaObject):
                             bus: Control.ir[0:out]
                             source[0]: AllpassC.ar/1[0]
 
-        ..  container:: example
+        .. container:: example
 
             Configure the factory with a windowed bus output:
 
@@ -1277,7 +1268,7 @@ class SynthDefFactory(SupriyaObject):
                             bus: Control.ir[1:out]
                             source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             Configure the factory with a mix-able bus output:
 
@@ -1324,10 +1315,10 @@ class SynthDefFactory(SupriyaObject):
                             crossfade: Control.kr[0:mix]
                             source[0]: AllpassC.ar/1[0]
 
-        ..  container:: example
+        .. container:: example
 
-            Configure the factory with a basic bus output preceded by an
-            amplitude level control:
+            Configure the factory with a basic bus output preceded by an amplitude level
+            control:
 
             ::
 
@@ -1374,10 +1365,10 @@ class SynthDefFactory(SupriyaObject):
                             bus: Control.ir[0:out]
                             source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
 
-        ..  container:: example
+        .. container:: example
 
-            A factory configured with a crossfaded *and* windowed bus output
-            will use the windowing signal to control the mix:
+            A factory configured with a crossfaded *and* windowed bus output will use
+            the windowing signal to control the mix:
 
             ::
 
@@ -1431,7 +1422,7 @@ class SynthDefFactory(SupriyaObject):
                             crossfade: UnaryOpUGen(HANNING_WINDOW).kr[0]
                             source[0]: AllpassC.ar/1[0]
 
-        ..  container:: example
+        .. container:: example
 
             A level-control can be combined with the windowing and crossfading:
 
@@ -1492,10 +1483,10 @@ class SynthDefFactory(SupriyaObject):
                             crossfade: BinaryOpUGen(MULTIPLICATION).kr[0]
                             source[0]: AllpassC.ar/1[0]
 
-        ..  container:: example
+        .. container:: example
 
-            A factory configured with both a windowed bus input and output will
-            re-use the windowing signal:
+            A factory configured with both a windowed bus input and output will re-use
+            the windowing signal:
 
             ::
 
@@ -1552,7 +1543,6 @@ class SynthDefFactory(SupriyaObject):
                             bus: Control.ir[1:out]
                             crossfade: BinaryOpUGen(MULTIPLICATION).kr[0]
                             source[0]: AllpassC.ar/1[0]
-
         """
         assert not (replacing and crossfaded)
         clone = self._clone()
@@ -1583,9 +1573,8 @@ class SynthDefFactory(SupriyaObject):
         """
         Return a new factory configured with a parameter block function.
 
-        Use parameter block functions to build repetitive sets of SynthDef
-        parameters, e.g. each set of band parameters for a multi-band
-        compressor.
+        Use parameter block functions to build repetitive sets of SynthDef parameters,
+        e.g. each set of band parameters for a multi-band compressor.
 
         Parameter block functions take two parameters:
 
@@ -1593,15 +1582,15 @@ class SynthDefFactory(SupriyaObject):
             the SynthDef builder instance
 
         state
-            a dictionary of arbitrary key/value pairs for parameterizing the
-            signal and parameter block functions
+            a dictionary of arbitrary key/value pairs for parameterizing the signal and
+            parameter block functions
 
         The return values of parameter block functions are ignored.
 
-        ..  container:: example
+        .. container:: example
 
-            A factory configured to build multi-band compressor SynthDefs,
-            using frequency bands split at ``frequencies``:
+            A factory configured to build multi-band compressor SynthDefs, using
+            frequency bands split at ``frequencies``:
 
             ::
 
@@ -1793,10 +1782,10 @@ class SynthDefFactory(SupriyaObject):
                             crossfade: Control.kr[28:mix]
                             source[0]: Sum4.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
-            The above factory can be parameterized to use smaller or larger
-            numbers of bands during the build stage:
+            The above factory can be parameterized to use smaller or larger numbers of
+            bands during the build stage:
 
             ::
 
@@ -2065,7 +2054,6 @@ class SynthDefFactory(SupriyaObject):
                             bus: Control.ir[0:out]
                             crossfade: Control.kr[56:mix]
                             source[0]: BinaryOpUGen(ADDITION).ar[0]
-
         """
         clone = self._clone()
         clone._parameter_blocks.append(block_function)
@@ -2075,7 +2063,7 @@ class SynthDefFactory(SupriyaObject):
         """
         Return a new factory configured with a random number generator ID.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -2100,10 +2088,9 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_output()
                 >>> factory = factory.with_signal_block(signal_block)
 
-        ..  container:: example
+        .. container:: example
 
-            Configure the factory with a random number generator ID, defaulting
-            to 23:
+            Configure the factory with a random number generator ID, defaulting to 23:
 
             ::
 
@@ -2147,7 +2134,6 @@ class SynthDefFactory(SupriyaObject):
                     -   Out.ar:
                             bus: Control.ir[0:out]
                             source[0]: AllpassC.ar/1[0]
-
         """
         clone = self._clone()
         if rand_id is not None:
@@ -2158,8 +2144,7 @@ class SynthDefFactory(SupriyaObject):
 
     def with_signal_block(self, block_function):
         """
-        Return a new factory configured with an additional signal block
-        function.
+        Return a new factory configured with an additional signal block function.
 
         Signal block functions take three parameters:
 
@@ -2170,12 +2155,12 @@ class SynthDefFactory(SupriyaObject):
             a UGenMethodMixin representing the signal flow
 
         state
-            a dictionary of arbitrary key/value pairs for parameterizing the
-            signal and parameter block functions
+            a dictionary of arbitrary key/value pairs for parameterizing the signal and
+            parameter block functions
 
         Signal block functions should return a UGenMethodMixin.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -2200,7 +2185,7 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_output()
                 >>> factory = factory.with_signal_block(signal_block)
 
-        ..  container:: example
+        .. container:: example
 
             Configure the factory with an additional signal block:
 
@@ -2264,7 +2249,6 @@ class SynthDefFactory(SupriyaObject):
                     -   Out.ar:
                             bus: Control.ir[0:out]
                             source[0]: Limiter.ar[0]
-
         """
         clone = self._clone()
         clone._signal_blocks.append(block_function)
@@ -2274,7 +2258,7 @@ class SynthDefFactory(SupriyaObject):
         """
         Return a new factory configured with silence detection.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -2299,7 +2283,7 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_output()
                 >>> factory = factory.with_signal_block(signal_block)
 
-        ..  container:: example
+        .. container:: example
 
             Configure the factory with silence detection.
 
@@ -2349,10 +2333,9 @@ class SynthDefFactory(SupriyaObject):
                             time: 0.1
                             done_action: 2.0
 
-        ..  container:: example
+        .. container:: example
 
-            Silence detection is applied before any output leveling or
-            windowing.
+            Silence detection is applied before any output leveling or windowing.
 
             ::
 
@@ -2416,7 +2399,6 @@ class SynthDefFactory(SupriyaObject):
                             threshold: 0.0001
                             time: 0.1
                             done_action: 2.0
-
         """
         clone = self._clone()
         clone._silence_detection = True

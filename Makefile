@@ -35,6 +35,12 @@ docs: ## Build documentation
 docs-clean: ## Build documentation from scratch
 	make -C docs/ clean html
 
+docstrfmt: ## Reformat via docstrfmt
+	docstrfmt --no-docstring-trailing-line supriya/
+
+docstrfmt-check: ## Check docstring syntax via docstrfmt
+	docstrfmt --check --no-docstring-trailing-line supriya/
+
 flake8: ## Lint via flake8
 	flake8 ${formatPaths}
 
@@ -66,6 +72,7 @@ pytest: ## Unit test via pytest
 reformat: ## Reformat codebase
 	make isort
 	make black-reformat
+	make docstrfmt
 
 release: ## Release
 	make test

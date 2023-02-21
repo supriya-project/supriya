@@ -63,7 +63,6 @@ class BlockAllocator(SupriyaObject):
         >>> allocator.free(8)
         >>> allocator.allocate(8)
         8
-
     """
 
     ### INITIALIZER ###
@@ -232,7 +231,6 @@ class NodeIdAllocator(SupriyaObject):
 
         >>> allocator.allocate_permanent_node_id()
         2
-
     """
 
     ### INITIALIZER ###

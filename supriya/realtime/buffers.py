@@ -64,7 +64,6 @@ class Buffer(ServerObject):
         >>> buffer_ = buffer_.free()
         >>> buffer_
         <- Buffer: ???>
-
     """
 
     ### CLASS VARIABLES ###
@@ -470,8 +469,7 @@ class Buffer(ServerObject):
 
     def close(self, *, sync=True):
         """
-        Closes buffer, if it was open during a read or write process by
-        the DiskIn or DiskOut UGens.
+        Closes buffer, if it was open during a read or write process by the DiskIn or DiskOut UGens.
 
         ::
 
@@ -1644,7 +1642,6 @@ class BufferGroup(ServerObject):
 
         >>> buffer_group.free()
         <- BufferGroup{4}: ???>
-
     """
 
     ### CLASS VARIABLES ###
@@ -1841,12 +1838,12 @@ class BufferProxy(SupriyaValueObject):
     """
     A buffer proxy.
 
-    Acts as a singleton reference to a buffer on the server, tracking the state
-    of a single buffer id and responding to `/b_info` messages. Multiple Buffer
-    instances reference a single BufferProxy.
+    Acts as a singleton reference to a buffer on the server, tracking the state of a
+    single buffer id and responding to `/b_info` messages. Multiple Buffer instances
+    reference a single BufferProxy.
 
-    BufferProxy instances are created internally by the server, and should be
-    treated as an implementation detail.
+    BufferProxy instances are created internally by the server, and should be treated as
+    an implementation detail.
 
     ::
 
@@ -1866,7 +1863,6 @@ class BufferProxy(SupriyaValueObject):
             sample_rate=44100,
             server=<Server: offline>,
         )
-
     """
 
     ### CLASS VARIABLES ###

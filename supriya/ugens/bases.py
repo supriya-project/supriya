@@ -268,7 +268,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Gets absolute value of ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -293,7 +293,7 @@ class UGenMethodMixin(SupriyaObject):
                     -   UnaryOpUGen(ABSOLUTE_VALUE).ar:
                             source: WhiteNoise.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -340,7 +340,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Adds `expr` to ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -370,7 +370,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -414,7 +414,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar/2[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 3:**
 
@@ -452,7 +452,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Divides ugen graph by `expr`.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -482,7 +482,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -526,7 +526,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar/2[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 3:**
 
@@ -576,7 +576,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Tests if ugen graph if greater than or equal to `expr`.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -606,7 +606,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -650,7 +650,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar/2[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 3:**
 
@@ -690,7 +690,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Tests if ugen graph if greater than `expr`.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -720,7 +720,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -764,7 +764,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar/2[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 3:**
 
@@ -804,7 +804,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Tests if ugen graph if less than or equal to `expr`.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -834,7 +834,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -878,7 +878,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar/2[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 3:**
 
@@ -918,7 +918,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Tests if ugen graph if less than `expr`.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -948,7 +948,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -992,7 +992,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar/2[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 3:**
 
@@ -1030,7 +1030,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Gets modulo of ugen graph and `expr`.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -1060,7 +1060,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -1104,7 +1104,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar/2[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 3:**
 
@@ -1142,7 +1142,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Multiplies ugen graph by `expr`.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -1172,7 +1172,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -1216,7 +1216,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar/2[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 3:**
 
@@ -1256,7 +1256,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Negates ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -1281,7 +1281,7 @@ class UGenMethodMixin(SupriyaObject):
                     -   UnaryOpUGen(NEGATIVE).ar:
                             source: WhiteNoise.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -1328,7 +1328,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Raises ugen graph to the power of `expr`.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -1358,7 +1358,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -1402,7 +1402,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar/2[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 3:**
 
@@ -1440,7 +1440,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Raises `expr` to the power of ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -1469,7 +1469,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: 1.5
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -1520,7 +1520,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Adds ugen graph to `expr`.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -1549,7 +1549,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: 1.5
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -1600,7 +1600,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Divides `expr` by ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -1629,7 +1629,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: 1.5
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -1682,7 +1682,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Gets modulo of `expr` and ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -1711,7 +1711,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: 1.5
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -1764,7 +1764,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Multiplies `expr` by ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -1793,7 +1793,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: 1.5
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -1846,7 +1846,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Subtracts ugen graph from `expr`.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -1875,7 +1875,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: 1.5
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -1928,7 +1928,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Gets string representation of ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -1941,7 +1941,7 @@ class UGenMethodMixin(SupriyaObject):
                             frequency: 440.0
                             phase: 0.0
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -1970,7 +1970,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Subtracts `expr` from ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -2000,7 +2000,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -2044,7 +2044,7 @@ class UGenMethodMixin(SupriyaObject):
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar/2[0]
 
-        ..  container:: example
+        .. container:: example
 
             **Example 3:**
 
@@ -2202,120 +2202,11 @@ class UGenMethodMixin(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    """
-    # ABSOLUTE_VALUE = 5
-    # AMPLITUDE_TO_DB = 22
-    ARCCOS = 32
-    ARCSIN = 31
-    ARCTAN = 33
-    AS_FLOAT = 6
-    AS_INT = 7
-    BILINRAND = 40
-    BIT_NOT = 4
-    CEILING = 8
-    COIN = 44
-    COS = 29
-    COSH = 35
-    CUBED = 13
-    # DB_TO_AMPLITUDE = 21
-    DIGIT_VALUE = 45
-    DISTORT = 42
-    EXPONENTIAL = 15
-    FLOOR = 9
-    FRACTIONAL_PART = 10
-    # HZ_TO_MIDI = 18
-    # HZ_TO_OCTAVE = 24
-    # HANNING_WINDOW = 49
-    IS_NIL = 2
-    LINRAND = 39
-    LOG = 25
-    LOG10 = 27
-    LOG2 = 26
-    # MIDI_TO_HZ = 17
-    # SEMITONES_TO_RATIO = 19
-    # NEGATIVE = 0
-    NOT = 1
-    NOT_NIL = 3
-    # OCTAVE_TO_HZ = 23
-    RAMP = 52
-    RAND = 37
-    RAND2 = 38
-    # RATIO_TO_SEMITONES = 20
-    # RECIPROCAL = 16
-    # RECTANGLE_WINDOW = 48
-    # S_CURVE = 53
-    # SIGN = 11
-    SILENCE = 46
-    SIN = 28
-    SINH = 34
-    SOFTCLIP = 43
-    # SQUARE_ROOT = 14
-    # SQUARED = 12
-    SUM3RAND = 41
-    TAN = 30
-    # TANH = 36
-    THRU = 47
-    # TRIANGLE_WINDOW = 51
-    # WELCH_WINDOW = 50
-    """
-
-    """
-    # ABSOLUTE_DIFFERENCE = 38  # |a - b|
-    # ADDITION = 0
-    AMCLIP = 40
-    ATAN2 = 22
-    BIT_AND = 14
-    BIT_OR = 15
-    BIT_XOR = 16
-    CLIP2 = 42
-    DIFFERENCE_OF_SQUARES = 34  # a*a - b*b
-    # EQUAL = 6
-    EXCESS = 43
-    EXPRANDRANGE = 48
-    FLOAT_DIVISION = 4
-    FILL = 29
-    FIRST_ARG = 46
-    FOLD2 = 44
-    GREATEST_COMMON_DIVISOR = 18
-    GREATER_THAN_OR_EQUAL = 11
-    GREATER_THAN = 9
-    HYPOT = 23
-    HYPOTX = 24
-    INTEGER_DIVISION = 3
-    LEAST_COMMON_MULTIPLE = 17
-    LESS_THAN_OR_EQUAL = 10
-    LESS_THAN = 8
-    # MAXIMUM = 13
-    # MINIMUM = 12
-    # MODULO = 5
-    # MULTIPLICATION = 2
-    # NOT_EQUAL = 7
-    # POWER = 25
-    RANDRANGE = 47
-    RING1 = 30  # a * (b + 1) == a * b + a
-    RING2 = 31  # a * b + a + b
-    RING3 = 32  # a*a*b
-    RING4 = 33  # a*a*b - a*b*b
-    ROUND = 19
-    ROUND_UP = 20
-    SCALE_NEG = 41
-    SHIFT_LEFT = 26
-    SHIFT_RIGHT = 27
-    SQUARE_OF_DIFFERENCE = 37  # (a - b)^2
-    SQUARE_OF_SUM = 36  # (a + b)^2
-    # SUBTRACTION = 1
-    SUM_OF_SQUARES = 35  # a*a + b*b
-    THRESHOLD = 39
-    TRUNCATION = 21
-    UNSIGNED_SHIFT = 28
-    WRAP2 = 45
-    """
-
     def absolute_difference(self, expr):
         """
         Calculates absolute difference between ugen graph and `expr`.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -2349,7 +2240,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Converts ugen graph from amplitude to decibels.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -2402,7 +2293,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Clips ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -2427,7 +2318,7 @@ class UGenMethodMixin(SupriyaObject):
                             minimum: -0.25
                             maximum: 0.25
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -2469,7 +2360,6 @@ class UGenMethodMixin(SupriyaObject):
                             source: SinOsc.ar/2[0]
                             minimum: -0.25
                             maximum: 0.25
-
         """
         from . import Clip
 
@@ -2500,7 +2390,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Converts ugen graph from decibels to amplitude.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -2613,7 +2503,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Calculates Hanning-window of ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -2643,7 +2533,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Converts ugen graph from Hertz to midi note number.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -2672,7 +2562,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Converts ugen graph from Hertz to octave number.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -2751,7 +2641,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Lags ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -2773,7 +2663,7 @@ class UGenMethodMixin(SupriyaObject):
                             source: WhiteNoise.ar[0]
                             lag_time: 0.5
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -2810,7 +2700,6 @@ class UGenMethodMixin(SupriyaObject):
                     -   Lag.ar/2:
                             source: SinOsc.ar/2[0]
                             lag_time: 0.5
-
         """
         from . import Lag
 
@@ -2908,7 +2797,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Converts ugen graph from midi note number to Hertz.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -2962,7 +2851,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Converts ugen graph from octave number to Hertz.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3026,7 +2915,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Converts ugen graph from frequency ratio to semitone distance.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3055,7 +2944,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Calculates rectangle-window of ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3085,7 +2974,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Calculates reciprocal of ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3115,7 +3004,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Calculates S-curve of ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3150,10 +3039,9 @@ class UGenMethodMixin(SupriyaObject):
         exponential=False,
     ):
         """
-        Scales ugen graph from `input_minimum` and `input_maximum` to
-        `output_minimum` and `output_maximum`.
+        Scales ugen graph from `input_minimum` and `input_maximum` to `output_minimum` and `output_maximum`.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3176,7 +3064,7 @@ class UGenMethodMixin(SupriyaObject):
                             multiplier: 0.125
                             addend: 0.625
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3222,7 +3110,6 @@ class UGenMethodMixin(SupriyaObject):
                             input_maximum: 1.0
                             output_minimum: 0.5
                             output_maximum: 0.75
-
         """
         from . import LinExp, LinLin
 
@@ -3241,7 +3128,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Converts ugen graph from semitone distance to frequency ratio.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3270,7 +3157,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Calculates sign of ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3318,7 +3205,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Sums ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             **Example 1:**
 
@@ -3340,7 +3227,7 @@ class UGenMethodMixin(SupriyaObject):
                     -   LFNoise2.ar:
                             frequency: 500.0
 
-        ..  container:: example
+        .. container:: example
 
             **Example 2:**
 
@@ -3383,7 +3270,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Calculates hyperbolic tangent of ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3413,7 +3300,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Transposes ugen graph by `semitones`.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3455,7 +3342,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Calculates triangle-window of ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3485,7 +3372,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         Calculates Welch-window of ugen graph.
 
-        ..  container:: example
+        .. container:: example
 
             ::
 
@@ -3839,7 +3726,6 @@ class UGen(UGenMethodMixin):
             ...
             [('bus', 8), ('source', (1, 2, 3))]
             [('bus', 9), ('source', (1, 2, 3))]
-
         """
         from ..synthdefs import Parameter
 
@@ -4035,11 +3921,11 @@ class UGen(UGenMethodMixin):
             >>> ugen.signal_range
             SignalRange.BIPOLAR
 
-        A bipolar signal range indicates that the ugen generates signals above
-        and below zero.
+        A bipolar signal range indicates that the ugen generates signals above and below
+        zero.
 
-        A unipolar signal range indicates that the ugen only generates signals
-        of 0 or greater.
+        A unipolar signal range indicates that the ugen only generates signals of 0 or
+        greater.
 
         Returns signal range.
         """
@@ -4059,10 +3945,9 @@ class UGen(UGenMethodMixin):
             >>> ugen.special_index
             0
 
-        The `special index` of most ugens will be 0. SuperColliders's synth
-        definition file format uses the special index to store the operator id
-        for binary and unary operator ugens, and the parameter index of
-        controls.
+        The `special index` of most ugens will be 0. SuperColliders's synth definition
+        file format uses the special index to store the operator id for binary and unary
+        operator ugens, and the parameter index of controls.
 
         Returns integer.
         """
@@ -4097,7 +3982,6 @@ class UnaryOpUGen(UGen):
 
         >>> unary_op_ugen.operator
         UnaryOperator.ABSOLUTE_VALUE
-
     """
 
     ### CLASS VARIABLES ###
@@ -4136,8 +4020,7 @@ class UnaryOpUGen(UGen):
 @ugen(is_pure=True)
 class BinaryOpUGen(UGen):
     """
-    A binary operator ugen, created by applying a binary operator to two
-    ugens.
+    A binary operator ugen, created by applying a binary operator to two ugens.
 
     ::
 
@@ -4151,7 +4034,6 @@ class BinaryOpUGen(UGen):
 
         >>> binary_op_ugen.operator
         BinaryOperator.MULTIPLICATION
-
     """
 
     ### CLASS VARIABLES ###

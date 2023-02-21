@@ -18,7 +18,6 @@ class Envelope(SupriyaValueObject):
 
         >>> envelope.serialize()
         [0.0, 2.0, -99.0, -99.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0]
-
     """
 
     ### CLASS VARIABLES ###
@@ -137,7 +136,6 @@ class Envelope(SupriyaValueObject):
 
             >>> envelope.serialize()
             [0.0, 2.0, -99.0, -99.0, 1.0, 0.01, 5.0, -4.0, 0.0, 1.0, 5.0, -4.0]
-
         """
         amplitudes = [0, amplitude, 0]
         durations = [attack_time, release_time]
@@ -218,7 +216,6 @@ class Envelope(SupriyaValueObject):
 
             >>> envelope.serialize()
             [0.0, 2.0, -99.0, -99.0, 1.0, 0.5, 1.0, 0.0, 0.0, 0.5, 1.0, 0.0]
-
         """
         amplitudes = [0, amplitude, 0]
         duration = duration / 2.0

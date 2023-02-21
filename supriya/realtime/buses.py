@@ -50,7 +50,6 @@ class Bus(ServerObject):
 
         >>> bus.free()
         <- Bus: ??? (control)>
-
     """
 
     ### INITIALIZER ###
@@ -130,7 +129,6 @@ class Bus(ServerObject):
             Traceback (most recent call last):
             ...
             supriya.exceptions.BusNotAllocated
-
         """
         return self.map_symbol
 
@@ -276,8 +274,8 @@ class BusGroup(ServerObject):
         ...
         >>> bus_values = bus_group.get()
 
-    Values in ``scsynth`` don't necessarily have the same precision as in
-    Python, so we'll round them here for display purposes:
+    Values in ``scsynth`` don't necessarily have the same precision as in Python, so
+    we'll round them here for display purposes:
 
     ::
 
@@ -293,7 +291,6 @@ class BusGroup(ServerObject):
 
         >>> bus_group.free()
         <- BusGroup{4}: ??? (control)>
-
     """
 
     ### INITIALIZER ###
@@ -336,7 +333,6 @@ class BusGroup(ServerObject):
             >>> bus = supriya.Bus("audio")
             >>> bus in bus_group
             False
-
         """
         # TODO: Should this handle allocated buses that match by ID?
         return self.buses.__contains__(item)
@@ -361,7 +357,6 @@ class BusGroup(ServerObject):
 
             >>> bus_group[1:]
             <+ BusGroup{3}: 1 (control)>
-
         """
         if isinstance(item, int):
             return self._buses[item]
@@ -416,7 +411,6 @@ class BusGroup(ServerObject):
 
             >>> print(str(audio_bus_group))
             a16
-
         """
         return self.map_symbol
 
@@ -470,7 +464,6 @@ class BusGroup(ServerObject):
             Traceback (most recent call last):
             ...
             supriya.exceptions.IncompatibleRate
-
         """
         if not self.is_allocated:
             raise BusNotAllocated
@@ -504,7 +497,6 @@ class BusGroup(ServerObject):
             >>> bus_group = supriya.BusGroup(4, "control").allocate(server)
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)
-
         """
         if not self.is_allocated:
             raise BusNotAllocated
@@ -536,7 +528,6 @@ class BusGroup(ServerObject):
             >>> bus_group.set(-0.5, 0.5, -0.5, 0.5)
             >>> bus_group.get()
             (-0.5, 0.5, -0.5, 0.5)
-
         """
         if not self.is_allocated:
             raise BusNotAllocated(self)
@@ -657,7 +648,6 @@ class AudioInputBusGroup(BusGroup):
 
         >>> bus_group.is_allocated
         True
-
     """
 
     ### INITIALIZER ###
@@ -698,7 +688,6 @@ class AudioOutputBusGroup(BusGroup):
 
         >>> bus_group.is_allocated
         True
-
     """
 
     ### CLASS VARIABLES ###

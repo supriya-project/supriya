@@ -32,7 +32,6 @@ class Options:
 
         >>> import supriya.realtime
         >>> options = supriya.scsynth.Options()
-
     """
 
     ### CLASS VARIABLES ###
@@ -197,17 +196,19 @@ class Options:
 
 
 def find(scsynth_path=None):
-    """Find the ``scsynth`` executable.
+    """
+    Find the ``scsynth`` executable.
 
     The following paths, if defined, will be searched (prioritised as ordered):
 
     1. The absolute path ``scsynth_path``
-    2. The environment variable ``SUPRIYA_SERVER_EXECUTABLE`` (pointing to the `scsynth` binary)
+    2. The environment variable ``SUPRIYA_SERVER_EXECUTABLE`` (pointing to the `scsynth`
+       binary)
     3. The user's ``PATH``
     4. Common installation directories of the SuperCollider application.
 
-    Returns a path to the ``scsynth`` executable.
-    Raises ``RuntimeError`` if no path is found.
+    Returns a path to the ``scsynth`` executable. Raises ``RuntimeError`` if no path is
+    found.
     """
     path = Path(scsynth_path or os.environ.get(ENVAR_SERVER_EXECUTABLE) or "scsynth")
     if path.is_absolute() and uqbar.io.find_executable(str(path)):

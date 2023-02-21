@@ -26,7 +26,6 @@ class Recorder(SupriyaObject):
         ...     time.sleep(1)
         ...     server.recorder.stop()
         ...
-
     """
 
     ### CLASS VARIABLES ###

@@ -18,7 +18,6 @@ class Clip(UGen):
         ... )
         >>> clip
         Clip.ar()
-
     """
 
     source = param(None)
@@ -41,7 +40,6 @@ class Fold(UGen):
         ... )
         >>> fold
         Fold.ar()
-
     """
 
     source = param(None)
@@ -64,7 +62,6 @@ class Gate(UGen):
         ... )
         >>> gate
         Gate.ar()
-
     """
 
     source = param(None)
@@ -86,7 +83,6 @@ class InRange(UGen):
         ... )
         >>> in_range
         InRange.ar()
-
     """
 
     source = param(None)
@@ -109,7 +105,6 @@ class Latch(UGen):
         ... )
         >>> latch
         Latch.ar()
-
     """
 
     source = param(None)
@@ -129,7 +124,6 @@ class LeastChange(UGen):
         ... )
         >>> least_change
         LeastChange.ar()
-
     """
 
     a = param(0)
@@ -149,7 +143,6 @@ class MostChange(UGen):
         ... )
         >>> most_change
         MostChange.ar()
-
     """
 
     a = param(0)
@@ -171,7 +164,6 @@ class Peak(UGen):
         ... )
         >>> peak
         Peak.ar()
-
     """
 
     source = param(None)
@@ -192,7 +184,6 @@ class PeakFollower(UGen):
         ... )
         >>> peak_follower
         PeakFollower.ar()
-
     """
 
     source = param(None)
@@ -216,7 +207,6 @@ class Phasor(UGen):
         ... )
         >>> phasor
         Phasor.ar()
-
     """
 
     trigger = param(0)
@@ -243,17 +233,16 @@ class Poll(UGen):
         >>> poll
         Poll.ar()
 
-    ..  container:: example
+    .. container:: example
 
-        Unlike **sclang**, Python does not share any inter-process
-        communication with **scsynth**. This means that the Poll UGen is not
-        able to automatically print out its diagnostic messages into a Python
-        interpreter session.
+        Unlike **sclang**, Python does not share any inter-process communication with
+        **scsynth**. This means that the Poll UGen is not able to automatically print
+        out its diagnostic messages into a Python interpreter session.
 
-        To get information out of the Poll UGen, we first need to set the
-        Poll's `trigger_id` to a value greater than 0. This will cause the poll
-        to send `/tr` OSC messages back to its client - Python. We can then
-        register a callback to respond to these `/tr` messages.
+        To get information out of the Poll UGen, we first need to set the Poll's
+        `trigger_id` to a value greater than 0. This will cause the poll to send `/tr`
+        OSC messages back to its client - Python. We can then register a callback to
+        respond to these `/tr` messages.
 
         ::
 
@@ -284,7 +273,6 @@ class Poll(UGen):
 
             >>> server.quit()
             <Server: offline>
-
     """
 
     ### CLASS VARIABLES ###
@@ -396,7 +384,6 @@ class RunningMax(UGen):
         ... )
         >>> running_max
         RunningMax.ar()
-
     """
 
     source = param(None)
@@ -418,7 +405,6 @@ class RunningMin(UGen):
         ... )
         >>> running_min
         RunningMin.ar()
-
     """
 
     source = param(None)
@@ -440,7 +426,6 @@ class Schmidt(UGen):
         ... )
         >>> schmidt
         Schmidt.ar()
-
     """
 
     source = param(None)
@@ -464,7 +449,6 @@ class SendPeakRMS(UGen):
         ... )
         >>> send_peak_rms
         SendPeakRMS.kr()
-
     """
 
     ### CLASS VARIABLES ###
@@ -553,6 +537,8 @@ class SendReply(UGen):
     """
     Sends an array of values from the server to all notified clients.
 
+    ::
+
         >>> source = supriya.ugens.In.ar(channel_count=4)
         >>> trigger = supriya.ugens.Impulse.kr(frequency=1)
         >>> send_reply = supriya.ugens.SendReply.kr(
@@ -560,7 +546,6 @@ class SendReply(UGen):
         ...     source=source,
         ...     trigger=trigger,
         ... )
-
     """
 
     trigger = param(None)
@@ -648,7 +633,6 @@ class Sweep(UGen):
         ... )
         >>> sweep
         Sweep.ar()
-
     """
 
     trigger = param(0)
@@ -669,7 +653,6 @@ class TDelay(UGen):
         ... )
         >>> tdelay
         TDelay.ar()
-
     """
 
     source = param(None)
@@ -689,7 +672,6 @@ class ToggleFF(UGen):
         ... )
         >>> toggle_ff
         ToggleFF.ar()
-
     """
 
     trigger = param(0)
@@ -709,7 +691,6 @@ class Trig1(UGen):
         ... )
         >>> trig_1
         Trig1.ar()
-
     """
 
     source = param(None)
@@ -730,7 +711,6 @@ class Trig(UGen):
         ... )
         >>> trig
         Trig.ar()
-
     """
 
     source = param(None)
@@ -752,7 +732,6 @@ class Wrap(UGen):
         ... )
         >>> wrap
         Wrap.ar()
-
     """
 
     source = param(None)
@@ -773,7 +752,6 @@ class ZeroCrossing(UGen):
         ... )
         >>> zero_crossing
         ZeroCrossing.ar()
-
     """
 
     source = param(None)

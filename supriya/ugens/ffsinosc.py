@@ -18,7 +18,6 @@ class Blip(UGen):
         ... )
         >>> blip
         Blip.ar()
-
     """
 
     frequency = param(440.0)
@@ -28,8 +27,7 @@ class Blip(UGen):
 @ugen(ar=True, kr=True)
 class FSinOsc(UGen):
     """
-    Very fast sine wave generator (2 PowerPC instructions per output sample!)
-    implemented using a ringing filter.
+    Very fast sine wave generator (2 PowerPC instructions per output sample!) implemented using a ringing filter.
 
     ::
 
@@ -39,7 +37,6 @@ class FSinOsc(UGen):
         ... )
         >>> fsin_osc
         FSinOsc.ar()
-
     """
 
     frequency = param(440.0)
@@ -67,7 +64,6 @@ class Klank(UGen):
         ... )
         >>> klank
         Klank.ar()
-
     """
 
     source = param(None)
@@ -122,7 +118,6 @@ class Pulse(UGen):
         ... )
         >>> pulse
         Pulse.ar()
-
     """
 
     frequency = param(440.0)
@@ -138,7 +133,6 @@ class Saw(UGen):
 
         >>> supriya.ugens.Saw.ar()
         Saw.ar()
-
     """
 
     frequency = param(440.0)
