@@ -8,6 +8,7 @@ import warnings
 
 import librosa.display
 import matplotlib.pyplot as plt
+import matplotlib.axes  # noqa
 from docutils.nodes import FixedTextElement, General, SkipNode
 from uqbar.book.extensions import Extension
 from uqbar.strings import normalize
