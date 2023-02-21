@@ -73,6 +73,16 @@ jobs:
       run: pip install -e .[ipython,test]
     - name: Run Black
       run: make black-check
+    - name: Run docstrfmt
+      run: |
+        echo "Once"
+        make docstrfmt || true
+        echo "Twice"
+        make docstrfmt || true
+        echo "Status?"
+        git status
+        echo "Diff?"
+        git diff
     - name: Run Flake8
       run: make flake8
     - name: Run Mypy
@@ -114,7 +124,7 @@ jobs:
         cache: pip
         cache-dependency-path: "**/pyproject.toml"
     - name: Upgrade pip
-      run: pip install -U pip
+      run: python3 -m pip install -U pip
     - name: Install Supriya
       run: pip install -e .
     - name: Install SuperCollider (Non-Windows)

@@ -89,7 +89,6 @@ class CalculationRate(IntEnumeration):
 
         >>> supriya.CalculationRate.from_expr("demand")
         CalculationRate.DEMAND
-
     """
 
     ### CLASS VARIABLES ###
@@ -135,6 +134,7 @@ class CalculationRate(IntEnumeration):
             CalculationRate.AUDIO
 
         ::
+
             >>> collection = []
             >>> collection.append(supriya.ugens.DC.kr(source=1))
             >>> collection.append(2.0)
@@ -192,7 +192,6 @@ class DoneAction(IntEnumeration):
 
         >>> supriya.DoneAction.from_expr("pause synth")
         DoneAction.PAUSE_SYNTH
-
     """
 
     ### CLASS VARIABLES ###
@@ -246,7 +245,6 @@ class HeaderFormat(IntEnumeration):
         >>> header_format = supriya.HeaderFormat.from_expr("wav")
         >>> header_format.name.lower()
         'wav'
-
     """
 
     ### CLASS VARIABLES ###
@@ -482,7 +480,6 @@ class SampleFormat(IntEnumeration):
         >>> sample_format = supriya.SampleFormat.INT24
         >>> sample_format.name.lower()
         'int24'
-
     """
 
     ### CLASS VARIABLES ###
@@ -510,7 +507,6 @@ class SignalRange(IntEnumeration):
 
         >>> supriya.SignalRange.from_expr("bipolar")
         SignalRange.BIPOLAR
-
     """
 
     ### CLASS VARIABLES ###

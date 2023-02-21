@@ -38,7 +38,6 @@ class FFT(PV_ChainUGen):
         ... )
         >>> fft
         FFT.kr()
-
     """
 
     ### CLASS VARIABLES ###
@@ -103,7 +102,6 @@ class IFFT(UGen):
         ... )
         >>> ifft
         IFFT.ar()
-
     """
 
     pv_chain = param(None)
@@ -130,7 +128,6 @@ class PV_Add(PV_ChainUGen):
         ... )
         >>> pv_add
         PV_Add.kr()
-
     """
 
     pv_chain_a = param(None)
@@ -155,7 +152,6 @@ class PV_BinScramble(PV_ChainUGen):
         ... )
         >>> pv_bin_scramble
         PV_BinScramble.kr()
-
     """
 
     pv_chain = param(None)
@@ -182,7 +178,6 @@ class PV_BinShift(PV_ChainUGen):
         ... )
         >>> pv_bin_shift
         PV_BinShift.kr()
-
     """
 
     pv_chain = param(None)
@@ -211,7 +206,6 @@ class PV_BinWipe(PV_ChainUGen):
         ... )
         >>> pv_bin_wipe
         PV_BinWipe.kr()
-
     """
 
     pv_chain_a = param(None)
@@ -225,10 +219,9 @@ class PV_BrickWall(PV_ChainUGen):
     Zeros bins.
 
     - If wipe == 0 then there is no effect.
-    - If wipe > 0 then it acts like a high pass filter, clearing bins from the
-      bottom up.
-    - If wipe < 0 then it acts like a low pass filter, clearing bins from the
-      top down.
+    - If wipe > 0 then it acts like a high pass filter, clearing bins from the bottom
+      up.
+    - If wipe < 0 then it acts like a low pass filter, clearing bins from the top down.
 
     ::
 
@@ -241,7 +234,6 @@ class PV_BrickWall(PV_ChainUGen):
         ... )
         >>> pv_brick_wall
         PV_BrickWall.kr()
-
     """
 
     pv_chain = param(None)
@@ -265,7 +257,6 @@ class PV_ConformalMap(PV_ChainUGen):
         ... )
         >>> pv_conformal_map
         PV_ConformalMap.kr()
-
     """
 
     pv_chain = param(None)
@@ -288,7 +279,6 @@ class PV_Conj(PV_ChainUGen):
         ... )
         >>> pv_conj
         PV_Conj.kr()
-
     """
 
     pv_chain = param(None)
@@ -313,7 +303,6 @@ class PV_Copy(PV_ChainUGen):
         ... )
         >>> pv_copy
         PV_Copy.kr()
-
     """
 
     pv_chain_a = param(None)
@@ -339,7 +328,6 @@ class PV_CopyPhase(PV_ChainUGen):
         ... )
         >>> pv_copy_phase
         PV_CopyPhase.kr()
-
     """
 
     pv_chain_a = param(None)
@@ -362,7 +350,6 @@ class PV_Diffuser(PV_ChainUGen):
         ... )
         >>> pv_diffuser
         PV_Diffuser.kr()
-
     """
 
     pv_chain = param(None)
@@ -388,7 +375,6 @@ class PV_Div(PV_ChainUGen):
         ... )
         >>> pv_div
         PV_Div.kr()
-
     """
 
     pv_chain_a = param(None)
@@ -414,7 +400,6 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ... )
         >>> pv_hainsworth_foote
         PV_HainsworthFoote.kr()
-
     """
 
     pv_chain = param(None)
@@ -445,7 +430,6 @@ class PV_JensenAndersen(PV_ChainUGen):
         ... )
         >>> pv_jensen_andersen
         PV_JensenAndersen.kr()
-
     """
 
     pv_chain = param(None)
@@ -473,7 +457,6 @@ class PV_LocalMax(PV_ChainUGen):
         ... )
         >>> pv_local_max
         PV_LocalMax.kr()
-
     """
 
     pv_chain = param(None)
@@ -496,7 +479,6 @@ class PV_MagAbove(PV_ChainUGen):
         ... )
         >>> pv_mag_above
         PV_MagAbove.kr()
-
     """
 
     pv_chain = param(None)
@@ -519,7 +501,6 @@ class PV_MagBelow(PV_ChainUGen):
         ... )
         >>> pv_mag_below
         PV_MagBelow.kr()
-
     """
 
     pv_chain = param(None)
@@ -542,7 +523,6 @@ class PV_MagClip(PV_ChainUGen):
         ... )
         >>> pv_mag_clip
         PV_MagClip.kr()
-
     """
 
     pv_chain = param(None)
@@ -569,7 +549,6 @@ class PV_MagDiv(PV_ChainUGen):
         ... )
         >>> pv_mag_div
         PV_MagDiv.kr()
-
     """
 
     pv_chain_a = param(None)
@@ -593,7 +572,6 @@ class PV_MagFreeze(PV_ChainUGen):
         ... )
         >>> pv_mag_freeze
         PV_MagFreeze.kr()
-
     """
 
     pv_chain = param(None)
@@ -619,7 +597,6 @@ class PV_MagMul(PV_ChainUGen):
         ... )
         >>> pv_mag_mul
         PV_MagMul.kr()
-
     """
 
     pv_chain_a = param(None)
@@ -641,7 +618,6 @@ class PV_MagNoise(PV_ChainUGen):
         ... )
         >>> pv_mag_noise
         PV_MagNoise.kr()
-
     """
 
     pv_chain = param(None)
@@ -664,7 +640,6 @@ class PV_MagShift(PV_ChainUGen):
         ... )
         >>> pv_mag_shift
         PV_MagShift.kr()
-
     """
 
     pv_chain = param(None)
@@ -688,7 +663,6 @@ class PV_MagSmear(PV_ChainUGen):
         ... )
         >>> pv_mag_smear
         PV_MagSmear.kr()
-
     """
 
     pv_chain = param(None)
@@ -710,7 +684,6 @@ class PV_MagSquared(PV_ChainUGen):
         ... )
         >>> pv_mag_squared
         PV_MagSquared.kr()
-
     """
 
     pv_chain = param(None)
@@ -735,7 +708,6 @@ class PV_Max(PV_ChainUGen):
         ... )
         >>> pv_max
         PV_Max.kr()
-
     """
 
     pv_chain_a = param(None)
@@ -761,7 +733,6 @@ class PV_Min(PV_ChainUGen):
         ... )
         >>> pv_min
         PV_Min.kr()
-
     """
 
     pv_chain_a = param(None)
@@ -787,7 +758,6 @@ class PV_Mul(PV_ChainUGen):
         ... )
         >>> pv_mul
         PV_Mul.kr()
-
     """
 
     pv_chain_a = param(None)
@@ -812,7 +782,6 @@ class PV_PhaseShift(PV_ChainUGen):
         ... )
         >>> pv_phase_shift
         PV_PhaseShift.kr()
-
     """
 
     pv_chain = param(None)
@@ -835,7 +804,6 @@ class PV_PhaseShift270(PV_ChainUGen):
         ... )
         >>> pv_phase_shift_270
         PV_PhaseShift270.kr()
-
     """
 
     pv_chain = param(None)
@@ -856,7 +824,6 @@ class PV_PhaseShift90(PV_ChainUGen):
         ... )
         >>> pv_phase_shift_90
         PV_PhaseShift90.kr()
-
     """
 
     pv_chain = param(None)
@@ -879,7 +846,6 @@ class PV_RandComb(PV_ChainUGen):
         ... )
         >>> pv_rand_comb
         PV_RandComb.kr()
-
     """
 
     pv_chain = param(None)
@@ -908,7 +874,6 @@ class PV_RandWipe(PV_ChainUGen):
         ... )
         >>> pv_rand_wipe
         PV_RandWipe.kr()
-
     """
 
     pv_chain_a = param(None)
@@ -935,7 +900,6 @@ class PV_RectComb(PV_ChainUGen):
         ... )
         >>> pv_rect_comb
         PV_RectComb.kr()
-
     """
 
     pv_chain = param(None)
@@ -966,7 +930,6 @@ class PV_RectComb2(PV_ChainUGen):
         ... )
         >>> pv_rect_comb_2
         PV_RectComb2.kr()
-
     """
 
     pv_chain_a = param(None)
@@ -990,7 +953,6 @@ class RunningSum(UGen):
         ... )
         >>> running_sum
         RunningSum.ar()
-
     """
 
     source = param(None)

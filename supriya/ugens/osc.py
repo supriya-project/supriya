@@ -16,7 +16,6 @@ class COsc(UGen):
         ... )
         >>> cosc
         COsc.ar()
-
     """
 
     buffer_id = param(None)
@@ -39,7 +38,6 @@ class DegreeToKey(UGen):
         ... )
         >>> degree_to_key
         DegreeToKey.ar()
-
     """
 
     buffer_id = param(None)
@@ -56,7 +54,6 @@ class Impulse(UGen):
 
         >>> supriya.ugens.Impulse.ar()
         Impulse.ar()
-
     """
 
     frequency = param(440.0)
@@ -77,7 +74,6 @@ class Index(UGen):
         ... )
         >>> index
         Index.ar()
-
     """
 
     buffer_id = param(None)
@@ -93,7 +89,6 @@ class LFCub(UGen):
 
         >>> supriya.ugens.LFCub.ar()
         LFCub.ar()
-
     """
 
     frequency = param(440.0)
@@ -109,7 +104,6 @@ class LFGauss(UGen):
 
         >>> supriya.ugens.LFGauss.ar()
         LFGauss.ar()
-
     """
 
     ### CLASS VARIABLES ###
@@ -152,7 +146,6 @@ class LFPar(UGen):
 
         >>> supriya.ugens.LFPar.ar()
         LFPar.ar()
-
     """
 
     frequency = param(440.0)
@@ -168,7 +161,6 @@ class LFPulse(UGen):
 
         >>> supriya.ugens.LFPulse.ar()
         LFPulse.ar()
-
     """
 
     frequency = param(440.0)
@@ -185,7 +177,6 @@ class LFSaw(UGen):
 
         >>> supriya.ugens.LFSaw.ar()
         LFSaw.ar()
-
     """
 
     frequency = param(440.0)
@@ -201,7 +192,6 @@ class LFTri(UGen):
 
         >>> supriya.ugens.LFTri.ar()
         LFTri.ar()
-
     """
 
     frequency = param(440.0)
@@ -245,7 +235,6 @@ class Select(UGen):
         ... )
         >>> select
         Select.ar()
-
     """
 
     selector = param(None)
@@ -271,7 +260,6 @@ class SinOsc(UGen):
             -   SinOsc.ar:
                     frequency: 440.0
                     phase: 0.0
-
     """
 
     frequency = param(440.0)
@@ -291,7 +279,6 @@ class SyncSaw(UGen):
         ... )
         >>> sync_saw
         SyncSaw.ar()
-
     """
 
     sync_frequency = param(440.0)
@@ -312,7 +299,6 @@ class VOsc(UGen):
         ... )
         >>> vosc
         VOsc.ar()
-
     """
 
     buffer_id = param(None)
@@ -335,7 +321,6 @@ class VOsc3(UGen):
         ... )
         >>> vosc_3
         VOsc3.ar()
-
     """
 
     buffer_id = param(None)
@@ -353,7 +338,6 @@ class VarSaw(UGen):
 
         >>> supriya.ugens.VarSaw.ar()
         VarSaw.ar()
-
     """
 
     frequency = param(440.0)
@@ -380,7 +364,6 @@ class Vibrato(UGen):
         ... )
         >>> vibrato
         Vibrato.ar()
-
     """
 
     frequency = param(440)
@@ -407,7 +390,6 @@ class WrapIndex(UGen):
         ... )
         >>> wrap_index
         WrapIndex.ar()
-
     """
 
     buffer_id = param(None)

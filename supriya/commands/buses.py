@@ -32,7 +32,6 @@ class ControlBusFillRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/c_fill', 0, 8, 0.5, 8, 8, 0.25)
-
     """
 
     ### CLASS VARIABLES ###
@@ -135,7 +134,6 @@ class ControlBusGetContiguousRequest(Request):
         ...
         ('S', OscMessage('/c_getn', 0, 2, 4, 1, 8, 2, 12, 1))
         ('R', OscMessage('/c_setn', 0, 2, 0.0, 0.0, 4, 1, 0.0, 8, 2, 0.0, 0.0, 12, 1, 0.0))
-
     """
 
     ### CLASS VARIABLES ###
@@ -221,7 +219,6 @@ class ControlBusGetRequest(Request):
         ...
         ('S', OscMessage('/c_get', 0, 4, 8, 12))
         ('R', OscMessage('/c_set', 0, 0.0, 4, 0.0, 8, 0.0, 12, 0.0))
-
     """
 
     ### CLASS VARIABLES ###
@@ -299,7 +296,6 @@ class ControlBusSetContiguousRequest(Request):
         ('S', OscMessage('/c_setn', 0, 3, 0.1, 0.2, 0.3, 4, 3, 0.4, 0.5, 0.6))
         ('S', OscMessage('/sync', 0))
         ('R', OscMessage('/synced', 0))
-
     """
 
     ### CLASS VARIABLES ###
@@ -442,8 +438,6 @@ class ControlBusSetRequest(Request):
         ('S', OscMessage('/c_set', 0, 0.1, 1, 0.2, 2, 0.3, 3, 0.4))
         ('S', OscMessage('/sync', 0))
         ('R', OscMessage('/synced', 0))
-
-
     """
 
     ### CLASS VARIABLES ###

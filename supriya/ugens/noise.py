@@ -12,7 +12,6 @@ class BrownNoise(UGen):
 
         >>> supriya.ugens.BrownNoise.ar()
         BrownNoise.ar()
-
     """
 
 
@@ -25,7 +24,6 @@ class ClipNoise(UGen):
 
         >>> supriya.ugens.ClipNoise.ar()
         ClipNoise.ar()
-
     """
 
 
@@ -43,7 +41,6 @@ class CoinGate(UGen):
         ... )
         >>> coin_gate
         CoinGate.ar()
-
     """
 
     probability = param(0.5)
@@ -62,7 +59,6 @@ class Crackle(UGen):
         ... )
         >>> crackle
         Crackle.ar()
-
     """
 
     chaos_parameter = param(1.5)
@@ -80,7 +76,6 @@ class Dust(UGen):
         ... )
         >>> dust
         Dust.ar()
-
     """
 
     density = param(0.0)
@@ -98,7 +93,6 @@ class Dust2(UGen):
         ... )
         >>> dust_2
         Dust2.ar()
-
     """
 
     density = param(0.0)
@@ -114,7 +108,6 @@ class ExpRand(UGen):
         >>> exp_rand = supriya.ugens.ExpRand.ir()
         >>> exp_rand
         ExpRand.ir()
-
     """
 
     minimum = param(0.0)
@@ -136,7 +129,6 @@ class GrayNoise(UGen):
 
         >>> supriya.ugens.GrayNoise.ar()
         GrayNoise.ar()
-
     """
 
 
@@ -153,7 +145,6 @@ class Hasher(UGen):
         ... )
         >>> hasher
         Hasher.ar()
-
     """
 
     source = param(None)
@@ -168,7 +159,6 @@ class IRand(UGen):
 
         >>> supriya.ugens.IRand.ir()
         IRand.ir()
-
     """
 
     minimum = param(0)
@@ -184,7 +174,6 @@ class LFClipNoise(UGen):
 
         >>> supriya.ugens.LFClipNoise.ar()
         LFClipNoise.ar()
-
     """
 
     frequency = param(500.0)
@@ -199,7 +188,6 @@ class LFDClipNoise(UGen):
 
         >>> supriya.ugens.LFDClipNoise.ar()
         LFDClipNoise.ar()
-
     """
 
     frequency = param(500.0)
@@ -214,7 +202,6 @@ class LFDNoise0(UGen):
 
         >>> supriya.ugens.LFDNoise0.ar()
         LFDNoise0.ar()
-
     """
 
     frequency = param(500.0)
@@ -229,7 +216,6 @@ class LFDNoise1(UGen):
 
         >>> supriya.ugens.LFDNoise1.ar()
         LFDNoise1.ar()
-
     """
 
     frequency = param(500.0)
@@ -244,7 +230,6 @@ class LFDNoise3(UGen):
 
         >>> supriya.ugens.LFDNoise3.ar()
         LFDNoise3.ar()
-
     """
 
     frequency = param(500.0)
@@ -259,7 +244,6 @@ class LFNoise0(UGen):
 
         >>> supriya.ugens.LFNoise0.ar()
         LFNoise0.ar()
-
     """
 
     frequency = param(500.0)
@@ -274,7 +258,6 @@ class LFNoise1(UGen):
 
         >>> supriya.ugens.LFNoise1.ar()
         LFNoise1.ar()
-
     """
 
     frequency = param(500.0)
@@ -289,7 +272,6 @@ class LFNoise2(UGen):
 
         >>> supriya.ugens.LFNoise2.ar()
         LFNoise2.ar()
-
     """
 
     frequency = param(500.0)
@@ -309,7 +291,6 @@ class LinRand(UGen):
         ... )
         >>> lin_rand
         LinRand.ir()
-
     """
 
     minimum = param(0.0)
@@ -331,7 +312,6 @@ class Logistic(UGen):
         ... )
         >>> logistic
         Logistic.ar()
-
     """
 
     chaos_parameter = param(3)
@@ -353,7 +333,6 @@ class MantissaMask(UGen):
         ... )
         >>> mantissa_mask
         MantissaMask.ar()
-
     """
 
     source = param(0)
@@ -374,7 +353,6 @@ class NRand(UGen):
         ... )
         >>> n_rand
         NRand.ir()
-
     """
 
     minimum = param(0.0)
@@ -391,7 +369,6 @@ class PinkNoise(UGen):
 
         >>> supriya.ugens.PinkNoise.ar()
         PinkNoise.ar()
-
     """
 
 
@@ -404,7 +381,6 @@ class Rand(UGen):
 
         >>> supriya.ugens.Rand.ir()
         Rand.ir()
-
     """
 
     minimum = param(0.0)
@@ -423,7 +399,6 @@ class RandID(UGen):
         ... )
         >>> rand_id
         RandID.ir()
-
     """
 
     rand_id = param(1)
@@ -443,7 +418,6 @@ class RandSeed(UGen):
         ... )
         >>> rand_seed
         RandSeed.ar()
-
     """
 
     trigger = param(0)
@@ -465,7 +439,6 @@ class TExpRand(UGen):
         ... )
         >>> t_exp_rand
         TExpRand.ar()
-
     """
 
     minimum = param(0.01)
@@ -488,7 +461,6 @@ class TIRand(UGen):
         ... )
         >>> t_i_rand
         TIRand.ar()
-
     """
 
     ### CLASS VARIABLES ###
@@ -526,7 +498,6 @@ class TRand(UGen):
         ... )
         >>> t_rand
         TRand.ar()
-
     """
 
     minimum = param(0.0)
@@ -549,7 +520,6 @@ class TWindex(UGen):
         ... )
         >>> t_windex
         TWindex.ar()
-
     """
 
     trigger = param(None)
@@ -566,5 +536,4 @@ class WhiteNoise(UGen):
 
         >>> supriya.ugens.WhiteNoise.ar()
         WhiteNoise.ar()
-
     """

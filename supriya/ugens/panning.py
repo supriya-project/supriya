@@ -24,7 +24,6 @@ class Balance2(UGen):
         ... )
         >>> balance_2
         UGenArray({2})
-
     """
 
     left = param(None)
@@ -54,7 +53,6 @@ class BiPanB2(UGen):
     ::
 
         >>> w, x, y = bi_pan_b_2
-
     """
 
     in_a = param(None)
@@ -84,7 +82,6 @@ class DecodeB2(UGen):
         ... )
         >>> decode_b_2
         UGenArray({4})
-
     """
 
     w = param(None)
@@ -106,7 +103,6 @@ class Pan2(UGen):
         ... )
         >>> pan_2
         UGenArray({2})
-
     """
 
     source = param(None)
@@ -130,7 +126,6 @@ class Pan4(UGen):
         ... )
         >>> pan_4
         UGenArray({4})
-
     """
 
     source = param(None)
@@ -157,7 +152,6 @@ class PanAz(UGen):
         ... )
         >>> pan_az
         UGenArray({8})
-
     """
 
     source = param(None)
@@ -183,7 +177,6 @@ class PanB(UGen):
         ... )
         >>> pan_b
         UGenArray({3})
-
     """
 
     source = param(None)
@@ -207,7 +200,6 @@ class PanB2(UGen):
         ... )
         >>> pan_b_2
         UGenArray({3})
-
     """
 
     source = param(None)
@@ -316,7 +308,6 @@ class Splay(PseudoUGen):
             -   BinaryOpUGen(MULTIPLICATION).ar/1:
                     left: BinaryOpUGen(ADDITION).ar/1[0]
                     right: 0.4472135954999579
-
     """
 
     ### CLASS VARIABLES ###
@@ -407,7 +398,6 @@ class XFade2(UGen):
         ... )
         >>> xfade_3
         XFade2.ar()
-
     """
 
     in_a = param(None)

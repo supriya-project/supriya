@@ -82,7 +82,6 @@ class GroupDeepFreeRequest(Request):
                     1002 group
                         1004 group
                             1006 group
-
     """
 
     ### CLASS VARIABLES ###
@@ -203,7 +202,6 @@ class GroupFreeAllRequest(Request):
         NODE TREE 0 group
             1 group
                 1000 group
-
     """
 
     ### CLASS VARIABLES ###
@@ -301,7 +299,6 @@ class GroupNewRequest(Request):
                 1000 group
                 1001 group
                     1002 group
-
     """
 
     ### CLASS VARIABLES ###
@@ -408,7 +405,6 @@ class GroupQueryTreeRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/g_queryTree', 0, 1)
-
     """
 
     ### CLASS VARIABLES ###
@@ -450,8 +446,10 @@ class ParallelGroupNewRequest(GroupNewRequest):
     """
     A /p_new request.
 
-    ..  note::  This behaves like a ``/g_new`` request when run on ``scsynth``
-                instead of ``supernova``.
+    .. note::
+
+        This behaves like a ``/g_new`` request when run on ``scsynth`` instead of
+        ``supernova``.
 
     ::
 
@@ -511,7 +509,6 @@ class ParallelGroupNewRequest(GroupNewRequest):
             1 group
                 1000 group
                 1001 group
-
     """
 
     ### CLASS VARIABLES ###
@@ -579,7 +576,6 @@ class QueryTreeResponse(Response):
                     1001 group
                     1000 group
                         1002 group
-
         """
 
         def recurse(contents, control_flag):
@@ -1206,7 +1202,6 @@ class QueryTreeResponse(Response):
                     }
                 ]
             }
-
         """
 
         def recurse(node, parent_node_id, nodes):

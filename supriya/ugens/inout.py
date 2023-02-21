@@ -14,7 +14,6 @@ class In(UGen):
 
         >>> supriya.ugens.In.ar(bus=0, channel_count=4)
         UGenArray({4})
-
     """
 
     bus = param(0.0)
@@ -35,7 +34,6 @@ class InFeedback(UGen):
         ... )
         >>> in_feedback
         UGenArray({2})
-
     """
 
     bus = param(0.0)
@@ -50,7 +48,6 @@ class LocalIn(UGen):
 
         >>> supriya.ugens.LocalIn.ar(channel_count=2)
         UGenArray({2})
-
     """
 
     ### CLASS VARIABLES ###
@@ -81,7 +78,6 @@ class LocalOut(UGen):
         ...     source=source,
         ... )
         LocalOut.ar()
-
     """
 
     source = param(None, unexpanded=True)
@@ -100,7 +96,6 @@ class OffsetOut(UGen):
         ...     source=source,
         ... )
         OffsetOut.ar()
-
     """
 
     bus = param(0)
@@ -120,7 +115,6 @@ class Out(UGen):
         ...     source=source,
         ... )
         Out.ar()
-
     """
 
     bus = param(0)
@@ -140,7 +134,6 @@ class ReplaceOut(UGen):
         ...     source=source,
         ... )
         ReplaceOut.ar()
-
     """
 
     bus = param(0)
@@ -162,7 +155,6 @@ class XOut(UGen):
         ... )
         >>> xout
         XOut.ar()
-
     """
 
     bus = param(0)

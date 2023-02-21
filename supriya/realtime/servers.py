@@ -459,7 +459,6 @@ class Server(BaseServer):
 
         >>> server.quit()
         <Server: offline>
-
     """
 
     ### CLASS VARIABLES ###
@@ -545,7 +544,6 @@ class Server(BaseServer):
             Traceback (most recent call last):
             ...
             supriya.exceptions.ServerOffline
-
         """
         if not self.is_running:
             raise ServerOffline
@@ -639,7 +637,6 @@ class Server(BaseServer):
         ::
 
             >>> supriya.graph(server)  # doctest: +SKIP
-
         """
 
         return self.root_node.__graph__()
@@ -883,7 +880,6 @@ class Server(BaseServer):
             >>> server = supriya.Server().boot()
             >>> server.add_buffer(channel_count=2, frame_count=1024)
             <+ Buffer: 0, 2ch, 1024>
-
         """
         buffer_ = Buffer()
         if file_path:
@@ -917,7 +913,6 @@ class Server(BaseServer):
             >>> server = supriya.Server().boot()
             >>> server.add_buffer_group(buffer_count=8, channel_count=1, frame_count=1024)
             <+ BufferGroup{8}: 0>
-
         """
         buffer_group = BufferGroup(buffer_count)
         buffer_group.allocate(
@@ -936,7 +931,6 @@ class Server(BaseServer):
             >>> server = supriya.Server().boot()
             >>> server.add_bus()
             <+ Bus: 0 (control)>
-
         """
         bus = Bus(calculation_rate=calculation_rate)
         bus.allocate(server=self)
@@ -955,7 +949,6 @@ class Server(BaseServer):
             >>> server = supriya.Server().boot()
             >>> server.add_bus_group(4, "audio")
             <+ BusGroup{4}: 16 (audio)>
-
         """
         bus_group = BusGroup(bus_count=bus_count, calculation_rate=calculation_rate)
         bus_group.allocate(server=self)
@@ -981,7 +974,6 @@ class Server(BaseServer):
             NODE TREE 0 group
                 1 group
                     1000 group
-
         """
         if self.default_group is None:
             raise ServerOffline
@@ -1008,7 +1000,6 @@ class Server(BaseServer):
                 1 group
                     1000 default
                         out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
-
         """
         if self.default_group is None:
             raise ServerOffline

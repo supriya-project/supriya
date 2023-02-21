@@ -27,7 +27,6 @@ class NodeFreeRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/n_free', 1000)
-
     """
 
     ### CLASS VARIABLES ###
@@ -198,7 +197,6 @@ class NodeMapToAudioBusRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/n_mapa', 1000, 'amplitude', 11, 'frequency', 9, 'phase', 10)
-
     """
 
     ### CLASS VARIABLES ###
@@ -264,7 +262,6 @@ class NodeMapToControlBusRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/n_map', 1000, 'amplitude', 11, 'frequency', 9, 'phase', 10)
-
     """
 
     ### CLASS VARIABLES ###
@@ -347,7 +344,6 @@ class NodeQueryRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/n_query', 1000)
-
     """
 
     ### CLASS VARIABLES ###
@@ -408,8 +404,7 @@ class NodeRunRequest(Request):
         >>> synth_a.is_paused, synth_b.is_paused
         (False, False)
 
-    Unpause ``synth_a`` (a no-op because it's already unpaused) and pause
-    ``synth_b``:
+    Unpause ``synth_a`` (a no-op because it's already unpaused) and pause ``synth_b``:
 
     ::
 
@@ -473,7 +468,6 @@ class NodeRunRequest(Request):
 
         >>> synth_a.is_paused, synth_b.is_paused
         (True, False)
-
     """
 
     ### CLASS VARIABLES ###
@@ -556,7 +550,6 @@ class NodeSetRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/n_set', 1000, 'amplitude', 0.1, 'frequency', 443.1, 'phase', 0.5)
-
     """
 
     ### CLASS VARIABLES ###
@@ -627,7 +620,6 @@ class NodeSetResponse(Response):
                 ),
                 node_id=1023,
             )
-
         """
         node_id, remainder = osc_message.contents[0], osc_message.contents[1:]
         items = []

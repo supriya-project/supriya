@@ -17,7 +17,6 @@ class A2K(UGen):
         ... )
         >>> a_2_k
         A2K.kr()
-
     """
 
     source = param(None)
@@ -37,7 +36,6 @@ class AmpComp(UGen):
         ... )
         >>> amp_comp
         AmpComp.ar()
-
     """
 
     frequency = param(1000.0)
@@ -60,7 +58,6 @@ class AmpCompA(UGen):
         ... )
         >>> amp_comp_a
         AmpCompA.ar()
-
     """
 
     frequency = param(1000.0)
@@ -87,7 +84,6 @@ class DC(UGen):
         ...     source=(1, 2, 3),
         ... )
         UGenArray({3})
-
     """
 
     source = param()
@@ -106,7 +102,6 @@ class K2A(UGen):
         ... )
         >>> k_2_a
         K2A.ar()
-
     """
 
     source = param(None)
@@ -129,7 +124,6 @@ class LinExp(UGen):
         ... )
         >>> lin_exp
         LinExp.ar()
-
     """
 
     source = param(None)
@@ -176,7 +170,6 @@ class Line(UGen):
 
         >>> supriya.ugens.Line.ar()
         Line.ar()
-
     """
 
     start = param(0.0)
@@ -211,7 +204,6 @@ class Silence(PseudoUGen):
 
         >>> supriya.ugens.Silence.ar(channel_count=2)
         UGenArray({2})
-
     """
 
     @classmethod
@@ -236,7 +228,6 @@ class XLine(UGen):
 
         >>> supriya.ugens.XLine.ar()
         XLine.ar()
-
     """
 
     start = param(0.0)

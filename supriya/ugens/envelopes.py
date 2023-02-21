@@ -15,7 +15,6 @@ class Done(UGen):
         ... )
         >>> done
         Done.kr()
-
     """
 
     source = param(None)
@@ -31,7 +30,6 @@ class EnvGen(UGen):
         >>> envelope = supriya.synthdefs.Envelope.percussive()
         >>> supriya.ugens.EnvGen.ar(envelope=envelope)
         EnvGen.ar()
-
     """
 
     gate = param(1.0)
@@ -86,7 +84,6 @@ class Free(UGen):
         ... )
         >>> free
         Free.kr()
-
     """
 
     trigger = param(0)
@@ -106,7 +103,6 @@ class FreeSelf(UGen):
         ... )
         >>> free_self
         FreeSelf.kr()
-
     """
 
     trigger = param(None)
@@ -125,7 +121,6 @@ class FreeSelfWhenDone(UGen):
         ... )
         >>> free_self_when_done
         FreeSelfWhenDone.kr()
-
     """
 
     source = param(None)
@@ -145,7 +140,6 @@ class Linen(UGen):
 
         >>> supriya.ugens.Linen.kr()
         Linen.kr()
-
     """
 
     gate = param(1.0)
@@ -170,7 +164,6 @@ class Pause(UGen):
         ... )
         >>> pause
         Pause.kr()
-
     """
 
     trigger = param(None)
@@ -190,7 +183,6 @@ class PauseSelf(UGen):
         ... )
         >>> pause_self
         PauseSelf.kr()
-
     """
 
     trigger = param(None)
@@ -209,7 +201,6 @@ class PauseSelfWhenDone(UGen):
         ... )
         >>> pause_self_when_done
         PauseSelfWhenDone.kr()
-
     """
 
     source = param(None)

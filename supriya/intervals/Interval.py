@@ -14,7 +14,6 @@ class Interval(SupriyaValueObject):
         >>> from supriya.intervals import Interval
         >>> Interval(0, 10)
         Interval(start_offset=0.0, stop_offset=10.0)
-
     """
 
     ### CLASS VARIABLES ###
@@ -90,7 +89,6 @@ class Interval(SupriyaValueObject):
 
             >>> interval_3 & interval_4
             IntervalTree(intervals=[])
-
         """
         from .IntervalTree import IntervalTree
 
@@ -213,7 +211,6 @@ class Interval(SupriyaValueObject):
                     Interval(start_offset=10.0, stop_offset=20.0),
                 ],
             )
-
         """
         from .IntervalTree import IntervalTree
 
@@ -370,7 +367,6 @@ class Interval(SupriyaValueObject):
 
             >>> interval_4 - interval_4
             IntervalTree(intervals=[])
-
         """
         from .IntervalTree import IntervalTree
 
@@ -464,7 +460,6 @@ class Interval(SupriyaValueObject):
                     Interval(start_offset=10.0, stop_offset=20.0),
                 ],
             )
-
         """
         from .IntervalTree import IntervalTree
 
@@ -518,7 +513,6 @@ class Interval(SupriyaValueObject):
             5 True
             10 False
             15 False
-
         """
         if isinstance(expr, Interval):
             return (
@@ -563,7 +557,6 @@ class Interval(SupriyaValueObject):
             5 False
             10 True
             15 False
-
         """
         if isinstance(expr, Interval):
             return (
@@ -591,7 +584,6 @@ class Interval(SupriyaValueObject):
 
             >>> interval_two.new(start_offset=5.0)
             Interval(start_offset=5.0, stop_offset=10.0)
-
         """
         if start_offset is not None:
             kwargs["start_offset"] = start_offset
@@ -614,7 +606,6 @@ class Interval(SupriyaValueObject):
             Interval(start_offset=1.0, stop_offset=3.0)
             Interval(start_offset=3.0, stop_offset=7.0)
             Interval(start_offset=7.0, stop_offset=10.0)
-
         """
         from .IntervalTree import IntervalTree
 
@@ -634,8 +625,7 @@ class Interval(SupriyaValueObject):
 
     def translate(self, translation: float, stop_translation: Optional[float] = None):
         """
-        Translate offsets by ``translation``, and optionally translate independently when
-        specifying ``stop_translation``:
+        Translate offsets by ``translation``, and optionally translate independently when specifying ``stop_translation``:
 
         ::
 
@@ -651,7 +641,6 @@ class Interval(SupriyaValueObject):
 
             >>> interval.translate(5, 7.5)
             Interval(start_offset=5.0, stop_offset=17.5)
-
         """
 
         start_translation = float(translation)

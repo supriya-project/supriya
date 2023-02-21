@@ -309,7 +309,6 @@ class Moment(SessionObject):
         >>> import supriya.nonrealtime
         >>> session = supriya.nonrealtime.Session()
         >>> moment = session.at(10.5)
-
     """
 
     ### INITIALIZER ###
@@ -469,8 +468,7 @@ class NodeTransition(SupriyaValueObject):
 
 class DoNotPropagate:
     """
-    Context manager which prevents propagation of node hierarchy changes across
-    states.
+    Context manager which prevents propagation of node hierarchy changes across states.
     """
 
     ### CLASS VARIABLES ###

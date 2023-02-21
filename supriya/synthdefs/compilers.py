@@ -222,7 +222,6 @@ class SynthDefDecompiler(SupriyaObject):
 
         >>> str(synthdef) == str(decompiled_synthdef)
         True
-
     """
 
     ### PRIVATE METHODS ###

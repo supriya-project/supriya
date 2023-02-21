@@ -32,7 +32,6 @@ class BufferAllocateRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_alloc', 23, 512, 2)
-
     """
 
     ### CLASS VARIABLES ###
@@ -112,7 +111,6 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
 
         >>> request.to_osc()
         OscMessage('/b_allocRead', 23, '...pulse_44100sr_16bit_octo.wav', 0, -1)
-
     """
 
     ### CLASS VARIABLES ###
@@ -217,7 +215,6 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
 
         >>> request.to_osc()
         OscMessage('/b_allocReadChannel', 23, '...pulse_44100sr_16bit_octo.wav', 0, -1, 3, 4)
-
     """
 
     ### CLASS VARIABLES ###
@@ -292,7 +289,6 @@ class BufferCloseRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_close', 23)
-
     """
 
     ### CLASS VARIABLES ###
@@ -355,7 +351,6 @@ class BufferCopyRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_gen', 666, 'copy', 0, 23, 0, -1)
-
     """
 
     ### CLASS VARIABLES ###
@@ -467,7 +462,6 @@ class BufferFillRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_fill', 23, 0, 8, 0.1, 11, 4, 0.2)
-
     """
 
     ### CLASS VARIABLES ###
@@ -542,7 +536,6 @@ class BufferFreeRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_free', 23)
-
     """
 
     ### CLASS VARIABLES ###
@@ -584,11 +577,10 @@ class BufferGenerateRequest(Request):
     """
     A /b_gen request.
 
-    This requests models the 'cheby', 'sine1', 'sine2' and 'sine3' /b_gen
-    commands.
+    This requests models the 'cheby', 'sine1', 'sine2' and 'sine3' /b_gen commands.
 
-    Use BufferCopyRequest for `/b_gen copy` and BufferNormalizeRequest for
-    `/b_gen normalize` and `/b_gen wnormalize`.
+    Use BufferCopyRequest for `/b_gen copy` and BufferNormalizeRequest for `/b_gen
+    normalize` and `/b_gen wnormalize`.
 
     ::
 
@@ -619,7 +611,6 @@ class BufferGenerateRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_gen', 23, 'sine3', 7, 1.0, 1.0, 0.0, 2.0, 0.5, 0.5, 3.0, 0.25, 0.0)
-
     """
 
     ### CLASS VARIABLES ###
@@ -858,7 +849,6 @@ class BufferGetContiguousRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_getn', 23, 0, 3, 8, 11)
-
     """
 
     ### CLASS VARIABLES ###
@@ -923,7 +913,6 @@ class BufferGetRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_get', 23, 0, 4, 8, 16)
-
     """
 
     ### CLASS VARIABLES ###
@@ -1002,7 +991,6 @@ class BufferInfo(Response):
                     Item(buffer_id=1100, frame_count=512, channel_count=1, sample_rate=44100.0),
                 ),
             )
-
         """
         # TODO: Return one single thing
         items = []
@@ -1041,7 +1029,6 @@ class BufferNormalizeRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_gen', 23, 'normalize', 1.0)
-
     """
 
     ### CLASS VARIABLES ###
@@ -1106,7 +1093,6 @@ class BufferQueryRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_query', 1, 23, 41)
-
     """
 
     ### CLASS VARIABLES ###
@@ -1165,7 +1151,6 @@ class BufferReadRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_read', 23, '...pulse_44100sr_16bit_octo.wav', 0, -1, 0, 0)
-
     """
 
     ### CLASS VARIABLES ###
@@ -1305,7 +1290,6 @@ class BufferReadChannelRequest(BufferReadRequest):
 
         >>> request.to_osc()
         OscMessage('/b_readChannel', 23, '...pulse_44100sr_16bit_octo.wav', 0, -1, 0, 0, 3, 4)
-
     """
 
     ### CLASS VARIABLES ###
@@ -1386,7 +1370,6 @@ class BufferSetContiguousRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_setn', 23, 0, 3, 1.0, 2.0, 3.0, 10, 2, 17.1, 18.2)
-
     """
 
     ### CLASS VARIABLES ###
@@ -1482,7 +1465,6 @@ class BufferSetContiguousResponse(Response, Sequence):
                     Item(sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0), starting_sample_index=0),
                 ),
             )
-
         """
         buffer_id, remainder = osc_message.contents[0], osc_message.contents[1:]
         items = []
@@ -1539,7 +1521,6 @@ class BufferSetRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_set', 23, 0, 1.0, 10, 13.2, 17, 19.3)
-
     """
 
     ### CLASS VARIABLES ###
@@ -1663,7 +1644,6 @@ class BufferWriteRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_write', 23, 'test.aiff', 'aiff', 'int24', -1, 0, 0)
-
     """
 
     ### CLASS VARIABLES ###
@@ -1786,7 +1766,6 @@ class BufferZeroRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/b_zero', 23)
-
     """
 
     ### CLASS VARIABLES ###

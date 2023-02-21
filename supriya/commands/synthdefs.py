@@ -43,7 +43,6 @@ class SynthDefFreeRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/d_free', 'test')
-
     """
 
     ### CLASS VARIABLES ###
@@ -172,7 +171,6 @@ class SynthDefReceiveRequest(Request):
 
         >>> server = supriya.Server().boot()
 
-
     ::
 
         >>> with supriya.SynthDefBuilder(out=0, value=0.5) as builder:
@@ -194,8 +192,8 @@ class SynthDefReceiveRequest(Request):
         NODE TREE 0 group
             1 group
 
-    Allocate a synthdef, then allocate a new group and allocate a synth in that
-    group using the newly allocated synthdef:
+    Allocate a synthdef, then allocate a new group and allocate a synth in that group
+    using the newly allocated synthdef:
 
     ::
 
@@ -270,7 +268,6 @@ class SynthDefReceiveRequest(Request):
 
         >>> synthdef in server
         True
-
     """
 
     ### CLASS VARIABLES ###

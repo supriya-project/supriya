@@ -17,7 +17,6 @@ class APF(UGen):
         ... )
         >>> apf
         APF.ar()
-
     """
 
     source = param(None)
@@ -36,7 +35,6 @@ class BPF(UGen):
         >>> b_p_f = supriya.ugens.BPF.ar(source=source)
         >>> b_p_f
         BPF.ar()
-
     """
 
     source = param(None)
@@ -57,7 +55,6 @@ class BPZ2(UGen):
         ... )
         >>> bpz_2
         BPZ2.ar()
-
     """
 
     source = param(None)
@@ -74,7 +71,6 @@ class BRF(UGen):
         >>> b_r_f = supriya.ugens.BRF.ar(source=source)
         >>> b_r_f
         BRF.ar()
-
     """
 
     source = param(None)
@@ -95,7 +91,6 @@ class BRZ2(UGen):
         ... )
         >>> brz_2
         BRZ2.ar()
-
     """
 
     source = param(None)
@@ -129,7 +124,6 @@ class Changed(PseudoUGen):
             -   BinaryOpUGen(GREATER_THAN).ar:
                     left: UnaryOpUGen(ABSOLUTE_VALUE).ar[0]
                     right: 0.0
-
     """
 
     ### PUBLIC METHODS ###
@@ -218,7 +212,6 @@ class Decay(UGen):
         ... )
         >>> decay
         Decay.ar()
-
     """
 
     source = param(None)
@@ -238,7 +231,6 @@ class Decay2(UGen):
         ... )
         >>> decay_2
         Decay2.ar()
-
     """
 
     source = param(None)
@@ -263,7 +255,6 @@ class DetectSilence(UGen):
         ... )
         >>> detect_silence
         DetectSilence.kr()
-
     """
 
     ### CLASS VARIABLES ###
@@ -294,7 +285,6 @@ class FOS(UGen):
         ... )
         >>> fos
         FOS.ar()
-
     """
 
     source = param(None)
@@ -319,7 +309,6 @@ class Formlet(UGen):
         ... )
         >>> formlet
         Formlet.ar()
-
     """
 
     source = param(None)
@@ -338,7 +327,6 @@ class HPF(UGen):
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.HPF.ar(source=source)
         HPF.ar()
-
     """
 
     source = param(None)
@@ -358,7 +346,6 @@ class HPZ1(UGen):
         ... )
         >>> hpz_1
         HPZ1.ar()
-
     """
 
     source = param(None)
@@ -377,7 +364,6 @@ class HPZ2(UGen):
         ... )
         >>> hpz_2
         HPZ2.ar()
-
     """
 
     source = param(None)
@@ -397,7 +383,6 @@ class Integrator(UGen):
         ... )
         >>> integrator
         Integrator.ar()
-
     """
 
     source = param(None)
@@ -417,7 +402,6 @@ class Lag(UGen):
         ...     source=source,
         ... )
         Lag.kr()
-
     """
 
     source = param(None)
@@ -438,7 +422,6 @@ class LagUD(UGen):
         ...     source=source,
         ... )
         LagUD.kr()
-
     """
 
     source = param(None)
@@ -460,7 +443,6 @@ class Lag2(UGen):
         ... )
         >>> lag_2
         Lag2.ar()
-
     """
 
     source = param(None)
@@ -482,7 +464,6 @@ class Lag2UD(UGen):
         ... )
         >>> lag_2_ud
         Lag2UD.ar()
-
     """
 
     source = param(None)
@@ -504,7 +485,6 @@ class Lag3(UGen):
         ... )
         >>> lag_3
         Lag3.ar()
-
     """
 
     source = param(None)
@@ -526,7 +506,6 @@ class Lag3UD(UGen):
         ... )
         >>> lag_3_ud
         Lag3UD.ar()
-
     """
 
     source = param(None)
@@ -548,7 +527,6 @@ class LeakDC(UGen):
         ... )
         >>> leak_d_c
         LeakDC.ar()
-
     """
 
     source = param(None)
@@ -565,7 +543,6 @@ class LPF(UGen):
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.LPF.ar(source=source)
         LPF.ar()
-
     """
 
     source = param()
@@ -585,7 +562,6 @@ class LPZ1(UGen):
         ... )
         >>> lpz_1
         LPZ1.ar()
-
     """
 
     source = param(None)
@@ -604,7 +580,6 @@ class LPZ2(UGen):
         ... )
         >>> lpz_2
         LPZ2.ar()
-
     """
 
     source = param(None)
@@ -624,7 +599,6 @@ class Median(UGen):
         ... )
         >>> median
         Median.ar()
-
     """
 
     length = param(3)
@@ -647,7 +621,6 @@ class MidEQ(UGen):
         ... )
         >>> mid_eq
         MidEQ.ar()
-
     """
 
     source = param(None)
@@ -672,7 +645,6 @@ class MoogFF(UGen):
         ... )
         >>> moog_ff
         MoogFF.ar()
-
     """
 
     source = param(None)
@@ -695,7 +667,6 @@ class OnePole(UGen):
         ... )
         >>> one_pole
         OnePole.ar()
-
     """
 
     source = param(None)
@@ -716,7 +687,6 @@ class OneZero(UGen):
         ... )
         >>> one_zero
         OneZero.ar()
-
     """
 
     source = param(None)
@@ -733,7 +703,6 @@ class RHPF(UGen):
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.RLPF.ar(source=source)
         RLPF.ar()
-
     """
 
     source = param(None)
@@ -751,7 +720,6 @@ class RLPF(UGen):
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.RLPF.ar(source=source)
         RLPF.ar()
-
     """
 
     source = param(None)
@@ -773,7 +741,6 @@ class Ramp(UGen):
         ... )
         >>> ramp
         Ramp.ar()
-
     """
 
     source = param(None)
@@ -795,7 +762,6 @@ class Ringz(UGen):
         ... )
         >>> ringz
         Ringz.ar()
-
     """
 
     source = param(None)
@@ -825,7 +791,6 @@ class SOS(UGen):
         ... )
         >>> sos
         SOS.ar()
-
     """
 
     source = param(None)
@@ -851,7 +816,6 @@ class Slew(UGen):
         ... )
         >>> slew
         Slew.ar()
-
     """
 
     source = param(None)
@@ -872,7 +836,6 @@ class Slope(UGen):
         ... )
         >>> slope
         Slope.ar()
-
     """
 
     source = param(None)
@@ -893,7 +856,6 @@ class TwoPole(UGen):
         ... )
         >>> two_pole
         TwoPole.ar()
-
     """
 
     source = param(None)
@@ -916,7 +878,6 @@ class TwoZero(UGen):
         ... )
         >>> two_zero
         TwoZero.ar()
-
     """
 
     source = param(None)

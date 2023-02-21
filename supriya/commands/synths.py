@@ -34,7 +34,6 @@ class SynthNewRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/s_new', 'test', 1001, 1, 1000, 'frequency', 443, 'phase', 0.2)
-
     """
 
     ### CLASS VARIABLES ###

@@ -24,7 +24,6 @@ class BufRd(UGen):
         ... )
         >>> buf_rd
         UGenArray({2})
-
     """
 
     buffer_id = param(None)
@@ -55,7 +54,6 @@ class BufWr(UGen):
         ... )
         >>> buf_wr
         BufWr.ar()
-
     """
 
     buffer_id = param(None)
@@ -67,7 +65,6 @@ class BufWr(UGen):
 @ugen(ir=True, is_width_first=True)
 class ClearBuf(UGen):
     """
-
     ::
 
         >>> clear_buf = supriya.ugens.ClearBuf.ir(
@@ -75,7 +72,6 @@ class ClearBuf(UGen):
         ... )
         >>> clear_buf
         ClearBuf.ir()
-
     """
 
     buffer_id = param(None)
@@ -95,8 +91,7 @@ class LocalBuf(UGen):
         >>> local_buf
         LocalBuf.ir()
 
-    LocalBuf creates a ``MaxLocalBufs`` UGen implicitly during SynthDef
-    compilation:
+    LocalBuf creates a ``MaxLocalBufs`` UGen implicitly during SynthDef compilation:
 
     ::
 
@@ -120,7 +115,6 @@ class LocalBuf(UGen):
         FFT.kr()
         IFFT.ar()
         Out.ar()
-
     """
 
     ### CLASS VARIABLES ###
@@ -151,7 +145,6 @@ class MaxLocalBufs(UGen):
         >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=1)
         >>> max_local_bufs
         MaxLocalBufs.ir()
-
     """
 
     maximum = param(0)
@@ -196,7 +189,6 @@ class PlayBuf(UGen):
         ... )
         >>> play_buf
         UGenArray({2})
-
     """
 
     buffer_id = param(None)
@@ -229,7 +221,6 @@ class RecordBuf(UGen):
         ... )
         >>> record_buf
         RecordBuf.ar()
-
     """
 
     buffer_id = param(None)

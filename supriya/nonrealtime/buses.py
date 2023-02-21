@@ -42,7 +42,6 @@ class Bus(SessionObject):
         2 0.5
         3 0.75
         4 0.75
-
     """
 
     ### CLASS VARIABLES ###
@@ -205,7 +204,6 @@ class BusGroup(SessionObject):
         4 [0.5, 0.5, 0.5]
         5 [0.5, 0.666, 0.75]
         6 [0.5, 0.666, 0.75]
-
     """
 
     ### CLASS VARIABLES ###

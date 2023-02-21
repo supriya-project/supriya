@@ -20,7 +20,6 @@ class BeatTrack(UGen):
         ... )
         >>> beat_track
         UGenArray({4})
-
     """
 
     pv_chain = param(None)
@@ -44,7 +43,6 @@ class BeatTrack2(UGen):
         ... )
         >>> beat_track_2
         UGenArray({6})
-
     """
 
     bus_index = param(0.0)
@@ -71,7 +69,6 @@ class KeyTrack(UGen):
         ... )
         >>> key_track
         KeyTrack.kr()
-
     """
 
     pv_chain = param(None)
@@ -95,7 +92,6 @@ class Loudness(UGen):
         ... )
         >>> loudness
         Loudness.kr()
-
     """
 
     pv_chain = param(None)
@@ -117,7 +113,6 @@ class MFCC(UGen):
         ... )
         >>> mfcc
         UGenArray({13})
-
     """
 
     pv_chain = param(None)
@@ -155,7 +150,6 @@ class Onsets(UGen):
         ... )
         >>> onsets
         Onsets.kr()
-
     """
 
     class ODFType(IntEnumeration):
@@ -189,7 +183,6 @@ class Pitch(UGen):
         >>> pitch = supriya.ugens.Pitch.kr(source=source)
         >>> pitch
         UGenArray({2})
-
     """
 
     source = param(None)
@@ -219,7 +212,6 @@ class SpecCentroid(UGen):
         ... )
         >>> spec_centroid
         SpecCentroid.kr()
-
     """
 
     pv_chain = param(None)
@@ -239,7 +231,6 @@ class SpecFlatness(UGen):
         ... )
         >>> spec_flatness
         SpecFlatness.kr()
-
     """
 
     pv_chain = param(None)
@@ -261,7 +252,6 @@ class SpecPcile(UGen):
         ... )
         >>> spec_pcile
         SpecPcile.kr()
-
     """
 
     pv_chain = param(None)

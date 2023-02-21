@@ -17,7 +17,6 @@ class Ball(UGen):
         ... )
         >>> ball
         Ball.ar()
-
     """
 
     source = param(None)
@@ -45,7 +44,6 @@ class Pluck(UGen):
         ... )
         >>> pluck
         Pluck.ar()
-
     """
 
     source = param(None)
@@ -71,7 +69,6 @@ class Spring(UGen):
         ... )
         >>> spring
         Spring.ar()
-
     """
 
     source = param(None)
@@ -95,7 +92,6 @@ class TBall(UGen):
         ... )
         >>> tball
         TBall.ar()
-
     """
 
     source = param(None)

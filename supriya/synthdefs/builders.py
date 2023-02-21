@@ -56,7 +56,6 @@ class SynthDefBuilder(SupriyaObject):
 
         >>> synthdef = builder.build()
         >>> supriya.graph(synthdef)  # doctest: +SKIP
-
     """
 
     ### CLASS VARIABLES ###
@@ -293,7 +292,6 @@ def synthdef(*args: Union[str, Tuple[str, float]]):
                     bus: 0.0
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-
     """
 
     def inner(func):

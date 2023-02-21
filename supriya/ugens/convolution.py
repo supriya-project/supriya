@@ -20,7 +20,6 @@ class Convolution(UGen):
         ... )
         >>> convolution
         Convolution.ar()
-
     """
 
     source = param(None)
@@ -31,8 +30,7 @@ class Convolution(UGen):
 @ugen(ar=True)
 class Convolution2(UGen):
     """
-    Strict convolution with fixed kernel which can be updated using a trigger
-    signal.
+    Strict convolution with fixed kernel which can be updated using a trigger signal.
 
     ::
 
@@ -49,7 +47,6 @@ class Convolution2(UGen):
         ... )
         >>> convolution_2
         Convolution2.ar()
-
     """
 
     source = param(None)
@@ -79,7 +76,6 @@ class Convolution2L(UGen):
         ... )
         >>> convolution_2_l
         Convolution2L.ar()
-
     """
 
     source = param(None)
@@ -109,7 +105,6 @@ class Convolution3(UGen):
         ... )
         >>> convolution_3
         Convolution3.ar()
-
     """
 
     source = param(None)

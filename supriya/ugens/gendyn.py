@@ -22,7 +22,6 @@ class Gendy1(UGen):
         ... )
         >>> gendy_1
         Gendy1.ar()
-
     """
 
     ### CLASS VARIABLES ###
@@ -95,7 +94,6 @@ class Gendy2(UGen):
         ... )
         >>> gendy_2
         Gendy2.ar()
-
     """
 
     ampdist = param(1)
@@ -132,7 +130,6 @@ class Gendy3(UGen):
         ... )
         >>> gendy_3
         Gendy3.ar()
-
     """
 
     ampdist = param(1)

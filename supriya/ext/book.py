@@ -7,8 +7,9 @@ import textwrap
 import warnings
 
 import librosa.display
+import matplotlib.pyplot as plt
+import matplotlib.axes  # noqa
 from docutils.nodes import FixedTextElement, General, SkipNode
-from matplotlib import pyplot
 from uqbar.book.extensions import Extension
 from uqbar.strings import normalize
 
@@ -140,7 +141,7 @@ class PlotExtension(Extension):
     def render(cls, node, output_path):
         output_path.mkdir(exist_ok=True)
         array, sample_rate = pickle.loads(base64.b64decode("".join(node[0].split())))
-        fig, ax = pyplot.subplots(nrows=1)
+        fig, ax = plt.subplots(nrows=1)
         fig.set_size_inches(8, 2)
         fig.patch.set_alpha(0.0)
         ax.set_facecolor("white")
@@ -151,7 +152,7 @@ class PlotExtension(Extension):
         hexdigest = hashlib.sha1(node[0].encode()).hexdigest()
         file_path = output_path / f"plot-{hexdigest}.svg"
         fig.savefig(file_path, bbox_inches="tight")
-        pyplot.close(fig)
+        plt.close(fig)
         return file_path
 
     @staticmethod

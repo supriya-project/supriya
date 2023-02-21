@@ -56,7 +56,6 @@ class DumpOscRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/dumpOSC', 1)
-
     """
 
     ### CLASS VARIABLES ###
@@ -145,7 +144,6 @@ class NotifyRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/notify', 1)
-
     """
 
     ### CLASS VARIABLES ###
@@ -216,7 +214,6 @@ class StatusRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/status')
-
     """
 
     ### CLASS VARIABLES ###
@@ -292,7 +289,6 @@ class StatusResponse(Response):
                 target_sample_rate=44100.0,
                 ugen_count=0,
             )
-
         """
         arguments = osc_message.contents[1:]
         (
@@ -357,7 +353,6 @@ class StatusResponse(Response):
                     "ugen_count": 685
                 }
             }
-
         """
         result = {
             "server_status": {
@@ -448,7 +443,6 @@ class SyncRequest(Request):
 
         >>> request.to_osc()
         OscMessage('/sync', 1999)
-
     """
 
     ### CLASS VARIABLES ###

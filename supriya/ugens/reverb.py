@@ -13,7 +13,6 @@ class FreeVerb(UGen):
         ...     source=source,
         ... )
         FreeVerb.ar()
-
     """
 
     source = param(None)

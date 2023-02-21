@@ -173,7 +173,6 @@ class RequestBundle(Requestable):
 
         >>> request_bundle.to_list()
         [10.5, [['/b_alloc', 23, 512, 1], ['/b_alloc', 24, 512, 1]]]
-
     """
 
     ### INITIALIZER ###

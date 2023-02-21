@@ -10,7 +10,6 @@ class BlockSize(UGen):
 
         >>> supriya.ugens.BlockSize.ir()
         BlockSize.ir()
-
     """
 
 
@@ -23,7 +22,6 @@ class BufChannels(UGen):
 
         >>> supriya.ugens.BufChannels.kr(buffer_id=0)
         BufChannels.kr()
-
     """
 
     buffer_id = param(None)
@@ -38,7 +36,6 @@ class BufDur(UGen):
 
         >>> supriya.ugens.BufDur.kr(buffer_id=0)
         BufDur.kr()
-
     """
 
     buffer_id = param(None)
@@ -53,7 +50,6 @@ class BufFrames(UGen):
 
         >>> supriya.ugens.BufFrames.kr(buffer_id=0)
         BufFrames.kr()
-
     """
 
     buffer_id = param(None)
@@ -68,7 +64,6 @@ class BufRateScale(UGen):
 
         >>> supriya.ugens.BufRateScale.kr(buffer_id=0)
         BufRateScale.kr()
-
     """
 
     buffer_id = param(None)
@@ -83,7 +78,6 @@ class BufSampleRate(UGen):
 
         >>> supriya.ugens.BufSampleRate.kr(buffer_id=0)
         BufSampleRate.kr()
-
     """
 
     buffer_id = param(None)
@@ -98,7 +92,6 @@ class BufSamples(UGen):
 
         >>> supriya.ugens.BufSamples.kr(buffer_id=0)
         BufSamples.kr()
-
     """
 
     buffer_id = param(None)
@@ -113,7 +106,6 @@ class ControlDur(UGen):
 
         >>> supriya.ugens.ControlDur.ir()
         ControlDur.ir()
-
     """
 
 
@@ -126,7 +118,6 @@ class ControlRate(UGen):
 
         >>> supriya.ugens.ControlRate.ir()
         ControlRate.ir()
-
     """
 
 
@@ -139,7 +130,6 @@ class NodeID(UGen):
 
         >>> supriya.ugens.NodeID.ir()
         NodeID.ir()
-
     """
 
 
@@ -152,7 +142,6 @@ class NumAudioBuses(UGen):
 
         >>> supriya.ugens.NumAudioBuses.ir()
         NumAudioBuses.ir()
-
     """
 
 
@@ -165,7 +154,6 @@ class NumBuffers(UGen):
 
         >>> supriya.ugens.NumBuffers.ir()
         NumBuffers.ir()
-
     """
 
 
@@ -178,7 +166,6 @@ class NumControlBuses(UGen):
 
         >>> supriya.ugens.NumControlBuses.ir()
         NumControlBuses.ir()
-
     """
 
 
@@ -191,7 +178,6 @@ class NumInputBuses(UGen):
 
         >>> supriya.ugens.NumInputBuses.ir()
         NumInputBuses.ir()
-
     """
 
 
@@ -204,7 +190,6 @@ class NumOutputBuses(UGen):
 
         >>> supriya.ugens.NumOutputBuses.ir()
         NumOutputBuses.ir()
-
     """
 
 
@@ -217,7 +202,6 @@ class NumRunningSynths(UGen):
 
         >>> supriya.ugens.NumRunningSynths.ir()
         NumRunningSynths.ir()
-
     """
 
 
@@ -230,7 +214,6 @@ class RadiansPerSample(UGen):
 
         >>> supriya.ugens.RadiansPerSample.ir()
         RadiansPerSample.ir()
-
     """
 
 
@@ -243,7 +226,6 @@ class SampleDur(UGen):
 
         >>> supriya.ugens.SampleDur.ir()
         SampleDur.ir()
-
     """
 
 
@@ -256,7 +238,6 @@ class SampleRate(UGen):
 
         >>> supriya.ugens.SampleRate.ir()
         SampleRate.ir()
-
     """
 
 
@@ -269,5 +250,4 @@ class SubsampleOffset(UGen):
 
         >>> supriya.ugens.SubsampleOffset.ir()
         SubsampleOffset.ir()
-
     """

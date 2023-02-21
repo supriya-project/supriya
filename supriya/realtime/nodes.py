@@ -318,7 +318,6 @@ class Node(UniqueTreeNode):
                 1 group
                     1000 group
                         1001 group
-
         """
         if add_action is None:
             add_action = self._valid_add_actions[0]
@@ -355,7 +354,6 @@ class Node(UniqueTreeNode):
                     1000 group
                         1001 default
                             out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
-
         """
         if add_action is None:
             add_action = self._valid_add_actions[0]
@@ -400,7 +398,6 @@ class Node(UniqueTreeNode):
                 1 group
                     1001 group
                         1000 group
-
         """
         if add_action is None:
             add_action = self._valid_add_actions[0]
@@ -512,7 +509,6 @@ class Group(Node, UniqueTreeList):
 
         >>> server.quit()
         <Server: offline>
-
     """
 
     ### CLASS VARIABLES ###
@@ -559,7 +555,6 @@ class Group(Node, UniqueTreeList):
             >>> group_one = supriya.realtime.Group()
             >>> group_two = supriya.realtime.Group()
             >>> group_one.append(group_two)
-
         """
         # TODO: lean on uqbar's __setitem__ more.
         self._validate(expr)
@@ -836,7 +831,6 @@ class Synth(Node):
 
         >>> server.quit()
         <Server: offline>
-
     """
 
     ### CLASS VARIABLES ###
