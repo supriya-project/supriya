@@ -1,14 +1,15 @@
+from collections import deque
 from collections.abc import Sequence
+from typing import TYPE_CHECKING, Deque, List, Union
 
 from supriya import ParameterRate
 from supriya.system import SupriyaValueObject
 
+if TYPE_CHECKING:
+    from .contexts.responses import QueryTreeInfo
+
 
 class QueryTreeControl(SupriyaValueObject):
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_control_value", "_control_name_or_index")
-
     ### INITIALIZER ###
 
     def __init__(self, control_name_or_index=None, control_value=None):
@@ -52,10 +53,6 @@ class QueryTreeControl(SupriyaValueObject):
 
 
 class QueryTreeSynth(SupriyaValueObject, Sequence):
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_controls", "_extra", "_name", "_node_id", "_synthdef_name")
-
     ### INITIALIZER ###
 
     def __init__(
@@ -277,10 +274,6 @@ class QueryTreeSynth(SupriyaValueObject, Sequence):
 
 
 class QueryTreeGroup(SupriyaValueObject, Sequence):
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_children", "_extra", "_name", "_node_id")
-
     ### INITIALIZER ###
 
     def __init__(self, node_id=None, children=None, name=None, **extra):
@@ -404,6 +397,39 @@ class QueryTreeGroup(SupriyaValueObject, Sequence):
         children = tuple(children)
         query_tree_group = QueryTreeGroup(node_id=node_id, children=children)
         return query_tree_group
+
+    @classmethod
+    def from_query_tree_info(
+        cls, response: "QueryTreeInfo"
+    ) -> Union["QueryTreeGroup", "QueryTreeSynth"]:
+        from .contexts.responses import QueryTreeInfo
+
+        def recurse(
+            item: QueryTreeInfo.Item, items: Deque[QueryTreeInfo.Item]
+        ) -> Union[QueryTreeGroup, QueryTreeSynth]:
+            print(item)
+            if item.child_count < 0:
+                return QueryTreeSynth(
+                    node_id=item.node_id,
+                    synthdef_name=item.synthdef_name,
+                    controls=[
+                        QueryTreeControl(
+                            control_name_or_index=name_or_index, control_value=value
+                        )
+                        for name_or_index, value in (item.controls or {}).items()
+                    ],
+                )
+            children: List[Union[QueryTreeGroup, QueryTreeSynth]] = []
+            for _ in range(item.child_count):
+                children.append(recurse(items.popleft(), items))
+            return QueryTreeGroup(node_id=item.node_id, children=children)
+
+        return recurse(
+            QueryTreeInfo.Item(
+                node_id=response.node_id, child_count=response.child_count
+            ),
+            deque(response.items),
+        )
 
     @classmethod
     def from_response(cls, response):

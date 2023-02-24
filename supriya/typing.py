@@ -1,6 +1,7 @@
 from os import PathLike
 from pathlib import Path
 from typing import (
+    TYPE_CHECKING,
     Callable,
     Coroutine,
     Dict,
@@ -18,6 +19,9 @@ except ImportError:
 
 from .enums import AddAction, CalculationRate, HeaderFormat, SampleFormat
 
+if TYPE_CHECKING:
+    from .osc import OscBundle, OscMessage
+
 
 class Default:
     pass
@@ -25,6 +29,11 @@ class Default:
 
 class Missing:
     pass
+
+
+class SupportsOsc(Protocol):
+    def to_osc(self) -> Union["OscBundle", "OscMessage"]:
+        ...
 
 
 class SupportsRender(Protocol):

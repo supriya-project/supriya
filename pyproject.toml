@@ -26,7 +26,7 @@ classifiers = [
 dependencies = [
   "PyYAML >= 6.0",
   "platformdirs >= 2.6.0",
-  "uqbar >= 0.6.6",
+  "uqbar >= 0.6.9",
   'typing-extensions; python_version<"3.8"',
 ]
 description = "A Python API for SuperCollider"
