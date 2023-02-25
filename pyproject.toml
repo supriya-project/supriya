@@ -55,7 +55,7 @@ ipython = [
 ]
 test = [
   "black",
-  "docstrfmt @ https://github.com/josiah-wolf-oberholtzer/docstrfmt/archive/refs/heads/master.zip",
+  # "docstrfmt @ https://github.com/josiah-wolf-oberholtzer/docstrfmt/archive/refs/heads/master.zip",
   "flake8",
   "isort",
   "jupyter",
