@@ -77,7 +77,7 @@ async def test_add_synthdefs(context, synthdefs):
                     OscMessage("/g_new", 1001, 0, 1),
                 )
             ],
-            timestamp=1.23,
+            timestamp=1.23 + context.latency,
         ),
     ]
 
@@ -134,7 +134,7 @@ async def test_load_synthdefs(context, tmp_path):
                     OscMessage("/g_new", 1001, 0, 1),
                 ),
             ),
-            timestamp=1.23,
+            timestamp=1.23 + context.latency,
         ),
     ]
 
@@ -165,6 +165,6 @@ async def test_load_synthdefs_directory(context, tmp_path):
                     "/d_loadDir", str(tmp_path / "c"), OscMessage("/g_new", 1001, 0, 1)
                 ),
             ),
-            timestamp=1.23,
+            timestamp=1.23 + context.latency,
         ),
     ]

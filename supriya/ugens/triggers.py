@@ -1,5 +1,4 @@
-from supriya import CalculationRate
-
+from ..enums import CalculationRate
 from .bases import OutputProxy, UGen, param, ugen
 
 
@@ -260,19 +259,22 @@ class Poll(UGen):
         ::
 
             >>> server = supriya.Server().boot()
-            >>> synth = supriya.Synth(synthdef).allocate(server)
+            >>> _ = server.add_synthdefs(
+            ...     synthdef,
+            ...     on_completion=lambda context: context.add_synth(synthdef),
+            ... )
+            >>> _ = server.sync()
             >>> callback = server.osc_protocol.register(
             ...     pattern="/tr",
-            ...     procedure=lambda response: print(
-            ...         "Poll value is: {}".format(response.value)
+            ...     procedure=lambda message: print(
+            ...         "Polled: {!r}".format(message)
             ...     ),
             ...     once=True,
             ... )
 
         ::
 
-            >>> server.quit()
-            <Server: offline>
+            >>> _ = server.quit()
     """
 
     ### CLASS VARIABLES ###

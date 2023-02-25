@@ -174,11 +174,11 @@ async def test_set_bus(context):
     control_bus_c = context.add_bus("CONTROL")
     with context.osc_protocol.capture() as transcript:
         with pytest.raises(InvalidCalculationRate):
-            audio_bus.set_(0.75)
-        control_bus_a.set_(0.5)
+            audio_bus.set(0.75)
+        control_bus_a.set(0.5)
         with context.at():
-            control_bus_b.set_(0.25)
-            control_bus_c.set_(0.125)
+            control_bus_b.set(0.25)
+            control_bus_c.set(0.125)
     assert transcript.filtered(received=False, status=False) == [
         OscMessage("/c_set", 0, 0.5),
         OscMessage("/c_set", 1, 0.25, 2, 0.125),

@@ -1,36 +1,23 @@
-from supriya import EnvelopeShape, utils
-from supriya.system import SupriyaValueObject
+from uqbar.objects import get_repr
 
+from .. import utils
+from ..enums import EnvelopeShape
 from ..ugens import OutputProxy
 
 
-class Envelope(SupriyaValueObject):
+class Envelope:
     """
     An envelope.
 
     ::
 
         >>> envelope = supriya.synthdefs.Envelope()
-        >>> envelope
-        Envelope()
 
     ::
 
         >>> envelope.serialize()
         [0.0, 2.0, -99.0, -99.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0]
     """
-
-    ### CLASS VARIABLES ###
-
-    __slots__ = (
-        "_envelope_segments",
-        "_initial_amplitude",
-        "_loop_node",
-        "_offset",
-        "_release_node",
-    )
-
-    ### INITIALIZER ###
 
     def __init__(
         self,
@@ -55,7 +42,8 @@ class Envelope(SupriyaValueObject):
             utils.zip_sequences(amplitudes[1:], durations, curves)
         )
 
-    ### PUBLIC METHODS ###
+    def __repr__(self) -> str:
+        return get_repr(self)
 
     @classmethod
     def adsr(

@@ -27,11 +27,6 @@ ENVAR_SERVER_EXECUTABLE = "SUPRIYA_SERVER_EXECUTABLE"
 class Options:
     """
     SuperCollider server options configuration.
-
-    ::
-
-        >>> import supriya.realtime
-        >>> options = supriya.scsynth.Options()
     """
 
     ### CLASS VARIABLES ###
@@ -273,7 +268,12 @@ class ProcessProtocol:
         raise NotImplementedError
 
     def _handle_line(self, line):
-        logger.info(f"Received: {line}")
+        if line.startswith("late:"):
+            logger.warning(f"Received: {line}")
+        elif "error" in line.lower() or "exception" in line.lower():
+            logger.error(f"Received: {line}")
+        else:
+            logger.info(f"Received: {line}")
         if line.startswith(("SuperCollider 3 server ready", "Supernova ready")):
             return LineStatus.READY
         elif line.startswith(("Exception", "ERROR", "*** ERROR")):

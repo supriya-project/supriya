@@ -1,5 +1,4 @@
-from supriya import SignalRange
-
+from ..enums import SignalRange
 from .bases import UGen, param, ugen
 
 

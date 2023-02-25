@@ -1,7 +1,6 @@
 import uqbar.graphs
 
-from supriya import BinaryOperator, CalculationRate, UnaryOperator
-
+from ..enums import BinaryOperator, CalculationRate, UnaryOperator
 from ..ugens import BinaryOpUGen, OutputProxy, UnaryOpUGen
 from .controls import Control
 

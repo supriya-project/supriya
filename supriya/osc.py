@@ -32,7 +32,8 @@ from typing import (
     Union,
 )
 
-from .system import SupriyaValueObject
+from uqbar.objects import get_repr
+
 from .utils import group_iterable_by_count
 
 osc_protocol_logger = logging.getLogger(__name__)
@@ -50,7 +51,7 @@ NTP_EPOCH = datetime.date(1900, 1, 1)
 NTP_DELTA = (SYSTEM_EPOCH - NTP_EPOCH).days * 24 * 3600
 
 
-class OscMessage(SupriyaValueObject):
+class OscMessage:
     """
     An OSC message.
 
@@ -119,13 +120,9 @@ class OscMessage(SupriyaValueObject):
             ), ['a', 'b', ['c', 'd']])
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("address", "contents")
-
     ### INITIALIZER ###
 
-    def __init__(self, address, *contents):
+    def __init__(self, address, *contents) -> None:
         if isinstance(address, enum.Enum):
             address = address.value
         if not isinstance(address, (str, int)):
@@ -135,13 +132,22 @@ class OscMessage(SupriyaValueObject):
 
     ### SPECIAL METHODS ###
 
-    def __repr__(self):
+    def __eq__(self, other) -> bool:
+        if type(self) is not type(other):
+            return False
+        if self.address != other.address:
+            return False
+        if self.contents != other.contents:
+            return False
+        return True
+
+    def __repr__(self) -> str:
         return "{}({})".format(
             type(self).__name__,
-            ", ".join(repr(x) for x in (self.address,) + self.contents),
+            ", ".join(repr(_) for _ in [self.address, *self.contents]),
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return format_datagram(bytearray(self.to_datagram()))
 
     ### PRIVATE METHODS ###
@@ -284,7 +290,7 @@ class OscMessage(SupriyaValueObject):
         return result
 
 
-class OscBundle(SupriyaValueObject):
+class OscBundle:
     """
     An OSC bundle.
 
@@ -356,13 +362,9 @@ class OscBundle(SupriyaValueObject):
         True
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("contents", "timestamp")
-
     ### INITIALIZER ###
 
-    def __init__(self, timestamp=None, contents=None):
+    def __init__(self, timestamp=None, contents=None) -> None:
         prototype = (OscMessage, type(self))
         self.timestamp = timestamp
         contents = contents or ()
@@ -373,7 +375,19 @@ class OscBundle(SupriyaValueObject):
 
     ### SPECIAL METHODS ###
 
-    def __str__(self):
+    def __eq__(self, other) -> bool:
+        if type(self) is not type(other):
+            return False
+        if self.timestamp != other.timestamp:
+            return False
+        if self.contents != other.contents:
+            return False
+        return True
+
+    def __repr__(self) -> str:
+        return get_repr(self)
+
+    def __str__(self) -> str:
         return format_datagram(bytearray(self.to_datagram()))
 
     ### PRIVATE METHODS ###
@@ -704,7 +718,6 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
 
     def datagram_received(self, data, addr):
         loop = asyncio.get_running_loop()
-        osc_protocol_logger.info(f"[{self.ip_address}:{self.port}] received: {data}")
         for callback, message in self._validate_receive(data):
             if inspect.iscoroutinefunction(callback):
                 task = loop.create_task(callback(message))

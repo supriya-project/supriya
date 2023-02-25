@@ -3,7 +3,8 @@ Classes for modeling responses from :term:`scsynth`.
 """
 
 import dataclasses
-from typing import Dict, List, Optional, Sequence, Tuple, Type, Union
+from collections import deque
+from typing import Deque, Dict, List, Optional, Sequence, Tuple, Type, Union
 
 from ..enums import NodeAction
 from ..osc import OscMessage
@@ -36,7 +37,7 @@ class Response:
             "/tr": TriggerInfo,
             "/version.reply": VersionInfo,
         }
-        return mapping[osc_message.address].from_osc(osc_message)
+        return mapping[str(osc_message.address)].from_osc(osc_message)
 
 
 @dataclasses.dataclass
@@ -318,6 +319,110 @@ class QueryTreeInfo(Response):
                 )
             )
         return cls(node_id=node_id, child_count=child_count, items=items)
+
+
+@dataclasses.dataclass
+class QueryTreeControl:
+    name_or_index: Union[int, str]
+    value: Union[float, str]
+
+    def __str__(self):
+        value = self.value
+        try:
+            value = round(value, 6)
+        except Exception:
+            pass
+        return f"{self.name_or_index}: {value!s}"
+
+
+@dataclasses.dataclass
+class QueryTreeSynth:
+    node_id: int
+    synthdef_name: Optional[str]
+    controls: List[QueryTreeControl] = dataclasses.field(default_factory=list)
+
+    ### SPECIAL METHODS ###
+
+    def __format__(self, format_spec):
+        return "\n".join(
+            self._get_str_format_pieces(unindexed=format_spec == "unindexed")
+        )
+
+    def __str__(self):
+        return "\n".join(self._get_str_format_pieces())
+
+    ### PRIVATE METHODS ###
+
+    def _get_str_format_pieces(self, unindexed=False):
+        result = []
+        node_id = self.node_id
+        if unindexed:
+            node_id = "..."
+        string = f"{node_id} {self.synthdef_name}"
+        result.append(string)
+        if self.controls:
+            result.append("    " + ", ".join(str(control) for control in self.controls))
+        return result
+
+
+@dataclasses.dataclass
+class QueryTreeGroup:
+    node_id: int
+    children: List[Union["QueryTreeGroup", QueryTreeSynth]]
+
+    ### SPECIAL METHODS ###
+
+    def __format__(self, format_spec):
+        return "NODE TREE " + "\n".join(
+            self._get_str_format_pieces(unindexed=format_spec == "unindexed")
+        )
+
+    def __str__(self):
+        return "NODE TREE " + "\n".join(self._get_str_format_pieces())
+
+    ### PRIVATE METHODS ###
+
+    def _get_str_format_pieces(self, unindexed=False):
+        result = []
+        node_id = self.node_id
+        if unindexed:
+            node_id = "..."
+        string = f"{node_id} group"
+        result.append(string)
+        for child in self.children:
+            for line in child._get_str_format_pieces(unindexed=unindexed):
+                result.append("    {}".format(line))
+        return result
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def from_query_tree_info(
+        cls, response: QueryTreeInfo
+    ) -> Union["QueryTreeGroup", "QueryTreeSynth"]:
+        def recurse(
+            item: QueryTreeInfo.Item, items: Deque[QueryTreeInfo.Item]
+        ) -> Union[QueryTreeGroup, QueryTreeSynth]:
+            if item.child_count < 0:
+                return QueryTreeSynth(
+                    node_id=item.node_id,
+                    synthdef_name=item.synthdef_name,
+                    controls=[
+                        QueryTreeControl(name_or_index=name_or_index, value=value)
+                        for name_or_index, value in (item.controls or {}).items()
+                    ],
+                )
+            children: List[Union[QueryTreeGroup, QueryTreeSynth]] = []
+            for _ in range(item.child_count):
+                children.append(recurse(items.popleft(), items))
+            return QueryTreeGroup(node_id=item.node_id, children=children)
+
+        return recurse(
+            QueryTreeInfo.Item(
+                node_id=response.node_id, child_count=response.child_count
+            ),
+            deque(response.items),
+        )
 
 
 @dataclasses.dataclass

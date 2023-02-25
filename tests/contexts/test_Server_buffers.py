@@ -116,7 +116,7 @@ async def test_add_buffer(audio_paths, context):
             contents=(
                 OscMessage("/b_alloc", 5, 31, 3, OscMessage("/g_new", 1001, 0, 1)),
             ),
-            timestamp=1.23,
+            timestamp=1.23 + context.latency,
         ),
     ]
 
@@ -288,7 +288,7 @@ def test_generate_buffer(context):
                 OscMessage("/b_gen", 0, "sine1", 4, 1.0, 2.0, 3.0),
                 OscMessage("/b_gen", 0, "sine1", 5, 1.0, 2.0, 3.0),
             ),
-            timestamp=0.0,
+            timestamp=0.0 + context.latency,
         ),
     ]
 
@@ -302,7 +302,7 @@ async def test_get_buffer(context):
     with pytest.raises(exception_classes):
         await get(buffer.get(1))
     await get(context.sync())
-    assert await get(buffer.get(1)) == 0.0
+    assert await get(buffer.get(1, 2, 3)) == {1: 0.0, 2: 0.0, 3: 0.0}
     # unsync
     with context.osc_protocol.capture() as transcript:
         assert await get(buffer.get(1, sync=False)) is None
@@ -420,7 +420,7 @@ async def test_read_buffer(audio_paths, context):
 async def test_set_buffer(context):
     buffer = context.add_buffer(channel_count=1, frame_count=32)
     with context.osc_protocol.capture() as transcript:
-        buffer.set_(2, 0.5)
+        buffer.set(2, 0.5)
     assert transcript.filtered(received=False, status=False) == [
         OscMessage("/b_set", 0, 2, 0.5)
     ]

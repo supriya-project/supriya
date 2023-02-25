@@ -39,8 +39,12 @@ from ..osc import (
     OscProtocolOffline,
     ThreadedOscProtocol,
 )
-from ..querytree import QueryTreeGroup, QueryTreeSynth
-from ..scsynth import AsyncProcessProtocol, Options, SyncProcessProtocol
+from ..scsynth import (
+    AsyncProcessProtocol,
+    Options,
+    ProcessProtocol,
+    SyncProcessProtocol,
+)
 from ..synthdefs import SynthDef
 from ..typing import SupportsOsc
 from .core import (
@@ -80,7 +84,9 @@ from .responses import (
     GetNodeControlInfo,
     GetNodeControlRangeInfo,
     NodeInfo,
+    QueryTreeGroup,
     QueryTreeInfo,
+    QueryTreeSynth,
     StatusInfo,
     VersionInfo,
 )
@@ -123,9 +129,14 @@ class BaseServer(Context):
     ### INITIALIZER ###
 
     def __init__(
-        self, osc_protocol: OscProtocol, options: Optional[Options], **kwargs
+        self,
+        options: Optional[Options],
+        osc_protocol: OscProtocol,
+        process_protocol: ProcessProtocol,
+        **kwargs,
     ) -> None:
         super().__init__(options)
+        self._latency = 0.1
         self._is_owner = False
         self._boot_status = BootStatus.OFFLINE
         self._buffers: Set[int] = set()
@@ -134,8 +145,10 @@ class BaseServer(Context):
         self._node_children: Dict[int, List[int]] = {}
         self._node_parents: Dict[int, int] = {}
         self._osc_protocol = osc_protocol
+        self._process_protocol = process_protocol
         self._shm: Optional["ServerSHM"] = None
         self._setup_osc_callbacks()
+        self._status: Optional[StatusInfo] = None
 
     ### SPECIAL METHODS ###
 
@@ -180,18 +193,20 @@ class BaseServer(Context):
             ):
                 self._buffers.add(message.contents[1])
             elif message.contents[0] == "/b_free":
-                self._buffers.remove(message.contents[1])
+                if message.contents[1] in self._buffers:
+                    self._buffers.remove(message.contents[1])
                 self._free_id(Buffer, message.contents[1])
 
         def _handle_n_end(message: OscMessage) -> None:
             id_, parent_id, *_ = message.contents
             if parent_id == -1:
-                parent_id = self._node_parents[id_]
-            _remove_node_from_children(id_, parent_id)
+                parent_id = self._node_parents.get(id_)
+            if parent_id is not None:
+                _remove_node_from_children(id_, parent_id)
             self._free_id(Node, id_)
-            self._node_active.pop(id_)
-            self._node_children.pop(id_)
-            self._node_parents.pop(id_)
+            self._node_active.pop(id_, None)
+            self._node_children.pop(id_, None)
+            self._node_parents.pop(id_, None)
 
         def _handle_n_go(message: OscMessage) -> None:
             id_, parent_id, previous_id, next_id, is_group, *_ = message.contents
@@ -212,6 +227,9 @@ class BaseServer(Context):
 
         def _handle_n_on(message: OscMessage) -> None:
             self._node_active[message.contents[0]] = True
+
+        def _handle_status_reply(message: OscMessage):
+            self._status = cast(StatusInfo, StatusInfo.from_osc(message))
 
         def _add_node_to_children(
             id_: int, parent_id: int, previous_id: int, next_id: int
@@ -241,10 +259,11 @@ class BaseServer(Context):
             "/n_move": _handle_n_move,
             "/n_off": _handle_n_off,
             "/n_on": _handle_n_on,
+            "/status.reply": _handle_status_reply,
         }
 
         with self._lock:
-            handler = handlers.get(message.address)
+            handler = handlers.get(str(message.address))
             if handler is not None:
                 handler(message)
 
@@ -259,12 +278,10 @@ class BaseServer(Context):
             ["/fail"],
             ["/n_end"],
             ["/n_go"],
-            ["/n_info"],
             ["/n_move"],
             ["/n_off"],
             ["/n_on"],
-            ["/n_set"],
-            ["/n_setn"],
+            ["/status.reply"],
         ):
             self._osc_protocol.register(
                 pattern=pattern, procedure=self._handle_osc_callbacks
@@ -322,6 +339,14 @@ class BaseServer(Context):
             message.to_osc() if hasattr(message, "to_osc") else message
         )
 
+    def set_latency(self, latency: float) -> None:
+        """
+        Set the context's latency.
+
+        :param latency: The latency in seconds.
+        """
+        self._latency = float(latency)
+
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -352,6 +377,20 @@ class BaseServer(Context):
         """
         return self._osc_protocol
 
+    @property
+    def process_protocol(self) -> ProcessProtocol:
+        """
+        Get the server's process protocol.
+        """
+        return self._process_protocol
+
+    @property
+    def status(self) -> Optional[StatusInfo]:
+        """
+        Get the server's last received status.
+        """
+        return self._status
+
 
 class Server(BaseServer):
     """
@@ -364,8 +403,12 @@ class Server(BaseServer):
     ### INITIALIZER ###
 
     def __init__(self, options: Optional[Options] = None, **kwargs):
-        super().__init__(osc_protocol=ThreadedOscProtocol(), options=options, **kwargs)
-        self._process_protocol = SyncProcessProtocol()
+        super().__init__(
+            osc_protocol=ThreadedOscProtocol(),
+            options=options,
+            process_protocol=SyncProcessProtocol(),
+            **kwargs,
+        )
 
     ### PRIVATE METHODS ###
 
@@ -381,7 +424,7 @@ class Server(BaseServer):
         self._setup_notifications()
         self._contexts.add(self)
         self._osc_protocol.activate_healthcheck()
-        self._setup_allocators(self.client_id, self.options)
+        self._setup_allocators()
         if self._client_id == 0:
             self._setup_system()
             self.sync()
@@ -473,21 +516,21 @@ class Server(BaseServer):
         return self
 
     def get_buffer(
-        self, buffer: Buffer, index: int, sync: bool = True
-    ) -> Optional[float]:
+        self, buffer: Buffer, *indices: int, sync: bool = True
+    ) -> Optional[Dict[int, float]]:
         """
         Get a buffer sample.
 
         Emit ``/b_get`` requests.
 
         :param buffer: The buffer whose sample to get.
-        :param index: The sample index to read.
+        :param indices: The sample indices to read.
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        request = GetBuffer(buffer_id=buffer, indices=[index])
+        request = GetBuffer(buffer_id=buffer, indices=indices)
         if sync:
-            return cast(GetBufferInfo, request.communicate(server=self)).items[0][-1]
+            return dict(cast(GetBufferInfo, request.communicate(server=self)).items)
         self._add_requests(request)
         return None
 
@@ -556,24 +599,24 @@ class Server(BaseServer):
         self._add_requests(request)
         return None
 
-    def get_synth_control(
-        self, synth: Synth, control: Union[int, str], sync: bool = True
-    ) -> Optional[Union[float, str]]:
+    def get_synth_controls(
+        self, synth: Synth, *controls: Union[int, str], sync: bool = True
+    ) -> Optional[Dict[Union[int, str], float]]:
         """
         Get a synth control.
 
         Emit ``/s_get`` requests.
 
         :param synth: The synth whose control to get.
-        :param control: The control to get.
+        :param controls: The controls to get.
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        request = GetSynthControl(synth_id=synth, controls=[control])
+        request = GetSynthControl(synth_id=synth, controls=controls)
         if sync:
-            return cast(GetNodeControlInfo, request.communicate(server=self)).items[0][
-                -1
-            ]
+            return dict(
+                cast(GetNodeControlInfo, request.communicate(server=self)).items
+            )
         self._add_requests(request)
         return None
 
@@ -583,7 +626,7 @@ class Server(BaseServer):
         """
         Get a range of synth controls.
 
-        Emit ``/s_get`` requests.
+        Emit ``/s_getn`` requests.
 
         :param synth: The synth whose control to get.
         :param control: The control to start reading at.
@@ -709,6 +752,29 @@ class Server(BaseServer):
         self._disconnect()
         return self
 
+    def reboot(self) -> "Server":
+        """
+        Reboot the server.
+        """
+        self.quit()
+        self.boot()
+        return self
+
+    def reset(self) -> "Server":
+        """
+        Reset the server's state without quitting.
+        """
+        with self.at():
+            self.clear_schedule()
+            self.free_all_synthdefs()
+            self.free_group_children(self.root_node)
+        self.sync()
+        self._teardown_state()
+        self._setup_allocators()
+        self._setup_system()
+        self.sync()
+        return self
+
     def sync(self, sync_id: Optional[int] = None) -> "Server":
         """
         Sync the server.
@@ -736,8 +802,12 @@ class AsyncServer(BaseServer):
     ### INITIALIZER ###
 
     def __init__(self, options: Optional[Options] = None, **kwargs):
-        super().__init__(osc_protocol=AsyncOscProtocol(), options=options, **kwargs)
-        self._process_protocol = AsyncProcessProtocol()
+        super().__init__(
+            osc_protocol=AsyncOscProtocol(),
+            options=options,
+            process_protocol=AsyncProcessProtocol(),
+            **kwargs,
+        )
 
     ### PRIVATE METHODS ###
 
@@ -753,7 +823,7 @@ class AsyncServer(BaseServer):
         await self._setup_notifications()
         self._contexts.add(self)
         self._osc_protocol.activate_healthcheck()
-        self._setup_allocators(self.client_id, self.options)
+        self._setup_allocators()
         if self._client_id == 0:
             self._setup_system()
             await self.sync()
@@ -847,23 +917,23 @@ class AsyncServer(BaseServer):
         return self
 
     async def get_buffer(
-        self, buffer: Buffer, index: int, sync: bool = True
-    ) -> Optional[float]:
+        self, buffer: Buffer, *indices: int, sync: bool = True
+    ) -> Optional[Dict[int, float]]:
         """
         Get a buffer sample.
 
         Emit ``/b_get`` requests.
 
         :param buffer: The buffer whose sample to get.
-        :param index: The sample index to read.
+        :param indices: The sample indices to read.
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        request = GetBuffer(buffer_id=buffer, indices=[index])
+        request = GetBuffer(buffer_id=buffer, indices=indices)
         if sync:
-            return cast(
-                GetBufferInfo, await request.communicate_async(server=self)
-            ).items[0][-1]
+            return dict(
+                cast(GetBufferInfo, await request.communicate_async(server=self)).items
+            )
         self._add_requests(request)
         return None
 
@@ -932,24 +1002,26 @@ class AsyncServer(BaseServer):
         self._add_requests(request)
         return None
 
-    async def get_synth_control(
-        self, synth: Synth, control: Union[int, str], sync: bool = True
-    ) -> Optional[Union[float, str]]:
+    async def get_synth_controls(
+        self, synth: Synth, *controls: Union[int, str], sync: bool = True
+    ) -> Optional[Dict[Union[int, str], float]]:
         """
         Get a synth control.
 
         Emit ``/s_get`` requests.
 
         :param synth: The synth whose control to get.
-        :param control: The control to get.
+        :param controls: The controls to get.
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        request = GetSynthControl(synth_id=synth, controls=[control])
+        request = GetSynthControl(synth_id=synth, controls=controls)
         if sync:
-            return cast(
-                GetNodeControlInfo, await request.communicate_async(server=self)
-            ).items[0][-1]
+            return dict(
+                cast(
+                    GetNodeControlInfo, await request.communicate_async(server=self)
+                ).items
+            )
         self._add_requests(request)
         return None
 
@@ -959,7 +1031,7 @@ class AsyncServer(BaseServer):
         """
         Get a range of synth controls.
 
-        Emit ``/s_get`` requests.
+        Emit ``/s_getn`` requests.
 
         :param synth: The synth whose control to get.
         :param control: The control to start reading at.
@@ -1084,6 +1156,29 @@ class AsyncServer(BaseServer):
             pass
         self._process_protocol.quit()
         await self._disconnect()
+        return self
+
+    async def reboot(self) -> "AsyncServer":
+        """
+        Reboot the server.
+        """
+        await self.quit()
+        await self.boot()
+        return self
+
+    async def reset(self) -> "AsyncServer":
+        """
+        Reset the server's state without quitting.
+        """
+        with self.at():
+            self.clear_schedule()
+            self.free_all_synthdefs()
+            self.free_group_children(self.root_node)
+        await self.sync()
+        self._teardown_state()
+        self._setup_allocators()
+        self._setup_system()
+        await self.sync()
         return self
 
     async def sync(self, sync_id: Optional[int] = None) -> "AsyncServer":

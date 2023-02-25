@@ -1,85 +1,70 @@
-import configparser
-import logging
-import pathlib
+from pathlib import Path
 
 import platformdirs
 
-output_path = pathlib.Path(platformdirs.user_cache_dir("supriya", "supriya"))
-if not output_path.exists():
+from ._version import __version__, __version_info__
+from .clocks import AsyncClock, AsyncOfflineClock, Clock, OfflineClock
+from .contexts import AsyncServer, Buffer, Bus, Group, Node, Score, Server, Synth
+from .enums import (  # noqa
+    AddAction,
+    CalculationRate,
+    DoneAction,
+    HeaderFormat,
+    SampleFormat,
+)
+from .io import graph, play, plot, render
+from .synthdefs import (
+    SynthDef,
+    SynthDefBuilder,
+    synthdef,
+)
+from .assets.synthdefs import default
+from .scsynth import Options
+
+
+if not (
+    output_path := Path(platformdirs.user_cache_dir("supriya", "supriya"))
+).exists():
     try:
         output_path.mkdir(parents=True, exist_ok=True)
     except IOError:
         pass
 
-config = configparser.ConfigParser()
-config.read_dict({"core": {"scsynth_path": "scsynth"}})
-config_path = pathlib.Path(platformdirs.user_config_dir("supriya", "supriya"))
-config_path = config_path / "supriya.cfg"
-if not config_path.exists():
-    try:
-        config_path.parent.mkdir(parents=True, exist_ok=True)
-        with config_path.open("w") as file_pointer:
-            config.write(file_pointer, True)
-    except IOError:
-        pass
-with config_path.open() as file_pointer:
-    config.read_file(file_pointer)
+assets_path = Path(__file__).parent / "assets"
 
+
+__all__ = [
+    "AddAction",
+    "AsyncClock",
+    "AsyncOfflineClock",
+    "AsyncServer",
+    "Buffer",
+    "Bus",
+    "CalculationRate",
+    "Clock",
+    "DoneAction",
+    "Group",
+    "HeaderFormat",
+    "Node",
+    "OfflineClock",
+    "Options",
+    "SampleFormat",
+    "Score",
+    "Server",
+    "Synth",
+    "SynthDef",
+    "SynthDefBuilder",
+    "__version__",
+    "__version_info__",
+    "default",
+    "graph",
+    "output_path",
+    "play",
+    "plot",
+    "render",
+    "synthdef",
+]
+
+
+del Path
 del platformdirs
-del configparser
-del file_pointer
-del pathlib
-
-
-def _setup_logging(*loggers):
-    logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-    for logger in loggers:
-        logging.getLogger(logger).setLevel(logging.DEBUG)
-
-
-from ._version import __version__, __version_info__  # noqa
-from . import utils  # noqa
-from .clocks import AsyncClock, AsyncOfflineClock, Clock, OfflineClock  # noqa
-from .enums import (  # noqa
-    AddAction,
-    BinaryOperator,
-    CalculationRate,
-    DoneAction,
-    EnvelopeShape,
-    HeaderFormat,
-    NodeAction,
-    ParameterRate,
-    RequestId,
-    RequestName,
-    SampleFormat,
-    SignalRange,
-    UnaryOperator,
-    Unit,
-)
-from .io import graph, play, plot, render  # noqa
-from .synthdefs import (  # noqa
-    Envelope,
-    Parameter,
-    Range,
-    SynthDef,
-    SynthDefBuilder,
-    SynthDefFactory,
-    synthdef,
-)
-from .realtime import (  # noqa
-    AsyncServer,
-    Buffer,
-    BufferGroup,
-    Bus,
-    BusGroup,
-    Group,
-    Synth,
-    Server,
-)
-from . import assets  # noqa
-from .assets.synthdefs import default  # noqa
-from .nonrealtime import Session  # noqa
-from .providers import Provider  # noqa
-from .scsynth import Options  # noqa
-from .soundfiles import Say, SoundFile  # noqa
-from .system import Assets  # noqa

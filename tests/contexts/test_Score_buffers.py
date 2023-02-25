@@ -372,7 +372,7 @@ def test_read_buffer(audio_paths, context):
 def test_set_buffer(context):
     with context.at(0):
         buffer = context.add_buffer(channel_count=1, frame_count=32)
-        buffer.set_(2, 0.5)
+        buffer.set(2, 0.5)
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(
             contents=(

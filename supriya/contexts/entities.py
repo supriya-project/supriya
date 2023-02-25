@@ -1,14 +1,18 @@
 import dataclasses
+import tempfile
 from os import PathLike
+from pathlib import Path
 from typing import (
     TYPE_CHECKING,
     Awaitable,
     Callable,
     Container,
+    Dict,
     List,
     Optional,
     Sequence,
     SupportsFloat,
+    Tuple,
     Union,
     cast,
 )
@@ -20,12 +24,15 @@ except ImportError:
 
 from ..assets.synthdefs.default import default
 from ..enums import AddAction, CalculationRate
+from ..io import PlayMemo
 from ..synthdefs import SynthDef
-from ..typing import AddActionLike, HeaderFormatLike, SampleFormatLike
+from ..typing import AddActionLike, HeaderFormatLike, SampleFormatLike, SupportsRender
 from .errors import InvalidCalculationRate, InvalidMoment
 from .responses import BufferInfo, NodeInfo
 
 if TYPE_CHECKING:
+    import numpy
+
     from .core import Completion, Context
     from .realtime import AsyncServer, BaseServer, Server
 
@@ -72,7 +79,7 @@ class Buffer(ContextObject):
     :param completion: The buffer's allocation completion.
     """
 
-    completion: Optional["Completion"] = None
+    completion: Optional["Completion"] = dataclasses.field(default=None, compare=False)
 
     def __enter__(self) -> "Completion":
         """
@@ -89,6 +96,27 @@ class Buffer(ContextObject):
         if self.completion is None:
             raise InvalidMoment
         return self.completion.__exit__(*args)
+
+    def __plot__(self) -> Tuple["numpy.ndarray", float]:
+        import librosa
+
+        with tempfile.TemporaryDirectory() as temp_directory:
+            file_path = Path(temp_directory) / "tmp.wav"
+            self.write(file_path=file_path, header_format="wav", sample_format="int32")
+            cast("Server", self.context).sync()
+            return librosa.load(file_path, mono=False, sr=None)
+
+    def __render_memo__(
+        self,
+        output_file_path: Optional[PathLike] = None,
+        render_directory_path: Optional[PathLike] = None,
+        **kwargs,
+    ) -> SupportsRender:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            path = Path(temp_directory) / "tmp.wav"
+            self.write(file_path=path, header_format="wav", sample_format="int32")
+            cast("Server", self.context).sync()
+            return PlayMemo.from_path(path)
 
     def close(
         self, on_completion: Optional[Callable[["Context"], None]] = None
@@ -192,19 +220,19 @@ class Buffer(ContextObject):
         )
 
     def get(
-        self, index: int, sync: bool = True
-    ) -> Union[Awaitable[Optional[float]], Optional[float]]:
+        self, *indices: int, sync: bool = True
+    ) -> Union[Awaitable[Optional[Dict[int, float]]], Optional[Dict[int, float]]]:
         """
         Get a sample.
 
         Emit ``/b_get`` requests.
 
-        :param index: The sample index to read.
+        :param indices: The sample indices to read.
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
         return cast(Union["AsyncServer", "Server"], self.context).get_buffer(
-            self, index, sync=sync
+            self, *indices, sync=sync
         )
 
     def get_range(
@@ -291,7 +319,7 @@ class Buffer(ContextObject):
             starting_frame=starting_frame,
         )
 
-    def set_(self, index: int, value: float) -> None:
+    def set(self, index: int, value: float) -> None:
         """
         Set a sample.
 
@@ -367,6 +395,46 @@ class Buffer(ContextObject):
 
 
 @dataclasses.dataclass(frozen=True)
+class BufferGroup(ContextObject):
+    r"""
+    A buffer group.
+
+    :param context: The buffer group's context.
+    :param id\_: The buffer group's context ID.
+    :param count: The number of child buffers.
+    """
+
+    count: int = 1
+    buffers: Tuple[Buffer, ...] = dataclasses.field(
+        init=False, repr=False, default_factory=tuple
+    )
+
+    def __post_init__(self):
+        object.__setattr__(
+            self,
+            "buffers",
+            tuple(
+                Buffer(context=self.context, id_=i)
+                for i in range(self.id_, self.id_ + self.count)
+            ),
+        )
+
+    def __getitem__(self, item):
+        return self.buffers[item]
+
+    def __len__(self) -> int:
+        return len(self.buffers)
+
+    def free(self):
+        """
+        Free the buffer group.
+
+        Emit ``/b_free`` requests.
+        """
+        self.context.free_buffer_group(self)
+
+
+@dataclasses.dataclass(frozen=True)
 class Bus(ContextObject):
     r"""
     A bus.
@@ -387,7 +455,7 @@ class Bus(ContextObject):
         :param count: The number of buses to fill.
         :param value: The value to fill with.
         """
-        self.context.fill_buses(self, count, value)
+        self.context.fill_bus_range(self, count, value)
 
     def free(self) -> None:
         """
@@ -438,7 +506,7 @@ class Bus(ContextObject):
             return f"c{self.id_}"
         raise InvalidCalculationRate
 
-    def set_(self, value: float) -> None:
+    def set(self, value: float) -> None:
         """
         Set the control bus's value.
 
@@ -457,6 +525,47 @@ class Bus(ContextObject):
         :param values: The values to write.
         """
         self.context.set_bus_range(self, values)
+
+
+@dataclasses.dataclass(frozen=True)
+class BusGroup(ContextObject):
+    r"""
+    A bus group.
+
+    :param context: The bus group's context.
+    :param id\_: The bus group's context ID.
+    :param calculation_rate: The bus group's calculation rate.
+    :param count: The number of child buses.
+    """
+    calculation_rate: CalculationRate
+    count: int = 1
+    buses: Tuple[Bus, ...] = dataclasses.field(
+        init=False, repr=False, default_factory=tuple
+    )
+
+    def __post_init__(self):
+        object.__setattr__(
+            self,
+            "buses",
+            tuple(
+                Bus(calculation_rate=self.calculation_rate, context=self.context, id_=i)
+                for i in range(self.id_, self.id_ + self.count)
+            ),
+        )
+
+    def __getitem__(self, item):
+        return self.buses[item]
+
+    def __len__(self) -> int:
+        return len(self.buses)
+
+    def free(self):
+        """
+        Free the bus group.
+
+        Emit no requests.
+        """
+        self.context.free_bus_group(self)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -588,7 +697,7 @@ class Node(ContextObject):
             self, sync=sync
         )
 
-    def set_(self, **settings: SupportsFloat) -> None:
+    def set(self, **settings: SupportsFloat) -> None:
         """
         Set the node's controls.
 
@@ -626,7 +735,7 @@ class Node(ContextObject):
     @property
     def parent(self) -> Optional["Group"]:
         """
-        Get the node's parent, as currently cached on the context
+        Get the node's parent, as currently cached on the context.
         """
         parent_id = cast("BaseServer", self.context)._node_parents.get(self.id_)
         if parent_id is None:
@@ -634,6 +743,20 @@ class Node(ContextObject):
         elif parent_id == 0:
             return RootNode(context=self.context, id_=0)
         return Group(context=self.context, id_=parent_id)
+
+    @property
+    def parentage(self) -> Sequence["Node"]:
+        """
+        Get the node's parentage, as currently cached on the context.
+        """
+        context = cast("BaseServer", self.context)
+        parentage: List["Node"] = [self]
+        while (parent_id := context._node_parents.get(parentage[-1].id_)) is not None:
+            if parent_id:
+                parentage.append(Group(context=context, id_=parent_id))
+            else:
+                parentage.append(context.root_node)
+        return parentage
 
 
 @dataclasses.dataclass(frozen=True)
@@ -706,19 +829,22 @@ class Synth(Node):
     synthdef: SynthDef
 
     def get(
-        self, control: Union[int, str], sync: bool = True
-    ) -> Union[Awaitable[Optional[Union[float, str]]], Optional[Union[float, str]]]:
+        self, *controls: Union[int, str], sync: bool = True
+    ) -> Union[
+        Awaitable[Optional[Dict[Union[int, str], float]]],
+        Optional[Dict[Union[int, str], float]],
+    ]:
         """
         Get a control.
 
         Emit ``/s_get`` requests.
 
-        :param control: The control to get.
+        :param controls: The control to get.
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        return cast(Union["AsyncServer", "Server"], self.context).get_synth_control(
-            self, control, sync=sync
+        return cast(Union["AsyncServer", "Server"], self.context).get_synth_controls(
+            self, *controls, sync=sync
         )
 
     def get_range(

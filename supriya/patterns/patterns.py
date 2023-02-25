@@ -7,14 +7,14 @@ import itertools
 import operator
 import random
 from collections.abc import Sequence
-from typing import Callable, Coroutine, Dict, Iterator, Optional
+from typing import Callable, Coroutine, Dict, Generator, Iterator, Optional
 from uuid import UUID
 
 from uqbar.objects import get_vars
 
 import supriya.patterns
 from supriya.clocks import BaseClock, Clock, ClockContext, OfflineClock
-from supriya.providers import NonrealtimeProvider, Provider
+from supriya.contexts import Context, Score
 
 from .events import CompositeEvent, Event, Priority
 
@@ -46,7 +46,7 @@ class Pattern(metaclass=abc.ABCMeta):
     def __invert__(self):
         return UnaryOpPattern("~", self)
 
-    def __iter__(self) -> Iterator[Event]:
+    def __iter__(self) -> Generator[Event, bool, None]:
         should_stop = False
         state: Optional[Dict] = self._setup_state()
         iterator = self._iterate(state)
@@ -197,7 +197,7 @@ class Pattern(metaclass=abc.ABCMeta):
 
     def play(
         self,
-        provider: Optional[Provider] = None,
+        context: Context,
         *,
         at: Optional[float] = None,
         callback: Optional[
@@ -214,17 +214,13 @@ class Pattern(metaclass=abc.ABCMeta):
     ):
         from .players import PatternPlayer  # Avoid circular import
 
-        if provider is None:
-            provider = Provider.realtime()
-        elif not isinstance(provider, Provider):
-            provider = Provider.from_context(provider)
-        if isinstance(provider, NonrealtimeProvider):
+        if isinstance(context, Score):
             clock = OfflineClock()
             at = at or 0.0
         elif clock is None:
             clock = Clock.default()
         player = PatternPlayer(
-            pattern=self, provider=provider, clock=clock, callback=callback, uuid=uuid
+            pattern=self, context=context, clock=clock, callback=callback, uuid=uuid
         )
         player.play(quantization=quantization, at=at, until=until)
         return player

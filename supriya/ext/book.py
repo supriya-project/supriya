@@ -1,10 +1,12 @@
 import asyncio
 import base64
 import hashlib
+import logging
 import pathlib
 import pickle
 import textwrap
 import warnings
+from typing import Union
 
 import librosa.display
 import matplotlib.axes  # noqa
@@ -13,8 +15,11 @@ from docutils.nodes import FixedTextElement, General, SkipNode
 from uqbar.book.extensions import Extension
 from uqbar.strings import normalize
 
-from supriya.ext import websafe_audio
-from supriya.io import Player, Plotter
+from ..io import Player, Plotter
+from ..typing import SupportsRender, SupportsRenderMemo
+from . import websafe_audio
+
+logger = logging.getLogger(__name__)
 
 
 class PlayExtension(Extension):
@@ -46,11 +51,13 @@ class PlayExtension(Extension):
             text=[cls.visit_block_text, cls.depart_block_text],
         )
 
-    def __init__(self, renderable, render_kwargs):
-        try:
+    def __init__(
+        self, renderable: Union[SupportsRender, SupportsRenderMemo], render_kwargs
+    ) -> None:
+        if isinstance(renderable, SupportsRenderMemo):
+            self.renderable = pickle.loads(pickle.dumps(renderable.__render_memo__()))
+        else:
             self.renderable = pickle.loads(pickle.dumps(renderable))
-        except TypeError:
-            self.renderable = renderable.__render__(**render_kwargs)
         self.render_kwargs = pickle.loads(pickle.dumps(render_kwargs))
 
     def to_docutils(self):
@@ -70,17 +77,12 @@ class PlayExtension(Extension):
         renderable, render_kwargs = pickle.loads(
             base64.b64decode("".join(node[0].split()))
         )
-        if callable(renderable):
-            # PlayMemo is rendered here
-            render_function, path = renderable(
-                render_directory_path=output_path, **render_kwargs
+        path, _ = asyncio.run(
+            renderable.__render__(
+                render_directory_path=output_path,
+                **render_kwargs,
             )
-        else:
-            # Session, Say, etc. are rendered here
-            render_function, path = renderable.__render__(
-                render_directory_path=output_path, **render_kwargs
-            )
-        asyncio.run(render_function())
+        )
         return websafe_audio(path)
 
     @staticmethod
@@ -149,7 +151,7 @@ class PlotExtension(Extension):
         ax.tick_params(axis="x", colors="white")
         ax.tick_params(axis="y", colors="white")
         librosa.display.waveshow(array, sr=sample_rate, ax=ax)
-        hexdigest = hashlib.sha1(node[0].encode()).hexdigest()
+        hexdigest = hashlib.sha256(node[0].encode()).hexdigest()
         file_path = output_path / f"plot-{hexdigest}.svg"
         fig.savefig(file_path, bbox_inches="tight")
         plt.close(fig)

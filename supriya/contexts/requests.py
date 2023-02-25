@@ -878,7 +878,7 @@ class GetSynthControl(Request):
     controls: Sequence[Union[int, str]]
 
     def _get_response_patterns(self):
-        return ["/n_set", int(self.synth_id), self.controls[0]], None
+        return ["/n_set", int(self.synth_id)], None
 
     def to_osc(self) -> OscMessage:
         contents: List[Union[int, str]] = [int(self.synth_id)]

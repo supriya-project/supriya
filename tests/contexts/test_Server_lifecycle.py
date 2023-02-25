@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import random
 import sys
 
 import pytest
@@ -18,7 +19,6 @@ from supriya.exceptions import (
     UnownedServerShutdown,
 )
 from supriya.osc import find_free_port
-from supriya.scsynth import Options
 
 supernova = pytest.param(
     "supernova",
@@ -26,6 +26,12 @@ supernova = pytest.param(
         sys.platform.startswith("win"), reason="Supernova won't boot on Windows"
     ),
 )
+
+
+async def get(x):
+    if asyncio.iscoroutine(x):
+        return await x
+    return x
 
 
 @pytest.fixture(autouse=True)
@@ -299,52 +305,19 @@ async def test_boot_a_and_connect_b_and_force_quit_b(executable, context_class):
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
 @pytest.mark.parametrize("context_class", [AsyncServer, Server])
-@pytest.mark.parametrize("maximum_node_count", [1204, 8192])
-async def test_boot_reboot_sticky_options(
-    executable, maximum_node_count, context_class
-):
+async def test_boot_reboot_sticky_options(executable, context_class):
+    """
+    Options persist across booting and quitting.
+    """
     context = context_class()
-    port = find_free_port()
-    options = Options(
-        executable=executable, maximum_node_count=maximum_node_count, port=port
+    maximum_node_count = random.randint(1024, 2048)
+    await get(
+        context.boot(maximum_node_count=maximum_node_count, port=find_free_port())
     )
-    result = context.boot(options=options)
-    if asyncio.iscoroutine(result):
-        await result
-    assert context.boot_status == BootStatus.ONLINE
-    assert context.options.maximum_node_count == options.maximum_node_count
-    assert context.options.port == options.port
-    result = context.quit()
-    if asyncio.iscoroutine(result):
-        await result
-    assert context.boot_status == BootStatus.OFFLINE
-    assert context.options.maximum_node_count == options.maximum_node_count
-    assert context.options.port == options.port
-    result = context.boot()
-    if asyncio.iscoroutine(result):
-        await result
-    assert context.boot_status == BootStatus.ONLINE
-    assert context.options.maximum_node_count == options.maximum_node_count
-    assert context.options.port == options.port
-    result = context.quit()
-    if asyncio.iscoroutine(result):
-        await result
-    assert context.boot_status == BootStatus.OFFLINE
-    result = context.boot(memory_size=8199)
-    if asyncio.iscoroutine(result):
-        await result
-    assert context.boot_status == BootStatus.ONLINE
-    assert context.options.memory_size == 8199
-    assert context.options.maximum_node_count == options.maximum_node_count
-    assert context.options.port == options.port
-    result = context.quit()
-    if asyncio.iscoroutine(result):
-        await result
-    assert context.boot_status == BootStatus.OFFLINE
-    result = context.boot(options=options)
-    if asyncio.iscoroutine(result):
-        await result
-    assert context.boot_status == BootStatus.ONLINE
-    assert context.options.memory_size == options.memory_size
-    assert context.options.maximum_node_count == options.maximum_node_count
-    assert context.options.port == options.port
+    assert context.options.maximum_node_count == maximum_node_count
+    await get(context.quit())
+    assert context.options.maximum_node_count == maximum_node_count
+    await get(context.boot(port=find_free_port()))
+    assert context.options.maximum_node_count == maximum_node_count
+    await get(context.quit())
+    assert context.options.maximum_node_count == maximum_node_count

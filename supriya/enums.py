@@ -12,8 +12,6 @@ class AddAction(IntEnumeration):
     An enumeration of scsynth node add actions.
     """
 
-    ### CLASS VARIABLES ###
-
     ADD_TO_HEAD = 0
     ADD_TO_TAIL = 1
     ADD_BEFORE = 2
@@ -22,7 +20,6 @@ class AddAction(IntEnumeration):
 
 
 class BinaryOperator(IntEnumeration):
-    ### CLASS VARIABLES ###
 
     ABSOLUTE_DIFFERENCE = 38  # |a - b|
     ADDITION = 0
@@ -78,20 +75,7 @@ class BinaryOperator(IntEnumeration):
 class CalculationRate(IntEnumeration):
     """
     An enumeration of scsynth calculation-rates.
-
-    ::
-
-        >>> import supriya.synthdefs
-        >>> supriya.CalculationRate.AUDIO
-        CalculationRate.AUDIO
-
-    ::
-
-        >>> supriya.CalculationRate.from_expr("demand")
-        CalculationRate.DEMAND
     """
-
-    ### CLASS VARIABLES ###
 
     AUDIO = 2
     CONTROL = 1
@@ -101,8 +85,6 @@ class CalculationRate(IntEnumeration):
     KR = 1
     DR = 3
     IR = 0
-
-    ### PUBLIC METHODS ###
 
     @classmethod
     def from_expr(cls, expr):
@@ -163,8 +145,6 @@ class CalculationRate(IntEnumeration):
             return cls.from_expr(expr.calculation_rate)
         return super().from_expr(expr)
 
-    ### PUBLIC PROPERTIES ###
-
     @property
     def token(self):
         if self == CalculationRate.SCALAR:
@@ -181,20 +161,7 @@ class CalculationRate(IntEnumeration):
 class DoneAction(IntEnumeration):
     """
     An enumeration of ``scsynth`` UGen "done" actions.
-
-    ::
-
-        >>> import supriya.synthdefs
-        >>> supriya.DoneAction(2)
-        DoneAction.FREE_SYNTH
-
-    ::
-
-        >>> supriya.DoneAction.from_expr("pause synth")
-        DoneAction.PAUSE_SYNTH
     """
-
-    ### CLASS VARIABLES ###
 
     NOTHING = 0
     PAUSE_SYNTH = 1
@@ -214,7 +181,6 @@ class DoneAction(IntEnumeration):
 
 
 class EnvelopeShape(IntEnumeration):
-    ### CLASS VARIABLES ###
 
     CUBED = 7
     CUSTOM = 5
@@ -229,25 +195,7 @@ class EnvelopeShape(IntEnumeration):
 class HeaderFormat(IntEnumeration):
     """
     An enumeration of soundfile header formats.
-
-    ::
-
-        >>> supriya.HeaderFormat.AIFF
-        HeaderFormat.AIFF
-
-    ::
-
-        >>> supriya.HeaderFormat.from_expr("wav")
-        HeaderFormat.WAV
-
-    ::
-
-        >>> header_format = supriya.HeaderFormat.from_expr("wav")
-        >>> header_format.name.lower()
-        'wav'
     """
-
-    ### CLASS VARIABLES ###
 
     AIFF = 0
     IRCAM = 1
@@ -257,7 +205,6 @@ class HeaderFormat(IntEnumeration):
 
 
 class NodeAction(IntEnumeration):
-    ### CLASS VARIABLES ###
 
     NODE_CREATED = 0
     NODE_REMOVED = 1
@@ -265,8 +212,6 @@ class NodeAction(IntEnumeration):
     NODE_DEACTIVATED = 3
     NODE_MOVED = 4
     NODE_QUERIED = 5
-
-    ### PUBLIC METHODS ###
 
     @classmethod
     def from_expr(cls, address):
@@ -289,8 +234,6 @@ class ParameterRate(IntEnumeration):
     An enumeration of synthdef control rates.
     """
 
-    ### CLASS VARIABLES ###
-
     AUDIO = 2
     CONTROL = 3
     SCALAR = 0
@@ -305,8 +248,6 @@ class RequestId(IntEnumeration):
     """
     An enumeration of scsynth request ids.
     """
-
-    ### CLASS VARIABLES ###
 
     BUFFER_ALLOCATE = 28
     BUFFER_ALLOCATE_READ = 29
@@ -384,8 +325,6 @@ class RequestName(StrictEnumeration):
     An enumeration of scsynth request names.
     """
 
-    ### CLASS VARIABLES ###
-
     BUFFER_ALLOCATE = "/b_alloc"
     BUFFER_ALLOCATE_READ = "/b_allocRead"
     BUFFER_ALLOCATE_READ_CHANNEL = "/b_allocReadChannel"
@@ -452,8 +391,6 @@ class RequestName(StrictEnumeration):
     UGEN_COMMAND = "/u_cmd"
     VERSION = "/version"
 
-    ### PUBLIC PROPERTIES ###
-
     @property
     def request_id(self):
         return RequestId.from_expr(self.name)
@@ -462,25 +399,7 @@ class RequestName(StrictEnumeration):
 class SampleFormat(IntEnumeration):
     """
     An enumeration of soundfile sample formats.
-
-    ::
-
-        >>> supriya.SampleFormat.INT24
-        SampleFormat.INT24
-
-    ::
-
-        >>> supriya.SampleFormat.from_expr("float")
-        SampleFormat.FLOAT
-
-    ::
-
-        >>> sample_format = supriya.SampleFormat.INT24
-        >>> sample_format.name.lower()
-        'int24'
     """
-
-    ### CLASS VARIABLES ###
 
     INT24 = 0
     ALAW = 1
@@ -495,26 +414,13 @@ class SampleFormat(IntEnumeration):
 class SignalRange(IntEnumeration):
     """
     An enumeration of scsynth UGen signal ranges.
-
-    ::
-
-        >>> supriya.SignalRange.UNIPOLAR
-        SignalRange.UNIPOLAR
-
-    ::
-
-        >>> supriya.SignalRange.from_expr("bipolar")
-        SignalRange.BIPOLAR
     """
-
-    ### CLASS VARIABLES ###
 
     UNIPOLAR = 0
     BIPOLAR = 1
 
 
 class UnaryOperator(IntEnumeration):
-    ### CLASS VARIABLES ###
 
     ABSOLUTE_VALUE = 5
     AMPLITUDE_TO_DB = 22
@@ -573,7 +479,6 @@ class UnaryOperator(IntEnumeration):
 
 
 class Unit(IntEnumeration):
-    ### CLASS VARIABLES ###
 
     UNDEFINED = 0
     DECIBELS = 1

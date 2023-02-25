@@ -21,6 +21,7 @@ from typing import (
     Tuple,
     Type,
     Union,
+    cast,
 )
 
 try:
@@ -30,7 +31,6 @@ except ImportError:
 
 from uqbar.objects import new
 
-from ..allocators import BlockAllocator, NodeIdAllocator
 from ..enums import AddAction, CalculationRate, ParameterRate
 from ..scsynth import Options
 from ..synthdefs import SynthDef
@@ -41,7 +41,18 @@ from ..typing import (
     SampleFormatLike,
     SupportsOsc,
 )
-from .entities import Buffer, Bus, ContextObject, Group, Node, RootNode, Synth
+from .allocators import BlockAllocator, NodeIdAllocator
+from .entities import (
+    Buffer,
+    BufferGroup,
+    Bus,
+    BusGroup,
+    ContextObject,
+    Group,
+    Node,
+    RootNode,
+    Synth,
+)
 from .errors import ContextError, InvalidCalculationRate, MomentClosed
 from .requests import (
     AllocateBuffer,
@@ -127,7 +138,7 @@ class Moment:
         )
         if len(requests) > 1 or timestamp is not None:
             self.context.send(RequestBundle(timestamp=timestamp, contents=requests))
-        else:
+        elif len(requests):
             self.context.send(requests[0])
         self.closed = True
 
@@ -202,7 +213,20 @@ class Context(metaclass=abc.ABCMeta):
         self._sync_id = self._sync_id_minimum = 0
         self._sync_id_maximum = 32 << 26
         self._thread_local = threading.local()
-        self._setup_allocators(self.client_id, self.options)
+        self._setup_allocators()
+
+    ### SPECIAL METHODS ###
+
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        del state["_lock"]
+        del state["_thread_local"]
+        return state
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
+        self._lock = threading.RLock()
+        self._thread_local = threading.local()
 
     ### PRIVATE METHODS ###
 
@@ -330,30 +354,34 @@ class Context(metaclass=abc.ABCMeta):
     def _resolve_node(self, node: Union[Node, SupportsInt, None]) -> int:
         raise NotImplementedError
 
-    def _setup_allocators(self, client_id: int, options: Options) -> None:
+    def _setup_allocators(self) -> None:
         # audio buses
-        audio_bus_minimum, audio_bus_maximum = options.get_audio_bus_ids(client_id)
+        audio_bus_minimum, audio_bus_maximum = self.options.get_audio_bus_ids(
+            self.client_id
+        )
         self._audio_bus_allocator = BlockAllocator(
             heap_minimum=audio_bus_minimum, heap_maximum=audio_bus_maximum
         )
         # control buses
-        control_bus_minimum, control_bus_maximum = options.get_control_bus_ids(
-            client_id
+        control_bus_minimum, control_bus_maximum = self.options.get_control_bus_ids(
+            self.client_id
         )
         self._control_bus_allocator = BlockAllocator(
             heap_minimum=control_bus_minimum, heap_maximum=control_bus_maximum
         )
         # buffers
-        buffer_minimum, buffer_maximum = options.get_buffer_ids(client_id)
+        buffer_minimum, buffer_maximum = self.options.get_buffer_ids(self.client_id)
         self._buffer_allocator = BlockAllocator(
             heap_minimum=buffer_minimum, heap_maximum=buffer_maximum
         )
         # node IDs
         self._node_id_allocator = NodeIdAllocator(
-            initial_node_id=options.initial_node_id, client_id=client_id
+            initial_node_id=self.options.initial_node_id, client_id=self.client_id
         )
         # sync IDs
-        self._sync_id_minimum, self._sync_id_maximum = options.get_sync_ids(client_id)
+        self._sync_id_minimum, self._sync_id_maximum = self.options.get_sync_ids(
+            self.client_id
+        )
         self._sync_id = self._sync_id_minimum
 
     @abc.abstractmethod
@@ -431,7 +459,7 @@ class Context(metaclass=abc.ABCMeta):
         channel_count: Optional[int] = None,
         count: int = 1,
         frame_count: Optional[int] = None,
-    ) -> List[Buffer]:
+    ) -> BufferGroup:
         """
         Add a group of new buffers to the context.
 
@@ -447,10 +475,8 @@ class Context(metaclass=abc.ABCMeta):
         if count < 1:
             raise ValueError
         id_ = self._allocate_id(Buffer, count=count)
-        buffers: List[Buffer] = []
         requests: List[Request] = []
         for i in range(count):
-            buffers.append(Buffer(context=self, id_=id_ + i))
             requests.append(
                 AllocateBuffer(
                     buffer_id=id_ + i,
@@ -459,7 +485,11 @@ class Context(metaclass=abc.ABCMeta):
                 )
             )
         self._add_requests(*requests)
-        return buffers
+        return BufferGroup(
+            context=self,
+            id_=id_,
+            count=count,
+        )
 
     def add_bus(
         self, calculation_rate: CalculationRateLike = CalculationRate.CONTROL
@@ -482,7 +512,7 @@ class Context(metaclass=abc.ABCMeta):
         self,
         calculation_rate: CalculationRateLike = CalculationRate.CONTROL,
         count: int = 1,
-    ) -> List[Bus]:
+    ) -> BusGroup:
         """
         Add a group of new buses to the context.
 
@@ -498,9 +528,12 @@ class Context(metaclass=abc.ABCMeta):
         if count < 1:
             raise ValueError
         id_ = self._allocate_id(Bus, calculation_rate=rate, count=count)
-        return [
-            Bus(calculation_rate=rate, context=self, id_=id_ + i) for i in range(count)
-        ]
+        return BusGroup(
+            calculation_rate=rate,
+            context=self,
+            count=count,
+            id_=id_,
+        )
 
     def add_group(
         self,
@@ -707,9 +740,9 @@ class Context(metaclass=abc.ABCMeta):
         )
         self._add_requests(request)
 
-    def fill_buses(self, bus: Bus, count: int, value: float) -> None:
+    def fill_bus_range(self, bus: Bus, count: int, value: float) -> None:
         """
-        Fill contiguous buses with a single value.
+        Fill a contiguous range of buses with a single value.
 
         Emit ``/c_fill`` requests.
 
@@ -732,6 +765,12 @@ class Context(metaclass=abc.ABCMeta):
 
         Emit ``/b_free`` requests.
 
+        .. note::
+
+            Freeing the first buffer of a buffer group will free the IDs of all buffers
+            in the group, but will only issue a ``/b_free`` request for the first
+            buffer.
+
         :param buffer: The buffer to free.
         :param on_completion: A callable with the buffer's context as the only argument.
             Permits building an "on completion" argument to this method's request
@@ -741,16 +780,46 @@ class Context(metaclass=abc.ABCMeta):
         request = FreeBuffer(buffer_id=buffer)
         return self._add_request_with_completion(request, on_completion)
 
+    def free_buffer_group(self, buffer_group: BufferGroup) -> None:
+        """
+        Free a buffer grop.
+
+        Emit ``/b_free`` requests.
+
+        :param buffer_group: The buffer group to free.
+        """
+        self._validate_can_request()
+        with contextlib.ExitStack() as stack:
+            if not self._get_request_context():
+                stack.enter_context(self.at())
+            for buffer_ in buffer_group.buffers:
+                self._add_requests(FreeBuffer(buffer_id=buffer_.id_))
+
     def free_bus(self, bus: Bus) -> None:
         """
         Free a bus.
 
         Emit no requests.
 
+        .. note::
+
+            Freeing the first bus of a bus group will free the IDs of the entire group.
+
         :param bus: The bus to free.
         """
         self._validate_can_request()
         self._free_id(Bus, bus.id_, calculation_rate=bus.calculation_rate)
+
+    def free_bus_group(self, bus_group: BusGroup) -> None:
+        """
+        Free a bus group.
+
+        Emit no requests.
+
+        :param bus_group: The bus group to free.
+        """
+        self._validate_can_request()
+        self._free_id(Bus, bus_group.id_, calculation_rate=bus_group.calculation_rate)
 
     def free_group_children(self, group: Group, synths_only: bool = False) -> None:
         """
@@ -871,6 +940,10 @@ class Context(metaclass=abc.ABCMeta):
         Load SynthDefs from a path.
 
         Emit ``/d_load`` requests.
+
+        .. warning::
+
+            At the time of this writing, supernova does not support globbing.
 
         :param path: The file path to load from. Globbing characters (e.g. ``*``) are
             permitted.
@@ -1223,11 +1296,42 @@ class Context(metaclass=abc.ABCMeta):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def audio_input_bus_group(self) -> BusGroup:
+        """
+        Get the context's audio output buses.
+        """
+        return BusGroup(
+            context=self,
+            id_=self.options.output_bus_channel_count,
+            calculation_rate=cast(CalculationRate, CalculationRate.AUDIO),
+            count=self.options.input_bus_channel_count,
+        )
+
+    @property
+    def audio_output_bus_group(self) -> BusGroup:
+        """
+        Get the context's audio input buses.
+        """
+        return BusGroup(
+            context=self,
+            id_=0,
+            calculation_rate=cast(CalculationRate, CalculationRate.AUDIO),
+            count=self.options.output_bus_channel_count,
+        )
+
+    @property
     def client_id(self) -> int:
         """
         Get the context's client ID.
         """
         return self._client_id
+
+    @property
+    def latency(self) -> float:
+        """
+        Get the context's latency.
+        """
+        return self._latency
 
     @property
     def options(self) -> Options:

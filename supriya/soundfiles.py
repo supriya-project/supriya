@@ -3,34 +3,39 @@ Tools for interacting with soundfiles.
 """
 import aifc
 import asyncio
+import dataclasses
 import hashlib
 import shlex
 import sndhdr
 import wave
 from os import PathLike
 from pathlib import Path
-from typing import Callable, Coroutine, Optional, Tuple
+from typing import Optional, Tuple
 
 from uqbar.io import find_executable
 from uqbar.strings import to_dash_case
 
 from . import output_path
-from .system import SupriyaObject, SupriyaValueObject
 
 
-class Say(SupriyaValueObject):
+@dataclasses.dataclass(frozen=True)
+class Say:
     """
     Wrapper for OSX ``say`` command.
 
     ::
 
-        >>> say = supriya.Say("Hello World!", voice="Daniel")
+        >>> from supriya.soundfiles import Say
+        >>> say = Say("Hello World!", voice="Daniel")
         >>> supriya.play(say)  # doctest: +SKIP
     """
 
+    text: str
+    voice: Optional[str]
+
     ### CLASS VARIABLES ###
 
-    _voices = (
+    _valid_voices = (
         "Alex",
         "Alice",
         "Alva",
@@ -82,47 +87,41 @@ class Say(SupriyaValueObject):
 
     ### INITIALIZER ###
 
-    def __init__(self, text, voice=None):
-        self._text = str(text)
-        if voice is not None:
-            voice = str(voice)
-            assert voice in self._voices
-        self._voice = voice
+    def __post_init__(self):
+        if self.voice and self.voice not in self._valid_voices:
+            raise ValueError(self.voice)
 
     ### SPECIAL METHODS ###
 
-    def __render__(
+    async def __render__(
         self,
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Tuple[Callable[[], Coroutine[None, None, int]], Path]:
-        async def render():
-            if path.exists():
-                return 0
-            if find_executable("say"):
-                command = ["say", "-o", str(path)]
-                if self.voice:
-                    command.extend(["-v", self.voice])
-            else:
-                command = ["espeak", "-w", str(path)]
-            command.append(shlex.quote(self.text))
-            process = await asyncio.create_subprocess_exec(
-                *command, cwd=render_directory_path
-            )
-            await process.communicate()
-            return process.returncode
-
+    ) -> Tuple[Path, int]:
         path = self._build_output_file_path(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
         )
-        return render, path
+        if path.exists():
+            return path, 0
+        if find_executable("say"):
+            command = ["say", "-o", str(path)]
+            if self.voice:
+                command.extend(["-v", self.voice])
+        else:
+            command = ["espeak", "-w", str(path)]
+        command.append(shlex.quote(self.text))
+        process = await asyncio.create_subprocess_exec(
+            *command, cwd=render_directory_path
+        )
+        await process.communicate()
+        return path, process.returncode or 0
 
     ### PRIVATE METHODS ###
 
     def _build_file_path(self):
-        md5 = hashlib.md5()
+        md5 = hashlib.sha256()
         md5.update(self.text.encode())
         if self.voice is not None:
             md5.update(self.voice.encode())
@@ -144,18 +143,8 @@ class Say(SupriyaValueObject):
             output_file_path = render_directory_path / self._build_file_path()
         return output_file_path
 
-    ### PUBLIC PROPERTIES ###
 
-    @property
-    def text(self):
-        return self._text
-
-    @property
-    def voice(self):
-        return self._voice
-
-
-class SoundFile(SupriyaObject):
+class SoundFile:
     ### INITIALIZER ###
 
     def __init__(self, file_path):

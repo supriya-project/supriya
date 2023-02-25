@@ -1,12 +1,12 @@
-import supriya
+from ...synthdefs import SynthDefBuilder
+from ...ugens import Out, SinOsc
 
 
 def _build_synthdef():
-    with supriya.SynthDefBuilder(amplitude=0, bus=0, frequency=440) as builder:
-        supriya.ugens.Out.ar(
+    with SynthDefBuilder(amplitude=0, bus=0, frequency=440) as builder:
+        Out.ar(
             bus=builder["bus"],
-            source=supriya.ugens.SinOsc.ar(frequency=builder["frequency"])
-            * builder["amplitude"],
+            source=SinOsc.ar(frequency=builder["frequency"]) * builder["amplitude"],
         )
     return builder.build(name="simple_sine")
 

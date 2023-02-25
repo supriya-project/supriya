@@ -14,9 +14,10 @@ pytest_plugins = ["helpers_namespace", "sphinx.testing.fixtures"]
 @pytest.fixture
 def server():
     server = supriya.Server()
-    server.latency = 0.0
+    server.set_latency(0.0)
     server.boot()
-    server.add_synthdef(supriya.assets.synthdefs.default)
+    server.add_synthdefs(supriya.assets.synthdefs.default)
+    server.sync()
     yield server
     server.quit()
 
@@ -24,7 +25,7 @@ def server():
 @pytest.fixture(scope="module")
 def persistent_server():
     server = supriya.Server()
-    server.latency = 0.0
+    server.set_latency(0.0)
     server.boot()
     yield server
     server.quit()

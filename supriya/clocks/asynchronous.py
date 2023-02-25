@@ -13,9 +13,12 @@ logger = logging.getLogger("supriya.clocks")
 class AsyncClock(BaseClock):
     def __init__(self):
         BaseClock.__init__(self)
-        self._event = asyncio.Event()
         self._task = None
         self._slop = 1.0
+        try:
+            self._event = asyncio.Event()
+        except RuntimeError:
+            pass
 
     ### SCHEDULING METHODS ###
 
@@ -151,6 +154,7 @@ class AsyncClock(BaseClock):
             time_signature=time_signature,
         )
         loop = asyncio.get_running_loop()
+        self._event = asyncio.Event()
         self._task = loop.create_task(self._run())
 
     async def stop(self):

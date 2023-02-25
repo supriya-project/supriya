@@ -11,23 +11,22 @@ Supriya (|release|)
 
 Supriya lets you:
 
-- Boot and communicate with SuperCollider's ``scsynth``
-  :py:mod:`~supriya.realtime.servers` synthesis engine in
-  :py:mod:`~supriya.realtime`
+- Boot and communicate with SuperCollider's ``scsynth`` synthesis engine in
+  realtime.
+
+- Explore :py:mod:`~supriya.contexts.nonrealtime` composition with 
+  :py:class:`scores <supriya.contexts.nonrealtime.Score>`.
+
+- Build time-agnostic :py:mod:`asyncio`-aware applications with the
+  :py:class:`context <supriya.contexts.core.Context>` interface.
 
 - Compile SuperCollider :py:class:`SynthDefs
-  <supriya.synthdefs.synthdefs.SynthDef>` natively in Python code
-
-- Explore :py:mod:`~supriya.nonrealtime` composition with object-oriented
-  :py:class:`sessions <supriya.nonrealtime.sessions.Session>`
-
-- Build time-agnostic asyncio applications with
-  :py:mod:`~supriya.providers`
+  <supriya.synthdefs.synthdefs.SynthDef>` natively in Python code.
 
 - Schedule :py:mod:`~supriya.patterns` and callbacks with tempo- and
-  meter-aware :py:mod:`~supriya.clocks`
+  meter-aware :py:mod:`~supriya.clocks`.
 
-- Integrate with `IPython`_, `Sphinx`_ and `Graphviz`_
+- Integrate with `IPython`_, `Sphinx`_ and `Graphviz`_.
 
 Quickstart
 ----------
@@ -72,7 +71,7 @@ Boot the SuperCollider server::
 
     >>> server = supriya.Server().boot()
 
-3. Build a :term:`SynthDef`
+4. Build a :term:`SynthDef`
 ```````````````````````````
 
 Import some classes::
@@ -95,41 +94,33 @@ Visualize the SynthDef (requires `Graphviz`_)::
 
 Allocate it on the server::
 
-    >>> _ = server.add_synthdef(simple_sine)
+    >>> _ = server.add_synthdefs(simple_sine)
 
-4. Create some nodes
+5. Create some nodes
 ````````````````````
 
 Create and allocate a group::
 
     >>> group = server.add_group()
 
-Synchronize with the server::
-
-    >>> server.sync()
-
 Create some synthesizers with the previously defined synthesizer definition, and
 allocate them on the server as a child of the previously created group::
 
     >>> for i in range(3):
-    ...     _ = group.add_synth(synthdef=simple_sine, frequency=111 * (i + 1))
+    ...     _ = group.add_synth(simple_sine, frequency=111 * (i + 1))
     ...
 
 Query the server's node tree::
 
-    >>> print(server.query())
+    >>> print(server.query_tree())
 
-Visualize the server's node tree::
-
-    >>> supriya.graph(server)
-
-5. Release and quit
+6. Release and quit
 ```````````````````
 
 Release the synths::
 
-    >>> for synth in group[:]:
-    ...     synth.release()
+    >>> for synth in group.children[:]:
+    ...     synth.free()
     ...
 
 Quit the server::
@@ -141,26 +132,21 @@ Quit the server::
     :hidden:
 
     installation
-    concepts
 
 .. toctree::
     :caption: Tutorials
     :hidden:
 
-    realtime/index
-    nonrealtime/index
+    contexts
+    servers
+    scores
+    nodes
+    buses
+    buffers
+    synthdefs
     osc
-    synthdefs/index
-    providers
     clocks
     patterns
-
-.. toctree::
-    :caption: How-to Guides
-    :glob:
-    :hidden:
-
-    guides/*
 
 .. toctree::
     :caption: API Reference
@@ -168,14 +154,6 @@ Quit the server::
     :maxdepth: 2
 
     api/supriya/index
-
-.. toctree::
-    :caption: Internals
-    :glob:
-    :hidden:
-
-    internals/*
-
 
 .. toctree::
     :caption: Appendix

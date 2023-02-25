@@ -1,5 +1,5 @@
-from supriya import CalculationRate, utils
-
+from .. import utils
+from ..enums import CalculationRate
 from .bases import PseudoUGen, UGen, UGenArray, param, ugen
 
 

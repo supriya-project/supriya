@@ -3,9 +3,9 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from supriya import CalculationRate
+from supriya.contexts import BusGroup, Server
+from supriya.enums import CalculationRate
 from supriya.patterns.events import BusAllocateEvent, Priority
-from supriya.providers import BusGroupProxy, Provider
 
 id_ = uuid.uuid4()
 
@@ -43,13 +43,13 @@ def test_expand(event, offset, expected):
 
 
 def test_perform():
-    provider = Provider.realtime()
-    spy = Mock(wraps=provider)
+    context = Server().boot()
+    spy = Mock(wraps=context)
     proxy_mapping = {}
     notes_mapping = {}
     # Allocate
     event = BusAllocateEvent(id_, calculation_rate="audio", channel_count=8)
-    with provider.at():
+    with context.at():
         event.perform(
             spy,
             proxy_mapping,
@@ -58,14 +58,14 @@ def test_perform():
             priority=Priority.START,
         )
     assert proxy_mapping == {
-        id_: BusGroupProxy(
+        id_: BusGroup(
+            id_=16,
+            context=context,
+            count=8,
             calculation_rate=CalculationRate.AUDIO,
-            channel_count=8,
-            identifier=16,
-            provider=provider,
         )
     }
     assert notes_mapping == {}
     assert spy.mock_calls == [
-        call.add_bus_group(calculation_rate=CalculationRate.AUDIO, channel_count=8)
+        call.add_bus_group(calculation_rate=CalculationRate.AUDIO, count=8)
     ]

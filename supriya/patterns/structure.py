@@ -1,5 +1,6 @@
 import bisect
-from uuid import uuid4
+from typing import Dict
+from uuid import UUID, uuid4
 
 from uqbar.objects import get_vars, new
 
@@ -78,7 +79,7 @@ class BusPattern(Pattern):
             stops.insert(1, NullEvent(delta=self._release_time))
         return CompositeEvent(starts), CompositeEvent(stops)
 
-    def _setup_state(self):
+    def _setup_state(self) -> Dict[str, UUID]:
         return {"bus": uuid4(), "link": uuid4(), "group": uuid4()}
 
     ### PUBLIC PROPERTIES ###

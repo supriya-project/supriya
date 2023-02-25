@@ -5,8 +5,6 @@ from pathlib import Path
 
 import uqbar.io
 
-import supriya
-
 
 def _fallback_sclang_path():
     paths = []
@@ -27,20 +25,17 @@ def find(sclang_path=None):
     """
     Find the ``sclang`` executable.
 
-    The following paths, if defined, will be searched (prioritised as ordered): 1. The
-    absolute path ``sclang_path`` 2. The environment variable ``SCLANG_PATH`` 3.
-    ``sclang_path`` if defined in Supriya's configuration file 4. The user's ``PATH`` 5.
-    Common installation directories of the SuperCollider application.
+    The following paths, if defined, will be searched (prioritised as ordered):
+
+    1. The absolute path ``sclang_path``
+    2. The environment variable ``SCLANG_PATH``
+    3. The user's ``PATH``
+    4. Common installation directories of the SuperCollider application.
 
     Returns a path to the ``sclang`` executable. Raises ``RuntimeError`` if no path is
     found.
     """
-    sclang_path = pathlib.Path(
-        sclang_path
-        or os.environ.get("SCLANG_PATH")
-        or supriya.config.get("core", "sclang_path", fallback=None)
-        or "sclang"
-    )
+    sclang_path = pathlib.Path(sclang_path or os.environ.get("SCLANG_PATH") or "sclang")
     if sclang_path.is_absolute() and uqbar.io.find_executable(sclang_path):
         return sclang_path
     sclang_path_candidates = uqbar.io.find_executable(sclang_path.name)
