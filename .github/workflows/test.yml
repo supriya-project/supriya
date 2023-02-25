@@ -71,17 +71,15 @@ jobs:
         cache-dependency-path: "**/pyproject.toml"
     - name: Install Supriya
       run: pip install -e .[ipython,test]
+    - name: Install docstrfmt
+      run: pip install https://github.com/josiah-wolf-oberholtzer/docstrfmt/archive/refs/heads/master.zip
     - name: Run Black
       run: make black-check
     - name: Run docstrfmt
       run: |
-        echo "Once"
         make docstrfmt || true
-        echo "Twice"
         make docstrfmt || true
-        echo "Status?"
         git status
-        echo "Diff?"
         git diff
     - name: Run Flake8
       run: make flake8
