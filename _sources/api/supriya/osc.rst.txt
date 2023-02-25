@@ -68,10 +68,6 @@ osc
    .. automethod:: send
    .. automethod:: unregister
 
-.. autoexception:: OscProtocolAlreadyConnected
-
-.. autoexception:: OscProtocolOffline
-
 .. autoclass:: ThreadedOscHandler
    :show-inheritance:
 
@@ -92,6 +88,10 @@ osc
 
    .. automethod:: service_actions
    .. automethod:: verify_request
+
+.. autoexception:: OscProtocolAlreadyConnected
+
+.. autoexception:: OscProtocolOffline
 
 .. autofunction:: find_free_port
 

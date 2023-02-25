@@ -10,37 +10,38 @@ groups
 .. autoclass:: GroupDeepFreeRequest
    :show-inheritance:
 
-   .. autoproperty:: group_id
    .. automethod:: to_osc
+   .. autoproperty:: group_id
 
 .. autoclass:: GroupDumpTreeRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: include_controls
    .. autoproperty:: node_id
-   .. automethod:: to_osc
 
 .. autoclass:: GroupFreeAllRequest
    :show-inheritance:
 
-   .. autoproperty:: group_id
    .. automethod:: to_osc
+   .. autoproperty:: group_id
 
 .. autoclass:: GroupNewRequest
    :show-inheritance:
 
-   .. autoproperty:: items
+   .. autoclass:: supriya.commands.groups::GroupNewRequest.Item
    .. automethod:: merge
-   .. autoproperty:: response_patterns
    .. automethod:: to_osc
+   .. autoproperty:: items
+   .. autoproperty:: response_patterns
 
 .. autoclass:: GroupQueryTreeRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: include_controls
    .. autoproperty:: node_id
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: ParallelGroupNewRequest
    :show-inheritance:
@@ -50,6 +51,6 @@ groups
    :show-inheritance:
 
    .. automethod:: from_osc_message
+   .. automethod:: to_dict
    .. autoproperty:: node_id
    .. autoproperty:: query_tree_group
-   .. automethod:: to_dict

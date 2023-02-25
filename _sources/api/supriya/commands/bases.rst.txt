@@ -18,19 +18,16 @@ bases
 .. autoclass:: RequestBundle
    :show-inheritance:
 
-   .. autoproperty:: condition
-   .. autoproperty:: contents
    .. automethod:: partition
-   .. autoproperty:: timestamp
    .. automethod:: to_osc
+   .. autoproperty:: contents
+   .. autoproperty:: timestamp
 
 .. autoclass:: Requestable
    :show-inheritance:
 
    .. automethod:: communicate
    .. automethod:: communicate_async
-   .. autoproperty:: condition
-   .. autoproperty:: response
    .. automethod:: to_datagram
    .. automethod:: to_list
    .. automethod:: to_osc

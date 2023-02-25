@@ -17,9 +17,9 @@ ml
 .. autoclass:: BeatTrack2
    :show-inheritance:
 
+   .. automethod:: kr
    .. autoproperty:: bus_index
    .. autoproperty:: feature_count
-   .. automethod:: kr
    .. autoproperty:: lock
    .. autoproperty:: phase_accuracy
    .. autoproperty:: weighting_scheme
@@ -28,9 +28,9 @@ ml
 .. autoclass:: KeyTrack
    :show-inheritance:
 
+   .. automethod:: kr
    .. autoproperty:: chroma_leak
    .. autoproperty:: key_decay
-   .. automethod:: kr
    .. autoproperty:: pv_chain
 
 .. autoclass:: Loudness
@@ -44,15 +44,16 @@ ml
 .. autoclass:: MFCC
    :show-inheritance:
 
-   .. autoproperty:: coeff_count
    .. automethod:: kr
+   .. autoproperty:: coeff_count
    .. autoproperty:: pv_chain
 
 .. autoclass:: Onsets
    :show-inheritance:
 
-   .. autoproperty:: floor
+   .. autoclass:: supriya.ugens.ml::Onsets.ODFType
    .. automethod:: kr
+   .. autoproperty:: floor
    .. autoproperty:: medianspan
    .. autoproperty:: mingap
    .. autoproperty:: odftype
@@ -65,12 +66,12 @@ ml
 .. autoclass:: Pitch
    :show-inheritance:
 
+   .. automethod:: kr
    .. autoproperty:: amplitude_threshold
    .. autoproperty:: clarity
    .. autoproperty:: down_sample_factor
    .. autoproperty:: exec_frequency
    .. autoproperty:: initial_frequency
-   .. automethod:: kr
    .. autoproperty:: max_bins_per_octave
    .. autoproperty:: max_frequency
    .. autoproperty:: median
@@ -93,7 +94,7 @@ ml
 .. autoclass:: SpecPcile
    :show-inheritance:
 
+   .. automethod:: kr
    .. autoproperty:: fraction
    .. autoproperty:: interpolate
-   .. automethod:: kr
    .. autoproperty:: pv_chain

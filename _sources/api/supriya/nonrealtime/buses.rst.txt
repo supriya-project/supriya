@@ -20,12 +20,12 @@ buses
 
    .. automethod:: __float__
    .. automethod:: __int__
-   .. autoproperty:: bus_group
-   .. autoproperty:: calculation_rate
    .. automethod:: get
    .. automethod:: get_map_symbol
-   .. autoproperty:: session_id
    .. automethod:: set_
+   .. autoproperty:: bus_group
+   .. autoproperty:: calculation_rate
+   .. autoproperty:: session_id
    .. autoproperty:: start_offset
    .. autoproperty:: stop_offset
 
@@ -38,11 +38,11 @@ buses
    .. automethod:: __int__
    .. automethod:: __iter__
    .. automethod:: __len__
-   .. autoproperty:: bus_count
-   .. autoproperty:: buses
-   .. autoproperty:: calculation_rate
    .. automethod:: fill
    .. automethod:: get
    .. automethod:: get_map_symbol
    .. automethod:: index
+   .. autoproperty:: bus_count
+   .. autoproperty:: buses
+   .. autoproperty:: calculation_rate
    .. autoproperty:: session_id

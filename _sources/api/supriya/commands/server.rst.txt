@@ -15,21 +15,21 @@ server
 .. autoclass:: DoneResponse
    :show-inheritance:
 
-   .. autoproperty:: action
    .. automethod:: from_osc_message
+   .. autoproperty:: action
 
 .. autoclass:: DumpOscRequest
    :show-inheritance:
 
-   .. autoproperty:: osc_status
    .. automethod:: to_osc
+   .. autoproperty:: osc_status
 
 .. autoclass:: FailResponse
    :show-inheritance:
 
+   .. automethod:: from_osc_message
    .. autoproperty:: failed_command
    .. autoproperty:: failure_reason
-   .. automethod:: from_osc_message
 
 .. autoclass:: NothingRequest
    :show-inheritance:
@@ -39,42 +39,42 @@ server
 .. autoclass:: NotifyRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: notify_status
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: QuitRequest
    :show-inheritance:
 
-   .. autoproperty:: response_patterns
    .. automethod:: to_osc
+   .. autoproperty:: response_patterns
 
 .. autoclass:: StatusRequest
    :show-inheritance:
 
-   .. autoproperty:: response_patterns
    .. automethod:: to_osc
+   .. autoproperty:: response_patterns
 
 .. autoclass:: StatusResponse
    :show-inheritance:
 
+   .. automethod:: from_osc_message
+   .. automethod:: to_dict
    .. autoproperty:: actual_sample_rate
    .. autoproperty:: average_cpu_usage
-   .. automethod:: from_osc_message
    .. autoproperty:: group_count
    .. autoproperty:: peak_cpu_usage
    .. autoproperty:: synth_count
    .. autoproperty:: synthdef_count
    .. autoproperty:: target_sample_rate
-   .. automethod:: to_dict
    .. autoproperty:: ugen_count
 
 .. autoclass:: SyncRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: response_patterns
    .. autoproperty:: sync_id
-   .. automethod:: to_osc
 
 .. autoclass:: SyncedResponse
    :show-inheritance:

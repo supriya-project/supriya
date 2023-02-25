@@ -19,16 +19,16 @@ demand
 .. autoclass:: Dbufrd
    :show-inheritance:
 
-   .. autoproperty:: buffer_id
    .. automethod:: dr
+   .. autoproperty:: buffer_id
    .. autoproperty:: loop
    .. autoproperty:: phase
 
 .. autoclass:: Dbufwr
    :show-inheritance:
 
-   .. autoproperty:: buffer_id
    .. automethod:: dr
+   .. autoproperty:: buffer_id
    .. autoproperty:: loop
    .. autoproperty:: phase
    .. autoproperty:: source
@@ -46,11 +46,11 @@ demand
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: curve
    .. autoproperty:: done_action
    .. autoproperty:: duration
    .. autoproperty:: gate
-   .. automethod:: kr
    .. autoproperty:: level
    .. autoproperty:: level_bias
    .. autoproperty:: level_scale
@@ -159,9 +159,9 @@ demand
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: done_action
    .. autoproperty:: duration
-   .. automethod:: kr
    .. autoproperty:: level
    .. autoproperty:: reset
 

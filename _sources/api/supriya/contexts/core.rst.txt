@@ -1,0 +1,66 @@
+.. _supriya--contexts--core:
+
+core
+====
+
+.. automodule:: supriya.contexts.core
+
+.. currentmodule:: supriya.contexts.core
+
+.. autoclass:: Completion
+   :show-inheritance:
+
+   .. automethod:: __call__
+   .. automethod:: __enter__
+   .. automethod:: __exit__
+
+.. autoclass:: Context
+   :show-inheritance:
+
+   .. automethod:: add_buffer
+   .. automethod:: add_buffer_group
+   .. automethod:: add_bus
+   .. automethod:: add_bus_group
+   .. automethod:: add_group
+   .. automethod:: add_synth
+   .. automethod:: add_synthdefs
+   .. automethod:: at
+   .. automethod:: clear_schedule
+   .. automethod:: close_buffer
+   .. automethod:: copy_buffer
+   .. automethod:: do_nothing
+   .. automethod:: fill_buffer
+   .. automethod:: fill_buses
+   .. automethod:: free_all_synthdefs
+   .. automethod:: free_buffer
+   .. automethod:: free_bus
+   .. automethod:: free_group_children
+   .. automethod:: free_node
+   .. automethod:: free_synthdefs
+   .. automethod:: generate_buffer
+   .. automethod:: load_synthdefs
+   .. automethod:: load_synthdefs_directory
+   .. automethod:: map_node
+   .. automethod:: move_node
+   .. automethod:: normalize_buffer
+   .. automethod:: order_nodes
+   .. automethod:: pause_node
+   .. automethod:: read_buffer
+   .. automethod:: send
+   .. automethod:: set_buffer
+   .. automethod:: set_buffer_range
+   .. automethod:: set_bus
+   .. automethod:: set_bus_range
+   .. automethod:: set_node
+   .. automethod:: unpause_node
+   .. automethod:: write_buffer
+   .. automethod:: zero_buffer
+   .. autoproperty:: client_id
+   .. autoproperty:: options
+   .. autoproperty:: root_node
+
+.. autoclass:: Moment
+   :show-inheritance:
+
+   .. automethod:: __enter__
+   .. automethod:: __exit__

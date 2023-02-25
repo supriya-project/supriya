@@ -10,11 +10,11 @@ pv
 .. autoclass:: FFT
    :show-inheritance:
 
+   .. automethod:: kr
    .. autoproperty:: active
    .. autoproperty:: buffer_id
    .. autoproperty:: fft_size
    .. autoproperty:: hop
-   .. automethod:: kr
    .. autoproperty:: source
    .. autoproperty:: window_size
    .. autoproperty:: window_type
@@ -47,8 +47,8 @@ pv
 .. autoclass:: PV_BinShift
    :show-inheritance:
 
-   .. autoproperty:: interpolate
    .. automethod:: kr
+   .. autoproperty:: interpolate
    .. autoproperty:: pv_chain
    .. autoproperty:: shift
    .. autoproperty:: stretch
@@ -76,9 +76,9 @@ pv
 .. autoclass:: PV_ConformalMap
    :show-inheritance:
 
+   .. automethod:: kr
    .. autoproperty:: aimag
    .. autoproperty:: areal
-   .. automethod:: kr
    .. autoproperty:: pv_chain
 
 .. autoclass:: PV_Conj
@@ -176,8 +176,8 @@ pv
 .. autoclass:: PV_MagFreeze
    :show-inheritance:
 
-   .. autoproperty:: freeze
    .. automethod:: kr
+   .. autoproperty:: freeze
    .. autoproperty:: pv_chain
 
 .. autoclass:: PV_MagMul
@@ -204,8 +204,8 @@ pv
 .. autoclass:: PV_MagSmear
    :show-inheritance:
 
-   .. autoproperty:: bins
    .. automethod:: kr
+   .. autoproperty:: bins
    .. autoproperty:: pv_chain
 
 .. autoclass:: PV_MagSquared
@@ -238,8 +238,8 @@ pv
 .. autoclass:: PV_PhaseShift
    :show-inheritance:
 
-   .. autoproperty:: integrate
    .. automethod:: kr
+   .. autoproperty:: integrate
    .. autoproperty:: pv_chain
    .. autoproperty:: shift
 

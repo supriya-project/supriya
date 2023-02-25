@@ -7,6 +7,15 @@ scsynth
 
 .. currentmodule:: supriya.scsynth
 
+.. autoclass:: AsyncNonrealtimeProcessProtocol
+   :show-inheritance:
+
+   .. automethod:: connection_made
+   .. automethod:: handle_line
+   .. automethod:: pipe_data_received
+   .. automethod:: process_exited
+   .. automethod:: run
+
 .. autoclass:: AsyncProcessProtocol
    :show-inheritance:
 
@@ -28,13 +37,13 @@ scsynth
 
    .. automethod:: __iter__
    .. automethod:: __post_init__
-   .. autoproperty:: first_private_bus_id
    .. automethod:: get_audio_bus_ids
    .. automethod:: get_buffer_ids
    .. automethod:: get_control_bus_ids
    .. automethod:: get_sync_ids
-   .. autoproperty:: private_audio_bus_channel_count
    .. automethod:: serialize
+   .. autoproperty:: first_private_bus_id
+   .. autoproperty:: private_audio_bus_channel_count
 
 .. autoclass:: ProcessProtocol
    :show-inheritance:

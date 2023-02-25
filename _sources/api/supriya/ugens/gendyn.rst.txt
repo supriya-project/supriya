@@ -10,48 +10,48 @@ gendyn
 .. autoclass:: Gendy1
    :show-inheritance:
 
+   .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: adparam
    .. autoproperty:: ampdist
    .. autoproperty:: ampscale
-   .. automethod:: ar
    .. autoproperty:: ddparam
    .. autoproperty:: durdist
    .. autoproperty:: durscale
    .. autoproperty:: init_cps
    .. autoproperty:: knum
-   .. automethod:: kr
    .. autoproperty:: maxfrequency
    .. autoproperty:: minfrequency
 
 .. autoclass:: Gendy2
    :show-inheritance:
 
+   .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: a
    .. autoproperty:: adparam
    .. autoproperty:: ampdist
    .. autoproperty:: ampscale
-   .. automethod:: ar
    .. autoproperty:: c
    .. autoproperty:: ddparam
    .. autoproperty:: durdist
    .. autoproperty:: durscale
    .. autoproperty:: init_cps
    .. autoproperty:: knum
-   .. automethod:: kr
    .. autoproperty:: maxfrequency
    .. autoproperty:: minfrequency
 
 .. autoclass:: Gendy3
    :show-inheritance:
 
+   .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: adparam
    .. autoproperty:: ampdist
    .. autoproperty:: ampscale
-   .. automethod:: ar
    .. autoproperty:: ddparam
    .. autoproperty:: durdist
    .. autoproperty:: durscale
    .. autoproperty:: frequency
    .. autoproperty:: init_cps
    .. autoproperty:: knum
-   .. automethod:: kr

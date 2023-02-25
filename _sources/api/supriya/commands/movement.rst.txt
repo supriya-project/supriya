@@ -18,8 +18,9 @@ movement
 .. autoclass:: MoveRequest
    :show-inheritance:
 
-   .. autoproperty:: node_id_pairs
+   .. autoclass:: supriya.commands.movement::MoveRequest.NodeIdPair
    .. automethod:: to_osc
+   .. autoproperty:: node_id_pairs
 
 .. autoclass:: NodeAfterRequest
    :show-inheritance:

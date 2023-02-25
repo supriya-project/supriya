@@ -37,8 +37,8 @@ patterns
    .. automethod:: __rtruediv__
    .. automethod:: __sub__
    .. automethod:: __truediv__
-   .. autoproperty:: is_infinite
    .. automethod:: play
+   .. autoproperty:: is_infinite
 
 .. autoclass:: SeedPattern
    :show-inheritance:

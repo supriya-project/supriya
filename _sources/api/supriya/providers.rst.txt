@@ -37,8 +37,8 @@ providers
    .. automethod:: __float__
    .. automethod:: __int__
    .. automethod:: free
-   .. autoproperty:: map_symbol
    .. automethod:: set_
+   .. autoproperty:: map_symbol
 
 .. autoclass:: GroupProxy
    :show-inheritance:
@@ -79,11 +79,11 @@ providers
    .. automethod:: normalize_buffer
    .. automethod:: read_buffer
    .. automethod:: register_osc_callback
-   .. autoproperty:: session
    .. automethod:: set_bus
    .. automethod:: set_node
    .. automethod:: unregister_osc_callback
    .. automethod:: write_buffer
+   .. autoproperty:: session
 
 .. autoclass:: OscCallbackProxy
    :show-inheritance:
@@ -99,7 +99,6 @@ providers
    .. automethod:: add_group
    .. automethod:: add_synth
    .. automethod:: add_synthdef
-   .. autoproperty:: annotation_map
    .. automethod:: at
    .. automethod:: close_buffer
    .. automethod:: dispose
@@ -108,8 +107,6 @@ providers
    .. automethod:: free_bus_group
    .. automethod:: free_node
    .. automethod:: from_context
-   .. autoproperty:: latency
-   .. autoproperty:: moment
    .. automethod:: move_node
    .. automethod:: nonrealtime
    .. automethod:: normalize_buffer
@@ -117,12 +114,15 @@ providers
    .. automethod:: realtime
    .. automethod:: realtime_async
    .. automethod:: register_osc_callback
-   .. autoproperty:: server
-   .. autoproperty:: session
    .. automethod:: set_bus
    .. automethod:: set_node
    .. automethod:: unregister_osc_callback
    .. automethod:: write_buffer
+   .. autoproperty:: annotation_map
+   .. autoproperty:: latency
+   .. autoproperty:: moment
+   .. autoproperty:: server
+   .. autoproperty:: session
 
 .. autoclass:: ProviderMoment
    :show-inheritance:
@@ -155,11 +155,11 @@ providers
    .. automethod:: normalize_buffer
    .. automethod:: read_buffer
    .. automethod:: register_osc_callback
-   .. autoproperty:: server
    .. automethod:: set_bus
    .. automethod:: set_node
    .. automethod:: unregister_osc_callback
    .. automethod:: write_buffer
+   .. autoproperty:: server
 
 .. autoclass:: SynthProxy
    :show-inheritance:

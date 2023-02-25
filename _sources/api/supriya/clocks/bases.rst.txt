@@ -10,18 +10,18 @@ bases
 .. autoclass:: BaseClock
    :show-inheritance:
 
-   .. autoproperty:: beats_per_minute
    .. automethod:: cancel
    .. automethod:: change
    .. automethod:: cue
    .. automethod:: cue_change
    .. automethod:: get_current_time
-   .. autoproperty:: is_running
-   .. autoproperty:: name
    .. automethod:: peek
    .. automethod:: quantization_to_beats
    .. automethod:: reschedule
    .. automethod:: schedule
    .. automethod:: schedule_change
+   .. autoproperty:: beats_per_minute
+   .. autoproperty:: is_running
+   .. autoproperty:: name
    .. autoproperty:: slop
    .. autoproperty:: time_signature

@@ -1,0 +1,64 @@
+.. _supriya--contexts--realtime:
+
+realtime
+========
+
+.. automodule:: supriya.contexts.realtime
+
+.. currentmodule:: supriya.contexts.realtime
+
+.. autoclass:: AsyncServer
+   :show-inheritance:
+
+   .. automethod:: boot
+   .. automethod:: connect
+   .. automethod:: disconnect
+   .. automethod:: get_buffer
+   .. automethod:: get_buffer_range
+   .. automethod:: get_bus
+   .. automethod:: get_bus_range
+   .. automethod:: get_synth_control
+   .. automethod:: get_synth_control_range
+   .. automethod:: query_buffer
+   .. automethod:: query_node
+   .. automethod:: query_status
+   .. automethod:: query_tree
+   .. automethod:: query_version
+   .. automethod:: quit
+   .. automethod:: sync
+
+.. autoclass:: BaseServer
+   :show-inheritance:
+
+   .. automethod:: __contains__
+   .. automethod:: send
+   .. autoproperty:: boot_status
+   .. autoproperty:: default_group
+   .. autoproperty:: is_owner
+   .. autoproperty:: osc_protocol
+
+.. autoclass:: BootStatus
+   :show-inheritance:
+   :members:
+   :undoc-members:
+
+
+.. autoclass:: Server
+   :show-inheritance:
+
+   .. automethod:: boot
+   .. automethod:: connect
+   .. automethod:: disconnect
+   .. automethod:: get_buffer
+   .. automethod:: get_buffer_range
+   .. automethod:: get_bus
+   .. automethod:: get_bus_range
+   .. automethod:: get_synth_control
+   .. automethod:: get_synth_control_range
+   .. automethod:: query_buffer
+   .. automethod:: query_node
+   .. automethod:: query_status
+   .. automethod:: query_tree
+   .. automethod:: query_version
+   .. automethod:: quit
+   .. automethod:: sync

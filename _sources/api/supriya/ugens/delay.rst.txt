@@ -11,9 +11,9 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: decay_time
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -21,9 +21,9 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: decay_time
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -31,9 +31,9 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: decay_time
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -41,10 +41,10 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: decay_time
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -52,10 +52,10 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: decay_time
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -63,10 +63,10 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: decay_time
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -74,10 +74,10 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: decay_time
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -85,10 +85,10 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: decay_time
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -96,10 +96,10 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: decay_time
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -107,9 +107,9 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -117,9 +117,9 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -127,9 +127,9 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -137,9 +137,9 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: decay_time
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -147,9 +147,9 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: decay_time
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -157,9 +157,9 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: decay_time
    .. autoproperty:: delay_time
-   .. automethod:: kr
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -167,18 +167,18 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: delay_time
    .. autoproperty:: interpolation
-   .. automethod:: kr
    .. autoproperty:: phase
 
 .. autoclass:: DelTapWr
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: buffer_id
    .. automethod:: kr
+   .. autoproperty:: buffer_id
    .. autoproperty:: source
 
 .. autoclass:: Delay1
@@ -199,8 +199,8 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: delay_time
    .. automethod:: kr
+   .. autoproperty:: delay_time
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -208,8 +208,8 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: delay_time
    .. automethod:: kr
+   .. autoproperty:: delay_time
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source
 
@@ -217,7 +217,7 @@ delay
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: delay_time
    .. automethod:: kr
+   .. autoproperty:: delay_time
    .. autoproperty:: maximum_delay_time
    .. autoproperty:: source

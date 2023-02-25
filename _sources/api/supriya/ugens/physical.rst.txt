@@ -11,10 +11,10 @@ physical
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: damping
    .. autoproperty:: friction
    .. autoproperty:: gravity
-   .. automethod:: kr
    .. autoproperty:: source
 
 .. autoclass:: Pluck
@@ -32,8 +32,8 @@ physical
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: damping
    .. automethod:: kr
+   .. autoproperty:: damping
    .. autoproperty:: source
    .. autoproperty:: spring
 
@@ -41,8 +41,8 @@ physical
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: damping
    .. autoproperty:: friction
    .. autoproperty:: gravity
-   .. automethod:: kr
    .. autoproperty:: source

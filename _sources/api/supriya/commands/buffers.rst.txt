@@ -10,72 +10,76 @@ buffers
 .. autoclass:: BufferAllocateReadChannelRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: channel_indices
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: BufferAllocateReadRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: buffer_id
    .. autoproperty:: callback
    .. autoproperty:: file_path
    .. autoproperty:: frame_count
    .. autoproperty:: response_patterns
    .. autoproperty:: starting_frame
-   .. automethod:: to_osc
 
 .. autoclass:: BufferAllocateRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: buffer_id
    .. autoproperty:: callback
    .. autoproperty:: channel_count
    .. autoproperty:: frame_count
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: BufferCloseRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: buffer_id
    .. autoproperty:: callback
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: BufferCopyRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: frame_count
    .. autoproperty:: response_patterns
    .. autoproperty:: source_buffer_id
    .. autoproperty:: source_starting_frame
    .. autoproperty:: target_buffer_id
    .. autoproperty:: target_starting_frame
-   .. automethod:: to_osc
 
 .. autoclass:: BufferFillRequest
    :show-inheritance:
 
-   .. autoproperty:: buffer_id
-   .. autoproperty:: index_count_value_triples
    .. automethod:: merge
    .. automethod:: to_osc
+   .. autoproperty:: buffer_id
+   .. autoproperty:: index_count_value_triples
 
 .. autoclass:: BufferFreeRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: buffer_id
    .. autoproperty:: callback
-   .. automethod:: to_osc
 
 .. autoclass:: BufferGenerateRequest
    :show-inheritance:
 
+   .. automethod:: chebyshev
+   .. automethod:: sine1
+   .. automethod:: sine2
+   .. automethod:: sine3
+   .. automethod:: to_osc
    .. autoproperty:: amplitudes
    .. autoproperty:: as_wavetable
    .. autoproperty:: buffer_id
-   .. automethod:: chebyshev
    .. autoproperty:: command_name
    .. autoproperty:: flags
    .. autoproperty:: frequencies
@@ -83,62 +87,60 @@ buffers
    .. autoproperty:: response_patterns
    .. autoproperty:: should_clear_first
    .. autoproperty:: should_normalize
-   .. automethod:: sine1
-   .. automethod:: sine2
-   .. automethod:: sine3
-   .. automethod:: to_osc
 
 .. autoclass:: BufferGetContiguousRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: buffer_id
    .. autoproperty:: index_count_pairs
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: BufferGetRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: buffer_id
    .. autoproperty:: indices
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: BufferInfo
    :show-inheritance:
 
+   .. autoclass:: supriya.commands.buffers::BufferInfo.Item
    .. automethod:: __getitem__
    .. automethod:: __len__
-   .. autoproperty:: buffer_id
    .. automethod:: from_osc_message
+   .. autoproperty:: buffer_id
    .. autoproperty:: items
 
 .. autoclass:: BufferNormalizeRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: as_wavetable
    .. autoproperty:: buffer_id
    .. autoproperty:: new_maximum
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: BufferQueryRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: buffer_ids
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: BufferReadChannelRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: channel_indices
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: BufferReadRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: buffer_id
    .. autoproperty:: callback
    .. autoproperty:: file_path
@@ -147,45 +149,47 @@ buffers
    .. autoproperty:: response_patterns
    .. autoproperty:: starting_frame_in_buffer
    .. autoproperty:: starting_frame_in_file
-   .. automethod:: to_osc
 
 .. autoclass:: BufferSetContiguousRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: buffer_id
    .. autoproperty:: index_values_pairs
-   .. automethod:: to_osc
 
 .. autoclass:: BufferSetContiguousResponse
    :show-inheritance:
 
+   .. autoclass:: supriya.commands.buffers::BufferSetContiguousResponse.Item
    .. automethod:: __getitem__
    .. automethod:: __len__
    .. automethod:: as_dict
-   .. autoproperty:: buffer_id
    .. automethod:: from_osc_message
+   .. autoproperty:: buffer_id
    .. autoproperty:: items
 
 .. autoclass:: BufferSetRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: buffer_id
    .. autoproperty:: index_value_pairs
-   .. automethod:: to_osc
 
 .. autoclass:: BufferSetResponse
    :show-inheritance:
 
+   .. autoclass:: supriya.commands.buffers::BufferSetResponse.Item
    .. automethod:: __getitem__
    .. automethod:: __len__
    .. automethod:: as_dict
-   .. autoproperty:: buffer_id
    .. automethod:: from_osc_message
+   .. autoproperty:: buffer_id
    .. autoproperty:: items
 
 .. autoclass:: BufferWriteRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: buffer_id
    .. autoproperty:: callback
    .. autoproperty:: file_path
@@ -195,12 +199,11 @@ buffers
    .. autoproperty:: response_patterns
    .. autoproperty:: sample_format
    .. autoproperty:: starting_frame
-   .. automethod:: to_osc
 
 .. autoclass:: BufferZeroRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: buffer_id
    .. autoproperty:: callback
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc

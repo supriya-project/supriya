@@ -10,8 +10,8 @@ synthdefs
 .. autoclass:: SuperColliderSynthDef
    :show-inheritance:
 
-   .. autoproperty:: body
    .. automethod:: compile
+   .. autoproperty:: body
    .. autoproperty:: name
    .. autoproperty:: rates
 
@@ -19,20 +19,21 @@ synthdefs
    :show-inheritance:
 
    .. automethod:: __graph__
-   .. autoproperty:: actual_name
    .. automethod:: allocate
+   .. automethod:: compile
+   .. automethod:: free
+   .. automethod:: to_dict
+   .. autoproperty:: actual_name
    .. autoproperty:: anonymous_name
    .. autoproperty:: audio_channel_count
    .. autoproperty:: audio_input_channel_count
    .. autoproperty:: audio_output_channel_count
-   .. automethod:: compile
    .. autoproperty:: constants
    .. autoproperty:: control_channel_count
    .. autoproperty:: control_input_channel_count
    .. autoproperty:: control_output_channel_count
    .. autoproperty:: control_ugens
    .. autoproperty:: done_actions
-   .. automethod:: free
    .. autoproperty:: has_gate
    .. autoproperty:: indexed_parameters
    .. autoproperty:: input_ugens
@@ -40,7 +41,6 @@ synthdefs
    .. autoproperty:: output_ugens
    .. autoproperty:: parameter_names
    .. autoproperty:: parameters
-   .. automethod:: to_dict
    .. autoproperty:: ugens
 
 .. autoclass:: UGenSortBundle

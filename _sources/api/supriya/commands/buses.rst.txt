@@ -10,33 +10,34 @@ buses
 .. autoclass:: ControlBusFillRequest
    :show-inheritance:
 
-   .. autoproperty:: index_count_value_triples
    .. automethod:: merge
    .. automethod:: to_osc
+   .. autoproperty:: index_count_value_triples
 
 .. autoclass:: ControlBusGetContiguousRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: index_count_pairs
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: ControlBusGetRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: indices
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: ControlBusSetContiguousRequest
    :show-inheritance:
 
-   .. autoproperty:: index_values_pairs
    .. automethod:: to_osc
+   .. autoproperty:: index_values_pairs
 
 .. autoclass:: ControlBusSetContiguousResponse
    :show-inheritance:
 
+   .. autoclass:: supriya.commands.buses::ControlBusSetContiguousResponse.Item
    .. automethod:: __getitem__
    .. automethod:: __len__
    .. automethod:: from_osc_message
@@ -45,13 +46,14 @@ buses
 .. autoclass:: ControlBusSetRequest
    :show-inheritance:
 
-   .. autoproperty:: index_value_pairs
    .. automethod:: merge
    .. automethod:: to_osc
+   .. autoproperty:: index_value_pairs
 
 .. autoclass:: ControlBusSetResponse
    :show-inheritance:
 
+   .. autoclass:: supriya.commands.buses::ControlBusSetResponse.Item
    .. automethod:: __getitem__
    .. automethod:: __len__
    .. automethod:: from_osc_message

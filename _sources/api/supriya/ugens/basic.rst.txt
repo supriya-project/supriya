@@ -16,24 +16,24 @@ basic
 .. autoclass:: MulAdd
    :show-inheritance:
 
+   .. automethod:: new
    .. autoproperty:: addend
    .. autoproperty:: multiplier
-   .. automethod:: new
    .. autoproperty:: source
 
 .. autoclass:: Sum3
    :show-inheritance:
 
+   .. automethod:: new
    .. autoproperty:: input_one
    .. autoproperty:: input_three
    .. autoproperty:: input_two
-   .. automethod:: new
 
 .. autoclass:: Sum4
    :show-inheritance:
 
+   .. automethod:: new
    .. autoproperty:: input_four
    .. autoproperty:: input_one
    .. autoproperty:: input_three
    .. autoproperty:: input_two
-   .. automethod:: new

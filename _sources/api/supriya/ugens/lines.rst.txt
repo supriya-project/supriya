@@ -17,19 +17,19 @@ lines
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: exp
-   .. autoproperty:: frequency
    .. automethod:: ir
    .. automethod:: kr
+   .. autoproperty:: exp
+   .. autoproperty:: frequency
    .. autoproperty:: root
 
 .. autoclass:: AmpCompA
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: ir
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: min_amp
    .. autoproperty:: root
    .. autoproperty:: root_amp
@@ -51,9 +51,9 @@ lines
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: input_maximum
    .. autoproperty:: input_minimum
-   .. automethod:: kr
    .. autoproperty:: output_maximum
    .. autoproperty:: output_minimum
    .. autoproperty:: source
@@ -68,9 +68,9 @@ lines
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: done_action
    .. autoproperty:: duration
-   .. automethod:: kr
    .. autoproperty:: start
    .. autoproperty:: stop
 
@@ -83,8 +83,8 @@ lines
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: done_action
    .. autoproperty:: duration
-   .. automethod:: kr
    .. autoproperty:: start
    .. autoproperty:: stop

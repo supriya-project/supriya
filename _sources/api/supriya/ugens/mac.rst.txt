@@ -10,8 +10,8 @@ mac
 .. autoclass:: KeyState
    :show-inheritance:
 
-   .. autoproperty:: keycode
    .. automethod:: kr
+   .. autoproperty:: keycode
    .. autoproperty:: lag
    .. autoproperty:: maximum
    .. autoproperty:: minimum

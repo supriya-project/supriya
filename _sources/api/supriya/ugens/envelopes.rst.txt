@@ -17,10 +17,10 @@ envelopes
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: done_action
    .. autoproperty:: envelope
    .. autoproperty:: gate
-   .. automethod:: kr
    .. autoproperty:: level_bias
    .. autoproperty:: level_scale
    .. autoproperty:: time_scale
@@ -47,10 +47,10 @@ envelopes
 .. autoclass:: Linen
    :show-inheritance:
 
+   .. automethod:: kr
    .. autoproperty:: attack_time
    .. autoproperty:: done_action
    .. autoproperty:: gate
-   .. automethod:: kr
    .. autoproperty:: release_time
    .. autoproperty:: sustain_level
 

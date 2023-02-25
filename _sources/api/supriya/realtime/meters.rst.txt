@@ -12,14 +12,14 @@ meters
 
    .. automethod:: allocate
    .. automethod:: free
+   .. automethod:: make_meter_synthdef
+   .. automethod:: notify
+   .. automethod:: to_dict
    .. autoproperty:: input_count
    .. autoproperty:: input_meter_command
    .. autoproperty:: input_meter_synthdef
    .. autoproperty:: is_allocated
-   .. automethod:: make_meter_synthdef
-   .. automethod:: notify
    .. autoproperty:: output_count
    .. autoproperty:: output_meter_command
    .. autoproperty:: output_meter_synthdef
    .. autoproperty:: server
-   .. automethod:: to_dict

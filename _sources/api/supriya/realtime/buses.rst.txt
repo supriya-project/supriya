@@ -25,15 +25,15 @@ buses
    .. automethod:: __float__
    .. automethod:: __int__
    .. automethod:: allocate
+   .. automethod:: free
+   .. automethod:: get
+   .. automethod:: set
    .. autoproperty:: bus_group
    .. autoproperty:: bus_id
    .. autoproperty:: calculation_rate
-   .. automethod:: free
-   .. automethod:: get
    .. autoproperty:: is_allocated
    .. autoproperty:: map_symbol
    .. autoproperty:: server
-   .. automethod:: set
    .. autoproperty:: value
 
 .. autoclass:: BusGroup
@@ -46,16 +46,16 @@ buses
    .. automethod:: __iter__
    .. automethod:: __len__
    .. automethod:: allocate
-   .. autoproperty:: bus_id
-   .. autoproperty:: buses
-   .. autoproperty:: calculation_rate
    .. automethod:: fill
    .. automethod:: free
    .. automethod:: get
    .. automethod:: index
+   .. automethod:: set
+   .. autoproperty:: bus_id
+   .. autoproperty:: buses
+   .. autoproperty:: calculation_rate
    .. autoproperty:: is_allocated
    .. autoproperty:: map_symbol
-   .. automethod:: set
 
 .. autoclass:: BusProxy
    :show-inheritance:

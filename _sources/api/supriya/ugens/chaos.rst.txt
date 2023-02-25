@@ -10,8 +10,8 @@ chaos
 .. autoclass:: CuspL
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: b
    .. autoproperty:: frequency
    .. autoproperty:: xi
@@ -19,8 +19,8 @@ chaos
 .. autoclass:: CuspN
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: b
    .. autoproperty:: frequency
    .. autoproperty:: xi
@@ -28,8 +28,8 @@ chaos
 .. autoclass:: FBSineC
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: c
    .. autoproperty:: fb
    .. autoproperty:: frequency
@@ -40,8 +40,8 @@ chaos
 .. autoclass:: FBSineL
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: c
    .. autoproperty:: fb
    .. autoproperty:: frequency
@@ -52,8 +52,8 @@ chaos
 .. autoclass:: FBSineN
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: c
    .. autoproperty:: fb
    .. autoproperty:: frequency
@@ -80,8 +80,8 @@ chaos
 .. autoclass:: HenonC
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: b
    .. autoproperty:: frequency
    .. autoproperty:: x_0
@@ -90,8 +90,8 @@ chaos
 .. autoclass:: HenonL
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: b
    .. autoproperty:: frequency
    .. autoproperty:: x_0
@@ -100,8 +100,8 @@ chaos
 .. autoclass:: HenonN
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: b
    .. autoproperty:: frequency
    .. autoproperty:: x_0
@@ -110,8 +110,8 @@ chaos
 .. autoclass:: LatoocarfianC
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: b
    .. autoproperty:: c
    .. autoproperty:: d
@@ -122,8 +122,8 @@ chaos
 .. autoclass:: LatoocarfianL
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: b
    .. autoproperty:: c
    .. autoproperty:: d
@@ -134,8 +134,8 @@ chaos
 .. autoclass:: LatoocarfianN
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: b
    .. autoproperty:: c
    .. autoproperty:: d
@@ -146,8 +146,8 @@ chaos
 .. autoclass:: LinCongC
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: c
    .. autoproperty:: frequency
    .. autoproperty:: m
@@ -156,8 +156,8 @@ chaos
 .. autoclass:: LinCongL
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: c
    .. autoproperty:: frequency
    .. autoproperty:: m
@@ -166,8 +166,8 @@ chaos
 .. autoclass:: LinCongN
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: c
    .. autoproperty:: frequency
    .. autoproperty:: m
@@ -189,8 +189,8 @@ chaos
 .. autoclass:: QuadC
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: b
    .. autoproperty:: c
    .. autoproperty:: frequency
@@ -199,8 +199,8 @@ chaos
 .. autoclass:: QuadL
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: b
    .. autoproperty:: c
    .. autoproperty:: frequency
@@ -209,8 +209,8 @@ chaos
 .. autoclass:: QuadN
    :show-inheritance:
 
-   .. autoproperty:: a
    .. automethod:: ar
+   .. autoproperty:: a
    .. autoproperty:: b
    .. autoproperty:: c
    .. autoproperty:: frequency

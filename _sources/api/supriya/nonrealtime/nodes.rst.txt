@@ -21,15 +21,15 @@ nodes
    .. automethod:: add_group
    .. automethod:: add_synth
    .. automethod:: delete
-   .. autoproperty:: duration
    .. automethod:: free
    .. automethod:: get_parent
    .. automethod:: get_parentage
    .. automethod:: inspect_children
    .. automethod:: move_node
-   .. autoproperty:: session_id
    .. automethod:: set_duration
    .. automethod:: split
+   .. autoproperty:: duration
+   .. autoproperty:: session_id
    .. autoproperty:: start_offset
    .. autoproperty:: stop_offset
 

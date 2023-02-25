@@ -15,6 +15,11 @@ typing
    :show-inheritance:
 
 
+.. autoclass:: SupportsOsc
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
 .. autoclass:: SupportsRender
    :show-inheritance:
 

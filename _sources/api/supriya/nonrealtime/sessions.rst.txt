@@ -33,7 +33,6 @@ sessions
 
    .. automethod:: __graph__
    .. automethod:: __render__
-   .. autoproperty:: active_moments
    .. automethod:: add_buffer
    .. automethod:: add_buffer_group
    .. automethod:: add_bus
@@ -41,6 +40,18 @@ sessions
    .. automethod:: add_group
    .. automethod:: add_synth
    .. automethod:: at
+   .. automethod:: cue_soundfile
+   .. automethod:: get_object_by_session_id
+   .. automethod:: is_session_like
+   .. automethod:: move_node
+   .. automethod:: rebuild_transitions
+   .. automethod:: render
+   .. automethod:: render_async
+   .. automethod:: set_rand_seed
+   .. automethod:: to_lists
+   .. automethod:: to_osc_bundles
+   .. automethod:: to_strings
+   .. autoproperty:: active_moments
    .. autoproperty:: audio_buses
    .. autoproperty:: audio_buses_by_session_id
    .. autoproperty:: audio_input_bus_group
@@ -49,28 +60,17 @@ sessions
    .. autoproperty:: buffers_by_session_id
    .. autoproperty:: control_buses
    .. autoproperty:: control_buses_by_session_id
-   .. automethod:: cue_soundfile
    .. autoproperty:: duration
-   .. automethod:: get_object_by_session_id
    .. autoproperty:: input_
    .. autoproperty:: input_bus_channel_count
-   .. automethod:: is_session_like
-   .. automethod:: move_node
    .. autoproperty:: nodes
    .. autoproperty:: nodes_by_session_id
    .. autoproperty:: offsets
    .. autoproperty:: options
    .. autoproperty:: output_bus_channel_count
    .. autoproperty:: padding
-   .. automethod:: rebuild_transitions
-   .. automethod:: render
-   .. automethod:: render_async
    .. autoproperty:: root_node
-   .. automethod:: set_rand_seed
    .. autoproperty:: states
-   .. automethod:: to_lists
-   .. automethod:: to_osc_bundles
-   .. automethod:: to_strings
 
 .. autoclass:: SessionRenderableMemo
    :show-inheritance:

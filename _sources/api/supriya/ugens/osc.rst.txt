@@ -11,17 +11,17 @@ osc
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: beats
    .. autoproperty:: buffer_id
    .. autoproperty:: frequency
-   .. automethod:: kr
 
 .. autoclass:: DegreeToKey
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: buffer_id
    .. automethod:: kr
+   .. autoproperty:: buffer_id
    .. autoproperty:: octave
    .. autoproperty:: source
 
@@ -29,34 +29,34 @@ osc
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: phase
 
 .. autoclass:: Index
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: buffer_id
    .. automethod:: kr
+   .. autoproperty:: buffer_id
    .. autoproperty:: source
 
 .. autoclass:: LFCub
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: frequency
    .. autoproperty:: initial_phase
-   .. automethod:: kr
 
 .. autoclass:: LFGauss
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: done_action
    .. autoproperty:: duration
    .. autoproperty:: initial_phase
-   .. automethod:: kr
    .. autoproperty:: loop
    .. autoproperty:: width
 
@@ -64,52 +64,52 @@ osc
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: frequency
    .. autoproperty:: initial_phase
-   .. automethod:: kr
 
 .. autoclass:: LFPulse
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: frequency
    .. autoproperty:: initial_phase
-   .. automethod:: kr
    .. autoproperty:: width
 
 .. autoclass:: LFSaw
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: frequency
    .. autoproperty:: initial_phase
-   .. automethod:: kr
 
 .. autoclass:: LFTri
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: frequency
    .. autoproperty:: initial_phase
-   .. automethod:: kr
 
 .. autoclass:: Osc
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: frequency
    .. autoproperty:: initial_phase
-   .. automethod:: kr
 
 .. autoclass:: OscN
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: frequency
    .. autoproperty:: initial_phase
-   .. automethod:: kr
 
 .. autoclass:: Select
    :show-inheritance:
@@ -123,8 +123,8 @@ osc
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: phase
 
 .. autoclass:: SyncSaw
@@ -139,40 +139,40 @@ osc
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: frequency
-   .. automethod:: kr
    .. autoproperty:: phase
 
 .. autoclass:: VOsc3
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: freq_1
    .. autoproperty:: freq_2
    .. autoproperty:: freq_3
-   .. automethod:: kr
 
 .. autoclass:: VarSaw
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: frequency
    .. autoproperty:: initial_phase
-   .. automethod:: kr
    .. autoproperty:: width
 
 .. autoclass:: Vibrato
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: delay
    .. autoproperty:: depth
    .. autoproperty:: depth_variation
    .. autoproperty:: frequency
    .. autoproperty:: initial_phase
-   .. automethod:: kr
    .. autoproperty:: onset
    .. autoproperty:: rate
    .. autoproperty:: rate_variation
@@ -181,6 +181,6 @@ osc
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: buffer_id
    .. automethod:: kr
+   .. autoproperty:: buffer_id
    .. autoproperty:: source

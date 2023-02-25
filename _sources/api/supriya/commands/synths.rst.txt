@@ -10,13 +10,13 @@ synths
 .. autoclass:: SynthNewRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: add_action
    .. autoproperty:: kwargs
    .. autoproperty:: node_id
    .. autoproperty:: response_patterns
    .. autoproperty:: synthdef
    .. autoproperty:: target_node_id
-   .. automethod:: to_osc
 
 .. autoclass:: TriggerResponse
    :show-inheritance:

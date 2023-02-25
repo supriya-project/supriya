@@ -43,9 +43,9 @@ controls
 .. autoclass:: Range
    :show-inheritance:
 
+   .. automethod:: scale
    .. autoproperty:: maximum
    .. autoproperty:: minimum
-   .. automethod:: scale
    .. autoproperty:: width
 
 .. autoclass:: TrigControl

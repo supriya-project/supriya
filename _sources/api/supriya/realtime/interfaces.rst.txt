@@ -11,18 +11,18 @@ interfaces
    :show-inheritance:
 
    .. automethod:: __setitem__
+   .. automethod:: reset
    .. autoproperty:: client
    .. autoproperty:: node_id
-   .. automethod:: reset
 
 .. autoclass:: GroupControl
    :show-inheritance:
 
+   .. automethod:: set
    .. autoproperty:: client
    .. autoproperty:: group
    .. autoproperty:: name
    .. autoproperty:: node
-   .. automethod:: set
 
 .. autoclass:: GroupInterface
    :show-inheritance:
@@ -41,18 +41,18 @@ interfaces
    :show-inheritance:
 
    .. automethod:: __call__
+   .. automethod:: from_parameter
+   .. automethod:: get
+   .. automethod:: reset
+   .. automethod:: set
    .. autoproperty:: calculation_rate
    .. autoproperty:: client
    .. autoproperty:: default_value
-   .. automethod:: from_parameter
-   .. automethod:: get
    .. autoproperty:: index
    .. autoproperty:: last_unmapped_value
    .. autoproperty:: name
    .. autoproperty:: node
    .. autoproperty:: range_
-   .. automethod:: reset
-   .. automethod:: set
    .. autoproperty:: synth
    .. autoproperty:: unit
    .. autoproperty:: value

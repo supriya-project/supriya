@@ -16,6 +16,7 @@ noise
 .. autoclass:: RandomPattern
    :show-inheritance:
 
+   .. autoclass:: supriya.patterns.noise::RandomPattern.Distribution
    .. autoproperty:: distribution
    .. autoproperty:: is_infinite
    .. autoproperty:: iterations

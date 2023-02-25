@@ -1,0 +1,16 @@
+.. _supriya--contexts--errors:
+
+errors
+======
+
+.. automodule:: supriya.contexts.errors
+
+.. currentmodule:: supriya.contexts.errors
+
+.. autoexception:: ContextError
+
+.. autoexception:: InvalidCalculationRate
+
+.. autoexception:: InvalidMoment
+
+.. autoexception:: MomentClosed

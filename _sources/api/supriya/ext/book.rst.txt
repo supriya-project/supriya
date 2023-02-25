@@ -10,6 +10,7 @@ book
 .. autoclass:: PlayExtension
    :show-inheritance:
 
+   .. autoclass:: supriya.ext.book::PlayExtension.play_block
    .. automethod:: render
    .. automethod:: setup_console
    .. automethod:: setup_sphinx
@@ -19,6 +20,7 @@ book
 .. autoclass:: PlotExtension
    :show-inheritance:
 
+   .. autoclass:: supriya.ext.book::PlotExtension.plot_block
    .. automethod:: render
    .. automethod:: setup_console
    .. automethod:: setup_sphinx

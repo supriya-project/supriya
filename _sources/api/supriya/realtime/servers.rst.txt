@@ -12,17 +12,18 @@ servers
 
    .. automethod:: __contains__
    .. automethod:: boot
-   .. autoproperty:: boot_future
    .. automethod:: connect
-   .. autoproperty:: default_group
    .. automethod:: disconnect
    .. automethod:: query
    .. automethod:: quit
+   .. autoproperty:: boot_future
+   .. autoproperty:: default_group
    .. autoproperty:: quit_future
 
 .. autoclass:: BaseServer
    :show-inheritance:
 
+   .. automethod:: send
    .. autoproperty:: audio_bus_allocator
    .. autoproperty:: buffer_allocator
    .. autoproperty:: client_id
@@ -38,7 +39,6 @@ servers
    .. autoproperty:: osc_protocol
    .. autoproperty:: port
    .. autoproperty:: process_protocol
-   .. automethod:: send
    .. autoproperty:: status
 
 .. autoclass:: Server
@@ -54,17 +54,17 @@ servers
    .. automethod:: add_group
    .. automethod:: add_synth
    .. automethod:: add_synthdef
-   .. autoproperty:: audio_input_bus_group
-   .. autoproperty:: audio_output_bus_group
    .. automethod:: boot
    .. automethod:: connect
-   .. autoproperty:: default_group
    .. automethod:: disconnect
-   .. autoproperty:: meters
    .. automethod:: query
    .. automethod:: quit
    .. automethod:: reboot
-   .. autoproperty:: recorder
    .. automethod:: reset
-   .. autoproperty:: root_node
    .. automethod:: sync
+   .. autoproperty:: audio_input_bus_group
+   .. autoproperty:: audio_output_bus_group
+   .. autoproperty:: default_group
+   .. autoproperty:: meters
+   .. autoproperty:: recorder
+   .. autoproperty:: root_node

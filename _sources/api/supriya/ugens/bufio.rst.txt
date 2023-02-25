@@ -11,9 +11,9 @@ bufio
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: interpolation
-   .. automethod:: kr
    .. autoproperty:: loop
    .. autoproperty:: phase
 
@@ -21,8 +21,8 @@ bufio
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: buffer_id
    .. automethod:: kr
+   .. autoproperty:: buffer_id
    .. autoproperty:: loop
    .. autoproperty:: phase
    .. autoproperty:: source
@@ -30,15 +30,15 @@ bufio
 .. autoclass:: ClearBuf
    :show-inheritance:
 
-   .. autoproperty:: buffer_id
    .. automethod:: ir
+   .. autoproperty:: buffer_id
 
 .. autoclass:: LocalBuf
    :show-inheritance:
 
+   .. automethod:: ir
    .. autoproperty:: channel_count
    .. autoproperty:: frame_count
-   .. automethod:: ir
 
 .. autoclass:: MaxLocalBufs
    :show-inheritance:
@@ -51,9 +51,9 @@ bufio
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: done_action
-   .. automethod:: kr
    .. autoproperty:: loop
    .. autoproperty:: rate
    .. autoproperty:: start_position
@@ -63,9 +63,9 @@ bufio
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: buffer_id
    .. autoproperty:: done_action
-   .. automethod:: kr
    .. autoproperty:: loop
    .. autoproperty:: offset
    .. autoproperty:: preexisting_level

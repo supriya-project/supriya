@@ -19,13 +19,13 @@ Interval
    .. automethod:: __or__
    .. automethod:: __sub__
    .. automethod:: __xor__
-   .. autoproperty:: duration
    .. automethod:: intersects
    .. automethod:: is_tangent_to
    .. automethod:: new
-   .. autoproperty:: size
    .. automethod:: split
+   .. automethod:: translate
+   .. autoproperty:: duration
+   .. autoproperty:: size
    .. autoproperty:: start_offset
    .. autoproperty:: stop_offset
-   .. automethod:: translate
    .. autoproperty:: wellformed

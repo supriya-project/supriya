@@ -11,22 +11,22 @@ inout
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: bus
    .. automethod:: kr
+   .. autoproperty:: bus
 
 .. autoclass:: InFeedback
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: bus
    .. automethod:: kr
+   .. autoproperty:: bus
 
 .. autoclass:: LocalIn
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: default
    .. automethod:: kr
+   .. autoproperty:: default
 
 .. autoclass:: LocalOut
    :show-inheritance:
@@ -39,31 +39,31 @@ inout
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: bus
    .. automethod:: kr
+   .. autoproperty:: bus
    .. autoproperty:: source
 
 .. autoclass:: Out
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: bus
    .. automethod:: kr
+   .. autoproperty:: bus
    .. autoproperty:: source
 
 .. autoclass:: ReplaceOut
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: bus
    .. automethod:: kr
+   .. autoproperty:: bus
    .. autoproperty:: source
 
 .. autoclass:: XOut
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: bus
    .. autoproperty:: crossfade
-   .. automethod:: kr
    .. autoproperty:: source

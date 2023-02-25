@@ -10,15 +10,15 @@ nodes
 .. autoclass:: NodeFreeRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: node_ids
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: NodeInfo
    :show-inheritance:
 
-   .. autoproperty:: action
    .. automethod:: from_osc_message
+   .. autoproperty:: action
    .. autoproperty:: head_node_id
    .. autoproperty:: is_group
    .. autoproperty:: next_node_id
@@ -33,15 +33,15 @@ nodes
    :show-inheritance:
 
    .. automethod:: __getattr__
-   .. autoproperty:: node_id
    .. automethod:: to_osc
+   .. autoproperty:: node_id
 
 .. autoclass:: NodeMapToControlBusRequest
    :show-inheritance:
 
    .. automethod:: __getattr__
-   .. autoproperty:: node_id
    .. automethod:: to_osc
+   .. autoproperty:: node_id
 
 .. autoclass:: NodeOrderRequest
    :show-inheritance:
@@ -51,9 +51,9 @@ nodes
 .. autoclass:: NodeQueryRequest
    :show-inheritance:
 
+   .. automethod:: to_osc
    .. autoproperty:: node_id
    .. autoproperty:: response_patterns
-   .. automethod:: to_osc
 
 .. autoclass:: NodeReleaseRequest
    :show-inheritance:
@@ -64,12 +64,13 @@ nodes
    :show-inheritance:
 
    .. automethod:: merge
-   .. autoproperty:: node_id_run_flag_pairs
    .. automethod:: to_osc
+   .. autoproperty:: node_id_run_flag_pairs
 
 .. autoclass:: NodeSetContiguousResponse
    :show-inheritance:
 
+   .. autoclass:: supriya.commands.nodes::NodeSetContiguousResponse.Item
    .. automethod:: from_osc_message
    .. autoproperty:: items
    .. autoproperty:: node_id
@@ -78,12 +79,13 @@ nodes
    :show-inheritance:
 
    .. automethod:: __getattr__
-   .. autoproperty:: node_id
    .. automethod:: to_osc
+   .. autoproperty:: node_id
 
 .. autoclass:: NodeSetResponse
    :show-inheritance:
 
+   .. autoclass:: supriya.commands.nodes::NodeSetResponse.Item
    .. automethod:: from_osc_message
    .. autoproperty:: items
    .. autoproperty:: node_id

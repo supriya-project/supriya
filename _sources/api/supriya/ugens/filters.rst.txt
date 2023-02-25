@@ -11,8 +11,8 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: radius
    .. autoproperty:: source
 
@@ -20,8 +20,8 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: reciprocal_of_q
    .. autoproperty:: source
 
@@ -36,8 +36,8 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: reciprocal_of_q
    .. autoproperty:: source
 
@@ -58,25 +58,25 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: decay_time
    .. automethod:: kr
+   .. autoproperty:: decay_time
    .. autoproperty:: source
 
 .. autoclass:: Decay2
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: attack_time
    .. autoproperty:: decay_time
-   .. automethod:: kr
    .. autoproperty:: source
 
 .. autoclass:: DetectSilence
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: done_action
    .. automethod:: kr
+   .. autoproperty:: done_action
    .. autoproperty:: source
    .. autoproperty:: threshold
    .. autoproperty:: time
@@ -84,29 +84,29 @@ filters
 .. autoclass:: FOS
    :show-inheritance:
 
+   .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: a_0
    .. autoproperty:: a_1
-   .. automethod:: ar
    .. autoproperty:: b_1
-   .. automethod:: kr
    .. autoproperty:: source
 
 .. autoclass:: Formlet
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: attack_time
    .. autoproperty:: decay_time
    .. autoproperty:: frequency
-   .. automethod:: kr
    .. autoproperty:: source
 
 .. autoclass:: HPF
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: source
 
 .. autoclass:: HPZ1
@@ -127,16 +127,16 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: coefficient
    .. automethod:: kr
+   .. autoproperty:: coefficient
    .. autoproperty:: source
 
 .. autoclass:: LPF
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: source
 
 .. autoclass:: LPZ1
@@ -208,8 +208,8 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: coefficient
    .. automethod:: kr
+   .. autoproperty:: coefficient
    .. autoproperty:: source
 
 .. autoclass:: Median
@@ -224,9 +224,9 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: db
    .. autoproperty:: frequency
-   .. automethod:: kr
    .. autoproperty:: reciprocal_of_q
    .. autoproperty:: source
 
@@ -234,9 +234,9 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: frequency
    .. autoproperty:: gain
-   .. automethod:: kr
    .. autoproperty:: reset
    .. autoproperty:: source
 
@@ -244,24 +244,24 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: coefficient
    .. automethod:: kr
+   .. autoproperty:: coefficient
    .. autoproperty:: source
 
 .. autoclass:: OneZero
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: coefficient
    .. automethod:: kr
+   .. autoproperty:: coefficient
    .. autoproperty:: source
 
 .. autoclass:: RHPF
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: reciprocal_of_q
    .. autoproperty:: source
 
@@ -269,8 +269,8 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: reciprocal_of_q
    .. autoproperty:: source
 
@@ -286,29 +286,29 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: decay_time
    .. autoproperty:: frequency
-   .. automethod:: kr
    .. autoproperty:: source
 
 .. autoclass:: SOS
    :show-inheritance:
 
+   .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: a_0
    .. autoproperty:: a_1
    .. autoproperty:: a_2
-   .. automethod:: ar
    .. autoproperty:: b_1
    .. autoproperty:: b_2
-   .. automethod:: kr
    .. autoproperty:: source
 
 .. autoclass:: Slew
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: down
    .. automethod:: kr
+   .. autoproperty:: down
    .. autoproperty:: source
    .. autoproperty:: up
 
@@ -323,8 +323,8 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: radius
    .. autoproperty:: source
 
@@ -332,7 +332,7 @@ filters
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: radius
    .. autoproperty:: source

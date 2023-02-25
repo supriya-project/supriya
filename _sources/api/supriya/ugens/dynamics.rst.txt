@@ -11,8 +11,8 @@ dynamics
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: attack_time
    .. automethod:: kr
+   .. autoproperty:: attack_time
    .. autoproperty:: release_time
    .. autoproperty:: source
 

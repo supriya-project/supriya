@@ -15,44 +15,44 @@ info
 .. autoclass:: BufChannels
    :show-inheritance:
 
-   .. autoproperty:: buffer_id
    .. automethod:: ir
    .. automethod:: kr
+   .. autoproperty:: buffer_id
 
 .. autoclass:: BufDur
    :show-inheritance:
 
-   .. autoproperty:: buffer_id
    .. automethod:: ir
    .. automethod:: kr
+   .. autoproperty:: buffer_id
 
 .. autoclass:: BufFrames
    :show-inheritance:
 
-   .. autoproperty:: buffer_id
    .. automethod:: ir
    .. automethod:: kr
+   .. autoproperty:: buffer_id
 
 .. autoclass:: BufRateScale
    :show-inheritance:
 
-   .. autoproperty:: buffer_id
    .. automethod:: ir
    .. automethod:: kr
+   .. autoproperty:: buffer_id
 
 .. autoclass:: BufSampleRate
    :show-inheritance:
 
-   .. autoproperty:: buffer_id
    .. automethod:: ir
    .. automethod:: kr
+   .. autoproperty:: buffer_id
 
 .. autoclass:: BufSamples
    :show-inheritance:
 
-   .. autoproperty:: buffer_id
    .. automethod:: ir
    .. automethod:: kr
+   .. autoproperty:: buffer_id
 
 .. autoclass:: ControlDur
    :show-inheritance:

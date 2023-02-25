@@ -21,11 +21,11 @@ panning
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: azimuth
    .. autoproperty:: gain
    .. autoproperty:: in_a
    .. autoproperty:: in_b
-   .. automethod:: kr
 
 .. autoclass:: DecodeB2
    :show-inheritance:
@@ -50,8 +50,8 @@ panning
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: gain
    .. automethod:: kr
+   .. autoproperty:: gain
    .. autoproperty:: source
    .. autoproperty:: x_position
    .. autoproperty:: y_position
@@ -59,9 +59,9 @@ panning
 .. autoclass:: PanAz
    :show-inheritance:
 
-   .. autoproperty:: amplitude
    .. automethod:: ar
    .. automethod:: kr
+   .. autoproperty:: amplitude
    .. autoproperty:: orientation
    .. autoproperty:: position
    .. autoproperty:: source
@@ -71,19 +71,19 @@ panning
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: azimuth
    .. autoproperty:: elevation
    .. autoproperty:: gain
-   .. automethod:: kr
    .. autoproperty:: source
 
 .. autoclass:: PanB2
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: azimuth
    .. autoproperty:: gain
-   .. automethod:: kr
    .. autoproperty:: source
 
 .. autoclass:: Rotate2
@@ -105,8 +105,8 @@ panning
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: in_a
    .. autoproperty:: in_b
-   .. automethod:: kr
    .. autoproperty:: level
    .. autoproperty:: pan

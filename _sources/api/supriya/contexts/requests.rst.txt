@@ -1,0 +1,354 @@
+.. _supriya--contexts--requests:
+
+requests
+========
+
+.. automodule:: supriya.contexts.requests
+
+.. currentmodule:: supriya.contexts.requests
+
+.. autoclass:: AllocateBuffer
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: AllocateReadBuffer
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: AllocateReadBufferChannel
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: AutoReassignSynthID
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: ClearSchedule
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: CloseBuffer
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: CopyBuffer
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: DoNothing
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: DumpOsc
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: DumpTree
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: FillBuffer
+   :show-inheritance:
+
+   .. automethod:: merge
+   .. automethod:: to_osc
+
+.. autoclass:: FillControlBusRange
+   :show-inheritance:
+
+   .. automethod:: merge
+   .. automethod:: to_osc
+
+.. autoclass:: FillNode
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: FreeAllSynthDefs
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: FreeBuffer
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: FreeGroupChildren
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: FreeGroupDeep
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: FreeNode
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: FreeSynthDef
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: GenerateBuffer
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: GetBuffer
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: GetBufferRange
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: GetControlBus
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: GetControlBusRange
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: GetSynthControl
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: GetSynthControlRange
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: LoadSynthDefDirectory
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: LoadSynthDefs
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: MapAudioBusRangeToNode
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: MapAudioBusToNode
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: MapControlBusRangeToNode
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: MapControlBusToNode
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: MoveNodeAfter
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: MoveNodeBefore
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: MoveNodeToGroupHead
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: MoveNodeToGroupTail
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: NewGroup
+   :show-inheritance:
+
+   .. automethod:: merge
+   .. automethod:: to_osc
+
+.. autoclass:: NewParallelGroup
+   :show-inheritance:
+
+   .. automethod:: merge
+   .. automethod:: to_osc
+
+.. autoclass:: NewSynth
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: NormalizeBuffer
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: OrderNodes
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: QueryBuffer
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: QueryNode
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: QueryStatus
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: QueryTree
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: QueryVersion
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: Quit
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: ReadBuffer
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: ReadBufferChannel
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: ReceiveSynthDefs
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: ReleaseNode
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: Request
+   :show-inheritance:
+
+   .. automethod:: merge
+
+.. autoclass:: RequestBundle
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: Requestable
+   :show-inheritance:
+
+   .. automethod:: communicate
+   .. automethod:: communicate_async
+   .. automethod:: to_osc
+
+.. autoclass:: RunNode
+   :show-inheritance:
+
+   .. automethod:: merge
+   .. automethod:: to_osc
+
+.. autoclass:: SetBuffer
+   :show-inheritance:
+
+   .. automethod:: merge
+   .. automethod:: to_osc
+
+.. autoclass:: SetBufferRange
+   :show-inheritance:
+
+   .. automethod:: merge
+   .. automethod:: to_osc
+
+.. autoclass:: SetControlBus
+   :show-inheritance:
+
+   .. automethod:: merge
+   .. automethod:: to_osc
+
+.. autoclass:: SetControlBusRange
+   :show-inheritance:
+
+   .. automethod:: merge
+   .. automethod:: to_osc
+
+.. autoclass:: SetNodeControl
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: SetNodeControlRange
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: Sync
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: ToggleErrorReporting
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: ToggleNotifications
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: TraceNode
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: WriteBuffer
+   :show-inheritance:
+
+   .. automethod:: to_osc
+
+.. autoclass:: ZeroBuffer
+   :show-inheritance:
+
+   .. automethod:: to_osc

@@ -26,22 +26,22 @@ states
 .. autoclass:: NodeTransition
    :show-inheritance:
 
-   .. autoproperty:: action
    .. automethod:: apply_transform
    .. automethod:: free_node
+   .. autoproperty:: action
    .. autoproperty:: source
    .. autoproperty:: target
 
 .. autoclass:: State
    :show-inheritance:
 
+   .. automethod:: report
    .. autoproperty:: is_sparse
    .. autoproperty:: nodes_to_children
    .. autoproperty:: nodes_to_parents
    .. autoproperty:: offset
    .. autoproperty:: overlap_buffers
    .. autoproperty:: overlap_nodes
-   .. automethod:: report
    .. autoproperty:: start_buffers
    .. autoproperty:: start_nodes
    .. autoproperty:: stop_buffers

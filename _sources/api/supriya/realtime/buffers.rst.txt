@@ -16,33 +16,33 @@ buffers
    .. automethod:: __render__
    .. automethod:: allocate
    .. automethod:: allocate_from_file
-   .. autoproperty:: buffer_group
-   .. autoproperty:: buffer_id
-   .. autoproperty:: channel_count
    .. automethod:: close
    .. automethod:: copy
-   .. autoproperty:: duration_in_seconds
    .. automethod:: fill
    .. automethod:: fill_via_chebyshev
    .. automethod:: fill_via_sine_1
    .. automethod:: fill_via_sine_2
    .. automethod:: fill_via_sine_3
-   .. autoproperty:: frame_count
    .. automethod:: free
    .. automethod:: get
    .. automethod:: get_contiguous
    .. automethod:: get_frames
-   .. autoproperty:: is_allocated
    .. automethod:: normalize
    .. automethod:: query
    .. automethod:: read
-   .. autoproperty:: sample_count
-   .. autoproperty:: sample_rate
-   .. autoproperty:: server
    .. automethod:: set
    .. automethod:: set_contiguous
    .. automethod:: write
    .. automethod:: zero
+   .. autoproperty:: buffer_group
+   .. autoproperty:: buffer_id
+   .. autoproperty:: channel_count
+   .. autoproperty:: duration_in_seconds
+   .. autoproperty:: frame_count
+   .. autoproperty:: is_allocated
+   .. autoproperty:: sample_count
+   .. autoproperty:: sample_rate
+   .. autoproperty:: server
 
 .. autoclass:: BufferGroup
    :show-inheritance:
@@ -54,13 +54,13 @@ buffers
    .. automethod:: __iter__
    .. automethod:: __len__
    .. automethod:: allocate
-   .. autoproperty:: buffer_id
-   .. autoproperty:: buffers
    .. automethod:: free
    .. automethod:: from_file_paths
    .. automethod:: index
-   .. autoproperty:: is_allocated
    .. automethod:: zero
+   .. autoproperty:: buffer_id
+   .. autoproperty:: buffers
+   .. autoproperty:: is_allocated
 
 .. autoclass:: BufferProxy
    :show-inheritance:

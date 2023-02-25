@@ -1,0 +1,19 @@
+.. _supriya--contexts:
+
+contexts
+========
+
+.. automodule:: supriya.contexts
+
+.. currentmodule:: supriya.contexts
+
+.. toctree::
+   :hidden:
+
+   core
+   entities
+   errors
+   nonrealtime
+   realtime
+   requests
+   responses

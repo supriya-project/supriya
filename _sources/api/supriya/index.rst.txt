@@ -13,6 +13,7 @@ supriya
    allocators
    clocks/index
    commands/index
+   contexts/index
    conversions
    enums
    exceptions

@@ -1,0 +1,95 @@
+.. _supriya--contexts--responses:
+
+responses
+=========
+
+.. automodule:: supriya.contexts.responses
+
+.. currentmodule:: supriya.contexts.responses
+
+.. autoclass:: BufferInfo
+   :show-inheritance:
+
+   .. autoclass:: supriya.contexts.responses::BufferInfo.Item
+   .. automethod:: from_osc
+
+.. autoclass:: DoneInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: FailInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: GetBufferInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: GetBufferRangeInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: GetControlBusInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: GetControlBusRangeInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: GetNodeControlInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: GetNodeControlRangeInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: NodeInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: QueryTreeInfo
+   :show-inheritance:
+
+   .. autoclass:: supriya.contexts.responses::QueryTreeInfo.Item
+   .. automethod:: from_osc
+
+.. autoclass:: Response
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: StatusInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: SyncedInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: SynthDefRemovedInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: TriggerInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc
+
+.. autoclass:: VersionInfo
+   :show-inheritance:
+
+   .. automethod:: from_osc

@@ -1,0 +1,79 @@
+.. _supriya--contexts--entities:
+
+entities
+========
+
+.. automodule:: supriya.contexts.entities
+
+.. currentmodule:: supriya.contexts.entities
+
+.. autoclass:: Buffer
+   :show-inheritance:
+
+   .. automethod:: __enter__
+   .. automethod:: __exit__
+   .. automethod:: close
+   .. automethod:: copy
+   .. automethod:: fill
+   .. automethod:: free
+   .. automethod:: generate
+   .. automethod:: get
+   .. automethod:: get_range
+   .. automethod:: normalize
+   .. automethod:: query
+   .. automethod:: read
+   .. automethod:: set_
+   .. automethod:: set_range
+   .. automethod:: write
+   .. automethod:: zero
+
+.. autoclass:: Bus
+   :show-inheritance:
+
+   .. automethod:: fill
+   .. automethod:: free
+   .. automethod:: get
+   .. automethod:: get_range
+   .. automethod:: map_symbol
+   .. automethod:: set_
+   .. automethod:: set_range
+
+.. autoclass:: ContextObject
+   :show-inheritance:
+
+   .. automethod:: __float__
+   .. automethod:: __int__
+   .. autoproperty:: allocated
+
+.. autoclass:: Group
+   :show-inheritance:
+
+   .. automethod:: free_children
+   .. autoproperty:: children
+
+.. autoclass:: Node
+   :show-inheritance:
+
+   .. automethod:: add_group
+   .. automethod:: add_synth
+   .. automethod:: free
+   .. automethod:: map
+   .. automethod:: move
+   .. automethod:: order
+   .. automethod:: pause
+   .. automethod:: query
+   .. automethod:: set_
+   .. automethod:: unpause
+   .. autoproperty:: active
+   .. autoproperty:: parent
+
+.. autoclass:: RootNode
+   :show-inheritance:
+
+   .. automethod:: __post_init__
+
+.. autoclass:: Synth
+   :show-inheritance:
+
+   .. automethod:: get
+   .. automethod:: get_range

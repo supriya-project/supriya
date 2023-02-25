@@ -11,17 +11,17 @@ ffsinosc
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: frequency
    .. autoproperty:: harmonic_count
-   .. automethod:: kr
 
 .. autoclass:: FSinOsc
    :show-inheritance:
 
    .. automethod:: ar
+   .. automethod:: kr
    .. autoproperty:: frequency
    .. autoproperty:: initial_phase
-   .. automethod:: kr
 
 .. autoclass:: Klank
    :show-inheritance:
@@ -37,13 +37,13 @@ ffsinosc
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency
    .. autoproperty:: width
 
 .. autoclass:: Saw
    :show-inheritance:
 
    .. automethod:: ar
-   .. autoproperty:: frequency
    .. automethod:: kr
+   .. autoproperty:: frequency

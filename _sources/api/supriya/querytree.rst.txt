@@ -10,9 +10,9 @@ querytree
 .. autoclass:: QueryTreeControl
    :show-inheritance:
 
+   .. automethod:: from_control
    .. autoproperty:: control_name_or_index
    .. autoproperty:: control_value
-   .. automethod:: from_control
 
 .. autoclass:: QueryTreeGroup
    :show-inheritance:
@@ -21,14 +21,15 @@ querytree
    .. automethod:: __getitem__
    .. automethod:: __len__
    .. automethod:: annotate
-   .. autoproperty:: children
-   .. autoproperty:: extra
    .. automethod:: from_group
+   .. automethod:: from_query_tree_info
    .. automethod:: from_response
    .. automethod:: from_state
+   .. automethod:: to_dict
+   .. autoproperty:: children
+   .. autoproperty:: extra
    .. autoproperty:: name
    .. autoproperty:: node_id
-   .. automethod:: to_dict
 
 .. autoclass:: QueryTreeSynth
    :show-inheritance:
@@ -37,11 +38,11 @@ querytree
    .. automethod:: __getitem__
    .. automethod:: __len__
    .. automethod:: annotate
-   .. autoproperty:: controls
-   .. autoproperty:: extra
    .. automethod:: from_response
    .. automethod:: from_synth
+   .. automethod:: to_dict
+   .. autoproperty:: controls
+   .. autoproperty:: extra
    .. autoproperty:: name
    .. autoproperty:: node_id
    .. autoproperty:: synthdef_name
-   .. automethod:: to_dict
