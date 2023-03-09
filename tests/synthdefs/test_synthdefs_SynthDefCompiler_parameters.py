@@ -7,7 +7,7 @@ from uqbar.strings import normalize
 
 import supriya.synthdefs
 import supriya.ugens
-from supriya import ParameterRate
+from supriya.enums import ParameterRate
 
 
 @pytest.fixture

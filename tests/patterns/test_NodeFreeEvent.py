@@ -3,8 +3,8 @@ from unittest.mock import Mock, call
 
 import pytest
 
+from supriya.contexts import Server
 from supriya.patterns.events import GroupAllocateEvent, NodeFreeEvent, Priority
-from supriya.providers import Provider
 
 id_ = uuid.uuid4()
 
@@ -19,14 +19,14 @@ def test_expand(event, offset, expected):
 
 
 def test_perform():
-    provider = Provider.realtime()
+    context = Server().boot()
     proxy_mapping = {}
     notes_mapping = {}
     # Allocate
     allocate_event = GroupAllocateEvent(id_)
-    with provider.at():
+    with context.at():
         allocate_event.perform(
-            provider,
+            context,
             proxy_mapping,
             current_offset=0.0,
             notes_mapping=notes_mapping,
@@ -34,11 +34,11 @@ def test_perform():
         )
     proxy = proxy_mapping[id_]
     # Wait
-    provider.server.sync()
+    context.sync()
     # Free
     free_event = NodeFreeEvent(id_)
-    spy = Mock(wraps=provider)
-    with provider.at():
+    spy = Mock(wraps=context)
+    with context.at():
         free_event.perform(
             spy,
             proxy_mapping,

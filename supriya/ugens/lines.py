@@ -1,5 +1,4 @@
-from supriya import DoneAction
-
+from ..enums import DoneAction
 from .bases import PseudoUGen, UGen, UGenArray, param, ugen
 from .basic import MulAdd
 

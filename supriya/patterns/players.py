@@ -1,27 +1,37 @@
-import asyncio
 from queue import Empty, PriorityQueue, Queue
 from threading import RLock
-from typing import Any, Callable, Coroutine, Dict, List, Optional, Tuple, Union, cast
+from typing import (
+    Callable,
+    Coroutine,
+    Dict,
+    Generator,
+    Iterable,
+    List,
+    Optional,
+    Sequence,
+    Tuple,
+    Union,
+    cast,
+)
 from uuid import UUID, uuid4
 
-from ..clocks import (
-    AsyncClock,
-    BaseClock,
-    CallbackEvent,
-    Clock,
-    ClockContext,
-    OfflineClock,
-)
-from ..providers import Provider
+from ..clocks import BaseClock, CallbackEvent, Clock, ClockContext, OfflineClock
+from ..contexts import Context, ContextObject, Node
 from .eventpatterns import Pattern
 from .events import Event, Priority, StartEvent, StopEvent
 
 
 class PatternPlayer:
+    """
+    A pattern player.
+
+    Coordinates interactions between a pattern, a clock_context, and a clock.
+    """
+
     def __init__(
         self,
         pattern: Pattern,
-        provider: Provider,
+        context: Context,
         clock: BaseClock,
         callback: Optional[
             Callable[
@@ -29,60 +39,50 @@ class PatternPlayer:
             ]
         ] = None,
         uuid: Optional[UUID] = None,
-    ):
+    ) -> None:
         self._pattern = pattern
-        self._provider = provider
+        self._context = context
         self._clock = clock
         self._callback = callback
         self._lock = RLock()
         self._queue: Queue[
-            Tuple[float, int, Union[int, Tuple[int, int]], Optional[Event]]
+            Tuple[float, Priority, Union[int, Tuple[int, int]], Optional[Event]]
         ] = PriorityQueue()
         self._is_running = False
         self._is_stopping = False
-        self._proxies_by_uuid: Dict[UUID, Any] = {}
-        self._notes_by_uuid: Dict[UUID, Any] = {}
+        self._proxies_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], ContextObject] = {}
+        self._notes_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], float] = {}
         self._uuid: UUID = uuid or uuid4()
         self._next_delta: Optional[float] = None
 
-    async def _async_clock_callback(self, context: ClockContext, *args, **kwargs):
-        for context, seconds, offset, events in self._find_events(context):
-            async with self._provider.at(seconds):
+    def _clock_callback(
+        self, clock_context: ClockContext, *args, **kwargs
+    ) -> Optional[float]:
+        for clock_context, seconds, offset, events in self._find_events(clock_context):
+            with self._context.at(seconds):
                 for event, priority in events:
                     event.perform(
-                        self._provider,
+                        self._context,
                         self._proxies_by_uuid,
                         current_offset=offset,
                         notes_mapping=self._notes_by_uuid,
                         priority=priority,
                     )
                     if self._callback is not None:
-                        result = self._callback(self, context, event, priority)
-                        if asyncio.iscoroutine(result):
-                            await result
+                        self._callback(self, clock_context, event, priority)
         return self._next_delta
 
-    def _clock_callback(self, context: ClockContext, *args, **kwargs):
-        for context, seconds, offset, events in self._find_events(context):
-            with self._provider.at(seconds):
-                for event, priority in events:
-                    event.perform(
-                        self._provider,
-                        self._proxies_by_uuid,
-                        current_offset=offset,
-                        notes_mapping=self._notes_by_uuid,
-                        priority=priority,
-                    )
-                    if self._callback is not None:
-                        self._callback(self, context, event, priority)
-        return self._next_delta
-
-    def _find_events(self, context: ClockContext):
+    def _find_events(
+        self, clock_context: ClockContext
+    ) -> Iterable[Tuple[ClockContext, float, float, Sequence[Tuple[Event, Priority]]]]:
         with self._lock:
-            current_offset = None
-            events: List[Tuple[Event, int]] = []
-            if not cast(CallbackEvent, context.event).invocations and self._callback:
-                yield context, context.desired_moment.seconds, context.desired_moment.offset, [
+            current_offset = float("-inf")
+            events: List[Tuple[Event, Priority]] = []
+            if (
+                not cast(CallbackEvent, clock_context.event).invocations
+                and self._callback
+            ):
+                yield clock_context, clock_context.desired_moment.seconds, clock_context.desired_moment.offset, [
                     (StartEvent(), Priority.START)
                 ]
             while True:
@@ -90,10 +90,10 @@ class PatternPlayer:
                     offset, priority, index, event = self._queue.get(block=False)
                 except Empty:
                     if events:
-                        yield context, context.desired_moment.seconds, current_offset, events
+                        yield clock_context, clock_context.desired_moment.seconds, current_offset, events
                     self._is_running = False
                     if self._callback:
-                        yield context, context.desired_moment.seconds, current_offset, [
+                        yield clock_context, clock_context.desired_moment.seconds, current_offset, [
                             (StopEvent(), Priority.STOP)
                         ]
                     self._next_delta = None
@@ -102,31 +102,31 @@ class PatternPlayer:
                     self._next_delta = None
                     return
                 if offset == float("-inf"):
-                    offset = context.desired_moment.offset
-                delta = offset - context.desired_moment.offset
+                    offset = clock_context.desired_moment.offset
+                delta = offset - clock_context.desired_moment.offset
                 if delta:
                     self._queue.put((offset, priority, index, event))
                     if events:
-                        yield context, context.desired_moment.seconds, current_offset, events
+                        yield clock_context, clock_context.desired_moment.seconds, current_offset, events
                     self._next_delta = delta
                     return
                 if not isinstance(event, Event):
                     if self._consume_iterator(offset):
                         if self._callback:
-                            yield context, context.desired_moment.seconds, current_offset, [
+                            yield clock_context, clock_context.desired_moment.seconds, current_offset, [
                                 (StopEvent(), Priority.STOP)
                             ]
                         self._next_delta = None
                         return
                 elif offset != current_offset:
                     if events:
-                        yield context, context.desired_moment.seconds, current_offset, events
+                        yield clock_context, clock_context.desired_moment.seconds, current_offset, events
                     current_offset = offset
                     events = [(event, priority)]
                 else:
                     events.append((event, priority))
 
-    def _consume_iterator(self, current_offset):
+    def _consume_iterator(self, current_offset: float) -> bool:
         try:
             try:
                 index, consumed_event = self._iterator.send(self._is_stopping)
@@ -141,13 +141,20 @@ class PatternPlayer:
                     (expanded_offset, priority, (index, subindex), expanded_event)
                 )
             self._queue.put(
-                (current_offset + consumed_event.delta, 0, (index, 0), None)
+                (
+                    float(current_offset + consumed_event.delta),
+                    Priority.NONE,
+                    (index, 0),
+                    None,
+                )
             )
         except StopIteration:
             pass
         return False
 
-    def _stop_callback(self, context, *args, **kwargs):
+    def _stop_callback(
+        self, clock_context: ClockContext, *args, **kwargs
+    ) -> Optional[float]:
         with self._lock:
             # Do we need to rebuild the queue? Yes.
             # Do we need to free all playing notes? Yes.
@@ -155,12 +162,15 @@ class PatternPlayer:
             # They'll be no-ops when performed.
             self._is_stopping = True
             self._clock.reschedule(
-                self._clock_event_id, schedule_at=context.desired_moment.offset
+                self._clock_event_id, schedule_at=clock_context.desired_moment.offset
             )
-            self._reschedule_queue(context.desired_moment.offset)
-            self._free_all_notes(context.desired_moment.seconds)
+            self._reschedule_queue(clock_context.desired_moment.offset)
+            self._free_all_notes(clock_context.desired_moment.seconds)
+        return None
 
-    def _enumerate(self, iterator):
+    def _enumerate(
+        self, iterator: Generator[Event, bool, None]
+    ) -> Generator[Tuple[int, Event], bool, None]:
         index = 0
         should_stop = False
         while True:
@@ -172,40 +182,46 @@ class PatternPlayer:
                 return
             index += 1
 
-    def _free_all_notes(self, current_seconds):
+    def _free_all_notes(self, current_seconds: float) -> None:
         if not self._notes_by_uuid:
             return
-        with self._provider.at(current_seconds):
+        with self._context.at(current_seconds):
             while self._notes_by_uuid:
                 uuid, _ = self._notes_by_uuid.popitem()
-                proxy = self._proxies_by_uuid.pop(uuid)
-                self._provider.free_node(proxy)
+                if not isinstance(node := self._proxies_by_uuid.pop(uuid), Node):
+                    raise RuntimeError
+                self._context.free_node(node)
 
-    def _reschedule_queue(self, current_offset):
-        events = []
+    def _reschedule_queue(self, current_offset: float) -> None:
+        events: List[
+            Tuple[float, Priority, Union[int, Tuple[int, int]], Optional[Event]]
+        ] = []
         while not self._queue.empty():
             events.append(self._queue.get())
         if not events:
             return
         delta = events[0][0] - current_offset
         for event in events:
-            offset, *rest = event
-            self._queue.put((offset - delta, *rest))
+            offset, priority, index, event_ = event
+            self._queue.put((offset - delta, priority, index, event_))
 
-    def play(self, quantization: Optional[str] = None, at=None, until=None):
+    def play(
+        self,
+        quantization: Optional[str] = None,
+        at: Optional[float] = None,
+        until: Optional[float] = None,
+    ) -> None:
         with self._lock:
             if self._is_running:
                 return
             self._iterator = self._enumerate(iter(self._pattern))
-            self._queue.put((float("-inf"), 0, (0, 0), None))
+            self._queue.put((float("-inf"), Priority.NONE, (0, 0), None))
             self._is_running = True
             self._is_stopping = False
-        if isinstance(self._clock, AsyncClock):
-            callback = self._async_clock_callback
-        else:
-            callback = self._clock_callback
         self._clock_event_id = self._clock.cue(
-            callback, event_type=3, quantization=quantization
+            self._clock_callback,
+            event_type=3,
+            quantization=quantization,
         )
         if until:
             self._clock.schedule(self._stop_callback, event_type=2, schedule_at=until)
@@ -215,7 +231,7 @@ class PatternPlayer:
         ):
             self._clock.start(initial_time=at)
 
-    def stop(self, quantization: Optional[str] = None):
+    def stop(self, quantization: Optional[str] = None) -> None:
         with self._lock:
             if not self._is_running or self._is_stopping:
                 return
@@ -224,5 +240,5 @@ class PatternPlayer:
             )
 
     @property
-    def uuid(self):
+    def uuid(self) -> UUID:
         return self._uuid

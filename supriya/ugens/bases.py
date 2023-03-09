@@ -5,8 +5,13 @@ from collections.abc import Iterable, Sequence
 from enum import Enum
 from typing import Callable, NamedTuple, Optional, SupportsFloat, Tuple, Type, Union
 
-from .. import BinaryOperator, CalculationRate, DoneAction, SignalRange, UnaryOperator
-from ..system import SupriyaObject
+from ..enums import (
+    BinaryOperator,
+    CalculationRate,
+    DoneAction,
+    SignalRange,
+    UnaryOperator,
+)
 from ..typing import UGenInputMap
 
 
@@ -257,10 +262,7 @@ def ugen(
     return wrap(cls)
 
 
-class UGenMethodMixin(SupriyaObject):
-    ### CLASS VARIABLES ###
-
-    __slots__ = ()
+class UGenMethodMixin:
 
     ### SPECIAL METHODS ###
 

@@ -67,19 +67,12 @@ mypy: ## Type-check via mypy
 
 pytest: ## Unit test via pytest
 	rm -Rf htmlcov/
-	pytest ${testPaths}
+	pytest ${testPaths} --cov=supriya
 
 reformat: ## Reformat codebase
 	make isort
 	make black-reformat
 	make docstrfmt
-
-release: ## Release
-	make test
-	make clean
-	make build
-	twine upload dist/*.tar.gz
-	make gh-pages
 
 test: ## Test
 	make black-check

@@ -1,7 +1,7 @@
 from uqbar.strings import normalize
 
 import supriya.ugens
-from supriya import SynthDefFactory
+from supriya.synthdefs import SynthDefFactory
 
 
 def test_gate_01():

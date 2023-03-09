@@ -14,7 +14,6 @@ classifiers = [
   "Operating System :: MacOS",
   "Operating System :: POSIX",
   "Operating System :: Microsoft :: Windows",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
@@ -35,7 +34,7 @@ keywords = ["audio", "dsp", "music composition", "scsynth", "supercollider", "sy
 license = {text = "MIT"}
 name = "supriya"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 
 [project.optional-dependencies]
 docs = [
@@ -83,15 +82,15 @@ target-version = ["py310"]
 [tool.cibuildwheel]
 build = "cp38-* cp39-* cp310-*"
 test-command = [
-  "python -c 'from supriya.realtime import shm; print(shm.__file__)'",
-  "python -c 'from supriya.intervals import IntervalTreeDriverEx'",
+  "python -c 'from supriya.contexts import shm; print(shm.__file__)'",
+  "python -c 'from supriya.utils._intervals import IntervalTreeDriverEx'",
 ]
 
 [tool.cibuildwheel.windows]
 test-command = [
   # Can't get ServerSHM to build on Windows due to date_time library requirement.
   # Only double-quotes work on Windows.
-  'python -c "from supriya.intervals import IntervalTreeDriverEx"',
+  'python -c "from supriya.utils._intervals import IntervalTreeDriverEx"',
 ]
 
 [tool.coverage.report]

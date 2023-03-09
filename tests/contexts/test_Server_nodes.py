@@ -140,7 +140,7 @@ async def test_add_group(context):
                 OscMessage("/p_new", 1002, 0, 1000, 1003, 0, 1000),
                 OscMessage("/g_new", 1004, 0, 1000, 1005, 0, 1000),
             ),
-            timestamp=1.23,
+            timestamp=1.23 + context.latency,
         ),
     ]
     # guard against invalid add-actions
@@ -195,7 +195,7 @@ async def test_add_synth(context):
                     0.25,
                 ),
             ),
-            timestamp=1.23,
+            timestamp=1.23 + context.latency,
         ),
     ]
     # guard against invalid add-actions
@@ -284,14 +284,18 @@ async def test_free_node(context):
 
 
 @pytest.mark.asyncio
-async def test_get_synth_control(context):
+async def test_get_synth_controls(context):
     with context.at():
         with context.add_synthdefs(default):
             synth = context.add_synth(
                 default, frequency=432.0, amplitude=0.333, panning=0.1
             )
     assert await get(context.sync())
-    assert await get(synth.get("frequency")) == 432.0
+    controls = await get(synth.get("frequency", "amplitude"))
+    assert {key: round(value, 3) for key, value in controls.items()} == {
+        "frequency": 432.0,
+        "amplitude": 0.333,
+    }
     # unsynced
     with context.osc_protocol.capture() as transcript:
         with context.at():
@@ -403,7 +407,7 @@ async def test_query_node(context):
 async def test_set_node(context):
     group = context.add_group()
     with context.osc_protocol.capture() as transcript:
-        group.set_(foo=3.145, bar=4.5)
+        group.set(foo=3.145, bar=4.5)
     assert transcript.filtered(received=False, status=False) == [
         OscMessage("/n_set", 1000, "bar", 4.5, "foo", 3.145)
     ]
@@ -421,5 +425,8 @@ async def test_unpause_node(context):
             group_c.unpause()
     assert transcript.filtered(received=False, status=False) == [
         OscMessage("/n_run", 1000, 1),
-        OscBundle(contents=(OscMessage("/n_run", 1001, 1, 1002, 1),), timestamp=1.23),
+        OscBundle(
+            contents=(OscMessage("/n_run", 1001, 1, 1002, 1),),
+            timestamp=1.23 + context.latency,
+        ),
     ]

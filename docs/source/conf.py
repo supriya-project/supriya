@@ -66,12 +66,16 @@ uqbar_api_title = "Supriya API Reference"
 ### UQBAR BOOK ###
 
 uqbar_book_console_setup = ["import supriya"]
-uqbar_book_console_teardown = [
-    "for server in tuple(supriya.Server._servers):",
-    "    server._shutdown()",
-    "",
-    "supriya.scsynth.kill()",
-]
+uqbar_book_console_teardown = """\
+import asyncio
+
+async def shutdown():
+    for server in tuple(supriya.Server._contexts):
+        if asyncio.iscoroutine(result := server._shutdown()):
+            await result
+
+asyncio.run(shutdown())
+""".splitlines()
 uqbar_book_extensions = [
     "uqbar.book.extensions.GraphExtension",
     "supriya.ext.book.PlayExtension",

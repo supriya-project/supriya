@@ -1,4 +1,4 @@
-from .. import CalculationRate, DoneAction
+from ..enums import CalculationRate, DoneAction
 from .bases import UGen, param, ugen
 
 

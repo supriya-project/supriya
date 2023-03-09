@@ -1,21 +1,14 @@
 import collections
 import copy
 import hashlib
-import os
 import pathlib
-import shutil
 import subprocess
 import tempfile
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Sequence, Tuple, Union
 
 import yaml
 
 from .. import sclang
-from ..commands import (
-    SynthDefFreeRequest,
-    SynthDefLoadDirectoryRequest,
-    SynthDefReceiveRequest,
-)
 from ..enums import (
     BinaryOperator,
     CalculationRate,
@@ -23,7 +16,6 @@ from ..enums import (
     ParameterRate,
     UnaryOperator,
 )
-from ..system import SupriyaObject
 from ..ugens import BinaryOpUGen, OutputProxy, UGen, UGenMethodMixin, UnaryOpUGen
 from .compilers import SynthDefCompiler
 from .controls import AudioControl, Control, LagControl, Parameter, TrigControl
@@ -36,11 +28,10 @@ class SynthDef:
 
     ::
 
-        >>> import supriya.synthdefs
-        >>> import supriya.ugens
-        >>> with supriya.synthdefs.SynthDefBuilder(frequency=440) as builder:
-        ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"])
-        ...     out = supriya.ugens.Out.ar(bus=0, source=sin_osc)
+        >>> from supriya import SynthDefBuilder, ugens
+        >>> with SynthDefBuilder(frequency=440) as builder:
+        ...     sin_osc = ugens.SinOsc.ar(frequency=builder["frequency"])
+        ...     out = ugens.Out.ar(bus=0, source=sin_osc)
         ...
         >>> synthdef = builder.build()
 
@@ -50,44 +41,21 @@ class SynthDef:
 
     ::
 
-        >>> import supriya.realtime
-        >>> server = supriya.Server().boot()
+        >>> from supriya import Server
+        >>> server = Server().boot()
 
     ::
 
-        >>> synthdef.allocate(server=server)
-        <SynthDef: 9c4eb4778dc0faf39459fa8a5cd45c19>
+        >>> _ = server.add_synthdefs(synthdef)
 
     ::
 
-        >>> synthdef in server
-        True
+        >>> _ = server.free_synthdefs(synthdef)
 
     ::
 
-        >>> synthdef.free(server)
-
-    ::
-
-        >>> synthdef in server
-        False
-
-    ::
-
-        >>> server.quit()
-        <Server: offline>
+        >>> _ = server.quit()
     """
-
-    ### CLASS VARIABLES ###
-
-    __slots__ = (
-        "_compiled_ugen_graph",
-        "_constants",
-        "_control_ugens",
-        "_indexed_parameters",
-        "_name",
-        "_ugens",
-    )
 
     ### INITIALIZER ###
 
@@ -295,46 +263,6 @@ class SynthDef:
     ### PRIVATE METHODS ###
 
     @staticmethod
-    def _allocate_synthdefs(synthdefs, server):
-        # TODO: Should sync be configurable here?
-        d_recv_synthdef_groups = []
-        d_recv_synth_group = []
-        current_total = 0
-        d_load_synthdefs = []
-        if not synthdefs:
-            return
-        for synthdef in synthdefs:
-            # synthdef._register_with_local_server(server=server)
-            compiled = synthdef.compile()
-            if 8192 < len(compiled):
-                d_load_synthdefs.append(synthdef)
-            elif current_total + len(compiled) < 8192:
-                d_recv_synth_group.append(synthdef)
-                current_total += len(compiled)
-            else:
-                d_recv_synthdef_groups.append(d_recv_synth_group)
-                d_recv_synth_group = [synthdef]
-                current_total = len(compiled)
-        if d_recv_synth_group:
-            d_recv_synthdef_groups.append(d_recv_synth_group)
-        for d_recv_synth_group in d_recv_synthdef_groups:
-            d_recv_request = SynthDefReceiveRequest(synthdefs=tuple(d_recv_synth_group))
-
-            d_recv_request.communicate(server=server, sync=True)
-        if d_load_synthdefs:
-            temp_directory_path = tempfile.mkdtemp()
-            for synthdef in d_load_synthdefs:
-                file_name = "{}.scsyndef".format(synthdef.actual_name)
-                file_path = os.path.join(temp_directory_path, file_name)
-                with open(file_path, "wb") as file_pointer:
-                    file_pointer.write(synthdef.compile())
-            d_load_dir_request = SynthDefLoadDirectoryRequest(
-                directory_path=temp_directory_path
-            )
-            d_load_dir_request.communicate(server=server, sync=True)
-            shutil.rmtree(temp_directory_path)
-
-    @staticmethod
     def _build_control_mapping(parameters):
         control_mapping = collections.OrderedDict()
         scalar_parameters = []
@@ -495,7 +423,7 @@ class SynthDef:
         return control_ugens
 
     @staticmethod
-    def _collect_indexed_parameters(control_ugens):
+    def _collect_indexed_parameters(control_ugens) -> Sequence[Tuple[int, Parameter]]:
         indexed_parameters = []
         parameters = {}
         for control_ugen in control_ugens:
@@ -505,8 +433,7 @@ class SynthDef:
                 index += len(parameter)
         for parameter_name in sorted(parameters):
             indexed_parameters.append(parameters[parameter_name])
-        indexed_parameters = tuple(indexed_parameters)
-        return indexed_parameters
+        return tuple(indexed_parameters)
 
     @staticmethod
     def _extract_parameters(ugens):
@@ -572,11 +499,7 @@ class SynthDef:
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, server):
-        self._allocate_synthdefs((self,), server)
-        return self
-
-    def compile(self, use_anonymous_name=False):
+    def compile(self, use_anonymous_name=False) -> bytes:
         from .synthdefs import SynthDefCompiler
 
         synthdefs = [self]
@@ -584,14 +507,6 @@ class SynthDef:
             synthdefs, use_anonymous_names=use_anonymous_name
         )
         return result
-
-    def free(self, server):
-        assert self in server
-        synthdef_name = self.actual_name
-        del server._synthdefs[synthdef_name]
-        request = SynthDefFreeRequest(self)
-        if server.is_running:
-            request.communicate(server=server)
 
     def to_dict(self):
         """
@@ -898,7 +813,7 @@ class SynthDef:
         return "gate" in self.parameter_names
 
     @property
-    def indexed_parameters(self):
+    def indexed_parameters(self) -> Sequence[Tuple[int, Parameter]]:
         return self._indexed_parameters
 
     @property
@@ -914,13 +829,13 @@ class SynthDef:
         return tuple(_ for _ in self.ugens if _.is_output_ugen)
 
     @property
-    def parameters(self) -> Dict[str, Parameter]:
+    def parameters(self) -> Dict[Optional[str], Parameter]:
         return {
             parameter.name: parameter for index, parameter in self.indexed_parameters
         }
 
     @property
-    def parameter_names(self) -> List[str]:
+    def parameter_names(self) -> List[Optional[str]]:
         return [parameter.name for index, parameter in self.indexed_parameters]
 
     @property
@@ -928,7 +843,7 @@ class SynthDef:
         return self._ugens
 
 
-class UGenSortBundle(SupriyaObject):
+class UGenSortBundle:
     ### INITIALIZER ###
 
     def __init__(self, ugen, width_first_antecedents):
@@ -977,10 +892,7 @@ class UGenSortBundle(SupriyaObject):
         self.width_first_antecedents[:] = []
 
 
-class SuperColliderSynthDef(SupriyaObject):
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_body", "_name", "_rates")
+class SuperColliderSynthDef:
 
     ### INITIALIZER ###
 

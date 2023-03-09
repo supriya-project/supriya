@@ -8,7 +8,6 @@ from typing import Dict, List, Optional, Tuple, Union
 from uqbar.objects import new
 
 from supriya.enums import ParameterRate
-from supriya.system import SupriyaObject
 from supriya.ugens import Impulse, Poll
 
 from ..ugens import OutputProxy, UGen
@@ -19,7 +18,7 @@ _local = threading.local()
 _local._active_builders = []
 
 
-class SynthDefBuilder(SupriyaObject):
+class SynthDefBuilder:
     """
     A SynthDef builder.
 
@@ -34,7 +33,7 @@ class SynthDefBuilder(SupriyaObject):
         ...     frequency=440,
         ...     trigger=supriya.synthdefs.Parameter(
         ...         value=0,
-        ...         parameter_rate=supriya.ParameterRate.TRIGGER,
+        ...         parameter_rate=supriya.enums.ParameterRate.TRIGGER,
         ...     ),
         ... )
 
@@ -69,7 +68,7 @@ class SynthDefBuilder(SupriyaObject):
     def __init__(self, name: Optional[str] = None, **kwargs) -> None:
         self._name = name
         self._uuid = uuid.uuid4()
-        self._parameters: Dict[str, Parameter] = collections.OrderedDict()
+        self._parameters: Dict[Optional[str], Parameter] = collections.OrderedDict()
         self._ugens: List[Union[Parameter, UGen]] = []
         for key, value in kwargs.items():
             self._add_parameter(key, value)

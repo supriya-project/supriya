@@ -1,7 +1,6 @@
 from uqbar.enums import IntEnumeration
 
-from supriya import CalculationRate
-
+from ..enums import CalculationRate
 from .bases import UGen, param, ugen
 
 

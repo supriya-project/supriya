@@ -1,7 +1,6 @@
 from collections.abc import Sequence
 
-from supriya import CalculationRate
-
+from ..enums import CalculationRate
 from .bases import UGen, param, ugen
 
 

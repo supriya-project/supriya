@@ -15,10 +15,11 @@ from typing import Dict, Iterator, List, Optional, SupportsInt, Tuple, Type, Uni
 
 from uqbar.objects import new
 
-from .. import output_path
+from ..assets.synthdefs import system_synthdefs
 from ..enums import CalculationRate, HeaderFormat, SampleFormat
 from ..osc import OscBundle
 from ..scsynth import AsyncNonrealtimeProcessProtocol, Options
+from ..synthdefs import SynthDef
 from ..typing import HeaderFormatLike, SampleFormatLike, SupportsOsc
 from .core import Context, ContextError, ContextObject, Node
 from .requests import DoNothing, RequestBundle, Requestable
@@ -39,6 +40,21 @@ class Score(Context):
     def __init__(self, options: Optional[Options] = None, **kwargs):
         super().__init__(options=options, **kwargs)
         self._requests: Dict[float, List[Requestable]] = {}
+
+    ### CLASS METHODS ###
+
+    async def __render__(
+        self,
+        *,
+        output_file_path: Optional[PathLike] = None,
+        render_directory_path: Optional[PathLike] = None,
+        **kwargs,
+    ) -> Tuple[Optional[Path], int]:
+        return await self.render(
+            output_file_path,
+            render_directory_path=render_directory_path,
+            **kwargs,
+        )
 
     ### PRIVATE METHODS ###
 
@@ -100,6 +116,8 @@ class Score(Context):
             of the score's datagram, its input file (if provided) and any flags to
             ``scsynth`` that affect rendering.
         """
+        from .. import output_path
+
         # validate inputs
         header_format_ = HeaderFormat.from_expr(header_format).name.lower()
         sample_format_ = SampleFormat.from_expr(sample_format).name.lower()
@@ -140,12 +158,12 @@ class Score(Context):
                 )
                 output_file_path_ = None
             else:
-                render_file_name = f"{digest}.{header_format_}"
+                render_file_name = f"score-{digest}.{header_format_}"
                 output_file_path_ = Path(
                     output_file_path or (output_path / render_file_name)
                 )
             # write .osc file
-            osc_file_name = f"{digest}.osc"
+            osc_file_name = f"score-{digest}.osc"
             (render_directory_path_ / osc_file_name).write_bytes(datagram)
             # build nonrealtime command
             command.extend(
@@ -223,3 +241,15 @@ class Score(Context):
         elif message.timestamp is None:
             raise ContextError
         self._requests.setdefault(message.timestamp, []).extend(message.contents)
+
+    def setup_system_synthdefs(self) -> None:
+        """
+        Load all system synthdefs.
+        """
+        synthdefs = []
+        for name in dir(system_synthdefs):
+            synthdef = getattr(system_synthdefs, name)
+            if isinstance(synthdef, SynthDef):
+                synthdefs.append(synthdef)
+        with self.at(0):
+            self.add_synthdefs(*synthdefs)

@@ -7,6 +7,10 @@ env:
   SC_ORIGIN: https://github.com/supercollider/supercollider.git
   SC_BRANCH: develop
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-docs:
     name: Build docs

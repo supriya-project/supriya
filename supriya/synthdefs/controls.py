@@ -1,63 +1,44 @@
 import collections
+import dataclasses
 from collections.abc import Sequence
+from typing import Optional, Tuple, Union
 
-from supriya import CalculationRate, ParameterRate, SignalRange
-from supriya.system import SupriyaValueObject
-from supriya.typing import UGenInputMap
+from uqbar.objects import get_repr
 
+from ..enums import CalculationRate, ParameterRate, SignalRange, Unit
+from ..typing import UGenInputMap
 from ..ugens import MultiOutUGen, OutputProxy, UGenMethodMixin
 
 
-class Range(SupriyaValueObject):
+class Range:
     """
     A range.
 
     ::
 
         >>> supriya.synthdefs.Range(-1.0, 1.0)
-        Range(
-            maximum=1.0,
-            minimum=-1.0,
-        )
+        Range(maximum=1.0, minimum=-1.0)
 
     ::
 
         >>> supriya.synthdefs.Range(minimum=0.0)
-        Range(
-            maximum=inf,
-            minimum=0.0,
-        )
+        Range(maximum=inf, minimum=0.0)
 
     ::
 
         >>> supriya.synthdefs.Range()
-        Range(
-            maximum=inf,
-            minimum=-inf,
-        )
+        Range(maximum=inf, minimum=-inf)
 
     ::
 
         >>> supriya.synthdefs.Range((0.1, 0.9))
-        Range(
-            maximum=0.9,
-            minimum=0.1,
-        )
+        Range(maximum=0.9, minimum=0.1)
 
     ::
 
         >>> supriya.synthdefs.Range(supriya.synthdefs.Range(-3, 3))
-        Range(
-            maximum=3.0,
-            minimum=-3.0,
-        )
+        Range(maximum=3.0, minimum=-3.0)
     """
-
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_minimum", "_maximum")
-
-    ### INITIALIZER ###
 
     def __init__(self, minimum=None, maximum=None):
         if isinstance(minimum, Sequence) and maximum is None and len(minimum) == 2:
@@ -78,7 +59,8 @@ class Range(SupriyaValueObject):
         self._minimum = minimum
         self._maximum = maximum
 
-    ### PUBLIC METHODS ###
+    def __repr__(self) -> str:
+        return get_repr(self, multiline=False)
 
     @staticmethod
     def scale(value, input_range, output_range, exponent=1.0):
@@ -135,48 +117,22 @@ class Range(SupriyaValueObject):
         return self._maximum - self._minimum
 
 
-class Parameter(UGenMethodMixin, SupriyaValueObject):
-    ### CLASS VARIABLES ###
+@dataclasses.dataclass(unsafe_hash=True)
+class Parameter(UGenMethodMixin):
+    lag: Optional[float] = None
+    name: Optional[str] = None
+    parameter_rate: int = ParameterRate.CONTROL
+    range_: Optional[Range] = None
+    unit: Optional[Unit] = None
+    value: Union[float, Tuple[float, ...]] = 0.0
 
-    __slots__ = (
-        "_lag",
-        "_name",
-        "_parameter_rate",
-        "_range",
-        "_unit",
-        "_uuid",
-        "_value",
-    )
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        lag=None,
-        name=None,
-        parameter_rate=ParameterRate.CONTROL,
-        range_=None,
-        unit=None,
-        value=None,
-    ):
-        if lag is not None:
-            lag = float(lag)
-        self._lag = lag
-        if name is not None:
-            name = str(name)
-        self._name = name
-        self._parameter_rate = ParameterRate.from_expr(parameter_rate)
-        if range_ is not None:
-            assert isinstance(range_, Range)
-        self._range = range_
-        self._unit = unit
+    def __post_init__(self):
+        try:
+            self.value = float(self.value)
+        except TypeError:
+            self.value = tuple(float(_) for _ in self.value)
+        self.parameter_rate = ParameterRate.from_expr(self.parameter_rate)
         self._uuid = None
-        if isinstance(value, Sequence):
-            value = tuple(float(_) for _ in value)
-            assert value, value
-        else:
-            value = float(value)
-        self._value = value
 
     ### SPECIAL METHODS ###
 
@@ -214,32 +170,8 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
         return ()
 
     @property
-    def lag(self):
-        return self._lag
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def parameter_rate(self):
-        return self._parameter_rate
-
-    @property
-    def range_(self):
-        return self._range
-
-    @property
     def signal_range(self):
         SignalRange.BIPOLAR
-
-    @property
-    def unit(self):
-        return self._unit
-
-    @property
-    def value(self):
-        return self._value
 
 
 class Control(MultiOutUGen):

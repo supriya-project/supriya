@@ -109,11 +109,11 @@ def test_set_bus(context):
         control_bus_b = context.add_bus("CONTROL")
         control_bus_c = context.add_bus("CONTROL")
         with pytest.raises(InvalidCalculationRate):
-            audio_bus.set_(0.75)
-        control_bus_a.set_(0.5)
+            audio_bus.set(0.75)
+        control_bus_a.set(0.5)
     with context.at(1.23):
-        control_bus_b.set_(0.25)
-        control_bus_c.set_(0.125)
+        control_bus_b.set(0.25)
+        control_bus_c.set(0.125)
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(contents=(OscMessage("/c_set", 0, 0.5),), timestamp=0.0),
         OscBundle(contents=(OscMessage("/c_set", 1, 0.25, 2, 0.125),), timestamp=1.23),

@@ -190,7 +190,7 @@ def test_Splay_01_supriya(server):
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
         """
     )
-    py_synthdef.allocate(server=server)
+    server.add_synthdefs(py_synthdef)
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
@@ -510,4 +510,4 @@ def test_Splay_02_supriya(server):
                     source[1]: BinaryOpUGen(ADDITION).ar/5[0]
         """
     )
-    py_synthdef.allocate(server=server)
+    server.add_synthdefs(py_synthdef)

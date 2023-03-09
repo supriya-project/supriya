@@ -1,9 +1,7 @@
 import copy
 import types
 
-from supriya.system import SupriyaObject
-
-from .. import DoneAction
+from ..enums import DoneAction
 from ..ugens import (
     DetectSilence,
     In,
@@ -24,7 +22,7 @@ from .builders import SynthDefBuilder
 from .controls import Parameter
 
 
-class SynthDefFactory(SupriyaObject):
+class SynthDefFactory:
     """
     A factory class for building SynthDefs with common signal flow structures.
 

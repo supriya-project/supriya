@@ -1,4 +1,4 @@
-from .. import DoneAction
+from ..enums import DoneAction
 from .bases import PseudoUGen, UGen, param, ugen
 
 

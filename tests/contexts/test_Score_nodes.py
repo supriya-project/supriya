@@ -227,7 +227,7 @@ def test_pause_node(context):
 def test_set_node(context):
     with context.at(0):
         group = context.add_group()
-        group.set_(foo=3.145, bar=4.5)
+        group.set(foo=3.145, bar=4.5)
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(
             contents=(

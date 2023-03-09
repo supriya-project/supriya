@@ -1,4 +1,0 @@
-Buffers
-=======
-
-Outline:

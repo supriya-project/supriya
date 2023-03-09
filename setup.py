@@ -18,16 +18,16 @@ def read_version():
 
 extensions = [
     Extension(
-        "supriya.intervals.IntervalTreeDriverEx",
+        "supriya.utils._intervals",
         language="c",
-        sources=["supriya/intervals/IntervalTreeDriverEx.pyx"],
+        sources=["supriya/utils/_intervals.pyx"],
     )
 ]
 
 if platform.system() != "Windows":
     extensions.append(
         Extension(
-            "supriya.realtime.shm",
+            "supriya.contexts.shm",
             include_dirs=[
                 "vendor",
                 "vendor/TLSF-2.4.6/src",
@@ -35,7 +35,7 @@ if platform.system() != "Windows":
             ],
             language="c++",
             libraries=["rt"] if platform.system() == "Linux" else [],
-            sources=["supriya/realtime/shm.pyx"],
+            sources=["supriya/contexts/shm.pyx"],
         )
     )
 

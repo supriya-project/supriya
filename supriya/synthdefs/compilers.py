@@ -2,16 +2,13 @@ import collections
 import struct
 from collections.abc import Sequence
 
-from supriya import CalculationRate, ParameterRate, utils
-from supriya.system import SupriyaObject
-
+from .. import utils
+from ..enums import CalculationRate, ParameterRate
 from ..ugens import OutputProxy, UGen
 from .controls import Control, Parameter
 
 
-class SynthDefCompiler(SupriyaObject):
-    ### PUBLIC METHODS ###
-
+class SynthDefCompiler:
     @staticmethod
     def compile_synthdef(synthdef, name):
         result = SynthDefCompiler.encode_string(name)
@@ -143,7 +140,7 @@ class SynthDefCompiler(SupriyaObject):
         return bytes(struct.pack(">I", int(value)))
 
 
-class SynthDefDecompiler(SupriyaObject):
+class SynthDefDecompiler:
     """
     SynthDef decompiler.
 
@@ -155,7 +152,7 @@ class SynthDefDecompiler(SupriyaObject):
         ...     frequency=440,
         ...     trigger=supriya.synthdefs.Parameter(
         ...         value=0.0,
-        ...         parameter_rate=supriya.ParameterRate.TRIGGER,
+        ...         parameter_rate=supriya.enums.ParameterRate.TRIGGER,
         ...     ),
         ... ) as builder:
         ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"])
@@ -411,9 +408,9 @@ class SynthDefDecompiler(SupriyaObject):
             parameter = indexed_parameters[
                 starting_control_index + collected_output_count
             ]
-            parameter._parameter_rate = parameter_rate
+            parameter.parameter_rate = parameter_rate
             if lag:
-                parameter._lag = lag
+                parameter.lag = lag
             parameters.append(parameter)
             collected_output_count += len(parameter)
         return parameters

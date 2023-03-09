@@ -5,6 +5,10 @@ on: workflow_dispatch
 env:
   SC_ORIGIN: https://github.com/supercollider/supercollider.git
   SC_BRANCH: "3.12"
+  
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   update-gh-pages:

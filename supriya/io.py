@@ -6,38 +6,46 @@ import platform
 import subprocess
 from os import PathLike
 from pathlib import Path
-from typing import Callable, Coroutine, Optional, Tuple
+from typing import Coroutine, Optional, Tuple, Union
 
 from uqbar.graphs import Grapher
 from uqbar.io import open_path
 
 import supriya
 
-from .typing import SupportsRender
+from .typing import SupportsPlot, SupportsRender, SupportsRenderMemo
 
 
 @dataclasses.dataclass(frozen=True)
 class PlayMemo:
+    """
+    For renderables that need to be captured during Sphinx output, e.g. realtime buffers.
+
+    A realtime buffer does not exist by the time Sphinx writes output, so we capture the
+    state of the buffer during Sphinx's read pass as a memo, and render the memo as
+    audio during the write pass.
+    """
+
     contents: bytes
     suffix: str
 
-    def __call__(
+    def __render__(
         self,
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Tuple[Callable[[], Coroutine[None, None, int]], Path]:
-        async def render_function():
+    ) -> Coroutine[None, None, Tuple[Optional[Path], int]]:
+        async def render_function() -> Tuple[Path, int]:
+            if output_file_path is None:
+                hexdigest = hashlib.sha256(self.contents).hexdigest()
+                file_name = f"audio-{hexdigest}{self.suffix}"
+                path = Path(render_directory_path or supriya.output_path) / file_name
+            else:
+                path = Path(output_file_path)
             path.write_bytes(self.contents)
-            return 0
+            return path, 0
 
-        if output_file_path is None:
-            hexdigest = hashlib.sha1(self.contents).hexdigest()
-            file_name = f"audio-{hexdigest}{self.suffix}"
-            path = Path(render_directory_path or supriya.output_path) / file_name
-        else:
-            path = Path(output_file_path)
-        return render_function, path
+        return render_function()
 
     @classmethod
     def from_path(cls, path: Path) -> "PlayMemo":
@@ -47,20 +55,21 @@ class PlayMemo:
 class Player:
     ### INITIALIZER ###
 
-    def __init__(self, renderable, **kwargs):
+    def __init__(self, renderable: SupportsRender, **kwargs) -> None:
         self.renderable = renderable
         self.render_kwargs = kwargs
 
     ### SPECIAL METHODS ###
 
-    def __call__(self):
-        _, output_path = self.render()
-        self.open_output_path(output_path)
-        return output_path
+    def __call__(self) -> Tuple[Optional[Path], int]:
+        path, exit_code = self.render()
+        if path:
+            self.open_output_path(path)
+        return path, exit_code
 
     ### PUBLIC METHODS ###
 
-    def open_output_path(self, output_path):
+    def open_output_path(self, output_path) -> None:
         if platform.system() == "Darwin":
             subprocess.run(
                 ["open", "-a", "QuickTime Player", str(output_path)], check=True
@@ -68,13 +77,8 @@ class Player:
         else:
             open_path(output_path)
 
-    def render(self):
-        result = self.renderable.__render__(**self.render_kwargs)
-        if hasattr(result, "__render__"):
-            result = result.__render__(**self.render_kwargs)
-        coroutine, path = result
-        exit_code = asyncio.run(coroutine())
-        return exit_code, path
+    def render(self) -> Tuple[Optional[Path], int]:
+        return render(self.renderable, **self.render_kwargs)
 
 
 class Plotter:
@@ -122,27 +126,27 @@ def play(renderable: SupportsRender, **kwargs):
     return Player(renderable, **kwargs)()
 
 
-def plot(plottable, format_="png", **kwargs):
+def plot(plottable: SupportsPlot, format_="png", **kwargs):
     return Plotter(plottable, format_=format_, **kwargs)()
 
 
 def render(
-    renderable: SupportsRender,
+    renderable: Union[SupportsRender, SupportsRenderMemo],
     output_file_path: Optional[PathLike] = None,
     render_directory_path: Optional[PathLike] = None,
     **kwargs,
-) -> Tuple[int, Path]:
-    result = renderable.__render__(
-        output_file_path=output_file_path,
-        render_directory_path=render_directory_path,
-        **kwargs,
-    )
-    if callable(result):
-        render_function, path = result()
+) -> Tuple[Optional[Path], int]:
+    if isinstance(renderable, SupportsRenderMemo):
+        supports_render = renderable.__render_memo__()
     else:
-        render_function, path = result
-    exit_code = asyncio.run(render_function())
-    return exit_code, path
+        supports_render = renderable
+    return asyncio.run(
+        supports_render.__render__(
+            output_file_path=output_file_path,
+            render_directory_path=render_directory_path,
+            **kwargs,
+        )
+    )
 
 
 __all__ = ["Player", "Plotter", "graph", "play", "plot", "render"]

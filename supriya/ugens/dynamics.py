@@ -1,5 +1,4 @@
-from supriya import CalculationRate
-
+from ..enums import CalculationRate
 from .bases import PseudoUGen, UGen, param, ugen
 from .delay import DelayN
 

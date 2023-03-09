@@ -4,61 +4,32 @@ Fake Docs
 ::
 
     >>> import platform
+    >>> from supriya.soundfiles import Say
     >>> if platform.system() != "Windows":
-    ...     say_hello = supriya.Say("Hello world!", voice="Daniel")
+    ...     say_hello = Say("Hello world!", voice="Daniel")
     ...     supriya.play(say_hello)
     ...
 
 ::
 
-    >>> session_one = supriya.Session()
-    >>> with session_one.at(0):
-    ...     synth = session_one.add_synth(duration=10)
+    >>> score = supriya.Score()
+    >>> with score.at(0):
+    ...     with score.add_synthdefs(supriya.default):
+    ...         synth = score.add_synth(supriya.default)
     ...
-
-::
-
-    >>> with supriya.synthdefs.SynthDefBuilder(out_bus=0, buffer_id=0) as builder:
-    ...     source = supriya.ugens.DiskIn.ar(
-    ...        buffer_id=builder["buffer_id"], channel_count=8
-    ...     )
-    ...     supriya.ugens.Out.ar(bus=builder["out_bus"], source=source)
+    >>> with score.at(10):
+    ...     score.do_nothing()
     ...
-    >>> diskin_synthdef = builder.build()
-
-::
-
-    >>> session_two = supriya.Session()
-    >>> with session_two.at(0):
-    ...     buffer_one = session_two.cue_soundfile(session_one, duration=10)
-    ...     buffer_two = session_two.cue_soundfile(session_one, duration=10)
-    ...     session_two.add_synth(
-    ...         synthdef=diskin_synthdef, buffer_id=buffer_one, duration=10
-    ...     )
-    ...     session_two.add_synth(
-    ...         synthdef=diskin_synthdef, buffer_id=buffer_two, duration=10
-    ...     )
-
-::
-
-    >>> session_three = supriya.Session()
-    >>> with session_three.at(0):
-    ...     buffer_one = session_three.cue_soundfile(session_one, duration=10)
-    ...     buffer_two = session_three.cue_soundfile(session_two, duration=10)
-    ...     session_three.add_synth(
-    ...         synthdef=diskin_synthdef, buffer_id=buffer_one, duration=10
-    ...     )
-    ...     session_three.add_synth(
-    ...         synthdef=diskin_synthdef, buffer_id=buffer_two, duration=10
-    ...     )
-
-::
-
-    >>> supriya.play(session_three)
+    >>> supriya.play(score)
 
 ::
 
     >>> server = supriya.Server().boot()
-    >>> buffer_ = server.add_buffer(channel_count=1, frame_count=512)
+    >>> with server.at():
+    ...     buffer_ = server.add_buffer(channel_count=1, frame_count=512)
+    ...     with buffer_:
+    ...         buffer_.generate("sine1", amplitudes=[1.0])
+    ...
+    >>> server.sync()
     >>> supriya.play(buffer_)
     >>> supriya.plot(buffer_)

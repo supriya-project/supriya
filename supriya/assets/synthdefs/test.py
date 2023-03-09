@@ -1,18 +1,16 @@
-import supriya.synthdefs
-import supriya.ugens
-from supriya import ParameterRate
+from ...enums import ParameterRate
+from ...synthdefs import Parameter, SynthDefBuilder
+from ...ugens import Out, SinOsc
 
 
 def _build_test_synthdef():
-    with supriya.synthdefs.SynthDefBuilder(
+    with SynthDefBuilder(
         frequency=440,
-        amplitude=supriya.synthdefs.Parameter(
-            value=1.0, parameter_rate=ParameterRate.AUDIO
-        ),
+        amplitude=Parameter(value=1.0, parameter_rate=ParameterRate.AUDIO),
     ) as builder:
-        sin_osc = supriya.ugens.SinOsc.ar(frequency=builder["frequency"])
+        sin_osc = SinOsc.ar(frequency=builder["frequency"])
         enveloped_sin = sin_osc * builder["amplitude"]
-        supriya.ugens.Out.ar(bus=0, source=enveloped_sin)
+        Out.ar(bus=0, source=enveloped_sin)
     synthdef = builder.build(name="test")
     return synthdef
 
