@@ -2,6 +2,8 @@ import pytest
 
 import supriya
 
+pytest_plugins = ["sphinx.testing.fixtures"]
+
 
 @pytest.fixture
 def server():
