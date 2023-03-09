@@ -24,9 +24,8 @@ classifiers = [
 ]
 dependencies = [
   "PyYAML >= 6.0",
-  "platformdirs >= 2.6.0",
+  "platformdirs >= 3.1.0",
   "uqbar >= 0.6.9",
-  'typing-extensions; python_version<"3.8"',
 ]
 description = "A Python API for SuperCollider"
 dynamic = ["version"]
@@ -34,16 +33,16 @@ keywords = ["audio", "dsp", "music composition", "scsynth", "supercollider", "sy
 license = {text = "MIT"}
 name = "supriya"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">= 3.8"
 
 [project.optional-dependencies]
 docs = [
   "jupyter",
   "librosa",
   "matplotlib >= 3.3.0",
-  "mypy >= 0.990",
+  "mypy >= 1.1.0",
   # "numpy <= 1.22",  # librosa imports numba 0.56 which requires numpy 1.22 or lower
-  "sphinx-immaterial >= 0.11.0",
+  "sphinx-immaterial >= 0.11.3",
   "sphinxext-opengraph",
 ]
 ipython = [
@@ -62,9 +61,8 @@ test = [
   "matplotlib >= 3.3.0",
   "mypy >= 0.990",
   "pytest >= 7.0.0",
-  "pytest-asyncio >= 0.19.0",
+  "pytest-asyncio",
   "pytest-cov",
-  "pytest-helpers-namespace",
   "pytest-mock",
   "pytest-rerunfailures",
   "types-PyYAML",

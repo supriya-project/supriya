@@ -32,7 +32,12 @@ def test_OscMessage():
     )
     assert repr(osc_message) == normalize(
         """
-    OscMessage('/foo', 1, 2.5, OscBundle(contents=(OscMessage('/bar', 'baz', 3.0), OscMessage('/ffff', False, True, None))), ['a', 'b', ['c', 'd']])
+    OscMessage('/foo', 1, 2.5, OscBundle(
+        contents=(
+            OscMessage('/bar', 'baz', 3.0),
+            OscMessage('/ffff', False, True, None),
+        ),
+    ), ['a', 'b', ['c', 'd']])
     """
     )
     assert str(osc_message) == normalize(
@@ -52,7 +57,12 @@ def test_OscMessage():
     assert osc_message == new_osc_message
     assert repr(new_osc_message) == normalize(
         """
-    OscMessage('/foo', 1, 2.5, OscBundle(contents=(OscMessage('/bar', 'baz', 3.0), OscMessage('/ffff', False, True, None))), ['a', 'b', ['c', 'd']])
+    OscMessage('/foo', 1, 2.5, OscBundle(
+        contents=(
+            OscMessage('/bar', 'baz', 3.0),
+            OscMessage('/ffff', False, True, None),
+        ),
+    ), ['a', 'b', ['c', 'd']])
     """
     )
 

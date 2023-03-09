@@ -70,6 +70,13 @@ class OscMessage:
             >>> OscMessage.from_datagram(datagram)
             OscMessage('/g_new', 0, 0)
 
+        ::
+
+            >>> print(osc_message)
+            size 20
+               0   2f 67 5f 6e  65 77 00 00  2c 69 69 00  00 00 00 00   |/g_new..,ii.....|
+              16   00 00 00 00                                          |....|
+
     .. container:: example
 
         ::
@@ -83,6 +90,14 @@ class OscMessage:
             >>> datagram = osc_message.to_datagram()
             >>> OscMessage.from_datagram(datagram)
             OscMessage('/foo', True, [None, [3.25]], OscMessage('/bar'))
+
+        ::
+
+            >>> print(osc_message)
+            size 40
+               0   2f 66 6f 6f  00 00 00 00  2c 54 5b 4e  5b 66 5d 5d   |/foo....,T[N[f]]|
+              16   62 00 00 00  40 50 00 00  00 00 00 0c  2f 62 61 72   |b...@P....../bar|
+              32   00 00 00 00  2c 00 00 00                             |....,...|
 
     .. container:: example
 
@@ -118,6 +133,18 @@ class OscMessage:
                     OscMessage('/ffff', False, True, None),
                 ),
             ), ['a', 'b', ['c', 'd']])
+
+        ::
+
+            >>> print(osc_message)
+            size 112
+               0   2f 66 6f 6f  00 00 00 00  2c 69 66 62  5b 73 73 5b   |/foo....,ifb[ss[|
+              16   73 73 5d 5d  00 00 00 00  00 00 00 01  40 20 00 00   |ss]]........@ ..|
+              32   00 00 00 3c  23 62 75 6e  64 6c 65 00  00 00 00 00   |...<#bundle.....|
+              48   00 00 00 01  00 00 00 14  2f 62 61 72  00 00 00 00   |......../bar....|
+              64   2c 73 66 00  62 61 7a 00  40 40 00 00  00 00 00 10   |,sf.baz.@@......|
+              80   2f 66 66 66  66 00 00 00  2c 46 54 4e  00 00 00 00   |/ffff...,FTN....|
+              96   61 00 00 00  62 00 00 00  63 00 00 00  64 00 00 00   |a...b...c...d...|
     """
 
     ### INITIALIZER ###
@@ -318,6 +345,15 @@ class OscBundle:
 
     ::
 
+        >>> print(inner_bundle)
+        size 56
+           0   23 62 75 6e  64 6c 65 00  d7 34 8e aa  80 00 00 00   |#bundle..4......|
+          16   00 00 00 10  2f 6f 6e 65  00 00 00 00  2c 69 00 00   |..../one....,i..|
+          32   00 00 00 01  00 00 00 10  2f 74 77 6f  00 00 00 00   |......../two....|
+          48   2c 69 00 00  00 00 00 02                             |,i......|
+
+    ::
+
         >>> outer_bundle = supriya.osc.OscBundle(
         ...     contents=(inner_bundle, message_three),
         ... )
@@ -334,6 +370,17 @@ class OscBundle:
                 OscMessage('/three', 3),
             ),
         )
+
+    ::
+
+        >>> print(outer_bundle)
+        size 96
+           0   23 62 75 6e  64 6c 65 00  00 00 00 00  00 00 00 01   |#bundle.........|
+          16   00 00 00 38  23 62 75 6e  64 6c 65 00  d7 34 8e aa   |...8#bundle..4..|
+          32   80 00 00 00  00 00 00 10  2f 6f 6e 65  00 00 00 00   |......../one....|
+          48   2c 69 00 00  00 00 00 01  00 00 00 10  2f 74 77 6f   |,i........../two|
+          64   00 00 00 00  2c 69 00 00  00 00 00 02  00 00 00 10   |....,i..........|
+          80   2f 74 68 72  65 65 00 00  2c 69 00 00  00 00 00 03   |/three..,i......|
 
     ::
 

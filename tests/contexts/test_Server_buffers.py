@@ -1,6 +1,8 @@
 import asyncio
 import concurrent.futures
 import logging
+import os
+import platform
 import random
 import sys
 from pathlib import Path
@@ -341,6 +343,9 @@ async def test_normalize_buffer(context):
 
 @pytest.mark.asyncio
 async def test_query_buffer(context):
+    sample_rate = 44100.0
+    if os.environ.get("CI") and platform.system() == "Darwin":
+        sample_rate = 48000.0  # GHA's OSX BlackHole audio device defaults to 48k
     frame_count = random.randint(128, 256)
     channel_count = random.randint(1, 8)
     buffer = context.add_buffer(channel_count=channel_count, frame_count=frame_count)
@@ -351,7 +356,7 @@ async def test_query_buffer(context):
                 buffer_id=0,
                 frame_count=frame_count,
                 channel_count=channel_count,
-                sample_rate=44100.0,
+                sample_rate=sample_rate,
             )
         ]
     )

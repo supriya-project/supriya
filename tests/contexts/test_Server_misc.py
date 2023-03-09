@@ -126,6 +126,16 @@ async def test_query_version(context):
 
 
 @pytest.mark.asyncio
+async def test_reboot(context):
+    await get(context.reboot())
+
+
+@pytest.mark.asyncio
+async def test_reset(context):
+    await get(context.reset())
+
+
+@pytest.mark.asyncio
 async def test_sync(context):
     with context.osc_protocol.capture() as transcript:
         await get(context.sync())

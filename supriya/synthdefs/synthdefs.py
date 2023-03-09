@@ -469,10 +469,6 @@ class SynthDef:
             ugen._optimize_graph(sort_bundles)
         return tuple(sort_bundles)
 
-    def _register_with_local_server(self, server):
-        synthdef_name = self.actual_name
-        server._synthdefs[synthdef_name] = self
-
     @staticmethod
     def _remap_controls(ugens, control_mapping):
         for ugen in ugens:

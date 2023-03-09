@@ -99,8 +99,8 @@ jobs:
         os: [ubuntu-latest]
         python-version: [3.8, 3.9, "3.10"]
         include:
-        # - os: macos-latest
-        #   python-version: 3.9
+        - os: macos-latest
+          python-version: "3.10"
         - os: windows-latest
           python-version: "3.10"
     timeout-minutes: 45
