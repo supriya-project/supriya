@@ -320,7 +320,7 @@ async def test_get_buffer_range(context):
     if sys.version_info >= (3, 8):
         exception_classes += (asyncio.exceptions.TimeoutError,)
     with pytest.raises(exception_classes):
-        await get(buffer.get_range(1, 3))
+        await get(context.get_buffer_range(100, 1, 3))  # no such buffer exists
     await get(context.sync())
     assert await get(buffer.get_range(1, 3)) == (0.0, 0.0, 0.0)
     # unsync
