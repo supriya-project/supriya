@@ -12,6 +12,8 @@ entities
 
    .. automethod:: __enter__
    .. automethod:: __exit__
+   .. automethod:: __plot__
+   .. automethod:: __render_memo__
    .. automethod:: close
    .. automethod:: copy
    .. automethod:: fill
@@ -22,10 +24,18 @@ entities
    .. automethod:: normalize
    .. automethod:: query
    .. automethod:: read
-   .. automethod:: set_
+   .. automethod:: set
    .. automethod:: set_range
    .. automethod:: write
    .. automethod:: zero
+
+.. autoclass:: BufferGroup
+   :show-inheritance:
+
+   .. automethod:: __getitem__
+   .. automethod:: __len__
+   .. automethod:: __post_init__
+   .. automethod:: free
 
 .. autoclass:: Bus
    :show-inheritance:
@@ -35,8 +45,16 @@ entities
    .. automethod:: get
    .. automethod:: get_range
    .. automethod:: map_symbol
-   .. automethod:: set_
+   .. automethod:: set
    .. automethod:: set_range
+
+.. autoclass:: BusGroup
+   :show-inheritance:
+
+   .. automethod:: __getitem__
+   .. automethod:: __len__
+   .. automethod:: __post_init__
+   .. automethod:: free
 
 .. autoclass:: ContextObject
    :show-inheritance:
@@ -62,10 +80,11 @@ entities
    .. automethod:: order
    .. automethod:: pause
    .. automethod:: query
-   .. automethod:: set_
+   .. automethod:: set
    .. automethod:: unpause
    .. autoproperty:: active
    .. autoproperty:: parent
+   .. autoproperty:: parentage
 
 .. autoclass:: RootNode
    :show-inheritance:

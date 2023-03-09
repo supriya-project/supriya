@@ -10,6 +10,7 @@ contexts
 .. toctree::
    :hidden:
 
+   allocators
    core
    entities
    errors
@@ -17,3 +18,4 @@ contexts
    realtime
    requests
    responses
+   shm

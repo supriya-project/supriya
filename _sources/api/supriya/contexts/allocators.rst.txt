@@ -1,0 +1,30 @@
+.. _supriya--contexts--allocators:
+
+allocators
+==========
+
+.. automodule:: supriya.contexts.allocators
+
+.. currentmodule:: supriya.contexts.allocators
+
+.. autoclass:: Block
+   :show-inheritance:
+
+
+.. autoclass:: BlockAllocator
+   :show-inheritance:
+
+   .. automethod:: allocate
+   .. automethod:: allocate_at
+   .. automethod:: free
+   .. autoproperty:: heap_maximum
+   .. autoproperty:: heap_minimum
+
+.. autoclass:: NodeIdAllocator
+   :show-inheritance:
+
+   .. automethod:: allocate
+   .. automethod:: allocate_node_id
+   .. automethod:: allocate_permanent_node_id
+   .. automethod:: free
+   .. automethod:: free_permanent_node_id

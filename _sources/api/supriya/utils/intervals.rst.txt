@@ -1,0 +1,89 @@
+.. _supriya--utils--intervals:
+
+intervals
+=========
+
+.. automodule:: supriya.utils.intervals
+
+.. currentmodule:: supriya.utils.intervals
+
+.. autoclass:: Interval
+   :show-inheritance:
+
+   .. automethod:: __and__
+   .. automethod:: __ge__
+   .. automethod:: __gt__
+   .. automethod:: __le__
+   .. automethod:: __lt__
+   .. automethod:: __or__
+   .. automethod:: __post_init__
+   .. automethod:: __sub__
+   .. automethod:: __xor__
+   .. automethod:: intersects
+   .. automethod:: is_tangent_to
+   .. automethod:: new
+   .. automethod:: split
+   .. automethod:: translate
+   .. autoproperty:: duration
+   .. autoproperty:: size
+   .. autoproperty:: wellformed
+
+.. autoclass:: IntervalTree
+   :show-inheritance:
+
+   .. automethod:: __and__
+   .. automethod:: __contains__
+   .. automethod:: __getitem__
+   .. automethod:: __iter__
+   .. automethod:: __len__
+   .. automethod:: __setitem__
+   .. automethod:: __sub__
+   .. automethod:: add
+   .. automethod:: find_intersection
+   .. automethod:: find_intervals_starting_at
+   .. automethod:: find_intervals_stopping_at
+   .. automethod:: get_moment_at
+   .. automethod:: get_offset_after
+   .. automethod:: get_start_offset_after
+   .. automethod:: get_start_offset_before
+   .. automethod:: index
+   .. automethod:: iterate_moments
+   .. automethod:: iterate_moments_nwise
+   .. automethod:: remove
+   .. automethod:: update
+   .. autoproperty:: all_offsets
+   .. autoproperty:: all_start_offsets
+   .. autoproperty:: all_stop_offsets
+   .. autoproperty:: earliest_start_offset
+   .. autoproperty:: earliest_stop_offset
+   .. autoproperty:: intervals
+   .. autoproperty:: latest_start_offset
+   .. autoproperty:: latest_stop_offset
+   .. autoproperty:: start_offset
+   .. autoproperty:: stop_offset
+
+.. autoclass:: IntervalTreeDriver
+   :show-inheritance:
+
+   .. automethod:: __contains__
+   .. automethod:: __getitem__
+   .. automethod:: __iter__
+   .. automethod:: __len__
+   .. automethod:: add
+   .. automethod:: find_intervals_intersecting_interval
+   .. automethod:: find_intervals_intersecting_offset
+   .. automethod:: find_intervals_starting_at
+   .. automethod:: find_intervals_stopping_at
+   .. automethod:: get_start_offset_after
+   .. automethod:: get_start_offset_before
+   .. automethod:: index
+   .. automethod:: remove
+   .. automethod:: update
+
+.. autoclass:: Moment
+   :show-inheritance:
+
+   .. autoproperty:: next_moment
+   .. autoproperty:: next_start_offset
+   .. autoproperty:: previous_moment
+   .. autoproperty:: previous_start_offset

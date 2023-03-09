@@ -58,11 +58,26 @@ responses
 
    .. automethod:: from_osc
 
+.. autoclass:: QueryTreeControl
+   :show-inheritance:
+
+
+.. autoclass:: QueryTreeGroup
+   :show-inheritance:
+
+   .. automethod:: __format__
+   .. automethod:: from_query_tree_info
+
 .. autoclass:: QueryTreeInfo
    :show-inheritance:
 
    .. autoclass:: supriya.contexts.responses::QueryTreeInfo.Item
    .. automethod:: from_osc
+
+.. autoclass:: QueryTreeSynth
+   :show-inheritance:
+
+   .. automethod:: __format__
 
 .. autoclass:: Response
    :show-inheritance:

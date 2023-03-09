@@ -19,9 +19,7 @@ synthdefs
    :show-inheritance:
 
    .. automethod:: __graph__
-   .. automethod:: allocate
    .. automethod:: compile
-   .. automethod:: free
    .. automethod:: to_dict
    .. autoproperty:: actual_name
    .. autoproperty:: anonymous_name

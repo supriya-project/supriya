@@ -29,16 +29,11 @@ controls
 
    .. automethod:: __getitem__
    .. automethod:: __len__
+   .. automethod:: __post_init__
    .. autoproperty:: calculation_rate
    .. autoproperty:: has_done_flag
    .. autoproperty:: inputs
-   .. autoproperty:: lag
-   .. autoproperty:: name
-   .. autoproperty:: parameter_rate
-   .. autoproperty:: range_
    .. autoproperty:: signal_range
-   .. autoproperty:: unit
-   .. autoproperty:: value
 
 .. autoclass:: Range
    :show-inheritance:

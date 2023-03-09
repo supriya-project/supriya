@@ -1,0 +1,20 @@
+.. _supriya--utils--iterables:
+
+iterables
+=========
+
+.. automodule:: supriya.utils.iterables
+
+.. currentmodule:: supriya.utils.iterables
+
+.. autofunction:: expand
+
+.. autofunction:: flatten_iterable
+
+.. autofunction:: group_iterable_by_count
+
+.. autofunction:: iterate_nwise
+
+.. autofunction:: repeat_sequence_to_length
+
+.. autofunction:: zip_sequences

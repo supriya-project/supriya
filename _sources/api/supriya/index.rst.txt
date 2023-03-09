@@ -10,27 +10,19 @@ supriya
 .. toctree::
    :hidden:
 
-   allocators
    clocks/index
-   commands/index
    contexts/index
    conversions
    enums
    exceptions
    ext/index
-   intervals/index
    io
-   nonrealtime/index
    osc
    patterns/index
-   providers
-   querytree
-   realtime/index
    sclang
    scsynth
    soundfiles
    synthdefs/index
-   system
    typing
    ugens/index
-   utils
+   utils/index

@@ -17,14 +17,16 @@ realtime
    .. automethod:: get_buffer_range
    .. automethod:: get_bus
    .. automethod:: get_bus_range
-   .. automethod:: get_synth_control
    .. automethod:: get_synth_control_range
+   .. automethod:: get_synth_controls
    .. automethod:: query_buffer
    .. automethod:: query_node
    .. automethod:: query_status
    .. automethod:: query_tree
    .. automethod:: query_version
    .. automethod:: quit
+   .. automethod:: reboot
+   .. automethod:: reset
    .. automethod:: sync
 
 .. autoclass:: BaseServer
@@ -32,10 +34,13 @@ realtime
 
    .. automethod:: __contains__
    .. automethod:: send
+   .. automethod:: set_latency
    .. autoproperty:: boot_status
    .. autoproperty:: default_group
    .. autoproperty:: is_owner
    .. autoproperty:: osc_protocol
+   .. autoproperty:: process_protocol
+   .. autoproperty:: status
 
 .. autoclass:: BootStatus
    :show-inheritance:
@@ -53,12 +58,14 @@ realtime
    .. automethod:: get_buffer_range
    .. automethod:: get_bus
    .. automethod:: get_bus_range
-   .. automethod:: get_synth_control
    .. automethod:: get_synth_control_range
+   .. automethod:: get_synth_controls
    .. automethod:: query_buffer
    .. automethod:: query_node
    .. automethod:: query_status
    .. automethod:: query_tree
    .. automethod:: query_version
    .. automethod:: quit
+   .. automethod:: reboot
+   .. automethod:: reset
    .. automethod:: sync

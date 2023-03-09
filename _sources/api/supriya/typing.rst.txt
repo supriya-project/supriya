@@ -20,7 +20,17 @@ typing
 
    .. automethod:: to_osc
 
+.. autoclass:: SupportsPlot
+   :show-inheritance:
+
+   .. automethod:: __plot__
+
 .. autoclass:: SupportsRender
    :show-inheritance:
 
    .. automethod:: __render__
+
+.. autoclass:: SupportsRenderMemo
+   :show-inheritance:
+
+   .. automethod:: __render_memo__

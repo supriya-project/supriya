@@ -1,0 +1,13 @@
+.. _supriya--contexts--shm:
+
+shm
+===
+
+.. automodule:: supriya.contexts.shm
+
+.. currentmodule:: supriya.contexts.shm
+
+.. autoclass:: ServerSHM
+   :show-inheritance:
+
+   .. automethod:: __getitem__

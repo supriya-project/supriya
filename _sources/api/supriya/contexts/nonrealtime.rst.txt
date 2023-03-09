@@ -10,8 +10,10 @@ nonrealtime
 .. autoclass:: Score
    :show-inheritance:
 
+   .. automethod:: __render__
    .. automethod:: iterate_datagrams
    .. automethod:: iterate_osc_bundles
    .. automethod:: iterate_request_bundles
    .. automethod:: render
    .. automethod:: send
+   .. automethod:: setup_system_synthdefs

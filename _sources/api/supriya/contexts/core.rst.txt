@@ -30,10 +30,12 @@ core
    .. automethod:: copy_buffer
    .. automethod:: do_nothing
    .. automethod:: fill_buffer
-   .. automethod:: fill_buses
+   .. automethod:: fill_bus_range
    .. automethod:: free_all_synthdefs
    .. automethod:: free_buffer
+   .. automethod:: free_buffer_group
    .. automethod:: free_bus
+   .. automethod:: free_bus_group
    .. automethod:: free_group_children
    .. automethod:: free_node
    .. automethod:: free_synthdefs
@@ -55,7 +57,10 @@ core
    .. automethod:: unpause_node
    .. automethod:: write_buffer
    .. automethod:: zero_buffer
+   .. autoproperty:: audio_input_bus_group
+   .. autoproperty:: audio_output_bus_group
    .. autoproperty:: client_id
+   .. autoproperty:: latency
    .. autoproperty:: options
    .. autoproperty:: root_node
 
