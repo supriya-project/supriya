@@ -145,7 +145,6 @@ class OscMessage:
               64   2c 73 66 00  62 61 7a 00  40 40 00 00  00 00 00 10   |,sf.baz.@@......|
               80   2f 66 66 66  66 00 00 00  2c 46 54 4e  00 00 00 00   |/ffff...,FTN....|
               96   61 00 00 00  62 00 00 00  63 00 00 00  64 00 00 00   |a...b...c...d...|
-
     """
 
     ### INITIALIZER ###
@@ -408,7 +407,6 @@ class OscBundle:
 
         >>> decoded_bundle == outer_bundle
         True
-
     """
 
     ### INITIALIZER ###

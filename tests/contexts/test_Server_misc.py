@@ -127,7 +127,6 @@ async def test_query_version(context):
 
 @pytest.mark.asyncio
 async def test_reboot(context):
-    await get(context.boot())
     await get(context.reboot())
 
 
