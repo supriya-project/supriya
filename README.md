@@ -24,7 +24,7 @@ Supriya lets you:
 
 - Build time-agnostic
   [asyncio](https://docs.python.org/3/library/asyncio.html)-aware applications
-  with
+  with the
   [context](http://josiahwolfoberholtzer.com/supriya/api/supriya/contexts/core.html)
   interface.
 

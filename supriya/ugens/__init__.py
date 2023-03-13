@@ -404,7 +404,6 @@ __all__ = [
     "CuspL",
     "CuspN",
     "DC",
-    "DUGen",
     "Dbrown",
     "Dbufrd",
     "Dbufwr",
