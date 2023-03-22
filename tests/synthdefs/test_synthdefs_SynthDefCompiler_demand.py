@@ -1,4 +1,7 @@
 # flake8: noqa
+import os
+import platform
+
 import pytest
 
 from supriya.synthdefs import SuperColliderSynthDef, SynthDefBuilder
