@@ -309,9 +309,9 @@ class Dseries(UGen):
         Dseries.dr()
     """
 
+    length = param(float("inf"))
     start = param(1)
     step = param(1)
-    length = param(float("inf"))
 
 
 @ugen(dr=True)
