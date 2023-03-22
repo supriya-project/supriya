@@ -91,6 +91,11 @@ def test_SynthDefCompiler_demand_supriya_vs_bytes(py_synthdef):
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
+@pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
+@pytest.mark.skipif(
+    platform.system() == "Darwin" and os.environ.get("CI") == "true",
+    reason="sclang hangs without QT",
+)
 def test_SynthDefCompiler_demand_supriya_vs_sclang(py_synthdef):
     sc_synthdef = SuperColliderSynthDef(
         "foo",
