@@ -136,8 +136,10 @@ class Moment:
         timestamp = (
             self.seconds + self.context._latency if self.seconds is not None else None
         )
-        if len(requests) > 1 or timestamp is not None:
+        if len(requests) and timestamp is not None:
             self.context.send(RequestBundle(timestamp=timestamp, contents=requests))
+        elif len(requests) > 1:
+            self.context.send(RequestBundle(contents=requests))
         elif len(requests):
             self.context.send(requests[0])
         self.closed = True
