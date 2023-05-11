@@ -889,7 +889,6 @@ class UGenSortBundle:
 
 
 class SuperColliderSynthDef:
-
     ### INITIALIZER ###
 
     def __init__(self, name, body, rates=None):

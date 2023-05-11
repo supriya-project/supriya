@@ -1488,7 +1488,6 @@ class _CNode:
 
 
 class IntervalTreeDriver:
-
     ### INITIALIZER ###
 
     def __init__(self, intervals=None):
