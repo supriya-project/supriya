@@ -20,7 +20,6 @@ class AddAction(IntEnumeration):
 
 
 class BinaryOperator(IntEnumeration):
-
     ABSOLUTE_DIFFERENCE = 38  # |a - b|
     ADDITION = 0
     AMCLIP = 40
@@ -181,7 +180,6 @@ class DoneAction(IntEnumeration):
 
 
 class EnvelopeShape(IntEnumeration):
-
     CUBED = 7
     CUSTOM = 5
     EXPONENTIAL = 2
@@ -205,7 +203,6 @@ class HeaderFormat(IntEnumeration):
 
 
 class NodeAction(IntEnumeration):
-
     NODE_CREATED = 0
     NODE_REMOVED = 1
     NODE_ACTIVATED = 2
@@ -421,7 +418,6 @@ class SignalRange(IntEnumeration):
 
 
 class UnaryOperator(IntEnumeration):
-
     ABSOLUTE_VALUE = 5
     AMPLITUDE_TO_DB = 22
     ARCCOS = 32
@@ -479,7 +475,6 @@ class UnaryOperator(IntEnumeration):
 
 
 class Unit(IntEnumeration):
-
     UNDEFINED = 0
     DECIBELS = 1
     AMPLITUDE = 2

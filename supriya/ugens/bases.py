@@ -263,7 +263,6 @@ def ugen(
 
 
 class UGenMethodMixin:
-
     ### SPECIAL METHODS ###
 
     def __abs__(self):

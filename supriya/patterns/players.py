@@ -54,11 +54,14 @@ class PatternPlayer:
         self._notes_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], float] = {}
         self._uuid: UUID = uuid or uuid4()
         self._next_delta: Optional[float] = None
+        self._initial_offset: Optional[float] = None
 
     def _clock_callback(
         self, clock_context: ClockContext, *args, **kwargs
     ) -> Optional[float]:
         for clock_context, seconds, offset, events in self._find_events(clock_context):
+            if self._initial_offset is None:
+                self._initial_offset = offset
             with self._context.at(seconds):
                 for event, priority in events:
                     event.perform(
@@ -238,6 +241,15 @@ class PatternPlayer:
             self._clock.cue(
                 self._stop_callback, event_type=2, quantization=quantization
             )
+
+    def uuid_to_note_id(self, uuid: UUID, index: Optional[int] = None) -> float:
+        if index is not None:
+            return self._notes_by_uuid[uuid, index]
+        return self._notes_by_uuid[uuid]
+
+    @property
+    def initial_offset(self) -> Optional[float]:
+        return self._initial_offset
 
     @property
     def uuid(self) -> UUID:
