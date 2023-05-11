@@ -242,6 +242,11 @@ class PatternPlayer:
                 self._stop_callback, event_type=2, quantization=quantization
             )
 
+    def uuid_to_note_id(self, uuid: UUID, index: Optional[int] = None) -> float:
+        if index is not None:
+            return self._notes_by_uuid[uuid, index]
+        return self._notes_by_uuid[uuid]
+
     @property
     def initial_offset(self) -> Optional[float]:
         return self._initial_offset
