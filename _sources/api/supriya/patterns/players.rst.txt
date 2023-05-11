@@ -12,4 +12,6 @@ players
 
    .. automethod:: play
    .. automethod:: stop
+   .. automethod:: uuid_to_note_id
+   .. autoproperty:: initial_offset
    .. autoproperty:: uuid
