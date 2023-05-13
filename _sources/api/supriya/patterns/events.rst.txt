@@ -33,6 +33,10 @@ events
 
    .. automethod:: perform
 
+.. autoclass:: NodeEvent
+   :show-inheritance:
+
+
 .. autoclass:: NodeFreeEvent
    :show-inheritance:
 
