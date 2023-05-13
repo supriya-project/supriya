@@ -1,3 +1,4 @@
+from typing import Optional
 from unittest.mock import Mock, call
 
 import pytest
@@ -6,6 +7,7 @@ from supriya import AddAction, CalculationRate
 from supriya.assets.synthdefs import default, system_link_audio_1
 from supriya.clocks import AsyncOfflineClock, OfflineClock
 from supriya.contexts import AsyncServer, BusGroup, Context, Group, Score, Server, Synth
+from supriya.contexts.requests import NewGroup
 from supriya.osc import OscBundle, OscMessage
 from supriya.patterns import (
     BusPattern,
@@ -19,7 +21,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
 
 
 @pytest.mark.parametrize(
-    "pattern, until, expected",
+    "pattern, until, target_node, expected",
     [
         (
             SequencePattern(
@@ -28,6 +30,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                     MonoEventPattern(frequency=SequencePattern([440, 550, 660])),
                 ]
             ),
+            None,
             None,
             lambda context: [
                 call.at(0.0),
@@ -110,6 +113,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
         (
             EventPattern(frequency=SequencePattern([440, 550, 660])),
             1.5,
+            None,
             lambda context: [
                 call.at(0.0),
                 call.add_synth(
@@ -144,12 +148,93 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
             ],
         ),
         (
+            EventPattern(frequency=SequencePattern([440, 550, 660])),
+            1.5,
+            6666,
+            lambda context: [
+                call.at(0.0),
+                call.add_synth(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    synthdef=default,
+                    target_node=Group(context=context, id_=6666),
+                    frequency=440,
+                ),
+                call.at(2.0),
+                call.add_synth(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    synthdef=default,
+                    target_node=Group(context=context, id_=6666),
+                    frequency=550,
+                ),
+                call.free_node(
+                    Synth(
+                        context=context,
+                        id_=1000,
+                        synthdef=default,
+                    )
+                ),
+                call.at(3.0),
+                call.free_node(
+                    Synth(
+                        context=context,
+                        id_=1001,
+                        synthdef=default,
+                    )
+                ),
+                call.at(3.0),  # 1001 was freed early, nothing to do.
+            ],
+        ),
+        (
+            GroupPattern(EventPattern(frequency=SequencePattern([440, 550, 660]))),
+            1.5,
+            6666,
+            lambda context: [
+                call.at(0.0),
+                call.add_group(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    target_node=Group(context=context, id_=6666),
+                ),
+                call.add_synth(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    synthdef=default,
+                    target_node=Group(context=context, id_=1000),
+                    frequency=440,
+                ),
+                call.at(2.0),
+                call.add_synth(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    synthdef=default,
+                    target_node=Group(context=context, id_=1000),
+                    frequency=550,
+                ),
+                call.free_node(
+                    Synth(
+                        context=context,
+                        id_=1001,
+                        synthdef=default,
+                    )
+                ),
+                call.at(3.0),
+                call.free_node(
+                    Synth(
+                        context=context,
+                        id_=1002,
+                        synthdef=default,
+                    )
+                ),
+                call.at(3.0),  # 1001 was freed early, nothing to do.
+                call.at(3.5),
+                call.free_node(Group(context=context, id_=1000)),
+            ],
+        ),
+        (
             ParallelPattern(
                 [
                     EventPattern(frequency=SequencePattern([440, 550])),
                     EventPattern(frequency=SequencePattern([777, 888])),
                 ]
             ),
+            None,
             None,
             lambda context: [
                 call.at(0.0),
@@ -214,6 +299,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 BusPattern(MonoEventPattern(frequency=SequencePattern([440, 550, 660])))
             ),
             1.5,
+            None,
             lambda context: [
                 call.at(0.0),
                 call.add_group(add_action=AddAction.ADD_TO_HEAD, target_node=None),
@@ -293,11 +379,19 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
         ),
     ],
 )
-def test_context_calls(pattern, until, expected):
+def test_context_calls(
+    pattern, until: Optional[float], target_node: Optional[int], expected
+):
     clock = OfflineClock()
     context = Server().boot()
+    target_node_ = None
+    if target_node is not None:
+        context.send(
+            NewGroup(items=[(target_node, "add_to_tail", 1)])
+        )  # create an arbitrarily-ID'd group
+        target_node_ = Group(context=context, id_=target_node)
     spy = Mock(spec=Context, wraps=context)
-    pattern.play(context=spy, clock=clock, until=until)
+    pattern.play(context=spy, clock=clock, target_node=target_node_, until=until)
     expected_mock_calls = expected(context)
     assert spy.mock_calls == expected_mock_calls
 

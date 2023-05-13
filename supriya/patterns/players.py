@@ -38,6 +38,7 @@ class PatternPlayer:
                 ["PatternPlayer", ClockContext, Event, Priority], Optional[Coroutine]
             ]
         ] = None,
+        target_node: Optional[Node] = None,
         uuid: Optional[UUID] = None,
     ) -> None:
         self._pattern = pattern
@@ -53,6 +54,7 @@ class PatternPlayer:
         self._proxies_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], ContextObject] = {}
         self._notes_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], float] = {}
         self._uuid: UUID = uuid or uuid4()
+        self._target_node = target_node
         self._next_delta: Optional[float] = None
         self._initial_seconds: Optional[float] = None
 
@@ -70,6 +72,7 @@ class PatternPlayer:
                         current_offset=offset,
                         notes_mapping=self._notes_by_uuid,
                         priority=priority,
+                        target_node=self._target_node,
                     )
                     if self._callback is not None:
                         self._callback(self, clock_context, event, priority)
