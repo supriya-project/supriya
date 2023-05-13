@@ -44,6 +44,7 @@ class Event:
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_node: Optional[Node] = None,
     ) -> None:
         raise NotImplementedError
 
@@ -61,6 +62,7 @@ class StartEvent(Event):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_node: Optional[Node] = None,
     ) -> None:
         pass
 
@@ -78,6 +80,7 @@ class StopEvent(Event):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_node: Optional[Node] = None,
     ) -> None:
         pass
 
@@ -104,6 +107,7 @@ class BusAllocateEvent(Event):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_node: Optional[Node] = None,
     ) -> None:
         proxy_mapping[self.id_] = context.add_bus_group(
             calculation_rate=self.calculation_rate, count=self.channel_count
@@ -125,6 +129,7 @@ class BusFreeEvent(Event):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_node: Optional[Node] = None,
     ) -> None:
         if not isinstance(bus_group := proxy_mapping.pop(self.id_), BusGroup):
             raise RuntimeError(bus_group)
@@ -144,7 +149,7 @@ class CompositeEvent(Event):
         return events
 
 
-class GroupAllocateEvent(Event):
+class NodeEvent(Event):
     def __init__(
         self,
         id_: Union[UUID, Tuple[UUID, int]],
@@ -158,6 +163,21 @@ class GroupAllocateEvent(Event):
         self.add_action = AddAction.from_expr(add_action)
         self.target_node = target_node
 
+    def _resolve_target_node(
+        self,
+        target_node: Optional[Node],
+        proxy_mapping: Dict[Union[UUID, Tuple[UUID, int]], ContextObject],
+    ) -> Optional[Node]:
+        if isinstance(self.target_node, UUID):
+            if not isinstance(
+                target_node_ := proxy_mapping.get(self.target_node), Node
+            ):
+                raise RuntimeError(target_node_)
+            return target_node_
+        return self.target_node or target_node
+
+
+class GroupAllocateEvent(NodeEvent):
     def perform(
         self,
         context: Context,
@@ -166,18 +186,14 @@ class GroupAllocateEvent(Event):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_node: Optional[Node] = None,
     ) -> None:
-        target_node: Optional[Node] = None
-        if isinstance(self.target_node, UUID):
-            if not isinstance(
-                target_node_ := proxy_mapping.get(self.target_node), Node
-            ):
-                raise RuntimeError(target_node_)
-            target_node = target_node_
-        else:
-            target_node = self.target_node
         proxy_mapping[self.id_] = context.add_group(
-            add_action=self.add_action, target_node=target_node
+            add_action=self.add_action,
+            target_node=self._resolve_target_node(
+                target_node,
+                proxy_mapping,
+            ),
         )
 
 
@@ -196,13 +212,14 @@ class NodeFreeEvent(Event):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_node: Optional[Node] = None,
     ) -> None:
         if not isinstance(node := proxy_mapping.pop(self.id_), Node):
             raise RuntimeError(node)
         context.free_node(node)
 
 
-class NoteEvent(Event):
+class NoteEvent(NodeEvent):
     def __init__(
         self,
         id_: Union[UUID, Tuple[UUID, int]],
@@ -214,12 +231,15 @@ class NoteEvent(Event):
         target_node: Optional[Union[Node, UUID]] = None,
         **kwargs,
     ) -> None:
-        Event.__init__(self, delta=delta)
-        self.id_ = id_
-        self.add_action = AddAction.from_expr(add_action)
+        NodeEvent.__init__(
+            self,
+            add_action=add_action,
+            delta=delta,
+            id_=id_,
+            target_node=target_node,
+        )
         self.duration = duration
         self.synthdef = synthdef
-        self.target_node = target_node
         self.kwargs = kwargs
 
     def expand(self, offset: float) -> Sequence[Tuple[float, Priority, "Event"]]:
@@ -253,6 +273,7 @@ class NoteEvent(Event):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_node: Optional[Node] = None,
         **kwargs,
     ) -> None:
         if priority == Priority.START:
@@ -265,19 +286,13 @@ class NoteEvent(Event):
                 if isinstance(value, UUID):
                     settings[key] = proxy_mapping[value]
             if self.id_ not in proxy_mapping:
-                target_node: Optional[Node] = None
-                if isinstance(self.target_node, UUID):
-                    if not isinstance(
-                        target_node_ := proxy_mapping.get(self.target_node), Node
-                    ):
-                        raise RuntimeError(target_node_)
-                    target_node = target_node_
-                else:
-                    target_node = self.target_node
                 proxy_mapping[self.id_] = context.add_synth(
                     add_action=self.add_action,
                     synthdef=self.synthdef or default,
-                    target_node=target_node,
+                    target_node=self._resolve_target_node(
+                        target_node,
+                        proxy_mapping,
+                    ),
                     **settings,
                 )
             else:
@@ -307,7 +322,7 @@ class NullEvent(Event):
         return []
 
 
-class SynthAllocateEvent(Event):
+class SynthAllocateEvent(NodeEvent):
     def __init__(
         self,
         id_: Union[UUID, Tuple[UUID, int]],
@@ -318,11 +333,14 @@ class SynthAllocateEvent(Event):
         target_node: Optional[Union[Node, UUID]] = None,
         **kwargs,
     ) -> None:
-        Event.__init__(self, delta=delta)
-        self.id_ = id_
-        self.add_action = AddAction.from_expr(add_action)
+        NodeEvent.__init__(
+            self,
+            add_action=add_action,
+            delta=delta,
+            id_=id_,
+            target_node=target_node,
+        )
         self.synthdef = synthdef
-        self.target_node = target_node
         self.kwargs = kwargs
 
     def perform(
@@ -333,16 +351,8 @@ class SynthAllocateEvent(Event):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_node: Optional[Node] = None,
     ) -> None:
-        target_node: Optional[Node] = None
-        if isinstance(self.target_node, UUID):
-            if not isinstance(
-                target_node_ := proxy_mapping.get(self.target_node), Node
-            ):
-                raise RuntimeError(target_node_)
-            target_node = target_node_
-        else:
-            target_node = self.target_node
         settings = self.kwargs.copy()
         for key, value in settings.items():
             if isinstance(value, UUID):
@@ -350,6 +360,9 @@ class SynthAllocateEvent(Event):
         proxy_mapping[self.id_] = context.add_synth(
             add_action=self.add_action,
             synthdef=self.synthdef,
-            target_node=target_node,
+            target_node=self._resolve_target_node(
+                target_node,
+                proxy_mapping,
+            ),
             **settings,
         )
