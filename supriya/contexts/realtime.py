@@ -435,7 +435,7 @@ class Server(BaseServer):
         logger.info("Disconnecting")
         self._boot_status = BootStatus.QUITTING
         self._teardown_shm()
-        cast(ThreadedOscProtocol, self._osc_protocol).disconnect()
+        self._osc_protocol.disconnect()
         self._teardown_shm()
         self._teardown_state()
         if self in self._contexts:
@@ -833,7 +833,7 @@ class AsyncServer(BaseServer):
     async def _disconnect(self) -> None:
         logger.info("Disconnecting")
         self._boot_status = BootStatus.QUITTING
-        await cast(AsyncOscProtocol, self._osc_protocol).disconnect()
+        self._osc_protocol.disconnect()
         self._teardown_shm()
         self._teardown_state()
         if self in self._contexts:
@@ -1154,7 +1154,7 @@ class AsyncServer(BaseServer):
             await Quit().communicate_async(server=self, timeout=1)
         except (OscProtocolOffline, asyncio.TimeoutError):
             pass
-        self._process_protocol.quit()
+        await self._process_protocol.quit()
         await self._disconnect()
         return self
 

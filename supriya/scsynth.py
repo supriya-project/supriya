@@ -1,5 +1,4 @@
 import asyncio
-import atexit
 import enum
 import logging
 import os
@@ -259,7 +258,6 @@ class LineStatus(enum.IntEnum):
 class ProcessProtocol:
     def __init__(self):
         self.is_running = False
-        atexit.register(self.quit)
 
     def boot(self, options: Options):
         raise NotImplementedError
@@ -282,8 +280,6 @@ class ProcessProtocol:
 
 
 class SyncProcessProtocol(ProcessProtocol):
-    ### PUBLIC METHODS ###
-
     def boot(self, options: Options):
         if self.is_running:
             return
@@ -293,7 +289,6 @@ class SyncProcessProtocol(ProcessProtocol):
                 list(options),
                 stderr=subprocess.STDOUT,
                 stdout=subprocess.PIPE,
-                start_new_session=True,
             )
             start_time = time.time()
             timeout = 10
@@ -314,7 +309,7 @@ class SyncProcessProtocol(ProcessProtocol):
             self.process.wait()
             raise
 
-    def quit(self):
+    def quit(self) -> None:
         if not self.is_running:
             return
         self.process.terminate()
@@ -346,7 +341,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         self.error_text = ""
         self.buffer_ = ""
         _, _ = await loop.subprocess_exec(
-            lambda: self, *options, stdin=None, stderr=None, start_new_session=True
+            lambda: self, *options, stdin=None, stderr=None
         )
         if not (await self.boot_future):
             raise ServerCannotBoot(self.error_text)
@@ -380,23 +375,23 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
             self.buffer_ = text
 
     def process_exited(self):
-        self.is_running = False
-        self.exit_future.set_result(None)
-        if not self.boot_future.done():
-            self.boot_future.set_result(False)
         logger.info(f"Process exited with {self.transport.get_returncode()}.")
+        self.is_running = False
+        try:
+            self.exit_future.set_result(None)
+            if not self.boot_future.done():
+                self.boot_future.set_result(False)
+        except asyncio.exceptions.InvalidStateError:
+            pass
 
-    def quit(self):
+    async def quit(self):
         logger.info("Quitting ...")
         if not self.is_running:
             logger.info("... already quit!")
             return
-        if not self.boot_future.done():
-            self.boot_future.set_result(False)
-        if not self.exit_future.done():
-            self.exit_future.set_result
-        self.transport.close()
         self.is_running = False
+        self.transport.close()
+        await self.exit_future
         logger.info("... quit!")
 
 
