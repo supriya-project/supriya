@@ -15,7 +15,6 @@ osc
    .. automethod:: connection_lost
    .. automethod:: connection_made
    .. automethod:: datagram_received
-   .. automethod:: disconnect
    .. automethod:: error_received
    .. automethod:: register
    .. automethod:: send
@@ -64,6 +63,7 @@ osc
 
    .. automethod:: activate_healthcheck
    .. automethod:: capture
+   .. automethod:: disconnect
    .. automethod:: register
    .. automethod:: send
    .. automethod:: unregister
@@ -78,7 +78,6 @@ osc
 
    .. automethod:: activate_healthcheck
    .. automethod:: connect
-   .. automethod:: disconnect
    .. automethod:: register
    .. automethod:: send
    .. automethod:: unregister
