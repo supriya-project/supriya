@@ -4,7 +4,6 @@ Tools for sending, receiving and handling OSC messages.
 
 import abc
 import asyncio
-import atexit
 import collections
 import contextlib
 import dataclasses
@@ -563,6 +562,9 @@ class OscProtocol(metaclass=abc.ABCMeta):
                 callbacks, callback_map = callback_map.setdefault(item, ([], {}))
             callbacks.append(callback)
 
+    def _disconnect(self) -> None:
+        raise NotImplementedError
+
     def _match_callbacks(self, message):
         items = (message.address,) + message.contents
         matching_callbacks = []
@@ -611,7 +613,7 @@ class OscProtocol(metaclass=abc.ABCMeta):
             )
 
     def _teardown(self):
-        osc_protocol_logger.info("Tearing down...")
+        osc_protocol_logger.info(f"[{self.ip_address}:{self.port}] Tearing down...")
         self.is_running = False
         if self.healthcheck is not None:
             self.unregister(self.healthcheck_osc_callback)
@@ -633,12 +635,12 @@ class OscProtocol(metaclass=abc.ABCMeta):
         )
 
     def _validate_receive(self, datagram):
-        udp_in_logger.debug(f"{self.ip_address}:{self.port} {datagram}")
+        udp_in_logger.debug(f"[{self.ip_address}:{self.port}] {datagram}")
         try:
             message = OscMessage.from_datagram(datagram)
         except Exception:
             raise
-        osc_in_logger.debug(f"{self.ip_address}:{self.port} {message!r}")
+        osc_in_logger.debug(f"[{self.ip_address}:{self.port}] {message!r}")
         for capture in self.captures:
             capture.messages.append(
                 CaptureEntry(timestamp=time.time(), label="R", message=message)
@@ -655,13 +657,13 @@ class OscProtocol(metaclass=abc.ABCMeta):
             message = OscMessage(message)
         elif isinstance(message, SequenceABC):
             message = OscMessage(*message)
-        osc_out_logger.debug(f"{self.ip_address}:{self.port} {message!r}")
+        osc_out_logger.debug(f"[{self.ip_address}:{self.port}] {message!r}")
         for capture in self.captures:
             capture.messages.append(
                 CaptureEntry(timestamp=time.time(), label="S", message=message)
             )
         datagram = message.to_datagram()
-        udp_out_logger.debug(f"{self.ip_address}:{self.port} {datagram}")
+        udp_out_logger.debug(f"[{self.ip_address}:{self.port}] {datagram}")
         return datagram
 
     ### PUBLIC METHODS ###
@@ -670,8 +672,13 @@ class OscProtocol(metaclass=abc.ABCMeta):
     def activate_healthcheck(self) -> None:
         raise NotImplementedError
 
-    def capture(self):
+    def capture(self) -> "Capture":
         return Capture(self)
+
+    def disconnect(self) -> None:
+        osc_protocol_logger.info(f"[{self.ip_address}:{self.port}] disconnecting")
+        self._disconnect()
+        osc_protocol_logger.info(f"[{self.ip_address}:{self.port}] ...disconnected")
 
     @abc.abstractmethod
     def register(
@@ -701,9 +708,19 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         OscProtocol.__init__(self)
         self.background_tasks: Set[asyncio.Task] = set()
         self.healthcheck_task: Optional[asyncio.Task] = None
-        atexit.register(lambda: asyncio.run(self.disconnect()))
 
     ### PRIVATE METHODS ###
+
+    def _disconnect(self) -> None:
+        if not self.is_running:
+            osc_protocol_logger.info(
+                f"{self.ip_address}:{self.port} already disconnected!"
+            )
+            return
+        self._teardown()
+        self.transport.close()
+        if self.healthcheck_task:
+            self.healthcheck_task.cancel()
 
     async def _run_healthcheck(self):
         while self.is_running:
@@ -742,7 +759,11 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     async def connect(
         self, ip_address: str, port: int, *, healthcheck: Optional[HealthCheck] = None
     ):
+        osc_protocol_logger.info(f"[{self.ip_address}:{self.port}] connecting...")
         if self.is_running:
+            osc_protocol_logger.info(
+                f"[{self.ip_address}:{self.port}] already connected!"
+            )
             raise OscProtocolAlreadyConnected
         self._setup(ip_address, port, healthcheck)
         loop = asyncio.get_running_loop()
@@ -754,14 +775,16 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
             self.healthcheck_task = asyncio.get_running_loop().create_task(
                 self._run_healthcheck()
             )
+        osc_protocol_logger.info(f"[{self.ip_address}:{self.port}] ...connected")
 
     def connection_made(self, transport):
-        osc_protocol_logger.info(f"[{self.ip_address}:{self.port}] connected")
+        osc_protocol_logger.info(f"[{self.ip_address}:{self.port}] connection made")
         self.transport = transport
         self.is_running = True
 
     def connection_lost(self, exc):
-        pass
+        osc_protocol_logger.info(f"[{self.ip_address}:{self.port}] connection lost")
+        self.exit_future.set_result(True)
 
     def datagram_received(self, data, addr):
         loop = asyncio.get_running_loop()
@@ -772,17 +795,6 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
                 task.add_done_callback(self.background_tasks.discard)
             else:
                 callback(message)
-
-    async def disconnect(self):
-        osc_protocol_logger.info(f"[{self.ip_address}:{self.port}] disconnecting")
-        if not self.is_running:
-            return
-        self.exit_future.set_result(True)
-        self._teardown()
-        if not self.transport.is_closing():
-            self.transport.close()
-        if self.healthcheck_task:
-            await self.healthcheck_task
 
     def error_received(self, exc):
         osc_out_logger.warning(f"[{self.ip_address}:{self.port}] errored: {exc}")
@@ -805,7 +817,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         return callback
 
     def send(self, message):
-        osc_protocol_logger.info(
+        osc_protocol_logger.debug(
             f"[{self.ip_address}:{self.port}] sending: {message!r}"
         )
         datagram = self._validate_send(message)
@@ -843,9 +855,21 @@ class ThreadedOscProtocol(OscProtocol):
         self.lock = threading.RLock()
         self.osc_server = None
         self.osc_server_thread = None
-        atexit.register(self.disconnect)
 
     ### PRIVATE METHODS ###
+
+    def _disconnect(self) -> None:
+        with self.lock:
+            if not self.is_running:
+                osc_protocol_logger.info(
+                    f"{self.ip_address}:{self.port} already disconnected!"
+                )
+                return
+            self._teardown()
+            if not self.osc_server._BaseServer__shutdown_request:
+                self.osc_server.shutdown()
+            self.osc_server = None
+            self.osc_server_thread = None
 
     def _process_command_queue(self):
         while self.command_queue.qsize():
@@ -919,22 +943,7 @@ class ThreadedOscProtocol(OscProtocol):
         self.osc_server_thread.daemon = True
         self.osc_server_thread.start()
         self.is_running = True
-        osc_protocol_logger.info(f"{self.ip_address}:{self.port} ...connected")
-
-    def disconnect(self):
-        osc_protocol_logger.info(f"{self.ip_address}:{self.port} disconnecting...")
-        with self.lock:
-            if not self.is_running:
-                osc_protocol_logger.info(
-                    f"{self.ip_address}:{self.port} already disconnected!"
-                )
-                return
-            self._teardown()
-            if not self.osc_server._BaseServer__shutdown_request:
-                self.osc_server.shutdown()
-            self.osc_server = None
-            self.osc_server_thread = None
-        osc_protocol_logger.info(f"{self.ip_address}:{self.port} ...disconnected")
+        osc_protocol_logger.info(f"[{self.ip_address}:{self.port}] ...connected")
 
     def register(
         self,

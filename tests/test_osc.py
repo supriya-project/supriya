@@ -105,7 +105,7 @@ async def test_AsyncOscProtocol():
         assert osc_protocol.is_running
         assert not healthcheck_failed
         await asyncio.sleep(1)
-        process_protocol.quit()
+        await process_protocol.quit()
         for _ in range(20):
             await asyncio.sleep(1)
             if not osc_protocol.is_running:
@@ -113,7 +113,7 @@ async def test_AsyncOscProtocol():
         assert healthcheck_failed
         assert not osc_protocol.is_running
     finally:
-        process_protocol.quit()
+        await process_protocol.quit()
 
 
 def test_ThreadedOscProtocol():
