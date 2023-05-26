@@ -53,7 +53,7 @@ ml
 
    .. autoclass:: supriya.ugens.ml::Onsets.ODFType
    .. automethod:: kr
-   .. autoproperty:: floor
+   .. autoproperty:: floor_
    .. autoproperty:: medianspan
    .. autoproperty:: mingap
    .. autoproperty:: odftype
