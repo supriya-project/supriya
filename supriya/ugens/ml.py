@@ -138,7 +138,7 @@ class Onsets(UGen):
         >>> pv_chain = supriya.ugens.FFT.kr(source=source)
         >>> onsets = supriya.ugens.Onsets.kr(
         ...     pv_chain=pv_chain,
-        ...     floor=0.1,
+        ...     floor_=0.1,
         ...     medianspan=11,
         ...     mingap=10,
         ...     odftype=supriya.ugens.Onsets.ODFType.RCOMPLEX,
@@ -164,7 +164,7 @@ class Onsets(UGen):
     threshold = param(0.5)
     odftype = param(3)
     relaxtime = param(1)
-    floor = param(0.1)
+    floor_ = param(0.1)
     mingap = param(10)
     medianspan = param(11)
     whtype = param(1)

@@ -265,7 +265,7 @@ def ugen(
 class UGenMethodMixin:
     ### SPECIAL METHODS ###
 
-    def __abs__(self):
+    def __abs__(self) -> "UGenMethodMixin":
         """
         Gets absolute value of ugen graph.
 
@@ -337,7 +337,9 @@ class UGenMethodMixin:
         """
         return UGenMethodMixin._compute_unary_op(self, UnaryOperator.ABSOLUTE_VALUE)
 
-    def __add__(self, expr):
+    def __add__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Adds `expr` to ugen graph.
 
@@ -449,7 +451,9 @@ class UGenMethodMixin:
         """
         return UGenMethodMixin._compute_binary_op(self, expr, BinaryOperator.ADDITION)
 
-    def __div__(self, expr):
+    def __div__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Divides ugen graph by `expr`.
 
@@ -573,7 +577,9 @@ class UGenMethodMixin:
         result = synthdef.__graph__()
         return result
 
-    def __ge__(self, expr):
+    def __ge__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Tests if ugen graph if greater than or equal to `expr`.
 
@@ -687,7 +693,9 @@ class UGenMethodMixin:
             self, expr, BinaryOperator.GREATER_THAN_OR_EQUAL
         )
 
-    def __gt__(self, expr):
+    def __gt__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Tests if ugen graph if greater than `expr`.
 
@@ -801,7 +809,9 @@ class UGenMethodMixin:
             self, expr, BinaryOperator.GREATER_THAN
         )
 
-    def __le__(self, expr):
+    def __le__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Tests if ugen graph if less than or equal to `expr`.
 
@@ -915,7 +925,9 @@ class UGenMethodMixin:
             self, expr, BinaryOperator.LESS_THAN_OR_EQUAL
         )
 
-    def __lt__(self, expr):
+    def __lt__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Tests if ugen graph if less than `expr`.
 
@@ -1027,7 +1039,9 @@ class UGenMethodMixin:
         """
         return UGenMethodMixin._compute_binary_op(self, expr, BinaryOperator.LESS_THAN)
 
-    def __mod__(self, expr):
+    def __mod__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Gets modulo of ugen graph and `expr`.
 
@@ -1139,7 +1153,9 @@ class UGenMethodMixin:
         """
         return UGenMethodMixin._compute_binary_op(self, expr, BinaryOperator.MODULO)
 
-    def __mul__(self, expr):
+    def __mul__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Multiplies ugen graph by `expr`.
 
@@ -1253,7 +1269,7 @@ class UGenMethodMixin:
             self, expr, BinaryOperator.MULTIPLICATION
         )
 
-    def __neg__(self):
+    def __neg__(self) -> "UGenMethodMixin":
         """
         Negates ugen graph.
 
@@ -1325,7 +1341,9 @@ class UGenMethodMixin:
         """
         return UGenMethodMixin._compute_unary_op(self, UnaryOperator.NEGATIVE)
 
-    def __pow__(self, expr):
+    def __pow__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Raises ugen graph to the power of `expr`.
 
@@ -1437,7 +1455,9 @@ class UGenMethodMixin:
         """
         return UGenMethodMixin._compute_binary_op(self, expr, BinaryOperator.POWER)
 
-    def __rpow__(self, expr):
+    def __rpow__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Raises `expr` to the power of ugen graph.
 
@@ -1517,7 +1537,9 @@ class UGenMethodMixin:
         """
         return UGenMethodMixin._compute_binary_op(expr, self, BinaryOperator.POWER)
 
-    def __radd__(self, expr):
+    def __radd__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Adds ugen graph to `expr`.
 
@@ -1597,7 +1619,9 @@ class UGenMethodMixin:
         """
         return UGenMethodMixin._compute_binary_op(expr, self, BinaryOperator.ADDITION)
 
-    def __rdiv__(self, expr):
+    def __rdiv__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Divides `expr` by ugen graph.
 
@@ -1679,7 +1703,9 @@ class UGenMethodMixin:
             expr, self, BinaryOperator.FLOAT_DIVISION
         )
 
-    def __rmod__(self, expr):
+    def __rmod__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Gets modulo of `expr` and ugen graph.
 
@@ -1761,7 +1787,9 @@ class UGenMethodMixin:
             expr, self, BinaryOperator.FLOAT_DIVISION
         )
 
-    def __rmul__(self, expr):
+    def __rmul__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Multiplies `expr` by ugen graph.
 
@@ -1843,7 +1871,9 @@ class UGenMethodMixin:
             expr, self, BinaryOperator.MULTIPLICATION
         )
 
-    def __rsub__(self, expr):
+    def __rsub__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Subtracts ugen graph from `expr`.
 
@@ -1967,7 +1997,9 @@ class UGenMethodMixin:
         result = str(synthdef)
         return result
 
-    def __sub__(self, expr):
+    def __sub__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Subtracts `expr` from ugen graph.
 
@@ -2203,7 +2235,9 @@ class UGenMethodMixin:
 
     ### PUBLIC METHODS ###
 
-    def absolute_difference(self, expr):
+    def absolute_difference(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Calculates absolute difference between ugen graph and `expr`.
 
@@ -2237,7 +2271,7 @@ class UGenMethodMixin:
         """
         return self._compute_binary_op(self, expr, BinaryOperator.ABSOLUTE_DIFFERENCE)
 
-    def amplitude_to_db(self):
+    def amplitude_to_db(self) -> "UGenMethodMixin":
         """
         Converts ugen graph from amplitude to decibels.
 
@@ -2266,10 +2300,64 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.AMPLITUDE_TO_DB)
 
-    def as_int(self):
+    def as_int(self) -> "UGenMethodMixin":
         return self._compute_unary_op(self, UnaryOperator.AS_INT)
 
-    def ceiling(self):
+    def as_maximum(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
+        """
+        Calculates maximum between ugen graph and `expr`.
+
+        ::
+
+            >>> left = supriya.ugens.SinOsc.ar()
+            >>> right = supriya.ugens.WhiteNoise.kr()
+            >>> operation = left.as_maximum(right)
+            >>> print(operation)
+            synthdef:
+                name: dcdca07fb0439c8b4321f42803d18c32
+                ugens:
+                -   SinOsc.ar:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(MAXIMUM).ar:
+                        left: SinOsc.ar[0]
+                        right: WhiteNoise.kr[0]
+
+        Returns ugen graph.
+        """
+        return self._compute_binary_op(self, expr, BinaryOperator.MAXIMUM)
+
+    def as_minimum(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
+        """
+        Calculates minimum between ugen graph and `expr`.
+
+        ::
+
+            >>> left = supriya.ugens.SinOsc.ar()
+            >>> right = supriya.ugens.WhiteNoise.kr()
+            >>> operation = left.as_minimum(right)
+            >>> print(operation)
+            synthdef:
+                name: f80c0a7b300911e9eff0e8760f5fab18
+                ugens:
+                -   SinOsc.ar:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(MINIMUM).ar:
+                        left: SinOsc.ar[0]
+                        right: WhiteNoise.kr[0]
+
+        Returns ugen graph.
+        """
+        return self._compute_binary_op(self, expr, BinaryOperator.MINIMUM)
+
+    def ceiling(self) -> "UGenMethodMixin":
         """
         Calculates the ceiling of ugen graph.
 
@@ -2290,7 +2378,11 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.CEILING)
 
-    def clip(self, minimum, maximum):
+    def clip(
+        self,
+        minimum: Union[SupportsFloat, "UGenMethodMixin"],
+        maximum: Union[SupportsFloat, "UGenMethodMixin"],
+    ) -> "UGenMethodMixin":
         """
         Clips ugen graph.
 
@@ -2366,7 +2458,7 @@ class UGenMethodMixin:
 
         return self._compute_ugen_map(Clip, minimum=minimum, maximum=maximum)
 
-    def cubed(self):
+    def cubed(self) -> "UGenMethodMixin":
         """
         Calculates the cube of ugen graph.
 
@@ -2387,7 +2479,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.CUBED)
 
-    def db_to_amplitude(self):
+    def db_to_amplitude(self) -> "UGenMethodMixin":
         """
         Converts ugen graph from decibels to amplitude.
 
@@ -2416,7 +2508,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.DB_TO_AMPLITUDE)
 
-    def distort(self):
+    def distort(self) -> "UGenMethodMixin":
         """
         Distorts ugen graph non-linearly.
 
@@ -2437,7 +2529,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.DISTORT)
 
-    def exponential(self):
+    def exponential(self) -> "UGenMethodMixin":
         """
         Calculates the natural exponential function of ugen graph.
 
@@ -2458,7 +2550,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.EXPONENTIAL)
 
-    def floor(self):
+    def floor(self) -> "UGenMethodMixin":
         """
         Calculates the floor of ugen graph.
 
@@ -2479,7 +2571,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.FLOOR)
 
-    def fractional_part(self):
+    def fractional_part(self) -> "UGenMethodMixin":
         """
         Calculates the fraction part of ugen graph.
 
@@ -2500,7 +2592,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.FRACTIONAL_PART)
 
-    def hanning_window(self):
+    def hanning_window(self) -> "UGenMethodMixin":
         """
         Calculates Hanning-window of ugen graph.
 
@@ -2530,7 +2622,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.HANNING_WINDOW)
 
-    def hz_to_midi(self):
+    def hz_to_midi(self) -> "UGenMethodMixin":
         """
         Converts ugen graph from Hertz to midi note number.
 
@@ -2559,7 +2651,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.HZ_TO_MIDI)
 
-    def hz_to_octave(self):
+    def hz_to_octave(self) -> "UGenMethodMixin":
         """
         Converts ugen graph from Hertz to octave number.
 
@@ -2588,7 +2680,9 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.HZ_TO_OCTAVE)
 
-    def is_equal_to(self, expr):
+    def is_equal_to(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Calculates equality between ugen graph and `expr`.
 
@@ -2613,7 +2707,9 @@ class UGenMethodMixin:
         """
         return self._compute_binary_op(self, expr, BinaryOperator.EQUAL)
 
-    def is_not_equal_to(self, expr):
+    def is_not_equal_to(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
         """
         Calculates inequality between ugen graph and `expr`.
 
@@ -2638,7 +2734,7 @@ class UGenMethodMixin:
         """
         return self._compute_binary_op(self, expr, BinaryOperator.NOT_EQUAL)
 
-    def lag(self, lag_time=0.5):
+    def lagged(self, lag_time=0.5) -> "UGenMethodMixin":
         """
         Lags ugen graph.
 
@@ -2647,7 +2743,7 @@ class UGenMethodMixin:
             ::
 
                 >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
-                >>> result = ugen_graph.lag(0.5)
+                >>> result = ugen_graph.lagged(0.5)
 
             ::
 
@@ -2671,7 +2767,7 @@ class UGenMethodMixin:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ... )
-                >>> result = ugen_graph.lag(0.5)
+                >>> result = ugen_graph.lagged(0.5)
 
             ::
 
@@ -2706,7 +2802,7 @@ class UGenMethodMixin:
 
         return self._compute_ugen_map(Lag, lag_time=lag_time)
 
-    def log(self):
+    def log(self) -> "UGenMethodMixin":
         """
         Calculates the natural logarithm of ugen graph.
 
@@ -2727,7 +2823,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.LOG)
 
-    def log2(self):
+    def log2(self) -> "UGenMethodMixin":
         """
         Calculates the base-2 logarithm of ugen graph.
 
@@ -2748,7 +2844,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.LOG2)
 
-    def log10(self):
+    def log10(self) -> "UGenMethodMixin":
         """
         Calculates the base-10 logarithm of ugen graph.
 
@@ -2769,32 +2865,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.LOG10)
 
-    def maximum(self, expr):
-        """
-        Calculates maximum between ugen graph and `expr`.
-
-        ::
-
-            >>> left = supriya.ugens.SinOsc.ar()
-            >>> right = supriya.ugens.WhiteNoise.kr()
-            >>> operation = left.maximum(right)
-            >>> print(operation)
-            synthdef:
-                name: dcdca07fb0439c8b4321f42803d18c32
-                ugens:
-                -   SinOsc.ar:
-                        frequency: 440.0
-                        phase: 0.0
-                -   WhiteNoise.kr: null
-                -   BinaryOpUGen(MAXIMUM).ar:
-                        left: SinOsc.ar[0]
-                        right: WhiteNoise.kr[0]
-
-        Returns ugen graph.
-        """
-        return self._compute_binary_op(self, expr, BinaryOperator.MAXIMUM)
-
-    def midi_to_hz(self):
+    def midi_to_hz(self) -> "UGenMethodMixin":
         """
         Converts ugen graph from midi note number to Hertz.
 
@@ -2823,32 +2894,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.MIDI_TO_HZ)
 
-    def minimum(self, expr):
-        """
-        Calculates minimum between ugen graph and `expr`.
-
-        ::
-
-            >>> left = supriya.ugens.SinOsc.ar()
-            >>> right = supriya.ugens.WhiteNoise.kr()
-            >>> operation = left.minimum(right)
-            >>> print(operation)
-            synthdef:
-                name: f80c0a7b300911e9eff0e8760f5fab18
-                ugens:
-                -   SinOsc.ar:
-                        frequency: 440.0
-                        phase: 0.0
-                -   WhiteNoise.kr: null
-                -   BinaryOpUGen(MINIMUM).ar:
-                        left: SinOsc.ar[0]
-                        right: WhiteNoise.kr[0]
-
-        Returns ugen graph.
-        """
-        return self._compute_binary_op(self, expr, BinaryOperator.MINIMUM)
-
-    def octave_to_hz(self):
+    def octave_to_hz(self) -> "UGenMethodMixin":
         """
         Converts ugen graph from octave number to Hertz.
 
@@ -2877,7 +2923,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.OCTAVE_TO_HZ)
 
-    def power(self, expr):
+    def power(self, expr: Union[SupportsFloat, "UGenMethodMixin"]) -> "UGenMethodMixin":
         """
         Raises ugen graph to the power of `expr`.
 
@@ -2902,17 +2948,17 @@ class UGenMethodMixin:
         """
         return self._compute_binary_op(self, expr, BinaryOperator.POWER)
 
-    def range(self, minimum=0.0, maximum=1.0):
+    def range(self, minimum=0.0, maximum=1.0) -> "UGenMethodMixin":
         if self.signal_range == SignalRange.BIPOLAR:
             return self.scale(-1, 1, minimum, maximum)
         return self.scale(0, 1, minimum, maximum)
 
-    def exponential_range(self, minimum=0.01, maximum=1.0):
+    def exponential_range(self, minimum=0.01, maximum=1.0) -> "UGenMethodMixin":
         if self.signal_range == SignalRange.BIPOLAR:
             return self.scale(-1, 1, minimum, maximum, exponential=True)
         return self.scale(0, 1, minimum, maximum, exponential=True)
 
-    def ratio_to_semitones(self):
+    def ratio_to_semitones(self) -> "UGenMethodMixin":
         """
         Converts ugen graph from frequency ratio to semitone distance.
 
@@ -2941,7 +2987,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.RATIO_TO_SEMITONES)
 
-    def rectangle_window(self):
+    def rectangle_window(self) -> "UGenMethodMixin":
         """
         Calculates rectangle-window of ugen graph.
 
@@ -2971,7 +3017,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.RECTANGLE_WINDOW)
 
-    def reciprocal(self):
+    def reciprocal(self) -> "UGenMethodMixin":
         """
         Calculates reciprocal of ugen graph.
 
@@ -3001,7 +3047,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.RECIPROCAL)
 
-    def s_curve(self):
+    def s_curve(self) -> "UGenMethodMixin":
         """
         Calculates S-curve of ugen graph.
 
@@ -3038,7 +3084,7 @@ class UGenMethodMixin:
         output_minimum,
         output_maximum,
         exponential=False,
-    ):
+    ) -> "UGenMethodMixin":
         """
         Scales ugen graph from `input_minimum` and `input_maximum` to `output_minimum` and `output_maximum`.
 
@@ -3114,18 +3160,15 @@ class UGenMethodMixin:
         """
         from . import LinExp, LinLin
 
-        map_ugen = LinLin
-        if exponential:
-            map_ugen = LinExp
         return self._compute_ugen_map(
-            map_ugen,
+            LinExp if exponential else LinLin,
             input_minimum=input_minimum,
             input_maximum=input_maximum,
             output_minimum=output_minimum,
             output_maximum=output_maximum,
         )
 
-    def semitones_to_ratio(self):
+    def semitones_to_ratio(self) -> "UGenMethodMixin":
         """
         Converts ugen graph from semitone distance to frequency ratio.
 
@@ -3154,7 +3197,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.SEMITONES_TO_RATIO)
 
-    def sign(self):
+    def sign(self) -> "UGenMethodMixin":
         """
         Calculates sign of ugen graph.
 
@@ -3184,25 +3227,25 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.SIGN)
 
-    def softclip(self):
+    def softclip(self) -> "UGenMethodMixin":
         """
         Distorts ugen graph non-linearly.
         """
         return self._compute_unary_op(self, UnaryOperator.SOFTCLIP)
 
-    def square_root(self):
+    def square_root(self) -> "UGenMethodMixin":
         """
         Calculates square root of ugen graph.
         """
         return self._compute_unary_op(self, UnaryOperator.SQUARE_ROOT)
 
-    def squared(self):
+    def squared(self) -> "UGenMethodMixin":
         """
         Calculates square of ugen graph.
         """
         return self._compute_unary_op(self, UnaryOperator.SQUARED)
 
-    def sum(self):
+    def sum(self) -> "UGenMethodMixin":
         """
         Sums ugen graph.
 
@@ -3267,7 +3310,7 @@ class UGenMethodMixin:
 
         return Mix.new(self)
 
-    def tanh(self):
+    def tanh(self) -> "UGenMethodMixin":
         """
         Calculates hyperbolic tangent of ugen graph.
 
@@ -3297,7 +3340,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.TANH)
 
-    def transpose(self, semitones):
+    def transpose(self, semitones) -> "UGenMethodMixin":
         """
         Transposes ugen graph by `semitones`.
 
@@ -3339,7 +3382,7 @@ class UGenMethodMixin:
         """
         return (self.hz_to_midi() + semitones).midi_to_hz()
 
-    def triangle_window(self):
+    def triangle_window(self) -> "UGenMethodMixin":
         """
         Calculates triangle-window of ugen graph.
 
@@ -3369,7 +3412,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.TRIANGLE_WINDOW)
 
-    def welch_window(self):
+    def welch_window(self) -> "UGenMethodMixin":
         """
         Calculates Welch-window of ugen graph.
 
@@ -3398,6 +3441,10 @@ class UGenMethodMixin:
         Returns ugen graph.
         """
         return self._compute_unary_op(self, UnaryOperator.WELCH_WINDOW)
+
+    @property
+    def signal_range(self):
+        raise NotImplementedError
 
 
 class UGenArray(UGenMethodMixin, Sequence):
