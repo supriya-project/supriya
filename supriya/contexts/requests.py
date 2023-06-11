@@ -1846,21 +1846,26 @@ class SetNodeControl(Request):
         ...     items=[
         ...         ("frequency", 440.0),
         ...         ("amplitude", 1.0),
+        ...         (3, 1.234),
+        ...         ("positions", [0.5, 0.25, 0.75]),
+        ...         (4, [0.1, 0.2]),
         ...     ],
         ... )
         >>> request.to_osc()
-        OscMessage('/n_set', 1000, 'frequency', 440.0, 'amplitude', 1.0)
+        OscMessage('/n_set', 1000, 'frequency', 440.0, 'amplitude', 1.0, 3, 1.234, 'positions', [0.5, 0.25, 0.75], 4, [0.1, 0.2])
     """
 
     node_id: SupportsInt
-    items: Sequence[Tuple[Union[int, str], float]]
+    items: Sequence[Tuple[Union[int, str], Union[float, Sequence[float]]]]
 
     def to_osc(self) -> OscMessage:
-        contents: List[Union[float, str]] = [int(self.node_id)]
-        for control, value in self.items:
-            contents.extend(
-                [control if isinstance(control, str) else int(control), float(value)]
-            )
+        contents: List[Union[float, str, List[float]]] = [int(self.node_id)]
+        for control, values in self.items:
+            contents.append(control if isinstance(control, str) else int(control))
+            if isinstance(values, Sequence):
+                contents.append([float(value) for value in values])
+            else:
+                contents.append(float(values))
         return OscMessage(RequestName.NODE_SET, *contents)
 
 
@@ -1874,10 +1879,13 @@ class SetNodeControlRange(Request):
         >>> from supriya.contexts.requests import SetNodeControlRange
         >>> request = SetNodeControlRange(
         ...     node_id=1000,
-        ...     items=[("frequency", (440.0, 441.0, 432.0))],
+        ...     items=[
+        ...         ("frequency", (440.0, 441.0, 432.0)),
+        ...         (3, (0.5, 0.25, 0.75)),
+        ...     ],
         ... )
         >>> request.to_osc()
-        OscMessage('/n_setn', 1000, 'frequency', 3, 440.0, 441.0, 432.0)
+        OscMessage('/n_setn', 1000, 'frequency', 3, 440.0, 441.0, 432.0, 3, 3, 0.5, 0.25, 0.75)
     """
 
     node_id: SupportsInt
