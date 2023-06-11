@@ -407,9 +407,32 @@ async def test_query_node(context):
 async def test_set_node(context):
     group = context.add_group()
     with context.osc_protocol.capture() as transcript:
-        group.set(foo=3.145, bar=4.5)
+        group.set((1, 2.3), (2, [3.4, 4.5]), foo=3.145, bar=4.5, baz=[1.23, 4.56])
     assert transcript.filtered(received=False, status=False) == [
-        OscMessage("/n_set", 1000, "bar", 4.5, "foo", 3.145)
+        OscMessage(
+            "/n_set",
+            1000,
+            1,
+            2.3,
+            2,
+            [3.4, 4.5],
+            "bar",
+            4.5,
+            "baz",
+            [1.23, 4.56],
+            "foo",
+            3.145,
+        )
+    ]
+
+
+@pytest.mark.asyncio
+async def test_set_node_range(context):
+    group = context.add_group()
+    with context.osc_protocol.capture() as transcript:
+        group.set_range((2, [3.4, 4.5]), baz=[1.23, 4.56])
+    assert transcript.filtered(received=False, status=False) == [
+        OscMessage("/n_setn", 1000, 2, 2, 3.4, 4.5, "baz", 2, 1.23, 4.56)
     ]
 
 
