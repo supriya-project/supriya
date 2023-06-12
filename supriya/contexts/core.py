@@ -95,6 +95,7 @@ from .requests import (
     SetControlBus,
     SetControlBusRange,
     SetNodeControl,
+    SetNodeControlRange,
     WriteBuffer,
     ZeroBuffer,
 )
@@ -1205,21 +1206,59 @@ class Context(metaclass=abc.ABCMeta):
         request = SetControlBusRange(items=[(bus.id_, values)])
         self._add_requests(request)
 
-    def set_node(self, node: Node, **settings: SupportsFloat) -> None:
+    def set_node(
+        self,
+        node: Node,
+        *indexed_settings: Tuple[int, Union[SupportsFloat, Sequence[SupportsFloat]]],
+        **settings: Union[SupportsFloat, Sequence[SupportsFloat]],
+    ) -> None:
         """
         Set a node's controls.
 
         Emit ``/n_set`` requests.
 
         :param node: The node whose controls will be set.
+        :param indexed_settings: A sequence of control indices to values.
         :param settings: A mapping of control names to values.
         """
         self._validate_can_request()
-        coerced_settings: Dict[Union[int, str], float] = {}
-        for key, value in settings.items():
-            coerced_settings[key] = float(value)
-        request = SetNodeControl(
-            node_id=node.id_, items=sorted(coerced_settings.items())
+        coerced_settings: Dict[Union[int, str], Union[float, Sequence[float]]] = {}
+        for index, values in sorted(indexed_settings):
+            if isinstance(values, Sequence):
+                coerced_settings[index] = [float(value) for value in values]
+            else:
+                coerced_settings[index] = float(values)
+        for key, values in sorted(settings.items()):
+            if isinstance(values, Sequence):
+                coerced_settings[key] = [float(value) for value in values]
+            else:
+                coerced_settings[key] = float(values)
+        request = SetNodeControl(node_id=node.id_, items=list(coerced_settings.items()))
+        self._add_requests(request)
+
+    def set_node_range(
+        self,
+        node: Node,
+        *indexed_settings: Tuple[int, Sequence[SupportsFloat]],
+        **settings: Sequence[SupportsFloat],
+    ) -> None:
+        """
+        Set a range of node controls.
+
+        Emit ``/n_setn`` requests.
+
+        :param node: The node whose controls will be set.
+        :param indexed_settings: A sequence of control indices to values.
+        :param settings: A mapping of control names to values.
+        """
+        self._validate_can_request()
+        coerced_settings: Dict[Union[int, str], Sequence[float]] = {}
+        for index, values in sorted(indexed_settings):
+            coerced_settings[index] = [float(value) for value in values]
+        for key, values in sorted(settings.items()):
+            coerced_settings[key] = [float(value) for value in values]
+        request = SetNodeControlRange(
+            node_id=node.id_, items=list(coerced_settings.items())
         )
         self._add_requests(request)
 

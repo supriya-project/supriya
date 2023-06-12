@@ -697,15 +697,31 @@ class Node(ContextObject):
             self, sync=sync
         )
 
-    def set(self, **settings: SupportsFloat) -> None:
+    def set(
+        self,
+        *indexed_settings: Tuple[int, Union[SupportsFloat, Sequence[SupportsFloat]]],
+        **settings: Union[SupportsFloat, Sequence[SupportsFloat]],
+    ) -> None:
         """
         Set the node's controls.
 
-        Emit ``/n_set <node.id_> gate 0`` for synths with ``gate`` controls.
-
+        :param indexed_settings: A sequence of control indices to values.
         :param settings: A mapping of control names to values.
         """
-        self.context.set_node(self, **settings)
+        self.context.set_node(self, *indexed_settings, **settings)
+
+    def set_range(
+        self,
+        *indexed_settings: Tuple[int, Sequence[SupportsFloat]],
+        **settings: Sequence[SupportsFloat],
+    ) -> None:
+        """
+        Set a range of the node's controls.
+
+        :param indexed_settings: A sequence of control indices to values.
+        :param settings: A mapping of control names to values.
+        """
+        self.context.set_node_range(self, *indexed_settings, **settings)
 
     def unpause(self) -> None:
         """

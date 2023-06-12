@@ -15,7 +15,10 @@ from .contexts import (
     AsyncServer,
     BaseServer,
     Buffer,
+    BufferGroup,
     Bus,
+    BusGroup,
+    Context,
     Group,
     Node,
     Score,
@@ -37,6 +40,7 @@ from .synthdefs import (
     SynthDefBuilder,
     synthdef,
 )
+from .ugens import UGen, UGenArray, UGenMethodMixin
 from .assets.synthdefs import default
 from .scsynth import Options
 
@@ -60,10 +64,13 @@ __all__ = [
     "BaseClock",
     "BaseServer",
     "Buffer",
+    "BufferGroup",
     "Bus",
+    "BusGroup",
     "CalculationRate",
     "Clock",
     "ClockContext",
+    "Context",
     "DoneAction",
     "Group",
     "HeaderFormat",
@@ -80,6 +87,9 @@ __all__ = [
     "Synth",
     "SynthDef",
     "SynthDefBuilder",
+    "UGen",
+    "UGenArray",
+    "UGenMethodMixin",
     "__version__",
     "__version_info__",
     "default",

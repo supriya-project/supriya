@@ -3,7 +3,7 @@ import copy
 import inspect
 import threading
 import uuid
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Callable, Dict, List, Optional, Tuple, Union
 
 from uqbar.objects import new
 
@@ -176,9 +176,9 @@ class SynthDefBuilder:
         return self._name
 
 
-def synthdef(*args: Union[str, Tuple[str, float]]):
+def synthdef(*args: Union[str, Tuple[str, float]]) -> Callable[[Callable], SynthDef]:
     """
-    Decorate for quickly constructing SynthDefs from functions.
+    Decorator for quickly constructing SynthDefs from functions.
 
     ::
 

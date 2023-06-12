@@ -227,12 +227,40 @@ def test_pause_node(context):
 def test_set_node(context):
     with context.at(0):
         group = context.add_group()
-        group.set(foo=3.145, bar=4.5)
+        group.set((1, 2.3), (2, [3.4, 4.5]), foo=3.145, bar=4.5, baz=[1.23, 4.56])
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(
             contents=(
                 OscMessage("/g_new", 1000, 0, 0),
-                OscMessage("/n_set", 1000, "bar", 4.5, "foo", 3.145),
+                OscMessage(
+                    "/n_set",
+                    1000,
+                    1,
+                    2.3,
+                    2,
+                    [3.4, 4.5],
+                    "bar",
+                    4.5,
+                    "baz",
+                    [1.23, 4.56],
+                    "foo",
+                    3.145,
+                ),
+            ),
+            timestamp=0.0,
+        )
+    ]
+
+
+def test_set_node_range(context):
+    with context.at(0):
+        group = context.add_group()
+        group.set_range((2, [3.4, 4.5]), baz=[1.23, 4.56])
+    assert list(context.iterate_osc_bundles()) == [
+        OscBundle(
+            contents=(
+                OscMessage("/g_new", 1000, 0, 0),
+                OscMessage("/n_setn", 1000, 2, 2, 3.4, 4.5, "baz", 2, 1.23, 4.56),
             ),
             timestamp=0.0,
         )
