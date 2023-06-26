@@ -54,6 +54,7 @@ core
    .. automethod:: set_bus
    .. automethod:: set_bus_range
    .. automethod:: set_node
+   .. automethod:: set_node_range
    .. automethod:: unpause_node
    .. automethod:: write_buffer
    .. automethod:: zero_buffer

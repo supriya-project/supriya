@@ -81,6 +81,7 @@ entities
    .. automethod:: pause
    .. automethod:: query
    .. automethod:: set
+   .. automethod:: set_range
    .. automethod:: unpause
    .. autoproperty:: active
    .. autoproperty:: parent
