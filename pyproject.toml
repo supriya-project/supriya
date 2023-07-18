@@ -24,8 +24,7 @@ classifiers = [
   "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
 ]
 dependencies = [
-  "PyYAML >= 6.0",
-  "platformdirs >= 3.1.0",
+  "platformdirs >= 3.9.1",
   "uqbar >= 0.6.9",
 ]
 description = "A Python API for SuperCollider"
@@ -100,7 +99,7 @@ exclude_lines = [
 
 [tool.isort]
 case_sensitive = true
-known_third_party = ["uqbar", "yaml"]
+known_third_party = ["uqbar"]
 profile = "black"
 skip = "supriya/__init__.py"
 

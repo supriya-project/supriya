@@ -137,13 +137,19 @@ jobs:
         Scream\Install\helpers\devcon-x64.exe install Scream\Install\driver\x64\Scream.inf *Scream
         net start audiosrv
         Get-CimInstance Win32_SoundDevice | fl *
+      timeout-minutes: 2
     - name: Sanity-check Supriya
       run: |
-        python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); server.quit(); exit()"
+        python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
         python -c "from supriya.utils._intervals import IntervalTreeDriverEx; print(IntervalTreeDriverEx)"
     - name: Sanity-check Supriya SHM (Non-Windows)
       if: ${{ matrix.os != 'windows-latest' }}
       run: python -c "from supriya.contexts.shm import ServerSHM; print(ServerSHM)"
+    - name: Check for stray processes (Non-Windows)
+      if: ${{ matrix.os != 'windows-latest' }}
+      run: |
+        ! ( ps aux | grep scsynth | grep -v grep )
+        ! ( ps aux | grep supernova | grep -v grep )
     - name: Install Supriya test dependencies
       run: pip install -e .[test]
     - name: Install ffmpeg

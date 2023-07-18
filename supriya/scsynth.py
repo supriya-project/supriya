@@ -1,4 +1,5 @@
 import asyncio
+import atexit
 import enum
 import logging
 import os
@@ -280,6 +281,10 @@ class ProcessProtocol:
 
 
 class SyncProcessProtocol(ProcessProtocol):
+    def __init__(self):
+        super().__init__()
+        atexit.register(self.quit)
+
     def boot(self, options: Options):
         if self.is_running:
             return
@@ -289,6 +294,7 @@ class SyncProcessProtocol(ProcessProtocol):
                 list(options),
                 stderr=subprocess.STDOUT,
                 stdout=subprocess.PIPE,
+                start_new_session=True,
             )
             start_time = time.time()
             timeout = 10
