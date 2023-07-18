@@ -6,8 +6,6 @@ import subprocess
 import tempfile
 from typing import Dict, List, Optional, Sequence, Tuple, Union
 
-import yaml
-
 from .. import sclang
 from ..enums import (
     BinaryOperator,
@@ -248,17 +246,20 @@ class SynthDef:
                     )
                 ugen_dict[argument_name] = value
             ugens.append({ugen_name: ugen_dict or None})
-
-        result = {
-            "synthdef": {
-                "name": self.actual_name,
-                # 'hash': self.anonymous_name,
-                "ugens": ugens,
-            }
-        }
-        return yaml.dump(
-            result, default_flow_style=False, indent=4, sort_keys=False
-        ).rstrip()
+        result = [
+            "synthdef:",
+            f"    name: {self.actual_name}",
+            "    ugens:",
+        ]
+        for ugen in ugens:
+            for ugen_name, ugen_dict in ugen.items():
+                if not ugen_dict:
+                    result.append(f"    -   {ugen_name}: null")
+                    continue
+                result.append(f"    -   {ugen_name}:")
+                for parameter_name, parameter_value in ugen_dict.items():
+                    result.append(f"            {parameter_name}: {parameter_value}")
+        return "\n".join(result)
 
     ### PRIVATE METHODS ###
 
