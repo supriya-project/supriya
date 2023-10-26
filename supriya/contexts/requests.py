@@ -1319,7 +1319,12 @@ class NewSynth(Request):
         ]
         for key, value in sorted((self.controls or {}).items()):
             contents.append(key if isinstance(key, str) else int(key))
-            contents.append(value if isinstance(value, str) else float(value))
+            if isinstance(value, str):
+                contents.append(value)
+            elif isinstance(value, tuple):
+                contents.append(tuple((float(v) for v in value)))
+            else:
+                contents.append(float(value))
         return OscMessage(RequestName.SYNTH_NEW, *contents)
 
 

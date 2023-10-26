@@ -612,6 +612,8 @@ class Context(metaclass=abc.ABCMeta):
                 synthdef_kwargs[parameter.name] = value.map_symbol()
             elif isinstance(value, str):
                 synthdef_kwargs[parameter.name] = value
+            elif isinstance(value, tuple):
+                synthdef_kwargs[parameter.name] = tuple((float(v) for v in value))
             else:
                 synthdef_kwargs[parameter.name] = float(value)
         id_ = self._allocate_id(Node, permanent=permanent)
