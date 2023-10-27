@@ -75,7 +75,7 @@ class SynthDef:
     ### SPECIAL METHODS ###
 
     def __eq__(self, expr) -> bool:
-        if type(expr) != type(self):
+        if not isinstance(expr, type(self)):
             return False
         if expr.name != self.name:
             return False
