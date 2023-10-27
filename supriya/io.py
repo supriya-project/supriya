@@ -106,7 +106,9 @@ class Plotter:
 
         array, sample_rate = self.plottable.__plot__()
         fig, ax = pyplot.subplots(nrows=1)
-        librosa.display.waveshow(array, sr=sample_rate, ax=ax)
+        # TODO: Drop color="blue" after upgrading librosa > 0.10.1
+        #       https://github.com/librosa/librosa/issues/1763
+        librosa.display.waveshow(array, sr=sample_rate, ax=ax, color="blue")
         timestamp = (
             datetime.datetime.now().isoformat().replace(".", "-").replace(":", "-")
         )

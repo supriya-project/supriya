@@ -213,7 +213,7 @@ class Control(MultiOutUGen):
 
         Returns output proxy.
         """
-        if type(i) == int:
+        if isinstance(i, int):
             if len(self) == 1:
                 return OutputProxy(self, 0)
             return OutputProxy(self, i)

@@ -150,7 +150,9 @@ class PlotExtension(Extension):
         ax.xaxis.label.set_color("white")
         ax.tick_params(axis="x", colors="white")
         ax.tick_params(axis="y", colors="white")
-        librosa.display.waveshow(array, sr=sample_rate, ax=ax)
+        # TODO: Drop color="blue" after upgrading librosa > 0.10.1
+        #       https://github.com/librosa/librosa/issues/1763
+        librosa.display.waveshow(array, sr=sample_rate, ax=ax, color="blue")
         hexdigest = hashlib.sha256(node[0].encode()).hexdigest()
         file_path = output_path / f"plot-{hexdigest}.svg"
         fig.savefig(file_path, bbox_inches="tight")

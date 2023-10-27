@@ -3,6 +3,7 @@ import os
 import pathlib
 import platform
 import shutil
+import sys
 
 import pytest
 import uqbar.io
@@ -53,6 +54,7 @@ def test_sphinx_book_html(caplog, app, status, warning, rm_dirs):
     assert len(plot_svg_paths) == 1
 
 
+@pytest.mark.skipif(sys.version_info < (3, 9), reason="Sphinx paths broken in 3.8")
 @pytest.mark.sphinx("text", testroot="book")
 def test_sphinx_book_text(app, status, warning, rm_dirs):
     app.build()

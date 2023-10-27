@@ -3492,7 +3492,7 @@ class OutputProxy(UGenMethodMixin):
     ### SPECIAL METHODS ###
 
     def __eq__(self, expr):
-        if type(self) != type(expr):
+        if not isinstance(expr, type(self)):
             return False
         if self._output_index != expr._output_index:
             return False
