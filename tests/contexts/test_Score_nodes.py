@@ -1,6 +1,7 @@
 import pytest
 
 from supriya import default
+from supriya.assets.synthdefs import test_two_voice
 from supriya.contexts.nonrealtime import Score
 from supriya.osc import OscBundle, OscMessage
 from supriya.synthdefs import SynthDefCompiler
@@ -57,6 +58,7 @@ def test_add_synth(context):
         bus_c = context.add_bus("CONTROL")
         synth = context.add_synth(default)
         context.add_synth(default, frequency=bus_a, amplitude="c0", pan=0.25, out=0)
+        context.add_synth(test_two_voice, frequencies=(123, 456))
     with context.at(1.23):
         context.add_synth(default, add_action="ADD_AFTER", target_node=synth)
         context.add_synth(default, frequency=bus_c, amplitude="a16", pan=0.25, out=0)
@@ -78,16 +80,25 @@ def test_add_synth(context):
                     "pan",
                     0.25,
                 ),
+                OscMessage(
+                    "/s_new",
+                    "test_two_voice",
+                    1002,
+                    0,
+                    0,
+                    "frequencies",
+                    (123.0, 456.0),
+                ),
             ),
             timestamp=0.0,
         ),
         OscBundle(
             contents=(
-                OscMessage("/s_new", "default", 1002, 3, 1000),
+                OscMessage("/s_new", "default", 1003, 3, 1000),
                 OscMessage(
                     "/s_new",
                     "default",
-                    1003,
+                    1004,
                     0,
                     0,
                     "amplitude",
