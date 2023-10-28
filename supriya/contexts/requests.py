@@ -1307,11 +1307,11 @@ class NewSynth(Request):
     add_action: AddActionLike
     target_node_id: SupportsInt
     controls: Optional[
-        Dict[Union[int, str], Union[SupportsFloat, str, tuple[float, ...]]]
+        Dict[Union[int, str], Union[SupportsFloat, str, Tuple[float, ...]]]
     ] = None
 
     def to_osc(self) -> OscMessage:
-        contents: List[Union[float, str, tuple[float, ...]]] = [
+        contents: List[Union[float, str, Tuple[float, ...]]] = [
             self.synthdef.actual_name
             if isinstance(self.synthdef, SynthDef)
             else self.synthdef,
