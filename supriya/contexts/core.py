@@ -597,7 +597,9 @@ class Context(metaclass=abc.ABCMeta):
             if add_action_ not in target_node._valid_add_actions:
                 raise ValueError(add_action_)
         target_node_id = self._resolve_node(target_node)
-        synthdef_kwargs: Dict[Union[int, str], Union[SupportsFloat, str]] = {}
+        synthdef_kwargs: Dict[
+            Union[int, str], Union[SupportsFloat, str, tuple[float, ...]]
+        ] = {}
         for _, parameter in synthdef.indexed_parameters:
             if parameter.name not in settings:
                 continue
