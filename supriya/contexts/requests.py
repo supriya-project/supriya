@@ -1306,10 +1306,12 @@ class NewSynth(Request):
     synth_id: SupportsInt
     add_action: AddActionLike
     target_node_id: SupportsInt
-    controls: Optional[Dict[Union[int, str], Union[SupportsFloat, str]]] = None
+    controls: Optional[
+        Dict[Union[int, str], Union[SupportsFloat, str, Tuple[float, ...]]]
+    ] = None
 
     def to_osc(self) -> OscMessage:
-        contents: List[Union[float, str]] = [
+        contents: List[Union[float, str, Tuple[float, ...]]] = [
             self.synthdef.actual_name
             if isinstance(self.synthdef, SynthDef)
             else self.synthdef,
@@ -1319,7 +1321,12 @@ class NewSynth(Request):
         ]
         for key, value in sorted((self.controls or {}).items()):
             contents.append(key if isinstance(key, str) else int(key))
-            contents.append(value if isinstance(value, str) else float(value))
+            if isinstance(value, str):
+                contents.append(value)
+            elif isinstance(value, tuple):
+                contents.append(tuple((float(v) for v in value)))
+            else:
+                contents.append(float(value))
         return OscMessage(RequestName.SYNTH_NEW, *contents)
 
 

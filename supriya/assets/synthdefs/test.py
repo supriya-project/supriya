@@ -15,6 +15,19 @@ def _build_test_synthdef():
     return synthdef
 
 
-test = _build_test_synthdef()
+def _build_test_two_voice_synthdef():
+    with SynthDefBuilder(
+        frequencies=(220, 440),
+        amplitude=Parameter(value=1.0, parameter_rate=ParameterRate.AUDIO),
+    ) as builder:
+        sin_osc = SinOsc.ar(frequency=builder["frequencies"])
+        enveloped_sin = sin_osc * builder["amplitude"]
+        Out.ar(bus=0, source=enveloped_sin)
+    synthdef = builder.build(name="test_two_voice")
+    return synthdef
 
-__all__ = ("test",)
+
+test = _build_test_synthdef()
+test_two_voice = _build_test_two_voice_synthdef()
+
+__all__ = ("test", "test_two_voice")
