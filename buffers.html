@@ -32,8 +32,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.9dcb20399d0097661.min.css" />
-        <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.af531f03affe68837.min.css?v=2410bb73" />
+        <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -2410,7 +2410,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
-<h1 id="buffers">Buffers<a class="headerlink" href="#buffers" title="Permalink to this heading">¶</a></h1>
+<h1 id="buffers">Buffers<a class="headerlink" href="#buffers" title="Link to this heading">¶</a></h1>
 <p><a class="reference internal" href="glossary.html#term-buffer" title="buffer (glossary term)"><span class="xref std std-term">Buffers</span></a> are arrays of sample data. Like sound files, they have
 one or more <a class="reference internal" href="glossary.html#term-channel" title="channel (glossary term)"><span class="xref std std-term">channels</span></a>, and one or more <a class="reference internal" href="glossary.html#term-frame" title="frame (glossary term)"><span class="xref std std-term">frames</span></a>.
 They can be read from disk (or written back to it), created empty and populated
@@ -2424,7 +2424,7 @@ class provides a <a class="reference internal" href="glossary.html#term-proxy" t
 running <a class="reference internal" href="glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a> process, and the
 <a class="reference internal" href="api/supriya/contexts/entities.html#supriya.contexts.entities.BufferGroup" title="supriya.contexts.entities.BufferGroup (Python class) — Bases: ContextObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">BufferGroup</span></code></a> class models a contiguous
 block of buffers.</p>
-<h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permalink to this heading">¶</a></h2>
+<h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Link to this heading">¶</a></h2>
 <p>Buffers can only be added to running servers, so let’s create one and boot it:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </code></pre></div>
@@ -2434,7 +2434,7 @@ block of buffers.</p>
 <p><a class="reference internal" href="api/supriya/contexts/nonrealtime.html#supriya.contexts.nonrealtime.Score" title="supriya.contexts.nonrealtime.Score (Python class) — Bases: Context"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scores</span></code></a> are neither online
 nor offline, so you can add buffers to them whenever you like.</p>
 </div>
-<h3 id="creation">Creation<a class="headerlink" href="#creation" title="Permalink to this heading">¶</a></h3>
+<h3 id="creation">Creation<a class="headerlink" href="#creation" title="Link to this heading">¶</a></h3>
 <p>Buffers can be allocated empty or immediately filled with all or part of a
 soundfile read from disk.</p>
 <div class="note admonition">
@@ -2447,7 +2447,7 @@ soundfile read from disk.</p>
 <a class="reference internal" href="glossary.html#term-repr" title="repr (glossary term)"><span class="xref std std-term">repr</span></a> to the terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span>
-<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, id_=0, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, seconds=None, closed=True, requests=[(AllocateBuffer(buffer_id=0, frame_count=512, channel_count=1, on_completion=None), ...)]), requests=[]))</span>
+<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, id_=0, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, seconds=None, closed=True, requests=[(AllocateBuffer(buffer_id=0, frame_count=512, channel_count=1, on_completion=None), ...)]), requests=[]))</span>
 </code></pre></div>
 </div>
 <p>The <a class="reference internal" href="glossary.html#term-repr" title="repr (glossary term)"><span class="xref std std-term">repr</span></a> shows the buffer’s type (<code class="docutils literal notranslate"><span class="pre">Buffer</span></code>), its <a class="reference internal" href="glossary.html#term-ID-buffer" title="ID, buffer (glossary term)"><span class="xref std std-term">ID</span></a> (<code class="docutils literal notranslate"><span class="pre">0</span></code>) and indicates it has been allocated (<code class="docutils literal notranslate"><span class="pre">+</span></code>).</p>
@@ -2458,7 +2458,7 @@ soundfile read from disk.</p>
 <span class="gp">... </span>    <span class="n">count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">512</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_group</span>
-<span class="go">BufferGroup(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, id_=1, count=4)</span>
+<span class="go">BufferGroup(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, id_=1, count=4)</span>
 </code></pre></div>
 </div>
 <p>The <a class="reference internal" href="glossary.html#term-repr" title="repr (glossary term)"><span class="xref std std-term">repr</span></a> shows the buffer group’s type (<code class="docutils literal notranslate"><span class="pre">BufferGroup</span></code>), the <a class="reference internal" href="glossary.html#term-ID-buffer" title="ID, buffer (glossary term)"><span class="xref std std-term">ID</span></a> of the first buffer in the group (<code class="docutils literal notranslate"><span class="pre">1</span></code>) and indicates it has
@@ -2475,7 +2475,7 @@ buffers they operate over are contiguously allocated.</p>
 method also guarantees that those IDs are released back to the allocator
 pool simultaneously.</p>
 </div>
-<h3 id="creation-from-files">Creation from files<a class="headerlink" href="#creation-from-files" title="Permalink to this heading">¶</a></h3>
+<h3 id="creation-from-files">Creation from files<a class="headerlink" href="#creation-from-files" title="Link to this heading">¶</a></h3>
 <p>Let’s locate a soundfile:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">assets_path</span> <span class="o">/</span> <span class="s2">&quot;audio/birds/birds-01.wav&quot;</span>
 </code></pre></div>
@@ -2517,35 +2517,35 @@ allocate a buffer from the middle of that soundfile, plot it and play it:</p>
 </div>
 <p>Allocating a buffer from this soundfile shows it contains eight channels:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
-<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, id_=7, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=7, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/sine_440hz_44100sr_16bit_octo.wav&#39;), starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
+<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, id_=7, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=7, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/sine_440hz_44100sr_16bit_octo.wav&#39;), starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
 </code></pre></div>
 </div>
 <p>We can allocate a buffer from a subset of those channels by passing the number
 of channels to grab via the <code class="docutils literal notranslate"><span class="pre">channel_count</span></code> parameter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">channel_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
-<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, id_=8, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, seconds=None, closed=True, requests=[(AllocateReadBufferChannel(buffer_id=8, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/sine_440hz_44100sr_16bit_octo.wav&#39;), channel_indices=[0, 1], starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
+<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, id_=8, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, seconds=None, closed=True, requests=[(AllocateReadBufferChannel(buffer_id=8, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/sine_440hz_44100sr_16bit_octo.wav&#39;), channel_indices=[0, 1], starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
 </code></pre></div>
 </div>
 <div class="todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
 <p>Implement <code class="docutils literal notranslate"><span class="pre">server.add_buffer_group(file_paths=[...,</span> <span class="pre">...,</span> <span class="pre">...])</span></code></p>
 </div>
-<h3 id="deletion">Deletion<a class="headerlink" href="#deletion" title="Permalink to this heading">¶</a></h3>
+<h3 id="deletion">Deletion<a class="headerlink" href="#deletion" title="Link to this heading">¶</a></h3>
 <p>Free a buffer with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-<span class="go">Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, seconds=None, closed=True, requests=[(FreeBuffer(buffer_id=Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, id_=6, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f53d0f7a290&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=6, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/birds/birds-01.wav&#39;), starting_frame=16545, frame_count=8192, on_completion=None), ...)]), requests=[])), on_completion=None), ...)]), requests=[])</span>
+<span class="go">Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, seconds=None, closed=True, requests=[(FreeBuffer(buffer_id=Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, id_=6, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe7518fd90&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=6, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/birds/birds-01.wav&#39;), starting_frame=16545, frame_count=8192, on_completion=None), ...)]), requests=[])), on_completion=None), ...)]), requests=[])</span>
 </code></pre></div>
 </div>
 <p>Free a buffer group with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_group</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
 </div>
-<h3 id="disk-io">Disk IO<a class="headerlink" href="#disk-io" title="Permalink to this heading">¶</a></h3>
+<h3 id="disk-io">Disk IO<a class="headerlink" href="#disk-io" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>.read()</p></li>
 <li><p>.write()</p></li>
 </ul>
-<h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permalink to this heading">¶</a></h2>
+<h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>.buffer_id</p></li>
 <li><p>.__int__()</p></li>
@@ -2559,7 +2559,7 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <span class="go">9</span>
 </code></pre></div>
 </div>
-<h3 id="querying">Querying<a class="headerlink" href="#querying" title="Permalink to this heading">¶</a></h3>
+<h3 id="querying">Querying<a class="headerlink" href="#querying" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>.query()</p></li>
 </ul>
@@ -2568,7 +2568,7 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <span class="go">BufferInfo(items=[BufferInfo.Item(buffer_id=10, frame_count=0, channel_count=0, sample_rate=0.0)])</span>
 </code></pre></div>
 </div>
-<h3 id="getting">Getting<a class="headerlink" href="#getting" title="Permalink to this heading">¶</a></h3>
+<h3 id="getting">Getting<a class="headerlink" href="#getting" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>.get()</p></li>
 <li><p>.get_range()</p></li>
@@ -2577,7 +2577,7 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <span class="go">{0: 0.0, 2: 0.0, 4: 0.0}</span>
 </code></pre></div>
 </div>
-<h3 id="buffer-ugens">Buffer UGens<a class="headerlink" href="#buffer-ugens" title="Permalink to this heading">¶</a></h3>
+<h3 id="buffer-ugens">Buffer UGens<a class="headerlink" href="#buffer-ugens" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>BufChannels</p></li>
 <li><p>BufDur</p></li>
@@ -2586,13 +2586,13 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <li><p>BufSampleRate</p></li>
 <li><p>BufSamples</p></li>
 </ul>
-<h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permalink to this heading">¶</a></h2>
-<h3 id="setting">Setting<a class="headerlink" href="#setting" title="Permalink to this heading">¶</a></h3>
+<h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Link to this heading">¶</a></h2>
+<h3 id="setting">Setting<a class="headerlink" href="#setting" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>.set()</p></li>
 <li><p>.set_range()</p></li>
 </ul>
-<h3 id="filling">Filling<a class="headerlink" href="#filling" title="Permalink to this heading">¶</a></h3>
+<h3 id="filling">Filling<a class="headerlink" href="#filling" title="Link to this heading">¶</a></h3>
 <p>Given a single-channel buffer with 1024 samples:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
 </code></pre></div>
@@ -2601,33 +2601,33 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <li><p>.fill()</p></li>
 <li><p>.generate()</p></li>
 </ul>
-<h3 id="copying">Copying<a class="headerlink" href="#copying" title="Permalink to this heading">¶</a></h3>
+<h3 id="copying">Copying<a class="headerlink" href="#copying" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>.copy()</p></li>
 </ul>
-<h3 id="zeroing">Zeroing<a class="headerlink" href="#zeroing" title="Permalink to this heading">¶</a></h3>
+<h3 id="zeroing">Zeroing<a class="headerlink" href="#zeroing" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>.zero()</p></li>
 </ul>
-<h3 id="normalizing">Normalizing<a class="headerlink" href="#normalizing" title="Permalink to this heading">¶</a></h3>
+<h3 id="normalizing">Normalizing<a class="headerlink" href="#normalizing" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>.normalize()</p></li>
 </ul>
-<h2 id="integration">Integration<a class="headerlink" href="#integration" title="Permalink to this heading">¶</a></h2>
-<h3 id="referencing">Referencing<a class="headerlink" href="#referencing" title="Permalink to this heading">¶</a></h3>
-<h3 id="buffer-io">Buffer IO<a class="headerlink" href="#buffer-io" title="Permalink to this heading">¶</a></h3>
+<h2 id="integration">Integration<a class="headerlink" href="#integration" title="Link to this heading">¶</a></h2>
+<h3 id="referencing">Referencing<a class="headerlink" href="#referencing" title="Link to this heading">¶</a></h3>
+<h3 id="buffer-io">Buffer IO<a class="headerlink" href="#buffer-io" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>BufRd and BufWr</p></li>
 <li><p>PlayBuf and RecordBuf</p></li>
 </ul>
-<h3 id="continuous-disk-io">Continuous Disk IO<a class="headerlink" href="#continuous-disk-io" title="Permalink to this heading">¶</a></h3>
+<h3 id="continuous-disk-io">Continuous Disk IO<a class="headerlink" href="#continuous-disk-io" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>DiskIn and DiskOut</p></li>
 <li><p>VDiskIn</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">leaving_open</span></code></p></li>
 <li><p>.close()</p></li>
 </ul>
-<h3 id="wavetable-synthesis">Wavetable synthesis<a class="headerlink" href="#wavetable-synthesis" title="Permalink to this heading">¶</a></h3>
+<h3 id="wavetable-synthesis">Wavetable synthesis<a class="headerlink" href="#wavetable-synthesis" title="Link to this heading">¶</a></h3>
 <p>SuperCollider provides a number of <a class="reference internal" href="glossary.html#term-wavetable-synthesis" title="wavetable synthesis (glossary term)"><span class="xref std std-term">wavetable</span></a>
 oscillators, including <a class="reference internal" href="api/supriya/ugens/osc.html#supriya.ugens.osc.Osc" title="supriya.ugens.osc.Osc (Python class) — Bases: UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">Osc</span></code></a>,
 <a class="reference internal" href="api/supriya/ugens/osc.html#supriya.ugens.osc.COsc" title="supriya.ugens.osc.COsc (Python class) — Bases: UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">COsc</span></code></a>, <a class="reference internal" href="api/supriya/ugens/osc.html#supriya.ugens.osc.VOsc" title="supriya.ugens.osc.VOsc (Python class) — Bases: UGen"><code class="xref py py-class docutils literal notranslate"><span class="pre">VOsc</span></code></a>, and
@@ -2687,7 +2687,7 @@ existing buffer’s contents into another buffer and convert.</p>
 <p class="admonition-title">Todo</p>
 <p>Implement wavetable utilities for loading arbitrary audio.</p>
 </div>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
 <p>The maximum number of buffers available in a context is controlled by its options.</p>
 <ul class="simple">
 <li><p>Options.buffer_count</p></li>
@@ -2764,7 +2764,7 @@ existing buffer’s contents into another buffer and convert.</p>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.3.0.
+    7.2.6.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
@@ -2783,7 +2783,7 @@ existing buffer’s contents into another buffer and convert.</p>
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
       
-        <script src="_static/sphinx_immaterial_theme.1b5b7a2d5891aec19.min.js"></script>
+        <script src="_static/sphinx_immaterial_theme.1b5b7a2d5891aec19.min.js?v=1e7b0789"></script>
     
   </body>
 </html>

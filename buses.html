@@ -32,8 +32,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.9dcb20399d0097661.min.css" />
-        <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.af531f03affe68837.min.css?v=2410bb73" />
+        <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -2232,13 +2232,13 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
-<h1 id="buses">Buses<a class="headerlink" href="#buses" title="Permalink to this heading">¶</a></h1>
+<h1 id="buses">Buses<a class="headerlink" href="#buses" title="Link to this heading">¶</a></h1>
 <ul class="simple">
 <li><p>what is a bus?</p></li>
 <li><p>buses vs bus groups</p></li>
 <li><p>calculation rates</p></li>
 </ul>
-<h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permalink to this heading">¶</a></h2>
+<h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Link to this heading">¶</a></h2>
 <p>Buses can only be added to running servers, so let’s create one and boot it:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </code></pre></div>
@@ -2248,7 +2248,7 @@
 <p><a class="reference internal" href="api/supriya/contexts/nonrealtime.html#supriya.contexts.nonrealtime.Score" title="supriya.contexts.nonrealtime.Score (Python class) — Bases: Context"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scores</span></code></a> are neither online
 nor offline, so you can add buses to them whenever you like.</p>
 </div>
-<h3 id="creation">Creation<a class="headerlink" href="#creation" title="Permalink to this heading">¶</a></h3>
+<h3 id="creation">Creation<a class="headerlink" href="#creation" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>what is allocation? leasing, block allocation</p></li>
 </ul>
@@ -2260,7 +2260,7 @@ nor offline, so you can add buses to them whenever you like.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_bus_group</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<h3 id="deletion">Deletion<a class="headerlink" href="#deletion" title="Permalink to this heading">¶</a></h3>
+<h3 id="deletion">Deletion<a class="headerlink" href="#deletion" title="Link to this heading">¶</a></h3>
 <p>Free a bus with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">bus</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
@@ -2269,7 +2269,7 @@ nor offline, so you can add buses to them whenever you like.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
 </div>
-<h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Permalink to this heading">¶</a></h2>
+<h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>.bus_id</p></li>
 <li><p>.calculation_rate</p></li>
@@ -2277,21 +2277,21 @@ nor offline, so you can add buses to them whenever you like.</p>
 <li><p>.get()</p></li>
 <li><p>.get_range()</p></li>
 </ul>
-<h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permalink to this heading">¶</a></h2>
+<h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>.set_()</p></li>
 <li><p>.fill()</p></li>
 </ul>
-<h2 id="integration">Integration<a class="headerlink" href="#integration" title="Permalink to this heading">¶</a></h2>
-<h3 id="referencing">Referencing<a class="headerlink" href="#referencing" title="Permalink to this heading">¶</a></h3>
+<h2 id="integration">Integration<a class="headerlink" href="#integration" title="Link to this heading">¶</a></h2>
+<h3 id="referencing">Referencing<a class="headerlink" href="#referencing" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>.__int__()</p></li>
 </ul>
-<h3 id="mapping-controls">Mapping controls<a class="headerlink" href="#mapping-controls" title="Permalink to this heading">¶</a></h3>
+<h3 id="mapping-controls">Mapping controls<a class="headerlink" href="#mapping-controls" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>.map_symbol</p></li>
 </ul>
-<h3 id="inputs-and-outputs">Inputs and outputs<a class="headerlink" href="#inputs-and-outputs" title="Permalink to this heading">¶</a></h3>
+<h3 id="inputs-and-outputs">Inputs and outputs<a class="headerlink" href="#inputs-and-outputs" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>In</p></li>
 <li><p>Out</p></li>
@@ -2300,7 +2300,7 @@ nor offline, so you can add buses to them whenever you like.</p>
 <li><p>XOut</p></li>
 <li><p>ReplaceOut</p></li>
 </ul>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
 <p>The number of buses available in a context is controlled by its options.</p>
 <ul class="simple">
 <li><p>Options.control_bus_channel_count</p></li>
@@ -2380,7 +2380,7 @@ nor offline, so you can add buses to them whenever you like.</p>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.3.0.
+    7.2.6.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
@@ -2399,7 +2399,7 @@ nor offline, so you can add buses to them whenever you like.</p>
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
       
-        <script src="_static/sphinx_immaterial_theme.1b5b7a2d5891aec19.min.js"></script>
+        <script src="_static/sphinx_immaterial_theme.1b5b7a2d5891aec19.min.js?v=1e7b0789"></script>
     
   </body>
 </html>

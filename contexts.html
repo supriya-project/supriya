@@ -32,8 +32,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.9dcb20399d0097661.min.css" />
-        <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.af531f03affe68837.min.css?v=2410bb73" />
+        <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -2096,7 +2096,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
-<h1 id="contexts">Contexts<a class="headerlink" href="#contexts" title="Permalink to this heading">¶</a></h1>
+<h1 id="contexts">Contexts<a class="headerlink" href="#contexts" title="Link to this heading">¶</a></h1>
 <p>Supriya’s <a class="reference internal" href="api/supriya/contexts/core.html#supriya.contexts.core.Context" title="supriya.contexts.core.Context (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">context</span></code></a> interface exposes
 a set of common functions for interacting with <a class="reference internal" href="glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a>-compatible
 execution contexts in both <em>realtime</em> and <em>non-realtime</em>.</p>
@@ -2106,7 +2106,7 @@ execution contexts in both <em>realtime</em> and <em>non-realtime</em>.</p>
 </div>
 <p>See the <a class="reference internal" href="servers.html"><span class="doc">servers</span></a> and <a class="reference internal" href="scores.html"><span class="doc">scores</span></a> pages for in-depth documentation on
 how each time of context works.</p>
-<h2 id="moments">Moments<a class="headerlink" href="#moments" title="Permalink to this heading">¶</a></h2>
+<h2 id="moments">Moments<a class="headerlink" href="#moments" title="Link to this heading">¶</a></h2>
 <p>Contexts can bundle requests together via
 <a class="reference internal" href="api/supriya/contexts/core.html#supriya.contexts.core.Moment" title="supriya.contexts.core.Moment (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> context managers.</p>
 <p>For non-realtime contexts, all requests must happen inside a moment, while for
@@ -2133,18 +2133,18 @@ with no timestamp - simply means “do this as soon as possible”. Use
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>  <span class="c1"># do it ASAP</span>
 <span class="gp">... </span>    <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">... </span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f53acb1b0d0&gt;, id_=1001, parallel=False)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50834f10&gt;, id_=1001, parallel=False)</span>
 </code></pre></div>
 </div>
 </li>
 <li><p>Servers can also omit moments entirely:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f53acb1b0d0&gt;, id_=1002, parallel=False)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50834f10&gt;, id_=1002, parallel=False)</span>
 </code></pre></div>
 </div>
 </li>
 </ul>
-<h2 id="completions">Completions<a class="headerlink" href="#completions" title="Permalink to this heading">¶</a></h2>
+<h2 id="completions">Completions<a class="headerlink" href="#completions" title="Link to this heading">¶</a></h2>
 <p>Some commands to <a class="reference internal" href="glossary.html#term-SuperCollider" title="SuperCollider (glossary term)"><span class="xref std std-term">SuperCollider</span></a> are “async” and may take multiple
 control blocks to complete, e.g. reading a file from disk into a buffer. These
 commands often accept a final “completion message”: an OSC message or bundle to
@@ -2160,14 +2160,14 @@ argument.</p>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">score</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">score</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">target_node</span><span class="o">=</span><span class="n">score_group</span><span class="p">)</span>
 <span class="gp">... </span>
-<span class="go">Synth(context=&lt;supriya.contexts.nonrealtime.Score object at 0x7f53acb12fe0&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.nonrealtime.Score object at 0x7fbe507fe410&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">target_node</span><span class="o">=</span><span class="n">server_group</span><span class="p">)</span>
 <span class="gp">... </span>
-<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7f53acb1b0d0&gt;, id_=1003, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50834f10&gt;, id_=1003, synthdef=&lt;SynthDef: default&gt;)</span>
 </code></pre></div>
 </div>
 <p>Because realtime contexts can issue requests outside of a moment context, all
@@ -2179,7 +2179,7 @@ message.</p>
 <span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="k">lambda</span> <span class="n">context</span><span class="p">:</span> <span class="n">context</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
-<span class="go">Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f53acb1b0d0&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f53acb1b0d0&gt;, seconds=None, closed=True, requests=[(ReceiveSynthDefs(synthdefs=(&lt;SynthDef: default&gt;,), on_completion=None), ...)]), requests=[(NewSynth(synthdef=&lt;SynthDef: default&gt;, synth_id=1004, add_action=AddAction.ADD_TO_HEAD, target_node_id=1, controls={}), None)])</span>
+<span class="go">Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50834f10&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50834f10&gt;, seconds=None, closed=True, requests=[(ReceiveSynthDefs(synthdefs=(&lt;SynthDef: default&gt;,), on_completion=None), ...)]), requests=[(NewSynth(synthdef=&lt;SynthDef: default&gt;, synth_id=1004, add_action=AddAction.ADD_TO_HEAD, target_node_id=1, controls={}), None)])</span>
 </code></pre></div>
 </div>
 <p>If issuing commands inside a moment, the completion must be used before the
@@ -2272,7 +2272,7 @@ added will have been sent once the moment closed.</p>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.3.0.
+    7.2.6.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
@@ -2291,7 +2291,7 @@ added will have been sent once the moment closed.</p>
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
       
-        <script src="_static/sphinx_immaterial_theme.1b5b7a2d5891aec19.min.js"></script>
+        <script src="_static/sphinx_immaterial_theme.1b5b7a2d5891aec19.min.js?v=1e7b0789"></script>
     
   </body>
 </html>

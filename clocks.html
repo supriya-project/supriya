@@ -32,8 +32,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.9dcb20399d0097661.min.css" />
-        <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.af531f03affe68837.min.css?v=2410bb73" />
+        <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -2354,30 +2354,30 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
-<h1 id="clocks">Clocks<a class="headerlink" href="#clocks" title="Permalink to this heading">¶</a></h1>
+<h1 id="clocks">Clocks<a class="headerlink" href="#clocks" title="Link to this heading">¶</a></h1>
 <p>Supriya provides a collection of musical-time-aware clocks which permit
 scheduling callbacks relative to both seconds, beats and measures, and which - by
 extension - understand tempo, time signatures and downbeats.</p>
 <p>These clocks come in both <em>threaded</em> and <em>asynchronous</em> flavors, as well as
 <em>online</em> and <em>offline</em>.</p>
 <p><em>Threaded</em> clocks handle callbacks in their own thread, while <em>asynchronous</em>
-clocks hook into an <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> event loop. Use threaded clocks when
+clocks hook into an <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> event loop. Use threaded clocks when
 experimenting interactively in the terminal or building simple applications.
 Use asynchronous clocks when building more complex applications which integrate
-with other <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a>-aware libraries like <a class="reference external" href="https://docs.aiohttp.org">aiohttp</a>,
+with other <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a>-aware libraries like <a class="reference external" href="https://docs.aiohttp.org">aiohttp</a>,
 <a class="reference external" href="https://python-prompt-toolkit.readthedocs.io">python-prompt-toolkit</a> or <a class="reference external" href="https://github.com/artfwo/pymonome">pymonome</a>.</p>
 <p><em>Offline</em> clocks implement the same interface as their <em>online</em> counterparts,
 but process their callbacks as fast as possible, regardless of the amount of
 real time consumed. This makes them suitable for unit-testing logic expecting
 online clocks, or for implementing non-realtime rendering of usually-online
 musical patterns.</p>
-<h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permalink to this heading">¶</a></h2>
-<h3 id="creating">Creating<a class="headerlink" href="#creating" title="Permalink to this heading">¶</a></h3>
+<h2 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Link to this heading">¶</a></h2>
+<h3 id="creating">Creating<a class="headerlink" href="#creating" title="Link to this heading">¶</a></h3>
 <p>Instantiate a <em>threaded</em> clock with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Clock</span><span class="p">()</span>
 </code></pre></div>
 </div>
-<h3 id="starting-and-stopping">Starting and stopping<a class="headerlink" href="#starting-and-stopping" title="Permalink to this heading">¶</a></h3>
+<h3 id="starting-and-stopping">Starting and stopping<a class="headerlink" href="#starting-and-stopping" title="Link to this heading">¶</a></h3>
 <p>Start a <em>threaded</em> clock with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </code></pre></div>
@@ -2386,7 +2386,7 @@ musical patterns.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 </code></pre></div>
 </div>
-<h2 id="scheduling">Scheduling<a class="headerlink" href="#scheduling" title="Permalink to this heading">¶</a></h2>
+<h2 id="scheduling">Scheduling<a class="headerlink" href="#scheduling" title="Link to this heading">¶</a></h2>
 <p>Let’s consider a simple callback function:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The current offset is: </span><span class="si">{</span><span class="n">context</span><span class="o">.</span><span class="n">current_moment</span><span class="o">.</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -2395,27 +2395,27 @@ musical patterns.</p>
 </div>
 <p>All clock callbacks need to accept <em>at least</em> a <code class="docutils literal notranslate"><span class="pre">context</span></code> argument, to which
 the clock will pass a <a class="reference internal" href="api/supriya/clocks/ephemera.html#supriya.clocks.ephemera.ClockContext" title="supriya.clocks.ephemera.ClockContext (Python class) — Bases: NamedTuple"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClockContext</span></code></a> object.</p>
-<h3 id="id1">Scheduling<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<h3 id="id1">Scheduling<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
 <p>We can schedule that procedure with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
 <span class="go">0</span>
 </code></pre></div>
 </div>
 <p>Scheduling callbacks returns an event ID.</p>
-<h3 id="canceling">Canceling<a class="headerlink" href="#canceling" title="Permalink to this heading">¶</a></h3>
+<h3 id="canceling">Canceling<a class="headerlink" href="#canceling" title="Link to this heading">¶</a></h3>
 <p>We can use the event ID to cancel the callback if it hasn’t already occurred:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="go">CallbackCommand(args=None, event_id=0, event_type=&lt;EventType.SCHEDULE: 1&gt;, kwargs=None, procedure=&lt;function callback at 0x7f53aca77e20&gt;, quantization=None, schedule_at=0.0, time_unit=&lt;TimeUnit.BEATS: 0&gt;)</span>
+<span class="go">CallbackCommand(args=None, event_id=0, event_type=&lt;EventType.SCHEDULE: 1&gt;, kwargs=None, procedure=&lt;function callback at 0x7fbe509ebac0&gt;, quantization=None, schedule_at=0.0, time_unit=&lt;TimeUnit.BEATS: 0&gt;)</span>
 </code></pre></div>
 </div>
-<h3 id="cueing">Cueing<a class="headerlink" href="#cueing" title="Permalink to this heading">¶</a></h3>
+<h3 id="cueing">Cueing<a class="headerlink" href="#cueing" title="Link to this heading">¶</a></h3>
 <p>We can also <em>cue</em> callbacks, scheduling them to occur at some quantized offset
 in the future, e.g. on the next beat or downbeat:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">cue</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
 <span class="go">1</span>
 </code></pre></div>
 </div>
-<h2 id="callbacks">Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this heading">¶</a></h2>
+<h2 id="callbacks">Callbacks<a class="headerlink" href="#callbacks" title="Link to this heading">¶</a></h2>
 <p>Let’s consider a more complicated callback function:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">callback</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">context</span><span class="p">,</span>
@@ -2433,30 +2433,30 @@ in the future, e.g. on the next beat or downbeat:</p>
 <span class="gp">... </span>
 </code></pre></div>
 </div>
-<h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permalink to this heading">¶</a></h3>
+<h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>positional arguments</p></li>
 <li><p>keyword arguments</p></li>
 </ul>
-<h3 id="deltas">Deltas<a class="headerlink" href="#deltas" title="Permalink to this heading">¶</a></h3>
+<h3 id="deltas">Deltas<a class="headerlink" href="#deltas" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>none</p></li>
 <li><p>single float</p></li>
 <li><p>pair of float and time unit or int</p></li>
 </ul>
-<h3 id="contexts-moments-events">Contexts, moments, events<a class="headerlink" href="#contexts-moments-events" title="Permalink to this heading">¶</a></h3>
+<h3 id="contexts-moments-events">Contexts, moments, events<a class="headerlink" href="#contexts-moments-events" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>contexts</p></li>
 <li><p>moments, current and expected</p></li>
 <li><p>events, invocations</p></li>
 </ul>
-<h2 id="musical-time">Musical time<a class="headerlink" href="#musical-time" title="Permalink to this heading">¶</a></h2>
+<h2 id="musical-time">Musical time<a class="headerlink" href="#musical-time" title="Link to this heading">¶</a></h2>
 <p>Like callbacks, changes to tempo and time signature can be triggered
 “immediately”, scheduled at an absolute point in the future, or cued at some
 quantization relative the current time.</p>
-<h3 id="tempo">Tempo<a class="headerlink" href="#tempo" title="Permalink to this heading">¶</a></h3>
-<h3 id="time-signatures">Time signatures<a class="headerlink" href="#time-signatures" title="Permalink to this heading">¶</a></h3>
-<h2 id="async-clocks">Async clocks<a class="headerlink" href="#async-clocks" title="Permalink to this heading">¶</a></h2>
+<h3 id="tempo">Tempo<a class="headerlink" href="#tempo" title="Link to this heading">¶</a></h3>
+<h3 id="time-signatures">Time signatures<a class="headerlink" href="#time-signatures" title="Link to this heading">¶</a></h3>
+<h2 id="async-clocks">Async clocks<a class="headerlink" href="#async-clocks" title="Link to this heading">¶</a></h2>
 <p><em>Async</em> clocks have identical APIs to <em>threaded</em> clocks with three differences:</p>
 <ul class="simple">
 <li><p>their <a class="reference internal" href="api/supriya/clocks/asynchronous.html#supriya.clocks.asynchronous.AsyncClock.start" title="supriya.clocks.asynchronous.AsyncClock.start (Python method)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start()</span></code></a> method is async,</p></li>
@@ -2467,8 +2467,8 @@ quantization relative the current time.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AsyncClock</span><span class="p">()</span>
 </code></pre></div>
 </div>
-<h2 id="offline-clocks">Offline clocks<a class="headerlink" href="#offline-clocks" title="Permalink to this heading">¶</a></h2>
-<h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permalink to this heading">¶</a></h2>
+<h2 id="offline-clocks">Offline clocks<a class="headerlink" href="#offline-clocks" title="Link to this heading">¶</a></h2>
+<h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Link to this heading">¶</a></h2>
 
 
 
@@ -2541,7 +2541,7 @@ quantization relative the current time.</p>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.3.0.
+    7.2.6.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
@@ -2560,7 +2560,7 @@ quantization relative the current time.</p>
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
       
-        <script src="_static/sphinx_immaterial_theme.1b5b7a2d5891aec19.min.js"></script>
+        <script src="_static/sphinx_immaterial_theme.1b5b7a2d5891aec19.min.js?v=1e7b0789"></script>
     
   </body>
 </html>
