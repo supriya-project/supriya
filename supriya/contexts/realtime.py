@@ -6,6 +6,7 @@ import asyncio
 import dataclasses
 import enum
 import logging
+import warnings
 from typing import (
     TYPE_CHECKING,
     Dict,
@@ -95,6 +96,14 @@ if TYPE_CHECKING:
     from ..realtime.shm import ServerSHM
 
 logger = logging.getLogger(__name__)
+
+
+class FailWarning(Warning):
+    ...
+
+
+warnings.simplefilter("always", FailWarning)
+
 
 DEFAULT_HEALTHCHECK = HealthCheck(
     active=False,
@@ -197,6 +206,9 @@ class BaseServer(Context):
                     self._buffers.remove(message.contents[1])
                 self._free_id(Buffer, message.contents[1])
 
+        def _handle_fail(message: OscMessage) -> None:
+            warnings.warn(" ".join(str(x) for x in message.contents), FailWarning)
+
         def _handle_n_end(message: OscMessage) -> None:
             id_, parent_id, *_ = message.contents
             if parent_id == -1:
@@ -254,6 +266,7 @@ class BaseServer(Context):
 
         handlers = {
             "/done": _handle_done,
+            "/fail": _handle_fail,
             "/n_end": _handle_n_end,
             "/n_go": _handle_n_go,
             "/n_move": _handle_n_move,
