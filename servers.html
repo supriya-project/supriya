@@ -2215,17 +2215,17 @@ with the entities it governs, and query its state.</p>
 </div>
 <p>Instantiated servers are initially <em>offline</em>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe50565ed0&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e200&gt;</span>
 </code></pre></div>
 </div>
 <p>To bring an offline server <em>online</em>, boot the server:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe50565ed0&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e200&gt;</span>
 </code></pre></div>
 </div>
 <p>Quit a running server:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe50565ed0&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e200&gt;</span>
 </code></pre></div>
 </div>
 <p>Booting without any additional options will use default settings for the
@@ -2234,7 +2234,7 @@ and port <code class="docutils literal notranslate"><span class="pre">57110</spa
 <a class="reference internal" href="glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a> binary via <a class="reference internal" href="api/supriya/scsynth.html#supriya.scsynth.find" title="supriya.scsynth.find (Python function) — Find the scsynth executable."><code class="xref py py-func docutils literal notranslate"><span class="pre">supriya.scsynth.find()</span></code></a>.</p>
 <p>You can override the IP address or port via keyword arguments:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">ip_address</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">56666</span><span class="p">)</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe50565ed0&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e200&gt;</span>
 </code></pre></div>
 </div>
 <div class="caution admonition">
@@ -2246,14 +2246,14 @@ will result in an error:</p>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_one</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe50464b20&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2ff70&gt;</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="go">Received: *** ERROR: failed to open UDP socket: address in use.</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/contexts/realtime.py&quot;</span>, line <span class="m">483</span>, in <span class="n">boot</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/contexts/realtime.py&quot;</span>, line <span class="m">496</span>, in <span class="n">boot</span>
 <span class="w">    </span><span class="bp">self</span><span class="o">.</span><span class="n">_process_protocol</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">)</span>
   File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/scsynth.py&quot;</span>, line <span class="m">309</span>, in <span class="n">boot</span>
 <span class="w">    </span><span class="k">raise</span> <span class="n">ServerCannotBoot</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
@@ -2263,18 +2263,18 @@ will result in an error:</p>
 <p>Use <code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code> to grab a random unused port to
 successfully boot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">())</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe50465d80&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2efb0&gt;</span>
 </code></pre></div>
 </div>
 </div>
 <p>You can also explicitly select the server binary via the <code class="docutils literal notranslate"><span class="pre">executable</span></code> keyword:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">executable</span><span class="o">=</span><span class="s2">&quot;scsynth&quot;</span><span class="p">)</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe50565ed0&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e200&gt;</span>
 </code></pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">executable</span></code> keyword allows you to boot with <code class="docutils literal notranslate"><span class="pre">supernova</span></code> if you have it available:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">executable</span><span class="o">=</span><span class="s2">&quot;supernova&quot;</span><span class="p">)</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe50565ed0&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e200&gt;</span>
 </code></pre></div>
 </div>
 <h3 id="boot-options">Boot options<a class="headerlink" href="#boot-options" title="Link to this heading">¶</a></h3>
@@ -2321,7 +2321,7 @@ which Supriya models via an <a class="reference internal" href="api/supriya/scsy
 <p>Pass any of the named options found in <a class="reference internal" href="api/supriya/scsynth.html#supriya.scsynth.Options" title="supriya.scsynth.Options (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Options</span></code></a> as
 keyword arguments when booting:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">input_bus_channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">output_bus_channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe50565ed0&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e200&gt;</span>
 </code></pre></div>
 </div>
 <h3 id="multiple-clients">Multiple clients<a class="headerlink" href="#multiple-clients" title="Link to this heading">¶</a></h3>
@@ -2372,14 +2372,14 @@ server will error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/contexts/realtime.py&quot;</span>, line <span class="m">743</span>, in <span class="n">quit</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/contexts/realtime.py&quot;</span>, line <span class="m">756</span>, in <span class="n">quit</span>
 <span class="w">    </span><span class="k">raise</span> <span class="n">UnownedServerShutdown</span><span class="p">(</span>
 <span class="gr">supriya.exceptions.UnownedServerShutdown</span>: <span class="n">Cannot quit unowned server without force flag.</span>
 </code></pre></div>
 </div>
 <p>Finally, disconnect:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe504670d0&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f72590&gt;</span>
 </code></pre></div>
 </div>
 <p>Disconnecting won’t terminate the server. It continues to run from wherever
@@ -2392,7 +2392,6 @@ properties for inspecting its state.</p>
 </div>
 <p>Inspect the “status” of audio processing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
-<span class="go">StatusInfo(actual_sample_rate=44120.52129383515, average_cpu_usage=0.06924057751893997, group_count=2, peak_cpu_usage=0.25550028681755066, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 </code></pre></div>
 </div>
 <div class="hint admonition">
@@ -2405,7 +2404,7 @@ complexity of the status output:</p>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
-<span class="go">StatusInfo(actual_sample_rate=44120.294678558865, average_cpu_usage=0.11971695721149445, group_count=2, peak_cpu_usage=0.25550028681755066, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">StatusInfo(actual_sample_rate=44103.87127116643, average_cpu_usage=0.0318087562918663, group_count=2, peak_cpu_usage=0.0678863450884819, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 </code></pre></div>
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">synth_count</span></code>, <code class="docutils literal notranslate"><span class="pre">synthdef_count</span></code> and <code class="docutils literal notranslate"><span class="pre">ugen_count</span></code> have gone up
@@ -2425,21 +2424,21 @@ output similar to <a class="reference internal" href="glossary.html#term-SuperCo
 </div>
 <p>Access the server’s <a class="reference internal" href="glossary.html#term-root-node" title="root node (glossary term)"><span class="xref std std-term">root node</span></a> and <a class="reference internal" href="glossary.html#term-default-group" title="default group (glossary term)"><span class="xref std std-term">default group</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">root_node</span>
-<span class="go">RootNode(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;, id_=0, parallel=False)</span>
+<span class="go">RootNode(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;, id_=0, parallel=False)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;, id_=1, parallel=False)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;, id_=1, parallel=False)</span>
 </code></pre></div>
 </div>
 <p>And access the input and output audio <a class="reference internal" href="glossary.html#term-bus" title="bus (glossary term)"><span class="xref std std-term">bus</span></a> groups, which represent
 microphone inputs and speaker outputs:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">audio_input_bus_group</span>
-<span class="go">BusGroup(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;, id_=8, calculation_rate=CalculationRate.AUDIO, count=8)</span>
+<span class="go">BusGroup(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;, id_=8, calculation_rate=CalculationRate.AUDIO, count=8)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">audio_output_bus_group</span>
-<span class="go">BusGroup(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;, id_=0, calculation_rate=CalculationRate.AUDIO, count=8)</span>
+<span class="go">BusGroup(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;, id_=0, calculation_rate=CalculationRate.AUDIO, count=8)</span>
 </code></pre></div>
 </div>
 <h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Link to this heading">¶</a></h2>
@@ -2460,7 +2459,7 @@ operations with significant delay, e.g. sending multiple <a class="reference int
 <a class="reference internal" href="api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.sync" title="supriya.contexts.realtime.Server.sync (Python method) — Sync the server."><code class="xref py py-meth docutils literal notranslate"><span class="pre">sync()</span></code></a> to block until all previously
 initiated operations complete:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
@@ -2470,30 +2469,32 @@ the server, including OSC callbacks.</p>
 </div>
 <p>The server provides methods for allocating <a class="reference internal" href="glossary.html#term-node" title="node (glossary term)"><span class="xref std std-term">nodes</span></a> (<a class="reference internal" href="glossary.html#term-group" title="group (glossary term)"><span class="xref std std-term">groups</span></a> and <a class="reference internal" href="glossary.html#term-synth" title="synth (glossary term)"><span class="xref std std-term">synths</span></a>), <a class="reference internal" href="glossary.html#term-buffer" title="buffer (glossary term)"><span class="xref std std-term">buffers</span></a> and <a class="reference internal" href="glossary.html#term-bus" title="bus (glossary term)"><span class="xref std std-term">buses</span></a>, all of which are discussed in the sections following this one:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;, id_=1000, parallel=False)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;, id_=1000, parallel=False)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">441.3</span><span class="p">)</span>
-<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
-<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;, id_=0, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;, seconds=None, closed=True, requests=[(AllocateBuffer(buffer_id=0, frame_count=512, channel_count=1, on_completion=None), ...)]), requests=[]))</span>
+<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;, id_=0, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;, seconds=None, closed=True, requests=[(AllocateBuffer(buffer_id=0, frame_count=512, channel_count=1, on_completion=None), ...)]), requests=[]))</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer_group</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
-<span class="go">BufferGroup(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;, id_=1, count=8)</span>
+<span class="go">BufferGroup(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;, id_=1, count=8)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_bus</span><span class="p">()</span>
-<span class="go">Bus(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;, id_=0, calculation_rate=CalculationRate.CONTROL)</span>
+<span class="go">Bus(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;, id_=0, calculation_rate=CalculationRate.CONTROL)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_bus_group</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;audio&quot;</span><span class="p">)</span>
-<span class="go">BusGroup(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;, id_=16, calculation_rate=CalculationRate.AUDIO, count=2)</span>
+<span class="go">BusGroup(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;, id_=16, calculation_rate=CalculationRate.AUDIO, count=2)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
+<span class="go">/home/runner/work/supriya/supriya/supriya/contexts/realtime.py:210: FailWarning: /s_new SynthDef not found</span>
+<span class="go">  warnings.warn(&quot; &quot;.join(str(x) for x in message.contents), FailWarning)</span>
 <span class="go">NODE TREE 0 group</span>
 <span class="go">    1 group</span>
 <span class="go">        1000 group</span>
@@ -2503,7 +2504,7 @@ the server, including OSC callbacks.</p>
 <p>Supriya supports <em>resetting</em> the state of the server, similar to
 SuperCollider’s <code class="docutils literal notranslate"><span class="pre">CmdPeriod</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
@@ -2514,7 +2515,7 @@ SuperCollider’s <code class="docutils literal notranslate"><span class="pre">C
 <p>You can also just <em>reboot</em> the server, completely resetting all nodes, buses,
 buffers and SynthDefs:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">()</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fbe50464400&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f2c65f2e500&gt;</span>
 </code></pre></div>
 </div>
 <h2 id="async">Async<a class="headerlink" href="#async" title="Link to this heading">¶</a></h2>
@@ -2541,12 +2542,12 @@ methods are async as well.</p>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
-<span class="go">&lt;supriya.contexts.realtime.AsyncServer object at 0x7fbe50486740&gt;</span>
-<span class="go">&lt;supriya.contexts.realtime.AsyncServer object at 0x7fbe50486740&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.AsyncServer object at 0x7f2c65f731c0&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.AsyncServer object at 0x7f2c65f731c0&gt;</span>
 <span class="go">NODE TREE 0 group</span>
 <span class="go">    1 group</span>
 <span class="go">        1000 group</span>
-<span class="go">&lt;supriya.contexts.realtime.AsyncServer object at 0x7fbe50486740&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.AsyncServer object at 0x7f2c65f731c0&gt;</span>
 </code></pre></div>
 </div>
 <p>Use <a class="reference internal" href="api/supriya/contexts/realtime.html#supriya.contexts.realtime.AsyncServer" title="supriya.contexts.realtime.AsyncServer (Python class) — Bases: BaseServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncServer</span></code></a> with
@@ -2561,13 +2562,13 @@ eventloop-driven libraries like <a class="reference external" href="https://docs
 <p>Get access to the server’s underlying process management subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">process_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">process_protocol</span>
-<span class="go">&lt;supriya.scsynth.SyncProcessProtocol object at 0x7fbe50467b80&gt;</span>
+<span class="go">&lt;supriya.scsynth.SyncProcessProtocol object at 0x7f2c65f2c760&gt;</span>
 </code></pre></div>
 </div>
 <p>Get access to the server’s underlying OSC subsystem via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">osc_protocol</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span>
-<span class="go">&lt;supriya.osc.ThreadedOscProtocol object at 0x7fbe50464550&gt;</span>
+<span class="go">&lt;supriya.osc.ThreadedOscProtocol object at 0x7f2c65f2f280&gt;</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
@@ -2646,7 +2647,7 @@ subprocess and OSC communication via
       <div class="md-copyright">
   
     <div class="md-footer-copyright__highlight">
-        &#169; Copyright 2014-2023, Josiah Wolf Oberholtzer.
+        &#169; Copyright 2014-2024, Josiah Wolf Oberholtzer.
         
     </div>
   
@@ -2671,7 +2672,7 @@ subprocess and OSC communication via
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
       
-        <script src="_static/sphinx_immaterial_theme.1b5b7a2d5891aec19.min.js?v=1e7b0789"></script>
+        <script src="_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
     
   </body>
 </html>

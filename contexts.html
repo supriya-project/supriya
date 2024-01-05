@@ -2133,13 +2133,13 @@ with no timestamp - simply means “do this as soon as possible”. Use
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>  <span class="c1"># do it ASAP</span>
 <span class="gp">... </span>    <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">... </span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50834f10&gt;, id_=1001, parallel=False)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c664c4a90&gt;, id_=1001, parallel=False)</span>
 </code></pre></div>
 </div>
 </li>
 <li><p>Servers can also omit moments entirely:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50834f10&gt;, id_=1002, parallel=False)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c664c4a90&gt;, id_=1002, parallel=False)</span>
 </code></pre></div>
 </div>
 </li>
@@ -2160,14 +2160,14 @@ argument.</p>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">score</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">score</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">target_node</span><span class="o">=</span><span class="n">score_group</span><span class="p">)</span>
 <span class="gp">... </span>
-<span class="go">Synth(context=&lt;supriya.contexts.nonrealtime.Score object at 0x7fbe507fe410&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.nonrealtime.Score object at 0x7f2c664fdfc0&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">target_node</span><span class="o">=</span><span class="n">server_group</span><span class="p">)</span>
 <span class="gp">... </span>
-<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50834f10&gt;, id_=1003, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c664c4a90&gt;, id_=1003, synthdef=&lt;SynthDef: default&gt;)</span>
 </code></pre></div>
 </div>
 <p>Because realtime contexts can issue requests outside of a moment context, all
@@ -2179,7 +2179,7 @@ message.</p>
 <span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="k">lambda</span> <span class="n">context</span><span class="p">:</span> <span class="n">context</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
-<span class="go">Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50834f10&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fbe50834f10&gt;, seconds=None, closed=True, requests=[(ReceiveSynthDefs(synthdefs=(&lt;SynthDef: default&gt;,), on_completion=None), ...)]), requests=[(NewSynth(synthdef=&lt;SynthDef: default&gt;, synth_id=1004, add_action=AddAction.ADD_TO_HEAD, target_node_id=1, controls={}), None)])</span>
+<span class="go">Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c664c4a90&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f2c664c4a90&gt;, seconds=None, closed=True, requests=[(ReceiveSynthDefs(synthdefs=(&lt;SynthDef: default&gt;,), on_completion=None), ...)]), requests=[(NewSynth(synthdef=&lt;SynthDef: default&gt;, synth_id=1004, add_action=AddAction.ADD_TO_HEAD, target_node_id=1, controls={}), None)])</span>
 </code></pre></div>
 </div>
 <p>If issuing commands inside a moment, the completion must be used before the
@@ -2266,7 +2266,7 @@ added will have been sent once the moment closed.</p>
       <div class="md-copyright">
   
     <div class="md-footer-copyright__highlight">
-        &#169; Copyright 2014-2023, Josiah Wolf Oberholtzer.
+        &#169; Copyright 2014-2024, Josiah Wolf Oberholtzer.
         
     </div>
   
@@ -2291,7 +2291,7 @@ added will have been sent once the moment closed.</p>
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
       
-        <script src="_static/sphinx_immaterial_theme.1b5b7a2d5891aec19.min.js?v=1e7b0789"></script>
+        <script src="_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
     
   </body>
 </html>

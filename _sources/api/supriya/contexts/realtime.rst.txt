@@ -69,3 +69,5 @@ realtime
    .. automethod:: reboot
    .. automethod:: reset
    .. automethod:: sync
+
+.. autoexception:: FailWarning
