@@ -101,6 +101,5 @@ __all__ = [
     "synthdef",
 ]
 
-
 del Path
 del platformdirs
