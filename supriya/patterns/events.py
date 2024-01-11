@@ -19,7 +19,7 @@ class Priority(enum.IntEnum):
 
 
 class Event:
-    def __init__(self, *, delta: float = 0.0) -> None:
+    def __init__(self, *, delta: float = 0.0, **kwargs) -> None:
         self.delta = delta
 
     def __eq__(self, expr: Any) -> bool:
@@ -93,8 +93,9 @@ class BusAllocateEvent(Event):
         calculation_rate: CalculationRateLike = "audio",
         channel_count: int = 1,
         delta: float = 0.0,
+        **kwargs,
     ) -> None:
-        Event.__init__(self, delta=delta)
+        Event.__init__(self, delta=delta, **kwargs)
         self.id_ = id_
         self.calculation_rate = CalculationRate.from_expr(calculation_rate)
         self.channel_count = channel_count
@@ -116,9 +117,9 @@ class BusAllocateEvent(Event):
 
 class BusFreeEvent(Event):
     def __init__(
-        self, id_: Union[UUID, Tuple[UUID, int]], *, delta: float = 0.0
+        self, id_: Union[UUID, Tuple[UUID, int]], *, delta: float = 0.0, **kwargs
     ) -> None:
-        Event.__init__(self, delta=delta)
+        Event.__init__(self, delta=delta, **kwargs)
         self.id_ = id_
 
     def perform(
@@ -137,9 +138,11 @@ class BusFreeEvent(Event):
 
 
 class CompositeEvent(Event):
-    def __init__(self, events, *, delta: float = 0.0) -> None:
+    def __init__(self, events, *, delta: float = 0.0, **kwargs) -> None:
         Event.__init__(self, delta=delta)
-        self.events = events
+        self.events = (
+            events if not kwargs else [new(event, **kwargs) for event in events]
+        )
 
     def expand(self, offset) -> Sequence[Tuple[float, Priority, "Event"]]:
         events = []
@@ -157,8 +160,9 @@ class NodeEvent(Event):
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         delta: float = 0.0,
         target_node: Optional[Union[Node, UUID]] = None,
+        **kwargs,
     ) -> None:
-        Event.__init__(self, delta=delta)
+        Event.__init__(self, delta=delta, **kwargs)
         self.id_ = id_
         self.add_action = AddAction.from_expr(add_action)
         self.target_node = target_node
@@ -187,6 +191,7 @@ class GroupAllocateEvent(NodeEvent):
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
         target_node: Optional[Node] = None,
+        **kwargs,
     ) -> None:
         proxy_mapping[self.id_] = context.add_group(
             add_action=self.add_action,
@@ -199,9 +204,9 @@ class GroupAllocateEvent(NodeEvent):
 
 class NodeFreeEvent(Event):
     def __init__(
-        self, id_: Union[UUID, Tuple[UUID, int]], *, delta: float = 0.0
+        self, id_: Union[UUID, Tuple[UUID, int]], *, delta: float = 0.0, **kwargs
     ) -> None:
-        Event.__init__(self, delta=delta)
+        Event.__init__(self, delta=delta, **kwargs)
         self.id_ = id_
 
     def perform(
@@ -237,6 +242,7 @@ class NoteEvent(NodeEvent):
             delta=delta,
             id_=id_,
             target_node=target_node,
+            **kwargs,
         )
         self.duration = duration
         self.synthdef = synthdef
