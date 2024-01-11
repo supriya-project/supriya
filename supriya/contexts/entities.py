@@ -636,7 +636,7 @@ class Node(ContextObject):
 
         :param force: Flag for force-freeing, without releasing.
         """
-        return self.context.free_node(self)
+        return self.context.free_node(self, force=force)
 
     def map(self, **settings: Union[Bus, None]) -> None:
         """
