@@ -10,12 +10,13 @@ def load_ipython_extension(ipython):
 
 
 def patch_player():
-    def render(self):
-        output_path = self.renderable.__render__(**self.render_kwargs)
-        return websafe_audio(output_path)
+    async def patched_call(self):
+        output_path, status_code = await self.renderable.__render__(
+            **self.render_kwargs,
+        )
+        if output_path:
+            output_path = websafe_audio(output_path)
+            display(Audio(filename=str(output_path)))
+        return output_path, status_code
 
-    def open_output_path(self, output_path):
-        display(Audio(filename=str(output_path)))
-
-    Player.open_output_path = open_output_path
-    Player.render = render
+    Player.__call__ = patched_call
