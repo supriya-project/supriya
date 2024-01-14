@@ -116,28 +116,27 @@ def test_Splay_01_supriya(server):
             name: test
             ugens:
             -   Control.kr: null
-            -   BinaryOpUGen(MULTIPLICATION).kr/0:
-                    left: -1.0
-                    right: Control.kr[2:spread]
+            -   UnaryOpUGen(NEGATIVE).kr:
+                    source: Control.kr[2:spread]
             -   BinaryOpUGen(ADDITION).kr/0:
-                    left: BinaryOpUGen(MULTIPLICATION).kr/0[0]
+                    left: UnaryOpUGen(NEGATIVE).kr[0]
                     right: Control.kr[0:center]
-            -   BinaryOpUGen(MULTIPLICATION).kr/1:
+            -   BinaryOpUGen(MULTIPLICATION).kr/0:
                     left: -0.5
                     right: Control.kr[2:spread]
             -   BinaryOpUGen(ADDITION).kr/1:
-                    left: BinaryOpUGen(MULTIPLICATION).kr/1[0]
+                    left: BinaryOpUGen(MULTIPLICATION).kr/0[0]
                     right: Control.kr[0:center]
-            -   BinaryOpUGen(MULTIPLICATION).kr/2:
+            -   BinaryOpUGen(MULTIPLICATION).kr/1:
                     left: 0.5
                     right: Control.kr[2:spread]
             -   BinaryOpUGen(ADDITION).kr/2:
-                    left: BinaryOpUGen(MULTIPLICATION).kr/2[0]
+                    left: BinaryOpUGen(MULTIPLICATION).kr/1[0]
                     right: Control.kr[0:center]
             -   BinaryOpUGen(ADDITION).kr/3:
                     left: Control.kr[2:spread]
                     right: Control.kr[0:center]
-            -   BinaryOpUGen(MULTIPLICATION).kr/3:
+            -   BinaryOpUGen(MULTIPLICATION).kr/2:
                     left: Control.kr[1:level]
                     right: 0.4472135954999579
             -   In.ar:
@@ -177,13 +176,13 @@ def test_Splay_01_supriya(server):
                     right: Pan2.ar/4[0]
             -   BinaryOpUGen(MULTIPLICATION).ar/0:
                     left: BinaryOpUGen(ADDITION).ar/0[0]
-                    right: BinaryOpUGen(MULTIPLICATION).kr/3[0]
+                    right: BinaryOpUGen(MULTIPLICATION).kr/2[0]
             -   BinaryOpUGen(ADDITION).ar/1:
                     left: Sum4.ar/1[0]
                     right: Pan2.ar/4[1]
             -   BinaryOpUGen(MULTIPLICATION).ar/1:
                     left: BinaryOpUGen(ADDITION).ar/1[0]
-                    right: BinaryOpUGen(MULTIPLICATION).kr/3[0]
+                    right: BinaryOpUGen(MULTIPLICATION).kr/2[0]
             -   Out.ar:
                     bus: 0.0
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
@@ -364,52 +363,50 @@ def test_Splay_02_supriya(server):
             name: test
             ugens:
             -   Control.kr: null
-            -   BinaryOpUGen(MULTIPLICATION).kr/0:
-                    left: -1.0
-                    right: Control.kr[1:spread]
+            -   UnaryOpUGen(NEGATIVE).kr/0:
+                    source: Control.kr[1:spread]
             -   BinaryOpUGen(ADDITION).kr/0:
-                    left: BinaryOpUGen(MULTIPLICATION).kr/0[0]
+                    left: UnaryOpUGen(NEGATIVE).kr/0[0]
                     right: -0.25
-            -   BinaryOpUGen(MULTIPLICATION).kr/1:
+            -   BinaryOpUGen(MULTIPLICATION).kr/0:
                     left: -0.5
                     right: Control.kr[1:spread]
             -   BinaryOpUGen(ADDITION).kr/1:
-                    left: BinaryOpUGen(MULTIPLICATION).kr/1[0]
+                    left: BinaryOpUGen(MULTIPLICATION).kr/0[0]
                     right: -0.25
-            -   BinaryOpUGen(MULTIPLICATION).kr/2:
+            -   BinaryOpUGen(MULTIPLICATION).kr/1:
                     left: 0.5
                     right: Control.kr[1:spread]
             -   BinaryOpUGen(ADDITION).kr/2:
-                    left: BinaryOpUGen(MULTIPLICATION).kr/2[0]
+                    left: BinaryOpUGen(MULTIPLICATION).kr/1[0]
                     right: -0.25
             -   BinaryOpUGen(ADDITION).kr/3:
                     left: Control.kr[1:spread]
                     right: -0.25
-            -   BinaryOpUGen(MULTIPLICATION).kr/3:
+            -   BinaryOpUGen(MULTIPLICATION).kr/2:
                     left: Control.kr[0:level]
                     right: 0.4472135954999579
-            -   BinaryOpUGen(MULTIPLICATION).kr/4:
-                    left: -1.0
-                    right: Control.kr[1:spread]
+            -   UnaryOpUGen(NEGATIVE).kr/1:
+                    source: Control.kr[1:spread]
             -   BinaryOpUGen(ADDITION).kr/4:
-                    left: BinaryOpUGen(MULTIPLICATION).kr/4[0]
+                    left: UnaryOpUGen(NEGATIVE).kr/1[0]
                     right: 0.25
-            -   BinaryOpUGen(MULTIPLICATION).kr/5:
+            -   BinaryOpUGen(MULTIPLICATION).kr/3:
                     left: -0.5
                     right: Control.kr[1:spread]
             -   BinaryOpUGen(ADDITION).kr/5:
-                    left: BinaryOpUGen(MULTIPLICATION).kr/5[0]
+                    left: BinaryOpUGen(MULTIPLICATION).kr/3[0]
                     right: 0.25
-            -   BinaryOpUGen(MULTIPLICATION).kr/6:
+            -   BinaryOpUGen(MULTIPLICATION).kr/4:
                     left: 0.5
                     right: Control.kr[1:spread]
             -   BinaryOpUGen(ADDITION).kr/6:
-                    left: BinaryOpUGen(MULTIPLICATION).kr/6[0]
+                    left: BinaryOpUGen(MULTIPLICATION).kr/4[0]
                     right: 0.25
             -   BinaryOpUGen(ADDITION).kr/7:
                     left: Control.kr[1:spread]
                     right: 0.25
-            -   BinaryOpUGen(MULTIPLICATION).kr/7:
+            -   BinaryOpUGen(MULTIPLICATION).kr/5:
                     left: Control.kr[0:level]
                     right: 0.4472135954999579
             -   In.ar:
@@ -449,13 +446,13 @@ def test_Splay_02_supriya(server):
                     right: Pan2.ar/4[0]
             -   BinaryOpUGen(MULTIPLICATION).ar/0:
                     left: BinaryOpUGen(ADDITION).ar/0[0]
-                    right: BinaryOpUGen(MULTIPLICATION).kr/3[0]
+                    right: BinaryOpUGen(MULTIPLICATION).kr/2[0]
             -   BinaryOpUGen(ADDITION).ar/1:
                     left: Sum4.ar/1[0]
                     right: Pan2.ar/4[1]
             -   BinaryOpUGen(MULTIPLICATION).ar/1:
                     left: BinaryOpUGen(ADDITION).ar/1[0]
-                    right: BinaryOpUGen(MULTIPLICATION).kr/3[0]
+                    right: BinaryOpUGen(MULTIPLICATION).kr/2[0]
             -   Pan2.ar/5:
                     source: In.ar[0]
                     position: BinaryOpUGen(ADDITION).kr/4[0]
@@ -491,7 +488,7 @@ def test_Splay_02_supriya(server):
                     right: Pan2.ar/9[0]
             -   BinaryOpUGen(MULTIPLICATION).ar/2:
                     left: BinaryOpUGen(ADDITION).ar/2[0]
-                    right: BinaryOpUGen(MULTIPLICATION).kr/7[0]
+                    right: BinaryOpUGen(MULTIPLICATION).kr/5[0]
             -   BinaryOpUGen(ADDITION).ar/3:
                     left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                     right: BinaryOpUGen(MULTIPLICATION).ar/2[0]
@@ -500,7 +497,7 @@ def test_Splay_02_supriya(server):
                     right: Pan2.ar/9[1]
             -   BinaryOpUGen(MULTIPLICATION).ar/3:
                     left: BinaryOpUGen(ADDITION).ar/4[0]
-                    right: BinaryOpUGen(MULTIPLICATION).kr/7[0]
+                    right: BinaryOpUGen(MULTIPLICATION).kr/5[0]
             -   BinaryOpUGen(ADDITION).ar/5:
                     left: BinaryOpUGen(MULTIPLICATION).ar/1[0]
                     right: BinaryOpUGen(MULTIPLICATION).ar/3[0]
