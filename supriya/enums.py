@@ -24,9 +24,9 @@ class BinaryOperator(IntEnumeration):
     ADDITION = 0
     AMCLIP = 40
     ATAN2 = 22
-    BIT_AND = 14
-    BIT_OR = 15
-    BIT_XOR = 16
+    BITWISE_AND = 14
+    BITWISE_OR = 15
+    BITWISE_XOR = 16
     CLIP2 = 42
     DIFFERENCE_OF_SQUARES = 34  # a*a - b*b
     EQUAL = 6
