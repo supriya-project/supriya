@@ -451,6 +451,45 @@ class UGenMethodMixin:
         """
         return UGenMethodMixin._compute_binary_op(self, expr, BinaryOperator.ADDITION)
 
+    def __and__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
+        """
+        Computes the bitwise AND of the UGen graph and `expr`.
+
+        .. container:: example
+
+            ::
+
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
+                >>> result = ugen_graph & expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> supriya.graph(result)  # doctest: +SKIP
+
+            ::
+
+                >>> print(result)
+                synthdef:
+                    name: 9a5b4d1212b6b7fe299c21a8b1e401cc
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(BITWISE_AND).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
+
+        """
+        return UGenMethodMixin._compute_binary_op(
+            self, expr, BinaryOperator.BITWISE_AND
+        )
+
     def __div__(
         self, expr: Union[SupportsFloat, "UGenMethodMixin"]
     ) -> "UGenMethodMixin":
@@ -1341,6 +1380,43 @@ class UGenMethodMixin:
         """
         return UGenMethodMixin._compute_unary_op(self, UnaryOperator.NEGATIVE)
 
+    def __or__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
+        """
+        Computes the bitwise OR of the UGen graph and `expr`.
+
+        .. container:: example
+
+            ::
+
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
+                >>> result = ugen_graph | expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> supriya.graph(result)  # doctest: +SKIP
+
+            ::
+
+                >>> print(result)
+                synthdef:
+                    name: 333e2e7362f86138866f3f2a160f77dd
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(BITWISE_OR).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
+
+        """
+        return UGenMethodMixin._compute_binary_op(self, expr, BinaryOperator.BITWISE_OR)
+
     def __pow__(
         self, expr: Union[SupportsFloat, "UGenMethodMixin"]
     ) -> "UGenMethodMixin":
@@ -2111,6 +2187,45 @@ class UGenMethodMixin:
         """
         return UGenMethodMixin._compute_binary_op(
             self, expr, BinaryOperator.SUBTRACTION
+        )
+
+    def __xor__(
+        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
+    ) -> "UGenMethodMixin":
+        """
+        Computes the bitwise XOR of the UGen graph and `expr`.
+
+        .. container:: example
+
+            ::
+
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
+                >>> result = ugen_graph ^ expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> supriya.graph(result)  # doctest: +SKIP
+
+            ::
+
+                >>> print(result)
+                synthdef:
+                    name: 355f2c7fa510863b921bb8c28bc4a682
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(BITWISE_XOR).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
+
+        """
+        return UGenMethodMixin._compute_binary_op(
+            self, expr, BinaryOperator.BITWISE_XOR
         )
 
     __truediv__ = __div__
