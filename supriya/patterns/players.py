@@ -16,7 +16,7 @@ from typing import (
 from uuid import UUID, uuid4
 
 from ..clocks import BaseClock, CallbackEvent, Clock, ClockContext, OfflineClock
-from ..contexts import Context, ContextObject, Node
+from ..contexts import Bus, Context, ContextObject, Node
 from .eventpatterns import Pattern
 from .events import Event, Priority, StartEvent, StopEvent
 
@@ -38,6 +38,7 @@ class PatternPlayer:
                 ["PatternPlayer", ClockContext, Event, Priority], Optional[Coroutine]
             ]
         ] = None,
+        target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
         uuid: Optional[UUID] = None,
     ) -> None:
@@ -54,6 +55,7 @@ class PatternPlayer:
         self._proxies_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], ContextObject] = {}
         self._notes_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], float] = {}
         self._uuid: UUID = uuid or uuid4()
+        self._target_bus = target_bus
         self._target_node = target_node
         self._next_delta: Optional[float] = None
         self._initial_seconds: Optional[float] = None
@@ -72,6 +74,7 @@ class PatternPlayer:
                         current_offset=offset,
                         notes_mapping=self._notes_by_uuid,
                         priority=priority,
+                        target_bus=self._target_bus,
                         target_node=self._target_node,
                     )
                     if self._callback is not None:

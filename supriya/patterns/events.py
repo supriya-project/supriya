@@ -5,7 +5,7 @@ from uuid import UUID
 from uqbar.objects import get_repr, get_vars, new
 
 from ..assets.synthdefs.default import default
-from ..contexts import BusGroup, Context, ContextObject, Node
+from ..contexts import Bus, BusGroup, Context, ContextObject, Node
 from ..enums import AddAction, CalculationRate
 from ..synthdefs import SynthDef
 from ..typing import AddActionLike, CalculationRateLike
@@ -44,9 +44,11 @@ class Event:
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
+        **kwargs,
     ) -> None:
-        raise NotImplementedError
+        pass
 
 
 class StartEvent(Event):
@@ -54,35 +56,11 @@ class StartEvent(Event):
     The first event injected by a pattern player.
     """
 
-    def perform(
-        self,
-        context: Context,
-        proxy_mapping: Dict[Union[UUID, Tuple[UUID, int]], ContextObject],
-        *,
-        current_offset: float,
-        notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
-        priority: Priority,
-        target_node: Optional[Node] = None,
-    ) -> None:
-        pass
-
 
 class StopEvent(Event):
     """
     The last event injected by a pattern player.
     """
-
-    def perform(
-        self,
-        context: Context,
-        proxy_mapping: Dict[Union[UUID, Tuple[UUID, int]], ContextObject],
-        *,
-        current_offset: float,
-        notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
-        priority: Priority,
-        target_node: Optional[Node] = None,
-    ) -> None:
-        pass
 
 
 class BusAllocateEvent(Event):
@@ -108,7 +86,9 @@ class BusAllocateEvent(Event):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
+        **kwargs,
     ) -> None:
         proxy_mapping[self.id_] = context.add_bus_group(
             calculation_rate=self.calculation_rate, count=self.channel_count
@@ -130,7 +110,9 @@ class BusFreeEvent(Event):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
+        **kwargs,
     ) -> None:
         if not isinstance(bus_group := proxy_mapping.pop(self.id_), BusGroup):
             raise RuntimeError(bus_group)
@@ -190,6 +172,7 @@ class GroupAllocateEvent(NodeEvent):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
         **kwargs,
     ) -> None:
@@ -217,7 +200,9 @@ class NodeFreeEvent(Event):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
+        **kwargs,
     ) -> None:
         if not isinstance(node := proxy_mapping.pop(self.id_), Node):
             raise RuntimeError(node)
@@ -279,6 +264,7 @@ class NoteEvent(NodeEvent):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
         **kwargs,
     ) -> None:
@@ -291,6 +277,12 @@ class NoteEvent(NodeEvent):
             for key, value in settings.items():
                 if isinstance(value, UUID):
                     settings[key] = proxy_mapping[value]
+            # patch in target_bus
+            parameter_names = (self.synthdef or default).parameter_names
+            for name in ("in_", "out"):
+                if name in parameter_names:
+                    settings[name] = settings.get(name) or target_bus
+            # add the synth
             if self.id_ not in proxy_mapping:
                 proxy_mapping[self.id_] = context.add_synth(
                     add_action=self.add_action,
@@ -357,12 +349,20 @@ class SynthAllocateEvent(NodeEvent):
         current_offset: float,
         notes_mapping: Dict[Union[UUID, Tuple[UUID, int]], float],
         priority: Priority,
+        target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
+        **kwargs,
     ) -> None:
         settings = self.kwargs.copy()
         for key, value in settings.items():
             if isinstance(value, UUID):
                 settings[key] = proxy_mapping[value]
+        # patch in target_bus
+        parameter_names = (self.synthdef or default).parameter_names
+        for name in ("in_", "out"):
+            if name in parameter_names:
+                settings[name] = settings.get(name) or target_bus
+        # add the synth
         proxy_mapping[self.id_] = context.add_synth(
             add_action=self.add_action,
             synthdef=self.synthdef,
