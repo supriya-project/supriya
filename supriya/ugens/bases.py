@@ -4117,7 +4117,7 @@ class BinaryOpUGen(UGen):
                 return 0
             if a == 1:
                 return b
-            if a == 1:
+            if a == -1:
                 return -b
             if b == 1:
                 return a
