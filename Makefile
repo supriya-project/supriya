@@ -36,7 +36,7 @@ docs-clean: ## Build documentation from scratch
 	make -C docs/ clean html
 
 docstrfmt: ## Reformat via docstrfmt
-	docstrfmt --no-docstring-trailing-line supriya/
+	docstrfmt --no-docstring-trailing-line supriya/ || true
 
 docstrfmt-check: ## Check docstring syntax via docstrfmt
 	docstrfmt --check --no-docstring-trailing-line supriya/
