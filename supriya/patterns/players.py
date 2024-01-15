@@ -19,6 +19,7 @@ from ..clocks import BaseClock, CallbackEvent, Clock, ClockContext, OfflineClock
 from ..contexts import Bus, Context, ContextObject, Node
 from .eventpatterns import Pattern
 from .events import Event, Priority, StartEvent, StopEvent
+from .structure import PinPattern
 
 
 class PatternPlayer:
@@ -42,7 +43,6 @@ class PatternPlayer:
         target_node: Optional[Node] = None,
         uuid: Optional[UUID] = None,
     ) -> None:
-        self._pattern = pattern
         self._context = context
         self._clock = clock
         self._callback = callback
@@ -59,6 +59,11 @@ class PatternPlayer:
         self._target_node = target_node
         self._next_delta: Optional[float] = None
         self._initial_seconds: Optional[float] = None
+        self._pattern = (
+            pattern
+            if (target_bus is None and target_node is None)
+            else PinPattern(pattern, target_bus=target_bus, target_node=target_node)
+        )
 
     def _clock_callback(
         self, clock_context: ClockContext, *args, **kwargs

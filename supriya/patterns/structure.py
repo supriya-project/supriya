@@ -231,13 +231,15 @@ class ParallelPattern(Pattern):
         return any(pattern.is_infinite for pattern in self._patterns)
 
 
-class PinPattern:
+class PinPattern(Pattern):
     """
     Utility pattern for assigning an explicit target bus and/or target node to
     NodeEvents.
 
     Used internally by pattern players.
     """
+
+    ### INITIALIZER ###
 
     def __init__(
         self,
@@ -246,24 +248,32 @@ class PinPattern:
         target_bus: Bus | SupportsInt | None = None,
         target_node: Node | SupportsInt | None = None,
     ) -> None:
-        self.pattern = pattern
-        self.target_bus = target_bus
-        self.target_node = target_node
+        self._pattern = pattern
+        self._target_bus = target_bus
+        self._target_node = target_node
 
     def _adjust(self, expr, state):
         args, _, kwargs = get_vars(expr)
         updates = {}
-        if self.target_node is not None and hasattr(expr, "target_node"):
-            updates["target_node"] = expr.target_node or self.target_node
-        if self.target_bus is not None and hasattr(expr, "synthdef"):
+        if self._target_node is not None and hasattr(expr, "target_node"):
+            updates["target_node"] = expr.target_node or self._target_node
+        if self._target_bus is not None and hasattr(expr, "synthdef"):
             synthdef = getattr(expr, "synthdef") or synthdefs.default
             parameter_names = synthdef.parameter_names
             for name in ("in_", "out"):
                 if name in parameter_names and kwargs.get(name) is None:
-                    updates[name] = self.target_bus
+                    updates[name] = self._target_bus
         if updates:
             return new(expr, **updates)
         return expr
 
+    ### PRIVATE METHODS ###
+
     def _iterate(self, state=None):
         return iter(self._pattern)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def is_infinite(self):
+        return self._pattern.is_infinite
