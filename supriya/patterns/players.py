@@ -79,8 +79,6 @@ class PatternPlayer:
                         current_offset=offset,
                         notes_mapping=self._notes_by_uuid,
                         priority=priority,
-                        target_bus=self._target_bus,
-                        target_node=self._target_node,
                     )
                     if self._callback is not None:
                         self._callback(self, clock_context, event, priority)
