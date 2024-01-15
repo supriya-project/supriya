@@ -279,9 +279,10 @@ class NoteEvent(NodeEvent):
                     settings[key] = proxy_mapping[value]
             # patch in target_bus
             parameter_names = (self.synthdef or default).parameter_names
-            for name in ("in_", "out"):
-                if name in parameter_names:
-                    settings[name] = settings.get(name) or target_bus
+            if target_bus is not None:
+                for name in ("in_", "out"):
+                    if name in parameter_names:
+                        settings[name] = settings.get(name) or target_bus
             # add the synth
             if self.id_ not in proxy_mapping:
                 proxy_mapping[self.id_] = context.add_synth(
@@ -359,9 +360,10 @@ class SynthAllocateEvent(NodeEvent):
                 settings[key] = proxy_mapping[value]
         # patch in target_bus
         parameter_names = (self.synthdef or default).parameter_names
-        for name in ("in_", "out"):
-            if name in parameter_names:
-                settings[name] = settings.get(name) or target_bus
+        if target_bus is not None:
+            for name in ("in_", "out"):
+                if name in parameter_names:
+                    settings[name] = settings.get(name) or target_bus
         # add the synth
         proxy_mapping[self.id_] = context.add_synth(
             add_action=self.add_action,

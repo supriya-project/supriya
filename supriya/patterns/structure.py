@@ -1,5 +1,5 @@
 import bisect
-from typing import Dict
+from typing import Dict, SupportsInt
 from uuid import UUID, uuid4
 
 from uqbar.objects import get_vars, new
@@ -7,6 +7,7 @@ from uqbar.objects import get_vars, new
 from supriya.assets import synthdefs
 from supriya.enums import CalculationRate
 
+from ..contexts import Bus, Node
 from .events import (
     BusAllocateEvent,
     BusFreeEvent,
@@ -20,6 +21,10 @@ from .patterns import Pattern
 
 
 class BusPattern(Pattern):
+    """
+    Peform node events from a pattern into a dynamically allocated bus and group.
+    """
+
     ### INITIALIZER ###
 
     def __init__(
@@ -90,6 +95,10 @@ class BusPattern(Pattern):
 
 
 class FxPattern(Pattern):
+    """
+    Add a synth to the tail of the nodes performed by a pattern.
+    """
+
     ### INITIALIZER ###
 
     def __init__(self, pattern, synthdef, release_time=0.25, **kwargs):
@@ -128,6 +137,10 @@ class FxPattern(Pattern):
 
 
 class GroupPattern(Pattern):
+    """
+    Perform node events from a pattern into a dynamically allocated group.
+    """
+
     ### INITIALIZER ###
 
     def __init__(self, pattern, release_time=0.25):
@@ -165,6 +178,10 @@ class GroupPattern(Pattern):
 
 
 class ParallelPattern(Pattern):
+    """
+    Perform patterns simultaneously in parallel.
+    """
+
     ### INITIALIZER ###
 
     def __init__(self, patterns):
@@ -212,3 +229,41 @@ class ParallelPattern(Pattern):
     @property
     def is_infinite(self):
         return any(pattern.is_infinite for pattern in self._patterns)
+
+
+class PinPattern:
+    """
+    Utility pattern for assigning an explicit target bus and/or target node to
+    NodeEvents.
+
+    Used internally by pattern players.
+    """
+
+    def __init__(
+        self,
+        pattern,
+        *,
+        target_bus: Bus | SupportsInt | None = None,
+        target_node: Node | SupportsInt | None = None,
+    ) -> None:
+        self.pattern = pattern
+        self.target_bus = target_bus
+        self.target_node = target_node
+
+    def _adjust(self, expr, state):
+        args, _, kwargs = get_vars(expr)
+        updates = {}
+        if self.target_node is not None and hasattr(expr, "target_node"):
+            updates["target_node"] = expr.target_node or self.target_node
+        if self.target_bus is not None and hasattr(expr, "synthdef"):
+            synthdef = getattr(expr, "synthdef") or synthdefs.default
+            parameter_names = synthdef.parameter_names
+            for name in ("in_", "out"):
+                if name in parameter_names and kwargs.get(name) is None:
+                    updates[name] = self.target_bus
+        if updates:
+            return new(expr, **updates)
+        return expr
+
+    def _iterate(self, state=None):
+        return iter(self._pattern)
