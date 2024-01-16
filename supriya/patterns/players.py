@@ -14,6 +14,7 @@ from typing import (
     cast,
 )
 from uuid import UUID, uuid4
+from weakref import WeakSet
 
 from ..clocks import BaseClock, CallbackEvent, Clock, ClockContext, OfflineClock
 from ..contexts import Bus, Context, ContextObject, Node
@@ -28,6 +29,8 @@ class PatternPlayer:
 
     Coordinates interactions between a pattern, a clock_context, and a clock.
     """
+
+    _players: WeakSet["PatternPlayer"] = WeakSet()
 
     def __init__(
         self,
@@ -230,6 +233,7 @@ class PatternPlayer:
             self._queue.put((float("-inf"), Priority.NONE, (0, 0), None))
             self._is_running = True
             self._is_stopping = False
+            self._players.add(self)
         self._clock_event_id = self._clock.cue(
             self._clock_callback,
             event_type=3,
@@ -250,6 +254,7 @@ class PatternPlayer:
             self._clock.cue(
                 self._stop_callback, event_type=2, quantization=quantization
             )
+            self._players.remove(self)
 
     def uuid_to_note_id(self, uuid: UUID, index: Optional[int] = None) -> float:
         if index is not None:
