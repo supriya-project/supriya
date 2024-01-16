@@ -12,9 +12,9 @@ class EventPattern(Pattern):
     Akin to SuperCollider's Pbind.
     """
 
-    def __init__(self, event_type: Type[Event] = NoteEvent, **patterns):
-        self._patterns = patterns
+    def __init__(self, event_type: Type[Event] = NoteEvent, **patterns) -> None:
         self._event_type = event_type
+        self._patterns = patterns
 
     def _iterate(self, state=None):
         patterns = self._prepare_patterns()
@@ -42,7 +42,7 @@ class EventPattern(Pattern):
         return self._event_type
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         for value in self._patterns.values():
             if isinstance(value, Pattern) and not value.is_infinite:
                 return False
@@ -69,7 +69,7 @@ class MonoEventPattern(EventPattern):
                 return
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         for value in self._patterns.values():
             if isinstance(value, Pattern) and not value.is_infinite:
                 return False
@@ -81,7 +81,7 @@ class UpdatePattern(Pattern):
     Akin to SuperCollider's Pbindf.
     """
 
-    def __init__(self, pattern, **patterns):
+    def __init__(self, pattern: Pattern, **patterns) -> None:
         self._pattern = pattern
         self._patterns = patterns
 
@@ -112,7 +112,7 @@ class UpdatePattern(Pattern):
         return patterns
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         for value in self._patterns.values():
             if isinstance(value, Pattern) and not value.is_infinite:
                 return False
@@ -124,7 +124,7 @@ class ChainPattern(Pattern):
     Akin to SuperCollider's Pchain.
     """
 
-    def __init__(self, *patterns):
+    def __init__(self, *patterns: Pattern) -> None:
         self._patterns = tuple(patterns)
 
     def _iterate(self, state=None):
@@ -143,7 +143,7 @@ class ChainPattern(Pattern):
                 return
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         for value in self._patterns:
             if isinstance(value, Pattern) and not value.is_infinite:
                 return False

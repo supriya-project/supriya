@@ -22,7 +22,6 @@ from .patterns import (
     UnaryOpPattern,
 )
 from .players import PatternPlayer
-from .sequences import GatePattern, RepeatPattern, RestartPattern, StutterPattern
 from .structure import BusPattern, FxPattern, GroupPattern, ParallelPattern
 
 __all__ = [
@@ -36,7 +35,6 @@ __all__ = [
     "Event",
     "EventPattern",
     "FxPattern",
-    "GatePattern",
     "GroupAllocateEvent",
     "GroupPattern",
     "MonoEventPattern",
@@ -48,14 +46,11 @@ __all__ = [
     "PatternPlayer",
     "Priority",
     "RandomPattern",
-    "RepeatPattern",
-    "RestartPattern",
     "SeedPattern",
     "SequencePattern",
     "ShufflePattern",
     "StartEvent",
     "StopEvent",
-    "StutterPattern",
     "SynthAllocateEvent",
     "UnaryOpPattern",
     "UpdatePattern",

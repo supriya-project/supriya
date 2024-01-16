@@ -1,5 +1,5 @@
 import bisect
-from typing import Dict, SupportsInt
+from typing import Dict, Optional, Sequence, SupportsInt
 from uuid import UUID, uuid4
 
 from uqbar.objects import get_vars, new
@@ -7,7 +7,8 @@ from uqbar.objects import get_vars, new
 from supriya.assets import synthdefs
 from supriya.enums import CalculationRate
 
-from ..contexts import Bus, Node
+from ..synthdefs import SynthDef
+from ..typing import CalculationRateLike
 from .events import (
     BusAllocateEvent,
     BusFreeEvent,
@@ -28,8 +29,12 @@ class BusPattern(Pattern):
     ### INITIALIZER ###
 
     def __init__(
-        self, pattern, calculation_rate="audio", channel_count=1, release_time=0.25
-    ):
+        self,
+        pattern: Pattern,
+        calculation_rate: CalculationRateLike = "audio",
+        channel_count: int = 1,
+        release_time: float = 0.25,
+    ) -> None:
         self._pattern = pattern
         self._calculation_rate = CalculationRate.from_expr(calculation_rate)
         self._channel_count = channel_count
@@ -90,7 +95,7 @@ class BusPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return self._pattern.is_infinite
 
 
@@ -101,7 +106,9 @@ class FxPattern(Pattern):
 
     ### INITIALIZER ###
 
-    def __init__(self, pattern, synthdef, release_time=0.25, **kwargs):
+    def __init__(
+        self, pattern: Pattern, synthdef: SynthDef, release_time: float = 0.25, **kwargs
+    ):
         self._pattern = pattern
         self._release_time = release_time
         self._synthdef = synthdef
@@ -132,7 +139,7 @@ class FxPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return self._pattern.is_infinite
 
 
@@ -143,7 +150,7 @@ class GroupPattern(Pattern):
 
     ### INITIALIZER ###
 
-    def __init__(self, pattern, release_time=0.25):
+    def __init__(self, pattern: Pattern, release_time: float = 0.25) -> None:
         self._pattern = pattern
         self._release_time = release_time
 
@@ -173,7 +180,7 @@ class GroupPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return self._pattern.is_infinite
 
 
@@ -184,7 +191,7 @@ class ParallelPattern(Pattern):
 
     ### INITIALIZER ###
 
-    def __init__(self, patterns):
+    def __init__(self, patterns: Sequence[Pattern]) -> None:
         self._patterns = tuple(patterns)
 
     ### PRIVATE METHODS ###
@@ -227,7 +234,7 @@ class ParallelPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return any(pattern.is_infinite for pattern in self._patterns)
 
 
@@ -245,8 +252,8 @@ class PinPattern(Pattern):
         self,
         pattern,
         *,
-        target_bus: Bus | SupportsInt | None = None,
-        target_node: Node | SupportsInt | None = None,
+        target_bus: Optional[SupportsInt] = None,
+        target_node: Optional[SupportsInt] = None,
     ) -> None:
         self._pattern = pattern
         self._target_bus = target_bus
@@ -275,5 +282,5 @@ class PinPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return self._pattern.is_infinite

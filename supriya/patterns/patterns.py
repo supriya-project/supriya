@@ -1,8 +1,6 @@
 """
 The core pattern classes.
 """
-from __future__ import annotations
-
 import abc
 import inspect
 import itertools
@@ -17,6 +15,7 @@ from typing import (
     Generator,
     Iterator,
     Optional,
+    Union,
 )
 from uuid import UUID
 
@@ -39,10 +38,10 @@ class Pattern(metaclass=abc.ABCMeta):
 
     ### SPECIAL METHODS ###
 
-    def __abs__(self) -> UnaryOpPattern:
+    def __abs__(self) -> "UnaryOpPattern":
         return UnaryOpPattern("abs", self)
 
-    def __add__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __add__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("+", self, expr)
 
     def __eq__(self, expr) -> bool:
@@ -53,10 +52,10 @@ class Pattern(metaclass=abc.ABCMeta):
             expr_values = type(expr), expr
         return self_values == expr_values
 
-    def __floordiv__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __floordiv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("//", self, expr)
 
-    def __invert__(self) -> UnaryOpPattern:
+    def __invert__(self) -> "UnaryOpPattern":
         return UnaryOpPattern("~", self)
 
     def __iter__(self) -> Generator[Event, bool, None]:
@@ -83,46 +82,46 @@ class Pattern(metaclass=abc.ABCMeta):
         if stop_event:
             yield stop_event
 
-    def __mod__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __mod__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("%", self, expr)
 
-    def __mul__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __mul__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("*", self, expr)
 
-    def __neg__(self) -> UnaryOpPattern:
+    def __neg__(self) -> "UnaryOpPattern":
         return UnaryOpPattern("-", self)
 
-    def __pos__(self) -> UnaryOpPattern:
+    def __pos__(self) -> "UnaryOpPattern":
         return UnaryOpPattern("+", self)
 
-    def __pow__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __pow__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("**", self, expr)
 
-    def __radd__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __radd__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("+", expr, self)
 
-    def __rmod__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __rmod__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("%", expr, self)
 
-    def __rmul__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __rmul__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("*", expr, self)
 
-    def __rpow__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __rpow__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("**", expr, self)
 
-    def __rsub__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __rsub__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("-", expr, self)
 
-    def __rtruediv__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __rtruediv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("/", expr, self)
 
-    def __rfloordiv__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __rfloordiv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("//", expr, self)
 
-    def __sub__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __sub__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("-", self, expr)
 
-    def __truediv__(self, expr: Pattern | float) -> BinaryOpPattern:
+    def __truediv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("/", self, expr)
 
     ### PRIVATE METHODS ###
@@ -225,7 +224,7 @@ class Pattern(metaclass=abc.ABCMeta):
         tempo: Optional[float] = None,
         until: Optional[float] = None,
         uuid: Optional[UUID] = None,
-    ) -> PatternPlayer:
+    ) -> "PatternPlayer":
         from .players import PatternPlayer  # Avoid circular import
 
         if isinstance(context, Score):
@@ -255,7 +254,10 @@ class BinaryOpPattern(Pattern):
     ### INITIALIZER ###
 
     def __init__(
-        self, operator: str, expr_one: Pattern | float, expr_two: Pattern | float
+        self,
+        operator: str,
+        expr_one: Union["Pattern", float],
+        expr_two: Union["Pattern", float],
     ) -> None:
         self._operator = operator
         self._expr_one = self._freeze_recursive(expr_one)
@@ -291,11 +293,11 @@ class BinaryOpPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def expr_one(self) -> Pattern | float:
+    def expr_one(self) -> Union["Pattern", float]:
         return self._expr_one
 
     @property
-    def expr_two(self) -> Pattern | float:
+    def expr_two(self) -> Union["Pattern", float]:
         return self._expr_two
 
     @property
@@ -316,7 +318,7 @@ class BinaryOpPattern(Pattern):
 class UnaryOpPattern(Pattern):
     ### INITIALIZER ###
 
-    def __init__(self, operator: str, expr: Pattern | float) -> None:
+    def __init__(self, operator: str, expr: Union["Pattern", float]) -> None:
         self._operator = operator
         self._expr = expr
 
@@ -343,7 +345,7 @@ class UnaryOpPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def expr(self) -> Pattern | float:
+    def expr(self) -> Union["Pattern", float]:
         return self._expr
 
     @property
@@ -393,7 +395,7 @@ class SeedPattern(Pattern):
 class SequencePattern(Pattern):
     ### INITIALIZER ###
 
-    def __init__(self, sequence: Sequence, iterations: int | None = 1) -> None:
+    def __init__(self, sequence: Sequence, iterations: Optional[int] = 1) -> None:
         if not isinstance(sequence, Sequence):
             raise ValueError(f"Must be sequence: {sequence!r}")
         if iterations is not None:

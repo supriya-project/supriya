@@ -6,10 +6,10 @@ from .events import CompositeEvent, Event
 
 
 class MockUUID:
-    def __init__(self, string):
+    def __init__(self, string: str) -> None:
         self.string = string
 
-    def __eq__(self, expr):
+    def __eq__(self, expr) -> bool:
         self_values = type(self), get_vars(self)
         try:
             expr_values = type(expr), get_vars(expr)
@@ -17,7 +17,7 @@ class MockUUID:
             expr_values = type(expr), expr
         return self_values == expr_values
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return get_repr(self, multiline=False)
 
 

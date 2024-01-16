@@ -9,6 +9,7 @@ from typing import (
     List,
     Optional,
     Sequence,
+    Set,
     Tuple,
     Union,
     cast,
@@ -30,7 +31,8 @@ class PatternPlayer:
     Coordinates interactions between a pattern, a clock_context, and a clock.
     """
 
-    _players: WeakSet["PatternPlayer"] = WeakSet()
+    # TODO: Rewrite type annotation after dropping 3.8
+    _players = cast(Set["PatternPlayer"], WeakSet())
 
     def __init__(
         self,
