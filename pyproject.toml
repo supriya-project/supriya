@@ -25,7 +25,7 @@ classifiers = [
 ]
 dependencies = [
   "platformdirs >= 3.9.1",
-  "uqbar >= 0.6.9",
+  "uqbar >= 0.7.1",
 ]
 description = "A Python API for SuperCollider"
 dynamic = ["version"]
