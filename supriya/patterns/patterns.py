@@ -23,7 +23,7 @@ from uqbar.objects import get_vars
 
 import supriya.patterns
 from supriya.clocks import BaseClock, Clock, ClockContext, OfflineClock
-from supriya.contexts import Context, Node, Score
+from supriya.contexts import Bus, Context, Node, Score
 
 from .events import CompositeEvent, Event, Priority
 
@@ -220,6 +220,7 @@ class Pattern(metaclass=abc.ABCMeta):
         ] = None,
         clock: Optional[BaseClock] = None,
         quantization: Optional[str] = None,
+        target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
         tempo: Optional[float] = None,
         until: Optional[float] = None,
@@ -237,6 +238,7 @@ class Pattern(metaclass=abc.ABCMeta):
             context=context,
             clock=clock,
             callback=callback,
+            target_bus=target_bus,
             target_node=target_node,
             uuid=uuid,
         )
