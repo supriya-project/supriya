@@ -70,6 +70,7 @@ bases
 
    .. automethod:: __abs__
    .. automethod:: __add__
+   .. automethod:: __and__
    .. automethod:: __div__
    .. automethod:: __ge__
    .. automethod:: __graph__
@@ -79,6 +80,7 @@ bases
    .. automethod:: __mod__
    .. automethod:: __mul__
    .. automethod:: __neg__
+   .. automethod:: __or__
    .. automethod:: __pow__
    .. automethod:: __radd__
    .. automethod:: __rdiv__
@@ -89,6 +91,7 @@ bases
    .. automethod:: __rtruediv__
    .. automethod:: __sub__
    .. automethod:: __truediv__
+   .. automethod:: __xor__
    .. automethod:: absolute_difference
    .. automethod:: amplitude_to_db
    .. automethod:: as_int

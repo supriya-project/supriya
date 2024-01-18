@@ -63,12 +63,10 @@ events
 .. autoclass:: StartEvent
    :show-inheritance:
 
-   .. automethod:: perform
 
 .. autoclass:: StopEvent
    :show-inheritance:
 
-   .. automethod:: perform
 
 .. autoclass:: SynthAllocateEvent
    :show-inheritance:

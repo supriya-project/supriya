@@ -26,3 +26,8 @@ structure
    :show-inheritance:
 
    .. autoproperty:: is_infinite
+
+.. autoclass:: PinPattern
+   :show-inheritance:
+
+   .. autoproperty:: is_infinite

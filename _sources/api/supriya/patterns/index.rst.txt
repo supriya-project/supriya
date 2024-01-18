@@ -15,6 +15,5 @@ patterns
    noise
    patterns
    players
-   sequences
    structure
    testutils
