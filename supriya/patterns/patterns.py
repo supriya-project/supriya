@@ -7,7 +7,16 @@ import itertools
 import operator
 import random
 from collections.abc import Sequence
-from typing import Callable, Coroutine, Dict, Generator, Iterator, Optional
+from typing import (
+    TYPE_CHECKING,
+    Callable,
+    Coroutine,
+    Dict,
+    Generator,
+    Iterator,
+    Optional,
+    Union,
+)
 from uuid import UUID
 
 from uqbar.objects import get_vars
@@ -18,6 +27,9 @@ from supriya.contexts import Context, Node, Score
 
 from .events import CompositeEvent, Event, Priority
 
+if TYPE_CHECKING:
+    from .players import PatternPlayer
+
 
 class Pattern(metaclass=abc.ABCMeta):
     ### CLASSMETHODS ###
@@ -26,13 +38,13 @@ class Pattern(metaclass=abc.ABCMeta):
 
     ### SPECIAL METHODS ###
 
-    def __abs__(self):
+    def __abs__(self) -> "UnaryOpPattern":
         return UnaryOpPattern("abs", self)
 
-    def __add__(self, expr):
+    def __add__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("+", self, expr)
 
-    def __eq__(self, expr):
+    def __eq__(self, expr) -> bool:
         self_values = type(self), get_vars(self)
         try:
             expr_values = type(expr), get_vars(expr)
@@ -40,10 +52,10 @@ class Pattern(metaclass=abc.ABCMeta):
             expr_values = type(expr), expr
         return self_values == expr_values
 
-    def __floordiv__(self, expr):
+    def __floordiv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("//", self, expr)
 
-    def __invert__(self):
+    def __invert__(self) -> "UnaryOpPattern":
         return UnaryOpPattern("~", self)
 
     def __iter__(self) -> Generator[Event, bool, None]:
@@ -70,46 +82,46 @@ class Pattern(metaclass=abc.ABCMeta):
         if stop_event:
             yield stop_event
 
-    def __mod__(self, expr):
+    def __mod__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("%", self, expr)
 
-    def __mul__(self, expr):
+    def __mul__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("*", self, expr)
 
-    def __neg__(self):
+    def __neg__(self) -> "UnaryOpPattern":
         return UnaryOpPattern("-", self)
 
-    def __pos__(self):
+    def __pos__(self) -> "UnaryOpPattern":
         return UnaryOpPattern("+", self)
 
-    def __pow__(self, expr):
+    def __pow__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("**", self, expr)
 
-    def __radd__(self, expr):
+    def __radd__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("+", expr, self)
 
-    def __rmod__(self, expr):
+    def __rmod__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("%", expr, self)
 
-    def __rmul__(self, expr):
+    def __rmul__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("*", expr, self)
 
-    def __rpow__(self, expr):
+    def __rpow__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("**", expr, self)
 
-    def __rsub__(self, expr):
+    def __rsub__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("-", expr, self)
 
-    def __rtruediv__(self, expr):
+    def __rtruediv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("/", expr, self)
 
-    def __rfloordiv__(self, expr):
+    def __rfloordiv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("//", expr, self)
 
-    def __sub__(self, expr):
+    def __sub__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("-", self, expr)
 
-    def __truediv__(self, expr):
+    def __truediv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
         return BinaryOpPattern("/", self, expr)
 
     ### PRIVATE METHODS ###
@@ -212,7 +224,7 @@ class Pattern(metaclass=abc.ABCMeta):
         tempo: Optional[float] = None,
         until: Optional[float] = None,
         uuid: Optional[UUID] = None,
-    ):
+    ) -> "PatternPlayer":
         from .players import PatternPlayer  # Avoid circular import
 
         if isinstance(context, Score):
@@ -234,14 +246,19 @@ class Pattern(metaclass=abc.ABCMeta):
     ### PUBLIC PROPERTIES ###
 
     @abc.abstractproperty
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         raise NotImplementedError
 
 
 class BinaryOpPattern(Pattern):
     ### INITIALIZER ###
 
-    def __init__(self, operator, expr_one, expr_two):
+    def __init__(
+        self,
+        operator: str,
+        expr_one: Union["Pattern", float],
+        expr_two: Union["Pattern", float],
+    ) -> None:
         self._operator = operator
         self._expr_one = self._freeze_recursive(expr_one)
         self._expr_two = self._freeze_recursive(expr_two)
@@ -276,15 +293,15 @@ class BinaryOpPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def expr_one(self):
+    def expr_one(self) -> Union["Pattern", float]:
         return self._expr_one
 
     @property
-    def expr_two(self):
+    def expr_two(self) -> Union["Pattern", float]:
         return self._expr_two
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         expr_one_is_infinite = (
             not isinstance(self.expr_one, Pattern) or self.expr_one.is_infinite
         )
@@ -294,14 +311,14 @@ class BinaryOpPattern(Pattern):
         return expr_one_is_infinite and expr_two_is_infinite
 
     @property
-    def operator(self):
+    def operator(self) -> str:
         return self._operator
 
 
 class UnaryOpPattern(Pattern):
     ### INITIALIZER ###
 
-    def __init__(self, operator, expr):
+    def __init__(self, operator: str, expr: Union["Pattern", float]) -> None:
         self._operator = operator
         self._expr = expr
 
@@ -328,22 +345,22 @@ class UnaryOpPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def expr(self):
+    def expr(self) -> Union["Pattern", float]:
         return self._expr
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return not isinstance(self.expr, Pattern) or self.expr.is_infinite
 
     @property
-    def operator(self):
+    def operator(self) -> str:
         return self._operator
 
 
 class SeedPattern(Pattern):
     ### INITIALIZER ###
 
-    def __init__(self, pattern, seed=0):
+    def __init__(self, pattern: Pattern, seed: int = 0) -> None:
         if not isinstance(pattern, Pattern):
             raise ValueError(f"Must be pattern: {pattern!r}")
         self._pattern = pattern
@@ -363,22 +380,22 @@ class SeedPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return self._pattern.is_infinite
 
     @property
-    def pattern(self):
+    def pattern(self) -> Pattern:
         return self._pattern
 
     @property
-    def seed(self):
+    def seed(self) -> int:
         return self._seed
 
 
 class SequencePattern(Pattern):
     ### INITIALIZER ###
 
-    def __init__(self, sequence, iterations=1):
+    def __init__(self, sequence: Sequence, iterations: Optional[int] = 1) -> None:
         if not isinstance(sequence, Sequence):
             raise ValueError(f"Must be sequence: {sequence!r}")
         if iterations is not None:
@@ -412,7 +429,7 @@ class SequencePattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         if self._iterations is None:
             return True
         for x in self._sequence:

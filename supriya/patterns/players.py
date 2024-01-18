@@ -9,16 +9,19 @@ from typing import (
     List,
     Optional,
     Sequence,
+    Set,
     Tuple,
     Union,
     cast,
 )
 from uuid import UUID, uuid4
+from weakref import WeakSet
 
 from ..clocks import BaseClock, CallbackEvent, Clock, ClockContext, OfflineClock
-from ..contexts import Context, ContextObject, Node
+from ..contexts import Bus, Context, ContextObject, Node
 from .eventpatterns import Pattern
 from .events import Event, Priority, StartEvent, StopEvent
+from .structure import PinPattern
 
 
 class PatternPlayer:
@@ -27,6 +30,9 @@ class PatternPlayer:
 
     Coordinates interactions between a pattern, a clock_context, and a clock.
     """
+
+    # TODO: Rewrite type annotation after dropping 3.8
+    _players = cast(Set["PatternPlayer"], WeakSet())
 
     def __init__(
         self,
@@ -38,10 +44,10 @@ class PatternPlayer:
                 ["PatternPlayer", ClockContext, Event, Priority], Optional[Coroutine]
             ]
         ] = None,
+        target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
         uuid: Optional[UUID] = None,
     ) -> None:
-        self._pattern = pattern
         self._context = context
         self._clock = clock
         self._callback = callback
@@ -54,9 +60,15 @@ class PatternPlayer:
         self._proxies_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], ContextObject] = {}
         self._notes_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], float] = {}
         self._uuid: UUID = uuid or uuid4()
+        self._target_bus = target_bus
         self._target_node = target_node
         self._next_delta: Optional[float] = None
         self._initial_seconds: Optional[float] = None
+        self._pattern = (
+            pattern
+            if (target_bus is None and target_node is None)
+            else PinPattern(pattern, target_bus=target_bus, target_node=target_node)
+        )
 
     def _clock_callback(
         self, clock_context: ClockContext, *args, **kwargs
@@ -72,7 +84,6 @@ class PatternPlayer:
                         current_offset=offset,
                         notes_mapping=self._notes_by_uuid,
                         priority=priority,
-                        target_node=self._target_node,
                     )
                     if self._callback is not None:
                         self._callback(self, clock_context, event, priority)
@@ -224,6 +235,7 @@ class PatternPlayer:
             self._queue.put((float("-inf"), Priority.NONE, (0, 0), None))
             self._is_running = True
             self._is_stopping = False
+            self._players.add(self)
         self._clock_event_id = self._clock.cue(
             self._clock_callback,
             event_type=3,
@@ -244,6 +256,7 @@ class PatternPlayer:
             self._clock.cue(
                 self._stop_callback, event_type=2, quantization=quantization
             )
+            self._players.remove(self)
 
     def uuid_to_note_id(self, uuid: UUID, index: Optional[int] = None) -> float:
         if index is not None:

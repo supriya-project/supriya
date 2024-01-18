@@ -1,10 +1,18 @@
+from typing import Optional, Sequence, Union
+
 from uqbar.enums import IntEnumeration
 
 from .patterns import Pattern, SequencePattern
 
 
 class ChoicePattern(SequencePattern):
-    def __init__(self, sequence, iterations=1, forbid_repetitions=False, weights=None):
+    def __init__(
+        self,
+        sequence: Sequence,
+        iterations: Optional[int] = 1,
+        forbid_repetitions: bool = False,
+        weights: Optional[Sequence[float]] = None,
+    ) -> None:
         super().__init__(sequence, iterations=iterations)
         self._forbid_repetitions = bool(forbid_repetitions)
         if weights:
@@ -46,11 +54,11 @@ class ChoicePattern(SequencePattern):
         return index
 
     @property
-    def forbid_repetitions(self):
+    def forbid_repetitions(self) -> bool:
         return self._forbid_repetitions
 
     @property
-    def weights(self):
+    def weights(self) -> Optional[Sequence[float]]:
         return self._weights
 
 
@@ -59,8 +67,12 @@ class RandomPattern(Pattern):
         WHITE_NOISE = 0
 
     def __init__(
-        self, minimum=0.0, maximum=1.0, iterations=None, distribution="WHITE_NOISE"
-    ):
+        self,
+        minimum: float = 0.0,
+        maximum: float = 1.0,
+        iterations: Optional[int] = None,
+        distribution: Union["RandomPattern.Distribution", str] = "WHITE_NOISE",
+    ) -> None:
         if iterations is not None:
             iterations = int(iterations)
             if iterations < 1:
@@ -83,28 +95,33 @@ class RandomPattern(Pattern):
                 return
 
     @property
-    def distribution(self):
+    def distribution(self) -> Union["RandomPattern.Distribution", str]:
         return self._distribution
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return self._iterations is None
 
     @property
-    def iterations(self):
+    def iterations(self) -> Optional[int]:
         return self._iterations
 
     @property
-    def minimum(self):
+    def minimum(self) -> float:
         return self._minimum
 
     @property
-    def maximum(self):
+    def maximum(self) -> float:
         return self._maximum
 
 
 class ShufflePattern(SequencePattern):
-    def __init__(self, sequence, iterations=1, forbid_repetitions=False):
+    def __init__(
+        self,
+        sequence: Sequence,
+        iterations: Optional[int] = 1,
+        forbid_repetitions: bool = False,
+    ) -> None:
         super().__init__(sequence, iterations=iterations)
         self._forbid_repetitions = bool(forbid_repetitions)
 
@@ -141,5 +158,5 @@ class ShufflePattern(SequencePattern):
         return shuffled_indices
 
     @property
-    def forbid_repetitions(self):
+    def forbid_repetitions(self) -> bool:
         return self._forbid_repetitions

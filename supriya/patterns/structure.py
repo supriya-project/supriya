@@ -1,5 +1,5 @@
 import bisect
-from typing import Dict
+from typing import Dict, Optional, Sequence, SupportsInt
 from uuid import UUID, uuid4
 
 from uqbar.objects import get_vars, new
@@ -7,6 +7,8 @@ from uqbar.objects import get_vars, new
 from supriya.assets import synthdefs
 from supriya.enums import CalculationRate
 
+from ..synthdefs import SynthDef
+from ..typing import CalculationRateLike
 from .events import (
     BusAllocateEvent,
     BusFreeEvent,
@@ -20,11 +22,19 @@ from .patterns import Pattern
 
 
 class BusPattern(Pattern):
+    """
+    Peform node events from a pattern into a dynamically allocated bus and group.
+    """
+
     ### INITIALIZER ###
 
     def __init__(
-        self, pattern, calculation_rate="audio", channel_count=1, release_time=0.25
-    ):
+        self,
+        pattern: Pattern,
+        calculation_rate: CalculationRateLike = "audio",
+        channel_count: int = 1,
+        release_time: float = 0.25,
+    ) -> None:
         self._pattern = pattern
         self._calculation_rate = CalculationRate.from_expr(calculation_rate)
         self._channel_count = channel_count
@@ -85,14 +95,20 @@ class BusPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return self._pattern.is_infinite
 
 
 class FxPattern(Pattern):
+    """
+    Add a synth to the tail of the nodes performed by a pattern.
+    """
+
     ### INITIALIZER ###
 
-    def __init__(self, pattern, synthdef, release_time=0.25, **kwargs):
+    def __init__(
+        self, pattern: Pattern, synthdef: SynthDef, release_time: float = 0.25, **kwargs
+    ):
         self._pattern = pattern
         self._release_time = release_time
         self._synthdef = synthdef
@@ -123,14 +139,18 @@ class FxPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return self._pattern.is_infinite
 
 
 class GroupPattern(Pattern):
+    """
+    Perform node events from a pattern into a dynamically allocated group.
+    """
+
     ### INITIALIZER ###
 
-    def __init__(self, pattern, release_time=0.25):
+    def __init__(self, pattern: Pattern, release_time: float = 0.25) -> None:
         self._pattern = pattern
         self._release_time = release_time
 
@@ -160,14 +180,18 @@ class GroupPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return self._pattern.is_infinite
 
 
 class ParallelPattern(Pattern):
+    """
+    Perform patterns simultaneously in parallel.
+    """
+
     ### INITIALIZER ###
 
-    def __init__(self, patterns):
+    def __init__(self, patterns: Sequence[Pattern]) -> None:
         self._patterns = tuple(patterns)
 
     ### PRIVATE METHODS ###
@@ -210,5 +234,53 @@ class ParallelPattern(Pattern):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def is_infinite(self):
+    def is_infinite(self) -> bool:
         return any(pattern.is_infinite for pattern in self._patterns)
+
+
+class PinPattern(Pattern):
+    """
+    Utility pattern for assigning an explicit target bus and/or target node to
+    NodeEvents.
+
+    Used internally by pattern players.
+    """
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        pattern,
+        *,
+        target_bus: Optional[SupportsInt] = None,
+        target_node: Optional[SupportsInt] = None,
+    ) -> None:
+        self._pattern = pattern
+        self._target_bus = target_bus
+        self._target_node = target_node
+
+    def _adjust(self, expr, state):
+        args, _, kwargs = get_vars(expr)
+        updates = {}
+        if self._target_node is not None and hasattr(expr, "target_node"):
+            updates["target_node"] = expr.target_node or self._target_node
+        if self._target_bus is not None and hasattr(expr, "synthdef"):
+            synthdef = getattr(expr, "synthdef") or synthdefs.default
+            parameter_names = synthdef.parameter_names
+            for name in ("in_", "out"):
+                if name in parameter_names and kwargs.get(name) is None:
+                    updates[name] = self._target_bus
+        if updates:
+            return new(expr, **updates)
+        return expr
+
+    ### PRIVATE METHODS ###
+
+    def _iterate(self, state=None):
+        return iter(self._pattern)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def is_infinite(self) -> bool:
+        return self._pattern.is_infinite
