@@ -65,6 +65,9 @@ lint: reformat flake8 mypy ## Run all linters
 mypy: ## Type-check via mypy
 	mypy ${project}/
 
+mypy-cov: ## Type-check via mypy with coverage reported to ./mypycov/
+	mypy --html-report ./mypycov/ ${project}/
+
 pytest: ## Unit test via pytest
 	rm -Rf htmlcov/
 	pytest ${testPaths} --cov=supriya
