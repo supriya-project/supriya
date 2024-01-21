@@ -14,10 +14,13 @@ from typing import (
     Coroutine,
     Dict,
     Generator,
+    Generic,
     Iterator,
     Optional,
+    Tuple,
     TypeVar,
     Union,
+    cast,
 )
 from uuid import UUID
 
@@ -35,7 +38,10 @@ if TYPE_CHECKING:
 T = TypeVar("T")
 
 
-class Pattern(metaclass=abc.ABCMeta):
+T = TypeVar("T")
+
+
+class Pattern(Generic[T], metaclass=abc.ABCMeta):
     ### CLASSMETHODS ###
 
     _rngs: Dict[int, Iterator[float]] = {}
@@ -71,7 +77,7 @@ class Pattern(metaclass=abc.ABCMeta):
     def __invert__(self) -> "UnaryOpPattern":
         return UnaryOpPattern(operator.invert, self)
 
-    def __iter__(self) -> Generator[Event, bool, None]:
+    def __iter__(self) -> Generator[T, bool, None]:
         should_stop = False
         state: Optional[Dict] = self._setup_state()
         iterator = self._iterate(state)
@@ -172,14 +178,17 @@ class Pattern(metaclass=abc.ABCMeta):
 
     ### PRIVATE METHODS ###
 
-    def _adjust(self, expr, state=None):
+    def _adjust(self, expr: T, state: Optional[Dict] = None) -> T:
         return expr
 
-    def _adjust_recursive(self, expr, state=None):
+    def _adjust_recursive(self, expr: T, state: Optional[Dict] = None) -> T:
         if isinstance(expr, CompositeEvent):
-            return CompositeEvent(
-                [self._adjust(event, state=state) for event in expr.events],
-                delta=expr.delta,
+            return cast(
+                T,
+                CompositeEvent(
+                    [self._adjust(event, state=state) for event in expr.events],
+                    delta=expr.delta,
+                ),
             )
         return self._adjust(expr, state=state)
 
@@ -205,14 +214,14 @@ class Pattern(metaclass=abc.ABCMeta):
             self._apply_recursive(procedure, *items) for items in zip(*coerced_exprs)
         )
 
-    def _freeze_recursive(self, value):
+    def _freeze_recursive(self, value: T):
         if isinstance(value, str):
             return value
         elif isinstance(value, Sequence) and not isinstance(value, Pattern):
             return tuple(self._freeze_recursive(_) for _ in value)
         return value
 
-    def _get_rng(self):
+    def _get_rng(self) -> Iterator[float]:
         identifier = None
         try:
             # Walk frames to find an enclosing SeedPattern._iterate()
@@ -241,10 +250,10 @@ class Pattern(metaclass=abc.ABCMeta):
             yield random.random()
 
     @abc.abstractmethod
-    def _iterate(self, state=None):
+    def _iterate(self, state=None) -> Generator[T, bool, None]:
         raise NotImplementedError
 
-    def _loop(self, iterations=None):
+    def _loop(self, iterations=None) -> Iterator[bool]:
         if iterations is None:
             while True:
                 yield True
@@ -255,7 +264,7 @@ class Pattern(metaclass=abc.ABCMeta):
     def _setup_state(self) -> Optional[Dict]:
         return None
 
-    def _setup_peripherals(self, state):
+    def _setup_peripherals(self, state) -> Tuple[Optional[T], Optional[T]]:
         return None, None
 
     ### PUBLIC METHODS ###
@@ -303,6 +312,10 @@ class Pattern(metaclass=abc.ABCMeta):
     @abc.abstractproperty
     def is_infinite(self) -> bool:
         raise NotImplementedError
+
+
+class BaseEventPattern(Pattern[Event]):
+    ...
 
 
 class BinaryOpPattern(Pattern):
@@ -407,7 +420,7 @@ class SeedPattern(Pattern):
 class SequencePattern(Pattern):
     ### INITIALIZER ###
 
-    def __init__(self, sequence: Sequence, iterations: Optional[int] = 1) -> None:
+    def __init__(self, sequence: Sequence[T], iterations: Optional[int] = 1) -> None:
         if not isinstance(sequence, Sequence):
             raise ValueError(f"Must be sequence: {sequence!r}")
         if iterations is not None:
