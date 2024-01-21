@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Any, Dict, Generator, Optional, Type
 from uuid import uuid4
 
 from uqbar.objects import new
@@ -12,11 +12,13 @@ class EventPattern(Pattern):
     Akin to SuperCollider's Pbind.
     """
 
-    def __init__(self, event_type: Type[Event] = NoteEvent, **patterns) -> None:
+    def __init__(
+        self, event_type: Type[NoteEvent] = NoteEvent, **patterns: Pattern
+    ) -> None:
         self._event_type = event_type
         self._patterns = patterns
 
-    def _iterate(self, state=None):
+    def _iterate(self, state: Optional[Dict] = None) -> Generator[Event, bool, None]:
         patterns = self._prepare_patterns()
         iterator_pairs = sorted(patterns.items())
         while True:
@@ -29,16 +31,16 @@ class EventPattern(Pattern):
             if (yield self.event_type(uuid4(), **event)):
                 return
 
-    def _prepare_patterns(self):
-        patterns = self._patterns.copy()
-        for name, pattern in sorted(patterns.items()):
+    def _prepare_patterns(self) -> Dict[str, Generator[Any, bool, None]]:
+        generators: Dict[str, Generator[Any, bool, None]] = {}
+        for name, pattern in sorted(self._patterns.items()):
             if not isinstance(pattern, Pattern):
                 pattern = SequencePattern([pattern], iterations=None)
-            patterns[name] = iter(pattern)
-        return patterns
+            generators[name] = iter(pattern)
+        return generators
 
     @property
-    def event_type(self) -> Type[Event]:
+    def event_type(self) -> Type[NoteEvent]:
         return self._event_type
 
     @property
@@ -54,7 +56,7 @@ class MonoEventPattern(EventPattern):
     Akin to SuperCollider's Pmono.
     """
 
-    def _iterate(self, state=None):
+    def _iterate(self, state: Optional[Dict] = None) -> Generator[Event, bool, None]:
         id_ = uuid4()
         patterns = self._prepare_patterns()
         iterator_pairs = sorted(patterns.items())
@@ -81,11 +83,11 @@ class UpdatePattern(Pattern):
     Akin to SuperCollider's Pbindf.
     """
 
-    def __init__(self, pattern: Pattern, **patterns) -> None:
+    def __init__(self, pattern: Pattern[Event], **patterns: Pattern) -> None:
         self._pattern = pattern
         self._patterns = patterns
 
-    def _iterate(self, state=None):
+    def _iterate(self, state: Optional[Dict] = None) -> Generator[Event, bool, None]:
         event_iterator = iter(self._pattern)
         iterator_pairs = sorted(self._prepare_patterns().items())
         while True:
@@ -103,13 +105,13 @@ class UpdatePattern(Pattern):
             if (yield event):
                 return
 
-    def _prepare_patterns(self):
-        patterns = self._patterns.copy()
-        for name, pattern in sorted(patterns.items()):
+    def _prepare_patterns(self) -> Dict[str, Generator[Any, bool, None]]:
+        generators: Dict[str, Generator[Any, bool, None]] = {}
+        for name, pattern in sorted(self._patterns.items()):
             if not isinstance(pattern, Pattern):
                 pattern = SequencePattern([pattern], iterations=None)
-            patterns[name] = iter(pattern)
-        return patterns
+            generators[name] = iter(pattern)
+        return generators
 
     @property
     def is_infinite(self) -> bool:
@@ -124,10 +126,10 @@ class ChainPattern(Pattern):
     Akin to SuperCollider's Pchain.
     """
 
-    def __init__(self, *patterns: Pattern) -> None:
+    def __init__(self, *patterns: Pattern[Event]) -> None:
         self._patterns = tuple(patterns)
 
-    def _iterate(self, state=None):
+    def _iterate(self, state: Optional[Dict] = None) -> Generator[Event, bool, None]:
         patterns = [iter(_) for _ in self._patterns]
         while True:
             try:
