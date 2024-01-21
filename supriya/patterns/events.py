@@ -1,5 +1,5 @@
 import enum
-from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
+from typing import Any, Dict, List, Optional, Sequence, SupportsFloat, Tuple, Union
 from uuid import UUID
 
 from uqbar.objects import get_repr, get_vars, new
@@ -207,7 +207,7 @@ class NoteEvent(NodeEvent):
         duration: float = 1.0,
         synthdef: Optional[SynthDef] = None,
         target_node: Optional[Union[Node, UUID]] = None,
-        **kwargs,
+        **kwargs: Union[SupportsFloat, Sequence[SupportsFloat], UUID],
     ) -> None:
         NodeEvent.__init__(
             self,
@@ -259,14 +259,16 @@ class NoteEvent(NodeEvent):
             #    if yes, update settings
             #    if no, create proxy
             # update notes mapping with expected completion offset
-            settings = self.kwargs.copy()
-            for key, value in settings.items():
+            settings: Dict[str, Union[SupportsFloat, Sequence[SupportsFloat]]] = {}
+            for key, value in self.kwargs.items():
                 if isinstance(value, UUID):
-                    settings[key] = proxy_mapping[value]
+                    value = proxy_mapping[value]
+                settings[key] = value
             # add the synth
             if self.id_ not in proxy_mapping:
                 proxy_mapping[self.id_] = context.add_synth(
                     add_action=self.add_action,
+                    permanent=False,
                     synthdef=self.synthdef or default,
                     target_node=self._resolve_target_node(
                         proxy_mapping,
@@ -309,7 +311,7 @@ class SynthAllocateEvent(NodeEvent):
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         delta: float = 0.0,
         target_node: Optional[Union[Node, UUID]] = None,
-        **kwargs,
+        **kwargs: Union[SupportsFloat, Sequence[SupportsFloat], UUID],
     ) -> None:
         NodeEvent.__init__(
             self,
@@ -331,13 +333,15 @@ class SynthAllocateEvent(NodeEvent):
         priority: Priority,
         **kwargs,
     ) -> None:
-        settings = self.kwargs.copy()
-        for key, value in settings.items():
+        settings: Dict[str, Union[SupportsFloat, Sequence[SupportsFloat]]] = {}
+        for key, value in self.kwargs.items():
             if isinstance(value, UUID):
-                settings[key] = proxy_mapping[value]
+                value = proxy_mapping[value]
+            settings[key] = value
         # add the synth
         proxy_mapping[self.id_] = context.add_synth(
             add_action=self.add_action,
+            permanent=False,
             synthdef=self.synthdef,
             target_node=self._resolve_target_node(
                 proxy_mapping,

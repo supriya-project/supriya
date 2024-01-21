@@ -39,7 +39,9 @@ class BusPattern(Pattern[Event]):
         release_time: float = 0.25,
     ) -> None:
         self._pattern = pattern
-        self._calculation_rate = CalculationRate.from_expr(calculation_rate)
+        self._calculation_rate: CalculationRate = CalculationRate.from_expr(
+            calculation_rate
+        )
         self._channel_count = channel_count
         self._release_time = release_time
 
