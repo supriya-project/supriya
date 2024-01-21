@@ -1,5 +1,5 @@
 import enum
-from typing import Any, Dict, Optional, Sequence, Tuple, Union
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 from uuid import UUID
 
 from uqbar.objects import get_repr, get_vars, new
@@ -114,14 +114,14 @@ class BusFreeEvent(Event):
 
 
 class CompositeEvent(Event):
-    def __init__(self, events, *, delta: float = 0.0, **kwargs) -> None:
+    def __init__(self, events: List[Event], *, delta: float = 0.0, **kwargs) -> None:
         Event.__init__(self, delta=delta)
         self.events = (
             events if not kwargs else [new(event, **kwargs) for event in events]
         )
 
-    def expand(self, offset) -> Sequence[Tuple[float, Priority, "Event"]]:
-        events = []
+    def expand(self, offset: float) -> Sequence[Tuple[float, Priority, Event]]:
+        events: List[Tuple[float, Priority, Event]] = []
         for event in self.events:
             events.extend(event.expand(offset))
             offset += event.delta
@@ -221,7 +221,7 @@ class NoteEvent(NodeEvent):
         self.synthdef = synthdef
         self.kwargs = kwargs
 
-    def expand(self, offset: float) -> Sequence[Tuple[float, Priority, "Event"]]:
+    def expand(self, offset: float) -> Sequence[Tuple[float, Priority, Event]]:
         starts, stops = [], []
         for i, proxy_mapping in enumerate(expand(self.kwargs)):
             if not isinstance(self.id_, UUID):
@@ -240,7 +240,7 @@ class NoteEvent(NodeEvent):
             stops.append((stop_offset, Priority.STOP, event))
         return starts + stops
 
-    def merge(self, event) -> "Event":
+    def merge(self, event: Event) -> Event:
         _, _, kwargs = get_vars(event)
         return new(self, **kwargs)
 
@@ -296,7 +296,7 @@ class NoteEvent(NodeEvent):
 
 
 class NullEvent(Event):
-    def expand(self, offset) -> Sequence[Tuple[float, Priority, "Event"]]:
+    def expand(self, offset: float) -> Sequence[Tuple[float, Priority, Event]]:
         return []
 
 

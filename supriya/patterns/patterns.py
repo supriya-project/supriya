@@ -186,7 +186,10 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
             return cast(
                 T,
                 CompositeEvent(
-                    [self._adjust(event, state=state) for event in expr.events],
+                    [
+                        cast(Event, self._adjust(cast(T, event), state=state))
+                        for event in expr.events
+                    ],
                     delta=expr.delta,
                 ),
             )
