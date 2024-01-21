@@ -86,7 +86,7 @@ class CalculationRate(IntEnumeration):
     IR = 0
 
     @classmethod
-    def from_expr(cls, expr):
+    def from_expr(cls, expr) -> "CalculationRate":
         """
         Gets calculation-rate.
 
@@ -145,7 +145,7 @@ class CalculationRate(IntEnumeration):
         return super().from_expr(expr)
 
     @property
-    def token(self):
+    def token(self) -> str:
         if self == CalculationRate.SCALAR:
             return "ir"
         elif self == CalculationRate.CONTROL:
@@ -211,7 +211,7 @@ class NodeAction(IntEnumeration):
     NODE_QUERIED = 5
 
     @classmethod
-    def from_expr(cls, address):
+    def from_expr(cls, address) -> "NodeAction":
         if isinstance(address, cls):
             return address
         addresses = {
@@ -313,7 +313,7 @@ class RequestId(IntEnumeration):
     VERSION = 64
 
     @property
-    def request_name(self):
+    def request_name(self) -> str:
         return RequestName.from_expr(self.name)
 
 
@@ -389,7 +389,7 @@ class RequestName(StrictEnumeration):
     VERSION = "/version"
 
     @property
-    def request_id(self):
+    def request_id(self) -> str:
         return RequestId.from_expr(self.name)
 
 
