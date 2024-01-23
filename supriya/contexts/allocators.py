@@ -1,6 +1,6 @@
 import dataclasses
 import threading
-from typing import Set
+from typing import Optional, Set
 
 from ..utils import Interval, IntervalTree
 
@@ -52,7 +52,9 @@ class BlockAllocator:
 
     ### INITIALIZER ###
 
-    def __init__(self, heap_maximum=None, heap_minimum=0):
+    def __init__(
+        self, heap_maximum: Optional[int] = None, heap_minimum: int = 0
+    ) -> None:
         self._free_heap = IntervalTree(accelerated=True)
         self._heap_maximum = heap_maximum
         self._heap_minimum = heap_minimum
@@ -78,7 +80,7 @@ class BlockAllocator:
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, desired_block_size=1):
+    def allocate(self, desired_block_size: int = 1) -> Optional[int]:
         desired_block_size = int(desired_block_size)
         assert 0 < desired_block_size
         block_id = None
@@ -103,11 +105,9 @@ class BlockAllocator:
                     used_block = dataclasses.replace(free_block, used=True)
                 self._used_heap.add(used_block)
                 block_id = used_block.start_offset
-        if block_id is None:
-            return block_id
-        return int(block_id)
+        return int(block_id) if block_id is not None else None
 
-    def allocate_at(self, index=None, desired_block_size=1):
+    def allocate_at(self, index: int, desired_block_size: int = 1) -> Optional[int]:
         index = int(index)
         desired_block_size = int(desired_block_size)
         block_id = None
@@ -140,7 +140,7 @@ class BlockAllocator:
             return block_id
         return int(block_id)
 
-    def free(self, block_id):
+    def free(self, block_id: int) -> None:
         block_id = int(block_id)
         with self._lock:
             cursor = self._used_heap.get_moment_at(block_id)
@@ -174,14 +174,14 @@ class BlockAllocator:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def heap_maximum(self):
+    def heap_maximum(self) -> Optional[int]:
         """
         Maximum allocatable index.
         """
         return self._heap_maximum
 
     @property
-    def heap_minimum(self):
+    def heap_minimum(self) -> int:
         """
         Minimum allocatable index.
         """
@@ -224,7 +224,9 @@ class NodeIdAllocator:
 
     ### INITIALIZER ###
 
-    def __init__(self, client_id: int = 0, initial_node_id: int = 1000, locked=True):
+    def __init__(
+        self, client_id: int = 0, initial_node_id: int = 1000, locked=True
+    ) -> None:
         if client_id > 31:
             raise ValueError
         self._initial_node_id = initial_node_id

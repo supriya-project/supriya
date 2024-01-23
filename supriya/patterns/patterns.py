@@ -360,8 +360,16 @@ class BinaryOpPattern(Pattern[T]):
             yield self._apply_recursive(self.operator_, item_one, item_two)
 =======
     def _iterate(self, state: Optional[Dict[str, UUID]] = None):
-        iterator_one = iter(self._expr_one if isinstance(self._expr_one, Pattern) else SequencePattern([self._expr_one], None))
-        iterator_two = iter(self._expr_two if isinstance(self._expr_two, Pattern) else SequencePattern([self._expr_two], None))
+        iterator_one = iter(
+            self._expr_one
+            if isinstance(self._expr_one, Pattern)
+            else SequencePattern([self._expr_one], None)
+        )
+        iterator_two = iter(
+            self._expr_two
+            if isinstance(self._expr_two, Pattern)
+            else SequencePattern([self._expr_two], None)
+        )
         operator = self._string_to_operator()
         for item_one, item_two in zip(iterator_one, iterator_two):
             yield self._apply_recursive(operator, item_one, item_two)
@@ -427,8 +435,14 @@ class UnaryOpPattern(Pattern[T]):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(self, state: Optional[Dict[str, UUID]] = None) -> Generator[T, bool, None]:
-        iterator: Iterator[T] = iter(self._expr if isinstance(self._expr, Pattern) else SequencePattern([self._expr], None))
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[T, bool, None]:
+        iterator: Iterator[T] = iter(
+            self._expr
+            if isinstance(self._expr, Pattern)
+            else SequencePattern([self._expr], None)
+        )
         operator = self._string_to_operator()
         for item in iterator:
             yield self._apply_recursive(operator, item)
@@ -468,7 +482,9 @@ class SeedPattern(Pattern[T]):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(self, state: Optional[Dict[str, UUID]] = None) -> Generator[T, bool, None]:
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[T, bool, None]:
         try:
             identifier = id(inspect.currentframe())
             rng = self._get_seeded_rng(seed=self.seed)
