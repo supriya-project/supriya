@@ -1,4 +1,5 @@
 from typing import Dict, Generator, Iterator, Optional, Sequence, Union
+from uuid import UUID
 
 from uqbar.enums import IntEnumeration
 
@@ -15,14 +16,14 @@ class ChoicePattern(SequencePattern[T]):
     ) -> None:
         super().__init__(sequence, iterations=iterations)
         self._forbid_repetitions = bool(forbid_repetitions)
-        if weights:
-            weights = tuple(abs(float(x)) for x in weights)
-        self._weights = weights or None
+        self._weights = tuple(abs(float(x)) for x in weights) if weights else None
 
-    def _iterate(self, state: Optional[Dict] = None) -> Generator[T, bool, None]:
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[T, bool, None]:
         should_stop = False
         rng = self._get_rng()
-        previous_index = None
+        previous_index: Optional[int] = None
         for _ in self._loop(self._iterations):
             if self._weights:
                 index = self._find_index_weighted(rng, self._weights)
@@ -62,11 +63,11 @@ class ChoicePattern(SequencePattern[T]):
         return self._forbid_repetitions
 
     @property
-    def weights(self) -> Optional[Sequence[float]]:
+    def weights(self) -> Optional[tuple[float, ...]]:
         return self._weights
 
 
-class RandomPattern(Pattern):
+class RandomPattern(Pattern[float]):
     class Distribution(IntEnumeration):
         WHITE_NOISE = 0
 
@@ -82,12 +83,16 @@ class RandomPattern(Pattern):
             if iterations < 1:
                 raise ValueError("Iterations must be null or greater than 0")
         self._iterations = iterations
-        self._distribution = self.Distribution.from_expr(distribution)
-        self._minimum = self._freeze_recursive(minimum)
-        self._maximum = self._freeze_recursive(maximum)
+        self._distribution: RandomPattern.Distribution = self.Distribution.from_expr(
+            distribution
+        )
+        self._minimum: float = self._freeze_recursive(minimum)
+        self._maximum: float = self._freeze_recursive(maximum)
 
-    def _iterate(self, state=None):
-        def procedure(one, two):
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[float, bool, None]:
+        def procedure(one: float, two: float) -> float:
             minimum, maximum = sorted([one, two])
             number = next(rng)
             return (number * (maximum - minimum)) + minimum
@@ -119,39 +124,42 @@ class RandomPattern(Pattern):
         return self._maximum
 
 
-class ShufflePattern(SequencePattern):
+class ShufflePattern(SequencePattern[T]):
     def __init__(
         self,
-        sequence: Sequence,
+        sequence: Sequence[Union[T, Pattern[T]]],
         iterations: Optional[int] = 1,
         forbid_repetitions: bool = False,
     ) -> None:
         super().__init__(sequence, iterations=iterations)
         self._forbid_repetitions = bool(forbid_repetitions)
 
-    def _iterate(self, state=None):
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[T, bool, None]:
         should_stop = False
         rng = self._get_rng()
         previous_index = None
         for _ in self._loop(self._iterations):
-            indices = self._shuffle(len(self._sequence), rng, previous_index)
+            indices = self._shuffle(len(self._sequence), rng)
             while (
                 self.forbid_repetitions
                 and len(indices) > 1
                 and indices[0] == previous_index
             ):
-                indices = self._shuffle(len(self._sequence), rng, previous_index)
+                indices = self._shuffle(len(self._sequence), rng)
             previous_index = indices[-1]
             for index in indices:
                 choice = self._sequence[index]
                 if isinstance(choice, Pattern):
-                    should_stop = (yield from choice) or should_stop
+                    # MyPy: Function does not return a value (it only ever returns None)
+                    should_stop = (yield from choice) or should_stop  # type: ignore
                 else:
                     should_stop = (yield choice) or should_stop
                 if should_stop:
                     return
 
-    def _shuffle(self, length, rng, previous_index=None):
+    def _shuffle(self, length: int, rng: Iterator[float]) -> Sequence[int]:
         indices = list(range(length))
         shuffled_indices = []
         while len(indices) > 1:

@@ -1,5 +1,5 @@
 from typing import Any, Dict, Generator, Optional, Type
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from uqbar.objects import new
 
@@ -18,7 +18,9 @@ class EventPattern(Pattern):
         self._event_type = event_type
         self._patterns = patterns
 
-    def _iterate(self, state: Optional[Dict] = None) -> Generator[Event, bool, None]:
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[Event, bool, None]:
         patterns = self._prepare_patterns()
         iterator_pairs = sorted(patterns.items())
         while True:
@@ -56,7 +58,9 @@ class MonoEventPattern(EventPattern):
     Akin to SuperCollider's Pmono.
     """
 
-    def _iterate(self, state: Optional[Dict] = None) -> Generator[Event, bool, None]:
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[Event, bool, None]:
         id_ = uuid4()
         patterns = self._prepare_patterns()
         iterator_pairs = sorted(patterns.items())
@@ -87,7 +91,9 @@ class UpdatePattern(Pattern):
         self._pattern = pattern
         self._patterns = patterns
 
-    def _iterate(self, state: Optional[Dict] = None) -> Generator[Event, bool, None]:
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[Event, bool, None]:
         event_iterator = iter(self._pattern)
         iterator_pairs = sorted(self._prepare_patterns().items())
         while True:
@@ -129,7 +135,9 @@ class ChainPattern(Pattern):
     def __init__(self, *patterns: Pattern[Event]) -> None:
         self._patterns = tuple(patterns)
 
-    def _iterate(self, state: Optional[Dict] = None) -> Generator[Event, bool, None]:
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[Event, bool, None]:
         patterns = [iter(_) for _ in self._patterns]
         while True:
             try:

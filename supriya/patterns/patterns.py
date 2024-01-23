@@ -79,7 +79,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
 
     def __iter__(self) -> Generator[T, bool, None]:
         should_stop = False
-        state: Optional[Dict] = self._setup_state()
+        state: Optional[Dict[str, UUID]] = self._setup_state()
         iterator = self._iterate(state)
         try:
             expr = self._adjust_recursive(next(iterator), state=state)
@@ -178,10 +178,10 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
 
     ### PRIVATE METHODS ###
 
-    def _adjust(self, expr: T, state: Optional[Dict] = None) -> T:
+    def _adjust(self, expr: T, state: Optional[Dict[str, UUID]] = None) -> T:
         return expr
 
-    def _adjust_recursive(self, expr: T, state: Optional[Dict] = None) -> T:
+    def _adjust_recursive(self, expr: T, state: Optional[Dict[str, UUID]] = None) -> T:
         if isinstance(expr, CompositeEvent):
             return cast(
                 T,
@@ -246,17 +246,19 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
     def _get_seeded_rng(self, seed: int = 1) -> Iterator[float]:
         while True:
             seed = (seed * 1_103_515_245 + 12345) & 0x7FFFFFFF
-            yield float(seed) / 0x7FFFFFFF
+            yield float(seed) / 0x7FFFFFF
 
     def _get_stdlib_rng(self) -> Iterator[float]:
         while True:
             yield random.random()
 
     @abc.abstractmethod
-    def _iterate(self, state=None) -> Generator[T, bool, None]:
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[T, bool, None]:
         raise NotImplementedError
 
-    def _loop(self, iterations=None) -> Iterator[bool]:
+    def _loop(self, iterations: Optional[int] = None) -> Iterator[bool]:
         if iterations is None:
             while True:
                 yield True
@@ -264,10 +266,12 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
             for _ in range(iterations):
                 yield True
 
-    def _setup_state(self) -> Optional[Dict]:
+    def _setup_state(self) -> Optional[Dict[str, UUID]]:
         return None
 
-    def _setup_peripherals(self, state) -> Tuple[Optional[T], Optional[T]]:
+    def _setup_peripherals(
+        self, state: Optional[Dict[str, UUID]]
+    ) -> Tuple[Optional[T], Optional[T]]:
         return None, None
 
     ### PUBLIC METHODS ###
@@ -432,7 +436,9 @@ class SequencePattern(Pattern[T]):
             iterations = int(iterations)
             if iterations < 1:
                 raise ValueError("Iterations must be null or greater than 0")
-        self._sequence = self._freeze_recursive(sequence)
+        self._sequence: Sequence[Union[T, Pattern[T]]] = self._freeze_recursive(
+            sequence
+        )
         self._iterations = iterations
 
     ### PRIVATE METHODS ###
@@ -462,6 +468,7 @@ class SequencePattern(Pattern[T]):
     def is_infinite(self) -> bool:
         if self._iterations is None:
             return True
+        x: Union[T, Pattern[T]]
         for x in self._sequence:
             if isinstance(x, Pattern) and x.is_infinite:
                 return True

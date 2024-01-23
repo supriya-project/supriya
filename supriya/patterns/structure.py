@@ -225,7 +225,9 @@ class ParallelPattern(Pattern[Event]):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(self, state: Optional[Dict] = None) -> Generator[Event, bool, None]:
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[Event, bool, None]:
         should_stop = False
         iterators = []
         for index, pattern in enumerate(self._patterns):
@@ -304,7 +306,9 @@ class PinPattern(Pattern[Event]):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(self, state: Optional[Dict] = None) -> Generator[Event, bool, None]:
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[Event, bool, None]:
         return iter(self._pattern)
 
     ### PUBLIC PROPERTIES ###
