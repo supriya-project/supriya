@@ -1,14 +1,14 @@
-from typing import Optional, Sequence, Union
+from typing import Dict, Generator, Iterator, Optional, Sequence, Union
 
 from uqbar.enums import IntEnumeration
 
-from .patterns import Pattern, SequencePattern
+from .patterns import Pattern, SequencePattern, T
 
 
-class ChoicePattern(SequencePattern):
+class ChoicePattern(SequencePattern[T]):
     def __init__(
         self,
-        sequence: Sequence,
+        sequence: Sequence[Union[T, Pattern[T]]],
         iterations: Optional[int] = 1,
         forbid_repetitions: bool = False,
         weights: Optional[Sequence[float]] = None,
@@ -19,15 +19,15 @@ class ChoicePattern(SequencePattern):
             weights = tuple(abs(float(x)) for x in weights)
         self._weights = weights or None
 
-    def _iterate(self, state=None):
+    def _iterate(self, state: Optional[Dict] = None) -> Generator[T, bool, None]:
         should_stop = False
         rng = self._get_rng()
         previous_index = None
         for _ in self._loop(self._iterations):
-            if self.weights:
-                index = self._find_index_weighted(rng)
+            if self._weights:
+                index = self._find_index_weighted(rng, self._weights)
                 while self.forbid_repetitions and index == previous_index:
-                    index = self._find_index_weighted(rng)
+                    index = self._find_index_weighted(rng, self._weights)
             else:
                 index = self._find_index_unweighted(rng)
                 while self.forbid_repetitions and index == previous_index:
@@ -35,19 +35,23 @@ class ChoicePattern(SequencePattern):
             previous_index = index
             choice = self._sequence[index]
             if isinstance(choice, Pattern):
-                should_stop = (yield from choice) or should_stop
+                # MyPy: Function does not return a value (it only ever returns None)
+                should_stop = (yield from choice) or should_stop  # type: ignore
             else:
                 should_stop = (yield choice) or should_stop
             if should_stop:
-                return
+                break
+        return
 
-    def _find_index_unweighted(self, rng):
+    def _find_index_unweighted(self, rng: Iterator[float]) -> int:
         return int(next(rng) * 0x7FFFFFFF) % len(self._sequence)
 
-    def _find_index_weighted(self, rng):
-        needle = next(rng) * sum(self.weights)
+    def _find_index_weighted(
+        self, rng: Iterator[float], weights: Sequence[float]
+    ) -> int:
+        needle = next(rng) * sum(weights)
         sum_of_weights = 0.0
-        for index, weight in enumerate(self.weights):
+        for index, weight in enumerate(weights):
             if sum_of_weights <= needle <= sum_of_weights + weight:
                 break
             sum_of_weights += weight

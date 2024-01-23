@@ -217,7 +217,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
             self._apply_recursive(procedure, *items) for items in zip(*coerced_exprs)
         )
 
-    def _freeze_recursive(self, value: T):
+    def _freeze_recursive(self, value):
         if isinstance(value, str):
             return value
         elif isinstance(value, Sequence) and not isinstance(value, Pattern):
@@ -420,10 +420,12 @@ class SeedPattern(Pattern):
         return self._seed
 
 
-class SequencePattern(Pattern):
+class SequencePattern(Pattern[T]):
     ### INITIALIZER ###
 
-    def __init__(self, sequence: Sequence[T], iterations: Optional[int] = 1) -> None:
+    def __init__(
+        self, sequence: Sequence[Union[T, Pattern[T]]], iterations: Optional[int] = 1
+    ) -> None:
         if not isinstance(sequence, Sequence):
             raise ValueError(f"Must be sequence: {sequence!r}")
         if iterations is not None:
