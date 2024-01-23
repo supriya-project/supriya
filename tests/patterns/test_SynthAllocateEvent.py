@@ -45,6 +45,6 @@ def test_perform():
     assert notes_mapping == {}
     assert spy.mock_calls == [
         call.add_synth(
-            add_action=AddAction.ADD_TO_HEAD, synthdef=default, target_node=None
+            add_action=AddAction.ADD_TO_HEAD, permanent=False, synthdef=default, target_node=None
         )
     ]
