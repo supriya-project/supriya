@@ -1,4 +1,4 @@
-from typing import Dict, Generator, Iterator, Optional, Sequence, Union
+from typing import Dict, Generator, Iterator, Optional, Sequence, Tuple, Union
 from uuid import UUID
 
 from uqbar.enums import IntEnumeration
@@ -63,7 +63,7 @@ class ChoicePattern(SequencePattern[T]):
         return self._forbid_repetitions
 
     @property
-    def weights(self) -> Optional[tuple[float, ...]]:
+    def weights(self) -> Optional[Tuple[float, ...]]:
         return self._weights
 
 
