@@ -269,7 +269,8 @@ class Context(metaclass=abc.ABCMeta):
         if type_ is Node:
             if permanent:
                 id_ = self._node_id_allocator.allocate_permanent_node_id()
-            id_ = self._node_id_allocator.allocate_node_id()
+            else:
+                id_ = self._node_id_allocator.allocate_node_id()
         elif type_ is Buffer:
             id_ = self._buffer_allocator.allocate(count)
         elif type_ is Bus:
@@ -277,8 +278,10 @@ class Context(metaclass=abc.ABCMeta):
                 id_ = self._audio_bus_allocator.allocate(count)
             elif calculation_rate is CalculationRate.CONTROL:
                 id_ = self._control_bus_allocator.allocate(count)
+            else:
+                raise ValueError(calculation_rate)
         else:
-            raise ValueError
+            raise ValueError(type_)
         if id_ is None:
             raise AllocationError
         return id_

@@ -232,7 +232,7 @@ class NoteEvent(NodeEvent):
             event: Event = type(self)(
                 id_=(self.id_, i),
                 add_action=self.add_action,
-                delta=0.0,
+                delta=self.delta,
                 duration=self.duration,
                 synthdef=self.synthdef,
                 target_node=self.target_node,
