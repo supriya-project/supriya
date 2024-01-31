@@ -1,6 +1,6 @@
 import itertools
-from collections.abc import Iterable, Sequence
-from typing import Dict, Generator, Generic, List, Optional, TypeVar, Union
+from collections.abc import Sequence
+from typing import Dict, Generator, Generic, Iterable, List, Optional, TypeVar, Union
 
 T = TypeVar("T")
 TI = Iterable[Union[T, "TI"]]
