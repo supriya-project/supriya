@@ -207,7 +207,10 @@ class NoteEvent(NodeEvent):
         duration: float = 1.0,
         synthdef: Optional[SynthDef] = None,
         target_node: Optional[Union[Node, UUID]] = None,
-        **kwargs: Union[SupportsFloat, Sequence[SupportsFloat], UUID],
+        **kwargs: Union[
+            Union[SupportsFloat, UUID],
+            Sequence[Union[SupportsFloat, UUID]],
+        ],
     ) -> None:
         NodeEvent.__init__(
             self,
@@ -229,6 +232,7 @@ class NoteEvent(NodeEvent):
             event: Event = type(self)(
                 id_=(self.id_, i),
                 add_action=self.add_action,
+                delta=0.0,
                 duration=self.duration,
                 synthdef=self.synthdef,
                 target_node=self.target_node,
@@ -262,8 +266,14 @@ class NoteEvent(NodeEvent):
             settings: Dict[str, Union[SupportsFloat, Sequence[SupportsFloat]]] = {}
             for key, value in self.kwargs.items():
                 if isinstance(value, UUID):
-                    value = proxy_mapping[value]
-                settings[key] = value
+                    settings[key] = proxy_mapping[value]
+                elif isinstance(value, Sequence):
+                    settings[key] = [
+                        float(proxy_mapping[x] if isinstance(x, UUID) else x)
+                        for x in value
+                    ]
+                else:
+                    settings[key] = float(value)
             # add the synth
             if self.id_ not in proxy_mapping:
                 proxy_mapping[self.id_] = context.add_synth(

@@ -1,37 +1,49 @@
 import itertools
 from collections.abc import Iterable, Sequence
-from typing import Dict, Generator, List, Optional, TypeVar, Union
+from typing import Dict, Generator, Generic, List, Optional, TypeVar, Union
 
 T = TypeVar("T")
 TI = Iterable[Union[T, "TI"]]
 
 
+class Expander(Generic[T]):
+    def __call__(
+        self,
+        mapping: Dict[str, Union[T, Sequence[T]]],
+        unexpanded: Optional[Iterable[str]] = None,
+        only: Optional[Iterable[str]] = None,
+    ) -> List[Dict[str, Union[T, Sequence[T]]]]:
+        only_ = set(only or ())
+        unexpanded_ = set(unexpanded or ())
+        expanded_mappings = []
+        maximum_length = 1
+        massaged: Dict[str, Sequence[T]] = {}
+        for key, value in mapping.items():
+            if only_ and key not in only_:
+                continue
+            if isinstance(value, Sequence):
+                if key not in unexpanded_:
+                    maximum_length = max(len(value), maximum_length)
+            else:
+                value = [value]
+            massaged[key] = value
+        for i in range(maximum_length):
+            expanded_mapping: Dict[str, Union[T, Sequence[T]]] = {}
+            for key, value in massaged.items():
+                if key in unexpanded_:
+                    expanded_mapping[key] = value
+                else:
+                    expanded_mapping[key] = value[i % len(value)]
+            expanded_mappings.append(expanded_mapping)
+        return expanded_mappings
+
+
 def expand(
-    mapping: Dict,
+    mapping: Dict[str, Union[T, Sequence[T]]],
     unexpanded: Optional[Iterable[str]] = None,
     only: Optional[Iterable[str]] = None,
-) -> List[Dict]:
-    expanded_mappings = []
-    maximum_length = 1
-    massaged = {}
-    for key, value in mapping.items():
-        if only and key not in only:
-            continue
-        if isinstance(value, Sequence):
-            if key not in (unexpanded or ()):
-                maximum_length = max(len(value), maximum_length)
-        else:
-            value = [value]
-        massaged[key] = value
-    for i in range(maximum_length):
-        expanded_mapping = {}
-        for key, value in massaged.items():
-            if key in (unexpanded or ()):
-                expanded_mapping[key] = value
-            else:
-                expanded_mapping[key] = value[i % len(value)]
-        expanded_mappings.append(expanded_mapping)
-    return expanded_mappings
+) -> List[Dict[str, Union[T, Sequence[T]]]]:
+    return Expander[T]()(mapping, unexpanded, only)
 
 
 def flatten(iterable: TI) -> Generator[T, None, None]:
