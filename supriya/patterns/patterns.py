@@ -244,9 +244,10 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
         return self._get_stdlib_rng()
 
     def _get_seeded_rng(self, seed: int = 1) -> Iterator[float]:
+        mask = 0x7FFFFFFF
         while True:
-            seed = (seed * 1_103_515_245 + 12345) & 0x7FFFFFFF
-            yield float(seed) / 0x7FFFFFF
+            seed = (seed * 1_103_515_245 + 12345) & mask
+            yield float(seed) / mask
 
     def _get_stdlib_rng(self) -> Iterator[float]:
         while True:
