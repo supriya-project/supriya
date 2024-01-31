@@ -7,7 +7,6 @@ import inspect
 import itertools
 import operator
 import random
-from collections.abc import Sequence
 from typing import (
     TYPE_CHECKING,
     Callable,
@@ -17,6 +16,7 @@ from typing import (
     Generic,
     Iterator,
     Optional,
+    Sequence,
     Tuple,
     TypeVar,
     Union,
