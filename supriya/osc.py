@@ -33,7 +33,7 @@ from typing import (
 
 from uqbar.objects import get_repr
 
-from .utils import group_iterable_by_count
+from .utils import group_by_count
 
 osc_protocol_logger = logging.getLogger(__name__)
 osc_in_logger = logging.getLogger("supriya.osc.in")
@@ -1095,7 +1095,7 @@ def format_datagram(datagram):
         line = "{: >4}   ".format(index)
         hex_blocks = []
         ascii_block = ""
-        for chunk in group_iterable_by_count(chunk, 4):
+        for chunk in group_by_count(chunk, 4):
             hex_block = []
             for byte in chunk:
                 char = int(byte)

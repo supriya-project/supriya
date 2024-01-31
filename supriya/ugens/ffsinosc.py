@@ -91,8 +91,8 @@ class Klank(UGen):
             decay_times = [1.0] * len(frequencies)
         elif not isinstance(decay_times, Sequence):
             decay_times = [decay_times] * len(frequencies)
-        specifications = utils.zip_sequences(frequencies, amplitudes, decay_times)
-        specifications = utils.flatten_iterable(specifications)
+        specifications = utils.zip_cycled(frequencies, amplitudes, decay_times)
+        specifications = utils.flatten(specifications)
         specifications = tuple(specifications)
         UGen.__init__(
             self,

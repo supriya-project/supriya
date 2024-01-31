@@ -39,7 +39,7 @@ class Envelope:
         self._offset = offset
         self._initial_amplitude = amplitudes[0]
         self._envelope_segments = tuple(
-            utils.zip_sequences(amplitudes[1:], durations, curves)
+            utils.zip_cycled(amplitudes[1:], durations, curves)
         )
 
     def __repr__(self) -> str:
