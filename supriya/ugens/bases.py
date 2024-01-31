@@ -3,7 +3,16 @@ import copy
 import inspect
 from collections.abc import Iterable, Sequence
 from enum import Enum
-from typing import Callable, NamedTuple, Optional, SupportsFloat, Tuple, Type, Union
+from typing import (
+    Callable,
+    Dict,
+    NamedTuple,
+    Optional,
+    SupportsFloat,
+    Tuple,
+    Type,
+    Union,
+)
 
 from ..enums import (
     BinaryOperator,
@@ -17,7 +26,7 @@ from ..typing import UGenInputMap
 
 def _create_fn(
     cls, name, args, body, return_type, globals_=None, decorator=None, override=False
-):
+) -> None:
     if name in cls.__dict__ and not override:
         return
     globals_ = globals_ or {}
@@ -27,7 +36,7 @@ def _create_fn(
     text = f"    def {name}({args}) -> _return_type:\n{body}"
     local_vars = ", ".join(locals_.keys())
     text = f"def __create_fn__({local_vars}):\n{text}\n    return {name}"
-    namespace = {}
+    namespace: Dict[str, Callable] = {}
     exec(text, globals_, namespace)
     value = namespace["__create_fn__"](**locals_)
     value.__qualname__ = f"{cls.__qualname__}.{value.__name__}"
@@ -36,7 +45,7 @@ def _create_fn(
     setattr(cls, name, value)
 
 
-def _add_init(cls, params, is_multichannel, channel_count, fixed_channel_count):
+def _add_init(cls, params, is_multichannel, channel_count, fixed_channel_count) -> None:
     parent_class = inspect.getmro(cls)[1]
     name = "__init__"
     args = ["self", "calculation_rate=None"]
@@ -69,14 +78,14 @@ def _add_init(cls, params, is_multichannel, channel_count, fixed_channel_count):
         "DoneAction": DoneAction,
         parent_class.__name__: parent_class,
     }
-    return _create_fn(
+    _create_fn(
         cls=cls, name=name, args=args, body=body, globals_=globals_, return_type=None
     )
 
 
 def _add_rate_fn(
     cls, rate, params, is_multichannel, channel_count, fixed_channel_count
-):
+) -> None:
     name = rate.token if rate is not None else "new"
     args = ["cls"]
     for key, value in params.items():
@@ -101,7 +110,7 @@ def _add_rate_fn(
         "UGenMethodMixin": UGenMethodMixin,
         "Union": Union,
     }
-    return _create_fn(
+    _create_fn(
         cls,
         name,
         args=args,
@@ -112,13 +121,13 @@ def _add_rate_fn(
     )
 
 
-def _add_param_fn(cls, name, index, unexpanded):
+def _add_param_fn(cls, name, index, unexpanded) -> None:
     args = ["self"]
     if unexpanded:
         body = [f"return self._inputs[{index}:]"]
     else:
         body = [f"return self._inputs[{index}]"]
-    return _create_fn(
+    _create_fn(
         cls,
         name,
         args=args,
@@ -142,24 +151,24 @@ class Param(NamedTuple):
 
 
 def _process_class(
-    cls,
+    cls: Type["UGen"],
     *,
-    ar,
-    kr,
-    ir,
-    dr,
-    new,
-    has_done_flag,
-    is_input,
-    is_multichannel,
-    is_output,
-    is_pure,
-    is_width_first,
-    channel_count,
-    fixed_channel_count,
-    signal_range,
-) -> Type:
-    params = {}
+    ar: bool = False,
+    kr: bool = False,
+    ir: bool = False,
+    dr: bool = False,
+    new: bool = False,
+    has_done_flag: bool = False,
+    is_input: bool = False,
+    is_multichannel: bool = False,
+    is_output: bool = False,
+    is_pure: bool = False,
+    is_width_first: bool = False,
+    channel_count: int = 1,
+    fixed_channel_count: bool = False,
+    signal_range: Optional[int] = None,
+) -> Type["UGen"]:
+    params: Dict[str, Union[SupportsFloat, str, None]] = {}
     unexpanded_input_names = []
     valid_calculation_rates = []
     for name, value in cls.__dict__.items():
@@ -235,10 +244,7 @@ def ugen(
     Akin to dataclasses.dataclass.
     """
 
-    if is_multichannel and fixed_channel_count:
-        raise ValueError
-
-    def wrap(cls: Type) -> Type:
+    def wrap(cls: Type[UGen]) -> Type[UGen]:
         return _process_class(
             cls,
             ar=ar,
@@ -257,6 +263,8 @@ def ugen(
             signal_range=signal_range,
         )
 
+    if is_multichannel and fixed_channel_count:
+        raise ValueError
     if cls is None:
         return wrap
     return wrap(cls)
