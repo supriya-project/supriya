@@ -240,8 +240,7 @@ class ParallelPattern(Pattern):
 
 class PinPattern(Pattern):
     """
-    Utility pattern for assigning an explicit target bus and/or target node to
-    NodeEvents.
+    Utility pattern for assigning an explicit target bus and/or target node to NodeEvents.
 
     Used internally by pattern players.
     """

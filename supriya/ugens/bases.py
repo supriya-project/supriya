@@ -484,7 +484,6 @@ class UGenMethodMixin:
                     -   BinaryOpUGen(BITWISE_AND).ar:
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
-
         """
         return UGenMethodMixin._compute_binary_op(
             self, expr, BinaryOperator.BITWISE_AND
@@ -1413,7 +1412,6 @@ class UGenMethodMixin:
                     -   BinaryOpUGen(BITWISE_OR).ar:
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
-
         """
         return UGenMethodMixin._compute_binary_op(self, expr, BinaryOperator.BITWISE_OR)
 
@@ -2222,7 +2220,6 @@ class UGenMethodMixin:
                     -   BinaryOpUGen(BITWISE_XOR).ar:
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
-
         """
         return UGenMethodMixin._compute_binary_op(
             self, expr, BinaryOperator.BITWISE_XOR

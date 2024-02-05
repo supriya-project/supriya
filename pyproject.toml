@@ -57,6 +57,7 @@ test = [
   "isort",
   "jupyter",
   "librosa",
+  "lxml",
   "matplotlib",
   "mypy",
   "pytest",
