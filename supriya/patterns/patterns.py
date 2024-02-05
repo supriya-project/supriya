@@ -138,10 +138,15 @@ class Pattern(metaclass=abc.ABCMeta):
         return self._adjust(expr, state=state)
 
     def _apply_recursive(self, procedure, *exprs):
-        if all(not isinstance(x, Sequence) for x in exprs):
+        if all(
+            not isinstance(x, Sequence) or isinstance(x, (str, bytes)) for x in exprs
+        ):
             return procedure(*exprs)
         coerced_exprs = [
-            expr if isinstance(expr, Sequence) else [expr] for expr in exprs
+            expr
+            if ((isinstance(expr, Sequence) and not isinstance(expr, (str, bytes))))
+            else [expr]
+            for expr in exprs
         ]
         max_length = max(len(expr) for expr in coerced_exprs)
         for i, expr in enumerate(coerced_exprs):

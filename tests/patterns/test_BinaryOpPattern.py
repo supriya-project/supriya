@@ -16,6 +16,14 @@ from supriya.patterns.testutils import run_pattern_test
         (None, "+", [1, 2], [7, 8, 10], [(8, 10, 11)], True),
         (None, "*", SequencePattern([1, 2, 3]), 4, [4, 8, 12], False),
         (None, "*", SequencePattern([1, 2, 3], None), 4, [4, 8, 12], True),
+        (
+            None,
+            "+",
+            SequencePattern(["a", "b", "c"]),
+            SequencePattern(["1", "2", "3"]),
+            ["a1", "b2", "c3"],
+            False,
+        ),
     ],
 )
 def test(stop_at, operator, input_a, input_b, expected, is_infinite):
