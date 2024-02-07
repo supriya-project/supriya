@@ -153,7 +153,7 @@ jobs:
     - name: Install Supriya test dependencies
       run: pip install -e .[test]
     - name: Install ffmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v2
+      uses: FedericoCarboni/setup-ffmpeg@v3
     - name: Install additional packages
       shell: bash
       run: |
