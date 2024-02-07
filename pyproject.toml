@@ -66,6 +66,7 @@ test = [
   "pytest-cov",
   "pytest-mock",
   "pytest-rerunfailures",
+  "setuptools; python_version >= '3.12'",
   "types-PyYAML",
   "types-docutils",
 ]
