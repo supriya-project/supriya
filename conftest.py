@@ -21,7 +21,7 @@ def shutdown_scsynth():
 
 
 @pytest_asyncio.fixture(autouse=True)
-async def shutdown_realtime_contexts(shutdown_scsynth, event_loop):
+async def shutdown_realtime_contexts(shutdown_scsynth):
     for context in tuple(BaseServer._contexts):
         result = context._shutdown()
         if asyncio.iscoroutine(result):

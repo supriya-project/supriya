@@ -1,3 +1,4 @@
+import asyncio
 from typing import Optional
 from unittest.mock import Mock, call
 
@@ -419,7 +420,7 @@ def test_callback():
 
 
 @pytest.mark.asyncio
-async def test_callback_async(event_loop):
+async def test_callback_async():
     def callback(player, context, event, priority):
         print("CALLBACK", player, context, event, priority)
         callback_calls.append(
@@ -428,6 +429,7 @@ async def test_callback_async(event_loop):
         if isinstance(event, StopEvent):
             stop_future.set_result(True)
 
+    event_loop = asyncio.get_running_loop()
     stop_future = event_loop.create_future()
     callback_calls = []
     pattern = EventPattern(frequency=SequencePattern([440, 550, 660]))
