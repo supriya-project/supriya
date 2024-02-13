@@ -10,6 +10,7 @@ from .clocks import (
     Clock,
     ClockContext,
     OfflineClock,
+    TimeUnit,
 )
 from .contexts import (
     AsyncServer,
@@ -36,6 +37,7 @@ from .io import graph, play, plot, render
 from .osc import OscBundle, OscCallback, OscMessage
 from .patterns import Pattern
 from .synthdefs import (
+    Envelope,
     SynthDef,
     SynthDefBuilder,
     synthdef,
@@ -72,6 +74,7 @@ __all__ = [
     "ClockContext",
     "Context",
     "DoneAction",
+    "Envelope",
     "Group",
     "HeaderFormat",
     "Node",
@@ -87,6 +90,7 @@ __all__ = [
     "Synth",
     "SynthDef",
     "SynthDefBuilder",
+    "TimeUnit",
     "UGen",
     "UGenArray",
     "UGenMethodMixin",
