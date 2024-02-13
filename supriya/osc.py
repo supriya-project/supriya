@@ -524,6 +524,8 @@ class OscCallback(NamedTuple):
     procedure: Callable
     failure_pattern: Optional[Tuple[Union[str, int, float], ...]] = None
     once: bool = False
+    args: Optional[Tuple] = None
+    kwargs: Optional[Dict] = None
 
 
 @dataclasses.dataclass
@@ -619,7 +621,14 @@ class OscProtocol(metaclass=abc.ABCMeta):
             self.unregister(self.healthcheck_osc_callback)
 
     def _validate_callback(
-        self, pattern, procedure, *, failure_pattern=None, once=False
+        self,
+        pattern,
+        procedure,
+        *,
+        failure_pattern=None,
+        once=False,
+        args: Optional[Tuple] = None,
+        kwargs: Optional[Dict] = None,
     ):
         if isinstance(pattern, (str, int, float)):
             pattern = [pattern]
@@ -632,6 +641,8 @@ class OscProtocol(metaclass=abc.ABCMeta):
             failure_pattern=failure_pattern,
             procedure=procedure,
             once=bool(once),
+            args=args,
+            kwargs=kwargs,
         )
 
     def _validate_receive(self, datagram):
@@ -646,7 +657,7 @@ class OscProtocol(metaclass=abc.ABCMeta):
                 CaptureEntry(timestamp=time.time(), label="R", message=message)
             )
         for callback in self._match_callbacks(message):
-            yield callback.procedure, message
+            yield callback, message
 
     def _validate_send(self, message):
         if not self.is_running:
@@ -688,6 +699,8 @@ class OscProtocol(metaclass=abc.ABCMeta):
         *,
         failure_pattern: Optional[Sequence[Union[str, float]]] = None,
         once: bool = False,
+        args: Optional[Tuple] = None,
+        kwargs: Optional[Dict] = None,
     ) -> OscCallback:
         raise NotImplementedError
 
@@ -789,12 +802,13 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     def datagram_received(self, data, addr):
         loop = asyncio.get_running_loop()
         for callback, message in self._validate_receive(data):
-            if inspect.iscoroutinefunction(callback):
-                task = loop.create_task(callback(message))
+            result = callback.procedure(
+                message, *(callback.args or ()), **(callback.kwargs or {})
+            )
+            if inspect.iscoroutine(result):
+                task = loop.create_task(result)
                 self.background_tasks.add(task)
                 task.add_done_callback(self.background_tasks.discard)
-            else:
-                callback(message)
 
     def error_received(self, exc):
         osc_out_logger.warning(f"[{self.ip_address}:{self.port}] errored: {exc}")
@@ -806,12 +820,19 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         *,
         failure_pattern: Optional[Sequence[Union[str, float]]] = None,
         once: bool = False,
+        args: Optional[Tuple] = None,
+        kwargs: Optional[Dict] = None,
     ) -> OscCallback:
         osc_protocol_logger.info(
             f"[{self.ip_address}:{self.port}] registering pattern: {pattern!r}"
         )
         callback = self._validate_callback(
-            pattern, procedure, failure_pattern=failure_pattern, once=once
+            pattern,
+            procedure,
+            failure_pattern=failure_pattern,
+            once=once,
+            args=args,
+            kwargs=kwargs,
         )
         self._add_callback(callback)
         return callback
@@ -842,8 +863,10 @@ class ThreadedOscServer(socketserver.UDPServer):
 class ThreadedOscHandler(socketserver.BaseRequestHandler):
     def handle(self):
         data = self.request[0]
-        for procedure, message in self.server.osc_protocol._validate_receive(data):
-            procedure(message)
+        for callback, message in self.server.osc_protocol._validate_receive(data):
+            callback.procedure(
+                message, *(callback.args or ()), **(callback.kwargs or {})
+            )
 
 
 class ThreadedOscProtocol(OscProtocol):
@@ -952,12 +975,19 @@ class ThreadedOscProtocol(OscProtocol):
         *,
         failure_pattern: Optional[Sequence[Union[str, float]]] = None,
         once: bool = False,
+        args: Optional[Tuple] = None,
+        kwargs: Optional[Dict] = None,
     ) -> OscCallback:
         """
         Register a callback.
         """
         callback = self._validate_callback(
-            pattern, procedure, failure_pattern=failure_pattern, once=once
+            pattern,
+            procedure,
+            failure_pattern=failure_pattern,
+            once=once,
+            args=args,
+            kwargs=kwargs,
         )
         # Command queue prevents lock contention.
         self.command_queue.put(("add", callback))
