@@ -554,7 +554,7 @@ class OscProtocol(metaclass=abc.ABCMeta):
 
     ### PRIVATE METHODS ###
 
-    def _add_callback(self, callback: OscCallback):
+    def _add_callback(self, callback: OscCallback) -> None:
         patterns = [callback.pattern]
         if callback.failure_pattern:
             patterns.append(callback.failure_pattern)
@@ -567,7 +567,7 @@ class OscProtocol(metaclass=abc.ABCMeta):
     def _disconnect(self) -> None:
         raise NotImplementedError
 
-    def _match_callbacks(self, message):
+    def _match_callbacks(self, message) -> List[OscCallback]:
         items = (message.address,) + message.contents
         matching_callbacks = []
         callback_map = self.callbacks
