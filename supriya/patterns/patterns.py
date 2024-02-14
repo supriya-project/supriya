@@ -16,6 +16,7 @@ from typing import (
     Generator,
     Iterator,
     Optional,
+    TypeVar,
     Union,
 )
 from uuid import UUID
@@ -31,6 +32,8 @@ from .events import CompositeEvent, Event, Priority
 if TYPE_CHECKING:
     from .players import PatternPlayer
 
+T = TypeVar("T")
+
 
 class Pattern(metaclass=abc.ABCMeta):
     ### CLASSMETHODS ###
@@ -40,10 +43,13 @@ class Pattern(metaclass=abc.ABCMeta):
     ### SPECIAL METHODS ###
 
     def __abs__(self) -> "UnaryOpPattern":
-        return UnaryOpPattern("abs", self)
+        return UnaryOpPattern(operator.abs, self)
 
     def __add__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("+", self, expr)
+        return BinaryOpPattern(operator.add, self, expr)
+
+    def __and__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.and_, self, expr)
 
     def __eq__(self, expr) -> bool:
         self_values = type(self), get_vars(self)
@@ -54,10 +60,16 @@ class Pattern(metaclass=abc.ABCMeta):
         return self_values == expr_values
 
     def __floordiv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("//", self, expr)
+        return BinaryOpPattern(operator.floordiv, self, expr)
+
+    def __ge__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.ge, self, expr)
+
+    def __gt__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.gt, self, expr)
 
     def __invert__(self) -> "UnaryOpPattern":
-        return UnaryOpPattern("~", self)
+        return UnaryOpPattern(operator.invert, self)
 
     def __iter__(self) -> Generator[Event, bool, None]:
         should_stop = False
@@ -83,47 +95,80 @@ class Pattern(metaclass=abc.ABCMeta):
         if stop_event:
             yield stop_event
 
+    def __le__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.le, self, expr)
+
+    def __lshift__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.lshift, self, expr)
+
+    def __lt__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.lt, self, expr)
+
     def __mod__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("%", self, expr)
+        return BinaryOpPattern(operator.mod, self, expr)
 
     def __mul__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("*", self, expr)
+        return BinaryOpPattern(operator.mul, self, expr)
 
     def __neg__(self) -> "UnaryOpPattern":
-        return UnaryOpPattern("-", self)
+        return UnaryOpPattern(operator.neg, self)
+
+    def __or__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.or_, self, expr)
 
     def __pos__(self) -> "UnaryOpPattern":
-        return UnaryOpPattern("+", self)
+        return UnaryOpPattern(operator.pos, self)
 
     def __pow__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("**", self, expr)
+        return BinaryOpPattern(operator.pow, self, expr)
 
     def __radd__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("+", expr, self)
+        return BinaryOpPattern(operator.add, expr, self)
 
-    def __rmod__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("%", expr, self)
-
-    def __rmul__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("*", expr, self)
-
-    def __rpow__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("**", expr, self)
-
-    def __rsub__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("-", expr, self)
-
-    def __rtruediv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("/", expr, self)
+    def __rand__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.and_, expr, self)
 
     def __rfloordiv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("//", expr, self)
+        return BinaryOpPattern(operator.floordiv, expr, self)
+
+    def __rlshift__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.lshift, expr, self)
+
+    def __rmod__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.mod, expr, self)
+
+    def __rmul__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.mul, expr, self)
+
+    def __ror__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.or_, expr, self)
+
+    def __rpow__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.pow, expr, self)
+
+    def __rrshift__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.rshift, expr, self)
+
+    def __rshift__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.rshift, self, expr)
+
+    def __rsub__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.sub, expr, self)
+
+    def __rtruediv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.truediv, expr, self)
+
+    def __rxor__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.xor, expr, self)
 
     def __sub__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("-", self, expr)
+        return BinaryOpPattern(operator.sub, self, expr)
 
     def __truediv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
-        return BinaryOpPattern("/", self, expr)
+        return BinaryOpPattern(operator.truediv, self, expr)
+
+    def __xor__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+        return BinaryOpPattern(operator.xor, self, expr)
 
     ### PRIVATE METHODS ###
 
@@ -265,13 +310,13 @@ class BinaryOpPattern(Pattern):
 
     def __init__(
         self,
-        operator: str,
+        operator_: Callable[[T, T], T],
         expr_one: Union["Pattern", float],
         expr_two: Union["Pattern", float],
     ) -> None:
-        self._operator = operator
-        self._expr_one = self._freeze_recursive(expr_one)
-        self._expr_two = self._freeze_recursive(expr_two)
+        self.operator_ = operator_
+        self.expr_one = self._freeze_recursive(expr_one)
+        self.expr_two = self._freeze_recursive(expr_two)
 
     ### PRIVATE METHODS ###
 
@@ -284,31 +329,10 @@ class BinaryOpPattern(Pattern):
         if not isinstance(expr_two, Pattern):
             expr_two = SequencePattern([expr_two], None)
         expr_two = iter(expr_two)
-        operator = self._string_to_operator()
         for item_one, item_two in zip(expr_one, expr_two):
-            yield self._apply_recursive(operator, item_one, item_two)
-
-    def _string_to_operator(self):
-        operators = {
-            "%": operator.__mod__,
-            "*": operator.__mul__,
-            "**": operator.__pow__,
-            "+": operator.__add__,
-            "-": operator.__sub__,
-            "/": operator.__truediv__,
-            "//": operator.__floordiv__,
-        }
-        return operators[self.operator]
+            yield self._apply_recursive(self.operator_, item_one, item_two)
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def expr_one(self) -> Union["Pattern", float]:
-        return self._expr_one
-
-    @property
-    def expr_two(self) -> Union["Pattern", float]:
-        return self._expr_two
 
     @property
     def is_infinite(self) -> bool:
@@ -320,17 +344,15 @@ class BinaryOpPattern(Pattern):
         )
         return expr_one_is_infinite and expr_two_is_infinite
 
-    @property
-    def operator(self) -> str:
-        return self._operator
-
 
 class UnaryOpPattern(Pattern):
     ### INITIALIZER ###
 
-    def __init__(self, operator: str, expr: Union["Pattern", float]) -> None:
-        self._operator = operator
-        self._expr = expr
+    def __init__(
+        self, operator_: Callable[[T], T], expr: Union["Pattern", float]
+    ) -> None:
+        self.operator_ = operator_
+        self.expr = expr
 
     ### PRIVATE METHODS ###
 
@@ -339,32 +361,14 @@ class UnaryOpPattern(Pattern):
         if not isinstance(expr, Pattern):
             expr = SequencePattern([expr], None)
         expr = iter(expr)
-        operator = self._string_to_operator()
         for item in expr:
-            yield self._apply_recursive(operator, item)
-
-    def _string_to_operator(self):
-        operators = {
-            "~": operator.invert,
-            "-": operator.__neg__,
-            "+": operator.__pos__,
-            "abs": operator.abs,
-        }
-        return operators[self.operator]
+            yield self._apply_recursive(self.operator_, item)
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def expr(self) -> Union["Pattern", float]:
-        return self._expr
-
-    @property
     def is_infinite(self) -> bool:
         return not isinstance(self.expr, Pattern) or self.expr.is_infinite
-
-    @property
-    def operator(self) -> str:
-        return self._operator
 
 
 class SeedPattern(Pattern):
