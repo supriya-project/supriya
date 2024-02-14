@@ -52,15 +52,15 @@ ipython = [
   "rise",
 ]
 test = [
-  "black",
+  "black >= 24.0.0",
   # "docstrfmt @ https://github.com/josiah-wolf-oberholtzer/docstrfmt/archive/refs/heads/master.zip",
-  "flake8",
-  "isort",
+  "flake8 >= 7.0.0",
+  "isort >= 5.0.0",
   "jupyter",
   "librosa",
   "lxml",
   "matplotlib",
-  "mypy",
+  "mypy >= 1.8.0",
   "pytest",
   "pytest-asyncio",
   "pytest-cov",
@@ -77,7 +77,7 @@ documentation = "https://josiahwolfoberholtzer.com/supriya"
 repository = "https://github.com/josiah-wolf-oberholtzer/supriya"
 
 [tool.black]
-target-version = ["py311"]
+target-version = ["py312"]
 
 [tool.cibuildwheel]
 build = "cp38-* cp39-* cp310-* cp311-* cp312-*"
