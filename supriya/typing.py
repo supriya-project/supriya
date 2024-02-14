@@ -36,13 +36,13 @@ class Missing:
 @runtime_checkable
 class SupportsOsc(Protocol):
     def to_osc(self) -> Union["OscBundle", "OscMessage"]:
-        ...
+        pass
 
 
 @runtime_checkable
 class SupportsPlot(Protocol):
     def __plot__(self) -> "numpy.ndarray":
-        ...
+        pass
 
 
 @runtime_checkable
@@ -53,13 +53,13 @@ class SupportsRender(Protocol):
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
     ) -> Coroutine[None, None, Tuple[Optional[Path], int]]:
-        ...
+        pass
 
 
 @runtime_checkable
 class SupportsRenderMemo(Protocol):
     def __render_memo__(self) -> SupportsRender:
-        ...
+        pass
 
 
 AddActionLike = Optional[Union[AddAction, SupportsInt, str]]

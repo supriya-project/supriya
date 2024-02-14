@@ -192,9 +192,11 @@ class GetNodeControlInfo(Response):
             name_or_index, value = osc_message.contents[i : i + 2]
             items.append(
                 (
-                    name_or_index
-                    if isinstance(name_or_index, str)
-                    else int(name_or_index),
+                    (
+                        name_or_index
+                        if isinstance(name_or_index, str)
+                        else int(name_or_index)
+                    ),
                     float(value),
                 )
             )
@@ -219,9 +221,11 @@ class GetNodeControlRangeInfo(Response):
             values = osc_message.contents[current_index : current_index + count]
             items.append(
                 (
-                    name_or_index
-                    if isinstance(name_or_index, str)
-                    else int(name_or_index),
+                    (
+                        name_or_index
+                        if isinstance(name_or_index, str)
+                        else int(name_or_index)
+                    ),
                     tuple(values),
                 )
             )

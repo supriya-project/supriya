@@ -90,9 +90,11 @@ def calculate_skew(store):
         (
             False,
             True,
-            [0.25, 0.5, 0.75, 1.0, 1.25]
-            if platform.system() != "Windows"
-            else [0.0, 0.25, 0.5, 0.75, 1.0],
+            (
+                [0.25, 0.5, 0.75, 1.0, 1.25]
+                if platform.system() != "Windows"
+                else [0.0, 0.25, 0.5, 0.75, 1.0]
+            ),
         ),
         (False, False, [0.0, 0.25, 0.5, 0.75, 1.0]),
     ],

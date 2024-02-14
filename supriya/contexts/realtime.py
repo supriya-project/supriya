@@ -99,7 +99,7 @@ logger = logging.getLogger(__name__)
 
 
 class FailWarning(Warning):
-    ...
+    pass
 
 
 warnings.simplefilter("always", FailWarning)

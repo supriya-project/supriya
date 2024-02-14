@@ -537,6 +537,7 @@ class BusGroup(ContextObject):
     :param calculation_rate: The bus group's calculation rate.
     :param count: The number of child buses.
     """
+
     calculation_rate: CalculationRate
     count: int = 1
     buses: Tuple[Bus, ...] = dataclasses.field(
@@ -844,9 +845,7 @@ class Synth(Node):
 
     synthdef: SynthDef
 
-    def get(
-        self, *controls: Union[int, str], sync: bool = True
-    ) -> Union[
+    def get(self, *controls: Union[int, str], sync: bool = True) -> Union[
         Awaitable[Optional[Dict[Union[int, str], float]]],
         Optional[Dict[Union[int, str], float]],
     ]:

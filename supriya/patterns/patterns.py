@@ -1,6 +1,7 @@
 """
 The core pattern classes.
 """
+
 import abc
 import inspect
 import itertools
@@ -143,9 +144,11 @@ class Pattern(metaclass=abc.ABCMeta):
         ):
             return procedure(*exprs)
         coerced_exprs = [
-            expr
-            if ((isinstance(expr, Sequence) and not isinstance(expr, (str, bytes))))
-            else [expr]
+            (
+                expr
+                if ((isinstance(expr, Sequence) and not isinstance(expr, (str, bytes))))
+                else [expr]
+            )
             for expr in exprs
         ]
         max_length = max(len(expr) for expr in coerced_exprs)

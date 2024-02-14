@@ -49,9 +49,7 @@ class Requestable(ABC):
     ### PRIVATE METHODS ###
 
     @abstractmethod
-    def _get_response_patterns_and_requestable(
-        self, context: "Context"
-    ) -> Tuple[
+    def _get_response_patterns_and_requestable(self, context: "Context") -> Tuple[
         Optional[Sequence[Union[float, str]]],
         Optional[Sequence[Union[float, str]]],
         "Requestable",
@@ -126,9 +124,7 @@ class Request(Requestable):
     ]:
         return None, None
 
-    def _get_response_patterns_and_requestable(
-        self, context: "Context"
-    ) -> Tuple[
+    def _get_response_patterns_and_requestable(self, context: "Context") -> Tuple[
         Optional[Sequence[Union[float, str]]],
         Optional[Sequence[Union[float, str]]],
         "Requestable",
@@ -154,9 +150,7 @@ class RequestBundle(Requestable):
 
     ### PRIVATE METHODS ###
 
-    def _get_response_patterns_and_requestable(
-        self, context: "Context"
-    ) -> Tuple[
+    def _get_response_patterns_and_requestable(self, context: "Context") -> Tuple[
         Optional[Sequence[Union[float, str]]],
         Optional[Sequence[Union[float, str]]],
         "Requestable",
@@ -994,9 +988,11 @@ class MapAudioBusToNode(Request):
         for index_or_name, bus_index in self.items:
             contents.extend(
                 [
-                    index_or_name
-                    if isinstance(index_or_name, str)
-                    else int(index_or_name),
+                    (
+                        index_or_name
+                        if isinstance(index_or_name, str)
+                        else int(index_or_name)
+                    ),
                     int(bus_index),
                 ]
             )
@@ -1027,9 +1023,11 @@ class MapAudioBusRangeToNode(Request):
         for index_or_name, bus_index, count in self.items:
             contents.extend(
                 [
-                    index_or_name
-                    if isinstance(index_or_name, str)
-                    else int(index_or_name),
+                    (
+                        index_or_name
+                        if isinstance(index_or_name, str)
+                        else int(index_or_name)
+                    ),
                     int(bus_index),
                     int(count),
                 ]
@@ -1061,9 +1059,11 @@ class MapControlBusToNode(Request):
         for index_or_name, bus_index in self.items:
             contents.extend(
                 [
-                    index_or_name
-                    if isinstance(index_or_name, str)
-                    else int(index_or_name),
+                    (
+                        index_or_name
+                        if isinstance(index_or_name, str)
+                        else int(index_or_name)
+                    ),
                     int(bus_index),
                 ]
             )
@@ -1094,9 +1094,11 @@ class MapControlBusRangeToNode(Request):
         for index_or_name, bus_index, count in self.items:
             contents.extend(
                 [
-                    index_or_name
-                    if isinstance(index_or_name, str)
-                    else int(index_or_name),
+                    (
+                        index_or_name
+                        if isinstance(index_or_name, str)
+                        else int(index_or_name)
+                    ),
                     int(bus_index),
                     int(count),
                 ]
@@ -1312,9 +1314,11 @@ class NewSynth(Request):
 
     def to_osc(self) -> OscMessage:
         contents: List[Union[float, str, Tuple[float, ...]]] = [
-            self.synthdef.actual_name
-            if isinstance(self.synthdef, SynthDef)
-            else self.synthdef,
+            (
+                self.synthdef.actual_name
+                if isinstance(self.synthdef, SynthDef)
+                else self.synthdef
+            ),
             int(self.synth_id),
             int(AddAction.from_expr(self.add_action)),
             int(self.target_node_id),
