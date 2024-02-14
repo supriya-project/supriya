@@ -545,12 +545,12 @@ class OscProtocol(metaclass=abc.ABCMeta):
     def __init__(self) -> None:
         self.callbacks: Dict[Any, Any] = {}
         self.captures: Set[Capture] = set()
-        self.healthcheck = None
-        self.healthcheck_osc_callback = None
+        self.healthcheck: Optional[HealthCheck] = None
+        self.healthcheck_osc_callback: Optional[OscCallback] = None
         self.attempts = 0
-        self.ip_address = None
+        self.ip_address = "127.0.0.1"
         self.is_running: bool = False
-        self.port = None
+        self.port = 57551
 
     ### PRIVATE METHODS ###
 
@@ -581,7 +581,7 @@ class OscProtocol(metaclass=abc.ABCMeta):
                 self.unregister(callback)
         return matching_callbacks
 
-    def _remove_callback(self, callback: OscCallback):
+    def _remove_callback(self, callback: OscCallback) -> None:
         def delete(pattern, original_callback_map):
             key = pattern.pop(0)
             if key not in original_callback_map:
@@ -600,11 +600,13 @@ class OscProtocol(metaclass=abc.ABCMeta):
         for pattern in patterns:
             delete(list(pattern), self.callbacks)
 
-    def _pass_healthcheck(self, message):
+    def _pass_healthcheck(self, message) -> None:
         osc_protocol_logger.info(f"[{self.ip_address}:{self.port}] healthcheck: passed")
         self.attempts = 0
 
-    def _setup(self, ip_address, port, healthcheck):
+    def _setup(
+        self, ip_address: str, port: int, healthcheck: Optional[HealthCheck]
+    ) -> None:
         self.ip_address = ip_address
         self.port = port
         self.healthcheck = healthcheck
