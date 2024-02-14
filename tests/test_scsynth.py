@@ -38,5 +38,5 @@ def test_find_on_path(mock_env_scsynth_path, monkeypatch):
             scsynth_path.chmod(scsynth_path.stat().st_mode | stat.S_IEXEC)
             monkeypatch.setenv("PATH", os.pathsep + tmp_dir)
             got = scsynth.find()
-            expected = scsynth_path.absolute()
+            expected = scsynth_path.resolve().absolute()
             assert got == expected
