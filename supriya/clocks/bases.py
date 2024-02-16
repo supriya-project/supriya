@@ -288,30 +288,40 @@ class BaseClock:
         except Exception:
             traceback.print_exc()
             return
-        self._process_callback_event_result(desired_moment, event, result)
+        if isinstance(result, float) or result is None:
+            delta, time_unit = result, TimeUnit.BEATS
+        else:
+            delta, time_unit = result
+        self._process_callback_event_result(desired_moment, event, delta, time_unit)
 
-    def _process_callback_event_result(self, desired_moment, event, result):
-        try:
-            delta, unit = result
-        except TypeError:
-            delta, unit = result, TimeUnit.BEATS
+    def _process_callback_event_result(
+        self,
+        desired_moment: Moment,
+        event: CallbackEvent,
+        delta: Optional[float],
+        time_unit: TimeUnit,
+    ) -> None:
         if delta is None or delta <= 0:
             return
-        kwargs = {"invocations": event.invocations + 1, "measure": None, "offset": None}
-        if unit == TimeUnit.MEASURES:
-            kwargs["measure"] = desired_moment.measure + delta
-            kwargs["offset"] = self._measure_to_offset(kwargs["measure"])
-        if unit == TimeUnit.BEATS:
-            kwargs["offset"] = desired_moment.offset + delta
-        if unit in (TimeUnit.BEATS, TimeUnit.MEASURES):
-            kwargs["seconds"] = self._offset_to_seconds(kwargs["offset"])
-        if unit == TimeUnit.SECONDS:
-            kwargs["seconds"] = desired_moment.seconds + delta
+        invocations = event.invocations + 1
+        measure: Optional[int] = None
+        offset: Optional[float] = None
+        if time_unit in (TimeUnit.BEATS, TimeUnit.MEASURES):
+            if time_unit == TimeUnit.MEASURES:
+                measure = desired_moment.measure + int(delta)
+                offset = self._measure_to_offset(measure)
+            else:
+                offset = desired_moment.offset + delta
+            seconds = self._offset_to_seconds(offset)
+        else:
+            seconds = desired_moment.seconds + delta
         logger.debug(
             f"[{self.name}] ... ... ... Rescheduling "
-            f"{event.procedure} ({event.event_id}) at {kwargs['seconds'] - self._state.initial_seconds}s"
+            f"{event.procedure} ({event.event_id}) at {seconds - self._state.initial_seconds}s"
         )
-        event = event._replace(**kwargs)
+        event = event._replace(
+            invocations=invocations, measure=measure, offset=offset, seconds=seconds
+        )
         self._enqueue_event(event)
 
     def _perform_change_event(

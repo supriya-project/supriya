@@ -4,7 +4,7 @@ from typing import Generator, Optional, Tuple
 
 from .asynchronous import AsyncClock
 from .bases import BaseClock
-from .ephemera import CallbackEvent, ClockContext, Moment
+from .ephemera import CallbackEvent, ClockContext, Moment, TimeUnit
 
 logger = logging.getLogger("supriya.clocks")
 
@@ -28,7 +28,11 @@ class OfflineClock(BaseClock):
         args = event.args or ()
         kwargs = event.kwargs or {}
         result = event.procedure(context, *args, **kwargs)
-        self._process_callback_event_result(desired_moment, event, result)
+        if isinstance(result, float) or result is None:
+            delta, time_unit = result, TimeUnit.BEATS
+        else:
+            delta, time_unit = result
+        self._process_callback_event_result(desired_moment, event, delta, time_unit)
 
     def _run(self, *args, offline=False, **kwargs) -> Generator[bool, None, None]:
         logger.debug(f"[{self.name}] Thread start")

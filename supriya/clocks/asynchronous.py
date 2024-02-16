@@ -11,8 +11,8 @@ from .ephemera import (
     ChangeCommand,
     ChangeEvent,
     ClockContext,
-    EventType,
     Moment,
+    TimeUnit,
 )
 
 logger = logging.getLogger("supriya.clocks")
@@ -52,7 +52,11 @@ class AsyncClock(BaseClock):
         except Exception:
             traceback.print_exc()
             return
-        self._process_callback_event_result(desired_moment, event, result)
+        if isinstance(result, float) or result is None:
+            delta, time_unit = result, TimeUnit.BEATS
+        else:
+            delta, time_unit = result
+        self._process_callback_event_result(desired_moment, event, delta, time_unit)
 
     async def _perform_events_async(self, current_moment: Moment) -> Moment:
         logger.debug(
