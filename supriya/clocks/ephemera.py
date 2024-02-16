@@ -1,5 +1,6 @@
 import dataclasses
 import enum
+from functools import total_ordering
 from typing import Callable, Dict, Literal, NamedTuple, Optional, Tuple, Union
 
 Quantization = Literal[
@@ -62,23 +63,58 @@ class Moment:
     time_signature: Tuple[int, int]
 
 
-class CallbackCommand(NamedTuple):
-    args: Optional[Tuple]
+@dataclasses.dataclass(frozen=True)
+class Action:
     event_id: int
     event_type: int
-    kwargs: Optional[Dict]
-    procedure: Callable
+
+
+@dataclasses.dataclass(frozen=True)
+class Command(Action):
     quantization: Optional[Quantization]
     schedule_at: float
     time_unit: Optional[TimeUnit]
 
 
-class CallbackEvent(NamedTuple):
+@dataclasses.dataclass(frozen=True)
+class CallbackCommand(Command):
+    args: Optional[Tuple]
+    kwargs: Optional[Dict]
+    procedure: Callable
+
+
+@dataclasses.dataclass(frozen=True)
+class ChangeCommand(Command):
+    beats_per_minute: Optional[float]
+    time_signature: Optional[Tuple[int, int]]
+
+
+@total_ordering
+@dataclasses.dataclass(frozen=True, eq=False)
+class Event(Action):
     seconds: float
-    event_type: int
-    event_id: int
     measure: Optional[int]
     offset: Optional[float]
+
+    def __eq__(self, other: object) -> bool:
+        # Need to act like a tuple here
+        if not isinstance(other, Action):
+            return NotImplemented
+        return (self.event_type, self.event_id) == (other.event_type, other.event_id)
+
+    def __lt__(self, other: object) -> bool:
+        # Need to act like a tuple here
+        if not isinstance(other, Event):
+            return NotImplemented
+        return (self.seconds, self.event_type, self.event_id) < (
+            other.seconds,
+            other.event_type,
+            other.event_id,
+        )
+
+
+@dataclasses.dataclass(frozen=True, eq=False)
+class CallbackEvent(Event):
     procedure: Callable
     args: Optional[Tuple]
     kwargs: Optional[Dict]
@@ -88,22 +124,8 @@ class CallbackEvent(NamedTuple):
         return hash((type(self), self.event_id))
 
 
-class ChangeCommand(NamedTuple):
-    beats_per_minute: Optional[float]
-    event_id: int
-    event_type: int
-    quantization: Optional[Quantization]
-    schedule_at: float
-    time_signature: Optional[Tuple[int, int]]
-    time_unit: Optional[TimeUnit]
-
-
-class ChangeEvent(NamedTuple):
-    seconds: float
-    event_type: int
-    event_id: int
-    measure: Optional[int]
-    offset: Optional[float]
+@dataclasses.dataclass(frozen=True, eq=False)
+class ChangeEvent(Event):
     beats_per_minute: Optional[float]
     time_signature: Optional[Tuple[int, int]]
 

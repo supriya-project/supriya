@@ -10,12 +10,15 @@ from typing import Deque, Dict, FrozenSet, Optional, Set, Tuple, Union
 
 from .. import conversions
 from .ephemera import (
+    Action,
     CallbackCommand,
     CallbackEvent,
     ChangeCommand,
     ChangeEvent,
     ClockContext,
     ClockState,
+    Command,
+    Event,
     EventType,
     Moment,
     Quantization,
@@ -56,15 +59,11 @@ class BaseClock:
     def __init__(self) -> None:
         self._name = None
         self._counter = itertools.count()
-        self._command_deque: Deque[Union[CallbackCommand, ChangeCommand]] = (
-            collections.deque()
-        )
+        self._command_deque: Deque[Command] = collections.deque()
         self._event_queue = EventQueue()
         self._is_running = False
         self._slop = 0.001
-        self._events_by_id: Dict[
-            int, Union[CallbackCommand, CallbackEvent, ChangeCommand, ChangeEvent]
-        ] = {}
+        self._events_by_id: Dict[int, Action] = {}
         self._measure_relative_event_ids: Set[int] = set()
         self._offset_relative_event_ids: Set[int] = set()
         self._state = ClockState(
@@ -195,11 +194,9 @@ class BaseClock:
 
     ### SCHEDULING METHODS ###
 
-    def _cancel(self, event_id) -> Optional[Tuple]:
+    def _cancel(self, event_id) -> Optional[Action]:
         event = self._events_by_id.pop(event_id, None)
-        if event is not None and not isinstance(
-            event, (CallbackCommand, ChangeCommand)
-        ):
+        if event is not None and isinstance(event, Event):
             self._event_queue.remove(event)
             if event.offset is not None:
                 self._offset_relative_event_ids.remove(event.event_id)
@@ -207,7 +204,7 @@ class BaseClock:
                     self._measure_relative_event_ids.remove(event.event_id)
         return event
 
-    def _enqueue_command(self, command: Union[CallbackCommand, ChangeCommand]) -> None:
+    def _enqueue_command(self, command: Command) -> None:
         self._events_by_id[command.event_id] = command
         self._command_deque.append(command)
         if isinstance(command, CallbackCommand):
@@ -300,8 +297,12 @@ class BaseClock:
             f"[{self.name}] ... ... ... Rescheduling "
             f"{event.procedure} ({event.event_id}) at {seconds - self._state.initial_seconds}s"
         )
-        event = event._replace(
-            invocations=invocations, measure=measure, offset=offset, seconds=seconds
+        event = dataclasses.replace(
+            event,
+            invocations=invocations,
+            measure=measure,
+            offset=offset,
+            seconds=seconds,
         )
         self._enqueue_event(event)
 
@@ -429,7 +430,7 @@ class BaseClock:
                     event_type=command.event_type,
                     invocations=0,
                 )
-            else:
+            elif isinstance(command, ChangeCommand):
                 event = ChangeEvent(
                     beats_per_minute=command.beats_per_minute,
                     event_id=command.event_id,
@@ -439,6 +440,8 @@ class BaseClock:
                     seconds=seconds,
                     time_signature=command.time_signature,
                 )
+            else:
+                raise ValueError(command)
             self._enqueue_event(event)
             logger.debug(
                 f"[{self.name}] ... ... Enqueued {type(event).__name__} "
@@ -458,7 +461,7 @@ class BaseClock:
                 f"{event.seconds - self._state.initial_seconds}:s to "
                 f"{seconds - self._state.initial_seconds}:s"
             )
-            self._enqueue_event(event._replace(seconds=seconds))
+            self._enqueue_event(dataclasses.replace(event, seconds=seconds))
 
     def _reschedule_measure_relative_events(self):
         for event_id in tuple(self._measure_relative_event_ids):
@@ -472,7 +475,9 @@ class BaseClock:
                 f"[{self.name}] ... ... ... Rescheduling measure-relative event from "
                 f"offset {event.offset} to {offset}"
             )
-            self._enqueue_event(event._replace(offset=offset, seconds=seconds))
+            self._enqueue_event(
+                dataclasses.replace(event, offset=offset, seconds=seconds)
+            )
 
     def _start(
         self,
@@ -505,7 +510,7 @@ class BaseClock:
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id) -> Optional[Tuple]:
+    def cancel(self, event_id) -> Optional[Action]:
         logger.debug(f"[{self.name}] Canceling {event_id}")
         event = self._cancel(event_id)
         return event
@@ -605,9 +610,9 @@ class BaseClock:
         event_or_command = self.cancel(event_id)
         if event_or_command is None:
             return None
-        if isinstance(event_or_command, (CallbackCommand, ChangeCommand)):
-            command = event_or_command._replace(
-                schedule_at=schedule_at, time_unit=time_unit
+        if isinstance(event_or_command, Command):
+            command = dataclasses.replace(
+                event_or_command, schedule_at=schedule_at, time_unit=time_unit
             )
         elif isinstance(event_or_command, CallbackEvent):
             command = CallbackCommand(

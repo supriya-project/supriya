@@ -2,15 +2,15 @@ import asyncio
 import logging
 import queue
 import traceback
-from typing import Optional, Tuple, Union
+from typing import Optional, Tuple
 
 from .bases import BaseClock
 from .ephemera import (
-    CallbackCommand,
+    Action,
     CallbackEvent,
-    ChangeCommand,
     ChangeEvent,
     ClockContext,
+    Command,
     Moment,
     TimeUnit,
 )
@@ -30,7 +30,7 @@ class AsyncClock(BaseClock):
 
     ### SCHEDULING METHODS ###
 
-    def _enqueue_command(self, command: Union[CallbackCommand, ChangeCommand]) -> None:
+    def _enqueue_command(self, command: Command) -> None:
         super()._enqueue_command(command)
         self._event.set()
 
@@ -148,7 +148,7 @@ class AsyncClock(BaseClock):
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id) -> Optional[Tuple]:
+    def cancel(self, event_id) -> Optional[Action]:
         event = super().cancel(event_id)
         self._event.set()
         return event

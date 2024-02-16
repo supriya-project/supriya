@@ -5,7 +5,7 @@ import threading
 from typing import Optional, Tuple
 
 from .bases import BaseClock
-from .ephemera import Moment
+from .ephemera import Action, Moment
 
 logger = logging.getLogger("supriya.clocks")
 
@@ -83,7 +83,7 @@ class Clock(BaseClock):
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id) -> Optional[Tuple]:
+    def cancel(self, event_id) -> Optional[Action]:
         event = super().cancel(event_id)
         self._event.set()
         return event
