@@ -83,14 +83,16 @@ class AsyncClock(BaseClock):
                 )
                 if not should_continue:
                     break
-            else:
+            elif isinstance(event, CallbackEvent):
                 await self._perform_callback_event_async(
                     event, current_moment, desired_moment
                 )
                 self._process_command_deque()
+            else:
+                raise ValueError(event)
         return current_moment
 
-    async def _run_async(self, *args, offline=False, **kwargs) -> None:
+    async def _run_async(self, offline: bool = False) -> None:
         logger.debug(f"[{self.name}] Coroutine start")
         self._process_command_deque(first_run=True)
         while self._is_running:
@@ -116,7 +118,7 @@ class AsyncClock(BaseClock):
         except (asyncio.TimeoutError, RuntimeError):
             pass
 
-    async def _wait_for_moment_async(self, offline=False) -> Optional[Moment]:
+    async def _wait_for_moment_async(self, offline: bool = False) -> Optional[Moment]:
         current_time = self.get_current_time()
         next_time = self._event_queue.peek().seconds
         logger.debug(
@@ -133,7 +135,7 @@ class AsyncClock(BaseClock):
             self._event.clear()
         return self._seconds_to_moment(current_time)
 
-    async def _wait_for_queue_async(self, offline=False) -> bool:
+    async def _wait_for_queue_async(self, offline: bool = False) -> bool:
         logger.debug(f"[{self.name}] ... Waiting for events")
         self._process_command_deque()
         self._event.clear()
@@ -148,7 +150,7 @@ class AsyncClock(BaseClock):
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id) -> Optional[Action]:
+    def cancel(self, event_id: int) -> Optional[Action]:
         event = super().cancel(event_id)
         self._event.set()
         return event

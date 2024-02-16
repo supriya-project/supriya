@@ -80,7 +80,7 @@ class Command(Action):
 class CallbackCommand(Command):
     args: Optional[Tuple]
     kwargs: Optional[Dict]
-    procedure: Callable
+    procedure: Callable[["ClockContext"], Union[None, float, Tuple[float, TimeUnit]]]
 
 
 @dataclasses.dataclass(frozen=True)
@@ -115,12 +115,12 @@ class Event(Action):
 
 @dataclasses.dataclass(frozen=True, eq=False)
 class CallbackEvent(Event):
-    procedure: Callable
+    procedure: Callable[["ClockContext"], Union[None, float, Tuple[float, TimeUnit]]]
     args: Optional[Tuple]
     kwargs: Optional[Dict]
     invocations: int
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash((type(self), self.event_id))
 
 
@@ -129,7 +129,7 @@ class ChangeEvent(Event):
     beats_per_minute: Optional[float]
     time_signature: Optional[Tuple[int, int]]
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash((type(self), self.event_id))
 
 

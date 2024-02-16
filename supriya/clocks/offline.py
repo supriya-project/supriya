@@ -34,7 +34,7 @@ class OfflineClock(BaseClock):
             delta, time_unit = result
         self._process_callback_event_result(desired_moment, event, delta, time_unit)
 
-    def _run(self, *args, offline=False, **kwargs) -> Generator[bool, None, None]:
+    def _run(self, offline: bool = False) -> Generator[bool, None, None]:
         logger.debug(f"[{self.name}] Thread start")
         self._process_command_deque(first_run=True)
         while self._is_running and self._event_queue.qsize():
@@ -55,11 +55,11 @@ class OfflineClock(BaseClock):
         yield False
         self._stop()
 
-    def _wait_for_moment(self, offline=False) -> Optional[Moment]:
+    def _wait_for_moment(self, offline: bool = False) -> Optional[Moment]:
         current_time = self._event_queue.peek().seconds
         return self._seconds_to_moment(current_time)
 
-    def _wait_for_queue(self, offline=False) -> bool:
+    def _wait_for_queue(self, offline: bool = False) -> bool:
         logger.debug(f"[{self.name}] ... Waiting for events")
         self._process_command_deque()
         return True
@@ -102,7 +102,7 @@ class OfflineClock(BaseClock):
 
 
 class AsyncOfflineClock(AsyncClock):
-    async def _run_async(self, *args, offline=False, **kwargs) -> None:
+    async def _run_async(self, offline: bool = False) -> None:
         logger.debug(f"[{self.name}] Coroutine start")
         self._process_command_deque(first_run=True)
         while self._is_running and self._event_queue.qsize():
@@ -125,13 +125,13 @@ class AsyncOfflineClock(AsyncClock):
     async def _wait_for_event_async(self, sleep_time: float) -> None:
         pass
 
-    async def _wait_for_moment_async(self, offline=False) -> Optional[Moment]:
+    async def _wait_for_moment_async(self, offline: bool = False) -> Optional[Moment]:
         current_time = self._event_queue.peek().seconds
         self._process_command_deque()
         self._event.clear()
         return self._seconds_to_moment(current_time)
 
-    async def _wait_for_queue_async(self, offline=False) -> bool:
+    async def _wait_for_queue_async(self, offline: bool = False) -> bool:
         logger.debug(f"[{self.name}] ... Waiting for events")
         self._process_command_deque()
         self._event.clear()

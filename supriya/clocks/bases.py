@@ -6,7 +6,7 @@ import logging
 import queue
 import time
 import traceback
-from typing import Deque, Dict, FrozenSet, Optional, Set, Tuple, Union
+from typing import Any, Callable, Deque, Dict, FrozenSet, Optional, Set, Tuple, Union
 
 from .. import conversions
 from .ephemera import (
@@ -83,7 +83,8 @@ class BaseClock:
     ) -> Tuple[float, float, Optional[int]]:
         moment = self._seconds_to_moment(seconds)
         if quantization is None:
-            offset, measure = moment.offset, None
+            offset: float = moment.offset
+            measure: Optional[int] = None
         elif "M" in quantization:
             measure_grid = int(quantization[0])
             grid_offset = moment.measure - 1 + (moment.measure_offset > 0)
@@ -194,7 +195,7 @@ class BaseClock:
 
     ### SCHEDULING METHODS ###
 
-    def _cancel(self, event_id) -> Optional[Action]:
+    def _cancel(self, event_id: int) -> Optional[Action]:
         action = self._actions_by_id.pop(event_id, None)
         if action is not None and isinstance(action, Event):
             self._event_queue.remove(action)
@@ -216,7 +217,7 @@ class BaseClock:
                 f"[{self.name}] Enqueued {type(command).__name__} ({command.event_id})"
             )
 
-    def _enqueue_event(self, event: Union[CallbackEvent, ChangeEvent]) -> None:
+    def _enqueue_event(self, event: Event) -> None:
         self._actions_by_id[event.event_id] = event
         self._event_queue.put(event)
         if event.offset is not None:
@@ -226,9 +227,7 @@ class BaseClock:
 
     def _process_perform_event_loop(
         self, current_moment: Moment
-    ) -> Tuple[
-        Optional[Union[CallbackEvent, ChangeEvent]], Optional[Moment], bool, bool
-    ]:
+    ) -> Tuple[Optional[Event], Optional[Moment], bool, bool]:
         # There may be items in the queue which have been flagged "removed".
         # They contribute to the queue's size, but cannot be retrieved by .get().
         try:
@@ -386,9 +385,11 @@ class BaseClock:
                 )
                 if not should_continue:
                     break
-            else:
+            elif isinstance(event, CallbackEvent):
                 self._perform_callback_event(event, current_moment, desired_moment)
                 self._process_command_deque()
+            else:
+                raise ValueError(event)
         return current_moment
 
     def _process_command_deque(self, first_run: bool = False) -> None:
@@ -448,35 +449,39 @@ class BaseClock:
                 f"({event.event_id}) for {event.seconds}:s / {event.offset}:o"
             )
 
-    def _reschedule_offset_relative_events(self):
+    def _reschedule_offset_relative_events(self) -> None:
         for event_id in tuple(self._offset_relative_event_ids):
-            event = self._cancel(event_id)
-            if event is None:
+            action = self._cancel(event_id)
+            if action is None or not isinstance(action, Event) or action.offset is None:
                 self._offset_relative_event_ids.remove(event_id)
                 continue
-            seconds = self._offset_to_seconds(event.offset)
+            seconds = self._offset_to_seconds(action.offset)
             logger.debug(
                 f"[{self.name}] ... ... ... Rescheduling offset-relative event "
-                f"({event.event_id}) from "
-                f"{event.seconds - self._state.initial_seconds}:s to "
+                f"({action.event_id}) from "
+                f"{action.seconds - self._state.initial_seconds}:s to "
                 f"{seconds - self._state.initial_seconds}:s"
             )
-            self._enqueue_event(dataclasses.replace(event, seconds=seconds))
+            self._enqueue_event(dataclasses.replace(action, seconds=seconds))
 
-    def _reschedule_measure_relative_events(self):
+    def _reschedule_measure_relative_events(self) -> None:
         for event_id in tuple(self._measure_relative_event_ids):
-            event = self._cancel(event_id)
-            if event is None:
+            action = self._cancel(event_id)
+            if (
+                action is None
+                or not isinstance(action, Event)
+                or action.measure is None
+            ):
                 self._measure_relative_event_ids.remove(event_id)
                 continue
-            offset = self._measure_to_offset(event.measure)
+            offset = self._measure_to_offset(action.measure)
             seconds = self._offset_to_seconds(offset)
             logger.debug(
                 f"[{self.name}] ... ... ... Rescheduling measure-relative event from "
-                f"offset {event.offset} to {offset}"
+                f"offset {action.offset} to {offset}"
             )
             self._enqueue_event(
-                dataclasses.replace(event, offset=offset, seconds=seconds)
+                dataclasses.replace(action, offset=offset, seconds=seconds)
             )
 
     def _start(
@@ -510,7 +515,7 @@ class BaseClock:
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id) -> Optional[Action]:
+    def cancel(self, event_id: int) -> Optional[Action]:
         logger.debug(f"[{self.name}] Canceling {event_id}")
         event = self._cancel(event_id)
         return event
@@ -541,11 +546,11 @@ class BaseClock:
 
     def cue(
         self,
-        procedure,
+        procedure: Callable,
         *,
-        args=None,
+        args: Optional[Tuple[Any, ...]] = None,
         event_type: int = EventType.SCHEDULE,
-        kwargs=None,
+        kwargs: Optional[Dict[str, Any]] = None,
         quantization: Optional[Quantization] = None,
     ) -> int:
         if event_type <= 0:
@@ -598,20 +603,23 @@ class BaseClock:
             return None
 
     @classmethod
-    def quantization_to_beats(cls, quantization) -> float:
+    def quantization_to_beats(cls, quantization: Quantization) -> float:
         fraction = fractions.Fraction(quantization.replace("T", ""))
         if "T" in quantization:
             fraction *= fractions.Fraction(2, 3)
         return float(fraction)
 
     def reschedule(
-        self, event_id, *, schedule_at=0.0, time_unit=TimeUnit.BEATS
+        self,
+        event_id: int,
+        *,
+        schedule_at: float = 0.0,
+        time_unit: TimeUnit = TimeUnit.BEATS,
     ) -> Optional[int]:
-        event_or_command = self.cancel(event_id)
-        if event_or_command is None:
+        if (event_or_command := self.cancel(event_id)) is None:
             return None
         if isinstance(event_or_command, Command):
-            command = dataclasses.replace(
+            command: Command = dataclasses.replace(
                 event_or_command, schedule_at=schedule_at, time_unit=time_unit
             )
         elif isinstance(event_or_command, CallbackEvent):
@@ -642,13 +650,13 @@ class BaseClock:
 
     def schedule(
         self,
-        procedure,
+        procedure: Callable,
         *,
         event_type: int = EventType.SCHEDULE,
         schedule_at: float = 0.0,
         time_unit: TimeUnit = TimeUnit.BEATS,
-        args=None,
-        kwargs=None,
+        args: Optional[Tuple[Any, ...]] = None,
+        kwargs: Optional[Dict[str, Any]] = None,
     ) -> int:
         logger.debug(f"[{self.name}] Scheduling {procedure}")
         if event_type <= 0:
@@ -707,7 +715,7 @@ class BaseClock:
         return self._slop
 
     @slop.setter
-    def slop(self, slop: float):
+    def slop(self, slop: float) -> None:
         if slop <= 0:
             raise ValueError(slop)
         self._slop = float(slop)

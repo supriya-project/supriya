@@ -29,7 +29,7 @@ class Clock(BaseClock):
         super()._enqueue_command(command)
         self._event.set()
 
-    def _run(self, *args, offline=False, **kwargs) -> None:
+    def _run(self, offline: bool = False) -> None:
         logger.debug(f"[{self.name}] Thread start")
         self._process_command_deque(first_run=True)
         while self._is_running:
@@ -51,7 +51,7 @@ class Clock(BaseClock):
                 self._event.wait(timeout=self._slop)
         logger.debug(f"[{self.name}] Terminating")
 
-    def _wait_for_moment(self, offline=False) -> Optional[Moment]:
+    def _wait_for_moment(self, offline: bool = False) -> Optional[Moment]:
         current_time = self.get_current_time()
         next_time = self._event_queue.peek().seconds
         logger.debug(
@@ -68,7 +68,7 @@ class Clock(BaseClock):
             self._event.clear()
         return self._seconds_to_moment(current_time)
 
-    def _wait_for_queue(self, offline=False) -> bool:
+    def _wait_for_queue(self, offline: bool = False) -> bool:
         logger.debug(f"[{self.name}] ... Waiting for events")
         self._process_command_deque()
         self._event.clear()
@@ -83,7 +83,7 @@ class Clock(BaseClock):
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id) -> Optional[Action]:
+    def cancel(self, event_id: int) -> Optional[Action]:
         event = super().cancel(event_id)
         self._event.set()
         return event
