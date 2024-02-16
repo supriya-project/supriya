@@ -98,7 +98,9 @@ class BaseClock:
 
     ### TIME METHODS ###
 
-    def _get_cue_point(self, seconds: float, quantization):
+    def _get_cue_point(
+        self, seconds: float, quantization: Quantization
+    ) -> Tuple[float, float, Optional[int]]:
         moment = self._seconds_to_moment(seconds)
         if quantization is None:
             offset, measure = moment.offset, None
@@ -123,7 +125,9 @@ class BaseClock:
         )
         return seconds, offset, measure
 
-    def _get_schedule_point(self, schedule_at: float, time_unit: TimeUnit):
+    def _get_schedule_point(
+        self, schedule_at: float, time_unit: TimeUnit
+    ) -> Tuple[float, Optional[float], Optional[int]]:
         measure: Optional[int] = None
         offset: Optional[float] = None
         if time_unit == TimeUnit.MEASURES:
@@ -184,7 +188,7 @@ class BaseClock:
             beat_duration=1 / self._state.time_signature[1],
         )
 
-    def _seconds_to_moment(self, seconds):
+    def _seconds_to_moment(self, seconds: float):
         offset = self._seconds_to_offset(seconds)
         measure, measure_offset = divmod(
             offset - self._state.previous_time_signature_change_offset,
