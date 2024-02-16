@@ -1,22 +1,24 @@
 import logging
 import queue
-from typing import Optional, Tuple
+from typing import Generator, Optional, Tuple
 
 from .asynchronous import AsyncClock
 from .bases import BaseClock
-from .ephemera import ClockContext, Moment
+from .ephemera import CallbackEvent, ClockContext, Moment
 
 logger = logging.getLogger("supriya.clocks")
 
 
 class OfflineClock(BaseClock):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
-        self._generator = None
+        self._generator: Optional[Generator[bool, None, None]] = None
 
     ### SCHEDULING METHODS ###
 
-    def _perform_callback_event(self, event, current_moment, desired_moment):
+    def _perform_callback_event(
+        self, event: CallbackEvent, current_moment: Moment, desired_moment: Moment
+    ) -> None:
         logger.debug(
             f"[{self.name}] ... ... Performing {event.procedure} at "
             f"{desired_moment.seconds - self._state.initial_seconds}:s / "
@@ -28,7 +30,7 @@ class OfflineClock(BaseClock):
         result = event.procedure(context, *args, **kwargs)
         self._process_callback_event_result(desired_moment, event, result)
 
-    def _run(self, *args, offline=False, **kwargs):
+    def _run(self, *args, offline=False, **kwargs) -> Generator[bool, None, None]:
         logger.debug(f"[{self.name}] Thread start")
         self._process_command_deque(first_run=True)
         while self._is_running and self._event_queue.qsize():
@@ -36,11 +38,10 @@ class OfflineClock(BaseClock):
             if not self._wait_for_queue():
                 return
             try:
-                current_moment = self._wait_for_moment()
+                if (current_moment := self._wait_for_moment()) is None:
+                    return
             except queue.Empty:
                 continue
-            if current_moment is None:
-                return
             current_moment = self._perform_events(current_moment)
             self._state = self._state._replace(
                 previous_seconds=current_moment.seconds,
@@ -73,7 +74,7 @@ class OfflineClock(BaseClock):
         initial_measure: int = 1,
         beats_per_minute: Optional[float] = None,
         time_signature: Optional[Tuple[int, int]] = None,
-    ):
+    ) -> None:
         self._start(
             initial_time=initial_time,
             initial_offset=initial_offset,
@@ -85,7 +86,7 @@ class OfflineClock(BaseClock):
         if not next(self._generator):
             self._stop()
 
-    def stop(self):
+    def stop(self) -> None:
         if not self._stop():
             return
         if self._generator is not None:
@@ -97,20 +98,19 @@ class OfflineClock(BaseClock):
 
 
 class AsyncOfflineClock(AsyncClock):
-    async def _run(self, *args, offline=False, **kwargs):
+    async def _run(self, *args, offline=False, **kwargs) -> None:
         logger.debug(f"[{self.name}] Coroutine start")
         self._process_command_deque(first_run=True)
         while self._is_running and self._event_queue.qsize():
             logger.debug(f"[{self.name}] Loop start")
-            if not await self._wait_for_queue():
+            if not await self._wait_for_queue_async():
                 return
             try:
-                current_moment = await self._wait_for_moment()
+                if (current_moment := await self._wait_for_moment_async()) is None:
+                    return
             except queue.Empty:
                 continue
-            if current_moment is None:
-                return
-            current_moment = await self._perform_events(current_moment)
+            current_moment = await self._perform_events_async(current_moment)
             self._state = self._state._replace(
                 previous_seconds=current_moment.seconds,
                 previous_offset=current_moment.offset,
@@ -118,16 +118,16 @@ class AsyncOfflineClock(AsyncClock):
         logger.debug(f"[{self.name}] Coroutine terminating")
         self._stop()
 
-    async def _wait_for_event(self, sleep_time):
+    async def _wait_for_event_async(self, sleep_time: float) -> None:
         pass
 
-    async def _wait_for_moment(self, offline=False) -> Optional[Moment]:
+    async def _wait_for_moment_async(self, offline=False) -> Optional[Moment]:
         current_time = self._event_queue.peek().seconds
         self._process_command_deque()
         self._event.clear()
         return self._seconds_to_moment(current_time)
 
-    async def _wait_for_queue(self, offline=False) -> bool:
+    async def _wait_for_queue_async(self, offline=False) -> bool:
         logger.debug(f"[{self.name}] ... Waiting for events")
         self._process_command_deque()
         self._event.clear()

@@ -6,7 +6,7 @@ import logging
 import queue
 import time
 import traceback
-from typing import Optional, Tuple
+from typing import Deque, Dict, Optional, Set, Tuple, Union
 
 from .. import conversions
 from .ephemera import (
@@ -52,16 +52,18 @@ class BaseClock:
 
     ### INITIALIZER ###
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._name = None
         self._counter = itertools.count()
-        self._command_deque = collections.deque()
+        self._command_deque: Deque[Union[CallbackCommand, ChangeCommand]] = (
+            collections.deque()
+        )
         self._event_queue = EventQueue()
         self._is_running = False
         self._slop = 0.001
-        self._events_by_id = {}
-        self._measure_relative_event_ids = set()
-        self._offset_relative_event_ids = set()
+        self._events_by_id: Dict[int, Union[CallbackEvent, ChangeEvent]] = {}
+        self._measure_relative_event_ids: Set[int] = set()
+        self._offset_relative_event_ids: Set[int] = set()
         self._state = ClockState(
             beats_per_minute=120.0,
             initial_seconds=0.0,
@@ -240,7 +242,9 @@ class BaseClock:
             )
         return event, desired_moment, False, False
 
-    def _perform_callback_event(self, event, current_moment, desired_moment):
+    def _perform_callback_event(
+        self, event: CallbackEvent, current_moment: Moment, desired_moment: Moment
+    ) -> None:
         logger.debug(
             f"[{self.name}] ... ... Performing {event.procedure} at "
             f"{desired_moment.seconds - self._state.initial_seconds}:s / "
@@ -280,7 +284,9 @@ class BaseClock:
         event = event._replace(**kwargs)
         self._enqueue_event(event)
 
-    def _perform_change_event(self, event, current_moment, desired_moment):
+    def _perform_change_event(
+        self, event: ChangeEvent, current_moment: Moment, desired_moment: Moment
+    ) -> Tuple[Moment, bool]:
         logger.debug(
             f"[{self.name}] ... ... Changing at "
             f"{desired_moment.seconds - self._state.initial_seconds}:s"
@@ -333,7 +339,7 @@ class BaseClock:
             #    return current_moment, False
         return current_moment, True
 
-    def _perform_events(self, current_moment: Moment):
+    def _perform_events(self, current_moment: Moment) -> Moment:
         logger.debug(
             f"[{self.name}] ... Ready to perform at "
             f"{current_moment.seconds - self._state.initial_seconds}:s / "
@@ -449,7 +455,7 @@ class BaseClock:
         initial_measure: int = 1,
         beats_per_minute: Optional[float] = None,
         time_signature: Optional[Tuple[int, int]] = None,
-    ):
+    ) -> None:
         if self._is_running:
             raise RuntimeError("Already started")
         if initial_time is None:
@@ -465,7 +471,7 @@ class BaseClock:
         )
         self._is_running = True
 
-    def _stop(self):
+    def _stop(self) -> bool:
         if not self._is_running:
             return False
         self._is_running = False
@@ -561,7 +567,7 @@ class BaseClock:
             pass
 
     @classmethod
-    def quantization_to_beats(cls, quantization):
+    def quantization_to_beats(cls, quantization) -> float:
         fraction = fractions.Fraction(quantization.replace("T", ""))
         if "T" in quantization:
             fraction *= fractions.Fraction(2, 3)
@@ -654,11 +660,11 @@ class BaseClock:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def beats_per_minute(self):
+    def beats_per_minute(self) -> float:
         return self._state.beats_per_minute
 
     @property
-    def is_running(self):
+    def is_running(self) -> bool:
         return self._is_running
 
     @property
@@ -676,5 +682,5 @@ class BaseClock:
         self._slop = float(slop)
 
     @property
-    def time_signature(self):
+    def time_signature(self) -> Tuple[int, int]:
         return self._state.time_signature

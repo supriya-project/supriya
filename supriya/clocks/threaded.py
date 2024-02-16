@@ -17,7 +17,7 @@ class Clock(BaseClock):
 
     ### INITIALIZER ###
 
-    def __init__(self):
+    def __init__(self) -> None:
         BaseClock.__init__(self)
         self._event = threading.Event()
         self._thread = threading.Thread(target=self._run, daemon=True)
