@@ -1,6 +1,27 @@
 import dataclasses
 import enum
-from typing import Callable, Dict, NamedTuple, Optional, Tuple, Union
+from functools import total_ordering
+from typing import Callable, Dict, Literal, NamedTuple, Optional, Tuple, Union
+
+Quantization = Literal[
+    "8M",
+    "4M",
+    "2M",
+    "1M",
+    "1/2",
+    "1/2T",
+    "1/4",
+    "1/4T",
+    "1/8",
+    "1/8T",
+    "1/16",
+    "1/16T",
+    "1/32",
+    "1/32T",
+    "1/64",
+    "1/64T",
+    "1/128",
+]
 
 
 class EventType(enum.IntEnum):
@@ -42,52 +63,77 @@ class Moment:
     time_signature: Tuple[int, int]
 
 
-class CallbackCommand(NamedTuple):
-    args: Optional[Tuple]
+@dataclasses.dataclass(frozen=True)
+class Action:
     event_id: int
     event_type: int
-    kwargs: Optional[Dict]
-    procedure: Callable
-    quantization: Optional[str]
+
+
+@dataclasses.dataclass(frozen=True)
+class Command(Action):
+    quantization: Optional[Quantization]
     schedule_at: float
-    time_unit: Optional[int]
+    time_unit: Optional[TimeUnit]
 
 
-class CallbackEvent(NamedTuple):
+@dataclasses.dataclass(frozen=True)
+class CallbackCommand(Command):
+    args: Optional[Tuple]
+    kwargs: Optional[Dict]
+    procedure: Callable[["ClockContext"], Union[None, float, Tuple[float, TimeUnit]]]
+
+
+@dataclasses.dataclass(frozen=True)
+class ChangeCommand(Command):
+    beats_per_minute: Optional[float]
+    time_signature: Optional[Tuple[int, int]]
+
+
+@total_ordering
+@dataclasses.dataclass(frozen=True, eq=False)
+class Event(Action):
     seconds: float
-    event_type: int
-    event_id: int
     measure: Optional[int]
     offset: Optional[float]
-    procedure: Callable
+
+    def __eq__(self, other: object) -> bool:
+        # Need to act like a tuple here
+        if not isinstance(other, Event):
+            return NotImplemented
+        return (self.seconds, self.event_type, self.event_id) == (
+            other.seconds,
+            other.event_type,
+            other.event_id,
+        )
+
+    def __lt__(self, other: object) -> bool:
+        # Need to act like a tuple here
+        if not isinstance(other, Event):
+            return NotImplemented
+        return (self.seconds, self.event_type, self.event_id) < (
+            other.seconds,
+            other.event_type,
+            other.event_id,
+        )
+
+
+@dataclasses.dataclass(frozen=True, eq=False)
+class CallbackEvent(Event):
+    procedure: Callable[["ClockContext"], Union[None, float, Tuple[float, TimeUnit]]]
     args: Optional[Tuple]
     kwargs: Optional[Dict]
     invocations: int
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash((type(self), self.event_id))
 
 
-class ChangeCommand(NamedTuple):
+@dataclasses.dataclass(frozen=True, eq=False)
+class ChangeEvent(Event):
     beats_per_minute: Optional[float]
-    event_id: int
-    event_type: int
-    quantization: Optional[str]
-    schedule_at: float
     time_signature: Optional[Tuple[int, int]]
-    time_unit: Optional[int]
 
-
-class ChangeEvent(NamedTuple):
-    seconds: float
-    event_type: int
-    event_id: int
-    measure: Optional[int]
-    offset: Optional[float]
-    beats_per_minute: float
-    time_signature: Tuple[int, int]
-
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash((type(self), self.event_id))
 
 

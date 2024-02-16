@@ -5,19 +5,19 @@ import threading
 from typing import Optional, Tuple
 
 from .bases import BaseClock
-from .ephemera import Moment
+from .ephemera import Action, Command, Moment
 
-logger = logging.getLogger("supriya.clocks")
+logger = logging.getLogger(__name__)
 
 
 class Clock(BaseClock):
     ### CLASS VARIABLES ###
 
-    _default_clock = None
+    _default_clock: Optional["Clock"] = None
 
     ### INITIALIZER ###
 
-    def __init__(self):
+    def __init__(self) -> None:
         BaseClock.__init__(self)
         self._event = threading.Event()
         self._thread = threading.Thread(target=self._run, daemon=True)
@@ -25,11 +25,11 @@ class Clock(BaseClock):
 
     ### SCHEDULING METHODS ###
 
-    def _enqueue_command(self, command):
+    def _enqueue_command(self, command: Command) -> None:
         super()._enqueue_command(command)
         self._event.set()
 
-    def _run(self, *args, offline=False, **kwargs):
+    def _run(self, offline: bool = False) -> None:
         logger.debug(f"[{self.name}] Thread start")
         self._process_command_deque(first_run=True)
         while self._is_running:
@@ -51,7 +51,7 @@ class Clock(BaseClock):
                 self._event.wait(timeout=self._slop)
         logger.debug(f"[{self.name}] Terminating")
 
-    def _wait_for_moment(self, offline=False) -> Optional[Moment]:
+    def _wait_for_moment(self, offline: bool = False) -> Optional[Moment]:
         current_time = self.get_current_time()
         next_time = self._event_queue.peek().seconds
         logger.debug(
@@ -68,7 +68,7 @@ class Clock(BaseClock):
             self._event.clear()
         return self._seconds_to_moment(current_time)
 
-    def _wait_for_queue(self, offline=False) -> bool:
+    def _wait_for_queue(self, offline: bool = False) -> bool:
         logger.debug(f"[{self.name}] ... Waiting for events")
         self._process_command_deque()
         self._event.clear()
@@ -83,13 +83,13 @@ class Clock(BaseClock):
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id) -> Optional[Tuple]:
+    def cancel(self, event_id: int) -> Optional[Action]:
         event = super().cancel(event_id)
         self._event.set()
         return event
 
     @classmethod
-    def default(cls):
+    def default(cls) -> "Clock":
         if cls._default_clock is None:
             cls._default_clock = cls()
         return cls._default_clock
@@ -101,7 +101,7 @@ class Clock(BaseClock):
         initial_measure: int = 1,
         beats_per_minute: Optional[float] = None,
         time_signature: Optional[Tuple[int, int]] = None,
-    ):
+    ) -> None:
         self._start(
             initial_time=initial_time,
             initial_offset=initial_offset,
@@ -112,7 +112,7 @@ class Clock(BaseClock):
         self._thread = threading.Thread(target=self._run, args=(self,), daemon=True)
         self._thread.start()
 
-    def stop(self):
+    def stop(self) -> None:
         if self._stop():
             self._event.set()
             self._thread.join()
