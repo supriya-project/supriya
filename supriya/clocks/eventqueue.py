@@ -1,10 +1,16 @@
 import queue
+import sys
 from typing import Dict, List, Optional
 
 from .ephemera import Event
 
+if sys.version_info >= (3, 9):
+    _EventQueueBase = queue.PriorityQueue[Event]
+else:
+    _EventQueueBase = queue.PriorityQueue
 
-class EventQueue(queue.PriorityQueue[Event]):
+
+class EventQueue(_EventQueueBase):
     ### PRIVATE METHODS ###
 
     def _init(self, maxsize: Optional[int]) -> None:
