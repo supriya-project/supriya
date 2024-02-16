@@ -98,7 +98,7 @@ class OfflineClock(BaseClock):
 
 
 class AsyncOfflineClock(AsyncClock):
-    async def _run(self, *args, offline=False, **kwargs) -> None:
+    async def _run_async(self, *args, offline=False, **kwargs) -> None:
         logger.debug(f"[{self.name}] Coroutine start")
         self._process_command_deque(first_run=True)
         while self._is_running and self._event_queue.qsize():

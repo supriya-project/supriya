@@ -188,7 +188,7 @@ class BaseClock:
             beat_duration=1 / self._state.time_signature[1],
         )
 
-    def _seconds_to_moment(self, seconds: float):
+    def _seconds_to_moment(self, seconds: float) -> Moment:
         offset = self._seconds_to_offset(seconds)
         measure, measure_offset = divmod(
             offset - self._state.previous_time_signature_change_offset,
@@ -238,7 +238,7 @@ class BaseClock:
                 f"[{self.name}] Enqueued {type(command).__name__} ({command.event_id})"
             )
 
-    def _enqueue_event(self, event):
+    def _enqueue_event(self, event: Union[CallbackEvent, ChangeEvent]) -> None:
         self._events_by_id[event.event_id] = event
         self._event_queue.put(event)
         if event.offset is not None:
@@ -246,7 +246,11 @@ class BaseClock:
             if event.measure is not None:
                 self._measure_relative_event_ids.add(event.event_id)
 
-    def _process_perform_event_loop(self, current_moment):
+    def _process_perform_event_loop(
+        self, current_moment: Moment
+    ) -> Tuple[
+        Optional[Union[CallbackEvent, ChangeEvent]], Optional[Moment], bool, bool
+    ]:
         # There may be items in the queue which have been flagged "removed".
         # They contribute to the queue's size, but cannot be retrieved by .get().
         try:
@@ -382,7 +386,9 @@ class BaseClock:
                 continue
             elif should_break:
                 break
-            if event.event_type == EventType.CHANGE:
+            if event is None or desired_moment is None:
+                raise ValueError(event, desired_moment)
+            if isinstance(event, ChangeEvent):
                 current_moment, should_continue = self._perform_change_event(
                     event, current_moment, desired_moment
                 )

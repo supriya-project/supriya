@@ -9,6 +9,7 @@ from .ephemera import (
     CallbackCommand,
     CallbackEvent,
     ChangeCommand,
+    ChangeEvent,
     ClockContext,
     EventType,
     Moment,
@@ -70,7 +71,9 @@ class AsyncClock(BaseClock):
                 continue
             elif should_break:
                 break
-            if event.event_type == EventType.CHANGE:
+            if event is None or desired_moment is None:
+                raise ValueError(event, desired_moment)
+            if isinstance(event, ChangeEvent):
                 current_moment, should_continue = self._perform_change_event(
                     event, current_moment, desired_moment
                 )

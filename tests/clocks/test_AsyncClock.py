@@ -28,7 +28,7 @@ async def clock(mocker, monkeypatch):
 
     clock = AsyncClock()
     clock.slop = 0.01
-    monkeypatch.setattr(AsyncClock, "_wait_for_event", wait_for_event)
+    monkeypatch.setattr(AsyncClock, "_wait_for_event_async", wait_for_event)
     mock_time = mocker.patch.object(AsyncClock, "get_current_time")
     mock_time.return_value = 0.0
     yield clock
