@@ -98,9 +98,13 @@ class Event(Action):
 
     def __eq__(self, other: object) -> bool:
         # Need to act like a tuple here
-        if not isinstance(other, Action):
+        if not isinstance(other, Event):
             return NotImplemented
-        return (self.event_type, self.event_id) == (other.event_type, other.event_id)
+        return (self.seconds, self.event_type, self.event_id) == (
+            other.seconds,
+            other.event_type,
+            other.event_id,
+        )
 
     def __lt__(self, other: object) -> bool:
         # Need to act like a tuple here

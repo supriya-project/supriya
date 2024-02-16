@@ -15,7 +15,7 @@ from .ephemera import (
     TimeUnit,
 )
 
-logger = logging.getLogger("supriya.clocks")
+logger = logging.getLogger(__name__)
 
 
 class AsyncClock(BaseClock):

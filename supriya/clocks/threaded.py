@@ -7,7 +7,7 @@ from typing import Optional, Tuple
 from .bases import BaseClock
 from .ephemera import Action, Command, Moment
 
-logger = logging.getLogger("supriya.clocks")
+logger = logging.getLogger(__name__)
 
 
 class Clock(BaseClock):

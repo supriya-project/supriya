@@ -1,4 +1,5 @@
 import queue
+from typing import Dict, List, Optional
 
 from .ephemera import Event
 
@@ -6,23 +7,19 @@ from .ephemera import Event
 class EventQueue(queue.PriorityQueue[Event]):
     ### PRIVATE METHODS ###
 
-    def _init(self, maxsize):
-        self.queue = []
-        self.items = {}
+    def _init(self, maxsize: Optional[int]) -> None:
+        self.queue: List[Event] = []
+        self.flags: Dict[Event, bool] = {}
 
-    def _put(self, item: Event):
-        entry = [item, True]
-        if item in self.items:
-            self.items[item][-1] = False
-        self.items[item] = entry
-        super()._put(entry)
+    def _put(self, event: Event) -> None:
+        self.flags[event] = True
+        super()._put(event)
 
     def _get(self) -> Event:
         while self.queue:
-            item, active = super()._get()
-            if active:
-                del self.items[item]
-                return item
+            if not self.flags.pop((event := super()._get()), None):
+                continue
+            return event
         raise queue.Empty
 
     ### PUBLIC METHODS ###
@@ -33,14 +30,9 @@ class EventQueue(queue.PriorityQueue[Event]):
 
     def peek(self) -> Event:
         with self.mutex:
-            item = self._get()
-            entry = [item, True]
-            self.items[item] = entry
-            super()._put(entry)
-        return item
+            self._put(event := self._get())
+        return event
 
-    def remove(self, item: Event) -> None:
+    def remove(self, event: Event) -> None:
         with self.mutex:
-            entry = self.items.pop(item, None)
-            if entry is not None:
-                entry[-1] = False
+            self.flags.pop(event, None)

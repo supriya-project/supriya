@@ -6,7 +6,7 @@ from .asynchronous import AsyncClock
 from .bases import BaseClock
 from .ephemera import CallbackEvent, ClockContext, Moment, TimeUnit
 
-logger = logging.getLogger("supriya.clocks")
+logger = logging.getLogger(__name__)
 
 
 class OfflineClock(BaseClock):

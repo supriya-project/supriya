@@ -26,7 +26,7 @@ from .ephemera import (
 )
 from .eventqueue import EventQueue
 
-logger = logging.getLogger("supriya.clocks")
+logger = logging.getLogger(__name__)
 
 
 class BaseClock:
