@@ -63,7 +63,7 @@ class BaseClock:
         self._event_queue = EventQueue()
         self._is_running = False
         self._slop = 0.001
-        self._events_by_id: Dict[int, Action] = {}
+        self._actions_by_id: Dict[int, Action] = {}
         self._measure_relative_event_ids: Set[int] = set()
         self._offset_relative_event_ids: Set[int] = set()
         self._state = ClockState(
@@ -195,17 +195,17 @@ class BaseClock:
     ### SCHEDULING METHODS ###
 
     def _cancel(self, event_id) -> Optional[Action]:
-        event = self._events_by_id.pop(event_id, None)
-        if event is not None and isinstance(event, Event):
-            self._event_queue.remove(event)
-            if event.offset is not None:
-                self._offset_relative_event_ids.remove(event.event_id)
-                if event.measure is not None:
-                    self._measure_relative_event_ids.remove(event.event_id)
-        return event
+        action = self._actions_by_id.pop(event_id, None)
+        if action is not None and isinstance(action, Event):
+            self._event_queue.remove(action)
+            if action.offset is not None:
+                self._offset_relative_event_ids.remove(action.event_id)
+                if action.measure is not None:
+                    self._measure_relative_event_ids.remove(action.event_id)
+        return action
 
     def _enqueue_command(self, command: Command) -> None:
-        self._events_by_id[command.event_id] = command
+        self._actions_by_id[command.event_id] = command
         self._command_deque.append(command)
         if isinstance(command, CallbackCommand):
             logger.debug(
@@ -217,7 +217,7 @@ class BaseClock:
             )
 
     def _enqueue_event(self, event: Union[CallbackEvent, ChangeEvent]) -> None:
-        self._events_by_id[event.event_id] = event
+        self._actions_by_id[event.event_id] = event
         self._event_queue.put(event)
         if event.offset is not None:
             self._offset_relative_event_ids.add(event.event_id)
@@ -235,7 +235,7 @@ class BaseClock:
             event = self._event_queue.get()
         except queue.Empty:
             return None, None, True, False
-        if self._events_by_id.pop(event.event_id, None) is None:
+        if self._actions_by_id.pop(event.event_id, None) is None:
             return None, None, True, False
         if current_moment.seconds < event.seconds:
             self._enqueue_event(event)
@@ -395,7 +395,7 @@ class BaseClock:
         while self._command_deque:
             logger.debug(f"[{self.name}] ... Processing command deque ({first_run})")
             command = self._command_deque.popleft()
-            if self._events_by_id.pop(command.event_id, None) is None:
+            if self._actions_by_id.pop(command.event_id, None) is None:
                 continue
             schedule_at = command.schedule_at
             logger.debug(f"[{self.name}] ... ... Scheduled at {schedule_at}")
@@ -591,11 +591,11 @@ class BaseClock:
     def get_current_time(self) -> float:
         return time.time()
 
-    def peek(self):
+    def peek(self) -> Optional[Event]:
         try:
             return self._event_queue.peek()
         except queue.Empty:
-            pass
+            return None
 
     @classmethod
     def quantization_to_beats(cls, quantization) -> float:

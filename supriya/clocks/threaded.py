@@ -5,7 +5,7 @@ import threading
 from typing import Optional, Tuple
 
 from .bases import BaseClock
-from .ephemera import Action, Moment
+from .ephemera import Action, Command, Moment
 
 logger = logging.getLogger("supriya.clocks")
 
@@ -13,7 +13,7 @@ logger = logging.getLogger("supriya.clocks")
 class Clock(BaseClock):
     ### CLASS VARIABLES ###
 
-    _default_clock = None
+    _default_clock: Optional["Clock"] = None
 
     ### INITIALIZER ###
 
@@ -25,11 +25,11 @@ class Clock(BaseClock):
 
     ### SCHEDULING METHODS ###
 
-    def _enqueue_command(self, command):
+    def _enqueue_command(self, command: Command) -> None:
         super()._enqueue_command(command)
         self._event.set()
 
-    def _run(self, *args, offline=False, **kwargs):
+    def _run(self, *args, offline=False, **kwargs) -> None:
         logger.debug(f"[{self.name}] Thread start")
         self._process_command_deque(first_run=True)
         while self._is_running:
@@ -89,7 +89,7 @@ class Clock(BaseClock):
         return event
 
     @classmethod
-    def default(cls):
+    def default(cls) -> "Clock":
         if cls._default_clock is None:
             cls._default_clock = cls()
         return cls._default_clock
@@ -101,7 +101,7 @@ class Clock(BaseClock):
         initial_measure: int = 1,
         beats_per_minute: Optional[float] = None,
         time_signature: Optional[Tuple[int, int]] = None,
-    ):
+    ) -> None:
         self._start(
             initial_time=initial_time,
             initial_offset=initial_offset,
@@ -112,7 +112,7 @@ class Clock(BaseClock):
         self._thread = threading.Thread(target=self._run, args=(self,), daemon=True)
         self._thread.start()
 
-    def stop(self):
+    def stop(self) -> None:
         if self._stop():
             self._event.set()
             self._thread.join()
