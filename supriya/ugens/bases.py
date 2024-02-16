@@ -212,7 +212,7 @@ def param(
 
 
 def ugen(
-    cls: Optional[Type] = None,
+    cls: Optional[Type["UGen"]] = None,
     *,
     ar: bool = False,
     kr: bool = False,
@@ -228,7 +228,7 @@ def ugen(
     channel_count: int = 1,
     fixed_channel_count: bool = False,
     signal_range: Optional[int] = None,
-) -> Union[Type, Callable[[Type], Type]]:
+) -> Union[Type["UGen"], Callable[[Type["UGen"]], Type["UGen"]]]:
     """
     Decorate a UGen class.
 
