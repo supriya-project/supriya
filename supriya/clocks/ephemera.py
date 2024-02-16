@@ -1,6 +1,26 @@
 import dataclasses
 import enum
-from typing import Callable, Dict, NamedTuple, Optional, Tuple, Union
+from typing import Callable, Dict, Literal, NamedTuple, Optional, Tuple, Union
+
+Quantization = Literal[
+    "8M",
+    "4M",
+    "2M",
+    "1M",
+    "1/2",
+    "1/2T",
+    "1/4",
+    "1/4T",
+    "1/8",
+    "1/8T",
+    "1/16",
+    "1/16T",
+    "1/32",
+    "1/32T",
+    "1/64",
+    "1/64T",
+    "1/128",
+]
 
 
 class EventType(enum.IntEnum):
@@ -48,9 +68,9 @@ class CallbackCommand(NamedTuple):
     event_type: int
     kwargs: Optional[Dict]
     procedure: Callable
-    quantization: Optional[str]
+    quantization: Optional[Quantization]
     schedule_at: float
-    time_unit: Optional[int]
+    time_unit: Optional[TimeUnit]
 
 
 class CallbackEvent(NamedTuple):
@@ -72,10 +92,10 @@ class ChangeCommand(NamedTuple):
     beats_per_minute: Optional[float]
     event_id: int
     event_type: int
-    quantization: Optional[str]
+    quantization: Optional[Quantization]
     schedule_at: float
     time_signature: Optional[Tuple[int, int]]
-    time_unit: Optional[int]
+    time_unit: Optional[TimeUnit]
 
 
 class ChangeEvent(NamedTuple):
@@ -84,8 +104,8 @@ class ChangeEvent(NamedTuple):
     event_id: int
     measure: Optional[int]
     offset: Optional[float]
-    beats_per_minute: float
-    time_signature: Tuple[int, int]
+    beats_per_minute: Optional[float]
+    time_signature: Optional[Tuple[int, int]]
 
     def __hash__(self):
         return hash((type(self), self.event_id))

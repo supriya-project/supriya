@@ -6,7 +6,7 @@ import logging
 import queue
 import time
 import traceback
-from typing import Deque, Dict, FrozenSet, Literal, Optional, Set, Tuple, Union
+from typing import Deque, Dict, FrozenSet, Optional, Set, Tuple, Union
 
 from .. import conversions
 from .ephemera import (
@@ -18,31 +18,12 @@ from .ephemera import (
     ClockState,
     EventType,
     Moment,
+    Quantization,
     TimeUnit,
 )
 from .eventqueue import EventQueue
 
 logger = logging.getLogger("supriya.clocks")
-
-Quantization = Literal[
-    "8M",
-    "4M",
-    "2M",
-    "1M",
-    "1/2",
-    "1/2T",
-    "1/4",
-    "1/4T",
-    "1/8",
-    "1/8T",
-    "1/16",
-    "1/16T",
-    "1/32",
-    "1/32T",
-    "1/64",
-    "1/64T",
-    "1/128",
-]
 
 
 class BaseClock:
@@ -409,7 +390,7 @@ class BaseClock:
                 self._process_command_deque()
         return current_moment
 
-    def _process_command_deque(self, first_run=False):
+    def _process_command_deque(self, first_run: bool = False) -> None:
         while self._command_deque:
             logger.debug(f"[{self.name}] ... Processing command deque ({first_run})")
             command = self._command_deque.popleft()
@@ -418,6 +399,9 @@ class BaseClock:
             schedule_at = command.schedule_at
             logger.debug(f"[{self.name}] ... ... Scheduled at {schedule_at}")
             if command.quantization is not None:
+                seconds: float
+                offset: Optional[float]
+                measure: Optional[int]
                 # If the command was queued before the clock was started,
                 # reset its reference time
                 if first_run and schedule_at < self._state.initial_seconds:
@@ -434,7 +418,7 @@ class BaseClock:
                     schedule_at += self._state.initial_seconds
                 seconds, offset, measure = schedule_at, None, None
             if isinstance(command, CallbackCommand):
-                event = CallbackEvent(
+                event: Union[CallbackEvent, ChangeEvent] = CallbackEvent(
                     args=command.args,
                     event_id=command.event_id,
                     kwargs=command.kwargs,
