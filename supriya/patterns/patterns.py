@@ -24,7 +24,7 @@ from uuid import UUID
 from uqbar.objects import get_vars
 
 import supriya.patterns
-from supriya.clocks import BaseClock, Clock, ClockContext, OfflineClock
+from supriya.clocks import BaseClock, Clock, ClockContext, OfflineClock, Quantization
 from supriya.contexts import Bus, Context, Node, Score
 
 from .events import CompositeEvent, Event, Priority
@@ -272,7 +272,7 @@ class Pattern(metaclass=abc.ABCMeta):
             ]
         ] = None,
         clock: Optional[BaseClock] = None,
-        quantization: Optional[str] = None,
+        quantization: Optional[Quantization] = None,
         target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
         tempo: Optional[float] = None,
@@ -348,9 +348,7 @@ class BinaryOpPattern(Pattern):
 class UnaryOpPattern(Pattern):
     ### INITIALIZER ###
 
-    def __init__(
-        self, operator_: Callable[[T], T], expr: Union["Pattern", float]
-    ) -> None:
+    def __init__(self, operator_: Callable, expr: Pattern) -> None:
         self.operator_ = operator_
         self.expr = expr
 

@@ -17,7 +17,14 @@ from typing import (
 from uuid import UUID, uuid4
 from weakref import WeakSet
 
-from ..clocks import BaseClock, CallbackEvent, Clock, ClockContext, OfflineClock
+from ..clocks import (
+    BaseClock,
+    CallbackEvent,
+    Clock,
+    ClockContext,
+    OfflineClock,
+    Quantization,
+)
 from ..contexts import Bus, Context, ContextObject, Node
 from .eventpatterns import Pattern
 from .events import Event, Priority, StartEvent, StopEvent
@@ -224,7 +231,7 @@ class PatternPlayer:
 
     def play(
         self,
-        quantization: Optional[str] = None,
+        quantization: Optional[Quantization] = None,
         at: Optional[float] = None,
         until: Optional[float] = None,
     ) -> None:
@@ -249,7 +256,7 @@ class PatternPlayer:
         ):
             self._clock.start(initial_time=at)
 
-    def stop(self, quantization: Optional[str] = None) -> None:
+    def stop(self, quantization: Optional[Quantization] = None) -> None:
         with self._lock:
             if not self._is_running or self._is_stopping:
                 return

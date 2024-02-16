@@ -2,10 +2,17 @@ import asyncio
 import logging
 import queue
 import traceback
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Union
 
 from .bases import BaseClock
-from .ephemera import CallbackEvent, ClockContext, EventType, Moment
+from .ephemera import (
+    CallbackCommand,
+    CallbackEvent,
+    ChangeCommand,
+    ClockContext,
+    EventType,
+    Moment,
+)
 
 logger = logging.getLogger("supriya.clocks")
 
@@ -22,7 +29,7 @@ class AsyncClock(BaseClock):
 
     ### SCHEDULING METHODS ###
 
-    def _enqueue_command(self, command) -> None:
+    def _enqueue_command(self, command: Union[CallbackCommand, ChangeCommand]) -> None:
         super()._enqueue_command(command)
         self._event.set()
 

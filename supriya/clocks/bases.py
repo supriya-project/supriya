@@ -6,7 +6,7 @@ import logging
 import queue
 import time
 import traceback
-from typing import Deque, Dict, Optional, Set, Tuple, Union
+from typing import Deque, Dict, FrozenSet, Literal, Optional, Set, Tuple, Union
 
 from .. import conversions
 from .ephemera import (
@@ -24,11 +24,31 @@ from .eventqueue import EventQueue
 
 logger = logging.getLogger("supriya.clocks")
 
+Quantization = Literal[
+    "8M",
+    "4M",
+    "2M",
+    "1M",
+    "1/2",
+    "1/2T",
+    "1/4",
+    "1/4T",
+    "1/8",
+    "1/8T",
+    "1/16",
+    "1/16T",
+    "1/32",
+    "1/32T",
+    "1/64",
+    "1/64T",
+    "1/128",
+]
+
 
 class BaseClock:
     ### CLASS VARIABLES ###
 
-    _valid_quantizations = frozenset(
+    _valid_quantizations: FrozenSet[Quantization] = frozenset(
         [
             "8M",
             "4M",
@@ -61,7 +81,9 @@ class BaseClock:
         self._event_queue = EventQueue()
         self._is_running = False
         self._slop = 0.001
-        self._events_by_id: Dict[int, Union[CallbackEvent, ChangeEvent]] = {}
+        self._events_by_id: Dict[
+            int, Union[CallbackCommand, CallbackEvent, ChangeCommand, ChangeEvent]
+        ] = {}
         self._measure_relative_event_ids: Set[int] = set()
         self._offset_relative_event_ids: Set[int] = set()
         self._state = ClockState(
@@ -76,7 +98,7 @@ class BaseClock:
 
     ### TIME METHODS ###
 
-    def _get_cue_point(self, seconds, quantization):
+    def _get_cue_point(self, seconds: float, quantization):
         moment = self._seconds_to_moment(seconds)
         if quantization is None:
             offset, measure = moment.offset, None
@@ -200,7 +222,7 @@ class BaseClock:
                     self._measure_relative_event_ids.remove(event.event_id)
         return event
 
-    def _enqueue_command(self, command):
+    def _enqueue_command(self, command: Union[CallbackCommand, ChangeCommand]) -> None:
         self._events_by_id[command.event_id] = command
         self._command_deque.append(command)
         if isinstance(command, CallbackCommand):
@@ -515,7 +537,7 @@ class BaseClock:
         args=None,
         event_type: int = EventType.SCHEDULE,
         kwargs=None,
-        quantization: Optional[str] = None,
+        quantization: Optional[Quantization] = None,
     ) -> int:
         if event_type <= 0:
             raise ValueError(f"Invalid event type {event_type}")
@@ -539,7 +561,7 @@ class BaseClock:
         self,
         *,
         beats_per_minute: Optional[float] = None,
-        quantization: Optional[str] = None,
+        quantization: Optional[Quantization] = None,
         time_signature: Optional[Tuple[int, int]] = None,
     ) -> int:
         if quantization is not None and quantization not in self._valid_quantizations:
