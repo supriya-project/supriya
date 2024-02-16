@@ -2,7 +2,7 @@ import asyncio
 import logging
 import queue
 import traceback
-from typing import Optional, Tuple
+from typing import Awaitable, Optional, Tuple
 
 from .bases import BaseClock
 from .ephemera import (
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 class AsyncClock(BaseClock):
     def __init__(self) -> None:
         BaseClock.__init__(self)
-        self._task: Optional[asyncio.Task] = None
+        self._task: Optional[Awaitable[None]] = None
         self._slop = 1.0
         try:
             self._event = asyncio.Event()
