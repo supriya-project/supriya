@@ -319,10 +319,6 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
         raise NotImplementedError
 
 
-class BaseEventPattern(Pattern[Event]):
-    ...
-
-
 class BinaryOpPattern(Pattern[T]):
     ### INITIALIZER ###
 
