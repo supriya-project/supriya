@@ -3,6 +3,7 @@ Enumerations.
 """
 
 from collections.abc import Sequence
+from typing import cast
 
 from uqbar.enums import IntEnumeration, StrictEnumeration
 
@@ -86,7 +87,7 @@ class CalculationRate(IntEnumeration):
     IR = 0
 
     @classmethod
-    def from_expr(cls, expr):
+    def from_expr(cls, expr) -> "CalculationRate":
         """
         Gets calculation-rate.
 
@@ -128,13 +129,13 @@ class CalculationRate(IntEnumeration):
         from .ugens import OutputProxy, UGen
 
         if isinstance(expr, (int, float)) and not isinstance(expr, cls):
-            return CalculationRate.SCALAR
+            return cast(CalculationRate, CalculationRate.SCALAR)
         elif isinstance(expr, (OutputProxy, UGen)):
             return expr.calculation_rate
         elif isinstance(expr, Parameter):
             name = expr.parameter_rate.name
             if name == "TRIGGER":
-                return CalculationRate.CONTROL
+                return cast(CalculationRate, CalculationRate.CONTROL)
             return CalculationRate.from_expr(name)
         elif isinstance(expr, str):
             return super().from_expr(expr)
@@ -145,7 +146,7 @@ class CalculationRate(IntEnumeration):
         return super().from_expr(expr)
 
     @property
-    def token(self):
+    def token(self) -> str:
         if self == CalculationRate.SCALAR:
             return "ir"
         elif self == CalculationRate.CONTROL:
@@ -211,19 +212,20 @@ class NodeAction(IntEnumeration):
     NODE_QUERIED = 5
 
     @classmethod
-    def from_expr(cls, address):
+    def from_expr(cls, address) -> "NodeAction":
         if isinstance(address, cls):
             return address
-        addresses = {
-            "/n_end": cls.NODE_REMOVED,
-            "/n_go": cls.NODE_CREATED,
-            "/n_info": cls.NODE_QUERIED,
-            "/n_move": cls.NODE_MOVED,
-            "/n_off": cls.NODE_DEACTIVATED,
-            "/n_on": cls.NODE_ACTIVATED,
-        }
-        action = addresses[address]
-        return action
+        return cast(
+            NodeAction,
+            {
+                "/n_end": cls.NODE_REMOVED,
+                "/n_go": cls.NODE_CREATED,
+                "/n_info": cls.NODE_QUERIED,
+                "/n_move": cls.NODE_MOVED,
+                "/n_off": cls.NODE_DEACTIVATED,
+                "/n_on": cls.NODE_ACTIVATED,
+            }[address],
+        )
 
 
 class ParameterRate(IntEnumeration):
@@ -313,7 +315,7 @@ class RequestId(IntEnumeration):
     VERSION = 64
 
     @property
-    def request_name(self):
+    def request_name(self) -> str:
         return RequestName.from_expr(self.name)
 
 
@@ -389,7 +391,7 @@ class RequestName(StrictEnumeration):
     VERSION = "/version"
 
     @property
-    def request_id(self):
+    def request_id(self) -> str:
         return RequestId.from_expr(self.name)
 
 

@@ -1,7 +1,7 @@
 import collections
 import dataclasses
 from collections.abc import Sequence
-from typing import Optional, Tuple, Union
+from typing import Optional, Tuple, Union, cast
 
 from uqbar.objects import get_repr
 
@@ -121,7 +121,7 @@ class Range:
 class Parameter(UGenMethodMixin):
     lag: Optional[float] = None
     name: Optional[str] = None
-    parameter_rate: int = ParameterRate.CONTROL
+    parameter_rate: ParameterRate = cast(ParameterRate, ParameterRate.CONTROL)
     range_: Optional[Range] = None
     unit: Optional[Unit] = None
     value: Union[float, Tuple[float, ...]] = 0.0

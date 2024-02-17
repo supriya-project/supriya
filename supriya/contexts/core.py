@@ -53,7 +53,7 @@ from .entities import (
     RootNode,
     Synth,
 )
-from .errors import ContextError, InvalidCalculationRate, MomentClosed
+from .errors import AllocationError, ContextError, InvalidCalculationRate, MomentClosed
 from .requests import (
     AllocateBuffer,
     AllocateReadBuffer,
@@ -265,18 +265,26 @@ class Context(metaclass=abc.ABCMeta):
         count: int = 1,
         permanent: bool = False,
     ) -> int:
+        id_: Optional[int] = None
         if type_ is Node:
             if permanent:
-                return self._node_id_allocator.allocate_permanent_node_id()
-            return self._node_id_allocator.allocate_node_id()
-        if type_ is Buffer:
-            return self._buffer_allocator.allocate(count)
-        if type_ is Bus:
+                id_ = self._node_id_allocator.allocate_permanent_node_id()
+            else:
+                id_ = self._node_id_allocator.allocate_node_id()
+        elif type_ is Buffer:
+            id_ = self._buffer_allocator.allocate(count)
+        elif type_ is Bus:
             if calculation_rate is CalculationRate.AUDIO:
-                return self._audio_bus_allocator.allocate(count)
+                id_ = self._audio_bus_allocator.allocate(count)
             elif calculation_rate is CalculationRate.CONTROL:
-                return self._control_bus_allocator.allocate(count)
-        raise ValueError
+                id_ = self._control_bus_allocator.allocate(count)
+            else:
+                raise ValueError(calculation_rate)
+        else:
+            raise ValueError(type_)
+        if id_ is None:
+            raise AllocationError
+        return id_
 
     @staticmethod
     def _apply_completions(

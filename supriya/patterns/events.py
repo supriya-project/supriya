@@ -1,5 +1,5 @@
 import enum
-from typing import Any, Dict, Optional, Sequence, Tuple, Union
+from typing import Any, Dict, List, Optional, Sequence, SupportsFloat, Tuple, Union
 from uuid import UUID
 
 from uqbar.objects import get_repr, get_vars, new
@@ -114,14 +114,14 @@ class BusFreeEvent(Event):
 
 
 class CompositeEvent(Event):
-    def __init__(self, events, *, delta: float = 0.0, **kwargs) -> None:
+    def __init__(self, events: List[Event], *, delta: float = 0.0, **kwargs) -> None:
         Event.__init__(self, delta=delta)
         self.events = (
             events if not kwargs else [new(event, **kwargs) for event in events]
         )
 
-    def expand(self, offset) -> Sequence[Tuple[float, Priority, "Event"]]:
-        events = []
+    def expand(self, offset: float) -> Sequence[Tuple[float, Priority, Event]]:
+        events: List[Tuple[float, Priority, Event]] = []
         for event in self.events:
             events.extend(event.expand(offset))
             offset += event.delta
@@ -207,7 +207,10 @@ class NoteEvent(NodeEvent):
         duration: float = 1.0,
         synthdef: Optional[SynthDef] = None,
         target_node: Optional[Union[Node, UUID]] = None,
-        **kwargs,
+        **kwargs: Union[
+            Union[SupportsFloat, UUID],
+            Sequence[Union[SupportsFloat, UUID]],
+        ],
     ) -> None:
         NodeEvent.__init__(
             self,
@@ -221,7 +224,7 @@ class NoteEvent(NodeEvent):
         self.synthdef = synthdef
         self.kwargs = kwargs
 
-    def expand(self, offset: float) -> Sequence[Tuple[float, Priority, "Event"]]:
+    def expand(self, offset: float) -> Sequence[Tuple[float, Priority, Event]]:
         starts, stops = [], []
         for i, proxy_mapping in enumerate(expand(self.kwargs)):
             if not isinstance(self.id_, UUID):
@@ -229,6 +232,7 @@ class NoteEvent(NodeEvent):
             event: Event = type(self)(
                 id_=(self.id_, i),
                 add_action=self.add_action,
+                delta=self.delta,
                 duration=self.duration,
                 synthdef=self.synthdef,
                 target_node=self.target_node,
@@ -240,7 +244,7 @@ class NoteEvent(NodeEvent):
             stops.append((stop_offset, Priority.STOP, event))
         return starts + stops
 
-    def merge(self, event) -> "Event":
+    def merge(self, event: Event) -> Event:
         _, _, kwargs = get_vars(event)
         return new(self, **kwargs)
 
@@ -259,14 +263,22 @@ class NoteEvent(NodeEvent):
             #    if yes, update settings
             #    if no, create proxy
             # update notes mapping with expected completion offset
-            settings = self.kwargs.copy()
-            for key, value in settings.items():
+            settings: Dict[str, Union[SupportsFloat, Sequence[SupportsFloat]]] = {}
+            for key, value in self.kwargs.items():
                 if isinstance(value, UUID):
                     settings[key] = proxy_mapping[value]
+                elif isinstance(value, Sequence):
+                    settings[key] = [
+                        float(proxy_mapping[x] if isinstance(x, UUID) else x)
+                        for x in value
+                    ]
+                else:
+                    settings[key] = float(value)
             # add the synth
             if self.id_ not in proxy_mapping:
                 proxy_mapping[self.id_] = context.add_synth(
                     add_action=self.add_action,
+                    permanent=False,
                     synthdef=self.synthdef or default,
                     target_node=self._resolve_target_node(
                         proxy_mapping,
@@ -296,7 +308,7 @@ class NoteEvent(NodeEvent):
 
 
 class NullEvent(Event):
-    def expand(self, offset) -> Sequence[Tuple[float, Priority, "Event"]]:
+    def expand(self, offset: float) -> Sequence[Tuple[float, Priority, Event]]:
         return []
 
 
@@ -309,7 +321,7 @@ class SynthAllocateEvent(NodeEvent):
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         delta: float = 0.0,
         target_node: Optional[Union[Node, UUID]] = None,
-        **kwargs,
+        **kwargs: Union[SupportsFloat, Sequence[SupportsFloat], UUID],
     ) -> None:
         NodeEvent.__init__(
             self,
@@ -331,13 +343,15 @@ class SynthAllocateEvent(NodeEvent):
         priority: Priority,
         **kwargs,
     ) -> None:
-        settings = self.kwargs.copy()
-        for key, value in settings.items():
+        settings: Dict[str, Union[SupportsFloat, Sequence[SupportsFloat]]] = {}
+        for key, value in self.kwargs.items():
             if isinstance(value, UUID):
-                settings[key] = proxy_mapping[value]
+                value = proxy_mapping[value]
+            settings[key] = value
         # add the synth
         proxy_mapping[self.id_] = context.add_synth(
             add_action=self.add_action,
+            permanent=False,
             synthdef=self.synthdef,
             target_node=self._resolve_target_node(
                 proxy_mapping,

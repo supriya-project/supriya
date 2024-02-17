@@ -61,7 +61,7 @@ class LocalIn(UGen):
         if not isinstance(default, Sequence):
             default = (default,)
         default = (float(_) for _ in default)
-        default = utils.repeat_sequence_to_length(default, channel_count)
+        default = utils.repeat_to_length(default, channel_count)
         default = list(default)[:channel_count]
         UGen.__init__(self, calculation_rate=calculation_rate, default=default)
 

@@ -1,9 +1,10 @@
 import subprocess
+from pathlib import Path
 
 import uqbar.io
 
 
-def websafe_audio(output_path):
+def websafe_audio(output_path: Path) -> Path:
     # Convert to MP3 if possible for smaller file sizes:
     if uqbar.io.find_executable("lame"):
         new_output_path = output_path.with_suffix(".mp3")

@@ -7,17 +7,20 @@ import inspect
 import itertools
 import operator
 import random
-from collections.abc import Sequence
 from typing import (
     TYPE_CHECKING,
     Callable,
     Coroutine,
     Dict,
     Generator,
+    Generic,
     Iterator,
     Optional,
+    Sequence,
+    Tuple,
     TypeVar,
     Union,
+    cast,
 )
 from uuid import UUID
 
@@ -35,20 +38,20 @@ if TYPE_CHECKING:
 T = TypeVar("T")
 
 
-class Pattern(metaclass=abc.ABCMeta):
+class Pattern(Generic[T], metaclass=abc.ABCMeta):
     ### CLASSMETHODS ###
 
     _rngs: Dict[int, Iterator[float]] = {}
 
     ### SPECIAL METHODS ###
 
-    def __abs__(self) -> "UnaryOpPattern":
+    def __abs__(self) -> "UnaryOpPattern[T]":
         return UnaryOpPattern(operator.abs, self)
 
-    def __add__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __add__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.add, self, expr)
 
-    def __and__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __and__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.and_, self, expr)
 
     def __eq__(self, expr) -> bool:
@@ -59,21 +62,21 @@ class Pattern(metaclass=abc.ABCMeta):
             expr_values = type(expr), expr
         return self_values == expr_values
 
-    def __floordiv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __floordiv__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.floordiv, self, expr)
 
-    def __ge__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __ge__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.ge, self, expr)
 
-    def __gt__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __gt__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.gt, self, expr)
 
-    def __invert__(self) -> "UnaryOpPattern":
+    def __invert__(self) -> "UnaryOpPattern[T]":
         return UnaryOpPattern(operator.invert, self)
 
-    def __iter__(self) -> Generator[Event, bool, None]:
+    def __iter__(self) -> Generator[T, bool, None]:
         should_stop = False
-        state: Optional[Dict] = self._setup_state()
+        state: Optional[Dict[str, UUID]] = self._setup_state()
         iterator = self._iterate(state)
         try:
             expr = self._adjust_recursive(next(iterator), state=state)
@@ -95,91 +98,97 @@ class Pattern(metaclass=abc.ABCMeta):
         if stop_event:
             yield stop_event
 
-    def __le__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __le__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.le, self, expr)
 
-    def __lshift__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __lshift__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.lshift, self, expr)
 
-    def __lt__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __lt__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.lt, self, expr)
 
-    def __mod__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __mod__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.mod, self, expr)
 
-    def __mul__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __mul__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.mul, self, expr)
 
-    def __neg__(self) -> "UnaryOpPattern":
+    def __neg__(self) -> "UnaryOpPattern[T]":
         return UnaryOpPattern(operator.neg, self)
 
-    def __or__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __or__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.or_, self, expr)
 
-    def __pos__(self) -> "UnaryOpPattern":
+    def __pos__(self) -> "UnaryOpPattern[T]":
         return UnaryOpPattern(operator.pos, self)
 
-    def __pow__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __pow__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.pow, self, expr)
 
-    def __radd__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __radd__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.add, expr, self)
 
-    def __rand__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __rand__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.and_, expr, self)
 
-    def __rfloordiv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __rfloordiv__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.floordiv, expr, self)
 
-    def __rlshift__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __rlshift__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.lshift, expr, self)
 
-    def __rmod__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __rmod__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.mod, expr, self)
 
-    def __rmul__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __rmul__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.mul, expr, self)
 
-    def __ror__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __ror__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.or_, expr, self)
 
-    def __rpow__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __rpow__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.pow, expr, self)
 
-    def __rrshift__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __rrshift__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.rshift, expr, self)
 
-    def __rshift__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __rshift__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.rshift, self, expr)
 
-    def __rsub__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __rsub__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.sub, expr, self)
 
-    def __rtruediv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __rtruediv__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.truediv, expr, self)
 
-    def __rxor__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __rxor__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.xor, expr, self)
 
-    def __sub__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __sub__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.sub, self, expr)
 
-    def __truediv__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __truediv__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.truediv, self, expr)
 
-    def __xor__(self, expr: Union["Pattern", float]) -> "BinaryOpPattern":
+    def __xor__(self, expr: Union["Pattern[T]", T]) -> "BinaryOpPattern[T]":
         return BinaryOpPattern(operator.xor, self, expr)
 
     ### PRIVATE METHODS ###
 
-    def _adjust(self, expr, state=None):
+    def _adjust(self, expr: T, state: Optional[Dict[str, UUID]] = None) -> T:
         return expr
 
-    def _adjust_recursive(self, expr, state=None):
+    def _adjust_recursive(self, expr: T, state: Optional[Dict[str, UUID]] = None) -> T:
         if isinstance(expr, CompositeEvent):
-            return CompositeEvent(
-                [self._adjust(event, state=state) for event in expr.events],
-                delta=expr.delta,
+            return cast(
+                T,
+                CompositeEvent(
+                    [
+                        cast(Event, self._adjust(cast(T, event), state=state))
+                        for event in expr.events
+                    ],
+                    delta=expr.delta,
+                ),
             )
         return self._adjust(expr, state=state)
 
@@ -212,7 +221,7 @@ class Pattern(metaclass=abc.ABCMeta):
             return tuple(self._freeze_recursive(_) for _ in value)
         return value
 
-    def _get_rng(self):
+    def _get_rng(self) -> Iterator[float]:
         identifier = None
         try:
             # Walk frames to find an enclosing SeedPattern._iterate()
@@ -232,19 +241,22 @@ class Pattern(metaclass=abc.ABCMeta):
         return self._get_stdlib_rng()
 
     def _get_seeded_rng(self, seed: int = 1) -> Iterator[float]:
+        mask = 0x7FFFFFFF
         while True:
-            seed = (seed * 1_103_515_245 + 12345) & 0x7FFFFFFF
-            yield float(seed) / 0x7FFFFFFF
+            seed = (seed * 1_103_515_245 + 12345) & mask
+            yield float(seed) / mask
 
     def _get_stdlib_rng(self) -> Iterator[float]:
         while True:
             yield random.random()
 
     @abc.abstractmethod
-    def _iterate(self, state=None):
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[T, bool, None]:
         raise NotImplementedError
 
-    def _loop(self, iterations=None):
+    def _loop(self, iterations: Optional[int] = None) -> Iterator[bool]:
         if iterations is None:
             while True:
                 yield True
@@ -252,10 +264,12 @@ class Pattern(metaclass=abc.ABCMeta):
             for _ in range(iterations):
                 yield True
 
-    def _setup_state(self) -> Optional[Dict]:
+    def _setup_state(self) -> Optional[Dict[str, UUID]]:
         return None
 
-    def _setup_peripherals(self, state):
+    def _setup_peripherals(
+        self, state: Optional[Dict[str, UUID]]
+    ) -> Tuple[Optional[T], Optional[T]]:
         return None, None
 
     ### PUBLIC METHODS ###
@@ -305,14 +319,14 @@ class Pattern(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
 
-class BinaryOpPattern(Pattern):
+class BinaryOpPattern(Pattern[T]):
     ### INITIALIZER ###
 
     def __init__(
         self,
-        operator_: Callable[[T, T], T],
-        expr_one: Union["Pattern", float],
-        expr_two: Union["Pattern", float],
+        operator_: Callable,
+        expr_one: Union[Pattern[T], T],
+        expr_two: Union[Pattern[T], T],
     ) -> None:
         self.operator_ = operator_
         self.expr_one = self._freeze_recursive(expr_one)
@@ -320,16 +334,20 @@ class BinaryOpPattern(Pattern):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(self, state=None):
-        expr_one = self.expr_one
-        if not isinstance(expr_one, Pattern):
-            expr_one = SequencePattern([expr_one], None)
-        expr_one = iter(expr_one)
-        expr_two = self.expr_two
-        if not isinstance(expr_two, Pattern):
-            expr_two = SequencePattern([expr_two], None)
-        expr_two = iter(expr_two)
-        for item_one, item_two in zip(expr_one, expr_two):
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[T, bool, None]:
+        iterator_one: Iterator[T] = iter(
+            self.expr_one
+            if isinstance(self.expr_one, Pattern)
+            else SequencePattern([self.expr_one], None)
+        )
+        iterator_two: Iterator[T] = iter(
+            self.expr_two
+            if isinstance(self.expr_two, Pattern)
+            else SequencePattern([self.expr_two], None)
+        )
+        for item_one, item_two in zip(iterator_one, iterator_two):
             yield self._apply_recursive(self.operator_, item_one, item_two)
 
     ### PUBLIC PROPERTIES ###
@@ -345,21 +363,22 @@ class BinaryOpPattern(Pattern):
         return expr_one_is_infinite and expr_two_is_infinite
 
 
-class UnaryOpPattern(Pattern):
+class UnaryOpPattern(Pattern[T]):
     ### INITIALIZER ###
 
-    def __init__(self, operator_: Callable, expr: Pattern) -> None:
+    def __init__(self, operator_: Callable, expr: Union[Pattern[T], T]) -> None:
         self.operator_ = operator_
         self.expr = expr
 
-    ### PRIVATE METHODS ###
-
-    def _iterate(self, state=None):
-        expr = self.expr
-        if not isinstance(expr, Pattern):
-            expr = SequencePattern([expr], None)
-        expr = iter(expr)
-        for item in expr:
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[T, bool, None]:
+        iterator: Iterator[T] = iter(
+            self.expr
+            if isinstance(self.expr, Pattern)
+            else SequencePattern([self.expr], None)
+        )
+        for item in iterator:
             yield self._apply_recursive(self.operator_, item)
 
     ### PUBLIC PROPERTIES ###
@@ -369,10 +388,10 @@ class UnaryOpPattern(Pattern):
         return not isinstance(self.expr, Pattern) or self.expr.is_infinite
 
 
-class SeedPattern(Pattern):
+class SeedPattern(Pattern[T]):
     ### INITIALIZER ###
 
-    def __init__(self, pattern: Pattern, seed: int = 0) -> None:
+    def __init__(self, pattern: Pattern[T], seed: int = 0) -> None:
         if not isinstance(pattern, Pattern):
             raise ValueError(f"Must be pattern: {pattern!r}")
         self._pattern = pattern
@@ -380,7 +399,9 @@ class SeedPattern(Pattern):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(self, state=None):
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[T, bool, None]:
         try:
             identifier = id(inspect.currentframe())
             rng = self._get_seeded_rng(seed=self.seed)
@@ -404,17 +425,21 @@ class SeedPattern(Pattern):
         return self._seed
 
 
-class SequencePattern(Pattern):
+class SequencePattern(Pattern[T]):
     ### INITIALIZER ###
 
-    def __init__(self, sequence: Sequence, iterations: Optional[int] = 1) -> None:
+    def __init__(
+        self, sequence: Sequence[Union[T, Pattern[T]]], iterations: Optional[int] = 1
+    ) -> None:
         if not isinstance(sequence, Sequence):
             raise ValueError(f"Must be sequence: {sequence!r}")
         if iterations is not None:
             iterations = int(iterations)
             if iterations < 1:
                 raise ValueError("Iterations must be null or greater than 0")
-        self._sequence = self._freeze_recursive(sequence)
+        self._sequence: Sequence[Union[T, Pattern[T]]] = self._freeze_recursive(
+            sequence
+        )
         self._iterations = iterations
 
     ### PRIVATE METHODS ###
@@ -444,6 +469,7 @@ class SequencePattern(Pattern):
     def is_infinite(self) -> bool:
         if self._iterations is None:
             return True
+        x: Union[T, Pattern[T]]
         for x in self._sequence:
             if isinstance(x, Pattern) and x.is_infinite:
                 return True

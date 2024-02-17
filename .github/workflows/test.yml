@@ -179,7 +179,7 @@ jobs:
             lame
         fi
     - name: Run Pytest
-      run: pytest --cov supriya
+      run: pytest --cov supriya --showlocals
       timeout-minutes: 15
     - name: Check for stray processes (Non-Windows)
       if: ${{ matrix.os != 'windows-latest' }}

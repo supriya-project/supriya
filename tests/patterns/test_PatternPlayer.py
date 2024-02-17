@@ -37,6 +37,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 call.at(0.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=None,
                     frequency=440,
@@ -44,6 +45,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 call.at(2.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=None,
                     frequency=550,
@@ -58,6 +60,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 call.at(4.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=None,
                     frequency=660,
@@ -72,6 +75,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 call.at(6.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=None,
                     frequency=440,
@@ -119,6 +123,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 call.at(0.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=None,
                     frequency=440,
@@ -126,6 +131,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 call.at(2.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=None,
                     frequency=550,
@@ -156,6 +162,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 call.at(0.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=Group(context=context, id_=6666),
                     frequency=440,
@@ -163,6 +170,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 call.at(2.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=Group(context=context, id_=6666),
                     frequency=550,
@@ -197,6 +205,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 ),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=Group(context=context, id_=1000),
                     frequency=440,
@@ -204,6 +213,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 call.at(2.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=Group(context=context, id_=1000),
                     frequency=550,
@@ -241,12 +251,14 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 call.at(0.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=None,
                     frequency=440,
                 ),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=None,
                     frequency=777,
@@ -254,12 +266,14 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 call.at(2.0),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=None,
                     frequency=550,
                 ),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=None,
                     frequency=888,
@@ -311,6 +325,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 ),
                 call.add_synth(
                     add_action=AddAction.ADD_AFTER,
+                    permanent=False,
                     synthdef=system_link_audio_1,
                     target_node=Group(context=context, id_=1001),
                     amplitude=1.0,
@@ -324,6 +339,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 ),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
+                    permanent=False,
                     synthdef=default,
                     target_node=Group(context=context, id_=1001),
                     frequency=440,

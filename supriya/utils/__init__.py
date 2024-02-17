@@ -7,11 +7,11 @@ These will be migrated out into a base package at some point.
 from .intervals import Interval, IntervalTree, Moment
 from .iterables import (
     expand,
-    flatten_iterable,
-    group_iterable_by_count,
+    flatten,
+    group_by_count,
     iterate_nwise,
-    repeat_sequence_to_length,
-    zip_sequences,
+    repeat_to_length,
+    zip_cycled,
 )
 
 __all__ = [
@@ -19,9 +19,9 @@ __all__ = [
     "IntervalTree",
     "Moment",
     "expand",
-    "flatten_iterable",
-    "group_iterable_by_count",
+    "flatten",
+    "group_by_count",
     "iterate_nwise",
-    "repeat_sequence_to_length",
-    "zip_sequences",
+    "repeat_to_length",
+    "zip_cycled",
 ]

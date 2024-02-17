@@ -1,3 +1,7 @@
+class AllocationError(Exception):
+    pass
+
+
 class ContextError(Exception):
     pass
 

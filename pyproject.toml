@@ -25,8 +25,8 @@ classifiers = [
   "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
 ]
 dependencies = [
-  "platformdirs >= 3.9.1",
-  "uqbar >= 0.7.2",
+  "platformdirs >= 4.0.0",
+  "uqbar >= 0.7.3",
 ]
 description = "A Python API for SuperCollider"
 dynamic = ["version"]

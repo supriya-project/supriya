@@ -76,6 +76,7 @@ class PatternPlayer:
             if (target_bus is None and target_node is None)
             else PinPattern(pattern, target_bus=target_bus, target_node=target_node)
         )
+        self._yielded = False
 
     def _clock_callback(
         self, clock_context: ClockContext, *args, **kwargs
@@ -152,12 +153,13 @@ class PatternPlayer:
 
     def _consume_iterator(self, current_offset: float) -> bool:
         try:
-            try:
+            if self._yielded:
                 index, consumed_event = self._iterator.send(self._is_stopping)
-            except TypeError:
+            else:
                 if self._is_stopping:
                     return True
                 index, consumed_event = next(self._iterator)
+                self._yielded = True
             for subindex, (expanded_offset, priority, expanded_event) in enumerate(
                 consumed_event.expand(current_offset)
             ):
@@ -199,9 +201,12 @@ class PatternPlayer:
         should_stop = False
         while True:
             try:
-                should_stop = yield (index, iterator.send(should_stop)) or should_stop
-            except TypeError:
-                should_stop = yield (index, next(iterator))
+                if index:
+                    should_stop = (
+                        yield (index, iterator.send(should_stop)) or should_stop
+                    )
+                else:
+                    should_stop = yield (index, next(iterator))
             except StopIteration:
                 return
             index += 1
@@ -242,6 +247,7 @@ class PatternPlayer:
             self._queue.put((float("-inf"), Priority.NONE, (0, 0), None))
             self._is_running = True
             self._is_stopping = False
+            self._yielded = False
             self._players.add(self)
         self._clock_event_id = self._clock.cue(
             self._clock_callback,

@@ -134,7 +134,7 @@ class Mix(PseudoUGen):
     def new(cls, sources):
         sources = cls._flatten_sources(sources)
         summed_sources = []
-        for part in utils.group_iterable_by_count(sources, 4):
+        for part in utils.group_by_count(sources, 4):
             if len(part) == 4:
                 summed_sources.append(Sum4(*part))
             elif len(part) == 3:

@@ -68,6 +68,9 @@ mypy: ## Type-check via mypy
 mypy-cov: ## Type-check via mypy with coverage reported to ./mypycov/
 	mypy --html-report ./mypycov/ ${project}/
 
+mypy-strict: ## Type-check via mypy strictly
+	mypy --strict ${project}/
+
 pytest: ## Unit test via pytest
 	rm -Rf htmlcov/
 	pytest ${testPaths} --cov=supriya
