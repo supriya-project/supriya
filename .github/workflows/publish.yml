@@ -59,7 +59,7 @@ jobs:
       uses: pypa/cibuildwheel@v2.16.5
     - uses: actions/upload-artifact@v4
       with:
-        name: dist
+        name: dist-${{ matrix.os }}
         path: ./wheelhouse/*.whl
 
   build-sdist:
@@ -71,7 +71,7 @@ jobs:
       run: pipx run build --sdist
     - uses: actions/upload-artifact@v4
       with:
-        name: dist
+        name: dist-sdist
         path: dist/*.tar.gz
 
   upload-to-pypi:
@@ -84,8 +84,9 @@ jobs:
     steps:
     - uses: actions/download-artifact@v4
       with:
-        name: dist
+        merge-multiple: true
         path: dist
+        pattern: dist-*
     - uses: pypa/gh-action-pypi-publish@release/v1
 
   update-gh-pages:
