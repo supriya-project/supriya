@@ -7,14 +7,19 @@ iterables
 
 .. currentmodule:: supriya.utils.iterables
 
+.. autoclass:: Expander
+   :show-inheritance:
+
+   .. automethod:: __call__
+
 .. autofunction:: expand
 
-.. autofunction:: flatten_iterable
+.. autofunction:: flatten
 
-.. autofunction:: group_iterable_by_count
+.. autofunction:: group_by_count
 
 .. autofunction:: iterate_nwise
 
-.. autofunction:: repeat_sequence_to_length
+.. autofunction:: repeat_to_length
 
-.. autofunction:: zip_sequences
+.. autofunction:: zip_cycled

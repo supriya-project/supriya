@@ -7,6 +7,8 @@ errors
 
 .. currentmodule:: supriya.contexts.errors
 
+.. autoexception:: AllocationError
+
 .. autoexception:: ContextError
 
 .. autoexception:: InvalidCalculationRate

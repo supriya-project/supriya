@@ -59,6 +59,7 @@ events
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: StartEvent
    :show-inheritance:

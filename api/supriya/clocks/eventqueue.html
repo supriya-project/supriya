@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_immaterial_theme.af531f03affe68837.min.css?v=2410bb73" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_immaterial_theme.03ee1730f15ed0f74.min.css?v=e1a21df1" />
         <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -688,7 +688,7 @@
       
         <li class="md-nav__item">
   <a href="#supriya.clocks.eventqueue.EventQueue" class="md-nav__link">
-    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.clocks.eventqueue.EventQueue (Python class) — Bases: PriorityQueue" class="md-ellipsis">Event<wbr>Queue</span>
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.clocks.eventqueue.EventQueue (Python class) — Bases: PriorityQueue[Event]" class="md-ellipsis">Event<wbr>Queue</span>
   </a>
   
     <nav class="md-nav" aria-label="EventQueue">
@@ -2074,7 +2074,7 @@
       
         <li class="md-nav__item">
   <a href="#supriya.clocks.eventqueue.EventQueue" class="md-nav__link">
-    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.clocks.eventqueue.EventQueue (Python class) — Bases: PriorityQueue" class="md-ellipsis">Event<wbr>Queue</span>
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="supriya.clocks.eventqueue.EventQueue (Python class) — Bases: PriorityQueue[Event]" class="md-ellipsis">Event<wbr>Queue</span>
   </a>
   
     <nav class="md-nav" aria-label="EventQueue">
@@ -2129,20 +2129,20 @@
 <dl class="py class objdesc">
 <dt class="sig sig-object highlight py" id="supriya.clocks.eventqueue.EventQueue">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EventQueue</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">maxsize</span></span><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">0</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.clocks.eventqueue.EventQueue" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/queue.html#queue.PriorityQueue" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/queue.html#queue.PriorityQueue" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a>[<a class="reference internal" href="ephemera.html#supriya.clocks.ephemera.Event" title="supriya.clocks.ephemera.Event (Python class) — Bases: Action"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>]</p>
 <dl class="py method objdesc">
 <dt class="sig sig-object highlight py" id="supriya.clocks.eventqueue.EventQueue.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.clocks.eventqueue.EventQueue.clear" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span></span><a class="headerlink" href="#supriya.clocks.eventqueue.EventQueue.clear" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method objdesc">
 <dt class="sig sig-object highlight py" id="supriya.clocks.eventqueue.EventQueue.peek">
-<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.clocks.eventqueue.EventQueue.peek" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="ephemera.html#supriya.clocks.ephemera.Event" title="supriya.clocks.ephemera.Event (Python class) — Bases: Action"><span class="pre">Event</span></a></span></span></span><a class="headerlink" href="#supriya.clocks.eventqueue.EventQueue.peek" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method objdesc">
 <dt class="sig sig-object highlight py" id="supriya.clocks.eventqueue.EventQueue.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">item</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.clocks.eventqueue.EventQueue.remove" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="ephemera.html#supriya.clocks.ephemera.Event" title="supriya.clocks.ephemera.Event (Python class) — Bases: Action"><span class="pre">Event</span></a></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span></span><a class="headerlink" href="#supriya.clocks.eventqueue.EventQueue.remove" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

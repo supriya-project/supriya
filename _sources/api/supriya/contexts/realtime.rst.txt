@@ -47,6 +47,7 @@ realtime
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: Server
    :show-inheritance:

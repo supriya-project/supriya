@@ -12,54 +12,63 @@ enums
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: BinaryOperator
    :show-inheritance:
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: CalculationRate
    :show-inheritance:
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: DoneAction
    :show-inheritance:
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: EnvelopeShape
    :show-inheritance:
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: HeaderFormat
    :show-inheritance:
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: NodeAction
    :show-inheritance:
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: ParameterRate
    :show-inheritance:
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: RequestId
    :show-inheritance:
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: RequestName
    :show-inheritance:
@@ -72,20 +81,25 @@ enums
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: SignalRange
    :show-inheritance:
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: UnaryOperator
    :show-inheritance:
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: Unit
    :show-inheritance:
    :members:
    :undoc-members:
+
+   .. automethod:: __format__

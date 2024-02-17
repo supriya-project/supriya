@@ -7,6 +7,10 @@ ephemera
 
 .. currentmodule:: supriya.clocks.ephemera
 
+.. autoclass:: Action
+   :show-inheritance:
+
+
 .. autoclass:: CallbackCommand
    :show-inheritance:
 
@@ -31,11 +35,24 @@ ephemera
    :show-inheritance:
 
 
+.. autoclass:: Command
+   :show-inheritance:
+
+
+.. autoclass:: Event
+   :show-inheritance:
+
+   .. automethod:: __ge__
+   .. automethod:: __gt__
+   .. automethod:: __le__
+   .. automethod:: __lt__
+
 .. autoclass:: EventType
    :show-inheritance:
    :members:
    :undoc-members:
 
+   .. automethod:: __format__
 
 .. autoclass:: Moment
    :show-inheritance:
@@ -45,3 +62,5 @@ ephemera
    :show-inheritance:
    :members:
    :undoc-members:
+
+   .. automethod:: __format__

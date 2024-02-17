@@ -10,33 +10,44 @@ patterns
 .. autoclass:: BinaryOpPattern
    :show-inheritance:
 
-   .. autoproperty:: expr_one
-   .. autoproperty:: expr_two
    .. autoproperty:: is_infinite
-   .. autoproperty:: operator
 
 .. autoclass:: Pattern
    :show-inheritance:
 
    .. automethod:: __abs__
    .. automethod:: __add__
+   .. automethod:: __and__
    .. automethod:: __floordiv__
+   .. automethod:: __ge__
+   .. automethod:: __gt__
    .. automethod:: __invert__
    .. automethod:: __iter__
+   .. automethod:: __le__
+   .. automethod:: __lshift__
+   .. automethod:: __lt__
    .. automethod:: __mod__
    .. automethod:: __mul__
    .. automethod:: __neg__
+   .. automethod:: __or__
    .. automethod:: __pos__
    .. automethod:: __pow__
    .. automethod:: __radd__
+   .. automethod:: __rand__
    .. automethod:: __rfloordiv__
+   .. automethod:: __rlshift__
    .. automethod:: __rmod__
    .. automethod:: __rmul__
+   .. automethod:: __ror__
    .. automethod:: __rpow__
+   .. automethod:: __rrshift__
+   .. automethod:: __rshift__
    .. automethod:: __rsub__
    .. automethod:: __rtruediv__
+   .. automethod:: __rxor__
    .. automethod:: __sub__
    .. automethod:: __truediv__
+   .. automethod:: __xor__
    .. automethod:: play
    .. autoproperty:: is_infinite
 
@@ -55,6 +66,4 @@ patterns
 .. autoclass:: UnaryOpPattern
    :show-inheritance:
 
-   .. autoproperty:: expr
    .. autoproperty:: is_infinite
-   .. autoproperty:: operator
