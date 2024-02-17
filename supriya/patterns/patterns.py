@@ -38,9 +38,6 @@ if TYPE_CHECKING:
 T = TypeVar("T")
 
 
-T = TypeVar("T")
-
-
 class Pattern(Generic[T], metaclass=abc.ABCMeta):
     ### CLASSMETHODS ###
 
@@ -331,15 +328,9 @@ class BinaryOpPattern(Pattern[T]):
 
     def __init__(
         self,
-<<<<<<< HEAD
-        operator_: Callable[[T, T], T],
-        expr_one: Union["Pattern", float],
-        expr_two: Union["Pattern", float],
-=======
-        operator: str,
+        operator_: Callable,
         expr_one: Union[Pattern[T], float],
         expr_two: Union[Pattern[T], float],
->>>>>>> a00e1adf... Typing patterns
     ) -> None:
         self.operator_ = operator_
         self.expr_one = self._freeze_recursive(expr_one)
@@ -347,61 +338,23 @@ class BinaryOpPattern(Pattern[T]):
 
     ### PRIVATE METHODS ###
 
-<<<<<<< HEAD
-    def _iterate(self, state=None):
-        expr_one = self.expr_one
-        if not isinstance(expr_one, Pattern):
-            expr_one = SequencePattern([expr_one], None)
-        expr_one = iter(expr_one)
-        expr_two = self.expr_two
-        if not isinstance(expr_two, Pattern):
-            expr_two = SequencePattern([expr_two], None)
-        expr_two = iter(expr_two)
-        for item_one, item_two in zip(expr_one, expr_two):
-            yield self._apply_recursive(self.operator_, item_one, item_two)
-=======
     def _iterate(self, state: Optional[Dict[str, UUID]] = None):
         iterator_one = iter(
-            self._expr_one
-            if isinstance(self._expr_one, Pattern)
-            else SequencePattern([self._expr_one], None)
+            self.expr_one
+            if isinstance(self.expr_one, Pattern)
+            else SequencePattern([self.expr_one], None)
         )
         iterator_two = iter(
-            self._expr_two
-            if isinstance(self._expr_two, Pattern)
-            else SequencePattern([self._expr_two], None)
+            self.expr_two
+            if isinstance(self.expr_two, Pattern)
+            else SequencePattern([self.expr_two], None)
         )
-        operator = self._string_to_operator()
         for item_one, item_two in zip(iterator_one, iterator_two):
-            yield self._apply_recursive(operator, item_one, item_two)
-
-    def _string_to_operator(self) -> Callable[[float, float], float]:
-        operators = {
-            "%": operator.__mod__,
-            "*": operator.__mul__,
-            "**": operator.__pow__,
-            "+": operator.__add__,
-            "-": operator.__sub__,
-            "/": operator.__truediv__,
-            "//": operator.__floordiv__,
-        }
-        return operators[self.operator]
->>>>>>> a00e1adf... Typing patterns
+            yield self._apply_recursive(self.operator_, item_one, item_two)
 
     ### PUBLIC PROPERTIES ###
 
     @property
-<<<<<<< HEAD
-=======
-    def expr_one(self) -> Union[Pattern[T], float]:
-        return self._expr_one
-
-    @property
-    def expr_two(self) -> Union[Pattern[T], float]:
-        return self._expr_two
-
-    @property
->>>>>>> a00e1adf... Typing patterns
     def is_infinite(self) -> bool:
         expr_one_is_infinite = (
             not isinstance(self.expr_one, Pattern) or self.expr_one.is_infinite
@@ -415,59 +368,20 @@ class BinaryOpPattern(Pattern[T]):
 class UnaryOpPattern(Pattern[T]):
     ### INITIALIZER ###
 
-<<<<<<< HEAD
-    def __init__(self, operator_: Callable, expr: Pattern) -> None:
+    def __init__(self, operator_: Callable, expr: Pattern[T]) -> None:
         self.operator_ = operator_
         self.expr = expr
-
-    ### PRIVATE METHODS ###
-
-    def _iterate(self, state=None):
-        expr = self.expr
-        if not isinstance(expr, Pattern):
-            expr = SequencePattern([expr], None)
-        expr = iter(expr)
-        for item in expr:
-            yield self._apply_recursive(self.operator_, item)
-=======
-    def __init__(self, operator: str, expr: Union[Pattern[T], T]) -> None:
-        self._operator = operator
-        self._expr = expr
-
-    ### PRIVATE METHODS ###
 
     def _iterate(
         self, state: Optional[Dict[str, UUID]] = None
     ) -> Generator[T, bool, None]:
-        iterator: Iterator[T] = iter(
-            self._expr
-            if isinstance(self._expr, Pattern)
-            else SequencePattern([self._expr], None)
-        )
-        operator = self._string_to_operator()
+        iterator: Iterator[T] = iter(self.expr)
         for item in iterator:
-            yield self._apply_recursive(operator, item)
-
-    def _string_to_operator(self):
-        operators = {
-            "~": operator.invert,
-            "-": operator.__neg__,
-            "+": operator.__pos__,
-            "abs": operator.abs,
-        }
-        return operators[self.operator]
->>>>>>> a00e1adf... Typing patterns
+            yield self._apply_recursive(self.operator_, item)
 
     ### PUBLIC PROPERTIES ###
 
     @property
-<<<<<<< HEAD
-=======
-    def expr(self) -> Union[Pattern[T], T]:
-        return self._expr
-
-    @property
->>>>>>> a00e1adf... Typing patterns
     def is_infinite(self) -> bool:
         return not isinstance(self.expr, Pattern) or self.expr.is_infinite
 
