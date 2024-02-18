@@ -24,7 +24,7 @@ class BufChannels(UGen):
         BufChannels.kr()
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
 
 
 @ugen(kr=True, ir=True)
@@ -38,7 +38,7 @@ class BufDur(UGen):
         BufDur.kr()
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
 
 
 @ugen(kr=True, ir=True)
@@ -52,7 +52,7 @@ class BufFrames(UGen):
         BufFrames.kr()
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
 
 
 @ugen(kr=True, ir=True)
@@ -66,7 +66,7 @@ class BufRateScale(UGen):
         BufRateScale.kr()
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
 
 
 @ugen(kr=True, ir=True)
@@ -80,7 +80,7 @@ class BufSampleRate(UGen):
         BufSampleRate.kr()
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
 
 
 @ugen(kr=True, ir=True)
@@ -94,7 +94,7 @@ class BufSamples(UGen):
         BufSamples.kr()
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
 
 
 @ugen(ir=True)

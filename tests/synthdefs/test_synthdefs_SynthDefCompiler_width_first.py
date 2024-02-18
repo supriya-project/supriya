@@ -11,7 +11,7 @@ import supriya.ugens
 
 def test_01():
     with supriya.synthdefs.SynthDefBuilder() as builder:
-        local_buf = supriya.ugens.LocalBuf(2048)
+        local_buf = supriya.ugens.LocalBuf.ir(frame_count=2048)
         source = supriya.ugens.PinkNoise.ar()
         pv_chain = supriya.ugens.FFT.kr(buffer_id=local_buf, source=source)
         ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
@@ -107,7 +107,7 @@ def test_01():
 def py_synthdef_02():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         source = supriya.ugens.PinkNoise.ar()
-        local_buf = supriya.ugens.LocalBuf(2048)
+        local_buf = supriya.ugens.LocalBuf.ir(frame_count=2048)
         pv_chain = supriya.ugens.FFT.kr(buffer_id=local_buf, source=source)
         pv_chain_a = supriya.ugens.PV_BinScramble.kr(pv_chain=pv_chain)
         pv_chain_b = supriya.ugens.PV_MagFreeze.kr(pv_chain=pv_chain)

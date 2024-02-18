@@ -18,7 +18,7 @@ class BAllPass(UGen):
         BAllPass.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(1200.0)
     reciprocal_of_q = param(1.0)
 
@@ -40,7 +40,7 @@ class BBandPass(UGen):
         BBandPass.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(1200.0)
     bandwidth = param(1.0)
 
@@ -62,7 +62,7 @@ class BBandStop(UGen):
         BBandStop.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(1200.0)
     bandwidth = param(1.0)
 
@@ -85,7 +85,7 @@ class BHiCut(UGen):
         BHiCut.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(1200.0)
     order = param(2.0)
     max_order = param(5.0)
@@ -108,7 +108,7 @@ class BHiPass(UGen):
         BHiPass.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(1200.0)
     reciprocal_of_q = param(1.0)
 
@@ -131,7 +131,7 @@ class BHiShelf(UGen):
         BHiShelf.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(1200.0)
     reciprocal_of_s = param(1.0)
     gain = param(0.0)
@@ -155,7 +155,7 @@ class BLowCut(UGen):
         BLowCut.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(1200.0)
     order = param(2.0)
     max_order = param(5.0)
@@ -178,7 +178,7 @@ class BLowPass(UGen):
         BLowPass.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(1200.0)
     reciprocal_of_q = param(1.0)
 
@@ -201,7 +201,7 @@ class BLowShelf(UGen):
         BLowShelf.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(1200.0)
     reciprocal_of_s = param(1.0)
     gain = param(0.0)
@@ -225,7 +225,7 @@ class BPeakEQ(UGen):
         BPeakEQ.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(1200.0)
     reciprocal_of_q = param(1.0)
     gain = param(0.0)

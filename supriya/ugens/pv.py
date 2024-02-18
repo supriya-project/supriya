@@ -1,4 +1,8 @@
-from .bases import UGen, UGenMethodMixin, param, ugen
+from typing import Any, Dict, Tuple
+
+from ..enums import CalculationRate
+from ..typing import Default
+from .bases import UGen, UGenOperable, param, ugen
 from .bufio import LocalBuf
 from .info import BufFrames
 
@@ -10,7 +14,7 @@ class PV_ChainUGen(UGen):
     """
 
     @property
-    def fft_size(self) -> UGenMethodMixin:
+    def fft_size(self) -> UGenOperable:
         """
         Gets FFT size as UGen input.
 
@@ -26,7 +30,7 @@ class FFT(PV_ChainUGen):
 
     ::
 
-        >>> buffer_id = supriya.ugens.LocalBuf(2048)
+        >>> buffer_id = supriya.ugens.LocalBuf.ir(frame_count=2048)
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> fft = supriya.ugens.FFT.kr(
         ...     active=1,
@@ -42,43 +46,26 @@ class FFT(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param(Default())
+    source = param()
     hop = param(0.5)
     window_type = param(0)
     active = param(1)
     window_size = param(0)
 
-    ### INITIALIZER ###
+    ### PRIVATE METHODS ###
 
-    def __init__(
-        self,
-        buffer_id=None,
-        calculation_rate=None,
-        source=None,
-        active=1,
-        hop=0.5,
-        window_size=0,
-        window_type=0,
-    ) -> None:
-        if buffer_id is None:
-            buffer_size = window_size or 2048
-            buffer_id = LocalBuf(buffer_size)
-        UGen.__init__(
-            self,
-            active=active,
-            buffer_id=buffer_id,
-            calculation_rate=calculation_rate,
-            hop=hop,
-            source=source,
-            window_size=window_size,
-            window_type=window_type,
-        )
+    def _postprocess_kwargs(
+        self, calculation_rate: CalculationRate, **kwargs
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        if isinstance(kwargs["buffer_id"], Default):
+            kwargs["buffer_id"] = LocalBuf.ir(frame_count=kwargs["window_size"] or 2048)
+        return calculation_rate, kwargs
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def fft_size(self) -> UGenMethodMixin:
+    def fft_size(self) -> UGenOperable:
         """
         Gets FFT size as UGen input.
 
@@ -94,7 +81,7 @@ class IFFT(UGen):
 
     ::
 
-        >>> pv_chain = supriya.ugens.LocalBuf(2048)
+        >>> pv_chain = supriya.ugens.LocalBuf.ir(frame_count=2048)
         >>> ifft = supriya.ugens.IFFT.ar(
         ...     pv_chain=pv_chain,
         ...     window_size=0,
@@ -104,7 +91,7 @@ class IFFT(UGen):
         IFFT.ar()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     window_type = param(0)
     window_size = param(0)
 
@@ -130,8 +117,8 @@ class PV_Add(PV_ChainUGen):
         PV_Add.kr()
     """
 
-    pv_chain_a = param(None)
-    pv_chain_b = param(None)
+    pv_chain_a = param()
+    pv_chain_b = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -154,7 +141,7 @@ class PV_BinScramble(PV_ChainUGen):
         PV_BinScramble.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     wipe = param(0)
     width = param(0.2)
     trigger = param(0)
@@ -180,7 +167,7 @@ class PV_BinShift(PV_ChainUGen):
         PV_BinShift.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     stretch = param(1.0)
     shift = param(0.0)
     interpolate = param(0)
@@ -208,8 +195,8 @@ class PV_BinWipe(PV_ChainUGen):
         PV_BinWipe.kr()
     """
 
-    pv_chain_a = param(None)
-    pv_chain_b = param(None)
+    pv_chain_a = param()
+    pv_chain_b = param()
     wipe = param(0)
 
 
@@ -236,7 +223,7 @@ class PV_BrickWall(PV_ChainUGen):
         PV_BrickWall.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     wipe = param(0)
 
 
@@ -259,7 +246,7 @@ class PV_ConformalMap(PV_ChainUGen):
         PV_ConformalMap.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     areal = param(0)
     aimag = param(0)
 
@@ -281,7 +268,7 @@ class PV_Conj(PV_ChainUGen):
         PV_Conj.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -305,8 +292,8 @@ class PV_Copy(PV_ChainUGen):
         PV_Copy.kr()
     """
 
-    pv_chain_a = param(None)
-    pv_chain_b = param(None)
+    pv_chain_a = param()
+    pv_chain_b = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -330,8 +317,8 @@ class PV_CopyPhase(PV_ChainUGen):
         PV_CopyPhase.kr()
     """
 
-    pv_chain_a = param(None)
-    pv_chain_b = param(None)
+    pv_chain_a = param()
+    pv_chain_b = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -352,7 +339,7 @@ class PV_Diffuser(PV_ChainUGen):
         PV_Diffuser.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     trigger = param(0)
 
 
@@ -377,8 +364,8 @@ class PV_Div(PV_ChainUGen):
         PV_Div.kr()
     """
 
-    pv_chain_a = param(None)
-    pv_chain_b = param(None)
+    pv_chain_a = param()
+    pv_chain_b = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -402,7 +389,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         PV_HainsworthFoote.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     proph = param(0)
     propf = param(0)
     threshold = param(1)
@@ -432,7 +419,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         PV_JensenAndersen.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     propsc = param(0.25)
     prophfe = param(0.25)
     prophfc = param(0.25)
@@ -459,7 +446,7 @@ class PV_LocalMax(PV_ChainUGen):
         PV_LocalMax.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     threshold = param(0)
 
 
@@ -481,7 +468,7 @@ class PV_MagAbove(PV_ChainUGen):
         PV_MagAbove.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     threshold = param(0)
 
 
@@ -503,7 +490,7 @@ class PV_MagBelow(PV_ChainUGen):
         PV_MagBelow.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     threshold = param(0)
 
 
@@ -525,7 +512,7 @@ class PV_MagClip(PV_ChainUGen):
         PV_MagClip.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     threshold = param(0)
 
 
@@ -551,8 +538,8 @@ class PV_MagDiv(PV_ChainUGen):
         PV_MagDiv.kr()
     """
 
-    pv_chain_a = param(None)
-    pv_chain_b = param(None)
+    pv_chain_a = param()
+    pv_chain_b = param()
     zeroed = param(0.0001)
 
 
@@ -574,7 +561,7 @@ class PV_MagFreeze(PV_ChainUGen):
         PV_MagFreeze.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     freeze = param(0)
 
 
@@ -599,8 +586,8 @@ class PV_MagMul(PV_ChainUGen):
         PV_MagMul.kr()
     """
 
-    pv_chain_a = param(None)
-    pv_chain_b = param(None)
+    pv_chain_a = param()
+    pv_chain_b = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -620,7 +607,7 @@ class PV_MagNoise(PV_ChainUGen):
         PV_MagNoise.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -642,7 +629,7 @@ class PV_MagShift(PV_ChainUGen):
         PV_MagShift.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     stretch = param(1.0)
     shift = param(0.0)
 
@@ -665,7 +652,7 @@ class PV_MagSmear(PV_ChainUGen):
         PV_MagSmear.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     bins = param(0)
 
 
@@ -686,7 +673,7 @@ class PV_MagSquared(PV_ChainUGen):
         PV_MagSquared.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -710,8 +697,8 @@ class PV_Max(PV_ChainUGen):
         PV_Max.kr()
     """
 
-    pv_chain_a = param(None)
-    pv_chain_b = param(None)
+    pv_chain_a = param()
+    pv_chain_b = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -735,8 +722,8 @@ class PV_Min(PV_ChainUGen):
         PV_Min.kr()
     """
 
-    pv_chain_a = param(None)
-    pv_chain_b = param(None)
+    pv_chain_a = param()
+    pv_chain_b = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -760,8 +747,8 @@ class PV_Mul(PV_ChainUGen):
         PV_Mul.kr()
     """
 
-    pv_chain_a = param(None)
-    pv_chain_b = param(None)
+    pv_chain_a = param()
+    pv_chain_b = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -784,8 +771,8 @@ class PV_PhaseShift(PV_ChainUGen):
         PV_PhaseShift.kr()
     """
 
-    pv_chain = param(None)
-    shift = param(None)
+    pv_chain = param()
+    shift = param()
     integrate = param(0)
 
 
@@ -806,7 +793,7 @@ class PV_PhaseShift270(PV_ChainUGen):
         PV_PhaseShift270.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -826,7 +813,7 @@ class PV_PhaseShift90(PV_ChainUGen):
         PV_PhaseShift90.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
 
 
 @ugen(kr=True, is_width_first=True)
@@ -848,7 +835,7 @@ class PV_RandComb(PV_ChainUGen):
         PV_RandComb.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     wipe = param(0)
     trigger = param(0)
 
@@ -876,8 +863,8 @@ class PV_RandWipe(PV_ChainUGen):
         PV_RandWipe.kr()
     """
 
-    pv_chain_a = param(None)
-    pv_chain_b = param(None)
+    pv_chain_a = param()
+    pv_chain_b = param()
     wipe = param(0)
     trigger = param(0)
 
@@ -902,7 +889,7 @@ class PV_RectComb(PV_ChainUGen):
         PV_RectComb.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     num_teeth = param(0)
     phase = param(0)
     width = param(0.5)
@@ -932,8 +919,8 @@ class PV_RectComb2(PV_ChainUGen):
         PV_RectComb2.kr()
     """
 
-    pv_chain_a = param(None)
-    pv_chain_b = param(None)
+    pv_chain_a = param()
+    pv_chain_b = param()
     num_teeth = param(0)
     phase = param(0)
     width = param(0.5)
@@ -955,5 +942,5 @@ class RunningSum(UGen):
         RunningSum.ar()
     """
 
-    source = param(None)
+    source = param()
     sample_count = param(40)

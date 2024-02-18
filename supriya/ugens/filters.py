@@ -1,5 +1,5 @@
 from ..enums import DoneAction
-from .bases import PseudoUGen, UGen, param, ugen
+from .bases import PseudoUGen, UGen, UGenOperable, param, ugen
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -19,7 +19,7 @@ class APF(UGen):
         APF.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(440.0)
     radius = param(0.8)
 
@@ -37,7 +37,7 @@ class BPF(UGen):
         BPF.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(440.0)
     reciprocal_of_q = param(1.0)
 
@@ -57,7 +57,7 @@ class BPZ2(UGen):
         BPZ2.ar()
     """
 
-    source = param(None)
+    source = param()
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -73,7 +73,7 @@ class BRF(UGen):
         BRF.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(440.0)
     reciprocal_of_q = param(1.0)
 
@@ -93,7 +93,7 @@ class BRZ2(UGen):
         BRZ2.ar()
     """
 
-    source = param(None)
+    source = param()
 
 
 class Changed(PseudoUGen):
@@ -129,7 +129,7 @@ class Changed(PseudoUGen):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def ar(cls, source=None, threshold=0):
+    def ar(cls, *, source, threshold=0) -> UGenOperable:
         """
         Constructs an audio-rate Changed.
 
@@ -160,11 +160,10 @@ class Changed(PseudoUGen):
 
         Returns ugen graph.
         """
-        ugen = abs(HPZ1.ar(source=source)) > threshold
-        return ugen
+        return abs(HPZ1.ar(source=source)) > threshold
 
     @classmethod
-    def kr(cls, source=None, threshold=0):
+    def kr(cls, *, source, threshold=0) -> UGenOperable:
         """
         Constructs a control-rate Changed.
 
@@ -195,8 +194,7 @@ class Changed(PseudoUGen):
 
         Returns ugen graph.
         """
-        ugen = abs(HPZ1.kr(source=source)) > threshold
-        return ugen
+        return abs(HPZ1.kr(source=source)) > threshold
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -214,7 +212,7 @@ class Decay(UGen):
         Decay.ar()
     """
 
-    source = param(None)
+    source = param()
     decay_time = param(1.0)
 
 
@@ -233,7 +231,7 @@ class Decay2(UGen):
         Decay2.ar()
     """
 
-    source = param(None)
+    source = param()
     attack_time = param(0.01)
     decay_time = param(1.0)
 
@@ -259,7 +257,7 @@ class DetectSilence(UGen):
 
     ### CLASS VARIABLES ###
 
-    source = param(None)
+    source = param()
     threshold = param(0.0001)
     time = param(0.1)
     done_action = param(DoneAction(0))
@@ -287,7 +285,7 @@ class FOS(UGen):
         FOS.ar()
     """
 
-    source = param(None)
+    source = param()
     a_0 = param(0.0)
     a_1 = param(0.0)
     b_1 = param(0.0)
@@ -311,7 +309,7 @@ class Formlet(UGen):
         Formlet.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(440.0)
     attack_time = param(1.0)
     decay_time = param(1.0)
@@ -329,7 +327,7 @@ class HPF(UGen):
         HPF.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(440.0)
 
 
@@ -348,7 +346,7 @@ class HPZ1(UGen):
         HPZ1.ar()
     """
 
-    source = param(None)
+    source = param()
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -366,7 +364,7 @@ class HPZ2(UGen):
         HPZ2.ar()
     """
 
-    source = param(None)
+    source = param()
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -385,7 +383,7 @@ class Integrator(UGen):
         Integrator.ar()
     """
 
-    source = param(None)
+    source = param()
     coefficient = param(1.0)
 
 
@@ -404,7 +402,7 @@ class Lag(UGen):
         Lag.kr()
     """
 
-    source = param(None)
+    source = param()
     lag_time = param(0.1)
 
 
@@ -424,7 +422,7 @@ class LagUD(UGen):
         LagUD.kr()
     """
 
-    source = param(None)
+    source = param()
     lag_time_up = param(0.1)
     lag_time_down = param(0.1)
 
@@ -445,7 +443,7 @@ class Lag2(UGen):
         Lag2.ar()
     """
 
-    source = param(None)
+    source = param()
     lag_time = param(0.1)
 
 
@@ -466,7 +464,7 @@ class Lag2UD(UGen):
         Lag2UD.ar()
     """
 
-    source = param(None)
+    source = param()
     lag_time_up = param(0.1)
     lag_time_down = param(0.1)
 
@@ -487,7 +485,7 @@ class Lag3(UGen):
         Lag3.ar()
     """
 
-    source = param(None)
+    source = param()
     lag_time = param(0.1)
 
 
@@ -508,7 +506,7 @@ class Lag3UD(UGen):
         Lag3UD.ar()
     """
 
-    source = param(None)
+    source = param()
     lag_time_up = param(0.1)
     lag_time_down = param(0.1)
 
@@ -529,7 +527,7 @@ class LeakDC(UGen):
         LeakDC.ar()
     """
 
-    source = param(None)
+    source = param()
     coefficient = param(0.995)
 
 
@@ -564,7 +562,7 @@ class LPZ1(UGen):
         LPZ1.ar()
     """
 
-    source = param(None)
+    source = param()
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -582,7 +580,7 @@ class LPZ2(UGen):
         LPZ2.ar()
     """
 
-    source = param(None)
+    source = param()
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -602,7 +600,7 @@ class Median(UGen):
     """
 
     length = param(3)
-    source = param(None)
+    source = param()
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -623,7 +621,7 @@ class MidEQ(UGen):
         MidEQ.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(440.0)
     reciprocal_of_q = param(1.0)
     db = param(0.0)
@@ -647,7 +645,7 @@ class MoogFF(UGen):
         MoogFF.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(100.0)
     gain = param(2.0)
     reset = param(0.0)
@@ -669,7 +667,7 @@ class OnePole(UGen):
         OnePole.ar()
     """
 
-    source = param(None)
+    source = param()
     coefficient = param(0.5)
 
 
@@ -689,7 +687,7 @@ class OneZero(UGen):
         OneZero.ar()
     """
 
-    source = param(None)
+    source = param()
     coefficient = param(0.5)
 
 
@@ -705,7 +703,7 @@ class RHPF(UGen):
         RLPF.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(440.0)
     reciprocal_of_q = param(1.0)
 
@@ -722,7 +720,7 @@ class RLPF(UGen):
         RLPF.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(440.0)
     reciprocal_of_q = param(1.0)
 
@@ -743,7 +741,7 @@ class Ramp(UGen):
         Ramp.ar()
     """
 
-    source = param(None)
+    source = param()
     lag_time = param(0.1)
 
 
@@ -764,7 +762,7 @@ class Ringz(UGen):
         Ringz.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(440.0)
     decay_time = param(1.0)
 
@@ -793,7 +791,7 @@ class SOS(UGen):
         SOS.ar()
     """
 
-    source = param(None)
+    source = param()
     a_0 = param(0.0)
     a_1 = param(0.0)
     a_2 = param(0.0)
@@ -818,7 +816,7 @@ class Slew(UGen):
         Slew.ar()
     """
 
-    source = param(None)
+    source = param()
     up = param(1.0)
     down = param(1.0)
 
@@ -838,7 +836,7 @@ class Slope(UGen):
         Slope.ar()
     """
 
-    source = param(None)
+    source = param()
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -858,7 +856,7 @@ class TwoPole(UGen):
         TwoPole.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(440.0)
     radius = param(0.8)
 
@@ -880,6 +878,6 @@ class TwoZero(UGen):
         TwoZero.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(440.0)
     radius = param(0.8)

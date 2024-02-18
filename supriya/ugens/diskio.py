@@ -18,7 +18,7 @@ class DiskIn(UGen):
         UGenArray({2})
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
     loop = param(0)
 
 
@@ -39,8 +39,8 @@ class DiskOut(UGen):
         DiskOut.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None, unexpanded=True)
+    buffer_id = param()
+    source = param(unexpanded=True)
 
 
 @ugen(ar=True, is_multichannel=True, has_done_flag=True)
@@ -62,7 +62,7 @@ class VDiskIn(UGen):
         UGenArray({2})
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
     rate = param(1.0)
     loop = param(0)
     send_id = param(0)

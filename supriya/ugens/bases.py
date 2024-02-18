@@ -1,18 +1,28 @@
 import abc
 import copy
 import inspect
-from collections.abc import Iterable, Sequence
 from enum import Enum
 from typing import (
+    Any,
     Callable,
     Dict,
+    Iterable,
+    List,
     NamedTuple,
     Optional,
+    Protocol,
+    Sequence,
     SupportsFloat,
     Tuple,
     Type,
     Union,
+    cast,
 )
+
+try:
+    from typing import TypeAlias
+except ImportError:
+    from typing_extensions import TypeAlias  # noqa
 
 from ..enums import (
     BinaryOperator,
@@ -21,34 +31,30 @@ from ..enums import (
     SignalRange,
     UnaryOperator,
 )
-from ..typing import UGenInputMap
+from ..typing import CalculationRateLike, Default, Missing
 
 
-def _create_fn(
-    cls, name, args, body, return_type, globals_=None, decorator=None, override=False
+class Check(Enum):
+    NONE = 0
+    SAME_AS_FIRST = 1
+    SAME_OR_SLOWER = 2
+
+
+class Param(NamedTuple):
+    default: Optional[Union[Default, Missing, float]] = None
+    check: Check = Check.NONE
+    unexpanded: bool = False
+
+
+def _add_init(
+    cls,
+    params: Dict[str, "Param"],
+    is_multichannel: bool,
+    channel_count: int,
+    fixed_channel_count: bool,
 ) -> None:
-    if name in cls.__dict__ and not override:
-        return
-    globals_ = globals_ or {}
-    locals_ = {"_return_type": return_type}
-    args = ", ".join(args)
-    body = "\n".join(f"        {line}" for line in body)
-    text = f"    def {name}({args}) -> _return_type:\n{body}"
-    local_vars = ", ".join(locals_.keys())
-    text = f"def __create_fn__({local_vars}):\n{text}\n    return {name}"
-    namespace: Dict[str, Callable] = {}
-    exec(text, globals_, namespace)
-    value = namespace["__create_fn__"](**locals_)
-    value.__qualname__ = f"{cls.__qualname__}.{value.__name__}"
-    if decorator:
-        value = decorator(value)
-    setattr(cls, name, value)
-
-
-def _add_init(cls, params, is_multichannel, channel_count, fixed_channel_count) -> None:
     parent_class = inspect.getmro(cls)[1]
-    name = "__init__"
-    args = ["self", "calculation_rate=None"]
+    args = ["self", "*", "calculation_rate: CalculationRateLike"]
     body = []
     if is_multichannel and not fixed_channel_count:
         args.append(f"channel_count={channel_count or 1}")
@@ -62,39 +68,65 @@ def _add_init(cls, params, is_multichannel, channel_count, fixed_channel_count) 
             "    calculation_rate=CalculationRate.from_expr(calculation_rate),",
         ]
     )
-    for key, value in params.items():
-        value_repr = repr(value)
-        if value_repr == "inf":
-            value_repr = 'float("inf")'
-        elif value_repr == "-inf":
-            value_repr = 'float("-inf")'
-        args.append(f"{key}={value_repr}")
+    for key, param in params.items():
+        value_repr = _format_value(param.default)
+        type_ = "UGenInitVectorParam" if param.unexpanded else "UGenInitScalarParam"
+        prefix = f"{key}: {type_}"
+        args.append(
+            f"{prefix} = {value_repr}"
+            if not isinstance(param.default, Missing)
+            else prefix
+        )
         body.append(f"    {key}={key},")
     args.append("**kwargs")
     body.append("    **kwargs,")
     body.append(")")
-    globals_ = {
-        "CalculationRate": CalculationRate,
-        "DoneAction": DoneAction,
-        parent_class.__name__: parent_class,
-    }
     _create_fn(
-        cls=cls, name=name, args=args, body=body, globals_=globals_, return_type=None
+        cls=cls,
+        name="__init__",
+        args=args,
+        body=body,
+        globals_={**_get_fn_globals(), parent_class.__name__: parent_class},
+        return_type=None,
+    )
+
+
+def _add_param_fn(cls, name: str, index: int, unexpanded: bool) -> None:
+    _create_fn(
+        cls=cls,
+        name=name,
+        args=["self"],
+        body=(
+            [f"return UGenArray(self._inputs[{index}:])"]
+            if unexpanded
+            else [f"return UGenArray(self._inputs[{index}:{index} + 1])"]
+        ),
+        decorator=property,
+        globals_=_get_fn_globals(),
+        override=True,
+        return_type=UGenArray,
     )
 
 
 def _add_rate_fn(
-    cls, rate, params, is_multichannel, channel_count, fixed_channel_count
+    cls,
+    rate: Optional[CalculationRate],
+    params: Dict[str, "Param"],
+    is_multichannel: bool,
+    channel_count: int,
+    fixed_channel_count: bool,
 ) -> None:
-    name = rate.token if rate is not None else "new"
     args = ["cls"]
-    for key, value in params.items():
-        value_repr = repr(value)
-        if value_repr == "inf":
-            value_repr = 'float("inf")'
-        elif value_repr == "-inf":
-            value_repr = 'float("-inf")'
-        args.append(f"{key}: Union[SupportsFloat, UGenMethodMixin] = {value_repr}")
+    if params:
+        args.append("*")
+    for key, param in params.items():
+        value_repr = _format_value(param.default)
+        prefix = f"{key}: UGenRateVectorParam"
+        args.append(
+            f"{prefix} = {value_repr}"
+            if not isinstance(param.default, Missing)
+            else prefix
+        )
     body = ["return cls._new_expanded("]
     if rate is not None:
         body.append(f"    calculation_rate={rate!r},")
@@ -103,51 +135,78 @@ def _add_rate_fn(
         body.append("    channel_count=channel_count,")
     body.extend(f"    {name}={name}," for name in params)
     body.append(")")
-    globals_ = {
-        "CalculationRate": CalculationRate,
-        "DoneAction": DoneAction,
-        "SupportsFloat": SupportsFloat,
-        "UGenMethodMixin": UGenMethodMixin,
-        "Union": Union,
-    }
     _create_fn(
-        cls,
-        name,
+        cls=cls,
+        name=rate.token if rate is not None else "new",
         args=args,
         body=body,
         decorator=classmethod,
-        globals_=globals_,
+        globals_=_get_fn_globals(),
         return_type=cls,
     )
 
 
-def _add_param_fn(cls, name, index, unexpanded) -> None:
-    args = ["self"]
-    if unexpanded:
-        body = [f"return self._inputs[{index}:]"]
+def _create_fn(
+    *,
+    cls,
+    name: str,
+    args: List[str],
+    body: List[str],
+    return_type,
+    globals_: Optional[Dict[str, Type]] = None,
+    decorator: Optional[Callable] = None,
+    override: bool = False,
+) -> None:
+    if name in cls.__dict__ and not override:
+        return
+    globals_ = globals_ or {}
+    locals_ = {"_return_type": return_type}
+    args_ = ",\n        ".join(args)
+    body_ = "\n".join(f"        {line}" for line in body)
+    text = f"    def {name}(\n        {args_}\n    ) -> _return_type:\n{body_}"
+    local_vars = ", ".join(locals_.keys())
+    text = f"def __create_fn__({local_vars}):\n{text}\n    return {name}"
+    namespace: Dict[str, Callable] = {}
+    exec(text, globals_, namespace)
+    value = namespace["__create_fn__"](**locals_)
+    value.__qualname__ = f"{cls.__qualname__}.{value.__name__}"
+    if decorator:
+        value = decorator(value)
+    setattr(cls, name, value)
+
+
+def _format_value(value) -> str:
+    if value == float("inf"):
+        value_repr = 'float("inf")'
+    elif value == float("-inf"):
+        value_repr = 'float("-inf")'
+    elif isinstance(value, Default):
+        value_repr = "Default()"
+    elif isinstance(value, Missing):
+        value_repr = "Missing()"
     else:
-        body = [f"return self._inputs[{index}]"]
-    _create_fn(
-        cls,
-        name,
-        args=args,
-        body=body,
-        decorator=property,
-        override=True,
-        return_type=Union[SupportsFloat, UGenMethodMixin],
-    )
+        value_repr = repr(value)
+    return value_repr
 
 
-class Check(Enum):
-    NONE = 0
-    SAME_AS_FIRST = 1
-    SAME_OR_SLOWER = 2
-
-
-class Param(NamedTuple):
-    default: Optional[float] = None
-    check: Check = Check.NONE
-    unexpanded: bool = False
+def _get_fn_globals():
+    return {
+        "CalculationRate": CalculationRate,
+        "CalculationRateLike": CalculationRateLike,
+        "Default": Default,
+        "DoneAction": DoneAction,
+        "Missing": Missing,
+        "OutputProxy": OutputProxy,
+        "Sequence": Sequence,
+        "SupportsFloat": SupportsFloat,
+        "UGenArray": UGenArray,
+        "UGenInitScalarParam": UGenInitScalarParam,
+        "UGenInitVectorParam": UGenInitVectorParam,
+        "UGenOperable": UGenOperable,
+        "UGenRateVectorParam": UGenRateVectorParam,
+        "UGenSerializable": UGenSerializable,
+        "Union": Union,
+    }
 
 
 def _process_class(
@@ -168,13 +227,13 @@ def _process_class(
     fixed_channel_count: bool = False,
     signal_range: Optional[int] = None,
 ) -> Type["UGen"]:
-    params: Dict[str, Union[SupportsFloat, str, None]] = {}
+    params: Dict[str, Param] = {}
     unexpanded_input_names = []
     valid_calculation_rates = []
     for name, value in cls.__dict__.items():
         if not isinstance(value, Param):
             continue
-        params[name] = value.default
+        params[name] = value
         if value.unexpanded:
             unexpanded_input_names.append(name)
         _add_param_fn(cls, name, len(params) - 1, value.unexpanded)
@@ -198,7 +257,7 @@ def _process_class(
     cls._is_output = bool(is_output)
     cls._is_pure = bool(is_pure)
     cls._is_width_first = bool(is_width_first)
-    cls._ordered_input_names = params
+    cls._ordered_input_names = {key: param.default for key, param in params.items()}
     cls._unexpanded_input_names = tuple(unexpanded_input_names)
     cls._valid_calculation_rates = tuple(valid_calculation_rates)
     if signal_range is not None:
@@ -207,7 +266,7 @@ def _process_class(
 
 
 def param(
-    default: Optional[float] = None,
+    default: Optional[Union[Default, Missing, float]] = Missing(),
     *,
     check: Check = Check.NONE,
     unexpanded: bool = False,
@@ -221,7 +280,6 @@ def param(
 
 
 def ugen(
-    cls: Optional[Type["UGen"]] = None,
     *,
     ar: bool = False,
     kr: bool = False,
@@ -237,7 +295,7 @@ def ugen(
     channel_count: int = 1,
     fixed_channel_count: bool = False,
     signal_range: Optional[int] = None,
-) -> Union[Type["UGen"], Callable[[Type["UGen"]], Type["UGen"]]]:
+) -> Callable[[Type["UGen"]], Type["UGen"]]:
     """
     Decorate a UGen class.
 
@@ -265,15 +323,14 @@ def ugen(
 
     if is_multichannel and fixed_channel_count:
         raise ValueError
-    if cls is None:
-        return wrap
-    return wrap(cls)
+    return wrap
 
 
-class UGenMethodMixin:
+class UGenOperable:
+
     ### SPECIAL METHODS ###
 
-    def __abs__(self) -> "UGenMethodMixin":
+    def __abs__(self) -> "UGenOperable":
         """
         Gets absolute value of ugen graph.
 
@@ -286,7 +343,7 @@ class UGenMethodMixin:
                 >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = abs(ugen_graph)
                 >>> result
-                UnaryOpUGen.ar()
+                UnaryOpUGen.ar()[0]
 
             ::
 
@@ -343,11 +400,9 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_unary_op(self, UnaryOperator.ABSOLUTE_VALUE)
+        return UGenOperable._compute_unary_op(self, UnaryOperator.ABSOLUTE_VALUE)
 
-    def __add__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __add__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Adds `expr` to ugen graph.
 
@@ -361,7 +416,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph + expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -437,7 +492,7 @@ class UGenMethodMixin:
                 >>> expr = 4
                 >>> result = ugen_graph + expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -457,11 +512,9 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(self, expr, BinaryOperator.ADDITION)
+        return UGenOperable._compute_binary_op(self, expr, BinaryOperator.ADDITION)
 
-    def __and__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __and__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Computes the bitwise AND of the UGen graph and `expr`.
 
@@ -473,7 +526,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph & expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -493,13 +546,9 @@ class UGenMethodMixin:
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
         """
-        return UGenMethodMixin._compute_binary_op(
-            self, expr, BinaryOperator.BITWISE_AND
-        )
+        return UGenOperable._compute_binary_op(self, expr, BinaryOperator.BITWISE_AND)
 
-    def __div__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __div__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Divides ugen graph by `expr`.
 
@@ -513,7 +562,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph / expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -589,7 +638,7 @@ class UGenMethodMixin:
                 >>> expr = 4
                 >>> result = ugen_graph / expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -609,7 +658,7 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(
+        return UGenOperable._compute_binary_op(
             self, expr, BinaryOperator.FLOAT_DIVISION
         )
 
@@ -623,9 +672,7 @@ class UGenMethodMixin:
         result = synthdef.__graph__()
         return result
 
-    def __ge__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __ge__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Tests if ugen graph if greater than or equal to `expr`.
 
@@ -639,7 +686,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph >= expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -715,7 +762,7 @@ class UGenMethodMixin:
                 >>> expr = 4
                 >>> result = ugen_graph >= expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -735,13 +782,11 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(
+        return UGenOperable._compute_binary_op(
             self, expr, BinaryOperator.GREATER_THAN_OR_EQUAL
         )
 
-    def __gt__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __gt__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Tests if ugen graph if greater than `expr`.
 
@@ -755,7 +800,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph > expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -831,7 +876,7 @@ class UGenMethodMixin:
                 >>> expr = 4
                 >>> result = ugen_graph > expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -851,13 +896,9 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(
-            self, expr, BinaryOperator.GREATER_THAN
-        )
+        return UGenOperable._compute_binary_op(self, expr, BinaryOperator.GREATER_THAN)
 
-    def __le__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __le__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Tests if ugen graph if less than or equal to `expr`.
 
@@ -871,7 +912,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph <= expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -947,7 +988,7 @@ class UGenMethodMixin:
                 >>> expr = 4
                 >>> result = ugen_graph <= expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -967,13 +1008,14 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(
+        return UGenOperable._compute_binary_op(
             self, expr, BinaryOperator.LESS_THAN_OR_EQUAL
         )
 
-    def __lt__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __len__(self) -> int:
+        raise NotImplementedError
+
+    def __lt__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Tests if ugen graph if less than `expr`.
 
@@ -987,7 +1029,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph < expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1063,7 +1105,7 @@ class UGenMethodMixin:
                 >>> expr = 4
                 >>> result = ugen_graph < expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1083,11 +1125,9 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(self, expr, BinaryOperator.LESS_THAN)
+        return UGenOperable._compute_binary_op(self, expr, BinaryOperator.LESS_THAN)
 
-    def __mod__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __mod__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Gets modulo of ugen graph and `expr`.
 
@@ -1101,7 +1141,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph % expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1177,7 +1217,7 @@ class UGenMethodMixin:
                 >>> expr = 4
                 >>> result = ugen_graph % expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1197,11 +1237,9 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(self, expr, BinaryOperator.MODULO)
+        return UGenOperable._compute_binary_op(self, expr, BinaryOperator.MODULO)
 
-    def __mul__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __mul__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Multiplies ugen graph by `expr`.
 
@@ -1215,7 +1253,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph * expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1291,7 +1329,7 @@ class UGenMethodMixin:
                 >>> expr = 4
                 >>> result = ugen_graph * expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1311,11 +1349,11 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(
+        return UGenOperable._compute_binary_op(
             self, expr, BinaryOperator.MULTIPLICATION
         )
 
-    def __neg__(self) -> "UGenMethodMixin":
+    def __neg__(self) -> "UGenOperable":
         """
         Negates ugen graph.
 
@@ -1328,7 +1366,7 @@ class UGenMethodMixin:
                 >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = -ugen_graph
                 >>> result
-                UnaryOpUGen.ar()
+                UnaryOpUGen.ar()[0]
 
             ::
 
@@ -1385,11 +1423,9 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_unary_op(self, UnaryOperator.NEGATIVE)
+        return UGenOperable._compute_unary_op(self, UnaryOperator.NEGATIVE)
 
-    def __or__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __or__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Computes the bitwise OR of the UGen graph and `expr`.
 
@@ -1401,7 +1437,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph | expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1421,11 +1457,9 @@ class UGenMethodMixin:
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
         """
-        return UGenMethodMixin._compute_binary_op(self, expr, BinaryOperator.BITWISE_OR)
+        return UGenOperable._compute_binary_op(self, expr, BinaryOperator.BITWISE_OR)
 
-    def __pow__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __pow__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Raises ugen graph to the power of `expr`.
 
@@ -1439,7 +1473,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph ** expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1515,7 +1549,7 @@ class UGenMethodMixin:
                 >>> expr = 4
                 >>> result = ugen_graph ** expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1535,11 +1569,9 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(self, expr, BinaryOperator.POWER)
+        return UGenOperable._compute_binary_op(self, expr, BinaryOperator.POWER)
 
-    def __rpow__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __rpow__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Raises `expr` to the power of ugen graph.
 
@@ -1553,7 +1585,7 @@ class UGenMethodMixin:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr ** ugen_graph
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1617,11 +1649,9 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(expr, self, BinaryOperator.POWER)
+        return UGenOperable._compute_binary_op(expr, self, BinaryOperator.POWER)
 
-    def __radd__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __radd__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Adds ugen graph to `expr`.
 
@@ -1635,7 +1665,7 @@ class UGenMethodMixin:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr + ugen_graph
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1699,11 +1729,9 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(expr, self, BinaryOperator.ADDITION)
+        return UGenOperable._compute_binary_op(expr, self, BinaryOperator.ADDITION)
 
-    def __rdiv__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __rdiv__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Divides `expr` by ugen graph.
 
@@ -1717,7 +1745,7 @@ class UGenMethodMixin:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr / ugen_graph
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1781,13 +1809,11 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(
+        return UGenOperable._compute_binary_op(
             expr, self, BinaryOperator.FLOAT_DIVISION
         )
 
-    def __rmod__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __rmod__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Gets modulo of `expr` and ugen graph.
 
@@ -1801,7 +1827,7 @@ class UGenMethodMixin:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr % ugen_graph
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1865,13 +1891,11 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(
+        return UGenOperable._compute_binary_op(
             expr, self, BinaryOperator.FLOAT_DIVISION
         )
 
-    def __rmul__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __rmul__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Multiplies `expr` by ugen graph.
 
@@ -1885,7 +1909,7 @@ class UGenMethodMixin:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr * ugen_graph
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -1949,13 +1973,11 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(
+        return UGenOperable._compute_binary_op(
             expr, self, BinaryOperator.MULTIPLICATION
         )
 
-    def __rsub__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __rsub__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Subtracts ugen graph from `expr`.
 
@@ -1969,7 +1991,7 @@ class UGenMethodMixin:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr - ugen_graph
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -2033,9 +2055,7 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(
-            expr, self, BinaryOperator.SUBTRACTION
-        )
+        return UGenOperable._compute_binary_op(expr, self, BinaryOperator.SUBTRACTION)
 
     def __str__(self):
         """
@@ -2079,9 +2099,7 @@ class UGenMethodMixin:
         result = str(synthdef)
         return result
 
-    def __sub__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __sub__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Subtracts `expr` from ugen graph.
 
@@ -2095,7 +2113,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph - expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -2171,7 +2189,7 @@ class UGenMethodMixin:
                 >>> expr = 4
                 >>> result = ugen_graph - expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -2191,13 +2209,9 @@ class UGenMethodMixin:
 
         Returns ugen graph.
         """
-        return UGenMethodMixin._compute_binary_op(
-            self, expr, BinaryOperator.SUBTRACTION
-        )
+        return UGenOperable._compute_binary_op(self, expr, BinaryOperator.SUBTRACTION)
 
-    def __xor__(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def __xor__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Computes the bitwise XOR of the UGen graph and `expr`.
 
@@ -2209,7 +2223,7 @@ class UGenMethodMixin:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph ^ expr
                 >>> result
-                BinaryOpUGen.ar()
+                BinaryOpUGen.ar()[0]
 
             ::
 
@@ -2229,9 +2243,7 @@ class UGenMethodMixin:
                             left: WhiteNoise.kr[0]
                             right: SinOsc.ar[0]
         """
-        return UGenMethodMixin._compute_binary_op(
-            self, expr, BinaryOperator.BITWISE_XOR
-        )
+        return UGenOperable._compute_binary_op(self, expr, BinaryOperator.BITWISE_XOR)
 
     __truediv__ = __div__
     __rtruediv__ = __rdiv__
@@ -2270,8 +2282,8 @@ class UGenMethodMixin:
         return builder.build(optimize=False)
 
     @staticmethod
-    def _compute_binary_op(left, right, operator):
-        result = []
+    def _compute_binary_op(left, right, operator) -> "UGenOperable":
+        result: List[Union[OutputProxy, float]] = []
         if not isinstance(left, Sequence):
             left = (left,)
         if not isinstance(right, Sequence):
@@ -2282,20 +2294,21 @@ class UGenMethodMixin:
         for expanded_dict in UGen._expand_dictionary(dictionary):
             left = expanded_dict["left"]
             right = expanded_dict["right"]
-            calculation_rate = UGenMethodMixin._compute_binary_rate(left, right)
+            calculation_rate = UGenOperable._compute_binary_rate(left, right)
             ugen = BinaryOpUGen._new_single(
                 calculation_rate=calculation_rate,
                 left=left,
                 right=right,
                 special_index=special_index,
             )
-            result.append(ugen)
+            result.extend(ugen if not isinstance(ugen, (float, int)) else [ugen])
         if len(result) == 1:
-            return result[0]
+            # TODO: remove cast(...)
+            return cast(UGenOperable, result[0])
         return UGenArray(result)
 
     @staticmethod
-    def _compute_binary_rate(ugen_a, ugen_b):
+    def _compute_binary_rate(ugen_a, ugen_b) -> CalculationRate:
         a_rate = CalculationRate.from_expr(ugen_a)
         b_rate = CalculationRate.from_expr(ugen_b)
         if a_rate == CalculationRate.DEMAND or a_rate == CalculationRate.DEMAND:
@@ -2324,8 +2337,8 @@ class UGenMethodMixin:
         return []
 
     @staticmethod
-    def _compute_unary_op(source, operator):
-        result = []
+    def _compute_unary_op(source, operator) -> "UGenOperable":
+        result: List[Union[OutputProxy, float]] = []
         if not isinstance(source, Sequence):
             source = (source,)
         operator = UnaryOperator.from_expr(operator)
@@ -2337,27 +2350,28 @@ class UGenMethodMixin:
                 source=single_source,
                 special_index=special_index,
             )
-            result.append(ugen)
+            result.extend(ugen if not isinstance(ugen, (float, int)) else [ugen])
         if len(result) == 1:
-            return result[0]
+            # TODO: remove cast(...)
+            return cast(UGenOperable, result[0])
         return UGenArray(result)
 
     def _get_output_proxy(self, i):
         if isinstance(i, int):
             if not (0 <= i < len(self)):
                 raise IndexError(i, len(self))
-            return OutputProxy(self, i)
+            return OutputProxy(source=self, output_index=i)
         indices = i.indices(len(self))
         if not (0 <= indices[0] <= indices[1] <= len(self)):
             raise IndexError(i, indices, len(self))
-        output_proxies = (OutputProxy(self, i) for i in range(*indices))
+        output_proxies = (
+            OutputProxy(source=self, output_index=i) for i in range(*indices)
+        )
         return UGenArray(output_proxies)
 
     ### PUBLIC METHODS ###
 
-    def absolute_difference(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def absolute_difference(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Calculates absolute difference between ugen graph and `expr`.
 
@@ -2391,7 +2405,7 @@ class UGenMethodMixin:
         """
         return self._compute_binary_op(self, expr, BinaryOperator.ABSOLUTE_DIFFERENCE)
 
-    def amplitude_to_db(self) -> "UGenMethodMixin":
+    def amplitude_to_db(self) -> "UGenOperable":
         """
         Converts ugen graph from amplitude to decibels.
 
@@ -2420,12 +2434,10 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.AMPLITUDE_TO_DB)
 
-    def as_int(self) -> "UGenMethodMixin":
+    def as_int(self) -> "UGenOperable":
         return self._compute_unary_op(self, UnaryOperator.AS_INT)
 
-    def as_maximum(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def as_maximum(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Calculates maximum between ugen graph and `expr`.
 
@@ -2450,9 +2462,7 @@ class UGenMethodMixin:
         """
         return self._compute_binary_op(self, expr, BinaryOperator.MAXIMUM)
 
-    def as_minimum(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def as_minimum(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Calculates minimum between ugen graph and `expr`.
 
@@ -2477,7 +2487,7 @@ class UGenMethodMixin:
         """
         return self._compute_binary_op(self, expr, BinaryOperator.MINIMUM)
 
-    def ceiling(self) -> "UGenMethodMixin":
+    def ceiling(self) -> "UGenOperable":
         """
         Calculates the ceiling of ugen graph.
 
@@ -2500,9 +2510,9 @@ class UGenMethodMixin:
 
     def clip(
         self,
-        minimum: Union[SupportsFloat, "UGenMethodMixin"],
-        maximum: Union[SupportsFloat, "UGenMethodMixin"],
-    ) -> "UGenMethodMixin":
+        minimum: Union[SupportsFloat, "UGenOperable"],
+        maximum: Union[SupportsFloat, "UGenOperable"],
+    ) -> "UGenOperable":
         """
         Clips ugen graph.
 
@@ -2578,7 +2588,7 @@ class UGenMethodMixin:
 
         return self._compute_ugen_map(Clip, minimum=minimum, maximum=maximum)
 
-    def cubed(self) -> "UGenMethodMixin":
+    def cubed(self) -> "UGenOperable":
         """
         Calculates the cube of ugen graph.
 
@@ -2599,7 +2609,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.CUBED)
 
-    def db_to_amplitude(self) -> "UGenMethodMixin":
+    def db_to_amplitude(self) -> "UGenOperable":
         """
         Converts ugen graph from decibels to amplitude.
 
@@ -2628,7 +2638,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.DB_TO_AMPLITUDE)
 
-    def distort(self) -> "UGenMethodMixin":
+    def distort(self) -> "UGenOperable":
         """
         Distorts ugen graph non-linearly.
 
@@ -2649,7 +2659,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.DISTORT)
 
-    def exponential(self) -> "UGenMethodMixin":
+    def exponential(self) -> "UGenOperable":
         """
         Calculates the natural exponential function of ugen graph.
 
@@ -2670,7 +2680,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.EXPONENTIAL)
 
-    def floor(self) -> "UGenMethodMixin":
+    def floor(self) -> "UGenOperable":
         """
         Calculates the floor of ugen graph.
 
@@ -2691,7 +2701,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.FLOOR)
 
-    def fractional_part(self) -> "UGenMethodMixin":
+    def fractional_part(self) -> "UGenOperable":
         """
         Calculates the fraction part of ugen graph.
 
@@ -2712,7 +2722,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.FRACTIONAL_PART)
 
-    def hanning_window(self) -> "UGenMethodMixin":
+    def hanning_window(self) -> "UGenOperable":
         """
         Calculates Hanning-window of ugen graph.
 
@@ -2742,7 +2752,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.HANNING_WINDOW)
 
-    def hz_to_midi(self) -> "UGenMethodMixin":
+    def hz_to_midi(self) -> "UGenOperable":
         """
         Converts ugen graph from Hertz to midi note number.
 
@@ -2771,7 +2781,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.HZ_TO_MIDI)
 
-    def hz_to_octave(self) -> "UGenMethodMixin":
+    def hz_to_octave(self) -> "UGenOperable":
         """
         Converts ugen graph from Hertz to octave number.
 
@@ -2800,9 +2810,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.HZ_TO_OCTAVE)
 
-    def is_equal_to(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def is_equal_to(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Calculates equality between ugen graph and `expr`.
 
@@ -2827,9 +2835,7 @@ class UGenMethodMixin:
         """
         return self._compute_binary_op(self, expr, BinaryOperator.EQUAL)
 
-    def is_not_equal_to(
-        self, expr: Union[SupportsFloat, "UGenMethodMixin"]
-    ) -> "UGenMethodMixin":
+    def is_not_equal_to(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Calculates inequality between ugen graph and `expr`.
 
@@ -2854,7 +2860,7 @@ class UGenMethodMixin:
         """
         return self._compute_binary_op(self, expr, BinaryOperator.NOT_EQUAL)
 
-    def lagged(self, lag_time=0.5) -> "UGenMethodMixin":
+    def lagged(self, lag_time=0.5) -> "UGenOperable":
         """
         Lags ugen graph.
 
@@ -2922,7 +2928,7 @@ class UGenMethodMixin:
 
         return self._compute_ugen_map(Lag, lag_time=lag_time)
 
-    def log(self) -> "UGenMethodMixin":
+    def log(self) -> "UGenOperable":
         """
         Calculates the natural logarithm of ugen graph.
 
@@ -2943,7 +2949,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.LOG)
 
-    def log2(self) -> "UGenMethodMixin":
+    def log2(self) -> "UGenOperable":
         """
         Calculates the base-2 logarithm of ugen graph.
 
@@ -2964,7 +2970,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.LOG2)
 
-    def log10(self) -> "UGenMethodMixin":
+    def log10(self) -> "UGenOperable":
         """
         Calculates the base-10 logarithm of ugen graph.
 
@@ -2985,7 +2991,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.LOG10)
 
-    def midi_to_hz(self) -> "UGenMethodMixin":
+    def midi_to_hz(self) -> "UGenOperable":
         """
         Converts ugen graph from midi note number to Hertz.
 
@@ -3014,7 +3020,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.MIDI_TO_HZ)
 
-    def octave_to_hz(self) -> "UGenMethodMixin":
+    def octave_to_hz(self) -> "UGenOperable":
         """
         Converts ugen graph from octave number to Hertz.
 
@@ -3043,7 +3049,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.OCTAVE_TO_HZ)
 
-    def power(self, expr: Union[SupportsFloat, "UGenMethodMixin"]) -> "UGenMethodMixin":
+    def power(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Raises ugen graph to the power of `expr`.
 
@@ -3068,17 +3074,17 @@ class UGenMethodMixin:
         """
         return self._compute_binary_op(self, expr, BinaryOperator.POWER)
 
-    def range(self, minimum=0.0, maximum=1.0) -> "UGenMethodMixin":
+    def range(self, minimum=0.0, maximum=1.0) -> "UGenOperable":
         if self.signal_range == SignalRange.BIPOLAR:
             return self.scale(-1, 1, minimum, maximum)
         return self.scale(0, 1, minimum, maximum)
 
-    def exponential_range(self, minimum=0.01, maximum=1.0) -> "UGenMethodMixin":
+    def exponential_range(self, minimum=0.01, maximum=1.0) -> "UGenOperable":
         if self.signal_range == SignalRange.BIPOLAR:
             return self.scale(-1, 1, minimum, maximum, exponential=True)
         return self.scale(0, 1, minimum, maximum, exponential=True)
 
-    def ratio_to_semitones(self) -> "UGenMethodMixin":
+    def ratio_to_semitones(self) -> "UGenOperable":
         """
         Converts ugen graph from frequency ratio to semitone distance.
 
@@ -3107,7 +3113,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.RATIO_TO_SEMITONES)
 
-    def rectangle_window(self) -> "UGenMethodMixin":
+    def rectangle_window(self) -> "UGenOperable":
         """
         Calculates rectangle-window of ugen graph.
 
@@ -3137,7 +3143,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.RECTANGLE_WINDOW)
 
-    def reciprocal(self) -> "UGenMethodMixin":
+    def reciprocal(self) -> "UGenOperable":
         """
         Calculates reciprocal of ugen graph.
 
@@ -3167,7 +3173,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.RECIPROCAL)
 
-    def s_curve(self) -> "UGenMethodMixin":
+    def s_curve(self) -> "UGenOperable":
         """
         Calculates S-curve of ugen graph.
 
@@ -3204,7 +3210,7 @@ class UGenMethodMixin:
         output_minimum,
         output_maximum,
         exponential=False,
-    ) -> "UGenMethodMixin":
+    ) -> "UGenOperable":
         """
         Scales ugen graph from `input_minimum` and `input_maximum` to `output_minimum` and `output_maximum`.
 
@@ -3288,7 +3294,7 @@ class UGenMethodMixin:
             output_maximum=output_maximum,
         )
 
-    def semitones_to_ratio(self) -> "UGenMethodMixin":
+    def semitones_to_ratio(self) -> "UGenOperable":
         """
         Converts ugen graph from semitone distance to frequency ratio.
 
@@ -3317,7 +3323,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.SEMITONES_TO_RATIO)
 
-    def sign(self) -> "UGenMethodMixin":
+    def sign(self) -> "UGenOperable":
         """
         Calculates sign of ugen graph.
 
@@ -3347,25 +3353,25 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.SIGN)
 
-    def softclip(self) -> "UGenMethodMixin":
+    def softclip(self) -> "UGenOperable":
         """
         Distorts ugen graph non-linearly.
         """
         return self._compute_unary_op(self, UnaryOperator.SOFTCLIP)
 
-    def square_root(self) -> "UGenMethodMixin":
+    def square_root(self) -> "UGenOperable":
         """
         Calculates square root of ugen graph.
         """
         return self._compute_unary_op(self, UnaryOperator.SQUARE_ROOT)
 
-    def squared(self) -> "UGenMethodMixin":
+    def squared(self) -> "UGenOperable":
         """
         Calculates square of ugen graph.
         """
         return self._compute_unary_op(self, UnaryOperator.SQUARED)
 
-    def sum(self) -> "UGenMethodMixin":
+    def sum(self) -> "UGenOperable":
         """
         Sums ugen graph.
 
@@ -3430,7 +3436,7 @@ class UGenMethodMixin:
 
         return Mix.new(self)
 
-    def tanh(self) -> "UGenMethodMixin":
+    def tanh(self) -> "UGenOperable":
         """
         Calculates hyperbolic tangent of ugen graph.
 
@@ -3460,7 +3466,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.TANH)
 
-    def transpose(self, semitones) -> "UGenMethodMixin":
+    def transpose(self, semitones) -> "UGenOperable":
         """
         Transposes ugen graph by `semitones`.
 
@@ -3502,7 +3508,7 @@ class UGenMethodMixin:
         """
         return (self.hz_to_midi() + semitones).midi_to_hz()
 
-    def triangle_window(self) -> "UGenMethodMixin":
+    def triangle_window(self) -> "UGenOperable":
         """
         Calculates triangle-window of ugen graph.
 
@@ -3532,7 +3538,7 @@ class UGenMethodMixin:
         """
         return self._compute_unary_op(self, UnaryOperator.TRIANGLE_WINDOW)
 
-    def welch_window(self) -> "UGenMethodMixin":
+    def welch_window(self) -> "UGenOperable":
         """
         Calculates Welch-window of ugen graph.
 
@@ -3567,10 +3573,12 @@ class UGenMethodMixin:
         raise NotImplementedError
 
 
-class UGenArray(UGenMethodMixin, Sequence):
-    ### CLASS VARIABLES ###
+class UGenSerializable(Protocol):
+    def serialize(self) -> Sequence[Union[SupportsFloat, "OutputProxy"]]:
+        pass
 
-    __slots__ = ("_ugens",)
+
+class UGenArray(UGenOperable, Sequence):
 
     ### INITIALIZER ###
 
@@ -3602,10 +3610,10 @@ class UGenArray(UGenMethodMixin, Sequence):
         return self._ugens
 
 
-class OutputProxy(UGenMethodMixin):
+class OutputProxy(UGenOperable):
     ### INITIALIZER ###
 
-    def __init__(self, source=None, output_index=None):
+    def __init__(self, *, source: "UGen", output_index: int) -> None:
         self._output_index = output_index
         self._source = source
 
@@ -3620,17 +3628,17 @@ class OutputProxy(UGenMethodMixin):
             return False
         return True
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         hash_values = (type(self), self._output_index, self._source)
         return hash(hash_values)
 
     def __iter__(self):
         yield self
 
-    def __len__(self):
+    def __len__(self) -> int:
         return 1
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "{!r}[{}]".format(self.source, self.output_index)
 
     ### PRIVATE METHODS ###
@@ -3652,11 +3660,11 @@ class OutputProxy(UGenMethodMixin):
         return self.source.has_done_flag
 
     @property
-    def output_index(self):
+    def output_index(self) -> int:
         return self._output_index
 
     @property
-    def signal_range(self):
+    def signal_range(self) -> SignalRange:
         return self.source.signal_range
 
     @property
@@ -3664,14 +3672,12 @@ class OutputProxy(UGenMethodMixin):
         return self._source
 
 
-class UGen(UGenMethodMixin):
+class UGen(UGenOperable):
     """
     A UGen.
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_inputs", "_input_names", "_special_index", "_uuid")
 
     _default_channel_count = 1
 
@@ -3687,7 +3693,9 @@ class UGen(UGenMethodMixin):
 
     _is_width_first = False
 
-    _ordered_input_names: UGenInputMap = None
+    _ordered_input_names: Dict[
+        str, Union[Default, Missing, SupportsFloat, str, None]
+    ] = {}
 
     _signal_range: int = SignalRange.BIPOLAR
 
@@ -3697,27 +3705,37 @@ class UGen(UGenMethodMixin):
 
     ### INITIALIZER ###
 
-    def __init__(self, calculation_rate=None, special_index=0, **kwargs):
+    def __init__(
+        self,
+        *,
+        calculation_rate: CalculationRateLike = None,
+        special_index: int = 0,
+        **kwargs,
+    ) -> None:
         from ..synthdefs import Parameter, SynthDefBuilder
 
-        calculation_rate = CalculationRate.from_expr(calculation_rate)
+        calculation_rate_ = CalculationRate.from_expr(calculation_rate)
         if self._valid_calculation_rates:
-            assert calculation_rate in self._valid_calculation_rates
-        self._calculation_rate = calculation_rate
-        self._inputs = []
-        self._input_names = []
+            assert calculation_rate_ in self._valid_calculation_rates
+        calculation_rate_, kwargs = self._postprocess_kwargs(
+            calculation_rate=calculation_rate_, **kwargs
+        )
+        self._calculation_rate = calculation_rate_
+        self._inputs: List[SupportsFloat] = []
+        self._input_names: List[str] = []
         self._special_index = special_index
         ugenlike_prototype = (UGen, Parameter)
         for input_name in self._ordered_input_names:
             input_value = None
             if input_name in kwargs:
                 input_value = kwargs.pop(input_name)
+                # print(type(self).__name__, input_name, type(input_value))
             if isinstance(input_value, ugenlike_prototype):
                 assert len(input_value) == 1
                 input_value = input_value[0]
             else:
                 try:
-                    input_value = float(input_value)
+                    input_value = float(input_value)  # type: ignore
                 except TypeError:
                     pass
             if self._is_unexpanded_input_name(input_name):
@@ -3817,7 +3835,7 @@ class UGen(UGenMethodMixin):
         if isinstance(ugen, OutputProxy):
             output_proxy = ugen
         else:
-            output_proxy = OutputProxy(output_index=output_index, source=ugen)
+            output_proxy = OutputProxy(source=ugen, output_index=output_index)
         self._inputs.append(output_proxy)
         self._input_names.append(name)
 
@@ -3964,7 +3982,7 @@ class UGen(UGenMethodMixin):
         return False
 
     @classmethod
-    def _new_expanded(cls, **kwargs):
+    def _new_expanded(cls, **kwargs) -> Union[OutputProxy, UGenArray]:
         output_proxies = []
         for input_dict in UGen._expand_dictionary(
             kwargs, unexpanded_input_names=cls._unexpanded_input_names
@@ -3998,13 +4016,18 @@ class UGen(UGenMethodMixin):
             antecedent_bundle.descendants.remove(self)
             antecedent._optimize_graph(sort_bundles)
 
+    def _postprocess_kwargs(
+        self, *, calculation_rate: CalculationRate, **kwargs
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        return calculation_rate, kwargs
+
     def _validate_inputs(self):
         pass
 
     ### PRIVATE PROPERTIES ###
 
     @property
-    def _has_done_action(self):
+    def _has_done_action(self) -> bool:
         return "done_action" in self._ordered_input_names
 
     ### PUBLIC PROPERTIES ###
@@ -4028,7 +4051,7 @@ class UGen(UGenMethodMixin):
         return self._calculation_rate
 
     @property
-    def has_done_flag(self):
+    def has_done_flag(self) -> bool:
         return self._has_done_flag
 
     @property
@@ -4053,15 +4076,15 @@ class UGen(UGenMethodMixin):
         return tuple(self._inputs)
 
     @property
-    def is_input_ugen(self):
+    def is_input_ugen(self) -> bool:
         return self._is_input
 
     @property
-    def is_output_ugen(self):
+    def is_output_ugen(self) -> bool:
         return self._is_output
 
     @property
-    def outputs(self):
+    def outputs(self) -> Tuple[OutputProxy, ...]:
         """
         Gets outputs of ugen.
 
@@ -4122,16 +4145,19 @@ class UGen(UGenMethodMixin):
         return self._special_index
 
 
-class MultiOutUGen(UGen):
-    """
-    Abstract base class for ugens with multiple outputs.
-    """
+UGenOperand: TypeAlias = Union[
+    SupportsFloat, UGenOperable, Sequence[Union[SupportsFloat, UGenOperable]]
+]
 
-    ### INTIALIZER ###
+UGenInitScalarParam: TypeAlias = Union[SupportsFloat, OutputProxy]
 
-    def __init__(self, channel_count=1, **kwargs):
-        self._channel_count = int(channel_count)
-        UGen.__init__(self, **kwargs)
+UGenInitVectorParam: TypeAlias = Union[Sequence[UGenInitScalarParam], UGenSerializable]
+
+UGenRateScalarParam: TypeAlias = Union[SupportsFloat, UGenOperable, UGenSerializable]
+
+UGenRateVectorParam: TypeAlias = Union[
+    UGenRateScalarParam, Sequence[UGenRateScalarParam]
+]
 
 
 @ugen(is_pure=True)
@@ -4144,32 +4170,22 @@ class UnaryOpUGen(UGen):
         >>> ugen = supriya.ugens.SinOsc.ar()
         >>> unary_op_ugen = abs(ugen)
         >>> unary_op_ugen
-        UnaryOpUGen.ar()
+        UnaryOpUGen.ar()[0]
 
     ::
 
-        >>> unary_op_ugen.operator
+        >>> unary_op_ugen.source.operator
         UnaryOperator.ABSOLUTE_VALUE
     """
 
     ### CLASS VARIABLES ###
 
-    source = param(None)
-
-    ### INITIALIZER ###
-
-    def __init__(self, calculation_rate=None, source=None, special_index=None):
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            source=source,
-            special_index=special_index,
-        )
+    source = param()
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def operator(self):
+    def operator(self) -> UnaryOperator:
         """
         Gets operator of UnaryOpUgen.
 
@@ -4177,7 +4193,7 @@ class UnaryOpUGen(UGen):
 
             >>> source = supriya.ugens.SinOsc.ar()
             >>> unary_op_ugen = -source
-            >>> unary_op_ugen.operator
+            >>> unary_op_ugen.source.operator
             UnaryOperator.NEGATIVE
 
         Returns unary operator.
@@ -4196,37 +4212,35 @@ class BinaryOpUGen(UGen):
         >>> right_operand = supriya.ugens.WhiteNoise.kr()
         >>> binary_op_ugen = left_operand * right_operand
         >>> binary_op_ugen
-        BinaryOpUGen.ar()
+        BinaryOpUGen.ar()[0]
 
     ::
 
-        >>> binary_op_ugen.operator
+        >>> binary_op_ugen.source.operator
         BinaryOperator.MULTIPLICATION
     """
 
-    ### CLASS VARIABLES ###
-
-    left = param(None)
-    right = param(None)
-
-    ### INITIALIZER ###
+    left = param()
+    right = param()
 
     def __init__(
-        self, calculation_rate=None, special_index=None, left=None, right=None
-    ):
-        UGen.__init__(
-            self,
+        self,
+        *,
+        calculation_rate: CalculationRateLike,
+        left: UGenInitScalarParam,
+        right: UGenInitScalarParam,
+        special_index: int,
+    ) -> None:
+        super().__init__(
             calculation_rate=calculation_rate,
-            special_index=special_index,
             left=left,
             right=right,
+            special_index=special_index,
         )
-
-    ### PRIVATE METHODS ###
 
     @classmethod
     def _new_single(
-        cls, calculation_rate=None, special_index=None, left=None, right=None
+        cls, calculation_rate=None, special_index=None, left=None, right=None, **kwargs
     ):
         a = left
         b = right
@@ -4258,18 +4272,15 @@ class BinaryOpUGen(UGen):
                 return a
             if b == -1:
                 return -a
-        ugen = cls(
+        return cls(
             calculation_rate=calculation_rate,
             special_index=special_index,
             left=a,
             right=b,
         )
-        return ugen
-
-    ### PUBLIC PROPERTIES ###
 
     @property
-    def operator(self):
+    def operator(self) -> BinaryOperator:
         """
         Gets operator of BinaryOpUgen.
 
@@ -4278,7 +4289,7 @@ class BinaryOpUGen(UGen):
             >>> left = supriya.ugens.SinOsc.ar()
             >>> right = supriya.ugens.WhiteNoise.kr()
             >>> binary_op_ugen = left / right
-            >>> binary_op_ugen.operator
+            >>> binary_op_ugen.source.operator
             BinaryOperator.FLOAT_DIVISION
 
         Returns binary operator.

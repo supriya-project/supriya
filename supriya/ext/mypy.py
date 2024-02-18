@@ -1,10 +1,9 @@
-from typing import Callable, Optional
+from typing import Callable, List, Optional, Tuple
 from typing import Type as TypingType
 
 from mypy.nodes import ARG_OPT, Argument, AssignmentStmt, CallExpr, RefExpr, Var
 from mypy.plugin import ClassDefContext, Plugin
-from mypy.plugins.common import _get_decorator_bool_argument
-from mypy.typeops import make_simplified_union
+from mypy.plugins.common import _get_bool_argument, _get_decorator_bool_argument
 from mypy.types import NoneType
 
 
@@ -12,7 +11,7 @@ class UGenTransformer:
     def __init__(self, ctx: ClassDefContext) -> None:
         self._ctx = ctx
 
-    def collect_params(self):
+    def collect_params(self) -> List[Tuple[str, bool]]:
         cls = self._ctx.cls
         params = []
         for stmt in cls.defs.body:
@@ -24,7 +23,12 @@ class UGenTransformer:
                 and isinstance(expr.callee, RefExpr)
                 and expr.callee.fullname in ["supriya.ugens.bases.param"]
             ):
-                params.append(stmt.lvalues[0].name)
+                params.append(
+                    (
+                        getattr(stmt.lvalues[0], "name", ""),
+                        _get_bool_argument(self._ctx, expr, "unexpanded", False),
+                    )
+                )
         return params
 
     def transform(self) -> bool:
@@ -35,12 +39,28 @@ class UGenTransformer:
         cls = self._ctx.cls
         info = self._ctx.cls.info
 
-        ugen_input_type = make_simplified_union(
-            [
-                api.named_type("typing.SupportsFloat"),
-                api.named_type("supriya.ugens.bases.UGenMethodMixin"),
-            ]
+        SupportsIntType = api.named_type("typing.SupportsInt")
+        UGenOperableType = api.named_type(
+            "supriya.ugens.bases.UGenOperable",
         )
+        # api.named_type() breaks for these... why?
+        UGenInitScalarParamTypeSym = api.lookup_fully_qualified(
+            "supriya.ugens.bases.UGenInitScalarParam"
+        )
+        UGenInitVectorParamTypeSym = api.lookup_fully_qualified(
+            "supriya.ugens.bases.UGenInitVectorParam"
+        )
+        UGenRateVectorParamTypeSym = api.lookup_fully_qualified(
+            "supriya.ugens.bases.UGenRateVectorParam"
+        )
+
+        assert UGenInitScalarParamTypeSym.node is not None
+        assert UGenInitVectorParamTypeSym.node is not None
+        assert UGenRateVectorParamTypeSym.node is not None
+
+        UGenInitScalarParamType = getattr(UGenInitScalarParamTypeSym.node, "target")
+        UGenInitVectorParamType = getattr(UGenInitVectorParamTypeSym.node, "target")
+        UGenRateVectorParamType = getattr(UGenRateVectorParamTypeSym.node, "target")
 
         decorator_arguments = {
             "ar": _get_decorator_bool_argument(self._ctx, "ar", False),
@@ -55,12 +75,24 @@ class UGenTransformer:
                 self._ctx, "fixed_channel_count", False
             ),
         }
-        args = []
-        for name in self.collect_params():
-            args.append(
+        init_args = []
+        rate_args = []
+        for name, unexpanded in self.collect_params():
+            init_type = (
+                UGenInitVectorParamType if unexpanded else UGenInitScalarParamType
+            )
+            init_args.append(
                 Argument(
-                    variable=Var(name, ugen_input_type),
-                    type_annotation=ugen_input_type,
+                    variable=Var(name, init_type),
+                    type_annotation=init_type,
+                    initializer=None,
+                    kind=ARG_OPT,
+                )
+            )
+            rate_args.append(
+                Argument(
+                    variable=Var(name, UGenRateVectorParamType),
+                    type_annotation=UGenRateVectorParamType,
                     initializer=None,
                     kind=ARG_OPT,
                 )
@@ -69,46 +101,44 @@ class UGenTransformer:
                 api=api,
                 cls=cls,
                 name=name,
-                typ=ugen_input_type,
+                typ=UGenInitVectorParamType if unexpanded else UGenInitScalarParamType,
                 override_allow_incompatible=True,
             )
         if (
             decorator_arguments["is_multichannel"]
             and not decorator_arguments["fixed_channel_count"]
         ):
-            args.append(
-                Argument(
-                    variable=Var("channel_count", api.named_type("typing.SupportsInt")),
-                    type_annotation=api.named_type("typing.SupportsInt"),
-                    initializer=None,
-                    kind=ARG_OPT,
-                )
+            channel_count_arg = Argument(
+                variable=Var("channel_count", SupportsIntType),
+                type_annotation=SupportsIntType,
+                initializer=None,
+                kind=ARG_OPT,
             )
+            init_args.append(channel_count_arg)
+            rate_args.append(channel_count_arg)
         for name in ["ar", "kr", "ir", "dr", "new"]:
             if not decorator_arguments[name] or name in info.names:
                 continue
-            return_type = api.named_type("supriya.ugens.bases.UGenMethodMixin")
-            if (
-                decorator_arguments["is_multichannel"]
-                or decorator_arguments["fixed_channel_count"]
-            ):
-                return_type = api.named_type("supriya.ugens.bases.UGenArray")
             add_method_to_class(
                 api=api,
                 cls=cls,
                 name=name,
-                args=args,
-                return_type=return_type,
+                args=rate_args,
+                return_type=UGenOperableType,
                 is_classmethod=True,
             )
         if "__init__" not in info.names:
             add_method_to_class(
-                api=api, cls=cls, name="__init__", args=args, return_type=NoneType()
+                api=api,
+                cls=cls,
+                name="__init__",
+                args=init_args,
+                return_type=NoneType(),
             )
         return False
 
 
-def _ugen_hook(ctx: ClassDefContext):
+def _ugen_hook(ctx: ClassDefContext) -> None:
     UGenTransformer(ctx).transform()
 
 

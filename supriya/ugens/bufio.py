@@ -1,3 +1,5 @@
+from typing import Any, Dict, Tuple
+
 from ..enums import CalculationRate, DoneAction
 from .bases import UGen, param, ugen
 
@@ -26,7 +28,7 @@ class BufRd(UGen):
         UGenArray({2})
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
     phase = param(0.0)
     loop = param(1)
     interpolation = param(2)
@@ -56,10 +58,10 @@ class BufWr(UGen):
         BufWr.ar()
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
     phase = param(0.0)
     loop = param(1.0)
-    source = param(None, unexpanded=True)
+    source = param(unexpanded=True)
 
 
 @ugen(ir=True, is_width_first=True)
@@ -74,7 +76,7 @@ class ClearBuf(UGen):
         ClearBuf.ir()
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
 
 
 @ugen(ir=True, is_width_first=True)
@@ -84,7 +86,7 @@ class LocalBuf(UGen):
 
     ::
 
-        >>> local_buf = supriya.ugens.LocalBuf(
+        >>> local_buf = supriya.ugens.LocalBuf.ir(
         ...     channel_count=1,
         ...     frame_count=1,
         ... )
@@ -96,7 +98,7 @@ class LocalBuf(UGen):
     ::
 
         >>> with supriya.synthdefs.SynthDefBuilder() as builder:
-        ...     local_buf = supriya.ugens.LocalBuf(2048)
+        ...     local_buf = supriya.ugens.LocalBuf.ir(frame_count=2048)
         ...     source = supriya.ugens.PinkNoise.ar()
         ...     pv_chain = supriya.ugens.FFT.kr(
         ...         buffer_id=local_buf,
@@ -117,20 +119,13 @@ class LocalBuf(UGen):
         Out.ar()
     """
 
-    ### CLASS VARIABLES ###
-
     channel_count = param(1)
     frame_count = param(1)
 
-    ### INITIALIZER ###
-
-    def __init__(self, frame_count=1, channel_count=1, calculation_rate=None):
-        UGen.__init__(
-            self,
-            calculation_rate=CalculationRate.SCALAR,
-            channel_count=channel_count,
-            frame_count=frame_count,
-        )
+    def _postprocess_kwargs(
+        self, *, calculation_rate: CalculationRate, **kwargs
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        return CalculationRate.SCALAR, kwargs
 
 
 @ugen(ir=True)
@@ -191,7 +186,7 @@ class PlayBuf(UGen):
         UGenArray({2})
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
     rate = param(1)
     trigger = param(1)
     start_position = param(0)
@@ -223,7 +218,7 @@ class RecordBuf(UGen):
         RecordBuf.ar()
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
     offset = param(0.0)
     record_level = param(1.0)
     preexisting_level = param(0.0)
@@ -231,4 +226,4 @@ class RecordBuf(UGen):
     loop = param(1.0)
     trigger = param(1.0)
     done_action = param(DoneAction(0))
-    source = param(None, unexpanded=True)
+    source = param(unexpanded=True)

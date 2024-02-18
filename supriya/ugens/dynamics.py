@@ -20,7 +20,7 @@ class Amplitude(UGen):
         Amplitude.kr()
     """
 
-    source = param(None)
+    source = param()
     attack_time = param(0.01)
     release_time = param(0.01)
 
@@ -31,7 +31,7 @@ class Compander(UGen):
     A general purpose hard-knee dynamics processor.
     """
 
-    source = param(None)
+    source = param()
     control = param(0.0)
     threshold = param(0.5)
     slope_below = param(1.0)
@@ -125,7 +125,7 @@ class Limiter(UGen):
         Limiter.ar()
     """
 
-    source = param(None)
+    source = param()
     level = param(1.0)
     duration = param(0.01)
 
@@ -147,6 +147,6 @@ class Normalizer(UGen):
         Normalizer.ar()
     """
 
-    source = param(None)
+    source = param()
     level = param(1.0)
     duration = param(0.01)

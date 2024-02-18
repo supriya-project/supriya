@@ -1,5 +1,7 @@
-from ..enums import DoneAction
-from .bases import PseudoUGen, UGen, UGenArray, param, ugen
+from typing import Any, Dict, Tuple
+
+from ..enums import CalculationRate, DoneAction
+from .bases import PseudoUGen, UGen, UGenArray, UGenOperable, param, ugen
 from .basic import MulAdd
 
 
@@ -18,7 +20,7 @@ class A2K(UGen):
         A2K.kr()
     """
 
-    source = param(None)
+    source = param()
 
 
 @ugen(ar=True, ir=True, kr=True, is_pure=True)
@@ -103,7 +105,7 @@ class K2A(UGen):
         K2A.ar()
     """
 
-    source = param(None)
+    source = param()
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -125,7 +127,7 @@ class LinExp(UGen):
         LinExp.ar()
     """
 
-    source = param(None)
+    source = param()
     input_minimum = param(0)
     input_maximum = param(1)
     output_minimum = param(1)
@@ -135,29 +137,29 @@ class LinExp(UGen):
 class LinLin(PseudoUGen):
     @staticmethod
     def ar(
-        source=None,
+        *,
+        source,
         input_minimum=0.0,
         input_maximum=1.0,
         output_minimum=1.0,
         output_maximum=2.0,
-    ):
+    ) -> UGenOperable:
         scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
         offset = output_minimum - (scale * input_minimum)
-        ugen = MulAdd.new(source=source, multiplier=scale, addend=offset)
-        return ugen
+        return MulAdd.new(source=source, multiplier=scale, addend=offset)
 
     @staticmethod
     def kr(
-        source=None,
+        *,
+        source,
         input_minimum=0.0,
         input_maximum=1.0,
         output_minimum=1.0,
         output_maximum=2.0,
-    ):
+    ) -> UGenOperable:
         scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
         offset = output_minimum - (scale * input_minimum)
-        ugen = MulAdd.new(source=source, multiplier=scale, addend=offset)
-        return ugen
+        return MulAdd.new(source=source, multiplier=scale, addend=offset)
 
 
 @ugen(ar=True, kr=True, has_done_flag=True)
@@ -176,23 +178,16 @@ class Line(UGen):
     duration = param(1.0)
     done_action = param(DoneAction(0))
 
-    @classmethod
-    def _new_expanded(
-        cls,
-        calculation_rate=None,
-        done_action=None,
-        duration=None,
-        stop=None,
-        start=None,
-    ):
-        done_action = DoneAction.from_expr(int(done_action))
-        return super(Line, cls)._new_expanded(
-            calculation_rate=calculation_rate,
-            done_action=done_action,
-            duration=duration,
-            stop=stop,
-            start=start,
-        )
+    def _postprocess_kwargs(
+        self,
+        *,
+        calculation_rate: CalculationRate,
+        **kwargs,
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        return calculation_rate, {
+            **kwargs,
+            "done_action": DoneAction.from_expr(int(kwargs["done_action"])),
+        }
 
 
 class Silence(PseudoUGen):

@@ -1,7 +1,7 @@
-from collections.abc import Sequence
+from typing import Any, Dict, Sequence, Tuple
 
-from supriya import utils
-
+from ..enums import CalculationRate
+from ..utils import repeat_to_length
 from .bases import UGen, param, ugen
 
 
@@ -50,20 +50,21 @@ class LocalIn(UGen):
         UGenArray({2})
     """
 
-    ### CLASS VARIABLES ###
-
     default = param(0.0, unexpanded=True)
 
-    ### INITIALIZER ###
-
-    def __init__(self, calculation_rate=None, channel_count=1, default=0):
-        self._channel_count = int(channel_count)
+    def _postprocess_kwargs(
+        self,
+        *,
+        calculation_rate: CalculationRate,
+        **kwargs,
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        default = kwargs["default"]
         if not isinstance(default, Sequence):
-            default = (default,)
-        default = (float(_) for _ in default)
-        default = utils.repeat_to_length(default, channel_count)
-        default = list(default)[:channel_count]
-        UGen.__init__(self, calculation_rate=calculation_rate, default=default)
+            default = [default]
+        kwargs["default"] = list(
+            repeat_to_length([float(x) for x in default], len(self))
+        )
+        return calculation_rate, kwargs
 
 
 @ugen(ar=True, kr=True, channel_count=0, fixed_channel_count=True)
@@ -80,7 +81,7 @@ class LocalOut(UGen):
         LocalOut.ar()
     """
 
-    source = param(None, unexpanded=True)
+    source = param(unexpanded=True)
 
 
 @ugen(ar=True, kr=True, is_output=True, channel_count=0, fixed_channel_count=True)
@@ -99,7 +100,7 @@ class OffsetOut(UGen):
     """
 
     bus = param(0)
-    source = param(None, unexpanded=True)
+    source = param(unexpanded=True)
 
 
 @ugen(ar=True, kr=True, is_output=True, channel_count=0, fixed_channel_count=True)
@@ -118,7 +119,7 @@ class Out(UGen):
     """
 
     bus = param(0)
-    source = param(None, unexpanded=True)
+    source = param(unexpanded=True)
 
 
 @ugen(ar=True, kr=True, is_output=True, channel_count=0, fixed_channel_count=True)
@@ -137,7 +138,7 @@ class ReplaceOut(UGen):
     """
 
     bus = param(0)
-    source = param(None, unexpanded=True)
+    source = param(unexpanded=True)
 
 
 @ugen(ar=True, kr=True, is_output=True, channel_count=0, fixed_channel_count=True)
@@ -159,4 +160,4 @@ class XOut(UGen):
 
     bus = param(0)
     crossfade = param(0.0)
-    source = param(None, unexpanded=True)
+    source = param(unexpanded=True)

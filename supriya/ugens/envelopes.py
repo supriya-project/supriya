@@ -17,7 +17,7 @@ class Done(UGen):
         Done.kr()
     """
 
-    source = param(None)
+    source = param()
 
 
 @ugen(ar=True, kr=True, has_done_flag=True)
@@ -37,7 +37,7 @@ class EnvGen(UGen):
     level_bias = param(0.0)
     time_scale = param(1.0)
     done_action = param(0.0)
-    envelope = param(None, unexpanded=True)
+    envelope = param(unexpanded=True)
 
     @classmethod
     def _new_expanded(
@@ -87,7 +87,7 @@ class Free(UGen):
     """
 
     trigger = param(0)
-    node_id = param(None)
+    node_id = param()
 
 
 @ugen(kr=True)
@@ -105,7 +105,7 @@ class FreeSelf(UGen):
         FreeSelf.kr()
     """
 
-    trigger = param(None)
+    trigger = param()
 
 
 @ugen(kr=True)
@@ -123,12 +123,7 @@ class FreeSelfWhenDone(UGen):
         FreeSelfWhenDone.kr()
     """
 
-    source = param(None)
-
-    def __init__(self, calculation_rate=None, source=None):
-        if not (hasattr(source, "has_done_flag") and source.has_done_flag):
-            raise ValueError(repr(source))
-        UGen.__init__(self, calculation_rate=calculation_rate, source=source)
+    source = param()
 
 
 @ugen(kr=True, has_done_flag=True)
@@ -166,8 +161,8 @@ class Pause(UGen):
         Pause.kr()
     """
 
-    trigger = param(None)
-    node_id = param(None)
+    trigger = param()
+    node_id = param()
 
 
 @ugen(kr=True)
@@ -185,7 +180,7 @@ class PauseSelf(UGen):
         PauseSelf.kr()
     """
 
-    trigger = param(None)
+    trigger = param()
 
 
 @ugen(kr=True)
@@ -203,9 +198,4 @@ class PauseSelfWhenDone(UGen):
         PauseSelfWhenDone.kr()
     """
 
-    source = param(None)
-
-    def __init__(self, calculation_rate=None, source=None):
-        if not (hasattr(source, "has_done_flag") and source.has_done_flag):
-            raise ValueError(repr(source))
-        UGen.__init__(self, calculation_rate=calculation_rate, source=source)
+    source = param()

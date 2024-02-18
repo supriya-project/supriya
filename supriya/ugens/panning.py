@@ -25,8 +25,8 @@ class Balance2(UGen):
         UGenArray({2})
     """
 
-    left = param(None)
-    right = param(None)
+    left = param()
+    right = param()
     position = param(0.0)
     level = param(1.0)
 
@@ -54,9 +54,9 @@ class BiPanB2(UGen):
         >>> w, x, y = bi_pan_b_2
     """
 
-    in_a = param(None)
-    in_b = param(None)
-    azimuth = param(None)
+    in_a = param()
+    in_b = param()
+    azimuth = param()
     gain = param(1.0)
 
 
@@ -83,9 +83,9 @@ class DecodeB2(UGen):
         UGenArray({4})
     """
 
-    w = param(None)
-    x = param(None)
-    y = param(None)
+    w = param()
+    x = param()
+    y = param()
     orientation = param(0.5)
 
 
@@ -104,7 +104,7 @@ class Pan2(UGen):
         UGenArray({2})
     """
 
-    source = param(None)
+    source = param()
     position = param(0.0)
     level = param(1.0)
 
@@ -127,7 +127,7 @@ class Pan4(UGen):
         UGenArray({4})
     """
 
-    source = param(None)
+    source = param()
     x_position = param(0)
     y_position = param(0)
     gain = param(1)
@@ -153,7 +153,7 @@ class PanAz(UGen):
         UGenArray({8})
     """
 
-    source = param(None)
+    source = param()
     position = param(0)
     amplitude = param(1)
     width = param(2)
@@ -178,7 +178,7 @@ class PanB(UGen):
         UGenArray({3})
     """
 
-    source = param(None)
+    source = param()
     azimuth = param(0)
     elevation = param(0)
     gain = param(1)
@@ -201,7 +201,7 @@ class PanB2(UGen):
         UGenArray({3})
     """
 
-    source = param(None)
+    source = param()
     azimuth = param(0)
     gain = param(1)
 
@@ -228,8 +228,8 @@ class Rotate2(UGen):
     Returns an array of the rotator's left and right outputs.
     """
 
-    x = param(None)
-    y = param(None)
+    x = param()
+    y = param()
     position = param(0)
 
 
@@ -360,7 +360,7 @@ class Splay(PseudoUGen):
         return Mix.multichannel(panners, 2) * level
 
     @classmethod
-    def ar(cls, *, center=0, level=1, normalize=True, source=None, spread=1):
+    def ar(cls, *, source, center=0, level=1, normalize=True, spread=1):
         return cls._new_expanded(
             calculation_rate=CalculationRate.AUDIO,
             center=center,
@@ -371,7 +371,7 @@ class Splay(PseudoUGen):
         )
 
     @classmethod
-    def kr(cls, *, center=0, level=1, normalize=True, source=None, spread=1):
+    def kr(cls, *, source, center=0, level=1, normalize=True, spread=1):
         return cls._new_expanded(
             calculation_rate=CalculationRate.CONTROL,
             center=center,
@@ -399,7 +399,7 @@ class XFade2(UGen):
         XFade2.ar()
     """
 
-    in_a = param(None)
+    in_a = param()
     in_b = param(0)
     pan = param(0)
     level = param(1)

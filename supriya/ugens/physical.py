@@ -19,7 +19,7 @@ class Ball(UGen):
         Ball.ar()
     """
 
-    source = param(None)
+    source = param()
     gravity = param(1.0)
     damping = param(0.0)
     friction = param(0.01)
@@ -46,8 +46,8 @@ class Pluck(UGen):
         Pluck.ar()
     """
 
-    source = param(None)
-    trigger = param(None)
+    source = param()
+    trigger = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1)
@@ -71,7 +71,7 @@ class Spring(UGen):
         Spring.ar()
     """
 
-    source = param(None)
+    source = param()
     spring = param(1.0)
     damping = param(0.0)
 
@@ -94,7 +94,7 @@ class TBall(UGen):
         TBall.ar()
     """
 
-    source = param(None)
+    source = param()
     gravity = param(10.0)
     damping = param(0.0)
     friction = param(0.01)

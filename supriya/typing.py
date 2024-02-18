@@ -5,19 +5,28 @@ from typing import (
     Coroutine,
     Dict,
     Optional,
+    Protocol,
     SupportsFloat,
     SupportsInt,
     Tuple,
+    TypeVar,
     Union,
     runtime_checkable,
 )
 
 try:
-    from typing import Protocol
+    from typing import TypeAlias
 except ImportError:
-    from typing_extensions import Protocol  # type: ignore
+    from typing_extensions import TypeAlias  # noqa
 
-from .enums import AddAction, CalculationRate, HeaderFormat, SampleFormat
+from .enums import (
+    AddAction,
+    CalculationRate,
+    DoneAction,
+    EnvelopeShape,
+    HeaderFormat,
+    SampleFormat,
+)
 
 if TYPE_CHECKING:
     import numpy
@@ -62,8 +71,13 @@ class SupportsRenderMemo(Protocol):
         pass
 
 
-AddActionLike = Optional[Union[AddAction, SupportsInt, str]]
-CalculationRateLike = Optional[Union[CalculationRate, SupportsInt, str]]
-HeaderFormatLike = Optional[Union[HeaderFormat, SupportsInt, str]]
-SampleFormatLike = Optional[Union[SampleFormat, SupportsInt, str]]
-UGenInputMap = Optional[Dict[str, Union[SupportsFloat, str, None]]]
+E = TypeVar("E")
+_EnumLike = Optional[Union[E, SupportsInt, str, None]]
+AddActionLike: TypeAlias = _EnumLike[AddAction]
+DoneActionLike: TypeAlias = _EnumLike[DoneAction]
+CalculationRateLike: TypeAlias = _EnumLike[CalculationRate]
+RateLike: TypeAlias = _EnumLike[CalculationRate]
+EnvelopeShapeLike: TypeAlias = _EnumLike[EnvelopeShape]
+HeaderFormatLike: TypeAlias = _EnumLike[HeaderFormat]
+SampleFormatLike: TypeAlias = _EnumLike[SampleFormat]
+UGenInputMap: TypeAlias = Optional[Dict[str, Union[SupportsFloat, str, None]]]

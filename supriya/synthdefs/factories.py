@@ -15,7 +15,7 @@ from ..ugens import (
     RandID,
     ReplaceOut,
     UGenArray,
-    UGenMethodMixin,
+    UGenOperable,
     XOut,
 )
 from .builders import SynthDefBuilder
@@ -364,7 +364,7 @@ class SynthDefFactory:
             source = self._build_feedback_loop_input(builder, source, state)
             for signal_block in self._signal_blocks:
                 source = signal_block(builder, source, state)
-                if not isinstance(source, UGenMethodMixin):
+                if not isinstance(source, UGenOperable):
                     source = UGenArray(source)
             self._build_output(builder, source, state)
             self._build_feedback_loop_output(builder, source, state)
@@ -2150,13 +2150,13 @@ class SynthDefFactory:
             the SynthDef builder instance
 
         source
-            a UGenMethodMixin representing the signal flow
+            a UGenOperable representing the signal flow
 
         state
             a dictionary of arbitrary key/value pairs for parameterizing the signal and
             parameter block functions
 
-        Signal block functions should return a UGenMethodMixin.
+        Signal block functions should return a UGenOperable.
 
         .. container:: example
 

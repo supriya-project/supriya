@@ -24,7 +24,7 @@ class GrainBuf(UGen):
 
     trigger = param(0)
     duration = param(1)
-    buffer_id = param(None)
+    buffer_id = param()
     rate = param(1)
     position = param(0)
     interpolate = param(2)
@@ -54,7 +54,7 @@ class GrainIn(UGen):
 
     trigger = param(0)
     duration = param(1)
-    source = param(None)
+    source = param()
     position = param(0)
     envelope_buffer_id = param(-1)
     maximum_overlap = param(512)
@@ -74,7 +74,7 @@ class PitchShift(UGen):
         PitchShift.ar()
     """
 
-    source = param(None)
+    source = param()
     window_size = param(0.2)
     pitch_ratio = param(1.0)
     pitch_dispersion = param(0.0)

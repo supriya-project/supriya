@@ -1,3 +1,5 @@
+from typing import Any, Dict, Tuple
+
 from .. import utils
 from ..enums import CalculationRate
 from .bases import PseudoUGen, UGen, UGenArray, param, ugen
@@ -136,9 +138,22 @@ class Mix(PseudoUGen):
         summed_sources = []
         for part in utils.group_by_count(sources, 4):
             if len(part) == 4:
-                summed_sources.append(Sum4(*part))
+                summed_sources.extend(
+                    Sum4.new(
+                        input_one=part[0],
+                        input_two=part[1],
+                        input_three=part[2],
+                        input_four=part[3],
+                    )
+                )
             elif len(part) == 3:
-                summed_sources.append(Sum3(*part))
+                summed_sources.extend(
+                    Sum3.new(
+                        input_one=part[0],
+                        input_two=part[1],
+                        input_three=part[2],
+                    )
+                )
             elif len(part) == 2:
                 summed_sources.append(part[0] + part[1])
             else:
@@ -320,43 +335,31 @@ class MulAdd(UGen):
 
     ### CLASS VARIABLES ###
 
-    source = param(None)
+    source = param()
     multiplier = param(1.0)
     addend = param(0.0)
 
-    ### INITIALIZER ###
-
-    def __init__(self, addend=0.0, multiplier=1.0, calculation_rate=None, source=None):
-        UGen.__init__(
-            self,
-            addend=addend,
-            multiplier=multiplier,
-            calculation_rate=calculation_rate,
-            source=source,
-        )
-
     ### PRIVATE METHODS ###
-
-    @staticmethod
-    def _inputs_are_valid(source, multiplier, addend):
-        if CalculationRate.from_expr(source) == CalculationRate.AUDIO:
-            return True
-        if CalculationRate.from_expr(source) == CalculationRate.CONTROL:
-            if CalculationRate.from_expr(multiplier) in (
-                CalculationRate.CONTROL,
-                CalculationRate.SCALAR,
-            ):
-                if CalculationRate.from_expr(addend) in (
-                    CalculationRate.CONTROL,
-                    CalculationRate.SCALAR,
-                ):
-                    return True
-        return False
 
     @classmethod
     def _new_single(
         cls, addend=None, multiplier=None, calculation_rate=None, source=None
     ):
+        def _inputs_are_valid(source, multiplier, addend):
+            if CalculationRate.from_expr(source) == CalculationRate.AUDIO:
+                return True
+            if CalculationRate.from_expr(source) == CalculationRate.CONTROL:
+                if CalculationRate.from_expr(multiplier) in (
+                    CalculationRate.CONTROL,
+                    CalculationRate.SCALAR,
+                ):
+                    if CalculationRate.from_expr(addend) in (
+                        CalculationRate.CONTROL,
+                        CalculationRate.SCALAR,
+                    ):
+                        return True
+            return False
+
         if multiplier == 0.0:
             return addend
         minus = multiplier == -1
@@ -372,53 +375,25 @@ class MulAdd(UGen):
             return addend - source
         if no_multiplier:
             return source + addend
-        if cls._inputs_are_valid(source, multiplier, addend):
+        if _inputs_are_valid(source, multiplier, addend):
             return cls(
                 addend=addend,
                 multiplier=multiplier,
-                calculation_rate=calculation_rate,
+                calculation_rate=CalculationRate.from_expr(
+                    (source, multiplier, addend)
+                ),
                 source=source,
             )
-        if cls._inputs_are_valid(multiplier, source, addend):
+        if _inputs_are_valid(multiplier, source, addend):
             return cls(
                 addend=addend,
                 multiplier=source,
-                calculation_rate=calculation_rate,
+                calculation_rate=CalculationRate.from_expr(
+                    (multiplier, source, addend)
+                ),
                 source=multiplier,
             )
         return (source * multiplier) + addend
-
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def new(cls, source=None, multiplier=1.0, addend=0.0):
-        """
-        Constructs a multiplication / addition ugen.
-
-        ::
-
-            >>> addend = 0.5
-            >>> multiplier = 1.5
-            >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
-            >>> mul_add = supriya.ugens.MulAdd.new(
-            ...     addend=addend,
-            ...     multiplier=multiplier,
-            ...     source=source,
-            ... )
-            >>> mul_add
-            UGenArray({2})
-
-        Returns ugen graph.
-        """
-        # TODO: handle case of array as source
-        calculation_rate = CalculationRate.from_expr((source, multiplier, addend))
-        ugen = cls._new_expanded(
-            addend=addend,
-            multiplier=multiplier,
-            calculation_rate=calculation_rate,
-            source=source,
-        )
-        return ugen
 
 
 @ugen(new=True)
@@ -439,31 +414,12 @@ class Sum3(UGen):
         Sum3.ar()
     """
 
-    ### CLASS VARIABLES ###
-
-    input_one = param(None)
-    input_two = param(None)
-    input_three = param(None)
-
-    ### INITIALIZER ###
-
-    def __init__(self, input_one=None, input_two=None, input_three=None):
-        inputs = [input_one, input_two, input_three]
-        calculation_rate = CalculationRate.from_expr(inputs)
-        inputs.sort(key=lambda x: CalculationRate.from_expr(x), reverse=True)
-        inputs = tuple(inputs)
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            input_one=input_one,
-            input_two=input_two,
-            input_three=input_three,
-        )
-
-    ### PRIVATE METHODS ###
+    input_one = param()
+    input_two = param()
+    input_three = param()
 
     @classmethod
-    def _new_single(cls, input_one=None, input_two=None, input_three=None, **kwargs):
+    def _new_single(cls, *, input_one, input_two, input_three, **kwargs):
         if input_three == 0:
             ugen = input_one + input_two
         elif input_two == 0:
@@ -472,9 +428,28 @@ class Sum3(UGen):
             ugen = input_two + input_three
         else:
             ugen = cls(
-                input_one=input_one, input_two=input_two, input_three=input_three
+                calculation_rate=None,
+                input_one=input_one,
+                input_two=input_two,
+                input_three=input_three,
             )
         return ugen
+
+    def _postprocess_kwargs(
+        self, *, calculation_rate: CalculationRate, **kwargs
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        inputs = sorted(
+            [kwargs["input_one"], kwargs["input_two"], kwargs["input_three"]],
+            key=lambda x: CalculationRate.from_expr(x),
+            reverse=True,
+        )
+        calculation_rate = CalculationRate.from_expr(inputs)
+        kwargs.update(
+            input_one=inputs[0],
+            input_two=inputs[1],
+            input_three=inputs[2],
+        )
+        return calculation_rate, kwargs
 
 
 @ugen(new=True)
@@ -497,58 +472,57 @@ class Sum4(UGen):
         Sum4.ar()
     """
 
-    ### CLASS VARIABLES ###
-
-    input_one = param(None)
-    input_two = param(None)
-    input_three = param(None)
-    input_four = param(None)
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self, input_one=None, input_two=None, input_three=None, input_four=None
-    ):
-        inputs = [input_one, input_two, input_three, input_four]
-        calculation_rate = CalculationRate.from_expr(inputs)
-        inputs.sort(key=lambda x: CalculationRate.from_expr(x), reverse=True)
-        inputs = tuple(inputs)
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            input_one=input_one,
-            input_two=input_two,
-            input_three=input_three,
-            input_four=input_four,
-        )
-
-    ### PRIVATE METHODS ###
+    input_one = param()
+    input_two = param()
+    input_three = param()
+    input_four = param()
 
     @classmethod
-    def _new_single(
-        cls, input_one=None, input_two=None, input_three=None, input_four=None, **kwargs
-    ):
+    def _new_single(cls, *, input_one, input_two, input_three, input_four, **kwargs):
         if input_one == 0:
-            ugen = Sum3.new(
+            ugen = Sum3._new_single(
                 input_one=input_two, input_two=input_three, input_three=input_four
             )
         elif input_two == 0:
-            ugen = Sum3.new(
+            ugen = Sum3._new_single(
                 input_one=input_one, input_two=input_three, input_three=input_four
             )
         elif input_three == 0:
-            ugen = Sum3.new(
+            ugen = Sum3._new_single(
                 input_one=input_one, input_two=input_two, input_three=input_four
             )
         elif input_four == 0:
-            ugen = Sum3.new(
+            ugen = Sum3._new_single(
                 input_one=input_one, input_two=input_two, input_three=input_three
             )
         else:
             ugen = cls(
+                calculation_rate=None,
                 input_one=input_one,
                 input_two=input_two,
                 input_three=input_three,
                 input_four=input_four,
             )
         return ugen
+
+    def _postprocess_kwargs(
+        self, *, calculation_rate: CalculationRate, **kwargs
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        inputs = sorted(
+            [
+                kwargs["input_one"],
+                kwargs["input_two"],
+                kwargs["input_three"],
+                kwargs["input_four"],
+            ],
+            key=lambda x: CalculationRate.from_expr(x),
+            reverse=True,
+        )
+        calculation_rate = CalculationRate.from_expr(inputs)
+        kwargs.update(
+            input_one=inputs[0],
+            input_two=inputs[1],
+            input_three=inputs[2],
+            input_four=inputs[3],
+        )
+        return calculation_rate, kwargs

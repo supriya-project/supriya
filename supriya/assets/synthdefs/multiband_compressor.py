@@ -1,8 +1,8 @@
-from ...synthdefs import SynthDefBuilder
+from ...synthdefs import SynthDef, SynthDefBuilder
 from ...ugens import HPF, LPF, CompanderD, In, Limiter, ReplaceOut, Sum4
 
 
-def _make_synthdef(channel_count=2):
+def _make_synthdef(channel_count: int = 2) -> SynthDef:
     with SynthDefBuilder(
         frequency_1=200,
         frequency_2=2000,
@@ -95,5 +95,4 @@ def _make_synthdef(channel_count=2):
 
 multiband_compressor = _make_synthdef(channel_count=2)
 
-
-__all__ = ("multiband_compressor",)
+__all__ = ["multiband_compressor"]
