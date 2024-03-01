@@ -1,3 +1,6 @@
+from typing import Any, Dict, Tuple
+
+from ..enums import CalculationRate
 from .bases import UGen, param, ugen
 
 
@@ -20,19 +23,19 @@ class CheckBadValues(UGen):
         CheckBadValues.ar()
     """
 
-    source = param(None)
+    source = param()
     ugen_id = param(0)
     post_mode = param(2)
 
-    def __init__(self, calculation_rate=None, ugen_id=0, post_mode=2, source=None):
-        assert int(post_mode) in (0, 1, 2)
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            ugen_id=ugen_id,
-            post_mode=post_mode,
-            source=source,
-        )
+    def _postprocess_kwargs(
+        self,
+        *,
+        calculation_rate: CalculationRate,
+        **kwargs,
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        if kwargs["post_mode"] not in (0, 1, 2):
+            raise ValueError(f"Invalid post mode: {kwargs['post_mode']}")
+        return calculation_rate, kwargs
 
 
 @ugen(ar=True, kr=True)
@@ -41,5 +44,5 @@ class Sanitize(UGen):
     Remove infinity, NaN, and denormals.
     """
 
-    source = param(None)
+    source = param()
     replace = param(0.0)

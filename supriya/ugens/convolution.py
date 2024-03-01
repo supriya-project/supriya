@@ -22,8 +22,8 @@ class Convolution(UGen):
         Convolution.ar()
     """
 
-    source = param(None)
-    kernel = param(None)
+    source = param()
+    kernel = param()
     framesize = param(512)
 
 
@@ -49,8 +49,8 @@ class Convolution2(UGen):
         Convolution2.ar()
     """
 
-    source = param(None)
-    kernel = param(None)
+    source = param()
+    kernel = param()
     trigger = param(0.0)
     framesize = param(2048)
 
@@ -78,8 +78,8 @@ class Convolution2L(UGen):
         Convolution2L.ar()
     """
 
-    source = param(None)
-    kernel = param(None)
+    source = param()
+    kernel = param()
     trigger = param(0.0)
     framesize = param(2048)
     crossfade = param(1.0)
@@ -107,7 +107,7 @@ class Convolution3(UGen):
         Convolution3.ar()
     """
 
-    source = param(None)
-    kernel = param(None)
+    source = param()
+    kernel = param()
     trigger = param(0.0)
     framesize = param(2048)

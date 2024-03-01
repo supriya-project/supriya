@@ -16,7 +16,7 @@ class FreqShift(UGen):
         FreqShift.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency = param(0.0)
     phase = param(0.0)
 
@@ -36,7 +36,7 @@ class Hilbert(UGen):
         UGenArray({2})
     """
 
-    source = param(None)
+    source = param()
 
 
 @ugen(ar=True)
@@ -55,5 +55,5 @@ class HilbertFIR(UGen):
         HilbertFIR.ar()
     """
 
-    source = param(None)
-    buffer_id = param(None)
+    source = param()
+    buffer_id = param()

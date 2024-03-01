@@ -6,8 +6,7 @@ from typing import Optional, Tuple, Union, cast
 from uqbar.objects import get_repr
 
 from ..enums import CalculationRate, ParameterRate, SignalRange, Unit
-from ..typing import UGenInputMap
-from ..ugens import MultiOutUGen, OutputProxy, UGenMethodMixin
+from ..ugens import OutputProxy, UGen, UGenOperable
 
 
 class Range:
@@ -118,7 +117,7 @@ class Range:
 
 
 @dataclasses.dataclass(unsafe_hash=True)
-class Parameter(UGenMethodMixin):
+class Parameter(UGenOperable):
     lag: Optional[float] = None
     name: Optional[str] = None
     parameter_rate: ParameterRate = cast(ParameterRate, ParameterRate.CONTROL)
@@ -174,7 +173,7 @@ class Parameter(UGenMethodMixin):
         SignalRange.BIPOLAR
 
 
-class Control(MultiOutUGen):
+class Control(UGen):
     """
     A control-rate control ugen.
 
@@ -182,12 +181,6 @@ class Control(MultiOutUGen):
     Controls are created from the parameters of a synthesizer definition, and typically
     do not need to be created by hand.
     """
-
-    ### CLASS VARIABLES ###
-
-    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
-
-    __slots__ = ("_parameters",)
 
     ### INITIALIZER ###
 
@@ -198,9 +191,9 @@ class Control(MultiOutUGen):
                 parameter = Parameter(name=parameter, value=0)
             coerced_parameters.append(parameter)
         self._parameters = tuple(coerced_parameters)
-        MultiOutUGen.__init__(
+        self._channel_count = len(self)
+        UGen.__init__(
             self,
-            channel_count=len(self),
             calculation_rate=calculation_rate,
             special_index=starting_control_index,
         )
@@ -215,8 +208,8 @@ class Control(MultiOutUGen):
         """
         if isinstance(i, int):
             if len(self) == 1:
-                return OutputProxy(self, 0)
-            return OutputProxy(self, i)
+                return OutputProxy(source=self, output_index=0)
+            return OutputProxy(source=self, output_index=i)
         else:
             return self[self._get_control_index(i)]
 
@@ -321,9 +314,9 @@ class LagControl(Control):
         for parameter in self._parameters:
             lag = parameter.lag or 0.0
             lags.extend([lag] * len(parameter))
-        MultiOutUGen.__init__(
+        self._channel_count = len(self)
+        UGen.__init__(
             self,
-            channel_count=len(self),
             calculation_rate=calculation_rate,
             special_index=starting_control_index,
             lags=lags,

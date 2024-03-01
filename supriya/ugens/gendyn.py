@@ -1,3 +1,7 @@
+from typing import Any, Dict, Tuple
+
+from ..enums import CalculationRate
+from ..typing import Default
 from .bases import UGen, param, ugen
 
 
@@ -24,8 +28,6 @@ class Gendy1(UGen):
         Gendy1.ar()
     """
 
-    ### CLASS VARIABLES ###
-
     ampdist = param(1)
     durdist = param(1)
     adparam = param(1)
@@ -35,40 +37,17 @@ class Gendy1(UGen):
     ampscale = param(0.5)
     durscale = param(0.5)
     init_cps = param(12)
-    knum = param(None)
+    knum = param(Default())
 
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        calculation_rate=None,
-        adparam=1,
-        ampdist=1,
-        ampscale=0.5,
-        ddparam=1,
-        durdist=1,
-        durscale=0.5,
-        init_cps=12,
-        knum=None,
-        maxfrequency=660,
-        minfrequency=440,
-    ):
-        if knum is None:
-            knum = init_cps
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            adparam=adparam,
-            ampdist=ampdist,
-            ampscale=ampscale,
-            ddparam=ddparam,
-            durdist=durdist,
-            durscale=durscale,
-            init_cps=init_cps,
-            knum=knum,
-            maxfrequency=maxfrequency,
-            minfrequency=minfrequency,
+    def _postprocess_kwargs(
+        self, *, calculation_rate: CalculationRate, **kwargs
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        kwargs["knum"] = (
+            kwargs["init_cps"]
+            if isinstance(kwargs["knum"], Default)
+            else kwargs["knum"]
         )
+        return calculation_rate, kwargs
 
 
 @ugen(ar=True, kr=True)
@@ -105,9 +84,19 @@ class Gendy2(UGen):
     ampscale = param(0.5)
     durscale = param(0.5)
     init_cps = param(12)
-    knum = param(None)
+    knum = param(Default())
     a = param(1.17)
     c = param(0.31)
+
+    def _postprocess_kwargs(
+        self, *, calculation_rate: CalculationRate, **kwargs
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        kwargs["knum"] = (
+            kwargs["init_cps"]
+            if isinstance(kwargs["knum"], Default)
+            else kwargs["knum"]
+        )
+        return calculation_rate, kwargs
 
 
 @ugen(ar=True, kr=True)
@@ -140,4 +129,14 @@ class Gendy3(UGen):
     ampscale = param(0.5)
     durscale = param(0.5)
     init_cps = param(12)
-    knum = param(None)
+    knum = param(Default())
+
+    def _postprocess_kwargs(
+        self, *, calculation_rate: CalculationRate, **kwargs
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        kwargs["knum"] = (
+            kwargs["init_cps"]
+            if isinstance(kwargs["knum"], Default)
+            else kwargs["knum"]
+        )
+        return calculation_rate, kwargs

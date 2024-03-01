@@ -15,7 +15,7 @@ class FreeVerb(UGen):
         FreeVerb.ar()
     """
 
-    source = param(None)
+    source = param()
     mix = param(0.33)
     room_size = param(0.5)
     damping = param(0.5)

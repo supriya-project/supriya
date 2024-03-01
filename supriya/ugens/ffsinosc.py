@@ -66,11 +66,11 @@ class Klank(UGen):
         Klank.ar()
     """
 
-    source = param(None)
+    source = param()
     frequency_scale = param(1)
     frequency_offset = param(0)
     decay_scale = param(1)
-    specifications = param(None, unexpanded=True)
+    specifications = param(unexpanded=True)
 
     def __init__(
         self,
@@ -81,6 +81,7 @@ class Klank(UGen):
         source=None,
         specifications=None,
     ):
+        # TODO: Refactor this to not override __init__?
         frequencies, amplitudes, decay_times = specifications
         assert len(frequencies)
         if not amplitudes:

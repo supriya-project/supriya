@@ -88,10 +88,10 @@ class SynthDefBuilder:
     ### PRIVATE METHODS ###
 
     def _add_ugens(self, ugen: Union[OutputProxy, Parameter, UGen]):
-        if not isinstance(ugen, OutputProxy):
-            source = ugen
-        else:
+        if isinstance(ugen, OutputProxy):
             source = ugen.source
+        else:
+            source = ugen
         if source._uuid != self._uuid:
             raise ValueError
         self._ugens.append(source)

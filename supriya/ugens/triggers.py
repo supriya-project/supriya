@@ -19,7 +19,7 @@ class Clip(UGen):
         Clip.ar()
     """
 
-    source = param(None)
+    source = param()
     minimum = param(0.0)
     maximum = param(1.0)
 
@@ -41,7 +41,7 @@ class Fold(UGen):
         Fold.ar()
     """
 
-    source = param(None)
+    source = param()
     minimum = param(0.0)
     maximum = param(1.0)
 
@@ -63,7 +63,7 @@ class Gate(UGen):
         Gate.ar()
     """
 
-    source = param(None)
+    source = param()
     trigger = param(0)
 
 
@@ -84,7 +84,7 @@ class InRange(UGen):
         InRange.ar()
     """
 
-    source = param(None)
+    source = param()
     minimum = param(0.0)
     maximum = param(1.0)
 
@@ -106,7 +106,7 @@ class Latch(UGen):
         Latch.ar()
     """
 
-    source = param(None)
+    source = param()
     trigger = param(0)
 
 
@@ -165,7 +165,7 @@ class Peak(UGen):
         Peak.ar()
     """
 
-    source = param(None)
+    source = param()
     trigger = param(0)
 
 
@@ -185,7 +185,7 @@ class PeakFollower(UGen):
         PeakFollower.ar()
     """
 
-    source = param(None)
+    source = param()
     decay = param(0.999)
 
 
@@ -279,8 +279,8 @@ class Poll(UGen):
 
     ### CLASS VARIABLES ###
 
-    trigger = param(None)
-    source = param(None)
+    trigger = param()
+    source = param()
     trigger_id = param(-1)
 
     ### INITIALIZER ###
@@ -388,7 +388,7 @@ class RunningMax(UGen):
         RunningMax.ar()
     """
 
-    source = param(None)
+    source = param()
     trigger = param(0)
 
 
@@ -409,7 +409,7 @@ class RunningMin(UGen):
         RunningMin.ar()
     """
 
-    source = param(None)
+    source = param()
     trigger = param(0)
 
 
@@ -430,7 +430,7 @@ class Schmidt(UGen):
         Schmidt.ar()
     """
 
-    source = param(None)
+    source = param()
     minimum = param(0.0)
     maximum = param(1.0)
 
@@ -458,10 +458,10 @@ class SendPeakRMS(UGen):
     reply_rate = param(20)
     peak_lag = param(3)
     reply_id = param(-1)
-    source_size = param(None)
-    source = param(None, unexpanded=True)
-    character_count = param(None)
-    character = param(None, unexpanded=True)
+    source_size = param()
+    source = param(unexpanded=True)
+    character_count = param()
+    character = param(unexpanded=True)
 
     ### PUBLIC METHODS ###
 
@@ -550,11 +550,11 @@ class SendReply(UGen):
         ... )
     """
 
-    trigger = param(None)
+    trigger = param()
     reply_id = param(-1)
-    character_count = param(None)
-    character = param(None, unexpanded=True)
-    source = param(None, unexpanded=True)
+    character_count = param()
+    character = param(unexpanded=True)
+    source = param(unexpanded=True)
 
     @classmethod
     def ar(cls, command_name="/reply", reply_id=-1, source=None, trigger=None):
@@ -617,7 +617,7 @@ class SendReply(UGen):
 
 @ugen(ar=True, kr=True)
 class SendTrig(UGen):
-    trigger = param(None)
+    trigger = param()
     id_ = param(0)
     value = param(0.0)
 
@@ -657,7 +657,7 @@ class TDelay(UGen):
         TDelay.ar()
     """
 
-    source = param(None)
+    source = param()
     duration = param(0.1)
 
 
@@ -695,7 +695,7 @@ class Trig1(UGen):
         Trig1.ar()
     """
 
-    source = param(None)
+    source = param()
     duration = param(0.1)
 
 
@@ -715,7 +715,7 @@ class Trig(UGen):
         Trig.ar()
     """
 
-    source = param(None)
+    source = param()
     duration = param(0.1)
 
 
@@ -736,7 +736,7 @@ class Wrap(UGen):
         Wrap.ar()
     """
 
-    source = param(None)
+    source = param()
     minimum = param(0.0)
     maximum = param(1.0)
 
@@ -756,4 +756,4 @@ class ZeroCrossing(UGen):
         ZeroCrossing.ar()
     """
 
-    source = param(None)
+    source = param()

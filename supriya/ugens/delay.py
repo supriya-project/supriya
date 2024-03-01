@@ -14,7 +14,7 @@ class AllpassC(UGen):
         AllpassC.ar()
     """
 
-    source = param(None)
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
@@ -33,7 +33,7 @@ class AllpassL(UGen):
         AllpassL.ar()
     """
 
-    source = param(None)
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
@@ -52,7 +52,7 @@ class AllpassN(UGen):
         AllpassN.ar()
     """
 
-    source = param(None)
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
@@ -74,8 +74,8 @@ class BufAllpassC(UGen):
         BufAllpassC.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
@@ -97,8 +97,8 @@ class BufAllpassL(UGen):
         BufAllpassL.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
@@ -120,8 +120,8 @@ class BufAllpassN(UGen):
         BufAllpassN.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
@@ -143,8 +143,8 @@ class BufCombC(UGen):
         BufCombC.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
@@ -166,8 +166,8 @@ class BufCombL(UGen):
         BufCombL.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
@@ -189,8 +189,8 @@ class BufCombN(UGen):
         BufCombN.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
@@ -212,8 +212,8 @@ class BufDelayC(UGen):
         BufDelayC.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
 
@@ -234,8 +234,8 @@ class BufDelayL(UGen):
         BufDelayL.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
 
@@ -256,8 +256,8 @@ class BufDelayN(UGen):
         BufDelayN.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
 
@@ -274,7 +274,7 @@ class CombC(UGen):
         CombC.ar()
     """
 
-    source = param(None)
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
@@ -292,7 +292,7 @@ class CombL(UGen):
         CombL.ar()
     """
 
-    source = param(None)
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
@@ -310,7 +310,7 @@ class CombN(UGen):
         CombN.ar()
     """
 
-    source = param(None)
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
@@ -350,8 +350,8 @@ class DelTapRd(UGen):
         DelTapRd.ar()
     """
 
-    buffer_id = param(None)
-    phase = param(None)
+    buffer_id = param()
+    phase = param()
     delay_time = param(0.0)
     interpolation = param(1.0)
 
@@ -390,8 +390,8 @@ class DelTapWr(UGen):
         DelTapRd.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -406,7 +406,7 @@ class DelayC(UGen):
         DelayC.ar()
     """
 
-    source = param(None)
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
 
@@ -423,7 +423,7 @@ class DelayL(UGen):
         DelayL.ar()
     """
 
-    source = param(None)
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
 
@@ -440,7 +440,7 @@ class DelayN(UGen):
         DelayN.ar()
     """
 
-    source = param(None)
+    source = param()
     maximum_delay_time = param(0.2)
     delay_time = param(0.2)
 
@@ -457,7 +457,7 @@ class Delay1(UGen):
         Delay1.ar()
     """
 
-    source = param(None)
+    source = param()
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -472,4 +472,4 @@ class Delay2(UGen):
         Delay2.ar()
     """
 
-    source = param(None)
+    source = param()

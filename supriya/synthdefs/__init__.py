@@ -16,7 +16,6 @@ __all__ = [
     "Control",
     "Envelope",
     "LagControl",
-    "MultiOutUGen",
     "OutputProxy",
     "Parameter",
     "PseudoUGen",

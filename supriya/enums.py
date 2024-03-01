@@ -181,14 +181,15 @@ class DoneAction(IntEnumeration):
 
 
 class EnvelopeShape(IntEnumeration):
-    CUBED = 7
-    CUSTOM = 5
-    EXPONENTIAL = 2
-    LINEAR = 1
-    SINE = 3
-    SQUARED = 6
     STEP = 0
+    LINEAR = 1
+    EXPONENTIAL = 2
+    SINE = 3
     WELCH = 4
+    CUSTOM = 5
+    SQUARED = 6
+    CUBED = 7
+    HOLD = 8
 
 
 class HeaderFormat(IntEnumeration):

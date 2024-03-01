@@ -1,3 +1,5 @@
+from typing import Any, Dict, Tuple
+
 from uqbar.enums import IntEnumeration
 
 from ..enums import CalculationRate
@@ -21,7 +23,7 @@ class BeatTrack(UGen):
         UGenArray({4})
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     lock = param(0.0)
 
 
@@ -45,7 +47,7 @@ class BeatTrack2(UGen):
     """
 
     bus_index = param(0.0)
-    feature_count = param(None)
+    feature_count = param()
     window_size = param(2)
     phase_accuracy = param(0.02)
     lock = param(0.0)
@@ -70,7 +72,7 @@ class KeyTrack(UGen):
         KeyTrack.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     key_decay = param(2)
     chroma_leak = param(0.5)
 
@@ -93,12 +95,12 @@ class Loudness(UGen):
         Loudness.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     smask = param(0.25)
     tmask = param(1)
 
 
-@ugen(kr=True, is_multichannel=True, channel_count=13)
+@ugen(kr=True, fixed_channel_count=True)
 class MFCC(UGen):
     """
     Mel frequency cepstral coefficients.
@@ -114,17 +116,17 @@ class MFCC(UGen):
         UGenArray({13})
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     coeff_count = param(13)
 
-    @classmethod
-    def kr(cls, pv_chain=None, coeff_count=13):
-        return cls._new_expanded(
-            calculation_rate=CalculationRate.CONTROL,
-            channel_count=coeff_count,
-            coeff_count=coeff_count,
-            pv_chain=pv_chain,
-        )
+    def _postprocess_kwargs(
+        self,
+        *,
+        calculation_rate: CalculationRate,
+        **kwargs,
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        self._channel_count = int(kwargs["coeff_count"])
+        return calculation_rate, kwargs
 
 
 @ugen(kr=True)
@@ -160,7 +162,7 @@ class Onsets(UGen):
         WPHASE = 5
         MKL = 6
 
-    pv_chain = param(None)
+    pv_chain = param()
     threshold = param(0.5)
     odftype = param(3)
     relaxtime = param(1)
@@ -184,7 +186,7 @@ class Pitch(UGen):
         UGenArray({2})
     """
 
-    source = param(None)
+    source = param()
     initial_frequency = param(440)
     min_frequency = param(60)
     max_frequency = param(4000)
@@ -213,7 +215,7 @@ class SpecCentroid(UGen):
         SpecCentroid.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
 
 
 @ugen(kr=True)
@@ -232,7 +234,7 @@ class SpecFlatness(UGen):
         SpecFlatness.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
 
 
 @ugen(kr=True)
@@ -253,6 +255,6 @@ class SpecPcile(UGen):
         SpecPcile.kr()
     """
 
-    pv_chain = param(None)
+    pv_chain = param()
     fraction = param(0.5)
     interpolate = param(0)

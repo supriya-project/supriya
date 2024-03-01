@@ -1,18 +1,16 @@
 from ...enums import DoneAction, ParameterRate
-from ...synthdefs import Parameter, SynthDefBuilder
+from ...synthdefs import Parameter, SynthDef, SynthDefBuilder
 from ...ugens import LPF, Linen, Mix, OffsetOut, Pan2, Rand, VarSaw, XLine
 
 
-def _build_default_synthdef():
-    builder = SynthDefBuilder(
+def _build_default_synthdef() -> SynthDef:
+    with SynthDefBuilder(
         amplitude=0.1,
         frequency=440,
         gate=1,
         out=Parameter(parameter_rate=ParameterRate.SCALAR, value=0),
         pan=0.5,
-    )
-
-    with builder:
+    ) as builder:
         low_pass = LPF.ar(
             source=Mix.new(
                 VarSaw.ar(
@@ -42,8 +40,7 @@ def _build_default_synthdef():
             source=low_pass * linen * builder["amplitude"], position=builder["pan"]
         )
         OffsetOut.ar(bus=builder["out"], source=pan)
-    synthdef = builder.build(name="default")
-    return synthdef
+    return builder.build(name="default")
 
 
 default = _build_default_synthdef()

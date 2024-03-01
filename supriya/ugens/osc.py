@@ -1,4 +1,6 @@
-from ..enums import DoneAction
+from typing import Any, Dict, Tuple
+
+from ..enums import CalculationRate, DoneAction
 from .bases import UGen, param, ugen
 
 
@@ -18,7 +20,7 @@ class COsc(UGen):
         COsc.ar()
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
     frequency = param(440.0)
     beats = param(0.5)
 
@@ -40,8 +42,8 @@ class DegreeToKey(UGen):
         DegreeToKey.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()
     octave = param(12)
 
 
@@ -76,8 +78,8 @@ class Index(UGen):
         Index.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -106,35 +108,22 @@ class LFGauss(UGen):
         LFGauss.ar()
     """
 
-    ### CLASS VARIABLES ###
-
     duration = param(1)
     width = param(0.1)
     initial_phase = param(0)
     loop = param(1)
     done_action = param(0)
 
-    ### INITIALIZER ###
-
-    def __init__(
+    def _postprocess_kwargs(
         self,
-        calculation_rate=None,
-        done_action=0,
-        duration=1,
-        initial_phase=0,
-        loop=1,
-        width=0.1,
-    ):
-        done_action = DoneAction.from_expr(done_action)
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            done_action=done_action,
-            duration=duration,
-            initial_phase=initial_phase,
-            loop=loop,
-            width=width,
-        )
+        *,
+        calculation_rate: CalculationRate,
+        **kwargs,
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        return calculation_rate, {
+            **kwargs,
+            "done_action": DoneAction.from_expr(int(kwargs["done_action"])),
+        }
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -204,7 +193,7 @@ class Osc(UGen):
     An interpolating wavetable oscillator.
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
     frequency = param(440.0)
     initial_phase = param(0.0)
 
@@ -215,7 +204,7 @@ class OscN(UGen):
     A non-interpolating wavetable oscillator.
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
     frequency = param(440.0)
     initial_phase = param(0.0)
 
@@ -237,8 +226,8 @@ class Select(UGen):
         Select.ar()
     """
 
-    selector = param(None)
-    sources = param(None, unexpanded=True)
+    selector = param()
+    sources = param(unexpanded=True)
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -301,7 +290,7 @@ class VOsc(UGen):
         VOsc.ar()
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
     frequency = param(440.0)
     phase = param(0.0)
 
@@ -323,7 +312,7 @@ class VOsc3(UGen):
         VOsc3.ar()
     """
 
-    buffer_id = param(None)
+    buffer_id = param()
     freq_1 = param(110.0)
     freq_2 = param(220.0)
     freq_3 = param(440.0)
@@ -392,5 +381,5 @@ class WrapIndex(UGen):
         WrapIndex.ar()
     """
 
-    buffer_id = param(None)
-    source = param(None)
+    buffer_id = param()
+    source = param()

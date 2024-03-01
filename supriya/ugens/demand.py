@@ -1,4 +1,5 @@
 from collections.abc import Sequence
+from typing import Any, Dict, Tuple
 
 from ..enums import CalculationRate
 from .bases import UGen, param, ugen
@@ -92,25 +93,20 @@ class Demand(UGen):
         UGenArray({2})
     """
 
-    ### CLASS VARIABLES ###
-
     trigger = param(0)
     reset = param(0)
-    source = param(None, unexpanded=True)
+    source = param(unexpanded=True)
 
-    ### INITIALIZER ###
-
-    def __init__(self, calculation_rate=None, trigger=None, reset=None, source=None):
-        if not isinstance(source, Sequence):
-            source = [source]
-        self._channel_count = len(source)
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            trigger=trigger,
-            reset=reset,
-            source=source,
-        )
+    def _postprocess_kwargs(
+        self,
+        *,
+        calculation_rate: CalculationRate,
+        **kwargs,
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        if not isinstance(source := kwargs["source"], Sequence):
+            kwargs["source"] = [source]
+        self._channel_count = len(kwargs["source"])
+        return calculation_rate, kwargs
 
 
 @ugen(ar=True, kr=True)
@@ -136,8 +132,8 @@ class DemandEnvGen(UGen):
         DemandEnvGen.ar()
     """
 
-    level = param(None)
-    duration = param(None)
+    level = param()
+    duration = param()
     shape = param(1)
     curve = param(0)
     gate = param(1)
@@ -230,7 +226,7 @@ class Drand(UGen):
     """
 
     repeats = param(1)
-    sequence = param(None, unexpanded=True)
+    sequence = param(unexpanded=True)
 
 
 @ugen(dr=True)
@@ -249,7 +245,7 @@ class Dreset(UGen):
         Dreset.dr()
     """
 
-    source = param(None)
+    source = param()
     reset = param(0)
 
 
@@ -270,7 +266,7 @@ class Dseq(UGen):
     """
 
     repeats = param(1)
-    sequence = param(None, unexpanded=True)
+    sequence = param(unexpanded=True)
 
 
 @ugen(dr=True)
@@ -290,7 +286,7 @@ class Dser(UGen):
     """
 
     repeats = param(1)
-    sequence = param(None, unexpanded=True)
+    sequence = param(unexpanded=True)
 
 
 @ugen(dr=True)
@@ -331,7 +327,7 @@ class Dshuf(UGen):
     """
 
     repeats = param(1)
-    sequence = param(None, unexpanded=True)
+    sequence = param(unexpanded=True)
 
 
 @ugen(dr=True)
@@ -351,7 +347,7 @@ class Dstutter(UGen):
     """
 
     n = param(2)
-    source = param(None)
+    source = param()
 
 
 @ugen(dr=True)
@@ -371,8 +367,8 @@ class Dswitch(UGen):
         Dswitch.dr()
     """
 
-    index = param(None)
-    sequence = param(None, unexpanded=True)
+    index = param()
+    sequence = param(unexpanded=True)
 
 
 @ugen(dr=True)
@@ -392,8 +388,8 @@ class Dswitch1(UGen):
         Dswitch1.dr()
     """
 
-    index = param(None)
-    sequence = param(None, unexpanded=True)
+    index = param()
+    sequence = param(unexpanded=True)
 
 
 @ugen(dr=True)
@@ -413,7 +409,7 @@ class Dunique(UGen):
         Dunique.dr()
     """
 
-    source = param(None)
+    source = param()
     max_buffer_size = param(1024)
     protected = param(True)
 
@@ -487,9 +483,9 @@ class Dwrand(UGen):
     """
 
     repeats = param(1)
-    length = param(None)
-    weights = param(None, unexpanded=True)
-    sequence = param(None, unexpanded=True)
+    length = param()
+    weights = param(unexpanded=True)
+    sequence = param(unexpanded=True)
 
     @classmethod
     def dr(cls, repeats=1, sequence=None, weights=None):
@@ -527,4 +523,4 @@ class Dxrand(UGen):
     """
 
     repeats = param(1)
-    sequence = param(None, unexpanded=True)
+    sequence = param(unexpanded=True)

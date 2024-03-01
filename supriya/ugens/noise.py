@@ -1,4 +1,6 @@
-from ..enums import SignalRange
+from typing import Any, Dict, Tuple
+
+from ..enums import CalculationRate, SignalRange
 from .bases import UGen, param, ugen
 
 
@@ -43,7 +45,7 @@ class CoinGate(UGen):
     """
 
     probability = param(0.5)
-    trigger = param(None)
+    trigger = param()
 
 
 @ugen(ar=True, kr=True)
@@ -112,11 +114,19 @@ class ExpRand(UGen):
     minimum = param(0.0)
     maximum = param(1.0)
 
-    def __init__(self, calculation_rate=None, maximum=None, minimum=None):
-        minimum, maximum = sorted([minimum, maximum])
-        UGen.__init__(
-            self, calculation_rate=calculation_rate, minimum=minimum, maximum=maximum
-        )
+    def _postprocess_kwargs(
+        self,
+        *,
+        calculation_rate: CalculationRate,
+        **kwargs,
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        if isinstance(kwargs["minimum"], float) and isinstance(
+            kwargs["maximum"], float
+        ):
+            kwargs["minimum"], kwargs["maximum"] = sorted(
+                [kwargs["minimum"], kwargs["maximum"]]
+            )
+        return calculation_rate, kwargs
 
 
 @ugen(ar=True, kr=True)
@@ -146,7 +156,7 @@ class Hasher(UGen):
         Hasher.ar()
     """
 
-    source = param(None)
+    source = param()
 
 
 @ugen(ir=True)
@@ -462,24 +472,19 @@ class TIRand(UGen):
         TIRand.ar()
     """
 
-    ### CLASS VARIABLES ###
-
     minimum = param(0)
     maximum = param(127)
     trigger = param(0)
 
-    ### INITIALIZER ###
-
-    def __init__(self, calculation_rate=None, maximum=127, minimum=0, trigger=0):
-        minimum = int(minimum)
-        maximum = int(maximum)
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            maximum=maximum,
-            minimum=minimum,
-            trigger=trigger,
-        )
+    def _postprocess_kwargs(
+        self,
+        *,
+        calculation_rate: CalculationRate,
+        **kwargs,
+    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+        kwargs["minimum"] = int(kwargs["minimum"])
+        kwargs["maximum"] = int(kwargs["maximum"])
+        return calculation_rate, kwargs
 
 
 @ugen(ar=True, kr=True)
@@ -521,9 +526,9 @@ class TWindex(UGen):
         TWindex.ar()
     """
 
-    trigger = param(None)
+    trigger = param()
     normalize = param(0)
-    array = param(None, unexpanded=True)
+    array = param(unexpanded=True)
 
 
 @ugen(ar=True, kr=True)

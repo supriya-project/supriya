@@ -42,7 +42,7 @@ from .synthdefs import (
     SynthDefBuilder,
     synthdef,
 )
-from .ugens import UGen, UGenArray, UGenMethodMixin
+from .ugens import UGen, UGenArray, UGenOperable
 from .assets.synthdefs import default
 from .scsynth import Options
 
@@ -93,7 +93,7 @@ __all__ = [
     "TimeUnit",
     "UGen",
     "UGenArray",
-    "UGenMethodMixin",
+    "UGenOperable",
     "__version__",
     "__version_info__",
     "default",

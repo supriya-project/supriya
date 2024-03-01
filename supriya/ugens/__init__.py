@@ -5,12 +5,13 @@ Tools for modeling unit generators (UGens).
 # Need to import these before anything else
 from .bases import (  # isort:skip
     BinaryOpUGen,
-    MultiOutUGen,
+    Check,
     OutputProxy,
     PseudoUGen,
     UGen,
     UGenArray,
-    UGenMethodMixin,
+    UGenOperable,
+    UGenSerializable,
     UnaryOpUGen,
 )
 from .bases import param, ugen  # isort:skip
@@ -384,6 +385,7 @@ __all__ = [
     "BufWr",
     "COsc",
     "Changed",
+    "Check",
     "CheckBadValues",
     "ClearBuf",
     "Clip",
@@ -544,7 +546,6 @@ __all__ = [
     "MouseX",
     "MouseY",
     "MulAdd",
-    "MultiOutUGen",
     "NRand",
     "NodeID",
     "Normalizer",
@@ -670,7 +671,8 @@ __all__ = [
     "TwoZero",
     "UGen",
     "UGenArray",
-    "UGenMethodMixin",
+    "UGenOperable",
+    "UGenSerializable",
     "UnaryOpUGen",
     "VDiskIn",
     "VOsc",

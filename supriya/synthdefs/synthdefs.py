@@ -14,7 +14,7 @@ from ..enums import (
     ParameterRate,
     UnaryOperator,
 )
-from ..ugens import BinaryOpUGen, OutputProxy, UGen, UGenMethodMixin, UnaryOpUGen
+from ..ugens import BinaryOpUGen, OutputProxy, UGen, UGenOperable, UnaryOpUGen
 from .compilers import SynthDefCompiler
 from .controls import AudioControl, Control, LagControl, Parameter, TrigControl
 from .grapher import SynthDefGrapher
@@ -394,14 +394,14 @@ class SynthDef:
                 continue
             for descendant, input_index in descendants[:-1]:
                 fft_size = antecedent.fft_size
-                new_buffer = LocalBuf(fft_size)
+                new_buffer = LocalBuf.ir(frame_count=fft_size)
                 pv_copy = PV_Copy.kr(pv_chain_a=antecedent, pv_chain_b=new_buffer)
                 inputs = list(descendant._inputs)
                 inputs[input_index] = pv_copy[0]
                 descendant._inputs = tuple(inputs)
                 index = ugens.index(descendant)
                 replacement = []
-                if isinstance(fft_size, UGenMethodMixin):
+                if isinstance(fft_size, UGenOperable):
                     replacement.append(fft_size)
                 replacement.extend([new_buffer, pv_copy])
                 ugens[index:index] = replacement
