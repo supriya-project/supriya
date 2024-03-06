@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: "${{ github.workflow }}"
+
+env:
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  bump-version:
+    name: Bump version
+    environment: release
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Get latest version
+      run: echo OLD_VERSION=$(gh release list -L 1 --json name | jq -r '.[0].name') >> $GITHUB_ENV
+    - name: Bump version file
+      run: echo NEW_VERSION=$(python dev/bump-version.py ${OLD_VERSION}) >> $GITHUB_ENV
+    - name: Debug
+      run: |
+        echo ${OLD_VERSION}
+        echo ${NEW_VERSION}
+    - name: Push changes
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+        git add .
+        git commit -m "Bump version to ${NEW_VERSION}"
+        git push
+    - name: Create release
+      uses: softprops/action-gh-release@v1
+      with:
+        draft: true
+        generate_release_notes: true
+        name: "${{ env.NEW_VERSION }}"
+        tag_name: "v${{ env.NEW_VERSION }}"
