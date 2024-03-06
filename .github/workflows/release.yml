@@ -7,7 +7,7 @@ concurrency:
   group: "${{ github.workflow }}"
 
 env:
-  GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: "${{ github.token }}"
 
 jobs:
   bump-version:
