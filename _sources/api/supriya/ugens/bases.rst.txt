@@ -20,10 +20,6 @@ bases
    :undoc-members:
 
 
-.. autoclass:: MultiOutUGen
-   :show-inheritance:
-
-
 .. autoclass:: OutputProxy
    :show-inheritance:
 
@@ -65,7 +61,7 @@ bases
    .. autoproperty:: signal_range
    .. autoproperty:: ugens
 
-.. autoclass:: UGenMethodMixin
+.. autoclass:: UGenOperable
    :show-inheritance:
 
    .. automethod:: __abs__
@@ -76,6 +72,7 @@ bases
    .. automethod:: __graph__
    .. automethod:: __gt__
    .. automethod:: __le__
+   .. automethod:: __len__
    .. automethod:: __lt__
    .. automethod:: __mod__
    .. automethod:: __mul__
@@ -135,6 +132,11 @@ bases
    .. automethod:: triangle_window
    .. automethod:: welch_window
    .. autoproperty:: signal_range
+
+.. autoclass:: UGenSerializable
+   :show-inheritance:
+
+   .. automethod:: serialize
 
 .. autoclass:: UnaryOpUGen
    :show-inheritance:

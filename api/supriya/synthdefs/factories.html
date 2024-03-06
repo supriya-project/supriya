@@ -4107,13 +4107,13 @@ bands during the build stage:</p>
 <dl class="simple">
 <dt>builder</dt><dd><p>the SynthDef builder instance</p>
 </dd>
-<dt>source</dt><dd><p>a UGenMethodMixin representing the signal flow</p>
+<dt>source</dt><dd><p>a UGenOperable representing the signal flow</p>
 </dd>
 <dt>state</dt><dd><p>a dictionary of arbitrary key/value pairs for parameterizing the signal and
 parameter block functions</p>
 </dd>
 </dl>
-<p>Signal block functions should return a UGenMethodMixin.</p>
+<p>Signal block functions should return a UGenOperable.</p>
 <div class="example docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">factory</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefFactory</span><span class="p">()</span>
 </code></pre></div>
