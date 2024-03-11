@@ -22,7 +22,7 @@ def rewrite_version_file(year: int, month: int, beta: int) -> None:
     for i, line in enumerate(lines):
         if line.startswith("__version_info__ ="):
             lines[i] = f'__version_info__ = ({year}, "{month}b{beta}")'
-    path.write_text("\n".join(lines))
+    path.write_text("\n".join(lines) + "\n")
 
 
 def build_parser():
