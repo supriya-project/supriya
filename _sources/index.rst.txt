@@ -46,7 +46,7 @@ Quickstart
 
         ::
 
-            git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
+            git clone https://github.com/supriya-project/supriya.git
             cd supriya
             pip install -e .
 
@@ -162,7 +162,7 @@ Quit the server::
     glossary
 
 ..  _Cython: https://cython.org/
-..  _GitHub: https://github.com/josiah-wolf-oberholtzer/supriya
+..  _GitHub: https://github.com/supriya-project/supriya
 ..  _Graphviz: http://graphviz.org/
 ..  _Homebrew: http://brew.sh/
 ..  _IPython: https://ipython.org/
@@ -170,7 +170,7 @@ Quit the server::
 ..  _Python: https://www.python.org/
 ..  _Sphinx: https://www.sphinx-doc.org/en/master/
 ..  _SuperCollider: http://supercollider.github.io/
-..  _Supriya: https://github.com/josiah-wolf-oberholtzer/supriya
+..  _Supriya: https://github.com/supriya-project/supriya
 ..  _libsndfile: http://www.mega-nerd.com/libsndfile/
 ..  _pip: https://pip.pypa.io/en/stable/
 ..  _python-rtmidi: https://github.com/SpotlightKid/python-rtmidi
