@@ -16,7 +16,7 @@ Get Supriya
 Install Supriya from its `GitHub`_ repository, via `git
 <https://git-scm.com/>`_ and `pip`_::
 
-    ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git 
+    ~$ git clone https://github.com/supriya-project/supriya.git 
     ~$ cd supriya
     supriya$ pip install -e .
 
@@ -91,7 +91,7 @@ environment. You can now install supriya into that environment:
 
     ~$ mkvirtualenv my-supriya-env
     ...
-    (my-supriya-env) ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
+    (my-supriya-env) ~$ git clone https://github.com/supriya-project/supriya.git
     (my-supriya-env) ~$ cd supriya
     (my-supriya-env) supriya$ pip install -e ".[development]"
 
@@ -101,14 +101,14 @@ virtual environments: ``mkvirtualenv``, ``rmvirtualenv``, ``workon`` and
 ``deactivate``.
 
 ..  _Cython: https://cython.org/
-..  _GitHub: https://github.com/josiah-wolf-oberholtzer/supriya
+..  _GitHub: https://github.com/supriya-project/supriya
 ..  _Graphviz: http://graphviz.org/
 ..  _Homebrew: http://brew.sh/
 ..  _IPython: https://ipython.org/
 ..  _PyPI: https://pypi.python.org/pypi
 ..  _Python: https://www.python.org/
 ..  _SuperCollider: http://supercollider.github.io/
-..  _Supriya: https://github.com/josiah-wolf-oberholtzer/supriya
+..  _Supriya: https://github.com/supriya-project/supriya
 ..  _pip: https://pip.pypa.io/en/stable/
 ..  _python-rtmidi: https://github.com/SpotlightKid/python-rtmidi
 ..  _virtualenv: https://readthedocs.org/projects/virtualenv/

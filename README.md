@@ -2,9 +2,9 @@
 
 [![](https://img.shields.io/pypi/pyversions/supriya)]()
 [![](https://img.shields.io/pypi/l/supriya)]()
-[![](https://img.shields.io/github/actions/workflow/status/josiah-wolf-oberholtzer/supriya/test.yml?branch=main)]()
+[![](https://img.shields.io/github/actions/workflow/status/supriya-project/supriya/test.yml?branch=main)]()
 
-[Supriya](https://github.com/josiah-wolf-oberholtzer/supriya) is a
+[Supriya](https://github.com/supriya-project/supriya) is a
 [Python](https://www.python.org/) API for
 [SuperCollider](http://supercollider.github.io/).
 
@@ -47,7 +47,7 @@ Install from PyPI:
 
 Or from source:
 
-    git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
+    git clone https://github.com/supriya-project/supriya.git
     cd supriya
     pip install -e .
 

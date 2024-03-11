@@ -72,9 +72,9 @@ test = [
 ]
 
 [project.urls]
-homepage = "https://github.com/josiah-wolf-oberholtzer/supriya"
+homepage = "https://github.com/supriya-project/supriya"
 documentation = "https://josiahwolfoberholtzer.com/supriya"
-repository = "https://github.com/josiah-wolf-oberholtzer/supriya"
+repository = "https://github.com/supriya-project/supriya"
 
 [tool.black]
 target-version = ["py312"]

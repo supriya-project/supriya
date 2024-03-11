@@ -40,7 +40,7 @@ graphviz_output_format = "svg"
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
-    "uqbar": ("http://josiahwolfoberholtzer.com/uqbar", None),
+    "uqbar": ("http://supriya-project.github.io/uqbar", None),
 }
 
 ### OPENGRAPH ###
@@ -99,7 +99,7 @@ html_theme = "sphinx_immaterial"
 html_theme_options = {
     "icon": {"repo": "fontawesome/brands/github"},
     "site_url": "https://josiahwolfoberholtzer.com/supriya/",
-    "repo_url": "https://github.com/josiah-wolf-oberholtzer/supriya/",
+    "repo_url": "https://github.com/supriya-project/supriya/",
     "repo_name": "supriya",
     "repo_type": "github",
     "edit_uri": "blob/main/docs",
