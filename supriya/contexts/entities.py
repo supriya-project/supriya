@@ -25,8 +25,8 @@ except ImportError:
 from ..assets.synthdefs.default import default
 from ..enums import AddAction, CalculationRate
 from ..io import PlayMemo
-from ..synthdefs import SynthDef
 from ..typing import AddActionLike, HeaderFormatLike, SampleFormatLike, SupportsRender
+from ..ugens import SynthDef
 from .errors import InvalidCalculationRate, InvalidMoment
 from .responses import BufferInfo, NodeInfo
 

@@ -1,4 +1,4 @@
-from .bases import UGen, param, ugen
+from .core import UGen, param, ugen
 
 
 @ugen(ar=True)
@@ -13,7 +13,7 @@ class FreqShift(UGen):
         ...     source=source,
         ... )
         >>> freq_shift
-        FreqShift.ar()
+        FreqShift.ar()[0]
     """
 
     source = param()
@@ -33,7 +33,7 @@ class Hilbert(UGen):
         ...     source=source,
         ... )
         >>> hilbert
-        UGenArray({2})
+        UGenVector({2})
     """
 
     source = param()
@@ -52,7 +52,7 @@ class HilbertFIR(UGen):
         ...     source=source,
         ... )
         >>> hilbert_fir
-        HilbertFIR.ar()
+        HilbertFIR.ar()[0]
     """
 
     source = param()

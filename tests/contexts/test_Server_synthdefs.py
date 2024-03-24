@@ -7,8 +7,7 @@ import pytest_asyncio
 from supriya.contexts.errors import MomentClosed
 from supriya.contexts.realtime import AsyncServer, Server
 from supriya.osc import OscBundle, OscMessage
-from supriya.synthdefs import SynthDefBuilder, SynthDefCompiler
-from supriya.ugens import Out, SinOsc
+from supriya.ugens import Out, SinOsc, SynthDefBuilder, compile_synthdefs
 
 
 async def get(x):
@@ -42,7 +41,7 @@ def synthdefs():
 @pytest.mark.asyncio
 async def test_add_synthdefs(context, synthdefs):
     def compiled(x):
-        return SynthDefCompiler.compile_synthdefs(x)
+        return compile_synthdefs(x)
 
     with context.osc_protocol.capture() as transcript:
         # no synthdefs provided

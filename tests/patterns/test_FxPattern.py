@@ -13,8 +13,7 @@ from supriya.patterns import (
 )
 from supriya.patterns.testutils import MockUUID as M
 from supriya.patterns.testutils import run_pattern_test
-from supriya.synthdefs import SynthDefBuilder
-from supriya.ugens import FreeVerb, In, Out
+from supriya.ugens import FreeVerb, In, Out, SynthDefBuilder
 
 with SynthDefBuilder(in_=0, out=0, mix=0.0) as builder:
     in_ = In.ar(bus=builder["in_"], channel_count=2)

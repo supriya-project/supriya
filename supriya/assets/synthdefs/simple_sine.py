@@ -1,5 +1,4 @@
-from ...synthdefs import SynthDef, SynthDefBuilder
-from ...ugens import Out, SinOsc
+from ...ugens import Out, SinOsc, SynthDef, SynthDefBuilder
 
 
 def _build_synthdef() -> SynthDef:

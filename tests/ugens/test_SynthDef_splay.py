@@ -4,8 +4,14 @@ import platform
 import pytest
 from uqbar.strings import normalize
 
-import supriya.synthdefs
-import supriya.ugens
+from supriya.ugens import (
+    In,
+    Out,
+    Splay,
+    SuperColliderSynthDef,
+    SynthDefBuilder,
+    decompile_synthdefs,
+)
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
@@ -14,7 +20,7 @@ import supriya.ugens
     reason="sclang hangs without QT",
 )
 def test_Splay_01_sclang(server):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+    sc_synthdef = SuperColliderSynthDef(
         "test",
         r"""
         arg spread=1, level=0.2, center=0.0;
@@ -22,9 +28,7 @@ def test_Splay_01_sclang(server):
         """,
     )
     sc_compiled_synthdef = sc_synthdef.compile()
-    synthdef = supriya.synthdefs.SynthDefDecompiler.decompile_synthdefs(
-        sc_compiled_synthdef
-    )[0]
+    synthdef = decompile_synthdefs(sc_compiled_synthdef)[0]
     assert normalize(str(synthdef)) == normalize(
         """
         synthdef:
@@ -101,14 +105,14 @@ def test_Splay_01_sclang(server):
 
 
 def test_Splay_01_supriya(server):
-    with supriya.synthdefs.SynthDefBuilder(spread=1, level=0.2, center=0.0) as builder:
-        source = supriya.ugens.Splay.ar(
-            source=supriya.ugens.In.ar(bus=0, channel_count=5),
+    with SynthDefBuilder(spread=1, level=0.2, center=0.0) as builder:
+        source = Splay.ar(
+            source=In.ar(bus=0, channel_count=5),
             spread=builder["spread"],
             level=builder["level"],
             center=builder["center"],
         )
-        supriya.ugens.Out.ar(bus=0, source=source)
+        Out.ar(bus=0, source=source)
     py_synthdef = builder.build(name="test")
     assert normalize(str(py_synthdef)) == normalize(
         """
@@ -198,7 +202,7 @@ def test_Splay_01_supriya(server):
     reason="sclang hangs without QT",
 )
 def test_Splay_02_sclang(server):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+    sc_synthdef = SuperColliderSynthDef(
         "test",
         r"""
         arg spread=1, level=0.2;
@@ -206,9 +210,7 @@ def test_Splay_02_sclang(server):
         """,
     )
     sc_compiled_synthdef = sc_synthdef.compile()
-    synthdef = supriya.synthdefs.SynthDefDecompiler.decompile_synthdefs(
-        sc_compiled_synthdef
-    )[0]
+    synthdef = decompile_synthdefs(sc_compiled_synthdef)[0]
     assert normalize(str(synthdef)) == normalize(
         """
         synthdef:
@@ -348,14 +350,14 @@ def test_Splay_02_sclang(server):
 
 
 def test_Splay_02_supriya(server):
-    with supriya.synthdefs.SynthDefBuilder(spread=1, level=0.2) as builder:
-        source = supriya.ugens.Splay.ar(
-            source=supriya.ugens.In.ar(bus=0, channel_count=5),
+    with SynthDefBuilder(spread=1, level=0.2) as builder:
+        source = Splay.ar(
+            source=In.ar(bus=0, channel_count=5),
             spread=builder["spread"],
             level=builder["level"],
             center=[-0.25, 0.25],
         )
-        supriya.ugens.Out.ar(bus=0, source=source)
+        Out.ar(bus=0, source=source)
     py_synthdef = builder.build(name="test")
     assert normalize(str(py_synthdef)) == normalize(
         """

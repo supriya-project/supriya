@@ -25,6 +25,7 @@ from .enums import (
     DoneAction,
     EnvelopeShape,
     HeaderFormat,
+    ParameterRate,
     SampleFormat,
 )
 
@@ -76,6 +77,7 @@ _EnumLike = Optional[Union[E, SupportsInt, str, None]]
 AddActionLike: TypeAlias = _EnumLike[AddAction]
 DoneActionLike: TypeAlias = _EnumLike[DoneAction]
 CalculationRateLike: TypeAlias = _EnumLike[CalculationRate]
+ParameterRateLike: TypeAlias = _EnumLike[ParameterRate]
 RateLike: TypeAlias = _EnumLike[CalculationRate]
 EnvelopeShapeLike: TypeAlias = _EnumLike[EnvelopeShape]
 HeaderFormatLike: TypeAlias = _EnumLike[HeaderFormat]

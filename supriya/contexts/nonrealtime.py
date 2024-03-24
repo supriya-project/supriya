@@ -20,8 +20,8 @@ from ..assets.synthdefs import system_synthdefs
 from ..enums import CalculationRate, HeaderFormat, SampleFormat
 from ..osc import OscBundle
 from ..scsynth import AsyncNonrealtimeProcessProtocol, Options
-from ..synthdefs import SynthDef
 from ..typing import HeaderFormatLike, SampleFormatLike, SupportsOsc
+from ..ugens import SynthDef
 from .core import Context, ContextError, ContextObject, Node
 from .requests import DoNothing, RequestBundle, Requestable
 

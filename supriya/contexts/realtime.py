@@ -46,8 +46,8 @@ from ..scsynth import (
     ProcessProtocol,
     SyncProcessProtocol,
 )
-from ..synthdefs import SynthDef
 from ..typing import SupportsOsc
+from ..ugens import SynthDef
 from .core import (
     Buffer,
     Bus,

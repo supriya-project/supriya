@@ -21,7 +21,7 @@ Supriya lets you:
   :py:class:`context <supriya.contexts.core.Context>` interface.
 
 - Compile SuperCollider :py:class:`SynthDefs
-  <supriya.synthdefs.synthdefs.SynthDef>` natively in Python code.
+  <supriya.ugens.bases.SynthDef>` natively in Python code.
 
 - Schedule :py:mod:`~supriya.patterns` and callbacks with tempo- and
   meter-aware :py:mod:`~supriya.clocks`.
@@ -76,8 +76,8 @@ Boot the SuperCollider server::
 
 Import some classes::
 
+    >>> from supriya import Envelope, synthdef
     >>> from supriya.ugens import EnvGen, Out, SinOsc
-    >>> from supriya.synthdefs import Envelope, synthdef
 
 Make a synthesizer definition::
 

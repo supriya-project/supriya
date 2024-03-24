@@ -5,8 +5,7 @@ import pytest
 from supriya.contexts.errors import MomentClosed
 from supriya.contexts.nonrealtime import Score
 from supriya.osc import OscBundle, OscMessage
-from supriya.synthdefs import SynthDefBuilder, SynthDefCompiler
-from supriya.ugens import Out, SinOsc
+from supriya.ugens import Out, SinOsc, SynthDefBuilder, compile_synthdefs
 
 
 @pytest.fixture(autouse=True)
@@ -31,7 +30,7 @@ def synthdefs():
 
 def test_add_synthdefs(context, synthdefs):
     def compiled(x):
-        return SynthDefCompiler.compile_synthdefs(x)
+        return compile_synthdefs(x)
 
     with context.at(0):
         # no synthdefs provided

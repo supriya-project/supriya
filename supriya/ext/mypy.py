@@ -21,7 +21,7 @@ class UGenTransformer:
             if (
                 isinstance(expr, CallExpr)
                 and isinstance(expr.callee, RefExpr)
-                and expr.callee.fullname in ["supriya.ugens.bases.param"]
+                and expr.callee.fullname in ["supriya.ugens.core.param"]
             ):
                 params.append(
                     (
@@ -41,17 +41,17 @@ class UGenTransformer:
 
         SupportsIntType = api.named_type("typing.SupportsInt")
         UGenOperableType = api.named_type(
-            "supriya.ugens.bases.UGenOperable",
+            "supriya.ugens.core.UGenOperable",
         )
         # api.named_type() breaks for these... why?
         UGenInitScalarParamTypeSym = api.lookup_fully_qualified(
-            "supriya.ugens.bases.UGenInitScalarParam"
+            "supriya.ugens.core.UGenInitScalarParam"
         )
         UGenInitVectorParamTypeSym = api.lookup_fully_qualified(
-            "supriya.ugens.bases.UGenInitVectorParam"
+            "supriya.ugens.core.UGenInitVectorParam"
         )
         UGenRateVectorParamTypeSym = api.lookup_fully_qualified(
-            "supriya.ugens.bases.UGenRateVectorParam"
+            "supriya.ugens.core.UGenRateVectorParam"
         )
 
         assert UGenInitScalarParamTypeSym.node is not None
@@ -146,7 +146,7 @@ class SupriyaPlugin(Plugin):
     def get_class_decorator_hook(
         self, fullname: str
     ) -> Optional[Callable[[ClassDefContext], None]]:
-        if fullname == "supriya.ugens.bases.ugen":
+        if fullname == "supriya.ugens.core.ugen":
             return _ugen_hook
         return None
 

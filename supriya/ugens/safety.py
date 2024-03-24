@@ -1,7 +1,7 @@
 from typing import Any, Dict, Tuple
 
 from ..enums import CalculationRate
-from .bases import UGen, param, ugen
+from .core import UGen, param, ugen
 
 
 @ugen(ar=True, kr=True)
@@ -20,7 +20,7 @@ class CheckBadValues(UGen):
         ...     post_mode=post_mode,
         ... )
         >>> check_bad_values
-        CheckBadValues.ar()
+        CheckBadValues.ar()[0]
     """
 
     source = param()

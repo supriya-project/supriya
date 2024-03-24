@@ -1,12 +1,12 @@
 from uqbar.strings import normalize
 
-import supriya.ugens
-from supriya.synthdefs import SynthDefFactory
+from supriya.ugens import SinOsc
+from supriya.ugens.factories import SynthDefFactory
 
 
 def test_gate_01():
     def signal_block(builder, source, state):
-        return supriya.ugens.SinOsc.ar()
+        return SinOsc.ar()
 
     factory = SynthDefFactory(channel_count=1)
     factory = factory.with_signal_block(signal_block)
@@ -40,7 +40,7 @@ def test_gate_01():
 
 def test_gate_02():
     def signal_block(builder, source, state):
-        return supriya.ugens.SinOsc.ar()
+        return SinOsc.ar()
 
     factory = SynthDefFactory(channel_count=1)
     factory = factory.with_signal_block(signal_block)
@@ -75,7 +75,7 @@ def test_gate_02():
 
 def test_gate_03():
     def signal_block(builder, source, state):
-        return supriya.ugens.SinOsc.ar()
+        return SinOsc.ar()
 
     factory = SynthDefFactory(channel_count=1)
     factory = factory.with_signal_block(signal_block)
@@ -117,7 +117,7 @@ def test_gate_03():
 
 def test_gate_04():
     def signal_block(builder, source, state):
-        return supriya.ugens.SinOsc.ar()
+        return SinOsc.ar()
 
     factory = SynthDefFactory(channel_count=1)
     factory = factory.with_signal_block(signal_block)

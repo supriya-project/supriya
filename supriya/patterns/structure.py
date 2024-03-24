@@ -7,8 +7,8 @@ from uqbar.objects import get_vars, new
 from supriya.assets import synthdefs
 from supriya.enums import CalculationRate
 
-from ..synthdefs import SynthDef
 from ..typing import CalculationRateLike
+from ..ugens import SynthDef
 from .events import (
     BusAllocateEvent,
     BusFreeEvent,

@@ -12,7 +12,7 @@ from typing import (
 )
 
 T = TypeVar("T")
-TI = Iterable[Union[T, "TI"]]
+IT = Iterable[Union[T, "IT"]]
 
 
 class Expander(Generic[T]):
@@ -55,7 +55,7 @@ def expand(
     return Expander[T]()(mapping, unexpanded, only)
 
 
-def flatten(iterable: TI) -> Generator[T, None, None]:
+def flatten(iterable: IT) -> Generator[T, None, None]:
     for x in iterable:
         if isinstance(x, Iterable):
             yield from flatten(x)

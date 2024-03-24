@@ -2,8 +2,8 @@ import collections
 import math
 
 from ..enums import CalculationRate
-from .bases import PseudoUGen, UGen, param, ugen
 from .basic import Mix
+from .core import PseudoUGen, UGen, param, ugen
 
 
 @ugen(ar=True, kr=True, channel_count=2, fixed_channel_count=True)
@@ -22,7 +22,7 @@ class Balance2(UGen):
         ...     right=right,
         ... )
         >>> balance_2
-        UGenArray({2})
+        UGenVector({2})
     """
 
     left = param()
@@ -47,7 +47,7 @@ class BiPanB2(UGen):
         ...     in_b=in_b,
         ... )
         >>> bi_pan_b_2
-        UGenArray({3})
+        UGenVector({3})
 
     ::
 
@@ -80,7 +80,7 @@ class DecodeB2(UGen):
         ...     y=y,
         ... )
         >>> decode_b_2
-        UGenArray({4})
+        UGenVector({4})
     """
 
     w = param()
@@ -101,7 +101,7 @@ class Pan2(UGen):
         ...     source=source,
         ... )
         >>> pan_2
-        UGenArray({2})
+        UGenVector({2})
     """
 
     source = param()
@@ -124,7 +124,7 @@ class Pan4(UGen):
         ...     y_position=0,
         ... )
         >>> pan_4
-        UGenArray({4})
+        UGenVector({4})
     """
 
     source = param()
@@ -150,7 +150,7 @@ class PanAz(UGen):
         ...     width=2,
         ... )
         >>> pan_az
-        UGenArray({8})
+        UGenVector({8})
     """
 
     source = param()
@@ -175,7 +175,7 @@ class PanB(UGen):
         ...     source=source,
         ... )
         >>> pan_b
-        UGenArray({3})
+        UGenVector({3})
     """
 
     source = param()
@@ -198,7 +198,7 @@ class PanB2(UGen):
         ...     source=source,
         ... )
         >>> pan_b_2
-        UGenArray({3})
+        UGenVector({3})
     """
 
     source = param()
@@ -223,7 +223,7 @@ class Rotate2(UGen):
         ...     position=position,
         ... )
         >>> rotate_2
-        UGenArray({2})
+        UGenVector({2})
 
     Returns an array of the rotator's left and right outputs.
     """
@@ -242,7 +242,7 @@ class Splay(PseudoUGen):
         >>> source = supriya.ugens.SinOsc.ar(frequency=[333, 444, 555, 666, 777])
         >>> splay = supriya.ugens.Splay.ar(source=source)
         >>> splay
-        UGenArray({2})
+        UGenVector({2})
 
     ::
 
@@ -396,7 +396,7 @@ class XFade2(UGen):
         ...     pan=supriya.ugens.LFTri.kr(frequency=0.1),
         ... )
         >>> xfade_3
-        XFade2.ar()
+        XFade2.ar()[0]
     """
 
     in_a = param()

@@ -1,6 +1,15 @@
 import abc
+import collections
 import copy
+import dataclasses
+import hashlib
 import inspect
+import pathlib
+import struct
+import subprocess
+import tempfile
+import threading
+import uuid
 from enum import Enum
 from typing import (
     Any,
@@ -19,19 +28,25 @@ from typing import (
     cast,
 )
 
+from ..typing import CalculationRateLike, Default, Missing
+
 try:
     from typing import TypeAlias
 except ImportError:
     from typing_extensions import TypeAlias  # noqa
 
+import uqbar.graphs
+from uqbar.objects import new
+
+from .. import sclang, utils
 from ..enums import (
     BinaryOperator,
     CalculationRate,
     DoneAction,
+    ParameterRate,
     SignalRange,
     UnaryOperator,
 )
-from ..typing import CalculationRateLike, Default, Missing
 
 
 class Check(Enum):
@@ -97,14 +112,14 @@ def _add_param_fn(cls, name: str, index: int, unexpanded: bool) -> None:
         name=name,
         args=["self"],
         body=(
-            [f"return UGenArray(self._inputs[{index}:])"]
+            [f"return UGenVector(*self._inputs[{index}:])"]
             if unexpanded
-            else [f"return UGenArray(self._inputs[{index}:{index} + 1])"]
+            else [f"return UGenVector(*self._inputs[{index}:{index} + 1])"]
         ),
         decorator=property,
         globals_=_get_fn_globals(),
         override=True,
-        return_type=UGenArray,
+        return_type=UGenVector,
     )
 
 
@@ -199,7 +214,7 @@ def _get_fn_globals():
         "OutputProxy": OutputProxy,
         "Sequence": Sequence,
         "SupportsFloat": SupportsFloat,
-        "UGenArray": UGenArray,
+        "UGenVector": UGenVector,
         "UGenInitScalarParam": UGenInitScalarParam,
         "UGenInitVectorParam": UGenInitVectorParam,
         "UGenOperable": UGenOperable,
@@ -370,7 +385,7 @@ class UGenOperable:
                 ... )
                 >>> result = abs(ugen_graph)
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -448,7 +463,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph + expr
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -594,7 +609,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph / expr
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -718,7 +733,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph >= expr
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -832,7 +847,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph > expr
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -944,7 +959,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph <= expr
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -1061,7 +1076,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph < expr
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -1173,7 +1188,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph % expr
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -1285,7 +1300,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph * expr
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -1393,7 +1408,7 @@ class UGenOperable:
                 ... )
                 >>> result = -ugen_graph
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -1505,7 +1520,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph ** expr
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -1616,7 +1631,7 @@ class UGenOperable:
                 ... )
                 >>> result = expr ** ugen_graph
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -1696,7 +1711,7 @@ class UGenOperable:
                 ... )
                 >>> result = expr + ugen_graph
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -1776,7 +1791,7 @@ class UGenOperable:
                 ... )
                 >>> result = expr / ugen_graph
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -1858,7 +1873,7 @@ class UGenOperable:
                 ... )
                 >>> result = expr % ugen_graph
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -1940,7 +1955,7 @@ class UGenOperable:
                 ... )
                 >>> result = expr * ugen_graph
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -2022,7 +2037,7 @@ class UGenOperable:
                 ... )
                 >>> result = expr - ugen_graph
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -2145,7 +2160,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph - expr
                 >>> result
-                UGenArray({3})
+                UGenVector({3})
 
             ::
 
@@ -2263,11 +2278,11 @@ class UGenOperable:
             if ugen not in all_ugens:
                 all_ugens.append(ugen)
 
-        from ..synthdefs import SynthDefBuilder
+        from . import SynthDefBuilder
 
         builder = SynthDefBuilder()
         ugens = copy.deepcopy(self)
-        if not isinstance(ugens, UGenArray):
+        if not isinstance(ugens, UGenVector):
             ugens = [ugens]
         all_ugens = []
         for u in ugens:
@@ -2294,9 +2309,13 @@ class UGenOperable:
         for expanded_dict in UGen._expand_dictionary(dictionary):
             left = expanded_dict["left"]
             right = expanded_dict["right"]
-            calculation_rate = UGenOperable._compute_binary_rate(left, right)
             ugen = BinaryOpUGen._new_single(
-                calculation_rate=calculation_rate,
+                calculation_rate=max(
+                    [
+                        CalculationRate.from_expr(left),
+                        CalculationRate.from_expr(right),
+                    ]
+                ),
                 left=left,
                 right=right,
                 special_index=special_index,
@@ -2305,19 +2324,7 @@ class UGenOperable:
         if len(result) == 1:
             # TODO: remove cast(...)
             return cast(UGenOperable, result[0])
-        return UGenArray(result)
-
-    @staticmethod
-    def _compute_binary_rate(ugen_a, ugen_b) -> CalculationRate:
-        a_rate = CalculationRate.from_expr(ugen_a)
-        b_rate = CalculationRate.from_expr(ugen_b)
-        if a_rate == CalculationRate.DEMAND or a_rate == CalculationRate.DEMAND:
-            return CalculationRate.DEMAND
-        elif a_rate == CalculationRate.AUDIO or b_rate == CalculationRate.AUDIO:
-            return CalculationRate.AUDIO
-        elif a_rate == CalculationRate.CONTROL or b_rate == CalculationRate.CONTROL:
-            return CalculationRate.CONTROL
-        return CalculationRate.SCALAR
+        return UGenVector(*result)
 
     def _compute_ugen_map(self, map_ugen, **kwargs):
         sources = []
@@ -2331,7 +2338,7 @@ class UGenOperable:
             ugen = method(source=source, **kwargs)
             ugens.extend(ugen)
         if 1 < len(ugens):
-            return UGenArray(ugens)
+            return UGenVector(*ugens)
         elif len(ugens) == 1:
             return ugens[0].source
         return []
@@ -2354,7 +2361,7 @@ class UGenOperable:
         if len(result) == 1:
             # TODO: remove cast(...)
             return cast(UGenOperable, result[0])
-        return UGenArray(result)
+        return UGenVector(*result)
 
     def _get_output_proxy(self, i):
         if isinstance(i, int):
@@ -2367,7 +2374,7 @@ class UGenOperable:
         output_proxies = (
             OutputProxy(source=self, output_index=i) for i in range(*indices)
         )
-        return UGenArray(output_proxies)
+        return UGenVector(*output_proxies)
 
     ### PUBLIC METHODS ###
 
@@ -3578,15 +3585,12 @@ class UGenSerializable(Protocol):
         pass
 
 
-class UGenArray(UGenOperable, Sequence):
+class UGenVector(UGenOperable, Sequence):
 
     ### INITIALIZER ###
 
-    def __init__(self, ugens):
-        assert isinstance(ugens, Iterable)
-        ugens = tuple(ugens)
-        assert len(ugens)
-        self._ugens = ugens
+    def __init__(self, *ugens):
+        self._ugens = tuple(ugens)
 
     ### SPECIAL METHODS ###
 
@@ -3712,8 +3716,6 @@ class UGen(UGenOperable):
         special_index: int = 0,
         **kwargs,
     ) -> None:
-        from ..synthdefs import Parameter, SynthDefBuilder
-
         calculation_rate_ = CalculationRate.from_expr(calculation_rate)
         if self._valid_calculation_rates:
             assert calculation_rate_ in self._valid_calculation_rates
@@ -3767,7 +3769,7 @@ class UGen(UGenOperable):
 
         ::
 
-            >>> ugen = supriya.ugens.SinOsc.ar()
+            >>> ugen = supriya.ugens.SinOsc.ar().source
             >>> ugen[0]
             SinOsc.ar()[0]
 
@@ -3789,19 +3791,19 @@ class UGen(UGenOperable):
 
         ::
 
-            >>> ugen = supriya.ugens.SinOsc.ar()
+            >>> ugen = supriya.ugens.SinOsc.ar().source
             >>> repr(ugen)
             'SinOsc.ar()'
 
         ::
 
-            >>> ugen = supriya.ugens.WhiteNoise.kr()
+            >>> ugen = supriya.ugens.WhiteNoise.kr().source
             >>> repr(ugen)
             'WhiteNoise.kr()'
 
         ::
 
-            >>> ugen = supriya.ugens.Rand.ir()
+            >>> ugen = supriya.ugens.Rand.ir().source
             >>> repr(ugen)
             'Rand.ir()'
 
@@ -3824,7 +3826,7 @@ class UGen(UGenOperable):
                 return expr
             return K2A.ar(source=expr)
         elif isinstance(expr, Iterable):
-            return UGenArray(UGen._as_audio_rate_input(x) for x in expr)
+            return UGenVector(*(UGen._as_audio_rate_input(x) for x in expr))
         raise ValueError(expr)
 
     def _add_constant_input(self, name, value):
@@ -3862,8 +3864,6 @@ class UGen(UGenOperable):
         return True
 
     def _configure_input(self, name, value):
-        from ..synthdefs import Parameter
-
         ugen_prototype = (OutputProxy, Parameter, UGen)
         if hasattr(value, "__float__"):
             self._add_constant_input(name, float(value))
@@ -3884,14 +3884,14 @@ class UGen(UGenOperable):
         else:
             raise ValueError(f"Invalid input: {value!r}")
 
-    @staticmethod
-    def _expand_dictionary(dictionary, unexpanded_input_names=None):
+    @classmethod
+    def _expand_dictionary(cls, kwargs, unexpanded_input_names=()):
         """
         Expands a dictionary into multichannel dictionaries.
 
         ::
 
-            >>> dictionary = {"foo": 0, "bar": (1, 2), "baz": (3, 4, 5)}
+            >>> dictionary = {"foo": 0, "bar": [1, 2], "baz": [3, 4, 5]}
             >>> result = UGen._expand_dictionary(dictionary)
             >>> for x in result:
             ...     sorted(x.items())
@@ -3902,7 +3902,7 @@ class UGen(UGenOperable):
 
         ::
 
-            >>> dictionary = {"bus": (8, 9), "source": (1, 2, 3)}
+            >>> dictionary = {"bus": [8, 9], "source": [1, 2, 3]}
             >>> result = UGen._expand_dictionary(
             ...     dictionary,
             ...     unexpanded_input_names=("source",),
@@ -3910,36 +3910,45 @@ class UGen(UGenOperable):
             >>> for x in result:
             ...     sorted(x.items())
             ...
-            [('bus', 8), ('source', (1, 2, 3))]
-            [('bus', 9), ('source', (1, 2, 3))]
+            [('bus', 8), ('source', [1, 2, 3])]
+            [('bus', 9), ('source', [1, 2, 3])]
         """
-        from ..synthdefs import Parameter
-
-        dictionary = dictionary.copy()
-        cached_unexpanded_inputs = {}
-        if unexpanded_input_names is not None:
-            for input_name in unexpanded_input_names:
-                if input_name not in dictionary:
-                    continue
-                cached_unexpanded_inputs[input_name] = dictionary[input_name]
-                del dictionary[input_name]
-        maximum_length = 1
-        result = []
-        prototype = (Sequence, UGen, Parameter)
-        for name, value in dictionary.items():
-            if isinstance(value, prototype) and not isinstance(value, str):
-                maximum_length = max(maximum_length, len(value))
-        for i in range(maximum_length):
-            result.append({})
-            for name, value in dictionary.items():
-                if isinstance(value, prototype) and not isinstance(value, str):
-                    value = value[i % len(value)]
-                    result[i][name] = value
+        size = 0
+        for k, v in kwargs.items():
+            if isinstance(v, (OutputProxy, str)) or not hasattr(v, "__len__"):
+                continue
+            elif k in unexpanded_input_names:
+                if all(
+                    hasattr(x, "__len__") and not isinstance(x, OutputProxy) for x in v
+                ):
+                    size = max(size, len(v))
                 else:
-                    result[i][name] = value
-        for expanded_inputs in result:
-            expanded_inputs.update(cached_unexpanded_inputs)
-        return result
+                    continue
+            else:
+                size = max(size, len(v))
+        if not size:
+            return [kwargs]
+        results = []
+        for i in range(size):
+            new_kwargs = {}
+            for k, v in kwargs.items():
+                if isinstance(v, (OutputProxy, str)) or not hasattr(v, "__len__"):
+                    new_kwargs[k] = v
+                elif k in unexpanded_input_names:
+                    if all(
+                        hasattr(x, "__len__") and not isinstance(x, OutputProxy)
+                        for x in v
+                    ):
+                        new_kwargs[k] = v[i % len(v)]
+                    else:
+                        new_kwargs[k] = v
+                else:
+                    try:
+                        new_kwargs[k] = v[i % len(v)]
+                    except TypeError:
+                        new_kwargs[k] = v
+            results.extend(cls._expand_dictionary(new_kwargs, unexpanded_input_names))
+        return results
 
     def _get_done_action(self):
         if "done_action" not in self._ordered_input_names:
@@ -3982,19 +3991,22 @@ class UGen(UGenOperable):
         return False
 
     @classmethod
-    def _new_expanded(cls, **kwargs) -> Union[OutputProxy, UGenArray]:
+    def _new_expanded(cls, **kwargs) -> Union[OutputProxy, UGenVector]:
         output_proxies = []
-        for input_dict in UGen._expand_dictionary(
-            kwargs, unexpanded_input_names=cls._unexpanded_input_names
-        ):
-            ugen = cls._new_single(**input_dict)
-            if len(ugen) <= 1:
+        dictionaries = UGen._expand_dictionary(
+            kwargs,
+            unexpanded_input_names=cls._unexpanded_input_names,
+        )
+        for input_dict in dictionaries:
+            if isinstance(ugen := cls._new_single(**input_dict), OutputProxy):
                 output_proxies.append(ugen)
-            else:
+            elif len(ugen):
                 output_proxies.extend(ugen[:])
+            else:
+                output_proxies.append(ugen)
         if len(output_proxies) == 1:
             return output_proxies[0]
-        return UGenArray(output_proxies)
+        return UGenVector(*output_proxies)
 
     @classmethod
     def _new_single(cls, **kwargs):
@@ -4064,7 +4076,7 @@ class UGen(UGenOperable):
             >>> ugen = supriya.ugens.SinOsc.ar(
             ...     frequency=supriya.ugens.WhiteNoise.kr(),
             ...     phase=0.5,
-            ... )
+            ... ).source
             >>> for input_ in ugen.inputs:
             ...     input_
             ...
@@ -4093,7 +4105,7 @@ class UGen(UGenOperable):
             >>> ugen = supriya.ugens.SinOsc.ar(
             ...     frequency=supriya.ugens.WhiteNoise.kr(),
             ...     phase=0.5,
-            ... )
+            ... ).source
             >>> ugen.outputs
             (CalculationRate.AUDIO,)
 
@@ -4132,7 +4144,7 @@ class UGen(UGenOperable):
             >>> ugen = supriya.ugens.SinOsc.ar(
             ...     frequency=supriya.ugens.WhiteNoise.kr(),
             ...     phase=0.5,
-            ... )
+            ... ).source
             >>> ugen.special_index
             0
 
@@ -4301,3 +4313,2039 @@ class PseudoUGen:
     @abc.abstractmethod
     def __init__(self):
         raise NotImplementedError
+
+
+@dataclasses.dataclass(unsafe_hash=True)
+class Parameter(UGenOperable):
+    lag: Optional[float] = None
+    name: Optional[str] = None
+    parameter_rate: ParameterRate = cast(ParameterRate, ParameterRate.CONTROL)
+    value: Union[float, Tuple[float, ...]] = 0.0
+
+    def __post_init__(self):
+        try:
+            self.value = float(self.value)
+        except TypeError:
+            self.value = tuple(float(_) for _ in self.value)
+        self.parameter_rate = ParameterRate.from_expr(self.parameter_rate)
+        self._uuid = None
+
+    ### SPECIAL METHODS ###
+
+    def __getitem__(self, i):
+        return self._get_output_proxy(i)
+
+    def __len__(self):
+        if isinstance(self.value, float):
+            return 1
+        return len(self.value)
+
+    ### PRIVATE METHODS ###
+
+    def _get_source(self):
+        return self
+
+    def _get_output_number(self):
+        return 0
+
+    def _optimize_graph(self, sort_bundles):
+        pass
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def calculation_rate(self):
+        if (name := self.parameter_rate.name) == "TRIGGER":
+            return cast(CalculationRate, CalculationRate.CONTROL)
+        return CalculationRate.from_expr(name)
+
+    @property
+    def has_done_flag(self):
+        return False
+
+    @property
+    def inputs(self):
+        return ()
+
+    @property
+    def signal_range(self):
+        SignalRange.BIPOLAR
+
+
+class Control(UGen):
+    """
+    A control-rate control ugen.
+
+    Control ugens can be set and routed externally to interact with a running synth.
+    Controls are created from the parameters of a synthesizer definition, and typically
+    do not need to be created by hand.
+    """
+
+    ### INITIALIZER ###
+
+    def __init__(self, parameters, calculation_rate=None, starting_control_index=0):
+        coerced_parameters = []
+        for parameter in parameters:
+            if not isinstance(parameter, Parameter):
+                parameter = Parameter(name=parameter, value=0)
+            coerced_parameters.append(parameter)
+        self._parameters = tuple(coerced_parameters)
+        self._channel_count = len(self)
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            special_index=starting_control_index,
+        )
+
+    ### SPECIAL METHODS ###
+
+    def __getitem__(self, i):
+        """
+        Gets output proxy at `i`, via index or control name.
+
+        Returns output proxy.
+        """
+        if isinstance(i, int):
+            if len(self) == 1:
+                return OutputProxy(source=self, output_index=0)
+            return OutputProxy(source=self, output_index=i)
+        else:
+            return self[self._get_control_index(i)]
+
+    def __len__(self):
+        """
+        Gets number of ugen outputs.
+
+        Equal to the number of control names.
+
+        Returns integer.
+        """
+        return sum(len(_) for _ in self.parameters)
+
+    ### PRIVATE METHODS ###
+
+    def _get_control_index(self, control_name):
+        for i, parameter in enumerate(self._parameters):
+            if parameter.name == control_name:
+                return i
+        raise ValueError
+
+    def _get_outputs(self):
+        return [self.calculation_rate] * len(self)
+
+    def _get_parameter_output_proxies(self):
+        output_proxies = []
+        for parameter in self.parameters:
+            output_proxies.extend(parameter)
+        return output_proxies
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def controls(self):
+        """
+        Gets controls of control ugen.
+
+        Returns ugen graph.
+        """
+        if len(self.parameters) == 1:
+            result = self
+        else:
+            result = [OutputProxy(self, i) for i in range(len(self.parameters))]
+        return result
+
+    @property
+    def parameters(self):
+        """
+        Gets control names associated with control.
+
+        Returns tuple.
+        """
+        return self._parameters
+
+    @property
+    def starting_control_index(self):
+        """
+        Gets starting control index of control ugen.
+
+        Equivalent to the control ugen's special index.
+
+        Returns integer.
+        """
+        return self._special_index
+
+
+class AudioControl(Control):
+    """
+    A trigger-rate control ugen.
+    """
+
+    def __init__(self, parameters, calculation_rate=None, starting_control_index=0):
+        Control.__init__(
+            self,
+            parameters,
+            calculation_rate=CalculationRate.AUDIO,
+            starting_control_index=starting_control_index,
+        )
+
+
+class LagControl(Control):
+    """
+    A lagged control-rate control ugen.
+    """
+
+    ### CLASS VARIABLES ###
+
+    _ordered_input_names = collections.OrderedDict([("lags", None)])
+
+    _unexpanded_input_names = ("lags",)
+
+    ### INITIALIZER ###
+
+    def __init__(self, parameters, calculation_rate=None, starting_control_index=0):
+        coerced_parameters = []
+        for parameter in parameters:
+            if not isinstance(parameter, Parameter):
+                parameter = Parameter(name=parameter, value=0)
+            coerced_parameters.append(parameter)
+        self._parameters = tuple(coerced_parameters)
+        lags = []
+        for parameter in self._parameters:
+            lag = parameter.lag or 0.0
+            lags.extend([lag] * len(parameter))
+        self._channel_count = len(self)
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            special_index=starting_control_index,
+            lags=lags,
+        )
+
+
+class TrigControl(Control):
+    """
+    A trigger-rate control ugen.
+    """
+
+    ### CLASS VARIABLES ###
+
+    ### INITIALIZER ##
+
+    def __init__(self, parameters, calculation_rate=None, starting_control_index=0):
+        Control.__init__(
+            self,
+            parameters,
+            calculation_rate=CalculationRate.CONTROL,
+            starting_control_index=starting_control_index,
+        )
+
+
+class SynthDef:
+    """
+    A synth definition.
+
+    ::
+
+        >>> from supriya import SynthDefBuilder, ugens
+        >>> with SynthDefBuilder(frequency=440) as builder:
+        ...     sin_osc = ugens.SinOsc.ar(frequency=builder["frequency"])
+        ...     out = ugens.Out.ar(bus=0, source=sin_osc)
+        ...
+        >>> synthdef = builder.build()
+
+    ::
+
+        >>> supriya.graph(synthdef)  # doctest: +SKIP
+
+    ::
+
+        >>> from supriya import Server
+        >>> server = Server().boot()
+
+    ::
+
+        >>> _ = server.add_synthdefs(synthdef)
+
+    ::
+
+        >>> _ = server.free_synthdefs(synthdef)
+
+    ::
+
+        >>> _ = server.quit()
+    """
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        ugens: Sequence[Union[Parameter, UGen, OutputProxy]],
+        name: Optional[str] = None,
+        optimize: bool = True,
+    ) -> None:
+        self._name = name
+        ugens_: List[UGen] = list(
+            ugen.source if isinstance(ugen, OutputProxy) else ugen
+            for ugen in copy.deepcopy(ugens)
+        )
+        assert all(isinstance(_, UGen) for _ in ugens_)
+        ugens_ = self._cleanup_pv_chains(ugens_)
+        ugens_ = self._cleanup_local_bufs(ugens_)
+        if optimize:
+            ugens_ = self._optimize_ugen_graph(ugens_)
+        ugens_ = self._sort_ugens_topologically(ugens_)
+        self._ugens = tuple(ugens_)
+        self._constants = self._collect_constants(self._ugens)
+        self._control_ugens = self._collect_control_ugens(self._ugens)
+        self._indexed_parameters = self._collect_indexed_parameters(self._control_ugens)
+        self._compiled_ugen_graph = SynthDefCompiler.compile_ugen_graph(self)
+
+    ### SPECIAL METHODS ###
+
+    def __eq__(self, expr) -> bool:
+        if not isinstance(expr, type(self)):
+            return False
+        if expr.name != self.name:
+            return False
+        if expr._compiled_ugen_graph != self._compiled_ugen_graph:
+            return False
+        return True
+
+    def __graph__(self):
+        r"""
+        Graphs SynthDef.
+
+        ::
+
+            >>> from supriya.ugens import Out, SinOsc, SynthDefBuilder
+
+        ::
+
+            >>> with SynthDefBuilder(frequency=440) as builder:
+            ...     sin_osc = SinOsc.ar(frequency=builder["frequency"])
+            ...     out = Out.ar(bus=0, source=sin_osc)
+            ...
+            >>> synthdef = builder.build()
+            >>> print(format(synthdef.__graph__(), "graphviz"))
+            digraph synthdef_... {
+                graph [bgcolor=transparent,
+                    color=lightslategrey,
+                    dpi=72,
+                    fontname=Arial,
+                    outputorder=edgesfirst,
+                    overlap=prism,
+                    penwidth=2,
+                    rankdir=LR,
+                    ranksep=1,
+                    splines=spline,
+                    style="dotted, rounded"];
+                node [fontname=Arial,
+                    fontsize=12,
+                    penwidth=2,
+                    shape=Mrecord,
+                    style="filled, rounded"];
+                edge [penwidth=2];
+                ugen_0 [fillcolor=lightgoldenrod2,
+                    label="<f_0> Control\n(control) | { { <f_1_0_0> frequency:\n440.0 } }"];
+                ugen_1 [fillcolor=lightsteelblue2,
+                    label="<f_0> SinOsc\n(audio) | { { <f_1_0_0> frequency | <f_1_0_1> phase:\n0.0 } | { <f_1_1_0> 0 } }"];
+                ugen_2 [fillcolor=lightsteelblue2,
+                    label="<f_0> Out\n(audio) | { { <f_1_0_0> bus:\n0.0 | <f_1_0_1> source } }"];
+                ugen_0:f_1_0_0:e -> ugen_1:f_1_0_0:w [color=goldenrod];
+                ugen_1:f_1_1_0:e -> ugen_2:f_1_0_1:w [color=steelblue];
+            }
+
+        Returns Graphviz graph.
+        """
+        return SynthDefGrapher.graph(self)
+
+    def __hash__(self) -> int:
+        hash_values = (type(self), self._name, self._compiled_ugen_graph)
+        return hash(hash_values)
+
+    def __repr__(self) -> str:
+        return "<{}: {}>".format(type(self).__name__, self.actual_name)
+
+    def __str__(self) -> str:
+        """
+        Gets string representation of synth definition.
+
+        ::
+
+            >>> from supriya.ugens import Out, SinOsc, SynthDefBuilder
+
+        ::
+
+            >>> with supriya.SynthDefBuilder() as builder:
+            ...     sin_one = supriya.ugens.SinOsc.ar()
+            ...     sin_two = supriya.ugens.SinOsc.ar(frequency=443)
+            ...     source = sin_one + sin_two
+            ...     out = supriya.ugens.Out.ar(bus=0, source=source)
+            ...
+            >>> synthdef = builder.build(name="test")
+
+        ::
+
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
+
+        ::
+
+            >>> print(synthdef)
+            synthdef:
+                name: test
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(ADDITION).ar:
+                        left: SinOsc.ar/0[0]
+                        right: SinOsc.ar/1[0]
+                -   Out.ar:
+                        bus: 0.0
+                        source[0]: BinaryOpUGen(ADDITION).ar[0]
+
+        Returns string.
+        """
+
+        def get_ugen_names() -> Dict[UGen, str]:
+            grouped_ugens: Dict[Tuple[Type[UGen], CalculationRate, int], List[UGen]] = (
+                {}
+            )
+            named_ugens: Dict[UGen, str] = {}
+            for ugen in self._ugens:
+                key = (type(ugen), ugen.calculation_rate, ugen.special_index)
+                grouped_ugens.setdefault(key, []).append(ugen)
+            for ugen in self._ugens:
+                parts = [type(ugen).__name__]
+                if isinstance(ugen, BinaryOpUGen):
+                    ugen_op = BinaryOperator.from_expr(ugen.special_index)
+                    parts.append("(" + ugen_op.name + ")")
+                elif isinstance(ugen, UnaryOpUGen):
+                    ugen_op = UnaryOperator.from_expr(ugen.special_index)
+                    parts.append("(" + ugen_op.name + ")")
+                parts.append("." + ugen.calculation_rate.token)
+                key = (type(ugen), ugen.calculation_rate, ugen.special_index)
+                related_ugens = grouped_ugens[key]
+                if len(related_ugens) > 1:
+                    parts.append("/{}".format(related_ugens.index(ugen)))
+                named_ugens[ugen] = "".join(parts)
+            return named_ugens
+
+        def get_parameter_name(
+            input_: Union[Control, Parameter], output_index: int = 0
+        ) -> str:
+            if isinstance(input_, Parameter):
+                return ":{}".format(input_.name)
+            elif isinstance(input_, Control):
+                # Handle array-like parameters
+                value_index = 0
+                for parameter in input_.parameters:
+                    values = parameter.value
+                    if isinstance(values, float):
+                        values = [values]
+                    for i in range(len(values)):
+                        if value_index != output_index:
+                            value_index += 1
+                            continue
+                        elif len(values) == 1:
+                            return ":{}".format(parameter.name)
+                        else:
+                            return ":{}[{}]".format(parameter.name, i)
+            return ""
+
+        result = [
+            "synthdef:",
+            f"    name: {self.actual_name}",
+            "    ugens:",
+        ]
+        ugen_dicts: List[Dict[str, Dict[str, Union[float, str]]]] = []
+        named_ugens = get_ugen_names()
+        for ugen in self._ugens:
+            parameter_dict: Dict[str, Union[float, str]] = {}
+            ugen_name = named_ugens[ugen]
+            for input_name, input_ in zip(ugen._input_names, ugen._inputs):
+                if isinstance(input_name, str):
+                    argument_name = input_name
+                else:
+                    argument_name = f"{input_name[0]}[{input_name[1]}]"
+                if isinstance(input_, SupportsFloat):
+                    value: Union[float, str] = float(input_)
+                else:
+                    output_index = 0
+                    if isinstance(input_, OutputProxy):
+                        output_index = input_.output_index
+                        input_ = input_.source
+                    input_name = named_ugens[input_]
+                    value = "{}[{}{}]".format(
+                        input_name,
+                        output_index,
+                        get_parameter_name(input_, output_index),
+                    )
+                parameter_dict[argument_name] = value
+            ugen_dicts.append({ugen_name: parameter_dict})
+        for ugen_dict in ugen_dicts:
+            for ugen_name, parameter_dict in ugen_dict.items():
+                if not parameter_dict:
+                    result.append(f"    -   {ugen_name}: null")
+                    continue
+                result.append(f"    -   {ugen_name}:")
+                for parameter_name, parameter_value in parameter_dict.items():
+                    result.append(f"            {parameter_name}: {parameter_value}")
+        return "\n".join(result)
+
+    ### PRIVATE METHODS ###
+
+    @staticmethod
+    def _build_control_mapping(parameters):
+        control_mapping = {}
+        scalar_parameters = []
+        trigger_parameters = []
+        audio_parameters = []
+        control_parameters = []
+        mapping = {
+            ParameterRate.AUDIO: audio_parameters,
+            ParameterRate.CONTROL: control_parameters,
+            ParameterRate.SCALAR: scalar_parameters,
+            ParameterRate.TRIGGER: trigger_parameters,
+        }
+        for parameter in parameters:
+            mapping[parameter.parameter_rate].append(parameter)
+        for filtered_parameters in mapping.values():
+            filtered_parameters.sort(key=lambda x: x.name)
+        control_ugens = []
+        starting_control_index = 0
+        if scalar_parameters:
+            control = Control(
+                parameters=scalar_parameters,
+                calculation_rate=CalculationRate.SCALAR,
+                starting_control_index=starting_control_index,
+            )
+            control_ugens.append(control)
+            for parameter in scalar_parameters:
+                starting_control_index += len(parameter)
+            for i, output_proxy in enumerate(control._get_parameter_output_proxies()):
+                control_mapping[output_proxy] = control[i]
+        if trigger_parameters:
+            control = TrigControl(
+                parameters=trigger_parameters,
+                starting_control_index=starting_control_index,
+            )
+            control_ugens.append(control)
+            for parameter in trigger_parameters:
+                starting_control_index += len(parameter)
+            for i, output_proxy in enumerate(control._get_parameter_output_proxies()):
+                control_mapping[output_proxy] = control[i]
+        if audio_parameters:
+            control = AudioControl(
+                parameters=audio_parameters,
+                starting_control_index=starting_control_index,
+            )
+            control_ugens.append(control)
+            for parameter in audio_parameters:
+                starting_control_index += len(parameter)
+            for i, output_proxy in enumerate(control._get_parameter_output_proxies()):
+                control_mapping[output_proxy] = control[i]
+        if control_parameters:
+            if any(_.lag for _ in control_parameters):
+                control = LagControl(
+                    parameters=control_parameters,
+                    calculation_rate=CalculationRate.CONTROL,
+                    starting_control_index=starting_control_index,
+                )
+            else:
+                control = Control(
+                    parameters=control_parameters,
+                    calculation_rate=CalculationRate.CONTROL,
+                    starting_control_index=starting_control_index,
+                )
+            control_ugens.append(control)
+            for parameter in control_parameters:
+                starting_control_index += len(parameter)
+            for i, output_proxy in enumerate(control._get_parameter_output_proxies()):
+                control_mapping[output_proxy] = control[i]
+        control_ugens = tuple(control_ugens)
+        return control_ugens, control_mapping
+
+    @staticmethod
+    def _build_input_mapping(ugens):
+        from . import PV_ChainUGen, PV_Copy
+
+        input_mapping = {}
+        for ugen in ugens:
+            if not isinstance(ugen, PV_ChainUGen):
+                continue
+            if isinstance(ugen, PV_Copy):
+                continue
+            for i, input_ in enumerate(ugen.inputs):
+                if not isinstance(input_, OutputProxy):
+                    continue
+                source = input_.source
+                if not isinstance(source, PV_ChainUGen):
+                    continue
+                if source not in input_mapping:
+                    input_mapping[source] = []
+                input_mapping[source].append((ugen, i))
+        return input_mapping
+
+    @staticmethod
+    def _cleanup_local_bufs(ugens):
+        from . import LocalBuf, MaxLocalBufs
+
+        local_bufs = []
+        processed_ugens = []
+        for ugen in ugens:
+            if isinstance(ugen, OutputProxy):
+                ugen = ugen.source
+            if isinstance(ugen, MaxLocalBufs):
+                continue
+            if isinstance(ugen, LocalBuf):
+                local_bufs.append(ugen)
+            processed_ugens.append(ugen)
+        if local_bufs:
+            max_local_bufs = MaxLocalBufs.ir(maximum=len(local_bufs))
+            for local_buf in local_bufs:
+                inputs = list(local_buf.inputs[:2])
+                inputs.append(max_local_bufs)
+                local_buf._inputs = tuple(inputs)
+            index = processed_ugens.index(local_bufs[0])
+            processed_ugens[index:index] = [max_local_bufs.source]
+        return tuple(processed_ugens)
+
+    @staticmethod
+    def _cleanup_pv_chains(ugens):
+        from . import LocalBuf, PV_Copy
+
+        input_mapping = SynthDef._build_input_mapping(ugens)
+        for antecedent, descendants in input_mapping.items():
+            if len(descendants) == 1:
+                continue
+            for descendant, input_index in descendants[:-1]:
+                fft_size = antecedent.fft_size
+                new_buffer = LocalBuf.ir(frame_count=fft_size)
+                pv_copy = PV_Copy.kr(pv_chain_a=antecedent, pv_chain_b=new_buffer)
+                inputs = list(descendant._inputs)
+                inputs[input_index] = pv_copy
+                descendant._inputs = tuple(inputs)
+                index = ugens.index(descendant)
+                replacement = []
+                if isinstance(fft_size, UGenOperable):
+                    replacement.append(fft_size)
+                replacement.extend([new_buffer.source, pv_copy.source])
+                ugens[index:index] = replacement
+        return ugens
+
+    @staticmethod
+    def _collect_constants(ugens) -> Tuple[float, ...]:
+        constants = []
+        for ugen in ugens:
+            for input_ in ugen._inputs:
+                if not isinstance(input_, float):
+                    continue
+                if input_ not in constants:
+                    constants.append(input_)
+        return tuple(constants)
+
+    @staticmethod
+    def _collect_control_ugens(ugens):
+        control_ugens = tuple(_ for _ in ugens if isinstance(_, Control))
+        return control_ugens
+
+    @staticmethod
+    def _collect_indexed_parameters(control_ugens) -> Sequence[Tuple[int, Parameter]]:
+        indexed_parameters = []
+        parameters = {}
+        for control_ugen in control_ugens:
+            index = control_ugen.starting_control_index
+            for parameter in control_ugen.parameters:
+                parameters[parameter.name] = (index, parameter)
+                index += len(parameter)
+        for parameter_name in sorted(parameters):
+            indexed_parameters.append(parameters[parameter_name])
+        return tuple(indexed_parameters)
+
+    @staticmethod
+    def _extract_parameters(ugens):
+        parameters = set()
+        for ugen in ugens:
+            if isinstance(ugen, Parameter):
+                parameters.add(ugen)
+        ugens = tuple(ugen for ugen in ugens if ugen not in parameters)
+        parameters = tuple(sorted(parameters, key=lambda x: x.name))
+        return ugens, parameters
+
+    @staticmethod
+    def _initialize_topological_sort(ugens):
+        ugens = list(ugens)
+        sort_bundles = collections.OrderedDict()
+        width_first_antecedents = []
+        # The UGens are in the order they were added to the SynthDef
+        # and that order already mostly places inputs before outputs.
+        # In sclang, the per-UGen width-first antecedents list is
+        # updated at the moment the UGen is added to the SynthDef.
+        # Because we don't store that state on UGens in supriya, we'll
+        # do it here.
+        for ugen in ugens:
+            sort_bundles[ugen] = UGenSortBundle(ugen, width_first_antecedents)
+            if ugen._is_width_first:
+                width_first_antecedents.append(ugen)
+        for ugen in ugens:
+            sort_bundle = sort_bundles[ugen]
+            sort_bundle._initialize_topological_sort(sort_bundles)
+            sort_bundle.descendants[:] = sorted(
+                sort_bundles[ugen].descendants, key=lambda x: ugens.index(ugen)
+            )
+        return sort_bundles
+
+    @staticmethod
+    def _optimize_ugen_graph(ugens):
+        sort_bundles = SynthDef._initialize_topological_sort(ugens)
+        for ugen in ugens:
+            ugen._optimize_graph(sort_bundles)
+        return tuple(sort_bundles)
+
+    @staticmethod
+    def _remap_controls(ugens, control_mapping):
+        for ugen in ugens:
+            inputs = list(ugen.inputs)
+            for i, input_ in enumerate(inputs):
+                if input_ in control_mapping:
+                    output_proxy = control_mapping[input_]
+                    inputs[i] = output_proxy
+            ugen._inputs = tuple(inputs)
+
+    @staticmethod
+    def _sort_ugens_topologically(ugens):
+        sort_bundles = SynthDef._initialize_topological_sort(ugens)
+        available_ugens = []
+        for ugen in reversed(ugens):
+            sort_bundles[ugen]._make_available(available_ugens)
+        out_stack = []
+        while available_ugens:
+            available_ugen = available_ugens.pop()
+            sort_bundles[available_ugen]._schedule(
+                available_ugens, out_stack, sort_bundles
+            )
+        return out_stack
+
+    ### PUBLIC METHODS ###
+
+    def compile(self, use_anonymous_name=False) -> bytes:
+        synthdefs = [self]
+        result = compile_synthdefs(synthdefs, use_anonymous_names=use_anonymous_name)
+        return result
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def actual_name(self) -> str:
+        return self.name or self.anonymous_name
+
+    @property
+    def anonymous_name(self) -> str:
+        md5 = hashlib.md5()
+        md5.update(self._compiled_ugen_graph)
+        anonymous_name = md5.hexdigest()
+        return anonymous_name
+
+    @property
+    def audio_channel_count(self) -> int:
+        return max(self.audio_input_channel_count, self.audio_output_channel_count)
+
+    @property
+    def audio_input_channel_count(self) -> int:
+        """
+        Gets audio input channel count of synthdef.
+
+        ::
+
+            >>> with supriya.SynthDefBuilder() as builder:
+            ...     audio_in = supriya.ugens.In.ar(channel_count=1)
+            ...     control_in = supriya.ugens.In.kr(channel_count=2)
+            ...     sin = supriya.ugens.SinOsc.ar(
+            ...         frequency=audio_in,
+            ...     )
+            ...     source = audio_in * control_in[1]
+            ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
+            ...
+            >>> synthdef = builder.build()
+
+        ::
+
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
+
+        ::
+
+            >>> synthdef.audio_input_channel_count
+            1
+
+        Returns integer.
+        """
+        ugens = tuple(
+            _ for _ in self.input_ugens if _.calculation_rate == CalculationRate.AUDIO
+        )
+        if len(ugens) == 1:
+            return len(ugens[0])
+        elif not ugens:
+            return 0
+        raise ValueError
+
+    @property
+    def audio_output_channel_count(self) -> int:
+        """
+        Gets audio output channel count of synthdef.
+
+        ::
+
+            >>> with supriya.SynthDefBuilder() as builder:
+            ...     audio_in = supriya.ugens.In.ar(channel_count=1)
+            ...     control_in = supriya.ugens.In.kr(channel_count=2)
+            ...     sin = supriya.ugens.SinOsc.ar(
+            ...         frequency=audio_in,
+            ...     )
+            ...     source = sin * control_in[0]
+            ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
+            ...
+            >>> synthdef = builder.build()
+            >>> print(synthdef)
+            synthdef:
+                name: ...
+                ugens:
+                -   In.ar:
+                        bus: 0.0
+                -   SinOsc.ar:
+                        frequency: In.ar[0]
+                        phase: 0.0
+                -   In.kr:
+                        bus: 0.0
+                -   BinaryOpUGen(MULTIPLICATION).ar:
+                        left: SinOsc.ar[0]
+                        right: In.kr[0]
+                -   Out.ar:
+                        bus: 0.0
+                        source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
+                        source[1]: BinaryOpUGen(MULTIPLICATION).ar[0]
+                        source[2]: BinaryOpUGen(MULTIPLICATION).ar[0]
+                        source[3]: BinaryOpUGen(MULTIPLICATION).ar[0]
+
+        ::
+
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
+
+        ::
+
+            >>> synthdef.audio_output_channel_count
+            4
+
+        Returns integer.
+        """
+        ugens = tuple(
+            _ for _ in self.output_ugens if _.calculation_rate == CalculationRate.AUDIO
+        )
+        if len(ugens) == 1:
+            return len(ugens[0].source)
+        elif not ugens:
+            return 0
+        raise ValueError
+
+    @property
+    def constants(self) -> Tuple[float, ...]:
+        return self._constants
+
+    @property
+    def control_ugens(self) -> List[UGen]:
+        return self._control_ugens
+
+    @property
+    def control_channel_count(self) -> int:
+        return max(self.control_input_channel_count, self.control_output_channel_count)
+
+    @property
+    def control_input_channel_count(self) -> int:
+        """
+        Gets control input channel count of synthdef.
+
+        ::
+
+            >>> with supriya.SynthDefBuilder() as builder:
+            ...     audio_in = supriya.ugens.In.ar(channel_count=1)
+            ...     control_in = supriya.ugens.In.kr(channel_count=2)
+            ...     sin = supriya.ugens.SinOsc.ar(
+            ...         frequency=audio_in,
+            ...     )
+            ...     source = audio_in * control_in[1]
+            ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
+            ...
+            >>> synthdef = builder.build()
+
+        ::
+
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
+
+        ::
+
+            >>> synthdef.control_input_channel_count
+            2
+
+        Returns integer.
+        """
+        ugens = tuple(
+            _ for _ in self.input_ugens if _.calculation_rate == CalculationRate.CONTROL
+        )
+        if len(ugens) == 1:
+            return len(ugens[0])
+        elif not ugens:
+            return 0
+        raise ValueError
+
+    @property
+    def control_output_channel_count(self) -> int:
+        """
+        Gets control output channel count of synthdef.
+
+        ::
+
+            >>> with supriya.SynthDefBuilder() as builder:
+            ...     audio_in = supriya.ugens.In.ar(channel_count=1)
+            ...     control_in = supriya.ugens.In.kr(channel_count=2)
+            ...     sin = supriya.ugens.SinOsc.ar(
+            ...         frequency=audio_in,
+            ...     )
+            ...     source = audio_in * control_in[1]
+            ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)
+            ...
+            >>> synthdef = builder.build()
+
+        ::
+
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
+
+        ::
+
+            >>> synthdef.control_output_channel_count
+            0
+
+        Returns integer.
+        """
+        ugens = tuple(
+            _
+            for _ in self.output_ugens
+            if _.calculation_rate == CalculationRate.CONTROL
+        )
+        if len(ugens) == 1:
+            return len(ugens[0].source)
+        elif not ugens:
+            return 0
+        raise ValueError
+
+    @property
+    def done_actions(self) -> List[DoneAction]:
+        done_actions = set()
+        for ugen in self.ugens:
+            done_action = ugen._get_done_action()
+            if done_action is not None:
+                done_actions.add(done_action)
+        return sorted(done_actions)
+
+    @property
+    def has_gate(self) -> bool:
+        return "gate" in self.parameter_names
+
+    @property
+    def indexed_parameters(self) -> Sequence[Tuple[int, Parameter]]:
+        return self._indexed_parameters
+
+    @property
+    def input_ugens(self) -> Tuple[UGen, ...]:
+        return tuple(_ for _ in self.ugens if _.is_input_ugen)
+
+    @property
+    def name(self) -> Optional[str]:
+        return self._name
+
+    @property
+    def output_ugens(self) -> Tuple[UGen, ...]:
+        return tuple(_ for _ in self.ugens if _.is_output_ugen)
+
+    @property
+    def parameters(self) -> Dict[Optional[str], Parameter]:
+        return {
+            parameter.name: parameter for index, parameter in self.indexed_parameters
+        }
+
+    @property
+    def parameter_names(self) -> List[Optional[str]]:
+        return [parameter.name for index, parameter in self.indexed_parameters]
+
+    @property
+    def ugens(self) -> Tuple[UGen, ...]:
+        return self._ugens
+
+
+class UGenSortBundle:
+    ### INITIALIZER ###
+
+    def __init__(self, ugen, width_first_antecedents):
+        self.antecedents = []
+        self.descendants = []
+        self.ugen = ugen
+        self.width_first_antecedents = tuple(width_first_antecedents)
+
+    ### PRIVATE METHODS ###
+
+    def _initialize_topological_sort(self, sort_bundles):
+        for input_ in self.ugen.inputs:
+            if isinstance(input_, OutputProxy):
+                input_ = input_.source
+            elif not isinstance(input_, UGen):
+                continue
+            input_sort_bundle = sort_bundles[input_]
+            if input_ not in self.antecedents:
+                self.antecedents.append(input_)
+            if self.ugen not in input_sort_bundle.descendants:
+                input_sort_bundle.descendants.append(self.ugen)
+        for input_ in self.width_first_antecedents:
+            input_sort_bundle = sort_bundles[input_]
+            if input_ not in self.antecedents:
+                self.antecedents.append(input_)
+            if self.ugen not in input_sort_bundle.descendants:
+                input_sort_bundle.descendants.append(self.ugen)
+
+    def _make_available(self, available_ugens):
+        if not self.antecedents:
+            if self.ugen not in available_ugens:
+                available_ugens.append(self.ugen)
+
+    def _schedule(self, available_ugens, out_stack, sort_bundles):
+        for ugen in reversed(self.descendants):
+            sort_bundle = sort_bundles[ugen]
+            sort_bundle.antecedents.remove(self.ugen)
+            sort_bundle._make_available(available_ugens)
+        out_stack.append(self.ugen)
+
+    ### PUBLIC METHODS ###
+
+    def clear(self) -> None:
+        self.antecedents[:] = []
+        self.descendants[:] = []
+        self.width_first_antecedents[:] = []
+
+
+class SuperColliderSynthDef:
+    ### INITIALIZER ###
+
+    def __init__(self, name, body, rates=None):
+        self._name = name
+        self._body = body
+        self._rates = rates
+
+    ### PRIVATE METHODS ###
+
+    def _build_sc_input(self, directory_path):
+        input_ = []
+        input_.append("a = SynthDef(")
+        input_.append("    \\{}, {{".format(self.name))
+        for line in self.body.splitlines():
+            input_.append("    " + line)
+        if self.rates:
+            input_.append("}}, {});".format(self.rates))
+        else:
+            input_.append("});")
+        input_.append('"Defined SynthDef".postln;')
+        input_.append('a.writeDefFile("{}");'.format(directory_path))
+        input_.append('"Wrote SynthDef".postln;')
+        input_.append("0.exit;")
+        input_ = "\n".join(input_)
+        return input_
+
+    ### PUBLIC METHODS ###
+
+    def compile(self):
+        sclang_path = sclang.find()
+        with tempfile.TemporaryDirectory() as directory:
+            directory_path = pathlib.Path(directory)
+            sc_input = self._build_sc_input(directory_path)
+            sc_file_path = directory_path / f"{self.name}.sc"
+            sc_file_path.write_text(sc_input)
+            command = [str(sclang_path), "-D", str(sc_file_path)]
+            subprocess.run(command, timeout=10)
+            result = (directory_path / f"{self.name}.scsyndef").read_bytes()
+        return bytes(result)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def body(self):
+        return self._body
+
+    @property
+    def rates(self):
+        return self._rates
+
+    @property
+    def name(self):
+        return self._name
+
+
+_local = threading.local()
+_local._active_builders = []
+
+
+class SynthDefBuilder:
+    """
+    A SynthDef builder.
+
+    ::
+
+        >>> from supriya import ParameterRate
+        >>> from supriya.ugens import Decay, Out, Parameter, SinOsc, SynthDefBuilder
+
+    ::
+
+        >>> builder = SynthDefBuilder(
+        ...     frequency=440,
+        ...     trigger=Parameter(
+        ...         value=0,
+        ...         parameter_rate=ParameterRate.TRIGGER,
+        ...     ),
+        ... )
+
+    ::
+
+        >>> with builder:
+        ...     sin_osc = SinOsc.ar(
+        ...         frequency=builder["frequency"],
+        ...     )
+        ...     decay = Decay.kr(
+        ...         decay_time=0.5,
+        ...         source=builder["trigger"],
+        ...     )
+        ...     enveloped_sin = sin_osc * decay
+        ...     out = Out.ar(bus=0, source=enveloped_sin)
+        ...
+
+    ::
+
+        >>> synthdef = builder.build()
+        >>> supriya.graph(synthdef)  # doctest: +SKIP
+    """
+
+    ### CLASS VARIABLES ###
+
+    _active_builders: List["SynthDefBuilder"] = _local._active_builders
+
+    __slots__ = ("_name", "_parameters", "_ugens", "_uuid")
+
+    ### INITIALIZER ###
+
+    def __init__(self, name: Optional[str] = None, **kwargs) -> None:
+        self._name = name
+        self._uuid = uuid.uuid4()
+        self._parameters: Dict[Optional[str], Parameter] = collections.OrderedDict()
+        self._ugens: List[Union[Parameter, UGen]] = []
+        for key, value in kwargs.items():
+            self._add_parameter(key, value)
+
+    ### SPECIAL METHODS ###
+
+    def __enter__(self) -> "SynthDefBuilder":
+        SynthDefBuilder._active_builders.append(self)
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        SynthDefBuilder._active_builders.pop()
+
+    def __getitem__(self, item: str) -> Parameter:
+        return self._parameters[item]
+
+    ### PRIVATE METHODS ###
+
+    def _add_ugens(self, ugen: Union[OutputProxy, Parameter, UGen]):
+        if isinstance(ugen, OutputProxy):
+            source = ugen.source
+        else:
+            source = ugen
+        if source._uuid != self._uuid:
+            raise ValueError
+        self._ugens.append(source)
+
+    def _add_parameter(self, *args) -> Parameter:
+        # TODO: Refactor without *args for clarity
+        if 3 < len(args):
+            raise ValueError(args)
+        if len(args) == 1:
+            assert isinstance(args[0], Parameter)
+            name, value, parameter_rate = args[0].name, args[0], args[0].parameter_rate
+        elif len(args) == 2:
+            name, value = args
+            if isinstance(value, Parameter):
+                parameter_rate = value.parameter_rate
+            else:
+                parameter_rate = ParameterRate.CONTROL
+                if name.startswith("a_"):
+                    parameter_rate = ParameterRate.AUDIO
+                elif name.startswith("i_"):
+                    parameter_rate = ParameterRate.SCALAR
+                elif name.startswith("t_"):
+                    parameter_rate = ParameterRate.TRIGGER
+        elif len(args) == 3:
+            name, value, parameter_rate = args
+            parameter_rate = ParameterRate.from_expr(parameter_rate)
+        else:
+            raise ValueError(args)
+        if not isinstance(value, Parameter):
+            parameter = Parameter(name=name, parameter_rate=parameter_rate, value=value)
+        else:
+            parameter = new(value, parameter_rate=parameter_rate, name=name)
+        assert parameter._uuid is None
+        parameter._uuid = self._uuid
+        self._parameters[name] = parameter
+        return parameter
+
+    ### PUBLIC METHODS ###
+
+    def build(self, name: Optional[str] = None, optimize: bool = True) -> SynthDef:
+        # Calling build() creates controls each time, so strip out
+        # previously created ones. This could be made cleaner by preventing
+        # Control subclasses from being aggregated into SynthDefBuilders in
+        # the first place.
+        self._ugens[:] = [ugen for ugen in self._ugens if not isinstance(ugen, Control)]
+        name = self.name or name
+        with self:
+            ugens: List[Union[Parameter, UGen]] = []
+            ugens.extend(self._parameters.values())
+            ugens.extend(self._ugens)
+            ugens = copy.deepcopy(ugens)
+            ugens, parameters = SynthDef._extract_parameters(ugens)
+            (
+                control_ugens,
+                control_mapping,
+            ) = SynthDef._build_control_mapping(parameters)
+            SynthDef._remap_controls(ugens, control_mapping)
+            ugens = control_ugens + ugens
+            synthdef = SynthDef(ugens, name=name, optimize=optimize)
+        return synthdef
+
+    def poll_ugen(
+        self,
+        ugen: UGen,
+        label: Optional[str] = None,
+        trigger: Optional[UGen] = None,
+        trigger_id: int = -1,
+    ) -> None:
+        from . import Impulse, Poll
+
+        poll = Poll.new(
+            source=ugen,
+            label=label,
+            trigger=trigger or Impulse.kr(frequency=1),
+            trigger_id=trigger_id,
+        )
+        self._add_ugens(poll)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def name(self) -> Optional[str]:
+        return self._name
+
+
+def synthdef(*args: Union[str, Tuple[str, float]]) -> Callable[[Callable], SynthDef]:
+    """
+    Decorator for quickly constructing SynthDefs from functions.
+
+    ::
+
+        >>> from supriya import Envelope, synthdef
+        >>> from supriya.ugens import EnvGen, Out, SinOsc
+
+    ::
+
+        >>> @synthdef()
+        ... def sine(freq=440, amp=0.1, gate=1):
+        ...     sig = SinOsc.ar(frequency=freq) * amp
+        ...     env = EnvGen.kr(envelope=Envelope.adsr(), gate=gate, done_action=2)
+        ...     Out.ar(bus=0, source=[sig * env] * 2)
+        ...
+
+    ::
+
+        >>> print(sine)
+        synthdef:
+            name: sine
+            ugens:
+            -   Control.kr: null
+            -   SinOsc.ar:
+                    frequency: Control.kr[1:freq]
+                    phase: 0.0
+            -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                    left: SinOsc.ar[0]
+                    right: Control.kr[0:amp]
+            -   EnvGen.kr:
+                    gate: Control.kr[2:gate]
+                    level_scale: 1.0
+                    level_bias: 0.0
+                    time_scale: 1.0
+                    done_action: 2.0
+                    envelope[0]: 0.0
+                    envelope[1]: 3.0
+                    envelope[2]: 2.0
+                    envelope[3]: -99.0
+                    envelope[4]: 1.0
+                    envelope[5]: 0.01
+                    envelope[6]: 5.0
+                    envelope[7]: -4.0
+                    envelope[8]: 0.5
+                    envelope[9]: 0.3
+                    envelope[10]: 5.0
+                    envelope[11]: -4.0
+                    envelope[12]: 0.0
+                    envelope[13]: 1.0
+                    envelope[14]: 5.0
+                    envelope[15]: -4.0
+            -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                    left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
+                    right: EnvGen.kr[0]
+            -   Out.ar:
+                    bus: 0.0
+                    source[0]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+                    source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+
+    ::
+
+        >>> @synthdef("ar", ("kr", 0.5))
+        ... def sine(freq=440, amp=0.1, gate=1):
+        ...     sig = SinOsc.ar(frequency=freq) * amp
+        ...     env = EnvGen.kr(envelope=Envelope.adsr(), gate=gate, done_action=2)
+        ...     Out.ar(bus=0, source=[sig * env] * 2)
+        ...
+
+    ::
+
+        >>> print(sine)
+        synthdef:
+            name: sine
+            ugens:
+            -   AudioControl.ar: null
+            -   SinOsc.ar:
+                    frequency: AudioControl.ar[0:freq]
+                    phase: 0.0
+            -   LagControl.kr:
+                    lags[0]: 0.5
+                    lags[1]: 0.0
+            -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                    left: SinOsc.ar[0]
+                    right: LagControl.kr[0:amp]
+            -   EnvGen.kr:
+                    gate: LagControl.kr[1:gate]
+                    level_scale: 1.0
+                    level_bias: 0.0
+                    time_scale: 1.0
+                    done_action: 2.0
+                    envelope[0]: 0.0
+                    envelope[1]: 3.0
+                    envelope[2]: 2.0
+                    envelope[3]: -99.0
+                    envelope[4]: 1.0
+                    envelope[5]: 0.01
+                    envelope[6]: 5.0
+                    envelope[7]: -4.0
+                    envelope[8]: 0.5
+                    envelope[9]: 0.3
+                    envelope[10]: 5.0
+                    envelope[11]: -4.0
+                    envelope[12]: 0.0
+                    envelope[13]: 1.0
+                    envelope[14]: 5.0
+                    envelope[15]: -4.0
+            -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                    left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
+                    right: EnvGen.kr[0]
+            -   Out.ar:
+                    bus: 0.0
+                    source[0]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+                    source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+    """
+
+    def inner(func):
+        signature = inspect.signature(func)
+        builder = SynthDefBuilder()
+        kwargs = {}
+        for i, (name, parameter) in enumerate(signature.parameters.items()):
+            rate = ParameterRate.CONTROL
+            lag = None
+            try:
+                if isinstance(args[i], str):
+                    rate_expr = args[i]
+                else:
+                    rate_expr, lag = args[i]
+                rate = ParameterRate.from_expr(rate_expr)
+            except (IndexError, TypeError):
+                pass
+            value = parameter.default
+            if value is inspect._empty:
+                value = 0.0
+            parameter = Parameter(lag=lag, name=name, parameter_rate=rate, value=value)
+            kwargs[name] = builder._add_parameter(parameter)
+        with builder:
+            func(**kwargs)
+        return builder.build(name=func.__name__)
+
+    return inner
+
+
+class SynthDefGrapher:
+    r"""
+    Graphs SynthDefs.
+
+    .. container:: example
+
+        ::
+
+            >>> ugen_graph = supriya.ugens.LFNoise2.ar()
+            >>> result = ugen_graph.transpose([0, 3, 7])
+
+        ::
+
+            >>> supriya.graph(result)  # doctest: +SKIP
+
+        ::
+
+            >>> print(format(result.__graph__(), "graphviz"))
+            digraph synthdef_c481c3d42e3cfcee0267250247dab51f {
+                graph [bgcolor=transparent,
+                    color=lightslategrey,
+                    dpi=72,
+                    fontname=Arial,
+                    outputorder=edgesfirst,
+                    overlap=prism,
+                    penwidth=2,
+                    rankdir=LR,
+                    ranksep=1,
+                    splines=spline,
+                    style="dotted, rounded"];
+                node [fontname=Arial,
+                    fontsize=12,
+                    penwidth=2,
+                    shape=Mrecord,
+                    style="filled, rounded"];
+                edge [penwidth=2];
+                ugen_0 [fillcolor=lightsteelblue2,
+                    label="<f_0> LFNoise2\n(audio) | { { <f_1_0_0> frequency:\n500.0 } | { <f_1_1_0> 0 } }"];
+                ugen_1 [fillcolor=lightsteelblue2,
+                    label="<f_0> UnaryOpUGen\n[HZ_TO_MIDI]\n(audio) | { { <f_1_0_0> source } | { <f_1_1_0> 0 } }"];
+                ugen_2 [fillcolor=lightsteelblue2,
+                    label="<f_0> UnaryOpUGen\n[MIDI_TO_HZ]\n(audio) | { { <f_1_0_0> source } | { <f_1_1_0> 0 } }"];
+                ugen_3 [fillcolor=lightsteelblue2,
+                    label="<f_0> BinaryOpUGen\n[ADDITION]\n(audio) | { { <f_1_0_0> left | <f_1_0_1> right:\n3.0 } | { <f_1_1_0> 0 } }"];
+                ugen_4 [fillcolor=lightsteelblue2,
+                    label="<f_0> UnaryOpUGen\n[MIDI_TO_HZ]\n(audio) | { { <f_1_0_0> source } | { <f_1_1_0> 0 } }"];
+                ugen_5 [fillcolor=lightsteelblue2,
+                    label="<f_0> BinaryOpUGen\n[ADDITION]\n(audio) | { { <f_1_0_0> left | <f_1_0_1> right:\n7.0 } | { <f_1_1_0> 0 } }"];
+                ugen_6 [fillcolor=lightsteelblue2,
+                    label="<f_0> UnaryOpUGen\n[MIDI_TO_HZ]\n(audio) | { { <f_1_0_0> source } | { <f_1_1_0> 0 } }"];
+                ugen_0:f_1_1_0:e -> ugen_1:f_1_0_0:w [color=steelblue];
+                ugen_1:f_1_1_0:e -> ugen_2:f_1_0_0:w [color=steelblue];
+                ugen_1:f_1_1_0:e -> ugen_3:f_1_0_0:w [color=steelblue];
+                ugen_1:f_1_1_0:e -> ugen_5:f_1_0_0:w [color=steelblue];
+                ugen_3:f_1_1_0:e -> ugen_4:f_1_0_0:w [color=steelblue];
+                ugen_5:f_1_1_0:e -> ugen_6:f_1_0_0:w [color=steelblue];
+            }
+    """
+
+    ### PRIVATE METHODS ###
+
+    @staticmethod
+    def _connect_nodes(synthdef, ugen_node_mapping):
+        for ugen in synthdef.ugens:
+            tail_node = ugen_node_mapping[ugen]
+            for i, input_ in enumerate(ugen.inputs):
+                if not isinstance(input_, OutputProxy):
+                    continue
+                tail_field = tail_node["inputs"][i]
+                source = input_.source
+                head_node = ugen_node_mapping[source]
+                head_field = head_node["outputs"][input_.output_index]
+                edge = uqbar.graphs.Edge(head_port_position="w", tail_port_position="e")
+                edge.attach(head_field, tail_field)
+                if source.calculation_rate == CalculationRate.CONTROL:
+                    edge.attributes["color"] = "goldenrod"
+                elif source.calculation_rate == CalculationRate.AUDIO:
+                    edge.attributes["color"] = "steelblue"
+                else:
+                    edge.attributes["color"] = "salmon"
+
+    @staticmethod
+    def _create_ugen_input_group(ugen, ugen_index):
+        if not ugen.inputs:
+            return None
+        input_group = uqbar.graphs.RecordGroup(name="inputs")
+        for i, input_ in enumerate(ugen.inputs):
+            label = ""
+            input_name = None
+            if i < len(ugen._ordered_input_names):
+                input_name = tuple(ugen._ordered_input_names)[i]
+            if input_name:
+                # input_name = r'\n'.join(input_name.split('_'))
+                if isinstance(input_, float):
+                    label = r"{}:\n{}".format(input_name, input_)
+                else:
+                    label = input_name
+            elif isinstance(input_, float):
+                label = str(input_)
+            label = label or None
+            field = uqbar.graphs.RecordField(
+                label=label, name="ugen_{}_input_{}".format(ugen_index, i)
+            )
+            input_group.append(field)
+        return input_group
+
+    @staticmethod
+    def _create_ugen_node_mapping(synthdef):
+        ugen_node_mapping = {}
+        for ugen in synthdef.ugens:
+            ugen_index = synthdef.ugens.index(ugen)
+            node = uqbar.graphs.Node(name="ugen_{}".format(ugen_index))
+            if ugen.calculation_rate == CalculationRate.CONTROL:
+                node.attributes["fillcolor"] = "lightgoldenrod2"
+            elif ugen.calculation_rate == CalculationRate.AUDIO:
+                node.attributes["fillcolor"] = "lightsteelblue2"
+            else:
+                node.attributes["fillcolor"] = "lightsalmon2"
+            title_field = SynthDefGrapher._create_ugen_title_field(ugen)
+            node.append(title_field)
+            group = uqbar.graphs.RecordGroup()
+            input_group = SynthDefGrapher._create_ugen_input_group(ugen, ugen_index)
+            if input_group is not None:
+                group.append(input_group)
+            output_group = SynthDefGrapher._create_ugen_output_group(
+                synthdef, ugen, ugen_index
+            )
+            if output_group is not None:
+                group.append(output_group)
+            node.append(group)
+            ugen_node_mapping[ugen] = node
+        return ugen_node_mapping
+
+    @staticmethod
+    def _create_ugen_output_group(synthdef, ugen, ugen_index):
+        if not ugen.outputs:
+            return None
+        output_group = uqbar.graphs.RecordGroup(name="outputs")
+        for i, output in enumerate(ugen.outputs):
+            label = str(i)
+            if isinstance(ugen, Control):
+                parameter_index = ugen.special_index + i
+                parameter = dict(synthdef.indexed_parameters)[parameter_index]
+                parameter_name = parameter.name
+                # parameter_name = r'\n'.join(parameter.name.split('_'))
+                label = r"{}:\n{}".format(parameter_name, parameter.value)
+            field = uqbar.graphs.RecordField(
+                label=label, name="ugen_{}_output_{}".format(ugen_index, i)
+            )
+            output_group.append(field)
+        return output_group
+
+    @staticmethod
+    def _create_ugen_title_field(ugen):
+        name = type(ugen).__name__
+        calculation_rate = ugen.calculation_rate.name.lower()
+        label_template = r"{name}\n({calculation_rate})"
+        operator = None
+        if isinstance(ugen, BinaryOpUGen):
+            operator = BinaryOperator(ugen.special_index).name
+            label_template = r"{name}\n[{operator}]\n({calculation_rate})"
+        elif isinstance(ugen, UnaryOpUGen):
+            operator = UnaryOperator(ugen.special_index).name
+            label_template = r"{name}\n[{operator}]\n({calculation_rate})"
+        title_field = uqbar.graphs.RecordField(
+            label=label_template.format(
+                name=name, operator=operator, calculation_rate=calculation_rate
+            )
+        )
+        return title_field
+
+    @staticmethod
+    def _style_graph(graph):
+        graph.attributes.update(
+            {
+                "bgcolor": "transparent",
+                "color": "lightslategrey",
+                "dpi": 72,
+                "fontname": "Arial",
+                "outputorder": "edgesfirst",
+                "overlap": "prism",
+                "penwidth": 2,
+                "rankdir": "LR",
+                "ranksep": 1,
+                "splines": "spline",
+                "style": ("dotted", "rounded"),
+            }
+        )
+        graph.edge_attributes.update({"penwidth": 2})
+        graph.node_attributes.update(
+            {
+                "fontname": "Arial",
+                "fontsize": 12,
+                "penwidth": 2,
+                "shape": "Mrecord",
+                "style": ("filled", "rounded"),
+            }
+        )
+
+    ### PUBLIC METHODS ###
+
+    @staticmethod
+    def graph(synthdef):
+        assert isinstance(synthdef, SynthDef)
+        graph = uqbar.graphs.Graph(name="synthdef_{}".format(synthdef.actual_name))
+        ugen_node_mapping = SynthDefGrapher._create_ugen_node_mapping(synthdef)
+        for node in sorted(ugen_node_mapping.values(), key=lambda x: x.name):
+            graph.append(node)
+        SynthDefGrapher._connect_nodes(synthdef, ugen_node_mapping)
+        SynthDefGrapher._style_graph(graph)
+        return graph
+
+
+def compile_synthdef(synthdef, use_anonymous_names=False):
+    return SynthDefCompiler.compile_synthdef(synthdef, use_anonymous_names)
+
+
+def compile_synthdefs(synthdefs, use_anonymous_names=False):
+    return SynthDefCompiler.compile_synthdefs(synthdefs, use_anonymous_names)
+
+
+def decompile_synthdef(value):
+    return SynthDefDecompiler.decompile_synthdef(value)
+
+
+def decompile_synthdefs(value):
+    return SynthDefDecompiler.decompile_synthdefs(value)
+
+
+class SynthDefCompiler:
+    @staticmethod
+    def compile_synthdef(synthdef, name):
+        result = SynthDefCompiler.encode_string(name)
+        result += synthdef._compiled_ugen_graph
+        return result
+
+    @staticmethod
+    def compile_parameters(synthdef):
+        result = []
+        result.append(
+            SynthDefCompiler.encode_unsigned_int_32bit(
+                sum(len(_[1]) for _ in synthdef.indexed_parameters)
+            )
+        )
+        for control_ugen in synthdef.control_ugens:
+            for parameter in control_ugen.parameters:
+                value = parameter.value
+                if not isinstance(value, tuple):
+                    value = (value,)
+                for x in value:
+                    result.append(SynthDefCompiler.encode_float(x))
+        result.append(
+            SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.indexed_parameters))
+        )
+        for index, parameter in synthdef.indexed_parameters:
+            name = parameter.name
+            result.append(SynthDefCompiler.encode_string(name))
+            result.append(SynthDefCompiler.encode_unsigned_int_32bit(index))
+        return bytes().join(result)
+
+    @staticmethod
+    def compile_synthdefs(synthdefs, use_anonymous_names=False):
+        def flatten(value):
+            if isinstance(value, Sequence) and not isinstance(
+                value, (bytes, bytearray)
+            ):
+                return bytes().join(flatten(x) for x in value)
+            return value
+
+        result = []
+        encoded_file_type_id = b"SCgf"
+        result.append(encoded_file_type_id)
+        encoded_file_version = SynthDefCompiler.encode_unsigned_int_32bit(2)
+        result.append(encoded_file_version)
+        encoded_synthdef_count = SynthDefCompiler.encode_unsigned_int_16bit(
+            len(synthdefs)
+        )
+        result.append(encoded_synthdef_count)
+        for synthdef in synthdefs:
+            name = synthdef.name
+            if not name or use_anonymous_names:
+                name = synthdef.anonymous_name
+            result.append(SynthDefCompiler.compile_synthdef(synthdef, name))
+        result = flatten(result)
+        result = bytes(result)
+        return result
+
+    @staticmethod
+    def compile_ugen(ugen, synthdef):
+        outputs = ugen._get_outputs()
+        result = []
+        result.append(SynthDefCompiler.encode_string(type(ugen).__name__))
+        result.append(SynthDefCompiler.encode_unsigned_int_8bit(ugen.calculation_rate))
+        result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(ugen.inputs)))
+        result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(outputs)))
+        result.append(
+            SynthDefCompiler.encode_unsigned_int_16bit(int(ugen.special_index))
+        )
+        for input_ in ugen.inputs:
+            result.append(SynthDefCompiler.compile_ugen_input_spec(input_, synthdef))
+        for output in outputs:
+            result.append(SynthDefCompiler.encode_unsigned_int_8bit(output))
+        result = bytes().join(result)
+        return result
+
+    @staticmethod
+    def compile_ugen_graph(synthdef):
+        result = []
+        result.append(
+            SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.constants))
+        )
+        for constant in synthdef.constants:
+            result.append(SynthDefCompiler.encode_float(constant))
+        result.append(SynthDefCompiler.compile_parameters(synthdef))
+        result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.ugens)))
+        for ugen_index, ugen in enumerate(synthdef.ugens):
+            result.append(SynthDefCompiler.compile_ugen(ugen, synthdef))
+        result.append(SynthDefCompiler.encode_unsigned_int_16bit(0))
+        result = bytes().join(result)
+        return result
+
+    @staticmethod
+    def compile_ugen_input_spec(input_, synthdef):
+        result = []
+        if isinstance(input_, float):
+            result.append(SynthDefCompiler.encode_unsigned_int_32bit(0xFFFFFFFF))
+            constant_index = synthdef._constants.index(input_)
+            result.append(SynthDefCompiler.encode_unsigned_int_32bit(constant_index))
+        elif isinstance(input_, OutputProxy):
+            ugen = input_.source
+            output_index = input_.output_index
+            ugen_index = synthdef._ugens.index(ugen)
+            result.append(SynthDefCompiler.encode_unsigned_int_32bit(ugen_index))
+            result.append(SynthDefCompiler.encode_unsigned_int_32bit(output_index))
+        else:
+            raise Exception("Unhandled input spec: {}".format(input_))
+        return bytes().join(result)
+
+    @staticmethod
+    def encode_string(value):
+        result = bytes(struct.pack(">B", len(value)))
+        result += bytes(bytearray(value, encoding="ascii"))
+        return result
+
+    @staticmethod
+    def encode_float(value):
+        return bytes(struct.pack(">f", float(value)))
+
+    @staticmethod
+    def encode_unsigned_int_8bit(value):
+        return bytes(struct.pack(">B", int(value)))
+
+    @staticmethod
+    def encode_unsigned_int_16bit(value):
+        return bytes(struct.pack(">H", int(value)))
+
+    @staticmethod
+    def encode_unsigned_int_32bit(value):
+        return bytes(struct.pack(">I", int(value)))
+
+
+class SynthDefDecompiler:
+    """
+    SynthDef decompiler.
+
+    ::
+
+        >>> from supriya import ParameterRate
+        >>> from supriya.ugens import Decay, Out, Parameter, SinOsc, SynthDefBuilder, decompile_synthdefs
+
+    ::
+
+        >>> with SynthDefBuilder(
+        ...     frequency=440,
+        ...     trigger=Parameter(
+        ...         value=0.0,
+        ...         parameter_rate=ParameterRate.TRIGGER,
+        ...     ),
+        ... ) as builder:
+        ...     sin_osc = SinOsc.ar(frequency=builder["frequency"])
+        ...     decay = Decay.kr(
+        ...         decay_time=0.5,
+        ...         source=builder["trigger"],
+        ...     )
+        ...     enveloped_sin = sin_osc * decay
+        ...     out = Out.ar(bus=0, source=enveloped_sin)
+        ...
+        >>> synthdef = builder.build()
+        >>> supriya.graph(synthdef)  # doctest: +SKIP
+
+    ::
+
+        >>> print(synthdef)
+        synthdef:
+            name: 001520731aee5371fefab6b505cf64dd
+            ugens:
+            -   TrigControl.kr: null
+            -   Decay.kr:
+                    source: TrigControl.kr[0:trigger]
+                    decay_time: 0.5
+            -   Control.kr: null
+            -   SinOsc.ar:
+                    frequency: Control.kr[0:frequency]
+                    phase: 0.0
+            -   BinaryOpUGen(MULTIPLICATION).ar:
+                    left: SinOsc.ar[0]
+                    right: Decay.kr[0]
+            -   Out.ar:
+                    bus: 0.0
+                    source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
+
+    ::
+
+        >>> compiled_synthdef = synthdef.compile()
+        >>> decompiled_synthdef = decompile_synthdefs(compiled_synthdef)[0]
+        >>> supriya.graph(decompiled_synthdef)  # doctest: +SKIP
+
+    ::
+
+        >>> print(decompiled_synthdef)
+        synthdef:
+            name: 001520731aee5371fefab6b505cf64dd
+            ugens:
+            -   TrigControl.kr: null
+            -   Decay.kr:
+                    source: TrigControl.kr[0:trigger]
+                    decay_time: 0.5
+            -   Control.kr: null
+            -   SinOsc.ar:
+                    frequency: Control.kr[0:frequency]
+                    phase: 0.0
+            -   BinaryOpUGen(MULTIPLICATION).ar:
+                    left: SinOsc.ar[0]
+                    right: Decay.kr[0]
+            -   Out.ar:
+                    bus: 0.0
+                    source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
+
+    ::
+
+        >>> str(synthdef) == str(decompiled_synthdef)
+        True
+    """
+
+    ### PRIVATE METHODS ###
+
+    @staticmethod
+    def _decode_constants(value, index):
+        sdd = SynthDefDecompiler
+        constants = []
+        constants_count, index = sdd._decode_int_32bit(value, index)
+        for _ in range(constants_count):
+            constant, index = sdd._decode_float(value, index)
+            constants.append(constant)
+        return constants, index
+
+    @staticmethod
+    def _decode_parameters(value, index):
+        sdd = SynthDefDecompiler
+        parameter_values = []
+        parameter_count, index = sdd._decode_int_32bit(value, index)
+        for _ in range(parameter_count):
+            parameter_value, index = sdd._decode_float(value, index)
+            parameter_values.append(parameter_value)
+        parameter_count, index = sdd._decode_int_32bit(value, index)
+        parameter_names = []
+        parameter_indices = []
+        for _ in range(parameter_count):
+            parameter_name, index = sdd._decode_string(value, index)
+            parameter_index, index = sdd._decode_int_32bit(value, index)
+            parameter_names.append(parameter_name)
+            parameter_indices.append(parameter_index)
+        indexed_parameters = []
+        if parameter_count:
+            pairs = tuple(zip(parameter_indices, parameter_names))
+            pairs = sorted(pairs, key=lambda x: x[0])
+            iterator = utils.iterate_nwise(pairs)
+            for (index_one, name_one), (index_two, name_two) in iterator:
+                value = parameter_values[index_one:index_two]
+                if len(value) == 1:
+                    value = value[0]
+                parameter = Parameter(name=name_one, value=value)
+                indexed_parameters.append((index_one, parameter))
+            index_one, name_one = pairs[-1]
+            value = parameter_values[index_one:]
+            if len(value) == 1:
+                value = value[0]
+            parameter = Parameter(name=name_one, value=value)
+            indexed_parameters.append((index_one, parameter))
+            indexed_parameters.sort(key=lambda x: parameter_names.index(x[1].name))
+        indexed_parameters = collections.OrderedDict(indexed_parameters)
+        return indexed_parameters, index
+
+    @staticmethod
+    def _decompile_synthdef(value, index):
+        from .. import ugens
+
+        sdd = SynthDefDecompiler
+        synthdef = None
+        name, index = sdd._decode_string(value, index)
+        constants, index = sdd._decode_constants(value, index)
+        indexed_parameters, index = sdd._decode_parameters(value, index)
+        decompiled_ugens = []
+        ugen_count, index = sdd._decode_int_32bit(value, index)
+        for i in range(ugen_count):
+            ugen_name, index = sdd._decode_string(value, index)
+            calculation_rate, index = sdd._decode_int_8bit(value, index)
+            calculation_rate = CalculationRate(calculation_rate)
+            input_count, index = sdd._decode_int_32bit(value, index)
+            output_count, index = sdd._decode_int_32bit(value, index)
+            special_index, index = sdd._decode_int_16bit(value, index)
+            inputs = []
+            for _ in range(input_count):
+                ugen_index, index = sdd._decode_int_32bit(value, index)
+                if ugen_index == 0xFFFFFFFF:
+                    constant_index, index = sdd._decode_int_32bit(value, index)
+                    constant_index = int(constant_index)
+                    inputs.append(constants[constant_index])
+                else:
+                    ugen = decompiled_ugens[ugen_index]
+                    ugen_output_index, index = sdd._decode_int_32bit(value, index)
+                    output_proxy = ugen[ugen_output_index]
+                    inputs.append(output_proxy)
+            for _ in range(output_count):
+                output_rate, index = sdd._decode_int_8bit(value, index)
+            ugen_class = getattr(ugens, ugen_name, None)
+            ugen = UGen.__new__(ugen_class)
+            if issubclass(ugen_class, Control):
+                starting_control_index = special_index
+                parameters = sdd._collect_parameters_for_control(
+                    calculation_rate,
+                    indexed_parameters,
+                    inputs,
+                    output_count,
+                    starting_control_index,
+                    ugen_class,
+                )
+                ugen_class.__init__(
+                    ugen,
+                    parameters=parameters,
+                    starting_control_index=starting_control_index,
+                    calculation_rate=calculation_rate,
+                )
+            else:
+                kwargs = {}
+                if not ugen._unexpanded_input_names:
+                    for i, input_name in enumerate(ugen._ordered_input_names):
+                        kwargs[input_name] = inputs[i]
+                else:
+                    for i, input_name in enumerate(ugen._ordered_input_names):
+                        if input_name not in ugen._unexpanded_input_names:
+                            kwargs[input_name] = inputs[i]
+                        else:
+                            kwargs[input_name] = tuple(inputs[i:])
+                ugen._channel_count = output_count
+                UGen.__init__(
+                    ugen,
+                    calculation_rate=calculation_rate,
+                    special_index=special_index,
+                    **kwargs,
+                )
+            decompiled_ugens.append(ugen)
+        variants_count, index = sdd._decode_int_16bit(value, index)
+        synthdef = SynthDef(ugens=decompiled_ugens, name=name)
+        if synthdef.name == synthdef.anonymous_name:
+            synthdef._name = None
+        return synthdef, index
+
+    @staticmethod
+    def _decode_string(value, index):
+        length = struct.unpack(">B", value[index : index + 1])[0]
+        index += 1
+        result = value[index : index + length]
+        result = result.decode("ascii")
+        index += length
+        return result, index
+
+    @staticmethod
+    def _decode_float(value, index):
+        result = struct.unpack(">f", value[index : index + 4])[0]
+        index += 4
+        return result, index
+
+    @staticmethod
+    def _decode_int_8bit(value, index):
+        result = struct.unpack(">B", value[index : index + 1])[0]
+        index += 1
+        return result, index
+
+    @staticmethod
+    def _decode_int_16bit(value, index):
+        result = struct.unpack(">H", value[index : index + 2])[0]
+        index += 2
+        return result, index
+
+    @staticmethod
+    def _decode_int_32bit(value, index):
+        result = struct.unpack(">I", value[index : index + 4])[0]
+        index += 4
+        return result, index
+
+    @staticmethod
+    def _collect_parameters_for_control(
+        calculation_rate,
+        indexed_parameters,
+        inputs,
+        output_count,
+        starting_control_index,
+        ugen_class,
+    ):
+        parameter_rate = ParameterRate.CONTROL
+        if issubclass(ugen_class, TrigControl):
+            parameter_rate = ParameterRate.TRIGGER
+        elif calculation_rate == CalculationRate.SCALAR:
+            parameter_rate = ParameterRate.SCALAR
+        elif calculation_rate == CalculationRate.AUDIO:
+            parameter_rate = ParameterRate.AUDIO
+        parameters = []
+        collected_output_count = 0
+        lag = 0.0
+        while collected_output_count < output_count:
+            if inputs:
+                lag = inputs[collected_output_count]
+            parameter = indexed_parameters[
+                starting_control_index + collected_output_count
+            ]
+            parameter.parameter_rate = parameter_rate
+            if lag:
+                parameter.lag = lag
+            parameters.append(parameter)
+            collected_output_count += len(parameter)
+        return parameters
+
+    ### PUBLIC METHODS ###
+
+    @staticmethod
+    def decompile_synthdef(value):
+        synthdefs = SynthDefDecompiler.decompile_synthdefs(value)
+        assert len(synthdefs) == 1
+        return synthdefs[0]
+
+    @staticmethod
+    def decompile_synthdefs(value):
+        synthdefs = []
+        sdd = SynthDefDecompiler
+        index = 4
+        assert value[:index] == b"SCgf"
+        file_version, index = sdd._decode_int_32bit(value, index)
+        synthdef_count, index = sdd._decode_int_16bit(value, index)
+        for _ in range(synthdef_count):
+            synthdef, index = sdd._decompile_synthdef(value, index)
+            synthdefs.append(synthdef)
+        return synthdefs

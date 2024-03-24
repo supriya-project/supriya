@@ -1,7 +1,7 @@
 from typing import Any, Dict, Tuple
 
 from ..enums import CalculationRate, DoneAction
-from .bases import UGen, param, ugen
+from .core import UGen, param, ugen
 
 
 @ugen(ar=True, kr=True, is_multichannel=True)
@@ -25,7 +25,7 @@ class BufRd(UGen):
         ...     phase=phase,
         ... )
         >>> buf_rd
-        UGenArray({2})
+        UGenVector({2})
     """
 
     buffer_id = param()
@@ -55,7 +55,7 @@ class BufWr(UGen):
         ...     source=source,
         ... )
         >>> buf_wr
-        BufWr.ar()
+        BufWr.ar()[0]
     """
 
     buffer_id = param()
@@ -73,7 +73,7 @@ class ClearBuf(UGen):
         ...     buffer_id=23,
         ... )
         >>> clear_buf
-        ClearBuf.ir()
+        ClearBuf.ir()[0]
     """
 
     buffer_id = param()
@@ -86,26 +86,30 @@ class LocalBuf(UGen):
 
     ::
 
-        >>> local_buf = supriya.ugens.LocalBuf.ir(
+        >>> from supriya.ugens import FFT, IFFT, LocalBuf, Out, PinkNoise, SynthDefBuilder
+
+    ::
+
+        >>> local_buf = LocalBuf.ir(
         ...     channel_count=1,
         ...     frame_count=1,
         ... )
         >>> local_buf
-        LocalBuf.ir()
+        LocalBuf.ir()[0]
 
     LocalBuf creates a ``MaxLocalBufs`` UGen implicitly during SynthDef compilation:
 
     ::
 
-        >>> with supriya.synthdefs.SynthDefBuilder() as builder:
-        ...     local_buf = supriya.ugens.LocalBuf.ir(frame_count=2048)
-        ...     source = supriya.ugens.PinkNoise.ar()
-        ...     pv_chain = supriya.ugens.FFT.kr(
+        >>> with SynthDefBuilder() as builder:
+        ...     local_buf = LocalBuf.ir(frame_count=2048)
+        ...     source = PinkNoise.ar()
+        ...     pv_chain = FFT.kr(
         ...         buffer_id=local_buf,
         ...         source=source,
         ...     )
-        ...     ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
-        ...     out = supriya.ugens.Out.ar(bus=0, source=ifft)
+        ...     ifft = IFFT.ar(pv_chain=pv_chain)
+        ...     out = Out.ar(bus=0, source=ifft)
         ...
         >>> synthdef = builder.build()
         >>> for ugen in synthdef.ugens:
@@ -139,7 +143,7 @@ class MaxLocalBufs(UGen):
 
         >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=1)
         >>> max_local_bufs
-        MaxLocalBufs.ir()
+        MaxLocalBufs.ir()[0]
     """
 
     maximum = param(0)
@@ -150,7 +154,7 @@ class MaxLocalBufs(UGen):
 
         ::
 
-            >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=1)
+            >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=1).source
             >>> max_local_bufs.inputs
             (1.0,)
 
@@ -183,7 +187,7 @@ class PlayBuf(UGen):
         ...     trigger=1,
         ... )
         >>> play_buf
-        UGenArray({2})
+        UGenVector({2})
     """
 
     buffer_id = param()
@@ -215,7 +219,7 @@ class RecordBuf(UGen):
         ...     trigger=1,
         ... )
         >>> record_buf
-        RecordBuf.ar()
+        RecordBuf.ar()[0]
     """
 
     buffer_id = param()

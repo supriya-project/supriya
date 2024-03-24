@@ -1,5 +1,5 @@
 from ..enums import CalculationRate
-from .bases import PseudoUGen, UGen, param, ugen
+from .core import PseudoUGen, UGen, param, ugen
 from .delay import DelayN
 
 
@@ -17,7 +17,7 @@ class Amplitude(UGen):
         ...     source=source,
         ... )
         >>> amplitude
-        Amplitude.kr()
+        Amplitude.kr()[0]
     """
 
     source = param()
@@ -122,7 +122,7 @@ class Limiter(UGen):
         ...     source=source,
         ... )
         >>> limiter
-        Limiter.ar()
+        Limiter.ar()[0]
     """
 
     source = param()
@@ -144,7 +144,7 @@ class Normalizer(UGen):
         ...     source=source,
         ... )
         >>> normalizer
-        Normalizer.ar()
+        Normalizer.ar()[0]
     """
 
     source = param()

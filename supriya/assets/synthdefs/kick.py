@@ -1,5 +1,16 @@
-from supriya.synthdefs import Envelope, SynthDef, SynthDefBuilder
-from supriya.ugens import BPF, RLPF, EnvGen, Impulse, LinLin, Out, PinkNoise, SinOsc
+from supriya.ugens import (
+    BPF,
+    RLPF,
+    EnvGen,
+    Envelope,
+    Impulse,
+    LinLin,
+    Out,
+    PinkNoise,
+    SinOsc,
+    SynthDef,
+    SynthDefBuilder,
+)
 
 
 def _build_kick_synthdef() -> SynthDef:

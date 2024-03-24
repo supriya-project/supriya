@@ -5,17 +5,28 @@ import platform
 import pytest
 from uqbar.strings import normalize
 
-import supriya.synthdefs
-import supriya.ugens
+from supriya.ugens import (
+    FFT,
+    IFFT,
+    LocalBuf,
+    Out,
+    PV_BinScramble,
+    PV_MagFreeze,
+    PV_MagMul,
+    PinkNoise,
+    SuperColliderSynthDef,
+    SynthDefBuilder,
+    decompile_synthdef,
+)
 
 
 def test_01():
-    with supriya.synthdefs.SynthDefBuilder() as builder:
-        local_buf = supriya.ugens.LocalBuf.ir(frame_count=2048)
-        source = supriya.ugens.PinkNoise.ar()
-        pv_chain = supriya.ugens.FFT.kr(buffer_id=local_buf, source=source)
-        ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
-        supriya.ugens.Out.ar(bus=0, source=ifft)
+    with SynthDefBuilder() as builder:
+        local_buf = LocalBuf.ir(frame_count=2048)
+        source = PinkNoise.ar()
+        pv_chain = FFT.kr(buffer_id=local_buf, source=source)
+        ifft = IFFT.ar(pv_chain=pv_chain)
+        Out.ar(bus=0, source=ifft)
     py_synthdef = builder.build("LocalBufTest")
     # fmt: off
     test_compiled_synthdef = (
@@ -105,17 +116,15 @@ def test_01():
 
 @pytest.fixture
 def py_synthdef_02():
-    with supriya.synthdefs.SynthDefBuilder() as builder:
-        source = supriya.ugens.PinkNoise.ar()
-        local_buf = supriya.ugens.LocalBuf.ir(frame_count=2048)
-        pv_chain = supriya.ugens.FFT.kr(buffer_id=local_buf, source=source)
-        pv_chain_a = supriya.ugens.PV_BinScramble.kr(pv_chain=pv_chain)
-        pv_chain_b = supriya.ugens.PV_MagFreeze.kr(pv_chain=pv_chain)
-        pv_chain = supriya.ugens.PV_MagMul.kr(
-            pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b
-        )
-        ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
-        supriya.ugens.Out.ar(bus=0, source=ifft)
+    with SynthDefBuilder() as builder:
+        source = PinkNoise.ar()
+        local_buf = LocalBuf.ir(frame_count=2048)
+        pv_chain = FFT.kr(buffer_id=local_buf, source=source)
+        pv_chain_a = PV_BinScramble.kr(pv_chain=pv_chain)
+        pv_chain_b = PV_MagFreeze.kr(pv_chain=pv_chain)
+        pv_chain = PV_MagMul.kr(pv_chain_a=pv_chain_a, pv_chain_b=pv_chain_b)
+        ifft = IFFT.ar(pv_chain=pv_chain)
+        Out.ar(bus=0, source=ifft)
     py_synthdef = builder.build("PVCopyTest")
     return py_synthdef
 
@@ -189,7 +198,7 @@ def test_02_ugens(py_synthdef_02):
     reason="sclang hangs without QT",
 )
 def test_02_supriya_vs_sclang(py_synthdef_02):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+    sc_synthdef = SuperColliderSynthDef(
         "PVCopyTest",
         r"""
         var source, pv_chain, pv_chain_a, pv_chain_b, ifft, out;
@@ -205,9 +214,7 @@ def test_02_supriya_vs_sclang(py_synthdef_02):
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
     py_compiled_synthdef = py_synthdef_02.compile()
     assert py_compiled_synthdef == sc_compiled_synthdef
-    sc_synthdef = supriya.synthdefs.SynthDefDecompiler.decompile_synthdef(
-        sc_compiled_synthdef
-    )
+    sc_synthdef = decompile_synthdef(sc_compiled_synthdef)
     assert tuple(repr(_) for _ in sc_synthdef.ugens) == (
         "PinkNoise.ar()",
         "MaxLocalBufs.ir()",

@@ -5,7 +5,7 @@ import pytest
 from uqbar.strings import normalize
 
 from supriya.assets.synthdefs import system_link_audio_1, system_link_audio_2
-from supriya.synthdefs import SuperColliderSynthDef, SynthDefDecompiler
+from supriya.ugens import SuperColliderSynthDef, decompile_synthdef
 
 
 def test_system_link_audio_1_supriya():
@@ -93,7 +93,7 @@ def test_system_link_audio_1_sclang():
         """,
         r"[\kr, \kr, \kr, \kr, \kr, \ir]",
     ).compile()
-    sc_synthdef = SynthDefDecompiler.decompile_synthdef(sc_compiled)
+    sc_synthdef = decompile_synthdef(sc_compiled)
     assert normalize(str(sc_synthdef)) == normalize(
         """
         synthdef:
@@ -234,7 +234,7 @@ def test_system_link_audio_2_sclang():
         """,
         r"[\kr, \kr, \kr, \kr, \kr, \ir]",
     ).compile()
-    sc_synthdef = SynthDefDecompiler.decompile_synthdef(sc_compiled)
+    sc_synthdef = decompile_synthdef(sc_compiled)
     assert normalize(str(sc_synthdef)) == normalize(
         """
         synthdef:

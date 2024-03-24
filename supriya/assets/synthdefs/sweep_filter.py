@@ -1,5 +1,4 @@
-from ...synthdefs import SynthDef, SynthDefBuilder
-from ...ugens import HPF, LPF, In, Lag, ReplaceOut
+from ...ugens import HPF, LPF, In, Lag, ReplaceOut, SynthDef, SynthDefBuilder
 
 
 def _build_synthdef() -> SynthDef:

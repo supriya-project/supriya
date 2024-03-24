@@ -1,6 +1,5 @@
 from ...enums import ParameterRate
-from ...synthdefs import Parameter, SynthDef, SynthDefBuilder
-from ...ugens import Out, SinOsc
+from ...ugens import Out, Parameter, SinOsc, SynthDef, SynthDefBuilder
 
 
 def _build_test_synthdef() -> SynthDef:
