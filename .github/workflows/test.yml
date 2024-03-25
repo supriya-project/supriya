@@ -107,8 +107,8 @@ jobs:
         include:
         - os: macos-latest
           python-version: "3.12"
-        # - os: windows-latest
-        #   python-version: "3.11"
+        - os: windows-latest
+          python-version: "3.12"
     timeout-minutes: 45
     steps:
     - uses: actions/checkout@v4
@@ -134,16 +134,36 @@ jobs:
         choco install supercollider
         mkdir C:\Users\runneradmin\AppData\Local\SuperCollider\synthdefs
     - name: Setup audio (Windows) # https://github.com/actions/runner-images/issues/2528#issuecomment-934857719
+      # No powershell!
       if: ${{ matrix.os == 'windows-latest' }}
-      shell: powershell
+      run: net start audiosrv
+    - name: Setup audio (Windows) # https://github.com/actions/runner-images/issues/2528#issuecomment-934857719
+      # No powershell!
+      if: ${{ matrix.os == 'windows-latest' }}
       run: |
-        Invoke-WebRequest https://github.com/duncanthrax/scream/releases/download/3.8/Scream3.8.zip -OutFile Scream3.8.zip
-        Expand-Archive -Path Scream3.8.zip -DestinationPath Scream
-        Import-Certificate -FilePath Scream\Install\driver\x64\Scream.cat -CertStoreLocation Cert:\LocalMachine\TrustedPublisher 
+        Set-Service -Name vmictimesync -Status stopped -StartupType disabled
+        Set-ItemProperty HKLM:\SYSTEM\CurrentControlSet\services\W32Time\Parameters -Name 'Type' -Value 'NoSync'
+        net stop w32time; Set-Date (Get-Date "2023-07-04 12:00:00")
+    - name: Setup audio (Windows) # https://github.com/actions/runner-images/issues/2528#issuecomment-934857719
+      env:
+        VERSION: '4.0'
+      if: ${{ matrix.os == 'windows-latest' }}
+      # TODO: Remove the time workaround when virtual audio device certificate is valid again, refs:
+      # https://github.com/duncanthrax/scream/issues/202
+      run: |
+        Invoke-WebRequest https://github.com/duncanthrax/scream/releases/download/${{ env.VERSION }}/Scream${{ env.VERSION }}.zip -OutFile Scream${{ env.VERSION }}.zip
+        Expand-Archive -Path Scream${{ env.VERSION }}.zip -DestinationPath Scream
+        Import-Certificate -FilePath Scream\Install\driver\x64\scream.cat -CertStoreLocation Cert:\LocalMachine\TrustedPublisher
         Scream\Install\helpers\devcon-x64.exe install Scream\Install\driver\x64\Scream.inf *Scream
-        net start audiosrv
-        Get-CimInstance Win32_SoundDevice | fl *
-      timeout-minutes: 2
+      shell: powershell
+      timeout-minutes: 1
+    - name: Setup audio (Windows) # https://github.com/actions/runner-images/issues/2528#issuecomment-934857719
+      # No powershell!
+      if: ${{ matrix.os == 'windows-latest' }}
+      run: |
+        Set-Service -Name vmictimesync -Status running -StartupType automatic
+        Set-ItemProperty HKLM:\SYSTEM\CurrentControlSet\services\W32Time\Parameters -Name 'Type' -Value 'NTP'
+        net start w32time; w32tm /resync /force; $currentDate = Get-Date; Write-Host "Current System Date: $currentDate";
     - name: Sanity-check Supriya
       run: |
         python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
