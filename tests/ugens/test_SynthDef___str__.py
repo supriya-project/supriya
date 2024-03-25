@@ -1,15 +1,14 @@
 from uqbar.strings import normalize
 
-import supriya.synthdefs
-import supriya.ugens
+from supriya.ugens import Mix, Out, SinOsc, SynthDefBuilder
 
 
 def test_multi_value_parameters():
-    with supriya.synthdefs.SynthDefBuilder(amp=0.1, freqs=[300, 400], out=0) as builder:
-        sines = supriya.ugens.SinOsc.ar(frequency=builder["freqs"])
-        sines = supriya.ugens.Mix.new(sines)
+    with SynthDefBuilder(amp=0.1, freqs=[300, 400], out=0) as builder:
+        sines = SinOsc.ar(frequency=builder["freqs"])
+        sines = Mix.new(sines)
         sines = sines * builder["amp"]
-        supriya.ugens.Out.ar(bus=builder["out"], source=sines)
+        Out.ar(bus=builder["out"], source=sines)
     synthdef = builder.build()
     assert str(synthdef) == normalize(
         """

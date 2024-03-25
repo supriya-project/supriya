@@ -4,23 +4,22 @@ import platform
 
 import pytest
 
-import supriya.synthdefs
-import supriya.ugens
+from supriya.ugens import Out, SinOsc, SuperColliderSynthDef, SynthDefBuilder
 
 
 @pytest.fixture
 def py_synthdef():
-    with supriya.synthdefs.SynthDefBuilder() as builder:
-        sine_a = supriya.ugens.SinOsc.ar(frequency=420)
-        sine_b = supriya.ugens.SinOsc.ar(frequency=440)  # noqa
-        sine_c = supriya.ugens.SinOsc.ar(frequency=460)
-        sine_d = supriya.ugens.SinOsc.ar(frequency=sine_c)  # noqa
-        supriya.ugens.Out.ar(bus=0, source=sine_a)
+    with SynthDefBuilder() as builder:
+        sine_a = SinOsc.ar(frequency=420)
+        sine_b = SinOsc.ar(frequency=440)  # noqa
+        sine_c = SinOsc.ar(frequency=460)
+        sine_d = SinOsc.ar(frequency=sine_c)  # noqa
+        Out.ar(bus=0, source=sine_a)
     py_synthdef = builder.build("optimized")
     return py_synthdef
 
 
-def test_SynthDefCompiler_optimization_01_supriya_vs_bytes(py_synthdef):
+def test_optimization_01_supriya_vs_bytes(py_synthdef):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -64,8 +63,8 @@ def test_SynthDefCompiler_optimization_01_supriya_vs_bytes(py_synthdef):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_optimization_01_supriya_vs_sclang(py_synthdef):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+def test_optimization_01_supriya_vs_sclang(py_synthdef):
+    sc_synthdef = SuperColliderSynthDef(
         "optimized",
         r"""
         var sine_a, sine_b, sine_c, sine_d;

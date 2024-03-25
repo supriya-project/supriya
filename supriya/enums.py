@@ -93,7 +93,6 @@ class CalculationRate(IntEnumeration):
 
         ::
 
-            >>> import supriya.synthdefs
             >>> import supriya.ugens
 
         ::
@@ -125,13 +124,12 @@ class CalculationRate(IntEnumeration):
 
         Return calculation-rate.
         """
-        from .synthdefs import Parameter
-        from .ugens import OutputProxy, UGen
+        from .ugens import Parameter
 
-        if isinstance(expr, (int, float)) and not isinstance(expr, cls):
-            return cast(CalculationRate, CalculationRate.SCALAR)
-        elif isinstance(expr, (OutputProxy, UGen)):
+        if hasattr(expr, "calculation_rate"):
             return expr.calculation_rate
+        elif isinstance(expr, (int, float)) and not isinstance(expr, cls):
+            return cast(CalculationRate, CalculationRate.SCALAR)
         elif isinstance(expr, Parameter):
             name = expr.parameter_rate.name
             if name == "TRIGGER":
@@ -141,8 +139,6 @@ class CalculationRate(IntEnumeration):
             return super().from_expr(expr)
         elif isinstance(expr, Sequence):
             return max(CalculationRate.from_expr(item) for item in expr)
-        elif hasattr(expr, "calculation_rate"):
-            return cls.from_expr(expr.calculation_rate)
         return super().from_expr(expr)
 
     @property
@@ -475,13 +471,3 @@ class UnaryOperator(IntEnumeration):
     THRU = 47
     TRIANGLE_WINDOW = 51
     WELCH_WINDOW = 50
-
-
-class Unit(IntEnumeration):
-    UNDEFINED = 0
-    DECIBELS = 1
-    AMPLITUDE = 2
-    SECONDS = 3
-    MILLISECONDS = 4
-    HERTZ = 5
-    SEMITONES = 6

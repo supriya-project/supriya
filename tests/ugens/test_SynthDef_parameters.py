@@ -5,27 +5,34 @@ import platform
 import pytest
 from uqbar.strings import normalize
 
-import supriya.synthdefs
-import supriya.ugens
 from supriya.enums import ParameterRate
+from supriya.ugens import (
+    Decay2,
+    DelayC,
+    In,
+    Mix,
+    Out,
+    Parameter,
+    SinOsc,
+    SuperColliderSynthDef,
+    SynthDefBuilder,
+)
 
 
 @pytest.fixture
 def py_synthdef_01():
-    with supriya.synthdefs.SynthDefBuilder(freq=440) as builder:
-        sine = supriya.ugens.SinOsc.ar(frequency=builder["freq"])
-        supriya.ugens.Out.ar(bus=0, source=sine)
+    with SynthDefBuilder(freq=440) as builder:
+        sine = SinOsc.ar(frequency=builder["freq"])
+        Out.ar(bus=0, source=sine)
     py_synthdef = builder.build("test")
     return py_synthdef
 
 
-def test_SynthDefCompiler_parameters_01_parameters(py_synthdef_01):
+def test_parameters_01_parameters(py_synthdef_01):
     assert py_synthdef_01.indexed_parameters == (
         (
             0,
-            supriya.synthdefs.Parameter(
-                name="freq", parameter_rate=ParameterRate.CONTROL, value=440.0
-            ),
+            Parameter(name="freq", parameter_rate=ParameterRate.CONTROL, value=440.0),
         ),
     )
 
@@ -35,8 +42,8 @@ def test_SynthDefCompiler_parameters_01_parameters(py_synthdef_01):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_parameters_01_supriya_vs_sclang(py_synthdef_01):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+def test_parameters_01_supriya_vs_sclang(py_synthdef_01):
+    sc_synthdef = SuperColliderSynthDef(
         "test",
         r"""
         | freq = 440 |
@@ -48,7 +55,7 @@ def test_SynthDefCompiler_parameters_01_supriya_vs_sclang(py_synthdef_01):
     assert py_compiled_synthdef == sc_compiled_synthdef
 
 
-def test_SynthDefCompiler_parameters_01_supriya_vs_bytes(py_synthdef_01):
+def test_parameters_01_supriya_vs_bytes(py_synthdef_01):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -97,26 +104,22 @@ def test_SynthDefCompiler_parameters_01_supriya_vs_bytes(py_synthdef_01):
 
 @pytest.fixture
 def py_synthdef_02():
-    with supriya.synthdefs.SynthDefBuilder(freq=1200, out=23) as builder:
-        sine = supriya.ugens.SinOsc.ar(frequency=builder["freq"])
-        supriya.ugens.Out.ar(bus=builder["out"], source=sine)
+    with SynthDefBuilder(freq=1200, out=23) as builder:
+        sine = SinOsc.ar(frequency=builder["freq"])
+        Out.ar(bus=builder["out"], source=sine)
     py_synthdef = builder.build("test")
     return py_synthdef
 
 
-def test_SynthDefCompiler_parameters_02_parameters(py_synthdef_02):
+def test_parameters_02_parameters(py_synthdef_02):
     assert py_synthdef_02.indexed_parameters == (
         (
             0,
-            supriya.synthdefs.Parameter(
-                name="freq", parameter_rate=ParameterRate.CONTROL, value=1200.0
-            ),
+            Parameter(name="freq", parameter_rate=ParameterRate.CONTROL, value=1200.0),
         ),
         (
             1,
-            supriya.synthdefs.Parameter(
-                name="out", parameter_rate=ParameterRate.CONTROL, value=23.0
-            ),
+            Parameter(name="out", parameter_rate=ParameterRate.CONTROL, value=23.0),
         ),
     )
 
@@ -126,8 +129,8 @@ def test_SynthDefCompiler_parameters_02_parameters(py_synthdef_02):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_parameters_02_supriya_vs_sclang(py_synthdef_02):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+def test_parameters_02_supriya_vs_sclang(py_synthdef_02):
+    sc_synthdef = SuperColliderSynthDef(
         "test",
         r"""
         arg freq=1200, out=23;
@@ -139,7 +142,7 @@ def test_SynthDefCompiler_parameters_02_supriya_vs_sclang(py_synthdef_02):
     assert py_compiled_synthdef == sc_compiled_synthdef
 
 
-def test_SynthDefCompiler_parameters_02_supriya_vs_bytes(py_synthdef_02):
+def test_parameters_02_supriya_vs_bytes(py_synthdef_02):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -192,39 +195,35 @@ def test_SynthDefCompiler_parameters_02_supriya_vs_bytes(py_synthdef_02):
 
 @pytest.fixture
 def py_synthdef_03():
-    builder = supriya.synthdefs.SynthDefBuilder(
-        damping=0.1, delay_time=1.0, room_size=0.9
-    )
+    builder = SynthDefBuilder(damping=0.1, delay_time=1.0, room_size=0.9)
     with builder:
-        microphone = supriya.ugens.In.ar(bus=0)
-        delay = supriya.ugens.DelayC.ar(
+        microphone = In.ar(bus=0)
+        delay = DelayC.ar(
             source=microphone, maximum_delay_time=5.0, delay_time=builder["delay_time"]
         )
-        supriya.ugens.Out.ar(bus=0, source=delay)
+        Out.ar(bus=0, source=delay)
     py_synthdef = builder.build("test")
     return py_synthdef
 
 
-def test_SynthDefCompiler_parameters_03_parameters(py_synthdef_03):
+def test_parameters_03_parameters(py_synthdef_03):
     """
     Multiple parameters, including unused parameters.
     """
     assert py_synthdef_03.indexed_parameters == (
         (
             0,
-            supriya.synthdefs.Parameter(
-                name="damping", parameter_rate=ParameterRate.CONTROL, value=0.1
-            ),
+            Parameter(name="damping", parameter_rate=ParameterRate.CONTROL, value=0.1),
         ),
         (
             1,
-            supriya.synthdefs.Parameter(
+            Parameter(
                 name="delay_time", parameter_rate=ParameterRate.CONTROL, value=1.0
             ),
         ),
         (
             2,
-            supriya.synthdefs.Parameter(
+            Parameter(
                 name="room_size", parameter_rate=ParameterRate.CONTROL, value=0.9
             ),
         ),
@@ -236,8 +235,8 @@ def test_SynthDefCompiler_parameters_03_parameters(py_synthdef_03):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_parameters_03_supriya_vs_sclang(py_synthdef_03):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+def test_parameters_03_supriya_vs_sclang(py_synthdef_03):
+    sc_synthdef = SuperColliderSynthDef(
         "test",
         r"""
         | damping=0.1, delay_time=1.0, room_size=0.9 |
@@ -249,7 +248,7 @@ def test_SynthDefCompiler_parameters_03_supriya_vs_sclang(py_synthdef_03):
     assert py_compiled_synthdef == sc_compiled_synthdef
 
 
-def test_SynthDefCompiler_parameters_03_supriya_vs_bytes(py_synthdef_03):
+def test_parameters_03_supriya_vs_bytes(py_synthdef_03):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -317,58 +316,48 @@ def test_SynthDefCompiler_parameters_03_supriya_vs_bytes(py_synthdef_03):
 
 @pytest.fixture
 def py_synthdef_04():
-    builder = supriya.synthdefs.SynthDefBuilder(
+    builder = SynthDefBuilder(
         a_phase=0.0, freq=440, i_decay_time=1.0, t_trig_a=0, t_trig_b=0
     )
     with builder:
-        decay = supriya.ugens.Decay2.kr(
+        decay = Decay2.kr(
             source=(builder["t_trig_a"], builder["t_trig_b"]),
             attack_time=0.005,
             decay_time=builder["i_decay_time"],
         )
-        sin_osc = supriya.ugens.SinOsc.ar(
-            frequency=builder["freq"], phase=builder["a_phase"]
-        )
+        sin_osc = SinOsc.ar(frequency=builder["freq"], phase=builder["a_phase"])
         enveloped_sin_osc = sin_osc * decay
-        supriya.ugens.Out.ar(bus=0, source=enveloped_sin_osc)
+        Out.ar(bus=0, source=enveloped_sin_osc)
     py_synthdef = builder.build("trigTest")
     return py_synthdef
 
 
-def test_SynthDefCompiler_parameters_04_parameters(py_synthdef_04):
+def test_parameters_04_parameters(py_synthdef_04):
     """
     Different calculation rates.
     """
     assert py_synthdef_04.indexed_parameters == (
         (
             3,
-            supriya.synthdefs.Parameter(
-                name="a_phase", parameter_rate=ParameterRate.AUDIO, value=0.0
-            ),
+            Parameter(name="a_phase", parameter_rate=ParameterRate.AUDIO, value=0.0),
         ),
         (
             4,
-            supriya.synthdefs.Parameter(
-                name="freq", parameter_rate=ParameterRate.CONTROL, value=440.0
-            ),
+            Parameter(name="freq", parameter_rate=ParameterRate.CONTROL, value=440.0),
         ),
         (
             0,
-            supriya.synthdefs.Parameter(
+            Parameter(
                 name="i_decay_time", parameter_rate=ParameterRate.SCALAR, value=1.0
             ),
         ),
         (
             1,
-            supriya.synthdefs.Parameter(
-                name="t_trig_a", parameter_rate=ParameterRate.TRIGGER, value=0.0
-            ),
+            Parameter(name="t_trig_a", parameter_rate=ParameterRate.TRIGGER, value=0.0),
         ),
         (
             2,
-            supriya.synthdefs.Parameter(
-                name="t_trig_b", parameter_rate=ParameterRate.TRIGGER, value=0.0
-            ),
+            Parameter(name="t_trig_b", parameter_rate=ParameterRate.TRIGGER, value=0.0),
         ),
     )
 
@@ -378,8 +367,8 @@ def test_SynthDefCompiler_parameters_04_parameters(py_synthdef_04):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_parameters_04_supriya_vs_sclang(py_synthdef_04):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+def test_parameters_04_supriya_vs_sclang(py_synthdef_04):
+    sc_synthdef = SuperColliderSynthDef(
         "trigTest",
         r"""
         |
@@ -398,7 +387,7 @@ def test_SynthDefCompiler_parameters_04_supriya_vs_sclang(py_synthdef_04):
     assert py_compiled_synthdef == sc_compiled_synthdef
 
 
-def test_SynthDefCompiler_parameters_04_supriya_vs_bytes(py_synthdef_04):
+def test_parameters_04_supriya_vs_bytes(py_synthdef_04):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -525,30 +514,28 @@ def test_SynthDefCompiler_parameters_04_supriya_vs_bytes(py_synthdef_04):
 
 @pytest.fixture
 def py_synthdef_05():
-    builder = supriya.synthdefs.SynthDefBuilder(amp=0.1, freqs=[300, 400])
+    builder = SynthDefBuilder(amp=0.1, freqs=[300, 400])
     with builder:
-        sines = supriya.ugens.SinOsc.ar(frequency=builder["freqs"])
-        sines = supriya.ugens.Mix.new(sines)
+        sines = SinOsc.ar(frequency=builder["freqs"])
+        sines = Mix.new(sines)
         sines = sines * builder["amp"]
-        supriya.ugens.Out.ar(bus=0, source=sines)
+        Out.ar(bus=0, source=sines)
     py_synthdef = builder.build("arrayarg")
     return py_synthdef
 
 
-def test_SynthDefCompiler_parameters_05_parameters(py_synthdef_05):
+def test_parameters_05_parameters(py_synthdef_05):
     """
     Literal array arguments.
     """
     assert py_synthdef_05.indexed_parameters == (
         (
             0,
-            supriya.synthdefs.Parameter(
-                name="amp", parameter_rate=ParameterRate.CONTROL, value=0.1
-            ),
+            Parameter(name="amp", parameter_rate=ParameterRate.CONTROL, value=0.1),
         ),
         (
             1,
-            supriya.synthdefs.Parameter(
+            Parameter(
                 name="freqs", parameter_rate=ParameterRate.CONTROL, value=(300.0, 400.0)
             ),
         ),
@@ -560,8 +547,8 @@ def test_SynthDefCompiler_parameters_05_parameters(py_synthdef_05):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_parameters_05_supriya_vs_sclang(py_synthdef_05):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+def test_parameters_05_supriya_vs_sclang(py_synthdef_05):
+    sc_synthdef = SuperColliderSynthDef(
         "arrayarg",
         r"""
         |
@@ -578,7 +565,7 @@ def test_SynthDefCompiler_parameters_05_supriya_vs_sclang(py_synthdef_05):
     assert py_compiled_synthdef == sc_compiled_synthdef
 
 
-def test_SynthDefCompiler_parameters_05_supriya_vs_bytes(py_synthdef_05):
+def test_parameters_05_supriya_vs_bytes(py_synthdef_05):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -663,32 +650,28 @@ def test_SynthDefCompiler_parameters_05_supriya_vs_bytes(py_synthdef_05):
 
 @pytest.fixture
 def py_synthdef_06():
-    builder = supriya.synthdefs.SynthDefBuilder(
-        amp=0.1, freqs=supriya.synthdefs.Parameter(lag=0.5, value=[300, 400])
-    )
+    builder = SynthDefBuilder(amp=0.1, freqs=Parameter(lag=0.5, value=[300, 400]))
     with builder:
-        sines = supriya.ugens.SinOsc.ar(frequency=builder["freqs"])
-        sines = supriya.ugens.Mix.new(sines)
+        sines = SinOsc.ar(frequency=builder["freqs"])
+        sines = Mix.new(sines)
         sines = sines * builder["amp"]
-        supriya.ugens.Out.ar(bus=0, source=sines)
+        Out.ar(bus=0, source=sines)
     py_synthdef = builder.build("arrayarg")
     return py_synthdef
 
 
-def test_SynthDefCompiler_parameters_06_parameters(py_synthdef_06):
+def test_parameters_06_parameters(py_synthdef_06):
     """
     Literal array arguments.
     """
     assert py_synthdef_06.indexed_parameters == (
         (
             0,
-            supriya.synthdefs.Parameter(
-                name="amp", parameter_rate=ParameterRate.CONTROL, value=0.1
-            ),
+            Parameter(name="amp", parameter_rate=ParameterRate.CONTROL, value=0.1),
         ),
         (
             1,
-            supriya.synthdefs.Parameter(
+            Parameter(
                 lag=0.5,
                 name="freqs",
                 parameter_rate=ParameterRate.CONTROL,
@@ -703,8 +686,8 @@ def test_SynthDefCompiler_parameters_06_parameters(py_synthdef_06):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_parameters_06_supriya_vs_sclang(py_synthdef_06):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+def test_parameters_06_supriya_vs_sclang(py_synthdef_06):
+    sc_synthdef = SuperColliderSynthDef(
         "arrayarg",
         r"""
         |
@@ -722,7 +705,7 @@ def test_SynthDefCompiler_parameters_06_supriya_vs_sclang(py_synthdef_06):
     assert py_compiled_synthdef == sc_compiled_synthdef
 
 
-def test_SynthDefCompiler_parameters_06_supriya_vs_bytes(py_synthdef_06):
+def test_parameters_06_supriya_vs_bytes(py_synthdef_06):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -812,12 +795,12 @@ def test_SynthDefCompiler_parameters_06_supriya_vs_bytes(py_synthdef_06):
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefCompiler_parameters_07():
-    builder = supriya.SynthDefBuilder(amplitude=0, bus=0, frequency=440)
+def test_parameters_07():
+    builder = SynthDefBuilder(amplitude=0, bus=0, frequency=440)
     with builder:
-        sine = supriya.ugens.SinOsc.ar(frequency=builder["frequency"])
+        sine = SinOsc.ar(frequency=builder["frequency"])
         source = sine * builder["amplitude"]
-        supriya.ugens.Out.ar(bus=builder["bus"], source=source)
+        Out.ar(bus=builder["bus"], source=source)
     synthdef = builder.build(name="simple_sine")
     assert normalize(str(synthdef)) == normalize(
         """
@@ -838,12 +821,12 @@ def test_SynthDefCompiler_parameters_07():
     )
 
 
-def test_SynthDefCompiler_building_is_idempotent():
-    builder = supriya.SynthDefBuilder(amplitude=0, bus=0, frequency=440)
+def test_building_is_idempotent():
+    builder = SynthDefBuilder(amplitude=0, bus=0, frequency=440)
     with builder as builder:
-        sine = supriya.ugens.SinOsc.ar(frequency=builder["frequency"])
+        sine = SinOsc.ar(frequency=builder["frequency"])
         source = sine * builder["amplitude"]
-        supriya.ugens.Out.ar(bus=builder["bus"], source=source)
+        Out.ar(bus=builder["bus"], source=source)
     synthdef_a = builder.build()
     synthdef_b = builder.build()
     synthdef_c = builder.build()

@@ -1,4 +1,4 @@
-from .bases import UGen, param, ugen
+from .core import UGen, param, ugen
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -11,7 +11,7 @@ class AllpassC(UGen):
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> allpass_c = supriya.ugens.AllpassC.ar(source=source)
         >>> allpass_c
-        AllpassC.ar()
+        AllpassC.ar()[0]
     """
 
     source = param()
@@ -30,7 +30,7 @@ class AllpassL(UGen):
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> allpass_l = supriya.ugens.AllpassL.ar(source=source)
         >>> allpass_l
-        AllpassL.ar()
+        AllpassL.ar()[0]
     """
 
     source = param()
@@ -49,7 +49,7 @@ class AllpassN(UGen):
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> allpass_n = supriya.ugens.AllpassN.ar(source=source)
         >>> allpass_n
-        AllpassN.ar()
+        AllpassN.ar()[0]
     """
 
     source = param()
@@ -71,7 +71,7 @@ class BufAllpassC(UGen):
         ...     buffer_id=buffer_id,
         ...     source=source,
         ... )
-        BufAllpassC.ar()
+        BufAllpassC.ar()[0]
     """
 
     buffer_id = param()
@@ -94,7 +94,7 @@ class BufAllpassL(UGen):
         ...     buffer_id=buffer_id,
         ...     source=source,
         ... )
-        BufAllpassL.ar()
+        BufAllpassL.ar()[0]
     """
 
     buffer_id = param()
@@ -117,7 +117,7 @@ class BufAllpassN(UGen):
         ...     buffer_id=buffer_id,
         ...     source=source,
         ... )
-        BufAllpassN.ar()
+        BufAllpassN.ar()[0]
     """
 
     buffer_id = param()
@@ -140,7 +140,7 @@ class BufCombC(UGen):
         ...     buffer_id=buffer_id,
         ...     source=source,
         ... )
-        BufCombC.ar()
+        BufCombC.ar()[0]
     """
 
     buffer_id = param()
@@ -163,7 +163,7 @@ class BufCombL(UGen):
         ...     buffer_id=buffer_id,
         ...     source=source,
         ... )
-        BufCombL.ar()
+        BufCombL.ar()[0]
     """
 
     buffer_id = param()
@@ -186,7 +186,7 @@ class BufCombN(UGen):
         ...     buffer_id=buffer_id,
         ...     source=source,
         ... )
-        BufCombN.ar()
+        BufCombN.ar()[0]
     """
 
     buffer_id = param()
@@ -209,7 +209,7 @@ class BufDelayC(UGen):
         ...     buffer_id=buffer_id,
         ...     source=source,
         ... )
-        BufDelayC.ar()
+        BufDelayC.ar()[0]
     """
 
     buffer_id = param()
@@ -231,7 +231,7 @@ class BufDelayL(UGen):
         ...     buffer_id=buffer_id,
         ...     source=source,
         ... )
-        BufDelayL.ar()
+        BufDelayL.ar()[0]
     """
 
     buffer_id = param()
@@ -253,7 +253,7 @@ class BufDelayN(UGen):
         ...     buffer_id=buffer_id,
         ...     source=source,
         ... )
-        BufDelayN.ar()
+        BufDelayN.ar()[0]
     """
 
     buffer_id = param()
@@ -271,7 +271,7 @@ class CombC(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.CombC.ar(source=source)
-        CombC.ar()
+        CombC.ar()[0]
     """
 
     source = param()
@@ -289,7 +289,7 @@ class CombL(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.CombL.ar(source=source)
-        CombL.ar()
+        CombL.ar()[0]
     """
 
     source = param()
@@ -307,7 +307,7 @@ class CombN(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.CombN.ar(source=source)
-        CombN.ar()
+        CombN.ar()[0]
     """
 
     source = param()
@@ -333,7 +333,7 @@ class DelTapRd(UGen):
     ::
 
         >>> tapin
-        DelTapWr.ar()
+        DelTapWr.ar()[0]
 
     ::
 
@@ -347,7 +347,7 @@ class DelTapRd(UGen):
     ::
 
         >>> tapout
-        DelTapRd.ar()
+        DelTapRd.ar()[0]
     """
 
     buffer_id = param()
@@ -373,7 +373,7 @@ class DelTapWr(UGen):
     ::
 
         >>> tapin
-        DelTapWr.ar()
+        DelTapWr.ar()[0]
 
     ::
 
@@ -387,7 +387,7 @@ class DelTapWr(UGen):
     ::
 
         >>> tapout
-        DelTapRd.ar()
+        DelTapRd.ar()[0]
     """
 
     buffer_id = param()
@@ -403,7 +403,7 @@ class DelayC(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.DelayC.ar(source=source)
-        DelayC.ar()
+        DelayC.ar()[0]
     """
 
     source = param()
@@ -420,7 +420,7 @@ class DelayL(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.DelayL.ar(source=source)
-        DelayL.ar()
+        DelayL.ar()[0]
     """
 
     source = param()
@@ -437,7 +437,7 @@ class DelayN(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.DelayN.ar(source=source)
-        DelayN.ar()
+        DelayN.ar()[0]
     """
 
     source = param()
@@ -454,7 +454,7 @@ class Delay1(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.Delay1.ar(source=source)
-        Delay1.ar()
+        Delay1.ar()[0]
     """
 
     source = param()
@@ -469,7 +469,7 @@ class Delay2(UGen):
 
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> supriya.ugens.Delay2.ar(source=source)
-        Delay2.ar()
+        Delay2.ar()[0]
     """
 
     source = param()

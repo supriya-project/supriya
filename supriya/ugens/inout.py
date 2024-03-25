@@ -2,7 +2,7 @@ from typing import Any, Dict, Sequence, Tuple
 
 from ..enums import CalculationRate
 from ..utils import repeat_to_length
-from .bases import UGen, param, ugen
+from .core import UGen, param, ugen
 
 
 @ugen(ar=True, kr=True, is_input=True, is_multichannel=True)
@@ -13,7 +13,7 @@ class In(UGen):
     ::
 
         >>> supriya.ugens.In.ar(bus=0, channel_count=4)
-        UGenArray({4})
+        UGenVector({4})
     """
 
     bus = param(0.0)
@@ -33,7 +33,7 @@ class InFeedback(UGen):
         ...     channel_count=2,
         ... )
         >>> in_feedback
-        UGenArray({2})
+        UGenVector({2})
     """
 
     bus = param(0.0)
@@ -47,7 +47,7 @@ class LocalIn(UGen):
     ::
 
         >>> supriya.ugens.LocalIn.ar(channel_count=2)
-        UGenArray({2})
+        UGenVector({2})
     """
 
     default = param(0.0, unexpanded=True)

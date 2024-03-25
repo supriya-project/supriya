@@ -31,18 +31,21 @@ from .enums import (  # noqa
     CalculationRate,
     DoneAction,
     HeaderFormat,
+    ParameterRate,
     SampleFormat,
 )
 from .io import graph, play, plot, render
 from .osc import OscBundle, OscCallback, OscMessage
 from .patterns import Pattern
-from .synthdefs import (
+from .ugens import (
     Envelope,
+    UGen,
+    UGenVector,
+    UGenOperable,
     SynthDef,
     SynthDefBuilder,
     synthdef,
 )
-from .ugens import UGen, UGenArray, UGenOperable
 from .assets.synthdefs import default
 from .scsynth import Options
 
@@ -92,7 +95,7 @@ __all__ = [
     "SynthDefBuilder",
     "TimeUnit",
     "UGen",
-    "UGenArray",
+    "UGenVector",
     "UGenOperable",
     "__version__",
     "__version_info__",

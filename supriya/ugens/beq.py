@@ -1,4 +1,4 @@
-from .bases import UGen, param, ugen
+from .core import UGen, param, ugen
 
 
 @ugen(ar=True, is_pure=True)
@@ -15,7 +15,7 @@ class BAllPass(UGen):
         ...     source=source,
         ... )
         >>> ball_pass
-        BAllPass.ar()
+        BAllPass.ar()[0]
     """
 
     source = param()
@@ -37,7 +37,7 @@ class BBandPass(UGen):
         ...     source=source,
         ... )
         >>> bband_pass
-        BBandPass.ar()
+        BBandPass.ar()[0]
     """
 
     source = param()
@@ -59,7 +59,7 @@ class BBandStop(UGen):
         ...     source=source,
         ... )
         >>> bband_stop
-        BBandStop.ar()
+        BBandStop.ar()[0]
     """
 
     source = param()
@@ -82,7 +82,7 @@ class BHiCut(UGen):
         ...     source=source,
         ... )
         >>> bhi_cut
-        BHiCut.ar()
+        BHiCut.ar()[0]
     """
 
     source = param()
@@ -105,7 +105,7 @@ class BHiPass(UGen):
         ...     source=source,
         ... )
         >>> bhi_pass
-        BHiPass.ar()
+        BHiPass.ar()[0]
     """
 
     source = param()
@@ -128,7 +128,7 @@ class BHiShelf(UGen):
         ...     source=source,
         ... )
         >>> bhi_shelf
-        BHiShelf.ar()
+        BHiShelf.ar()[0]
     """
 
     source = param()
@@ -152,7 +152,7 @@ class BLowCut(UGen):
         ...     source=source,
         ... )
         >>> blow_cut
-        BLowCut.ar()
+        BLowCut.ar()[0]
     """
 
     source = param()
@@ -175,7 +175,7 @@ class BLowPass(UGen):
         ...     source=source,
         ... )
         >>> blow_pass
-        BLowPass.ar()
+        BLowPass.ar()[0]
     """
 
     source = param()
@@ -198,7 +198,7 @@ class BLowShelf(UGen):
         ...     source=source,
         ... )
         >>> blow_shelf
-        BLowShelf.ar()
+        BLowShelf.ar()[0]
     """
 
     source = param()
@@ -222,7 +222,7 @@ class BPeakEQ(UGen):
         ...     source=source,
         ... )
         >>> bpeak_eq
-        BPeakEQ.ar()
+        BPeakEQ.ar()[0]
     """
 
     source = param()

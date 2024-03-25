@@ -1,5 +1,5 @@
 from ..enums import SignalRange
-from .bases import UGen, param, ugen
+from .core import UGen, param, ugen
 
 
 @ugen(kr=True, signal_range=SignalRange.UNIPOLAR)
@@ -18,7 +18,7 @@ class MouseButton(UGen):
     ::
 
         >>> supriya.ugens.MouseButton.kr()
-        MouseButton.kr()
+        MouseButton.kr()[0]
     """
 
     minimum = param(0.0)
@@ -36,7 +36,7 @@ class MouseX(UGen):
     ::
 
         >>> supriya.ugens.MouseX.kr()
-        MouseX.kr()
+        MouseX.kr()[0]
     """
 
     minimum = param(0.0)
@@ -55,7 +55,7 @@ class MouseY(UGen):
     ::
 
         >>> supriya.ugens.MouseY.kr()
-        MouseY.kr()
+        MouseY.kr()[0]
     """
 
     minimum = param(0.0)

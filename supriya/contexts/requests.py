@@ -29,8 +29,8 @@ from uqbar.objects import new
 
 from ..enums import AddAction, HeaderFormat, RequestName, SampleFormat
 from ..osc import OscBundle, OscMessage
-from ..synthdefs import SynthDef, SynthDefCompiler
 from ..typing import AddActionLike, HeaderFormatLike, SampleFormatLike, SupportsOsc
+from ..ugens import SynthDef, compile_synthdefs
 from .responses import Response
 
 if TYPE_CHECKING:
@@ -1649,7 +1649,7 @@ class ReceiveSynthDefs(Request):
     on_completion: Optional[Requestable] = None
 
     def to_osc(self) -> OscMessage:
-        contents = [SynthDefCompiler.compile_synthdefs(self.synthdefs)]
+        contents = [compile_synthdefs(self.synthdefs)]
         if self.on_completion:
             contents.append(self.on_completion.to_osc())
         return OscMessage(RequestName.SYNTHDEF_RECEIVE, *contents)

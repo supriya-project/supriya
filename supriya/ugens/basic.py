@@ -2,7 +2,7 @@ from typing import Any, Dict, Tuple
 
 from .. import utils
 from ..enums import CalculationRate
-from .bases import PseudoUGen, UGen, UGenArray, param, ugen
+from .core import PseudoUGen, UGen, UGenVector, param, ugen
 
 
 class Mix(PseudoUGen):
@@ -13,9 +13,13 @@ class Mix(PseudoUGen):
 
         ::
 
-            >>> with supriya.synthdefs.SynthDefBuilder() as builder:
-            ...     oscillators = [supriya.ugens.DC.ar(source=1) for _ in range(5)]
-            ...     mix = supriya.ugens.Mix.new(oscillators)
+            >>> from supriya.ugens import DC, Mix, SynthDefBuilder
+
+        ::
+
+            >>> with SynthDefBuilder() as builder:
+            ...     oscillators = [DC.ar(source=1) for _ in range(5)]
+            ...     mix = Mix.new(oscillators)
             ...
             >>> synthdef = builder.build(name="mix1", optimize=False)
             >>> supriya.graph(synthdef)  # doctest: +SKIP
@@ -49,9 +53,9 @@ class Mix(PseudoUGen):
 
         ::
 
-            >>> with supriya.synthdefs.SynthDefBuilder() as builder:
-            ...     oscillators = [supriya.ugens.DC.ar(source=1) for _ in range(15)]
-            ...     mix = supriya.ugens.Mix.new(oscillators)
+            >>> with SynthDefBuilder() as builder:
+            ...     oscillators = [DC.ar(source=1) for _ in range(15)]
+            ...     mix = Mix.new(oscillators)
             ...
             >>> synthdef = builder.build("mix2")
             >>> supriya.graph(synthdef)  # doctest: +SKIP
@@ -124,11 +128,11 @@ class Mix(PseudoUGen):
     def _flatten_sources(cls, sources):
         flattened_sources = []
         for source in sources:
-            if isinstance(source, UGenArray):
+            if isinstance(source, UGenVector):
                 flattened_sources.extend(source)
             else:
                 flattened_sources.append(source)
-        return UGenArray(flattened_sources)
+        return UGenVector(*flattened_sources)
 
     ### PUBLIC METHODS ###
 
@@ -313,7 +317,7 @@ class Mix(PseudoUGen):
             parts.append(sources[i : i + channel_count])
         for columns in zip(*parts):
             mixes.append(cls.new(columns))
-        return UGenArray(mixes)
+        return UGenVector(*mixes)
 
 
 @ugen(new=True)
@@ -330,7 +334,7 @@ class MulAdd(UGen):
         ...     source=source,
         ... )
         >>> mul_add
-        MulAdd.ar()
+        MulAdd.ar()[0]
     """
 
     ### CLASS VARIABLES ###
@@ -411,7 +415,7 @@ class Sum3(UGen):
         ...     input_two=input_two,
         ...     input_three=input_three,
         ... )
-        Sum3.ar()
+        Sum3.ar()[0]
     """
 
     input_one = param()
@@ -469,7 +473,7 @@ class Sum4(UGen):
         ...     input_three=input_three,
         ...     input_four=input_four,
         ... )
-        Sum4.ar()
+        Sum4.ar()[0]
     """
 
     input_one = param()

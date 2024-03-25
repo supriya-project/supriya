@@ -5,9 +5,15 @@ import platform
 import pytest
 from uqbar.strings import normalize
 
-from supriya import SynthDefBuilder
-from supriya.synthdefs import SuperColliderSynthDef, SynthDefDecompiler
-from supriya.ugens import FFT, MFCC, In, Out
+from supriya.ugens import (
+    FFT,
+    MFCC,
+    In,
+    Out,
+    SuperColliderSynthDef,
+    SynthDefBuilder,
+    decompile_synthdef,
+)
 
 
 @pytest.fixture
@@ -50,7 +56,7 @@ def test_ugens(py_synthdef_mfcc, sc_synthdef_mfcc):
         "Out.kr()",
     )
     sc_compiled_synthdef = bytes(sc_synthdef_mfcc.compile())
-    sc_synthdef = SynthDefDecompiler.decompile_synthdef(sc_compiled_synthdef)
+    sc_synthdef = decompile_synthdef(sc_compiled_synthdef)
     sc_ugens = tuple(repr(_) for _ in sc_synthdef.ugens)
     assert py_ugens == sc_ugens
 
@@ -102,7 +108,7 @@ def test_format(py_synthdef_mfcc, sc_synthdef_mfcc):
         """
     )
     sc_compiled_synthdef = bytes(sc_synthdef_mfcc.compile())
-    sc_synthdef = SynthDefDecompiler.decompile_synthdef(sc_compiled_synthdef)
+    sc_synthdef = decompile_synthdef(sc_compiled_synthdef)
     sc_format = str(sc_synthdef)
     assert py_format == sc_format
 

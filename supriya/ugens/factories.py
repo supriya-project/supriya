@@ -2,7 +2,7 @@ import copy
 import types
 
 from ..enums import DoneAction
-from ..ugens import (
+from . import (
     DetectSilence,
     In,
     InFeedback,
@@ -12,14 +12,14 @@ from ..ugens import (
     LocalOut,
     Mix,
     Out,
+    Parameter,
     RandID,
     ReplaceOut,
-    UGenArray,
+    SynthDefBuilder,
     UGenOperable,
+    UGenVector,
     XOut,
 )
-from .builders import SynthDefBuilder
-from .controls import Parameter
 
 
 class SynthDefFactory:
@@ -30,7 +30,8 @@ class SynthDefFactory:
 
         ::
 
-            >>> factory = supriya.synthdefs.SynthDefFactory()
+            >>> from supriya.ugens.factories import SynthDefFactory
+            >>> factory = SynthDefFactory()
 
         ::
 
@@ -365,7 +366,7 @@ class SynthDefFactory:
             for signal_block in self._signal_blocks:
                 source = signal_block(builder, source, state)
                 if not isinstance(source, UGenOperable):
-                    source = UGenArray(source)
+                    source = UGenVector(source)
             self._build_output(builder, source, state)
             self._build_feedback_loop_output(builder, source, state)
             self._build_silence_detection(builder, source, state)
@@ -379,7 +380,8 @@ class SynthDefFactory:
 
             ::
 
-                >>> factory = supriya.synthdefs.SynthDefFactory()
+                >>> from supriya.ugens.factories import SynthDefFactory
+                >>> factory = SynthDefFactory()
 
             ::
 
@@ -561,7 +563,8 @@ class SynthDefFactory:
 
             ::
 
-                >>> factory = supriya.synthdefs.SynthDefFactory()
+                >>> from supriya.ugens.factories import SynthDefFactory
+                >>> factory = SynthDefFactory()
 
             ::
 
@@ -713,7 +716,8 @@ class SynthDefFactory:
 
             ::
 
-                >>> factory = supriya.synthdefs.SynthDefFactory()
+                >>> from supriya.ugens.factories import SynthDefFactory
+                >>> factory = SynthDefFactory()
 
             ::
 
@@ -803,7 +807,8 @@ class SynthDefFactory:
 
             ::
 
-                >>> factory = supriya.synthdefs.SynthDefFactory()
+                >>> from supriya.ugens.factories import SynthDefFactory
+                >>> factory = SynthDefFactory()
 
             ::
 
@@ -905,7 +910,8 @@ class SynthDefFactory:
 
             ::
 
-                >>> factory = supriya.synthdefs.SynthDefFactory()
+                >>> from supriya.ugens.factories import SynthDefFactory
+                >>> factory = SynthDefFactory()
 
             ::
 
@@ -1146,7 +1152,8 @@ class SynthDefFactory:
 
             ::
 
-                >>> factory = supriya.synthdefs.SynthDefFactory()
+                >>> from supriya.ugens.factories import SynthDefFactory
+                >>> factory = SynthDefFactory()
 
             ::
 
@@ -1637,7 +1644,8 @@ class SynthDefFactory:
 
             ::
 
-                >>> factory = supriya.synthdefs.SynthDefFactory()
+                >>> from supriya.ugens.factories import SynthDefFactory
+                >>> factory = SynthDefFactory()
                 >>> factory = factory.with_initial_state(frequencies=(300, 1200, 9600))
                 >>> factory = factory.with_parameter_block(parameter_block)
                 >>> factory = factory.with_input()
@@ -2065,7 +2073,8 @@ class SynthDefFactory:
 
             ::
 
-                >>> factory = supriya.synthdefs.SynthDefFactory()
+                >>> from supriya.ugens.factories import SynthDefFactory
+                >>> factory = SynthDefFactory()
 
             ::
 
@@ -2162,7 +2171,8 @@ class SynthDefFactory:
 
             ::
 
-                >>> factory = supriya.synthdefs.SynthDefFactory()
+                >>> from supriya.ugens.factories import SynthDefFactory
+                >>> factory = SynthDefFactory()
 
             ::
 
@@ -2260,7 +2270,8 @@ class SynthDefFactory:
 
             ::
 
-                >>> factory = supriya.synthdefs.SynthDefFactory()
+                >>> from supriya.ugens.factories import SynthDefFactory
+                >>> factory = SynthDefFactory()
 
             ::
 

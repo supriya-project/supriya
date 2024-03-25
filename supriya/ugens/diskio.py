@@ -1,4 +1,4 @@
-from .bases import UGen, param, ugen
+from .core import UGen, param, ugen
 
 
 @ugen(ar=True, is_multichannel=True, has_done_flag=True)
@@ -15,7 +15,7 @@ class DiskIn(UGen):
         ...     loop=0,
         ... )
         >>> disk_in
-        UGenArray({2})
+        UGenVector({2})
     """
 
     buffer_id = param()
@@ -36,7 +36,7 @@ class DiskOut(UGen):
         ...     source=source,
         ... )
         >>> disk_out
-        DiskOut.ar()
+        DiskOut.ar()[0]
     """
 
     buffer_id = param()
@@ -59,7 +59,7 @@ class VDiskIn(UGen):
         ...     send_id=0,
         ... )
         >>> vdisk_in
-        UGenArray({2})
+        UGenVector({2})
     """
 
     buffer_id = param()

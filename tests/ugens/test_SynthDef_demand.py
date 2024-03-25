@@ -4,8 +4,15 @@ import platform
 
 import pytest
 
-from supriya.synthdefs import SuperColliderSynthDef, SynthDefBuilder
-from supriya.ugens import Demand, Dseries, Impulse, Out, SinOsc
+from supriya.ugens import (
+    Demand,
+    Dseries,
+    Impulse,
+    Out,
+    SinOsc,
+    SuperColliderSynthDef,
+    SynthDefBuilder,
+)
 
 
 @pytest.fixture
@@ -19,7 +26,7 @@ def py_synthdef():
     return py_synthdef
 
 
-def test_SynthDefCompiler_demand_supriya_vs_bytes(py_synthdef):
+def test_demand_supriya_vs_bytes(py_synthdef):
     # fmt: off
     test_compiled_synthdef = bytes(
          b'SCgf'
@@ -99,7 +106,7 @@ def test_SynthDefCompiler_demand_supriya_vs_bytes(py_synthdef):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_demand_supriya_vs_sclang(py_synthdef):
+def test_demand_supriya_vs_sclang(py_synthdef):
     sc_synthdef = SuperColliderSynthDef(
         "foo",
         """

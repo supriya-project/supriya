@@ -1,4 +1,4 @@
-from .bases import UGen, param, ugen
+from .core import UGen, param, ugen
 
 
 @ugen(ar=True)
@@ -12,7 +12,7 @@ class FreeVerb(UGen):
         >>> supriya.ugens.FreeVerb.ar(
         ...     source=source,
         ... )
-        FreeVerb.ar()
+        FreeVerb.ar()[0]
     """
 
     source = param()

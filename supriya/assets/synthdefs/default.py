@@ -1,6 +1,17 @@
 from ...enums import DoneAction, ParameterRate
-from ...synthdefs import Parameter, SynthDef, SynthDefBuilder
-from ...ugens import LPF, Linen, Mix, OffsetOut, Pan2, Rand, VarSaw, XLine
+from ...ugens import (
+    LPF,
+    Linen,
+    Mix,
+    OffsetOut,
+    Pan2,
+    Parameter,
+    Rand,
+    SynthDef,
+    SynthDefBuilder,
+    VarSaw,
+    XLine,
+)
 
 
 def _build_default_synthdef() -> SynthDef:

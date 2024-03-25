@@ -1,5 +1,13 @@
-from ...synthdefs import Envelope, SynthDef, SynthDefBuilder
-from ...ugens import BPF, HPF, EnvGen, Out, WhiteNoise
+from ...ugens import (
+    BPF,
+    HPF,
+    EnvGen,
+    Envelope,
+    Out,
+    SynthDef,
+    SynthDefBuilder,
+    WhiteNoise,
+)
 
 
 def _build_clap_synthdef() -> SynthDef:

@@ -15,7 +15,7 @@ Supriya lets you:
   in realtime.
 
 - Compile SuperCollider
-  [SynthDefs](http://josiahwolfoberholtzer.com/supriya/api/supriya/synthdefs/index.html)
+  [SynthDefs](http://josiahwolfoberholtzer.com/supriya/api/supriya/ugens/index.html)
   natively in Python code
 
 - Explore
@@ -69,8 +69,8 @@ Boot the SuperCollider server:
 
 Import some classes:
 
+    >>> from supriya import Envelope, synthdef
     >>> from supriya.ugens import EnvGen, Out, SinOsc
-    >>> from supriya.synthdefs import Envelope, synthdef
 
 Make a synthesizer definition:
 

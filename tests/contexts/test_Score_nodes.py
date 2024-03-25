@@ -4,7 +4,7 @@ from supriya import default
 from supriya.assets.synthdefs import test_two_voice
 from supriya.contexts.nonrealtime import Score
 from supriya.osc import OscBundle, OscMessage
-from supriya.synthdefs import SynthDefCompiler
+from supriya.ugens import compile_synthdefs
 
 
 @pytest.fixture
@@ -50,7 +50,7 @@ def test_add_group(context):
 
 def test_add_synth(context):
     def compiled(x):
-        return SynthDefCompiler.compile_synthdefs(x)
+        return compile_synthdefs(x)
 
     with context.at(0):
         context.add_synthdefs(default)

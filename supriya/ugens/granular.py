@@ -1,4 +1,4 @@
-from .bases import UGen, param, ugen
+from .core import UGen, param, ugen
 
 
 @ugen(ar=True, is_multichannel=True)
@@ -19,7 +19,7 @@ class GrainBuf(UGen):
         ...     trigger=0,
         ... )
         >>> grain_buf
-        UGenArray({2})
+        UGenVector({2})
     """
 
     trigger = param(0)
@@ -49,7 +49,7 @@ class GrainIn(UGen):
         ...     trigger=0,
         ... )
         >>> grain_in
-        UGenArray({2})
+        UGenVector({2})
     """
 
     trigger = param(0)
@@ -71,7 +71,7 @@ class PitchShift(UGen):
         >>> supriya.ugens.PitchShift.ar(
         ...     source=source,
         ... )
-        PitchShift.ar()
+        PitchShift.ar()[0]
     """
 
     source = param()
@@ -98,7 +98,7 @@ class Warp1(UGen):
         ...     window_size=0.2,
         ... )
         >>> warp_1
-        Warp1.ar()
+        Warp1.ar()[0]
     """
 
     buffer_id = param(0)

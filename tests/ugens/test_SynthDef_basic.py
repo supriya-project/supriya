@@ -4,22 +4,29 @@ import platform
 
 import pytest
 
-import supriya.synthdefs
-import supriya.ugens
+from supriya.ugens import (
+    DetectSilence,
+    FreeSelf,
+    In,
+    Out,
+    SinOsc,
+    SuperColliderSynthDef,
+    SynthDefBuilder,
+)
 
 
 @pytest.fixture
 def py_synthdef_01():
-    with supriya.synthdefs.SynthDefBuilder() as builder:
-        sine_one = supriya.ugens.SinOsc.ar(frequency=420)
-        sine_two = supriya.ugens.SinOsc.ar(frequency=440)
+    with SynthDefBuilder() as builder:
+        sine_one = SinOsc.ar(frequency=420)
+        sine_two = SinOsc.ar(frequency=440)
         sines = sine_one * sine_two
-        supriya.ugens.Out.ar(bus=0, source=sines)
+        Out.ar(bus=0, source=sines)
     py_synthdef = builder.build("foo")
     return py_synthdef
 
 
-def test_SynthDefCompiler_basic_01_supriya_vs_bytes(py_synthdef_01):
+def test_basic_01_supriya_vs_bytes(py_synthdef_01):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -84,8 +91,8 @@ def test_SynthDefCompiler_basic_01_supriya_vs_bytes(py_synthdef_01):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_basic_01_supriya_vs_sclang(py_synthdef_01):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+def test_basic_01_supriya_vs_sclang(py_synthdef_01):
+    sc_synthdef = SuperColliderSynthDef(
         "foo", "Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))"
     )
     sc_compiled_synthdef = sc_synthdef.compile()
@@ -95,15 +102,15 @@ def test_SynthDefCompiler_basic_01_supriya_vs_sclang(py_synthdef_01):
 
 @pytest.fixture
 def py_synthdef_02():
-    with supriya.synthdefs.SynthDefBuilder() as builder:
-        sine = supriya.ugens.SinOsc.ar()
+    with SynthDefBuilder() as builder:
+        sine = SinOsc.ar()
         sine = -sine
-        supriya.ugens.Out.ar(bus=99, source=sine)
+        Out.ar(bus=99, source=sine)
     py_synthdef = builder.build("test")
     return py_synthdef
 
 
-def test_SynthDefCompiler_basic_02_supriya_vs_bytes(py_synthdef_02):
+def test_basic_02_supriya_vs_bytes(py_synthdef_02):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -156,10 +163,8 @@ def test_SynthDefCompiler_basic_02_supriya_vs_bytes(py_synthdef_02):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_basic_02_supriya_vs_sclang(py_synthdef_02):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "test", "Out.ar(99, SinOsc.ar(freq: 440).neg)"
-    )
+def test_basic_02_supriya_vs_sclang(py_synthdef_02):
+    sc_synthdef = SuperColliderSynthDef("test", "Out.ar(99, SinOsc.ar(freq: 440).neg)")
     sc_compiled_synthdef = sc_synthdef.compile()
     py_compiled_synthdef = py_synthdef_02.compile()
     assert py_compiled_synthdef == sc_compiled_synthdef
@@ -167,14 +172,14 @@ def test_SynthDefCompiler_basic_02_supriya_vs_sclang(py_synthdef_02):
 
 @pytest.fixture
 def py_synthdef_03():
-    with supriya.synthdefs.SynthDefBuilder() as builder:
-        inputs = supriya.ugens.In.ar(bus=8, channel_count=2)
-        supriya.ugens.Out.ar(bus=0, source=inputs)
+    with SynthDefBuilder() as builder:
+        inputs = In.ar(bus=8, channel_count=2)
+        Out.ar(bus=0, source=inputs)
     py_synthdef = builder.build("test")
     return py_synthdef
 
 
-def test_SynthDefCompiler_basic_03_supriya_vs_bytes(py_synthdef_03):
+def test_basic_03_supriya_vs_bytes(py_synthdef_03):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -219,8 +224,8 @@ def test_SynthDefCompiler_basic_03_supriya_vs_bytes(py_synthdef_03):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_basic_03_supriya_vs_sclang(py_synthdef_03):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+def test_basic_03_supriya_vs_sclang(py_synthdef_03):
+    sc_synthdef = SuperColliderSynthDef(
         "test",
         r"""
         Out.ar(0, In.ar(8, 2))
@@ -233,15 +238,15 @@ def test_SynthDefCompiler_basic_03_supriya_vs_sclang(py_synthdef_03):
 
 @pytest.fixture
 def py_synthdef_04():
-    with supriya.synthdefs.SynthDefBuilder() as builder:
-        sin_osc = supriya.ugens.SinOsc.ar()
-        supriya.ugens.FreeSelf.kr(trigger=sin_osc)
-        supriya.ugens.Out.ar(bus=0, source=sin_osc)
+    with SynthDefBuilder() as builder:
+        sin_osc = SinOsc.ar()
+        FreeSelf.kr(trigger=sin_osc)
+        Out.ar(bus=0, source=sin_osc)
     py_synthdef = builder.build("test")
     return py_synthdef
 
 
-def test_SynthDefCompiler_basic_04_supriya_vs_bytes(py_synthdef_04):
+def test_basic_04_supriya_vs_bytes(py_synthdef_04):
     """
     FreeSelf.
     """
@@ -296,8 +301,8 @@ def test_SynthDefCompiler_basic_04_supriya_vs_bytes(py_synthdef_04):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_basic_04_supriya_vs_sclang(py_synthdef_04):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+def test_basic_04_supriya_vs_sclang(py_synthdef_04):
+    sc_synthdef = SuperColliderSynthDef(
         "test",
         r"""
         Out.ar(0, FreeSelf.kr(SinOsc.ar()))
@@ -313,14 +318,14 @@ def test_SynthDefCompiler_basic_04_supriya_vs_sclang(py_synthdef_04):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_basic_05_supriya_vs_sclang():
-    with supriya.synthdefs.SynthDefBuilder() as builder:
-        source = supriya.ugens.In.ar(bus=8, channel_count=2)
-        supriya.ugens.DetectSilence.ar(source=source)
-        supriya.ugens.Out.ar(bus=0, source=source)
+def test_basic_05_supriya_vs_sclang():
+    with SynthDefBuilder() as builder:
+        source = In.ar(bus=8, channel_count=2)
+        DetectSilence.ar(source=source)
+        Out.ar(bus=0, source=source)
     py_synthdef = builder.build("DetectSilenceTest")
     py_compiled_synthdef = py_synthdef.compile()
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+    sc_synthdef = SuperColliderSynthDef(
         "DetectSilenceTest",
         r"""
         var source, detect_silence, out;

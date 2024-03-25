@@ -1,5 +1,14 @@
-from ...synthdefs import SynthDef, SynthDefBuilder
-from ...ugens import HPF, LPF, CompanderD, In, Limiter, ReplaceOut, Sum4
+from ...ugens import (
+    HPF,
+    LPF,
+    CompanderD,
+    In,
+    Limiter,
+    ReplaceOut,
+    Sum4,
+    SynthDef,
+    SynthDefBuilder,
+)
 
 
 def _make_synthdef(channel_count: int = 2) -> SynthDef:

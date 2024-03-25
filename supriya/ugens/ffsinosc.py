@@ -2,7 +2,7 @@ from collections.abc import Sequence
 
 from supriya import utils
 
-from .bases import UGen, param, ugen
+from .core import UGen, param, ugen
 
 
 @ugen(ar=True, kr=True)
@@ -17,7 +17,7 @@ class Blip(UGen):
         ...     harmonic_count=200,
         ... )
         >>> blip
-        Blip.ar()
+        Blip.ar()[0]
     """
 
     frequency = param(440.0)
@@ -36,7 +36,7 @@ class FSinOsc(UGen):
         ...     initial_phase=0,
         ... )
         >>> fsin_osc
-        FSinOsc.ar()
+        FSinOsc.ar()[0]
     """
 
     frequency = param(440.0)
@@ -63,7 +63,7 @@ class Klank(UGen):
         ...     specifications=specifications,
         ... )
         >>> klank
-        Klank.ar()
+        Klank.ar()[0]
     """
 
     source = param()
@@ -118,7 +118,7 @@ class Pulse(UGen):
         ...     width=0.5,
         ... )
         >>> pulse
-        Pulse.ar()
+        Pulse.ar()[0]
     """
 
     frequency = param(440.0)
@@ -133,7 +133,7 @@ class Saw(UGen):
     ::
 
         >>> supriya.ugens.Saw.ar()
-        Saw.ar()
+        Saw.ar()[0]
     """
 
     frequency = param(440.0)

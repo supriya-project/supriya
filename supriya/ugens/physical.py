@@ -1,4 +1,4 @@
-from .bases import UGen, param, ugen
+from .core import UGen, param, ugen
 
 
 @ugen(ar=True, kr=True)
@@ -16,7 +16,7 @@ class Ball(UGen):
         ...     source=source,
         ... )
         >>> ball
-        Ball.ar()
+        Ball.ar()[0]
     """
 
     source = param()
@@ -43,7 +43,7 @@ class Pluck(UGen):
         ...     trigger=trigger,
         ... )
         >>> pluck
-        Pluck.ar()
+        Pluck.ar()[0]
     """
 
     source = param()
@@ -68,7 +68,7 @@ class Spring(UGen):
         ...     spring=1,
         ... )
         >>> spring
-        Spring.ar()
+        Spring.ar()[0]
     """
 
     source = param()
@@ -91,7 +91,7 @@ class TBall(UGen):
         ...     source=source,
         ... )
         >>> tball
-        TBall.ar()
+        TBall.ar()[0]
     """
 
     source = param()

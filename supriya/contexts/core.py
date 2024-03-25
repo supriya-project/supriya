@@ -33,7 +33,6 @@ from uqbar.objects import new
 
 from ..enums import AddAction, CalculationRate, ParameterRate
 from ..scsynth import Options
-from ..synthdefs import SynthDef
 from ..typing import (
     AddActionLike,
     CalculationRateLike,
@@ -41,6 +40,7 @@ from ..typing import (
     SampleFormatLike,
     SupportsOsc,
 )
+from ..ugens import SynthDef
 from .allocators import BlockAllocator, NodeIdAllocator
 from .entities import (
     Buffer,

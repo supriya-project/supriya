@@ -4,25 +4,30 @@ import platform
 
 import pytest
 
-import supriya.synthdefs
-import supriya.ugens
+from supriya.ugens import (
+    DecodeB2,
+    LFNoise2,
+    Out,
+    PanB2,
+    PinkNoise,
+    SuperColliderSynthDef,
+    SynthDefBuilder,
+)
 
 
 @pytest.fixture
 def py_synthdef():
-    with supriya.synthdefs.SynthDefBuilder() as builder:
-        source = supriya.ugens.PinkNoise.ar()
-        azimuth = supriya.ugens.LFNoise2.kr(frequency=0.25)
-        w, x, y = supriya.ugens.PanB2.ar(source=source, azimuth=azimuth)
-        source = supriya.ugens.DecodeB2.ar(
-            channel_count=4, w=w, x=x, y=y, orientation=0.5
-        )
-        supriya.ugens.Out.ar(bus=0, source=source)
+    with SynthDefBuilder() as builder:
+        source = PinkNoise.ar()
+        azimuth = LFNoise2.kr(frequency=0.25)
+        w, x, y = PanB2.ar(source=source, azimuth=azimuth)
+        source = DecodeB2.ar(channel_count=4, w=w, x=x, y=y, orientation=0.5)
+        Out.ar(bus=0, source=source)
     py_synthdef = builder.build("ambisonics")
     return py_synthdef
 
 
-def test_SynthDefCompiler_ambisonics_supriya_vs_bytes(py_synthdef):
+def test_ambisonics_supriya_vs_bytes(py_synthdef):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -109,8 +114,8 @@ def test_SynthDefCompiler_ambisonics_supriya_vs_bytes(py_synthdef):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_SynthDefCompiler_ambisonics_supriya_vs_sclang(py_synthdef):
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+def test_ambisonics_supriya_vs_sclang(py_synthdef):
+    sc_synthdef = SuperColliderSynthDef(
         "ambisonics",
         r"""
         var source, azimuth, w, x, y;
