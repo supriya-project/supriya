@@ -10,17 +10,18 @@ ugens
 .. toctree::
    :hidden:
 
-   bases
    basic
    beq
    bufio
    chaos
    convolution
+   core
    delay
    demand
    diskio
    dynamics
    envelopes
+   factories
    ffsinosc
    filters
    gendyn

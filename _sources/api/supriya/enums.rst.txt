@@ -96,10 +96,3 @@ enums
    :undoc-members:
 
    .. automethod:: __format__
-
-.. autoclass:: Unit
-   :show-inheritance:
-   :members:
-   :undoc-members:
-
-   .. automethod:: __format__

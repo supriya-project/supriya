@@ -1,11 +1,15 @@
-.. _supriya--ugens--bases:
+.. _supriya--ugens--core:
 
-bases
-=====
+core
+====
 
-.. automodule:: supriya.ugens.bases
+.. automodule:: supriya.ugens.core
 
-.. currentmodule:: supriya.ugens.bases
+.. currentmodule:: supriya.ugens.core
+
+.. autoclass:: AudioControl
+   :show-inheritance:
+
 
 .. autoclass:: BinaryOpUGen
    :show-inheritance:
@@ -18,6 +22,19 @@ bases
    :show-inheritance:
    :members:
    :undoc-members:
+
+
+.. autoclass:: Control
+   :show-inheritance:
+
+   .. automethod:: __getitem__
+   .. automethod:: __len__
+   .. autoproperty:: controls
+   .. autoproperty:: parameters
+   .. autoproperty:: starting_control_index
+
+.. autoclass:: LagControl
+   :show-inheritance:
 
 
 .. autoclass:: OutputProxy
@@ -35,7 +52,91 @@ bases
    :show-inheritance:
 
 
+.. autoclass:: Parameter
+   :show-inheritance:
+
+   .. automethod:: __getitem__
+   .. automethod:: __len__
+   .. automethod:: __post_init__
+   .. autoproperty:: calculation_rate
+   .. autoproperty:: has_done_flag
+   .. autoproperty:: inputs
+   .. autoproperty:: signal_range
+
 .. autoclass:: PseudoUGen
+   :show-inheritance:
+
+
+.. autoclass:: SuperColliderSynthDef
+   :show-inheritance:
+
+   .. automethod:: compile
+   .. autoproperty:: body
+   .. autoproperty:: name
+   .. autoproperty:: rates
+
+.. autoclass:: SynthDef
+   :show-inheritance:
+
+   .. automethod:: __graph__
+   .. automethod:: compile
+   .. autoproperty:: actual_name
+   .. autoproperty:: anonymous_name
+   .. autoproperty:: audio_channel_count
+   .. autoproperty:: audio_input_channel_count
+   .. autoproperty:: audio_output_channel_count
+   .. autoproperty:: constants
+   .. autoproperty:: control_channel_count
+   .. autoproperty:: control_input_channel_count
+   .. autoproperty:: control_output_channel_count
+   .. autoproperty:: control_ugens
+   .. autoproperty:: done_actions
+   .. autoproperty:: has_gate
+   .. autoproperty:: indexed_parameters
+   .. autoproperty:: input_ugens
+   .. autoproperty:: name
+   .. autoproperty:: output_ugens
+   .. autoproperty:: parameter_names
+   .. autoproperty:: parameters
+   .. autoproperty:: ugens
+
+.. autoclass:: SynthDefBuilder
+   :show-inheritance:
+
+   .. automethod:: __enter__
+   .. automethod:: __exit__
+   .. automethod:: __getitem__
+   .. automethod:: build
+   .. automethod:: poll_ugen
+   .. autoproperty:: name
+
+.. autoclass:: SynthDefCompiler
+   :show-inheritance:
+
+   .. automethod:: compile_parameters
+   .. automethod:: compile_synthdef
+   .. automethod:: compile_synthdefs
+   .. automethod:: compile_ugen
+   .. automethod:: compile_ugen_graph
+   .. automethod:: compile_ugen_input_spec
+   .. automethod:: encode_float
+   .. automethod:: encode_string
+   .. automethod:: encode_unsigned_int_16bit
+   .. automethod:: encode_unsigned_int_32bit
+   .. automethod:: encode_unsigned_int_8bit
+
+.. autoclass:: SynthDefDecompiler
+   :show-inheritance:
+
+   .. automethod:: decompile_synthdef
+   .. automethod:: decompile_synthdefs
+
+.. autoclass:: SynthDefGrapher
+   :show-inheritance:
+
+   .. automethod:: graph
+
+.. autoclass:: TrigControl
    :show-inheritance:
 
 
@@ -52,14 +153,6 @@ bases
    .. autoproperty:: outputs
    .. autoproperty:: signal_range
    .. autoproperty:: special_index
-
-.. autoclass:: UGenArray
-   :show-inheritance:
-
-   .. automethod:: __getitem__
-   .. automethod:: __len__
-   .. autoproperty:: signal_range
-   .. autoproperty:: ugens
 
 .. autoclass:: UGenOperable
    :show-inheritance:
@@ -138,12 +231,35 @@ bases
 
    .. automethod:: serialize
 
+.. autoclass:: UGenSortBundle
+   :show-inheritance:
+
+   .. automethod:: clear
+
+.. autoclass:: UGenVector
+   :show-inheritance:
+
+   .. automethod:: __getitem__
+   .. automethod:: __len__
+   .. autoproperty:: signal_range
+   .. autoproperty:: ugens
+
 .. autoclass:: UnaryOpUGen
    :show-inheritance:
 
    .. autoproperty:: operator
    .. autoproperty:: source
 
+.. autofunction:: compile_synthdef
+
+.. autofunction:: compile_synthdefs
+
+.. autofunction:: decompile_synthdef
+
+.. autofunction:: decompile_synthdefs
+
 .. autofunction:: param
+
+.. autofunction:: synthdef
 
 .. autofunction:: ugen

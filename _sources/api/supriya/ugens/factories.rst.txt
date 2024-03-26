@@ -1,11 +1,11 @@
-.. _supriya--synthdefs--factories:
+.. _supriya--ugens--factories:
 
 factories
 =========
 
-.. automodule:: supriya.synthdefs.factories
+.. automodule:: supriya.ugens.factories
 
-.. currentmodule:: supriya.synthdefs.factories
+.. currentmodule:: supriya.ugens.factories
 
 .. autoclass:: SynthDefFactory
    :show-inheritance:

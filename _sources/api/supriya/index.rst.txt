@@ -22,7 +22,6 @@ supriya
    sclang
    scsynth
    soundfiles
-   synthdefs/index
    typing
    ugens/index
    utils/index

@@ -25,6 +25,26 @@ envelopes
    .. autoproperty:: level_scale
    .. autoproperty:: time_scale
 
+.. autoclass:: Envelope
+   :show-inheritance:
+
+   .. automethod:: adsr
+   .. automethod:: asr
+   .. automethod:: from_segments
+   .. automethod:: linen
+   .. automethod:: percussive
+   .. automethod:: serialize
+   .. automethod:: triangle
+   .. autoproperty:: amplitudes
+   .. autoproperty:: curves
+   .. autoproperty:: duration
+   .. autoproperty:: durations
+   .. autoproperty:: envelope_segments
+   .. autoproperty:: initial_amplitude
+   .. autoproperty:: loop_node
+   .. autoproperty:: offset
+   .. autoproperty:: release_node
+
 .. autoclass:: Free
    :show-inheritance:
 
