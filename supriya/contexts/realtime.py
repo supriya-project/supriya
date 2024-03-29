@@ -779,8 +779,8 @@ class Server(BaseServer):
         """
         with self.at():
             self.clear_schedule()
-            self.free_all_synthdefs()
             self.free_group_children(self.root_node)
+            self.free_all_synthdefs()
         self.sync()
         self._teardown_state()
         self._setup_allocators()

@@ -170,10 +170,13 @@ Inspect the "status" of audio processing::
 
     Server status is a great way of tracking :term:`scsynth`'s CPU usage.
 
-Let's add a synth - explained :doc:`soon <nodes>` - to increase the
+Let's add a SynthDef and a synth - explained :doc:`soon <nodes>` - to increase the
 complexity of the status output::
 
-    >>> synth = server.add_synth(supriya.default)
+    >>> with server.at():
+    ...     with server.add_synthdefs(supriya.default):
+    ...         synth = server.add_synth(supriya.default)
+    ...
 
 .. book::
     :hide:
@@ -219,6 +222,8 @@ Interaction
     :hide:
 
     >>> server.boot()
+    >>> server.add_synthdefs(supriya.default)
+    >>> server.sync()
 
 The server provides a variety of methods for interacting with it and modifying
 its state.
