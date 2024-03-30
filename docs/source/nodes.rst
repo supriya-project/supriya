@@ -177,12 +177,18 @@ wet audio mixed with the dry::
 Create a synth using the "ticker" SynthDef, replacing the "default" synth we
 just created::
 
-    >>> synth.add_synth(ticker_synthdef, frequency=4, add_action="replace")
+    >>> with server.at():
+    ...     with server.add_synthdefs(ticker_synthdef):
+    ...         synth.add_synth(ticker_synthdef, frequency=4, add_action="replace")
+    ...
 
 Then create a second synth using the "reverb" SynthDef, positioning it after
 the previous synth with an ``ADD_TO_TAIL`` :term:`add action`::
 
-    >>> server.add_synth(reverb_synthdef, add_action="add_to_tail")
+    >>> with server.at():
+    ...     with server.add_synthdefs(reverb_synthdef):
+    ...         server.add_synth(reverb_synthdef, add_action="add_to_tail")
+    ... 
 
 Note the order of the two synths (you can tell by their SynthDef names), and
 how the reverberation kicks in when you instantiate the second synth::
@@ -203,10 +209,18 @@ Deleting
 Reset the server for a clean slate, then add a synth::
 
     >>> server.reset()
+
+::
+
     >>> with server.at():
     ...     with server.add_synthdefs(supriya.default):
     ...         synth = server.add_synth(supriya.default)
     ...
+
+.. book::
+    :hide:
+
+    >>> server.sync()  # wait for synthdefs to load
 
 You can remove a node from the server by :term:`freeing <free>` it::
 
@@ -225,11 +239,6 @@ Some synths can be :term:`released <release>`, depending on their
 from the server. By convention with :term:`sclang`, synths with a ``gate``
 control can be released, although it's up to the author of the :term:`SynthDef`
 to guarantee they behave as expected.
-
-.. book::
-    :hide:
-
-    >>> synth.free()
 
 Groups can also be freed::
 
@@ -252,6 +261,11 @@ Reset the server for a clean slate::
     ...         synth_b = group.add_synth(supriya.default, frequency=444)
     ...         synth_c = group.add_synth(supriya.default, frequency=555)
     ...
+
+.. book::
+    :hide:
+
+    >>> server.sync()  # wait for synthdefs to load
 
 Every node has a ``id_`` and a reference to its context::
 
@@ -312,12 +326,17 @@ Reset the server for a clean slate::
 ... then add a group, a *ticker* synth and a *reverb* synth using the two
 :term:`SynthDefs <SynthDef>` we defined earlier::
 
-    >>> group = server.add_group()
     >>> with server.at():
+    ...     group = server.add_group()
     ...     with server.add_synthdefs(ticker_synthdef, reverb_synthdef):
     ...         ticker_synth = group.add_synth(ticker_synthdef)
     ...         reverb_synth = group.add_synth(reverb_synthdef, add_action="add_to_tail")
     ...
+
+.. book::
+    :hide:
+
+    >>> server.sync()  # wait for synthdefs to load
 
 Note the click train emitted by the *ticker* synth and the reverberation added
 by the *reverb* synth. 
@@ -334,13 +353,13 @@ Move the *reverb* synth to the :term:`head` of its parent group - *before* the
 *ticker* synth - and notice how the click train's reverberation dies out::
 
     >>> reverb_synth.move(group, "add_to_head")
-    >>> print(group)
+    >>> print(server.query_tree())
 
 Now move the *reverb* synth *after* the *ticker* synth, and listen to the
 reverberation return::
 
     >>> reverb_synth.move(ticker_synth, "add_after")
-    >>> print(group)
+    >>> print(server.query_tree())
 
 Setting controls
 ````````````````

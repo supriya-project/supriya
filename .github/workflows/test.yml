@@ -54,6 +54,9 @@ jobs:
       run: pip install -e .[docs]
     - name: Build docs
       run: make docs
+    - name: Check for FailWarning
+      run: "! grep -R ': FailWarning: ' *"
+      working-directory: docs/build/html
   
   lint:
     name: Lint Supriya

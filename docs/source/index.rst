@@ -96,6 +96,11 @@ Allocate it on the server::
 
     >>> _ = server.add_synthdefs(simple_sine)
 
+... and then sync the server before proceeding to ensure the SynthDef has been
+fully parsed by scsynth::
+
+    >>> _ = server.sync()
+
 5. Create some nodes
 ````````````````````
 
