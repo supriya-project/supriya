@@ -1,5 +1,6 @@
 import copy
 import types
+from typing import Sequence
 
 from ..enums import DoneAction
 from . import (
@@ -16,7 +17,6 @@ from . import (
     RandID,
     ReplaceOut,
     SynthDefBuilder,
-    UGenOperable,
     UGenVector,
     XOut,
 )
@@ -60,7 +60,8 @@ class SynthDefFactory:
             synthdef:
                 name: ...
                 ugens:
-                -   Control.ir: null
+                -   Control.ir:
+                        out: 0.0
                 -   In.ar:
                         bus: Control.ir[0:out]
                 -   ExpRand.ir/0:
@@ -102,7 +103,8 @@ class SynthDefFactory:
             synthdef:
                 name: ...
                 ugens:
-                -   Control.ir: null
+                -   Control.ir:
+                        out: 0.0
                 -   In.ar:
                         bus: Control.ir[0:out]
                 -   ExpRand.ir/0:
@@ -166,7 +168,8 @@ class SynthDefFactory:
             synthdef:
                 name: ...
                 ugens:
-                -   Control.ir: null
+                -   Control.ir:
+                        out: 0.0
                 -   In.ar:
                         bus: Control.ir[0:out]
                 -   ExpRand.ir/0:
@@ -248,10 +251,10 @@ class SynthDefFactory:
         for parameter_block in self._parameter_blocks:
             parameter_block(builder, state)
         if self._rand_id is not None:
-            builder._add_parameter("rand_id", self._rand_id, "SCALAR")
+            builder.add_parameter(name="rand_id", value=self._rand_id, rate="SCALAR")
             RandID.ir(rand_id=builder["rand_id"])
         if self._gate:
-            builder._add_parameter("gate", 1, "CONTROL")
+            builder.add_parameter(name="gate", value=1, rate="CONTROL")
             state["gate"] = Linen.kr(
                 attack_time=self._gate["attack_time"],
                 done_action=DoneAction.FREE_SYNTH,
@@ -259,21 +262,21 @@ class SynthDefFactory:
                 release_time=self._gate["release_time"],
             )
         if self._output or self._input:
-            builder._add_parameter("out", 0, "SCALAR")
+            builder.add_parameter(name="out", value=0, rate="SCALAR")
         if self._input.get("private"):
-            builder._add_parameter("in_", 0, "SCALAR")
+            builder.add_parameter(name="in_", value=0, rate="SCALAR")
         if self._output.get("windowed") or self._input.get("windowed"):
-            builder._add_parameter("duration", 1, "SCALAR")
+            builder.add_parameter(name="duration", value=1, rate="SCALAR")
             state["line"] = Line.kr(
                 done_action=DoneAction.FREE_SYNTH, duration=builder["duration"]
             )
             state["window"] = state["line"].hanning_window()
         if not self._output.get("windowed") and self._output.get("crossfaded"):
-            builder._add_parameter("mix", 0, "CONTROL")
+            builder.add_parameter(name="mix", value=0, rate="CONTROL")
         if self._output.get("leveled"):
-            builder._add_parameter("level", 1, "CONTROL")
+            builder.add_parameter(name="level", value=1, rate="CONTROL")
         for key, value in self._parameters:
-            builder._add_parameter(key, value)
+            builder.add_parameter(name=key, value=value)
 
     def _build_input(self, builder, state):
         if not self._input:
@@ -287,6 +290,8 @@ class SynthDefFactory:
         source = input_class.ar(bus=parameter, channel_count=state["channel_count"])
         if self._input.get("windowed"):
             source *= state["window"]
+        if source is not None and not isinstance(source, Sequence):
+            source = UGenVector(source)
         return source
 
     def _build_feedback_loop_input(self, builder, source, state):
@@ -296,6 +301,8 @@ class SynthDefFactory:
                 source = local_in
             else:
                 source += local_in
+        if source is not None and not isinstance(source, Sequence):
+            source = UGenVector(source)
         return source
 
     def _build_feedback_loop_output(self, builder, source, state):
@@ -365,7 +372,7 @@ class SynthDefFactory:
             source = self._build_feedback_loop_input(builder, source, state)
             for signal_block in self._signal_blocks:
                 source = signal_block(builder, source, state)
-                if not isinstance(source, UGenOperable):
+                if source is not None and not isinstance(source, Sequence):
                     source = UGenVector(source)
             self._build_output(builder, source, state)
             self._build_feedback_loop_output(builder, source, state)
@@ -418,7 +425,8 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
@@ -495,7 +503,8 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
@@ -601,7 +610,8 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   LocalIn.ar:
@@ -659,7 +669,8 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   LocalIn.ar:
@@ -754,16 +765,18 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
-                    -   In.ar:
-                            bus: Control.ir[0:out]
-                    -   Control.kr: null
+                    -   Control.kr:
+                            gate: 1.0
                     -   Linen.kr:
                             gate: Control.kr[0:gate]
                             attack_time: 0.02
                             sustain_level: 1.0
                             release_time: 0.02
                             done_action: 2.0
+                    -   Control.ir:
+                            out: 0.0
+                    -   In.ar:
+                            bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
                             maximum: 0.1
@@ -847,7 +860,8 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
@@ -947,7 +961,8 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
@@ -992,7 +1007,9 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            in_: 0.0
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:in_]
                     -   ExpRand.ir/0:
@@ -1037,7 +1054,9 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            duration: 1.0
+                            out: 0.0
                     -   Line.kr:
                             start: 0.0
                             stop: 1.0
@@ -1094,7 +1113,9 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            duration: 1.0
+                            out: 0.0
                     -   Line.kr:
                             start: 0.0
                             stop: 1.0
@@ -1189,7 +1210,8 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
@@ -1234,7 +1256,9 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            duration: 1.0
+                            out: 0.0
                     -   Line.kr:
                             start: 0.0
                             stop: 1.0
@@ -1289,10 +1313,12 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.kr:
+                            mix: 0.0
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
-                    -   Control.kr: null
                     -   ExpRand.ir/0:
                             minimum: 0.01
                             maximum: 0.1
@@ -1337,10 +1363,12 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.kr:
+                            level: 1.0
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
-                    -   Control.kr: null
                     -   ExpRand.ir/0:
                             minimum: 0.01
                             maximum: 0.1
@@ -1390,7 +1418,9 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            duration: 1.0
+                            out: 0.0
                     -   Line.kr:
                             start: 0.0
                             stop: 1.0
@@ -1447,7 +1477,11 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.kr:
+                            level: 1.0
+                    -   Control.ir:
+                            duration: 1.0
+                            out: 0.0
                     -   Line.kr:
                             start: 0.0
                             stop: 1.0
@@ -1455,12 +1489,11 @@ class SynthDefFactory:
                             done_action: 2.0
                     -   UnaryOpUGen(HANNING_WINDOW).kr:
                             source: Line.kr[0]
-                    -   In.ar:
-                            bus: Control.ir[1:out]
-                    -   Control.kr: null
                     -   BinaryOpUGen(MULTIPLICATION).kr:
                             left: UnaryOpUGen(HANNING_WINDOW).kr[0]
                             right: Control.kr[0:level]
+                    -   In.ar:
+                            bus: Control.ir[1:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
                             maximum: 0.1
@@ -1505,7 +1538,11 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.kr:
+                            level: 1.0
+                    -   Control.ir:
+                            duration: 1.0
+                            out: 0.0
                     -   Line.kr:
                             start: 0.0
                             stop: 1.0
@@ -1513,15 +1550,14 @@ class SynthDefFactory:
                             done_action: 2.0
                     -   UnaryOpUGen(HANNING_WINDOW).kr:
                             source: Line.kr[0]
+                    -   BinaryOpUGen(MULTIPLICATION).kr:
+                            left: UnaryOpUGen(HANNING_WINDOW).kr[0]
+                            right: Control.kr[0:level]
                     -   In.ar:
                             bus: Control.ir[1:out]
                     -   BinaryOpUGen(MULTIPLICATION).ar:
                             left: In.ar[0]
                             right: UnaryOpUGen(HANNING_WINDOW).kr[0]
-                    -   Control.kr: null
-                    -   BinaryOpUGen(MULTIPLICATION).kr:
-                            left: UnaryOpUGen(HANNING_WINDOW).kr[0]
-                            right: Control.kr[0:level]
                     -   ExpRand.ir/0:
                             minimum: 0.01
                             maximum: 0.1
@@ -1560,7 +1596,7 @@ class SynthDefFactory:
         return clone
 
     def with_parameter(self, name, value, rate=None):
-        parameter = Parameter(name=name, value=value, parameter_rate=rate)
+        parameter = Parameter(name=name, value=value, rate=rate)
         return self.with_parameters(**{name: parameter})
 
     def with_parameters(self, **kwargs):
@@ -1604,13 +1640,13 @@ class SynthDefFactory:
                 ...     band_count = len(frequencies) + 1
                 ...     for i in range(band_count):
                 ...         band_name = "band_{}_".format(i + 1)
-                ...         builder._add_parameter(band_name + "pregain", 0)
-                ...         builder._add_parameter(band_name + "clamp_time", 0.01)
-                ...         builder._add_parameter(band_name + "relax_time", 0.1)
-                ...         builder._add_parameter(band_name + "threshold", -6)
-                ...         builder._add_parameter(band_name + "slope_above", 0.5)
-                ...         builder._add_parameter(band_name + "slope_below", 1.0)
-                ...         builder._add_parameter(band_name + "postgain", 0)
+                ...         builder.add_parameter(name=band_name + "pregain", value=0)
+                ...         builder.add_parameter(name=band_name + "clamp_time", value=0.01)
+                ...         builder.add_parameter(name=band_name + "relax_time", value=0.1)
+                ...         builder.add_parameter(name=band_name + "threshold", value=-6)
+                ...         builder.add_parameter(name=band_name + "slope_above", value=0.5)
+                ...         builder.add_parameter(name=band_name + "slope_below", value=1.0)
+                ...         builder.add_parameter(name=band_name + "postgain", value=0)
 
             ::
 
@@ -1635,7 +1671,7 @@ class SynthDefFactory:
                 ...             threshold=builder[band_name + "threshold"].db_to_amplitude(),
                 ...         )
                 ...         band *= builder[band_name + "postgain"].db_to_amplitude()
-                ...         compressors.extend(band)
+                ...         compressors.extend(band if isinstance(band, Sequence) else [band])
                 ...     source = supriya.ugens.Mix.multichannel(
                 ...         compressors,
                 ...         state["channel_count"],
@@ -1660,7 +1696,38 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.kr:
+                            band_1_clamp_time: 0.01
+                            band_1_postgain: 0.0
+                            band_1_pregain: 0.0
+                            band_1_relax_time: 0.1
+                            band_1_slope_above: 0.5
+                            band_1_slope_below: 1.0
+                            band_1_threshold: -6.0
+                            band_2_clamp_time: 0.01
+                            band_2_postgain: 0.0
+                            band_2_pregain: 0.0
+                            band_2_relax_time: 0.1
+                            band_2_slope_above: 0.5
+                            band_2_slope_below: 1.0
+                            band_2_threshold: -6.0
+                            band_3_clamp_time: 0.01
+                            band_3_postgain: 0.0
+                            band_3_pregain: 0.0
+                            band_3_relax_time: 0.1
+                            band_3_slope_above: 0.5
+                            band_3_slope_below: 1.0
+                            band_3_threshold: -6.0
+                            band_4_clamp_time: 0.01
+                            band_4_postgain: 0.0
+                            band_4_pregain: 0.0
+                            band_4_relax_time: 0.1
+                            band_4_slope_above: 0.5
+                            band_4_slope_below: 1.0
+                            band_4_threshold: -6.0
+                            mix: 0.0
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   LPF.ar/0:
@@ -1805,7 +1872,8 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   LPF.ar/0:
@@ -2111,7 +2179,9 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            out: 0.0
+                            rand_id: 23.0
                     -   RandID.ir:
                             rand_id: Control.ir[1:rand_id]
                     -   In.ar:
@@ -2219,7 +2289,8 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
@@ -2308,7 +2379,8 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.ir:
+                            out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
@@ -2361,7 +2433,11 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.ir: null
+                    -   Control.kr:
+                            level: 1.0
+                    -   Control.ir:
+                            duration: 1.0
+                            out: 0.0
                     -   Line.kr:
                             start: 0.0
                             stop: 1.0
@@ -2371,7 +2447,6 @@ class SynthDefFactory:
                             source: Line.kr[0]
                     -   In.ar:
                             bus: Control.ir[1:out]
-                    -   Control.kr: null
                     -   ExpRand.ir/0:
                             minimum: 0.01
                             maximum: 0.1

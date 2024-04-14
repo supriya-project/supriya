@@ -19,7 +19,7 @@ class Envelope:
     ::
 
         >>> list(envelope.serialize())
-        [0, 2, -99, -99, 1, 1, 1, 0.0, 0, 1, 1, 0.0]
+        [<0.0>, <2.0>, <-99.0>, <-99.0>, <1.0>, <1.0>, <1.0>, <0.0>, <0.0>, <1.0>, <1.0>, <0.0>]
     """
 
     def __init__(
@@ -150,7 +150,7 @@ class Envelope:
         ::
 
             >>> list(envelope.serialize())
-            [0, 2, -99, -99, 1.0, 0.01, 5, -4.0, 0, 1.0, 5, -4.0]
+            [<0.0>, <2.0>, <-99.0>, <-99.0>, <1.0>, <0.01>, <5.0>, <-4.0>, <0.0>, <1.0>, <5.0>, <-4.0>]
         """
         amplitudes = [0, amplitude, 0]
         durations = [attack_time, release_time]
@@ -166,38 +166,40 @@ class Envelope:
         curves = [curve]
         return Envelope(amplitudes=amplitudes, durations=durations, curves=curves)
 
-    def serialize(self, for_interpolation=False) -> UGenVector:
+    def serialize(self, **kwargs) -> UGenVector:
         result: List[Union[UGenOperable, float]] = []
-        if for_interpolation:
-            result.append(self.offset or 0.0)
-            result.append(self.initial_amplitude)
-            result.append(len(self.envelope_segments))
-            result.append(self.duration)
-            for amplitude, duration, curve in self._envelope_segments:
-                result.append(duration)
-                if isinstance(curve, EnvelopeShape):
-                    shape = int(curve)
-                    curve = 0.0
-                else:
-                    shape = 5
-                result.append(shape)
-                result.append(curve)
-                result.append(amplitude)
-        else:
-            result.append(self.initial_amplitude)
-            result.append(len(self.envelope_segments))
-            result.append(-99 if self.release_node is None else self.release_node)
-            result.append(-99 if self.loop_node is None else self.loop_node)
-            for amplitude, duration, curve in self._envelope_segments:
-                result.append(amplitude)
-                result.append(duration)
-                if isinstance(curve, EnvelopeShape):
-                    shape = int(curve)
-                    curve = 0.0
-                else:
-                    shape = 5
-                result.append(shape)
-                result.append(curve)
+        result.append(self.initial_amplitude)
+        result.append(len(self.envelope_segments))
+        result.append(-99 if self.release_node is None else self.release_node)
+        result.append(-99 if self.loop_node is None else self.loop_node)
+        for amplitude, duration, curve in self._envelope_segments:
+            result.append(amplitude)
+            result.append(duration)
+            if isinstance(curve, EnvelopeShape):
+                shape = int(curve)
+                curve = 0.0
+            else:
+                shape = 5
+            result.append(shape)
+            result.append(curve)
+        return UGenVector(*result)
+
+    def serialize_interpolated(self) -> UGenVector:
+        result: List[Union[UGenOperable, float]] = []
+        result.append(self.offset or 0.0)
+        result.append(self.initial_amplitude)
+        result.append(len(self.envelope_segments))
+        result.append(self.duration)
+        for amplitude, duration, curve in self._envelope_segments:
+            result.append(duration)
+            if isinstance(curve, EnvelopeShape):
+                shape = int(curve)
+                curve = 0.0
+            else:
+                shape = 5
+            result.append(shape)
+            result.append(curve)
+            result.append(amplitude)
         return UGenVector(*result)
 
     @classmethod
@@ -217,7 +219,7 @@ class Envelope:
         ::
 
             >>> list(envelope.serialize())
-            [0, 2, -99, -99, 1.0, 0.5, 1, 0.0, 0, 0.5, 1, 0.0]
+            [<0.0>, <2.0>, <-99.0>, <-99.0>, <1.0>, <0.5>, <1.0>, <0.0>, <0.0>, <0.5>, <1.0>, <0.0>]
         """
         amplitudes = [0, amplitude, 0]
         duration = duration / 2.0
@@ -275,7 +277,7 @@ class Done(UGen):
         ...     source=source,
         ... )
         >>> done
-        Done.kr()[0]
+        <Done.kr()[0]>
     """
 
     source = param()
@@ -290,7 +292,7 @@ class EnvGen(UGen):
 
         >>> from supriya.ugens import Envelope, EnvGen
         >>> EnvGen.ar(envelope=Envelope.percussive())
-        EnvGen.ar()[0]
+        <EnvGen.ar()[0]>
     """
 
     gate = param(1.0)
@@ -303,6 +305,7 @@ class EnvGen(UGen):
     @classmethod
     def _new_expanded(
         cls,
+        *,
         calculation_rate=None,
         done_action=None,
         envelope=None,
@@ -313,14 +316,10 @@ class EnvGen(UGen):
     ):
         if not isinstance(done_action, Parameter):
             done_action = DoneAction.from_expr(done_action)
-        if envelope is None:
-            envelope = Envelope()
-        assert isinstance(envelope, Envelope)
-        envelope = envelope.serialize()
         return super(EnvGen, cls)._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
-            envelope=envelope,
+            envelope=(envelope or Envelope()).serialize(),
             gate=gate,
             level_bias=level_bias,
             level_scale=level_scale,
@@ -342,7 +341,7 @@ class Free(UGen):
         ...     trigger=trigger,
         ... )
         >>> free
-        Free.kr()[0]
+        <Free.kr()[0]>
     """
 
     trigger = param(0)
@@ -361,7 +360,7 @@ class FreeSelf(UGen):
         ...     trigger=trigger,
         ... )
         >>> free_self
-        FreeSelf.kr()[0]
+        <FreeSelf.kr()[0]>
     """
 
     trigger = param()
@@ -379,7 +378,7 @@ class FreeSelfWhenDone(UGen):
         ...     source=source,
         ... )
         >>> free_self_when_done
-        FreeSelfWhenDone.kr()[0]
+        <FreeSelfWhenDone.kr()[0]>
     """
 
     source = param()
@@ -393,7 +392,7 @@ class Linen(UGen):
     ::
 
         >>> supriya.ugens.Linen.kr()
-        Linen.kr()[0]
+        <Linen.kr()[0]>
     """
 
     gate = param(1.0)
@@ -417,7 +416,7 @@ class Pause(UGen):
         ...     trigger=trigger,
         ... )
         >>> pause
-        Pause.kr()[0]
+        <Pause.kr()[0]>
     """
 
     trigger = param()
@@ -436,7 +435,7 @@ class PauseSelf(UGen):
         ...     trigger=trigger,
         ... )
         >>> pause_self
-        PauseSelf.kr()[0]
+        <PauseSelf.kr()[0]>
     """
 
     trigger = param()
@@ -454,7 +453,7 @@ class PauseSelfWhenDone(UGen):
         ...     source=source,
         ... )
         >>> pause_self_when_done
-        PauseSelfWhenDone.kr()[0]
+        <PauseSelfWhenDone.kr()[0]>
     """
 
     source = param()

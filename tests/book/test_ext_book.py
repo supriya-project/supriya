@@ -31,8 +31,8 @@ def test_sphinx_book_html(caplog, app, status, warning, rm_dirs):
         "audio-4f0fd44621b74146c936fab67a7544438ddb60abe59b506082268778ec2e285f.mp3",
         "audio-4f0fd44621b74146c936fab67a7544438ddb60abe59b506082268778ec2e285f.wav",
         "plot-6e8cafcdb775004ffba3051b743f9d5a539d541c6601f723ecfcc3145f0217b4.svg",
-        "score-759292a876c9e866721fda737f939bcc7e84e04108d6adb207480e887de6b24a.aiff",
-        "score-759292a876c9e866721fda737f939bcc7e84e04108d6adb207480e887de6b24a.osc",
+        "score-c073aea37cd922f2fe26dbd47dfecee37e1cb2e6cdd06e86908b090add6e2c7e.aiff",
+        "score-c073aea37cd922f2fe26dbd47dfecee37e1cb2e6cdd06e86908b090add6e2c7e.osc",
     ]
     if platform.system() != "Windows":
         expected_file_names.extend(

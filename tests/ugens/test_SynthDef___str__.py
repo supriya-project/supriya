@@ -15,7 +15,11 @@ def test_multi_value_parameters():
         synthdef:
             name: 58528261cb129f5bee634d41a34e082c
             ugens:
-            -   Control.kr: null
+            -   Control.kr:
+                    amp: 0.1
+                    freqs[0]: 300.0
+                    freqs[1]: 400.0
+                    out: 0.0
             -   SinOsc.ar/0:
                     frequency: Control.kr[1:freqs[0]]
                     phase: 0.0

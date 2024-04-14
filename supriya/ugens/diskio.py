@@ -15,7 +15,7 @@ class DiskIn(UGen):
         ...     loop=0,
         ... )
         >>> disk_in
-        UGenVector({2})
+        <DiskIn.ar()>
     """
 
     buffer_id = param()
@@ -36,7 +36,7 @@ class DiskOut(UGen):
         ...     source=source,
         ... )
         >>> disk_out
-        DiskOut.ar()[0]
+        <DiskOut.ar()[0]>
     """
 
     buffer_id = param()
@@ -59,7 +59,7 @@ class VDiskIn(UGen):
         ...     send_id=0,
         ... )
         >>> vdisk_in
-        UGenVector({2})
+        <VDiskIn.ar()>
     """
 
     buffer_id = param()

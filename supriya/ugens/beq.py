@@ -15,7 +15,7 @@ class BAllPass(UGen):
         ...     source=source,
         ... )
         >>> ball_pass
-        BAllPass.ar()[0]
+        <BAllPass.ar()[0]>
     """
 
     source = param()
@@ -37,7 +37,7 @@ class BBandPass(UGen):
         ...     source=source,
         ... )
         >>> bband_pass
-        BBandPass.ar()[0]
+        <BBandPass.ar()[0]>
     """
 
     source = param()
@@ -59,7 +59,7 @@ class BBandStop(UGen):
         ...     source=source,
         ... )
         >>> bband_stop
-        BBandStop.ar()[0]
+        <BBandStop.ar()[0]>
     """
 
     source = param()
@@ -82,7 +82,7 @@ class BHiCut(UGen):
         ...     source=source,
         ... )
         >>> bhi_cut
-        BHiCut.ar()[0]
+        <BHiCut.ar()[0]>
     """
 
     source = param()
@@ -105,7 +105,7 @@ class BHiPass(UGen):
         ...     source=source,
         ... )
         >>> bhi_pass
-        BHiPass.ar()[0]
+        <BHiPass.ar()[0]>
     """
 
     source = param()
@@ -128,7 +128,7 @@ class BHiShelf(UGen):
         ...     source=source,
         ... )
         >>> bhi_shelf
-        BHiShelf.ar()[0]
+        <BHiShelf.ar()[0]>
     """
 
     source = param()
@@ -152,7 +152,7 @@ class BLowCut(UGen):
         ...     source=source,
         ... )
         >>> blow_cut
-        BLowCut.ar()[0]
+        <BLowCut.ar()[0]>
     """
 
     source = param()
@@ -175,7 +175,7 @@ class BLowPass(UGen):
         ...     source=source,
         ... )
         >>> blow_pass
-        BLowPass.ar()[0]
+        <BLowPass.ar()[0]>
     """
 
     source = param()
@@ -198,7 +198,7 @@ class BLowShelf(UGen):
         ...     source=source,
         ... )
         >>> blow_shelf
-        BLowShelf.ar()[0]
+        <BLowShelf.ar()[0]>
     """
 
     source = param()
@@ -222,7 +222,7 @@ class BPeakEQ(UGen):
         ...     source=source,
         ... )
         >>> bpeak_eq
-        BPeakEQ.ar()[0]
+        <BPeakEQ.ar()[0]>
     """
 
     source = param()

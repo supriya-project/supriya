@@ -12,7 +12,7 @@ class FreeVerb(UGen):
         >>> supriya.ugens.FreeVerb.ar(
         ...     source=source,
         ... )
-        FreeVerb.ar()[0]
+        <FreeVerb.ar()[0]>
     """
 
     source = param()

@@ -16,7 +16,7 @@ class Clip(UGen):
         ...     source=source,
         ... )
         >>> clip
-        Clip.ar()[0]
+        <Clip.ar()[0]>
     """
 
     source = param()
@@ -38,7 +38,7 @@ class Fold(UGen):
         ...     source=source,
         ... )
         >>> fold
-        Fold.ar()[0]
+        <Fold.ar()[0]>
     """
 
     source = param()
@@ -60,7 +60,7 @@ class Gate(UGen):
         ...     trigger=trigger,
         ... )
         >>> gate
-        Gate.ar()[0]
+        <Gate.ar()[0]>
     """
 
     source = param()
@@ -81,7 +81,7 @@ class InRange(UGen):
         ...     source=source,
         ... )
         >>> in_range
-        InRange.ar()[0]
+        <InRange.ar()[0]>
     """
 
     source = param()
@@ -103,7 +103,7 @@ class Latch(UGen):
         ...     trigger=trigger,
         ... )
         >>> latch
-        Latch.ar()[0]
+        <Latch.ar()[0]>
     """
 
     source = param()
@@ -122,7 +122,7 @@ class LeastChange(UGen):
         ...     b=0,
         ... )
         >>> least_change
-        LeastChange.ar()[0]
+        <LeastChange.ar()[0]>
     """
 
     a = param(0)
@@ -141,7 +141,7 @@ class MostChange(UGen):
         ...     b=0,
         ... )
         >>> most_change
-        MostChange.ar()[0]
+        <MostChange.ar()[0]>
     """
 
     a = param(0)
@@ -162,7 +162,7 @@ class Peak(UGen):
         ...     trigger=trigger,
         ... )
         >>> peak
-        Peak.ar()[0]
+        <Peak.ar()[0]>
     """
 
     source = param()
@@ -182,7 +182,7 @@ class PeakFollower(UGen):
         ...     source=source,
         ... )
         >>> peak_follower
-        PeakFollower.ar()[0]
+        <PeakFollower.ar()[0]>
     """
 
     source = param()
@@ -205,7 +205,7 @@ class Phasor(UGen):
         ...     trigger=trigger,
         ... )
         >>> phasor
-        Phasor.ar()[0]
+        <Phasor.ar()[0]>
     """
 
     trigger = param(0)
@@ -230,7 +230,7 @@ class Poll(UGen):
         ...     trigger_id=1234,
         ... )
         >>> poll
-        Poll.ar()[0]
+        <Poll.ar()[0]>
 
     .. container:: example
 
@@ -282,6 +282,7 @@ class Poll(UGen):
     trigger = param()
     source = param()
     trigger_id = param(-1)
+    label = param(unexpanded=True)
 
     ### INITIALIZER ###
 
@@ -290,6 +291,7 @@ class Poll(UGen):
         calculation_rate=None,
         label=None,
         source=None,
+        special_index=None,
         trigger=None,
         trigger_id=-1,
     ):
@@ -297,18 +299,16 @@ class Poll(UGen):
             if isinstance(source, UGen):
                 label = type(source).__name__
             elif isinstance(source, OutputProxy):
-                label = type(source.source).__name__
+                label = type(source.ugen).__name__
+        label = str(label)
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
+            label=[len(label), *(ord(c) for c in label)],
             source=source,
             trigger=trigger,
             trigger_id=trigger_id,
         )
-        label = str(label)
-        self._configure_input("label", len(label))
-        for character in label:
-            self._configure_input("label", ord(character))
 
     ### PUBLIC METHODS ###
 
@@ -342,34 +342,6 @@ class Poll(UGen):
             trigger_id=trigger_id,
         )
 
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def label(self):
-        """
-        Gets `label` input of Poll.
-
-        ::
-
-            >>> sine = supriya.ugens.SinOsc.ar()
-            >>> trigger = supriya.ugens.Impulse.kr(frequency=1)
-            >>> poll = supriya.ugens.Poll.ar(
-            ...     label="Foo",
-            ...     source=sine,
-            ...     trigger=trigger,
-            ...     trigger_id=1234,
-            ... ).source
-            >>> poll.label
-            'Foo'
-
-        Returns ugen input.
-        """
-        index = tuple(self._ordered_input_names).index("trigger_id") + 2
-        characters = self._inputs[index:]
-        characters = [chr(int(_)) for _ in characters]
-        label = "".join(characters)
-        return label
-
 
 @ugen(ar=True, kr=True)
 class RunningMax(UGen):
@@ -385,7 +357,7 @@ class RunningMax(UGen):
         ...     trigger=0,
         ... )
         >>> running_max
-        RunningMax.ar()[0]
+        <RunningMax.ar()[0]>
     """
 
     source = param()
@@ -406,7 +378,7 @@ class RunningMin(UGen):
         ...     trigger=trigger,
         ... )
         >>> running_min
-        RunningMin.ar()[0]
+        <RunningMin.ar()[0]>
     """
 
     source = param()
@@ -427,7 +399,7 @@ class Schmidt(UGen):
         ...     source=source,
         ... )
         >>> schmidt
-        Schmidt.ar()[0]
+        <Schmidt.ar()[0]>
     """
 
     source = param()
@@ -450,7 +422,7 @@ class SendPeakRMS(UGen):
         ...     source=[1, 2, 3],
         ... )
         >>> send_peak_rms
-        SendPeakRMS.kr()
+        <SendPeakRMS.kr()>
     """
 
     ### CLASS VARIABLES ###
@@ -483,7 +455,7 @@ class SendPeakRMS(UGen):
             ...     source=source,
             ... )
             >>> send_peak_rms
-            SendPeakRMS.ar()
+            <SendPeakRMS.ar()>
 
         Returns ugen graph.
         """
@@ -517,7 +489,7 @@ class SendPeakRMS(UGen):
             ...     source=source,
             ... )
             >>> send_peak_rms
-            SendPeakRMS.kr()
+            <SendPeakRMS.kr()>
 
         Returns ugen graph.
         """
@@ -571,7 +543,7 @@ class SendReply(UGen):
             ...     trigger=trigger,
             ... )
             >>> send_reply
-            SendReply.ar()
+            <SendReply.ar()>
 
         Returns ugen graph.
         """
@@ -600,7 +572,7 @@ class SendReply(UGen):
             ...     trigger=trigger,
             ... )
             >>> send_reply
-            SendReply.kr()
+            <SendReply.kr()>
 
         Returns ugen graph.
         """
@@ -634,7 +606,7 @@ class Sweep(UGen):
         ...     trigger=0,
         ... )
         >>> sweep
-        Sweep.ar()[0]
+        <Sweep.ar()[0]>
     """
 
     trigger = param(0)
@@ -654,7 +626,7 @@ class TDelay(UGen):
         ...     source=source,
         ... )
         >>> tdelay
-        TDelay.ar()[0]
+        <TDelay.ar()[0]>
     """
 
     source = param()
@@ -673,7 +645,7 @@ class ToggleFF(UGen):
         ...     trigger=trigger,
         ... )
         >>> toggle_ff
-        ToggleFF.ar()[0]
+        <ToggleFF.ar()[0]>
     """
 
     trigger = param(0)
@@ -692,7 +664,7 @@ class Trig1(UGen):
         ...     source=source,
         ... )
         >>> trig_1
-        Trig1.ar()[0]
+        <Trig1.ar()[0]>
     """
 
     source = param()
@@ -712,7 +684,7 @@ class Trig(UGen):
         ...     source=source,
         ... )
         >>> trig
-        Trig.ar()[0]
+        <Trig.ar()[0]>
     """
 
     source = param()
@@ -733,7 +705,7 @@ class Wrap(UGen):
         ...     source=source,
         ... )
         >>> wrap
-        Wrap.ar()[0]
+        <Wrap.ar()[0]>
     """
 
     source = param()
@@ -753,7 +725,7 @@ class ZeroCrossing(UGen):
         ...     source=source,
         ... )
         >>> zero_crossing
-        ZeroCrossing.ar()[0]
+        <ZeroCrossing.ar()[0]>
     """
 
     source = param()

@@ -1,5 +1,13 @@
-from ...enums import EnvelopeShape
-from ...ugens import EnvGen, Envelope, In, InFeedback, Out, SynthDef, SynthDefBuilder
+from supriya.enums import EnvelopeShape
+from supriya.ugens import (
+    EnvGen,
+    Envelope,
+    In,
+    InFeedback,
+    Out,
+    SynthDef,
+    SynthDefBuilder,
+)
 
 
 def _build_link_audio_synthdef(channel_count: int) -> SynthDef:
@@ -7,19 +15,20 @@ def _build_link_audio_synthdef(channel_count: int) -> SynthDef:
         out=0, in_=16, gate=1, fade_time=0.02, done_action=2
     ) as builder:
         start_value = builder["fade_time"] <= 0
-        envelope = EnvGen.kr(
+        envelope = Envelope(
+            amplitudes=[start_value, 1.0, 0.0],
+            durations=[1.0, 1.0],
+            curves=[EnvelopeShape.SINE],
+            release_node=1,
+        )
+        envgen = EnvGen.kr(
             done_action=builder["done_action"],
-            envelope=Envelope(
-                amplitudes=[start_value, 1.0, 0.0],
-                durations=[1.0, 1.0],
-                curves=[EnvelopeShape.SINE],
-                release_node=1,
-            ),
+            envelope=envelope,
             gate=builder["gate"],
             time_scale=builder["fade_time"],
         )
         source = InFeedback.ar(bus=builder["in_"], channel_count=channel_count)
-        Out.ar(bus=builder["out"], source=source * envelope)
+        Out.ar(bus=builder["out"], source=source * envgen)
     return builder.build(name=f"system_link_audio_{channel_count}")
 
 

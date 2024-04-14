@@ -2,6 +2,7 @@ import pytest
 
 import supriya.ugens
 from supriya import SynthDefBuilder
+from supriya.ugens.core import SynthDefError
 
 
 def test_01():
@@ -15,7 +16,7 @@ def test_01():
 
     with SynthDefBuilder():
         sine_two = supriya.ugens.SinOsc.ar()
-        with pytest.raises(ValueError) as exception_info:
+        with pytest.raises(SynthDefError) as exception_info:
             sine_two * sine_one
         assert "UGen input in different scope" in str(exception_info.value)
 
@@ -32,7 +33,7 @@ def test_02():
 
     with SynthDefBuilder():
         sine_two = supriya.ugens.SinOsc.ar()
-        with pytest.raises(ValueError) as exception_info:
+        with pytest.raises(SynthDefError) as exception_info:
             supriya.ugens.Out.ar(bus=synth_one_bus, source=sine_two)
         assert "UGen input in different scope" in str(exception_info.value)
 
@@ -46,6 +47,6 @@ def test_03():
         supriya.ugens.Out.ar(bus=0, source=[right, left])
 
     with SynthDefBuilder():
-        with pytest.raises(ValueError) as exception_info:
+        with pytest.raises(SynthDefError) as exception_info:
             left * right
         assert "UGen input in different scope" in str(exception_info.value)

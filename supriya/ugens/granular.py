@@ -19,7 +19,7 @@ class GrainBuf(UGen):
         ...     trigger=0,
         ... )
         >>> grain_buf
-        UGenVector({2})
+        <GrainBuf.ar()>
     """
 
     trigger = param(0)
@@ -49,7 +49,7 @@ class GrainIn(UGen):
         ...     trigger=0,
         ... )
         >>> grain_in
-        UGenVector({2})
+        <GrainIn.ar()>
     """
 
     trigger = param(0)
@@ -71,7 +71,7 @@ class PitchShift(UGen):
         >>> supriya.ugens.PitchShift.ar(
         ...     source=source,
         ... )
-        PitchShift.ar()[0]
+        <PitchShift.ar()[0]>
     """
 
     source = param()
@@ -98,7 +98,7 @@ class Warp1(UGen):
         ...     window_size=0.2,
         ... )
         >>> warp_1
-        Warp1.ar()[0]
+        <Warp1.ar()[0]>
     """
 
     buffer_id = param(0)

@@ -43,7 +43,7 @@ def context():
         (
             lambda path: dict(),
             lambda path: output_path
-            / "score-e6beae761b2c8f192cfcd48948f0b51239699355b4450e640ffc97ec7243c4a4.aiff",
+            / "score-89dc8e276da005ed1b2f5826dccdc19cf3e21015701332dfcb59f064bc2431f5.aiff",
             8,
             3.0,
             44100,
@@ -51,7 +51,7 @@ def context():
         (
             lambda path: dict(duration=1.5),
             lambda path: output_path
-            / "score-fbd0f324690ab445771bfa1932339f2cd4fc023e5e79986854091e79f1139f94.aiff",
+            / "score-97892fdf5d7540a33e1dce9d0dcdf05d3b6be27c21140fdfab90e0fb1e7e2b94.aiff",
             8,
             1.5,
             44100,
@@ -59,7 +59,7 @@ def context():
         (
             lambda path: dict(output_bus_channel_count=2, duration=2.5),
             lambda path: output_path
-            / "score-31d5cda432402e03a4fdb507b479408d26eec2879f342e790d6c3ee825cab67d.aiff",
+            / "score-27d30ed52df6c0f4a3d31c55a90b46d10735c11b2daaa7ccddc48954871fea9f.aiff",
             2,
             2.5,
             44100,
@@ -67,7 +67,7 @@ def context():
         (
             lambda path: dict(output_bus_channel_count=2, duration=3.0),
             lambda path: output_path
-            / "score-b7b44173bb96829b38b0792ac209e2dc96e0d9022c322f4a011b533f32579743.aiff",
+            / "score-d0b3f1165f80bdda40f2de3d2bc4cded79a79cdd2748899fc189c0b1e6beaf46.aiff",
             2,
             3.0,
             44100,
@@ -75,7 +75,7 @@ def context():
         (
             lambda path: dict(output_bus_channel_count=2, duration=3.5),
             lambda path: output_path
-            / "score-c8561182c6faabda4ad0b10278fe1edb62306f1beca0eaeba82311d7e5020368.aiff",
+            / "score-54c84a39561ece824a5151e6798d9f60a488f1a9c6b665bd9f6ef5010ab2294c.aiff",
             2,
             3.5,
             44100,
@@ -83,7 +83,7 @@ def context():
         (
             lambda path: dict(render_directory_path=path),
             lambda path: output_path
-            / "score-e6beae761b2c8f192cfcd48948f0b51239699355b4450e640ffc97ec7243c4a4.aiff",
+            / "score-89dc8e276da005ed1b2f5826dccdc19cf3e21015701332dfcb59f064bc2431f5.aiff",
             8,
             3.0,
             44100,
@@ -98,7 +98,7 @@ def context():
         (
             lambda path: dict(sample_rate=48000),
             lambda path: output_path
-            / "score-2140a1b747033ecdbeac8c656586ba444abf60a6e1c60362c6aa40d9481612b7.aiff",
+            / "score-773b079939a228b9977a2a2a72ee3a46ccf7a1b2aa94343620fd9dcd4546bc47.aiff",
             8,
             3.0,
             48000,
@@ -142,7 +142,7 @@ async def test_render(
 def test___render__(context):
     expected_path = (
         output_path
-        / "score-e6beae761b2c8f192cfcd48948f0b51239699355b4450e640ffc97ec7243c4a4.aiff"
+        / "score-89dc8e276da005ed1b2f5826dccdc19cf3e21015701332dfcb59f064bc2431f5.aiff"
     )
     if expected_path.exists():
         expected_path.unlink()

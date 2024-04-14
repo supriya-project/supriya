@@ -20,7 +20,7 @@ class BeatTrack(UGen):
         ...     lock=0,
         ... )
         >>> beat_track
-        UGenVector({4})
+        <BeatTrack.kr()>
     """
 
     pv_chain = param()
@@ -43,7 +43,7 @@ class BeatTrack2(UGen):
         ...     window_size=2,
         ... )
         >>> beat_track_2
-        UGenVector({6})
+        <BeatTrack2.kr()>
     """
 
     bus_index = param(0.0)
@@ -69,7 +69,7 @@ class KeyTrack(UGen):
         ...     key_decay=2,
         ... )
         >>> key_track
-        KeyTrack.kr()[0]
+        <KeyTrack.kr()[0]>
     """
 
     pv_chain = param()
@@ -92,7 +92,7 @@ class Loudness(UGen):
         ...     tmask=1,
         ... )
         >>> loudness
-        Loudness.kr()[0]
+        <Loudness.kr()[0]>
     """
 
     pv_chain = param()
@@ -113,7 +113,7 @@ class MFCC(UGen):
         ...     pv_chain=pv_chain,
         ... )
         >>> mfcc
-        UGenVector({13})
+        <MFCC.kr()>
     """
 
     pv_chain = param()
@@ -150,7 +150,7 @@ class Onsets(UGen):
         ...     whtype=1,
         ... )
         >>> onsets
-        Onsets.kr()[0]
+        <Onsets.kr()[0]>
     """
 
     class ODFType(IntEnumeration):
@@ -183,7 +183,7 @@ class Pitch(UGen):
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> pitch = supriya.ugens.Pitch.kr(source=source)
         >>> pitch
-        UGenVector({2})
+        <Pitch.kr()>
     """
 
     source = param()
@@ -212,7 +212,7 @@ class SpecCentroid(UGen):
         ...     pv_chain=pv_chain,
         ... )
         >>> spec_centroid
-        SpecCentroid.kr()[0]
+        <SpecCentroid.kr()[0]>
     """
 
     pv_chain = param()
@@ -231,7 +231,7 @@ class SpecFlatness(UGen):
         ...     pv_chain=pv_chain,
         ... )
         >>> spec_flatness
-        SpecFlatness.kr()[0]
+        <SpecFlatness.kr()[0]>
     """
 
     pv_chain = param()
@@ -252,7 +252,7 @@ class SpecPcile(UGen):
         ...     interpolate=0,
         ... )
         >>> spec_pcile
-        SpecPcile.kr()[0]
+        <SpecPcile.kr()[0]>
     """
 
     pv_chain = param()

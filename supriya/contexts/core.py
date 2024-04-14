@@ -614,7 +614,7 @@ class Context(metaclass=abc.ABCMeta):
             value = settings[parameter.name]
             if value == parameter.value:
                 continue
-            if parameter.parameter_rate is ParameterRate.SCALAR:
+            if parameter.rate is ParameterRate.SCALAR:
                 synthdef_kwargs[parameter.name] = float(value)
             elif parameter.name in ("in_", "out"):
                 synthdef_kwargs[parameter.name] = float(value)

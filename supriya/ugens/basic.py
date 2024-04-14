@@ -1,7 +1,8 @@
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Sequence, Tuple
 
 from .. import utils
 from ..enums import CalculationRate
+from ..utils import flatten
 from .core import PseudoUGen, UGen, UGenVector, param, ugen
 
 
@@ -124,21 +125,13 @@ class Mix(PseudoUGen):
 
     ### PRIVATE METHODS ###
 
-    @classmethod
-    def _flatten_sources(cls, sources):
-        flattened_sources = []
-        for source in sources:
-            if isinstance(source, UGenVector):
-                flattened_sources.extend(source)
-            else:
-                flattened_sources.append(source)
-        return UGenVector(*flattened_sources)
-
     ### PUBLIC METHODS ###
 
     @classmethod
     def new(cls, sources):
-        sources = cls._flatten_sources(sources)
+        if not isinstance(sources, Sequence):
+            sources = [sources]
+        sources = list(flatten(sources))
         summed_sources = []
         for part in utils.group_by_count(sources, 4):
             if len(part) == 4:
@@ -311,7 +304,7 @@ class Mix(PseudoUGen):
                             bus: 0.0
                             source[0]: Sum3.ar[0]
         """
-        sources = cls._flatten_sources(sources)
+        sources = list(flatten(sources))
         mixes, parts = [], []
         for i in range(0, len(sources), channel_count):
             parts.append(sources[i : i + channel_count])
@@ -334,7 +327,7 @@ class MulAdd(UGen):
         ...     source=source,
         ... )
         >>> mul_add
-        MulAdd.ar()[0]
+        <MulAdd.ar()>
     """
 
     ### CLASS VARIABLES ###
@@ -347,7 +340,12 @@ class MulAdd(UGen):
 
     @classmethod
     def _new_single(
-        cls, addend=None, multiplier=None, calculation_rate=None, source=None
+        cls,
+        addend=None,
+        multiplier=None,
+        calculation_rate=None,
+        source=None,
+        special_index=None,
     ):
         def _inputs_are_valid(source, multiplier, addend):
             if CalculationRate.from_expr(source) == CalculationRate.AUDIO:
@@ -415,7 +413,7 @@ class Sum3(UGen):
         ...     input_two=input_two,
         ...     input_three=input_three,
         ... )
-        Sum3.ar()[0]
+        <Sum3.ar()>
     """
 
     input_one = param()
@@ -473,7 +471,7 @@ class Sum4(UGen):
         ...     input_three=input_three,
         ...     input_four=input_four,
         ... )
-        Sum4.ar()[0]
+        <Sum4.ar()>
     """
 
     input_one = param()

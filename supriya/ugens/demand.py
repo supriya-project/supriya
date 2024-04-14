@@ -19,7 +19,7 @@ class Dbrown(UGen):
         ...     step=0.01,
         ... )
         >>> dbrown
-        Dbrown.dr()[0]
+        <Dbrown.dr()[0]>
     """
 
     minimum = param(0.0)
@@ -41,7 +41,7 @@ class Dbufrd(UGen):
         ...     phase=0,
         ... )
         >>> dbufrd
-        Dbufrd.dr()[0]
+        <Dbufrd.dr()[0]>
     """
 
     buffer_id = param(0)
@@ -63,7 +63,7 @@ class Dbufwr(UGen):
         ...     phase=0,
         ... )
         >>> dbufwr
-        Dbufwr.dr()[0]
+        <Dbufwr.dr()[0]>
     """
 
     source = param(0.0)
@@ -90,7 +90,7 @@ class Demand(UGen):
         ...     trigger=trigger,
         ... )
         >>> demand
-        UGenVector({2})
+        <Demand.ar()>
     """
 
     trigger = param(0)
@@ -129,7 +129,7 @@ class DemandEnvGen(UGen):
         ...     time_scale=1,
         ... )
         >>> demand_env_gen
-        DemandEnvGen.ar()[0]
+        <DemandEnvGen.ar()[0]>
     """
 
     level = param()
@@ -157,7 +157,7 @@ class Dgeom(UGen):
         ...     start=1,
         ... )
         >>> dgeom
-        Dgeom.dr()[0]
+        <Dgeom.dr()[0]>
     """
 
     start = param(1)
@@ -179,7 +179,7 @@ class Dibrown(UGen):
         ...     step=0.01,
         ... )
         >>> dibrown
-        Dibrown.dr()[0]
+        <Dibrown.dr()[0]>
     """
 
     minimum = param(0)
@@ -201,7 +201,7 @@ class Diwhite(UGen):
         ...     minimum=0,
         ... )
         >>> diwhite
-        Diwhite.dr()[0]
+        <Diwhite.dr()[0]>
     """
 
     minimum = param(0)
@@ -222,7 +222,7 @@ class Drand(UGen):
         ...     sequence=sequence,
         ... )
         >>> drand
-        Drand.dr()[0]
+        <Drand.dr()[0]>
     """
 
     repeats = param(1)
@@ -242,7 +242,7 @@ class Dreset(UGen):
         ...     source=source,
         ... )
         >>> dreset
-        Dreset.dr()[0]
+        <Dreset.dr()[0]>
     """
 
     source = param()
@@ -262,7 +262,7 @@ class Dseq(UGen):
         ...     sequence=sequence,
         ... )
         >>> dseq
-        Dseq.dr()[0]
+        <Dseq.dr()[0]>
     """
 
     repeats = param(1)
@@ -282,7 +282,7 @@ class Dser(UGen):
         ...     sequence=sequence,
         ... )
         >>> dser
-        Dser.dr()[0]
+        <Dser.dr()[0]>
     """
 
     repeats = param(1)
@@ -302,7 +302,7 @@ class Dseries(UGen):
         ...     step=1,
         ... )
         >>> dseries
-        Dseries.dr()[0]
+        <Dseries.dr()[0]>
     """
 
     length = param(float("inf"))
@@ -323,7 +323,7 @@ class Dshuf(UGen):
         ...     sequence=sequence,
         ... )
         >>> dshuf
-        Dshuf.dr()[0]
+        <Dshuf.dr()[0]>
     """
 
     repeats = param(1)
@@ -343,7 +343,7 @@ class Dstutter(UGen):
         ...     source=source,
         ... )
         >>> dstutter
-        Dstutter.dr()[0]
+        <Dstutter.dr()[0]>
     """
 
     n = param(2)
@@ -360,14 +360,14 @@ class Dswitch(UGen):
         >>> index = supriya.ugens.Dseq.dr(sequence=[0, 1, 2, 1, 0])
         >>> sequence = (1.0, 2.0, 3.0)
         >>> dswitch = supriya.ugens.Dswitch.dr(
-        ...     index=index,
+        ...     index_=index,
         ...     sequence=sequence,
         ... )
         >>> dswitch
-        Dswitch.dr()[0]
+        <Dswitch.dr()[0]>
     """
 
-    index = param()
+    index_ = param()
     sequence = param(unexpanded=True)
 
 
@@ -381,14 +381,14 @@ class Dswitch1(UGen):
         >>> index = supriya.ugens.Dseq.dr(sequence=[0, 1, 2, 1, 0])
         >>> sequence = (1.0, 2.0, 3.0)
         >>> dswitch_1 = supriya.ugens.Dswitch1.dr(
-        ...     index=index,
+        ...     index_=index,
         ...     sequence=sequence,
         ... )
         >>> dswitch_1
-        Dswitch1.dr()[0]
+        <Dswitch1.dr()[0]>
     """
 
-    index = param()
+    index_ = param()
     sequence = param(unexpanded=True)
 
 
@@ -406,7 +406,7 @@ class Dunique(UGen):
         ...     source=source,
         ... )
         >>> dunique
-        Dunique.dr()[0]
+        <Dunique.dr()[0]>
     """
 
     source = param()
@@ -434,7 +434,7 @@ class Duty(UGen):
         ...     ),
         ... )
         >>> duty
-        Duty.kr()[0]
+        <Duty.kr()[0]>
     """
 
     duration = param(1.0)
@@ -456,7 +456,7 @@ class Dwhite(UGen):
         ...     minimum=0,
         ... )
         >>> dwhite
-        Dwhite.dr()[0]
+        <Dwhite.dr()[0]>
     """
 
     minimum = param(0.0)
@@ -479,7 +479,7 @@ class Dwrand(UGen):
         ...     weights=weights,
         ... )
         >>> dwrand
-        Dwrand.dr()[0]
+        <Dwrand.dr()[0]>
     """
 
     repeats = param(1)
@@ -519,7 +519,7 @@ class Dxrand(UGen):
         ...     sequence=sequence,
         ... )
         >>> dxrand
-        Dxrand.dr()[0]
+        <Dxrand.dr()[0]>
     """
 
     repeats = param(1)

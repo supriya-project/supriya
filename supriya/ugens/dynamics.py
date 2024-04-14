@@ -17,7 +17,7 @@ class Amplitude(UGen):
         ...     source=source,
         ... )
         >>> amplitude
-        Amplitude.kr()[0]
+        <Amplitude.kr()[0]>
     """
 
     source = param()
@@ -74,7 +74,7 @@ class CompanderD(PseudoUGen):
 
                 >>> print(compander_d)
                 synthdef:
-                    name: d4e7b88df56af5070a88f09b0f8c633e
+                    name: ...
                     ugens:
                     -   In.ar:
                             bus: 0.0
@@ -122,7 +122,7 @@ class Limiter(UGen):
         ...     source=source,
         ... )
         >>> limiter
-        Limiter.ar()[0]
+        <Limiter.ar()[0]>
     """
 
     source = param()
@@ -144,7 +144,7 @@ class Normalizer(UGen):
         ...     source=source,
         ... )
         >>> normalizer
-        Normalizer.ar()[0]
+        <Normalizer.ar()[0]>
     """
 
     source = param()

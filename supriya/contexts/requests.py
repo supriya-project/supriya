@@ -1649,7 +1649,9 @@ class ReceiveSynthDefs(Request):
     on_completion: Optional[Requestable] = None
 
     def to_osc(self) -> OscMessage:
-        contents = [compile_synthdefs(self.synthdefs)]
+        contents: List[Union[OscBundle, OscMessage, bytes]] = [
+            compile_synthdefs(*self.synthdefs)
+        ]
         if self.on_completion:
             contents.append(self.on_completion.to_osc())
         return OscMessage(RequestName.SYNTHDEF_RECEIVE, *contents)
