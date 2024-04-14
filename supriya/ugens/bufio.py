@@ -25,7 +25,7 @@ class BufRd(UGen):
         ...     phase=phase,
         ... )
         >>> buf_rd
-        <UGenVector([<BufRd.ar()[0]>, <BufRd.ar()[1]>])>
+        <BufRd.ar()>
     """
 
     buffer_id = param()
@@ -148,26 +148,6 @@ class MaxLocalBufs(UGen):
 
     maximum = param(0)
 
-    def increment(self):
-        """
-        Increments maximum local buffer count.
-
-        ::
-
-            >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=1).source
-            >>> max_local_bufs.inputs
-            (1.0,)
-
-        ::
-
-            >>> max_local_bufs.increment()
-            >>> max_local_bufs.inputs
-            (2.0,)
-
-        Returns none.
-        """
-        self._inputs[0] += 1
-
 
 @ugen(ar=True, kr=True, is_multichannel=True)
 class PlayBuf(UGen):
@@ -187,7 +167,7 @@ class PlayBuf(UGen):
         ...     trigger=1,
         ... )
         >>> play_buf
-        <UGenVector([<PlayBuf.ar()[0]>, <PlayBuf.ar()[1]>])>
+        <PlayBuf.ar()>
     """
 
     buffer_id = param()

@@ -568,6 +568,16 @@ class BusGroup(ContextObject):
         """
         self.context.free_bus_group(self)
 
+    def map_symbol(self) -> str:
+        """
+        Get the bus group's map symbol.
+        """
+        if self.calculation_rate is CalculationRate.AUDIO:
+            return f"a{self.id_}"
+        elif self.calculation_rate is CalculationRate.CONTROL:
+            return f"c{self.id_}"
+        raise InvalidCalculationRate
+
 
 @dataclasses.dataclass(frozen=True)
 class Node(ContextObject):

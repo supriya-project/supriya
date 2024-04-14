@@ -1,9 +1,17 @@
-import collections
 import math
 
 from ..enums import CalculationRate
 from .basic import Mix
-from .core import PseudoUGen, UGen, param, ugen
+from .core import (
+    PseudoUGen,
+    UGen,
+    UGenOperable,
+    UGenRecursiveParams,
+    UGenVector,
+    _get_method_for_rate,
+    param,
+    ugen,
+)
 
 
 @ugen(ar=True, kr=True, channel_count=2, fixed_channel_count=True)
@@ -22,7 +30,7 @@ class Balance2(UGen):
         ...     right=right,
         ... )
         >>> balance_2
-        <UGenVector([<Balance2.ar()[0]>, <Balance2.ar()[1]>])>
+        <Balance2.ar()>
     """
 
     left = param()
@@ -47,7 +55,7 @@ class BiPanB2(UGen):
         ...     in_b=in_b,
         ... )
         >>> bi_pan_b_2
-        <UGenVector([<BiPanB2.ar()[0]>, <BiPanB2.ar()[1]>, <BiPanB2.ar()[2]>])>
+        <BiPanB2.ar()>
 
     ::
 
@@ -80,7 +88,7 @@ class DecodeB2(UGen):
         ...     y=y,
         ... )
         >>> decode_b_2
-        <UGenVector([<DecodeB2.ar()[0]>, <DecodeB2.ar()[1]>, <DecodeB2.ar()[2]>, <DecodeB2.ar()[3]>])>
+        <DecodeB2.ar()>
     """
 
     w = param()
@@ -101,7 +109,7 @@ class Pan2(UGen):
         ...     source=source,
         ... )
         >>> pan_2
-        <UGenVector([<Pan2.ar()[0]>, <Pan2.ar()[1]>])>
+        <Pan2.ar()>
     """
 
     source = param()
@@ -124,7 +132,7 @@ class Pan4(UGen):
         ...     y_position=0,
         ... )
         >>> pan_4
-        <UGenVector([<Pan4.ar()[0]>, <Pan4.ar()[1]>, <Pan4.ar()[2]>, <Pan4.ar()[3]>])>
+        <Pan4.ar()>
     """
 
     source = param()
@@ -150,7 +158,7 @@ class PanAz(UGen):
         ...     width=2,
         ... )
         >>> pan_az
-        <UGenVector([<PanAz.ar()[0]>, <PanAz.ar()[1]>, <PanAz.ar()[2]>, <PanAz.ar()[3]>, <PanAz.ar()[4]>, <PanAz.ar()[5]>, <PanAz.ar()[6]>, <PanAz.ar()[7]>])>
+        <PanAz.ar()>
     """
 
     source = param()
@@ -175,7 +183,7 @@ class PanB(UGen):
         ...     source=source,
         ... )
         >>> pan_b
-        <UGenVector([<PanB.ar()[0]>, <PanB.ar()[1]>, <PanB.ar()[2]>])>
+        <PanB.ar()>
     """
 
     source = param()
@@ -198,7 +206,7 @@ class PanB2(UGen):
         ...     source=source,
         ... )
         >>> pan_b_2
-        <UGenVector([<PanB2.ar()[0]>, <PanB2.ar()[1]>, <PanB2.ar()[2]>])>
+        <PanB2.ar()>
     """
 
     source = param()
@@ -223,7 +231,7 @@ class Rotate2(UGen):
         ...     position=position,
         ... )
         >>> rotate_2
-        <UGenVector([<Rotate2.ar()[0]>, <Rotate2.ar()[1]>])>
+        <Rotate2.ar()>
 
     Returns an array of the rotator's left and right outputs.
     """
@@ -311,39 +319,51 @@ class Splay(PseudoUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict(
-        [
-            ("spread", 1),
-            ("level", 1),
-            ("center", 0),
-            ("normalize", True),
-            ("source", None),
-        ]
+    _ordered_keys = (
+        "spread",
+        "level",
+        "center",
+        "normalize",
+        "source",
     )
-    _unexpanded_input_names = ("source",)
+    _unexpanded_keys = ("source",)
 
     @classmethod
     def _new_expanded(cls, calculation_rate=None, **kwargs):
-        dictionaries = UGen._expand_dictionary(
-            kwargs, unexpanded_input_names=["source"]
-        )
-        ugens = [
-            cls._new_single(calculation_rate=calculation_rate, **dictionary)
-            for dictionary in dictionaries
-        ]
-        return Mix.multichannel(ugens, 2)
+        def recurse(
+            all_expanded_params: UGenRecursiveParams,
+        ) -> UGenOperable:
+            if (
+                not isinstance(all_expanded_params, dict)
+                and len(all_expanded_params) == 1
+            ):
+                all_expanded_params = all_expanded_params[0]
+            if isinstance(all_expanded_params, dict):
+                return cls._new_single(
+                    calculation_rate=calculation_rate,
+                    special_index=0,
+                    **all_expanded_params,
+                )
+            return UGenVector(
+                *(recurse(expanded_params) for expanded_params in all_expanded_params)
+            )
 
-    ### CLASS METHODS ###
+        return Mix.multichannel(
+            recurse(UGen._expand_params(kwargs, unexpanded_keys=cls._unexpanded_keys)),
+            2,
+        )
 
     @classmethod
     def _new_single(
         cls,
+        *,
         calculation_rate=None,
         center=0,
         level=1,
         normalize=True,
         source=None,
         spread=1,
+        **kwargs,
     ):
         positions = [
             (i * (2 / (len(source) - 1)) - 1) * spread + center
@@ -354,7 +374,7 @@ class Splay(PseudoUGen):
                 level = level * math.sqrt(1 / len(source))
             else:
                 level = level / len(source)
-        panners = UGen._get_method_for_rate(Pan2, calculation_rate)(
+        panners = _get_method_for_rate(Pan2, calculation_rate)(
             source=source, position=positions
         )
         return Mix.multichannel(panners, 2) * level

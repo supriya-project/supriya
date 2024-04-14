@@ -13,7 +13,7 @@ class In(UGen):
     ::
 
         >>> supriya.ugens.In.ar(bus=0, channel_count=4)
-        <UGenVector([<In.ar()[0]>, <In.ar()[1]>, <In.ar()[2]>, <In.ar()[3]>])>
+        <In.ar()>
     """
 
     bus = param(0.0)
@@ -33,7 +33,7 @@ class InFeedback(UGen):
         ...     channel_count=2,
         ... )
         >>> in_feedback
-        <UGenVector([<InFeedback.ar()[0]>, <InFeedback.ar()[1]>])>
+        <InFeedback.ar()>
     """
 
     bus = param(0.0)
@@ -47,7 +47,7 @@ class LocalIn(UGen):
     ::
 
         >>> supriya.ugens.LocalIn.ar(channel_count=2)
-        <UGenVector([<LocalIn.ar()[0]>, <LocalIn.ar()[1]>])>
+        <LocalIn.ar()>
     """
 
     default = param(0.0, unexpanded=True)
@@ -62,7 +62,7 @@ class LocalIn(UGen):
         if not isinstance(default, Sequence):
             default = [default]
         kwargs["default"] = list(
-            repeat_to_length([float(x) for x in default], len(self))
+            repeat_to_length([float(x) for x in default], self._channel_count)
         )
         return calculation_rate, kwargs
 

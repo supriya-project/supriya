@@ -40,8 +40,8 @@ def synthdefs():
 
 @pytest.mark.asyncio
 async def test_add_synthdefs(context, synthdefs):
-    def compiled(x):
-        return compile_synthdefs(x)
+    def compiled(*x):
+        return compile_synthdefs(*x)
 
     with context.osc_protocol.capture() as transcript:
         # no synthdefs provided
@@ -62,17 +62,15 @@ async def test_add_synthdefs(context, synthdefs):
             with context.add_synthdefs(synthdefs[2]):
                 context.add_group()
     assert transcript.filtered(received=False, status=False) == [
-        OscMessage("/d_recv", compiled([synthdefs[0]])),
-        OscMessage("/d_recv", compiled(synthdefs)),
-        OscMessage(
-            "/d_recv", compiled([synthdefs[1]]), OscMessage("/g_new", 1000, 0, 1)
-        ),
-        OscMessage("/d_recv", compiled([synthdefs[2]])),
+        OscMessage("/d_recv", compiled(synthdefs[0])),
+        OscMessage("/d_recv", compiled(*synthdefs)),
+        OscMessage("/d_recv", compiled(synthdefs[1]), OscMessage("/g_new", 1000, 0, 1)),
+        OscMessage("/d_recv", compiled(synthdefs[2])),
         OscBundle(
             contents=[
                 OscMessage(
                     "/d_recv",
-                    compiled([synthdefs[2]]),
+                    compiled(synthdefs[2]),
                     OscMessage("/g_new", 1001, 0, 1),
                 )
             ],

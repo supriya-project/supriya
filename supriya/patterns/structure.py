@@ -56,7 +56,7 @@ class BusPattern(Pattern[Event]):
             updates["target_node"] = state["group"]
         if hasattr(expr, "synthdef"):
             synthdef = getattr(expr, "synthdef") or synthdefs.default
-            parameter_names = synthdef.parameter_names
+            parameter_names = synthdef.parameters
             for name in ("in_", "out"):
                 if name in parameter_names and kwargs.get(name) is None:
                     updates[name] = state["bus"]
@@ -296,7 +296,7 @@ class PinPattern(Pattern[Event]):
             updates["target_node"] = expr.target_node or self._target_node
         if self._target_bus is not None and hasattr(expr, "synthdef"):
             synthdef = getattr(expr, "synthdef") or synthdefs.default
-            parameter_names = synthdef.parameter_names
+            parameter_names = synthdef.parameters
             for name in ("in_", "out"):
                 if name in parameter_names and kwargs.get(name) is None:
                     updates[name] = self._target_bus

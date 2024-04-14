@@ -33,7 +33,7 @@ class Hilbert(UGen):
         ...     source=source,
         ... )
         >>> hilbert
-        <UGenVector([<Hilbert.ar()[0]>, <Hilbert.ar()[1]>])>
+        <Hilbert.ar()>
     """
 
     source = param()

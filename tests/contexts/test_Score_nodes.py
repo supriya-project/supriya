@@ -49,8 +49,8 @@ def test_add_group(context):
 
 
 def test_add_synth(context):
-    def compiled(x):
-        return compile_synthdefs(x)
+    def compiled(*synthdefs):
+        return compile_synthdefs(*synthdefs)
 
     with context.at(0):
         context.add_synthdefs(default)
@@ -65,7 +65,7 @@ def test_add_synth(context):
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(
             contents=(
-                OscMessage("/d_recv", compiled([default])),
+                OscMessage("/d_recv", compiled(default)),
                 OscMessage("/s_new", "default", 1000, 0, 0),
                 OscMessage(
                     "/s_new",

@@ -34,7 +34,10 @@ def test_Splay_01_sclang(server):
         synthdef:
             name: test
             ugens:
-            -   Control.kr: null
+            -   Control.kr:
+                    spread: 1.0
+                    level: 0.20000000298023224
+                    center: 0.0
             -   BinaryOpUGen(SUBTRACTION).kr:
                     left: Control.kr[2:center]
                     right: Control.kr[0:spread]
@@ -119,7 +122,10 @@ def test_Splay_01_supriya(server):
         synthdef:
             name: test
             ugens:
-            -   Control.kr: null
+            -   Control.kr:
+                    center: 0.0
+                    level: 0.2
+                    spread: 1.0
             -   UnaryOpUGen(NEGATIVE).kr:
                     source: Control.kr[2:spread]
             -   BinaryOpUGen(ADDITION).kr/0:
@@ -216,7 +222,9 @@ def test_Splay_02_sclang(server):
         synthdef:
             name: test
             ugens:
-            -   Control.kr: null
+            -   Control.kr:
+                    spread: 1.0
+                    level: 0.20000000298023224
             -   BinaryOpUGen(SUBTRACTION).kr/0:
                     left: -0.25
                     right: Control.kr[0:spread]
@@ -364,7 +372,9 @@ def test_Splay_02_supriya(server):
         synthdef:
             name: test
             ugens:
-            -   Control.kr: null
+            -   Control.kr:
+                    level: 0.2
+                    spread: 1.0
             -   UnaryOpUGen(NEGATIVE).kr/0:
                     source: Control.kr[1:spread]
             -   BinaryOpUGen(ADDITION).kr/0:

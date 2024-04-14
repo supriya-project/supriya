@@ -3,7 +3,7 @@ from typing import Any, Dict, Tuple
 from ..enums import CalculationRate
 from ..typing import Default
 from .bufio import LocalBuf
-from .core import UGen, UGenOperable, param, ugen
+from .core import OutputProxy, UGen, UGenOperable, param, ugen
 from .info import BufFrames
 
 
@@ -20,7 +20,10 @@ class PV_ChainUGen(UGen):
 
         Returns ugen input.
         """
-        return self.inputs[0].fft_size
+        input_ = self.inputs[0]
+        assert isinstance(input_, OutputProxy)
+        assert isinstance(input_.ugen, PV_ChainUGen)
+        return input_.ugen.fft_size
 
 
 @ugen(kr=True, is_width_first=True)

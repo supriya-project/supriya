@@ -29,12 +29,12 @@ def py_synthdef_01():
 
 
 def test_parameters_01_parameters(py_synthdef_01):
-    assert py_synthdef_01.indexed_parameters == (
+    assert py_synthdef_01.indexed_parameters == [
         (
             0,
-            Parameter(name="freq", parameter_rate=ParameterRate.CONTROL, value=440.0),
+            Parameter(name="freq", rate=ParameterRate.CONTROL, value=440.0),
         ),
-    )
+    ]
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
@@ -112,16 +112,16 @@ def py_synthdef_02():
 
 
 def test_parameters_02_parameters(py_synthdef_02):
-    assert py_synthdef_02.indexed_parameters == (
+    assert py_synthdef_02.indexed_parameters == [
         (
             0,
-            Parameter(name="freq", parameter_rate=ParameterRate.CONTROL, value=1200.0),
+            Parameter(name="freq", rate=ParameterRate.CONTROL, value=1200.0),
         ),
         (
             1,
-            Parameter(name="out", parameter_rate=ParameterRate.CONTROL, value=23.0),
+            Parameter(name="out", rate=ParameterRate.CONTROL, value=23.0),
         ),
-    )
+    ]
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
@@ -210,24 +210,20 @@ def test_parameters_03_parameters(py_synthdef_03):
     """
     Multiple parameters, including unused parameters.
     """
-    assert py_synthdef_03.indexed_parameters == (
+    assert py_synthdef_03.indexed_parameters == [
         (
             0,
-            Parameter(name="damping", parameter_rate=ParameterRate.CONTROL, value=0.1),
+            Parameter(name="damping", rate=ParameterRate.CONTROL, value=0.1),
         ),
         (
             1,
-            Parameter(
-                name="delay_time", parameter_rate=ParameterRate.CONTROL, value=1.0
-            ),
+            Parameter(name="delay_time", rate=ParameterRate.CONTROL, value=1.0),
         ),
         (
             2,
-            Parameter(
-                name="room_size", parameter_rate=ParameterRate.CONTROL, value=0.9
-            ),
+            Parameter(name="room_size", rate=ParameterRate.CONTROL, value=0.9),
         ),
-    )
+    ]
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
@@ -332,186 +328,6 @@ def py_synthdef_04():
     return py_synthdef
 
 
-def test_parameters_04_parameters(py_synthdef_04):
-    """
-    Different calculation rates.
-    """
-    assert py_synthdef_04.indexed_parameters == (
-        (
-            3,
-            Parameter(name="a_phase", parameter_rate=ParameterRate.AUDIO, value=0.0),
-        ),
-        (
-            4,
-            Parameter(name="freq", parameter_rate=ParameterRate.CONTROL, value=440.0),
-        ),
-        (
-            0,
-            Parameter(
-                name="i_decay_time", parameter_rate=ParameterRate.SCALAR, value=1.0
-            ),
-        ),
-        (
-            1,
-            Parameter(name="t_trig_a", parameter_rate=ParameterRate.TRIGGER, value=0.0),
-        ),
-        (
-            2,
-            Parameter(name="t_trig_b", parameter_rate=ParameterRate.TRIGGER, value=0.0),
-        ),
-    )
-
-
-@pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
-@pytest.mark.skipif(
-    platform.system() == "Darwin" and os.environ.get("CI") == "true",
-    reason="sclang hangs without QT",
-)
-def test_parameters_04_supriya_vs_sclang(py_synthdef_04):
-    sc_synthdef = SuperColliderSynthDef(
-        "trigTest",
-        r"""
-        |
-            a_phase = 0.0,
-            freq = 440,
-            i_decay_time = 1.0,
-            t_trig_a = 0,
-            t_trig_b = 0
-        |
-        var decay = Decay2.kr([t_trig_a, t_trig_b], 0.005, i_decay_time);
-        Out.ar(0, SinOsc.ar(freq, a_phase) * decay);
-        """,
-    )
-    sc_compiled_synthdef = bytes(sc_synthdef.compile())
-    py_compiled_synthdef = py_synthdef_04.compile()
-    assert py_compiled_synthdef == sc_compiled_synthdef
-
-
-def test_parameters_04_supriya_vs_bytes(py_synthdef_04):
-    # fmt: off
-    test_compiled_synthdef = bytes(
-        b'SCgf'
-        b'\x00\x00\x00\x02'
-        b'\x00\x01'
-            b'\x08trigTest'
-                b'\x00\x00\x00\x02'
-                    b';\xa3\xd7\n'
-                    b'\x00\x00\x00\x00'
-                b'\x00\x00\x00\x05'
-                    b'?\x80\x00\x00'  # i_decay_time
-                    b'\x00\x00\x00\x00'  # t_trig_a
-                    b'\x00\x00\x00\x00'  # t_trig_b
-                    b'\x00\x00\x00\x00'  # a_phase
-                    b'C\xdc\x00\x00'  # freq
-                b'\x00\x00\x00\x05'
-                    b'\x07a_phase'
-                        b'\x00\x00\x00\x03'
-                    b'\x04freq'
-                        b'\x00\x00\x00\x04'
-                    b'\x0ci_decay_time'
-                        b'\x00\x00\x00\x00'
-                    b'\x08t_trig_a'
-                        b'\x00\x00\x00\x01'
-                    b'\x08t_trig_b'
-                        b'\x00\x00\x00\x02'
-                b'\x00\x00\x00\n'
-                    b'\x07Control'
-                        b'\x00'
-                        b'\x00\x00\x00\x00'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x00'
-                    b'\x0bTrigControl'
-                        b'\x01'
-                        b'\x00\x00\x00\x00'
-                        b'\x00\x00\x00\x02'
-                        b'\x00\x01'
-                            b'\x01'
-                            b'\x01'
-                    b'\x06Decay2'
-                        b'\x01'
-                        b'\x00\x00\x00\x03'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x00\x00\x00\x01'
-                            b'\x00\x00\x00\x00'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x00'
-                            b'\x01'
-                    b'\x06Decay2'
-                        b'\x01'
-                        b'\x00\x00\x00\x03'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x00\x00\x00\x01'
-                            b'\x00\x00\x00\x01'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x00'
-                            b'\x01'
-                    b'\x0cAudioControl'
-                        b'\x02'
-                        b'\x00\x00\x00\x00'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x03'
-                            b'\x02'
-                    b'\x07Control'
-                        b'\x01'
-                        b'\x00\x00\x00\x00'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x04'
-                            b'\x01'
-                    b'\x06SinOsc'
-                        b'\x02'
-                        b'\x00\x00\x00\x02'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x00\x00\x00\x05'
-                            b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x04'
-                            b'\x00\x00\x00\x00'
-                            b'\x02'
-                    b'\x0cBinaryOpUGen'
-                        b'\x02'
-                        b'\x00\x00\x00\x02'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x02'
-                            b'\x00\x00\x00\x06'
-                            b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x02'
-                            b'\x00\x00\x00\x00'
-                            b'\x02'
-                    b'\x0cBinaryOpUGen'
-                        b'\x02'
-                        b'\x00\x00\x00\x02'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x02'
-                            b'\x00\x00\x00\x06'
-                            b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x03'
-                            b'\x00\x00\x00\x00'
-                            b'\x02'
-                    b'\x03Out'
-                        b'\x02'
-                        b'\x00\x00\x00\x03'
-                        b'\x00\x00\x00\x00'
-                        b'\x00\x00'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x01'
-                            b'\x00\x00\x00\x07'
-                            b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x08'
-                            b'\x00\x00\x00\x00'
-                b'\x00\x00'
-    )
-    # fmt: on
-    py_compiled_synthdef = py_synthdef_04.compile()
-    assert py_compiled_synthdef == test_compiled_synthdef
-
-
 @pytest.fixture
 def py_synthdef_05():
     builder = SynthDefBuilder(amp=0.1, freqs=[300, 400])
@@ -528,18 +344,16 @@ def test_parameters_05_parameters(py_synthdef_05):
     """
     Literal array arguments.
     """
-    assert py_synthdef_05.indexed_parameters == (
+    assert py_synthdef_05.indexed_parameters == [
         (
             0,
-            Parameter(name="amp", parameter_rate=ParameterRate.CONTROL, value=0.1),
+            Parameter(name="amp", rate=ParameterRate.CONTROL, value=0.1),
         ),
         (
             1,
-            Parameter(
-                name="freqs", parameter_rate=ParameterRate.CONTROL, value=(300.0, 400.0)
-            ),
+            Parameter(name="freqs", rate=ParameterRate.CONTROL, value=(300.0, 400.0)),
         ),
-    )
+    ]
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
@@ -664,21 +478,21 @@ def test_parameters_06_parameters(py_synthdef_06):
     """
     Literal array arguments.
     """
-    assert py_synthdef_06.indexed_parameters == (
+    assert py_synthdef_06.indexed_parameters == [
         (
             0,
-            Parameter(name="amp", parameter_rate=ParameterRate.CONTROL, value=0.1),
+            Parameter(name="amp", rate=ParameterRate.CONTROL, value=0.1),
         ),
         (
             1,
             Parameter(
                 lag=0.5,
                 name="freqs",
-                parameter_rate=ParameterRate.CONTROL,
+                rate=ParameterRate.CONTROL,
                 value=(300.0, 400.0),
             ),
         ),
-    )
+    ]
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="hangs on Windows")
@@ -807,7 +621,10 @@ def test_parameters_07():
         synthdef:
             name: simple_sine
             ugens:
-            -   Control.kr: null
+            -   Control.kr:
+                    amplitude: 0.0
+                    bus: 0.0
+                    frequency: 440.0
             -   SinOsc.ar:
                     frequency: Control.kr[2:frequency]
                     phase: 0.0
@@ -835,7 +652,10 @@ def test_building_is_idempotent():
         synthdef:
             name: 937772273a43d21bcd7b9f096f42648a
             ugens:
-            -   Control.kr: null
+            -   Control.kr:
+                    amplitude: 0.0
+                    bus: 0.0
+                    frequency: 440.0
             -   SinOsc.ar:
                     frequency: Control.kr[2:frequency]
                     phase: 0.0

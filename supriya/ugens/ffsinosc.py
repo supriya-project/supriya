@@ -1,8 +1,9 @@
-from collections.abc import Sequence
+from typing import Optional, Sequence
 
 from supriya import utils
 
-from .core import UGen, param, ugen
+from ..enums import CalculationRate
+from .core import UGen, UGenOperable, UGenRecursiveInput, UGenScalarInput, param, ugen
 
 
 @ugen(ar=True, kr=True)
@@ -50,17 +51,14 @@ class Klank(UGen):
 
     ::
 
-        >>> frequencies = [200, 671, 1153, 1723]
-        >>> amplitudes = None
-        >>> decay_times = [1, 1, 1, 1]
-        >>> specifications = [frequencies, amplitudes, decay_times]
-        >>> source = supriya.ugens.BrownNoise.ar() * 0.001
         >>> klank = supriya.ugens.Klank.ar(
+        ...     amplitudes=None,
         ...     decay_scale=1,
+        ...     decay_times=[1, 1, 1, 1],
+        ...     frequencies=[200, 671, 1153, 1723],
         ...     frequency_offset=0,
         ...     frequency_scale=1,
-        ...     source=source,
-        ...     specifications=specifications,
+        ...     source=supriya.ugens.BrownNoise.ar() * 0.001,
         ... )
         >>> klank
         <Klank.ar()[0]>
@@ -72,32 +70,29 @@ class Klank(UGen):
     decay_scale = param(1)
     specifications = param(unexpanded=True)
 
-    def __init__(
-        self,
-        calculation_rate=None,
-        decay_scale=1,
-        frequency_offset=0,
-        frequency_scale=1,
-        source=None,
-        specifications=None,
-    ):
-        # TODO: Refactor this to not override __init__?
-        frequencies, amplitudes, decay_times = specifications
-        assert len(frequencies)
+    @classmethod
+    def ar(
+        cls,
+        *,
+        amplitudes: Optional[Sequence[UGenScalarInput]] = None,
+        decay_scale: UGenRecursiveInput = 1,
+        decay_times: Optional[Sequence[UGenScalarInput]] = None,
+        frequencies: Sequence[UGenScalarInput],
+        frequency_offset: UGenRecursiveInput = 0,
+        frequency_scale: UGenRecursiveInput = 1,
+        source: UGenRecursiveInput,
+    ) -> UGenOperable:
+        if not frequencies:
+            raise ValueError(frequencies)
         if not amplitudes:
             amplitudes = [1.0] * len(frequencies)
-        elif not isinstance(amplitudes, Sequence):
-            amplitudes = [amplitudes] * len(frequencies)
         if not decay_times:
             decay_times = [1.0] * len(frequencies)
-        elif not isinstance(decay_times, Sequence):
-            decay_times = [decay_times] * len(frequencies)
-        specifications = utils.zip_cycled(frequencies, amplitudes, decay_times)
-        specifications = utils.flatten(specifications)
-        specifications = tuple(specifications)
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
+        specifications: Sequence[UGenScalarInput] = list(
+            utils.flatten(utils.zip_cycled(frequencies, amplitudes, decay_times))
+        )
+        return cls._new_expanded(
+            calculation_rate=CalculationRate.AUDIO,
             decay_scale=decay_scale,
             frequency_offset=frequency_offset,
             frequency_scale=frequency_scale,
