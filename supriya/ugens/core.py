@@ -481,7 +481,7 @@ class UGenOperable:
 
     def __add__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
         """
-        Add UGen graph and ``expr``.
+        Add ``expr`` to UGen graph.
 
         ::
 
@@ -633,6 +633,35 @@ class UGenOperable:
         )
 
     def __floordiv__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Compute integer division of UGen graph by ``expr``.
+
+        ::
+
+            >>> from supriya.ugens import SinOsc, WhiteNoise
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = WhiteNoise.kr()
+            >>> result = ugen_graph // expr
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(INTEGER_DIVISION).ar/0:
+                        left: SinOsc.ar/0[0]
+                        right: WhiteNoise.kr[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(INTEGER_DIVISION).ar/1:
+                        left: SinOsc.ar/1[0]
+                        right: WhiteNoise.kr[0]
+
+        """
         return _compute_binary_op(
             left=self,
             right=expr,
@@ -717,6 +746,35 @@ class UGenOperable:
         )
 
     def __mod__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Compute modulo of UGen graph and ``expr``:
+
+        ::
+
+            >>> from supriya.ugens import SinOsc, WhiteNoise
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = WhiteNoise.kr()
+            >>> result = ugen_graph % expr
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(MODULO).ar/0:
+                        left: SinOsc.ar/0[0]
+                        right: WhiteNoise.kr[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(MODULO).ar/1:
+                        left: SinOsc.ar/1[0]
+                        right: WhiteNoise.kr[0]
+
+        """
         return _compute_binary_op(
             left=self,
             right=expr,
@@ -872,6 +930,35 @@ class UGenOperable:
         )
 
     def __pow__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Raise UGen graph to the power of ``expr``.
+
+        ::
+
+            >>> from supriya.ugens import SinOsc, WhiteNoise
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = WhiteNoise.kr()
+            >>> result = ugen_graph ** expr
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(POWER).ar/0:
+                        left: SinOsc.ar/0[0]
+                        right: WhiteNoise.kr[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(POWER).ar/1:
+                        left: SinOsc.ar/1[0]
+                        right: WhiteNoise.kr[0]
+
+        """
         return _compute_binary_op(
             left=self,
             right=expr,
@@ -880,6 +967,37 @@ class UGenOperable:
         )
 
     def __radd__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Add UGen graph to ``expr`` (reflected).
+
+        ::
+
+            >>> from supriya.ugens import SinOsc
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = [1, 2, 3]
+            >>> result = expr + ugen_graph
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   BinaryOpUGen(ADDITION).ar/0:
+                        left: 1.0
+                        right: SinOsc.ar/0[0]
+                -   BinaryOpUGen(ADDITION).ar/1:
+                        left: 3.0
+                        right: SinOsc.ar/0[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(ADDITION).ar/2:
+                        left: 2.0
+                        right: SinOsc.ar/1[0]
+
+        """
         return _compute_binary_op(
             left=expr,
             right=self,
@@ -889,7 +1007,7 @@ class UGenOperable:
 
     def __rand__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
         """
-        Compute reflected bitwise AND of UGen graph and ``expr``.
+        Compute reflected bitwise AND of ``expr`` and UGen graph (reflected).
 
         ::
 
@@ -927,6 +1045,37 @@ class UGenOperable:
         )
 
     def __rfloordiv__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Compute integer division of ``expr`` by UGen graph (reflected).
+
+        ::
+
+            >>> from supriya.ugens import SinOsc
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = [1, 2, 3]
+            >>> result = expr // ugen_graph
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   BinaryOpUGen(INTEGER_DIVISION).ar/0:
+                        left: 1.0
+                        right: SinOsc.ar/0[0]
+                -   BinaryOpUGen(INTEGER_DIVISION).ar/1:
+                        left: 3.0
+                        right: SinOsc.ar/0[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(INTEGER_DIVISION).ar/2:
+                        left: 2.0
+                        right: SinOsc.ar/1[0]
+
+        """
         return _compute_binary_op(
             left=expr,
             right=self,
@@ -935,6 +1084,37 @@ class UGenOperable:
         )
 
     def __rmod__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Compute reflected modulo of ``expr`` and UGen graph (reflected).
+
+        ::
+
+            >>> from supriya.ugens import SinOsc
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = [1, 2, 3]
+            >>> result = expr % ugen_graph
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   BinaryOpUGen(MODULO).ar/0:
+                        left: 1.0
+                        right: SinOsc.ar/0[0]
+                -   BinaryOpUGen(MODULO).ar/1:
+                        left: 3.0
+                        right: SinOsc.ar/0[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(MODULO).ar/2:
+                        left: 2.0
+                        right: SinOsc.ar/1[0]
+
+        """
         return _compute_binary_op(
             left=expr,
             right=self,
@@ -943,6 +1123,58 @@ class UGenOperable:
         )
 
     def __rmul__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Multiple ``expr`` by UGen graph (reflected).
+
+        ::
+
+            >>> from supriya.ugens import SinOsc
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = [1, 2, 3]
+            >>> result = expr - ugen_graph
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   BinaryOpUGen(SUBTRACTION).ar/0:
+                        left: 1.0
+                        right: SinOsc.ar/0[0]
+                -   BinaryOpUGen(SUBTRACTION).ar/1:
+                        left: 3.0
+                        right: SinOsc.ar/0[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(SUBTRACTION).ar/2:
+                        left: 2.0
+                        right: SinOsc.ar/1[0]
+
+        Supports short-circuiting:
+
+        ::
+
+            >>> result = 0 - ugen_graph
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   UnaryOpUGen(NEGATIVE).ar/0:
+                        source: SinOsc.ar/0[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   UnaryOpUGen(NEGATIVE).ar/1:
+                        source: SinOsc.ar/1[0]
+
+        """
         return _compute_binary_op(
             left=expr,
             right=self,
@@ -952,7 +1184,7 @@ class UGenOperable:
 
     def __ror__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
         """
-        Compute reflected bitwise OR of UGen graph and ``expr``.
+        Compute bitwise OR of ``expr`` and UGen graph (reflected).
 
         ::
 
@@ -990,6 +1222,37 @@ class UGenOperable:
         )
 
     def __rpow__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Raise ``expr`` to the power of UGen graph (reflected).
+
+        ::
+
+            >>> from supriya.ugens import SinOsc
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = [1, 2, 3]
+            >>> result = expr ** ugen_graph
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   BinaryOpUGen(POWER).ar/0:
+                        left: 1.0
+                        right: SinOsc.ar/0[0]
+                -   BinaryOpUGen(POWER).ar/1:
+                        left: 3.0
+                        right: SinOsc.ar/0[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(POWER).ar/2:
+                        left: 2.0
+                        right: SinOsc.ar/1[0]
+
+        """
         return _compute_binary_op(
             left=expr,
             right=self,
@@ -1023,7 +1286,7 @@ class UGenOperable:
 
     def __rsub__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
         """
-        Subtract UGen graph from ``expr``::
+        Subtract UGen graph from ``expr`` (reflected).
 
         ::
 
@@ -1091,7 +1354,7 @@ class UGenOperable:
 
     def __rxor__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
         """
-        Compute reflected bitwise XOR of UGen graph and ``expr``.
+        Compute bitwise XOR of ``expr`` and UGen graph (reflected).
 
         ::
 
@@ -1133,7 +1396,7 @@ class UGenOperable:
 
     def __sub__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
         """
-        Subtract ``expr`` from UGen graph:
+        Subtract ``expr`` from UGen graph.
 
         ::
 
