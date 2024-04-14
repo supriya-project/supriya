@@ -57,6 +57,7 @@ class Check(Enum):
     """
     A UGen input rate check configuration.
     """
+
     NONE = 0
     SAME_AS_FIRST = 1
     SAME_OR_SLOWER = 2
@@ -66,6 +67,7 @@ class Param(NamedTuple):
     """
     A UGen input configuration.
     """
+
     default: Optional[Union[Default, Missing, float]] = None
     check: Check = Check.NONE
     unexpanded: bool = False
@@ -447,6 +449,7 @@ class UGenOperable:
     """
     Mixin for UGen arithmetic operations.
     """
+
     def __abs__(self) -> "UGenOperable":
         """
         Compute absolute value of UGen graph.
@@ -1345,6 +1348,37 @@ class UGenOperable:
         )
 
     def __rtruediv__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Compute true division of ``expr`` by UGen graph (reflected).
+
+        ::
+
+            >>> from supriya.ugens import SinOsc
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = [1, 2, 3]
+            >>> result = expr / ugen_graph
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   BinaryOpUGen(FLOAT_DIVISION).ar/0:
+                        left: 1.0
+                        right: SinOsc.ar/0[0]
+                -   BinaryOpUGen(FLOAT_DIVISION).ar/1:
+                        left: 3.0
+                        right: SinOsc.ar/0[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(FLOAT_DIVISION).ar/2:
+                        left: 2.0
+                        right: SinOsc.ar/1[0]
+
+        """
         return _compute_binary_op(
             left=expr,
             right=self,
@@ -1471,6 +1505,52 @@ class UGenOperable:
         return builder.build(optimize=False)
 
     def __truediv__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Compute true division of UGen graph by ``expr``.
+
+        ::
+
+            >>> from supriya.ugens import SinOsc, WhiteNoise
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = WhiteNoise.kr()
+            >>> result = ugen_graph / expr
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(FLOAT_DIVISION).ar/0:
+                        left: SinOsc.ar/0[0]
+                        right: WhiteNoise.kr[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(FLOAT_DIVISION).ar/1:
+                        left: SinOsc.ar/1[0]
+                        right: WhiteNoise.kr[0]
+
+        Supports short-circuiting:
+
+        ::
+
+            >>> result = ugen_graph / 1
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+
+        """
         return _compute_binary_op(
             left=self,
             right=expr,
