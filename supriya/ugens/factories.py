@@ -1870,10 +1870,6 @@ class SynthDefFactory:
 
                 >>> frequencies = (150, 300, 600, 1200, 2400, 4800, 9600)
                 >>> synthdef = factory.build(frequencies=frequencies)
-                >>> synthdef
-
-            ::
-
                 >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
