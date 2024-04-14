@@ -571,11 +571,63 @@ class UGenOperable:
         )
 
     def __ceil__(self) -> "UGenOperable":
+        """
+        Calculate ceiling of ugen graph.
+
+        ::
+
+            >>> import math
+            >>> from supriya.ugens import SinOsc
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> result = math.ceil(ugen_graph)
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   UnaryOpUGen(CEILING).ar/0:
+                        source: SinOsc.ar/0[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   UnaryOpUGen(CEILING).ar/1:
+                        source: SinOsc.ar/1[0]
+
+        """
         return _compute_unary_op(
             source=self, special_index=UnaryOperator.CEILING, float_operator=math.ceil
         )
 
     def __floor__(self) -> "UGenOperable":
+        """
+        Calculate floor of ugen graph.
+
+        ::
+
+            >>> import math
+            >>> from supriya.ugens import SinOsc
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> result = math.floor(ugen_graph)
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   UnaryOpUGen(FLOOR).ar/0:
+                        source: SinOsc.ar/0[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   UnaryOpUGen(FLOOR).ar/1:
+                        source: SinOsc.ar/1[0]
+
+        """
         return _compute_unary_op(
             source=self, special_index=UnaryOperator.FLOOR, float_operator=math.floor
         )
@@ -608,6 +660,32 @@ class UGenOperable:
         )
 
     def __invert__(self) -> "UGenOperable":
+        """
+        Compute bitwise inversion of UGen graph.
+
+        ::
+
+            >>> from supriya.ugens import SinOsc
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> result = ~ugen_graph
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   UnaryOpUGen(BIT_NOT).ar/0:
+                        source: SinOsc.ar/0[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   UnaryOpUGen(BIT_NOT).ar/1:
+                        source: SinOsc.ar/1[0]
+
+        """
+
         return _compute_unary_op(
             source=self,
             special_index=UnaryOperator.BIT_NOT,
