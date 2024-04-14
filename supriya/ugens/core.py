@@ -673,6 +673,35 @@ class UGenOperable:
         )
 
     def __ge__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Test if UGen graph is greater than or equal to ``expr``.
+
+        ::
+
+            >>> from supriya.ugens import SinOsc, WhiteNoise
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = WhiteNoise.kr()
+            >>> result = ugen_graph >= expr
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(GREATER_THAN_OR_EQUAL).ar/0:
+                        left: SinOsc.ar/0[0]
+                        right: WhiteNoise.kr[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(GREATER_THAN_OR_EQUAL).ar/1:
+                        left: SinOsc.ar/1[0]
+                        right: WhiteNoise.kr[0]
+
+        """
         return _compute_binary_op(
             left=self,
             right=expr,
@@ -681,9 +710,41 @@ class UGenOperable:
         )
 
     def __graph__(self) -> Graph:
+        """
+        Generate Graphviz graph of UGen graph.
+        """
         return self.__synthdef__().__graph__()
 
     def __gt__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Test if UGen graph is greater than ``expr``.
+
+        ::
+
+            >>> from supriya.ugens import SinOsc, WhiteNoise
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = WhiteNoise.kr()
+            >>> result = ugen_graph > expr
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(GREATER_THAN).ar/0:
+                        left: SinOsc.ar/0[0]
+                        right: WhiteNoise.kr[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(GREATER_THAN).ar/1:
+                        left: SinOsc.ar/1[0]
+                        right: WhiteNoise.kr[0]
+
+        """
         return _compute_binary_op(
             left=self,
             right=expr,
@@ -725,6 +786,35 @@ class UGenOperable:
         )
 
     def __le__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Test if UGen graph is less than or equal to ``expr``.
+
+        ::
+
+            >>> from supriya.ugens import SinOsc, WhiteNoise
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = WhiteNoise.kr()
+            >>> result = ugen_graph <= expr
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(LESS_THAN_OR_EQUAL).ar/0:
+                        left: SinOsc.ar/0[0]
+                        right: WhiteNoise.kr[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(LESS_THAN_OR_EQUAL).ar/1:
+                        left: SinOsc.ar/1[0]
+                        right: WhiteNoise.kr[0]
+
+        """
         return _compute_binary_op(
             left=self,
             right=expr,
@@ -733,6 +823,35 @@ class UGenOperable:
         )
 
     def __lshift__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Bitshift UGen graph to the left by ``expr``.
+
+        ::
+
+            >>> from supriya.ugens import SinOsc, WhiteNoise
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = WhiteNoise.kr()
+            >>> result = ugen_graph << expr
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(SHIFT_LEFT).ar/0:
+                        left: SinOsc.ar/0[0]
+                        right: WhiteNoise.kr[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(SHIFT_LEFT).ar/1:
+                        left: SinOsc.ar/1[0]
+                        right: WhiteNoise.kr[0]
+
+        """
         return _compute_binary_op(
             left=self,
             right=expr,
@@ -741,6 +860,35 @@ class UGenOperable:
         )
 
     def __lt__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Test if UGen graph is less than ``expr``.
+
+        ::
+
+            >>> from supriya.ugens import SinOsc, WhiteNoise
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = WhiteNoise.kr()
+            >>> result = ugen_graph < expr
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(LESS_THAN).ar/0:
+                        left: SinOsc.ar/0[0]
+                        right: WhiteNoise.kr[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(LESS_THAN).ar/1:
+                        left: SinOsc.ar/1[0]
+                        right: WhiteNoise.kr[0]
+
+        """
         return _compute_binary_op(
             left=self,
             right=expr,
@@ -1264,6 +1412,37 @@ class UGenOperable:
         )
 
     def __rlshift__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Bitshift ``expr`` to the left by UGen graph (reflected).
+
+        ::
+
+            >>> from supriya.ugens import SinOsc
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = [1, 2, 3]
+            >>> result = expr << ugen_graph
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   BinaryOpUGen(SHIFT_LEFT).ar/0:
+                        left: 1.0
+                        right: SinOsc.ar/0[0]
+                -   BinaryOpUGen(SHIFT_LEFT).ar/1:
+                        left: 3.0
+                        right: SinOsc.ar/0[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(SHIFT_LEFT).ar/2:
+                        left: 2.0
+                        right: SinOsc.ar/1[0]
+
+        """
         return _compute_binary_op(
             left=expr,
             right=self,
@@ -1272,6 +1451,37 @@ class UGenOperable:
         )
 
     def __rrshift__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Bitshift ``expr`` to the right by UGen graph (reflected).
+
+        ::
+
+            >>> from supriya.ugens import SinOsc
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = [1, 2, 3]
+            >>> result = expr >> ugen_graph
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   BinaryOpUGen(SHIFT_RIGHT).ar/0:
+                        left: 1.0
+                        right: SinOsc.ar/0[0]
+                -   BinaryOpUGen(SHIFT_RIGHT).ar/1:
+                        left: 3.0
+                        right: SinOsc.ar/0[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(SHIFT_RIGHT).ar/2:
+                        left: 2.0
+                        right: SinOsc.ar/1[0]
+
+        """
         return _compute_binary_op(
             left=expr,
             right=self,
@@ -1280,6 +1490,35 @@ class UGenOperable:
         )
 
     def __rshift__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Bitshift UGen graph to the right by ``expr``.
+
+        ::
+
+            >>> from supriya.ugens import SinOsc, WhiteNoise
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = WhiteNoise.kr()
+            >>> result = ugen_graph >> expr
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(SHIFT_RIGHT).ar/0:
+                        left: SinOsc.ar/0[0]
+                        right: WhiteNoise.kr[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(SHIFT_RIGHT).ar/1:
+                        left: SinOsc.ar/1[0]
+                        right: WhiteNoise.kr[0]
+
+        """
         return _compute_binary_op(
             left=self,
             right=expr,
@@ -1633,6 +1872,38 @@ class UGenOperable:
         )
 
     def am_clip(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Compute two quadrant multiplication between UGen graph and ``expr``.
+
+        - 0 when b <= 0
+        - a * b when b > 0
+
+        ::
+
+            >>> from supriya.ugens import SinOsc, WhiteNoise
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = WhiteNoise.kr()
+            >>> result = ugen_graph.am_clip(expr)
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(AMCLIP).ar/0:
+                        left: SinOsc.ar/0[0]
+                        right: WhiteNoise.kr[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(AMCLIP).ar/1:
+                        left: SinOsc.ar/1[0]
+                        right: WhiteNoise.kr[0]
+
+        """
         return _compute_binary_op(
             left=self,
             right=expr,
@@ -1884,6 +2155,45 @@ class UGenOperable:
             input_maximum=input_maximum,
             output_minimum=output_minimum,
             output_maximum=output_maximum,
+        )
+
+    def scale_negative(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        """
+        Scale negative portion of UGen graph by ``expr``.
+
+        - a * b when a < 0
+        - otherwise a
+
+        ::
+
+            >>> from supriya.ugens import SinOsc, WhiteNoise
+            >>> ugen_graph = SinOsc.ar(frequency=[440, 443])
+            >>> expr = WhiteNoise.kr()
+            >>> result = ugen_graph.scale_negative(expr)
+            >>> supriya.graph(result)  # doctest: +SKIP
+            >>> print(result)
+            synthdef:
+                name: ...
+                ugens:
+                -   SinOsc.ar/0:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(SCALE_NEG).ar/0:
+                        left: SinOsc.ar/0[0]
+                        right: WhiteNoise.kr[0]
+                -   SinOsc.ar/1:
+                        frequency: 443.0
+                        phase: 0.0
+                -   BinaryOpUGen(SCALE_NEG).ar/1:
+                        left: SinOsc.ar/1[0]
+                        right: WhiteNoise.kr[0]
+
+        """
+        return _compute_binary_op(
+            left=self,
+            right=expr,
+            special_index=BinaryOperator.SCALE_NEG,
         )
 
     def semitones_to_ratio(self) -> "UGenOperable":
