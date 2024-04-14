@@ -192,6 +192,7 @@ jobs:
           sudo apt-get install --yes espeak graphviz lame
         elif [ "$RUNNER_OS" == "macOS" ]; then
           brew update
+          brew install python@3.12 || true
           brew install graphviz
         elif [ "$RUNNER_OS" == "Windows" ]; then
           choco install graphviz lame
