@@ -189,17 +189,13 @@ jobs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           export DEBIAN_FRONTEND=noninteractive
           sudo apt-get update --yes
-          sudo apt-get install --yes \
-            espeak \
-            graphviz \
-            lame
+          sudo apt-get install --yes espeak graphviz lame
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          brew install \
-            graphviz
+          brew update
+          brew install python@3.12 || true
+          brew install graphviz
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          choco install \
-            graphviz \
-            lame
+          choco install graphviz lame
         fi
     - name: Run Pytest
       run: pytest --cov supriya --showlocals
