@@ -606,26 +606,34 @@ class Context(metaclass=abc.ABCMeta):
                 raise ValueError(add_action_)
         target_node_id = self._resolve_node(target_node)
         synthdef_kwargs: Dict[
-            Union[int, str], Union[SupportsFloat, str, Tuple[float, ...]]
+            Union[int, str], Union[float, str, Tuple[Union[float, str], ...]]
         ] = {}
         for _, parameter in synthdef.indexed_parameters:
             if parameter.name not in settings:
                 continue
             value = settings[parameter.name]
+            if not isinstance(value, Sequence) or isinstance(value, str):
+                value = (value,)
             if value == parameter.value:
                 continue
-            if parameter.rate is ParameterRate.SCALAR:
-                synthdef_kwargs[parameter.name] = float(value)
-            elif parameter.name in ("in_", "out"):
-                synthdef_kwargs[parameter.name] = float(value)
-            elif isinstance(value, Bus):
-                synthdef_kwargs[parameter.name] = value.map_symbol()
-            elif isinstance(value, str):
-                synthdef_kwargs[parameter.name] = value
-            elif isinstance(value, tuple):
-                synthdef_kwargs[parameter.name] = tuple((float(v) for v in value))
+            if parameter.rate is ParameterRate.SCALAR or parameter.name in (
+                "in_",
+                "out",
+            ):
+                synthdef_kwargs[parameter.name] = tuple(float(v) for v in value)
             else:
-                synthdef_kwargs[parameter.name] = float(value)
+                processed_values: List[Union[float, str]] = []
+                for v in value:
+                    if isinstance(v, Bus):
+                        processed_values.append(v.map_symbol())
+                    elif isinstance(v, str):
+                        processed_values.append(v)
+                    else:
+                        processed_values.append(float(v))
+                if len(processed_values) == 1:
+                    synthdef_kwargs[parameter.name] = processed_values[0]
+                else:
+                    synthdef_kwargs[parameter.name] = tuple(processed_values)
         id_ = self._allocate_id(Node, permanent=permanent)
         self._add_requests(
             NewSynth(

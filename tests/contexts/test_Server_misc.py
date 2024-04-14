@@ -81,13 +81,13 @@ async def test_query_tree(context):
             1 group
                 1001 group
                     1003 default
-                        out: 0.0, amplitude: 0.1, frequency: 222.0, gate: 1.0, pan: 0.5
+                        amplitude: 0.1, frequency: 222.0, gate: 1.0, pan: 0.5, out: 0.0
                     1004 default
-                        out: 0.0, amplitude: 0.1, frequency: 333.0, gate: 1.0, pan: 0.5
+                        amplitude: 0.1, frequency: 333.0, gate: 1.0, pan: 0.5, out: 0.0
                     1005 group
                 1000 group
                     1002 default
-                        out: 0.0, amplitude: 0.1, frequency: 111.0, gate: 1.0, pan: 0.5
+                        amplitude: 0.1, frequency: 111.0, gate: 1.0, pan: 0.5, out: 0.0
         """
     )
     # unsync

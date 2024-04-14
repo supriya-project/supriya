@@ -493,7 +493,9 @@ def test_nonrealtime():
                     "in_",
                     16.0,
                 ),
-                OscMessage("/s_new", "default", 1003, 0, 1001, "out", 16.0),
+                OscMessage(
+                    "/s_new", "default", 1003, 0, 1001, "frequency", 440.0, "out", 16.0
+                ),
             ),
             timestamp=1.0,
         ),
