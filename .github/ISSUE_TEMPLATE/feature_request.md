@@ -3,7 +3,7 @@ name: Feature request
 about: Suggest an idea for this project
 title: ''
 labels: enhancement
-assignees: josiah-wolf-oberholtzer
+assignees: josephine-wolf-oberholtzer
 
 ---
 

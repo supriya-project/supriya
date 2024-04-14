@@ -11,27 +11,27 @@
 Supriya lets you:
 
 - Boot and communicate with SuperCollider's ``scsynth`` synthesis engine:
-  [servers](http://josiahwolfoberholtzer.com/supriya/api/supriya/contexts/realtime.html)
+  [servers](http://supriya-project.github.io/supriya/api/supriya/contexts/realtime.html)
   in realtime.
 
 - Compile SuperCollider
-  [SynthDefs](http://josiahwolfoberholtzer.com/supriya/api/supriya/ugens/index.html)
+  [SynthDefs](http://supriya-project.github.io/supriya/api/supriya/ugens/index.html)
   natively in Python code
 
 - Explore
-  [nonrealtime](http://josiahwolfoberholtzer.com/supriya/api/supriya/contexts/nonrealtime.html)
+  [nonrealtime](http://supriya-project.github.io/supriya/api/supriya/contexts/nonrealtime.html)
   composition with scores.
 
 - Build time-agnostic
   [asyncio](https://docs.python.org/3/library/asyncio.html)-aware applications
   with the
-  [context](http://josiahwolfoberholtzer.com/supriya/api/supriya/contexts/core.html)
+  [context](http://supriya-project.github.io/supriya/api/supriya/contexts/core.html)
   interface.
 
 - Schedule
-  [patterns](http://josiahwolfoberholtzer.com/supriya/api/supriya/patterns/index.html)
+  [patterns](http://supriya-project.github.io/supriya/api/supriya/patterns/index.html)
   and callbacks with tempo- and meter-aware
-  [clocks](http://josiahwolfoberholtzer.com/supriya/api/supriya/clocks/index.html)
+  [clocks](http://supriya-project.github.io/supriya/api/supriya/clocks/index.html)
 
 - Integrate with [IPython](http://ipython.org/),
   [Sphinx](https://www.sphinx-doc.org/en/master/) and

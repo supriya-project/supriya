@@ -20,7 +20,7 @@ extensions = [
 ]
 
 add_module_names = False
-copyright = f"2014-{datetime.date.today().year}, Josiah Wolf Oberholtzer"
+copyright = f"2014-{datetime.date.today().year}, Joséphine Wolf Oberholtzer"
 exclude_patterns = []
 htmlhelp_basename = "Supriyadoc"
 language = "en"
@@ -45,7 +45,7 @@ intersphinx_mapping = {
 
 ### OPENGRAPH ###
 
-ogp_site_url = "https://josiahwolfoberholtzer.com/supriya/"
+ogp_site_url = "https://supriya-project.github.io/supriya/"
 
 ### TODO ###
 
@@ -98,7 +98,7 @@ html_static_path = ["_static"]
 html_theme = "sphinx_immaterial"
 html_theme_options = {
     "icon": {"repo": "fontawesome/brands/github"},
-    "site_url": "https://josiahwolfoberholtzer.com/supriya/",
+    "site_url": "https://supriya-project.github.io/supriya/",
     "repo_url": "https://github.com/supriya-project/supriya/",
     "repo_name": "supriya",
     "repo_type": "github",
