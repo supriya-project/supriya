@@ -4,7 +4,7 @@ inputs:
   branch:
     description: SuperCollider branch
     required: false
-    default: Version-3.13.0
+    default: develop
   origin:
     description: SuperCollider repo origin
     required: false
@@ -15,15 +15,6 @@ runs:
     - name: Cache current date
       id: current-date
       run: echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
-      shell: bash
-    - name: Clone SuperCollider
-      run: |
-        git clone \
-          --quiet \
-          --recursive \
-          --branch ${{ inputs.branch }} \
-          ${{ inputs.origin }} \
-          /tmp/supercollider
       shell: bash
     - name: '[macOS] Cache Homebrew'
       id: cache-homebrew
@@ -74,6 +65,32 @@ runs:
           fftw \
           jack \
           portaudio
+          # brew install --cask blackhole-16ch
+      shell: bash
+    - name: Setup Jack
+      run: |
+        echo "Setting up Jack..."
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo usermod -a -G audio ${USER}
+        fi
+        sleep 5
+        echo "Starting Jack..."
+        sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
+        echo "Waiting for Jack..."
+        sleep 5
+      shell: bash
+    - name: '[macOS] Debug Jack'
+      if: runner.os == 'macOS'
+      run: system_profiler -json | jq .SPAudioDataType
+      shell: bash
+    - name: Clone SuperCollider
+      run: |
+        git clone \
+          --quiet \
+          --recursive \
+          --branch ${{ inputs.branch }} \
+          ${{ inputs.origin }} \
+          /tmp/supercollider
       shell: bash
     - name: '[Linux] Configure'
       if: runner.os == 'Linux'
@@ -121,7 +138,7 @@ runs:
       if: runner.os == 'Linux'
       run: |
         cd /tmp/supercollider/build
-        sudo make install -j2
+        sudo make install -j2 > build.log || (cat build.log && false)
         mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
       shell: bash
     - name: '[macOS] Install'
@@ -133,16 +150,6 @@ runs:
       shell: bash
     - name: Debug ccache
       run: ccache --show-stats --show-config
-      shell: bash
-    - name: Setup Jack
-      run: |
-        echo "Setting up Jack..."
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo usermod -a -G audio ${USER}
-        fi
-        sleep 1
-        sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
-        sleep 1
       shell: bash
     - name: Sanity-check scsynth
       run: |
