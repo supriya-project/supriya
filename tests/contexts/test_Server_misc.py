@@ -106,16 +106,17 @@ async def test_query_version(context):
     stdout = completed_subprocess.stdout
     line = completed_subprocess.stdout.splitlines()[0]
     print(stdout, line)
-    (program_name, major, minor, patch, branch, commit) = re.match(
-        r"(\w+) (\d+)\.(\d+)(\.[\w-]+) \(Built from branch '([\W\w]+)' \[([\W\w]+)\]\)",
+    groups = re.match(
+        r"(\w+) (\d+)\.(\d+)(\.[\w-]+) \(Built from (?:branch|tag) '([\W\w]+)' \[([\W\w]+)\]\)",
         line,
     ).groups()
+    program_name, major, minor, patch, ref, commit = groups
     expected_info = VersionInfo(
         program_name=program_name,
         major=int(major),
         minor=int(minor),
         patch=patch,
-        branch=branch,
+        branch=ref,
         commit=commit,
     )
     assert await get(context.query_version()) == expected_info
