@@ -74,6 +74,7 @@ runs:
           fftw \
           jack \
           portaudio
+        brew install --cask blackhole-16ch
       shell: bash
     - name: '[Linux] Configure'
       if: runner.os == 'Linux'
