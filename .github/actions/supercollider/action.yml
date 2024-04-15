@@ -146,6 +146,7 @@ runs:
         sleep 1
       shell: bash
     - name: '[macOS] Debug Jack'
+      if: runner.os == 'macOS'
       run: system_profiler -json | jq .SPAudioDataType
       shell: bash
     - name: Sanity-check scsynth
