@@ -122,7 +122,7 @@ runs:
       if: runner.os == 'Linux'
       run: |
         cd /tmp/supercollider/build
-        sudo make install -j2
+        sudo make install -j2 > build.log || cat build.log
         mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
       shell: bash
     - name: '[macOS] Install'
