@@ -16,15 +16,6 @@ runs:
       id: current-date
       run: echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
       shell: bash
-    - name: Clone SuperCollider
-      run: |
-        git clone \
-          --quiet \
-          --recursive \
-          --branch ${{ inputs.branch }} \
-          ${{ inputs.origin }} \
-          /tmp/supercollider
-      shell: bash
     - name: '[macOS] Cache Homebrew'
       id: cache-homebrew
       if: runner.os == 'macOS'
@@ -75,6 +66,31 @@ runs:
           jack \
           portaudio
           # brew install --cask blackhole-16ch
+      shell: bash
+    - name: Setup Jack
+      run: |
+        echo "Setting up Jack..."
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo usermod -a -G audio ${USER}
+        fi
+        sleep 5
+        echo "Starting Jack..."
+        sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
+        echo "Waiting for Jack..."
+        sleep 5
+      shell: bash
+    - name: '[macOS] Debug Jack'
+      if: runner.os == 'macOS'
+      run: system_profiler -json | jq .SPAudioDataType
+      shell: bash
+    - name: Clone SuperCollider
+      run: |
+        git clone \
+          --quiet \
+          --recursive \
+          --branch ${{ inputs.branch }} \
+          ${{ inputs.origin }} \
+          /tmp/supercollider
       shell: bash
     - name: '[Linux] Configure'
       if: runner.os == 'Linux'
@@ -134,20 +150,6 @@ runs:
       shell: bash
     - name: Debug ccache
       run: ccache --show-stats --show-config
-      shell: bash
-    - name: Setup Jack
-      run: |
-        echo "Setting up Jack..."
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo usermod -a -G audio ${USER}
-        fi
-        sleep 5
-        sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
-        sleep 5
-      shell: bash
-    - name: '[macOS] Debug Jack'
-      if: runner.os == 'macOS'
-      run: system_profiler -json | jq .SPAudioDataType
       shell: bash
     - name: Sanity-check scsynth
       run: |
