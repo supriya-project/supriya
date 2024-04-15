@@ -145,6 +145,9 @@ runs:
         sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
         sleep 1
       shell: bash
+    - name: '[macOS] Debug Jack'
+      run: system_profiler -json | jq .SPAudioDataType
+      shell: bash
     - name: Sanity-check scsynth
       run: |
         echo "Sanity-checking scsynth..."
