@@ -20,7 +20,7 @@ class CheckBadValues(UGen):
         ...     post_mode=post_mode,
         ... )
         >>> check_bad_values
-        CheckBadValues.ar()[0]
+        <CheckBadValues.ar()[0]>
     """
 
     source = param()

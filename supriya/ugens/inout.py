@@ -13,7 +13,7 @@ class In(UGen):
     ::
 
         >>> supriya.ugens.In.ar(bus=0, channel_count=4)
-        UGenVector({4})
+        <UGenVector([<In.ar()[0]>, <In.ar()[1]>, <In.ar()[2]>, <In.ar()[3]>])>
     """
 
     bus = param(0.0)
@@ -33,7 +33,7 @@ class InFeedback(UGen):
         ...     channel_count=2,
         ... )
         >>> in_feedback
-        UGenVector({2})
+        <UGenVector([<InFeedback.ar()[0]>, <InFeedback.ar()[1]>])>
     """
 
     bus = param(0.0)
@@ -47,7 +47,7 @@ class LocalIn(UGen):
     ::
 
         >>> supriya.ugens.LocalIn.ar(channel_count=2)
-        UGenVector({2})
+        <UGenVector([<LocalIn.ar()[0]>, <LocalIn.ar()[1]>])>
     """
 
     default = param(0.0, unexpanded=True)
@@ -78,7 +78,7 @@ class LocalOut(UGen):
         >>> supriya.ugens.LocalOut.ar(
         ...     source=source,
         ... )
-        LocalOut.ar()
+        <LocalOut.ar()>
     """
 
     source = param(unexpanded=True)
@@ -96,7 +96,7 @@ class OffsetOut(UGen):
         ...     bus=0,
         ...     source=source,
         ... )
-        OffsetOut.ar()
+        <OffsetOut.ar()>
     """
 
     bus = param(0)
@@ -115,7 +115,7 @@ class Out(UGen):
         ...     bus=0,
         ...     source=source,
         ... )
-        Out.ar()
+        <Out.ar()>
     """
 
     bus = param(0)
@@ -134,7 +134,7 @@ class ReplaceOut(UGen):
         ...     bus=0,
         ...     source=source,
         ... )
-        ReplaceOut.ar()
+        <ReplaceOut.ar()>
     """
 
     bus = param(0)
@@ -155,7 +155,7 @@ class XOut(UGen):
         ...     source=source,
         ... )
         >>> xout
-        XOut.ar()
+        <XOut.ar()>
     """
 
     bus = param(0)

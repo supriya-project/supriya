@@ -15,7 +15,7 @@ class CuspL(UGen):
         ...     xi=0,
         ... )
         >>> cusp_l
-        CuspL.ar()[0]
+        <CuspL.ar()[0]>
     """
 
     frequency = param(22050)
@@ -38,7 +38,7 @@ class CuspN(UGen):
         ...     xi=0,
         ... )
         >>> cusp_n
-        CuspN.ar()[0]
+        <CuspN.ar()[0]>
     """
 
     frequency = param(22050)
@@ -64,7 +64,7 @@ class FBSineC(UGen):
         ...     yi=0.1,
         ... )
         >>> fbsine_c
-        FBSineC.ar()[0]
+        <FBSineC.ar()[0]>
     """
 
     frequency = param(22050)
@@ -93,7 +93,7 @@ class FBSineL(UGen):
         ...     yi=0.1,
         ... )
         >>> fbsine_l
-        FBSineL.ar()[0]
+        <FBSineL.ar()[0]>
     """
 
     frequency = param(22050)
@@ -122,7 +122,7 @@ class FBSineN(UGen):
         ...     yi=0.1,
         ... )
         >>> fbsine_n
-        FBSineN.ar()[0]
+        <FBSineN.ar()[0]>
     """
 
     frequency = param(22050)
@@ -147,7 +147,7 @@ class GbmanL(UGen):
         ...     yi=2.1,
         ... )
         >>> gbman_l
-        GbmanL.ar()[0]
+        <GbmanL.ar()[0]>
     """
 
     frequency = param(22050)
@@ -168,7 +168,7 @@ class GbmanN(UGen):
         ...     yi=2.1,
         ... )
         >>> gbman_n
-        GbmanN.ar()[0]
+        <GbmanN.ar()[0]>
     """
 
     frequency = param(22050)
@@ -191,7 +191,7 @@ class HenonC(UGen):
         ...     x_1=0,
         ... )
         >>> henon_c
-        HenonC.ar()[0]
+        <HenonC.ar()[0]>
     """
 
     frequency = param(22050)
@@ -216,7 +216,7 @@ class HenonL(UGen):
         ...     x_1=0,
         ... )
         >>> henon_l
-        HenonL.ar()[0]
+        <HenonL.ar()[0]>
     """
 
     frequency = param(22050)
@@ -241,7 +241,7 @@ class HenonN(UGen):
         ...     x_1=0,
         ... )
         >>> henon_n
-        HenonN.ar()[0]
+        <HenonN.ar()[0]>
     """
 
     frequency = param(22050)
@@ -268,7 +268,7 @@ class LatoocarfianC(UGen):
         ...     yi=0.5,
         ... )
         >>> latoocarfian_c
-        LatoocarfianC.ar()[0]
+        <LatoocarfianC.ar()[0]>
     """
 
     frequency = param(22050)
@@ -297,7 +297,7 @@ class LatoocarfianL(UGen):
         ...     yi=0.5,
         ... )
         >>> latoocarfian_l
-        LatoocarfianL.ar()[0]
+        <LatoocarfianL.ar()[0]>
     """
 
     frequency = param(22050)
@@ -326,7 +326,7 @@ class LatoocarfianN(UGen):
         ...     yi=0.5,
         ... )
         >>> latoocarfian_n
-        LatoocarfianN.ar()[0]
+        <LatoocarfianN.ar()[0]>
     """
 
     frequency = param(22050)
@@ -353,7 +353,7 @@ class LinCongC(UGen):
         ...     xi=0,
         ... )
         >>> lin_cong_c
-        LinCongC.ar()[0]
+        <LinCongC.ar()[0]>
     """
 
     frequency = param(22050)
@@ -378,7 +378,7 @@ class LinCongL(UGen):
         ...     xi=0,
         ... )
         >>> lin_cong_l
-        LinCongL.ar()[0]
+        <LinCongL.ar()[0]>
     """
 
     frequency = param(22050)
@@ -403,7 +403,7 @@ class LinCongN(UGen):
         ...     xi=0,
         ... )
         >>> lin_cong_n
-        LinCongN.ar()[0]
+        <LinCongN.ar()[0]>
     """
 
     frequency = param(22050)
@@ -431,7 +431,7 @@ class LorenzL(UGen):
         ...     zi=0,
         ... )
         >>> lorenz_l
-        LorenzL.ar()[0]
+        <LorenzL.ar()[0]>
     """
 
     frequency = param(22050)
@@ -459,7 +459,7 @@ class QuadC(UGen):
         ...     xi=0,
         ... )
         >>> quad_c
-        QuadC.ar()[0]
+        <QuadC.ar()[0]>
     """
 
     frequency = param(22050)
@@ -484,7 +484,7 @@ class QuadL(UGen):
         ...     xi=0,
         ... )
         >>> quad_l
-        QuadL.ar()[0]
+        <QuadL.ar()[0]>
     """
 
     frequency = param(22050)
@@ -509,7 +509,7 @@ class QuadN(UGen):
         ...     xi=0,
         ... )
         >>> quad_n
-        QuadN.ar()[0]
+        <QuadN.ar()[0]>
     """
 
     frequency = param(22050)
@@ -533,7 +533,7 @@ class StandardL(UGen):
         ...     yi=0,
         ... )
         >>> standard_l
-        StandardL.ar()[0]
+        <StandardL.ar()[0]>
     """
 
     frequency = param(22050)
@@ -556,7 +556,7 @@ class StandardN(UGen):
         ...     yi=0,
         ... )
         >>> standard_n
-        StandardN.ar()[0]
+        <StandardN.ar()[0]>
     """
 
     frequency = param(22050)

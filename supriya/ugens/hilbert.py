@@ -13,7 +13,7 @@ class FreqShift(UGen):
         ...     source=source,
         ... )
         >>> freq_shift
-        FreqShift.ar()[0]
+        <FreqShift.ar()[0]>
     """
 
     source = param()
@@ -33,7 +33,7 @@ class Hilbert(UGen):
         ...     source=source,
         ... )
         >>> hilbert
-        UGenVector({2})
+        <UGenVector([<Hilbert.ar()[0]>, <Hilbert.ar()[1]>])>
     """
 
     source = param()
@@ -52,7 +52,7 @@ class HilbertFIR(UGen):
         ...     source=source,
         ... )
         >>> hilbert_fir
-        HilbertFIR.ar()[0]
+        <HilbertFIR.ar()[0]>
     """
 
     source = param()

@@ -25,7 +25,7 @@ class Gendy1(UGen):
         ...     minfrequency=440,
         ... )
         >>> gendy_1
-        Gendy1.ar()[0]
+        <Gendy1.ar()[0]>
     """
 
     ampdist = param(1)
@@ -72,7 +72,7 @@ class Gendy2(UGen):
         ...     minfrequency=440,
         ... )
         >>> gendy_2
-        Gendy2.ar()[0]
+        <Gendy2.ar()[0]>
     """
 
     ampdist = param(1)
@@ -118,7 +118,7 @@ class Gendy3(UGen):
         ...     knum=10,
         ... )
         >>> gendy_3
-        Gendy3.ar()[0]
+        <Gendy3.ar()[0]>
     """
 
     ampdist = param(1)

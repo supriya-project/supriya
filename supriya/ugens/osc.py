@@ -17,7 +17,7 @@ class COsc(UGen):
         ...     frequency=440,
         ... )
         >>> cosc
-        COsc.ar()[0]
+        <COsc.ar()[0]>
     """
 
     buffer_id = param()
@@ -39,7 +39,7 @@ class DegreeToKey(UGen):
         ...     source=source,
         ... )
         >>> degree_to_key
-        DegreeToKey.ar()[0]
+        <DegreeToKey.ar()[0]>
     """
 
     buffer_id = param()
@@ -55,7 +55,7 @@ class Impulse(UGen):
     ::
 
         >>> supriya.ugens.Impulse.ar()
-        Impulse.ar()[0]
+        <Impulse.ar()[0]>
     """
 
     frequency = param(440.0)
@@ -75,7 +75,7 @@ class Index(UGen):
         ...     source=source,
         ... )
         >>> index
-        Index.ar()[0]
+        <Index.ar()[0]>
     """
 
     buffer_id = param()
@@ -90,7 +90,7 @@ class LFCub(UGen):
     ::
 
         >>> supriya.ugens.LFCub.ar()
-        LFCub.ar()[0]
+        <LFCub.ar()[0]>
     """
 
     frequency = param(440.0)
@@ -105,7 +105,7 @@ class LFGauss(UGen):
     ::
 
         >>> supriya.ugens.LFGauss.ar()
-        LFGauss.ar()[0]
+        <LFGauss.ar()[0]>
     """
 
     duration = param(1)
@@ -134,7 +134,7 @@ class LFPar(UGen):
     ::
 
         >>> supriya.ugens.LFPar.ar()
-        LFPar.ar()[0]
+        <LFPar.ar()[0]>
     """
 
     frequency = param(440.0)
@@ -149,7 +149,7 @@ class LFPulse(UGen):
     ::
 
         >>> supriya.ugens.LFPulse.ar()
-        LFPulse.ar()[0]
+        <LFPulse.ar()[0]>
     """
 
     frequency = param(440.0)
@@ -165,7 +165,7 @@ class LFSaw(UGen):
     ::
 
         >>> supriya.ugens.LFSaw.ar()
-        LFSaw.ar()[0]
+        <LFSaw.ar()[0]>
     """
 
     frequency = param(440.0)
@@ -180,7 +180,7 @@ class LFTri(UGen):
     ::
 
         >>> supriya.ugens.LFTri.ar()
-        LFTri.ar()[0]
+        <LFTri.ar()[0]>
     """
 
     frequency = param(440.0)
@@ -223,7 +223,7 @@ class Select(UGen):
         ...     selector=selector,
         ... )
         >>> select
-        Select.ar()[0]
+        <Select.ar()[0]>
     """
 
     selector = param()
@@ -238,7 +238,7 @@ class SinOsc(UGen):
     ::
 
         >>> supriya.ugens.SinOsc.ar()
-        SinOsc.ar()[0]
+        <SinOsc.ar()[0]>
 
     ::
 
@@ -267,7 +267,7 @@ class SyncSaw(UGen):
         ...     sync_frequency=440,
         ... )
         >>> sync_saw
-        SyncSaw.ar()[0]
+        <SyncSaw.ar()[0]>
     """
 
     sync_frequency = param(440.0)
@@ -287,7 +287,7 @@ class VOsc(UGen):
         ...     phase=0,
         ... )
         >>> vosc
-        VOsc.ar()[0]
+        <VOsc.ar()[0]>
     """
 
     buffer_id = param()
@@ -309,7 +309,7 @@ class VOsc3(UGen):
         ...     freq_3=440,
         ... )
         >>> vosc_3
-        VOsc3.ar()[0]
+        <VOsc3.ar()[0]>
     """
 
     buffer_id = param()
@@ -326,7 +326,7 @@ class VarSaw(UGen):
     ::
 
         >>> supriya.ugens.VarSaw.ar()
-        VarSaw.ar()[0]
+        <VarSaw.ar()[0]>
     """
 
     frequency = param(440.0)
@@ -352,7 +352,7 @@ class Vibrato(UGen):
         ...     rate_variation=0.04,
         ... )
         >>> vibrato
-        Vibrato.ar()[0]
+        <Vibrato.ar()[0]>
     """
 
     frequency = param(440)
@@ -378,7 +378,7 @@ class WrapIndex(UGen):
         ...     source=source,
         ... )
         >>> wrap_index
-        WrapIndex.ar()[0]
+        <WrapIndex.ar()[0]>
     """
 
     buffer_id = param()

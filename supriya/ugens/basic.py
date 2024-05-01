@@ -334,7 +334,7 @@ class MulAdd(UGen):
         ...     source=source,
         ... )
         >>> mul_add
-        MulAdd.ar()[0]
+        <MulAdd.ar()[0]>
     """
 
     ### CLASS VARIABLES ###
@@ -415,7 +415,7 @@ class Sum3(UGen):
         ...     input_two=input_two,
         ...     input_three=input_three,
         ... )
-        Sum3.ar()[0]
+        <Sum3.ar()[0]>
     """
 
     input_one = param()
@@ -473,7 +473,7 @@ class Sum4(UGen):
         ...     input_three=input_three,
         ...     input_four=input_four,
         ... )
-        Sum4.ar()[0]
+        <Sum4.ar()[0]>
     """
 
     input_one = param()

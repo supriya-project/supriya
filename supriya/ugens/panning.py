@@ -22,7 +22,7 @@ class Balance2(UGen):
         ...     right=right,
         ... )
         >>> balance_2
-        UGenVector({2})
+        <UGenVector([<Balance2.ar()[0]>, <Balance2.ar()[1]>])>
     """
 
     left = param()
@@ -47,7 +47,7 @@ class BiPanB2(UGen):
         ...     in_b=in_b,
         ... )
         >>> bi_pan_b_2
-        UGenVector({3})
+        <UGenVector([<BiPanB2.ar()[0]>, <BiPanB2.ar()[1]>, <BiPanB2.ar()[2]>])>
 
     ::
 
@@ -80,7 +80,7 @@ class DecodeB2(UGen):
         ...     y=y,
         ... )
         >>> decode_b_2
-        UGenVector({4})
+        <UGenVector([<DecodeB2.ar()[0]>, <DecodeB2.ar()[1]>, <DecodeB2.ar()[2]>, <DecodeB2.ar()[3]>])>
     """
 
     w = param()
@@ -101,7 +101,7 @@ class Pan2(UGen):
         ...     source=source,
         ... )
         >>> pan_2
-        UGenVector({2})
+        <UGenVector([<Pan2.ar()[0]>, <Pan2.ar()[1]>])>
     """
 
     source = param()
@@ -124,7 +124,7 @@ class Pan4(UGen):
         ...     y_position=0,
         ... )
         >>> pan_4
-        UGenVector({4})
+        <UGenVector([<Pan4.ar()[0]>, <Pan4.ar()[1]>, <Pan4.ar()[2]>, <Pan4.ar()[3]>])>
     """
 
     source = param()
@@ -150,7 +150,7 @@ class PanAz(UGen):
         ...     width=2,
         ... )
         >>> pan_az
-        UGenVector({8})
+        <UGenVector([<PanAz.ar()[0]>, <PanAz.ar()[1]>, <PanAz.ar()[2]>, <PanAz.ar()[3]>, <PanAz.ar()[4]>, <PanAz.ar()[5]>, <PanAz.ar()[6]>, <PanAz.ar()[7]>])>
     """
 
     source = param()
@@ -175,7 +175,7 @@ class PanB(UGen):
         ...     source=source,
         ... )
         >>> pan_b
-        UGenVector({3})
+        <UGenVector([<PanB.ar()[0]>, <PanB.ar()[1]>, <PanB.ar()[2]>])>
     """
 
     source = param()
@@ -198,7 +198,7 @@ class PanB2(UGen):
         ...     source=source,
         ... )
         >>> pan_b_2
-        UGenVector({3})
+        <UGenVector([<PanB2.ar()[0]>, <PanB2.ar()[1]>, <PanB2.ar()[2]>])>
     """
 
     source = param()
@@ -223,7 +223,7 @@ class Rotate2(UGen):
         ...     position=position,
         ... )
         >>> rotate_2
-        UGenVector({2})
+        <UGenVector([<Rotate2.ar()[0]>, <Rotate2.ar()[1]>])>
 
     Returns an array of the rotator's left and right outputs.
     """
@@ -242,7 +242,7 @@ class Splay(PseudoUGen):
         >>> source = supriya.ugens.SinOsc.ar(frequency=[333, 444, 555, 666, 777])
         >>> splay = supriya.ugens.Splay.ar(source=source)
         >>> splay
-        UGenVector({2})
+        <UGenVector([<BinaryOpUGen.ar(MULTIPLICATION)[0]>, <BinaryOpUGen.ar(MULTIPLICATION)[0]>])>
 
     ::
 
@@ -396,7 +396,7 @@ class XFade2(UGen):
         ...     pan=supriya.ugens.LFTri.kr(frequency=0.1),
         ... )
         >>> xfade_3
-        XFade2.ar()[0]
+        <XFade2.ar()[0]>
     """
 
     in_a = param()
