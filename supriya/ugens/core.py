@@ -3601,7 +3601,7 @@ class UGenVector(UGenOperable, Sequence):
         return len(self.ugens)
 
     def __repr__(self):
-        return "{}({{{}}})".format(type(self).__name__, len(self))
+        return f"<{type(self).__name__}([{', '.join(repr(x) for x in self)}])>"
 
     ### PUBLIC PROPERTIES ###
 
@@ -3643,7 +3643,7 @@ class OutputProxy(UGenOperable):
         return 1
 
     def __repr__(self) -> str:
-        return "{!r}[{}]".format(self.source, self.output_index)
+        return repr(self.source).replace(">", f"[{self.output_index}]>")
 
     ### PRIVATE METHODS ###
 
@@ -3809,7 +3809,7 @@ class UGen(UGenOperable):
 
         Returns string.
         """
-        return f"{type(self).__name__}.{self.calculation_rate.token}()"
+        return f"<{type(self).__name__}.{self.calculation_rate.token}()>"
 
     ### PRIVATE METHODS ###
 
@@ -4190,11 +4190,10 @@ class UnaryOpUGen(UGen):
         UnaryOperator.ABSOLUTE_VALUE
     """
 
-    ### CLASS VARIABLES ###
-
     source = param()
 
-    ### PUBLIC PROPERTIES ###
+    def __repr__(self) -> str:
+        return f"<{type(self).__name__}.{self.calculation_rate.token}({self.operator.name})>"
 
     @property
     def operator(self) -> UnaryOperator:
@@ -4249,6 +4248,9 @@ class BinaryOpUGen(UGen):
             right=right,
             special_index=special_index,
         )
+
+    def __repr__(self) -> str:
+        return f"<{type(self).__name__}.{self.calculation_rate.token}({self.operator.name})>"
 
     @classmethod
     def _new_single(
