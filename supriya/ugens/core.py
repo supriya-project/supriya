@@ -2444,31 +2444,6 @@ class UGenOperable:
     def as_int(self) -> "UGenOperable":
         return self._compute_unary_op(self, UnaryOperator.AS_INT)
 
-    def as_minimum(self, expr: "UGenOperand") -> "UGenOperable":
-        """
-        Calculates minimum between ugen graph and `expr`.
-
-        ::
-
-            >>> left = supriya.ugens.SinOsc.ar()
-            >>> right = supriya.ugens.WhiteNoise.kr()
-            >>> operation = left.as_minimum(right)
-            >>> print(operation)
-            synthdef:
-                name: f80c0a7b300911e9eff0e8760f5fab18
-                ugens:
-                -   SinOsc.ar:
-                        frequency: 440.0
-                        phase: 0.0
-                -   WhiteNoise.kr: null
-                -   BinaryOpUGen(MINIMUM).ar:
-                        left: SinOsc.ar[0]
-                        right: WhiteNoise.kr[0]
-
-        Returns ugen graph.
-        """
-        return self._compute_binary_op(self, expr, BinaryOperator.MINIMUM)
-
     def ceiling(self) -> "UGenOperable":
         """
         Calculates the ceiling of ugen graph.
@@ -3026,6 +3001,31 @@ class UGenOperable:
         Returns ugen graph.
         """
         return self._compute_unary_op(self, UnaryOperator.MIDI_TO_HZ)
+
+    def min(self, expr: "UGenOperand") -> "UGenOperable":
+        """
+        Calculates minimum between ugen graph and `expr`.
+
+        ::
+
+            >>> left = supriya.ugens.SinOsc.ar()
+            >>> right = supriya.ugens.WhiteNoise.kr()
+            >>> operation = left.min(right)
+            >>> print(operation)
+            synthdef:
+                name: f80c0a7b300911e9eff0e8760f5fab18
+                ugens:
+                -   SinOsc.ar:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(MINIMUM).ar:
+                        left: SinOsc.ar[0]
+                        right: WhiteNoise.kr[0]
+
+        Returns ugen graph.
+        """
+        return self._compute_binary_op(self, expr, BinaryOperator.MINIMUM)
 
     def octave_to_hz(self) -> "UGenOperable":
         """
