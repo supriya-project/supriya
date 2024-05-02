@@ -3058,31 +3058,6 @@ class UGenOperable:
         """
         return self._compute_unary_op(self, UnaryOperator.OCTAVE_TO_HZ)
 
-    def power(self, expr: "UGenOperand") -> "UGenOperable":
-        """
-        Raises ugen graph to the power of `expr`.
-
-        ::
-
-            >>> left = supriya.ugens.SinOsc.ar()
-            >>> right = supriya.ugens.WhiteNoise.kr()
-            >>> operation = left.power(right)
-            >>> print(operation)
-            synthdef:
-                name: 06d6d3fe992bff8fce9ef55db6863c2a
-                ugens:
-                -   SinOsc.ar:
-                        frequency: 440.0
-                        phase: 0.0
-                -   WhiteNoise.kr: null
-                -   BinaryOpUGen(POWER).ar:
-                        left: SinOsc.ar[0]
-                        right: WhiteNoise.kr[0]
-
-        Returns ugen graph.
-        """
-        return self._compute_binary_op(self, expr, BinaryOperator.POWER)
-
     def range(self, minimum=0.0, maximum=1.0) -> "UGenOperable":
         if self.signal_range == SignalRange.BIPOLAR:
             return self.scale(-1, 1, minimum, maximum)
