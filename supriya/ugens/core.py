@@ -563,6 +563,28 @@ class UGenOperable:
         """
         return UGenOperable._compute_binary_op(self, expr, BinaryOperator.BITWISE_AND)
 
+    def __ceil__(self) -> "UGenOperable":
+        """
+        Calculates the ceiling of ugen graph.
+
+        ::
+
+            >>> import math
+            >>> source = supriya.ugens.DC.ar(source=0.5)
+            >>> operation = math.ceil(source)
+            >>> print(operation)
+            synthdef:
+                name: c7b1855219f3364f731bdd2e4599b1d1
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(CEILING).ar:
+                        source: DC.ar[0]
+
+        Returns ugen graph.
+        """
+        return self._compute_unary_op(self, UnaryOperator.CEILING)
+
     def __div__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Divides ugen graph by `expr`.
@@ -2443,27 +2465,6 @@ class UGenOperable:
 
     def as_int(self) -> "UGenOperable":
         return self._compute_unary_op(self, UnaryOperator.AS_INT)
-
-    def ceiling(self) -> "UGenOperable":
-        """
-        Calculates the ceiling of ugen graph.
-
-        ::
-
-            >>> source = supriya.ugens.DC.ar(source=0.5)
-            >>> operation = source.ceiling()
-            >>> print(operation)
-            synthdef:
-                name: c7b1855219f3364f731bdd2e4599b1d1
-                ugens:
-                -   DC.ar:
-                        source: 0.5
-                -   UnaryOpUGen(CEILING).ar:
-                        source: DC.ar[0]
-
-        Returns ugen graph.
-        """
-        return self._compute_unary_op(self, UnaryOperator.CEILING)
 
     def clip(
         self,
