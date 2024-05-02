@@ -2378,7 +2378,7 @@ class UGenOperable:
 
     ### PUBLIC METHODS ###
 
-    def absolute_difference(self, expr: "UGenOperand") -> "UGenOperable":
+    def absdiff(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Calculates absolute difference between ugen graph and `expr`.
 
@@ -2388,7 +2388,7 @@ class UGenOperable:
 
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> expr = supriya.ugens.WhiteNoise.kr()
-                >>> result = ugen_graph.absolute_difference(expr)
+                >>> result = ugen_graph.absdiff(expr)
 
             ::
 
