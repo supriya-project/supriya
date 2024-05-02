@@ -699,6 +699,28 @@ class UGenOperable:
             self, expr, BinaryOperator.FLOAT_DIVISION
         )
 
+    def __floor__(self) -> "UGenOperable":
+        """
+        Calculates the floor of ugen graph.
+
+        ::
+
+            >>> import math
+            >>> source = supriya.ugens.DC.ar(source=0.5)
+            >>> operation = math.floor(source)
+            >>> print(operation)
+            synthdef:
+                name: 407228cfdb74bdd79b51c425fb8a7f77
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(FLOOR).ar:
+                        source: DC.ar[0]
+
+        Returns ugen graph.
+        """
+        return self._compute_unary_op(self, UnaryOperator.FLOOR)
+
     def __graph__(self):
         """
         Gets Graphviz representation of ugen graph.
@@ -2637,27 +2659,6 @@ class UGenOperable:
         Returns ugen graph.
         """
         return self._compute_unary_op(self, UnaryOperator.EXPONENTIAL)
-
-    def floor(self) -> "UGenOperable":
-        """
-        Calculates the floor of ugen graph.
-
-        ::
-
-            >>> source = supriya.ugens.DC.ar(source=0.5)
-            >>> operation = source.floor()
-            >>> print(operation)
-            synthdef:
-                name: 407228cfdb74bdd79b51c425fb8a7f77
-                ugens:
-                -   DC.ar:
-                        source: 0.5
-                -   UnaryOpUGen(FLOOR).ar:
-                        source: DC.ar[0]
-
-        Returns ugen graph.
-        """
-        return self._compute_unary_op(self, UnaryOperator.FLOOR)
 
     def fractional_part(self) -> "UGenOperable":
         """
