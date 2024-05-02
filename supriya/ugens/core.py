@@ -2485,9 +2485,6 @@ class UGenOperable:
         """
         return self._compute_unary_op(self, UnaryOperator.AMPLITUDE_TO_DB)
 
-    def as_int(self) -> "UGenOperable":
-        return self._compute_unary_op(self, UnaryOperator.AS_INT)
-
     def clip(
         self,
         minimum: Union[SupportsFloat, "UGenOperable"],
@@ -2617,6 +2614,9 @@ class UGenOperable:
         Returns ugen graph.
         """
         return self._compute_unary_op(self, UnaryOperator.DB_TO_AMPLITUDE)
+
+    def digit_value(self) -> "UGenOperable":
+        return self._compute_unary_op(self, UnaryOperator.DIGIT_VALUE)
 
     def distort(self) -> "UGenOperable":
         """
