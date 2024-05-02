@@ -2444,31 +2444,6 @@ class UGenOperable:
     def as_int(self) -> "UGenOperable":
         return self._compute_unary_op(self, UnaryOperator.AS_INT)
 
-    def as_maximum(self, expr: "UGenOperand") -> "UGenOperable":
-        """
-        Calculates maximum between ugen graph and `expr`.
-
-        ::
-
-            >>> left = supriya.ugens.SinOsc.ar()
-            >>> right = supriya.ugens.WhiteNoise.kr()
-            >>> operation = left.as_maximum(right)
-            >>> print(operation)
-            synthdef:
-                name: dcdca07fb0439c8b4321f42803d18c32
-                ugens:
-                -   SinOsc.ar:
-                        frequency: 440.0
-                        phase: 0.0
-                -   WhiteNoise.kr: null
-                -   BinaryOpUGen(MAXIMUM).ar:
-                        left: SinOsc.ar[0]
-                        right: WhiteNoise.kr[0]
-
-        Returns ugen graph.
-        """
-        return self._compute_binary_op(self, expr, BinaryOperator.MAXIMUM)
-
     def as_minimum(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Calculates minimum between ugen graph and `expr`.
@@ -2997,6 +2972,31 @@ class UGenOperable:
         Returns ugen graph.
         """
         return self._compute_unary_op(self, UnaryOperator.LOG10)
+
+    def max(self, expr: "UGenOperand") -> "UGenOperable":
+        """
+        Calculates maximum between ugen graph and `expr`.
+
+        ::
+
+            >>> left = supriya.ugens.SinOsc.ar()
+            >>> right = supriya.ugens.WhiteNoise.kr()
+            >>> operation = left.max(right)
+            >>> print(operation)
+            synthdef:
+                name: dcdca07fb0439c8b4321f42803d18c32
+                ugens:
+                -   SinOsc.ar:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(MAXIMUM).ar:
+                        left: SinOsc.ar[0]
+                        right: WhiteNoise.kr[0]
+
+        Returns ugen graph.
+        """
+        return self._compute_binary_op(self, expr, BinaryOperator.MAXIMUM)
 
     def midi_to_hz(self) -> "UGenOperable":
         """
