@@ -48,12 +48,12 @@ def sc_synthdef_mfcc():
 def test_ugens(py_synthdef_mfcc, sc_synthdef_mfcc):
     py_ugens = tuple(repr(_) for _ in py_synthdef_mfcc.ugens)
     assert py_ugens == (
-        "In.ar()",
-        "MaxLocalBufs.ir()",
-        "LocalBuf.ir()",
-        "FFT.kr()",
-        "MFCC.kr()",
-        "Out.kr()",
+        "<In.ar()>",
+        "<MaxLocalBufs.ir()>",
+        "<LocalBuf.ir()>",
+        "<FFT.kr()>",
+        "<MFCC.kr()>",
+        "<Out.kr()>",
     )
     sc_compiled_synthdef = bytes(sc_synthdef_mfcc.compile())
     sc_synthdef = decompile_synthdef(sc_compiled_synthdef)

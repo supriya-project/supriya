@@ -131,18 +131,18 @@ def py_synthdef_02():
 
 def test_02_ugens(py_synthdef_02):
     assert tuple(repr(_) for _ in py_synthdef_02.ugens) == (
-        "PinkNoise.ar()",
-        "MaxLocalBufs.ir()",
-        "LocalBuf.ir()",
-        "FFT.kr()",
-        "BufFrames.ir()",
-        "LocalBuf.ir()",
-        "PV_Copy.kr()",
-        "PV_BinScramble.kr()",
-        "PV_MagFreeze.kr()",
-        "PV_MagMul.kr()",
-        "IFFT.ar()",
-        "Out.ar()",
+        "<PinkNoise.ar()>",
+        "<MaxLocalBufs.ir()>",
+        "<LocalBuf.ir()>",
+        "<FFT.kr()>",
+        "<BufFrames.ir()>",
+        "<LocalBuf.ir()>",
+        "<PV_Copy.kr()>",
+        "<PV_BinScramble.kr()>",
+        "<PV_MagFreeze.kr()>",
+        "<PV_MagMul.kr()>",
+        "<IFFT.ar()>",
+        "<Out.ar()>",
     )
     assert str(py_synthdef_02) == normalize(
         """
@@ -216,18 +216,18 @@ def test_02_supriya_vs_sclang(py_synthdef_02):
     assert py_compiled_synthdef == sc_compiled_synthdef
     sc_synthdef = decompile_synthdef(sc_compiled_synthdef)
     assert tuple(repr(_) for _ in sc_synthdef.ugens) == (
-        "PinkNoise.ar()",
-        "MaxLocalBufs.ir()",
-        "LocalBuf.ir()",
-        "FFT.kr()",
-        "BufFrames.ir()",
-        "LocalBuf.ir()",
-        "PV_Copy.kr()",
-        "PV_BinScramble.kr()",
-        "PV_MagFreeze.kr()",
-        "PV_MagMul.kr()",
-        "IFFT.ar()",
-        "Out.ar()",
+        "<PinkNoise.ar()>",
+        "<MaxLocalBufs.ir()>",
+        "<LocalBuf.ir()>",
+        "<FFT.kr()>",
+        "<BufFrames.ir()>",
+        "<LocalBuf.ir()>",
+        "<PV_Copy.kr()>",
+        "<PV_BinScramble.kr()>",
+        "<PV_MagFreeze.kr()>",
+        "<PV_MagMul.kr()>",
+        "<IFFT.ar()>",
+        "<Out.ar()>",
     )
     assert tuple(repr(_) for _ in sc_synthdef.ugens) == tuple(
         repr(_) for _ in py_synthdef_02.ugens
