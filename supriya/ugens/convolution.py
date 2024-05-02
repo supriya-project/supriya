@@ -19,7 +19,7 @@ class Convolution(UGen):
         ...     source=source,
         ... )
         >>> convolution
-        Convolution.ar()[0]
+        <Convolution.ar()[0]>
     """
 
     source = param()
@@ -46,7 +46,7 @@ class Convolution2(UGen):
         ...     trigger=0,
         ... )
         >>> convolution_2
-        Convolution2.ar()[0]
+        <Convolution2.ar()[0]>
     """
 
     source = param()
@@ -75,7 +75,7 @@ class Convolution2L(UGen):
         ...     trigger=0,
         ... )
         >>> convolution_2_l
-        Convolution2L.ar()[0]
+        <Convolution2L.ar()[0]>
     """
 
     source = param()
@@ -104,7 +104,7 @@ class Convolution3(UGen):
         ...     trigger=0,
         ... )
         >>> convolution_3
-        Convolution3.ar()[0]
+        <Convolution3.ar()[0]>
     """
 
     source = param()

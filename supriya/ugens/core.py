@@ -358,7 +358,7 @@ class UGenOperable:
                 >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = abs(ugen_graph)
                 >>> result
-                UnaryOpUGen.ar()[0]
+                <UnaryOpUGen.ar(ABSOLUTE_VALUE)[0]>
 
             ::
 
@@ -385,7 +385,7 @@ class UGenOperable:
                 ... )
                 >>> result = abs(ugen_graph)
                 >>> result
-                UGenVector({3})
+                <UGenVector([<UnaryOpUGen.ar(ABSOLUTE_VALUE)[0]>, <UnaryOpUGen.ar(ABSOLUTE_VALUE)[0]>, <UnaryOpUGen.ar(ABSOLUTE_VALUE)[0]>])>
 
             ::
 
@@ -431,7 +431,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph + expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(ADDITION)[0]>
 
             ::
 
@@ -463,7 +463,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph + expr
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(ADDITION)[0]>, <BinaryOpUGen.ar(ADDITION)[0]>, <BinaryOpUGen.ar(ADDITION)[0]>])>
 
             ::
 
@@ -507,7 +507,7 @@ class UGenOperable:
                 >>> expr = 4
                 >>> result = ugen_graph + expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(ADDITION)[0]>
 
             ::
 
@@ -541,7 +541,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph & expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(BITWISE_AND)[0]>
 
             ::
 
@@ -577,7 +577,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph / expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(FLOAT_DIVISION)[0]>
 
             ::
 
@@ -609,7 +609,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph / expr
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(FLOAT_DIVISION)[0]>, <BinaryOpUGen.ar(FLOAT_DIVISION)[0]>, <BinaryOpUGen.ar(FLOAT_DIVISION)[0]>])>
 
             ::
 
@@ -653,7 +653,7 @@ class UGenOperable:
                 >>> expr = 4
                 >>> result = ugen_graph / expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(FLOAT_DIVISION)[0]>
 
             ::
 
@@ -701,7 +701,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph >= expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(GREATER_THAN_OR_EQUAL)[0]>
 
             ::
 
@@ -733,7 +733,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph >= expr
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(GREATER_THAN_OR_EQUAL)[0]>, <BinaryOpUGen.ar(GREATER_THAN_OR_EQUAL)[0]>, <BinaryOpUGen.ar(GREATER_THAN_OR_EQUAL)[0]>])>
 
             ::
 
@@ -777,7 +777,7 @@ class UGenOperable:
                 >>> expr = 4
                 >>> result = ugen_graph >= expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(GREATER_THAN_OR_EQUAL)[0]>
 
             ::
 
@@ -815,7 +815,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph > expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(GREATER_THAN)[0]>
 
             ::
 
@@ -847,7 +847,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph > expr
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(GREATER_THAN)[0]>, <BinaryOpUGen.ar(GREATER_THAN)[0]>, <BinaryOpUGen.ar(GREATER_THAN)[0]>])>
 
             ::
 
@@ -891,7 +891,7 @@ class UGenOperable:
                 >>> expr = 4
                 >>> result = ugen_graph > expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(GREATER_THAN)[0]>
 
             ::
 
@@ -927,7 +927,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph <= expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(LESS_THAN_OR_EQUAL)[0]>
 
             ::
 
@@ -959,7 +959,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph <= expr
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(LESS_THAN_OR_EQUAL)[0]>, <BinaryOpUGen.ar(LESS_THAN_OR_EQUAL)[0]>, <BinaryOpUGen.ar(LESS_THAN_OR_EQUAL)[0]>])>
 
             ::
 
@@ -1003,7 +1003,7 @@ class UGenOperable:
                 >>> expr = 4
                 >>> result = ugen_graph <= expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(LESS_THAN_OR_EQUAL)[0]>
 
             ::
 
@@ -1044,7 +1044,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph < expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(LESS_THAN)[0]>
 
             ::
 
@@ -1076,7 +1076,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph < expr
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(LESS_THAN)[0]>, <BinaryOpUGen.ar(LESS_THAN)[0]>, <BinaryOpUGen.ar(LESS_THAN)[0]>])>
 
             ::
 
@@ -1120,7 +1120,7 @@ class UGenOperable:
                 >>> expr = 4
                 >>> result = ugen_graph < expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(LESS_THAN)[0]>
 
             ::
 
@@ -1156,7 +1156,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph % expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(MODULO)[0]>
 
             ::
 
@@ -1188,7 +1188,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph % expr
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(MODULO)[0]>, <BinaryOpUGen.ar(MODULO)[0]>, <BinaryOpUGen.ar(MODULO)[0]>])>
 
             ::
 
@@ -1232,7 +1232,7 @@ class UGenOperable:
                 >>> expr = 4
                 >>> result = ugen_graph % expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(MODULO)[0]>
 
             ::
 
@@ -1268,7 +1268,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph * expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(MULTIPLICATION)[0]>
 
             ::
 
@@ -1300,7 +1300,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph * expr
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(MULTIPLICATION)[0]>, <BinaryOpUGen.ar(MULTIPLICATION)[0]>, <BinaryOpUGen.ar(MULTIPLICATION)[0]>])>
 
             ::
 
@@ -1344,7 +1344,7 @@ class UGenOperable:
                 >>> expr = 4
                 >>> result = ugen_graph * expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(MULTIPLICATION)[0]>
 
             ::
 
@@ -1381,7 +1381,7 @@ class UGenOperable:
                 >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = -ugen_graph
                 >>> result
-                UnaryOpUGen.ar()[0]
+                <UnaryOpUGen.ar(NEGATIVE)[0]>
 
             ::
 
@@ -1408,7 +1408,7 @@ class UGenOperable:
                 ... )
                 >>> result = -ugen_graph
                 >>> result
-                UGenVector({3})
+                <UGenVector([<UnaryOpUGen.ar(NEGATIVE)[0]>, <UnaryOpUGen.ar(NEGATIVE)[0]>, <UnaryOpUGen.ar(NEGATIVE)[0]>])>
 
             ::
 
@@ -1452,7 +1452,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph | expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(BITWISE_OR)[0]>
 
             ::
 
@@ -1488,7 +1488,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph ** expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(POWER)[0]>
 
             ::
 
@@ -1520,7 +1520,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph ** expr
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(POWER)[0]>, <BinaryOpUGen.ar(POWER)[0]>, <BinaryOpUGen.ar(POWER)[0]>])>
 
             ::
 
@@ -1564,7 +1564,7 @@ class UGenOperable:
                 >>> expr = 4
                 >>> result = ugen_graph ** expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(POWER)[0]>
 
             ::
 
@@ -1600,7 +1600,7 @@ class UGenOperable:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr ** ugen_graph
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(POWER)[0]>
 
             ::
 
@@ -1631,7 +1631,7 @@ class UGenOperable:
                 ... )
                 >>> result = expr ** ugen_graph
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(POWER)[0]>, <BinaryOpUGen.ar(POWER)[0]>, <BinaryOpUGen.ar(POWER)[0]>])>
 
             ::
 
@@ -1680,7 +1680,7 @@ class UGenOperable:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr + ugen_graph
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(ADDITION)[0]>
 
             ::
 
@@ -1711,7 +1711,7 @@ class UGenOperable:
                 ... )
                 >>> result = expr + ugen_graph
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(ADDITION)[0]>, <BinaryOpUGen.ar(ADDITION)[0]>, <BinaryOpUGen.ar(ADDITION)[0]>])>
 
             ::
 
@@ -1760,7 +1760,7 @@ class UGenOperable:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr / ugen_graph
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(FLOAT_DIVISION)[0]>
 
             ::
 
@@ -1791,7 +1791,7 @@ class UGenOperable:
                 ... )
                 >>> result = expr / ugen_graph
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(FLOAT_DIVISION)[0]>, <BinaryOpUGen.ar(FLOAT_DIVISION)[0]>, <BinaryOpUGen.ar(FLOAT_DIVISION)[0]>])>
 
             ::
 
@@ -1842,7 +1842,7 @@ class UGenOperable:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr % ugen_graph
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(FLOAT_DIVISION)[0]>
 
             ::
 
@@ -1873,7 +1873,7 @@ class UGenOperable:
                 ... )
                 >>> result = expr % ugen_graph
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(FLOAT_DIVISION)[0]>, <BinaryOpUGen.ar(FLOAT_DIVISION)[0]>, <BinaryOpUGen.ar(FLOAT_DIVISION)[0]>])>
 
             ::
 
@@ -1924,7 +1924,7 @@ class UGenOperable:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr * ugen_graph
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(MULTIPLICATION)[0]>
 
             ::
 
@@ -1955,7 +1955,7 @@ class UGenOperable:
                 ... )
                 >>> result = expr * ugen_graph
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(MULTIPLICATION)[0]>, <BinaryOpUGen.ar(MULTIPLICATION)[0]>, <BinaryOpUGen.ar(MULTIPLICATION)[0]>])>
 
             ::
 
@@ -2006,7 +2006,7 @@ class UGenOperable:
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr - ugen_graph
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(SUBTRACTION)[0]>
 
             ::
 
@@ -2037,7 +2037,7 @@ class UGenOperable:
                 ... )
                 >>> result = expr - ugen_graph
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(SUBTRACTION)[0]>, <BinaryOpUGen.ar(SUBTRACTION)[0]>, <BinaryOpUGen.ar(SUBTRACTION)[0]>])>
 
             ::
 
@@ -2128,7 +2128,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph - expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(SUBTRACTION)[0]>
 
             ::
 
@@ -2160,7 +2160,7 @@ class UGenOperable:
                 ... )
                 >>> result = ugen_graph - expr
                 >>> result
-                UGenVector({3})
+                <UGenVector([<BinaryOpUGen.ar(SUBTRACTION)[0]>, <BinaryOpUGen.ar(SUBTRACTION)[0]>, <BinaryOpUGen.ar(SUBTRACTION)[0]>])>
 
             ::
 
@@ -2204,7 +2204,7 @@ class UGenOperable:
                 >>> expr = 4
                 >>> result = ugen_graph - expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(SUBTRACTION)[0]>
 
             ::
 
@@ -2238,7 +2238,7 @@ class UGenOperable:
                 >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph ^ expr
                 >>> result
-                BinaryOpUGen.ar()[0]
+                <BinaryOpUGen.ar(BITWISE_XOR)[0]>
 
             ::
 
@@ -3601,7 +3601,7 @@ class UGenVector(UGenOperable, Sequence):
         return len(self.ugens)
 
     def __repr__(self):
-        return "{}({{{}}})".format(type(self).__name__, len(self))
+        return f"<{type(self).__name__}([{', '.join(repr(x) for x in self)}])>"
 
     ### PUBLIC PROPERTIES ###
 
@@ -3643,7 +3643,7 @@ class OutputProxy(UGenOperable):
         return 1
 
     def __repr__(self) -> str:
-        return "{!r}[{}]".format(self.source, self.output_index)
+        return repr(self.source).replace(">", f"[{self.output_index}]>")
 
     ### PRIVATE METHODS ###
 
@@ -3771,7 +3771,7 @@ class UGen(UGenOperable):
 
             >>> ugen = supriya.ugens.SinOsc.ar().source
             >>> ugen[0]
-            SinOsc.ar()[0]
+            <SinOsc.ar()[0]>
 
         Returns output proxy.
         """
@@ -3793,23 +3793,23 @@ class UGen(UGenOperable):
 
             >>> ugen = supriya.ugens.SinOsc.ar().source
             >>> repr(ugen)
-            'SinOsc.ar()'
+            '<SinOsc.ar()>'
 
         ::
 
             >>> ugen = supriya.ugens.WhiteNoise.kr().source
             >>> repr(ugen)
-            'WhiteNoise.kr()'
+            '<WhiteNoise.kr()>'
 
         ::
 
             >>> ugen = supriya.ugens.Rand.ir().source
             >>> repr(ugen)
-            'Rand.ir()'
+            '<Rand.ir()>'
 
         Returns string.
         """
-        return f"{type(self).__name__}.{self.calculation_rate.token}()"
+        return f"<{type(self).__name__}.{self.calculation_rate.token}()>"
 
     ### PRIVATE METHODS ###
 
@@ -4080,7 +4080,7 @@ class UGen(UGenOperable):
             >>> for input_ in ugen.inputs:
             ...     input_
             ...
-            WhiteNoise.kr()[0]
+            <WhiteNoise.kr()[0]>
             0.5
 
         Returns tuple.
@@ -4182,7 +4182,7 @@ class UnaryOpUGen(UGen):
         >>> ugen = supriya.ugens.SinOsc.ar()
         >>> unary_op_ugen = abs(ugen)
         >>> unary_op_ugen
-        UnaryOpUGen.ar()[0]
+        <UnaryOpUGen.ar(ABSOLUTE_VALUE)[0]>
 
     ::
 
@@ -4190,11 +4190,10 @@ class UnaryOpUGen(UGen):
         UnaryOperator.ABSOLUTE_VALUE
     """
 
-    ### CLASS VARIABLES ###
-
     source = param()
 
-    ### PUBLIC PROPERTIES ###
+    def __repr__(self) -> str:
+        return f"<{type(self).__name__}.{self.calculation_rate.token}({self.operator.name})>"
 
     @property
     def operator(self) -> UnaryOperator:
@@ -4224,7 +4223,7 @@ class BinaryOpUGen(UGen):
         >>> right_operand = supriya.ugens.WhiteNoise.kr()
         >>> binary_op_ugen = left_operand * right_operand
         >>> binary_op_ugen
-        BinaryOpUGen.ar()[0]
+        <BinaryOpUGen.ar(MULTIPLICATION)[0]>
 
     ::
 
@@ -4249,6 +4248,9 @@ class BinaryOpUGen(UGen):
             right=right,
             special_index=special_index,
         )
+
+    def __repr__(self) -> str:
+        return f"<{type(self).__name__}.{self.calculation_rate.token}({self.operator.name})>"
 
     @classmethod
     def _new_single(

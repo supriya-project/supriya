@@ -18,7 +18,7 @@ class MouseButton(UGen):
     ::
 
         >>> supriya.ugens.MouseButton.kr()
-        MouseButton.kr()[0]
+        <MouseButton.kr()[0]>
     """
 
     minimum = param(0.0)
@@ -36,7 +36,7 @@ class MouseX(UGen):
     ::
 
         >>> supriya.ugens.MouseX.kr()
-        MouseX.kr()[0]
+        <MouseX.kr()[0]>
     """
 
     minimum = param(0.0)
@@ -55,7 +55,7 @@ class MouseY(UGen):
     ::
 
         >>> supriya.ugens.MouseY.kr()
-        MouseY.kr()[0]
+        <MouseY.kr()[0]>
     """
 
     minimum = param(0.0)

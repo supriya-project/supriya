@@ -25,7 +25,7 @@ class BufRd(UGen):
         ...     phase=phase,
         ... )
         >>> buf_rd
-        UGenVector({2})
+        <UGenVector([<BufRd.ar()[0]>, <BufRd.ar()[1]>])>
     """
 
     buffer_id = param()
@@ -55,7 +55,7 @@ class BufWr(UGen):
         ...     source=source,
         ... )
         >>> buf_wr
-        BufWr.ar()[0]
+        <BufWr.ar()[0]>
     """
 
     buffer_id = param()
@@ -73,7 +73,7 @@ class ClearBuf(UGen):
         ...     buffer_id=23,
         ... )
         >>> clear_buf
-        ClearBuf.ir()[0]
+        <ClearBuf.ir()[0]>
     """
 
     buffer_id = param()
@@ -95,7 +95,7 @@ class LocalBuf(UGen):
         ...     frame_count=1,
         ... )
         >>> local_buf
-        LocalBuf.ir()[0]
+        <LocalBuf.ir()[0]>
 
     LocalBuf creates a ``MaxLocalBufs`` UGen implicitly during SynthDef compilation:
 
@@ -115,12 +115,12 @@ class LocalBuf(UGen):
         >>> for ugen in synthdef.ugens:
         ...     ugen
         ...
-        MaxLocalBufs.ir()
-        LocalBuf.ir()
-        PinkNoise.ar()
-        FFT.kr()
-        IFFT.ar()
-        Out.ar()
+        <MaxLocalBufs.ir()>
+        <LocalBuf.ir()>
+        <PinkNoise.ar()>
+        <FFT.kr()>
+        <IFFT.ar()>
+        <Out.ar()>
     """
 
     channel_count = param(1)
@@ -143,7 +143,7 @@ class MaxLocalBufs(UGen):
 
         >>> max_local_bufs = supriya.ugens.MaxLocalBufs.ir(maximum=1)
         >>> max_local_bufs
-        MaxLocalBufs.ir()[0]
+        <MaxLocalBufs.ir()[0]>
     """
 
     maximum = param(0)
@@ -187,7 +187,7 @@ class PlayBuf(UGen):
         ...     trigger=1,
         ... )
         >>> play_buf
-        UGenVector({2})
+        <UGenVector([<PlayBuf.ar()[0]>, <PlayBuf.ar()[1]>])>
     """
 
     buffer_id = param()
@@ -219,7 +219,7 @@ class RecordBuf(UGen):
         ...     trigger=1,
         ... )
         >>> record_buf
-        RecordBuf.ar()[0]
+        <RecordBuf.ar()[0]>
     """
 
     buffer_id = param()

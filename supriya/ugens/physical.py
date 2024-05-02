@@ -16,7 +16,7 @@ class Ball(UGen):
         ...     source=source,
         ... )
         >>> ball
-        Ball.ar()[0]
+        <Ball.ar()[0]>
     """
 
     source = param()
@@ -43,7 +43,7 @@ class Pluck(UGen):
         ...     trigger=trigger,
         ... )
         >>> pluck
-        Pluck.ar()[0]
+        <Pluck.ar()[0]>
     """
 
     source = param()
@@ -68,7 +68,7 @@ class Spring(UGen):
         ...     spring=1,
         ... )
         >>> spring
-        Spring.ar()[0]
+        <Spring.ar()[0]>
     """
 
     source = param()
@@ -91,7 +91,7 @@ class TBall(UGen):
         ...     source=source,
         ... )
         >>> tball
-        TBall.ar()[0]
+        <TBall.ar()[0]>
     """
 
     source = param()

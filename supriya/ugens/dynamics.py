@@ -17,7 +17,7 @@ class Amplitude(UGen):
         ...     source=source,
         ... )
         >>> amplitude
-        Amplitude.kr()[0]
+        <Amplitude.kr()[0]>
     """
 
     source = param()
@@ -122,7 +122,7 @@ class Limiter(UGen):
         ...     source=source,
         ... )
         >>> limiter
-        Limiter.ar()[0]
+        <Limiter.ar()[0]>
     """
 
     source = param()
@@ -144,7 +144,7 @@ class Normalizer(UGen):
         ...     source=source,
         ... )
         >>> normalizer
-        Normalizer.ar()[0]
+        <Normalizer.ar()[0]>
     """
 
     source = param()

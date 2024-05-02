@@ -41,7 +41,7 @@ class FFT(PV_ChainUGen):
         ...     window_type=0,
         ... )
         >>> fft
-        FFT.kr()[0]
+        <FFT.kr()[0]>
     """
 
     ### CLASS VARIABLES ###
@@ -88,7 +88,7 @@ class IFFT(UGen):
         ...     window_type=0,
         ... )
         >>> ifft
-        IFFT.ar()[0]
+        <IFFT.ar()[0]>
     """
 
     pv_chain = param()
@@ -114,7 +114,7 @@ class PV_Add(PV_ChainUGen):
         ...     pv_chain_b=pv_chain_b,
         ... )
         >>> pv_add
-        PV_Add.kr()[0]
+        <PV_Add.kr()[0]>
     """
 
     pv_chain_a = param()
@@ -138,7 +138,7 @@ class PV_BinScramble(PV_ChainUGen):
         ...     wipe=0,
         ... )
         >>> pv_bin_scramble
-        PV_BinScramble.kr()[0]
+        <PV_BinScramble.kr()[0]>
     """
 
     pv_chain = param()
@@ -164,7 +164,7 @@ class PV_BinShift(PV_ChainUGen):
         ...     stretch=1,
         ... )
         >>> pv_bin_shift
-        PV_BinShift.kr()[0]
+        <PV_BinShift.kr()[0]>
     """
 
     pv_chain = param()
@@ -192,7 +192,7 @@ class PV_BinWipe(PV_ChainUGen):
         ...     wipe=0,
         ... )
         >>> pv_bin_wipe
-        PV_BinWipe.kr()[0]
+        <PV_BinWipe.kr()[0]>
     """
 
     pv_chain_a = param()
@@ -220,7 +220,7 @@ class PV_BrickWall(PV_ChainUGen):
         ...     wipe=0,
         ... )
         >>> pv_brick_wall
-        PV_BrickWall.kr()[0]
+        <PV_BrickWall.kr()[0]>
     """
 
     pv_chain = param()
@@ -243,7 +243,7 @@ class PV_ConformalMap(PV_ChainUGen):
         ...     pv_chain=pv_chain,
         ... )
         >>> pv_conformal_map
-        PV_ConformalMap.kr()[0]
+        <PV_ConformalMap.kr()[0]>
     """
 
     pv_chain = param()
@@ -265,7 +265,7 @@ class PV_Conj(PV_ChainUGen):
         ...     pv_chain=pv_chain,
         ... )
         >>> pv_conj
-        PV_Conj.kr()[0]
+        <PV_Conj.kr()[0]>
     """
 
     pv_chain = param()
@@ -289,7 +289,7 @@ class PV_Copy(PV_ChainUGen):
         ...     pv_chain_b=pv_chain_b,
         ... )
         >>> pv_copy
-        PV_Copy.kr()[0]
+        <PV_Copy.kr()[0]>
     """
 
     pv_chain_a = param()
@@ -314,7 +314,7 @@ class PV_CopyPhase(PV_ChainUGen):
         ...     pv_chain_b=pv_chain_b,
         ... )
         >>> pv_copy_phase
-        PV_CopyPhase.kr()[0]
+        <PV_CopyPhase.kr()[0]>
     """
 
     pv_chain_a = param()
@@ -336,7 +336,7 @@ class PV_Diffuser(PV_ChainUGen):
         ...     trigger=0,
         ... )
         >>> pv_diffuser
-        PV_Diffuser.kr()[0]
+        <PV_Diffuser.kr()[0]>
     """
 
     pv_chain = param()
@@ -361,7 +361,7 @@ class PV_Div(PV_ChainUGen):
         ...     pv_chain_b=pv_chain_b,
         ... )
         >>> pv_div
-        PV_Div.kr()[0]
+        <PV_Div.kr()[0]>
     """
 
     pv_chain_a = param()
@@ -386,7 +386,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ...     waittime=0.04,
         ... )
         >>> pv_hainsworth_foote
-        PV_HainsworthFoote.kr()[0]
+        <PV_HainsworthFoote.kr()[0]>
     """
 
     pv_chain = param()
@@ -416,7 +416,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         ...     waittime=0.04,
         ... )
         >>> pv_jensen_andersen
-        PV_JensenAndersen.kr()[0]
+        <PV_JensenAndersen.kr()[0]>
     """
 
     pv_chain = param()
@@ -443,7 +443,7 @@ class PV_LocalMax(PV_ChainUGen):
         ...     threshold=0,
         ... )
         >>> pv_local_max
-        PV_LocalMax.kr()[0]
+        <PV_LocalMax.kr()[0]>
     """
 
     pv_chain = param()
@@ -465,7 +465,7 @@ class PV_MagAbove(PV_ChainUGen):
         ...     threshold=0,
         ... )
         >>> pv_mag_above
-        PV_MagAbove.kr()[0]
+        <PV_MagAbove.kr()[0]>
     """
 
     pv_chain = param()
@@ -487,7 +487,7 @@ class PV_MagBelow(PV_ChainUGen):
         ...     threshold=0,
         ... )
         >>> pv_mag_below
-        PV_MagBelow.kr()[0]
+        <PV_MagBelow.kr()[0]>
     """
 
     pv_chain = param()
@@ -509,7 +509,7 @@ class PV_MagClip(PV_ChainUGen):
         ...     threshold=0,
         ... )
         >>> pv_mag_clip
-        PV_MagClip.kr()[0]
+        <PV_MagClip.kr()[0]>
     """
 
     pv_chain = param()
@@ -535,7 +535,7 @@ class PV_MagDiv(PV_ChainUGen):
         ...     zeroed=0.0001,
         ... )
         >>> pv_mag_div
-        PV_MagDiv.kr()[0]
+        <PV_MagDiv.kr()[0]>
     """
 
     pv_chain_a = param()
@@ -558,7 +558,7 @@ class PV_MagFreeze(PV_ChainUGen):
         ...     freeze=0,
         ... )
         >>> pv_mag_freeze
-        PV_MagFreeze.kr()[0]
+        <PV_MagFreeze.kr()[0]>
     """
 
     pv_chain = param()
@@ -583,7 +583,7 @@ class PV_MagMul(PV_ChainUGen):
         ...     pv_chain_b=pv_chain_b,
         ... )
         >>> pv_mag_mul
-        PV_MagMul.kr()[0]
+        <PV_MagMul.kr()[0]>
     """
 
     pv_chain_a = param()
@@ -604,7 +604,7 @@ class PV_MagNoise(PV_ChainUGen):
         ...     pv_chain=pv_chain,
         ... )
         >>> pv_mag_noise
-        PV_MagNoise.kr()[0]
+        <PV_MagNoise.kr()[0]>
     """
 
     pv_chain = param()
@@ -626,7 +626,7 @@ class PV_MagShift(PV_ChainUGen):
         ...     stretch=1,
         ... )
         >>> pv_mag_shift
-        PV_MagShift.kr()[0]
+        <PV_MagShift.kr()[0]>
     """
 
     pv_chain = param()
@@ -649,7 +649,7 @@ class PV_MagSmear(PV_ChainUGen):
         ...     pv_chain=pv_chain,
         ... )
         >>> pv_mag_smear
-        PV_MagSmear.kr()[0]
+        <PV_MagSmear.kr()[0]>
     """
 
     pv_chain = param()
@@ -670,7 +670,7 @@ class PV_MagSquared(PV_ChainUGen):
         ...     pv_chain=pv_chain,
         ... )
         >>> pv_mag_squared
-        PV_MagSquared.kr()[0]
+        <PV_MagSquared.kr()[0]>
     """
 
     pv_chain = param()
@@ -694,7 +694,7 @@ class PV_Max(PV_ChainUGen):
         ...     pv_chain_b=pv_chain_b,
         ... )
         >>> pv_max
-        PV_Max.kr()[0]
+        <PV_Max.kr()[0]>
     """
 
     pv_chain_a = param()
@@ -719,7 +719,7 @@ class PV_Min(PV_ChainUGen):
         ...     pv_chain_b=pv_chain_b,
         ... )
         >>> pv_min
-        PV_Min.kr()[0]
+        <PV_Min.kr()[0]>
     """
 
     pv_chain_a = param()
@@ -744,7 +744,7 @@ class PV_Mul(PV_ChainUGen):
         ...     pv_chain_b=pv_chain_b,
         ... )
         >>> pv_mul
-        PV_Mul.kr()[0]
+        <PV_Mul.kr()[0]>
     """
 
     pv_chain_a = param()
@@ -768,7 +768,7 @@ class PV_PhaseShift(PV_ChainUGen):
         ...     shift=shift,
         ... )
         >>> pv_phase_shift
-        PV_PhaseShift.kr()[0]
+        <PV_PhaseShift.kr()[0]>
     """
 
     pv_chain = param()
@@ -790,7 +790,7 @@ class PV_PhaseShift270(PV_ChainUGen):
         ...     pv_chain=pv_chain,
         ... )
         >>> pv_phase_shift_270
-        PV_PhaseShift270.kr()[0]
+        <PV_PhaseShift270.kr()[0]>
     """
 
     pv_chain = param()
@@ -810,7 +810,7 @@ class PV_PhaseShift90(PV_ChainUGen):
         ...     pv_chain=pv_chain,
         ... )
         >>> pv_phase_shift_90
-        PV_PhaseShift90.kr()[0]
+        <PV_PhaseShift90.kr()[0]>
     """
 
     pv_chain = param()
@@ -832,7 +832,7 @@ class PV_RandComb(PV_ChainUGen):
         ...     wipe=0,
         ... )
         >>> pv_rand_comb
-        PV_RandComb.kr()[0]
+        <PV_RandComb.kr()[0]>
     """
 
     pv_chain = param()
@@ -860,7 +860,7 @@ class PV_RandWipe(PV_ChainUGen):
         ...     wipe=0,
         ... )
         >>> pv_rand_wipe
-        PV_RandWipe.kr()[0]
+        <PV_RandWipe.kr()[0]>
     """
 
     pv_chain_a = param()
@@ -886,7 +886,7 @@ class PV_RectComb(PV_ChainUGen):
         ...     width=0.5,
         ... )
         >>> pv_rect_comb
-        PV_RectComb.kr()[0]
+        <PV_RectComb.kr()[0]>
     """
 
     pv_chain = param()
@@ -916,7 +916,7 @@ class PV_RectComb2(PV_ChainUGen):
         ...     width=0.5,
         ... )
         >>> pv_rect_comb_2
-        PV_RectComb2.kr()[0]
+        <PV_RectComb2.kr()[0]>
     """
 
     pv_chain_a = param()
@@ -939,7 +939,7 @@ class RunningSum(UGen):
         ...     source=source,
         ... )
         >>> running_sum
-        RunningSum.ar()[0]
+        <RunningSum.ar()[0]>
     """
 
     source = param()

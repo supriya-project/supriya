@@ -17,7 +17,7 @@ class A2K(UGen):
         ...     source=source,
         ... )
         >>> a_2_k
-        A2K.kr()[0]
+        <A2K.kr()[0]>
     """
 
     source = param()
@@ -36,7 +36,7 @@ class AmpComp(UGen):
         ...     root=0,
         ... )
         >>> amp_comp
-        AmpComp.ar()[0]
+        <AmpComp.ar()[0]>
     """
 
     frequency = param(1000.0)
@@ -58,7 +58,7 @@ class AmpCompA(UGen):
         ...     root_amp=1,
         ... )
         >>> amp_comp_a
-        AmpCompA.ar()[0]
+        <AmpCompA.ar()[0]>
     """
 
     frequency = param(1000.0)
@@ -77,14 +77,14 @@ class DC(UGen):
         >>> supriya.ugens.DC.ar(
         ...     source=0,
         ... )
-        DC.ar()[0]
+        <DC.ar()[0]>
 
     ::
 
         >>> supriya.ugens.DC.ar(
         ...     source=(1, 2, 3),
         ... )
-        UGenVector({3})
+        <UGenVector([<DC.ar()[0]>, <DC.ar()[0]>, <DC.ar()[0]>])>
     """
 
     source = param()
@@ -102,7 +102,7 @@ class K2A(UGen):
         ...     source=source,
         ... )
         >>> k_2_a
-        K2A.ar()[0]
+        <K2A.ar()[0]>
     """
 
     source = param()
@@ -124,7 +124,7 @@ class LinExp(UGen):
         ...     source=source,
         ... )
         >>> lin_exp
-        LinExp.ar()[0]
+        <LinExp.ar()[0]>
     """
 
     source = param()
@@ -170,7 +170,7 @@ class Line(UGen):
     ::
 
         >>> supriya.ugens.Line.ar()
-        Line.ar()[0]
+        <Line.ar()[0]>
     """
 
     start = param(0.0)
@@ -197,7 +197,7 @@ class Silence(PseudoUGen):
     ::
 
         >>> supriya.ugens.Silence.ar(channel_count=2)
-        UGenVector({2})
+        <UGenVector([<DC.ar()[0]>, <DC.ar()[0]>])>
     """
 
     @classmethod
@@ -221,7 +221,7 @@ class XLine(UGen):
     ::
 
         >>> supriya.ugens.XLine.ar()
-        XLine.ar()[0]
+        <XLine.ar()[0]>
     """
 
     start = param(0.0)
