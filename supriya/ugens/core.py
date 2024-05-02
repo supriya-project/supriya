@@ -3343,7 +3343,7 @@ class UGenOperable:
         """
         return self._compute_unary_op(self, UnaryOperator.SOFTCLIP)
 
-    def square_root(self) -> "UGenOperable":
+    def sqrt(self) -> "UGenOperable":
         """
         Calculates square root of ugen graph.
         """
