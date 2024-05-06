@@ -29,8 +29,8 @@ def synthdefs():
 
 
 def test_add_synthdefs(context, synthdefs):
-    def compiled(x):
-        return compile_synthdefs(x)
+    def compiled(*x):
+        return compile_synthdefs(*x)
 
     with context.at(0):
         # no synthdefs provided
@@ -54,14 +54,14 @@ def test_add_synthdefs(context, synthdefs):
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(
             contents=(
-                OscMessage("/d_recv", compiled([synthdefs[0]])),
-                OscMessage("/d_recv", compiled(synthdefs)),
+                OscMessage("/d_recv", compiled(synthdefs[0])),
+                OscMessage("/d_recv", compiled(*synthdefs)),
                 OscMessage(
                     "/d_recv",
-                    compiled([synthdefs[1]]),
+                    compiled(synthdefs[1]),
                     OscMessage("/g_new", 1000, 0, 0),
                 ),
-                OscMessage("/d_recv", compiled([synthdefs[2]])),
+                OscMessage("/d_recv", compiled(synthdefs[2])),
             ),
             timestamp=0.0,
         ),
@@ -69,7 +69,7 @@ def test_add_synthdefs(context, synthdefs):
             contents=[
                 OscMessage(
                     "/d_recv",
-                    compiled([synthdefs[2]]),
+                    compiled(synthdefs[2]),
                     OscMessage("/g_new", 1001, 0, 0),
                 )
             ],

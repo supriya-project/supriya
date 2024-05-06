@@ -14,7 +14,12 @@ def test_system_link_audio_1_supriya():
         synthdef:
             name: system_link_audio_1
             ugens:
-            -   Control.kr: null
+            -   Control.kr:
+                    done_action: 2.0
+                    fade_time: 0.02
+                    gate: 1.0
+                    in_: 16.0
+                    out: 0.0
             -   BinaryOpUGen(LESS_THAN_OR_EQUAL).kr:
                     left: Control.kr[1:fade_time]
                     right: 0.0
@@ -99,8 +104,14 @@ def test_system_link_audio_1_sclang():
         synthdef:
             name: system_link_audio_1
             ugens:
-            -   Control.ir: null
-            -   Control.kr: null
+            -   Control.ir:
+                    doneAction: 2.0
+            -   Control.kr:
+                    out: 0.0
+                    in: 16.0
+                    vol: 1.0
+                    level: 1.0
+                    lag: 0.05000000074505806
             -   BinaryOpUGen(MULTIPLICATION).kr/0:
                     left: Control.kr[2:vol]
                     right: Control.kr[3:level]
@@ -109,8 +120,10 @@ def test_system_link_audio_1_sclang():
                     lag_time: Control.kr[4:lag]
             -   InFeedback.ar:
                     bus: Control.kr[1:in]
-            -   Control.kr: null
-            -   Control.kr: null
+            -   Control.kr:
+                    gate: 1.0
+            -   Control.kr:
+                    fadeTime: 0.019999999552965164
             -   EnvGen.kr:
                     gate: Control.kr[0:gate]
                     level_scale: 1.0
@@ -148,7 +161,12 @@ def test_system_link_audio_2_supriya():
         synthdef:
             name: system_link_audio_2
             ugens:
-            -   Control.kr: null
+            -   Control.kr:
+                    done_action: 2.0
+                    fade_time: 0.02
+                    gate: 1.0
+                    in_: 16.0
+                    out: 0.0
             -   BinaryOpUGen(LESS_THAN_OR_EQUAL).kr:
                     left: Control.kr[1:fade_time]
                     right: 0.0
@@ -240,8 +258,14 @@ def test_system_link_audio_2_sclang():
         synthdef:
             name: system_link_audio_2
             ugens:
-            -   Control.ir: null
-            -   Control.kr: null
+            -   Control.ir:
+                    doneAction: 2.0
+            -   Control.kr:
+                    out: 0.0
+                    in: 16.0
+                    vol: 1.0
+                    level: 1.0
+                    lag: 0.05000000074505806
             -   BinaryOpUGen(MULTIPLICATION).kr/0:
                     left: Control.kr[2:vol]
                     right: Control.kr[3:level]
@@ -250,8 +274,10 @@ def test_system_link_audio_2_sclang():
                     lag_time: Control.kr[4:lag]
             -   InFeedback.ar:
                     bus: Control.kr[1:in]
-            -   Control.kr: null
-            -   Control.kr: null
+            -   Control.kr:
+                    gate: 1.0
+            -   Control.kr:
+                    fadeTime: 0.019999999552965164
             -   EnvGen.kr:
                     gate: Control.kr[0:gate]
                     level_scale: 1.0

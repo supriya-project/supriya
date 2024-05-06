@@ -19,7 +19,7 @@ def _build_default_synthdef() -> SynthDef:
         amplitude=0.1,
         frequency=440,
         gate=1,
-        out=Parameter(parameter_rate=ParameterRate.SCALAR, value=0),
+        out=Parameter(rate=ParameterRate.SCALAR, value=0),
         pan=0.5,
     ) as builder:
         low_pass = LPF.ar(

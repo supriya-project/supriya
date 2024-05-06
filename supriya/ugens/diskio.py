@@ -15,7 +15,7 @@ class DiskIn(UGen):
         ...     loop=0,
         ... )
         >>> disk_in
-        <UGenVector([<DiskIn.ar()[0]>, <DiskIn.ar()[1]>])>
+        <DiskIn.ar()>
     """
 
     buffer_id = param()
@@ -59,7 +59,7 @@ class VDiskIn(UGen):
         ...     send_id=0,
         ... )
         >>> vdisk_in
-        <UGenVector([<VDiskIn.ar()[0]>, <VDiskIn.ar()[1]>])>
+        <VDiskIn.ar()>
     """
 
     buffer_id = param()

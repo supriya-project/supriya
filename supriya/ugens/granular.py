@@ -19,7 +19,7 @@ class GrainBuf(UGen):
         ...     trigger=0,
         ... )
         >>> grain_buf
-        <UGenVector([<GrainBuf.ar()[0]>, <GrainBuf.ar()[1]>])>
+        <GrainBuf.ar()>
     """
 
     trigger = param(0)
@@ -49,7 +49,7 @@ class GrainIn(UGen):
         ...     trigger=0,
         ... )
         >>> grain_in
-        <UGenVector([<GrainIn.ar()[0]>, <GrainIn.ar()[1]>])>
+        <GrainIn.ar()>
     """
 
     trigger = param(0)

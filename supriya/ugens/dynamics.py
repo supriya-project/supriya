@@ -74,7 +74,7 @@ class CompanderD(PseudoUGen):
 
                 >>> print(compander_d)
                 synthdef:
-                    name: d4e7b88df56af5070a88f09b0f8c633e
+                    name: ...
                     ugens:
                     -   In.ar:
                             bus: 0.0

@@ -20,7 +20,7 @@ class BeatTrack(UGen):
         ...     lock=0,
         ... )
         >>> beat_track
-        <UGenVector([<BeatTrack.kr()[0]>, <BeatTrack.kr()[1]>, <BeatTrack.kr()[2]>, <BeatTrack.kr()[3]>])>
+        <BeatTrack.kr()>
     """
 
     pv_chain = param()
@@ -43,7 +43,7 @@ class BeatTrack2(UGen):
         ...     window_size=2,
         ... )
         >>> beat_track_2
-        <UGenVector([<BeatTrack2.kr()[0]>, <BeatTrack2.kr()[1]>, <BeatTrack2.kr()[2]>, <BeatTrack2.kr()[3]>, <BeatTrack2.kr()[4]>, <BeatTrack2.kr()[5]>])>
+        <BeatTrack2.kr()>
     """
 
     bus_index = param(0.0)
@@ -113,7 +113,7 @@ class MFCC(UGen):
         ...     pv_chain=pv_chain,
         ... )
         >>> mfcc
-        <UGenVector([<MFCC.kr()[0]>, <MFCC.kr()[1]>, <MFCC.kr()[2]>, <MFCC.kr()[3]>, <MFCC.kr()[4]>, <MFCC.kr()[5]>, <MFCC.kr()[6]>, <MFCC.kr()[7]>, <MFCC.kr()[8]>, <MFCC.kr()[9]>, <MFCC.kr()[10]>, <MFCC.kr()[11]>, <MFCC.kr()[12]>])>
+        <MFCC.kr()>
     """
 
     pv_chain = param()
@@ -183,7 +183,7 @@ class Pitch(UGen):
         >>> source = supriya.ugens.In.ar(bus=0)
         >>> pitch = supriya.ugens.Pitch.kr(source=source)
         >>> pitch
-        <UGenVector([<Pitch.kr()[0]>, <Pitch.kr()[1]>])>
+        <Pitch.kr()>
     """
 
     source = param()
