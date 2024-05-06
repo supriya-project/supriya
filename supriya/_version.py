@@ -8,5 +8,5 @@ Version information.
 This follows black's versioning scheme.
 """
 
-__version_info__ = (24, "3b2")
+__version_info__ = (24, "5b0")
 __version__ = ".".join(str(x) for x in __version_info__)
