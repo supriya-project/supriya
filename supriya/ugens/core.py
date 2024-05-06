@@ -563,6 +563,28 @@ class UGenOperable:
         """
         return UGenOperable._compute_binary_op(self, expr, BinaryOperator.BITWISE_AND)
 
+    def __ceil__(self) -> "UGenOperable":
+        """
+        Calculates the ceiling of ugen graph.
+
+        ::
+
+            >>> import math
+            >>> source = supriya.ugens.DC.ar(source=0.5)
+            >>> operation = math.ceil(source)
+            >>> print(operation)
+            synthdef:
+                name: c7b1855219f3364f731bdd2e4599b1d1
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(CEILING).ar:
+                        source: DC.ar[0]
+
+        Returns ugen graph.
+        """
+        return self._compute_unary_op(self, UnaryOperator.CEILING)
+
     def __div__(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Divides ugen graph by `expr`.
@@ -676,6 +698,28 @@ class UGenOperable:
         return UGenOperable._compute_binary_op(
             self, expr, BinaryOperator.FLOAT_DIVISION
         )
+
+    def __floor__(self) -> "UGenOperable":
+        """
+        Calculates the floor of ugen graph.
+
+        ::
+
+            >>> import math
+            >>> source = supriya.ugens.DC.ar(source=0.5)
+            >>> operation = math.floor(source)
+            >>> print(operation)
+            synthdef:
+                name: 407228cfdb74bdd79b51c425fb8a7f77
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(FLOOR).ar:
+                        source: DC.ar[0]
+
+        Returns ugen graph.
+        """
+        return self._compute_unary_op(self, UnaryOperator.FLOOR)
 
     def __graph__(self):
         """
@@ -2378,7 +2422,7 @@ class UGenOperable:
 
     ### PUBLIC METHODS ###
 
-    def absolute_difference(self, expr: "UGenOperand") -> "UGenOperable":
+    def absdiff(self, expr: "UGenOperand") -> "UGenOperable":
         """
         Calculates absolute difference between ugen graph and `expr`.
 
@@ -2388,7 +2432,7 @@ class UGenOperable:
 
                 >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> expr = supriya.ugens.WhiteNoise.kr()
-                >>> result = ugen_graph.absolute_difference(expr)
+                >>> result = ugen_graph.absdiff(expr)
 
             ::
 
@@ -2440,80 +2484,6 @@ class UGenOperable:
         Returns ugen graph.
         """
         return self._compute_unary_op(self, UnaryOperator.AMPLITUDE_TO_DB)
-
-    def as_int(self) -> "UGenOperable":
-        return self._compute_unary_op(self, UnaryOperator.AS_INT)
-
-    def as_maximum(self, expr: "UGenOperand") -> "UGenOperable":
-        """
-        Calculates maximum between ugen graph and `expr`.
-
-        ::
-
-            >>> left = supriya.ugens.SinOsc.ar()
-            >>> right = supriya.ugens.WhiteNoise.kr()
-            >>> operation = left.as_maximum(right)
-            >>> print(operation)
-            synthdef:
-                name: dcdca07fb0439c8b4321f42803d18c32
-                ugens:
-                -   SinOsc.ar:
-                        frequency: 440.0
-                        phase: 0.0
-                -   WhiteNoise.kr: null
-                -   BinaryOpUGen(MAXIMUM).ar:
-                        left: SinOsc.ar[0]
-                        right: WhiteNoise.kr[0]
-
-        Returns ugen graph.
-        """
-        return self._compute_binary_op(self, expr, BinaryOperator.MAXIMUM)
-
-    def as_minimum(self, expr: "UGenOperand") -> "UGenOperable":
-        """
-        Calculates minimum between ugen graph and `expr`.
-
-        ::
-
-            >>> left = supriya.ugens.SinOsc.ar()
-            >>> right = supriya.ugens.WhiteNoise.kr()
-            >>> operation = left.as_minimum(right)
-            >>> print(operation)
-            synthdef:
-                name: f80c0a7b300911e9eff0e8760f5fab18
-                ugens:
-                -   SinOsc.ar:
-                        frequency: 440.0
-                        phase: 0.0
-                -   WhiteNoise.kr: null
-                -   BinaryOpUGen(MINIMUM).ar:
-                        left: SinOsc.ar[0]
-                        right: WhiteNoise.kr[0]
-
-        Returns ugen graph.
-        """
-        return self._compute_binary_op(self, expr, BinaryOperator.MINIMUM)
-
-    def ceiling(self) -> "UGenOperable":
-        """
-        Calculates the ceiling of ugen graph.
-
-        ::
-
-            >>> source = supriya.ugens.DC.ar(source=0.5)
-            >>> operation = source.ceiling()
-            >>> print(operation)
-            synthdef:
-                name: c7b1855219f3364f731bdd2e4599b1d1
-                ugens:
-                -   DC.ar:
-                        source: 0.5
-                -   UnaryOpUGen(CEILING).ar:
-                        source: DC.ar[0]
-
-        Returns ugen graph.
-        """
-        return self._compute_unary_op(self, UnaryOperator.CEILING)
 
     def clip(
         self,
@@ -2645,6 +2615,9 @@ class UGenOperable:
         """
         return self._compute_unary_op(self, UnaryOperator.DB_TO_AMPLITUDE)
 
+    def digit_value(self) -> "UGenOperable":
+        return self._compute_unary_op(self, UnaryOperator.DIGIT_VALUE)
+
     def distort(self) -> "UGenOperable":
         """
         Distorts ugen graph non-linearly.
@@ -2686,27 +2659,6 @@ class UGenOperable:
         Returns ugen graph.
         """
         return self._compute_unary_op(self, UnaryOperator.EXPONENTIAL)
-
-    def floor(self) -> "UGenOperable":
-        """
-        Calculates the floor of ugen graph.
-
-        ::
-
-            >>> source = supriya.ugens.DC.ar(source=0.5)
-            >>> operation = source.floor()
-            >>> print(operation)
-            synthdef:
-                name: 407228cfdb74bdd79b51c425fb8a7f77
-                ugens:
-                -   DC.ar:
-                        source: 0.5
-                -   UnaryOpUGen(FLOOR).ar:
-                        source: DC.ar[0]
-
-        Returns ugen graph.
-        """
-        return self._compute_unary_op(self, UnaryOperator.FLOOR)
 
     def fractional_part(self) -> "UGenOperable":
         """
@@ -2998,6 +2950,31 @@ class UGenOperable:
         """
         return self._compute_unary_op(self, UnaryOperator.LOG10)
 
+    def max(self, expr: "UGenOperand") -> "UGenOperable":
+        """
+        Calculates maximum between ugen graph and `expr`.
+
+        ::
+
+            >>> left = supriya.ugens.SinOsc.ar()
+            >>> right = supriya.ugens.WhiteNoise.kr()
+            >>> operation = left.max(right)
+            >>> print(operation)
+            synthdef:
+                name: dcdca07fb0439c8b4321f42803d18c32
+                ugens:
+                -   SinOsc.ar:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(MAXIMUM).ar:
+                        left: SinOsc.ar[0]
+                        right: WhiteNoise.kr[0]
+
+        Returns ugen graph.
+        """
+        return self._compute_binary_op(self, expr, BinaryOperator.MAXIMUM)
+
     def midi_to_hz(self) -> "UGenOperable":
         """
         Converts ugen graph from midi note number to Hertz.
@@ -3027,6 +3004,31 @@ class UGenOperable:
         """
         return self._compute_unary_op(self, UnaryOperator.MIDI_TO_HZ)
 
+    def min(self, expr: "UGenOperand") -> "UGenOperable":
+        """
+        Calculates minimum between ugen graph and `expr`.
+
+        ::
+
+            >>> left = supriya.ugens.SinOsc.ar()
+            >>> right = supriya.ugens.WhiteNoise.kr()
+            >>> operation = left.min(right)
+            >>> print(operation)
+            synthdef:
+                name: f80c0a7b300911e9eff0e8760f5fab18
+                ugens:
+                -   SinOsc.ar:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(MINIMUM).ar:
+                        left: SinOsc.ar[0]
+                        right: WhiteNoise.kr[0]
+
+        Returns ugen graph.
+        """
+        return self._compute_binary_op(self, expr, BinaryOperator.MINIMUM)
+
     def octave_to_hz(self) -> "UGenOperable":
         """
         Converts ugen graph from octave number to Hertz.
@@ -3055,41 +3057,6 @@ class UGenOperable:
         Returns ugen graph.
         """
         return self._compute_unary_op(self, UnaryOperator.OCTAVE_TO_HZ)
-
-    def power(self, expr: "UGenOperand") -> "UGenOperable":
-        """
-        Raises ugen graph to the power of `expr`.
-
-        ::
-
-            >>> left = supriya.ugens.SinOsc.ar()
-            >>> right = supriya.ugens.WhiteNoise.kr()
-            >>> operation = left.power(right)
-            >>> print(operation)
-            synthdef:
-                name: 06d6d3fe992bff8fce9ef55db6863c2a
-                ugens:
-                -   SinOsc.ar:
-                        frequency: 440.0
-                        phase: 0.0
-                -   WhiteNoise.kr: null
-                -   BinaryOpUGen(POWER).ar:
-                        left: SinOsc.ar[0]
-                        right: WhiteNoise.kr[0]
-
-        Returns ugen graph.
-        """
-        return self._compute_binary_op(self, expr, BinaryOperator.POWER)
-
-    def range(self, minimum=0.0, maximum=1.0) -> "UGenOperable":
-        if self.signal_range == SignalRange.BIPOLAR:
-            return self.scale(-1, 1, minimum, maximum)
-        return self.scale(0, 1, minimum, maximum)
-
-    def exponential_range(self, minimum=0.01, maximum=1.0) -> "UGenOperable":
-        if self.signal_range == SignalRange.BIPOLAR:
-            return self.scale(-1, 1, minimum, maximum, exponential=True)
-        return self.scale(0, 1, minimum, maximum, exponential=True)
 
     def ratio_to_semitones(self) -> "UGenOperable":
         """
@@ -3366,7 +3333,7 @@ class UGenOperable:
         """
         return self._compute_unary_op(self, UnaryOperator.SOFTCLIP)
 
-    def square_root(self) -> "UGenOperable":
+    def sqrt(self) -> "UGenOperable":
         """
         Calculates square root of ugen graph.
         """
