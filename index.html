@@ -33,7 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.359ec555e2989f00f.min.css?v=b000af5c" />
-        <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+        <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -94,7 +94,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Supriya (24.3b2)
+              Supriya (24.5b0)
             
           </span>
         </div>
@@ -1952,7 +1952,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
-<h1 id="supriya-release">Supriya (24.3b2)<a class="headerlink" href="#supriya-release" title="Link to this heading">¶</a></h1>
+<h1 id="supriya-release">Supriya (24.5b0)<a class="headerlink" href="#supriya-release" title="Link to this heading">¶</a></h1>
 <div class="attention admonition">
 <p class="admonition-title">Attention</p>
 <p>Documentation is under construction. Stand by.</p>
@@ -2031,6 +2031,11 @@ setting it up, and installing any additional dependencies like <a class="referen
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">simple_sine</span><span class="p">)</span>
 </code></pre></div>
 </div>
+<p>… and then sync the server before proceeding to ensure the SynthDef has been
+fully parsed by scsynth:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+</code></pre></div>
+</div>
 <h3 id="create-some-nodes">5. Create some nodes<a class="headerlink" href="#create-some-nodes" title="Link to this heading">¶</a></h3>
 <p>Create and allocate a group:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
@@ -2045,15 +2050,15 @@ allocate them on the server as a child of the previously created group:</p>
 </div>
 <p>Query the server’s node tree:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
-<span class="go">/home/runner/work/supriya/supriya/supriya/contexts/realtime.py:210: FailWarning: /s_new SynthDef not found</span>
-<span class="go">  warnings.warn(&quot; &quot;.join(str(x) for x in message.contents), FailWarning)</span>
-<span class="go">/home/runner/work/supriya/supriya/supriya/contexts/realtime.py:210: FailWarning: /s_new SynthDef not found</span>
-<span class="go">  warnings.warn(&quot; &quot;.join(str(x) for x in message.contents), FailWarning)</span>
-<span class="go">/home/runner/work/supriya/supriya/supriya/contexts/realtime.py:210: FailWarning: /s_new SynthDef not found</span>
-<span class="go">  warnings.warn(&quot; &quot;.join(str(x) for x in message.contents), FailWarning)</span>
 <span class="go">NODE TREE 0 group</span>
 <span class="go">    1 group</span>
 <span class="go">        1000 group</span>
+<span class="go">            1003 simple_sine</span>
+<span class="go">                amplitude: 0.1, frequency: 333.0, gate: 1.0</span>
+<span class="go">            1002 simple_sine</span>
+<span class="go">                amplitude: 0.1, frequency: 222.0, gate: 1.0</span>
+<span class="go">            1001 simple_sine</span>
+<span class="go">                amplitude: 0.1, frequency: 111.0, gate: 1.0</span>
 </code></pre></div>
 </div>
 <h3 id="release-and-quit">6. Release and quit<a class="headerlink" href="#release-and-quit" title="Link to this heading">¶</a></h3>
@@ -2065,7 +2070,7 @@ allocate them on the server as a child of the previously created group:</p>
 </div>
 <p>Quit the server:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f9a7ed0cb10&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f0b7849dd90&gt;</span>
 </code></pre></div>
 </div>
 <div class="toctree-wrapper compound">
@@ -2127,13 +2132,13 @@ allocate them on the server as a child of the previously created group:</p>
       <div class="md-copyright">
   
     <div class="md-footer-copyright__highlight">
-        &#169; Copyright 2014-2024, Josiah Wolf Oberholtzer.
+        &#169; Copyright 2014-2024, Joséphine Wolf Oberholtzer.
         
     </div>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    7.2.6.
+    7.3.7.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

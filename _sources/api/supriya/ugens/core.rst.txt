@@ -160,7 +160,9 @@ core
    .. automethod:: __abs__
    .. automethod:: __add__
    .. automethod:: __and__
+   .. automethod:: __ceil__
    .. automethod:: __div__
+   .. automethod:: __floor__
    .. automethod:: __ge__
    .. automethod:: __graph__
    .. automethod:: __gt__
@@ -182,19 +184,14 @@ core
    .. automethod:: __sub__
    .. automethod:: __truediv__
    .. automethod:: __xor__
-   .. automethod:: absolute_difference
+   .. automethod:: absdiff
    .. automethod:: amplitude_to_db
-   .. automethod:: as_int
-   .. automethod:: as_maximum
-   .. automethod:: as_minimum
-   .. automethod:: ceiling
    .. automethod:: clip
    .. automethod:: cubed
    .. automethod:: db_to_amplitude
+   .. automethod:: digit_value
    .. automethod:: distort
    .. automethod:: exponential
-   .. automethod:: exponential_range
-   .. automethod:: floor
    .. automethod:: fractional_part
    .. automethod:: hanning_window
    .. automethod:: hz_to_midi
@@ -205,10 +202,10 @@ core
    .. automethod:: log
    .. automethod:: log10
    .. automethod:: log2
+   .. automethod:: max
    .. automethod:: midi_to_hz
+   .. automethod:: min
    .. automethod:: octave_to_hz
-   .. automethod:: power
-   .. automethod:: range
    .. automethod:: ratio_to_semitones
    .. automethod:: reciprocal
    .. automethod:: rectangle_window
@@ -217,7 +214,7 @@ core
    .. automethod:: semitones_to_ratio
    .. automethod:: sign
    .. automethod:: softclip
-   .. automethod:: square_root
+   .. automethod:: sqrt
    .. automethod:: squared
    .. automethod:: sum
    .. automethod:: tanh
