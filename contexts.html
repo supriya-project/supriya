@@ -1990,13 +1990,13 @@ with no timestamp - simply means “do this as soon as possible”. Use
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>  <span class="c1"># do it ASAP</span>
 <span class="gp">... </span>    <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">... </span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f0b78531f50&gt;, id_=1001, parallel=False)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fafae9ef890&gt;, id_=1001, parallel=False)</span>
 </code></pre></div>
 </div>
 </li>
 <li><p>Servers can also omit moments entirely:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f0b78531f50&gt;, id_=1002, parallel=False)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fafae9ef890&gt;, id_=1002, parallel=False)</span>
 </code></pre></div>
 </div>
 </li>
@@ -2017,14 +2017,14 @@ argument.</p>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">score</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">score</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">target_node</span><span class="o">=</span><span class="n">score_group</span><span class="p">)</span>
 <span class="gp">... </span>
-<span class="go">Synth(context=&lt;supriya.contexts.nonrealtime.Score object at 0x7f0b7852e190&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.nonrealtime.Score object at 0x7fafae9b5710&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">target_node</span><span class="o">=</span><span class="n">server_group</span><span class="p">)</span>
 <span class="gp">... </span>
-<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7f0b78531f50&gt;, id_=1003, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7fafae9ef890&gt;, id_=1003, synthdef=&lt;SynthDef: default&gt;)</span>
 </code></pre></div>
 </div>
 <p>Because realtime contexts can issue requests outside of a moment context, all
@@ -2036,7 +2036,7 @@ message.</p>
 <span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="k">lambda</span> <span class="n">context</span><span class="p">:</span> <span class="n">context</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
-<span class="go">Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f0b78531f50&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f0b78531f50&gt;, seconds=None, closed=True, requests=[(ReceiveSynthDefs(synthdefs=(&lt;SynthDef: default&gt;,), on_completion=None), ...)]), requests=[(NewSynth(synthdef=&lt;SynthDef: default&gt;, synth_id=1004, add_action=AddAction.ADD_TO_HEAD, target_node_id=1, controls={}), None)])</span>
+<span class="go">Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fafae9ef890&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fafae9ef890&gt;, seconds=None, closed=True, requests=[(ReceiveSynthDefs(synthdefs=(&lt;SynthDef: default&gt;,), on_completion=None), ...)]), requests=[(NewSynth(synthdef=&lt;SynthDef: default&gt;, synth_id=1004, add_action=AddAction.ADD_TO_HEAD, target_node_id=1, controls={}), None)])</span>
 </code></pre></div>
 </div>
 <p>If issuing commands inside a moment, the completion must be used before the

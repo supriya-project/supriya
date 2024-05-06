@@ -137,14 +137,14 @@ demand
    :show-inheritance:
 
    .. automethod:: dr
-   .. autoproperty:: index
+   .. autoproperty:: index_
    .. autoproperty:: sequence
 
 .. autoclass:: Dswitch1
    :show-inheritance:
 
    .. automethod:: dr
-   .. autoproperty:: index
+   .. autoproperty:: index_
    .. autoproperty:: sequence
 
 .. autoclass:: Dunique

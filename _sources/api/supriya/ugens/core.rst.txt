@@ -24,14 +24,15 @@ core
    :undoc-members:
 
 
+.. autoclass:: ConstantProxy
+   :show-inheritance:
+
+   .. automethod:: __float__
+
 .. autoclass:: Control
    :show-inheritance:
 
-   .. automethod:: __getitem__
-   .. automethod:: __len__
-   .. autoproperty:: controls
    .. autoproperty:: parameters
-   .. autoproperty:: starting_control_index
 
 .. autoclass:: LagControl
    :show-inheritance:
@@ -40,13 +41,7 @@ core
 .. autoclass:: OutputProxy
    :show-inheritance:
 
-   .. automethod:: __iter__
-   .. automethod:: __len__
    .. autoproperty:: calculation_rate
-   .. autoproperty:: has_done_flag
-   .. autoproperty:: output_index
-   .. autoproperty:: signal_range
-   .. autoproperty:: source
 
 .. autoclass:: Param
    :show-inheritance:
@@ -55,13 +50,6 @@ core
 .. autoclass:: Parameter
    :show-inheritance:
 
-   .. automethod:: __getitem__
-   .. automethod:: __len__
-   .. automethod:: __post_init__
-   .. autoproperty:: calculation_rate
-   .. autoproperty:: has_done_flag
-   .. autoproperty:: inputs
-   .. autoproperty:: signal_range
 
 .. autoclass:: PseudoUGen
    :show-inheritance:
@@ -71,9 +59,6 @@ core
    :show-inheritance:
 
    .. automethod:: compile
-   .. autoproperty:: body
-   .. autoproperty:: name
-   .. autoproperty:: rates
 
 .. autoclass:: SynthDef
    :show-inheritance:
@@ -82,59 +67,23 @@ core
    .. automethod:: compile
    .. autoproperty:: actual_name
    .. autoproperty:: anonymous_name
-   .. autoproperty:: audio_channel_count
-   .. autoproperty:: audio_input_channel_count
-   .. autoproperty:: audio_output_channel_count
    .. autoproperty:: constants
-   .. autoproperty:: control_channel_count
-   .. autoproperty:: control_input_channel_count
-   .. autoproperty:: control_output_channel_count
-   .. autoproperty:: control_ugens
-   .. autoproperty:: done_actions
+   .. autoproperty:: controls
    .. autoproperty:: has_gate
    .. autoproperty:: indexed_parameters
-   .. autoproperty:: input_ugens
    .. autoproperty:: name
-   .. autoproperty:: output_ugens
-   .. autoproperty:: parameter_names
    .. autoproperty:: parameters
    .. autoproperty:: ugens
 
 .. autoclass:: SynthDefBuilder
    :show-inheritance:
 
+   .. autoclass:: supriya.ugens.core::SynthDefBuilder.SortBundle
    .. automethod:: __enter__
    .. automethod:: __exit__
    .. automethod:: __getitem__
+   .. automethod:: add_parameter
    .. automethod:: build
-   .. automethod:: poll_ugen
-   .. autoproperty:: name
-
-.. autoclass:: SynthDefCompiler
-   :show-inheritance:
-
-   .. automethod:: compile_parameters
-   .. automethod:: compile_synthdef
-   .. automethod:: compile_synthdefs
-   .. automethod:: compile_ugen
-   .. automethod:: compile_ugen_graph
-   .. automethod:: compile_ugen_input_spec
-   .. automethod:: encode_float
-   .. automethod:: encode_string
-   .. automethod:: encode_unsigned_int_16bit
-   .. automethod:: encode_unsigned_int_32bit
-   .. automethod:: encode_unsigned_int_8bit
-
-.. autoclass:: SynthDefDecompiler
-   :show-inheritance:
-
-   .. automethod:: decompile_synthdef
-   .. automethod:: decompile_synthdefs
-
-.. autoclass:: SynthDefGrapher
-   :show-inheritance:
-
-   .. automethod:: graph
 
 .. autoclass:: TrigControl
    :show-inheritance:
@@ -150,7 +99,6 @@ core
    .. autoproperty:: inputs
    .. autoproperty:: is_input_ugen
    .. autoproperty:: is_output_ugen
-   .. autoproperty:: outputs
    .. autoproperty:: signal_range
    .. autoproperty:: special_index
 
@@ -161,13 +109,14 @@ core
    .. automethod:: __add__
    .. automethod:: __and__
    .. automethod:: __ceil__
-   .. automethod:: __div__
    .. automethod:: __floor__
+   .. automethod:: __floordiv__
    .. automethod:: __ge__
    .. automethod:: __graph__
    .. automethod:: __gt__
+   .. automethod:: __invert__
    .. automethod:: __le__
-   .. automethod:: __len__
+   .. automethod:: __lshift__
    .. automethod:: __lt__
    .. automethod:: __mod__
    .. automethod:: __mul__
@@ -175,30 +124,58 @@ core
    .. automethod:: __or__
    .. automethod:: __pow__
    .. automethod:: __radd__
-   .. automethod:: __rdiv__
+   .. automethod:: __rand__
+   .. automethod:: __rfloordiv__
+   .. automethod:: __rlshift__
    .. automethod:: __rmod__
    .. automethod:: __rmul__
+   .. automethod:: __ror__
    .. automethod:: __rpow__
+   .. automethod:: __rrshift__
+   .. automethod:: __rshift__
    .. automethod:: __rsub__
    .. automethod:: __rtruediv__
+   .. automethod:: __rxor__
    .. automethod:: __sub__
+   .. automethod:: __synthdef__
    .. automethod:: __truediv__
    .. automethod:: __xor__
    .. automethod:: absdiff
+   .. automethod:: acos
+   .. automethod:: am_clip
    .. automethod:: amplitude_to_db
+   .. automethod:: asin
+   .. automethod:: atan
+   .. automethod:: atan2
+   .. automethod:: bi_lin_rand
+   .. automethod:: bi_rand
    .. automethod:: clip
+   .. automethod:: clip2
+   .. automethod:: cos
+   .. automethod:: cosh
    .. automethod:: cubed
    .. automethod:: db_to_amplitude
+   .. automethod:: difference_of_squares
    .. automethod:: digit_value
    .. automethod:: distort
+   .. automethod:: exceeds
+   .. automethod:: excess
    .. automethod:: exponential
+   .. automethod:: exponential_rand_range
+   .. automethod:: fill
+   .. automethod:: fold2
    .. automethod:: fractional_part
+   .. automethod:: gcd
    .. automethod:: hanning_window
+   .. automethod:: hypot
+   .. automethod:: hypotx
    .. automethod:: hz_to_midi
    .. automethod:: hz_to_octave
    .. automethod:: is_equal_to
    .. automethod:: is_not_equal_to
    .. automethod:: lagged
+   .. automethod:: lcm
+   .. automethod:: lin_rand
    .. automethod:: log
    .. automethod:: log10
    .. automethod:: log2
@@ -206,40 +183,59 @@ core
    .. automethod:: midi_to_hz
    .. automethod:: min
    .. automethod:: octave_to_hz
+   .. automethod:: rand
+   .. automethod:: rand_range
    .. automethod:: ratio_to_semitones
    .. automethod:: reciprocal
    .. automethod:: rectangle_window
+   .. automethod:: ring1
+   .. automethod:: ring2
+   .. automethod:: ring3
+   .. automethod:: ring4
+   .. automethod:: round
+   .. automethod:: round_up
    .. automethod:: s_curve
    .. automethod:: scale
+   .. automethod:: scale_negative
    .. automethod:: semitones_to_ratio
    .. automethod:: sign
+   .. automethod:: silence
+   .. automethod:: sin
+   .. automethod:: sinh
    .. automethod:: softclip
    .. automethod:: sqrt
+   .. automethod:: square_of_difference
+   .. automethod:: square_of_sum
    .. automethod:: squared
-   .. automethod:: sum
+   .. automethod:: sum3_rand
+   .. automethod:: sum_of_squares
+   .. automethod:: tan
    .. automethod:: tanh
+   .. automethod:: through
    .. automethod:: transpose
    .. automethod:: triangle_window
+   .. automethod:: truncate
+   .. automethod:: unsigned_shift
    .. automethod:: welch_window
-   .. autoproperty:: signal_range
+   .. automethod:: wrap2
+
+.. autoclass:: UGenScalar
+   :show-inheritance:
+
 
 .. autoclass:: UGenSerializable
    :show-inheritance:
 
    .. automethod:: serialize
 
-.. autoclass:: UGenSortBundle
-   :show-inheritance:
-
-   .. automethod:: clear
-
 .. autoclass:: UGenVector
    :show-inheritance:
 
    .. automethod:: __getitem__
    .. automethod:: __len__
-   .. autoproperty:: signal_range
-   .. autoproperty:: ugens
+   .. automethod:: flatten
+   .. automethod:: mix
+   .. automethod:: sum
 
 .. autoclass:: UnaryOpUGen
    :show-inheritance:
@@ -247,7 +243,7 @@ core
    .. autoproperty:: operator
    .. autoproperty:: source
 
-.. autofunction:: compile_synthdef
+.. autoexception:: SynthDefError
 
 .. autofunction:: compile_synthdefs
 

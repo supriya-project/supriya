@@ -10,7 +10,7 @@ mypy
 .. autoclass:: SupriyaPlugin
    :show-inheritance:
 
-   .. automethod:: get_class_decorator_hook
+   .. automethod:: get_class_decorator_hook_2
 
 .. autoclass:: UGenTransformer
    :show-inheritance:

@@ -55,6 +55,7 @@ entities
    .. automethod:: __len__
    .. automethod:: __post_init__
    .. automethod:: free
+   .. automethod:: map_symbol
 
 .. autoclass:: ContextObject
    :show-inheritance:

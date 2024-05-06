@@ -34,6 +34,7 @@ envelopes
    .. automethod:: linen
    .. automethod:: percussive
    .. automethod:: serialize
+   .. automethod:: serialize_interpolated
    .. automethod:: triangle
    .. autoproperty:: amplitudes
    .. autoproperty:: curves

@@ -1,0 +1,29 @@
+digraph synthdef_62d06961cb42d2c995d0380a3a91dfe5 {
+    graph [bgcolor=transparent,
+        color=lightslategrey,
+        dpi=72,
+        fontname=Arial,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        ranksep=1,
+        splines=spline,
+        style="dotted, rounded"];
+    node [fontname=Arial,
+        fontsize=12,
+        penwidth=2,
+        shape=Mrecord,
+        style="filled, rounded"];
+    edge [penwidth=2];
+    ugen_0 [fillcolor=lightsteelblue2,
+        label="<f_0> SinOsc\n(audio) | { { <f_1_0_0> frequency:\n440.0 | <f_1_0_1> phase:\n0.0 } | { <f_1_1_0> 0 } }"];
+    ugen_1 [fillcolor=lightsteelblue2,
+        label="<f_0> UnaryOpUGen\n[MIDI_TO_HZ]\n(audio) | { { <f_1_0_0> source } | { <f_1_1_0> 0 } }"];
+    ugen_2 [fillcolor=lightsteelblue2,
+        label="<f_0> SinOsc\n(audio) | { { <f_1_0_0> frequency:\n443.0 | <f_1_0_1> phase:\n0.0 } | { <f_1_1_0> 0 } }"];
+    ugen_3 [fillcolor=lightsteelblue2,
+        label="<f_0> UnaryOpUGen\n[MIDI_TO_HZ]\n(audio) | { { <f_1_0_0> source } | { <f_1_1_0> 0 } }"];
+    ugen_0:f_1_1_0:e -> ugen_1:f_1_0_0:w [color=steelblue];
+    ugen_2:f_1_1_0:e -> ugen_3:f_1_0_0:w [color=steelblue];
+}
