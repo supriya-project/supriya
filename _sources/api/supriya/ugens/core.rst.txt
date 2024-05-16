@@ -93,6 +93,7 @@ core
    :show-inheritance:
 
    .. automethod:: __getitem__
+   .. automethod:: __iter__
    .. automethod:: __len__
    .. autoproperty:: calculation_rate
    .. autoproperty:: has_done_flag
@@ -115,6 +116,7 @@ core
    .. automethod:: __graph__
    .. automethod:: __gt__
    .. automethod:: __invert__
+   .. automethod:: __iter__
    .. automethod:: __le__
    .. automethod:: __lshift__
    .. automethod:: __lt__
@@ -222,6 +224,7 @@ core
 .. autoclass:: UGenScalar
    :show-inheritance:
 
+   .. automethod:: __iter__
 
 .. autoclass:: UGenSerializable
    :show-inheritance:
@@ -232,6 +235,7 @@ core
    :show-inheritance:
 
    .. automethod:: __getitem__
+   .. automethod:: __iter__
    .. automethod:: __len__
    .. automethod:: flatten
    .. automethod:: mix
