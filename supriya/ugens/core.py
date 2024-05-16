@@ -17,6 +17,7 @@ from typing import (
     Dict,
     FrozenSet,
     Iterable,
+    Iterator,
     List,
     Literal,
     Mapping,
@@ -785,6 +786,9 @@ class UGenOperable:
             special_index=UnaryOperator.BIT_NOT,
             float_operator=operator.not_,
         )
+
+    def __iter__(self) -> Iterator["UGenOperable"]:
+        raise NotImplementedError
 
     def __le__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
         """
@@ -4524,7 +4528,8 @@ class UGenScalar(UGenOperable):
     A UGen scalar.
     """
 
-    pass
+    def __iter__(self) -> Iterator["UGenOperable"]:
+        yield self
 
 
 class OutputProxy(UGenScalar):
@@ -4615,6 +4620,9 @@ class UGenVector(UGenOperable, Sequence[UGenOperable]):
             return self._values[i]
         return UGenVector(*self._values[i])
 
+    def __iter__(self) -> Iterator["UGenOperable"]:
+        yield from self._values
+
     def __len__(self) -> int:
         return len(self._values)
 
@@ -4640,7 +4648,7 @@ class UGenVector(UGenOperable, Sequence[UGenOperable]):
             <UGenVector([<Pan2.ar()[0]>, <Pan2.ar()[1]>, <Pan2.ar()[0]>, <Pan2.ar()[1]>, <Pan2.ar()[0]>, <Pan2.ar()[1]>, <Pan2.ar()[0]>, <Pan2.ar()[1]>])>
 
         """
-        if len(vector := UGenVector(*flatten(self))) == 1:
+        if len(vector := UGenVector(*flatten(self, terminal_types=UGenScalar))) == 1:
             return vector[0]
         return vector
 
@@ -4944,6 +4952,9 @@ class UGen(UGenOperable, Sequence):
             return self._values[i]
         return UGenVector(*self._values[i])
 
+    def __iter__(self) -> Iterator["UGenOperable"]:
+        yield from self._values
+
     def __len__(self) -> int:
         return self._channel_count
 
@@ -4980,7 +4991,11 @@ class UGen(UGenOperable, Sequence):
                 # Unexpanded, but need to reach bottom layer
                 if key in unexpanded_keys_:
                     if isinstance(value, Sequence) and any(
-                        isinstance(x, Sequence) for x in value
+                        (
+                            isinstance(x, Sequence)
+                            and not isinstance(x, (SupportsFloat, UGenScalar))
+                        )
+                        for x in value
                     ):
                         size = max(size, len(value))
                     else:
