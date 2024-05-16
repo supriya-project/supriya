@@ -3,7 +3,7 @@ from typing import Any, Dict, Sequence, Tuple
 from .. import utils
 from ..enums import CalculationRate
 from ..utils import flatten
-from .core import PseudoUGen, UGen, UGenVector, param, ugen
+from .core import PseudoUGen, UGen, UGenScalar, UGenVector, param, ugen
 
 
 class Mix(PseudoUGen):
@@ -131,7 +131,7 @@ class Mix(PseudoUGen):
     def new(cls, sources):
         if not isinstance(sources, Sequence):
             sources = [sources]
-        sources = list(flatten(sources))
+        sources = list(flatten(sources, terminal_types=UGenScalar))
         summed_sources = []
         for part in utils.group_by_count(sources, 4):
             if len(part) == 4:
@@ -304,7 +304,7 @@ class Mix(PseudoUGen):
                             bus: 0.0
                             source[0]: Sum3.ar[0]
         """
-        sources = list(flatten(sources))
+        sources = list(flatten(sources, terminal_types=UGenScalar))
         mixes, parts = [], []
         for i in range(0, len(sources), channel_count):
             parts.append(sources[i : i + channel_count])

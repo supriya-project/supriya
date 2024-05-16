@@ -7,6 +7,8 @@ from typing import (
     List,
     Optional,
     Sequence,
+    Tuple,
+    Type,
     TypeVar,
     Union,
 )
@@ -55,10 +57,14 @@ def expand(
     return Expander[T]()(mapping, unexpanded, only)
 
 
-def flatten(iterable: IT) -> Generator[T, None, None]:
+def flatten(
+    iterable: IT, terminal_types: Optional[Union[Type, Tuple[Type, ...]]] = None
+) -> Generator[T, None, None]:
     for x in iterable:
-        if isinstance(x, Iterable):
-            yield from flatten(x)
+        if isinstance(x, Iterable) and (
+            terminal_types is None or not isinstance(x, terminal_types)
+        ):
+            yield from flatten(x, terminal_types)
         else:
             yield x
 
