@@ -1,4 +1,4 @@
-from typing import Any, Dict, Generator, Optional, Type
+from typing import Any, Dict, Generator, Optional, Type, Union
 from uuid import UUID, uuid4
 
 from uqbar.objects import new
@@ -13,7 +13,7 @@ class EventPattern(Pattern):
     """
 
     def __init__(
-        self, event_type: Type[NoteEvent] = NoteEvent, **patterns: Pattern
+        self, event_type: Type[NoteEvent] = NoteEvent, **patterns: Union[Any, Pattern]
     ) -> None:
         self._event_type = event_type
         self._patterns = patterns
@@ -87,7 +87,9 @@ class UpdatePattern(Pattern):
     Akin to SuperCollider's Pbindf.
     """
 
-    def __init__(self, pattern: Pattern[Event], **patterns: Pattern) -> None:
+    def __init__(
+        self, pattern: Pattern[Event], **patterns: Union[Any, Pattern]
+    ) -> None:
         self._pattern = pattern
         self._patterns = patterns
 
