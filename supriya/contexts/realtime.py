@@ -4,11 +4,12 @@ Tools for interacting with realtime execution contexts.
 
 import asyncio
 import dataclasses
-import enum
 import logging
 import warnings
 from typing import (
     TYPE_CHECKING,
+    Awaitable,
+    Callable,
     Dict,
     List,
     Optional,
@@ -49,6 +50,7 @@ from ..scsynth import (
 from ..typing import SupportsOsc
 from ..ugens import SynthDef
 from .core import (
+    BootStatus,
     Buffer,
     Bus,
     Context,
@@ -114,13 +116,6 @@ DEFAULT_HEALTHCHECK = HealthCheck(
     response_pattern=["/status.reply"],
     timeout=1.0,
 )
-
-
-class BootStatus(enum.IntEnum):
-    OFFLINE = 0
-    BOOTING = 1
-    ONLINE = 2
-    QUITTING = 3
 
 
 class BaseServer(Context):
@@ -363,13 +358,6 @@ class BaseServer(Context):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def boot_status(self) -> BootStatus:
-        """
-        Get the server's boot status.
-        """
-        return self._boot_status
-
-    @property
     def default_group(self) -> Group:
         """
         Get the server's default group.
@@ -422,6 +410,7 @@ class Server(BaseServer):
             process_protocol=SyncProcessProtocol(),
             **kwargs,
         )
+        self._on_boot_callbacks: List[Callable[[Server], None]] = []
 
     ### PRIVATE METHODS ###
 
@@ -443,6 +432,8 @@ class Server(BaseServer):
             self.sync()
         self._boot_status = BootStatus.ONLINE
         logger.info("Connected")
+        for callback in self._on_boot_callbacks:
+            callback(self)
 
     def _disconnect(self) -> None:
         logger.info("Disconnecting")
@@ -493,7 +484,7 @@ class Server(BaseServer):
         self._options = new(options or self._options, **kwargs)
         logger.debug(f"Options: {self._options}")
         try:
-            self._process_protocol.boot(self._options)
+            cast(SyncProcessProtocol, self._process_protocol).boot(self._options)
         except ServerCannotBoot:
             self._boot_status = BootStatus.OFFLINE
             raise
@@ -761,7 +752,7 @@ class Server(BaseServer):
         except OscProtocolOffline:
             pass
         self._teardown_shm()
-        self._process_protocol.quit()
+        cast(SyncProcessProtocol, self._process_protocol).quit()
         self._disconnect()
         return self
 
@@ -821,6 +812,7 @@ class AsyncServer(BaseServer):
             process_protocol=AsyncProcessProtocol(),
             **kwargs,
         )
+        self._on_boot_callbacks: List[Callable[[AsyncServer], Awaitable[None]]] = []
 
     ### PRIVATE METHODS ###
 
@@ -842,6 +834,8 @@ class AsyncServer(BaseServer):
             await self.sync()
         self._boot_status = BootStatus.ONLINE
         logger.info("Connected")
+        for callback in self._on_boot_callbacks:
+            await callback(self)
 
     async def _disconnect(self) -> None:
         logger.info("Disconnecting")
@@ -893,7 +887,7 @@ class AsyncServer(BaseServer):
         self._options = new(options or self._options, **kwargs)
         logger.debug(f"Options: {self._options}")
         try:
-            await self._process_protocol.boot(self._options)
+            await cast(AsyncProcessProtocol, self._process_protocol).boot(self._options)
         except ServerCannotBoot:
             self._boot_status = BootStatus.OFFLINE
             raise
@@ -1167,7 +1161,7 @@ class AsyncServer(BaseServer):
             await Quit().communicate_async(server=self, timeout=1)
         except (OscProtocolOffline, asyncio.TimeoutError):
             pass
-        await self._process_protocol.quit()
+        await cast(AsyncProcessProtocol, self._process_protocol).quit()
         await self._disconnect()
         return self
 

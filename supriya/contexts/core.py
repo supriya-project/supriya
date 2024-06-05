@@ -7,6 +7,7 @@ Context subclasses expose a common interface for realtime and non-realtime synth
 import abc
 import contextlib
 import dataclasses
+import enum
 import itertools
 import threading
 from os import PathLike
@@ -99,6 +100,13 @@ from .requests import (
     WriteBuffer,
     ZeroBuffer,
 )
+
+
+class BootStatus(enum.IntEnum):
+    OFFLINE = 0
+    BOOTING = 1
+    ONLINE = 2
+    QUITTING = 3
 
 
 @dataclasses.dataclass
@@ -206,6 +214,7 @@ class Context(metaclass=abc.ABCMeta):
 
     def __init__(self, options: Optional[Options], **kwargs) -> None:
         self._audio_bus_allocator = BlockAllocator()
+        self._boot_status = BootStatus.OFFLINE
         self._buffer_allocator = BlockAllocator()
         self._client_id = 0
         self._control_bus_allocator = BlockAllocator()
@@ -1379,6 +1388,20 @@ class Context(metaclass=abc.ABCMeta):
             calculation_rate=cast(CalculationRate, CalculationRate.AUDIO),
             count=self.options.output_bus_channel_count,
         )
+
+    @property
+    def boot_status(self) -> BootStatus:
+        """
+        Get the server's boot status.
+        """
+        return self._boot_status
+
+    @property
+    def default_group(self) -> Group:
+        """
+        Get the server's default group.
+        """
+        return self.root_node
 
     @property
     def client_id(self) -> int:
