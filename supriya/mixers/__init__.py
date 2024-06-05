@@ -3,7 +3,7 @@ from enum import Enum
 from typing import Dict, Iterator, List, Literal, Optional, Tuple, TypeAlias, Union
 
 from ..clocks import AsyncClock
-from ..contexts import AsyncServer, BusGroup, Context, Node
+from ..contexts import AsyncServer, Buffer, Bus, BusGroup, Context, Node
 from ..enums import AddAction
 from ..typing import Default
 
@@ -13,9 +13,13 @@ ChannelCount: TypeAlias = Literal[1, 2, 4, 8]
 class Component:
 
     def __init__(self, *, parent: Optional["Component"] = None) -> None:
+        self.audio_buses: Dict[str, Union[Bus, BusGroup]] = {}
+        self.buffers: Dict[str, Buffer] = {}
         self.channel_count: Optional[ChannelCount] = None
         self.context: Optional[Context] = None
+        self.control_buses: Dict[str, Union[Bus, BusGroup]] = {}
         self.is_active: bool = True
+        self.lock = asyncio.Lock()
         self.nodes: Dict[str, Node] = {}
         self.parent: Optional["Component"] = None
 
@@ -41,12 +45,18 @@ class Component:
         self.is_active = False
 
     async def _deallocate(self) -> None:
+        for key in tuple(self.audio_buses):
+            self.audio_buses.pop(key).free()
+        for key in tuple(self.control_buses):
+            self.control_buses.pop(key).free()
         if group := self.nodes.get("group"):
             if not self.is_active:
                 group.free()
             else:
                 group.set(gate=0)
         self.nodes.clear()
+        for key in tuple(self.buffers):
+            self.buffers.pop(key).free()
 
     async def _delete(self) -> None:
         await self._deallocate()
@@ -106,6 +116,8 @@ class Session:
             self.boot_future = asyncio.get_running_loop().create_future()
             self.status = SessionStatus.BOOTING
             await asyncio.gather(*[context.boot() for context in self.context_mapping])
+            self.status = SessionStatus.ONLINE
+            self.boot_future.set_result(True)
             for context, mixers in self.context_mapping.items():
                 for mixer in mixers:
                     with context.at():
@@ -113,8 +125,6 @@ class Session:
                             context=context,
                             target_node=context.default_group,
                         )
-            self.status = SessionStatus.ONLINE
-            self.boot_future.set_result(True)
         elif self.boot_future is not None:  # BOOTING / ONLINE
             await self.boot_future
         else:  # NONREALTIME
@@ -150,11 +160,26 @@ class Session:
         self.context_mapping.setdefault(context, []).append(
             mixer := Mixer(session=self)
         )
+        if self.status == SessionStatus.ONLINE:
+            await mixer._allocate(
+                context=context,
+                target_node=context.default_group,
+            )
         return mixer
 
     async def delete_context(self, context: AsyncServer) -> None:
         for mixer in self.context_mapping.pop(context):
             await mixer.delete()
+
+    async def set_mixer_context(self, mixer: "Mixer", context: Context) -> None:
+        if context is mixer.context:
+            return
+        async with mixer.lock:
+            await mixer._deallocate()
+            if self.status == SessionStatus.ONLINE:
+                await mixer._allocate(
+                    context=context, target_node=context.default_group
+                )
 
 
 class Mixer(Component):
@@ -183,16 +208,13 @@ class Mixer(Component):
         return Device()
 
     async def delete(self):
-        await self._deallocate()
+        await self._delete()
         self.session = None
 
     async def group_devices(self, index: int, count: int) -> "Rack":
         return Rack()
 
     async def set_channel_count(self, channel_count: ChannelCount) -> None:
-        pass
-
-    async def set_context(self, context: Context) -> None:
         pass
 
     async def set_output(self, output: BusGroup) -> None:
@@ -217,7 +239,8 @@ class Track(Component):
         pass
 
     async def delete(self):
-        pass
+        await self._deallocate()
+        self.session = None
 
     async def group_devices(self, index: int, count: int) -> "Rack":
         return Rack()
@@ -266,7 +289,8 @@ class Chain(Component):
         pass
 
     async def delete(self):
-        pass
+        await self._deallocate()
+        self.session = None
 
     async def group_devices(self, index: int, count: int) -> "Rack":
         return Rack()
