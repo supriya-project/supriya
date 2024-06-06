@@ -7,9 +7,10 @@ import os
 import platform
 import signal
 import subprocess
+import threading
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, IO, List, Optional, Tuple, Union, cast
+from typing import IO, Dict, List, Optional, Tuple, Union, cast
 
 import uqbar.io
 import uqbar.objects
@@ -280,7 +281,12 @@ class ProcessProtocol:
         logger.info("Boot: {}".format(*options))
         return True
 
-    def _handle_data_received(self, *, boot_future: Union[concurrent.futures.Future[bool], asyncio.Future[bool]], text: str) -> Tuple[bool, bool]:
+    def _handle_data_received(
+        self,
+        *,
+        boot_future: Union[concurrent.futures.Future[bool], asyncio.Future[bool]],
+        text: str,
+    ) -> Tuple[bool, bool]:
         resolved = False
         errored = False
         if "\n" in text:
@@ -333,6 +339,30 @@ class SyncProcessProtocol(ProcessProtocol):
         self.boot_future: concurrent.futures.Future[bool] = concurrent.futures.Future()
         self.exit_future: concurrent.futures.Future[int] = concurrent.futures.Future()
 
+    def _run(self) -> None:
+        while self.status == ProcessStatus.BOOTING:
+            if not (
+                text := cast(IO[bytes], self.process.stdout).readline().decode()
+            ):
+                continue
+            _, _ = self._handle_data_received(
+                boot_future=self.boot_future, text=text
+            )
+        while self.status == ProcessStatus.ONLINE:
+            if not (
+                text := cast(IO[bytes], self.process.stdout).readline().decode()
+            ):
+                continue
+            # we can capture /g_dumpTree output here
+            # do something
+
+    def _shutdown(self) -> None:
+        self.process.terminate()
+        self.process.wait()
+        self.status = ProcessStatus.OFFLINE
+        self.exit_future.set_result(not self.process.returncode)
+        self.thread.join()
+
     def boot(self, options: Options) -> None:
         if not self._boot(options):
             return
@@ -344,33 +374,16 @@ class SyncProcessProtocol(ProcessProtocol):
             stdout=subprocess.PIPE,
             start_new_session=True,
         )
-        try:
-            while True:
-                if not (text := cast(IO[bytes], self.process.stdout).readline().decode()):
-                    continue
-                resolved, errored = self._handle_data_received(boot_future=self.boot_future, text=text)
-                if resolved:
-                    if errored:
-                        raise ServerCannotBoot(self.error_text)
-                    break
-        except ServerCannotBoot:
-            self.process.terminate()
-            self.process.wait()
-            self.status = ProcessStatus.OFFLINE
-            self.exit_future.set_result(not self.process.returncode)
-            if not self.boot_future.done():
-                self.boot_future.set_result(False)
-            raise
+        self.thread = threading.Thread(target=self._run, args=())
+        self.thread.start()
+        if not (self.boot_future.result()):
+            self._shutdown()
+            raise ServerCannotBoot(self.error_text)
 
     def quit(self) -> None:
         if not self._quit():
             return
-        self.process.terminate()
-        self.process.wait()
-        self.status = ProcessStatus.OFFLINE
-        self.exit_future.set_result(not self.process.returncode)
-        if not self.boot_future.done():
-            self.boot_future.set_result(False)
+        self._shutdown()
         logger.info("... quit!")
 
 
