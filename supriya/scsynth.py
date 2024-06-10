@@ -10,7 +10,7 @@ import subprocess
 import threading
 from dataclasses import dataclass
 from pathlib import Path
-from typing import IO, Dict, List, Optional, Tuple, Union, cast
+from typing import Callable, IO, Dict, List, Optional, Tuple, Union, cast
 
 import uqbar.io
 import uqbar.objects
@@ -269,6 +269,9 @@ class ProcessProtocol:
         self.buffer_ = ""
         self.error_text = ""
         self.status = ProcessStatus.OFFLINE
+        self.on_quit_callbacks: List[Callable] = []
+        self.on_boot_callbacks: List[Callable] = []
+        self.on_panic_callbacks: List[Callable] = []
 
     def _boot(self, options: Options) -> bool:
         logger.info("Booting ...")
@@ -337,9 +340,35 @@ class SyncProcessProtocol(ProcessProtocol):
         super().__init__()
         atexit.register(self.quit)
         self.boot_future: concurrent.futures.Future[bool] = concurrent.futures.Future()
-        self.exit_future: concurrent.futures.Future[int] = concurrent.futures.Future()
+        self.exit_future: concurrent.futures.Future[bool] = concurrent.futures.Future()
 
-    def _run(self) -> None:
+    def _run_process_thread(self, options: Options) -> None:
+        self.process = subprocess.Popen(
+            list(options),
+            stderr=subprocess.STDOUT,
+            stdout=subprocess.PIPE,
+            start_new_session=True,
+        )
+        read_thread = threading.Thread(
+            args=(),
+            daemon=True,
+            target=self._run_read_thread,
+        )
+        read_thread.start()
+        self.process.wait()
+        was_quitting = self.status == ProcessStatus.QUITTING
+        self.status = ProcessStatus.OFFLINE
+        self.exit_future.set_result(not self.process.returncode)
+        if not self.boot_future.done():
+            self.boot_future.set_result(False)
+        if was_quitting:
+            for callback in self.on_quit_callbacks:
+                callback()
+        else:
+            for callback in self.on_panic_callbacks:
+                callback()
+
+    def _run_read_thread(self) -> None:
         while self.status == ProcessStatus.BOOTING:
             if not (
                 text := cast(IO[bytes], self.process.stdout).readline().decode()
@@ -358,32 +387,32 @@ class SyncProcessProtocol(ProcessProtocol):
 
     def _shutdown(self) -> None:
         self.process.terminate()
-        self.process.wait()
-        self.status = ProcessStatus.OFFLINE
-        self.exit_future.set_result(not self.process.returncode)
         self.thread.join()
+        self.status = ProcessStatus.OFFLINE
 
     def boot(self, options: Options) -> None:
         if not self._boot(options):
             return
         self.boot_future = concurrent.futures.Future()
         self.exit_future = concurrent.futures.Future()
-        self.process = subprocess.Popen(
-            list(options),
-            stderr=subprocess.STDOUT,
-            stdout=subprocess.PIPE,
-            start_new_session=True,
+        self.thread = threading.Thread(
+            args=(options,),
+            daemon=True,
+            target=self._run_process_thread,
         )
-        self.thread = threading.Thread(target=self._run, args=())
         self.thread.start()
         if not (self.boot_future.result()):
             self._shutdown()
             raise ServerCannotBoot(self.error_text)
+        else:
+            for callback in self.on_boot_callbacks:
+                callback()
 
     def quit(self) -> None:
         if not self._quit():
             return
         self._shutdown()
+        self.exit_future.result()
         logger.info("... quit!")
 
 
@@ -409,6 +438,9 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         )
         if not (await self.boot_future):
             raise ServerCannotBoot(self.error_text)
+        else:
+            for callback in self.on_boot_callbacks:
+                callback()
 
     def connection_made(self, transport) -> None:
         logger.info("Connection made!")
@@ -427,6 +459,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
     def process_exited(self) -> None:
         return_code = self.transport.get_returncode()
         logger.info(f"Process exited with {return_code}.")
+        was_quitting = self.status == ProcessStatus.QUITTING
         try:
             self.exit_future.set_result(not return_code)
             self.status = ProcessStatus.OFFLINE
@@ -434,6 +467,12 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
                 self.boot_future.set_result(False)
         except asyncio.exceptions.InvalidStateError:
             pass
+        if was_quitting:
+            for callback in self.on_quit_callbacks:
+                callback()
+        else:
+            for callback in self.on_panic_callbacks:
+                callback()
 
     async def quit(self) -> None:
         if not self._quit():
@@ -448,7 +487,7 @@ class AsyncNonrealtimeProcessProtocol(asyncio.SubprocessProtocol, ProcessProtoco
         ProcessProtocol.__init__(self)
         asyncio.SubprocessProtocol.__init__(self)
         self.boot_future: asyncio.Future[bool] = asyncio.Future()
-        self.exit_future: asyncio.Future[int] = asyncio.Future()
+        self.exit_future: asyncio.Future[bool] = asyncio.Future()
 
     async def run(self, command: List[str], render_directory_path: Path) -> None:
         logger.info(f"Running: {' '.join(command)}")
@@ -463,6 +502,7 @@ class AsyncNonrealtimeProcessProtocol(asyncio.SubprocessProtocol, ProcessProtoco
             start_new_session=True,
             cwd=render_directory_path,
         )
+        await self.exit_future
 
     def connection_made(self, transport) -> None:
         logger.info("Connection made!")
@@ -481,4 +521,9 @@ class AsyncNonrealtimeProcessProtocol(asyncio.SubprocessProtocol, ProcessProtoco
     def process_exited(self) -> None:
         return_code = self.transport.get_returncode()
         logger.info(f"Process exited with {return_code}.")
-        self.exit_future.set_result(return_code)
+        self.exit_future.set_result(not return_code)
+        try:
+            if not self.boot_future.done():
+                self.boot_future.set_result(False)
+        except asyncio.exceptions.InvalidStateError:
+            pass

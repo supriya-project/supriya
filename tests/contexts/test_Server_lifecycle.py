@@ -28,6 +28,23 @@ supernova = pytest.param(
 )
 
 
+def setup_context(context_class):
+    def on_boot():
+        status["boot"] = True
+
+    def on_quit():
+        status["quit"] = True
+
+    def on_panic():
+        status["panic"] = True
+
+    context, status = context_class(), {}
+    context.process_protocol.on_boot_callbacks.append(on_boot)
+    context.process_protocol.on_quit_callbacks.append(on_quit)
+    context.process_protocol.on_panic_callbacks.append(on_panic)
+    return context, status
+
+
 async def get(x):
     if asyncio.iscoroutine(x):
         return await x
@@ -48,7 +65,7 @@ def healthcheck_attempts(monkeypatch):
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
 @pytest.mark.parametrize("context_class", [AsyncServer, Server])
 async def test_boot_only(executable, context_class):
-    context = context_class()
+    context, status = setup_context(context_class)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
     result = context.boot(executable=executable)
@@ -62,7 +79,7 @@ async def test_boot_only(executable, context_class):
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
 @pytest.mark.parametrize("context_class", [AsyncServer, Server])
 async def test_boot_and_quit(executable, context_class):
-    context = context_class()
+    context, status = setup_context(context_class)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
     result = context.boot(executable=executable)
@@ -81,7 +98,7 @@ async def test_boot_and_quit(executable, context_class):
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
 @pytest.mark.parametrize("context_class", [AsyncServer, Server])
 async def test_boot_and_boot(executable, context_class):
-    context = context_class()
+    context, status = setup_context(context_class)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
     result = context.boot(executable=executable)
@@ -101,7 +118,7 @@ async def test_boot_and_boot(executable, context_class):
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
 @pytest.mark.parametrize("context_class", [AsyncServer, Server])
 async def test_boot_and_quit_and_quit(executable, context_class):
-    context = context_class()
+    context, status = setup_context(context_class)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
     result = context.boot(executable=executable)
@@ -125,7 +142,7 @@ async def test_boot_and_quit_and_quit(executable, context_class):
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
 @pytest.mark.parametrize("context_class", [AsyncServer, Server])
 async def test_boot_and_connect(executable, context_class):
-    context = context_class()
+    context, status = setup_context(context_class)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
     result = context.boot(executable=executable)
@@ -309,7 +326,7 @@ async def test_boot_reboot_sticky_options(executable, context_class):
     """
     Options persist across booting and quitting.
     """
-    context = context_class()
+    context, status = setup_context(context_class)
     maximum_node_count = random.randint(1024, 2048)
     await get(
         context.boot(maximum_node_count=maximum_node_count, port=find_free_port())
