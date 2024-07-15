@@ -1,20 +1,23 @@
 import asyncio
 import atexit
+import concurrent.futures
 import enum
 import logging
 import os
 import platform
-import signal
+import shlex
 import subprocess
-import time
+import threading
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import IO, Callable, Dict, List, Optional, Tuple, cast
 
+import psutil
 import uqbar.io
 import uqbar.objects
 
 from .exceptions import ServerCannotBoot
+from .typing import FutureLike
 
 logger = logging.getLogger(__name__)
 
@@ -238,16 +241,10 @@ def find(scsynth_path=None):
 
 
 def kill():
-    with subprocess.Popen(
-        ["ps", "-Af"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT
-    ) as process:
-        output = process.stdout.read()
-    for line in output.decode().splitlines():
-        parts = line.split()
-        if not any(part in ["supernova", "scsynth"] for part in parts):
-            continue
-        pid = int(parts[1])
-        os.kill(pid, signal.SIGKILL)
+    for process in psutil.process_iter():
+        if process.name() in ("scsynth", "supernova", "scsynth.exe", "supernova.exe"):
+            logger.info(f"killing {process!r}")
+            process.kill()
 
 
 class LineStatus(enum.IntEnum):
@@ -256,159 +253,302 @@ class LineStatus(enum.IntEnum):
     ERROR = 2
 
 
+class BootStatus(enum.IntEnum):
+    OFFLINE = 0
+    BOOTING = 1
+    ONLINE = 2
+    QUITTING = 3
+
+
 class ProcessProtocol:
-    def __init__(self):
-        self.is_running = False
+    def __init__(
+        self,
+        *,
+        name: Optional[str] = None,
+        on_boot_callback: Optional[Callable] = None,
+        on_panic_callback: Optional[Callable] = None,
+        on_quit_callback: Optional[Callable] = None,
+    ) -> None:
+        self.buffer_ = ""
+        self.error_text = ""
+        self.name = name
+        self.on_boot_callback = on_boot_callback
+        self.on_panic_callback = on_panic_callback
+        self.on_quit_callback = on_quit_callback
+        self.status = BootStatus.OFFLINE
+        self.options = Options()
 
-    def boot(self, options: Options):
-        raise NotImplementedError
+    def _boot(self, options: Options) -> bool:
+        self.options = options
+        logger.info(
+            f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
+            "booting ..."
+        )
+        if self.status != BootStatus.OFFLINE:
+            logger.info(
+                f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
+                "... already booted!"
+            )
+            return False
+        self.status = BootStatus.BOOTING
+        self.error_text = ""
+        self.buffer_ = ""
+        logger.info(
+            f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
+            "command: {}".format(shlex.join(options))
+        )
+        return True
 
-    def quit(self):
-        raise NotImplementedError
-
-    def _handle_line(self, line):
-        if line.startswith("late:"):
-            logger.warning(f"Received: {line}")
-        elif "error" in line.lower() or "exception" in line.lower():
-            logger.error(f"Received: {line}")
+    def _handle_data_received(
+        self,
+        *,
+        boot_future: FutureLike[bool],
+        text: str,
+    ) -> Tuple[bool, bool]:
+        resolved = False
+        errored = False
+        if "\n" in text:
+            text, _, self.buffer_ = text.rpartition("\n")
+            for line in text.splitlines():
+                line_status = self._parse_line(line)
+                if line_status == LineStatus.READY:
+                    boot_future.set_result(True)
+                    self.status = BootStatus.ONLINE
+                    resolved = True
+                    logger.info(
+                        f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
+                        "... booted!"
+                    )
+                elif line_status == LineStatus.ERROR:
+                    if not boot_future.done():
+                        boot_future.set_result(False)
+                        self.status = BootStatus.OFFLINE
+                        self.error_text = line
+                        resolved = True
+                        errored = True
+                    logger.info("... failed to boot!")
         else:
-            logger.info(f"Received: {line}")
+            self.buffer_ = text
+        return resolved, errored
+
+    def _parse_line(self, line: str) -> LineStatus:
+        logger.info(
+            f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
+            f"received: {line}"
+        )
         if line.startswith(("SuperCollider 3 server ready", "Supernova ready")):
             return LineStatus.READY
         elif line.startswith(("Exception", "ERROR", "*** ERROR")):
             return LineStatus.ERROR
         return LineStatus.CONTINUE
 
+    def _quit(self) -> bool:
+        logger.info(
+            f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
+            "quitting ..."
+        )
+        if self.status != BootStatus.ONLINE:
+            logger.info(
+                f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
+                "... already quit!"
+            )
+            return False
+        self.status = BootStatus.QUITTING
+        return True
+
 
 class SyncProcessProtocol(ProcessProtocol):
-    def __init__(self):
-        super().__init__()
+    def __init__(
+        self,
+        *,
+        name: Optional[str] = None,
+        on_boot_callback: Optional[Callable] = None,
+        on_panic_callback: Optional[Callable] = None,
+        on_quit_callback: Optional[Callable] = None,
+    ) -> None:
+        super().__init__(
+            name=name,
+            on_boot_callback=on_boot_callback,
+            on_panic_callback=on_panic_callback,
+            on_quit_callback=on_quit_callback,
+        )
         atexit.register(self.quit)
+        self.boot_future: concurrent.futures.Future[bool] = concurrent.futures.Future()
+        self.exit_future: concurrent.futures.Future[int] = concurrent.futures.Future()
 
-    def boot(self, options: Options):
-        if self.is_running:
+    def _run_process_thread(self, options: Options) -> None:
+        self.process = subprocess.Popen(
+            list(options),
+            stderr=subprocess.STDOUT,
+            stdout=subprocess.PIPE,
+            start_new_session=True,
+        )
+        read_thread = threading.Thread(
+            args=(),
+            daemon=True,
+            target=self._run_read_thread,
+        )
+        read_thread.start()
+        self.process.wait()
+        was_quitting = self.status == BootStatus.QUITTING
+        self.status = BootStatus.OFFLINE
+        self.exit_future.set_result(self.process.returncode)
+        if not self.boot_future.done():
+            self.boot_future.set_result(False)
+        if was_quitting and self.on_quit_callback:
+            self.on_quit_callback()
+        elif not was_quitting and self.on_panic_callback:
+            self.on_panic_callback()
+
+    def _run_read_thread(self) -> None:
+        while self.status == BootStatus.BOOTING:
+            if not (text := cast(IO[bytes], self.process.stdout).readline().decode()):
+                continue
+            _, _ = self._handle_data_received(boot_future=self.boot_future, text=text)
+        while self.status == BootStatus.ONLINE:
+            if not (text := cast(IO[bytes], self.process.stdout).readline().decode()):
+                continue
+            # we can capture /g_dumpTree output here
+            # do something
+
+    def _shutdown(self) -> None:
+        self.process.terminate()
+        self.thread.join()
+        self.status = BootStatus.OFFLINE
+
+    def boot(self, options: Options) -> None:
+        if not self._boot(options):
             return
-        try:
-            logger.info("Boot: {}".format(*options))
-            self.process = subprocess.Popen(
-                list(options),
-                stderr=subprocess.STDOUT,
-                stdout=subprocess.PIPE,
-                start_new_session=True,
-            )
-            start_time = time.time()
-            timeout = 10
-            while True:
-                line = self.process.stdout.readline().decode().rstrip()  # type: ignore
-                if not line:
-                    continue
-                line_status = self._handle_line(line)
-                if line_status == LineStatus.READY:
-                    break
-                elif line_status == LineStatus.ERROR:
-                    raise ServerCannotBoot(line)
-                elif (time.time() - start_time) > timeout:
-                    raise ServerCannotBoot(line)
-            self.is_running = True
-        except ServerCannotBoot:
-            self.process.terminate()
-            self.process.wait()
-            raise
+        self.boot_future = concurrent.futures.Future()
+        self.exit_future = concurrent.futures.Future()
+        self.thread = threading.Thread(
+            args=(options,),
+            daemon=True,
+            target=self._run_process_thread,
+        )
+        self.thread.start()
+        if not (self.boot_future.result()):
+            self._shutdown()
+            raise ServerCannotBoot(self.error_text)
+        if self.on_boot_callback:
+            self.on_boot_callback()
 
     def quit(self) -> None:
-        if not self.is_running:
+        if not self._quit():
             return
-        self.process.terminate()
-        self.process.wait()
-        self.is_running = False
+        self._shutdown()
+        self.exit_future.result()
+        logger.info(
+            f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
+            "... quit!"
+        )
 
 
 class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
     ### INITIALIZER ###
 
-    def __init__(self):
-        ProcessProtocol.__init__(self)
+    def __init__(
+        self,
+        *,
+        name: Optional[str] = None,
+        on_boot_callback: Optional[Callable] = None,
+        on_panic_callback: Optional[Callable] = None,
+        on_quit_callback: Optional[Callable] = None,
+    ) -> None:
+        ProcessProtocol.__init__(
+            self,
+            name=name,
+            on_boot_callback=on_boot_callback,
+            on_panic_callback=on_panic_callback,
+            on_quit_callback=on_quit_callback,
+        )
         asyncio.SubprocessProtocol.__init__(self)
-        self.boot_future = asyncio.Future()
-        self.exit_future = asyncio.Future()
-        self.error_text = ""
+        self.boot_future: asyncio.Future[bool] = asyncio.Future()
+        self.exit_future: asyncio.Future[bool] = asyncio.Future()
 
     ### PUBLIC METHODS ###
 
-    async def boot(self, options: Options):
-        logger.info("Booting ...")
-        if self.is_running:
-            logger.info("... already booted!")
+    async def boot(self, options: Options) -> None:
+        if not self._boot(options):
             return
-        self.is_running = False
         loop = asyncio.get_running_loop()
         self.boot_future = loop.create_future()
         self.exit_future = loop.create_future()
-        self.error_text = ""
-        self.buffer_ = ""
         _, _ = await loop.subprocess_exec(
             lambda: self, *options, stdin=None, stderr=None
         )
         if not (await self.boot_future):
+            await self.exit_future
             raise ServerCannotBoot(self.error_text)
+        if self.on_boot_callback:
+            if asyncio.iscoroutine(result := self.on_boot_callback()):
+                loop.create_task(result)
 
-    def connection_made(self, transport):
-        logger.info("Connection made!")
-        self.is_running = True
+    def connection_made(self, transport) -> None:
+        logger.info(
+            f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
+            "connection made!"
+        )
         self.transport = transport
 
-    def pipe_connection_lost(self, fd, exc):
-        logger.info("Pipe connection lost!")
+    def pipe_connection_lost(self, fd, exc) -> None:
+        logger.info(
+            f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
+            "pipe connection lost!"
+        )
 
-    def pipe_data_received(self, fd, data):
+    def pipe_data_received(self, fd, data) -> None:
         # *nix and OSX return full lines,
         # but Windows will return partial lines
         # which obligates us to reconstruct them.
         text = self.buffer_ + data.decode().replace("\r\n", "\n")
-        if "\n" in text:
-            text, _, self.buffer_ = text.rpartition("\n")
-            for line in text.splitlines():
-                line_status = self._handle_line(line)
-                if line_status == LineStatus.READY:
-                    self.boot_future.set_result(True)
-                    logger.info("... booted!")
-                elif line_status == LineStatus.ERROR:
-                    if not self.boot_future.done():
-                        self.boot_future.set_result(False)
-                        self.error_text = line
-                    logger.info("... failed to boot!")
-        else:
-            self.buffer_ = text
+        _, _ = self._handle_data_received(boot_future=self.boot_future, text=text)
 
-    def process_exited(self):
-        logger.info(f"Process exited with {self.transport.get_returncode()}.")
-        self.is_running = False
+    def process_exited(self) -> None:
+        return_code = self.transport.get_returncode()
+        logger.info(
+            f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
+            f"process exited with {return_code}."
+        )
+        was_quitting = self.status == BootStatus.QUITTING
         try:
-            self.exit_future.set_result(None)
+            self.exit_future.set_result(return_code)
+            self.status = BootStatus.OFFLINE
             if not self.boot_future.done():
                 self.boot_future.set_result(False)
         except asyncio.exceptions.InvalidStateError:
             pass
+        if was_quitting and self.on_quit_callback:
+            if asyncio.iscoroutine(result := self.on_quit_callback()):
+                asyncio.get_running_loop().create_task(result)
+        elif not was_quitting and self.on_panic_callback:
+            if asyncio.iscoroutine(result := self.on_panic_callback()):
+                asyncio.get_running_loop().create_task(result)
 
-    async def quit(self):
-        logger.info("Quitting ...")
-        if not self.is_running:
-            logger.info("... already quit!")
+    async def quit(self) -> None:
+        if not self._quit():
             return
-        self.is_running = False
         self.transport.close()
         await self.exit_future
-        logger.info("... quit!")
+        logger.info(
+            f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
+            "... quit!"
+        )
 
 
-class AsyncNonrealtimeProcessProtocol(asyncio.SubprocessProtocol):
-    def __init__(self, exit_future: asyncio.Future) -> None:
-        self.buffer_ = ""
-        self.exit_future = exit_future
+class AsyncNonrealtimeProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
+    def __init__(self) -> None:
+        ProcessProtocol.__init__(self)
+        asyncio.SubprocessProtocol.__init__(self)
+        self.boot_future: asyncio.Future[bool] = asyncio.Future()
+        self.exit_future: asyncio.Future[bool] = asyncio.Future()
 
     async def run(self, command: List[str], render_directory_path: Path) -> None:
-        logger.info(f"Running: {' '.join(command)}")
-        _, _ = await asyncio.get_running_loop().subprocess_exec(
+        logger.info(f"running: {shlex.join(command)}")
+        loop = asyncio.get_running_loop()
+        self.boot_future = loop.create_future()
+        self.exit_future = loop.create_future()
+        _, _ = await loop.subprocess_exec(
             lambda: self,
             *command,
             stdin=None,
@@ -416,27 +556,28 @@ class AsyncNonrealtimeProcessProtocol(asyncio.SubprocessProtocol):
             start_new_session=True,
             cwd=render_directory_path,
         )
+        await self.exit_future
 
-    def handle_line(self, line: str) -> None:
-        logger.debug(f"Received: {line}")
-
-    def connection_made(self, transport):
-        logger.debug("Connecting")
+    def connection_made(self, transport) -> None:
+        logger.info("connection made!")
         self.transport = transport
 
-    def pipe_data_received(self, fd, data):
-        logger.debug(f"Data: {data}")
+    def pipe_connection_lost(self, fd, exc) -> None:
+        logger.info("pipe connection lost!")
+
+    def pipe_data_received(self, fd, data) -> None:
         # *nix and OSX return full lines,
         # but Windows will return partial lines
         # which obligates us to reconstruct them.
         text = self.buffer_ + data.decode().replace("\r\n", "\n")
-        if "\n" in text:
-            text, _, self.buffer_ = text.rpartition("\n")
-            for line in text.splitlines():
-                self.handle_line(line)
-        else:
-            self.buffer_ = text
+        _, _ = self._handle_data_received(boot_future=self.boot_future, text=text)
 
-    def process_exited(self):
-        logger.debug(f"Exiting with {self.transport.get_returncode()}")
-        self.exit_future.set_result(self.transport.get_returncode())
+    def process_exited(self) -> None:
+        return_code = self.transport.get_returncode()
+        logger.info(f"process exited with {return_code}.")
+        self.exit_future.set_result(return_code)
+        try:
+            if not self.boot_future.done():
+                self.boot_future.set_result(False)
+        except asyncio.exceptions.InvalidStateError:
+            pass

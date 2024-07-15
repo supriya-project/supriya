@@ -11,17 +11,17 @@ Supriya (|release|)
 
 Supriya lets you:
 
-- Boot and communicate with SuperCollider's ``scsynth`` synthesis engine in
+- Boot and communicate with SuperCollider's synthesis engine in
   realtime.
 
 - Explore :py:mod:`~supriya.contexts.nonrealtime` composition with 
   :py:class:`scores <supriya.contexts.nonrealtime.Score>`.
 
-- Build time-agnostic :py:mod:`asyncio`-aware applications with the
-  :py:class:`context <supriya.contexts.core.Context>` interface.
-
 - Compile SuperCollider :py:class:`SynthDefs
   <supriya.ugens.bases.SynthDef>` natively in Python code.
+
+- Build time-agnostic :py:mod:`asyncio`-aware applications with the
+  :py:class:`context <supriya.contexts.core.Context>` interface.
 
 - Schedule :py:mod:`~supriya.patterns` and callbacks with tempo- and
   meter-aware :py:mod:`~supriya.clocks`.

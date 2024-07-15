@@ -10,17 +10,16 @@
 
 Supriya lets you:
 
-- Boot and communicate with SuperCollider's ``scsynth`` synthesis engine:
-  [servers](http://supriya-project.github.io/supriya/api/supriya/contexts/realtime.html)
-  in realtime.
-
-- Compile SuperCollider
-  [SynthDefs](http://supriya-project.github.io/supriya/api/supriya/ugens/index.html)
-  natively in Python code
+- Boot and communicate with SuperCollider's synthesis engine
+  in [realtime](http://supriya-project.github.io/supriya/api/supriya/contexts/realtime.html).
 
 - Explore
   [nonrealtime](http://supriya-project.github.io/supriya/api/supriya/contexts/nonrealtime.html)
   composition with scores.
+
+- Compile SuperCollider
+  [SynthDefs](http://supriya-project.github.io/supriya/api/supriya/ugens/index.html)
+  natively in Python code
 
 - Build time-agnostic
   [asyncio](https://docs.python.org/3/library/asyncio.html)-aware applications

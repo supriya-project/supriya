@@ -63,7 +63,7 @@ isort: ## Reformat via isort
 lint: reformat flake8 mypy ## Run all linters
 
 mypy: ## Type-check via mypy
-	mypy ${project}/
+	mypy ${project}/ tests/
 
 mypy-cov: ## Type-check via mypy with coverage reported to ./mypycov/
 	mypy --html-report ./mypycov/ ${project}/

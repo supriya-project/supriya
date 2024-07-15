@@ -216,22 +216,22 @@ def test_binary_ops(op, expr_one, expr_two, expected):
         (
             operator.abs,
             SequencePattern([1, 2, 3]),
-            UnaryOpPattern(operator.abs, SequencePattern([1, 2, 3])),
+            UnaryOpPattern[int](operator.abs, SequencePattern([1, 2, 3])),
         ),
         (
             operator.inv,
             SequencePattern([1, 2, 3]),
-            UnaryOpPattern(operator.invert, SequencePattern([1, 2, 3])),
+            UnaryOpPattern[int](operator.invert, SequencePattern([1, 2, 3])),
         ),
         (
             operator.neg,
             SequencePattern([1, 2, 3]),
-            UnaryOpPattern(operator.neg, SequencePattern([1, 2, 3])),
+            UnaryOpPattern[int](operator.neg, SequencePattern([1, 2, 3])),
         ),
         (
             operator.pos,
             SequencePattern([1, 2, 3]),
-            UnaryOpPattern(operator.pos, SequencePattern([1, 2, 3])),
+            UnaryOpPattern[int](operator.pos, SequencePattern([1, 2, 3])),
         ),
     ],
 )

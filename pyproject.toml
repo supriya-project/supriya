@@ -25,6 +25,7 @@ classifiers = [
 ]
 dependencies = [
   "platformdirs >= 4.0.0",
+  "psutil",
   "uqbar >= 0.7.3",
 ]
 description = "A Python API for SuperCollider"

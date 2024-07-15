@@ -16,10 +16,9 @@ def remove_sphinx_projects(sphinx_test_tempdir) -> None:
             if Path(d, "_build").exists():
                 # This directory is a Sphinx project, remove it
                 shutil.rmtree(str(d))
-    yield
 
 
 @pytest.fixture()
 def rootdir(remove_sphinx_projects: None) -> Path:
     roots = Path(__file__).parent.absolute() / "roots"
-    yield roots
+    return roots
