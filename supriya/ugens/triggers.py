@@ -258,7 +258,7 @@ class Poll(UGen):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server().boot(port=supriya.osc.find_free_port())
             >>> _ = server.add_synthdefs(
             ...     synthdef,
             ...     on_completion=lambda context: context.add_synth(synthdef),
