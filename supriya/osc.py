@@ -551,6 +551,8 @@ class OscProtocol(metaclass=abc.ABCMeta):
         self.ip_address = "127.0.0.1"
         self.is_running: bool = False
         self.port = 57551
+        self.on_connect_callback: Optional[Callable] = None
+        self.on_disconnect_callback: Optional[Callable] = None
 
     ### PRIVATE METHODS ###
 
@@ -736,6 +738,8 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         self.transport.close()
         if self.healthcheck_task:
             self.healthcheck_task.cancel()
+        if self.on_disconnect_callback:
+            self.on_disconnect_callback()
 
     async def _run_healthcheck(self):
         while self.is_running:
@@ -895,6 +899,8 @@ class ThreadedOscProtocol(OscProtocol):
                 self.osc_server.shutdown()
             self.osc_server = None
             self.osc_server_thread = None
+        if self.on_disconnect_callback:
+            self.on_disconnect_callback()
 
     def _process_command_queue(self):
         while self.command_queue.qsize():
