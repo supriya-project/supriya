@@ -127,9 +127,7 @@ class Session:
                 context = await self.add_context()
             if context is None:
                 context = list(self.contexts)[0]
-            self.contexts.setdefault(context, []).append(
-                mixer := Mixer(session=self)
-            )
+            self.contexts.setdefault(context, []).append(mixer := Mixer(session=self))
             self.mixers[mixer] = context
             if self.status == SessionStatus.ONLINE:
                 await mixer._allocate(
@@ -145,7 +143,9 @@ class Session:
                 self.quit_future = None
                 self.boot_future = asyncio.get_running_loop().create_future()
                 self.status = SessionStatus.BOOTING
-                await asyncio.gather(*[context.boot(port=find_free_port()) for context in self.contexts])
+                await asyncio.gather(
+                    *[context.boot(port=find_free_port()) for context in self.contexts]
+                )
                 self.status = SessionStatus.ONLINE
                 self.boot_future.set_result(True)
                 for context, mixers in self.contexts.items():
@@ -187,7 +187,7 @@ class Session:
             else:  # NONREALTIME
                 raise Exception(self.status)
 
-    async def set_mixer_context(self, mixer: "Mixer", context: Context) -> None:
+    async def set_mixer_context(self, mixer: "Mixer", context: AsyncServer) -> None:
         if mixer not in self.mixers:
             raise ValueError(mixer)
         elif context not in self.contexts:
