@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.359ec555e2989f00f.min.css?v=b000af5c" />
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.e0b5691b38cca82da.min.css?v=b1736040" />
         <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -2304,7 +2304,7 @@ soundfile read from disk.</p>
 <a class="reference internal" href="glossary.html#term-repr" title="repr (glossary term)"><span class="xref std std-term">repr</span></a> to the terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span>
-<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, id_=0, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, seconds=None, closed=True, requests=[(AllocateBuffer(buffer_id=0, frame_count=512, channel_count=1, on_completion=None), ...)]), requests=[]))</span>
+<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, id_=0, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, seconds=None, closed=True, requests=[(AllocateBuffer(buffer_id=0, frame_count=512, channel_count=1, on_completion=None), ...)]), requests=[]))</span>
 </code></pre></div>
 </div>
 <p>The <a class="reference internal" href="glossary.html#term-repr" title="repr (glossary term)"><span class="xref std std-term">repr</span></a> shows the buffer’s type (<code class="docutils literal notranslate"><span class="pre">Buffer</span></code>), its <a class="reference internal" href="glossary.html#term-ID-buffer" title="ID, buffer (glossary term)"><span class="xref std std-term">ID</span></a> (<code class="docutils literal notranslate"><span class="pre">0</span></code>) and indicates it has been allocated (<code class="docutils literal notranslate"><span class="pre">+</span></code>).</p>
@@ -2315,7 +2315,7 @@ soundfile read from disk.</p>
 <span class="gp">... </span>    <span class="n">count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_count</span><span class="o">=</span><span class="mi">512</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_group</span>
-<span class="go">BufferGroup(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, id_=1, count=4)</span>
+<span class="go">BufferGroup(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, id_=1, count=4)</span>
 </code></pre></div>
 </div>
 <p>The <a class="reference internal" href="glossary.html#term-repr" title="repr (glossary term)"><span class="xref std std-term">repr</span></a> shows the buffer group’s type (<code class="docutils literal notranslate"><span class="pre">BufferGroup</span></code>), the <a class="reference internal" href="glossary.html#term-ID-buffer" title="ID, buffer (glossary term)"><span class="xref std std-term">ID</span></a> of the first buffer in the group (<code class="docutils literal notranslate"><span class="pre">1</span></code>) and indicates it has
@@ -2346,7 +2346,7 @@ using <code class="xref py py-meth docutils literal notranslate"><span class="pr
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="_images/plot-addc67bd3d0c4eba9c910236a733d270d7bf87545f088440473315a81a443817.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
+<object data="_images/plot-34120e5a86fbbc630e1d1d66c75f83d0cdd46ee00b6c3650d07ae79035aa3f51.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <audio controls src="_images/audio-0c7c3ecda2db627616c356d1832925fd61bb4ab55870f54b5e3802f59a33608e.mp3">
@@ -2363,7 +2363,7 @@ allocate a buffer from the middle of that soundfile, plot it and play it:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="_images/plot-929c142831401dfcd9368f34619fc28daf1d6cea695f89a2d6ec2631f5928147.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
+<object data="_images/plot-a7531e030b68a9f06eb9043542ba99dd12009fe07c76b5255a075c26c9240b20.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <audio controls src="_images/audio-23707e52afa1fda6fa4b9346fbfe92d0b2780611fe0d27fae653257e3867fcda.mp3">
@@ -2374,13 +2374,13 @@ allocate a buffer from the middle of that soundfile, plot it and play it:</p>
 </div>
 <p>Allocating a buffer from this soundfile shows it contains eight channels:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
-<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, id_=7, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=7, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/sine_440hz_44100sr_16bit_octo.wav&#39;), starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
+<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, id_=7, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=7, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/sine_440hz_44100sr_16bit_octo.wav&#39;), starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
 </code></pre></div>
 </div>
 <p>We can allocate a buffer from a subset of those channels by passing the number
 of channels to grab via the <code class="docutils literal notranslate"><span class="pre">channel_count</span></code> parameter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">channel_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
-<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, id_=8, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, seconds=None, closed=True, requests=[(AllocateReadBufferChannel(buffer_id=8, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/sine_440hz_44100sr_16bit_octo.wav&#39;), channel_indices=[0, 1], starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
+<span class="go">Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, id_=8, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, seconds=None, closed=True, requests=[(AllocateReadBufferChannel(buffer_id=8, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/sine_440hz_44100sr_16bit_octo.wav&#39;), channel_indices=[0, 1], starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
 </code></pre></div>
 </div>
 <div class="todo admonition" id="id1">
@@ -2390,7 +2390,7 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <h3 id="deletion">Deletion<a class="headerlink" href="#deletion" title="Link to this heading">¶</a></h3>
 <p>Free a buffer with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-<span class="go">Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, seconds=None, closed=True, requests=[(FreeBuffer(buffer_id=Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, id_=6, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7fa6c44a7250&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=6, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/birds/birds-01.wav&#39;), starting_frame=16545, frame_count=8192, on_completion=None), ...)]), requests=[])), on_completion=None), ...)]), requests=[])</span>
+<span class="go">Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, seconds=None, closed=True, requests=[(FreeBuffer(buffer_id=Buffer(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, id_=6, completion=Completion(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, moment=Moment(context=&lt;supriya.contexts.realtime.Server object at 0x7f121bad7810&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=6, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/birds/birds-01.wav&#39;), starting_frame=16545, frame_count=8192, on_completion=None), ...)]), requests=[])), on_completion=None), ...)]), requests=[])</span>
 </code></pre></div>
 </div>
 <p>Free a buffer group with:</p>
@@ -2509,7 +2509,7 @@ demonstrated earlier:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="_images/plot-d582412ed6e11a41e9dc4b6989f38d7b15021f29594351e959f25fb996a9b951.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+<object data="_images/plot-57397e27c7d3478a80483fd568eb9a625b04b31ef09e2b05fd4e757f124883b7.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">command_name</span><span class="o">=</span><span class="s2">&quot;sine1&quot;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -2517,7 +2517,7 @@ demonstrated earlier:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="_images/plot-675c8a1901a1ae11ceb0bab358c266a342bd109a22f2feb4074bdb9715961742.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+<object data="_images/plot-ac2e380209de8d3ee1e378ec41657de2ca6e172e5e76122492bbeb34ffd37686.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">command_name</span><span class="o">=</span><span class="s2">&quot;sine2&quot;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">frequencies</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
@@ -2526,7 +2526,7 @@ demonstrated earlier:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="_images/plot-b610cb0299d0ca335b760e4358f0c2248f9496c8dadfade69026ffec79a1c814.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+<object data="_images/plot-1619d0617cdb284b8ef6bf142b85482c119b1fd55badcd49a5021547444cdb75.svg" type="image/svg+xml"></object><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">command_name</span><span class="o">=</span><span class="s2">&quot;sine3&quot;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">frequencies</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
@@ -2536,7 +2536,7 @@ demonstrated earlier:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<object data="_images/plot-2892c921654937774c38c19671942e8341c7f4f9def8d51eaf846f664d664c88.svg" type="image/svg+xml"></object><p>While <code class="docutils literal notranslate"><span class="pre">/b_gen</span></code> may be able to create waveforms in the expected wavetable
+<object data="_images/plot-71115489588186a9fcd601e59892eb9c8782d99b3bd289d60783487ede963009.svg" type="image/svg+xml"></object><p>While <code class="docutils literal notranslate"><span class="pre">/b_gen</span></code> may be able to create waveforms in the expected wavetable
 format, there’s no functionality built into <a class="reference internal" href="glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a> to load arbitrary
 soundfiles and convert them into wavetable format in the process, or to copy an
 existing buffer’s contents into another buffer and convert.</p>

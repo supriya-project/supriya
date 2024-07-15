@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.359ec555e2989f00f.min.css?v=b000af5c" />
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.e0b5691b38cca82da.min.css?v=b1736040" />
         <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -2171,7 +2171,7 @@ nor offline, so you can add nodes to them whenever you like.</p>
 <p>Create a group, and print its <a class="reference internal" href="glossary.html#term-repr" title="repr (glossary term)"><span class="xref std std-term">repr</span></a> to the terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group_one</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group_one</span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1000, parallel=False)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1000, parallel=False)</span>
 </code></pre></div>
 </div>
 <p>The <a class="reference internal" href="glossary.html#term-repr" title="repr (glossary term)"><span class="xref std std-term">repr</span></a> shows the group’s type (<code class="docutils literal notranslate"><span class="pre">Group</span></code>), its <a class="reference internal" href="glossary.html#term-ID-node" title="ID, node (glossary term)"><span class="xref std std-term">ID</span></a>
@@ -2294,7 +2294,7 @@ first:</p>
 <p>This allows you to specify the <a class="reference internal" href="glossary.html#term-add-action" title="add action (glossary term)"><span class="xref std std-term">add action</span></a> via a string, saving a
 few keystrokes:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;add to head&quot;</span><span class="p">)</span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1008, parallel=False)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1008, parallel=False)</span>
 </code></pre></div>
 </div>
 </div>
@@ -2304,7 +2304,7 @@ few keystrokes:</p>
 _parallel_ groups by specifying <code class="docutils literal notranslate"><span class="pre">parallel=True</span></code> in any call you would use
 to create a group:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1009, parallel=True)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1009, parallel=True)</span>
 </code></pre></div>
 </div>
 <p>Parallel groups will process their child nodes via multiple threads.
@@ -2316,7 +2316,7 @@ than processing in-place.</p>
 <p>Now, reset the server, then create a synth, and print its <a class="reference internal" href="glossary.html#term-repr" title="repr (glossary term)"><span class="xref std std-term">repr</span></a> to the
 terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
@@ -2324,7 +2324,7 @@ terminal:</p>
 <span class="gp">... </span>        <span class="n">synth</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
 <span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span>
-<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1000, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1000, synthdef=&lt;SynthDef: default&gt;)</span>
 </code></pre></div>
 </div>
 <p>The <a class="reference internal" href="glossary.html#term-repr" title="repr (glossary term)"><span class="xref std std-term">repr</span></a> shows the synths’s type (<code class="docutils literal notranslate"><span class="pre">Synth</span></code>), its <a class="reference internal" href="glossary.html#term-ID-node" title="ID, node (glossary term)"><span class="xref std std-term">ID</span></a>
@@ -2377,7 +2377,7 @@ just created:</p>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">ticker_synthdef</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">synth</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">ticker_synthdef</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span>
 <span class="gp">... </span>
-<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1001, synthdef=&lt;SynthDef: ticker&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1001, synthdef=&lt;SynthDef: ticker&gt;)</span>
 </code></pre></div>
 </div>
 <p>Then create a second synth using the “reverb” SynthDef, positioning it after
@@ -2386,7 +2386,7 @@ the previous synth with an <code class="docutils literal notranslate"><span clas
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">reverb_synthdef</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">reverb_synthdef</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;add_to_tail&quot;</span><span class="p">)</span>
 <span class="gp">... </span>
-<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1002, synthdef=&lt;SynthDef: reverb&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1002, synthdef=&lt;SynthDef: reverb&gt;)</span>
 </code></pre></div>
 </div>
 <p>Note the order of the two synths (you can tell by their SynthDef names), and
@@ -2406,7 +2406,7 @@ If you need precise timing, make sure to pre-allocate the SynthDefs.</p>
 <h3 id="deleting">Deleting<a class="headerlink" href="#deleting" title="Link to this heading">¶</a></h3>
 <p>Reset the server for a clean slate, then add a synth:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
@@ -2439,7 +2439,7 @@ to guarantee they behave as expected.</p>
 <h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Link to this heading">¶</a></h2>
 <p>Reset the server for a clean slate:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;</span>
 </code></pre></div>
 </div>
 <p>… then create a group and add three synths to it:</p>
@@ -2454,19 +2454,19 @@ to guarantee they behave as expected.</p>
 </div>
 <p>Every node has a <code class="docutils literal notranslate"><span class="pre">id_</span></code> and a reference to its context:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">id_</span><span class="p">,</span> <span class="n">group</span><span class="o">.</span><span class="n">context</span>
-<span class="go">(1000, &lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;)</span>
+<span class="go">(1000, &lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span><span class="o">.</span><span class="n">id_</span><span class="p">,</span> <span class="n">synth_a</span><span class="o">.</span><span class="n">context</span>
-<span class="go">(1001, &lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;)</span>
+<span class="go">(1001, &lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_b</span><span class="o">.</span><span class="n">id_</span><span class="p">,</span> <span class="n">synth_b</span><span class="o">.</span><span class="n">context</span>
-<span class="go">(1002, &lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;)</span>
+<span class="go">(1002, &lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_c</span><span class="o">.</span><span class="n">id_</span><span class="p">,</span> <span class="n">synth_c</span><span class="o">.</span><span class="n">context</span>
-<span class="go">(1003, &lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;)</span>
+<span class="go">(1003, &lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;)</span>
 </code></pre></div>
 </div>
 <h3 id="position">Position<a class="headerlink" href="#position" title="Link to this heading">¶</a></h3>
@@ -2480,26 +2480,26 @@ upon it.</p>
 </div>
 <p>The synths we created know that the group we (also) created is their <a class="reference internal" href="glossary.html#term-parent" title="parent (glossary term)"><span class="xref std std-term">parent</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span><span class="o">.</span><span class="n">parent</span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1000, parallel=False)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1000, parallel=False)</span>
 </code></pre></div>
 </div>
 <p>And they know the entire <a class="reference internal" href="glossary.html#term-parentage" title="parentage (glossary term)"><span class="xref std std-term">parentage</span></a> between themself and their <a class="reference internal" href="glossary.html#term-root" title="root (glossary term)"><span class="xref std std-term">root</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">synth_a</span><span class="o">.</span><span class="n">parentage</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">node</span>
 <span class="gp">... </span>
-<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1000, parallel=False)</span>
-<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1, parallel=False)</span>
-<span class="go">RootNode(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=0, parallel=False)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1000, parallel=False)</span>
+<span class="go">Group(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1, parallel=False)</span>
+<span class="go">RootNode(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=0, parallel=False)</span>
 </code></pre></div>
 </div>
 <p>Likewise, the group we created knows about its children:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">node</span>
 <span class="gp">... </span>
-<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1003, synthdef=&lt;SynthDef: default&gt;)</span>
-<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1002, synthdef=&lt;SynthDef: default&gt;)</span>
-<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1003, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1002, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
 </code></pre></div>
 </div>
 <h3 id="querying-controls">Querying controls<a class="headerlink" href="#querying-controls" title="Link to this heading">¶</a></h3>
@@ -2519,7 +2519,7 @@ upon it.</p>
 <h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Link to this heading">¶</a></h2>
 <p>Reset the server for a clean slate:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7fa691f9f510&gt;</span>
+<span class="go">&lt;supriya.contexts.realtime.Server object at 0x7f11da8a0550&gt;</span>
 </code></pre></div>
 </div>
 <p>… then add a group, a <em>ticker</em> synth and a <em>reverb</em> synth using the two
