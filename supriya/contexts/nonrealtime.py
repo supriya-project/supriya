@@ -22,7 +22,7 @@ from ..osc import OscBundle
 from ..scsynth import AsyncNonrealtimeProcessProtocol, Options
 from ..typing import HeaderFormatLike, SampleFormatLike, SupportsOsc
 from ..ugens import SynthDef
-from .core import Context, ContextError, ContextObject, Node
+from .core import BootStatus, Context, ContextError, ContextObject, Node
 from .requests import DoNothing, RequestBundle, Requestable
 
 logger = logging.getLogger(__name__)
@@ -40,6 +40,7 @@ class Score(Context):
 
     def __init__(self, options: Optional[Options] = None, **kwargs):
         super().__init__(options=options, **kwargs)
+        self._boot_status = BootStatus.ONLINE
         self._requests: Dict[float, List[Requestable]] = {}
 
     ### CLASS METHODS ###
