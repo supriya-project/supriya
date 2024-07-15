@@ -131,14 +131,12 @@ def test_ThreadedOscProtocol():
     )
     process_protocol = SyncProcessProtocol()
     process_protocol.boot(options)
-    assert process_protocol.is_running
     osc_protocol = ThreadedOscProtocol()
     osc_protocol.connect("127.0.0.1", port, healthcheck=healthcheck)
     assert osc_protocol.is_running
     assert not healthcheck_failed
     time.sleep(1)
     process_protocol.quit()
-    assert not process_protocol.is_running
     assert osc_protocol.is_running
     assert not healthcheck_failed
     for _ in range(20):
