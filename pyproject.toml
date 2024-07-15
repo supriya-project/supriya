@@ -42,6 +42,7 @@ docs = [
   "librosa",
   "matplotlib",
   "mypy",
+  "soxr==0.4.0b1", # https://github.com/librosa/librosa/issues/1831#issuecomment-2176274560
   "sphinx-immaterial",
   "sphinxext-opengraph",
 ]
@@ -66,6 +67,7 @@ test = [
   "pytest-mock",
   "pytest-rerunfailures",
   "setuptools; python_version >= '3.12'",
+  "soxr==0.4.0b1", # https://github.com/librosa/librosa/issues/1831#issuecomment-2176274560
   "types-PyYAML",
   "types-docutils",
 ]
