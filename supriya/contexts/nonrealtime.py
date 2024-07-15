@@ -2,7 +2,6 @@
 Tools for interacting with non-realtime execution contexts.
 """
 
-import asyncio
 import hashlib
 import logging
 import platform
@@ -180,10 +179,9 @@ class Score(Context):
                 ]
             )
             # render the datagram
-            exit_future = asyncio.get_running_loop().create_future()
-            protocol = AsyncNonrealtimeProcessProtocol(exit_future)
+            protocol = AsyncNonrealtimeProcessProtocol()
             await protocol.run(command, render_directory_path_)
-            exit_code: int = await exit_future
+            exit_code: int = await protocol.exit_future
             assert render_directory_path_ / render_file_name
             if output_file_path_:
                 shutil.copy(
