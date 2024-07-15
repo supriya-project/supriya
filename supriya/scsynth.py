@@ -356,7 +356,7 @@ class SyncProcessProtocol(ProcessProtocol):
         )
         atexit.register(self.quit)
         self.boot_future: concurrent.futures.Future[bool] = concurrent.futures.Future()
-        self.exit_future: concurrent.futures.Future[bool] = concurrent.futures.Future()
+        self.exit_future: concurrent.futures.Future[int] = concurrent.futures.Future()
 
     def _run_process_thread(self, options: Options) -> None:
         self.process = subprocess.Popen(
