@@ -1,3 +1,4 @@
+import pytest
 import pytest_asyncio
 
 from supriya.mixers import Session
@@ -9,3 +10,8 @@ async def session(request):
     if request.param == "online":
         await session.boot()
     yield session
+
+
+@pytest.fixture
+def mixer(session):
+    return session.mixers[0]

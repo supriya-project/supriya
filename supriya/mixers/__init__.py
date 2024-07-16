@@ -1,6 +1,17 @@
 import asyncio
 from enum import Enum
-from typing import Dict, Iterator, List, Literal, Optional, Tuple, TypeAlias, Union
+from typing import (
+    Dict,
+    Generic,
+    Iterator,
+    List,
+    Literal,
+    Optional,
+    Tuple,
+    TypeAlias,
+    TypeVar,
+    Union,
+)
 
 from ..clocks import AsyncClock
 from ..contexts import AsyncServer, Buffer, Bus, BusGroup, Context, Node
@@ -10,24 +21,26 @@ from ..typing import Default
 
 ChannelCount: TypeAlias = Literal[1, 2, 4, 8]
 
+C = TypeVar("C", bound="Component")
 
-class Component:
+
+class Component(Generic[C]):
 
     def __init__(self, *, parent: Optional["Component"] = None) -> None:
-        self.audio_buses: Dict[str, Union[Bus, BusGroup]] = {}
-        self.buffers: Dict[str, Buffer] = {}
-        self.channel_count: Optional[ChannelCount] = None
-        self.context: Optional[Context] = None
-        self.control_buses: Dict[str, Union[Bus, BusGroup]] = {}
-        self.is_active: bool = True
-        self.lock = asyncio.Lock()
-        self.nodes: Dict[str, Node] = {}
-        self.parent: Optional["Component"] = None
-        self.session: Optional["Session"] = None
+        self._audio_buses: Dict[str, Union[Bus, BusGroup]] = {}
+        self._buffers: Dict[str, Buffer] = {}
+        self._channel_count: Optional[ChannelCount] = None
+        self._context: Optional[Context] = None
+        self._control_buses: Dict[str, Union[Bus, BusGroup]] = {}
+        self._is_active: bool = True
+        self._lock = asyncio.Lock()
+        self._nodes: Dict[str, Node] = {}
+        self._parent: Optional[C] = None
+        self._session: Optional[Session] = None
 
     async def _activate(self) -> None:
-        self.is_active = True
-        if group := self.nodes.get("group"):
+        self._is_active = True
+        if group := self._nodes.get("group"):
             group.unpause()
             group.set(active=1)
 
@@ -42,28 +55,29 @@ class Component:
         pass
 
     async def _deactivate(self) -> None:
-        if group := self.nodes.get("group"):
+        if group := self._nodes.get("group"):
             group.set(active=0)
-        self.is_active = False
+        self._is_active = False
 
     async def _deallocate(self) -> None:
-        for key in tuple(self.audio_buses):
-            self.audio_buses.pop(key).free()
-        for key in tuple(self.control_buses):
-            self.control_buses.pop(key).free()
-        if group := self.nodes.get("group"):
-            if not self.is_active:
+        for key in tuple(self._audio_buses):
+            self._audio_buses.pop(key).free()
+        for key in tuple(self._control_buses):
+            self._control_buses.pop(key).free()
+        if group := self._nodes.get("group"):
+            if not self._is_active:
                 group.free()
             else:
                 group.set(gate=0)
-        self.nodes.clear()
-        for key in tuple(self.buffers):
-            self.buffers.pop(key).free()
+        self._nodes.clear()
+        for key in tuple(self._buffers):
+            self._buffers.pop(key).free()
+        self._context = None
 
     async def _delete(self) -> None:
         await self._deallocate()
-        self.parent = None
-        self.session = None
+        self._parent = None
+        self._session = None
 
     def _iterate_parentage(self) -> Iterator["Component"]:
         component = self
@@ -74,10 +88,15 @@ class Component:
 
     @property
     def effective_channel_count(self) -> int:
-        component = self
-        while component.channel_count is None and component.parent is not None:
-            component = component.parent
-        return component.channel_count or 2
+        channel_count = 2
+        for component in self._iterate_parentage():
+            if component._channel_count:
+                return component._channel_count
+        return channel_count
+
+    @property
+    def parent(self) -> Optional[C]:
+        return self._parent
 
 
 class SessionStatus(Enum):
@@ -103,33 +122,36 @@ class Session:
     """
 
     def __init__(self) -> None:
-        self.boot_future: Optional[asyncio.Future] = None
-        self.channel_count: ChannelCount = 2
-        self.clock = AsyncClock()
-        self.contexts: Dict[AsyncServer, List[Mixer]] = {
+        self._boot_future: Optional[asyncio.Future] = None
+        self._channel_count: ChannelCount = 2
+        self._clock = AsyncClock()
+        self._contexts: Dict[AsyncServer, List[Mixer]] = {
             (context := AsyncServer()): [mixer := Mixer(session=self)],
         }
-        self.lock = asyncio.Lock()
-        self.mixers: Dict[Mixer, AsyncServer] = {mixer: context}
-        self.quit_future: Optional[asyncio.Future] = None
-        self.status = SessionStatus.OFFLINE
+        self._lock = asyncio.Lock()
+        self._mixers: Dict[Mixer, AsyncServer] = {mixer: context}
+        self._quit_future: Optional[asyncio.Future] = None
+        self._status = SessionStatus.OFFLINE
 
     async def add_context(self) -> AsyncServer:
-        async with self.lock:
-            self.contexts[context := AsyncServer()] = []
-            if self.status == SessionStatus.ONLINE:
+        async with self._lock:
+            self._contexts[context := AsyncServer()] = []
+            if self._status == SessionStatus.ONLINE:
                 await context.boot(port=find_free_port())
             return context
 
+    def _delete_mixer(self, mixer) -> None:
+        self._contexts[self._mixers.pop(mixer)].remove(mixer)
+
     async def add_mixer(self, context: Optional[AsyncServer] = None) -> "Mixer":
-        async with self.lock:
-            if not self.contexts:
+        async with self._lock:
+            if not self._contexts:
                 context = await self.add_context()
             if context is None:
-                context = list(self.contexts)[0]
-            self.contexts.setdefault(context, []).append(mixer := Mixer(session=self))
-            self.mixers[mixer] = context
-            if self.status == SessionStatus.ONLINE:
+                context = list(self._contexts)[0]
+            self._contexts.setdefault(context, []).append(mixer := Mixer(session=self))
+            self._mixers[mixer] = context
+            if self._status == SessionStatus.ONLINE:
                 await mixer._allocate(
                     context=context,
                     target_node=context.default_group,
@@ -137,80 +159,88 @@ class Session:
             return mixer
 
     async def boot(self) -> None:
-        async with self.lock:
+        async with self._lock:
             # guard against concurrent boot / quits
-            if self.status == SessionStatus.OFFLINE:
-                self.quit_future = None
-                self.boot_future = asyncio.get_running_loop().create_future()
-                self.status = SessionStatus.BOOTING
+            if self._status == SessionStatus.OFFLINE:
+                self._quit_future = None
+                self._boot_future = asyncio.get_running_loop().create_future()
+                self._status = SessionStatus.BOOTING
                 await asyncio.gather(
-                    *[context.boot(port=find_free_port()) for context in self.contexts]
+                    *[context.boot(port=find_free_port()) for context in self._contexts]
                 )
-                self.status = SessionStatus.ONLINE
-                self.boot_future.set_result(True)
-                for context, mixers in self.contexts.items():
+                self._status = SessionStatus.ONLINE
+                self._boot_future.set_result(True)
+                for context, mixers in self._contexts.items():
                     for mixer in mixers:
                         with context.at():
                             await mixer._allocate(
                                 context=context,
                                 target_node=context.default_group,
                             )
-            elif self.boot_future is not None:  # BOOTING / ONLINE
-                await self.boot_future
+            elif self._boot_future is not None:  # BOOTING / ONLINE
+                await self._boot_future
             else:  # NONREALTIME
-                raise Exception(self.status)
+                raise Exception(self._status)
 
     async def delete_context(self, context: AsyncServer) -> None:
-        async with self.lock:
-            for mixer in self.contexts.pop(context):
+        async with self._lock:
+            for mixer in self._contexts.pop(context):
                 await mixer.delete()
             await context.quit()
 
     async def quit(self) -> None:
-        async with self.lock:
+        async with self._lock:
             # guard against concurrent boot / quits
-            if self.status == SessionStatus.ONLINE:
-                self.boot_future = None
-                self.quit_future = asyncio.get_running_loop().create_future()
-                self.status = SessionStatus.QUITTING
-                for context, mixers in self.contexts.items():
+            if self._status == SessionStatus.ONLINE:
+                self._boot_future = None
+                self._quit_future = asyncio.get_running_loop().create_future()
+                self._status = SessionStatus.QUITTING
+                for context, mixers in self._contexts.items():
                     for mixer in mixers:
                         with context.at():
                             await mixer._deallocate()
-                await asyncio.gather(*[context.quit() for context in self.contexts])
-                self.status = SessionStatus.OFFLINE
-                self.quit_future.set_result(True)
-            elif self.quit_future is not None:  # QUITTING / OFFLINE
-                await self.quit_future
-            elif self.status == SessionStatus.OFFLINE:  # Never booted
+                await asyncio.gather(*[context.quit() for context in self._contexts])
+                self._status = SessionStatus.OFFLINE
+                self._quit_future.set_result(True)
+            elif self._quit_future is not None:  # QUITTING / OFFLINE
+                await self._quit_future
+            elif self._status == SessionStatus.OFFLINE:  # Never booted
                 return
             else:  # NONREALTIME
-                raise Exception(self.status)
+                raise Exception(self._status)
 
     async def set_mixer_context(self, mixer: "Mixer", context: AsyncServer) -> None:
-        if mixer not in self.mixers:
+        if mixer not in self._mixers:
             raise ValueError(mixer)
-        elif context not in self.contexts:
+        elif context not in self._contexts:
             raise ValueError(context)
-        if context is mixer.context:
+        if context is mixer._context:
             return
-        async with self.lock:
-            self.contexts[self.mixers[mixer]].remove(mixer)
-            async with mixer.lock:
+        async with self._lock:
+            self._contexts[self._mixers[mixer]].remove(mixer)
+            async with mixer._lock:
                 await mixer._deallocate()
-                if self.status == SessionStatus.ONLINE:
+                if self._status == SessionStatus.ONLINE:
                     await mixer._allocate(
                         context=context, target_node=context.default_group
                     )
-                self.contexts[context].append(mixer)
-                self.mixers[mixer] = context
+                self._contexts[context].append(mixer)
+                self._mixers[mixer] = context
+
+    @property
+    def contexts(self):
+        return list(self._contexts)
+
+    @property
+    def mixers(self):
+        return list(self._mixers)
 
 
 class Mixer(Component):
 
     def __init__(self, *, session: Optional[Session] = None) -> None:
         super().__init__()
-        self.session = session
+        self._session = session
 
     async def _allocate(
         self,
@@ -220,21 +250,23 @@ class Mixer(Component):
         context: Context,
         target_node: Node,
     ) -> None:
-        self.nodes["group"] = target_node.add_group(add_action=add_action)
-        self.nodes["tracks"] = self.nodes["group"].add_group(
+        self._nodes["group"] = target_node.add_group(add_action=add_action)
+        self._nodes["tracks"] = self._nodes["group"].add_group(
             add_action=AddAction.ADD_TO_HEAD
         )
-        self.nodes["devices"] = self.nodes["group"].add_group(
+        self._nodes["devices"] = self._nodes["group"].add_group(
             add_action=AddAction.ADD_TO_TAIL
         )
 
     async def add_device(self) -> "Device":
         return Device()
 
+    async def add_track(self) -> "Track":
+        return Track()
+
     async def delete(self):
-        if self.session is not None:
-            del self.session.mixers[self]
-            self.session.contexts[self.context].remove(self)
+        if self._session is not None:
+            self._session._delete_mixer(self)
         await self._delete()
 
     async def group_devices(self, index: int, count: int) -> "Rack":
@@ -266,7 +298,7 @@ class Track(Component):
 
     async def delete(self):
         await self._deallocate()
-        self.session = None
+        self._session = None
 
     async def group_devices(self, index: int, count: int) -> "Rack":
         return Rack()
@@ -316,7 +348,7 @@ class Chain(Component):
 
     async def delete(self):
         await self._deallocate()
-        self.session = None
+        self._session = None
 
     async def group_devices(self, index: int, count: int) -> "Rack":
         return Rack()
