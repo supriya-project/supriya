@@ -50,6 +50,7 @@ class Component(Generic[C]):
         add_action: AddAction = AddAction.ADD_TO_HEAD,
         channel_count: Optional[ChannelCount] = None,
         context: Context,
+        target_bus: BusGroup,
         target_node: Node,
     ) -> None:
         pass
@@ -87,11 +88,15 @@ class Component(Generic[C]):
         yield component
 
     @property
+    def channel_count(self) -> Optional[int]:
+        return self._channel_count
+
+    @property
     def effective_channel_count(self) -> int:
         channel_count = 2
         for component in self._iterate_parentage():
-            if component._channel_count:
-                return component._channel_count
+            if component.channel_count:
+                return component.channel_count
         return channel_count
 
     @property
@@ -133,15 +138,15 @@ class Session:
         self._quit_future: Optional[asyncio.Future] = None
         self._status = SessionStatus.OFFLINE
 
+    def _delete_mixer(self, mixer) -> None:
+        self._contexts[self._mixers.pop(mixer)].remove(mixer)
+
     async def add_context(self) -> AsyncServer:
         async with self._lock:
             self._contexts[context := AsyncServer()] = []
             if self._status == SessionStatus.ONLINE:
                 await context.boot(port=find_free_port())
             return context
-
-    def _delete_mixer(self, mixer) -> None:
-        self._contexts[self._mixers.pop(mixer)].remove(mixer)
 
     async def add_mixer(self, context: Optional[AsyncServer] = None) -> "Mixer":
         async with self._lock:
@@ -240,7 +245,9 @@ class Mixer(Component):
 
     def __init__(self, *, session: Optional[Session] = None) -> None:
         super().__init__()
+        self._devices: List[Device] = []
         self._session = session
+        self._tracks: List[Track] = []
 
     async def _allocate(
         self,
@@ -248,6 +255,7 @@ class Mixer(Component):
         add_action: AddAction = AddAction.ADD_TO_HEAD,
         channel_count: Optional[ChannelCount] = None,
         context: Context,
+        target_bus: BusGroup,
         target_node: Node,
     ) -> None:
         self._nodes["group"] = target_node.add_group(add_action=add_action)
@@ -259,24 +267,38 @@ class Mixer(Component):
         )
 
     async def add_device(self) -> "Device":
-        return Device()
+        async with self._lock:
+            return Device()
 
     async def add_track(self) -> "Track":
-        return Track()
+        async with self._lock:
+            return Track()
 
     async def delete(self):
-        if self._session is not None:
-            self._session._delete_mixer(self)
-        await self._delete()
+        async with self._lock:
+            if self._session is not None:
+                self._session._delete_mixer(self)
+            await self._delete()
 
     async def group_devices(self, index: int, count: int) -> "Rack":
-        return Rack()
+        async with self._lock:
+            return Rack()
 
     async def set_channel_count(self, channel_count: ChannelCount) -> None:
-        pass
+        async with self._lock:
+            pass
 
     async def set_output(self, output: BusGroup) -> None:
-        pass
+        async with self._lock:
+            pass
+
+    @property
+    def devices(self) -> list["Device"]:
+        return self._devices[:]
+
+    @property
+    def tracks(self) -> list["Track"]:
+        return self._tracks[:]
 
 
 class Track(Component):
