@@ -3,6 +3,7 @@ Classes for modeling responses from :term:`scsynth`.
 """
 
 import dataclasses
+import re
 from collections import deque
 from typing import Deque, Dict, List, Optional, Sequence, Tuple, Type, Union
 
@@ -372,7 +373,9 @@ class QueryTreeSynth:
 @dataclasses.dataclass
 class QueryTreeGroup:
     node_id: int
-    children: List[Union["QueryTreeGroup", QueryTreeSynth]]
+    children: List[Union["QueryTreeGroup", QueryTreeSynth]] = dataclasses.field(
+        default_factory=list
+    )
 
     ### SPECIAL METHODS ###
 
@@ -427,6 +430,45 @@ class QueryTreeGroup:
             ),
             deque(response.items),
         )
+
+    @classmethod
+    def from_string(cls, string) -> "QueryTreeGroup":
+        node_pattern = re.compile(r"^\s*(\d+) (\S+)$")
+        control_pattern = re.compile(r"\w+: \S+")
+        lines = string.splitlines()
+        if not lines[0].startswith("NODE TREE"):
+            raise ValueError
+        stack: List[QueryTreeGroup] = [
+            QueryTreeGroup(node_id=int(lines.pop(0).rpartition(" ")[-1]))
+        ]
+        for line in lines:
+            indent = line.count("   ")
+            if match := (node_pattern.match(line)):
+                while len(stack) > indent:
+                    stack.pop()
+                node_id = int(match.groups()[0])
+                if (name := match.groups()[1]) == "group":
+                    stack[-1].children.append(group := QueryTreeGroup(node_id=node_id))
+                    stack.append(group)
+                else:
+                    stack[-1].children.append(
+                        synth := QueryTreeSynth(node_id=node_id, synthdef_name=name)
+                    )
+            else:
+                for pair in control_pattern.findall(line):
+                    name_string, _, value_string = pair.partition(": ")
+                    try:
+                        name_or_index: Union[int, str] = int(name_string)
+                    except ValueError:
+                        name_or_index = name_string
+                    try:
+                        value: Union[float, str] = float(value_string)
+                    except ValueError:
+                        value = value_string
+                    synth.controls.append(
+                        QueryTreeControl(name_or_index=name_or_index, value=value)
+                    )
+        return stack[0]
 
 
 @dataclasses.dataclass
