@@ -2,7 +2,6 @@
 Tools for interacting with non-realtime execution contexts.
 """
 
-import asyncio
 import hashlib
 import logging
 import platform
@@ -22,7 +21,7 @@ from ..osc import OscBundle
 from ..scsynth import AsyncNonrealtimeProcessProtocol, Options
 from ..typing import HeaderFormatLike, SampleFormatLike, SupportsOsc
 from ..ugens import SynthDef
-from .core import Context, ContextError, ContextObject, Node
+from .core import BootStatus, Context, ContextError, ContextObject, Node
 from .requests import DoNothing, RequestBundle, Requestable
 
 logger = logging.getLogger(__name__)
@@ -40,6 +39,7 @@ class Score(Context):
 
     def __init__(self, options: Optional[Options] = None, **kwargs):
         super().__init__(options=options, **kwargs)
+        self._boot_status = BootStatus.ONLINE
         self._requests: Dict[float, List[Requestable]] = {}
 
     ### CLASS METHODS ###
@@ -179,10 +179,9 @@ class Score(Context):
                 ]
             )
             # render the datagram
-            exit_future = asyncio.get_running_loop().create_future()
-            protocol = AsyncNonrealtimeProcessProtocol(exit_future)
+            protocol = AsyncNonrealtimeProcessProtocol()
             await protocol.run(command, render_directory_path_)
-            exit_code: int = await exit_future
+            exit_code: int = await protocol.exit_future
             assert render_directory_path_ / render_file_name
             if output_file_path_:
                 shutil.copy(

@@ -539,10 +539,23 @@ class HealthCheck:
     max_attempts: int = 5
 
 
+class BootStatus(enum.IntEnum):
+    OFFLINE = 0
+    BOOTING = 1
+    ONLINE = 2
+    QUITTING = 3
+
+
 class OscProtocol(metaclass=abc.ABCMeta):
     ### INITIALIZER ###
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        *,
+        on_connect_callback: Optional[Callable] = None,
+        on_disconnect_callback: Optional[Callable] = None,
+        on_panic_callback: Optional[Callable] = None,
+    ) -> None:
         self.callbacks: Dict[Any, Any] = {}
         self.captures: Set[Capture] = set()
         self.healthcheck: Optional[HealthCheck] = None
@@ -551,6 +564,10 @@ class OscProtocol(metaclass=abc.ABCMeta):
         self.ip_address = "127.0.0.1"
         self.is_running: bool = False
         self.port = 57551
+        self.on_connect_callback = on_connect_callback
+        self.on_disconnect_callback = on_disconnect_callback
+        self.on_panic_callback = on_panic_callback
+        self.status = BootStatus.OFFLINE
 
     ### PRIVATE METHODS ###
 
@@ -718,9 +735,20 @@ class OscProtocol(metaclass=abc.ABCMeta):
 class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     ### INITIALIZER ###
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        *,
+        on_connect_callback: Optional[Callable] = None,
+        on_disconnect_callback: Optional[Callable] = None,
+        on_panic_callback: Optional[Callable] = None,
+    ) -> None:
         asyncio.DatagramProtocol.__init__(self)
-        OscProtocol.__init__(self)
+        OscProtocol.__init__(
+            self,
+            on_connect_callback=on_connect_callback,
+            on_disconnect_callback=on_disconnect_callback,
+            on_panic_callback=on_panic_callback,
+        )
         self.background_tasks: Set[asyncio.Task] = set()
         self.healthcheck_task: Optional[asyncio.Task] = None
 
@@ -736,6 +764,8 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         self.transport.close()
         if self.healthcheck_task:
             self.healthcheck_task.cancel()
+        if self.on_disconnect_callback:
+            self.on_disconnect_callback()
 
     async def _run_healthcheck(self):
         while self.is_running:
@@ -874,8 +904,19 @@ class ThreadedOscHandler(socketserver.BaseRequestHandler):
 class ThreadedOscProtocol(OscProtocol):
     ### INITIALIZER ###
 
-    def __init__(self):
-        OscProtocol.__init__(self)
+    def __init__(
+        self,
+        *,
+        on_connect_callback: Optional[Callable] = None,
+        on_disconnect_callback: Optional[Callable] = None,
+        on_panic_callback: Optional[Callable] = None,
+    ):
+        OscProtocol.__init__(
+            self,
+            on_connect_callback=on_connect_callback,
+            on_disconnect_callback=on_disconnect_callback,
+            on_panic_callback=on_panic_callback,
+        )
         self.command_queue = queue.Queue()
         self.lock = threading.RLock()
         self.osc_server = None
@@ -895,6 +936,8 @@ class ThreadedOscProtocol(OscProtocol):
                 self.osc_server.shutdown()
             self.osc_server = None
             self.osc_server_thread = None
+        if self.on_disconnect_callback:
+            self.on_disconnect_callback()
 
     def _process_command_queue(self):
         while self.command_queue.qsize():

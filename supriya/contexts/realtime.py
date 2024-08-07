@@ -9,7 +9,9 @@ import logging
 import warnings
 from typing import (
     TYPE_CHECKING,
+    Callable,
     Dict,
+    Iterable,
     List,
     Optional,
     Sequence,
@@ -49,6 +51,7 @@ from ..scsynth import (
 from ..typing import SupportsOsc
 from ..ugens import SynthDef
 from .core import (
+    BootStatus,
     Buffer,
     Bus,
     Context,
@@ -116,11 +119,17 @@ DEFAULT_HEALTHCHECK = HealthCheck(
 )
 
 
-class BootStatus(enum.IntEnum):
-    OFFLINE = 0
-    BOOTING = 1
-    ONLINE = 2
-    QUITTING = 3
+class ServerLifecycleEvent(enum.Enum):
+    BOOTING = enum.auto()
+    BOOTED = enum.auto()
+    CONNECTING = enum.auto()
+    CONNECTED = enum.auto()
+    DISCONNECTING = enum.auto()
+    DISCONNECTED = enum.auto()
+    QUITTING = enum.auto()
+    QUIT = enum.auto()
+    HEALTHECHECK_PANICKED = enum.auto()
+    PROCESS_PANICKED = enum.auto()
 
 
 class BaseServer(Context):
@@ -149,6 +158,7 @@ class BaseServer(Context):
         self._is_owner = False
         self._boot_status = BootStatus.OFFLINE
         self._buffers: Set[int] = set()
+        self._lifecycle_event_callbacks: Dict[ServerLifecycleEvent, List[Callable]] = {}
         self._maximum_logins = 1
         self._node_active: Dict[int, bool] = {}
         self._node_children: Dict[int, List[int]] = {}
@@ -280,6 +290,10 @@ class BaseServer(Context):
             if handler is not None:
                 handler(message)
 
+    def _on_lifecycle_event(self, event: ServerLifecycleEvent) -> None:
+        for callback in self._lifecycle_event_callbacks.get(event, []):
+            callback(event)
+
     def _resolve_node(self, node: Union[Node, SupportsInt, None]) -> int:
         if node is None:
             return self._client_id + 1
@@ -340,6 +354,21 @@ class BaseServer(Context):
 
     ### PUBLIC METHODS ###
 
+    def on(
+        self,
+        event: Union[ServerLifecycleEvent, Iterable[ServerLifecycleEvent]],
+        callback: Callable[[ServerLifecycleEvent], None],
+    ) -> None:
+        if isinstance(event, ServerLifecycleEvent):
+            events_ = [event]
+        else:
+            events_ = list(set(event))
+        for event_ in events_:
+            if callback not in (
+                callbacks := self._lifecycle_event_callbacks.setdefault(event_, [])
+            ):
+                callbacks.append(callback)
+
     def send(self, message: SupportsOsc) -> None:
         """
         Send a message to the execution context.
@@ -361,13 +390,6 @@ class BaseServer(Context):
         self._latency = float(latency)
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def boot_status(self) -> BootStatus:
-        """
-        Get the server's boot status.
-        """
-        return self._boot_status
 
     @property
     def default_group(self) -> Group:
@@ -419,7 +441,17 @@ class Server(BaseServer):
         super().__init__(
             osc_protocol=ThreadedOscProtocol(),
             options=options,
-            process_protocol=SyncProcessProtocol(),
+            process_protocol=SyncProcessProtocol(
+                on_boot_callback=lambda: self._on_lifecycle_event(
+                    ServerLifecycleEvent.BOOTED
+                ),
+                on_panic_callback=lambda: self._on_lifecycle_event(
+                    ServerLifecycleEvent.PROCESS_PANICKED
+                ),
+                on_quit_callback=lambda: self._on_lifecycle_event(
+                    ServerLifecycleEvent.QUIT
+                ),
+            ),
             **kwargs,
         )
 
@@ -427,6 +459,7 @@ class Server(BaseServer):
 
     def _connect(self) -> None:
         logger.info("Connecting")
+        self._on_lifecycle_event(ServerLifecycleEvent.CONNECTING)
         cast(ThreadedOscProtocol, self._osc_protocol).connect(
             ip_address=self._options.ip_address,
             port=self._options.port,
@@ -441,12 +474,14 @@ class Server(BaseServer):
         if self._client_id == 0:
             self._setup_system()
             self.sync()
-        self._boot_status = BootStatus.ONLINE
         logger.info("Connected")
+        self._boot_status = BootStatus.ONLINE
+        self._on_lifecycle_event(ServerLifecycleEvent.CONNECTED)
 
     def _disconnect(self) -> None:
         logger.info("Disconnecting")
         self._boot_status = BootStatus.QUITTING
+        self._on_lifecycle_event(ServerLifecycleEvent.DISCONNECTING)
         self._teardown_shm()
         self._osc_protocol.disconnect()
         self._teardown_shm()
@@ -454,8 +489,9 @@ class Server(BaseServer):
         if self in self._contexts:
             self._contexts.remove(self)
         self._is_owner = False
-        self._boot_status = BootStatus.OFFLINE
         logger.info("Disconnected")
+        self._boot_status = BootStatus.OFFLINE
+        self._on_lifecycle_event(ServerLifecycleEvent.DISCONNECTED)
 
     def _setup_notifications(self) -> None:
         logger.info("Setting up notifications")
@@ -490,10 +526,11 @@ class Server(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
+        self._on_lifecycle_event(ServerLifecycleEvent.BOOTING)
         self._options = new(options or self._options, **kwargs)
         logger.debug(f"Options: {self._options}")
         try:
-            self._process_protocol.boot(self._options)
+            cast(SyncProcessProtocol, self._process_protocol).boot(self._options)
         except ServerCannotBoot:
             self._boot_status = BootStatus.OFFLINE
             raise
@@ -756,13 +793,13 @@ class Server(BaseServer):
             raise UnownedServerShutdown(
                 "Cannot quit unowned server without force flag."
             )
+        self._on_lifecycle_event(ServerLifecycleEvent.QUITTING)
         try:
             Quit().communicate(server=self)
         except OscProtocolOffline:
             pass
-        self._teardown_shm()
-        self._process_protocol.quit()
         self._disconnect()
+        cast(SyncProcessProtocol, self._process_protocol).quit()
         return self
 
     def reboot(self) -> "Server":
@@ -818,7 +855,17 @@ class AsyncServer(BaseServer):
         super().__init__(
             osc_protocol=AsyncOscProtocol(),
             options=options,
-            process_protocol=AsyncProcessProtocol(),
+            process_protocol=AsyncProcessProtocol(
+                on_boot_callback=lambda: self._on_lifecycle_event(
+                    ServerLifecycleEvent.BOOTED
+                ),
+                on_panic_callback=lambda: self._on_lifecycle_event(
+                    ServerLifecycleEvent.PROCESS_PANICKED
+                ),
+                on_quit_callback=lambda: self._on_lifecycle_event(
+                    ServerLifecycleEvent.QUIT
+                ),
+            ),
             **kwargs,
         )
 
@@ -826,6 +873,7 @@ class AsyncServer(BaseServer):
 
     async def _connect(self) -> None:
         logger.info("Connecting")
+        self._on_lifecycle_event(ServerLifecycleEvent.CONNECTING)
         await cast(AsyncOscProtocol, self._osc_protocol).connect(
             ip_address=self._options.ip_address,
             port=self._options.port,
@@ -840,20 +888,23 @@ class AsyncServer(BaseServer):
         if self._client_id == 0:
             self._setup_system()
             await self.sync()
-        self._boot_status = BootStatus.ONLINE
         logger.info("Connected")
+        self._boot_status = BootStatus.ONLINE
+        self._on_lifecycle_event(ServerLifecycleEvent.CONNECTED)
 
     async def _disconnect(self) -> None:
         logger.info("Disconnecting")
         self._boot_status = BootStatus.QUITTING
+        self._on_lifecycle_event(ServerLifecycleEvent.DISCONNECTING)
         self._osc_protocol.disconnect()
         self._teardown_shm()
         self._teardown_state()
         if self in self._contexts:
             self._contexts.remove(self)
         self._is_owner = False
-        self._boot_status = BootStatus.OFFLINE
         logger.info("Disconnected")
+        self._boot_status = BootStatus.OFFLINE
+        self._on_lifecycle_event(ServerLifecycleEvent.DISCONNECTED)
 
     async def _setup_notifications(self) -> None:
         logger.info("Setting up notifications")
@@ -890,10 +941,11 @@ class AsyncServer(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
+        self._on_lifecycle_event(ServerLifecycleEvent.BOOTING)
         self._options = new(options or self._options, **kwargs)
         logger.debug(f"Options: {self._options}")
         try:
-            await self._process_protocol.boot(self._options)
+            await cast(AsyncProcessProtocol, self._process_protocol).boot(self._options)
         except ServerCannotBoot:
             self._boot_status = BootStatus.OFFLINE
             raise
@@ -1163,12 +1215,13 @@ class AsyncServer(BaseServer):
             raise UnownedServerShutdown(
                 "Cannot quit unowned server without force flag."
             )
+        self._on_lifecycle_event(ServerLifecycleEvent.QUITTING)
         try:
             await Quit().communicate_async(server=self, timeout=1)
         except (OscProtocolOffline, asyncio.TimeoutError):
             pass
-        await self._process_protocol.quit()
         await self._disconnect()
+        await cast(AsyncProcessProtocol, self._process_protocol).quit()
         return self
 
     async def reboot(self) -> "AsyncServer":
