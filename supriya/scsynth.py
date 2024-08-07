@@ -256,7 +256,7 @@ class LineStatus(enum.IntEnum):
     ERROR = 2
 
 
-class ProcessStatus(enum.IntEnum):
+class BootStatus(enum.IntEnum):
     OFFLINE = 0
     BOOTING = 1
     ONLINE = 2
@@ -273,17 +273,17 @@ class ProcessProtocol:
     ) -> None:
         self.buffer_ = ""
         self.error_text = ""
-        self.status = ProcessStatus.OFFLINE
+        self.status = BootStatus.OFFLINE
         self.on_quit_callback = on_quit_callback
         self.on_boot_callback = on_boot_callback
         self.on_panic_callback = on_panic_callback
 
     def _boot(self, options: Options) -> bool:
         logger.info("Booting ...")
-        if self.status != ProcessStatus.OFFLINE:
+        if self.status != BootStatus.OFFLINE:
             logger.info("... already booted!")
             return False
-        self.status = ProcessStatus.BOOTING
+        self.status = BootStatus.BOOTING
         self.error_text = ""
         self.buffer_ = ""
         logger.info("Boot: {}".format(*options))
@@ -303,13 +303,13 @@ class ProcessProtocol:
                 line_status = self._parse_line(line)
                 if line_status == LineStatus.READY:
                     boot_future.set_result(True)
-                    self.status = ProcessStatus.ONLINE
+                    self.status = BootStatus.ONLINE
                     resolved = True
                     logger.info("... booted!")
                 elif line_status == LineStatus.ERROR:
                     if not boot_future.done():
                         boot_future.set_result(False)
-                        self.status = ProcessStatus.OFFLINE
+                        self.status = BootStatus.OFFLINE
                         self.error_text = line
                         resolved = True
                         errored = True
@@ -333,10 +333,10 @@ class ProcessProtocol:
 
     def _quit(self) -> bool:
         logger.info("Quitting ...")
-        if self.status != ProcessStatus.ONLINE:
+        if self.status != BootStatus.ONLINE:
             logger.info("... already quit!")
             return False
-        self.status = ProcessStatus.QUITTING
+        self.status = BootStatus.QUITTING
         return True
 
 
@@ -371,8 +371,8 @@ class SyncProcessProtocol(ProcessProtocol):
         )
         read_thread.start()
         self.process.wait()
-        was_quitting = self.status == ProcessStatus.QUITTING
-        self.status = ProcessStatus.OFFLINE
+        was_quitting = self.status == BootStatus.QUITTING
+        self.status = BootStatus.OFFLINE
         self.exit_future.set_result(self.process.returncode)
         if not self.boot_future.done():
             self.boot_future.set_result(False)
@@ -382,11 +382,11 @@ class SyncProcessProtocol(ProcessProtocol):
             self.on_panic_callback()
 
     def _run_read_thread(self) -> None:
-        while self.status == ProcessStatus.BOOTING:
+        while self.status == BootStatus.BOOTING:
             if not (text := cast(IO[bytes], self.process.stdout).readline().decode()):
                 continue
             _, _ = self._handle_data_received(boot_future=self.boot_future, text=text)
-        while self.status == ProcessStatus.ONLINE:
+        while self.status == BootStatus.ONLINE:
             if not (text := cast(IO[bytes], self.process.stdout).readline().decode()):
                 continue
             # we can capture /g_dumpTree output here
@@ -395,7 +395,7 @@ class SyncProcessProtocol(ProcessProtocol):
     def _shutdown(self) -> None:
         self.process.terminate()
         self.thread.join()
-        self.status = ProcessStatus.OFFLINE
+        self.status = BootStatus.OFFLINE
 
     def boot(self, options: Options) -> None:
         if not self._boot(options):
@@ -476,10 +476,10 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
     def process_exited(self) -> None:
         return_code = self.transport.get_returncode()
         logger.info(f"Process exited with {return_code}.")
-        was_quitting = self.status == ProcessStatus.QUITTING
+        was_quitting = self.status == BootStatus.QUITTING
         try:
             self.exit_future.set_result(return_code)
-            self.status = ProcessStatus.OFFLINE
+            self.status = BootStatus.OFFLINE
             if not self.boot_future.done():
                 self.boot_future.set_result(False)
         except asyncio.exceptions.InvalidStateError:

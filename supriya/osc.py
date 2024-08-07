@@ -539,6 +539,13 @@ class HealthCheck:
     max_attempts: int = 5
 
 
+class BootStatus(enum.IntEnum):
+    OFFLINE = 0
+    BOOTING = 1
+    ONLINE = 2
+    QUITTING = 3
+
+
 class OscProtocol(metaclass=abc.ABCMeta):
     ### INITIALIZER ###
 
@@ -560,6 +567,7 @@ class OscProtocol(metaclass=abc.ABCMeta):
         self.on_connect_callback = on_connect_callback
         self.on_disconnect_callback = on_disconnect_callback
         self.on_panic_callback = on_panic_callback
+        self.status = BootStatus.OFFLINE
 
     ### PRIVATE METHODS ###
 
