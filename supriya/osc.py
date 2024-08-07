@@ -542,7 +542,13 @@ class HealthCheck:
 class OscProtocol(metaclass=abc.ABCMeta):
     ### INITIALIZER ###
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        *,
+        on_connect_callback: Optional[Callable] = None,
+        on_disconnect_callback: Optional[Callable] = None,
+        on_panic_callback: Optional[Callable] = None,
+    ) -> None:
         self.callbacks: Dict[Any, Any] = {}
         self.captures: Set[Capture] = set()
         self.healthcheck: Optional[HealthCheck] = None
@@ -551,8 +557,9 @@ class OscProtocol(metaclass=abc.ABCMeta):
         self.ip_address = "127.0.0.1"
         self.is_running: bool = False
         self.port = 57551
-        self.on_connect_callback: Optional[Callable] = None
-        self.on_disconnect_callback: Optional[Callable] = None
+        self.on_connect_callback = on_connect_callback
+        self.on_disconnect_callback = on_disconnect_callback
+        self.on_panic_callback = on_panic_callback
 
     ### PRIVATE METHODS ###
 
@@ -720,9 +727,20 @@ class OscProtocol(metaclass=abc.ABCMeta):
 class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     ### INITIALIZER ###
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        *,
+        on_connect_callback: Optional[Callable] = None,
+        on_disconnect_callback: Optional[Callable] = None,
+        on_panic_callback: Optional[Callable] = None,
+    ) -> None:
         asyncio.DatagramProtocol.__init__(self)
-        OscProtocol.__init__(self)
+        OscProtocol.__init__(
+            self,
+            on_connect_callback=on_connect_callback,
+            on_disconnect_callback=on_disconnect_callback,
+            on_panic_callback=on_panic_callback,
+        )
         self.background_tasks: Set[asyncio.Task] = set()
         self.healthcheck_task: Optional[asyncio.Task] = None
 
@@ -878,8 +896,19 @@ class ThreadedOscHandler(socketserver.BaseRequestHandler):
 class ThreadedOscProtocol(OscProtocol):
     ### INITIALIZER ###
 
-    def __init__(self):
-        OscProtocol.__init__(self)
+    def __init__(
+        self,
+        *,
+        on_connect_callback: Optional[Callable] = None,
+        on_disconnect_callback: Optional[Callable] = None,
+        on_panic_callback: Optional[Callable] = None,
+    ):
+        OscProtocol.__init__(
+            self,
+            on_connect_callback=on_connect_callback,
+            on_disconnect_callback=on_disconnect_callback,
+            on_panic_callback=on_panic_callback,
+        )
         self.command_queue = queue.Queue()
         self.lock = threading.RLock()
         self.osc_server = None

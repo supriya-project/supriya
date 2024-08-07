@@ -239,14 +239,11 @@ def find(scsynth_path=None):
 
 
 def kill():
-    with subprocess.Popen(
-        ["ps", "-Af"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT
-    ) as process:
-        output = process.stdout.read()
-    for line in output.decode().splitlines():
+    for line in subprocess.run(["ps", "-Af"], capture_output=True, check=True, text=True).stdout.splitlines():
         parts = line.split()
-        if not any(part in ["supernova", "scsynth"] for part in parts):
+        if not parts[7].endswith(("scsynth", "supervnova")):
             continue
+        print(f"kill: {line=}")
         pid = int(parts[1])
         os.kill(pid, signal.SIGKILL)
 

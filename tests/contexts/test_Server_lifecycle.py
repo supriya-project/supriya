@@ -20,6 +20,7 @@ from supriya.exceptions import (
     UnownedServerShutdown,
 )
 from supriya.osc import find_free_port
+from supriya.scsynth import kill
 
 supernova = pytest.param(
     "supernova",
@@ -561,3 +562,49 @@ async def test_boot_reboot_sticky_options(executable, context_class):
     assert context.options.maximum_node_count == maximum_node_count
     await get(context.quit())
     assert context.options.maximum_node_count == maximum_node_count
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("executable", ["scsynth", supernova])
+@pytest.mark.parametrize("context_class", [AsyncServer, Server])
+async def test_boot_a_and_connect_b_and_kill(executable, context_class) -> None:
+    context_a, events_a = setup_context(context_class)
+    context_b, events_b = setup_context(context_class)
+    await get(context_a.boot(executable=executable, maximum_logins=2))
+    await get(context_b.connect())
+    assert events_a == [
+        ServerLifecycleEvent.BOOTING,
+        ServerLifecycleEvent.BOOTED,
+        ServerLifecycleEvent.CONNECTING,
+        ServerLifecycleEvent.CONNECTED,
+    ]
+    assert events_b == [
+        ServerLifecycleEvent.CONNECTING,
+        ServerLifecycleEvent.CONNECTED,
+    ]
+    kill()
+    for _ in range(100):
+        await asyncio.sleep(0.1)
+        if (
+            context_a.boot_status == BootStatus.OFFLINE
+            and context_b.boot_status == BootStatus.OFFLINE
+        ):
+            break
+    assert events_a == [
+        ServerLifecycleEvent.BOOTING,
+        ServerLifecycleEvent.BOOTED,
+        ServerLifecycleEvent.CONNECTING,
+        ServerLifecycleEvent.CONNECTED,
+        ServerLifecycleEvent.PROCESS_PANICKED,
+        ServerLifecycleEvent.QUITTING,
+        ServerLifecycleEvent.DISCONNECTING,
+        ServerLifecycleEvent.DISCONNECTED,
+        # TODO: Needs ServerLifecycleEvent.QUIT
+    ]
+    assert events_b == [
+        ServerLifecycleEvent.CONNECTING,
+        ServerLifecycleEvent.CONNECTED,
+        # TODO: Needs ServerLifecycleEvent.HEALTHCHECK_PANICKED
+        ServerLifecycleEvent.DISCONNECTING,
+        ServerLifecycleEvent.DISCONNECTED,
+    ]
