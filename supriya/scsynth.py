@@ -239,7 +239,9 @@ def find(scsynth_path=None):
 
 
 def kill():
-    for line in subprocess.run(["ps", "-Af"], capture_output=True, check=True, text=True).stdout.splitlines():
+    for line in subprocess.run(
+        ["ps", "-Af"], capture_output=True, check=True, text=True
+    ).stdout.splitlines():
         parts = line.split()
         if not parts[7].endswith(("scsynth", "supervnova")):
             continue
