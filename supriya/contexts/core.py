@@ -7,6 +7,7 @@ Context subclasses expose a common interface for realtime and non-realtime synth
 import abc
 import contextlib
 import dataclasses
+import enum
 import itertools
 import threading
 from os import PathLike
@@ -99,6 +100,13 @@ from .requests import (
     WriteBuffer,
     ZeroBuffer,
 )
+
+
+class BootStatus(enum.IntEnum):
+    OFFLINE = 0
+    BOOTING = 1
+    ONLINE = 2
+    QUITTING = 3
 
 
 @dataclasses.dataclass
@@ -204,13 +212,20 @@ class Context(metaclass=abc.ABCMeta):
 
     ### INITIALIZER ###
 
-    def __init__(self, options: Optional[Options], **kwargs) -> None:
+    def __init__(
+        self,
+        options: Optional[Options],
+        name: Optional[str] = None,
+        **kwargs,
+    ) -> None:
         self._audio_bus_allocator = BlockAllocator()
+        self._boot_status = BootStatus.OFFLINE
         self._buffer_allocator = BlockAllocator()
         self._client_id = 0
         self._control_bus_allocator = BlockAllocator()
         self._latency = 0.0
         self._lock = threading.RLock()
+        self._name = name
         self._node_id_allocator = NodeIdAllocator()
         self._options = new(options or Options(), **kwargs)
         self._sync_id = self._sync_id_minimum = 0
@@ -1381,6 +1396,20 @@ class Context(metaclass=abc.ABCMeta):
         )
 
     @property
+    def boot_status(self) -> BootStatus:
+        """
+        Get the server's boot status.
+        """
+        return self._boot_status
+
+    @property
+    def default_group(self) -> Group:
+        """
+        Get the server's default group.
+        """
+        return self.root_node
+
+    @property
     def client_id(self) -> int:
         """
         Get the context's client ID.
@@ -1393,6 +1422,13 @@ class Context(metaclass=abc.ABCMeta):
         Get the context's latency.
         """
         return self._latency
+
+    @property
+    def name(self) -> Optional[str]:
+        """
+        Get the context's optional name.
+        """
+        return self._name
 
     @property
     def options(self) -> Options:

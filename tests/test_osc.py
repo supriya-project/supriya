@@ -1,12 +1,12 @@
 import asyncio
+import concurrent.futures
 import logging
-import time
+from typing import List
 
 import pytest
 from uqbar.strings import normalize
 
 from supriya.osc import (
-    NTP_DELTA,
     AsyncOscProtocol,
     HealthCheck,
     OscBundle,
@@ -14,10 +14,24 @@ from supriya.osc import (
     ThreadedOscProtocol,
     find_free_port,
 )
+from supriya.osc.messages import NTP_DELTA
+from supriya.osc.protocols import BootStatus
 from supriya.scsynth import AsyncProcessProtocol, Options, SyncProcessProtocol
 
+logger = logging.getLogger(__name__)
 
-def test_OscMessage():
+
+async def get(x):
+    if asyncio.iscoroutine(x):
+        return await x
+    elif asyncio.isfuture(x):
+        return await x
+    elif isinstance(x, concurrent.futures.Future):
+        return x.result()
+    return x
+
+
+def test_OscMessage() -> None:
     osc_message = OscMessage(
         "/foo",
         1,
@@ -67,7 +81,7 @@ def test_OscMessage():
     )
 
 
-def test_new_ntp_era():
+def test_new_ntp_era() -> None:
     """
     Check for NTP timestamp overflow.
     """
@@ -76,74 +90,59 @@ def test_new_ntp_era():
     assert datagram.hex() == "0000000100000000"
 
 
-@pytest.fixture(autouse=True)
-def log_everything(caplog):
-    caplog.set_level(logging.DEBUG, logger="supriya.osc")
-    caplog.set_level(logging.DEBUG, logger="supriya.server")
-
-
+@pytest.mark.parametrize(
+    "osc_protocol_class, process_protocol_class",
+    [
+        (AsyncOscProtocol, AsyncProcessProtocol),
+        (ThreadedOscProtocol, SyncProcessProtocol),
+    ],
+)
 @pytest.mark.asyncio
-async def test_AsyncOscProtocol():
-    def on_healthcheck_failed():
+async def test_OscProtocol(osc_protocol_class, process_protocol_class) -> None:
+    def on_healthcheck_failed() -> None:
         healthcheck_failed.append(True)
+
+    logger.info("START")
+    healthcheck_failed: List[bool] = []
+    port = find_free_port()
+
+    logger.info("INIT PROCESS")
+    process_protocol = process_protocol_class()
+
+    logger.info("INIT PROTOCOL")
+    osc_protocol = osc_protocol_class(on_panic_callback=on_healthcheck_failed)
+    assert osc_protocol.status == BootStatus.OFFLINE
 
     try:
-        healthcheck_failed = []
-        port = find_free_port()
-        options = Options(port=port)
-        healthcheck = HealthCheck(
-            request_pattern=["/status"],
-            response_pattern=["/status.reply"],
-            callback=on_healthcheck_failed,
-            max_attempts=3,
+        logger.info("BOOT PROCESS")
+        await get(process_protocol.boot(Options(port=port)))
+        await get(process_protocol.boot_future)
+        assert process_protocol.status == BootStatus.ONLINE
+
+        logger.info("CONNECT PROTOCOL")
+        await get(
+            osc_protocol.connect(
+                "127.0.0.1",
+                port,
+                healthcheck=HealthCheck(
+                    request_pattern=["/status"],
+                    response_pattern=["/status.reply"],
+                    max_attempts=3,
+                ),
+            )
         )
-        process_protocol = AsyncProcessProtocol()
-        await process_protocol.boot(options)
-        assert await process_protocol.boot_future
-        osc_protocol = AsyncOscProtocol()
-        await osc_protocol.connect("127.0.0.1", port, healthcheck=healthcheck)
-        assert osc_protocol.is_running
-        assert not healthcheck_failed
-        await asyncio.sleep(1)
-        await process_protocol.quit()
-        for _ in range(20):
-            await asyncio.sleep(1)
-            if not osc_protocol.is_running:
-                break
-        assert healthcheck_failed
-        assert not osc_protocol.is_running
+        assert osc_protocol.status == BootStatus.BOOTING
+
+        logger.info("AWAIT CONNECTION")
+        await get(osc_protocol.boot_future)
+        assert osc_protocol.status == BootStatus.ONLINE
+
+        logger.info("QUIT PROCESS")
+        await get(process_protocol.quit())
+
+        logger.info("AWAIT DISCONNECTION")
+        await get(osc_protocol.exit_future)
+        assert osc_protocol.status == BootStatus.OFFLINE
+
     finally:
-        await process_protocol.quit()
-
-
-def test_ThreadedOscProtocol():
-    def on_healthcheck_failed():
-        healthcheck_failed.append(True)
-
-    healthcheck_failed = []
-    options = Options()
-    port = find_free_port()
-    healthcheck = HealthCheck(
-        request_pattern=["/status"],
-        response_pattern=["/status.reply"],
-        callback=on_healthcheck_failed,
-        max_attempts=3,
-    )
-    process_protocol = SyncProcessProtocol()
-    process_protocol.boot(options)
-    assert process_protocol.is_running
-    osc_protocol = ThreadedOscProtocol()
-    osc_protocol.connect("127.0.0.1", port, healthcheck=healthcheck)
-    assert osc_protocol.is_running
-    assert not healthcheck_failed
-    time.sleep(1)
-    process_protocol.quit()
-    assert not process_protocol.is_running
-    assert osc_protocol.is_running
-    assert not healthcheck_failed
-    for _ in range(20):
-        time.sleep(1)
-        if not osc_protocol.is_running:
-            break
-    assert healthcheck_failed
-    assert not osc_protocol.is_running
+        await get(process_protocol.quit())

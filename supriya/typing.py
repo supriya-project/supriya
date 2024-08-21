@@ -1,3 +1,5 @@
+import asyncio
+import concurrent.futures
 from os import PathLike
 from pathlib import Path
 from typing import (
@@ -73,10 +75,13 @@ class SupportsRenderMemo(Protocol):
 
 
 E = TypeVar("E")
+
 _EnumLike = Optional[Union[E, SupportsInt, str, None]]
+
 AddActionLike: TypeAlias = _EnumLike[AddAction]
 DoneActionLike: TypeAlias = _EnumLike[DoneAction]
 CalculationRateLike: TypeAlias = _EnumLike[CalculationRate]
+FutureLike: TypeAlias = Union[concurrent.futures.Future[E], asyncio.Future[E]]
 ParameterRateLike: TypeAlias = _EnumLike[ParameterRate]
 RateLike: TypeAlias = _EnumLike[CalculationRate]
 EnvelopeShapeLike: TypeAlias = _EnumLike[EnvelopeShape]
