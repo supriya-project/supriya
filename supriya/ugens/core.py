@@ -5935,11 +5935,7 @@ class SynthDefBuilder:
         return ugens
 
     def _sort_topologically(self, ugens: List[UGen]) -> List[UGen]:
-        try:
-            sort_bundles = self._initiate_topological_sort(ugens)
-        except Exception:
-            print(ugens)
-            raise
+        sort_bundles = self._initiate_topological_sort(ugens)
         available_ugens: List[UGen] = []
         output_stack: List[UGen] = []
         for ugen in reversed(ugens):

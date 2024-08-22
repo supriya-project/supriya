@@ -75,8 +75,4 @@ def run_pattern_test(pattern, expected, is_infinite, stop_at):
         sanitized_actual = sanitize(actual[: len(expected)])
     else:
         sanitized_actual = sanitize(actual)
-    # expected_string = "\n".join(repr(x) for x in expected)
-    # actual_string = "\n".join(repr(x) for x in sanitized_actual)
-    # for line in unified_diff(expected_string.splitlines(), actual_string.splitlines()):
-    #     print(line)
     assert sanitized_actual == expected, sanitized_actual
