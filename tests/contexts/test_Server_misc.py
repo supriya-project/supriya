@@ -67,7 +67,13 @@ async def test_dump_tree(context):
         ]
     for i in range(500):
         context.add_synth(default, amplitude=0.5, frequency=(i * 11) + 20)
-    tree = await get(context.dump_tree())
+    with context.osc_protocol.capture() as transcript:
+        try:
+            tree = await get(context.dump_tree())
+        except Exception:
+            for timestamp, label, osc_message in transcript:
+                print(timestamp, label, repr(osc_message))
+            raise
     assert str(tree) == normalize(
         """
         NODE TREE 0 group
