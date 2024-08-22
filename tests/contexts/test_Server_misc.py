@@ -2,6 +2,7 @@ import asyncio
 import logging
 import re
 import subprocess
+import sys
 
 import pytest
 import pytest_asyncio
@@ -51,6 +52,9 @@ async def test_default_group(context):
     assert context.default_group.id_ == context.client_id + 1
 
 
+# Under 3.10/11 we often see the server not receive the sync response,
+# so this will time-out.
+@pytest.mark.flaky(reruns=5, conditions=sys.version_info[:2] in [(3, 10), (3, 11)])
 @pytest.mark.asyncio
 async def test_dump_tree(context):
     with context.osc_protocol.capture() as transcript:
