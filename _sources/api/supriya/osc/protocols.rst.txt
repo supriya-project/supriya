@@ -1,0 +1,54 @@
+.. _supriya--osc--protocols:
+
+protocols
+=========
+
+.. automodule:: supriya.osc.protocols
+
+.. currentmodule:: supriya.osc.protocols
+
+.. autoclass:: BootStatus
+   :show-inheritance:
+   :members:
+   :undoc-members:
+
+   .. automethod:: __format__
+
+.. autoclass:: Capture
+   :show-inheritance:
+
+   .. automethod:: __enter__
+   .. automethod:: __exit__
+   .. automethod:: __iter__
+   .. automethod:: __len__
+   .. automethod:: filtered
+   .. autoproperty:: received_messages
+   .. autoproperty:: sent_messages
+
+.. autoclass:: CaptureEntry
+   :show-inheritance:
+
+
+.. autoclass:: HealthCheck
+   :show-inheritance:
+
+
+.. autoclass:: OscCallback
+   :show-inheritance:
+
+
+.. autoclass:: OscProtocol
+   :show-inheritance:
+
+   .. automethod:: activate_healthcheck
+   .. automethod:: capture
+   .. automethod:: disconnect
+   .. automethod:: register
+   .. automethod:: send
+   .. automethod:: unregister
+
+.. autoexception:: OscProtocolAlreadyConnected
+
+.. autoexception:: OscProtocolOffline
+
+.. autofunction:: find_free_port

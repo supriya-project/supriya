@@ -67,6 +67,7 @@ responses
 
    .. automethod:: __format__
    .. automethod:: from_query_tree_info
+   .. automethod:: from_string
 
 .. autoclass:: QueryTreeInfo
    :show-inheritance:

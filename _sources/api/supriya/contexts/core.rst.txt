@@ -7,6 +7,13 @@ core
 
 .. currentmodule:: supriya.contexts.core
 
+.. autoclass:: BootStatus
+   :show-inheritance:
+   :members:
+   :undoc-members:
+
+   .. automethod:: __format__
+
 .. autoclass:: Completion
    :show-inheritance:
 
@@ -60,8 +67,11 @@ core
    .. automethod:: zero_buffer
    .. autoproperty:: audio_input_bus_group
    .. autoproperty:: audio_output_bus_group
+   .. autoproperty:: boot_status
    .. autoproperty:: client_id
+   .. autoproperty:: default_group
    .. autoproperty:: latency
+   .. autoproperty:: name
    .. autoproperty:: options
    .. autoproperty:: root_node
 

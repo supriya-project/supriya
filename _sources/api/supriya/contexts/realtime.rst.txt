@@ -13,6 +13,7 @@ realtime
    .. automethod:: boot
    .. automethod:: connect
    .. automethod:: disconnect
+   .. automethod:: dump_tree
    .. automethod:: get_buffer
    .. automethod:: get_buffer_range
    .. automethod:: get_bus
@@ -33,21 +34,16 @@ realtime
    :show-inheritance:
 
    .. automethod:: __contains__
+   .. automethod:: on
    .. automethod:: send
    .. automethod:: set_latency
-   .. autoproperty:: boot_status
+   .. autoproperty:: boot_future
    .. autoproperty:: default_group
+   .. autoproperty:: exit_future
    .. autoproperty:: is_owner
    .. autoproperty:: osc_protocol
    .. autoproperty:: process_protocol
    .. autoproperty:: status
-
-.. autoclass:: BootStatus
-   :show-inheritance:
-   :members:
-   :undoc-members:
-
-   .. automethod:: __format__
 
 .. autoclass:: Server
    :show-inheritance:
@@ -55,6 +51,7 @@ realtime
    .. automethod:: boot
    .. automethod:: connect
    .. automethod:: disconnect
+   .. automethod:: dump_tree
    .. automethod:: get_buffer
    .. automethod:: get_buffer_range
    .. automethod:: get_bus
@@ -70,5 +67,11 @@ realtime
    .. automethod:: reboot
    .. automethod:: reset
    .. automethod:: sync
+
+.. autoclass:: ServerLifecycleEvent
+   :show-inheritance:
+   :members:
+   :undoc-members:
+
 
 .. autoexception:: FailWarning

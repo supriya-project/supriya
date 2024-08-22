@@ -1,0 +1,25 @@
+.. _supriya--osc--messages:
+
+messages
+========
+
+.. automodule:: supriya.osc.messages
+
+.. currentmodule:: supriya.osc.messages
+
+.. autoclass:: OscBundle
+   :show-inheritance:
+
+   .. automethod:: from_datagram
+   .. automethod:: partition
+   .. automethod:: to_datagram
+   .. automethod:: to_list
+
+.. autoclass:: OscMessage
+   :show-inheritance:
+
+   .. automethod:: from_datagram
+   .. automethod:: to_datagram
+   .. automethod:: to_list
+
+.. autofunction:: format_datagram

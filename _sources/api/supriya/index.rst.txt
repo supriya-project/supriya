@@ -17,7 +17,7 @@ supriya
    exceptions
    ext/index
    io
-   osc
+   osc/index
    patterns/index
    sclang
    scsynth

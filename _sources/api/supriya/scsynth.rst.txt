@@ -11,7 +11,7 @@ scsynth
    :show-inheritance:
 
    .. automethod:: connection_made
-   .. automethod:: handle_line
+   .. automethod:: pipe_connection_lost
    .. automethod:: pipe_data_received
    .. automethod:: process_exited
    .. automethod:: run
@@ -25,6 +25,21 @@ scsynth
    .. automethod:: pipe_data_received
    .. automethod:: process_exited
    .. automethod:: quit
+
+.. autoclass:: BootStatus
+   :show-inheritance:
+   :members:
+   :undoc-members:
+
+   .. automethod:: __format__
+
+.. autoclass:: Capture
+   :show-inheritance:
+
+   .. automethod:: __enter__
+   .. automethod:: __exit__
+   .. automethod:: __iter__
+   .. automethod:: __len__
 
 .. autoclass:: LineStatus
    :show-inheritance:
@@ -49,8 +64,7 @@ scsynth
 .. autoclass:: ProcessProtocol
    :show-inheritance:
 
-   .. automethod:: boot
-   .. automethod:: quit
+   .. automethod:: capture
 
 .. autoclass:: SyncProcessProtocol
    :show-inheritance:
