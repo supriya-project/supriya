@@ -16,6 +16,14 @@ runs:
       id: current-date
       run: echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
       shell: bash
+    - name: '[macOS] Setup ENV'
+      if: runner.os == 'macOS'
+      run: |
+        echo CMAKE_OSX_ARCHITECTURES="x86_64;arm64" >> $GITHUB_ENV;
+        echo HOMEBREW_NO_ANALYTICS=1 >> $GITHUB_ENV;
+        echo HOMEBREW_NO_AUTO_UPDATE=1 >> $GITHUB_ENV;
+        echo HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1 >> $GITHUB_ENV;
+        echo HOMEBREW_NO_INSTALL_CLEANUP=1 >> $GITHUB_ENV;
     - name: '[macOS] Cache Homebrew'
       id: cache-homebrew
       if: runner.os == 'macOS'
