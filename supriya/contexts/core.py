@@ -411,11 +411,11 @@ class Context(metaclass=abc.ABCMeta):
         self._sync_id = self._sync_id_minimum
 
     @abc.abstractmethod
-    def _validate_can_request(self):
+    def _validate_can_request(self) -> None:
         raise NotImplementedError
 
     @abc.abstractmethod
-    def _validate_moment_timestamp(self, seconds: Optional[float]):
+    def _validate_moment_timestamp(self, seconds: Optional[float]) -> None:
         raise NotImplementedError
 
     ### PUBLIC METHODS ###
@@ -728,7 +728,7 @@ class Context(metaclass=abc.ABCMeta):
         source_starting_frame: int,
         target_starting_frame: int,
         frame_count: int,
-    ):
+    ) -> None:
         """
         Copy a buffer.
 
@@ -752,7 +752,7 @@ class Context(metaclass=abc.ABCMeta):
         )
         self._add_requests(request)
 
-    def do_nothing(self):
+    def do_nothing(self) -> None:
         """
         Emit a no-op "nothing" command.
         """

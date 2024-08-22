@@ -10,7 +10,7 @@ import subprocess
 import threading
 from dataclasses import dataclass
 from pathlib import Path
-from typing import IO, Callable, Dict, List, Optional, Tuple, cast
+from typing import IO, Callable, Dict, Iterator, List, Optional, Set, Tuple, cast
 
 import psutil
 import uqbar.io
@@ -260,6 +260,26 @@ class BootStatus(enum.IntEnum):
     QUITTING = 3
 
 
+class Capture:
+
+    def __init__(self, process_protocol: "ProcessProtocol") -> None:
+        self.process_protocol = process_protocol
+        self.lines: List[str] = []
+
+    def __enter__(self) -> "Capture":
+        self.process_protocol.captures.add(self)
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback) -> None:
+        self.process_protocol.captures.remove(self)
+
+    def __iter__(self) -> Iterator[str]:
+        return iter(self.lines)
+
+    def __len__(self) -> int:
+        return len(self.lines)
+
+
 class ProcessProtocol:
     def __init__(
         self,
@@ -270,6 +290,7 @@ class ProcessProtocol:
         on_quit_callback: Optional[Callable] = None,
     ) -> None:
         self.buffer_ = ""
+        self.captures: Set[Capture] = set()
         self.error_text = ""
         self.name = name
         self.on_boot_callback = on_boot_callback
@@ -310,6 +331,8 @@ class ProcessProtocol:
         if "\n" in text:
             text, _, self.buffer_ = text.rpartition("\n")
             for line in text.splitlines():
+                for capture in self.captures:
+                    capture.lines.append(line)
                 line_status = self._parse_line(line)
                 if line_status == LineStatus.READY:
                     boot_future.set_result(True)
@@ -356,6 +379,9 @@ class ProcessProtocol:
         self.status = BootStatus.QUITTING
         return True
 
+    def capture(self) -> Capture:
+        return Capture(self)
+
 
 class SyncProcessProtocol(ProcessProtocol):
     def __init__(
@@ -401,15 +427,10 @@ class SyncProcessProtocol(ProcessProtocol):
             self.on_panic_callback()
 
     def _run_read_thread(self) -> None:
-        while self.status == BootStatus.BOOTING:
+        while self.status in (BootStatus.BOOTING, BootStatus.ONLINE):
             if not (text := cast(IO[bytes], self.process.stdout).readline().decode()):
                 continue
             _, _ = self._handle_data_received(boot_future=self.boot_future, text=text)
-        while self.status == BootStatus.ONLINE:
-            if not (text := cast(IO[bytes], self.process.stdout).readline().decode()):
-                continue
-            # we can capture /g_dumpTree output here
-            # do something
 
     def _shutdown(self) -> None:
         self.process.terminate()

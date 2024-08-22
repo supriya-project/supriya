@@ -439,7 +439,7 @@ class DumpTree(Request):
         >>> from supriya.contexts.requests import DumpTree
         >>> request = DumpTree(items=[(0, True)])
         >>> request.to_osc()
-        OscMessage('/g_dumpTree', 0, True)
+        OscMessage('/g_dumpTree', 0, 1)
     """
 
     items: Sequence[Tuple[SupportsInt, bool]]
@@ -447,7 +447,7 @@ class DumpTree(Request):
     def to_osc(self) -> OscMessage:
         contents = []
         for node_id, flag in self.items:
-            contents.extend([int(node_id), bool(flag)])
+            contents.extend([int(node_id), int(flag)])
         return OscMessage(RequestName.GROUP_DUMP_TREE, *contents)
 
 

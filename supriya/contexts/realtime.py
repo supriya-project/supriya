@@ -64,6 +64,7 @@ from .core import (
     Synth,
 )
 from .requests import (
+    DumpTree,
     GetBuffer,
     GetBufferRange,
     GetControlBus,
@@ -678,6 +679,32 @@ class Server(BaseServer):
         self._disconnect()
         return self
 
+    def dump_tree(
+        self,
+        group: Optional[Group] = None,
+        include_controls: bool = True,
+        sync: bool = True,
+    ) -> Optional[QueryTreeGroup]:
+        """
+        Dump the server's node tree.
+
+        Emit ``/g_dumpTree`` requests.
+
+        :param group: The group whose tree to query. Defaults to the root node.
+        :param include_controls: Flag for including synth control values.
+        :param sync: If true, communicate the request immediately. Otherwise bundle it
+            with the current request context.
+        """
+        self._validate_can_request()
+        request = DumpTree(items=[(group or self.root_node, bool(include_controls))])
+        if sync:
+            with self.process_protocol.capture() as transcript:
+                request.communicate(server=self)
+                self.sync(timeout=10.0)
+                return QueryTreeGroup.from_string("\n".join(transcript.lines))
+        self._add_requests(request)
+        return None
+
     def get_buffer(
         self, buffer: Buffer, *indices: int, sync: bool = True
     ) -> Optional[Dict[int, float]]:
@@ -952,7 +979,7 @@ class Server(BaseServer):
         self.sync()
         return self
 
-    def sync(self, sync_id: Optional[int] = None) -> "Server":
+    def sync(self, sync_id: Optional[int] = None, timeout: float = 1.0) -> "Server":
         """
         Sync the server.
 
@@ -964,7 +991,7 @@ class Server(BaseServer):
             raise ServerOffline
         Sync(
             sync_id=sync_id if sync_id is not None else self._get_next_sync_id()
-        ).communicate(server=self)
+        ).communicate(server=self, timeout=timeout)
         return self
 
 
@@ -1187,6 +1214,32 @@ class AsyncServer(BaseServer):
         self._boot_status = BootStatus.QUITTING
         await self._disconnect()
         return self
+
+    async def dump_tree(
+        self,
+        group: Optional[Group] = None,
+        include_controls: bool = True,
+        sync: bool = True,
+    ) -> Optional[QueryTreeGroup]:
+        """
+        Dump the server's node tree.
+
+        Emit ``/g_dumpTree`` requests.
+
+        :param group: The group whose tree to query. Defaults to the root node.
+        :param include_controls: Flag for including synth control values.
+        :param sync: If true, communicate the request immediately. Otherwise bundle it
+            with the current request context.
+        """
+        self._validate_can_request()
+        request = DumpTree(items=[(group or self.root_node, bool(include_controls))])
+        if sync:
+            with self.process_protocol.capture() as transcript:
+                await request.communicate_async(server=self)
+                await self.sync(timeout=10.0)
+                return QueryTreeGroup.from_string("\n".join(transcript.lines))
+        self._add_requests(request)
+        return None
 
     async def get_buffer(
         self, buffer: Buffer, *indices: int, sync: bool = True
@@ -1468,7 +1521,9 @@ class AsyncServer(BaseServer):
         await self.sync()
         return self
 
-    async def sync(self, sync_id: Optional[int] = None) -> "AsyncServer":
+    async def sync(
+        self, sync_id: Optional[int] = None, timeout: float = 1.0
+    ) -> "AsyncServer":
         """
         Sync the server.
 
@@ -1480,5 +1535,5 @@ class AsyncServer(BaseServer):
             raise ServerOffline
         await Sync(
             sync_id=sync_id if sync_id is not None else self._get_next_sync_id()
-        ).communicate_async(server=self)
+        ).communicate_async(server=self, timeout=timeout)
         return self
