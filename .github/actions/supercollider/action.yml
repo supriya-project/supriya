@@ -19,7 +19,7 @@ runs:
     - name: '[macOS] Setup ENV'
       if: runner.os == 'macOS'
       run: |
-        echo CMAKE_OSX_ARCHITECTURES="x86_64;arm64" >> $GITHUB_ENV;
+        echo CMAKE_OSX_ARCHITECTURES="x86_64" >> $GITHUB_ENV;
         echo HOMEBREW_NO_ANALYTICS=1 >> $GITHUB_ENV;
         echo HOMEBREW_NO_AUTO_UPDATE=1 >> $GITHUB_ENV;
         echo HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1 >> $GITHUB_ENV;
