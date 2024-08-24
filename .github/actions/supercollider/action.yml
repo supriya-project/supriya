@@ -16,6 +16,15 @@ runs:
       id: current-date
       run: echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
       shell: bash
+    - name: '[macOS] Setup ENV'
+      if: runner.os == 'macOS'
+      run: |
+        echo CMAKE_OSX_ARCHITECTURES="x86_64" >> $GITHUB_ENV;
+        echo HOMEBREW_NO_ANALYTICS=1 >> $GITHUB_ENV;
+        echo HOMEBREW_NO_AUTO_UPDATE=1 >> $GITHUB_ENV;
+        echo HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1 >> $GITHUB_ENV;
+        echo HOMEBREW_NO_INSTALL_CLEANUP=1 >> $GITHUB_ENV;
+      shell: bash
     - name: '[macOS] Cache Homebrew'
       id: cache-homebrew
       if: runner.os == 'macOS'
@@ -114,14 +123,14 @@ runs:
         cmake \
           -DCMAKE_PREFIX_PATH=`brew --prefix qt5` \
           -DRULE_LAUNCH_COMPILE=ccache \
-          -DSC_VERIFY_APP=ON \
+          -DSC_VERIFY_APP=OFF \
           -DSC_ED=OFF \
           -DSC_EL=OFF \
           -DSC_IDE=OFF \
           -DSC_QT=OFF \
           -DSC_VIM=OFF \
           -DSUPERNOVA=ON \
-          -G Xcode \
+          -G"Xcode"\
           ..
       shell: bash
     - name: '[Linux] Build'
