@@ -8,10 +8,10 @@ import pytest
 from supriya.contexts.realtime import (
     DEFAULT_HEALTHCHECK,
     AsyncServer,
-    BootStatus,
     Server,
     ServerLifecycleEvent,
 )
+from supriya.enums import BootStatus
 from supriya.exceptions import (
     OwnedServerShutdown,
     ServerCannotBoot,

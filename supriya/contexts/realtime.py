@@ -26,7 +26,7 @@ from typing import (
 from uqbar.objects import new
 
 from ..assets.synthdefs import system_synthdefs
-from ..enums import CalculationRate
+from ..enums import BootStatus, CalculationRate
 from ..exceptions import (
     OwnedServerShutdown,
     ServerCannotBoot,
@@ -53,7 +53,6 @@ from ..scsynth import (
 from ..typing import FutureLike, SupportsOsc
 from ..ugens import SynthDef
 from .core import (
-    BootStatus,
     Buffer,
     Bus,
     Context,

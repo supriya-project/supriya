@@ -7,7 +7,6 @@ Context subclasses expose a common interface for realtime and non-realtime synth
 import abc
 import contextlib
 import dataclasses
-import enum
 import itertools
 import threading
 from os import PathLike
@@ -32,7 +31,7 @@ except ImportError:
 
 from uqbar.objects import new
 
-from ..enums import AddAction, CalculationRate, ParameterRate
+from ..enums import AddAction, BootStatus, CalculationRate, ParameterRate
 from ..scsynth import Options
 from ..typing import (
     AddActionLike,
@@ -100,13 +99,6 @@ from .requests import (
     WriteBuffer,
     ZeroBuffer,
 )
-
-
-class BootStatus(enum.IntEnum):
-    OFFLINE = 0
-    BOOTING = 1
-    ONLINE = 2
-    QUITTING = 3
 
 
 @dataclasses.dataclass

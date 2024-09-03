@@ -2,9 +2,9 @@ import asyncio
 from collections.abc import Sequence as SequenceABC
 from typing import Awaitable, Callable, Dict, Optional, Sequence, Set, Tuple, Union
 
+from ..enums import BootStatus
 from .messages import OscBundle, OscMessage
 from .protocols import (
-    BootStatus,
     HealthCheck,
     OscCallback,
     OscProtocol,

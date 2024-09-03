@@ -1,6 +1,5 @@
 import contextlib
 import dataclasses
-import enum
 import logging
 import socket
 import time
@@ -19,6 +18,7 @@ from typing import (
     Union,
 )
 
+from ..enums import BootStatus
 from ..typing import FutureLike
 from .messages import OscBundle, OscMessage
 
@@ -61,13 +61,6 @@ class HealthCheck:
     timeout: float = 1.0
     backoff_factor: float = 1.5
     max_attempts: int = 5
-
-
-class BootStatus(enum.IntEnum):
-    OFFLINE = 0
-    BOOTING = 1
-    ONLINE = 2
-    QUITTING = 3
 
 
 class CaptureEntry(NamedTuple):

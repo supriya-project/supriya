@@ -2,7 +2,7 @@
 Tools for interacting with scsynth-compatible execution contexts.
 """
 
-from .core import BootStatus, Context
+from .core import Context
 from .entities import (
     Buffer,
     BufferGroup,
@@ -19,7 +19,6 @@ from .realtime import AsyncServer, BaseServer, Server
 __all__ = [
     "AsyncServer",
     "BaseServer",
-    "BootStatus",
     "Buffer",
     "BufferGroup",
     "Bus",

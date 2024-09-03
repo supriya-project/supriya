@@ -16,12 +16,12 @@ from typing import Dict, Iterator, List, Optional, SupportsInt, Tuple, Type, Uni
 from uqbar.objects import new
 
 from ..assets.synthdefs import system_synthdefs
-from ..enums import CalculationRate, HeaderFormat, SampleFormat
+from ..enums import BootStatus, CalculationRate, HeaderFormat, SampleFormat
 from ..osc import OscBundle
 from ..scsynth import AsyncNonrealtimeProcessProtocol, Options
 from ..typing import HeaderFormatLike, SampleFormatLike, SupportsOsc
 from ..ugens import SynthDef
-from .core import BootStatus, Context, ContextError, ContextObject, Node
+from .core import Context, ContextError, ContextObject, Node
 from .requests import DoNothing, RequestBundle, Requestable
 
 logger = logging.getLogger(__name__)
