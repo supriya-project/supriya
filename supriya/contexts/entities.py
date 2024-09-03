@@ -28,7 +28,7 @@ from ..io import PlayMemo
 from ..typing import AddActionLike, HeaderFormatLike, SampleFormatLike, SupportsRender
 from ..ugens import SynthDef
 from .errors import InvalidCalculationRate, InvalidMoment
-from .responses import BufferInfo, NodeInfo
+from .responses import BufferInfo, NodeInfo, QueryTreeGroup
 
 if TYPE_CHECKING:
     import numpy
@@ -798,6 +798,24 @@ class Group(Node):
 
     parallel: bool = False
 
+    def dump_tree(
+        self,
+        include_controls: bool = True,
+        sync: bool = True,
+    ) -> Union[Awaitable[Optional[QueryTreeGroup]], Optional[QueryTreeGroup]]:
+        """
+        Dump the group's node tree.
+
+        Emit ``/g_dumpTree`` requests.
+
+        :param include_controls: Flag for including synth control values.
+        :param sync: If true, communicate the request immediately. Otherwise bundle it
+            with the current request context.
+        """
+        return cast(Union["AsyncServer", "Server"], self.context).dump_tree(
+            group=self, include_controls=include_controls, sync=sync
+        )
+
     def free_children(self, synths_only: bool = False) -> None:
         """
         Free the group's children.
@@ -807,6 +825,24 @@ class Group(Node):
         :param synths_only: Flag for freeing only child synths, or all children.
         """
         self.context.free_group_children(self, synths_only=synths_only)
+
+    def query_tree(
+        self,
+        include_controls: bool = True,
+        sync: bool = True,
+    ) -> Union[Awaitable[Optional[QueryTreeGroup]], Optional[QueryTreeGroup]]:
+        """
+        Query the group's node tree.
+
+        Emit ``/g_queryTree`` requests.
+
+        :param include_controls: Flag for including synth control values.
+        :param sync: If true, communicate the request immediately. Otherwise bundle it
+            with the current request context.
+        """
+        return cast(Union["AsyncServer", "Server"], self.context).query_tree(
+            group=self, include_controls=include_controls, sync=sync
+        )
 
     @property
     def children(self) -> List[Node]:

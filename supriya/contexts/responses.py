@@ -5,7 +5,7 @@ Classes for modeling responses from :term:`scsynth`.
 import dataclasses
 import re
 from collections import deque
-from typing import Deque, Dict, List, Optional, Sequence, Tuple, Type, Union
+from typing import Deque, Dict, List, Optional, Sequence, Tuple, Type, Union, cast
 
 from ..enums import NodeAction
 from ..osc import OscMessage
@@ -346,8 +346,6 @@ class QueryTreeSynth:
     synthdef_name: Optional[str]
     controls: List[QueryTreeControl] = dataclasses.field(default_factory=list)
 
-    ### SPECIAL METHODS ###
-
     def __format__(self, format_spec):
         return "\n".join(
             self._get_str_format_pieces(unindexed=format_spec == "unindexed")
@@ -355,8 +353,6 @@ class QueryTreeSynth:
 
     def __str__(self):
         return "\n".join(self._get_str_format_pieces())
-
-    ### PRIVATE METHODS ###
 
     def _get_str_format_pieces(self, unindexed=False):
         result = []
@@ -404,9 +400,7 @@ class QueryTreeGroup:
     ### PUBLIC METHODS ###
 
     @classmethod
-    def from_query_tree_info(
-        cls, response: QueryTreeInfo
-    ) -> Union["QueryTreeGroup", "QueryTreeSynth"]:
+    def from_query_tree_info(cls, response: QueryTreeInfo) -> "QueryTreeGroup":
         def recurse(
             item: QueryTreeInfo.Item, items: Deque[QueryTreeInfo.Item]
         ) -> Union[QueryTreeGroup, QueryTreeSynth]:
@@ -424,11 +418,14 @@ class QueryTreeGroup:
                 children.append(recurse(items.popleft(), items))
             return QueryTreeGroup(node_id=item.node_id, children=children)
 
-        return recurse(
-            QueryTreeInfo.Item(
-                node_id=response.node_id, child_count=response.child_count
+        return cast(
+            QueryTreeGroup,
+            recurse(
+                QueryTreeInfo.Item(
+                    node_id=response.node_id, child_count=response.child_count
+                ),
+                deque(response.items),
             ),
-            deque(response.items),
         )
 
     @classmethod
