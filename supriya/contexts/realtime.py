@@ -92,7 +92,6 @@ from .responses import (
     NodeInfo,
     QueryTreeGroup,
     QueryTreeInfo,
-    QueryTreeSynth,
     StatusInfo,
     VersionInfo,
 )
@@ -883,7 +882,7 @@ class Server(BaseServer):
         group: Optional[Group] = None,
         include_controls: bool = True,
         sync: bool = True,
-    ) -> Optional[Union[QueryTreeGroup, QueryTreeSynth]]:
+    ) -> Optional[QueryTreeGroup]:
         """
         Query the server's node tree.
 
@@ -1425,7 +1424,7 @@ class AsyncServer(BaseServer):
         group: Optional[Group] = None,
         include_controls: bool = True,
         sync: bool = True,
-    ) -> Optional[Union[QueryTreeGroup, QueryTreeSynth]]:
+    ) -> Optional[QueryTreeGroup]:
         """
         Query the server's node tree.
 
