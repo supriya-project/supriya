@@ -6,6 +6,7 @@ from typing import List
 import pytest
 from uqbar.strings import normalize
 
+from supriya.enums import BootStatus
 from supriya.osc import (
     AsyncOscProtocol,
     HealthCheck,
@@ -15,7 +16,6 @@ from supriya.osc import (
     find_free_port,
 )
 from supriya.osc.messages import NTP_DELTA
-from supriya.osc.protocols import BootStatus
 from supriya.scsynth import AsyncProcessProtocol, Options, SyncProcessProtocol
 
 logger = logging.getLogger(__name__)

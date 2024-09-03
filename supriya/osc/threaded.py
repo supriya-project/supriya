@@ -16,9 +16,9 @@ from typing import (
     cast,
 )
 
+from ..enums import BootStatus
 from .messages import OscBundle, OscMessage
 from .protocols import (
-    BootStatus,
     HealthCheck,
     OscCallback,
     OscProtocol,

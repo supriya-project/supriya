@@ -2,6 +2,7 @@
 Enumerations.
 """
 
+import enum
 from collections.abc import Sequence
 from typing import SupportsFloat, cast
 
@@ -70,6 +71,13 @@ class BinaryOperator(IntEnumeration):
     TRUNCATION = 21
     UNSIGNED_SHIFT = 28
     WRAP2 = 45
+
+
+class BootStatus(enum.IntEnum):
+    OFFLINE = 0
+    BOOTING = 1
+    ONLINE = 2
+    QUITTING = 3
 
 
 class CalculationRate(IntEnumeration):

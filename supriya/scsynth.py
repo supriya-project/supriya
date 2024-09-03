@@ -16,6 +16,7 @@ import psutil
 import uqbar.io
 import uqbar.objects
 
+from .enums import BootStatus
 from .exceptions import ServerCannotBoot
 from .typing import FutureLike
 
@@ -251,13 +252,6 @@ class LineStatus(enum.IntEnum):
     CONTINUE = 0
     READY = 1
     ERROR = 2
-
-
-class BootStatus(enum.IntEnum):
-    OFFLINE = 0
-    BOOTING = 1
-    ONLINE = 2
-    QUITTING = 3
 
 
 class Capture:
