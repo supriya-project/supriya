@@ -5,7 +5,18 @@ Classes for modeling responses from :term:`scsynth`.
 import dataclasses
 import re
 from collections import deque
-from typing import Deque, Dict, List, Optional, Sequence, Tuple, Type, Union, cast
+from typing import (
+    Deque,
+    Dict,
+    Generator,
+    List,
+    Optional,
+    Sequence,
+    Tuple,
+    Type,
+    Union,
+    cast,
+)
 
 from ..enums import NodeAction
 from ..osc import OscMessage
@@ -341,10 +352,17 @@ class QueryTreeControl:
 
 
 @dataclasses.dataclass
-class QueryTreeSynth:
+class QueryTreeNode:
     node_id: int
-    synthdef_name: Optional[str]
+    extra: Optional[str] = None
+
+
+@dataclasses.dataclass
+class QueryTreeSynth(QueryTreeNode):
+    node_id: int
+    synthdef_name: Optional[str] = None
     controls: List[QueryTreeControl] = dataclasses.field(default_factory=list)
+    extra: Optional[str] = None
 
     def __format__(self, format_spec):
         return "\n".join(
@@ -360,6 +378,8 @@ class QueryTreeSynth:
         if unindexed:
             node_id = "..."
         string = f"{node_id} {self.synthdef_name}"
+        if self.extra:
+            string += f" ({self.extra})"
         result.append(string)
         if self.controls:
             result.append("    " + ", ".join(str(control) for control in self.controls))
@@ -367,11 +387,10 @@ class QueryTreeSynth:
 
 
 @dataclasses.dataclass
-class QueryTreeGroup:
+class QueryTreeGroup(QueryTreeNode):
     node_id: int
-    children: List[Union["QueryTreeGroup", QueryTreeSynth]] = dataclasses.field(
-        default_factory=list
-    )
+    children: List[QueryTreeNode] = dataclasses.field(default_factory=list)
+    extra: Optional[str] = None
 
     ### SPECIAL METHODS ###
 
@@ -391,6 +410,8 @@ class QueryTreeGroup:
         if unindexed:
             node_id = "..."
         string = f"{node_id} group"
+        if self.extra:
+            string += f" ({self.extra})"
         result.append(string)
         for child in self.children:
             for line in child._get_str_format_pieces(unindexed=unindexed):
@@ -398,6 +419,18 @@ class QueryTreeGroup:
         return result
 
     ### PUBLIC METHODS ###
+
+    def embellish(self, embellishments: Dict[int, str]) -> "QueryTreeGroup":
+        root = self
+        if root.node_id in embellishments:
+            root = dataclasses.replace(root, extra=embellishments[root.node_id])
+        for group in root.walk():
+            for i, child in enumerate(group.children):
+                if child.node_id in embellishments:
+                    group.children[i] = dataclasses.replace(
+                        child, extra=embellishments[child.node_id]
+                    )
+        return root
 
     @classmethod
     def from_query_tree_info(cls, response: QueryTreeInfo) -> "QueryTreeGroup":
@@ -413,7 +446,7 @@ class QueryTreeGroup:
                         for name_or_index, value in (item.controls or {}).items()
                     ],
                 )
-            children: List[Union[QueryTreeGroup, QueryTreeSynth]] = []
+            children: List[QueryTreeNode] = []
             for _ in range(item.child_count):
                 children.append(recurse(items.popleft(), items))
             return QueryTreeGroup(node_id=item.node_id, children=children)
@@ -466,6 +499,12 @@ class QueryTreeGroup:
                         QueryTreeControl(name_or_index=name_or_index, value=value)
                     )
         return stack[0]
+
+    def walk(self) -> Generator["QueryTreeGroup", None, None]:
+        yield self
+        for child in self.children:
+            if isinstance(child, QueryTreeGroup):
+                yield from child.walk()
 
 
 @dataclasses.dataclass
