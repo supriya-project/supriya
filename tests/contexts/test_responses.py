@@ -3,7 +3,7 @@ from uqbar.strings import normalize
 from supriya import Server, default
 
 
-def test_QueryTreeGroup_embellish() -> None:
+def test_QueryTreeGroup_annotate() -> None:
     server = Server().boot()
     server.add_synthdefs(default)
     server.sync()
@@ -30,7 +30,7 @@ def test_QueryTreeGroup_embellish() -> None:
                             amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
         """
     )
-    assert str(tree.embellish({})) == normalize(
+    assert str(tree.annotate({})) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -46,7 +46,7 @@ def test_QueryTreeGroup_embellish() -> None:
         """
     )
     assert str(
-        tree.embellish(
+        tree.annotate(
             {
                 0: "root",
                 1: "default group",

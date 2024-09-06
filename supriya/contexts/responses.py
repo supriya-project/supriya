@@ -354,7 +354,7 @@ class QueryTreeControl:
 @dataclasses.dataclass
 class QueryTreeNode:
     node_id: int
-    extra: Optional[str] = None
+    annotation: Optional[str] = None
 
 
 @dataclasses.dataclass
@@ -362,7 +362,7 @@ class QueryTreeSynth(QueryTreeNode):
     node_id: int
     synthdef_name: Optional[str] = None
     controls: List[QueryTreeControl] = dataclasses.field(default_factory=list)
-    extra: Optional[str] = None
+    annotation: Optional[str] = None
 
     def __format__(self, format_spec):
         return "\n".join(
@@ -378,8 +378,8 @@ class QueryTreeSynth(QueryTreeNode):
         if unindexed:
             node_id = "..."
         string = f"{node_id} {self.synthdef_name}"
-        if self.extra:
-            string += f" ({self.extra})"
+        if self.annotation:
+            string += f" ({self.annotation})"
         result.append(string)
         if self.controls:
             result.append("    " + ", ".join(str(control) for control in self.controls))
@@ -390,7 +390,7 @@ class QueryTreeSynth(QueryTreeNode):
 class QueryTreeGroup(QueryTreeNode):
     node_id: int
     children: List[QueryTreeNode] = dataclasses.field(default_factory=list)
-    extra: Optional[str] = None
+    annotation: Optional[str] = None
 
     ### SPECIAL METHODS ###
 
@@ -410,8 +410,8 @@ class QueryTreeGroup(QueryTreeNode):
         if unindexed:
             node_id = "..."
         string = f"{node_id} group"
-        if self.extra:
-            string += f" ({self.extra})"
+        if self.annotation:
+            string += f" ({self.annotation})"
         result.append(string)
         for child in self.children:
             for line in child._get_str_format_pieces(unindexed=unindexed):
@@ -420,15 +420,15 @@ class QueryTreeGroup(QueryTreeNode):
 
     ### PUBLIC METHODS ###
 
-    def embellish(self, embellishments: Dict[int, str]) -> "QueryTreeGroup":
+    def annotate(self, annotations: Dict[int, str]) -> "QueryTreeGroup":
         root = self
-        if root.node_id in embellishments:
-            root = dataclasses.replace(root, extra=embellishments[root.node_id])
+        if root.node_id in annotations:
+            root = dataclasses.replace(root, annotation=annotations[root.node_id])
         for group in root.walk():
             for i, child in enumerate(group.children):
-                if child.node_id in embellishments:
+                if child.node_id in annotations:
                     group.children[i] = dataclasses.replace(
-                        child, extra=embellishments[child.node_id]
+                        child, annotation=annotations[child.node_id]
                     )
         return root
 
