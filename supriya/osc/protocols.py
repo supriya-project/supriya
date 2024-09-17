@@ -137,8 +137,6 @@ class OscProtocol:
     def __init__(
         self,
         *,
-        boot_future: FutureLike[bool],
-        exit_future: FutureLike[bool],
         name: Optional[str] = None,
         on_connect_callback: Optional[Callable] = None,
         on_disconnect_callback: Optional[Callable] = None,
@@ -146,8 +144,6 @@ class OscProtocol:
     ) -> None:
         self.callbacks: Dict[Any, Any] = {}
         self.captures: Set[Capture] = set()
-        self.boot_future = boot_future
-        self.exit_future = exit_future
         self.healthcheck: Optional[HealthCheck] = None
         self.healthcheck_osc_callback: Optional[OscCallback] = None
         self.attempts = 0
@@ -212,25 +208,33 @@ class OscProtocol:
                 self.unregister(callback)
         return matching_callbacks
 
-    def _on_connect(self) -> Optional[Awaitable[None]]:
+    def _on_connect(
+        self, *, boot_future: FutureLike[bool]
+    ) -> Optional[Awaitable[None]]:
         osc_protocol_logger.info(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
             "... connected!"
         )
         self.status = BootStatus.ONLINE
-        self.boot_future.set_result(True)
+        boot_future.set_result(True)
         return None
 
-    def _on_disconnect(self, panicked: bool = False) -> Optional[Awaitable[None]]:
+    def _on_disconnect(
+        self,
+        *,
+        boot_future: FutureLike[bool],
+        exit_future: FutureLike[bool],
+        panicked: bool = False,
+    ) -> Optional[Awaitable[None]]:
         osc_protocol_logger.info(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
             "... disconnected!"
         )
         self.status = BootStatus.OFFLINE
-        if not self.boot_future.done():
-            self.boot_future.set_result(False)
-        if not self.exit_future.done():
-            self.exit_future.set_result(not panicked)
+        if not boot_future.done():
+            boot_future.set_result(False)
+        if not exit_future.done():
+            exit_future.set_result(not panicked)
         return None
 
     def _on_healthcheck_passed(self, message: OscMessage) -> Optional[Awaitable[None]]:
