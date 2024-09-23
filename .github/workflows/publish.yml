@@ -22,7 +22,7 @@ jobs:
       with:
         cache-dependency-path: "**/pyproject.toml"
         cache: pip
-        python-version: "3.11"
+        python-version: "3.12"
     - name: Install SuperCollider
       uses: ./.github/actions/supercollider
       with:
