@@ -35,7 +35,7 @@ runs:
         restore-keys: homebrew-${{ runner.os }}-
     - name: '[macOS] Cleanup Homebrew'
       if: runner.os == 'macOS' && !steps.cache-homebrew.outputs.cache-hit
-      run: rm -rf $(brew --cache)
+      run: sudo rm -rf $(brew --cache)
       shell: bash
     - name: Setup ccache
       uses: hendrikmuhs/ccache-action@v1.2
