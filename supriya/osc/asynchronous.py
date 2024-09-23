@@ -3,6 +3,7 @@ from collections.abc import Sequence as SequenceABC
 from typing import Awaitable, Callable, Dict, Optional, Sequence, Set, Tuple, Union
 
 from ..enums import BootStatus
+from ..typing import FutureLike
 from .messages import OscBundle, OscMessage
 from .protocols import (
     HealthCheck,
@@ -28,13 +29,13 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         asyncio.DatagramProtocol.__init__(self)
         OscProtocol.__init__(
             self,
-            boot_future=asyncio.Future(),
-            exit_future=asyncio.Future(),
             name=name,
             on_connect_callback=on_connect_callback,
             on_disconnect_callback=on_disconnect_callback,
             on_panic_callback=on_panic_callback,
         )
+        self.boot_future: asyncio.Future[bool] = asyncio.Future()
+        self.exit_future: asyncio.Future[bool] = asyncio.Future()
         self.background_tasks: Set[asyncio.Task] = set()
         self.healthcheck_task: Optional[asyncio.Task] = None
 
@@ -45,16 +46,30 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         self.transport.close()
         if self.healthcheck_task:
             self.healthcheck_task.cancel()
-        await self._on_disconnect(panicked=panicked)
+        await self._on_disconnect(
+            boot_future=self.boot_future,
+            exit_future=self.exit_future,
+            panicked=panicked,
+        )
 
-    async def _on_connect(self) -> None:
-        super()._on_connect()
+    async def _on_connect(self, *, boot_future: FutureLike[bool]) -> None:
+        super()._on_connect(boot_future=self.boot_future)
         if self.on_connect_callback:
             if asyncio.iscoroutine(result := self.on_connect_callback()):
                 await result
 
-    async def _on_disconnect(self, panicked: bool = False) -> None:
-        super()._on_disconnect(panicked=panicked)
+    async def _on_disconnect(
+        self,
+        *,
+        boot_future: FutureLike[bool],
+        exit_future: FutureLike[bool],
+        panicked: bool = False,
+    ) -> None:
+        super()._on_disconnect(
+            boot_future=boot_future,
+            exit_future=exit_future,
+            panicked=panicked,
+        )
         if panicked and self.on_panic_callback:
             if asyncio.iscoroutine(result := self.on_panic_callback()):
                 await result
@@ -65,7 +80,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     async def _on_healthcheck_passed(self, message: OscMessage) -> None:
         super()._on_healthcheck_passed(message)
         if self.status == BootStatus.BOOTING:
-            await self._on_connect()
+            await self._on_connect(boot_future=self.boot_future)
 
     async def _run_healthcheck(self):
         if self.healthcheck is None:
@@ -150,7 +165,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
                 self._run_healthcheck()
             )
         elif not self.healthcheck:
-            await self._on_connect()
+            await self._on_connect(boot_future=self.boot_future)
 
     async def disconnect(self) -> None:
         if self.status != BootStatus.ONLINE:

@@ -17,6 +17,7 @@ from typing import (
 )
 
 from ..enums import BootStatus
+from ..typing import FutureLike
 from .messages import OscBundle, OscMessage
 from .protocols import (
     HealthCheck,
@@ -62,13 +63,13 @@ class ThreadedOscProtocol(OscProtocol):
     ):
         OscProtocol.__init__(
             self,
-            boot_future=concurrent.futures.Future(),
-            exit_future=concurrent.futures.Future(),
             name=name,
             on_connect_callback=on_connect_callback,
             on_disconnect_callback=on_disconnect_callback,
             on_panic_callback=on_panic_callback,
         )
+        self.boot_future: concurrent.futures.Future[bool] = concurrent.futures.Future()
+        self.exit_future: concurrent.futures.Future[bool] = concurrent.futures.Future()
         self.command_queue: Queue[Tuple[Literal["add", "remove"], OscCallback]] = (
             Queue()
         )
@@ -85,15 +86,29 @@ class ThreadedOscProtocol(OscProtocol):
             # because this is often being called from _inside_ the server
             # thread.
             self.osc_server._BaseServer__shutdown_request = True
-        self._on_disconnect(panicked=panicked)
+        self._on_disconnect(
+            boot_future=self.boot_future,
+            exit_future=self.exit_future,
+            panicked=panicked,
+        )
 
-    def _on_connect(self) -> None:
-        super()._on_connect()
+    def _on_connect(self, boot_future: FutureLike[bool]) -> None:
+        super()._on_connect(boot_future=boot_future)
         if self.on_connect_callback:
             self.on_connect_callback()
 
-    def _on_disconnect(self, panicked: bool = False) -> None:
-        super()._on_disconnect(panicked=panicked)
+    def _on_disconnect(
+        self,
+        *,
+        boot_future: FutureLike[bool],
+        exit_future: FutureLike[bool],
+        panicked: bool = False,
+    ) -> None:
+        super()._on_disconnect(
+            boot_future=boot_future,
+            exit_future=exit_future,
+            panicked=panicked,
+        )
         if panicked and self.on_panic_callback:
             self.on_panic_callback()
         elif not panicked and self.on_disconnect_callback:
@@ -102,7 +117,7 @@ class ThreadedOscProtocol(OscProtocol):
     def _on_healthcheck_passed(self, message: OscMessage) -> None:
         super()._on_healthcheck_passed(message)
         if self.status == BootStatus.BOOTING:
-            self._on_connect()
+            self._on_connect(boot_future=self.boot_future)
 
     def _process_command_queue(self):
         while self.command_queue.qsize():
@@ -176,7 +191,7 @@ class ThreadedOscProtocol(OscProtocol):
         self.osc_server_thread.daemon = True
         self.osc_server_thread.start()
         if not self.healthcheck:
-            self._on_connect()
+            self._on_connect(boot_future=self.boot_future)
 
     def disconnect(self) -> None:
         if self.status != BootStatus.ONLINE:

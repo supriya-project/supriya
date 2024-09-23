@@ -30,14 +30,19 @@ supernova = pytest.param(
 )
 
 
-def setup_context(context_class, name=None):
+def setup_context(context_class, *, async_callback=False, name=None):
     def on_event(event: ServerLifecycleEvent) -> None:
+        events.append(event)
+
+    async def on_event_async(event: ServerLifecycleEvent) -> None:
+        await asyncio.sleep(0)
         events.append(event)
 
     events = []
     context = context_class(name=name)
+    callback = on_event_async if async_callback else on_event
     for event in ServerLifecycleEvent:
-        context.on(event, on_event)
+        context.on(event, callback)
     return context, events
 
 
@@ -45,6 +50,12 @@ async def get(x):
     if asyncio.iscoroutine(x):
         return await x
     return x
+
+
+async def get_future(x, timeout=10):
+    if asyncio.isfuture(x):
+        return await asyncio.wait_for(x, timeout)
+    return x.result(timeout)
 
 
 logger = logging.getLogger(__name__)
@@ -62,9 +73,12 @@ def healthcheck_attempts(monkeypatch):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_only(executable, context_class):
-    context, events = setup_context(context_class)
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_only(async_callback, context_class, executable):
+    context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
     #
@@ -85,9 +99,12 @@ async def test_boot_only(executable, context_class):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_and_quit(executable, context_class):
-    context, events = setup_context(context_class)
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_and_quit(async_callback, context_class, executable):
+    context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
     #
@@ -126,9 +143,12 @@ async def test_boot_and_quit(executable, context_class):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_and_boot(executable, context_class):
-    context, events = setup_context(context_class)
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_and_boot(async_callback, context_class, executable):
+    context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
     #
@@ -160,9 +180,12 @@ async def test_boot_and_boot(executable, context_class):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_and_quit_and_quit(executable, context_class):
-    context, events = setup_context(context_class)
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_and_quit_and_quit(async_callback, context_class, executable):
+    context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
     #
@@ -217,9 +240,12 @@ async def test_boot_and_quit_and_quit(executable, context_class):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_and_connect(executable, context_class):
-    context, events = setup_context(context_class)
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_and_connect(async_callback, context_class, executable):
+    context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
     #
@@ -251,10 +277,17 @@ async def test_boot_and_connect(executable, context_class):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_a_and_boot_b_cannot_boot(executable, context_class):
-    context_a, events_a = setup_context(context_class, name="one")
-    context_b, events_b = setup_context(context_class, name="two")
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_a_and_boot_b_cannot_boot(async_callback, context_class, executable):
+    context_a, events_a = setup_context(
+        context_class, async_callback=async_callback, name="one"
+    )
+    context_b, events_b = setup_context(
+        context_class, async_callback=async_callback, name="two"
+    )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
     #
@@ -292,10 +325,19 @@ async def test_boot_a_and_boot_b_cannot_boot(executable, context_class):
 # scsynth only
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_a_and_connect_b_too_many_clients(executable, context_class):
-    context_a, events_a = setup_context(context_class, name="one")
-    context_b, events_b = setup_context(context_class, name="two")
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_a_and_connect_b_too_many_clients(
+    async_callback, context_class, executable
+):
+    context_a, events_a = setup_context(
+        context_class, async_callback=async_callback, name="one"
+    )
+    context_b, events_b = setup_context(
+        context_class, async_callback=async_callback, name="two"
+    )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
     #
@@ -333,11 +375,20 @@ async def test_boot_a_and_connect_b_too_many_clients(executable, context_class):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_a_and_connect_b_and_quit_a(executable, context_class):
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_a_and_connect_b_and_quit_a(
+    async_callback, context_class, executable
+):
     logger.warning("START")
-    context_a, events_a = setup_context(context_class, name="one")
-    context_b, events_b = setup_context(context_class, name="two")
+    context_a, events_a = setup_context(
+        context_class, async_callback=async_callback, name="one"
+    )
+    context_b, events_b = setup_context(
+        context_class, async_callback=async_callback, name="two"
+    )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
     #
@@ -395,10 +446,7 @@ async def test_boot_a_and_connect_b_and_quit_a(executable, context_class):
     ]
     #
     logger.warning("AWAIT B")
-    for _ in range(100):
-        await asyncio.sleep(0.1)
-        if context_b.boot_status == BootStatus.OFFLINE:
-            break
+    await get_future(context_b.exit_future)
     logger.warning("DONE AWAITING B")
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
     assert events_a == [
@@ -428,10 +476,19 @@ async def test_boot_a_and_connect_b_and_quit_a(executable, context_class):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_a_and_connect_b_and_disconnect_b(executable, context_class):
-    context_a, events_a = setup_context(context_class, name="one")
-    context_b, events_b = setup_context(context_class, name="two")
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_a_and_connect_b_and_disconnect_b(
+    async_callback, context_class, executable
+):
+    context_a, events_a = setup_context(
+        context_class, async_callback=async_callback, name="one"
+    )
+    context_b, events_b = setup_context(
+        context_class, async_callback=async_callback, name="two"
+    )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
     #
@@ -476,10 +533,19 @@ async def test_boot_a_and_connect_b_and_disconnect_b(executable, context_class):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_a_and_connect_b_and_disconnect_a(executable, context_class):
-    context_a, events_a = setup_context(context_class, name="one")
-    context_b, events_b = setup_context(context_class, name="two")
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_a_and_connect_b_and_disconnect_a(
+    async_callback, context_class, executable
+):
+    context_a, events_a = setup_context(
+        context_class, async_callback=async_callback, name="one"
+    )
+    context_b, events_b = setup_context(
+        context_class, async_callback=async_callback, name="two"
+    )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
     #
@@ -522,10 +588,19 @@ async def test_boot_a_and_connect_b_and_disconnect_a(executable, context_class):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_a_and_connect_b_and_quit_b(executable, context_class):
-    context_a, events_a = setup_context(context_class, name="one")
-    context_b, events_b = setup_context(context_class, name="two")
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_a_and_connect_b_and_quit_b(
+    async_callback, context_class, executable
+):
+    context_a, events_a = setup_context(
+        context_class, async_callback=async_callback, name="one"
+    )
+    context_b, events_b = setup_context(
+        context_class, async_callback=async_callback, name="two"
+    )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
     #
@@ -568,11 +643,20 @@ async def test_boot_a_and_connect_b_and_quit_b(executable, context_class):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_a_and_connect_b_and_force_quit_b(executable, context_class):
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_a_and_connect_b_and_force_quit_b(
+    async_callback, context_class, executable
+):
     logger.warning("START")
-    context_a, events_a = setup_context(context_class, name="one")
-    context_b, events_b = setup_context(context_class, name="two")
+    context_a, events_a = setup_context(
+        context_class, async_callback=async_callback, name="one"
+    )
+    context_b, events_b = setup_context(
+        context_class, async_callback=async_callback, name="two"
+    )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
     #
@@ -610,10 +694,7 @@ async def test_boot_a_and_connect_b_and_force_quit_b(executable, context_class):
     await get(context_b.quit(force=True))
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
     logger.warning("AWAIT A")
-    for _ in range(100):
-        await asyncio.sleep(0.1)
-        if context_a.boot_status == BootStatus.OFFLINE:
-            break
+    await get_future(context_a.exit_future)
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert events_a == [
         ServerLifecycleEvent.BOOTING,
@@ -645,7 +726,7 @@ async def test_boot_a_and_connect_b_and_force_quit_b(executable, context_class):
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
 @pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_reboot_sticky_options(executable, context_class):
+async def test_boot_reboot_sticky_options(context_class, executable):
     """
     Options persist across booting and quitting.
     """
@@ -665,11 +746,20 @@ async def test_boot_reboot_sticky_options(executable, context_class):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
-@pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_a_and_connect_b_and_kill(executable, context_class) -> None:
+@pytest.mark.parametrize(
+    "async_callback, context_class",
+    [(False, AsyncServer), (True, AsyncServer), (False, Server)],
+)
+async def test_boot_a_and_connect_b_and_kill(
+    async_callback, context_class, executable
+) -> None:
     logger.warning("START")
-    context_a, events_a = setup_context(context_class, name="one")
-    context_b, events_b = setup_context(context_class, name="two")
+    context_a, events_a = setup_context(
+        context_class, async_callback=async_callback, name="one"
+    )
+    context_b, events_b = setup_context(
+        context_class, async_callback=async_callback, name="two"
+    )
     logger.warning("BOOT A")
     await get(context_a.boot(executable=executable, maximum_logins=2))
     assert events_a == [
@@ -699,13 +789,8 @@ async def test_boot_a_and_connect_b_and_kill(executable, context_class) -> None:
     logger.warning("KILL")
     kill()
     logger.warning("AWAIT A AND B")
-    for _ in range(100):
-        await asyncio.sleep(0.1)
-        if (
-            context_a.boot_status == BootStatus.OFFLINE
-            and context_b.boot_status == BootStatus.OFFLINE
-        ):
-            break
+    await get_future(context_a.exit_future)
+    await get_future(context_b.exit_future)
     assert events_a == [
         ServerLifecycleEvent.BOOTING,
         ServerLifecycleEvent.PROCESS_BOOTED,
