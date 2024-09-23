@@ -496,8 +496,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
             await self.exit_future
             raise ServerCannotBoot(self.error_text)
         if self.on_boot_callback:
-            if asyncio.iscoroutine(result := self.on_boot_callback()):
-                loop.create_task(result)
+            self.on_boot_callback()
 
     def connection_made(self, transport) -> None:
         logger.info(
@@ -534,11 +533,9 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         except asyncio.exceptions.InvalidStateError:
             pass
         if was_quitting and self.on_quit_callback:
-            if asyncio.iscoroutine(result := self.on_quit_callback()):
-                asyncio.get_running_loop().create_task(result)
+            self.on_quit_callback()
         elif not was_quitting and self.on_panic_callback:
-            if asyncio.iscoroutine(result := self.on_panic_callback()):
-                asyncio.get_running_loop().create_task(result)
+            self.on_panic_callback()
 
     async def quit(self) -> None:
         if not self._quit():
