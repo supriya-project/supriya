@@ -26,13 +26,6 @@ scsynth
    .. automethod:: process_exited
    .. automethod:: quit
 
-.. autoclass:: BootStatus
-   :show-inheritance:
-   :members:
-   :undoc-members:
-
-   .. automethod:: __format__
-
 .. autoclass:: Capture
    :show-inheritance:
 

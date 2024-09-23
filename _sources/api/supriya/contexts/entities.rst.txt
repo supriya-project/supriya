@@ -67,7 +67,9 @@ entities
 .. autoclass:: Group
    :show-inheritance:
 
+   .. automethod:: dump_tree
    .. automethod:: free_children
+   .. automethod:: query_tree
    .. autoproperty:: children
 
 .. autoclass:: Node

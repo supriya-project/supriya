@@ -29,6 +29,10 @@ realtime
    .. automethod:: reboot
    .. automethod:: reset
    .. automethod:: sync
+   .. autoproperty:: boot_future
+   .. autoproperty:: exit_future
+   .. autoproperty:: osc_protocol
+   .. autoproperty:: process_protocol
 
 .. autoclass:: BaseServer
    :show-inheritance:
@@ -37,12 +41,8 @@ realtime
    .. automethod:: on
    .. automethod:: send
    .. automethod:: set_latency
-   .. autoproperty:: boot_future
    .. autoproperty:: default_group
-   .. autoproperty:: exit_future
    .. autoproperty:: is_owner
-   .. autoproperty:: osc_protocol
-   .. autoproperty:: process_protocol
    .. autoproperty:: status
 
 .. autoclass:: Server
@@ -67,8 +67,18 @@ realtime
    .. automethod:: reboot
    .. automethod:: reset
    .. automethod:: sync
+   .. autoproperty:: boot_future
+   .. autoproperty:: exit_future
+   .. autoproperty:: osc_protocol
+   .. autoproperty:: process_protocol
 
 .. autoclass:: ServerLifecycleEvent
+   :show-inheritance:
+   :members:
+   :undoc-members:
+
+
+.. autoclass:: ServerShutdownEvent
    :show-inheritance:
    :members:
    :undoc-members:

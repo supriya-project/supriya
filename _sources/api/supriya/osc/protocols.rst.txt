@@ -7,13 +7,6 @@ protocols
 
 .. currentmodule:: supriya.osc.protocols
 
-.. autoclass:: BootStatus
-   :show-inheritance:
-   :members:
-   :undoc-members:
-
-   .. automethod:: __format__
-
 .. autoclass:: Capture
    :show-inheritance:
 

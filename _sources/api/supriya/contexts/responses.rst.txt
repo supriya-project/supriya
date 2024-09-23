@@ -66,14 +66,20 @@ responses
    :show-inheritance:
 
    .. automethod:: __format__
+   .. automethod:: annotate
    .. automethod:: from_query_tree_info
    .. automethod:: from_string
+   .. automethod:: walk
 
 .. autoclass:: QueryTreeInfo
    :show-inheritance:
 
    .. autoclass:: supriya.contexts.responses::QueryTreeInfo.Item
    .. automethod:: from_osc
+
+.. autoclass:: QueryTreeNode
+   :show-inheritance:
+
 
 .. autoclass:: QueryTreeSynth
    :show-inheritance:

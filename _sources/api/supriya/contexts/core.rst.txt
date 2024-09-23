@@ -7,13 +7,6 @@ core
 
 .. currentmodule:: supriya.contexts.core
 
-.. autoclass:: BootStatus
-   :show-inheritance:
-   :members:
-   :undoc-members:
-
-   .. automethod:: __format__
-
 .. autoclass:: Completion
    :show-inheritance:
 

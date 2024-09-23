@@ -21,6 +21,13 @@ enums
 
    .. automethod:: __format__
 
+.. autoclass:: BootStatus
+   :show-inheritance:
+   :members:
+   :undoc-members:
+
+   .. automethod:: __format__
+
 .. autoclass:: CalculationRate
    :show-inheritance:
    :members:
