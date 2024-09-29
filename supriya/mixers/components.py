@@ -33,10 +33,9 @@ class Component(Generic[C]):
         self,
         *,
         parent: Optional[C] = None,
-        session: Optional["Session"] = None,
     ) -> None:
+        self._lock = asyncio.Lock()
         self._parent: Optional[C] = parent
-        self._session: Optional[Session] = session
 
     def __repr__(self) -> str:
         return f"<{type(self).__name__}>"
@@ -75,15 +74,13 @@ class AllocatableComponent(Component, Generic[C]):
         self,
         *,
         parent: Optional[C] = None,
-        session: Optional["Session"] = None,
     ) -> None:
-        super().__init__(parent=parent, session=session)
+        super().__init__(parent=parent)
         self._audio_buses: Dict[str, BusGroup] = {}
         self._buffers: Dict[str, Buffer] = {}
         self._context: Optional[Context] = None
         self._control_buses: Dict[str, BusGroup] = {}
         self._is_active: bool = True
-        self._lock = asyncio.Lock()
         self._nodes: Dict[str, Node] = {}
 
     async def _activate(self) -> None:

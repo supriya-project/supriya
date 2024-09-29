@@ -38,9 +38,7 @@ class Session(Component):
         self._boot_future: Optional[asyncio.Future] = None
         self._clock = AsyncClock()
         self._contexts: Dict[AsyncServer, List[Mixer]] = {
-            (context := self._new_context()): [
-                mixer := Mixer(parent=self, session=self)
-            ],
+            (context := self._new_context()): [mixer := Mixer(parent=self)],
         }
         self._lock = asyncio.Lock()
         self._mixers: Dict[Mixer, AsyncServer] = {mixer: context}
@@ -97,9 +95,7 @@ class Session(Component):
                 context = await self.add_context()
             if context is None:
                 context = list(self._contexts)[0]
-            self._contexts.setdefault(context, []).append(
-                mixer := Mixer(parent=self, session=self)
-            )
+            self._contexts.setdefault(context, []).append(mixer := Mixer(parent=self))
             self._mixers[mixer] = context
             if self._status == BootStatus.ONLINE:
                 self._allocate_mixer(context=context, mixer=mixer)

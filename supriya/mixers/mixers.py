@@ -17,11 +17,9 @@ class Mixer(AllocatableComponent["Session"]):
     # TODO: set_channel_count(self, channel_count: ChannelCount) -> None
     # TODO: set_output(output: int) -> None
 
-    def __init__(
-        self, *, parent: Optional["Session"], session: Optional["Session"] = None
-    ) -> None:
-        super().__init__(parent=parent, session=session)
-        self._tracks: List[Track] = [Track(parent=self, session=self.session)]
+    def __init__(self, *, parent: Optional["Session"]) -> None:
+        super().__init__(parent=parent)
+        self._tracks: List[Track] = [Track(parent=self)]
 
     def _allocate(
         self,
@@ -80,15 +78,15 @@ class Mixer(AllocatableComponent["Session"]):
 
     async def add_track(self) -> "Track":
         async with self._lock:
-            self._tracks.append(track := Track(parent=self, session=self.session))
+            self._tracks.append(track := Track(parent=self))
             if self._can_allocate():
                 self._allocate_track(track)
             return track
 
     async def delete(self) -> None:
         async with self._lock:
-            if self._session is not None:
-                self._session._delete_mixer(self)
+            if self.session is not None:
+                self.session._delete_mixer(self)
             self._delete()
 
     @property

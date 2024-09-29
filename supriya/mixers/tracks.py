@@ -8,7 +8,6 @@ from .synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2
 
 if TYPE_CHECKING:
     from .mixers import Mixer
-    from .sessions import Session
 
 
 TrackParent: TypeAlias = Union["Mixer", "Track"]
@@ -28,9 +27,8 @@ class Track(AllocatableComponent[TrackParent]):
         self,
         *,
         parent: Optional[TrackParent] = None,
-        session: Optional["Session"] = None,
     ) -> None:
-        super().__init__(parent=parent, session=session)
+        super().__init__(parent=parent)
         self._output: Optional[Union[Default, Track]] = DEFAULT
         self._tracks: List[Track] = []
 
@@ -86,7 +84,7 @@ class Track(AllocatableComponent[TrackParent]):
 
     async def add_track(self) -> "Track":
         async with self._lock:
-            self._tracks.append(track := Track(parent=self, session=self.session))
+            self._tracks.append(track := Track(parent=self))
             if self._can_allocate():
                 self._allocate_track(track)
             return track
