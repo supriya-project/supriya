@@ -4,13 +4,13 @@ from ..contexts import BusGroup, Context, Node
 from ..enums import AddAction, CalculationRate
 from .components import AllocatableComponent, Component
 from .synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2
-from .tracks import Track
+from .tracks import Track, TrackContainer
 
 if TYPE_CHECKING:
     from .sessions import Session
 
 
-class Mixer(AllocatableComponent["Session"]):
+class Mixer(TrackContainer["Session"]):
 
     # TODO: add_device() -> Device
     # TODO: group_devices(index: int, count: int) -> Rack
@@ -18,8 +18,9 @@ class Mixer(AllocatableComponent["Session"]):
     # TODO: set_output(output: int) -> None
 
     def __init__(self, *, parent: Optional["Session"]) -> None:
-        super().__init__(parent=parent)
-        self._tracks: List[Track] = [Track(parent=self)]
+        AllocatableComponent.__init__(self, parent=parent)
+        TrackContainer.__init__(self)
+        self._tracks.append(Track(parent=self))
 
     def _allocate(
         self,
@@ -58,30 +59,10 @@ class Mixer(AllocatableComponent["Session"]):
         for track in self.tracks:
             self._allocate_track(track)
 
-    def _allocate_track(self, track: "Track") -> None:
-        if self._context is None:
-            raise RuntimeError
-        track._allocate(
-            add_action=AddAction.ADD_TO_TAIL,
-            context=self._context,
-            target_bus=self._audio_buses["main"],
-            target_node=self._nodes["tracks"],
-        )
-
-    def _delete_track(self, track: "Track") -> None:
-        self._tracks.remove(track)
-
     def _walk(self) -> Generator[Component, None, None]:
         yield from super()._walk()
         for track in self.tracks:
             yield from track._walk()
-
-    async def add_track(self) -> "Track":
-        async with self._lock:
-            self._tracks.append(track := Track(parent=self))
-            if self._can_allocate():
-                self._allocate_track(track)
-            return track
 
     async def delete(self) -> None:
         # TODO: What are delete semantics actually?
@@ -100,7 +81,3 @@ class Mixer(AllocatableComponent["Session"]):
     @property
     def children(self) -> List[Component]:
         return list(self._tracks)
-
-    @property
-    def tracks(self) -> list["Track"]:
-        return self._tracks[:]

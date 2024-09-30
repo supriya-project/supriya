@@ -1,19 +1,44 @@
-from typing import TYPE_CHECKING, List, Optional, TypeAlias, Union
+from typing import List, Optional, Union
 
 from ..contexts import BusGroup, Context, Node
 from ..enums import AddAction, CalculationRate
 from ..typing import DEFAULT, Default
-from .components import AllocatableComponent, Component
+from .components import AllocatableComponent, C, Component
 from .synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2
 
-if TYPE_CHECKING:
-    from .mixers import Mixer
+
+class TrackContainer(AllocatableComponent[C]):
+
+    def __init__(self) -> None:
+        self._tracks: List[Track] = []
+
+    def _allocate_track(self, track: "Track") -> None:
+        # TODO: Annoying that context could be null
+        if self._context is None:
+            raise RuntimeError
+        track._allocate(
+            add_action=AddAction.ADD_TO_TAIL,
+            context=self._context,
+            target_bus=self._audio_buses["main"],
+            target_node=self._nodes["tracks"],
+        )
+
+    def _delete_track(self, track: "Track") -> None:
+        self._tracks.remove(track)
+
+    async def add_track(self) -> "Track":
+        async with self._lock:
+            self._tracks.append(track := Track(parent=self))
+            if self._can_allocate():
+                self._allocate_track(track)
+            return track
+
+    @property
+    def tracks(self) -> List["Track"]:
+        return self._tracks[:]
 
 
-TrackParent: TypeAlias = Union["Mixer", "Track"]
-
-
-class Track(AllocatableComponent[TrackParent]):
+class Track(TrackContainer[TrackContainer]):
 
     # TODO: add_device() -> Device
     # TODO: add_send(destination: Track) -> Send
@@ -26,11 +51,11 @@ class Track(AllocatableComponent[TrackParent]):
     def __init__(
         self,
         *,
-        parent: Optional[TrackParent] = None,
+        parent: Optional[TrackContainer] = None,
     ) -> None:
-        super().__init__(parent=parent)
+        AllocatableComponent.__init__(self, parent=parent)
+        TrackContainer.__init__(self)
         self._output: Optional[Union[Default, Track]] = DEFAULT
-        self._tracks: List[Track] = []
 
     def _allocate(
         self,
@@ -64,30 +89,9 @@ class Track(AllocatableComponent[TrackParent]):
         for track in self.tracks:
             self._allocate_track(track)
 
-    def _allocate_track(self, track: "Track") -> None:
-        # TODO: Annoying that context could be null
-        if self._context is None:
-            raise RuntimeError
-        track._allocate(
-            add_action=AddAction.ADD_TO_TAIL,
-            context=self._context,
-            target_bus=self._audio_buses["main"],
-            target_node=self._nodes["tracks"],
-        )
-
-    def _delete_track(self, track: "Track") -> None:
-        self._tracks.remove(track)
-
     async def activate(self) -> None:
         async with self._lock:
             pass
-
-    async def add_track(self) -> "Track":
-        async with self._lock:
-            self._tracks.append(track := Track(parent=self))
-            if self._can_allocate():
-                self._allocate_track(track)
-            return track
 
     async def deactivate(self) -> None:
         async with self._lock:
@@ -100,7 +104,7 @@ class Track(AllocatableComponent[TrackParent]):
                 self._parent._delete_track(self)
             self._delete()
 
-    async def move(self, *, index: int, parent: Union["Mixer", "Track"]) -> None:
+    async def move(self, *, index: int, parent: TrackContainer) -> None:
         async with self._lock:
             pass
 
@@ -132,13 +136,9 @@ class Track(AllocatableComponent[TrackParent]):
         return list(self._tracks)
 
     @property
-    def output(self) -> Union["Mixer", "Track"]:
+    def output(self) -> TrackContainer:
         if isinstance(self._output, Track):
             return self._output
         if self.parent is None:
             raise RuntimeError
         return self.parent
-
-    @property
-    def tracks(self) -> List["Track"]:
-        return self._tracks[:]
