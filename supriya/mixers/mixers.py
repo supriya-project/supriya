@@ -84,6 +84,7 @@ class Mixer(AllocatableComponent["Session"]):
             return track
 
     async def delete(self) -> None:
+        # TODO: What are delete semantics actually?
         async with self._lock:
             if self.session is not None:
                 self.session._delete_mixer(self)
@@ -95,6 +96,10 @@ class Mixer(AllocatableComponent["Session"]):
             return "mixers[?]"
         index = self.session.mixers.index(self)
         return f"session.mixers[{index}]"
+
+    @property
+    def children(self) -> List[Component]:
+        return list(self._tracks)
 
     @property
     def tracks(self) -> list["Track"]:

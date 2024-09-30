@@ -195,6 +195,10 @@ class Session(Component):
         return "session"
 
     @property
+    def children(self) -> List[Component]:
+        return list(self._mixers)
+
+    @property
     def contexts(self) -> List[AsyncServer]:
         return list(self._contexts)
 

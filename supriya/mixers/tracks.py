@@ -1,9 +1,9 @@
-from typing import TYPE_CHECKING, List, Optional, Tuple, TypeAlias, Union
+from typing import TYPE_CHECKING, List, Optional, TypeAlias, Union
 
 from ..contexts import BusGroup, Context, Node
 from ..enums import AddAction, CalculationRate
 from ..typing import DEFAULT, Default
-from .components import AllocatableComponent
+from .components import AllocatableComponent, Component
 from .synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2
 
 if TYPE_CHECKING:
@@ -94,12 +94,13 @@ class Track(AllocatableComponent[TrackParent]):
             pass
 
     async def delete(self) -> None:
+        # TODO: What are delete semantics actually?
         async with self._lock:
             if self._parent is not None:
                 self._parent._delete_track(self)
             self._delete()
 
-    async def move(self, index: Tuple[int, ...]) -> None:
+    async def move(self, *, index: int, parent: Union["Mixer", "Track"]) -> None:
         async with self._lock:
             pass
 
@@ -127,6 +128,10 @@ class Track(AllocatableComponent[TrackParent]):
         return f"{self.parent.address}.tracks[{index}]"
 
     @property
+    def children(self) -> List[Component]:
+        return list(self._tracks)
+
+    @property
     def output(self) -> Union["Mixer", "Track"]:
         if isinstance(self._output, Track):
             return self._output
@@ -135,5 +140,5 @@ class Track(AllocatableComponent[TrackParent]):
         return self.parent
 
     @property
-    def tracks(self) -> list["Track"]:
+    def tracks(self) -> List["Track"]:
         return self._tracks[:]

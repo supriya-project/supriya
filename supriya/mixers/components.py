@@ -6,6 +6,7 @@ from typing import (
     Generator,
     Generic,
     Iterator,
+    List,
     Literal,
     Optional,
     TypeAlias,
@@ -16,6 +17,7 @@ from typing import (
 from ..contexts import Buffer, BusGroup, Context, Group, Node
 from ..contexts.responses import QueryTreeGroup
 from ..enums import AddAction, BootStatus
+from ..utils import iterate_nwise
 
 C = TypeVar("C", bound="Component")
 
@@ -23,7 +25,6 @@ C = TypeVar("C", bound="Component")
 ChannelCount: TypeAlias = Literal[1, 2, 4, 8]
 
 if TYPE_CHECKING:
-    from .mixers import Mixer
     from .sessions import Session
 
 
@@ -53,6 +54,17 @@ class Component(Generic[C]):
     @property
     def address(self) -> str:
         raise NotImplementedError
+
+    @property
+    def children(self) -> List["Component"]:
+        raise NotImplementedError
+
+    @property
+    def graph_order(self) -> List[int]:
+        graph_order = []
+        for parent, child in iterate_nwise(reversed(list(self._iterate_parentage()))):
+            graph_order.append(parent.children.index(child))
+        return graph_order
 
     @property
     def parent(self) -> Optional[C]:
@@ -143,10 +155,3 @@ class AllocatableComponent(Component, Generic[C]):
             for name, node in component._nodes.items():
                 annotations[node.id_] = f"{address}:{name}"
         return tree.annotate(annotations)
-
-    @property
-    def mixer(self) -> "Mixer":
-        for component in self._iterate_parentage():
-            if isinstance(component, Mixer):
-                return component
-        raise RuntimeError
