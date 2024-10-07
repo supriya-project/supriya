@@ -29,7 +29,7 @@ async def test_Session_boot(online: bool, session: Session) -> None:
                         1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                             active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
                         1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                            gate: 1.0, in_: 18.0, out: 18.0
+                            gate: 1.0, in_: 18.0, out: 16.0
                 1002 channel-strip-2 (session.mixers[0]:channel_strip)
                     active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
                 1003 patch-cable-2 (session.mixers[0]:output)
@@ -84,7 +84,7 @@ async def test_Session_add_context(expectation, online: bool, session: Session) 
                             1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
                             1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                gate: 1.0, in_: 18.0, out: 18.0
+                                gate: 1.0, in_: 18.0, out: 16.0
                     1002 channel-strip-2 (session.mixers[0]:channel_strip)
                         active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
                     1003 patch-cable-2 (session.mixers[0]:output)
@@ -127,7 +127,7 @@ async def test_Session_add_mixer(
                                 1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                                     active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
                                 1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                    gate: 1.0, in_: 18.0, out: 18.0
+                                    gate: 1.0, in_: 18.0, out: 16.0
                         1002 channel-strip-2 (session.mixers[0]:channel_strip)
                             active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
                         1003 patch-cable-2 (session.mixers[0]:output)
@@ -140,7 +140,7 @@ async def test_Session_add_mixer(
                                 1006 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
                                     active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
                                 1007 patch-cable-2 (session.mixers[1].tracks[0]:output)
-                                    gate: 1.0, in_: 18.0, out: 18.0
+                                    gate: 1.0, in_: 18.0, out: 16.0
                         1002 channel-strip-2 (session.mixers[1]:channel_strip)
                             active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
                         1003 patch-cable-2 (session.mixers[1]:output)
@@ -158,7 +158,7 @@ async def test_Session_add_mixer(
                                 1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                                     active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
                                 1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                    gate: 1.0, in_: 18.0, out: 18.0
+                                    gate: 1.0, in_: 18.0, out: 16.0
                         1002 channel-strip-2 (session.mixers[0]:channel_strip)
                             active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
                         1003 patch-cable-2 (session.mixers[0]:output)
@@ -170,7 +170,7 @@ async def test_Session_add_mixer(
                                 1014 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
                                     active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
                                 1015 patch-cable-2 (session.mixers[1].tracks[0]:output)
-                                    gate: 1.0, in_: 22.0, out: 22.0
+                                    gate: 1.0, in_: 22.0, out: 20.0
                         1010 channel-strip-2 (session.mixers[1]:channel_strip)
                             active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
                         1011 patch-cable-2 (session.mixers[1]:output)
@@ -240,7 +240,7 @@ async def test_Session_set_mixer_context(
                             1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
                             1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                gate: 1.0, in_: 18.0, out: 18.0
+                                gate: 1.0, in_: 18.0, out: 16.0
                     1002 channel-strip-2 (session.mixers[0]:channel_strip)
                         active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
                     1003 patch-cable-2 (session.mixers[0]:output)
@@ -253,7 +253,7 @@ async def test_Session_set_mixer_context(
                             1006 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
                             1007 patch-cable-2 (session.mixers[1].tracks[0]:output)
-                                gate: 1.0, in_: 18.0, out: 18.0
+                                gate: 1.0, in_: 18.0, out: 16.0
                     1002 channel-strip-2 (session.mixers[1]:channel_strip)
                         active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
                     1003 patch-cable-2 (session.mixers[1]:output)
@@ -277,7 +277,7 @@ async def test_Session_set_mixer_context(
                             1006 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
                             1007 patch-cable-2 (session.mixers[1].tracks[0]:output)
-                                gate: 1.0, in_: 18.0, out: 18.0
+                                gate: 1.0, in_: 18.0, out: 16.0
                     1002 channel-strip-2 (session.mixers[1]:channel_strip)
                         active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
                     1003 patch-cable-2 (session.mixers[1]:output)
@@ -289,7 +289,7 @@ async def test_Session_set_mixer_context(
                             1014 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                                 active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
                             1015 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                gate: 1.0, in_: 22.0, out: 22.0
+                                gate: 1.0, in_: 22.0, out: 20.0
                     1010 channel-strip-2 (session.mixers[0]:channel_strip)
                         active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
                     1011 patch-cable-2 (session.mixers[0]:output)

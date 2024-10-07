@@ -1,4 +1,4 @@
-from typing import List, Optional, Union
+from typing import Generator, List, Optional, Union
 
 from ..contexts import BusGroup, Context, Node
 from ..enums import AddAction, CalculationRate
@@ -55,7 +55,8 @@ class Track(TrackContainer[TrackContainer]):
     ) -> None:
         AllocatableComponent.__init__(self, parent=parent)
         TrackContainer.__init__(self)
-        self._output: Optional[Union[Default, Track]] = DEFAULT
+        self._output: Optional[Union[Default, TrackContainer]] = DEFAULT
+        self._output_bus: Optional[BusGroup] = None  # Cached for reconciliation
 
     def _allocate(
         self,
@@ -65,6 +66,12 @@ class Track(TrackContainer[TrackContainer]):
         target_bus: BusGroup,
         target_node: Node,
     ) -> None:
+        super()._allocate(
+            add_action=add_action,
+            context=context,
+            target_bus=target_bus,
+            target_node=target_node,
+        )
         self._audio_buses["main"] = context.add_bus_group(
             calculation_rate=CalculationRate.AUDIO,
             count=2,
@@ -79,15 +86,36 @@ class Track(TrackContainer[TrackContainer]):
                 bus=self._audio_buses["main"],
                 synthdef=CHANNEL_STRIP_2,
             )
-            if self._output is not None:
+            self._reconcile_output()
+        for track in self.tracks:
+            self._allocate_track(track)
+
+    def _output_to_bus(self) -> Optional[BusGroup]:
+        if self._output is None or self.parent is None or not self._can_allocate():
+            return None
+        if isinstance(self._output, TrackContainer):
+            return self._output._audio_buses["main"]
+        return self.parent._audio_buses["main"]
+
+    def _reconcile_output(self) -> None:
+        new_output_bus = self._output_to_bus()
+        old_output_bus = self._output_bus
+        if old_output_bus != new_output_bus:
+            if self._nodes.get("output"):
+                self._nodes.pop("output").free()
+            if new_output_bus is not None:
                 self._nodes["output"] = self._nodes["group"].add_synth(
                     add_action=AddAction.ADD_TO_TAIL,
                     in_=self._audio_buses["main"],
-                    out=self._audio_buses["main"],
+                    out=new_output_bus,
                     synthdef=PATCH_CABLE_2,
                 )
+        self._output_bus = new_output_bus
+
+    def _walk(self) -> Generator[Component, None, None]:
+        yield from super()._walk()
         for track in self.tracks:
-            self._allocate_track(track)
+            yield from track._walk()
 
     async def activate(self) -> None:
         async with self._lock:
@@ -106,7 +134,34 @@ class Track(TrackContainer[TrackContainer]):
 
     async def move(self, *, index: int, parent: TrackContainer) -> None:
         async with self._lock:
-            pass
+            # Validate if moving is possible
+            if self.mixer is not parent.mixer:
+                raise RuntimeError
+            elif self in parent.parentage:
+                raise RuntimeError
+            elif index < 0 or index > len(parent.tracks):
+                raise RuntimeError
+            # Reconfigure parentage and bail if this is a no-op
+            old_parent, old_index = self._parent, 0
+            if old_parent is not None:
+                old_index = old_parent._tracks.index(self)
+            if old_parent is parent and old_index == index:
+                return  # Bail
+            old_parent._tracks.remove(self)
+            self._parent = parent
+            parent._tracks.insert(index, self)
+            # Apply changes against the context
+            if (context := self._can_allocate()) is None:
+                return  # Bail
+            if index == 0:
+                node_id = self._parent._nodes["tracks"]
+                add_action = AddAction.ADD_TO_HEAD
+            else:
+                node_id = self._parent._tracks[index - 1]._nodes["group"]
+                add_action = AddAction.ADD_AFTER
+            with context.at():
+                self._nodes["group"].move(target_node=node_id, add_action=add_action)
+                self._reconcile_output()
 
     async def set_output(self, output: Optional[Union[Default, "Track"]]) -> None:
         async with self._lock:

@@ -12,6 +12,7 @@ async def test_Mixer_add_track(mixer: Mixer, session: Session) -> None:
     # Operation
     await mixer.add_track()
     # Post-conditions
+    await session.sync()
     assert str(await mixer.dump_tree()) == normalize(
         """
         NODE TREE 1000 group (session.mixers[0]:group)
@@ -21,13 +22,13 @@ async def test_Mixer_add_track(mixer: Mixer, session: Session) -> None:
                     1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                         active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
                     1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                        gate: 1.0, in_: 18.0, out: 18.0
+                        gate: 1.0, in_: 18.0, out: 16.0
                 1008 group (session.mixers[0].tracks[1]:group)
                     1009 group (session.mixers[0].tracks[1]:tracks)
                     1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
                         active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
                     1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
-                        gate: 1.0, in_: 20.0, out: 20.0
+                        gate: 1.0, in_: 20.0, out: 16.0
             1002 channel-strip-2 (session.mixers[0]:channel_strip)
                 active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
             1003 patch-cable-2 (session.mixers[0]:output)

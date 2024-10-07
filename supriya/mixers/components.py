@@ -25,6 +25,7 @@ C = TypeVar("C", bound="Component")
 ChannelCount: TypeAlias = Literal[1, 2, 4, 8]
 
 if TYPE_CHECKING:
+    from .mixers import Mixer
     from .sessions import Session
 
 
@@ -61,17 +62,34 @@ class Component(Generic[C]):
 
     @property
     def graph_order(self) -> List[int]:
+        # TODO: Cache this
         graph_order = []
         for parent, child in iterate_nwise(reversed(list(self._iterate_parentage()))):
             graph_order.append(parent.children.index(child))
         return graph_order
 
     @property
+    def mixer(self) -> Optional["Mixer"]:
+        # TODO: Cache this
+        from .mixers import Mixer
+
+        for component in self._iterate_parentage():
+            if isinstance(component, Mixer):
+                return component
+        return None
+
+    @property
     def parent(self) -> Optional[C]:
         return self._parent
 
     @property
+    def parentage(self) -> List["Component"]:
+        # TODO: Cache this
+        return list(self._iterate_parentage())
+
+    @property
     def session(self) -> Optional["Session"]:
+        # TODO: Cache this
         from .sessions import Session
 
         for component in self._iterate_parentage():
@@ -111,10 +129,10 @@ class AllocatableComponent(Component, Generic[C]):
     ) -> None:
         self._context = context
 
-    def _can_allocate(self) -> bool:
-        return (
-            self._context is not None and self._context.boot_status == BootStatus.ONLINE
-        )
+    def _can_allocate(self) -> Optional[Context]:
+        if self._context is not None and self._context.boot_status == BootStatus.ONLINE:
+            return self._context
+        return None
 
     async def _deactivate(self) -> None:
         if group := self._nodes.get("group"):
