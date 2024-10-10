@@ -91,7 +91,11 @@ class Track(TrackContainer[TrackContainer]):
             self._allocate_track(track)
 
     def _output_to_bus(self) -> Optional[BusGroup]:
-        if self._output is None or self.parent is None or not self._can_allocate():
+        if self._output is None:
+            return None
+        if not self._can_allocate():
+            return None
+        if self.parent is None:
             return None
         if isinstance(self._output, TrackContainer):
             return self._output._audio_buses["main"]
@@ -163,9 +167,22 @@ class Track(TrackContainer[TrackContainer]):
                 self._nodes["group"].move(target_node=node_id, add_action=add_action)
                 self._reconcile_output()
 
-    async def set_output(self, output: Optional[Union[Default, "Track"]]) -> None:
+    async def set_output(
+        self, output: Optional[Union[Default, TrackContainer]]
+    ) -> None:
         async with self._lock:
-            pass
+            if isinstance(output, TrackContainer):
+                if self.mixer is not output.mixer:
+                    raise RuntimeError
+                elif output is self:
+                    raise RuntimeError
+                elif output is not None and output is self.parent:
+                    output = DEFAULT
+            self._output = output
+            if (context := self._can_allocate()) is None:
+                return  # Bail
+            with context.at():
+                self._reconcile_output()
 
     async def solo(self) -> None:
         async with self._lock:
@@ -191,9 +208,5 @@ class Track(TrackContainer[TrackContainer]):
         return list(self._tracks)
 
     @property
-    def output(self) -> TrackContainer:
-        if isinstance(self._output, Track):
-            return self._output
-        if self.parent is None:
-            raise RuntimeError
-        return self.parent
+    def output(self) -> Optional[Union[Default, TrackContainer]]:
+        return self._output

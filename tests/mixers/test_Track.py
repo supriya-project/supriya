@@ -1,5 +1,6 @@
 import contextlib
-from typing import Dict, List
+import difflib
+from typing import Dict, List, Optional, Union
 
 import pytest
 from uqbar.strings import normalize
@@ -7,7 +8,7 @@ from uqbar.strings import normalize
 from supriya.mixers import Session
 from supriya.mixers.mixers import Mixer
 from supriya.mixers.tracks import Track, TrackContainer
-from supriya.typing import DEFAULT
+from supriya.typing import DEFAULT, Default
 
 does_not_raise = contextlib.nullcontext()
 
@@ -393,10 +394,200 @@ async def test_Track_move(
         )
 
 
-@pytest.mark.parametrize("output", [None, DEFAULT])
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.parametrize(
+    "output, maybe_raises, expected_diff",
+    [
+        (
+            "none",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -13,8 +13,8 @@
+                                                 gate: 1.0, in_: 22.0, out: 20.0
+                                     1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
+                                         active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+            -                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            -                            gate: 1.0, in_: 20.0, out: 18.0
+            +                        1011 patch-cable-2
+            +                            gate: 0.0, in_: 20.0, out: 18.0
+                             1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                             1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            """,
+        ),
+        (
+            "default",
+            does_not_raise,
+            "",
+        ),
+        (
+            "self",
+            pytest.raises(RuntimeError),
+            "",
+        ),
+        (
+            "parent",
+            does_not_raise,
+            "",
+        ),
+        (
+            "child",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -13,8 +13,10 @@
+                                                 gate: 1.0, in_: 22.0, out: 20.0
+                                     1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
+                                         active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+            -                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            -                            gate: 1.0, in_: 20.0, out: 18.0
+            +                        1011 patch-cable-2
+            +                            gate: 0.0, in_: 20.0, out: 18.0
+            +                        1028 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            +                            gate: 1.0, in_: 20.0, out: 22.0
+                             1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                             1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            """,
+        ),
+        (
+            "mixer",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -13,8 +13,10 @@
+                                                 gate: 1.0, in_: 22.0, out: 20.0
+                                     1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
+                                         active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+            -                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            -                            gate: 1.0, in_: 20.0, out: 18.0
+            +                        1011 patch-cable-2
+            +                            gate: 0.0, in_: 20.0, out: 18.0
+            +                        1028 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            +                            gate: 1.0, in_: 20.0, out: 16.0
+                             1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                             1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            """,
+        ),
+        (
+            "sibling",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -13,8 +13,10 @@
+                                                 gate: 1.0, in_: 22.0, out: 20.0
+                                     1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
+                                         active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+            -                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            -                            gate: 1.0, in_: 20.0, out: 18.0
+            +                        1011 patch-cable-2
+            +                            gate: 0.0, in_: 20.0, out: 18.0
+            +                        1028 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            +                            gate: 1.0, in_: 20.0, out: 24.0
+                             1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                             1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            """,
+        ),
+        (
+            "other_mixer",
+            pytest.raises(RuntimeError),
+            "",
+        ),
+    ],
+)
 @pytest.mark.asyncio
-async def test_Track_set_output(output, track: Track) -> None:
-    await track.set_output(output)
+async def test_Track_set_output(
+    expected_diff: str,
+    maybe_raises,
+    mixer: Mixer,
+    online: bool,
+    output: str,
+    session: Session,
+    track: Track,
+) -> None:
+    subtrack = await track.add_track()
+    subsubtrack = await subtrack.add_track()
+    sibling = await mixer.add_track()
+    if online or True:
+        await session.boot()
+    targets: Dict[str, Optional[Union[Default, TrackContainer]]] = {
+        "child": subsubtrack,
+        "default": DEFAULT,
+        "mixer": mixer,
+        "none": None,
+        "other_mixer": await session.add_mixer(),
+        "parent": track,
+        "self": subtrack,
+        "sibling": sibling,
+    }
+    with maybe_raises:
+        await subtrack.set_output(targets[output])
+    if online:
+        await session.sync()
+        actual_tree = str(await session.dump_tree())
+        initial_tree = normalize(
+            """
+            {context}
+                NODE TREE 1000 group (session.mixers[0]:group)
+                    1001 group (session.mixers[0]:tracks)
+                        1004 group (session.mixers[0].tracks[0]:group)
+                            1005 group (session.mixers[0].tracks[0]:tracks)
+                                1008 group (session.mixers[0].tracks[0].tracks[0]:group)
+                                    1009 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+                                        1012 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
+                                            1013 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
+                                            1014 channel-strip-2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:channel_strip)
+                                                active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
+                                            1015 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:output)
+                                                gate: 1.0, in_: 22.0, out: 20.0
+                                    1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
+                                        active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+                                    1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+                                        gate: 1.0, in_: 20.0, out: 18.0
+                            1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                                active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                            1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                                gate: 1.0, in_: 18.0, out: 16.0
+                        1016 group (session.mixers[0].tracks[1]:group)
+                            1017 group (session.mixers[0].tracks[1]:tracks)
+                            1018 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+                                active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
+                            1019 patch-cable-2 (session.mixers[0].tracks[1]:output)
+                                gate: 1.0, in_: 24.0, out: 16.0
+                    1002 channel-strip-2 (session.mixers[0]:channel_strip)
+                        active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
+                    1003 patch-cable-2 (session.mixers[0]:output)
+                        gate: 1.0, in_: 16.0, out: 0.0
+                NODE TREE 1020 group (session.mixers[1]:group)
+                    1021 group (session.mixers[1]:tracks)
+                        1024 group (session.mixers[1].tracks[0]:group)
+                            1025 group (session.mixers[1].tracks[0]:tracks)
+                            1026 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
+                                active: 1.0, bus: 28.0, gain: 0.0, gate: 1.0
+                            1027 patch-cable-2 (session.mixers[1].tracks[0]:output)
+                                gate: 1.0, in_: 28.0, out: 26.0
+                    1022 channel-strip-2 (session.mixers[1]:channel_strip)
+                        active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
+                    1023 patch-cable-2 (session.mixers[1]:output)
+                        gate: 1.0, in_: 26.0, out: 0.0
+            """
+        ).format(context=repr(session.contexts[0]))
+        actual_diff = "".join(
+            difflib.unified_diff(
+                initial_tree.splitlines(True),
+                actual_tree.splitlines(True),
+                tofile="mutation",
+                fromfile="initial",
+            )
+        )
+        assert normalize(expected_diff) == normalize(actual_diff)
 
 
 @pytest.mark.asyncio
