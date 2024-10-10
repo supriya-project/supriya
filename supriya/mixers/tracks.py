@@ -151,7 +151,8 @@ class Track(TrackContainer[TrackContainer]):
                 old_index = old_parent._tracks.index(self)
             if old_parent is parent and old_index == index:
                 return  # Bail
-            old_parent._tracks.remove(self)
+            if old_parent is not None:
+                old_parent._tracks.remove(self)
             self._parent = parent
             parent._tracks.insert(index, self)
             # Apply changes against the context

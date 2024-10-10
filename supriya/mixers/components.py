@@ -98,7 +98,7 @@ class Component(Generic[C]):
         return None
 
 
-class AllocatableComponent(Component, Generic[C]):
+class AllocatableComponent(Component[C]):
 
     def __init__(
         self,

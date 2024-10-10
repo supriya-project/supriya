@@ -13,6 +13,22 @@ from supriya.typing import DEFAULT, Default
 does_not_raise = contextlib.nullcontext()
 
 
+async def assert_diff(session: Session, expected_diff: str, initial_tree: str) -> None:
+    await session.sync()
+    actual_tree = str(await session.dump_tree()).replace(
+        repr(session.contexts[0]), "{context}"
+    )
+    actual_diff = "".join(
+        difflib.unified_diff(
+            normalize(initial_tree).splitlines(True),
+            actual_tree.splitlines(True),
+            tofile="mutation",
+            fromfile="initial",
+        )
+    )
+    assert normalize(expected_diff) == normalize(actual_diff)
+
+
 @pytest.fixture
 def track(mixer: Mixer) -> Track:
     return mixer.tracks[0]
@@ -33,148 +49,132 @@ async def test_Track_deactivate(track: Track) -> None:
     await track.deactivate()
 
 
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.parametrize(
+    "target, expected_diff",
+    [
+        ("parent", ""),
+        ("self", ""),
+        ("child", ""),
+        ("sibling", ""),
+    ],
+)
 @pytest.mark.asyncio
-async def test_Track_delete(track: Track) -> None:
-    await track.delete()
+async def test_Track_delete(
+    expected_diff: str,
+    online: bool,
+    mixer: Mixer,
+    session: Session,
+    target: str,
+) -> None:
+    # Pre-conditions
+    if online:
+        await session.boot()
+    targets: Dict[str, Track] = {
+        "parent": (parent := await mixer.add_track()),
+        "self": (track := await parent.add_track()),
+        "child": await track.add_track(),
+        "sibling": (sibling := await mixer.add_track()),
+    }
+    await sibling.set_output(track)
+    target_ = targets[target]
+    parent_ = target_.parent
+    # Operation
+    await target_.delete()
+    # Post-conditions
+    assert parent_ and target_ not in parent_.children
+    if not online:
+        return
+    await assert_diff(
+        session,
+        expected_diff,
+        initial_tree="""
+        {context}
+            NODE TREE 1000 group (session.mixers[0]:group)
+                1001 group (session.mixers[0]:tracks)
+                    1004 group (session.mixers[0].tracks[0]:group)
+                        1005 group (session.mixers[0].tracks[0]:tracks)
+                        1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                            active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                        1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                            gate: 1.0, in_: 18.0, out: 16.0
+                    1008 group (session.mixers[0].tracks[1]:group)
+                        1009 group (session.mixers[0].tracks[1]:tracks)
+                            1012 group (session.mixers[0].tracks[1].tracks[0]:group)
+                                1013 group (session.mixers[0].tracks[1].tracks[0]:tracks)
+                                    1016 group (session.mixers[0].tracks[1].tracks[0].tracks[0]:group)
+                                        1017 group (session.mixers[0].tracks[1].tracks[0].tracks[0]:tracks)
+                                        1018 channel-strip-2 (session.mixers[0].tracks[1].tracks[0].tracks[0]:channel_strip)
+                                            active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
+                                        1019 patch-cable-2 (session.mixers[0].tracks[1].tracks[0].tracks[0]:output)
+                                            gate: 1.0, in_: 24.0, out: 22.0
+                                1014 channel-strip-2 (session.mixers[0].tracks[1].tracks[0]:channel_strip)
+                                    active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
+                                1015 patch-cable-2 (session.mixers[0].tracks[1].tracks[0]:output)
+                                    gate: 1.0, in_: 22.0, out: 20.0
+                        1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+                            active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+                        1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
+                            gate: 1.0, in_: 20.0, out: 16.0
+                    1020 group (session.mixers[0].tracks[2]:group)
+                        1021 group (session.mixers[0].tracks[2]:tracks)
+                        1022 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
+                            active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
+                        1023 patch-cable-2
+                            gate: 0.0, in_: 26.0, out: 16.0
+                        1024 patch-cable-2 (session.mixers[0].tracks[2]:output)
+                            gate: 1.0, in_: 26.0, out: 22.0
+                1002 channel-strip-2 (session.mixers[0]:channel_strip)
+                    active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
+                1003 patch-cable-2 (session.mixers[0]:output)
+                    gate: 1.0, in_: 16.0, out: 0.0
+        """,
+    )
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "parent, index, maybe_raises, expected_graph_order, expected_tree",
+    "parent, index, maybe_raises, expected_graph_order, expected_diff",
     [
-        (
-            "self",
-            0,
-            pytest.raises(RuntimeError),
-            [0, 0],
-            """
-            {context}
-                NODE TREE 1000 group (session.mixers[0]:group)
-                    1001 group (session.mixers[0]:tracks)
-                        1004 group (session.mixers[0].tracks[0]:group)
-                            1005 group (session.mixers[0].tracks[0]:tracks)
-                            1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
-                                active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                            1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                gate: 1.0, in_: 18.0, out: 16.0
-                        1008 group (session.mixers[0].tracks[1]:group)
-                            1009 group (session.mixers[0].tracks[1]:tracks)
-                            1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
-                                active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-                            1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
-                                gate: 1.0, in_: 20.0, out: 16.0
-                        1012 group (session.mixers[0].tracks[2]:group)
-                            1013 group (session.mixers[0].tracks[2]:tracks)
-                            1014 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
-                                active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-                            1015 patch-cable-2 (session.mixers[0].tracks[2]:output)
-                                gate: 1.0, in_: 22.0, out: 16.0
-                    1002 channel-strip-2 (session.mixers[0]:channel_strip)
-                        active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
-                    1003 patch-cable-2 (session.mixers[0]:output)
-                        gate: 1.0, in_: 16.0, out: 0.0
-                NODE TREE 1016 group (session.mixers[1]:group)
-                    1017 group (session.mixers[1]:tracks)
-                        1020 group (session.mixers[1].tracks[0]:group)
-                            1021 group (session.mixers[1].tracks[0]:tracks)
-                            1022 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
-                                active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
-                            1023 patch-cable-2 (session.mixers[1].tracks[0]:output)
-                                gate: 1.0, in_: 26.0, out: 24.0
-                    1018 channel-strip-2 (session.mixers[1]:channel_strip)
-                        active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
-                    1019 patch-cable-2 (session.mixers[1]:output)
-                        gate: 1.0, in_: 24.0, out: 0.0
-            """,
-        ),
-        (
-            "mixer",
-            0,
-            does_not_raise,
-            [0, 0],
-            """
-            {context}
-                NODE TREE 1000 group (session.mixers[0]:group)
-                    1001 group (session.mixers[0]:tracks)
-                        1004 group (session.mixers[0].tracks[0]:group)
-                            1005 group (session.mixers[0].tracks[0]:tracks)
-                            1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
-                                active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                            1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                gate: 1.0, in_: 18.0, out: 16.0
-                        1008 group (session.mixers[0].tracks[1]:group)
-                            1009 group (session.mixers[0].tracks[1]:tracks)
-                            1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
-                                active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-                            1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
-                                gate: 1.0, in_: 20.0, out: 16.0
-                        1012 group (session.mixers[0].tracks[2]:group)
-                            1013 group (session.mixers[0].tracks[2]:tracks)
-                            1014 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
-                                active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-                            1015 patch-cable-2 (session.mixers[0].tracks[2]:output)
-                                gate: 1.0, in_: 22.0, out: 16.0
-                    1002 channel-strip-2 (session.mixers[0]:channel_strip)
-                        active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
-                    1003 patch-cable-2 (session.mixers[0]:output)
-                        gate: 1.0, in_: 16.0, out: 0.0
-                NODE TREE 1016 group (session.mixers[1]:group)
-                    1017 group (session.mixers[1]:tracks)
-                        1020 group (session.mixers[1].tracks[0]:group)
-                            1021 group (session.mixers[1].tracks[0]:tracks)
-                            1022 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
-                                active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
-                            1023 patch-cable-2 (session.mixers[1].tracks[0]:output)
-                                gate: 1.0, in_: 26.0, out: 24.0
-                    1018 channel-strip-2 (session.mixers[1]:channel_strip)
-                        active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
-                    1019 patch-cable-2 (session.mixers[1]:output)
-                        gate: 1.0, in_: 24.0, out: 0.0
-            """,
-        ),
+        ("self", 0, pytest.raises(RuntimeError), [0, 0], ""),
+        ("mixer", 0, does_not_raise, [0, 0], ""),
         (
             "mixer",
             1,
             does_not_raise,
             [0, 1],
             """
-            {context}
-                NODE TREE 1000 group (session.mixers[0]:group)
-                    1001 group (session.mixers[0]:tracks)
-                        1008 group (session.mixers[0].tracks[0]:group)
-                            1009 group (session.mixers[0].tracks[0]:tracks)
-                            1010 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
-                                active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-                            1011 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                gate: 1.0, in_: 20.0, out: 16.0
-                        1004 group (session.mixers[0].tracks[1]:group)
-                            1005 group (session.mixers[0].tracks[1]:tracks)
-                            1006 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
-                                active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                            1007 patch-cable-2 (session.mixers[0].tracks[1]:output)
-                                gate: 1.0, in_: 18.0, out: 16.0
-                        1012 group (session.mixers[0].tracks[2]:group)
-                            1013 group (session.mixers[0].tracks[2]:tracks)
-                            1014 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
-                                active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-                            1015 patch-cable-2 (session.mixers[0].tracks[2]:output)
-                                gate: 1.0, in_: 22.0, out: 16.0
-                    1002 channel-strip-2 (session.mixers[0]:channel_strip)
-                        active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
-                    1003 patch-cable-2 (session.mixers[0]:output)
-                        gate: 1.0, in_: 16.0, out: 0.0
-                NODE TREE 1016 group (session.mixers[1]:group)
-                    1017 group (session.mixers[1]:tracks)
-                        1020 group (session.mixers[1].tracks[0]:group)
-                            1021 group (session.mixers[1].tracks[0]:tracks)
-                            1022 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
-                                active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
-                            1023 patch-cable-2 (session.mixers[1].tracks[0]:output)
-                                gate: 1.0, in_: 26.0, out: 24.0
-                    1018 channel-strip-2 (session.mixers[1]:channel_strip)
-                        active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
-                    1019 patch-cable-2 (session.mixers[1]:output)
-                        gate: 1.0, in_: 24.0, out: 0.0
+            --- initial
+            +++ mutation
+            @@ -1,18 +1,18 @@
+             {context}
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+            -            1004 group (session.mixers[0].tracks[0]:group)
+            -                1005 group (session.mixers[0].tracks[0]:tracks)
+            -                1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+            +            1008 group (session.mixers[0].tracks[0]:group)
+            +                1009 group (session.mixers[0].tracks[0]:tracks)
+            +                1010 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+            +                    active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+            +                1011 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            +                    gate: 1.0, in_: 20.0, out: 16.0
+            +            1004 group (session.mixers[0].tracks[1]:group)
+            +                1005 group (session.mixers[0].tracks[1]:tracks)
+            +                1006 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+            -                1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            +                1007 patch-cable-2 (session.mixers[0].tracks[1]:output)
+                                 gate: 1.0, in_: 18.0, out: 16.0
+            -            1008 group (session.mixers[0].tracks[1]:group)
+            -                1009 group (session.mixers[0].tracks[1]:tracks)
+            -                1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+            -                    active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+            -                1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
+            -                    gate: 1.0, in_: 20.0, out: 16.0
+                         1012 group (session.mixers[0].tracks[2]:group)
+                             1013 group (session.mixers[0].tracks[2]:tracks)
+                             1014 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
             """,
         ),
         (
@@ -183,43 +183,49 @@ async def test_Track_delete(track: Track) -> None:
             does_not_raise,
             [0, 2],
             """
-            {context}
-                NODE TREE 1000 group (session.mixers[0]:group)
-                    1001 group (session.mixers[0]:tracks)
-                        1008 group (session.mixers[0].tracks[0]:group)
-                            1009 group (session.mixers[0].tracks[0]:tracks)
-                            1010 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
-                                active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-                            1011 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                gate: 1.0, in_: 20.0, out: 16.0
-                        1012 group (session.mixers[0].tracks[1]:group)
-                            1013 group (session.mixers[0].tracks[1]:tracks)
-                            1014 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
-                                active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-                            1015 patch-cable-2 (session.mixers[0].tracks[1]:output)
-                                gate: 1.0, in_: 22.0, out: 16.0
-                        1004 group (session.mixers[0].tracks[2]:group)
-                            1005 group (session.mixers[0].tracks[2]:tracks)
-                            1006 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
-                                active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                            1007 patch-cable-2 (session.mixers[0].tracks[2]:output)
-                                gate: 1.0, in_: 18.0, out: 16.0
-                    1002 channel-strip-2 (session.mixers[0]:channel_strip)
-                        active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
-                    1003 patch-cable-2 (session.mixers[0]:output)
-                        gate: 1.0, in_: 16.0, out: 0.0
-                NODE TREE 1016 group (session.mixers[1]:group)
-                    1017 group (session.mixers[1]:tracks)
-                        1020 group (session.mixers[1].tracks[0]:group)
-                            1021 group (session.mixers[1].tracks[0]:tracks)
-                            1022 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
-                                active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
-                            1023 patch-cable-2 (session.mixers[1].tracks[0]:output)
-                                gate: 1.0, in_: 26.0, out: 24.0
-                    1018 channel-strip-2 (session.mixers[1]:channel_strip)
-                        active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
-                    1019 patch-cable-2 (session.mixers[1]:output)
-                        gate: 1.0, in_: 24.0, out: 0.0
+            --- initial
+            +++ mutation
+            @@ -1,24 +1,24 @@
+             {context}
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+            -            1004 group (session.mixers[0].tracks[0]:group)
+            -                1005 group (session.mixers[0].tracks[0]:tracks)
+            -                1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+            +            1008 group (session.mixers[0].tracks[0]:group)
+            +                1009 group (session.mixers[0].tracks[0]:tracks)
+            +                1010 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+            +                    active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+            +                1011 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            +                    gate: 1.0, in_: 20.0, out: 16.0
+            +            1012 group (session.mixers[0].tracks[1]:group)
+            +                1013 group (session.mixers[0].tracks[1]:tracks)
+            +                1014 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+            +                    active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
+            +                1015 patch-cable-2 (session.mixers[0].tracks[1]:output)
+            +                    gate: 1.0, in_: 22.0, out: 16.0
+            +            1004 group (session.mixers[0].tracks[2]:group)
+            +                1005 group (session.mixers[0].tracks[2]:tracks)
+            +                1006 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
+                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+            -                1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            +                1007 patch-cable-2 (session.mixers[0].tracks[2]:output)
+                                 gate: 1.0, in_: 18.0, out: 16.0
+            -            1008 group (session.mixers[0].tracks[1]:group)
+            -                1009 group (session.mixers[0].tracks[1]:tracks)
+            -                1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+            -                    active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+            -                1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
+            -                    gate: 1.0, in_: 20.0, out: 16.0
+            -            1012 group (session.mixers[0].tracks[2]:group)
+            -                1013 group (session.mixers[0].tracks[2]:tracks)
+            -                1014 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
+            -                    active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
+            -                1015 patch-cable-2 (session.mixers[0].tracks[2]:output)
+            -                    gate: 1.0, in_: 22.0, out: 16.0
+                     1002 channel-strip-2 (session.mixers[0]:channel_strip)
+                         active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
+                     1003 patch-cable-2 (session.mixers[0]:output)
             """,
         ),
         (
@@ -228,45 +234,48 @@ async def test_Track_delete(track: Track) -> None:
             does_not_raise,
             [0, 0, 0],
             """
-            {context}
-                NODE TREE 1000 group (session.mixers[0]:group)
-                    1001 group (session.mixers[0]:tracks)
-                        1008 group (session.mixers[0].tracks[0]:group)
-                            1009 group (session.mixers[0].tracks[0]:tracks)
-                                1004 group (session.mixers[0].tracks[0].tracks[0]:group)
-                                    1005 group (session.mixers[0].tracks[0].tracks[0]:tracks)
-                                    1006 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
-                                        active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                                    1007 patch-cable-2
-                                        gate: 0.0, in_: 18.0, out: 16.0
-                                    1024 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
-                                        gate: 1.0, in_: 18.0, out: 20.0
-                            1010 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
-                                active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-                            1011 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                gate: 1.0, in_: 20.0, out: 16.0
-                        1012 group (session.mixers[0].tracks[1]:group)
-                            1013 group (session.mixers[0].tracks[1]:tracks)
-                            1014 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
-                                active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-                            1015 patch-cable-2 (session.mixers[0].tracks[1]:output)
-                                gate: 1.0, in_: 22.0, out: 16.0
-                    1002 channel-strip-2 (session.mixers[0]:channel_strip)
-                        active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
-                    1003 patch-cable-2 (session.mixers[0]:output)
-                        gate: 1.0, in_: 16.0, out: 0.0
-                NODE TREE 1016 group (session.mixers[1]:group)
-                    1017 group (session.mixers[1]:tracks)
-                        1020 group (session.mixers[1].tracks[0]:group)
-                            1021 group (session.mixers[1].tracks[0]:tracks)
-                            1022 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
-                                active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
-                            1023 patch-cable-2 (session.mixers[1].tracks[0]:output)
-                                gate: 1.0, in_: 26.0, out: 24.0
-                    1018 channel-strip-2 (session.mixers[1]:channel_strip)
-                        active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
-                    1019 patch-cable-2 (session.mixers[1]:output)
-                        gate: 1.0, in_: 24.0, out: 0.0
+            --- initial
+            +++ mutation
+            @@ -1,23 +1,25 @@
+             {context}
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+            -            1004 group (session.mixers[0].tracks[0]:group)
+            -                1005 group (session.mixers[0].tracks[0]:tracks)
+            -                1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+            -                    active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+            -                1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            -                    gate: 1.0, in_: 18.0, out: 16.0
+            -            1008 group (session.mixers[0].tracks[1]:group)
+            -                1009 group (session.mixers[0].tracks[1]:tracks)
+            -                1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+            +            1008 group (session.mixers[0].tracks[0]:group)
+            +                1009 group (session.mixers[0].tracks[0]:tracks)
+            +                    1004 group (session.mixers[0].tracks[0].tracks[0]:group)
+            +                        1005 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+            +                        1006 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
+            +                            active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+            +                        1007 patch-cable-2
+            +                            gate: 0.0, in_: 18.0, out: 16.0
+            +                        1024 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            +                            gate: 1.0, in_: 18.0, out: 20.0
+            +                1010 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                                 active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+            -                1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
+            +                1011 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                                 gate: 1.0, in_: 20.0, out: 16.0
+            -            1012 group (session.mixers[0].tracks[2]:group)
+            -                1013 group (session.mixers[0].tracks[2]:tracks)
+            -                1014 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
+            +            1012 group (session.mixers[0].tracks[1]:group)
+            +                1013 group (session.mixers[0].tracks[1]:tracks)
+            +                1014 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+                                 active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
+            -                1015 patch-cable-2 (session.mixers[0].tracks[2]:output)
+            +                1015 patch-cable-2 (session.mixers[0].tracks[1]:output)
+                                 gate: 1.0, in_: 22.0, out: 16.0
+                     1002 channel-strip-2 (session.mixers[0]:channel_strip)
+                         active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
             """,
         ),
         (
@@ -275,98 +284,57 @@ async def test_Track_delete(track: Track) -> None:
             does_not_raise,
             [0, 1, 0],
             """
-            {context}
-                NODE TREE 1000 group (session.mixers[0]:group)
-                    1001 group (session.mixers[0]:tracks)
-                        1008 group (session.mixers[0].tracks[0]:group)
-                            1009 group (session.mixers[0].tracks[0]:tracks)
-                            1010 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
-                                active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-                            1011 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                gate: 1.0, in_: 20.0, out: 16.0
-                        1012 group (session.mixers[0].tracks[1]:group)
-                            1013 group (session.mixers[0].tracks[1]:tracks)
-                                1004 group (session.mixers[0].tracks[1].tracks[0]:group)
-                                    1005 group (session.mixers[0].tracks[1].tracks[0]:tracks)
-                                    1006 channel-strip-2 (session.mixers[0].tracks[1].tracks[0]:channel_strip)
-                                        active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                                    1007 patch-cable-2
-                                        gate: 0.0, in_: 18.0, out: 16.0
-                                    1024 patch-cable-2 (session.mixers[0].tracks[1].tracks[0]:output)
-                                        gate: 1.0, in_: 18.0, out: 22.0
-                            1014 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
-                                active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-                            1015 patch-cable-2 (session.mixers[0].tracks[1]:output)
-                                gate: 1.0, in_: 22.0, out: 16.0
-                    1002 channel-strip-2 (session.mixers[0]:channel_strip)
-                        active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
-                    1003 patch-cable-2 (session.mixers[0]:output)
-                        gate: 1.0, in_: 16.0, out: 0.0
-                NODE TREE 1016 group (session.mixers[1]:group)
-                    1017 group (session.mixers[1]:tracks)
-                        1020 group (session.mixers[1].tracks[0]:group)
-                            1021 group (session.mixers[1].tracks[0]:tracks)
-                            1022 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
-                                active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
-                            1023 patch-cable-2 (session.mixers[1].tracks[0]:output)
-                                gate: 1.0, in_: 26.0, out: 24.0
-                    1018 channel-strip-2 (session.mixers[1]:channel_strip)
-                        active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
-                    1019 patch-cable-2 (session.mixers[1]:output)
-                        gate: 1.0, in_: 24.0, out: 0.0
+            --- initial
+            +++ mutation
+            @@ -1,23 +1,25 @@
+             {context}
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+            -            1004 group (session.mixers[0].tracks[0]:group)
+            -                1005 group (session.mixers[0].tracks[0]:tracks)
+            -                1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+            -                    active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+            -                1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            -                    gate: 1.0, in_: 18.0, out: 16.0
+            -            1008 group (session.mixers[0].tracks[1]:group)
+            -                1009 group (session.mixers[0].tracks[1]:tracks)
+            -                1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+            +            1008 group (session.mixers[0].tracks[0]:group)
+            +                1009 group (session.mixers[0].tracks[0]:tracks)
+            +                1010 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                                 active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+            -                1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
+            +                1011 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                                 gate: 1.0, in_: 20.0, out: 16.0
+            -            1012 group (session.mixers[0].tracks[2]:group)
+            -                1013 group (session.mixers[0].tracks[2]:tracks)
+            -                1014 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
+            +            1012 group (session.mixers[0].tracks[1]:group)
+            +                1013 group (session.mixers[0].tracks[1]:tracks)
+            +                    1004 group (session.mixers[0].tracks[1].tracks[0]:group)
+            +                        1005 group (session.mixers[0].tracks[1].tracks[0]:tracks)
+            +                        1006 channel-strip-2 (session.mixers[0].tracks[1].tracks[0]:channel_strip)
+            +                            active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+            +                        1007 patch-cable-2
+            +                            gate: 0.0, in_: 18.0, out: 16.0
+            +                        1024 patch-cable-2 (session.mixers[0].tracks[1].tracks[0]:output)
+            +                            gate: 1.0, in_: 18.0, out: 22.0
+            +                1014 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+                                 active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
+            -                1015 patch-cable-2 (session.mixers[0].tracks[2]:output)
+            +                1015 patch-cable-2 (session.mixers[0].tracks[1]:output)
+                                 gate: 1.0, in_: 22.0, out: 16.0
+                     1002 channel-strip-2 (session.mixers[0]:channel_strip)
+                         active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
             """,
         ),
-        (
-            "other_mixer",
-            0,
-            pytest.raises(RuntimeError),
-            [0, 0],
-            """
-            {context}
-                NODE TREE 1000 group (session.mixers[0]:group)
-                    1001 group (session.mixers[0]:tracks)
-                        1004 group (session.mixers[0].tracks[0]:group)
-                            1005 group (session.mixers[0].tracks[0]:tracks)
-                            1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
-                                active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                            1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                gate: 1.0, in_: 18.0, out: 16.0
-                        1008 group (session.mixers[0].tracks[1]:group)
-                            1009 group (session.mixers[0].tracks[1]:tracks)
-                            1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
-                                active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-                            1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
-                                gate: 1.0, in_: 20.0, out: 16.0
-                        1012 group (session.mixers[0].tracks[2]:group)
-                            1013 group (session.mixers[0].tracks[2]:tracks)
-                            1014 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
-                                active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-                            1015 patch-cable-2 (session.mixers[0].tracks[2]:output)
-                                gate: 1.0, in_: 22.0, out: 16.0
-                    1002 channel-strip-2 (session.mixers[0]:channel_strip)
-                        active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
-                    1003 patch-cable-2 (session.mixers[0]:output)
-                        gate: 1.0, in_: 16.0, out: 0.0
-                NODE TREE 1016 group (session.mixers[1]:group)
-                    1017 group (session.mixers[1]:tracks)
-                        1020 group (session.mixers[1].tracks[0]:group)
-                            1021 group (session.mixers[1].tracks[0]:tracks)
-                            1022 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
-                                active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
-                            1023 patch-cable-2 (session.mixers[1].tracks[0]:output)
-                                gate: 1.0, in_: 26.0, out: 24.0
-                    1018 channel-strip-2 (session.mixers[1]:channel_strip)
-                        active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
-                    1019 patch-cable-2 (session.mixers[1]:output)
-                        gate: 1.0, in_: 24.0, out: 0.0
-            """,
-        ),
+        ("other_mixer", 0, pytest.raises(RuntimeError), [0, 0], ""),
     ],
 )
 @pytest.mark.asyncio
 async def test_Track_move(
     expected_graph_order: List[int],
-    expected_tree: str,
+    expected_diff: str,
     index: int,
     mixer: Mixer,
     online: bool,
@@ -375,6 +343,7 @@ async def test_Track_move(
     session: Session,
     track: Track,
 ) -> None:
+    # Pre-conditions
     if online:
         await session.boot()
     targets: Dict[str, TrackContainer] = {
@@ -384,14 +353,56 @@ async def test_Track_move(
         "other_other": await mixer.add_track(),
         "other_mixer": await session.add_mixer(),
     }
+    # Operation
     with maybe_raises:
         await track.move(index=index, parent=targets[parent])
+    # Post-conditions
     assert track.graph_order == expected_graph_order
-    if online:
-        await session.sync()
-        assert str(await session.dump_tree()) == normalize(
-            expected_tree.format(context=repr(session.contexts[0]))
-        )
+    if not online:
+        return
+    await assert_diff(
+        session,
+        expected_diff,
+        initial_tree="""
+        {context}
+            NODE TREE 1000 group (session.mixers[0]:group)
+                1001 group (session.mixers[0]:tracks)
+                    1004 group (session.mixers[0].tracks[0]:group)
+                        1005 group (session.mixers[0].tracks[0]:tracks)
+                        1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                            active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                        1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                            gate: 1.0, in_: 18.0, out: 16.0
+                    1008 group (session.mixers[0].tracks[1]:group)
+                        1009 group (session.mixers[0].tracks[1]:tracks)
+                        1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+                            active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+                        1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
+                            gate: 1.0, in_: 20.0, out: 16.0
+                    1012 group (session.mixers[0].tracks[2]:group)
+                        1013 group (session.mixers[0].tracks[2]:tracks)
+                        1014 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
+                            active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
+                        1015 patch-cable-2 (session.mixers[0].tracks[2]:output)
+                            gate: 1.0, in_: 22.0, out: 16.0
+                1002 channel-strip-2 (session.mixers[0]:channel_strip)
+                    active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
+                1003 patch-cable-2 (session.mixers[0]:output)
+                    gate: 1.0, in_: 16.0, out: 0.0
+            NODE TREE 1016 group (session.mixers[1]:group)
+                1017 group (session.mixers[1]:tracks)
+                    1020 group (session.mixers[1].tracks[0]:group)
+                        1021 group (session.mixers[1].tracks[0]:tracks)
+                        1022 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
+                            active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
+                        1023 patch-cable-2 (session.mixers[1].tracks[0]:output)
+                            gate: 1.0, in_: 26.0, out: 24.0
+                1018 channel-strip-2 (session.mixers[1]:channel_strip)
+                    active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
+                1019 patch-cable-2 (session.mixers[1]:output)
+                    gate: 1.0, in_: 24.0, out: 0.0
+        """,
+    )
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -512,6 +523,7 @@ async def test_Track_set_output(
     session: Session,
     track: Track,
 ) -> None:
+    # Pre-conditions
     subtrack = await track.add_track()
     subsubtrack = await subtrack.add_track()
     sibling = await mixer.add_track()
@@ -527,67 +539,61 @@ async def test_Track_set_output(
         "self": subtrack,
         "sibling": sibling,
     }
+    # Operation
     with maybe_raises:
         await subtrack.set_output(targets[output])
-    if online:
-        await session.sync()
-        actual_tree = str(await session.dump_tree())
-        initial_tree = normalize(
-            """
-            {context}
-                NODE TREE 1000 group (session.mixers[0]:group)
-                    1001 group (session.mixers[0]:tracks)
-                        1004 group (session.mixers[0].tracks[0]:group)
-                            1005 group (session.mixers[0].tracks[0]:tracks)
-                                1008 group (session.mixers[0].tracks[0].tracks[0]:group)
-                                    1009 group (session.mixers[0].tracks[0].tracks[0]:tracks)
-                                        1012 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
-                                            1013 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
-                                            1014 channel-strip-2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:channel_strip)
-                                                active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-                                            1015 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:output)
-                                                gate: 1.0, in_: 22.0, out: 20.0
-                                    1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
-                                        active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-                                    1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
-                                        gate: 1.0, in_: 20.0, out: 18.0
-                            1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
-                                active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                            1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
-                                gate: 1.0, in_: 18.0, out: 16.0
-                        1016 group (session.mixers[0].tracks[1]:group)
-                            1017 group (session.mixers[0].tracks[1]:tracks)
-                            1018 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
-                                active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
-                            1019 patch-cable-2 (session.mixers[0].tracks[1]:output)
-                                gate: 1.0, in_: 24.0, out: 16.0
-                    1002 channel-strip-2 (session.mixers[0]:channel_strip)
-                        active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
-                    1003 patch-cable-2 (session.mixers[0]:output)
-                        gate: 1.0, in_: 16.0, out: 0.0
-                NODE TREE 1020 group (session.mixers[1]:group)
-                    1021 group (session.mixers[1]:tracks)
-                        1024 group (session.mixers[1].tracks[0]:group)
-                            1025 group (session.mixers[1].tracks[0]:tracks)
-                            1026 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
-                                active: 1.0, bus: 28.0, gain: 0.0, gate: 1.0
-                            1027 patch-cable-2 (session.mixers[1].tracks[0]:output)
-                                gate: 1.0, in_: 28.0, out: 26.0
-                    1022 channel-strip-2 (session.mixers[1]:channel_strip)
-                        active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
-                    1023 patch-cable-2 (session.mixers[1]:output)
-                        gate: 1.0, in_: 26.0, out: 0.0
-            """
-        ).format(context=repr(session.contexts[0]))
-        actual_diff = "".join(
-            difflib.unified_diff(
-                initial_tree.splitlines(True),
-                actual_tree.splitlines(True),
-                tofile="mutation",
-                fromfile="initial",
-            )
-        )
-        assert normalize(expected_diff) == normalize(actual_diff)
+    # Post-conditions
+    if not online:
+        return
+    await assert_diff(
+        session,
+        expected_diff,
+        initial_tree="""
+        {context}
+            NODE TREE 1000 group (session.mixers[0]:group)
+                1001 group (session.mixers[0]:tracks)
+                    1004 group (session.mixers[0].tracks[0]:group)
+                        1005 group (session.mixers[0].tracks[0]:tracks)
+                            1008 group (session.mixers[0].tracks[0].tracks[0]:group)
+                                1009 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+                                    1012 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
+                                        1013 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
+                                        1014 channel-strip-2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:channel_strip)
+                                            active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
+                                        1015 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:output)
+                                            gate: 1.0, in_: 22.0, out: 20.0
+                                1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
+                                    active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+                                1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+                                    gate: 1.0, in_: 20.0, out: 18.0
+                        1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                            active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                        1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                            gate: 1.0, in_: 18.0, out: 16.0
+                    1016 group (session.mixers[0].tracks[1]:group)
+                        1017 group (session.mixers[0].tracks[1]:tracks)
+                        1018 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+                            active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
+                        1019 patch-cable-2 (session.mixers[0].tracks[1]:output)
+                            gate: 1.0, in_: 24.0, out: 16.0
+                1002 channel-strip-2 (session.mixers[0]:channel_strip)
+                    active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
+                1003 patch-cable-2 (session.mixers[0]:output)
+                    gate: 1.0, in_: 16.0, out: 0.0
+            NODE TREE 1020 group (session.mixers[1]:group)
+                1021 group (session.mixers[1]:tracks)
+                    1024 group (session.mixers[1].tracks[0]:group)
+                        1025 group (session.mixers[1].tracks[0]:tracks)
+                        1026 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
+                            active: 1.0, bus: 28.0, gain: 0.0, gate: 1.0
+                        1027 patch-cable-2 (session.mixers[1].tracks[0]:output)
+                            gate: 1.0, in_: 28.0, out: 26.0
+                1022 channel-strip-2 (session.mixers[1]:channel_strip)
+                    active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
+                1023 patch-cable-2 (session.mixers[1]:output)
+                    gate: 1.0, in_: 26.0, out: 0.0
+        """,
+    )
 
 
 @pytest.mark.asyncio
