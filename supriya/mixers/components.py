@@ -9,6 +9,7 @@ from typing import (
     List,
     Literal,
     Optional,
+    Set,
     TypeAlias,
     TypeVar,
     cast,
@@ -38,6 +39,7 @@ class Component(Generic[C]):
     ) -> None:
         self._lock = asyncio.Lock()
         self._parent: Optional[C] = parent
+        self._dependents: Set[Component] = set()
 
     def __repr__(self) -> str:
         return f"<{type(self).__name__}>"

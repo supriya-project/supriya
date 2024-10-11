@@ -46,7 +46,6 @@ class Track(TrackContainer[TrackContainer]):
     # TODO: group_tracks(index: int, count: int) -> Track
     # TODO: set_channel_count(self, channel_count: Optional[ChannelCount] = None) -> None
     # TODO: set_input(None | Default | Track | BusGroup)
-    # TODO: set_output(None | Default | Track | BusGroup)
 
     def __init__(
         self,
@@ -57,6 +56,7 @@ class Track(TrackContainer[TrackContainer]):
         TrackContainer.__init__(self)
         self._output: Optional[Union[Default, TrackContainer]] = DEFAULT
         self._output_bus: Optional[BusGroup] = None  # Cached for reconciliation
+        self._setup_output()
 
     def _allocate(
         self,
@@ -90,16 +90,15 @@ class Track(TrackContainer[TrackContainer]):
         for track in self.tracks:
             self._allocate_track(track)
 
+    def _output_to_allocatable_component(self) -> Optional[AllocatableComponent]:
+        if isinstance(self._output, Default):
+            return self._parent
+        return self._output
+
     def _output_to_bus(self) -> Optional[BusGroup]:
-        if self._output is None:
-            return None
-        if not self._can_allocate():
-            return None
-        if self.parent is None:
-            return None
-        if isinstance(self._output, TrackContainer):
-            return self._output._audio_buses["main"]
-        return self.parent._audio_buses["main"]
+        if (output_ := self._output_to_allocatable_component()) is None:
+            return output_
+        return output_._audio_buses.get("main")
 
     def _reconcile_output(self) -> None:
         new_output_bus = self._output_to_bus()
@@ -115,6 +114,14 @@ class Track(TrackContainer[TrackContainer]):
                     synthdef=PATCH_CABLE_2,
                 )
         self._output_bus = new_output_bus
+
+    def _setup_output(self) -> None:
+        if (output := self._output_to_allocatable_component()) is not None:
+            output._dependents.add(self)
+
+    def _teardown_output(self) -> None:
+        if (output := self._output_to_allocatable_component()) is not None and self in output._dependents:
+            output._dependents.remove(self)
 
     def _walk(self) -> Generator[Component, None, None]:
         yield from super()._walk()
@@ -173,13 +180,17 @@ class Track(TrackContainer[TrackContainer]):
     ) -> None:
         async with self._lock:
             if isinstance(output, TrackContainer):
-                if self.mixer is not output.mixer:
+                if output.session is None:
+                    output = None
+                elif self.mixer is not output.mixer:
                     raise RuntimeError
                 elif output is self:
                     raise RuntimeError
                 elif output is not None and output is self.parent:
                     output = DEFAULT
+            self._teardown_output()
             self._output = output
+            self._setup_output()
             if (context := self._can_allocate()) is None:
                 return  # Bail
             with context.at():
