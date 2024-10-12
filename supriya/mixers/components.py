@@ -77,6 +77,9 @@ class Component(Generic[C]):
             component = component.parent
         yield component
 
+    def _reconcile(self) -> None:
+        pass
+
     def _walk(self) -> Generator["Component", None, None]:
         yield self
 

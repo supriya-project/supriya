@@ -1,10 +1,11 @@
-from typing import Generator, List, Optional, Tuple, Union
+from typing import Generator, List, Optional, Union
 
-from ..contexts import AsyncServer, BusGroup
+from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate
 from ..typing import DEFAULT, Default
 from .components import AllocatableComponent, C, Component
-from .synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2
+from .routing import Connection
+from .synthdefs import CHANNEL_STRIP_2
 
 """
 Track outputs, like sends and directs, need to be separate from tracks themselves.
@@ -39,59 +40,6 @@ class TrackContainer(AllocatableComponent[C]):
         return self._tracks[:]
 
 
-class TrackOutput(AllocatableComponent["Track"]):
-
-    def __init__(self, *, parent: Optional["Track"] = None) -> None:
-        AllocatableComponent.__init__(self, parent=parent)
-        self._target: Optional[Union[Default, TrackContainer]] = DEFAULT
-        self._source_bus: Optional[BusGroup] = None
-        self._target_bus: Optional[BusGroup] = None
-
-    def _allocate(self, *, context: AsyncServer) -> bool:
-        if not super()._allocate(context=context):
-            return False
-        with context.at():
-            return self._reconcile()
-
-    def _reconcile(self) -> bool:
-        source, new_source_bus = self._resolve_source()
-        target, new_target_bus = self._resolve_target()
-        if source is None or target is None:
-            return True
-        if new_source_bus is None or new_target_bus is None:
-            return False
-        if new_source_bus != self._source_bus or new_target_bus != self._target_bus:
-            if synth := self._nodes.pop("synth", None):
-                synth.free()
-            if self.parent is not None:
-                self._nodes["synth"] = self.parent._nodes["group"].add_synth(
-                    add_action=AddAction.ADD_TO_TAIL,
-                    in_=new_source_bus,
-                    out=new_target_bus,
-                    synthdef=PATCH_CABLE_2,
-                )
-        self._source_bus = new_source_bus
-        self._target_bus = new_target_bus
-        return True
-
-    def _resolve_source(self) -> Tuple[Optional["Track"], Optional["BusGroup"]]:
-        if self.parent is None:
-            return None, None
-        return self.parent, self.parent._audio_buses.get("main")
-
-    def _resolve_target(
-        self,
-    ) -> Tuple[Optional[Union[Default, TrackContainer]], Optional[BusGroup]]:
-        if self._target is None:
-            return None, None
-        elif isinstance(self._target, TrackContainer):
-            return self._target, self._target._audio_buses.get("main")
-        # Default path
-        if self.parent is not None and self.parent.parent is not None:
-            return self._target, self.parent.parent._audio_buses.get("main")
-        return None, None
-
-
 class Track(TrackContainer[TrackContainer]):
 
     # TODO: add_device() -> Device
@@ -108,7 +56,7 @@ class Track(TrackContainer[TrackContainer]):
     ) -> None:
         AllocatableComponent.__init__(self, parent=parent)
         TrackContainer.__init__(self)
-        self._output = TrackOutput(parent=self)
+        self._output = Connection(parent=self, source=self, target=DEFAULT)
 
     def _allocate(self, *, context: AsyncServer) -> bool:
         if not super()._allocate(context=context):
@@ -133,16 +81,6 @@ class Track(TrackContainer[TrackContainer]):
                 synthdef=CHANNEL_STRIP_2,
             )
         return True
-
-    def _setup_output(self) -> None:
-        if (output := self._output_to_allocatable_component()) is not None:
-            output._dependents.add(self)
-
-    def _teardown_output(self) -> None:
-        if (
-            output := self._output_to_allocatable_component()
-        ) is not None and self in output._dependents:
-            output._dependents.remove(self)
 
     def _walk(self) -> Generator[Component, None, None]:
         yield from super()._walk()
@@ -194,28 +132,14 @@ class Track(TrackContainer[TrackContainer]):
                 add_action = AddAction.ADD_AFTER
             with context.at():
                 self._nodes["group"].move(target_node=node_id, add_action=add_action)
-                self._reconcile_output()
+                for component in self._dependents:
+                    component._reconcile()
 
     async def set_output(
         self, output: Optional[Union[Default, TrackContainer]]
     ) -> None:
         async with self._lock:
-            if isinstance(output, TrackContainer):
-                if output.session is None:
-                    output = None
-                elif self.mixer is not output.mixer:
-                    raise RuntimeError
-                elif output is self:
-                    raise RuntimeError
-                elif output is not None and output is self.parent:
-                    output = DEFAULT
-            self._teardown_output()
-            self._output = output
-            self._setup_output()
-            if (context := self._can_allocate()) is None:
-                return  # Bail
-            with context.at():
-                self._reconcile_output()
+            self._output._set_target(output)
 
     async def solo(self) -> None:
         async with self._lock:
@@ -238,8 +162,8 @@ class Track(TrackContainer[TrackContainer]):
 
     @property
     def children(self) -> List[Component]:
-        return list(self._tracks)
+        return list(self._tracks) + [self._output]
 
     @property
-    def output(self) -> Optional[Union[Default, TrackContainer]]:
+    def output(self) -> Optional[Union[Default, AllocatableComponent]]:
         return self._output._target

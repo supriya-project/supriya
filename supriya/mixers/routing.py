@@ -32,6 +32,10 @@ class Connection(AllocatableComponent[AllocatableComponent]):
         with context.at():
             return self._reconcile_buses()
 
+    def _reconcile(self) -> None:
+        self._reconcile_dependencies()
+        self._reconcile_buses()
+
     def _reconcile_buses(self) -> bool:
         source, new_source_bus = self._resolve_source()
         target, new_target_bus = self._resolve_target()
@@ -57,17 +61,17 @@ class Connection(AllocatableComponent[AllocatableComponent]):
         new_source_component = self._resolve_source_component()
         new_target_component = self._resolve_target_component()
         if new_source_component is not self._source_component:
-            if self._source_component and self in self._source_component._dependencies:
-                self._source_component._dependencies.remove(self)
+            if self._source_component and self in self._source_component._dependents:
+                self._source_component._dependents.remove(self)
             self._source_component = new_source_component
             if self._source_component:
-                self._source_component._dependencies.add(self)
+                self._source_component._dependents.add(self)
         if new_target_component is not self._target_component:
-            if self._target_component and self in self._target_component._dependencies:
-                self._target_component._dependencies.remove(self)
+            if self._target_component and self in self._target_component._dependents:
+                self._target_component._dependents.remove(self)
             self._target_component = new_target_component
             if self._target_component:
-                self._target_component._dependencies.add(self)
+                self._target_component._dependents.add(self)
 
     def _resolve_default_source_component(self) -> Optional[AllocatableComponent]:
         return self.parent
@@ -101,22 +105,24 @@ class Connection(AllocatableComponent[AllocatableComponent]):
             return self._target
         return self._resolve_default_target_component()
 
-    async def set_source(
+    def _set_source(
         self, source: Optional[Union[Default, AllocatableComponent]]
     ) -> None:
-        async with self._lock:
-            self._source = source
-            self._reconcile_dependencies()
-            if context := self._can_allocate():
-                with context.at():
-                    self._reconcile_buses()
+        if isinstance(source, AllocatableComponent) and self.mixer is not source.mixer:
+            raise RuntimeError
+        self._source = source
+        self._reconcile_dependencies()
+        if context := self._can_allocate():
+            with context.at():
+                self._reconcile_buses()
 
-    async def set_target(
+    def _set_target(
         self, target: Optional[Union[Default, AllocatableComponent]]
     ) -> None:
-        async with self._lock:
-            self._target = target
-            self._reconcile_dependencies()
-            if context := self._can_allocate():
-                with context.at():
-                    self._reconcile_buses()
+        if isinstance(target, AllocatableComponent) and self.mixer is not target.mixer:
+            raise RuntimeError
+        self._target = target
+        self._reconcile_dependencies()
+        if context := self._can_allocate():
+            with context.at():
+                self._reconcile_buses()
