@@ -58,13 +58,6 @@ class Session(Component):
                 parts.extend("        " + line for line in str(mixer).splitlines())
         return "\n".join(parts)
 
-    def _allocate_mixer(self, *, context: AsyncServer, mixer: "Mixer") -> None:
-        mixer._allocate(
-            context=context,
-            target_node=context.default_group,
-            target_bus=context.audio_output_bus_group,
-        )
-
     def _delete_mixer(self, mixer) -> None:
         if mixer in (mixers := self._contexts.get(self._mixers.pop(mixer), [])):
             mixers.remove(mixer)
@@ -98,7 +91,7 @@ class Session(Component):
             self._contexts.setdefault(context, []).append(mixer := Mixer(parent=self))
             self._mixers[mixer] = context
             if self._status == BootStatus.ONLINE:
-                self._allocate_mixer(context=context, mixer=mixer)
+                mixer._allocate_deep(context=context)
             return mixer
 
     async def boot(self) -> None:
@@ -115,7 +108,7 @@ class Session(Component):
                 self._boot_future.set_result(True)
                 for context, mixers in self._contexts.items():
                     for mixer in mixers:
-                        self._allocate_mixer(context=context, mixer=mixer)
+                        mixer._allocate_deep(context=context)
             elif self._boot_future is not None:  # BOOTING / ONLINE
                 await self._boot_future
             else:  # NONREALTIME
@@ -177,11 +170,7 @@ class Session(Component):
             async with mixer._lock:
                 mixer._deallocate()
                 if self._status == BootStatus.ONLINE:
-                    mixer._allocate(
-                        context=context,
-                        target_bus=context.audio_output_bus_group,
-                        target_node=context.default_group,
-                    )
+                    mixer._allocate_deep(context=context)
                 self._contexts[context].append(mixer)
                 self._mixers[mixer] = context
 

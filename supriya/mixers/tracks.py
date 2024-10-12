@@ -1,6 +1,6 @@
 from typing import Generator, List, Optional, Union
 
-from ..contexts import BusGroup, Context, Node
+from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate
 from ..typing import DEFAULT, Default
 from .components import AllocatableComponent, C, Component
@@ -24,25 +24,14 @@ class TrackContainer(AllocatableComponent[C]):
     def __init__(self) -> None:
         self._tracks: List[Track] = []
 
-    def _allocate_track(self, track: "Track") -> None:
-        # TODO: Annoying that context could be null
-        if self._context is None:
-            raise RuntimeError
-        track._allocate(
-            add_action=AddAction.ADD_TO_TAIL,
-            context=self._context,
-            target_bus=self._audio_buses["main"],
-            target_node=self._nodes["tracks"],
-        )
-
     def _delete_track(self, track: "Track") -> None:
         self._tracks.remove(track)
 
     async def add_track(self) -> "Track":
         async with self._lock:
             self._tracks.append(track := Track(parent=self))
-            if self._can_allocate():
-                self._allocate_track(track)
+            if context := self._can_allocate():
+                track._allocate_deep(context=context)
             return track
 
     @property
@@ -70,26 +59,20 @@ class Track(TrackContainer[TrackContainer]):
         self._output_bus: Optional[BusGroup] = None  # Cached for reconciliation
         self._setup_output()
 
-    def _allocate(
-        self,
-        *,
-        add_action: AddAction = AddAction.ADD_TO_HEAD,
-        context: Context,
-        target_bus: BusGroup,
-        target_node: Node,
-    ) -> None:
-        super()._allocate(
-            add_action=add_action,
-            context=context,
-            target_bus=target_bus,
-            target_node=target_node,
-        )
+    def _allocate(self, *, context: AsyncServer) -> bool:
+        if not super()._allocate(context=context):
+            return False
         self._audio_buses["main"] = context.add_bus_group(
             calculation_rate=CalculationRate.AUDIO,
             count=2,
         )
+        if self.parent is None:
+            raise RuntimeError
+        target_node = self.parent._nodes["tracks"]
         with context.at():
-            self._nodes["group"] = target_node.add_group(add_action=add_action)
+            self._nodes["group"] = target_node.add_group(
+                add_action=AddAction.ADD_TO_TAIL
+            )
             self._nodes["tracks"] = self._nodes["group"].add_group(
                 add_action=AddAction.ADD_TO_HEAD
             )
@@ -99,8 +82,7 @@ class Track(TrackContainer[TrackContainer]):
                 synthdef=CHANNEL_STRIP_2,
             )
             self._reconcile_output()
-        for track in self.tracks:
-            self._allocate_track(track)
+        return True
 
     def _output_to_allocatable_component(self) -> Optional[AllocatableComponent]:
         if isinstance(self._output, Default):

@@ -15,9 +15,9 @@ from typing import (
     cast,
 )
 
-from ..contexts import Buffer, BusGroup, Context, Group, Node
+from ..contexts import AsyncServer, Buffer, BusGroup, Context, Group, Node
 from ..contexts.responses import QueryTreeGroup
-from ..enums import AddAction, BootStatus
+from ..enums import BootStatus
 from ..utils import iterate_nwise
 
 C = TypeVar("C", bound="Component")
@@ -44,6 +44,31 @@ class Component(Generic[C]):
     def __repr__(self) -> str:
         return f"<{type(self).__name__}>"
 
+    def _activate(self) -> None:
+        self._is_active = True
+
+    def _allocate_deep(self, *, context: AsyncServer) -> None:
+        fifo: List[Component] = []
+        for component in self._walk():
+            if not component._allocate(context=context):
+                fifo.append(component)
+        while fifo:
+            if not (component := fifo.pop(0))._allocate(context=context):
+                fifo.append(component)
+
+    def _allocate(self, *, context: AsyncServer) -> bool:
+        return True
+
+    def _deallocate(self) -> None:
+        pass
+
+    def _deallocate_deep(self) -> None:
+        for component in self._walk():
+            component._deallocate()
+
+    def _deactivate(self) -> None:
+        self._is_active = False
+
     def _iterate_parentage(self) -> Iterator["Component"]:
         component = self
         while component.parent is not None:
@@ -61,6 +86,12 @@ class Component(Generic[C]):
     @property
     def children(self) -> List["Component"]:
         raise NotImplementedError
+
+    @property
+    def context(self) -> Optional[AsyncServer]:
+        if (mixer := self.mixer) is not None:
+            return mixer.context
+        return None
 
     @property
     def graph_order(self) -> List[int]:
@@ -115,33 +146,26 @@ class AllocatableComponent(Component[C]):
         self._is_active: bool = True
         self._nodes: Dict[str, Node] = {}
 
-    async def _activate(self) -> None:
-        self._is_active = True
+    def _activate(self) -> None:
+        super()._activate()
         if group := self._nodes.get("group"):
             group.unpause()
             group.set(active=1)
 
-    def _allocate(
-        self,
-        *,
-        add_action: AddAction = AddAction.ADD_TO_HEAD,
-        context: Context,
-        target_bus: BusGroup,
-        target_node: Node,
-    ) -> None:
-        self._context = context
-
-    def _can_allocate(self) -> Optional[Context]:
-        if self._context is not None and self._context.boot_status == BootStatus.ONLINE:
-            return self._context
+    def _can_allocate(self) -> Optional[AsyncServer]:
+        if (
+            context := self.context
+        ) is not None and context.boot_status == BootStatus.ONLINE:
+            return context
         return None
 
-    async def _deactivate(self) -> None:
+    def _deactivate(self) -> None:
+        super()._deactivate()
         if group := self._nodes.get("group"):
             group.set(active=0)
-        self._is_active = False
 
     def _deallocate(self) -> None:
+        super()._deallocate()
         for key in tuple(self._audio_buses):
             self._audio_buses.pop(key).free()
         for key in tuple(self._control_buses):
@@ -154,12 +178,10 @@ class AllocatableComponent(Component[C]):
         self._nodes.clear()
         for key in tuple(self._buffers):
             self._buffers.pop(key).free()
-        self._context = None
 
     def _delete(self) -> None:
         self._deallocate()
         self._parent = None
-        self._session = None
 
     async def dump_tree(self) -> QueryTreeGroup:
         if self.session and self.session.status != BootStatus.ONLINE:

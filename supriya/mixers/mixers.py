@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, Generator, List, Optional
 
-from ..contexts import BusGroup, Context, Node
+from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate
 from .components import AllocatableComponent, Component
 from .synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2
@@ -22,26 +22,17 @@ class Mixer(TrackContainer["Session"]):
         TrackContainer.__init__(self)
         self._tracks.append(Track(parent=self))
 
-    def _allocate(
-        self,
-        *,
-        add_action: AddAction = AddAction.ADD_TO_HEAD,
-        context: Context,
-        target_bus: BusGroup,
-        target_node: Node,
-    ) -> None:
-        super()._allocate(
-            add_action=add_action,
-            context=context,
-            target_bus=target_bus,
-            target_node=target_node,
-        )
+    def _allocate(self, context: AsyncServer) -> bool:
+        if not super()._allocate(context=context):
+            return False
         self._audio_buses["main"] = context.add_bus_group(
             calculation_rate=CalculationRate.AUDIO,
             count=2,
         )
         with context.at():
-            self._nodes["group"] = target_node.add_group(add_action=add_action)
+            self._nodes["group"] = context.default_group.add_group(
+                add_action=AddAction.ADD_TO_TAIL
+            )
             self._nodes["tracks"] = self._nodes["group"].add_group(
                 add_action=AddAction.ADD_TO_HEAD
             )
@@ -53,11 +44,10 @@ class Mixer(TrackContainer["Session"]):
             self._nodes["output"] = self._nodes["group"].add_synth(
                 add_action=AddAction.ADD_TO_TAIL,
                 in_=self._audio_buses["main"],
-                out=target_bus,
+                out=context.audio_output_bus_group,
                 synthdef=PATCH_CABLE_2,
             )
-        for track in self.tracks:
-            self._allocate_track(track)
+        return True
 
     def _walk(self) -> Generator[Component, None, None]:
         yield from super()._walk()
@@ -81,3 +71,9 @@ class Mixer(TrackContainer["Session"]):
     @property
     def children(self) -> List[Component]:
         return list(self._tracks)
+
+    @property
+    def context(self) -> Optional[AsyncServer]:
+        if self.parent is None:
+            return None
+        return self.parent._mixers[self]
