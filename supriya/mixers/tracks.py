@@ -6,6 +6,18 @@ from ..typing import DEFAULT, Default
 from .components import AllocatableComponent, C, Component
 from .synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2
 
+"""
+Track outputs, like sends and directs, need to be separate from tracks themselves.
+During allocation of a subtree, sends may reference a source or target not yet allocated.
+Allocation needs to be performed depth-first, with a stack. As we attempt to
+allocate each component traversed, the component can flag whether its
+allocation must be deferred (throwing it onto the stack). This affords a
+two-pass allocation process.
+
+._allocate() and ._deallocate() should be shallow.
+Implement ._allocate_deep() and ._deallocate_deep() for traversal.
+"""
+
 
 class TrackContainer(AllocatableComponent[C]):
 
@@ -120,7 +132,9 @@ class Track(TrackContainer[TrackContainer]):
             output._dependents.add(self)
 
     def _teardown_output(self) -> None:
-        if (output := self._output_to_allocatable_component()) is not None and self in output._dependents:
+        if (
+            output := self._output_to_allocatable_component()
+        ) is not None and self in output._dependents:
             output._dependents.remove(self)
 
     def _walk(self) -> Generator[Component, None, None]:

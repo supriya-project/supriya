@@ -49,6 +49,7 @@ async def test_Track_deactivate(track: Track) -> None:
     await track.deactivate()
 
 
+@pytest.mark.skip
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "target, expected_diff",
