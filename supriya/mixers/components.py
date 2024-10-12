@@ -10,6 +10,7 @@ from typing import (
     Literal,
     Optional,
     Set,
+    Tuple,
     TypeAlias,
     TypeVar,
     cast,
@@ -78,6 +79,11 @@ class Component(Generic[C]):
 
     def _walk(self) -> Generator["Component", None, None]:
         yield self
+
+    def _walk_pairs(self) -> Generator[Tuple["Component", "Component"], None, None]:
+        for child in self.children:
+            yield (self, child)
+            yield from child._walk_pairs()
 
     @property
     def address(self) -> str:
