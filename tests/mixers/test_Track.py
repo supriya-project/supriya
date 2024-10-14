@@ -18,6 +18,8 @@ async def assert_diff(session: Session, expected_diff: str, initial_tree: str) -
     actual_tree = str(await session.dump_tree()).replace(
         repr(session.contexts[0]), "{context}"
     )
+    print("initial", normalize(initial_tree))
+    print("actual", normalize(actual_tree))
     actual_diff = "".join(
         difflib.unified_diff(
             normalize(initial_tree).splitlines(True),
@@ -27,6 +29,16 @@ async def assert_diff(session: Session, expected_diff: str, initial_tree: str) -
         )
     )
     assert normalize(expected_diff) == normalize(actual_diff)
+
+
+@contextlib.contextmanager
+def capture(context):
+    if context is None:
+        return
+    with context.osc_protocol.capture() as transcript:
+        yield
+    for x in transcript:
+        print(x)
 
 
 @pytest.fixture
@@ -97,7 +109,7 @@ async def test_Track_delete(
                         1005 group (session.mixers[0].tracks[0]:tracks)
                         1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                             active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                        1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                        1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
                             gate: 1.0, in_: 18.0, out: 16.0
                     1008 group (session.mixers[0].tracks[1]:group)
                         1009 group (session.mixers[0].tracks[1]:tracks)
@@ -107,15 +119,15 @@ async def test_Track_delete(
                                         1017 group (session.mixers[0].tracks[1].tracks[0].tracks[0]:tracks)
                                         1018 channel-strip-2 (session.mixers[0].tracks[1].tracks[0].tracks[0]:channel_strip)
                                             active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
-                                        1019 patch-cable-2 (session.mixers[0].tracks[1].tracks[0].tracks[0]:output)
+                                        1019 patch-cable-2 (session.mixers[0].tracks[1].tracks[0].tracks[0].output:synth)
                                             gate: 1.0, in_: 24.0, out: 22.0
                                 1014 channel-strip-2 (session.mixers[0].tracks[1].tracks[0]:channel_strip)
                                     active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-                                1015 patch-cable-2 (session.mixers[0].tracks[1].tracks[0]:output)
+                                1015 patch-cable-2 (session.mixers[0].tracks[1].tracks[0].output:synth)
                                     gate: 1.0, in_: 22.0, out: 20.0
                         1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
                             active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-                        1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
+                        1011 patch-cable-2 (session.mixers[0].tracks[1].output:synth)
                             gate: 1.0, in_: 20.0, out: 16.0
                     1020 group (session.mixers[0].tracks[2]:group)
                         1021 group (session.mixers[0].tracks[2]:tracks)
@@ -123,7 +135,7 @@ async def test_Track_delete(
                             active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
                         1023 patch-cable-2
                             gate: 0.0, in_: 26.0, out: 16.0
-                        1024 patch-cable-2 (session.mixers[0].tracks[2]:output)
+                        1024 patch-cable-2 (session.mixers[0].tracks[2].output:synth)
                             gate: 1.0, in_: 26.0, out: 22.0
                 1002 channel-strip-2 (session.mixers[0]:channel_strip)
                     active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
@@ -158,20 +170,20 @@ async def test_Track_delete(
             +                1009 group (session.mixers[0].tracks[0]:tracks)
             +                1010 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
             +                    active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-            +                1011 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            +                1011 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
             +                    gate: 1.0, in_: 20.0, out: 16.0
             +            1004 group (session.mixers[0].tracks[1]:group)
             +                1005 group (session.mixers[0].tracks[1]:tracks)
             +                1006 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
                                  active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-            -                1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
-            +                1007 patch-cable-2 (session.mixers[0].tracks[1]:output)
+            -                1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
+            +                1007 patch-cable-2 (session.mixers[0].tracks[1].output:synth)
                                  gate: 1.0, in_: 18.0, out: 16.0
             -            1008 group (session.mixers[0].tracks[1]:group)
             -                1009 group (session.mixers[0].tracks[1]:tracks)
             -                1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
             -                    active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-            -                1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
+            -                1011 patch-cable-2 (session.mixers[0].tracks[1].output:synth)
             -                    gate: 1.0, in_: 20.0, out: 16.0
                          1012 group (session.mixers[0].tracks[2]:group)
                              1013 group (session.mixers[0].tracks[2]:tracks)
@@ -197,32 +209,32 @@ async def test_Track_delete(
             +                1009 group (session.mixers[0].tracks[0]:tracks)
             +                1010 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
             +                    active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-            +                1011 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            +                1011 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
             +                    gate: 1.0, in_: 20.0, out: 16.0
             +            1012 group (session.mixers[0].tracks[1]:group)
             +                1013 group (session.mixers[0].tracks[1]:tracks)
             +                1014 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
             +                    active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-            +                1015 patch-cable-2 (session.mixers[0].tracks[1]:output)
+            +                1015 patch-cable-2 (session.mixers[0].tracks[1].output:synth)
             +                    gate: 1.0, in_: 22.0, out: 16.0
             +            1004 group (session.mixers[0].tracks[2]:group)
             +                1005 group (session.mixers[0].tracks[2]:tracks)
             +                1006 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
                                  active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-            -                1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
-            +                1007 patch-cable-2 (session.mixers[0].tracks[2]:output)
+            -                1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
+            +                1007 patch-cable-2 (session.mixers[0].tracks[2].output:synth)
                                  gate: 1.0, in_: 18.0, out: 16.0
             -            1008 group (session.mixers[0].tracks[1]:group)
             -                1009 group (session.mixers[0].tracks[1]:tracks)
             -                1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
             -                    active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-            -                1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
+            -                1011 patch-cable-2 (session.mixers[0].tracks[1].output:synth)
             -                    gate: 1.0, in_: 20.0, out: 16.0
             -            1012 group (session.mixers[0].tracks[2]:group)
             -                1013 group (session.mixers[0].tracks[2]:tracks)
             -                1014 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
             -                    active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-            -                1015 patch-cable-2 (session.mixers[0].tracks[2]:output)
+            -                1015 patch-cable-2 (session.mixers[0].tracks[2].output:synth)
             -                    gate: 1.0, in_: 22.0, out: 16.0
                      1002 channel-strip-2 (session.mixers[0]:channel_strip)
                          active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
@@ -245,7 +257,7 @@ async def test_Track_delete(
             -                1005 group (session.mixers[0].tracks[0]:tracks)
             -                1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
             -                    active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-            -                1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            -                1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
             -                    gate: 1.0, in_: 18.0, out: 16.0
             -            1008 group (session.mixers[0].tracks[1]:group)
             -                1009 group (session.mixers[0].tracks[1]:tracks)
@@ -258,12 +270,12 @@ async def test_Track_delete(
             +                            active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
             +                        1007 patch-cable-2
             +                            gate: 0.0, in_: 18.0, out: 16.0
-            +                        1024 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            +                        1024 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].output:synth)
             +                            gate: 1.0, in_: 18.0, out: 20.0
             +                1010 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                                  active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-            -                1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
-            +                1011 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            -                1011 patch-cable-2 (session.mixers[0].tracks[1].output:synth)
+            +                1011 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
                                  gate: 1.0, in_: 20.0, out: 16.0
             -            1012 group (session.mixers[0].tracks[2]:group)
             -                1013 group (session.mixers[0].tracks[2]:tracks)
@@ -272,8 +284,8 @@ async def test_Track_delete(
             +                1013 group (session.mixers[0].tracks[1]:tracks)
             +                1014 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
                                  active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-            -                1015 patch-cable-2 (session.mixers[0].tracks[2]:output)
-            +                1015 patch-cable-2 (session.mixers[0].tracks[1]:output)
+            -                1015 patch-cable-2 (session.mixers[0].tracks[2].output:synth)
+            +                1015 patch-cable-2 (session.mixers[0].tracks[1].output:synth)
                                  gate: 1.0, in_: 22.0, out: 16.0
                      1002 channel-strip-2 (session.mixers[0]:channel_strip)
                          active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
@@ -295,7 +307,7 @@ async def test_Track_delete(
             -                1005 group (session.mixers[0].tracks[0]:tracks)
             -                1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
             -                    active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-            -                1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            -                1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
             -                    gate: 1.0, in_: 18.0, out: 16.0
             -            1008 group (session.mixers[0].tracks[1]:group)
             -                1009 group (session.mixers[0].tracks[1]:tracks)
@@ -304,8 +316,8 @@ async def test_Track_delete(
             +                1009 group (session.mixers[0].tracks[0]:tracks)
             +                1010 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                                  active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-            -                1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
-            +                1011 patch-cable-2 (session.mixers[0].tracks[0]:output)
+            -                1011 patch-cable-2 (session.mixers[0].tracks[1].output:synth)
+            +                1011 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
                                  gate: 1.0, in_: 20.0, out: 16.0
             -            1012 group (session.mixers[0].tracks[2]:group)
             -                1013 group (session.mixers[0].tracks[2]:tracks)
@@ -318,12 +330,12 @@ async def test_Track_delete(
             +                            active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
             +                        1007 patch-cable-2
             +                            gate: 0.0, in_: 18.0, out: 16.0
-            +                        1024 patch-cable-2 (session.mixers[0].tracks[1].tracks[0]:output)
+            +                        1024 patch-cable-2 (session.mixers[0].tracks[1].tracks[0].output:synth)
             +                            gate: 1.0, in_: 18.0, out: 22.0
             +                1014 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
                                  active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-            -                1015 patch-cable-2 (session.mixers[0].tracks[2]:output)
-            +                1015 patch-cable-2 (session.mixers[0].tracks[1]:output)
+            -                1015 patch-cable-2 (session.mixers[0].tracks[2].output:synth)
+            +                1015 patch-cable-2 (session.mixers[0].tracks[1].output:synth)
                                  gate: 1.0, in_: 22.0, out: 16.0
                      1002 channel-strip-2 (session.mixers[0]:channel_strip)
                          active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
@@ -372,19 +384,19 @@ async def test_Track_move(
                         1005 group (session.mixers[0].tracks[0]:tracks)
                         1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                             active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                        1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                        1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
                             gate: 1.0, in_: 18.0, out: 16.0
                     1008 group (session.mixers[0].tracks[1]:group)
                         1009 group (session.mixers[0].tracks[1]:tracks)
                         1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
                             active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-                        1011 patch-cable-2 (session.mixers[0].tracks[1]:output)
+                        1011 patch-cable-2 (session.mixers[0].tracks[1].output:synth)
                             gate: 1.0, in_: 20.0, out: 16.0
                     1012 group (session.mixers[0].tracks[2]:group)
                         1013 group (session.mixers[0].tracks[2]:tracks)
                         1014 channel-strip-2 (session.mixers[0].tracks[2]:channel_strip)
                             active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-                        1015 patch-cable-2 (session.mixers[0].tracks[2]:output)
+                        1015 patch-cable-2 (session.mixers[0].tracks[2].output:synth)
                             gate: 1.0, in_: 22.0, out: 16.0
                 1002 channel-strip-2 (session.mixers[0]:channel_strip)
                     active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
@@ -396,7 +408,7 @@ async def test_Track_move(
                         1021 group (session.mixers[1].tracks[0]:tracks)
                         1022 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
                             active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0
-                        1023 patch-cable-2 (session.mixers[1].tracks[0]:output)
+                        1023 patch-cable-2 (session.mixers[1].tracks[0].output:synth)
                             gate: 1.0, in_: 26.0, out: 24.0
                 1018 channel-strip-2 (session.mixers[1]:channel_strip)
                     active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
@@ -420,13 +432,13 @@ async def test_Track_move(
                                                  gate: 1.0, in_: 22.0, out: 20.0
                                      1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
                                          active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-            -                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            -                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].output:synth)
             -                            gate: 1.0, in_: 20.0, out: 18.0
             +                        1011 patch-cable-2
             +                            gate: 0.0, in_: 20.0, out: 18.0
                              1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                                  active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                             1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                             1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
             """,
         ),
         (
@@ -454,15 +466,15 @@ async def test_Track_move(
                                                  gate: 1.0, in_: 22.0, out: 20.0
                                      1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
                                          active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-            -                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            -                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].output:synth)
             -                            gate: 1.0, in_: 20.0, out: 18.0
             +                        1011 patch-cable-2
             +                            gate: 0.0, in_: 20.0, out: 18.0
-            +                        1028 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            +                        1028 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].output:synth)
             +                            gate: 1.0, in_: 20.0, out: 22.0
                              1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                                  active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                             1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                             1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
             """,
         ),
         (
@@ -475,15 +487,15 @@ async def test_Track_move(
                                                  gate: 1.0, in_: 22.0, out: 20.0
                                      1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
                                          active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-            -                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            -                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].output:synth)
             -                            gate: 1.0, in_: 20.0, out: 18.0
             +                        1011 patch-cable-2
             +                            gate: 0.0, in_: 20.0, out: 18.0
-            +                        1028 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            +                        1028 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].output:synth)
             +                            gate: 1.0, in_: 20.0, out: 16.0
                              1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                                  active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                             1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                             1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
             """,
         ),
         (
@@ -496,15 +508,15 @@ async def test_Track_move(
                                                  gate: 1.0, in_: 22.0, out: 20.0
                                      1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
                                          active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-            -                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            -                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].output:synth)
             -                            gate: 1.0, in_: 20.0, out: 18.0
             +                        1011 patch-cable-2
             +                            gate: 0.0, in_: 20.0, out: 18.0
-            +                        1028 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+            +                        1028 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].output:synth)
             +                            gate: 1.0, in_: 20.0, out: 24.0
                              1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                                  active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                             1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                             1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
             """,
         ),
         (
@@ -541,7 +553,7 @@ async def test_Track_set_output(
         "sibling": sibling,
     }
     # Operation
-    with maybe_raises:
+    with maybe_raises, capture(mixer.context):
         await subtrack.set_output(targets[output])
     # Post-conditions
     if not online:
@@ -561,21 +573,21 @@ async def test_Track_set_output(
                                         1013 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
                                         1014 channel-strip-2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:channel_strip)
                                             active: 1.0, bus: 22.0, gain: 0.0, gate: 1.0
-                                        1015 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:output)
+                                        1015 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].tracks[0].output:synth)
                                             gate: 1.0, in_: 22.0, out: 20.0
                                 1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
                                     active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
-                                1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0]:output)
+                                1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].output:synth)
                                     gate: 1.0, in_: 20.0, out: 18.0
                         1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
                             active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
-                        1007 patch-cable-2 (session.mixers[0].tracks[0]:output)
+                        1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
                             gate: 1.0, in_: 18.0, out: 16.0
                     1016 group (session.mixers[0].tracks[1]:group)
                         1017 group (session.mixers[0].tracks[1]:tracks)
                         1018 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
                             active: 1.0, bus: 24.0, gain: 0.0, gate: 1.0
-                        1019 patch-cable-2 (session.mixers[0].tracks[1]:output)
+                        1019 patch-cable-2 (session.mixers[0].tracks[1].output:synth)
                             gate: 1.0, in_: 24.0, out: 16.0
                 1002 channel-strip-2 (session.mixers[0]:channel_strip)
                     active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
@@ -587,7 +599,7 @@ async def test_Track_set_output(
                         1025 group (session.mixers[1].tracks[0]:tracks)
                         1026 channel-strip-2 (session.mixers[1].tracks[0]:channel_strip)
                             active: 1.0, bus: 28.0, gain: 0.0, gate: 1.0
-                        1027 patch-cable-2 (session.mixers[1].tracks[0]:output)
+                        1027 patch-cable-2 (session.mixers[1].tracks[0].output:synth)
                             gate: 1.0, in_: 28.0, out: 26.0
                 1022 channel-strip-2 (session.mixers[1]:channel_strip)
                     active: 1.0, bus: 26.0, gain: 0.0, gate: 1.0

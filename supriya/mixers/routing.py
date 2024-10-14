@@ -12,11 +12,13 @@ class Connection(AllocatableComponent[AllocatableComponent]):
     def __init__(
         self,
         *,
+        name: str,
         parent: Optional[AllocatableComponent] = None,
         source: Optional[Union[Default, AllocatableComponent]] = DEFAULT,
         target: Optional[Union[Default, AllocatableComponent]] = DEFAULT,
     ) -> None:
         super().__init__(parent=parent)
+        self._name = name
         self._source = source
         self._target = target
         # Computed
@@ -33,6 +35,7 @@ class Connection(AllocatableComponent[AllocatableComponent]):
             return self._reconcile_buses()
 
     def _reconcile(self) -> None:
+        print(f"reconciling {self=}")
         self._reconcile_dependencies()
         self._reconcile_buses()
 
@@ -40,6 +43,8 @@ class Connection(AllocatableComponent[AllocatableComponent]):
         source, new_source_bus = self._resolve_source()
         target, new_target_bus = self._resolve_target()
         if source is None or target is None:
+            if synth := self._nodes.pop("synth", None):
+                synth.free()
             return True
         if new_source_bus is None or new_target_bus is None:
             return False
@@ -112,7 +117,7 @@ class Connection(AllocatableComponent[AllocatableComponent]):
             raise RuntimeError
         self._source = source
         self._reconcile_dependencies()
-        if context := self._can_allocate():
+        if (context := self._can_allocate()) is not None:
             with context.at():
                 self._reconcile_buses()
 
@@ -123,6 +128,12 @@ class Connection(AllocatableComponent[AllocatableComponent]):
             raise RuntimeError
         self._target = target
         self._reconcile_dependencies()
-        if context := self._can_allocate():
+        if (context := self._can_allocate()) is not None:
             with context.at():
                 self._reconcile_buses()
+
+    @property
+    def address(self) -> str:
+        if self.parent is None:
+            return self._name
+        return f"{self.parent.address}.{self._name}"

@@ -56,7 +56,9 @@ class Track(TrackContainer[TrackContainer]):
     ) -> None:
         AllocatableComponent.__init__(self, parent=parent)
         TrackContainer.__init__(self)
-        self._output = Connection(parent=self, source=self, target=DEFAULT)
+        self._output = Connection(
+            name="output", parent=self, source=self, target=DEFAULT
+        )
 
     def _allocate(self, *, context: AsyncServer) -> bool:
         if not super()._allocate(context=context):
@@ -84,6 +86,7 @@ class Track(TrackContainer[TrackContainer]):
 
     def _walk(self) -> Generator[Component, None, None]:
         yield from super()._walk()
+        yield self._output
         for track in self.tracks:
             yield from track._walk()
 
