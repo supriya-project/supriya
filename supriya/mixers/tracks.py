@@ -2,22 +2,10 @@ from typing import Generator, List, Optional, Union
 
 from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate
-from ..typing import DEFAULT, Default
+from ..typing import Default
 from .components import AllocatableComponent, C, Component
-from .routing import Connection
+from .routing import Connectable, TrackOutput
 from .synthdefs import CHANNEL_STRIP_2
-
-"""
-Track outputs, like sends and directs, need to be separate from tracks themselves.
-During allocation of a subtree, sends may reference a source or target not yet allocated.
-Allocation needs to be performed depth-first, with a stack. As we attempt to
-allocate each component traversed, the component can flag whether its
-allocation must be deferred (throwing it onto the stack). This affords a
-two-pass allocation process.
-
-._allocate() and ._deallocate() should be shallow.
-Implement ._allocate_deep() and ._deallocate_deep() for traversal.
-"""
 
 
 class TrackContainer(AllocatableComponent[C]):
@@ -56,9 +44,7 @@ class Track(TrackContainer[TrackContainer]):
     ) -> None:
         AllocatableComponent.__init__(self, parent=parent)
         TrackContainer.__init__(self)
-        self._output = Connection(
-            name="output", parent=self, source=self, target=DEFAULT
-        )
+        self._output = TrackOutput(parent=self)
 
     def _allocate(self, *, context: AsyncServer) -> bool:
         if not super()._allocate(context=context):
@@ -141,8 +127,7 @@ class Track(TrackContainer[TrackContainer]):
     async def set_output(
         self, output: Optional[Union[Default, TrackContainer]]
     ) -> None:
-        async with self._lock:
-            self._output._set_target(output)
+        await self._output.set_target(output)
 
     async def solo(self) -> None:
         async with self._lock:
@@ -168,5 +153,5 @@ class Track(TrackContainer[TrackContainer]):
         return list(self._tracks) + [self._output]
 
     @property
-    def output(self) -> Optional[Union[Default, AllocatableComponent]]:
+    def output(self) -> Connectable:
         return self._output._target
