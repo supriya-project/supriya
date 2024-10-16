@@ -23,6 +23,8 @@ from ..utils import iterate_nwise
 
 C = TypeVar("C", bound="Component")
 
+A = TypeVar("A", bound="AllocatableComponent")
+
 # TODO: Integrate this with channel logic
 ChannelCount: TypeAlias = Literal[1, 2, 4, 8]
 

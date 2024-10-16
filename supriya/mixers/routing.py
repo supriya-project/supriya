@@ -1,14 +1,11 @@
 import enum
-from typing import TYPE_CHECKING, Optional, Tuple, TypeAlias, Union
+from typing import Optional, Tuple, TypeAlias, Union
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
 from ..typing import DEFAULT, Default
-from .components import AllocatableComponent
+from .components import A, AllocatableComponent
 from .synthdefs import PATCH_CABLE_2
-
-if TYPE_CHECKING:
-    from .tracks import Track
 
 Connectable: TypeAlias = Optional[Union[AllocatableComponent, BusGroup, Default]]
 
@@ -18,7 +15,7 @@ class DefaultBehavior(enum.Enum):
     GRANDPARENT = enum.auto()
 
 
-class Connection(AllocatableComponent[AllocatableComponent]):
+class Connection(AllocatableComponent[A]):
     # TODO: We probably do want subclasses for input / output / send
     #       Because the default resolution behavior
     #       And allocation logic are subtly different
@@ -27,7 +24,7 @@ class Connection(AllocatableComponent[AllocatableComponent]):
         self,
         *,
         name: str,
-        parent: Optional[AllocatableComponent] = None,
+        parent: Optional[A] = None,
         source: Connectable = DEFAULT,
         target: Connectable = DEFAULT,
     ) -> None:
@@ -36,60 +33,76 @@ class Connection(AllocatableComponent[AllocatableComponent]):
         self._source = source
         self._target = target
         # Computed
-        self._source_bus: Optional[BusGroup] = None
-        self._source_component: Optional[AllocatableComponent] = None
-        self._target_bus: Optional[BusGroup] = None
-        self._target_component: Optional[AllocatableComponent] = None
-        self._reconcile_dependencies()
+        self._cached_source_bus: Optional[BusGroup] = None
+        self._cached_source_component: Optional[AllocatableComponent] = None
+        self._cached_target_bus: Optional[BusGroup] = None
+        self._cached_target_component: Optional[AllocatableComponent] = None
+        self._reconcile_client_side()
 
     def _allocate(self, *, context: AsyncServer) -> bool:
         if not super()._allocate(context=context):
             return False
         with context.at():
-            return self._reconcile_buses()
+            return self._reconcile_server_side()
+
+    def _allocate_synth(
+        self, parent: AllocatableComponent, source_bus: BusGroup, target_bus: BusGroup
+    ) -> None:
+        self._nodes["synth"] = parent._nodes["group"].add_synth(
+            add_action=AddAction.ADD_TO_TAIL,
+            in_=source_bus,
+            out=target_bus,
+            synthdef=PATCH_CABLE_2,
+        )
+
+    def _cache(
+        self, new_source_bus: Optional[BusGroup], new_target_bus: Optional[BusGroup]
+    ) -> None:
+        self._cached_source_bus = new_source_bus
+        self._cached_target_bus = new_target_bus
 
     def _reconcile(self) -> None:
-        self._reconcile_dependencies()
-        self._reconcile_buses()
+        self._reconcile_client_side()
+        self._reconcile_server_side()
 
-    def _reconcile_buses(self) -> bool:
+    def _reconcile_server_side(self) -> bool:
         source, new_source_bus = self._resolve_source()
         target, new_target_bus = self._resolve_target()
         # Defer if source and target should exist but either of their buses don't yet
         if source and target and not (new_source_bus and new_target_bus):
             return False
         # If any buses changed...
-        if new_source_bus != self._source_bus or new_target_bus != self._target_bus:
+        if self._should_reallocate(new_source_bus, new_target_bus):
             # Free the existing synth (if it exists)
             if synth := self._nodes.pop("synth", None):
                 synth.free()
             # Add a new synth (if source and target buses exist)
             if self.parent and new_source_bus and new_target_bus:
-                self._nodes["synth"] = self.parent._nodes["group"].add_synth(
-                    add_action=AddAction.ADD_TO_TAIL,
-                    in_=new_source_bus,
-                    out=new_target_bus,
-                    synthdef=PATCH_CABLE_2,
-                )
-        self._source_bus = new_source_bus
-        self._target_bus = new_target_bus
+                self._allocate_synth(self.parent, new_source_bus, new_target_bus)
+        self._cache(new_source_bus, new_target_bus)
         return True
 
-    def _reconcile_dependencies(self):
+    def _reconcile_client_side(self):
         new_source_component, _ = self._resolve_source()
         new_target_component, _ = self._resolve_target()
-        if new_source_component is not self._source_component:
-            if self._source_component and self in self._source_component._dependents:
-                self._source_component._dependents.remove(self)
-            self._source_component = new_source_component
-            if self._source_component:
-                self._source_component._dependents.add(self)
-        if new_target_component is not self._target_component:
-            if self._target_component and self in self._target_component._dependents:
-                self._target_component._dependents.remove(self)
-            self._target_component = new_target_component
-            if self._target_component:
-                self._target_component._dependents.add(self)
+        if new_source_component is not self._cached_source_component:
+            if (
+                self._cached_source_component
+                and self in self._source_component._dependents
+            ):
+                self._cached_source_component._dependents.remove(self)
+            self._cached_source_component = new_source_component
+            if self._cached_source_component:
+                self._cached_source_component._dependents.add(self)
+        if new_target_component is not self._cached_target_component:
+            if (
+                self._cached_target_component
+                and self in self._cached_target_component._dependents
+            ):
+                self._cached_target_component._dependents.remove(self)
+            self._cached_target_component = new_target_component
+            if self._cached_target_component:
+                self._cached_target_component._dependents.add(self)
 
     def _resolve_default_source_component(self) -> Optional[AllocatableComponent]:
         # return self.parent
@@ -129,50 +142,30 @@ class Connection(AllocatableComponent[AllocatableComponent]):
         if isinstance(source, AllocatableComponent) and self.mixer is not source.mixer:
             raise RuntimeError
         self._source = source
-        self._reconcile_dependencies()
+        self._reconcile_client_side()
         if (context := self._can_allocate()) is not None:
             with context.at():
-                self._reconcile_buses()
+                self._reconcile_server_side()
 
     def _set_target(self, target: Connectable) -> None:
         if isinstance(target, AllocatableComponent) and self.mixer is not target.mixer:
             raise RuntimeError
         self._target = target
-        self._reconcile_dependencies()
+        self._reconcile_client_side()
         if (context := self._can_allocate()) is not None:
             with context.at():
-                self._reconcile_buses()
+                self._reconcile_server_side()
+
+    def _should_reallocate(
+        self, new_source_bus: Optional[BusGroup], new_target_bus: Optional[BusGroup]
+    ) -> bool:
+        return (
+            new_source_bus != self._cached_source_bus
+            or new_target_bus != self._cached_target_bus
+        )
 
     @property
     def address(self) -> str:
         if self.parent is None:
             return self._name
         return f"{self.parent.address}.{self._name}"
-
-
-class TrackOutput(Connection):
-
-    def __init__(
-        self,
-        *,
-        parent: "Track",
-        target: Connectable = DEFAULT,
-    ) -> None:
-        super().__init__(
-            name="output",
-            parent=parent,
-            source=parent,
-            target=target,
-        )
-
-    def _resolve_default_source_component(self) -> Optional[AllocatableComponent]:
-        return self.parent
-
-    def _resolve_default_target_component(self) -> Optional[AllocatableComponent]:
-        return self.parent and self.parent.parent
-
-    async def set_target(self, target: Connectable) -> None:
-        async with self._lock:
-            if target is self.parent:
-                raise RuntimeError
-            self._set_target(target)

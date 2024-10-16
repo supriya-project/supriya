@@ -1,11 +1,11 @@
 from typing import Generator, List, Optional, Union
 
-from ..contexts import AsyncServer
+from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate
-from ..typing import Default
+from ..typing import DEFAULT, Default
 from .components import AllocatableComponent, C, Component
-from .routing import Connectable, TrackOutput
-from .synthdefs import CHANNEL_STRIP_2
+from .routing import Connectable, Connection
+from .synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2
 
 
 class TrackContainer(AllocatableComponent[C]):
@@ -28,6 +28,97 @@ class TrackContainer(AllocatableComponent[C]):
         return self._tracks[:]
 
 
+class TrackOutput(Connection["Track"]):
+
+    def __init__(
+        self,
+        *,
+        parent: "Track",
+        target: Connectable = DEFAULT,
+    ) -> None:
+        super().__init__(
+            name="output",
+            parent=parent,
+            source=parent,
+            target=target,
+        )
+
+    def _resolve_default_source_component(self) -> Optional[AllocatableComponent]:
+        return self.parent
+
+    def _resolve_default_target_component(self) -> Optional[AllocatableComponent]:
+        return self.parent and self.parent.parent
+
+    async def set_target(self, target: Connectable) -> None:
+        async with self._lock:
+            if target is self.parent:
+                raise RuntimeError
+            self._set_target(target)
+
+
+class TrackSend(Connection["Track"]):
+    def __init__(
+        self,
+        *,
+        parent: "Track",
+        target: Union[AllocatableComponent, BusGroup],
+        postfader: bool = True,
+    ) -> None:
+        super().__init__(
+            name="send",
+            parent=parent,
+            source=parent,
+            target=target,
+        )
+        self._postfader = postfader
+        self._cached_postfader = postfader
+
+    def _allocate_synth(
+        self, parent: AllocatableComponent, source_bus: BusGroup, target_bus: BusGroup
+    ) -> None:
+        self._nodes["synth"] = parent._nodes["channel_strip"].add_synth(
+            add_action=AddAction.ADD_AFTER if self._postfader else AddAction.ADD_BEFORE,
+            in_=source_bus,
+            out=target_bus,
+            synthdef=PATCH_CABLE_2,
+        )
+
+    def _cache(
+        self, new_source_bus: Optional[BusGroup], new_target_bus: Optional[BusGroup]
+    ) -> None:
+        super()._cache(new_source_bus, new_target_bus)
+        self._cached_postfader = self._postfader
+
+    def _resolve_default_source_component(self) -> Optional[AllocatableComponent]:
+        return self.parent
+
+    def _should_reallocate(
+        self, new_source_bus: Optional[BusGroup], new_target_bus: Optional[BusGroup]
+    ) -> bool:
+        return super()._should_reallocate(new_source_bus, new_target_bus) or (
+            self._postfader != self._cached_postfader
+        )
+
+    async def delete(self) -> None:
+        async with self._lock:
+            if self._parent is not None and self in self._parent._sends:
+                self._parent._sends.remove(self)
+            self._delete()
+
+    async def set_postfader(self, postfader: bool) -> None:
+        async with self._lock:
+            self._postfader = postfader
+            if (context := self._can_allocate()) is not None:
+                with context.at():
+                    self._reconcile_server_side()
+
+    async def set_target(self, target: Union[AllocatableComponent, BusGroup]) -> None:
+        async with self._lock:
+            if target is self.parent:
+                raise RuntimeError
+            self._set_target(target)
+
+
 class Track(TrackContainer[TrackContainer]):
 
     # TODO: add_device() -> Device
@@ -45,6 +136,7 @@ class Track(TrackContainer[TrackContainer]):
         AllocatableComponent.__init__(self, parent=parent)
         TrackContainer.__init__(self)
         self._output = TrackOutput(parent=self)
+        self._sends: List[TrackSend] = []
 
     def _allocate(self, *, context: AsyncServer) -> bool:
         if not super()._allocate(context=context):
@@ -79,6 +171,17 @@ class Track(TrackContainer[TrackContainer]):
     async def activate(self) -> None:
         async with self._lock:
             pass
+
+    async def add_send(
+        self, *, postfader: bool, target: Union[AllocatableComponent, BusGroup]
+    ) -> TrackSend:
+        async with self._lock:
+            self._sends.append(
+                send := TrackSend(parent=self, postfader=postfader, target=target)
+            )
+            if context := self._can_allocate():
+                send._allocate_deep(context=context)
+            return send
 
     async def deactivate(self) -> None:
         async with self._lock:
