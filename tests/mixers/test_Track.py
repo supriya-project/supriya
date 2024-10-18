@@ -425,7 +425,7 @@ async def test_Track_delete(
             "other",
             0,
             does_not_raise,
-            [0, 0, 0],
+            [0, 0, 1],
             """
             --- initial
             +++ mutation
@@ -475,7 +475,7 @@ async def test_Track_delete(
             "other_other",
             0,
             does_not_raise,
-            [0, 1, 0],
+            [0, 1, 1],
             """
             --- initial
             +++ mutation
@@ -596,6 +596,12 @@ async def test_Track_move(
                     gate: 1.0, in_: 24.0, out: 0.0
         """,
     )
+
+
+@pytest.mark.skip
+@pytest.mark.asyncio
+async def test_Track_set_input() -> None:
+    pass
 
 
 @pytest.mark.parametrize("online", [False, True])

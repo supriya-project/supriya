@@ -28,6 +28,40 @@ class TrackContainer(AllocatableComponent[C]):
         return self._tracks[:]
 
 
+class TrackInput(Connection["Track"]):
+
+    def __init__(
+        self,
+        *,
+        parent: "Track",
+        source: Optional[Union[AllocatableComponent, BusGroup]] = None,
+    ) -> None:
+        super().__init__(
+            name="input",
+            parent=parent,
+            source=source,
+            target=parent,
+        )
+
+    def _allocate_synth(
+        self, parent: AllocatableComponent, source_bus: BusGroup, target_bus: BusGroup
+    ) -> None:
+        self._nodes["synth"] = parent._nodes["group"].add_synth(
+            add_action=AddAction.ADD_BEFORE,
+            in_=source_bus,
+            out=target_bus,
+            synthdef=PATCH_CABLE_2,
+        )
+
+    async def set_source(
+        self, source: Optional[Union[AllocatableComponent, BusGroup]]
+    ) -> None:
+        async with self._lock:
+            if source is self.parent:
+                raise RuntimeError
+            self._set_source(source)
+
+
 class TrackOutput(Connection["Track"]):
 
     def __init__(
@@ -42,9 +76,6 @@ class TrackOutput(Connection["Track"]):
             source=parent,
             target=target,
         )
-
-    def _resolve_default_source_component(self) -> Optional[AllocatableComponent]:
-        return self.parent
 
     def _resolve_default_target_component(self) -> Optional[AllocatableComponent]:
         return self.parent and self.parent.parent
@@ -144,6 +175,7 @@ class Track(TrackContainer[TrackContainer]):
     ) -> None:
         AllocatableComponent.__init__(self, parent=parent)
         TrackContainer.__init__(self)
+        self._input = TrackInput(parent=self)
         self._output = TrackOutput(parent=self)
         # TODO: Are sends the purview of track containers in general?
         self._sends: List[TrackSend] = []
@@ -231,6 +263,11 @@ class Track(TrackContainer[TrackContainer]):
                 for component in self._dependents:
                     component._reconcile()
 
+    async def set_input(
+        self, input_: Optional[Union[BusGroup, TrackContainer]]
+    ) -> None:
+        await self._input.set_source(input_)
+
     async def set_output(
         self, output: Optional[Union[Default, TrackContainer]]
     ) -> None:
@@ -264,7 +301,17 @@ class Track(TrackContainer[TrackContainer]):
                 postfader_sends.append(send)
             else:
                 prefader_sends.append(send)
-        return [*self._tracks, *prefader_sends, self._output, *postfader_sends]
+        return [
+            self._input,
+            *self._tracks,
+            *prefader_sends,
+            self._output,
+            *postfader_sends,
+        ]
+
+    @property
+    def input_(self) -> Connectable:
+        return self._input._source
 
     @property
     def output(self) -> Connectable:
