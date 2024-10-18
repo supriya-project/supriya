@@ -51,9 +51,189 @@ async def test_Track_activate(track: Track) -> None:
     await track.activate()
 
 
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.parametrize(
+    "postfader, target, expected_diff",
+    [
+        (
+            True,
+            "mixer",
+            """
+            --- initial
+            +++ mutation
+            @@ -5,6 +5,8 @@
+                             1005 group (session.mixers[0].tracks[0]:tracks)
+                             1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+            +                1012 patch-cable-2 (session.mixers[0].tracks[0].send:synth)
+            +                    gate: 1.0, in_: 18.0, out: 16.0
+                             1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
+                                 gate: 1.0, in_: 18.0, out: 16.0
+                         1008 group (session.mixers[0].tracks[1]:group)
+            """,
+        ),
+        (
+            True,
+            "other",
+            """
+            --- initial
+            +++ mutation
+            @@ -5,6 +5,8 @@
+                             1005 group (session.mixers[0].tracks[0]:tracks)
+                             1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+            +                1012 patch-cable-2 (session.mixers[0].tracks[0].send:synth)
+            +                    gate: 1.0, in_: 18.0, out: 20.0
+                             1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
+                                 gate: 1.0, in_: 18.0, out: 16.0
+                         1008 group (session.mixers[0].tracks[1]:group)
+            """,
+        ),
+        (
+            False,
+            "other",
+            """
+            --- initial
+            +++ mutation
+            @@ -3,6 +3,8 @@
+                     1001 group (session.mixers[0]:tracks)
+                         1004 group (session.mixers[0].tracks[0]:group)
+                             1005 group (session.mixers[0].tracks[0]:tracks)
+            +                1012 patch-cable-2 (session.mixers[0].tracks[0].send:synth)
+            +                    gate: 1.0, in_: 18.0, out: 20.0
+                             1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                             1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
+            """,
+        ),
+        (
+            False,
+            "self",
+            """
+            --- initial
+            +++ mutation
+            @@ -3,6 +3,8 @@
+                     1001 group (session.mixers[0]:tracks)
+                         1004 group (session.mixers[0].tracks[0]:group)
+                             1005 group (session.mixers[0].tracks[0]:tracks)
+            +                1012 patch-cable-2 (session.mixers[0].tracks[0].send:synth)
+            +                    gate: 1.0, in_: 18.0, out: 18.0
+                             1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                                 active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                             1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
+            """,
+        ),
+    ],
+)
 @pytest.mark.asyncio
-async def test_Track_add_track(track: Track) -> None:
-    await track.add_track()
+async def test_Track_add_send(
+    expected_diff: str,
+    mixer: Mixer,
+    online: bool,
+    postfader: bool,
+    session: Session,
+    target: str,
+    track: Track,
+) -> None:
+    # Pre-conditions
+    if online:
+        await session.boot()
+    targets: Dict[str, TrackContainer] = {
+        "mixer": mixer,
+        "other": await mixer.add_track(),
+        "self": track,
+    }
+    target_ = targets[target]
+    # Operation
+    send = await track.add_send(postfader=postfader, target=target_)
+    # Post-conditions
+    assert send in track.sends
+    assert send.parent is track
+    assert send.postfader == postfader
+    assert send.target is target_
+    assert track.sends[0] is send
+    if not online:
+        return
+    await assert_diff(
+        session,
+        expected_diff,
+        initial_tree="""
+        {context}
+            NODE TREE 1000 group (session.mixers[0]:group)
+                1001 group (session.mixers[0]:tracks)
+                    1004 group (session.mixers[0].tracks[0]:group)
+                        1005 group (session.mixers[0].tracks[0]:tracks)
+                        1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                            active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                        1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
+                            gate: 1.0, in_: 18.0, out: 16.0
+                    1008 group (session.mixers[0].tracks[1]:group)
+                        1009 group (session.mixers[0].tracks[1]:tracks)
+                        1010 channel-strip-2 (session.mixers[0].tracks[1]:channel_strip)
+                            active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+                        1011 patch-cable-2 (session.mixers[0].tracks[1].output:synth)
+                            gate: 1.0, in_: 20.0, out: 16.0
+                1002 channel-strip-2 (session.mixers[0]:channel_strip)
+                    active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
+                1003 patch-cable-2 (session.mixers[0]:output)
+                    gate: 1.0, in_: 16.0, out: 0.0
+        """,
+    )
+
+
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.asyncio
+async def test_Track_add_track(
+    online: bool,
+    session: Session,
+    track: Track,
+) -> None:
+    # Pre-conditions
+    if online:
+        await session.boot()
+    # Operation
+    child_track = await track.add_track()
+    # Post-conditions
+    assert child_track in track.tracks
+    assert child_track.parent is track
+    assert track.tracks[0] is child_track
+    if not online:
+        return
+    await assert_diff(
+        session,
+        expected_diff="""
+        --- initial
+        +++ mutation
+        @@ -3,6 +3,12 @@
+                 1001 group (session.mixers[0]:tracks)
+                     1004 group (session.mixers[0].tracks[0]:group)
+                         1005 group (session.mixers[0].tracks[0]:tracks)
+        +                    1008 group (session.mixers[0].tracks[0].tracks[0]:group)
+        +                        1009 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+        +                        1010 channel-strip-2 (session.mixers[0].tracks[0].tracks[0]:channel_strip)
+        +                            active: 1.0, bus: 20.0, gain: 0.0, gate: 1.0
+        +                        1011 patch-cable-2 (session.mixers[0].tracks[0].tracks[0].output:synth)
+        +                            gate: 1.0, in_: 20.0, out: 18.0
+                         1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                             active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                         1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
+        """,
+        initial_tree="""
+        {context}
+            NODE TREE 1000 group (session.mixers[0]:group)
+                1001 group (session.mixers[0]:tracks)
+                    1004 group (session.mixers[0].tracks[0]:group)
+                        1005 group (session.mixers[0].tracks[0]:tracks)
+                        1006 channel-strip-2 (session.mixers[0].tracks[0]:channel_strip)
+                            active: 1.0, bus: 18.0, gain: 0.0, gate: 1.0
+                        1007 patch-cable-2 (session.mixers[0].tracks[0].output:synth)
+                            gate: 1.0, in_: 18.0, out: 16.0
+                1002 channel-strip-2 (session.mixers[0]:channel_strip)
+                    active: 1.0, bus: 16.0, gain: 0.0, gate: 1.0
+                1003 patch-cable-2 (session.mixers[0]:output)
+                    gate: 1.0, in_: 16.0, out: 0.0
+        """,
+    )
 
 
 @pytest.mark.asyncio

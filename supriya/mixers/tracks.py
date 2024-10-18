@@ -1,4 +1,4 @@
-from typing import Generator, List, Optional, Union
+from typing import Generator, List, Optional, Union, cast
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate
@@ -118,6 +118,14 @@ class TrackSend(Connection["Track"]):
                 raise RuntimeError
             self._set_target(target)
 
+    @property
+    def postfader(self) -> bool:
+        return self._postfader
+
+    @property
+    def target(self) -> Union[AllocatableComponent, BusGroup]:
+        return cast(Union[AllocatableComponent, BusGroup], self._target)
+
 
 class Track(TrackContainer[TrackContainer]):
 
@@ -136,6 +144,7 @@ class Track(TrackContainer[TrackContainer]):
         AllocatableComponent.__init__(self, parent=parent)
         TrackContainer.__init__(self)
         self._output = TrackOutput(parent=self)
+        # TODO: Are sends the purview of track containers in general?
         self._sends: List[TrackSend] = []
 
     def _allocate(self, *, context: AsyncServer) -> bool:
@@ -163,8 +172,22 @@ class Track(TrackContainer[TrackContainer]):
         return True
 
     def _walk(self) -> Generator[Component, None, None]:
+        # Should this be just...
+        #
+        #     for child in self.children:
+        #         yield from child._walk()
+        #
+        # ...?
+        # This makes the ID numbers more confusing, but makes internal logic
+        # generally less confusing.
         yield from super()._walk()
-        yield self._output
+        for send in self._sends:
+            if not send.postfader:
+                yield from send._walk()
+        yield from self._output._walk()
+        for send in self._sends:
+            if send.postfader:
+                yield from send._walk()
         for track in self.tracks:
             yield from track._walk()
 
@@ -253,8 +276,19 @@ class Track(TrackContainer[TrackContainer]):
 
     @property
     def children(self) -> List[Component]:
-        return list(self._tracks) + [self._output]
+        prefader_sends = []
+        postfader_sends = []
+        for send in self._sends:
+            if send.postfader:
+                postfader_sends.append(send)
+            else:
+                prefader_sends.append(send)
+        return [*self._tracks, *prefader_sends, self._output, *postfader_sends]
 
     @property
     def output(self) -> Connectable:
         return self._output._target
+
+    @property
+    def sends(self) -> List[TrackSend]:
+        return self._sends[:]
