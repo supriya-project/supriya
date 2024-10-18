@@ -1,4 +1,4 @@
-from typing import Generator, List, Optional, Union, cast
+from typing import List, Optional, Union, cast
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate
@@ -124,6 +124,7 @@ class TrackSend(Connection["Track"]):
 
     @property
     def target(self) -> Union[AllocatableComponent, BusGroup]:
+        # TODO: Can this be parameterized via generics?
         return cast(Union[AllocatableComponent, BusGroup], self._target)
 
 
@@ -170,26 +171,6 @@ class Track(TrackContainer[TrackContainer]):
                 synthdef=CHANNEL_STRIP_2,
             )
         return True
-
-    def _walk(self) -> Generator[Component, None, None]:
-        # Should this be just...
-        #
-        #     for child in self.children:
-        #         yield from child._walk()
-        #
-        # ...?
-        # This makes the ID numbers more confusing, but makes internal logic
-        # generally less confusing.
-        yield from super()._walk()
-        for send in self._sends:
-            if not send.postfader:
-                yield from send._walk()
-        yield from self._output._walk()
-        for send in self._sends:
-            if send.postfader:
-                yield from send._walk()
-        for track in self.tracks:
-            yield from track._walk()
 
     async def activate(self) -> None:
         async with self._lock:

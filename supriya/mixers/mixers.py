@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Generator, List, Optional
+from typing import TYPE_CHECKING, List, Optional
 
 from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate
@@ -49,11 +49,6 @@ class Mixer(TrackContainer["Session"]):
             )
         return True
 
-    def _walk(self) -> Generator[Component, None, None]:
-        yield from super()._walk()
-        for track in self.tracks:
-            yield from track._walk()
-
     async def delete(self) -> None:
         # TODO: What are delete semantics actually?
         async with self._lock:
@@ -70,7 +65,7 @@ class Mixer(TrackContainer["Session"]):
 
     @property
     def children(self) -> List[Component]:
-        return list(self._tracks)
+        return [*self._tracks]
 
     @property
     def context(self) -> Optional[AsyncServer]:
