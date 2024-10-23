@@ -1,13 +1,13 @@
 import enum
-from typing import Optional, Tuple, TypeAlias, Union
+from typing import Generic, Optional, Tuple, TypeAlias, TypeVar, Union
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
-from ..typing import DEFAULT, Default
+from ..typing import Default
 from .components import A, AllocatableComponent
 from .synthdefs import PATCH_CABLE_2
 
-Connectable: TypeAlias = Optional[Union[AllocatableComponent, BusGroup, Default]]
+Connectable: TypeAlias = Union[AllocatableComponent, BusGroup, Default]
 
 
 class DefaultBehavior(enum.Enum):
@@ -15,7 +15,12 @@ class DefaultBehavior(enum.Enum):
     GRANDPARENT = enum.auto()
 
 
-class Connection(AllocatableComponent[A]):
+S = TypeVar("S", bound=Connectable)
+
+T = TypeVar("T", bound=Connectable)
+
+
+class Connection(AllocatableComponent[A], Generic[A, S, T]):
     # TODO: We probably do want subclasses for input / output / send
     #       Because the default resolution behavior
     #       And allocation logic are subtly different
@@ -24,9 +29,9 @@ class Connection(AllocatableComponent[A]):
         self,
         *,
         name: str,
+        source: Optional[S],
+        target: Optional[T],
         parent: Optional[A] = None,
-        source: Connectable = DEFAULT,
-        target: Connectable = DEFAULT,
     ) -> None:
         super().__init__(parent=parent)
         self._name = name
@@ -138,7 +143,7 @@ class Connection(AllocatableComponent[A]):
             return target, target._audio_buses.get("main")
         return None, None
 
-    def _set_source(self, source: Connectable) -> None:
+    def _set_source(self, source: Optional[S]) -> None:
         if isinstance(source, AllocatableComponent) and self.mixer is not source.mixer:
             raise RuntimeError
         self._source = source
@@ -147,7 +152,7 @@ class Connection(AllocatableComponent[A]):
             with context.at():
                 self._reconcile_server_side()
 
-    def _set_target(self, target: Connectable) -> None:
+    def _set_target(self, target: Optional[T]) -> None:
         if isinstance(target, AllocatableComponent) and self.mixer is not target.mixer:
             raise RuntimeError
         self._target = target

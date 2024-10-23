@@ -4,7 +4,7 @@ from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate
 from ..typing import DEFAULT, Default
 from .components import AllocatableComponent, C, Component
-from .routing import Connectable, Connection
+from .routing import Connection
 from .synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2
 
 
@@ -28,13 +28,13 @@ class TrackContainer(AllocatableComponent[C]):
         return self._tracks[:]
 
 
-class TrackInput(Connection["Track"]):
+class TrackInput(Connection["Track", Union[BusGroup, TrackContainer], "Track"]):
 
     def __init__(
         self,
         *,
         parent: "Track",
-        source: Optional[Union[AllocatableComponent, BusGroup]] = None,
+        source: Optional[Union[BusGroup, "Track"]] = None,
     ) -> None:
         super().__init__(
             name="input",
@@ -53,22 +53,22 @@ class TrackInput(Connection["Track"]):
             synthdef=PATCH_CABLE_2,
         )
 
-    async def set_source(
-        self, source: Optional[Union[AllocatableComponent, BusGroup]]
-    ) -> None:
+    async def set_source(self, source: Optional[Union[BusGroup, "Track"]]) -> None:
         async with self._lock:
             if source is self.parent:
                 raise RuntimeError
             self._set_source(source)
 
 
-class TrackOutput(Connection["Track"]):
+class TrackOutput(
+    Connection["Track", "Track", Union[BusGroup, Default, TrackContainer]]
+):
 
     def __init__(
         self,
         *,
         parent: "Track",
-        target: Connectable = DEFAULT,
+        target: Optional[Union[BusGroup, Default, TrackContainer]] = DEFAULT,
     ) -> None:
         super().__init__(
             name="output",
@@ -80,19 +80,21 @@ class TrackOutput(Connection["Track"]):
     def _resolve_default_target_component(self) -> Optional[AllocatableComponent]:
         return self.parent and self.parent.parent
 
-    async def set_target(self, target: Connectable) -> None:
+    async def set_target(
+        self, target: Optional[Union[BusGroup, Default, TrackContainer]]
+    ) -> None:
         async with self._lock:
             if target is self.parent:
                 raise RuntimeError
             self._set_target(target)
 
 
-class TrackSend(Connection["Track"]):
+class TrackSend(Connection["Track", "Track", TrackContainer]):
     def __init__(
         self,
         *,
         parent: "Track",
-        target: Union[AllocatableComponent, BusGroup],
+        target: TrackContainer,
         postfader: bool = True,
     ) -> None:
         super().__init__(
@@ -143,7 +145,7 @@ class TrackSend(Connection["Track"]):
                 with context.at():
                     self._reconcile_server_side()
 
-    async def set_target(self, target: Union[AllocatableComponent, BusGroup]) -> None:
+    async def set_target(self, target: TrackContainer) -> None:
         async with self._lock:
             if target is self.parent:
                 raise RuntimeError
@@ -208,9 +210,7 @@ class Track(TrackContainer[TrackContainer]):
         async with self._lock:
             pass
 
-    async def add_send(
-        self, *, postfader: bool, target: Union[AllocatableComponent, BusGroup]
-    ) -> TrackSend:
+    async def add_send(self, *, postfader: bool, target: TrackContainer) -> TrackSend:
         async with self._lock:
             self._sends.append(
                 send := TrackSend(parent=self, postfader=postfader, target=target)
@@ -263,9 +263,7 @@ class Track(TrackContainer[TrackContainer]):
                 for component in self._dependents:
                     component._reconcile()
 
-    async def set_input(
-        self, input_: Optional[Union[BusGroup, TrackContainer]]
-    ) -> None:
+    async def set_input(self, input_: Optional[Union[BusGroup, "Track"]]) -> None:
         await self._input.set_source(input_)
 
     async def set_output(
@@ -310,11 +308,11 @@ class Track(TrackContainer[TrackContainer]):
         ]
 
     @property
-    def input_(self) -> Connectable:
+    def input_(self) -> Optional[Union[BusGroup, TrackContainer]]:
         return self._input._source
 
     @property
-    def output(self) -> Connectable:
+    def output(self) -> Optional[Union[BusGroup, Default, TrackContainer]]:
         return self._output._target
 
     @property
