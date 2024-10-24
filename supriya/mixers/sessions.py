@@ -7,7 +7,7 @@ from ..contexts import AsyncServer, ServerLifecycleEvent
 from ..enums import BootStatus
 from ..osc import find_free_port
 from .components import Component
-from .synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2
+from .synthdefs import CHANNEL_STRIP_2, FB_PATCH_CABLE_2, PATCH_CABLE_2
 
 if TYPE_CHECKING:
     from .mixers import Mixer
@@ -64,7 +64,7 @@ class Session(Component):
 
     def _new_context(self) -> AsyncServer:
         async def add_synthdefs(event: ServerLifecycleEvent) -> None:
-            for synthdef in [CHANNEL_STRIP_2, PATCH_CABLE_2]:
+            for synthdef in [CHANNEL_STRIP_2, FB_PATCH_CABLE_2, PATCH_CABLE_2]:
                 with context.at():
                     context.add_synthdefs(synthdef)
             await context.sync()

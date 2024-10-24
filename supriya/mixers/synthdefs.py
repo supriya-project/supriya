@@ -1,4 +1,4 @@
-from ..ugens import In, Linen, Out, Parameter, ReplaceOut, SynthDefBuilder
+from ..ugens import In, InFeedback, Linen, Out, Parameter, ReplaceOut, SynthDefBuilder
 
 LAG_TIME = 0.005
 
@@ -39,16 +39,22 @@ def build_channel_strip(channel_count=2):
 CHANNEL_STRIP_2 = build_channel_strip(2)
 
 
-def build_patch_cable(channel_count=2):
+def build_patch_cable(channel_count=2, feedback=False):
     with SynthDefBuilder(
         in_=0,
         out=0,
         gate=1,
     ) as builder:
-        source = In.ar(
-            channel_count=channel_count,
-            bus=builder["in_"],
-        )
+        if feedback:
+            source = InFeedback.ar(
+                channel_count=channel_count,
+                bus=builder["in_"],
+            )
+        else:
+            source = In.ar(
+                channel_count=channel_count,
+                bus=builder["in_"],
+            )
         free_gate = Linen.kr(
             attack_time=LAG_TIME,
             gate=builder["gate"],
@@ -60,4 +66,5 @@ def build_patch_cable(channel_count=2):
     return builder.build(f"patch-cable-{channel_count}")
 
 
+FB_PATCH_CABLE_2 = build_patch_cable(2, feedback=True)
 PATCH_CABLE_2 = build_patch_cable(2)
