@@ -74,7 +74,10 @@ runs:
         brew install \
           fftw \
           jack \
-          portaudio
+          libsndfile \
+          portaudio \
+          readline \
+          --quiet
           # brew install --cask blackhole-16ch
       shell: bash
     - name: Setup Jack
