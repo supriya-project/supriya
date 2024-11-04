@@ -55,8 +55,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     async def _on_connect(self, *, boot_future: FutureLike[bool]) -> None:
         super()._on_connect(boot_future=self.boot_future)
         if self.on_connect_callback:
-            if asyncio.iscoroutine(result := self.on_connect_callback()):
-                await result
+            self.on_connect_callback()
 
     async def _on_disconnect(
         self,
@@ -71,11 +70,9 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
             panicked=panicked,
         )
         if panicked and self.on_panic_callback:
-            if asyncio.iscoroutine(result := self.on_panic_callback()):
-                await result
+            self.on_panic_callback()
         elif not panicked and self.on_disconnect_callback:
-            if asyncio.iscoroutine(result := self.on_disconnect_callback()):
-                await result
+            self.on_disconnect_callback()
 
     async def _on_healthcheck_passed(self, message: OscMessage) -> None:
         super()._on_healthcheck_passed(message)
@@ -161,9 +158,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
             lambda: self, remote_addr=(ip_address, port)
         )
         if self.healthcheck and self.healthcheck.active:
-            self.healthcheck_task = asyncio.get_running_loop().create_task(
-                self._run_healthcheck()
-            )
+            self.healthcheck_task = loop.create_task(self._run_healthcheck())
         elif not self.healthcheck:
             await self._on_connect(boot_future=self.boot_future)
 
