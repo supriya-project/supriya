@@ -108,8 +108,9 @@ jobs:
         os: [ubuntu-latest]
         python-version: ["3.9", "3.10", "3.11", "3.12"]
         include:
-        - os: macos-13
-          python-version: "3.12"
+        # supercollider 3.13 doesn't want to build on macos-13 or higher
+        # - os: macos-13
+        #   python-version: "3.12"
         - os: windows-latest
           python-version: "3.12"
     timeout-minutes: 45
