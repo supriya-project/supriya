@@ -123,7 +123,6 @@ runs:
         cmake \
           -DCMAKE_PREFIX_PATH=`brew --prefix qt5` \
           -DRULE_LAUNCH_COMPILE=ccache \
-          -DSC_VERIFY_APP=OFF \
           -DSC_ED=OFF \
           -DSC_EL=OFF \
           -DSC_IDE=OFF \
