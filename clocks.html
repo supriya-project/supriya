@@ -32,8 +32,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.3625f807144f53acf.min.css?v=fbfc4466" />
-        <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -2301,10 +2301,10 @@ extension - understand tempo, time signatures and downbeats.</p>
 <p>These clocks come in both <em>threaded</em> and <em>asynchronous</em> flavors, as well as
 <em>online</em> and <em>offline</em>.</p>
 <p><em>Threaded</em> clocks handle callbacks in their own thread, while <em>asynchronous</em>
-clocks hook into an <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> event loop. Use threaded clocks when
+clocks hook into an <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> event loop. Use threaded clocks when
 experimenting interactively in the terminal or building simple applications.
 Use asynchronous clocks when building more complex applications which integrate
-with other <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a>-aware libraries like <a class="reference external" href="https://docs.aiohttp.org">aiohttp</a>,
+with other <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a>-aware libraries like <a class="reference external" href="https://docs.aiohttp.org">aiohttp</a>,
 <a class="reference external" href="https://python-prompt-toolkit.readthedocs.io">python-prompt-toolkit</a> or <a class="reference external" href="https://github.com/artfwo/pymonome">pymonome</a>.</p>
 <p><em>Offline</em> clocks implement the same interface as their <em>online</em> counterparts,
 but process their callbacks as fast as possible, regardless of the amount of
@@ -2345,7 +2345,7 @@ the clock will pass a <a class="reference internal" href="api/supriya/clocks/eph
 <h3 id="canceling">Canceling<a class="headerlink" href="#canceling" title="Link to this heading">¶</a></h3>
 <p>We can use the event ID to cancel the callback if it hasn’t already occurred:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="go">CallbackCommand(event_id=0, event_type=&lt;EventType.SCHEDULE: 1&gt;, quantization=None, schedule_at=0.0, time_unit=&lt;TimeUnit.BEATS: 0&gt;, args=None, kwargs=None, procedure=&lt;function callback at 0x7fce9f8647c0&gt;)</span>
+<span class="go">CallbackCommand(event_id=0, event_type=&lt;EventType.SCHEDULE: 1&gt;, quantization=None, schedule_at=0.0, time_unit=&lt;TimeUnit.BEATS: 0&gt;, args=None, kwargs=None, procedure=&lt;function callback at 0x7f2d4d6aae80&gt;)</span>
 </code></pre></div>
 </div>
 <h3 id="cueing">Cueing<a class="headerlink" href="#cueing" title="Link to this heading">¶</a></h3>
@@ -2481,7 +2481,7 @@ quantization relative the current time.</p>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    8.0.2.
+    8.1.3.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

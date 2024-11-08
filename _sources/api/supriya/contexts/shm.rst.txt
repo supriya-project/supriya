@@ -10,4 +10,6 @@ shm
 .. autoclass:: ServerSHM
    :show-inheritance:
 
+   .. automethod:: __delitem__
    .. automethod:: __getitem__
+   .. automethod:: __setitem__
