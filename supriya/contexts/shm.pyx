@@ -1,6 +1,9 @@
 # cython: language_level=3
 # distutils: language = c++
 
+from typing import List, Union
+
+from .entities import Bus, BusGroup
 from .shm cimport server_shared_memory_client
 
 
@@ -22,10 +25,14 @@ cdef class ServerSHM:
         self.client = new server_shared_memory_client(port_number)
         self.bus_count = bus_count
 
-    def __dealloc__(self):
+    def __dealloc__(self) -> None:
         del self.client
 
-    def __getitem__(self, item):
+    def __getitem__(self, item: Union[int, slice, Bus, BusGroup]) -> Union[float, List[float]]:
+        if isinstance(item, Bus):
+            item = int(item)
+        elif isinstance(item, BusGroup):
+            item = slice(int(item), int(item) + len(item))
         if isinstance(item, int):
             if item < 0 or item >= self.bus_count:
                 raise ValueError("index out of bounds")
