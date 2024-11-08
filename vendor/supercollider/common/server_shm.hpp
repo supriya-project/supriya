@@ -72,7 +72,7 @@ public:
     }
 
     void set_control_bus(int bus, float value) {
-        // TODO: we need to set the control busses via a work queue
+        control_busses_[bus] = value;
     }
 
     float* get_control_busses(void) { return control_busses_.get(); }
@@ -156,6 +156,8 @@ public:
     }
 
     float* get_control_busses(void) { return shm->get_control_busses(); }
+
+    void set_control_bus(int bus, float value) { shm->set_control_bus(bus, value); }
 
     scope_buffer_reader get_scope_buffer_reader(unsigned int index) {
         scope_buffer* buf = shm->get_scope_buffer(index);
