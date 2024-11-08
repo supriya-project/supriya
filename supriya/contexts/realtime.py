@@ -316,7 +316,7 @@ class BaseServer(Context):
 
     def _setup_shm(self) -> None:
         try:
-            from ..realtime.shm import ServerSHM
+            from .shm import ServerSHM
 
             self._shm = ServerSHM(
                 self._options.port, self._options.control_bus_channel_count
