@@ -5580,7 +5580,7 @@ class SynthDef:
                 }
             )
 
-        graph = Graph(name=f"synthdef_{self.actual_name}")
+        graph = Graph(name=f"synthdef_{self.effective_name}")
         for node in sorted(
             (ugen_node_mapping := create_ugen_node_mapping()).values(),
             key=lambda x: x.name,
@@ -5594,12 +5594,12 @@ class SynthDef:
         return hash((type(self), self._name, self._compiled_graph))
 
     def __repr__(self) -> str:
-        return "<{}: {}>".format(type(self).__name__, self.actual_name)
+        return "<{}: {}>".format(type(self).__name__, self.effective_name)
 
     def __str__(self) -> str:
         result = [
             "synthdef:",
-            f"    name: {self.actual_name}",
+            f"    name: {self.effective_name}",
             "    ugens:",
         ]
         grouped_ugens: Dict[Tuple[Type[UGen], CalculationRate, int], List[UGen]] = {}
@@ -5677,10 +5677,6 @@ class SynthDef:
         return compile_synthdefs(self, use_anonymous_names=use_anonymous_name)
 
     @property
-    def actual_name(self) -> str:
-        return self.name or self.anonymous_name
-
-    @property
     def anonymous_name(self) -> str:
         return hashlib.md5(self._compiled_graph).hexdigest()
 
@@ -5691,6 +5687,10 @@ class SynthDef:
     @property
     def controls(self) -> Sequence[Control]:
         return self._controls
+
+    @property
+    def effective_name(self) -> str:
+        return self.name or self.anonymous_name
 
     @property
     def has_gate(self) -> bool:

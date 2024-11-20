@@ -683,7 +683,7 @@ class FreeSynthDef(Request):
         contents = []
         for x in self.synthdefs:
             if isinstance(x, SynthDef):
-                contents.append(x.actual_name)
+                contents.append(x.effective_name)
             else:
                 contents.append(x)
         return OscMessage(RequestName.SYNTHDEF_FREE, *contents)
@@ -1314,7 +1314,7 @@ class NewSynth(Request):
     def to_osc(self) -> OscMessage:
         contents: List[Union[float, str, Tuple[Union[float, str], ...]]] = [
             (
-                self.synthdef.actual_name
+                self.synthdef.effective_name
                 if isinstance(self.synthdef, SynthDef)
                 else self.synthdef
             ),
