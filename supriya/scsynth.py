@@ -1,5 +1,6 @@
 import asyncio
 import atexit
+from collections import defaultdict
 import concurrent.futures
 import enum
 import logging
@@ -10,7 +11,17 @@ import subprocess
 import threading
 from dataclasses import dataclass
 from pathlib import Path
-from typing import IO, Callable, Dict, Iterator, List, Optional, Set, Tuple, cast
+from typing import (
+    IO,
+    Callable,
+    DefaultDict,
+    Iterator,
+    List,
+    Optional,
+    Set,
+    Tuple,
+    cast,
+)
 
 import psutil
 import uqbar.io
@@ -120,66 +131,66 @@ class Options:
 
     def serialize(self) -> List[str]:
         result = [str(find(self.executable))]
-        pairs: Dict[str, Optional[str]] = {}
+        pairs: DefaultDict[str, List[str]] = defaultdict(list)
         if self.realtime:
             if self.protocol == "tcp":
-                pairs["-t"] = str(self.port)
+                pairs["-t"].append(str(self.port))
             else:
-                pairs["-u"] = str(self.port)
+                pairs["-u"].append(str(self.port))
             if self.input_device:
-                pairs["-H"] = str(self.input_device)
+                pairs["-H"].append(str(self.input_device))
                 if self.output_device != self.input_device:
-                    result.append(str(self.output_device))
+                    pairs["-H"].append(str(self.output_device))
             if self.maximum_logins != 64:
-                pairs["-l"] = str(self.maximum_logins)
+                pairs["-l"].append(str(self.maximum_logins))
             if self.password:
-                pairs["-p"] = str(self.password)
+                pairs["-p"].append(str(self.password))
             if self.sample_rate is not None:
-                pairs["-S"] = str(self.sample_rate)
+                pairs["-S"].append(str(self.sample_rate))
             if not self.zero_configuration:
-                pairs["-R"] = "0"
+                pairs["-R"].append("0")
         if self.audio_bus_channel_count != 1024:
-            pairs["-a"] = str(self.audio_bus_channel_count)
+            pairs["-a"].append(str(self.audio_bus_channel_count))
         if self.control_bus_channel_count != 16384:
-            pairs["-c"] = str(self.control_bus_channel_count)
+            pairs["-c"].append(str(self.control_bus_channel_count))
         if self.input_bus_channel_count != 8:
-            pairs["-i"] = str(self.input_bus_channel_count)
+            pairs["-i"].append(str(self.input_bus_channel_count))
         if self.output_bus_channel_count != 8:
-            pairs["-o"] = str(self.output_bus_channel_count)
+            pairs["-o"].append(str(self.output_bus_channel_count))
         if self.buffer_count != 1024:
-            pairs["-b"] = str(self.buffer_count)
+            pairs["-b"].append(str(self.buffer_count))
         if self.maximum_node_count != 1024:
-            pairs["-n"] = str(self.maximum_node_count)
+            pairs["-n"].append(str(self.maximum_node_count))
         if self.maximum_synthdef_count != 1024:
-            pairs["-d"] = str(self.maximum_synthdef_count)
+            pairs["-d"].append(str(self.maximum_synthdef_count))
         if self.block_size != 64:
-            pairs["-z"] = str(self.block_size)
+            pairs["-z"].append(str(self.block_size))
         if self.hardware_buffer_size is not None:
-            pairs["-Z"] = str(self.hardware_buffer_size)
+            pairs["-Z"].append(str(self.hardware_buffer_size))
         if self.memory_size != 8192:
-            pairs["-m"] = str(self.memory_size)
+            pairs["-m"].append(str(self.memory_size))
         if self.random_number_generator_count != 64:
-            pairs["-r"] = str(self.random_number_generator_count)
+            pairs["-r"].append(str(self.random_number_generator_count))
         if self.wire_buffer_count != 64:
-            pairs["-w"] = str(self.wire_buffer_count)
+            pairs["-w"].append(str(self.wire_buffer_count))
         if not self.load_synthdefs:
-            pairs["-D"] = "0"
+            pairs["-D"].append("0")
         if self.input_stream_mask:
-            pairs["-I"] = str(self.input_stream_mask)
+            pairs["-I"].append(str(self.input_stream_mask))
         if self.output_stream_mask:
-            pairs["-O"] = str(self.output_stream_mask)
+            pairs["-O"].append(str(self.output_stream_mask))
         if 0 < self.verbosity:
-            pairs["-v"] = str(self.verbosity)
+            pairs["-v"].append(str(self.verbosity))
         if self.restricted_path is not None:
-            pairs["-P"] = str(self.restricted_path)
+            pairs["-P"].append(str(self.restricted_path))
         if self.memory_locking:
-            pairs["-L"] = None
+            pairs["-L"].append("")
         if self.ugen_plugins_path:
-            pairs["-U"] = str(self.ugen_plugins_path)
+            pairs["-U"].append(str(self.ugen_plugins_path))
         if self.threads and find(self.executable).stem == "supernova":
-            pairs["-t"] = str(self.threads)
+            pairs["-t"].append(str(self.threads))
         for key, value in sorted(pairs.items()):
-            result.extend([key, value] if value is not None else [key])
+            result.extend([key, *value] if value else [key])
         return result
 
     ### PUBLIC PROPERTIES ###
