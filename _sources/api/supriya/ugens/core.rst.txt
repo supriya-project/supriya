@@ -65,10 +65,10 @@ core
 
    .. automethod:: __graph__
    .. automethod:: compile
-   .. autoproperty:: actual_name
    .. autoproperty:: anonymous_name
    .. autoproperty:: constants
    .. autoproperty:: controls
+   .. autoproperty:: effective_name
    .. autoproperty:: has_gate
    .. autoproperty:: indexed_parameters
    .. autoproperty:: name
