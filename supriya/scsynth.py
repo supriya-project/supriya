@@ -10,7 +10,7 @@ import subprocess
 import threading
 from dataclasses import dataclass
 from pathlib import Path
-from typing import IO, Callable, Dict, Iterator, List, Optional, Set, Tuple, cast
+from typing import IO, Callable, Dict, Iterator, List, Optional, Set, Tuple, Union, cast
 
 import psutil
 import uqbar.io
@@ -120,16 +120,20 @@ class Options:
 
     def serialize(self) -> List[str]:
         result = [str(find(self.executable))]
-        pairs: Dict[str, Optional[str]] = {}
+        pairs: Dict[str, Optional[Union[List[str], str]]] = {}
         if self.realtime:
             if self.protocol == "tcp":
                 pairs["-t"] = str(self.port)
             else:
                 pairs["-u"] = str(self.port)
-            if self.input_device:
-                pairs["-H"] = str(self.input_device)
-                if self.output_device != self.input_device:
-                    result.append(str(self.output_device))
+            if self.input_device == self.output_device:
+                if self.input_device:
+                    pairs["-H"] = str(self.input_device)
+            else:
+                pairs["-H"] = [
+                    str(self.input_device or ""),
+                    str(self.output_device or ""),
+                ]
             if self.maximum_logins != 64:
                 pairs["-l"] = str(self.maximum_logins)
             if self.password:
@@ -179,7 +183,11 @@ class Options:
         if self.threads and find(self.executable).stem == "supernova":
             pairs["-t"] = str(self.threads)
         for key, value in sorted(pairs.items()):
-            result.extend([key, value] if value is not None else [key])
+            result.append(key)
+            if isinstance(value, str):
+                result.append(value)
+            elif isinstance(value, list):
+                result.extend(value)
         return result
 
     ### PUBLIC PROPERTIES ###
