@@ -130,6 +130,10 @@ class UpdatePattern(Pattern[Event]):
 
 
 class UpdateDictPattern(Pattern[Event]):
+    """
+    Akin to SuperCollider's Penvir.
+    """
+
     def __init__(self, pattern: Pattern[Event], dictionary: Dict[str, Any]) -> None:
         self._pattern = pattern
         self._dictionary = dictionary
