@@ -7,7 +7,7 @@ from .events import Event, NoteEvent
 from .patterns import Pattern, SequencePattern
 
 
-class EventPattern(Pattern):
+class EventPattern(Pattern[Event]):
     """
     Akin to SuperCollider's Pbind.
     """
@@ -82,7 +82,7 @@ class MonoEventPattern(EventPattern):
         return True
 
 
-class UpdatePattern(Pattern):
+class UpdatePattern(Pattern[Event]):
     """
     Akin to SuperCollider's Pbindf.
     """
@@ -129,7 +129,29 @@ class UpdatePattern(Pattern):
         return self._pattern.is_infinite
 
 
-class ChainPattern(Pattern):
+class UpdateDictPattern(Pattern[Event]):
+    def __init__(self, pattern: Pattern[Event], dictionary: Dict[str, Any]) -> None:
+        self._pattern = pattern
+        self._dictionary = dictionary
+
+    def _iterate(
+        self, state: Optional[Dict[str, UUID]] = None
+    ) -> Generator[Event, bool, None]:
+        event_iterator = iter(self._pattern)
+        while True:
+            try:
+                event = next(event_iterator)
+            except StopIteration:
+                return
+            if (yield new(event, **self._dictionary)):
+                return
+
+    @property
+    def is_infinite(self) -> bool:
+        return self._pattern.is_infinite
+
+
+class ChainPattern(Pattern[Event]):
     """
     Akin to SuperCollider's Pchain.
     """

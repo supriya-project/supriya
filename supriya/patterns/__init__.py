@@ -1,4 +1,10 @@
-from .eventpatterns import ChainPattern, EventPattern, MonoEventPattern, UpdatePattern
+from .eventpatterns import (
+    ChainPattern,
+    EventPattern,
+    MonoEventPattern,
+    UpdateDictPattern,
+    UpdatePattern,
+)
 from .events import (
     BusAllocateEvent,
     BusFreeEvent,
@@ -54,4 +60,5 @@ __all__ = [
     "SynthAllocateEvent",
     "UnaryOpPattern",
     "UpdatePattern",
+    "UpdateDictPattern",
 ]
