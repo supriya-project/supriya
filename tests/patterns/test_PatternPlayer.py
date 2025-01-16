@@ -12,6 +12,7 @@ from supriya.contexts.requests import NewGroup
 from supriya.osc import OscBundle, OscMessage
 from supriya.patterns import (
     BusPattern,
+    Event,
     EventPattern,
     GroupPattern,
     MonoEventPattern,
@@ -25,7 +26,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
     "pattern, until, target_node, expected",
     [
         (
-            SequencePattern(
+            SequencePattern[Event](
                 [
                     EventPattern(frequency=SequencePattern([440, 550, 660])),
                     MonoEventPattern(frequency=SequencePattern([440, 550, 660])),
