@@ -14,7 +14,6 @@ classifiers = [
   "Operating System :: MacOS",
   "Operating System :: POSIX",
   "Operating System :: Microsoft :: Windows",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -35,7 +34,7 @@ keywords = ["audio", "dsp", "music composition", "scsynth", "supercollider", "sy
 license = {text = "MIT"}
 name = "supriya"
 readme = "README.md"
-requires-python = ">= 3.9"
+requires-python = ">= 3.10"
 
 [project.optional-dependencies]
 docs = [
@@ -85,7 +84,7 @@ repository = "https://github.com/supriya-project/supriya"
 target-version = ["py313"]
 
 [tool.cibuildwheel]
-build = "cp39-* cp310-* cp311-* cp312-* cp313-*"
+build = "cp310-* cp311-* cp312-* cp313-*"
 test-command = [
   "python -c 'from supriya.contexts import shm; print(shm.__file__)'",
   "python -c 'from supriya.utils._intervals import IntervalTreeDriverEx'",
