@@ -18,6 +18,7 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Artistic Software",
   "Topic :: Multimedia :: Sound/Audio",
   "Topic :: Multimedia :: Sound/Audio :: Analysis",
@@ -42,9 +43,11 @@ docs = [
   "librosa",
   "matplotlib",
   "mypy",
-  "soxr==0.5.0.post1", # https://github.com/librosa/librosa/issues/1831#issuecomment-2176274560
+  "soxr",
   "sphinx-immaterial",
   "sphinxext-opengraph",
+  "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
+  "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
 ]
 ipython = [
   "jupyter",
@@ -67,7 +70,8 @@ test = [
   "pytest-mock",
   "pytest-rerunfailures",
   "setuptools; python_version >= '3.12'",
-  "soxr==0.5.0.post1", # https://github.com/librosa/librosa/issues/1831#issuecomment-2176274560
+  "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
+  "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
   "types-PyYAML",
   "types-docutils",
 ]
@@ -78,10 +82,10 @@ documentation = "https://supriya-project.github.io/supriya"
 repository = "https://github.com/supriya-project/supriya"
 
 [tool.black]
-target-version = ["py312"]
+target-version = ["py313"]
 
 [tool.cibuildwheel]
-build = "cp39-* cp310-* cp311-* cp312-*"
+build = "cp39-* cp310-* cp311-* cp312-* cp313-*"
 test-command = [
   "python -c 'from supriya.contexts import shm; print(shm.__file__)'",
   "python -c 'from supriya.utils._intervals import IntervalTreeDriverEx'",

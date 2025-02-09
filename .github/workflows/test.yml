@@ -25,7 +25,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.12"]
+        python-version: ["3.13"]
     timeout-minutes: 30
     steps:
     - uses: actions/checkout@v4
@@ -64,7 +64,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.12"]
+        python-version: ["3.13"]
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
@@ -106,13 +106,13 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
         include:
         # supercollider 3.13 doesn't want to build on macos-13 or higher
         # - os: macos-13
-        #   python-version: "3.12"
+        #   python-version: "3.13"
         - os: windows-latest
-          python-version: "3.12"
+          python-version: "3.13"
     timeout-minutes: 45
     steps:
     - uses: actions/checkout@v4
@@ -193,7 +193,7 @@ jobs:
           sudo apt-get install --yes espeak graphviz lame
         elif [ "$RUNNER_OS" == "macOS" ]; then
           brew update
-          brew install python@3.12 || true
+          brew install python@3.13 || true
           brew install graphviz
         elif [ "$RUNNER_OS" == "Windows" ]; then
           choco install graphviz lame

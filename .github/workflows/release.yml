@@ -21,7 +21,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: "3.12"
+        python-version: "3.13"
     - name: Get latest version
       run: echo OLD_VERSION=$(gh release list -L 1 --json name | jq -r '.[0].name') >> $GITHUB_ENV
     - name: Bump version file
