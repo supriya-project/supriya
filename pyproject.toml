@@ -46,6 +46,7 @@ docs = [
   "soxr",
   "sphinx-immaterial",
   "sphinxext-opengraph",
+  "standard-aifc; python_version >= 3.13",  # aifc removed in 3.13
 ]
 ipython = [
   "jupyter",
@@ -68,7 +69,7 @@ test = [
   "pytest-mock",
   "pytest-rerunfailures",
   "setuptools; python_version >= '3.12'",
-  "soxr==0.5.0.post1", # https://github.com/librosa/librosa/issues/1831#issuecomment-2176274560
+  "standard-aifc; python_version >= 3.13",  # aifc removed in 3.13
   "types-PyYAML",
   "types-docutils",
 ]
