@@ -6,6 +6,7 @@
 # Packages
 *.egg
 *.egg-info
+*.lock
 dist
 build
 eggs
@@ -45,5 +46,4 @@ mypycov/
 
 # Misc.
 .DS_Store
-
 .ipynb_checkpoints/
