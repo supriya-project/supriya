@@ -299,7 +299,7 @@ class Context(metaclass=abc.ABCMeta):
 
     @staticmethod
     def _apply_completions(
-        pairs: List[Tuple[Request, Optional[Completion]]]
+        pairs: List[Tuple[Request, Optional[Completion]]],
     ) -> List[Request]:
         requests: List[Request] = []
         for key, group in itertools.groupby(
