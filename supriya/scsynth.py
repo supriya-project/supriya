@@ -10,7 +10,19 @@ import subprocess
 import threading
 from dataclasses import dataclass
 from pathlib import Path
-from typing import IO, Callable, Dict, Iterator, List, Optional, Set, Tuple, Union, cast
+from typing import (
+    IO,
+    Callable,
+    Dict,
+    Iterator,
+    List,
+    Literal,
+    Optional,
+    Set,
+    Tuple,
+    Union,
+    cast,
+)
 
 import psutil
 import uqbar.io
@@ -59,9 +71,10 @@ class Options:
     port: int = DEFAULT_PORT
     protocol: str = "udp"
     random_number_generator_count: int = 64
-    remote_control_volume: bool = False
     realtime: bool = True
+    remote_control_volume: bool = False
     restricted_path: Optional[str] = None
+    safety_clip: Optional[Union[int, Literal["inf"]]] = None
     sample_rate: Optional[int] = None
     threads: Optional[int] = None
     ugen_plugins_path: Optional[str] = None
@@ -144,44 +157,46 @@ class Options:
                 pairs["-R"] = "0"
         if self.audio_bus_channel_count != 1024:
             pairs["-a"] = str(self.audio_bus_channel_count)
-        if self.control_bus_channel_count != 16384:
-            pairs["-c"] = str(self.control_bus_channel_count)
-        if self.input_bus_channel_count != 8:
-            pairs["-i"] = str(self.input_bus_channel_count)
-        if self.output_bus_channel_count != 8:
-            pairs["-o"] = str(self.output_bus_channel_count)
+        if self.block_size != 64:
+            pairs["-z"] = str(self.block_size)
         if self.buffer_count != 1024:
             pairs["-b"] = str(self.buffer_count)
+        if self.control_bus_channel_count != 16384:
+            pairs["-c"] = str(self.control_bus_channel_count)
+        if self.hardware_buffer_size is not None:
+            pairs["-Z"] = str(self.hardware_buffer_size)
+        if self.input_bus_channel_count != 8:
+            pairs["-i"] = str(self.input_bus_channel_count)
+        if self.input_stream_mask:
+            pairs["-I"] = str(self.input_stream_mask)
+        if not self.load_synthdefs:
+            pairs["-D"] = "0"
         if self.maximum_node_count != 1024:
             pairs["-n"] = str(self.maximum_node_count)
         if self.maximum_synthdef_count != 1024:
             pairs["-d"] = str(self.maximum_synthdef_count)
-        if self.block_size != 64:
-            pairs["-z"] = str(self.block_size)
-        if self.hardware_buffer_size is not None:
-            pairs["-Z"] = str(self.hardware_buffer_size)
-        if self.memory_size != 8192:
-            pairs["-m"] = str(self.memory_size)
-        if self.random_number_generator_count != 64:
-            pairs["-r"] = str(self.random_number_generator_count)
-        if self.wire_buffer_count != 64:
-            pairs["-w"] = str(self.wire_buffer_count)
-        if not self.load_synthdefs:
-            pairs["-D"] = "0"
-        if self.input_stream_mask:
-            pairs["-I"] = str(self.input_stream_mask)
-        if self.output_stream_mask:
-            pairs["-O"] = str(self.output_stream_mask)
-        if 0 < self.verbosity:
-            pairs["-v"] = str(self.verbosity)
-        if self.restricted_path is not None:
-            pairs["-P"] = str(self.restricted_path)
         if self.memory_locking:
             pairs["-L"] = None
-        if self.ugen_plugins_path:
-            pairs["-U"] = str(self.ugen_plugins_path)
+        if self.memory_size != 8192:
+            pairs["-m"] = str(self.memory_size)
+        if self.output_bus_channel_count != 8:
+            pairs["-o"] = str(self.output_bus_channel_count)
+        if self.output_stream_mask:
+            pairs["-O"] = str(self.output_stream_mask)
+        if self.random_number_generator_count != 64:
+            pairs["-r"] = str(self.random_number_generator_count)
+        if self.restricted_path is not None:
+            pairs["-P"] = str(self.restricted_path)
+        if self.safety_clip is not None:
+            pairs["-s"] = str(self.safety_clip)
         if self.threads and find(self.executable).stem == "supernova":
             pairs["-t"] = str(self.threads)
+        if self.ugen_plugins_path:
+            pairs["-U"] = str(self.ugen_plugins_path)
+        if 0 < self.verbosity:
+            pairs["-v"] = str(self.verbosity)
+        if self.wire_buffer_count != 64:
+            pairs["-w"] = str(self.wire_buffer_count)
         for key, value in sorted(pairs.items()):
             result.append(key)
             if isinstance(value, str):
