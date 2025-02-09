@@ -8,6 +8,7 @@ import abc
 import contextlib
 import dataclasses
 import itertools
+import re
 import shlex
 import threading
 from os import PathLike
@@ -100,6 +101,8 @@ from .requests import (
     WriteBuffer,
     ZeroBuffer,
 )
+
+BUS_PATTERN = re.compile("([ac])(\\d+)")
 
 
 @dataclasses.dataclass
@@ -638,6 +641,8 @@ class Context(metaclass=abc.ABCMeta):
                     if isinstance(v, Bus):
                         processed_values.append(v.map_symbol())
                     elif isinstance(v, str):
+                        if not BUS_PATTERN.match(v):
+                            raise ValueError(v)
                         processed_values.append(v)
                     else:
                         processed_values.append(float(v))
@@ -1008,7 +1013,7 @@ class Context(metaclass=abc.ABCMeta):
         request = LoadSynthDefDirectory(path=path)
         return self._add_request_with_completion(request, on_completion)
 
-    def map_node(self, node: Node, **settings: Union[Bus, None]) -> None:
+    def map_node(self, node: Node, **settings: Union[Bus, None, str]) -> None:
         """
         Map a node's controls to buses.
 
@@ -1026,6 +1031,14 @@ class Context(metaclass=abc.ABCMeta):
                     audio[key] = int(value)
                 else:
                     control[key] = int(value)
+            elif isinstance(value, str):
+                if (match := BUS_PATTERN.match(value)) is None:
+                    raise ValueError(value)
+                rate, index = match.groups()
+                if rate == "a":
+                    audio[key] = int(index)
+                else:
+                    control[key] = int(index)
             elif value is None:
                 control[key] = -1
         requests: List[Request] = []
