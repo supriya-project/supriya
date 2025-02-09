@@ -46,7 +46,7 @@ docs = [
   "soxr",
   "sphinx-immaterial",
   "sphinxext-opengraph",
-  "standard-aifc; python_version >= 3.13",  # aifc removed in 3.13
+  "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
 ]
 ipython = [
   "jupyter",
@@ -69,7 +69,7 @@ test = [
   "pytest-mock",
   "pytest-rerunfailures",
   "setuptools; python_version >= '3.12'",
-  "standard-aifc; python_version >= 3.13",  # aifc removed in 3.13
+  "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
   "types-PyYAML",
   "types-docutils",
 ]
