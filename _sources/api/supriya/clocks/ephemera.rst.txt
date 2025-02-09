@@ -10,34 +10,42 @@ ephemera
 .. autoclass:: Action
    :show-inheritance:
 
+   .. automethod:: __replace__
 
 .. autoclass:: CallbackCommand
    :show-inheritance:
 
+   .. automethod:: __replace__
 
 .. autoclass:: CallbackEvent
    :show-inheritance:
 
+   .. automethod:: __replace__
 
 .. autoclass:: ChangeCommand
    :show-inheritance:
 
+   .. automethod:: __replace__
 
 .. autoclass:: ChangeEvent
    :show-inheritance:
 
+   .. automethod:: __replace__
 
 .. autoclass:: ClockContext
    :show-inheritance:
 
+   .. automethod:: __replace__
 
 .. autoclass:: ClockState
    :show-inheritance:
 
+   .. automethod:: __replace__
 
 .. autoclass:: Command
    :show-inheritance:
 
+   .. automethod:: __replace__
 
 .. autoclass:: Event
    :show-inheritance:
@@ -46,6 +54,7 @@ ephemera
    .. automethod:: __gt__
    .. automethod:: __le__
    .. automethod:: __lt__
+   .. automethod:: __replace__
 
 .. autoclass:: EventType
    :show-inheritance:
@@ -57,6 +66,7 @@ ephemera
 .. autoclass:: Moment
    :show-inheritance:
 
+   .. automethod:: __replace__
 
 .. autoclass:: TimeUnit
    :show-inheritance:

@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.02cb18745d09eea51.min.css?v=ff456132" />
         <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -2328,7 +2328,7 @@ musical patterns.</p>
 </div>
 <h2 id="scheduling">Scheduling<a class="headerlink" href="#scheduling" title="Link to this heading">¶</a></h2>
 <p>Let’s consider a simple callback function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">callback</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The current offset is: </span><span class="si">{</span><span class="n">context</span><span class="o">.</span><span class="n">current_moment</span><span class="o">.</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="gp">... </span>
 </code></pre></div>
@@ -2345,7 +2345,7 @@ the clock will pass a <a class="reference internal" href="api/supriya/clocks/eph
 <h3 id="canceling">Canceling<a class="headerlink" href="#canceling" title="Link to this heading">¶</a></h3>
 <p>We can use the event ID to cancel the callback if it hasn’t already occurred:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="go">CallbackCommand(event_id=0, event_type=&lt;EventType.SCHEDULE: 1&gt;, quantization=None, schedule_at=0.0, time_unit=&lt;TimeUnit.BEATS: 0&gt;, args=None, kwargs=None, procedure=&lt;function callback at 0x7f61544a9da0&gt;)</span>
+<span class="go">CallbackCommand(event_id=0, event_type=&lt;EventType.SCHEDULE: 1&gt;, quantization=None, schedule_at=0.0, time_unit=&lt;TimeUnit.BEATS: 0&gt;, args=None, kwargs=None, procedure=&lt;function callback at 0x7f4c91b08c20&gt;)</span>
 </code></pre></div>
 </div>
 <h3 id="cueing">Cueing<a class="headerlink" href="#cueing" title="Link to this heading">¶</a></h3>
@@ -2357,7 +2357,7 @@ in the future, e.g. on the next beat or downbeat:</p>
 </div>
 <h2 id="callbacks">Callbacks<a class="headerlink" href="#callbacks" title="Link to this heading">¶</a></h2>
 <p>Let’s consider a more complicated callback function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">callback</span><span class="p">(</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">callback</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">context</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">salutation</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">delta</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
@@ -2475,7 +2475,7 @@ quantization relative the current time.</p>
       <div class="md-copyright">
   
     <div class="md-footer-copyright__highlight">
-        &#169; Copyright 2014-2024, Joséphine Wolf Oberholtzer.
+        &#169; Copyright 2014-2025, Joséphine Wolf Oberholtzer.
         
     </div>
   

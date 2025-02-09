@@ -10,6 +10,7 @@ allocators
 .. autoclass:: Block
    :show-inheritance:
 
+   .. automethod:: __replace__
 
 .. autoclass:: BlockAllocator
    :show-inheritance:

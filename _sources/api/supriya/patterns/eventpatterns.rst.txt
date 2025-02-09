@@ -23,6 +23,11 @@ eventpatterns
 
    .. autoproperty:: is_infinite
 
+.. autoclass:: UpdateDictPattern
+   :show-inheritance:
+
+   .. autoproperty:: is_infinite
+
 .. autoclass:: UpdatePattern
    :show-inheritance:
 

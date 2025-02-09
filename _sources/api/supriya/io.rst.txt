@@ -11,6 +11,7 @@ io
    :show-inheritance:
 
    .. automethod:: __render__
+   .. automethod:: __replace__
    .. automethod:: from_path
 
 .. autoclass:: Player

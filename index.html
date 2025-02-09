@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.02cb18745d09eea51.min.css?v=ff456132" />
         <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -94,7 +94,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Supriya (24.12b0)
+              Supriya (25.2b0)
             
           </span>
         </div>
@@ -2035,7 +2035,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
-<h1 id="supriya-release">Supriya (24.12b0)<a class="headerlink" href="#supriya-release" title="Link to this heading">¶</a></h1>
+<h1 id="supriya-release">Supriya (25.2b0)<a class="headerlink" href="#supriya-release" title="Link to this heading">¶</a></h1>
 <div class="attention admonition">
 <p class="admonition-title">Attention</p>
 <p>Documentation is under construction. Stand by.</p>
@@ -2084,7 +2084,7 @@ setting it up, and installing any additional dependencies like <a class="referen
 <p>Get <a class="reference external" href="http://supercollider.github.io/">SuperCollider</a> from <a class="reference external" href="http://supercollider.github.io/">http://supercollider.github.io/</a>.</p>
 <h3 id="boot-the-server">3. Boot the server<a class="headerlink" href="#boot-the-server" title="Link to this heading">¶</a></h3>
 <p>Start your Python interpreter and import Supriya:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">supriya</span>
 </code></pre></div>
 </div>
 <p>Boot the SuperCollider server:</p>
@@ -2093,13 +2093,13 @@ setting it up, and installing any additional dependencies like <a class="referen
 </div>
 <h3 id="build-a-synthdef">4. Build a <a class="reference internal" href="glossary.html#term-SynthDef" title="SynthDef (glossary term)"><span class="xref std std-term">SynthDef</span></a><a class="headerlink" href="#build-a-synthdef" title="Link to this heading">¶</a></h3>
 <p>Import some classes:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya</span> <span class="kn">import</span> <span class="n">Envelope</span><span class="p">,</span> <span class="n">synthdef</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.ugens</span> <span class="kn">import</span> <span class="n">EnvGen</span><span class="p">,</span> <span class="n">Out</span><span class="p">,</span> <span class="n">SinOsc</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya</span><span class="w"> </span><span class="kn">import</span> <span class="n">Envelope</span><span class="p">,</span> <span class="n">synthdef</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.ugens</span><span class="w"> </span><span class="kn">import</span> <span class="n">EnvGen</span><span class="p">,</span> <span class="n">Out</span><span class="p">,</span> <span class="n">SinOsc</span>
 </code></pre></div>
 </div>
 <p>Make a synthesizer definition:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nd">@synthdef</span><span class="p">()</span>
-<span class="gp">... </span><span class="k">def</span> <span class="nf">simple_sine</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">,</span> <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">gate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="gp">... </span><span class="k">def</span><span class="w"> </span><span class="nf">simple_sine</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">,</span> <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">gate</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">sine</span> <span class="o">=</span> <span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">)</span> <span class="o">*</span> <span class="n">amplitude</span>
 <span class="gp">... </span>    <span class="n">envelope</span> <span class="o">=</span> <span class="n">EnvGen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">envelope</span><span class="o">=</span><span class="n">Envelope</span><span class="o">.</span><span class="n">adsr</span><span class="p">(),</span> <span class="n">gate</span><span class="o">=</span><span class="n">gate</span><span class="p">,</span> <span class="n">done_action</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">sine</span> <span class="o">*</span> <span class="n">envelope</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
@@ -2215,7 +2215,7 @@ allocate them on the server as a child of the previously created group:</p>
       <div class="md-copyright">
   
     <div class="md-footer-copyright__highlight">
-        &#169; Copyright 2014-2024, Joséphine Wolf Oberholtzer.
+        &#169; Copyright 2014-2025, Joséphine Wolf Oberholtzer.
         
     </div>
   

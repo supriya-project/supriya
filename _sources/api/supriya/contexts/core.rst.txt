@@ -13,6 +13,7 @@ core
    .. automethod:: __call__
    .. automethod:: __enter__
    .. automethod:: __exit__
+   .. automethod:: __replace__
 
 .. autoclass:: Context
    :show-inheritance:
@@ -73,3 +74,4 @@ core
 
    .. automethod:: __enter__
    .. automethod:: __exit__
+   .. automethod:: __replace__

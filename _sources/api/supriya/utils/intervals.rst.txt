@@ -17,6 +17,7 @@ intervals
    .. automethod:: __lt__
    .. automethod:: __or__
    .. automethod:: __post_init__
+   .. automethod:: __replace__
    .. automethod:: __sub__
    .. automethod:: __xor__
    .. automethod:: intersects
@@ -83,6 +84,7 @@ intervals
 .. autoclass:: Moment
    :show-inheritance:
 
+   .. automethod:: __replace__
    .. autoproperty:: next_moment
    .. autoproperty:: next_start_offset
    .. autoproperty:: previous_moment
