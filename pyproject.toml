@@ -38,7 +38,8 @@ requires-python = ">= 3.10"
 
 [project.optional-dependencies]
 docs = [
-  "jupyter",
+  "jupyterlab",
+  "jupyterlab-rise",
   "librosa",
   "matplotlib",
   "mypy",
@@ -47,12 +48,6 @@ docs = [
   "sphinxext-opengraph",
   "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
   "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
-]
-ipython = [
-  "jupyter",
-  "jupyter_contrib_nbextensions",
-  "jupyter_nbextensions_configurator",
-  "rise",
 ]
 test = [
   "black >= 24.0.0",
