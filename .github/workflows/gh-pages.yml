@@ -23,7 +23,7 @@ jobs:
         cache: pip
         python-version: "3.11"
     - name: Install SuperCollider
-      uses: ./.github/actions/supercollider
+      uses: ./.github/actions/build-supercollider
       with:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}

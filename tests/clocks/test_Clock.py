@@ -782,13 +782,13 @@ def test_clock_skew():
         time.sleep(2.5)
         clock.stop()
         stats = calculate_skew(store)
-        print(" ".join(f"{key}: {value:f}" for key, value in stats.items()))
         all_stats.append(stats)
     multiplier = 1.5
     if os.environ.get("CI"):
         if platform.system() == "Darwin":
-            multiplier = 6.0  # GHA's OSX runner is slow!
+            multiplier = 7.0  # GHA's OSX runner is slow!
         elif platform.system() == "Windows":
-            multiplier = 85.0  # GHA's Windows runner is extremely slow!
+            multiplier = 75.0  # GHA's Windows runner is extremely slow! WTF.
     threshold = clock.slop * multiplier
-    assert all(stats["median"] < threshold for stats in all_stats), threshold
+    medians = [stats["median"] for stats in all_stats]
+    assert all(median < threshold for median in medians), (medians, threshold)

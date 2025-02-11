@@ -1,0 +1,114 @@
+name: Install SuperCollider under Linux
+description: Install SuperCollider under Linux
+inputs:
+  branch:
+    description: SuperCollider branch
+    required: false
+    default: develop
+  origin:
+    description: SuperCollider repo origin
+    required: false
+    default: https://github.com/supercollider/supercollider.git
+runs:
+  using: "composite"
+  steps:
+
+    - name: Clone SuperCollider
+      run: |
+        git clone \
+          --quiet \
+          --recursive \
+          --branch ${{ inputs.branch }} \
+          ${{ inputs.origin }} \
+          /tmp/supercollider
+      shell: bash
+
+    - name: Cache current date
+      id: current-date
+      run: |
+        echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+        echo "week=$(date '+%U')" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: Setup ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ runner.os }}
+        restore-keys: ${{ runner.os }}
+
+    - name: Setup ccache path
+      run: |
+        echo "/usr/lib/ccache" >> $GITHUB_PATH
+        echo "/usr/local/opt/ccache/libexec" >> $GITHUB_PATH
+      shell: bash
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install --yes \
+          build-essential \
+          cmake \
+          emacs \
+          libasound2-dev \
+          libavahi-client-dev \
+          libfftw3-dev \
+          libicu-dev \
+          libjack-jackd2-dev \
+          libreadline6-dev \
+          libsndfile1-dev \
+          libudev-dev \
+          libxt-dev \
+          pkg-config
+      shell: bash
+
+    - name: Configure
+      run: |
+        mkdir /tmp/supercollider/build
+        cd /tmp/supercollider/build
+        cmake \
+          -DRULE_LAUNCH_COMPILE=ccache \
+          -DSC_ED=OFF \
+          -DSC_EL=OFF \
+          -DSC_IDE=OFF \
+          -DSC_QT=OFF \
+          -DSC_VIM=OFF \
+          -DSUPERNOVA=ON \
+          ..
+      shell: bash
+
+    - name: Build
+      run: |
+        cd /tmp/supercollider/build
+        make -j2
+      shell: bash
+
+    - name: Install
+      run: |
+        cd /tmp/supercollider/build
+        sudo make install -j2 > build.log || (cat build.log && false)
+        mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
+      shell: bash
+
+    - name: Debug ccache
+      run: ccache --show-stats --show-config
+      shell: bash
+
+#   - name: Sanity-check scsynth
+#     run: |
+#       echo "Sanity-checking scsynth..."
+#       scsynth -v
+#       scsynth -h || true
+#       sudo -E su ${USER} -c "scsynth -D 0 -H default\:snchk -R 0 -u 57110" &
+#       sleep 5
+#       killall scsynth
+#     shell: bash
+
+#   - name: Sanity-check supernova
+#     run: |
+#       echo "Sanity-checking supernova..."
+#       supernova -v
+#       supernova -h || true
+#       sudo -E su ${USER} -c "supernova -D 0 -H default\:snchk -R 0 -u 57110" &
+#       sleep 5
+#       killall supernova
+#     shell: bash

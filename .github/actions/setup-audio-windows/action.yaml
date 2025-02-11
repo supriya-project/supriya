@@ -1,0 +1,36 @@
+name: Setup audio under Windows
+description: Setup audio under Windows
+runs:
+  using: "composite"
+  steps:
+
+    # See: https://github.com/NathanCheshire/CyderUtils/blob/main/.github/workflows/gradle.yml#L41C1-L53C26
+
+    - name: Download Scream
+      run: |
+        Invoke-WebRequest https://github.com/duncanthrax/scream/releases/download/4.0/Scream4.0.zip -OutFile Scream4.0.zip
+        Expand-Archive -Path Scream4.0.zip -DestinationPath Scream
+      shell: powershell
+
+    - name: Create Scream certificate
+      run: |
+        openssl req -batch -verbose -x509 -newkey rsa -keyout ScreamCertificate.pvk -out ScreamCertificate.cer -nodes -extensions v3_req
+        openssl pkcs12 -export -nodes -in ScreamCertificate.cer -inkey ScreamCertificate.pvk -out ScreamCertificate.pfx -passout pass:
+      shell: powershell
+
+    - name: Setup MSVC dev cmd
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Sign and Install Scream
+      run: |
+        $env:PATH += ';C:\Program Files (x86)\Windows Kits\10\bin\x64'
+        signtool sign /v /fd SHA256 /f ScreamCertificate.pfx Scream\Install\driver\x64\Scream.cat
+        Import-Certificate -FilePath ScreamCertificate.cer -CertStoreLocation Cert:\LocalMachine\root
+        Import-Certificate -FilePath ScreamCertificate.cer -CertStoreLocation Cert:\LocalMachine\TrustedPublisher
+        Scream\Install\helpers\devcon-x64.exe install Scream\Install\driver\x64\Scream.inf *Scream
+      shell: powershell
+
+    - name: Start Windows audio service
+      run: net start audiosrv
+      shell: powershell
+

@@ -1,0 +1,26 @@
+name: Install SuperCollider
+description: Install SuperCollider
+inputs:
+  branch:
+    description: SuperCollider branch
+    required: false
+    default: develop
+  origin:
+    description: SuperCollider repo origin
+    required: false
+    default: https://github.com/supercollider/supercollider.git
+runs:
+  using: "composite"
+  steps:
+    - if: runner.os == 'Linux'
+      uses: ./.github/actions/build-supercollider-linux
+      with:
+        branch: ${{ inputs.branch }}
+        origin: ${{ inputs.origin }}
+    - if: runner.os == 'macOS'
+      uses: ./.github/actions/build-supercollider-osx
+      with:
+        branch: ${{ inputs.branch }}
+        origin: ${{ inputs.origin }}
+    - if: runner.os == 'Windows'
+      uses: ./.github/actions/build-supercollider-windows

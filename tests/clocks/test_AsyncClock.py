@@ -813,4 +813,5 @@ async def test_clock_skew():
         elif platform.system() == "Windows":
             multiplier = 9.0  # GHA's Windows runner is very slow!
     threshold = clock.slop * multiplier
-    assert all(stats["median"] < threshold for stats in all_stats), threshold
+    medians = [stats["median"] for stats in all_stats]
+    assert all(median < threshold for median in medians), (medians, threshold)

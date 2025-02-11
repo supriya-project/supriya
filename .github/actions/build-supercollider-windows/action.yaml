@@ -1,0 +1,110 @@
+name: Install SuperCollider under Windows
+description: Install SuperCollider under Windows
+inputs:
+  branch:
+    description: SuperCollider branch
+    required: false
+    default: develop
+  origin:
+    description: SuperCollider repo origin
+    required: false
+    default: https://github.com/supercollider/supercollider.git
+runs:
+  using: "composite"
+  steps:
+
+    - name: Clone SuperCollider
+      run: |
+        git clone \
+          --quiet \
+          --recursive \
+          --branch ${{ inputs.branch }} \
+          ${{ inputs.origin }} \
+          /tmp/supercollider
+      shell: bash
+
+    - name: Cache current date
+      id: current-date
+      run: |
+        echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+        echo "week=$(date '+%U')" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: Cache vcpkg
+      uses: actions/cache@v4
+      with:
+        path: ~/AppData/Local/vcpkg/archives
+        key: vcpkg-${{ runner.os }}-${{ steps.current-date.outputs.stamp }}
+        restore-keys: vcpkg-${{ runner.os }}-
+
+    - name: Cache ccache
+      uses: actions/cache@v4
+      with:
+        path: ~/AppData/Local/ccache
+        key: ccache-${{ runner.os }}-${{ steps.current-date.outputs.stamp }}
+        restore-keys: ccache-${{ runner.os }}-
+
+    - name: Install ccache
+      run: |
+        choco install ccache --no-progress
+        echo "`echo C:/ProgramData/chocolatey/lib/ccache/tools/ccache*`" >> $GITHUB_PATH
+      shell: bash
+
+    - name: Install libsndfile
+      run: vcpkg install libsndfile --triplet="x64-windows-release" --overlay-triplets="/tmp/vcpkg/triplets"
+      shell: bash
+
+    - name: Download fftw
+      run: |
+        mkdir -p "C:/Program Files/fftw" && cd "C:/Program Files/fftw"
+        curl -L ftp://ftp.fftw.org/pub/fftw/fftw-3.3.5-dll64.zip -o fftw.zip
+        7z x fftw.zip -y
+      shell: bash
+
+    - name: Create fftw msvc library
+      run: |
+        call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+        lib.exe /machine:x64 /def:libfftw3f-3.def
+      shell: cmd
+      working-directory: "C:/Program Files/fftw"
+
+    - name: Install asio sdk
+      run: |
+        mkdir -p "/tmp/3rd-party/asio_sdk" && cd "/tmp/3rd-party/asio_sdk"
+        curl -L https://www.steinberg.net/asiosdk -o asio.zip
+        7z x asio.zip -y
+        mkdir -p "/tmp/supercollider/external_libraries/portaudio/asiosdk"
+        mv asiosdk_* "/tmp/supercollider/external_libraries/portaudio/asiosdk"
+      shell: bash
+
+    - name: Install readline
+      run: vcpkg install readline --triplet=x64-windows-release --overlay-triplets="/tmp/vcpkg/triplets"
+      shell: bash
+
+    - name: Configure
+      run: |
+        export VCPKG_ROOT=$VCPKG_INSTALLATION_ROOT
+        mkdir "/tmp/supercollider/build" && cd "/tmp/supercollider/build"
+        cmake \
+          -A x64 \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DSC_ED=OFF \
+          -DSC_EL=OFF \
+          -DSC_IDE=OFF \
+          -DSC_QT=OFF \
+          -DSC_VIM=OFF \
+          -DSUPERNOVA=ON \
+          -DVCPKG_TARGET_TRIPLET=x64-windows-release \
+          -G "Visual Studio 17 2022" \
+          ..
+      shell: bash
+
+    - name: Build
+      run: cmake --build "/tmp/supercollider/build" --config Release --target install --parallel 2
+      shell: bash
+
+    - name: Install
+      run: |
+        mv "/tmp/supercollider/build/Install/SuperCollider" "C:/Program Files/SuperCollider"
+        mkdir -p "C:/Users/runneradmin/AppData/Local/SuperCollider/synthdefs"
+      shell: bash

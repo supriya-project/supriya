@@ -1,0 +1,11 @@
+name: Setup audio
+description: Setup audio
+runs:
+  using: "composite"
+  steps:
+    - if: runner.os == 'Linux'
+      uses: ./.github/actions/setup-audio-linux
+    - if: runner.os == 'macOS'
+      uses: ./.github/actions/setup-audio-osx
+    - if: runner.os == 'Windows'
+      uses: ./.github/actions/setup-audio-windows
