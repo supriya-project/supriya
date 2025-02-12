@@ -23,8 +23,10 @@ jobs:
         cache-dependency-path: "**/pyproject.toml"
         cache: pip
         python-version: "3.13"
+    - name: Setup audio
+      uses: ./.github/actions/setup-audio
     - name: Install SuperCollider
-      uses: ./.github/actions/supercollider
+      uses: ./.github/actions/build-supercollider
       with:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}

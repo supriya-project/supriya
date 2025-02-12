@@ -1,0 +1,22 @@
+name: Setup audio under Linux
+description: Setup audio under Linux
+runs:
+  using: "composite"
+  steps:
+
+    - name: Install jack
+      run: |
+        sudo apt-get update
+        sudo apt-get install --yes jackd2
+      shell: bash
+
+    - name: Setup Jack
+      run: |
+        echo "Setting up Jack..."
+        sudo usermod -a -G audio ${USER}
+        sleep 5
+        echo "Starting Jack..."
+        sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
+        echo "Waiting for Jack..."
+        sleep 5
+      shell: bash

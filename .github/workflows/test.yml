@@ -11,7 +11,7 @@ on:
 
 env:
   SC_ORIGIN: https://github.com/supercollider/supercollider.git
-  SC_BRANCH: Version-3.13.0
+  SC_BRANCH: develop
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -45,8 +45,11 @@ jobs:
           ffmpeg \
           graphviz \
           lame
+    - name: Setup audio
+      timeout-minutes: 1
+      uses: ./.github/actions/setup-audio
     - name: Install SuperCollider
-      uses: ./.github/actions/supercollider
+      uses: ./.github/actions/build-supercollider
       with:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
@@ -109,8 +112,8 @@ jobs:
         python-version: ["3.10", "3.11", "3.12", "3.13"]
         include:
         # supercollider 3.13 doesn't want to build on macos-13 or higher
-        # - os: macos-13
-        #   python-version: "3.13"
+        - os: macos-15
+          python-version: "3.13"
         - os: windows-latest
           python-version: "3.13"
     timeout-minutes: 45
@@ -126,52 +129,19 @@ jobs:
       run: python3 -m pip install -U pip
     - name: Install Supriya
       run: pip install -e .
-    - name: Install SuperCollider (Non-Windows)
-      if: ${{ matrix.os != 'windows-latest' }}
-      uses: ./.github/actions/supercollider
+    - name: Setup audio
+      timeout-minutes: 1
+      uses: ./.github/actions/setup-audio
+    - name: Build SuperCollider
+      uses: ./.github/actions/build-supercollider
       with:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
-    - name: Install SuperCollider (Windows)
-      if: ${{ matrix.os == 'windows-latest' }}
-      run: |
-        choco install supercollider
-        mkdir C:\Users\runneradmin\AppData\Local\SuperCollider\synthdefs
-    - name: Setup audio (Windows) # https://github.com/actions/runner-images/issues/2528#issuecomment-934857719
-      # No powershell!
-      if: ${{ matrix.os == 'windows-latest' }}
-      run: net start audiosrv
-    - name: Setup audio (Windows) # https://github.com/actions/runner-images/issues/2528#issuecomment-934857719
-      # No powershell!
-      if: ${{ matrix.os == 'windows-latest' }}
-      run: |
-        Set-Service -Name vmictimesync -Status stopped -StartupType disabled
-        Set-ItemProperty HKLM:\SYSTEM\CurrentControlSet\services\W32Time\Parameters -Name 'Type' -Value 'NoSync'
-        net stop w32time; Set-Date (Get-Date "2023-07-04 12:00:00")
-    - name: Setup audio (Windows) # https://github.com/actions/runner-images/issues/2528#issuecomment-934857719
-      env:
-        VERSION: '4.0'
-      if: ${{ matrix.os == 'windows-latest' }}
-      # TODO: Remove the time workaround when virtual audio device certificate is valid again, refs:
-      # https://github.com/duncanthrax/scream/issues/202
-      run: |
-        Invoke-WebRequest https://github.com/duncanthrax/scream/releases/download/${{ env.VERSION }}/Scream${{ env.VERSION }}.zip -OutFile Scream${{ env.VERSION }}.zip
-        Expand-Archive -Path Scream${{ env.VERSION }}.zip -DestinationPath Scream
-        Import-Certificate -FilePath Scream\Install\driver\x64\scream.cat -CertStoreLocation Cert:\LocalMachine\TrustedPublisher
-        Scream\Install\helpers\devcon-x64.exe install Scream\Install\driver\x64\Scream.inf *Scream
-      shell: powershell
-      timeout-minutes: 1
-    - name: Setup audio (Windows) # https://github.com/actions/runner-images/issues/2528#issuecomment-934857719
-      # No powershell!
-      if: ${{ matrix.os == 'windows-latest' }}
-      run: |
-        Set-Service -Name vmictimesync -Status running -StartupType automatic
-        Set-ItemProperty HKLM:\SYSTEM\CurrentControlSet\services\W32Time\Parameters -Name 'Type' -Value 'NTP'
-        net start w32time; w32tm /resync /force; $currentDate = Get-Date; Write-Host "Current System Date: $currentDate";
     - name: Sanity-check Supriya
       run: |
         python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
         python -c "from supriya.utils._intervals import IntervalTreeDriverEx; print(IntervalTreeDriverEx)"
+      timeout-minutes: 1
     - name: Sanity-check Supriya SHM (Non-Windows)
       if: ${{ matrix.os != 'windows-latest' }}
       run: python -c "from supriya.contexts.shm import ServerSHM; print(ServerSHM)"
@@ -183,7 +153,15 @@ jobs:
     - name: Install Supriya test dependencies
       run: pip install -e .[test]
     - name: Install ffmpeg
-      uses: FedericoCarboni/setup-ffmpeg@v3
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo apt-get install --yes ffmpeg
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          brew install ffmpeg
+        elif [ "$RUNNER_OS" == "Windows" ]; then
+          choco install ffmpeg
+        fi
+      shell: bash
     - name: Install additional packages
       shell: bash
       run: |
