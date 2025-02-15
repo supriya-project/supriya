@@ -12,17 +12,13 @@ from typing import (
     TYPE_CHECKING,
     Dict,
     List,
+    Literal,
     Optional,
     Sequence,
     SupportsInt,
     Tuple,
     Union,
 )
-
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal  # type: ignore
 
 from uqbar.objects import new
 
