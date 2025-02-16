@@ -1,7 +1,8 @@
 import pytest
 from uqbar.strings import normalize
 
-from supriya.ugens import Rand, SinOsc, Sum3, UGenRecursiveInput
+from supriya.ugens import Rand, SinOsc, Sum3
+from supriya.ugens.core import UGenRecursiveInput
 
 
 @pytest.mark.parametrize(
