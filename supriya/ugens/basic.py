@@ -350,17 +350,19 @@ class MulAdd(UGen):
         def _inputs_are_valid(source, multiplier, addend):
             if CalculationRate.from_expr(source) == CalculationRate.AUDIO:
                 return True
-            if CalculationRate.from_expr(source) == CalculationRate.CONTROL:
-                if CalculationRate.from_expr(multiplier) in (
+            return (
+                CalculationRate.from_expr(source) == CalculationRate.CONTROL
+                and CalculationRate.from_expr(multiplier)
+                in (
                     CalculationRate.CONTROL,
                     CalculationRate.SCALAR,
-                ):
-                    if CalculationRate.from_expr(addend) in (
-                        CalculationRate.CONTROL,
-                        CalculationRate.SCALAR,
-                    ):
-                        return True
-            return False
+                )
+                and CalculationRate.from_expr(addend)
+                in (
+                    CalculationRate.CONTROL,
+                    CalculationRate.SCALAR,
+                )
+            )
 
         if multiplier == 0.0:
             return addend
