@@ -72,11 +72,10 @@ class Options:
     protocol: str = "udp"
     random_number_generator_count: int = 64
     realtime: bool = True
-    remote_control_volume: bool = False
     restricted_path: Optional[str] = None
     safety_clip: Optional[Union[int, Literal["inf"]]] = None
     sample_rate: Optional[int] = None
-    threads: Optional[int] = None
+    threads: int = 6
     ugen_plugins_path: Optional[str] = None
     verbosity: int = 0
     wire_buffer_count: int = 64
@@ -85,14 +84,6 @@ class Options:
     ### INITIALIZER ###
 
     def __post_init__(self):
-        if self.input_bus_channel_count is None:
-            object.__setattr__(self, "input_bus_channel_count", 8)
-        if self.output_bus_channel_count is None:
-            object.__setattr__(self, "output_bus_channel_count", 8)
-        if self.input_bus_channel_count < 0:
-            raise ValueError(self.input_bus_channel_count)
-        if self.output_bus_channel_count < 0:
-            raise ValueError(self.output_bus_channel_count)
         if self.audio_bus_channel_count < (
             self.input_bus_channel_count + self.output_bus_channel_count
         ):
@@ -135,6 +126,8 @@ class Options:
         result = [str(find(self.executable))]
         pairs: Dict[str, Optional[Union[List[str], str]]] = {}
         if self.realtime:
+            if self.ip_address != DEFAULT_IP_ADDRESS:
+                pairs["-B"] = self.ip_address
             if self.protocol == "tcp":
                 pairs["-t"] = str(self.port)
             else:
@@ -189,8 +182,8 @@ class Options:
             pairs["-P"] = str(self.restricted_path)
         if self.safety_clip is not None:
             pairs["-s"] = str(self.safety_clip)
-        if self.threads and find(self.executable).stem == "supernova":
-            pairs["-t"] = str(self.threads)
+        if self.threads != 6 and find(self.executable).stem == "supernova":
+            pairs["-T"] = str(self.threads)
         if self.ugen_plugins_path:
             pairs["-U"] = str(self.ugen_plugins_path)
         if 0 < self.verbosity:
