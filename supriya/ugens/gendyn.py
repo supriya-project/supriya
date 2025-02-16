@@ -40,14 +40,14 @@ class Gendy1(UGen):
     knum = param(Default())
 
     def _postprocess_kwargs(
-        self, *, calculation_rate: CalculationRate, **kwargs
+        self, *, rate: CalculationRate, **kwargs
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
         kwargs["knum"] = (
             kwargs["init_cps"]
             if isinstance(kwargs["knum"], Default)
             else kwargs["knum"]
         )
-        return calculation_rate, kwargs
+        return rate, kwargs
 
 
 @ugen(ar=True, kr=True)
@@ -89,14 +89,14 @@ class Gendy2(UGen):
     c = param(0.31)
 
     def _postprocess_kwargs(
-        self, *, calculation_rate: CalculationRate, **kwargs
+        self, *, rate: CalculationRate, **kwargs
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
         kwargs["knum"] = (
             kwargs["init_cps"]
             if isinstance(kwargs["knum"], Default)
             else kwargs["knum"]
         )
-        return calculation_rate, kwargs
+        return rate, kwargs
 
 
 @ugen(ar=True, kr=True)
@@ -132,11 +132,11 @@ class Gendy3(UGen):
     knum = param(Default())
 
     def _postprocess_kwargs(
-        self, *, calculation_rate: CalculationRate, **kwargs
+        self, *, rate: CalculationRate, **kwargs
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
         kwargs["knum"] = (
             kwargs["init_cps"]
             if isinstance(kwargs["knum"], Default)
             else kwargs["knum"]
         )
-        return calculation_rate, kwargs
+        return rate, kwargs

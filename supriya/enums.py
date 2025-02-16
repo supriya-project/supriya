@@ -134,8 +134,8 @@ class CalculationRate(IntEnumeration):
         """
         from .ugens import Parameter
 
-        if hasattr(expr, "calculation_rate"):
-            return expr.calculation_rate
+        if hasattr(expr, "rate"):
+            return expr.rate
         elif isinstance(expr, ParameterRate):
             return {
                 ParameterRate.AUDIO: CalculationRate.AUDIO,

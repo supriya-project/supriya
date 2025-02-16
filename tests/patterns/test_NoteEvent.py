@@ -73,7 +73,7 @@ def test_perform():
     proxy_mapping = {}
     notes_mapping = {}
     # 0: Allocate a bus for later
-    bus_event = BusAllocateEvent(bus_id, calculation_rate="control")
+    bus_event = BusAllocateEvent(bus_id, rate="control")
     with context.at():
         bus_event.perform(
             context,
@@ -98,7 +98,7 @@ def test_perform():
         bus_id: BusGroup(
             context=context,
             id_=0,
-            calculation_rate=CalculationRate.CONTROL,
+            rate=CalculationRate.CONTROL,
             count=1,
         ),
     }
@@ -130,7 +130,7 @@ def test_perform():
             context=context,
             id_=0,
             count=1,
-            calculation_rate=CalculationRate.CONTROL,
+            rate=CalculationRate.CONTROL,
         ),
     }
     assert notes_mapping == {id_: 2.0}
@@ -156,7 +156,7 @@ def test_perform():
         bus_id: BusGroup(
             context=context,
             id_=0,
-            calculation_rate=CalculationRate.CONTROL,
+            rate=CalculationRate.CONTROL,
             count=1,
         ),
     }
@@ -176,7 +176,7 @@ def test_perform():
         bus_id: BusGroup(
             context=context,
             id_=0,
-            calculation_rate=CalculationRate.CONTROL,
+            rate=CalculationRate.CONTROL,
             count=1,
         )
     }

@@ -98,7 +98,7 @@ class CompanderD(PseudoUGen):
         )
         return Compander._new_expanded(
             clamp_time=clamp_time,
-            calculation_rate=CalculationRate.AUDIO,
+            rate=CalculationRate.AUDIO,
             relax_time=relax_time,
             slope_above=slope_above,
             slope_below=slope_below,

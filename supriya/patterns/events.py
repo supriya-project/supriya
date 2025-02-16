@@ -66,14 +66,14 @@ class BusAllocateEvent(Event):
         self,
         id_: Union[UUID, Tuple[UUID, int]],
         *,
-        calculation_rate: CalculationRateLike = "audio",
+        rate: CalculationRateLike = "audio",
         channel_count: int = 1,
         delta: float = 0.0,
         **kwargs,
     ) -> None:
         Event.__init__(self, delta=delta, **kwargs)
         self.id_ = id_
-        self.calculation_rate = CalculationRate.from_expr(calculation_rate)
+        self.rate = CalculationRate.from_expr(rate)
         self.channel_count = channel_count
 
     def perform(
@@ -87,7 +87,7 @@ class BusAllocateEvent(Event):
         **kwargs,
     ) -> None:
         proxy_mapping[self.id_] = context.add_bus_group(
-            calculation_rate=self.calculation_rate, count=self.channel_count
+            rate=self.rate, count=self.channel_count
         )
 
 

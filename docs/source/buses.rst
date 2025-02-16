@@ -45,7 +45,7 @@ Inspection
 ----------
 
 - .bus_id
-- .calculation_rate
+- .rate
 - .bus_group.buses
 - .get()
 - .get_range()

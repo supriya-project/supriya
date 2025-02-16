@@ -55,7 +55,7 @@ class LocalIn(UGen):
     def _postprocess_kwargs(
         self,
         *,
-        calculation_rate: CalculationRate,
+        rate: CalculationRate,
         **kwargs,
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
         default = kwargs["default"]
@@ -64,7 +64,7 @@ class LocalIn(UGen):
         kwargs["default"] = list(
             repeat_to_length([float(x) for x in default], self._channel_count)
         )
-        return calculation_rate, kwargs
+        return rate, kwargs
 
 
 @ugen(ar=True, kr=True, channel_count=0, fixed_channel_count=True)

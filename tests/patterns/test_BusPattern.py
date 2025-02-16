@@ -20,7 +20,7 @@ from supriya.patterns.testutils import run_pattern_test
 
 
 @pytest.mark.parametrize(
-    "stop_at, inner_pattern, calculation_rate, channel_count, release_time, expected, is_infinite",
+    "stop_at, inner_pattern, rate, channel_count, release_time, expected, is_infinite",
     [
         (
             None,
@@ -33,7 +33,7 @@ from supriya.patterns.testutils import run_pattern_test
                     [
                         BusAllocateEvent(
                             M("A"),
-                            calculation_rate=CalculationRate.AUDIO,
+                            rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
                         GroupAllocateEvent(M("B")),
@@ -67,7 +67,7 @@ from supriya.patterns.testutils import run_pattern_test
                     [
                         BusAllocateEvent(
                             M("A"),
-                            calculation_rate=CalculationRate.AUDIO,
+                            rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
                         GroupAllocateEvent(M("B")),
@@ -106,7 +106,7 @@ from supriya.patterns.testutils import run_pattern_test
                     [
                         BusAllocateEvent(
                             M("A"),
-                            calculation_rate=CalculationRate.AUDIO,
+                            rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
                         GroupAllocateEvent(M("B")),
@@ -125,7 +125,7 @@ from supriya.patterns.testutils import run_pattern_test
                     [
                         BusAllocateEvent(
                             M("D"),
-                            calculation_rate=CalculationRate.AUDIO,
+                            rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
                         GroupAllocateEvent(M("E"), target_node=M("B")),
@@ -167,7 +167,7 @@ from supriya.patterns.testutils import run_pattern_test
 def test(
     stop_at,
     inner_pattern,
-    calculation_rate,
+    rate,
     channel_count,
     release_time,
     expected,
@@ -175,7 +175,7 @@ def test(
 ):
     pattern = BusPattern(
         inner_pattern,
-        calculation_rate=calculation_rate,
+        rate=rate,
         channel_count=channel_count,
         release_time=release_time,
     )

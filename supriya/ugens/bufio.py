@@ -127,7 +127,7 @@ class LocalBuf(UGen):
     frame_count = param(1)
 
     def _postprocess_kwargs(
-        self, *, calculation_rate: CalculationRate, **kwargs
+        self, *, rate: CalculationRate, **kwargs
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
         return CalculationRate.SCALAR, kwargs
 

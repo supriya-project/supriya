@@ -117,7 +117,7 @@ class ExpRand(UGen):
     def _postprocess_kwargs(
         self,
         *,
-        calculation_rate: CalculationRate,
+        rate: CalculationRate,
         **kwargs,
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
         if isinstance(kwargs["minimum"], float) and isinstance(
@@ -126,7 +126,7 @@ class ExpRand(UGen):
             kwargs["minimum"], kwargs["maximum"] = sorted(
                 [kwargs["minimum"], kwargs["maximum"]]
             )
-        return calculation_rate, kwargs
+        return rate, kwargs
 
 
 @ugen(ar=True, kr=True)
@@ -479,12 +479,12 @@ class TIRand(UGen):
     def _postprocess_kwargs(
         self,
         *,
-        calculation_rate: CalculationRate,
+        rate: CalculationRate,
         **kwargs,
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
         kwargs["minimum"] = int(kwargs["minimum"])
         kwargs["maximum"] = int(kwargs["maximum"])
-        return calculation_rate, kwargs
+        return rate, kwargs
 
 
 @ugen(ar=True, kr=True)

@@ -122,11 +122,11 @@ class MFCC(UGen):
     def _postprocess_kwargs(
         self,
         *,
-        calculation_rate: CalculationRate,
+        rate: CalculationRate,
         **kwargs,
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
         self._channel_count = int(kwargs["coeff_count"])
-        return calculation_rate, kwargs
+        return rate, kwargs
 
 
 @ugen(kr=True)

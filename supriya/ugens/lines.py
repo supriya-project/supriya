@@ -181,10 +181,10 @@ class Line(UGen):
     def _postprocess_kwargs(
         self,
         *,
-        calculation_rate: CalculationRate,
+        rate: CalculationRate,
         **kwargs,
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
-        return calculation_rate, {
+        return rate, {
             **kwargs,
             "done_action": DoneAction.from_expr(int(kwargs["done_action"])),
         }

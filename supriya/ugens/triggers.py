@@ -288,7 +288,7 @@ class Poll(UGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         label=None,
         source=None,
         special_index=None,
@@ -303,7 +303,7 @@ class Poll(UGen):
         label = str(label)
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             label=[len(label), *(ord(c) for c in label)],
             source=source,
             trigger=trigger,
@@ -315,7 +315,7 @@ class Poll(UGen):
     @classmethod
     def ar(cls, label=None, source=None, trigger=None, trigger_id=-1):
         return cls._new_expanded(
-            calculation_rate=CalculationRate.AUDIO,
+            rate=CalculationRate.AUDIO,
             label=label,
             source=source,
             trigger=trigger,
@@ -325,7 +325,7 @@ class Poll(UGen):
     @classmethod
     def kr(cls, label=None, source=None, trigger=None, trigger_id=-1):
         return cls._new_expanded(
-            calculation_rate=CalculationRate.CONTROL,
+            rate=CalculationRate.CONTROL,
             label=label,
             source=source,
             trigger=trigger,
@@ -335,7 +335,7 @@ class Poll(UGen):
     @classmethod
     def new(cls, label=None, source=None, trigger=None, trigger_id=-1):
         return cls._new_expanded(
-            calculation_rate=[CalculationRate.from_expr(x) for x in source],
+            rate=[CalculationRate.from_expr(x) for x in source],
             label=label,
             source=source,
             trigger=trigger,
@@ -461,7 +461,7 @@ class SendPeakRMS(UGen):
         """
         command = str(command_name)
         return cls._new_single(
-            calculation_rate=CalculationRate.AUDIO,
+            rate=CalculationRate.AUDIO,
             peak_lag=peak_lag,
             reply_id=reply_id,
             reply_rate=reply_rate,
@@ -495,7 +495,7 @@ class SendPeakRMS(UGen):
         """
         command = str(command_name)
         return cls._new_single(
-            calculation_rate=CalculationRate.CONTROL,
+            rate=CalculationRate.CONTROL,
             peak_lag=peak_lag,
             reply_id=reply_id,
             reply_rate=reply_rate,
@@ -549,7 +549,7 @@ class SendReply(UGen):
         """
         command = str(command_name)
         return cls._new_single(
-            calculation_rate=CalculationRate.AUDIO,
+            rate=CalculationRate.AUDIO,
             trigger=trigger,
             reply_id=reply_id,
             character_count=len(command),
@@ -578,7 +578,7 @@ class SendReply(UGen):
         """
         command = str(command_name)
         return cls._new_single(
-            calculation_rate=CalculationRate.CONTROL,
+            rate=CalculationRate.CONTROL,
             trigger=trigger,
             reply_id=reply_id,
             character_count=len(command),

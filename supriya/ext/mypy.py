@@ -78,7 +78,7 @@ class UGenTransformer:
         }
         init_args = [
             Argument(
-                variable=Var("calculation_rate", CalculationRateType),
+                variable=Var("rate", CalculationRateType),
                 type_annotation=CalculationRateType,
                 initializer=None,
                 kind=ARG_OPT,

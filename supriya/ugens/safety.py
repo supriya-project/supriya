@@ -30,12 +30,12 @@ class CheckBadValues(UGen):
     def _postprocess_kwargs(
         self,
         *,
-        calculation_rate: CalculationRate,
+        rate: CalculationRate,
         **kwargs,
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
         if kwargs["post_mode"] not in (0, 1, 2):
             raise ValueError(f"Invalid post mode: {kwargs['post_mode']}")
-        return calculation_rate, kwargs
+        return rate, kwargs
 
 
 @ugen(ar=True, kr=True)

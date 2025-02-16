@@ -319,7 +319,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
             lambda context: [
                 call.at(0.0),
                 call.add_group(add_action=AddAction.ADD_TO_HEAD, target_node=None),
-                call.add_bus_group(calculation_rate=CalculationRate.AUDIO, count=1),
+                call.add_bus_group(rate=CalculationRate.AUDIO, count=1),
                 call.add_group(
                     add_action=AddAction.ADD_TO_HEAD,
                     target_node=Group(context=context, id_=1000),
@@ -333,7 +333,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                     fade_time=0.25,
                     in_=BusGroup(
                         context=context,
-                        calculation_rate=CalculationRate.AUDIO,
+                        rate=CalculationRate.AUDIO,
                         id_=16,
                         count=1,
                     ),
@@ -346,7 +346,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                     frequency=440,
                     out=BusGroup(
                         context=context,
-                        calculation_rate=CalculationRate.AUDIO,
+                        rate=CalculationRate.AUDIO,
                         id_=16,
                         count=1,
                     ),
@@ -361,7 +361,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                     frequency=550,
                     out=BusGroup(
                         context=context,
-                        calculation_rate=CalculationRate.AUDIO,
+                        rate=CalculationRate.AUDIO,
                         id_=16,
                         count=1,
                     ),
@@ -387,7 +387,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                 call.free_bus_group(
                     BusGroup(
                         context=context,
-                        calculation_rate=CalculationRate.AUDIO,
+                        rate=CalculationRate.AUDIO,
                         id_=16,
                         count=1,
                     )

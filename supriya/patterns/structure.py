@@ -34,13 +34,13 @@ class BusPattern(Pattern[Event]):
     def __init__(
         self,
         pattern: Pattern[Event],
-        calculation_rate: CalculationRateLike = "audio",
+        rate: CalculationRateLike = "audio",
         channel_count: int = 1,
         release_time: float = 0.25,
     ) -> None:
         self._pattern = pattern
-        self._calculation_rate: CalculationRate = CalculationRate.from_expr(
-            calculation_rate
+        self._rate: CalculationRate = CalculationRate.from_expr(
+            rate
         )
         self._channel_count = channel_count
         self._release_time = release_time
@@ -72,11 +72,11 @@ class BusPattern(Pattern[Event]):
     def _setup_peripherals(self, state: Optional[UUIDDict]) -> Tuple[Event, Event]:
         if state is None:
             raise RuntimeError
-        rate = self._calculation_rate.name.lower()
+        rate = self._rate.name.lower()
         link_synthdef_name = f"system_link_{rate}_{self._channel_count}"
         starts = [
             BusAllocateEvent(
-                calculation_rate=self._calculation_rate,
+                rate=self._rate,
                 channel_count=self._channel_count,
                 id_=state["bus"],
             ),

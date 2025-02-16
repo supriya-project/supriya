@@ -100,13 +100,13 @@ class Demand(UGen):
     def _postprocess_kwargs(
         self,
         *,
-        calculation_rate: CalculationRate,
+        rate: CalculationRate,
         **kwargs,
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
         if not isinstance(source := kwargs["source"], Sequence):
             kwargs["source"] = [source]
         self._channel_count = len(kwargs["source"])
-        return calculation_rate, kwargs
+        return rate, kwargs
 
 
 @ugen(ar=True, kr=True)
@@ -498,7 +498,7 @@ class Dwrand(UGen):
         weights = weights[: len(sequence)]
         weights += (0.0,) * (len(sequence) - len(weights))
         return cls._new_expanded(
-            calculation_rate=CalculationRate.DEMAND,
+            rate=CalculationRate.DEMAND,
             repeats=repeats,
             length=len(sequence),
             sequence=sequence,

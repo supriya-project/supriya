@@ -343,7 +343,7 @@ class MulAdd(UGen):
         cls,
         addend=None,
         multiplier=None,
-        calculation_rate=None,
+        rate=None,
         source=None,
         special_index=None,
     ):
@@ -381,7 +381,7 @@ class MulAdd(UGen):
             return cls(
                 addend=addend,
                 multiplier=multiplier,
-                calculation_rate=CalculationRate.from_expr(
+                rate=CalculationRate.from_expr(
                     (source, multiplier, addend)
                 ),
                 source=source,
@@ -390,7 +390,7 @@ class MulAdd(UGen):
             return cls(
                 addend=addend,
                 multiplier=source,
-                calculation_rate=CalculationRate.from_expr(
+                rate=CalculationRate.from_expr(
                     (multiplier, source, addend)
                 ),
                 source=multiplier,
@@ -430,7 +430,7 @@ class Sum3(UGen):
             ugen = input_two + input_three
         else:
             ugen = cls(
-                calculation_rate=None,
+                rate=None,
                 input_one=input_one,
                 input_two=input_two,
                 input_three=input_three,
@@ -438,20 +438,20 @@ class Sum3(UGen):
         return ugen
 
     def _postprocess_kwargs(
-        self, *, calculation_rate: CalculationRate, **kwargs
+        self, *, rate: CalculationRate, **kwargs
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
         inputs = sorted(
             [kwargs["input_one"], kwargs["input_two"], kwargs["input_three"]],
             key=lambda x: CalculationRate.from_expr(x),
             reverse=True,
         )
-        calculation_rate = CalculationRate.from_expr(inputs)
+        rate = CalculationRate.from_expr(inputs)
         kwargs.update(
             input_one=inputs[0],
             input_two=inputs[1],
             input_three=inputs[2],
         )
-        return calculation_rate, kwargs
+        return rate, kwargs
 
 
 @ugen(new=True)
@@ -499,7 +499,7 @@ class Sum4(UGen):
             )
         else:
             ugen = cls(
-                calculation_rate=None,
+                rate=None,
                 input_one=input_one,
                 input_two=input_two,
                 input_three=input_three,
@@ -508,7 +508,7 @@ class Sum4(UGen):
         return ugen
 
     def _postprocess_kwargs(
-        self, *, calculation_rate: CalculationRate, **kwargs
+        self, *, rate: CalculationRate, **kwargs
     ) -> Tuple[CalculationRate, Dict[str, Any]]:
         inputs = sorted(
             [
@@ -520,11 +520,11 @@ class Sum4(UGen):
             key=lambda x: CalculationRate.from_expr(x),
             reverse=True,
         )
-        calculation_rate = CalculationRate.from_expr(inputs)
+        rate = CalculationRate.from_expr(inputs)
         kwargs.update(
             input_one=inputs[0],
             input_two=inputs[1],
             input_three=inputs[2],
             input_four=inputs[3],
         )
-        return calculation_rate, kwargs
+        return rate, kwargs

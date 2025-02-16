@@ -329,7 +329,7 @@ class Splay(PseudoUGen):
     _unexpanded_keys = ("source",)
 
     @classmethod
-    def _new_expanded(cls, calculation_rate=None, **kwargs):
+    def _new_expanded(cls, rate=None, **kwargs):
         def recurse(
             all_expanded_params: UGenRecursiveParams,
         ) -> UGenOperable:
@@ -340,7 +340,7 @@ class Splay(PseudoUGen):
                 all_expanded_params = all_expanded_params[0]
             if isinstance(all_expanded_params, dict):
                 return cls._new_single(
-                    calculation_rate=calculation_rate,
+                    rate=rate,
                     special_index=0,
                     **all_expanded_params,
                 )
@@ -357,7 +357,7 @@ class Splay(PseudoUGen):
     def _new_single(
         cls,
         *,
-        calculation_rate=None,
+        rate=None,
         center=0,
         level=1,
         normalize=True,
@@ -370,11 +370,11 @@ class Splay(PseudoUGen):
             for i in range(len(source))
         ]
         if normalize:
-            if calculation_rate == CalculationRate.AUDIO:
+            if rate == CalculationRate.AUDIO:
                 level = level * math.sqrt(1 / len(source))
             else:
                 level = level / len(source)
-        panners = _get_method_for_rate(Pan2, calculation_rate)(
+        panners = _get_method_for_rate(Pan2, rate)(
             source=source, position=positions
         )
         return Mix.multichannel(panners, 2) * level
@@ -382,7 +382,7 @@ class Splay(PseudoUGen):
     @classmethod
     def ar(cls, *, source, center=0, level=1, normalize=True, spread=1):
         return cls._new_expanded(
-            calculation_rate=CalculationRate.AUDIO,
+            rate=CalculationRate.AUDIO,
             center=center,
             level=level,
             normalize=normalize,
@@ -393,7 +393,7 @@ class Splay(PseudoUGen):
     @classmethod
     def kr(cls, *, source, center=0, level=1, normalize=True, spread=1):
         return cls._new_expanded(
-            calculation_rate=CalculationRate.CONTROL,
+            rate=CalculationRate.CONTROL,
             center=center,
             level=level,
             normalize=normalize,

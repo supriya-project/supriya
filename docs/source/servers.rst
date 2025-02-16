@@ -258,7 +258,7 @@ The server provides methods for allocating :term:`nodes <node>` (:term:`groups
     >>> server.add_buffer(channel_count=1, frame_count=512)
     >>> server.add_buffer_group(count=8, channel_count=2, frame_count=1024)
     >>> server.add_bus()
-    >>> server.add_bus_group(count=2, calculation_rate="audio")
+    >>> server.add_bus_group(count=2, rate="audio")
     >>> print(server.query_tree())
 
 Resetting

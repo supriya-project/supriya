@@ -14,24 +14,24 @@ id_ = uuid.uuid4()
     "event, offset, expected",
     [
         (
-            BusAllocateEvent(id_, calculation_rate="control", channel_count=2),
+            BusAllocateEvent(id_, rate="control", channel_count=2),
             0.0,
             [
                 (
                     0.0,
                     Priority.START,
-                    BusAllocateEvent(id_, calculation_rate="control", channel_count=2),
+                    BusAllocateEvent(id_, rate="control", channel_count=2),
                 )
             ],
         ),
         (
-            BusAllocateEvent(id_, calculation_rate="audio", channel_count=8),
+            BusAllocateEvent(id_, rate="audio", channel_count=8),
             0.0,
             [
                 (
                     0.0,
                     Priority.START,
-                    BusAllocateEvent(id_, calculation_rate="audio", channel_count=8),
+                    BusAllocateEvent(id_, rate="audio", channel_count=8),
                 )
             ],
         ),
@@ -48,7 +48,7 @@ def test_perform():
     proxy_mapping = {}
     notes_mapping = {}
     # Allocate
-    event = BusAllocateEvent(id_, calculation_rate="audio", channel_count=8)
+    event = BusAllocateEvent(id_, rate="audio", channel_count=8)
     with context.at():
         event.perform(
             spy,
@@ -62,10 +62,10 @@ def test_perform():
             id_=16,
             context=context,
             count=8,
-            calculation_rate=CalculationRate.AUDIO,
+            rate=CalculationRate.AUDIO,
         )
     }
     assert notes_mapping == {}
     assert spy.mock_calls == [
-        call.add_bus_group(calculation_rate=CalculationRate.AUDIO, count=8)
+        call.add_bus_group(rate=CalculationRate.AUDIO, count=8)
     ]

@@ -92,7 +92,7 @@ class Klank(UGen):
             utils.flatten(utils.zip_cycled(frequencies, amplitudes, decay_times))
         )
         return cls._new_expanded(
-            calculation_rate=CalculationRate.AUDIO,
+            rate=CalculationRate.AUDIO,
             decay_scale=decay_scale,
             frequency_offset=frequency_offset,
             frequency_scale=frequency_scale,

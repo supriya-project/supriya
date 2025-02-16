@@ -83,7 +83,7 @@ def _add_init(
     fixed_channel_count: bool,
 ) -> None:
     parent_class = inspect.getmro(cls)[1]
-    args = ["self", "*", "calculation_rate: CalculationRateLike"]
+    args = ["self", "*", "rate: CalculationRateLike"]
     body = []
     if is_multichannel and not fixed_channel_count:
         args.append(f"channel_count={channel_count or 1}")
@@ -94,7 +94,7 @@ def _add_init(
         [
             f"return {parent_class.__name__}.__init__(",
             "    self,",
-            "    calculation_rate=CalculationRate.from_expr(calculation_rate),",
+            "    rate=CalculationRate.from_expr(rate),",
         ]
     )
     for key, param in params.items():
@@ -157,7 +157,7 @@ def _add_rate_fn(
             else prefix
         )
     body = ["return cls._new_expanded("]
-    body.append(f"    calculation_rate={rate!r},")
+    body.append(f"    rate={rate!r},")
     if is_multichannel and not fixed_channel_count:
         args.append(f"channel_count: int = {channel_count or 1}")
         body.append("    channel_count=channel_count,")
@@ -255,7 +255,7 @@ def _process_class(
 ) -> Type["UGen"]:
     params: Dict[str, Param] = {}
     unexpanded_keys = []
-    valid_calculation_rates = []
+    valid_rates = []
     for name, value in cls.__dict__.items():
         if not isinstance(value, Param):
             continue
@@ -277,7 +277,7 @@ def _process_class(
             cls, rate, params, is_multichannel, channel_count, fixed_channel_count
         )
         if rate is not None:
-            valid_calculation_rates.append(rate)
+            valid_rates.append(rate)
     cls._has_done_flag = bool(has_done_flag)
     cls._is_input = bool(is_input)
     cls._is_output = bool(is_output)
@@ -285,7 +285,7 @@ def _process_class(
     cls._is_width_first = bool(is_width_first)
     cls._ordered_keys = tuple(params.keys())
     cls._unexpanded_keys = frozenset(unexpanded_keys)
-    cls._valid_calculation_rates = tuple(valid_calculation_rates)
+    cls._valid_rates = tuple(valid_rates)
     if signal_range is not None:
         cls._signal_range = SignalRange.from_expr(signal_range)
     return cls
@@ -354,12 +354,12 @@ def ugen(
     return wrap
 
 
-def _get_method_for_rate(cls, calculation_rate: CalculationRate) -> Callable:
-    if calculation_rate == CalculationRate.AUDIO:
+def _get_method_for_rate(cls, rate: CalculationRate) -> Callable:
+    if rate == CalculationRate.AUDIO:
         return cls.ar
-    elif calculation_rate == CalculationRate.CONTROL:
+    elif rate == CalculationRate.CONTROL:
         return cls.kr
-    elif calculation_rate == CalculationRate.SCALAR:
+    elif rate == CalculationRate.SCALAR:
         if hasattr(cls, "ir"):
             return cls.ir
         return cls.kr
@@ -385,7 +385,7 @@ def _compute_binary_op(
             ):
                 return ConstantProxy(float_operator(float(left), float(right)))
             return BinaryOpUGen._new_single(
-                calculation_rate=max(
+                rate=max(
                     [
                         CalculationRate.from_expr(left),
                         CalculationRate.from_expr(right),
@@ -415,7 +415,7 @@ def _compute_unary_op(
             if isinstance(source, SupportsFloat) and float_operator is not None:
                 return ConstantProxy(float_operator(float(source)))
             return UnaryOpUGen._new_single(
-                calculation_rate=max(
+                rate=max(
                     [
                         CalculationRate.from_expr(source),
                     ]
@@ -439,8 +439,8 @@ def _compute_ugen_map(
         source = UGenVector(source)
     outputs: List[UGenOperable] = []
     for input_ in source:
-        calculation_rate = CalculationRate.from_expr(input_)
-        method = _get_method_for_rate(ugen, calculation_rate)
+        rate = CalculationRate.from_expr(input_)
+        method = _get_method_for_rate(ugen, rate)
         outputs.append(method(source=input_, **kwargs))
     if len(outputs) == 1:
         return outputs[0]
@@ -4560,8 +4560,8 @@ class OutputProxy(UGenScalar):
         return str(self.ugen)
 
     @property
-    def calculation_rate(self) -> CalculationRate:
-        return self.ugen.calculation_rate
+    def rate(self) -> CalculationRate:
+        return self.ugen.rate
 
 
 class ConstantProxy(UGenScalar):
@@ -4877,21 +4877,21 @@ class UGen(UGenOperable, Sequence):
     _ordered_keys: Tuple[str, ...] = ()
     _signal_range: SignalRange = SignalRange.BIPOLAR
     _unexpanded_keys: FrozenSet[str] = frozenset()
-    _valid_calculation_rates: Tuple[CalculationRate, ...] = ()
+    _valid_rates: Tuple[CalculationRate, ...] = ()
 
     def __init__(
         self,
         *,
-        calculation_rate: CalculationRate = CalculationRate.SCALAR,
+        rate: CalculationRate = CalculationRate.SCALAR,
         special_index: SupportsInt = 0,
         **kwargs: Union["UGenScalarInput", "UGenVectorInput"],
     ) -> None:
-        if self._valid_calculation_rates:
-            assert calculation_rate in self._valid_calculation_rates
-        calculation_rate, kwargs = self._postprocess_kwargs(
-            calculation_rate=calculation_rate, **kwargs
+        if self._valid_rates:
+            assert rate in self._valid_rates
+        rate, kwargs = self._postprocess_kwargs(
+            rate=rate, **kwargs
         )
-        self._calculation_rate = calculation_rate
+        self._rate = rate
         self._special_index = int(special_index)
         input_keys: List[Union[str, Tuple[str, int]]] = []
         inputs: List[Union[OutputProxy, float]] = []
@@ -4959,7 +4959,7 @@ class UGen(UGenOperable, Sequence):
         return self._channel_count
 
     def __repr__(self):
-        return f"<{type(self).__name__}.{self.calculation_rate.token}()>"
+        return f"<{type(self).__name__}.{self.rate.token}()>"
 
     def _eliminate(
         self, sort_bundles: Dict["UGen", "SynthDefBuilder.SortBundle"]
@@ -5034,7 +5034,7 @@ class UGen(UGenOperable, Sequence):
     def _new_expanded(
         cls,
         *,
-        calculation_rate: CalculationRateLike,
+        rate: CalculationRateLike,
         special_index: int = 0,
         **kwargs: "UGenRecursiveInput",
     ) -> UGenOperable:
@@ -5066,7 +5066,7 @@ class UGen(UGenOperable, Sequence):
                 all_expanded_params = all_expanded_params[0]
             if isinstance(all_expanded_params, dict):
                 return cls._new_single(
-                    calculation_rate=calculation_rate,
+                    rate=rate,
                     special_index=special_index,
                     **all_expanded_params,
                 )
@@ -5080,14 +5080,14 @@ class UGen(UGenOperable, Sequence):
     def _new_single(
         cls,
         *,
-        calculation_rate: CalculationRateLike = None,
+        rate: CalculationRateLike = None,
         special_index: SupportsInt = 0,
         **kwargs: Union["UGenScalarInput", "UGenVectorInput"],
     ) -> UGenOperable:
         if (
             len(
                 ugen := cls(
-                    calculation_rate=CalculationRate.from_expr(calculation_rate),
+                    rate=CalculationRate.from_expr(rate),
                     special_index=special_index,
                     **kwargs,
                 )
@@ -5107,14 +5107,14 @@ class UGen(UGenOperable, Sequence):
     def _postprocess_kwargs(
         self,
         *,
-        calculation_rate: CalculationRate,
+        rate: CalculationRate,
         **kwargs: Union["UGenScalarInput", "UGenVectorInput"],
     ) -> Tuple[CalculationRate, Dict[str, Union["UGenScalarInput", "UGenVectorInput"]]]:
-        return calculation_rate, kwargs
+        return rate, kwargs
 
     @property
-    def calculation_rate(self) -> CalculationRate:
-        return self._calculation_rate
+    def rate(self) -> CalculationRate:
+        return self._rate
 
     @property
     def has_done_flag(self) -> bool:
@@ -5159,18 +5159,18 @@ class UnaryOpUGen(UGen):
     def __init__(
         self,
         *,
-        calculation_rate: CalculationRate,
+        rate: CalculationRate,
         source: UGenScalarInput,
         special_index: SupportsInt = 0,
     ) -> None:
         super().__init__(
-            calculation_rate=calculation_rate,
+            rate=rate,
             source=source,
             special_index=special_index,
         )
 
     def __repr__(self) -> str:
-        return f"<{type(self).__name__}.{self.calculation_rate.token}({self.operator.name})>"
+        return f"<{type(self).__name__}.{self.rate.token}({self.operator.name})>"
 
     @property
     def operator(self) -> UnaryOperator:
@@ -5185,26 +5185,26 @@ class BinaryOpUGen(UGen):
     def __init__(
         self,
         *,
-        calculation_rate: CalculationRate,
+        rate: CalculationRate,
         left: UGenScalarInput,
         right: UGenScalarInput,
         special_index: SupportsInt = 0,
     ) -> None:
         super().__init__(
-            calculation_rate=calculation_rate,
+            rate=rate,
             left=left,
             right=right,
             special_index=special_index,
         )
 
     def __repr__(self) -> str:
-        return f"<{type(self).__name__}.{self.calculation_rate.token}({self.operator.name})>"
+        return f"<{type(self).__name__}.{self.rate.token}({self.operator.name})>"
 
     @classmethod
     def _new_single(
         cls,
         *,
-        calculation_rate: CalculationRateLike = None,
+        rate: CalculationRateLike = None,
         special_index: SupportsInt = 0,
         **kwargs: Union[UGenScalarInput, UGenVectorInput],
     ) -> UGenOperable:
@@ -5239,7 +5239,7 @@ class BinaryOpUGen(UGen):
                 if right == -1:
                     return -left
             return cls(
-                calculation_rate=max(
+                rate=max(
                     [
                         CalculationRate.from_expr(left),
                         CalculationRate.from_expr(right),
@@ -5294,7 +5294,7 @@ class Parameter(UGen):
         self.lag = lag
         self.rate = ParameterRate.from_expr(rate)
         self._channel_count = len(self.value)
-        super().__init__(calculation_rate=CalculationRate.from_expr(self.rate))
+        super().__init__(rate=CalculationRate.from_expr(self.rate))
 
     def __eq__(self, other) -> bool:
         return (type(self), self.name, self.value, self.rate, self.lag) == (
@@ -5309,7 +5309,7 @@ class Parameter(UGen):
         return hash((type(self), self.name, self.value, self.rate, self.lag))
 
     def __repr__(self) -> str:
-        return f"<{type(self).__name__}.{self.calculation_rate.token}({self.name})>"
+        return f"<{type(self).__name__}.{self.rate.token}({self.name})>"
 
 
 class Control(UGen):
@@ -5317,13 +5317,13 @@ class Control(UGen):
         self,
         *,
         parameters: Sequence[Parameter],
-        calculation_rate: CalculationRate,
+        rate: CalculationRate,
         special_index: int = 0,
     ) -> None:
         self._parameters = tuple(parameters)
         self._channel_count = sum(len(parameter) for parameter in self._parameters)
         super().__init__(
-            calculation_rate=calculation_rate,
+            rate=rate,
             special_index=special_index,
         )
 
@@ -5344,7 +5344,7 @@ class LagControl(Control):
         self,
         *,
         parameters: Sequence[Parameter],
-        calculation_rate: CalculationRate,
+        rate: CalculationRate,
         special_index: int = 0,
     ) -> None:
         self._parameters = tuple(parameters)
@@ -5354,7 +5354,7 @@ class LagControl(Control):
             lags.extend([parameter.lag or 0.0] * len(parameter))
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             lags=lags,
             special_index=special_index,
         )
@@ -5463,9 +5463,9 @@ class SynthDef:
                     head_field = head_node["outputs"][input_.index]
                     edge = Edge(head_port_position="w", tail_port_position="e")
                     edge.attach(head_field, tail_field)
-                    if input_.calculation_rate == CalculationRate.CONTROL:
+                    if input_.rate == CalculationRate.CONTROL:
                         edge.attributes["color"] = "goldenrod"
-                    elif input_.calculation_rate == CalculationRate.AUDIO:
+                    elif input_.rate == CalculationRate.AUDIO:
                         edge.attributes["color"] = "steelblue"
                     else:
                         edge.attributes["color"] = "salmon"
@@ -5499,9 +5499,9 @@ class SynthDef:
             mapping = {}
             for i, ugen in enumerate(self.ugens):
                 node = Node(name=f"ugen_{i}")
-                if ugen.calculation_rate == CalculationRate.CONTROL:
+                if ugen.rate == CalculationRate.CONTROL:
                     node.attributes["fillcolor"] = "lightgoldenrod2"
-                elif ugen.calculation_rate == CalculationRate.AUDIO:
+                elif ugen.rate == CalculationRate.AUDIO:
                     node.attributes["fillcolor"] = "lightsteelblue2"
                 else:
                     node.attributes["fillcolor"] = "lightsalmon2"
@@ -5544,13 +5544,13 @@ class SynthDef:
 
         def create_ugen_title_field(ugen: UGen) -> RecordField:
             name = type(ugen).__name__
-            calculation_rate = ugen.calculation_rate.name.lower()
+            rate = ugen.rate.name.lower()
             if isinstance(ugen, BinaryOpUGen):
-                label = f"{name}\\n[{BinaryOperator(ugen.special_index).name}]\\n({calculation_rate})"
+                label = f"{name}\\n[{BinaryOperator(ugen.special_index).name}]\\n({rate})"
             elif isinstance(ugen, UnaryOpUGen):
-                label = f"{name}\\n[{UnaryOperator(ugen.special_index).name}]\\n({calculation_rate})"
+                label = f"{name}\\n[{UnaryOperator(ugen.special_index).name}]\\n({rate})"
             else:
-                label = f"{name}\\n({calculation_rate})"
+                label = f"{name}\\n({rate})"
             return RecordField(label=label)
 
         def style_graph(graph: Graph) -> None:
@@ -5604,7 +5604,7 @@ class SynthDef:
         ]
         grouped_ugens: Dict[Tuple[Type[UGen], CalculationRate, int], List[UGen]] = {}
         for ugen in self.ugens:
-            key = (type(ugen), ugen.calculation_rate, ugen.special_index)
+            key = (type(ugen), ugen.rate, ugen.special_index)
             grouped_ugens.setdefault(key, []).append(ugen)
         ugen_names: Dict[UGen, str] = {}
         for ugen in self.ugens:
@@ -5613,8 +5613,8 @@ class SynthDef:
                 name += f"({BinaryOperator.from_expr(ugen.special_index).name})"
             elif isinstance(ugen, UnaryOpUGen):
                 name += f"({UnaryOperator.from_expr(ugen.special_index).name})"
-            name += f".{ugen.calculation_rate.token}"
-            key = (type(ugen), ugen.calculation_rate, ugen.special_index)
+            name += f".{ugen.rate.token}"
+            key = (type(ugen), ugen.rate, ugen.special_index)
             if len(related_ugens := grouped_ugens[key]) > 1:
                 name += f"/{related_ugens.index(ugen)}"
             ugen_names[ugen] = name
@@ -5774,31 +5774,31 @@ class SynthDefBuilder:
                 continue
             if parameter_rate == ParameterRate.SCALAR:
                 control = Control(
-                    calculation_rate=CalculationRate.SCALAR,
+                    rate=CalculationRate.SCALAR,
                     parameters=filtered_parameters,
                     special_index=starting_control_index,
                 )
             elif parameter_rate == ParameterRate.TRIGGER:
                 control = TrigControl(
-                    calculation_rate=CalculationRate.CONTROL,
+                    rate=CalculationRate.CONTROL,
                     parameters=filtered_parameters,
                     special_index=starting_control_index,
                 )
             elif parameter_rate == ParameterRate.AUDIO:
                 control = AudioControl(
-                    calculation_rate=CalculationRate.AUDIO,
+                    rate=CalculationRate.AUDIO,
                     parameters=filtered_parameters,
                     special_index=starting_control_index,
                 )
             elif any(parameter.lag for parameter in filtered_parameters):
                 control = LagControl(
-                    calculation_rate=CalculationRate.CONTROL,
+                    rate=CalculationRate.CONTROL,
                     parameters=filtered_parameters,
                     special_index=starting_control_index,
                 )
             else:
                 control = Control(
-                    calculation_rate=CalculationRate.CONTROL,
+                    rate=CalculationRate.CONTROL,
                     parameters=filtered_parameters,
                     special_index=starting_control_index,
                 )
@@ -6224,13 +6224,13 @@ def _compile_ugen(ugen: UGen, synthdef: SynthDef) -> bytes:
     return b"".join(
         [
             _encode_string(type(ugen).__name__),
-            _encode_unsigned_int_8bit(ugen.calculation_rate),
+            _encode_unsigned_int_8bit(ugen.rate),
             _encode_unsigned_int_32bit(len(ugen.inputs)),
             _encode_unsigned_int_32bit(len(ugen)),
             _encode_unsigned_int_16bit(int(ugen.special_index)),
             *(_compile_ugen_input_spec(input_, synthdef) for input_ in ugen.inputs),
             *(
-                _encode_unsigned_int_8bit(ugen.calculation_rate)
+                _encode_unsigned_int_8bit(ugen.rate)
                 for _ in range(len(ugen))
             ),
         ]
@@ -6380,7 +6380,7 @@ def _decode_parameters(value: bytes, index: int) -> Tuple[Dict[int, Parameter], 
 
 
 def _decompile_control_parameters(
-    calculation_rate: CalculationRate,
+    rate: CalculationRate,
     indexed_parameters: Dict[int, Parameter],
     inputs: Sequence[Union[OutputProxy, float]],
     output_count: int,
@@ -6390,9 +6390,9 @@ def _decompile_control_parameters(
     parameter_rate = ParameterRate.CONTROL
     if issubclass(ugen_class, TrigControl):
         parameter_rate = ParameterRate.TRIGGER
-    elif calculation_rate == CalculationRate.SCALAR:
+    elif rate == CalculationRate.SCALAR:
         parameter_rate = ParameterRate.SCALAR
-    elif calculation_rate == CalculationRate.AUDIO:
+    elif rate == CalculationRate.AUDIO:
         parameter_rate = ParameterRate.AUDIO
     parameters = []
     collected_output_count = 0
@@ -6419,8 +6419,8 @@ def _decompile_synthdef(value: bytes, index: int) -> Tuple[SynthDef, int]:
     ugen_count, index = _decode_int_32bit(value, index)
     for i in range(ugen_count):
         ugen_name, index = _decode_string(value, index)
-        calculation_rate, index = _decode_int_8bit(value, index)
-        calculation_rate = CalculationRate(calculation_rate)
+        rate, index = _decode_int_8bit(value, index)
+        rate = CalculationRate(rate)
         input_count, index = _decode_int_32bit(value, index)
         output_count, index = _decode_int_32bit(value, index)
         special_index, index = _decode_int_16bit(value, index)
@@ -6441,7 +6441,7 @@ def _decompile_synthdef(value: bytes, index: int) -> Tuple[SynthDef, int]:
         ugen = UGen.__new__(ugen_class)
         if issubclass(ugen_class, Control):
             parameters = _decompile_control_parameters(
-                calculation_rate,
+                rate,
                 indexed_parameters,
                 inputs,
                 output_count,
@@ -6452,7 +6452,7 @@ def _decompile_synthdef(value: bytes, index: int) -> Tuple[SynthDef, int]:
                 cast(Control, ugen),
                 parameters=parameters,
                 special_index=special_index,
-                calculation_rate=calculation_rate,
+                rate=rate,
             )
         else:
             kwargs: UGenParams = {}
@@ -6468,7 +6468,7 @@ def _decompile_synthdef(value: bytes, index: int) -> Tuple[SynthDef, int]:
             ugen._channel_count = output_count
             UGen.__init__(
                 ugen,
-                calculation_rate=calculation_rate,
+                rate=rate,
                 special_index=special_index,
                 **kwargs,
             )

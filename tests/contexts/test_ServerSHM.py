@@ -15,9 +15,9 @@ def test_shared_memory(server: Server) -> None:
     assert isinstance(server._shm, ServerSHM)
 
     values = [i / 2 for i in range(20)]
-    bus = server.add_bus(calculation_rate="CONTROL")
+    bus = server.add_bus(rate="CONTROL")
     bus_group = server.add_bus_group(
-        calculation_rate="CONTROL", count=random.randint(4, 16)
+        rate="CONTROL", count=random.randint(4, 16)
     )
 
     assert server._shm[bus] == 0.0

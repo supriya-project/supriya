@@ -441,10 +441,10 @@ class Bus(ContextObject):
 
     :param context: The bus' context.
     :param id\_: The bus' context ID.
-    :param calculation_rate: The bus' calculation rate.
+    :param rate: The bus' calculation rate.
     """
 
-    calculation_rate: CalculationRate
+    rate: CalculationRate
 
     def fill(self, count: int, value: float) -> None:
         """
@@ -500,9 +500,9 @@ class Bus(ContextObject):
         """
         Get the bus' map symbol.
         """
-        if self.calculation_rate is CalculationRate.AUDIO:
+        if self.rate is CalculationRate.AUDIO:
             return f"a{self.id_}"
-        elif self.calculation_rate is CalculationRate.CONTROL:
+        elif self.rate is CalculationRate.CONTROL:
             return f"c{self.id_}"
         raise InvalidCalculationRate
 
@@ -534,11 +534,11 @@ class BusGroup(ContextObject):
 
     :param context: The bus group's context.
     :param id\_: The bus group's context ID.
-    :param calculation_rate: The bus group's calculation rate.
+    :param rate: The bus group's calculation rate.
     :param count: The number of child buses.
     """
 
-    calculation_rate: CalculationRate
+    rate: CalculationRate
     count: int = 1
     buses: Tuple[Bus, ...] = dataclasses.field(
         init=False, repr=False, default_factory=tuple
@@ -549,7 +549,7 @@ class BusGroup(ContextObject):
             self,
             "buses",
             tuple(
-                Bus(calculation_rate=self.calculation_rate, context=self.context, id_=i)
+                Bus(rate=self.rate, context=self.context, id_=i)
                 for i in range(self.id_, self.id_ + self.count)
             ),
         )
@@ -572,9 +572,9 @@ class BusGroup(ContextObject):
         """
         Get the bus group's map symbol.
         """
-        if self.calculation_rate is CalculationRate.AUDIO:
+        if self.rate is CalculationRate.AUDIO:
             return f"a{self.id_}"
-        elif self.calculation_rate is CalculationRate.CONTROL:
+        elif self.rate is CalculationRate.CONTROL:
             return f"c{self.id_}"
         raise InvalidCalculationRate
 

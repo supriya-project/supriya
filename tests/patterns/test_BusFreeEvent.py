@@ -25,7 +25,7 @@ def test_perform():
     proxy_mapping = {}
     notes_mapping = {}
     # Allocate
-    allocate_event = BusAllocateEvent(id_, calculation_rate="audio", channel_count=8)
+    allocate_event = BusAllocateEvent(id_, rate="audio", channel_count=8)
     with context.at():
         allocate_event.perform(
             spy,
@@ -47,12 +47,12 @@ def test_perform():
     assert proxy_mapping == {}
     assert notes_mapping == {}
     assert spy.mock_calls == [
-        call.add_bus_group(calculation_rate=CalculationRate.AUDIO, count=8),
+        call.add_bus_group(rate=CalculationRate.AUDIO, count=8),
         call.free_bus_group(
             BusGroup(
                 context=context,
                 id_=16,
-                calculation_rate=CalculationRate.AUDIO,
+                rate=CalculationRate.AUDIO,
                 count=8,
             )
         ),

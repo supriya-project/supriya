@@ -187,11 +187,11 @@ class BaseServer(Context):
         if isinstance(object_, Buffer) and object_.id_ in self._buffers:
             return True
         if isinstance(object_, Bus):
-            if object_.calculation_rate == CalculationRate.AUDIO and (
+            if object_.rate == CalculationRate.AUDIO and (
                 object_.id_ < self.options.control_bus_channel_count
             ):
                 return True
-            elif object_.calculation_rate == CalculationRate.CONTROL and (
+            elif object_.rate == CalculationRate.CONTROL and (
                 object_.id_ < self.options.audio_bus_channel_count
             ):
                 return True
@@ -217,9 +217,9 @@ class BaseServer(Context):
         self,
         type_: Type[ContextObject],
         id_: int,
-        calculation_rate: Optional[CalculationRate] = None,
+        rate: Optional[CalculationRate] = None,
     ) -> None:
-        self._get_allocator(type_, calculation_rate).free(id_)
+        self._get_allocator(type_, rate).free(id_)
 
     def _handle_done_b_alloc(self, message: OscMessage) -> None:
         with self._lock:
@@ -717,7 +717,7 @@ class Server(BaseServer):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        if bus.calculation_rate != CalculationRate.CONTROL:
+        if bus.rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
         request = GetControlBus(bus_ids=[bus.id_])
         if sync:
@@ -740,7 +740,7 @@ class Server(BaseServer):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        if bus.calculation_rate != CalculationRate.CONTROL:
+        if bus.rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
         request = GetControlBusRange(items=[(bus.id_, count)])
         if sync:
@@ -1267,7 +1267,7 @@ class AsyncServer(BaseServer):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        if bus.calculation_rate != CalculationRate.CONTROL:
+        if bus.rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
         request = GetControlBus(bus_ids=[bus.id_])
         if sync:
@@ -1290,7 +1290,7 @@ class AsyncServer(BaseServer):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        if bus.calculation_rate != CalculationRate.CONTROL:
+        if bus.rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
         request = GetControlBusRange(items=[(bus.id_, count)])
         if sync:

@@ -306,7 +306,7 @@ class EnvGen(UGen):
     def _new_expanded(
         cls,
         *,
-        calculation_rate=None,
+        rate=None,
         done_action=None,
         envelope=None,
         gate=1.0,
@@ -317,7 +317,7 @@ class EnvGen(UGen):
         if not isinstance(done_action, Parameter):
             done_action = DoneAction.from_expr(done_action)
         return super(EnvGen, cls)._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             done_action=done_action,
             envelope=(envelope or Envelope()).serialize(),
             gate=gate,

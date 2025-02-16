@@ -63,7 +63,7 @@ class Score(Context):
         self,
         type_: Type[ContextObject],
         id_: int,
-        calculation_rate: Optional[CalculationRate] = None,
+        rate: Optional[CalculationRate] = None,
     ) -> None:
         pass
 

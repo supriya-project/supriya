@@ -275,7 +275,7 @@ class Context(metaclass=abc.ABCMeta):
     def _allocate_id(
         self,
         type_: Type[ContextObject],
-        calculation_rate: Optional[CalculationRate] = None,
+        rate: Optional[CalculationRate] = None,
         count: int = 1,
         permanent: bool = False,
     ) -> int:
@@ -288,12 +288,12 @@ class Context(metaclass=abc.ABCMeta):
         elif type_ is Buffer:
             id_ = self._buffer_allocator.allocate(count)
         elif type_ is Bus:
-            if calculation_rate is CalculationRate.AUDIO:
+            if rate is CalculationRate.AUDIO:
                 id_ = self._audio_bus_allocator.allocate(count)
-            elif calculation_rate is CalculationRate.CONTROL:
+            elif rate is CalculationRate.CONTROL:
                 id_ = self._control_bus_allocator.allocate(count)
             else:
-                raise ValueError(calculation_rate)
+                raise ValueError(rate)
         else:
             raise ValueError(type_)
         if id_ is None:
@@ -320,23 +320,23 @@ class Context(metaclass=abc.ABCMeta):
         self,
         type_: Type[ContextObject],
         id_: int,
-        calculation_rate: Optional[CalculationRate] = None,
+        rate: Optional[CalculationRate] = None,
     ) -> None:
         raise NotImplementedError
 
     def _get_allocator(
         self,
         type_: Type[ContextObject],
-        calculation_rate: Optional[CalculationRate] = None,
+        rate: Optional[CalculationRate] = None,
     ) -> Union[BlockAllocator, NodeIdAllocator]:
         if type_ is Node:
             return self._node_id_allocator
         if type_ is Buffer:
             return self._buffer_allocator
         if type_ is Bus:
-            if calculation_rate is CalculationRate.AUDIO:
+            if rate is CalculationRate.AUDIO:
                 return self._audio_bus_allocator
-            elif calculation_rate is CalculationRate.CONTROL:
+            elif rate is CalculationRate.CONTROL:
                 return self._control_bus_allocator
         raise ValueError
 
@@ -517,25 +517,25 @@ class Context(metaclass=abc.ABCMeta):
         )
 
     def add_bus(
-        self, calculation_rate: CalculationRateLike = CalculationRate.CONTROL
+        self, rate: CalculationRateLike = CalculationRate.CONTROL
     ) -> Bus:
         """
         Add a new bus to the context.
 
         Emit no requests.
 
-        :param calculation_rate: The calculation rate of the new bus.
+        :param rate: The calculation rate of the new bus.
         """
         self._validate_can_request()
-        rate = CalculationRate.from_expr(calculation_rate)
+        rate = CalculationRate.from_expr(rate)
         if rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
             raise InvalidCalculationRate(rate)
-        id_ = self._allocate_id(Bus, calculation_rate=rate)
-        return Bus(calculation_rate=rate, context=self, id_=id_)
+        id_ = self._allocate_id(Bus, rate=rate)
+        return Bus(rate=rate, context=self, id_=id_)
 
     def add_bus_group(
         self,
-        calculation_rate: CalculationRateLike = CalculationRate.CONTROL,
+        rate: CalculationRateLike = CalculationRate.CONTROL,
         count: int = 1,
     ) -> BusGroup:
         """
@@ -543,18 +543,18 @@ class Context(metaclass=abc.ABCMeta):
 
         Emit no requests.
 
-        :param calculation_rate: The calculation rate of the new bus.
+        :param rate: The calculation rate of the new bus.
         :param count: The number of buses to add.
         """
         self._validate_can_request()
-        rate = CalculationRate.from_expr(calculation_rate)
+        rate = CalculationRate.from_expr(rate)
         if rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
             raise InvalidCalculationRate(rate)
         if count < 1:
             raise ValueError
-        id_ = self._allocate_id(Bus, calculation_rate=rate, count=count)
+        id_ = self._allocate_id(Bus, rate=rate, count=count)
         return BusGroup(
-            calculation_rate=rate,
+            rate=rate,
             context=self,
             count=count,
             id_=id_,
@@ -789,7 +789,7 @@ class Context(metaclass=abc.ABCMeta):
         :param value: The value to fill with.
         """
         self._validate_can_request()
-        if bus.calculation_rate != CalculationRate.CONTROL:
+        if bus.rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
         request = FillControlBusRange(items=[(bus.id_, count, value)])
         self._add_requests(request)
@@ -847,7 +847,7 @@ class Context(metaclass=abc.ABCMeta):
         :param bus: The bus to free.
         """
         self._validate_can_request()
-        self._free_id(Bus, bus.id_, calculation_rate=bus.calculation_rate)
+        self._free_id(Bus, bus.id_, rate=bus.rate)
 
     def free_bus_group(self, bus_group: BusGroup) -> None:
         """
@@ -858,7 +858,7 @@ class Context(metaclass=abc.ABCMeta):
         :param bus_group: The bus group to free.
         """
         self._validate_can_request()
-        self._free_id(Bus, bus_group.id_, calculation_rate=bus_group.calculation_rate)
+        self._free_id(Bus, bus_group.id_, rate=bus_group.rate)
 
     def free_group_children(self, group: Group, synths_only: bool = False) -> None:
         """
@@ -1027,7 +1027,7 @@ class Context(metaclass=abc.ABCMeta):
         control, audio = {}, {}
         for key, value in settings.items():
             if isinstance(value, Bus):
-                if value.calculation_rate is CalculationRate.AUDIO:
+                if value.rate is CalculationRate.AUDIO:
                     audio[key] = int(value)
                 else:
                     control[key] = int(value)
@@ -1232,7 +1232,7 @@ class Context(metaclass=abc.ABCMeta):
         :param value: The value to set the control bus to.
         """
         self._validate_can_request()
-        if bus.calculation_rate != CalculationRate.CONTROL:
+        if bus.rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
         request = SetControlBus(items=[(bus.id_, value)])
         self._add_requests(request)
@@ -1247,7 +1247,7 @@ class Context(metaclass=abc.ABCMeta):
         :param values: The values to write.
         """
         self._validate_can_request()
-        if bus.calculation_rate != CalculationRate.CONTROL:
+        if bus.rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
         request = SetControlBusRange(items=[(bus.id_, values)])
         self._add_requests(request)
@@ -1390,7 +1390,7 @@ class Context(metaclass=abc.ABCMeta):
         return BusGroup(
             context=self,
             id_=self.options.output_bus_channel_count,
-            calculation_rate=cast(CalculationRate, CalculationRate.AUDIO),
+            rate=cast(CalculationRate, CalculationRate.AUDIO),
             count=self.options.input_bus_channel_count,
         )
 
@@ -1402,7 +1402,7 @@ class Context(metaclass=abc.ABCMeta):
         return BusGroup(
             context=self,
             id_=0,
-            calculation_rate=cast(CalculationRate, CalculationRate.AUDIO),
+            rate=cast(CalculationRate, CalculationRate.AUDIO),
             count=self.options.output_bus_channel_count,
         )
 
