@@ -1749,7 +1749,7 @@ class UGenOperable:
         for ugen in ugens:
             ugen._uuid = builder._uuid
             builder._add_ugen(ugen)
-        return builder.build(optimize=False)
+        return builder.build(name="...", optimize=False)
 
     def __truediv__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
         """
