@@ -46,7 +46,7 @@ jobs:
           graphviz \
           lame
     - name: Setup audio
-      timeout-minutes: 1
+      timeout-minutes: 2
       uses: ./.github/actions/setup-audio
     - name: Install SuperCollider
       uses: ./.github/actions/build-supercollider
@@ -130,7 +130,7 @@ jobs:
     - name: Install Supriya
       run: pip install -e .
     - name: Setup audio
-      timeout-minutes: 1
+      timeout-minutes: 2
       uses: ./.github/actions/setup-audio
     - name: Build SuperCollider
       uses: ./.github/actions/build-supercollider

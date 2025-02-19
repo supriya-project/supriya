@@ -25,6 +25,7 @@ jobs:
         python-version: "3.13"
     - name: Setup audio
       uses: ./.github/actions/setup-audio
+      timeout-minutes: 2
     - name: Install SuperCollider
       uses: ./.github/actions/build-supercollider
       with:
