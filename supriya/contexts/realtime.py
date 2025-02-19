@@ -6,6 +6,7 @@ import asyncio
 import concurrent.futures
 import enum
 import logging
+import shlex
 import threading
 import warnings
 from collections.abc import Sequence as SequenceABC
@@ -196,6 +197,9 @@ class BaseServer(Context):
             ):
                 return True
         return False
+
+    def __repr__(self) -> str:
+        return f"<{type(self).__name__} {self.boot_status.name} [{shlex.join(self.options)}]>"
 
     ### PRIVATE METHODS ###
 
