@@ -2,9 +2,11 @@
 Tools for interacting with non-realtime execution contexts.
 """
 
+import dataclasses
 import hashlib
 import logging
 import platform
+import shlex
 import shutil
 import struct
 from contextlib import ExitStack
@@ -56,6 +58,10 @@ class Score(Context):
             render_directory_path=render_directory_path,
             **kwargs,
         )
+
+    def __repr__(self) -> str:
+        options = dataclasses.replace(self.options, realtime=False)
+        return f"<{type(self).__name__} [{shlex.join(options)}]>"
 
     ### PRIVATE METHODS ###
 
