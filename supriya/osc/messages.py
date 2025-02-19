@@ -6,8 +6,6 @@ import time
 from collections.abc import Sequence as SequenceABC
 from typing import List
 
-from uqbar.objects import get_repr
-
 from ..utils import group_by_count
 
 BUNDLE_PREFIX = b"#bundle\x00"
@@ -109,23 +107,13 @@ class OscMessage:
             ...     ["a", "b", ["c", "d"]],
             ... )
             >>> osc_message
-            OscMessage('/foo', 1, 2.5, OscBundle(
-                contents=(
-                    OscMessage('/bar', 'baz', 3.0),
-                    OscMessage('/ffff', False, True, None),
-                ),
-            ), ['a', 'b', ['c', 'd']])
+            OscMessage('/foo', 1, 2.5, OscBundle(contents=[OscMessage('/bar', 'baz', 3.0), OscMessage('/ffff', False, True, None)]), ['a', 'b', ['c', 'd']])
 
         ::
 
             >>> datagram = osc_message.to_datagram()
             >>> OscMessage.from_datagram(datagram)
-            OscMessage('/foo', 1, 2.5, OscBundle(
-                contents=(
-                    OscMessage('/bar', 'baz', 3.0),
-                    OscMessage('/ffff', False, True, None),
-                ),
-            ), ['a', 'b', ['c', 'd']])
+            OscMessage('/foo', 1, 2.5, OscBundle(contents=[OscMessage('/bar', 'baz', 3.0), OscMessage('/ffff', False, True, None)]), ['a', 'b', ['c', 'd']])
 
         ::
 
@@ -328,13 +316,7 @@ class OscBundle:
         ...     contents=(message_one, message_two),
         ... )
         >>> inner_bundle
-        OscBundle(
-            contents=(
-                OscMessage('/one', 1),
-                OscMessage('/two', 2),
-            ),
-            timestamp=1401557034.5,
-        )
+        OscBundle(timestamp=1401557034.5, contents=[OscMessage('/one', 1), OscMessage('/two', 2)])
 
     ::
 
@@ -351,18 +333,7 @@ class OscBundle:
         ...     contents=(inner_bundle, message_three),
         ... )
         >>> outer_bundle
-        OscBundle(
-            contents=(
-                OscBundle(
-                    contents=(
-                        OscMessage('/one', 1),
-                        OscMessage('/two', 2),
-                    ),
-                    timestamp=1401557034.5,
-                ),
-                OscMessage('/three', 3),
-            ),
-        )
+        OscBundle(contents=[OscBundle(timestamp=1401557034.5, contents=[OscMessage('/one', 1), OscMessage('/two', 2)]), OscMessage('/three', 3)])
 
     ::
 
@@ -383,18 +354,7 @@ class OscBundle:
 
         >>> decoded_bundle = supriya.osc.OscBundle.from_datagram(datagram)
         >>> decoded_bundle
-        OscBundle(
-            contents=(
-                OscBundle(
-                    contents=(
-                        OscMessage('/one', 1),
-                        OscMessage('/two', 2),
-                    ),
-                    timestamp=1401557034.5,
-                ),
-                OscMessage('/three', 3),
-            ),
-        )
+        OscBundle(contents=[OscBundle(timestamp=1401557034.5, contents=[OscMessage('/one', 1), OscMessage('/two', 2)]), OscMessage('/three', 3)])
 
     ::
 
@@ -425,7 +385,15 @@ class OscBundle:
         return True
 
     def __repr__(self) -> str:
-        return get_repr(self)
+        parts = ["{}(".format(type(self).__name__)]
+        if self.timestamp is not None:
+            parts.append(f"timestamp={self.timestamp}")
+            if self.contents:
+                parts.append(", ")
+        if self.contents:
+            parts.append(f"contents={list(self.contents)!r}")
+        parts.append(")")
+        return "".join(parts)
 
     def __str__(self) -> str:
         return format_datagram(bytearray(self.to_datagram()))

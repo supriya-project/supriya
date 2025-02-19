@@ -44,15 +44,9 @@ def test_OscMessage() -> None:
         ),
         ["a", "b", ["c", "d"]],
     )
-    assert repr(osc_message) == normalize(
-        """
-    OscMessage('/foo', 1, 2.5, OscBundle(
-        contents=(
-            OscMessage('/bar', 'baz', 3.0),
-            OscMessage('/ffff', False, True, None),
-        ),
-    ), ['a', 'b', ['c', 'd']])
-    """
+    assert (
+        repr(osc_message)
+        == "OscMessage('/foo', 1, 2.5, OscBundle(contents=[OscMessage('/bar', 'baz', 3.0), OscMessage('/ffff', False, True, None)]), ['a', 'b', ['c', 'd']])"
     )
     assert str(osc_message) == normalize(
         """
@@ -69,15 +63,9 @@ def test_OscMessage() -> None:
     datagram = osc_message.to_datagram()
     new_osc_message = OscMessage.from_datagram(datagram)
     assert osc_message == new_osc_message
-    assert repr(new_osc_message) == normalize(
-        """
-    OscMessage('/foo', 1, 2.5, OscBundle(
-        contents=(
-            OscMessage('/bar', 'baz', 3.0),
-            OscMessage('/ffff', False, True, None),
-        ),
-    ), ['a', 'b', ['c', 'd']])
-    """
+    assert (
+        repr(new_osc_message)
+        == "OscMessage('/foo', 1, 2.5, OscBundle(contents=[OscMessage('/bar', 'baz', 3.0), OscMessage('/ffff', False, True, None)]), ['a', 'b', ['c', 'd']])"
     )
 
 
