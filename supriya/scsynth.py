@@ -91,9 +91,6 @@ class Options:
 
     ### CLASS VARIABLES ###
 
-    def __repr__(self):
-        return uqbar.objects.get_repr(self, multiline=True, suppress_defaults=False)
-
     def __iter__(self):
         return (arg for arg in self.serialize())
 
