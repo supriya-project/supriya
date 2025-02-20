@@ -16,6 +16,7 @@ from typing import (
     Callable,
     Dict,
     List,
+    Literal,
     Optional,
     Sequence,
     SupportsFloat,
@@ -25,11 +26,6 @@ from typing import (
     Union,
     cast,
 )
-
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal  # type: ignore
 
 from uqbar.objects import new
 

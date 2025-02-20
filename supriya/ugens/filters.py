@@ -113,7 +113,7 @@ class Changed(PseudoUGen):
 
         >>> print(changed)
         synthdef:
-            name: 39e1f9d61589c4acaaf297cc961d65e4
+            name: ...
             ugens:
             -   In.ar:
                     bus: 0.0
@@ -146,7 +146,7 @@ class Changed(PseudoUGen):
 
             >>> print(changed)
             synthdef:
-                name: 39e1f9d61589c4acaaf297cc961d65e4
+                name: ...
                 ugens:
                 -   In.ar:
                         bus: 0.0
@@ -180,7 +180,7 @@ class Changed(PseudoUGen):
 
             >>> print(changed)
             synthdef:
-                name: e2436271176995c6a0a5cac6d1553f8b
+                name: ...
                 ugens:
                 -   In.ar:
                         bus: 0.0

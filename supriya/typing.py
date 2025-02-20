@@ -11,15 +11,11 @@ from typing import (
     SupportsFloat,
     SupportsInt,
     Tuple,
+    TypeAlias,
     TypeVar,
     Union,
     runtime_checkable,
 )
-
-try:
-    from typing import TypeAlias
-except ImportError:
-    from typing_extensions import TypeAlias  # noqa
 
 from .enums import (
     AddAction,

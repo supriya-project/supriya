@@ -9,6 +9,7 @@ from typing import (
     Container,
     Dict,
     List,
+    Literal,
     Optional,
     Sequence,
     SupportsFloat,
@@ -16,11 +17,6 @@ from typing import (
     Union,
     cast,
 )
-
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal  # type: ignore
 
 from ..assets.synthdefs.default import default
 from ..enums import AddAction, CalculationRate
