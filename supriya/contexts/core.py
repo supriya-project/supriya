@@ -9,7 +9,6 @@ import contextlib
 import dataclasses
 import itertools
 import re
-import shlex
 import threading
 from os import PathLike
 from typing import (
@@ -232,9 +231,6 @@ class Context(metaclass=abc.ABCMeta):
         del state["_lock"]
         del state["_thread_local"]
         return state
-
-    def __repr__(self) -> str:
-        return f"<{type(self).__name__} {self.boot_status.name} [{shlex.join(self.options)}]>"
 
     def __setstate__(self, state):
         self.__dict__.update(state)
