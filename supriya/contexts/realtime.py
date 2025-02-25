@@ -375,6 +375,14 @@ class BaseServer(Context):
         """
         self._latency = float(latency)
 
+    def unregister_osc_callback(self, callback: OscCallback) -> None:
+        """
+        Unregister an OSC callback.
+
+        :param callback: The callback to unregister.
+        """
+        self.osc_protocol.unregister(callback)
+
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -899,6 +907,9 @@ class Server(BaseServer):
         args: tuple | None = None,
         kwargs: dict | None = None,
     ) -> OscCallback:
+        """
+        Register an OSC callback.
+        """
         return self.osc_protocol.register(
             args=args,
             failure_pattern=failure_pattern,
@@ -1472,6 +1483,9 @@ class AsyncServer(BaseServer):
         args: tuple | None = None,
         kwargs: dict | None = None,
     ) -> OscCallback:
+        """
+        Register an OSC callback.
+        """
         return self.osc_protocol.register(
             args=args,
             failure_pattern=failure_pattern,
