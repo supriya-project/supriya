@@ -61,7 +61,7 @@ class Score(Context):
 
     def __repr__(self) -> str:
         options = dataclasses.replace(self.options, realtime=False)
-        return f"<{type(self).__name__} [{shlex.join(options)}]>"
+        return f"<{type(self).__name__} [{shlex.join(options)} -N ...]>"
 
     ### PRIVATE METHODS ###
 
