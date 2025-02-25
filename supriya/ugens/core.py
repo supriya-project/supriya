@@ -29,16 +29,12 @@ from typing import (
     SupportsInt,
     Tuple,
     Type,
+    TypeAlias,
     Union,
     cast,
     overload,
     runtime_checkable,
 )
-
-try:
-    from typing import TypeAlias
-except ImportError:
-    from typing_extensions import TypeAlias  # noqa
 
 from uqbar.graphs import Edge, Graph, Node, RecordField, RecordGroup
 
@@ -1753,7 +1749,7 @@ class UGenOperable:
         for ugen in ugens:
             ugen._uuid = builder._uuid
             builder._add_ugen(ugen)
-        return builder.build(optimize=False)
+        return builder.build(name="...", optimize=False)
 
     def __truediv__(self, expr: "UGenRecursiveInput") -> "UGenOperable":
         """
