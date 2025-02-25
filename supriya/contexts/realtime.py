@@ -4,7 +4,6 @@ Tools for interacting with realtime execution contexts.
 
 import asyncio
 import concurrent.futures
-import enum
 import logging
 import threading
 import warnings
@@ -27,7 +26,12 @@ from typing import (
 from uqbar.objects import new
 
 from ..assets.synthdefs import system_synthdefs
-from ..enums import BootStatus, CalculationRate
+from ..enums import (
+    BootStatus,
+    CalculationRate,
+    ServerLifecycleEvent,
+    ServerShutdownEvent,
+)
 from ..exceptions import (
     OwnedServerShutdown,
     ServerCannotBoot,
@@ -40,13 +44,14 @@ from ..osc import (
     AsyncOscProtocol,
     HealthCheck,
     OscBundle,
+    OscCallback,
     OscMessage,
     OscProtocol,
     OscProtocolOffline,
     ThreadedOscProtocol,
 )
 from ..scsynth import AsyncProcessProtocol, Options, SyncProcessProtocol
-from ..typing import SupportsOsc
+from ..typing import ServerLifecycleEventLike, SupportsOsc
 from ..ugens import SynthDef
 from .core import (
     Buffer,
@@ -115,29 +120,6 @@ DEFAULT_HEALTHCHECK = HealthCheck(
 )
 
 
-class ServerLifecycleEvent(enum.Enum):
-    BOOTING = enum.auto()
-    PROCESS_BOOTED = enum.auto()
-    CONNECTING = enum.auto()
-    OSC_CONNECTED = enum.auto()
-    CONNECTED = enum.auto()
-    BOOTED = enum.auto()
-    OSC_PANICKED = enum.auto()
-    PROCESS_PANICKED = enum.auto()
-    QUITTING = enum.auto()
-    DISCONNECTING = enum.auto()
-    OSC_DISCONNECTED = enum.auto()
-    DISCONNECTED = enum.auto()
-    PROCESS_QUIT = enum.auto()
-    QUIT = enum.auto()
-
-
-class ServerShutdownEvent(enum.Enum):
-    QUIT = enum.auto()
-    DISCONNECT = enum.auto()
-    OSC_PANIC = enum.auto()
-    PROCESS_PANIC = enum.auto()
-    TOO_MANY_CLIENTS = enum.auto()
 
 
 class BaseServer(Context):
