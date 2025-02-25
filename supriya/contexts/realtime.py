@@ -10,6 +10,7 @@ import warnings
 from collections.abc import Sequence as SequenceABC
 from typing import (
     TYPE_CHECKING,
+    Awaitable,
     Callable,
     Dict,
     Iterable,
@@ -888,6 +889,25 @@ class Server(BaseServer):
         self.boot()
         return self
 
+    def register_osc_callback(
+        self,
+        pattern: Sequence[float | str],
+        procedure: Callable[[OscMessage], None],
+        *,
+        failure_pattern: Sequence[float | str] | None = None,
+        once: bool = False,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
+    ) -> OscCallback:
+        return self.osc_protocol.register(
+            args=args,
+            failure_pattern=failure_pattern,
+            kwargs=kwargs,
+            once=once,
+            pattern=pattern,
+            procedure=procedure,
+        )
+
     def reset(self) -> "Server":
         """
         Reset the server's state without quitting.
@@ -1441,6 +1461,25 @@ class AsyncServer(BaseServer):
         await self.quit()
         await self.boot()
         return self
+
+    def register_osc_callback(
+        self,
+        pattern: Sequence[float | str],
+        procedure: Callable[[OscMessage], Awaitable[None] | None],
+        *,
+        failure_pattern: Sequence[float | str] | None = None,
+        once: bool = False,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
+    ) -> OscCallback:
+        return self.osc_protocol.register(
+            args=args,
+            failure_pattern=failure_pattern,
+            kwargs=kwargs,
+            once=once,
+            pattern=pattern,
+            procedure=procedure,
+        )
 
     async def reset(self) -> "AsyncServer":
         """
