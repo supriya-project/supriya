@@ -4,7 +4,6 @@ Tools for interacting with realtime execution contexts.
 
 import asyncio
 import concurrent.futures
-import dataclasses
 import logging
 import threading
 import warnings
@@ -606,7 +605,7 @@ class Server(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
-        self._options = dataclasses.replace(options or self._options, **kwargs)
+        self._options = self._get_options(options or self._options, **kwargs)
         self._boot_future = concurrent.futures.Future()
         self._exit_future = concurrent.futures.Future()
         self._shutdown_future = concurrent.futures.Future()
@@ -631,7 +630,7 @@ class Server(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
-        self._options = dataclasses.replace(options or self._options, **kwargs)
+        self._options = self._get_options(options or self._options, **kwargs)
         self._boot_future = concurrent.futures.Future()
         self._exit_future = concurrent.futures.Future()
         self._shutdown_future = concurrent.futures.Future()
@@ -1218,7 +1217,7 @@ class AsyncServer(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
-        self._options = dataclasses.replace(options or self._options, **kwargs)
+        self._options = self._get_options(options or self._options, **kwargs)
         loop = asyncio.get_running_loop()
         self._boot_future = loop.create_future()
         self._exit_future = loop.create_future()
@@ -1241,7 +1240,7 @@ class AsyncServer(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
-        self._options = dataclasses.replace(options or self._options, **kwargs)
+        self._options = self._get_options(options or self._options, **kwargs)
         loop = asyncio.get_running_loop()
         self._boot_future = loop.create_future()
         self._exit_future = loop.create_future()

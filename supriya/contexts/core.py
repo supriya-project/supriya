@@ -219,7 +219,7 @@ class Context(metaclass=abc.ABCMeta):
         self._lock = threading.RLock()
         self._name = name
         self._node_id_allocator = NodeIdAllocator()
-        self._options = new(options or Options(), **kwargs)
+        self._options: Options = self._get_options(options, **kwargs)
         self._sync_id = self._sync_id_minimum = 0
         self._sync_id_maximum = 32 << 26
         self._thread_local = threading.local()
@@ -349,6 +349,9 @@ class Context(metaclass=abc.ABCMeta):
             if self._sync_id > self._sync_id_maximum:
                 self._sync_id = self._sync_id_minimum
             return sync_id
+
+    def _get_options(self, options: Options | None, **kwargs) -> Options:
+        return dataclasses.replace(options or Options(), **kwargs)
 
     def _get_request_context(self) -> Optional[Union[Completion, Moment]]:
         moments = self._thread_local.__dict__.get("moments", [])

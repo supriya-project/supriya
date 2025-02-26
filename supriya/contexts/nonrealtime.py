@@ -2,6 +2,7 @@
 Tools for interacting with non-realtime execution contexts.
 """
 
+import dataclasses
 import hashlib
 import logging
 import platform
@@ -12,8 +13,6 @@ from os import PathLike
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Dict, Iterator, List, Optional, SupportsInt, Tuple, Type, Union
-
-from uqbar.objects import new
 
 from ..assets.synthdefs import system_synthdefs
 from ..enums import BootStatus, CalculationRate, HeaderFormat, SampleFormat
@@ -125,7 +124,9 @@ class Score(Context):
         header_format_ = HeaderFormat.from_expr(header_format).name.lower()
         sample_format_ = SampleFormat.from_expr(sample_format).name.lower()
         # build initial command
-        command = new(options or self._options, **kwargs, realtime=False).serialize()
+        command = dataclasses.replace(
+            options or self._options, **kwargs, realtime=False
+        ).serialize()
         # build datagram
         datagram_pieces: List[bytes] = []
         for datagram_piece in self.iterate_datagrams(until=duration):
