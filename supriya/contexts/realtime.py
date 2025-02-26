@@ -15,6 +15,7 @@ from typing import (
     Dict,
     Iterable,
     List,
+    NamedTuple,
     Optional,
     Sequence,
     Set,
@@ -121,6 +122,12 @@ DEFAULT_HEALTHCHECK = HealthCheck(
 )
 
 
+class ServerLifecycleCallback(NamedTuple):
+    events: tuple[ServerLifecycleEvent, ...]
+    procedure: Callable[[ServerLifecycleEvent], Awaitable[None] | None]
+    once: bool = False
+    args: tuple | None = None
+    kwargs: dict | None = None
 
 
 class BaseServer(Context):
@@ -148,7 +155,9 @@ class BaseServer(Context):
         self._buffers: Set[int] = set()
         self._is_owner = False
         self._latency = 0.1
-        self._lifecycle_event_callbacks: Dict[ServerLifecycleEvent, List[Callable]] = {}
+        self._lifecycle_event_callbacks: Dict[
+            ServerLifecycleEvent, list[ServerLifecycleCallback]
+        ] = {}
         self._maximum_logins = 1
         self._node_active: Dict[int, bool] = {}
         self._node_children: Dict[int, List[int]] = {}
@@ -268,6 +277,32 @@ class BaseServer(Context):
     def _log_prefix(self) -> str:
         return f"[{self._options.ip_address}:{self._options.port}/{self.name or hex(id(self))}] "
 
+    def _register_lifecycle_callback(
+        self,
+        event: ServerLifecycleEventLike | Iterable[ServerLifecycleEventLike],
+        procedure: Callable[[ServerLifecycleEvent], Awaitable[None] | None],
+        *,
+        once: bool = False,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
+    ) -> ServerLifecycleCallback:
+        events: list[ServerLifecycleEvent] = []
+        if isinstance(event, Iterable) and not isinstance(event, str):
+            for event_ in event:
+                events.append(ServerLifecycleEvent.from_expr(event))
+        else:
+            events.append(ServerLifecycleEvent.from_expr(event))
+        callback = ServerLifecycleCallback(
+            events=tuple(sorted(events)),
+            procedure=procedure,
+            once=once,
+            args=args,
+            kwargs=kwargs,
+        )
+        for event_ in events:
+            self._lifecycle_event_callbacks.setdefault(event_, []).append(callback)
+        return callback
+
     def _remove_node_from_children(self, id_: int, parent_id: int) -> None:
         if not (children := self._node_children.get(parent_id, [])):
             return
@@ -337,21 +372,6 @@ class BaseServer(Context):
 
     ### PUBLIC METHODS ###
 
-    def on(
-        self,
-        event: Union[ServerLifecycleEvent, Iterable[ServerLifecycleEvent]],
-        callback: Callable[[ServerLifecycleEvent], None],
-    ) -> None:
-        if isinstance(event, ServerLifecycleEvent):
-            events_ = [event]
-        else:
-            events_ = list(set(event))
-        for event_ in events_:
-            if callback not in (
-                callbacks := self._lifecycle_event_callbacks.setdefault(event_, [])
-            ):
-                callbacks.append(callback)
-
     def send(
         self, message: Union[OscMessage, OscBundle, SupportsOsc, SequenceABC, str]
     ) -> None:
@@ -374,6 +394,20 @@ class BaseServer(Context):
         :param latency: The latency in seconds.
         """
         self._latency = float(latency)
+
+    def unregister_lifecycle_callback(self, callback: ServerLifecycleCallback) -> None:
+        """
+        Unregister a lifecycle callback.
+
+        :param callback: The callback to unregister.
+        """
+        for event in callback.events:
+            if callback in (
+                callbacks := self._lifecycle_event_callbacks.get(event, [])
+            ):
+                callbacks.remove(callback)
+            if not callbacks:
+                self._lifecycle_event_callbacks.pop(event)
 
     def unregister_osc_callback(self, callback: OscCallback) -> None:
         """
@@ -545,7 +579,9 @@ class Server(BaseServer):
 
     def _on_lifecycle_event(self, event: ServerLifecycleEvent) -> None:
         for callback in self._lifecycle_event_callbacks.get(event, []):
-            callback(event)
+            callback.procedure(event, *(callback.args or ()), **(callback.kwargs or {}))
+            if callback.once:
+                self.unregister_lifecycle_callback(callback)
 
     def _setup_notifications(self) -> None:
         logger.info(self._log_prefix() + "setting up notifications ...")
@@ -897,6 +933,26 @@ class Server(BaseServer):
         self.boot()
         return self
 
+    def register_lifecycle_callback(
+        self,
+        event: ServerLifecycleEventLike | Iterable[ServerLifecycleEventLike],
+        procedure: Callable[[ServerLifecycleEvent], None],
+        *,
+        once: bool = False,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
+    ) -> ServerLifecycleCallback:
+        """
+        Register a server lifecycle callback.
+        """
+        return self._register_lifecycle_callback(
+            event=event,
+            procedure=procedure,
+            once=once,
+            args=args,
+            kwargs=kwargs,
+        )
+
     def register_osc_callback(
         self,
         pattern: Sequence[float | str],
@@ -1118,8 +1174,14 @@ class AsyncServer(BaseServer):
 
     async def _on_lifecycle_event(self, event: ServerLifecycleEvent) -> None:
         for callback in self._lifecycle_event_callbacks.get(event, []):
-            if asyncio.iscoroutine(result := callback(event)):
+            if asyncio.iscoroutine(
+                result := callback.procedure(
+                    event, *(callback.args or ()), **(callback.kwargs or {})
+                )
+            ):
                 await result
+            if callback.once:
+                self.unregister_lifecycle_callback(callback)
 
     async def _setup_notifications(self) -> None:
         logger.info(self._log_prefix() + "setting up notifications ...")
@@ -1472,6 +1534,26 @@ class AsyncServer(BaseServer):
         await self.quit()
         await self.boot()
         return self
+
+    def register_lifecycle_callback(
+        self,
+        event: ServerLifecycleEventLike | Iterable[ServerLifecycleEventLike],
+        procedure: Callable[[ServerLifecycleEvent], Awaitable[None] | None],
+        *,
+        once: bool = False,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
+    ) -> ServerLifecycleCallback:
+        """
+        Register a server lifecycle callback.
+        """
+        return self._register_lifecycle_callback(
+            event=event,
+            procedure=procedure,
+            once=once,
+            args=args,
+            kwargs=kwargs,
+        )
 
     def register_osc_callback(
         self,
