@@ -16,7 +16,7 @@ from supriya.osc import (
     find_free_port,
 )
 from supriya.osc.messages import NTP_DELTA
-from supriya.scsynth import AsyncProcessProtocol, Options, SyncProcessProtocol
+from supriya.scsynth import AsyncProcessProtocol, Options, ThreadedProcessProtocol
 
 logger = logging.getLogger(__name__)
 
@@ -82,7 +82,7 @@ def test_new_ntp_era() -> None:
     "osc_protocol_class, process_protocol_class",
     [
         (AsyncOscProtocol, AsyncProcessProtocol),
-        (ThreadedOscProtocol, SyncProcessProtocol),
+        (ThreadedOscProtocol, ThreadedProcessProtocol),
     ],
 )
 @pytest.mark.asyncio

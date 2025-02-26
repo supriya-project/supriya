@@ -390,7 +390,7 @@ class ProcessProtocol:
         return Capture(self)
 
 
-class SyncProcessProtocol(ProcessProtocol):
+class ThreadedProcessProtocol(ProcessProtocol):
     def __init__(
         self,
         *,

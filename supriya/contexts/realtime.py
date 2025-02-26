@@ -50,7 +50,7 @@ from ..osc import (
     OscProtocolOffline,
     ThreadedOscProtocol,
 )
-from ..scsynth import AsyncProcessProtocol, Options, SyncProcessProtocol
+from ..scsynth import AsyncProcessProtocol, Options, ThreadedProcessProtocol
 from ..typing import ServerLifecycleEventLike, SupportsOsc
 from ..ugens import SynthDef
 from .core import Context
@@ -465,7 +465,7 @@ class Server(BaseServer):
         self._osc_protocol: ThreadedOscProtocol = ThreadedOscProtocol(
             name=name, on_panic_callback=lambda: on_panic(ServerShutdownEvent.OSC_PANIC)
         )
-        self._process_protocol: SyncProcessProtocol = SyncProcessProtocol(
+        self._process_protocol: ThreadedProcessProtocol = ThreadedProcessProtocol(
             name=name,
             on_panic_callback=lambda: on_panic(ServerShutdownEvent.PROCESS_PANIC),
         )
@@ -1034,7 +1034,7 @@ class Server(BaseServer):
         return self._osc_protocol
 
     @property
-    def process_protocol(self) -> SyncProcessProtocol:
+    def process_protocol(self) -> ThreadedProcessProtocol:
         """
         Get the server's process protocol.
         """
