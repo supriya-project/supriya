@@ -26,8 +26,8 @@ from ..clocks import (
     Quantization,
 )
 from ..contexts import Bus, Context, ContextObject, Node
-from .eventpatterns import Pattern
 from .events import Event, Priority, StartEvent, StopEvent
+from .patterns import Pattern
 from .structure import PinPattern
 
 

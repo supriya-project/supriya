@@ -54,16 +54,16 @@ from ..osc import (
 from ..scsynth import AsyncProcessProtocol, Options, SyncProcessProtocol
 from ..typing import ServerLifecycleEventLike, SupportsOsc
 from ..ugens import SynthDef
-from .core import (
+from .core import Context
+from .entities import (
     Buffer,
     Bus,
-    Context,
     ContextObject,
     Group,
-    InvalidCalculationRate,
     Node,
     Synth,
 )
+from .errors import InvalidCalculationRate
 from .requests import (
     DumpTree,
     GetBuffer,

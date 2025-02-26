@@ -21,7 +21,9 @@ from ..osc import OscBundle
 from ..scsynth import AsyncNonrealtimeProcessProtocol, Options
 from ..typing import HeaderFormatLike, SampleFormatLike, SupportsOsc
 from ..ugens import SynthDef
-from .core import Context, ContextError, ContextObject, Node
+from .core import Context
+from .entities import ContextObject, Node
+from .errors import ContextError
 from .requests import DoNothing, RequestBundle, Requestable
 
 logger = logging.getLogger(__name__)
