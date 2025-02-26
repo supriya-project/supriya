@@ -10,3 +10,5 @@ ipython
 .. autofunction:: load_ipython_extension
 
 .. autofunction:: patch_player
+
+.. autofunction:: patch_plotter

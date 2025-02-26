@@ -27,8 +27,11 @@ realtime
    .. automethod:: query_version
    .. automethod:: quit
    .. automethod:: reboot
+   .. automethod:: register_lifecycle_callback
+   .. automethod:: register_osc_callback
    .. automethod:: reset
    .. automethod:: sync
+   .. automethod:: unregister_osc_callback
    .. autoproperty:: boot_future
    .. autoproperty:: exit_future
    .. autoproperty:: osc_protocol
@@ -38,9 +41,9 @@ realtime
    :show-inheritance:
 
    .. automethod:: __contains__
-   .. automethod:: on
    .. automethod:: send
    .. automethod:: set_latency
+   .. automethod:: unregister_lifecycle_callback
    .. autoproperty:: default_group
    .. autoproperty:: is_owner
    .. autoproperty:: status
@@ -65,23 +68,19 @@ realtime
    .. automethod:: query_version
    .. automethod:: quit
    .. automethod:: reboot
+   .. automethod:: register_lifecycle_callback
+   .. automethod:: register_osc_callback
    .. automethod:: reset
    .. automethod:: sync
+   .. automethod:: unregister_osc_callback
    .. autoproperty:: boot_future
    .. autoproperty:: exit_future
    .. autoproperty:: osc_protocol
    .. autoproperty:: process_protocol
 
-.. autoclass:: ServerLifecycleEvent
+.. autoclass:: ServerLifecycleCallback
    :show-inheritance:
-   :members:
-   :undoc-members:
 
-
-.. autoclass:: ServerShutdownEvent
-   :show-inheritance:
-   :members:
-   :undoc-members:
-
+   .. automethod:: __replace__
 
 .. autoexception:: FailWarning

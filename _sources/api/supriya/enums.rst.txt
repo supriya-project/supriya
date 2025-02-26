@@ -90,6 +90,20 @@ enums
 
    .. automethod:: __format__
 
+.. autoclass:: ServerLifecycleEvent
+   :show-inheritance:
+   :members:
+   :undoc-members:
+
+   .. automethod:: __format__
+
+.. autoclass:: ServerShutdownEvent
+   :show-inheritance:
+   :members:
+   :undoc-members:
+
+   .. automethod:: __format__
+
 .. autoclass:: SignalRange
    :show-inheritance:
    :members:

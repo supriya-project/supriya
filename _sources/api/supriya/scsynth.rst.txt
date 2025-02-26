@@ -60,7 +60,7 @@ scsynth
 
    .. automethod:: capture
 
-.. autoclass:: SyncProcessProtocol
+.. autoclass:: ThreadedProcessProtocol
    :show-inheritance:
 
    .. automethod:: boot

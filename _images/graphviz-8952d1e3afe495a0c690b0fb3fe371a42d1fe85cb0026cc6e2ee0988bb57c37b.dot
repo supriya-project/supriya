@@ -1,0 +1,33 @@
+digraph "synthdef_..." {
+    graph [bgcolor=transparent,
+        color=lightslategrey,
+        dpi=72,
+        fontname=Arial,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        ranksep=1,
+        splines=spline,
+        style="dotted, rounded"];
+    node [fontname=Arial,
+        fontsize=12,
+        penwidth=2,
+        shape=Mrecord,
+        style="filled, rounded"];
+    edge [penwidth=2];
+    ugen_0 [fillcolor=lightsteelblue2,
+        label="<f_0> SinOsc\n(audio) | { { <f_1_0_0> frequency:\n440.0 | <f_1_0_1> phase:\n0.0 } | { <f_1_1_0> 0 } }"];
+    ugen_1 [fillcolor=lightgoldenrod2,
+        label="<f_0> WhiteNoise\n(control) | { { <f_1_0_0> 0 } }"];
+    ugen_2 [fillcolor=lightsteelblue2,
+        label="<f_0> BinaryOpUGen\n[RING3]\n(audio) | { { <f_1_0_0> left | <f_1_0_1> right } | { <f_1_1_0> 0 } }"];
+    ugen_3 [fillcolor=lightsteelblue2,
+        label="<f_0> SinOsc\n(audio) | { { <f_1_0_0> frequency:\n443.0 | <f_1_0_1> phase:\n0.0 } | { <f_1_1_0> 0 } }"];
+    ugen_4 [fillcolor=lightsteelblue2,
+        label="<f_0> BinaryOpUGen\n[RING3]\n(audio) | { { <f_1_0_0> left | <f_1_0_1> right } | { <f_1_1_0> 0 } }"];
+    ugen_0:f_1_1_0:e -> ugen_2:f_1_0_0:w [color=steelblue];
+    ugen_1:f_1_0_0:e -> ugen_2:f_1_0_1:w [color=goldenrod];
+    ugen_1:f_1_0_0:e -> ugen_4:f_1_0_1:w [color=goldenrod];
+    ugen_3:f_1_1_0:e -> ugen_4:f_1_0_0:w [color=steelblue];
+}
