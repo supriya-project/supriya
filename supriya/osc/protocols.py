@@ -45,12 +45,12 @@ class OscProtocolAlreadyConnected(Exception):
 
 
 class OscCallback(NamedTuple):
-    pattern: Tuple[Union[str, int, float], ...]
+    pattern: tuple[str | int | float, ...]
     procedure: Callable
     failure_pattern: Optional[Tuple[Union[str, int, float], ...]] = None
     once: bool = False
-    args: Optional[Tuple] = None
-    kwargs: Optional[Dict] = None
+    args: tuple | None = None
+    kwargs: dict | None = None
 
 
 @dataclasses.dataclass

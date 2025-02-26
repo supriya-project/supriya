@@ -409,14 +409,6 @@ class BaseServer(Context):
             if not callbacks:
                 self._lifecycle_event_callbacks.pop(event)
 
-    def unregister_osc_callback(self, callback: OscCallback) -> None:
-        """
-        Unregister an OSC callback.
-
-        :param callback: The callback to unregister.
-        """
-        self.osc_protocol.unregister(callback)
-
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -1004,6 +996,15 @@ class Server(BaseServer):
             sync_id=sync_id if sync_id is not None else self._get_next_sync_id()
         ).communicate(server=self, timeout=timeout)
         return self
+
+    def unregister_osc_callback(self, callback: OscCallback) -> None:
+        """
+        Unregister an OSC callback.
+
+        :param callback: The callback to unregister.
+        """
+        # TODO: Implemented here because BaseServer does not define _osc_protocol
+        self._osc_protocol.unregister(callback)
 
     ### PUBLIC PROPERTIES ###
 
@@ -1608,6 +1609,15 @@ class AsyncServer(BaseServer):
             sync_id=sync_id if sync_id is not None else self._get_next_sync_id()
         ).communicate_async(server=self, timeout=timeout)
         return self
+
+    def unregister_osc_callback(self, callback: OscCallback) -> None:
+        """
+        Unregister an OSC callback.
+
+        :param callback: The callback to unregister.
+        """
+        # TODO: Implemented here because BaseServer does not define _osc_protocol
+        self._osc_protocol.unregister(callback)
 
     ### PUBLIC PROPERTIES ###
 
