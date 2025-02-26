@@ -18,8 +18,6 @@ from .realtime import (
     AsyncServer,
     BaseServer,
     Server,
-    ServerLifecycleEvent,
-    ServerShutdownEvent,
 )
 
 __all__ = [
@@ -35,7 +33,5 @@ __all__ = [
     "Node",
     "Score",
     "Server",
-    "ServerLifecycleEvent",
-    "ServerShutdownEvent",
     "Synth",
 ]

@@ -2,6 +2,7 @@
 Tools for interacting with non-realtime execution contexts.
 """
 
+import dataclasses
 import hashlib
 import logging
 import platform
@@ -13,15 +14,15 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Dict, Iterator, List, Optional, SupportsInt, Tuple, Type, Union
 
-from uqbar.objects import new
-
 from ..assets.synthdefs import system_synthdefs
 from ..enums import BootStatus, CalculationRate, HeaderFormat, SampleFormat
 from ..osc import OscBundle
 from ..scsynth import AsyncNonrealtimeProcessProtocol, Options
 from ..typing import HeaderFormatLike, SampleFormatLike, SupportsOsc
 from ..ugens import SynthDef
-from .core import Context, ContextError, ContextObject, Node
+from .core import Context
+from .entities import ContextObject, Node
+from .errors import ContextError
 from .requests import DoNothing, RequestBundle, Requestable
 
 logger = logging.getLogger(__name__)
@@ -123,7 +124,9 @@ class Score(Context):
         header_format_ = HeaderFormat.from_expr(header_format).name.lower()
         sample_format_ = SampleFormat.from_expr(sample_format).name.lower()
         # build initial command
-        command = new(options or self._options, **kwargs, realtime=False).serialize()
+        command = dataclasses.replace(
+            options or self._options, **kwargs, realtime=False
+        ).serialize()
         # build datagram
         datagram_pieces: List[bytes] = []
         for datagram_piece in self.iterate_datagrams(until=duration):

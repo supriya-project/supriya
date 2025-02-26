@@ -4,17 +4,18 @@ Tools for interacting with realtime execution contexts.
 
 import asyncio
 import concurrent.futures
-import enum
 import logging
 import threading
 import warnings
 from collections.abc import Sequence as SequenceABC
 from typing import (
     TYPE_CHECKING,
+    Awaitable,
     Callable,
     Dict,
     Iterable,
     List,
+    NamedTuple,
     Optional,
     Sequence,
     Set,
@@ -24,10 +25,13 @@ from typing import (
     cast,
 )
 
-from uqbar.objects import new
-
 from ..assets.synthdefs import system_synthdefs
-from ..enums import BootStatus, CalculationRate
+from ..enums import (
+    BootStatus,
+    CalculationRate,
+    ServerLifecycleEvent,
+    ServerShutdownEvent,
+)
 from ..exceptions import (
     OwnedServerShutdown,
     ServerCannotBoot,
@@ -40,24 +44,25 @@ from ..osc import (
     AsyncOscProtocol,
     HealthCheck,
     OscBundle,
+    OscCallback,
     OscMessage,
     OscProtocol,
     OscProtocolOffline,
     ThreadedOscProtocol,
 )
 from ..scsynth import AsyncProcessProtocol, Options, SyncProcessProtocol
-from ..typing import SupportsOsc
+from ..typing import ServerLifecycleEventLike, SupportsOsc
 from ..ugens import SynthDef
-from .core import (
+from .core import Context
+from .entities import (
     Buffer,
     Bus,
-    Context,
     ContextObject,
     Group,
-    InvalidCalculationRate,
     Node,
     Synth,
 )
+from .errors import InvalidCalculationRate
 from .requests import (
     DumpTree,
     GetBuffer,
@@ -115,29 +120,12 @@ DEFAULT_HEALTHCHECK = HealthCheck(
 )
 
 
-class ServerLifecycleEvent(enum.Enum):
-    BOOTING = enum.auto()
-    PROCESS_BOOTED = enum.auto()
-    CONNECTING = enum.auto()
-    OSC_CONNECTED = enum.auto()
-    CONNECTED = enum.auto()
-    BOOTED = enum.auto()
-    OSC_PANICKED = enum.auto()
-    PROCESS_PANICKED = enum.auto()
-    QUITTING = enum.auto()
-    DISCONNECTING = enum.auto()
-    OSC_DISCONNECTED = enum.auto()
-    DISCONNECTED = enum.auto()
-    PROCESS_QUIT = enum.auto()
-    QUIT = enum.auto()
-
-
-class ServerShutdownEvent(enum.Enum):
-    QUIT = enum.auto()
-    DISCONNECT = enum.auto()
-    OSC_PANIC = enum.auto()
-    PROCESS_PANIC = enum.auto()
-    TOO_MANY_CLIENTS = enum.auto()
+class ServerLifecycleCallback(NamedTuple):
+    events: tuple[ServerLifecycleEvent, ...]
+    procedure: Callable[[ServerLifecycleEvent], Awaitable[None] | None]
+    once: bool = False
+    args: tuple | None = None
+    kwargs: dict | None = None
 
 
 class BaseServer(Context):
@@ -160,12 +148,14 @@ class BaseServer(Context):
         name: Optional[str] = None,
         **kwargs,
     ) -> None:
-        super().__init__(options, name=name, **kwargs)
+        Context.__init__(self, options, name=name, **kwargs)
         self._boot_status = BootStatus.OFFLINE
         self._buffers: Set[int] = set()
         self._is_owner = False
         self._latency = 0.1
-        self._lifecycle_event_callbacks: Dict[ServerLifecycleEvent, List[Callable]] = {}
+        self._lifecycle_event_callbacks: Dict[
+            ServerLifecycleEvent, list[ServerLifecycleCallback]
+        ] = {}
         self._maximum_logins = 1
         self._node_active: Dict[int, bool] = {}
         self._node_children: Dict[int, List[int]] = {}
@@ -285,6 +275,32 @@ class BaseServer(Context):
     def _log_prefix(self) -> str:
         return f"[{self._options.ip_address}:{self._options.port}/{self.name or hex(id(self))}] "
 
+    def _register_lifecycle_callback(
+        self,
+        event: ServerLifecycleEventLike | Iterable[ServerLifecycleEventLike],
+        procedure: Callable[[ServerLifecycleEvent], Awaitable[None] | None],
+        *,
+        once: bool = False,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
+    ) -> ServerLifecycleCallback:
+        events: list[ServerLifecycleEvent] = []
+        if isinstance(event, Iterable) and not isinstance(event, str):
+            for event_ in event:
+                events.append(ServerLifecycleEvent.from_expr(event))
+        else:
+            events.append(ServerLifecycleEvent.from_expr(event))
+        callback = ServerLifecycleCallback(
+            events=tuple(sorted(events)),
+            procedure=procedure,
+            once=once,
+            args=args,
+            kwargs=kwargs,
+        )
+        for event_ in events:
+            self._lifecycle_event_callbacks.setdefault(event_, []).append(callback)
+        return callback
+
     def _remove_node_from_children(self, id_: int, parent_id: int) -> None:
         if not (children := self._node_children.get(parent_id, [])):
             return
@@ -354,21 +370,6 @@ class BaseServer(Context):
 
     ### PUBLIC METHODS ###
 
-    def on(
-        self,
-        event: Union[ServerLifecycleEvent, Iterable[ServerLifecycleEvent]],
-        callback: Callable[[ServerLifecycleEvent], None],
-    ) -> None:
-        if isinstance(event, ServerLifecycleEvent):
-            events_ = [event]
-        else:
-            events_ = list(set(event))
-        for event_ in events_:
-            if callback not in (
-                callbacks := self._lifecycle_event_callbacks.setdefault(event_, [])
-            ):
-                callbacks.append(callback)
-
     def send(
         self, message: Union[OscMessage, OscBundle, SupportsOsc, SequenceABC, str]
     ) -> None:
@@ -391,6 +392,20 @@ class BaseServer(Context):
         :param latency: The latency in seconds.
         """
         self._latency = float(latency)
+
+    def unregister_lifecycle_callback(self, callback: ServerLifecycleCallback) -> None:
+        """
+        Unregister a lifecycle callback.
+
+        :param callback: The callback to unregister.
+        """
+        for event in callback.events:
+            if callback in (
+                callbacks := self._lifecycle_event_callbacks.get(event, [])
+            ):
+                callbacks.remove(callback)
+            if not callbacks:
+                self._lifecycle_event_callbacks.pop(event)
 
     ### PUBLIC PROPERTIES ###
 
@@ -431,8 +446,13 @@ class Server(BaseServer):
         options: Optional[Options] = None,
         name: Optional[str] = None,
         **kwargs,
-    ):
-        super().__init__(
+    ) -> None:
+        def on_panic(event: ServerShutdownEvent) -> None:
+            if not self._shutdown_future.done():
+                self._shutdown_future.set_result(event)
+
+        BaseServer.__init__(
+            self,
             name=name,
             options=options,
             **kwargs,
@@ -442,23 +462,18 @@ class Server(BaseServer):
         self._shutdown_future: concurrent.futures.Future[ServerShutdownEvent] = (
             concurrent.futures.Future()
         )
-        self._osc_protocol = ThreadedOscProtocol(
-            name=name,
-            on_panic_callback=lambda: self._shutdown_future.set_result(
-                ServerShutdownEvent.OSC_PANIC
-            ),
+        self._osc_protocol: ThreadedOscProtocol = ThreadedOscProtocol(
+            name=name, on_panic_callback=lambda: on_panic(ServerShutdownEvent.OSC_PANIC)
         )
-        self._process_protocol = SyncProcessProtocol(
+        self._process_protocol: SyncProcessProtocol = SyncProcessProtocol(
             name=name,
-            on_panic_callback=lambda: self._shutdown_future.set_result(
-                ServerShutdownEvent.PROCESS_PANIC
-            ),
+            on_panic_callback=lambda: on_panic(ServerShutdownEvent.PROCESS_PANIC),
         )
         self._setup_osc_callbacks(self._osc_protocol)
 
     ### PRIVATE METHODS ###
 
-    def _lifecycle(self, owned=True) -> None:
+    def _lifecycle(self, owned: bool = True) -> None:
         log_prefix = self._log_prefix()
         logger.info(log_prefix + "booting ...")
         if owned:
@@ -554,7 +569,9 @@ class Server(BaseServer):
 
     def _on_lifecycle_event(self, event: ServerLifecycleEvent) -> None:
         for callback in self._lifecycle_event_callbacks.get(event, []):
-            callback(event)
+            callback.procedure(event, *(callback.args or ()), **(callback.kwargs or {}))
+            if callback.once:
+                self.unregister_lifecycle_callback(callback)
 
     def _setup_notifications(self) -> None:
         logger.info(self._log_prefix() + "setting up notifications ...")
@@ -570,7 +587,7 @@ class Server(BaseServer):
             self._client_id = int(response.other[0])
             self._maximum_logins = int(response.other[1])
 
-    def _shutdown(self):
+    def _shutdown(self) -> None:
         if self.is_owner:
             self.quit()
         else:
@@ -588,7 +605,7 @@ class Server(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
-        self._options = new(options or self._options, **kwargs)
+        self._options = self._get_options(options or self._options, **kwargs)
         self._boot_future = concurrent.futures.Future()
         self._exit_future = concurrent.futures.Future()
         self._shutdown_future = concurrent.futures.Future()
@@ -613,7 +630,7 @@ class Server(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
-        self._options = new(options or self._options, **kwargs)
+        self._options = self._get_options(options or self._options, **kwargs)
         self._boot_future = concurrent.futures.Future()
         self._exit_future = concurrent.futures.Future()
         self._shutdown_future = concurrent.futures.Future()
@@ -906,6 +923,48 @@ class Server(BaseServer):
         self.boot()
         return self
 
+    def register_lifecycle_callback(
+        self,
+        event: ServerLifecycleEventLike | Iterable[ServerLifecycleEventLike],
+        procedure: Callable[[ServerLifecycleEvent], None],
+        *,
+        once: bool = False,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
+    ) -> ServerLifecycleCallback:
+        """
+        Register a server lifecycle callback.
+        """
+        return self._register_lifecycle_callback(
+            event=event,
+            procedure=procedure,
+            once=once,
+            args=args,
+            kwargs=kwargs,
+        )
+
+    def register_osc_callback(
+        self,
+        pattern: Sequence[float | str],
+        procedure: Callable[[OscMessage], None],
+        *,
+        failure_pattern: Sequence[float | str] | None = None,
+        once: bool = False,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
+    ) -> OscCallback:
+        """
+        Register an OSC callback.
+        """
+        return self.osc_protocol.register(
+            args=args,
+            failure_pattern=failure_pattern,
+            kwargs=kwargs,
+            once=once,
+            pattern=pattern,
+            procedure=procedure,
+        )
+
     def reset(self) -> "Server":
         """
         Reset the server's state without quitting.
@@ -935,6 +994,15 @@ class Server(BaseServer):
             sync_id=sync_id if sync_id is not None else self._get_next_sync_id()
         ).communicate(server=self, timeout=timeout)
         return self
+
+    def unregister_osc_callback(self, callback: OscCallback) -> None:
+        """
+        Unregister an OSC callback.
+
+        :param callback: The callback to unregister.
+        """
+        # TODO: Implemented here because BaseServer does not define _osc_protocol
+        self._osc_protocol.unregister(callback)
 
     ### PUBLIC PROPERTIES ###
 
@@ -985,8 +1053,9 @@ class AsyncServer(BaseServer):
 
     def __init__(
         self, options: Optional[Options] = None, name: Optional[str] = None, **kwargs
-    ):
-        super().__init__(
+    ) -> None:
+        BaseServer.__init__(
+            self,
             name=name,
             options=options,
             **kwargs,
@@ -994,13 +1063,13 @@ class AsyncServer(BaseServer):
         self._boot_future: asyncio.Future[bool] = asyncio.Future()
         self._exit_future: asyncio.Future[bool] = asyncio.Future()
         self._shutdown_future: asyncio.Future[ServerShutdownEvent] = asyncio.Future()
-        self._osc_protocol = AsyncOscProtocol(
+        self._osc_protocol: AsyncOscProtocol = AsyncOscProtocol(
             name=name,
             on_panic_callback=lambda: self._shutdown_future.set_result(
                 ServerShutdownEvent.OSC_PANIC
             ),
         )
-        self._process_protocol = AsyncProcessProtocol(
+        self._process_protocol: AsyncProcessProtocol = AsyncProcessProtocol(
             name=name,
             on_panic_callback=lambda: self._shutdown_future.set_result(
                 ServerShutdownEvent.PROCESS_PANIC
@@ -1010,7 +1079,7 @@ class AsyncServer(BaseServer):
 
     ### PRIVATE METHODS ###
 
-    async def _lifecycle(self, owned=True) -> None:
+    async def _lifecycle(self, owned: bool = True) -> None:
         log_prefix = self._log_prefix()
         logger.info(log_prefix + "booting ...")
         if owned:
@@ -1105,8 +1174,14 @@ class AsyncServer(BaseServer):
 
     async def _on_lifecycle_event(self, event: ServerLifecycleEvent) -> None:
         for callback in self._lifecycle_event_callbacks.get(event, []):
-            if asyncio.iscoroutine(result := callback(event)):
+            if asyncio.iscoroutine(
+                result := callback.procedure(
+                    event, *(callback.args or ()), **(callback.kwargs or {})
+                )
+            ):
                 await result
+            if callback.once:
+                self.unregister_lifecycle_callback(callback)
 
     async def _setup_notifications(self) -> None:
         logger.info(self._log_prefix() + "setting up notifications ...")
@@ -1122,7 +1197,7 @@ class AsyncServer(BaseServer):
             self._client_id = int(response.other[0])
             self._maximum_logins = int(response.other[1])
 
-    async def _shutdown(self):
+    async def _shutdown(self) -> None:
         if self.is_owner:
             await self.quit()
         else:
@@ -1142,7 +1217,7 @@ class AsyncServer(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
-        self._options = new(options or self._options, **kwargs)
+        self._options = self._get_options(options or self._options, **kwargs)
         loop = asyncio.get_running_loop()
         self._boot_future = loop.create_future()
         self._exit_future = loop.create_future()
@@ -1165,7 +1240,7 @@ class AsyncServer(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
-        self._options = new(options or self._options, **kwargs)
+        self._options = self._get_options(options or self._options, **kwargs)
         loop = asyncio.get_running_loop()
         self._boot_future = loop.create_future()
         self._exit_future = loop.create_future()
@@ -1460,14 +1535,56 @@ class AsyncServer(BaseServer):
         await self.boot()
         return self
 
+    def register_lifecycle_callback(
+        self,
+        event: ServerLifecycleEventLike | Iterable[ServerLifecycleEventLike],
+        procedure: Callable[[ServerLifecycleEvent], Awaitable[None] | None],
+        *,
+        once: bool = False,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
+    ) -> ServerLifecycleCallback:
+        """
+        Register a server lifecycle callback.
+        """
+        return self._register_lifecycle_callback(
+            event=event,
+            procedure=procedure,
+            once=once,
+            args=args,
+            kwargs=kwargs,
+        )
+
+    def register_osc_callback(
+        self,
+        pattern: Sequence[float | str],
+        procedure: Callable[[OscMessage], Awaitable[None] | None],
+        *,
+        failure_pattern: Sequence[float | str] | None = None,
+        once: bool = False,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
+    ) -> OscCallback:
+        """
+        Register an OSC callback.
+        """
+        return self.osc_protocol.register(
+            args=args,
+            failure_pattern=failure_pattern,
+            kwargs=kwargs,
+            once=once,
+            pattern=pattern,
+            procedure=procedure,
+        )
+
     async def reset(self) -> "AsyncServer":
         """
         Reset the server's state without quitting.
         """
         with self.at():
             self.clear_schedule()
-            self.free_all_synthdefs()
             self.free_group_children(self.root_node)
+            self.free_all_synthdefs()
         await self.sync()
         self._teardown_state()
         self._setup_allocators()
@@ -1491,6 +1608,15 @@ class AsyncServer(BaseServer):
             sync_id=sync_id if sync_id is not None else self._get_next_sync_id()
         ).communicate_async(server=self, timeout=timeout)
         return self
+
+    def unregister_osc_callback(self, callback: OscCallback) -> None:
+        """
+        Unregister an OSC callback.
+
+        :param callback: The callback to unregister.
+        """
+        # TODO: Implemented here because BaseServer does not define _osc_protocol
+        self._osc_protocol.unregister(callback)
 
     ### PUBLIC PROPERTIES ###
 

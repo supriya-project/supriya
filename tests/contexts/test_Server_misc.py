@@ -8,12 +8,19 @@ import pytest
 import pytest_asyncio
 from uqbar.strings import normalize
 
-from supriya import default, scsynth
-from supriya.contexts.entities import Group
-from supriya.contexts.realtime import AsyncServer, Server
+from supriya import (
+    AsyncServer,
+    Group,
+    OscBundle,
+    OscMessage,
+    Server,
+    ServerLifecycleEvent,
+    default,
+    scsynth,
+)
+from supriya.assets import synthdefs
 from supriya.contexts.responses import StatusInfo, VersionInfo
 from supriya.exceptions import ServerOffline
-from supriya.osc import OscMessage
 
 
 async def get(x):
@@ -1158,12 +1165,155 @@ async def test_query_version(context):
 
 @pytest.mark.asyncio
 async def test_reboot(context):
-    await get(context.reboot())
+    # TODO: expand this
+
+    def callback(event: ServerLifecycleEvent) -> None:
+        events.append(event)
+
+    events = []
+    for event in ServerLifecycleEvent:
+        context.register_lifecycle_callback(event, callback)
+    with context.osc_protocol.capture() as transcript:
+        await get(context.reboot())
+    assert events == [
+        ServerLifecycleEvent.QUITTING,
+        ServerLifecycleEvent.DISCONNECTING,
+        ServerLifecycleEvent.OSC_DISCONNECTED,
+        ServerLifecycleEvent.DISCONNECTED,
+        ServerLifecycleEvent.PROCESS_QUIT,
+        ServerLifecycleEvent.QUIT,
+        ServerLifecycleEvent.BOOTING,
+        ServerLifecycleEvent.PROCESS_BOOTED,
+        ServerLifecycleEvent.CONNECTING,
+        ServerLifecycleEvent.OSC_CONNECTED,
+        ServerLifecycleEvent.CONNECTED,
+        ServerLifecycleEvent.BOOTED,
+    ]
+    assert transcript.filtered(received=False, sent=True, status=False) == [
+        OscMessage("/quit"),
+        OscMessage("/notify", 1),
+        OscMessage("/g_new", 1, 1, 0),
+        *(
+            OscMessage("/d_recv", synthdef.compile())
+            for synthdef in [
+                synthdefs.system_link_audio_1,
+                synthdefs.system_link_audio_10,
+                synthdefs.system_link_audio_11,
+                synthdefs.system_link_audio_12,
+                synthdefs.system_link_audio_13,
+                synthdefs.system_link_audio_14,
+                synthdefs.system_link_audio_15,
+                synthdefs.system_link_audio_16,
+                synthdefs.system_link_audio_2,
+                synthdefs.system_link_audio_3,
+                synthdefs.system_link_audio_4,
+                synthdefs.system_link_audio_5,
+                synthdefs.system_link_audio_6,
+                synthdefs.system_link_audio_7,
+                synthdefs.system_link_audio_8,
+                synthdefs.system_link_audio_9,
+                synthdefs.system_link_control_1,
+                synthdefs.system_link_control_10,
+                synthdefs.system_link_control_11,
+                synthdefs.system_link_control_12,
+                synthdefs.system_link_control_13,
+                synthdefs.system_link_control_14,
+                synthdefs.system_link_control_15,
+                synthdefs.system_link_control_16,
+                synthdefs.system_link_control_2,
+                synthdefs.system_link_control_3,
+                synthdefs.system_link_control_4,
+                synthdefs.system_link_control_5,
+                synthdefs.system_link_control_6,
+                synthdefs.system_link_control_7,
+                synthdefs.system_link_control_8,
+                synthdefs.system_link_control_9,
+            ]
+        ),
+        OscMessage("/sync", 0),
+    ]
+
+
+@pytest.mark.xfail
+@pytest.mark.asyncio
+async def test_register_lifecycle_callback(context):
+    raise Exception
+
+
+@pytest.mark.xfail
+@pytest.mark.asyncio
+async def test_register_osc_callback(context):
+    raise Exception
 
 
 @pytest.mark.asyncio
 async def test_reset(context):
-    await get(context.reset())
+    # TODO: expand this
+    def callback(event: ServerLifecycleEvent) -> None:
+        events.append(event)
+
+    events = []
+    for event in ServerLifecycleEvent:
+        context.register_lifecycle_callback(event, callback)
+    with context.osc_protocol.capture() as transcript:
+        await get(context.reset())
+    assert events == []
+    assert transcript.filtered(received=False, sent=True, status=False) == [
+        OscBundle(
+            contents=[
+                OscMessage("/clearSched"),
+                OscMessage("/g_freeAll", 0),
+                OscMessage("/d_freeAll"),
+            ]
+        ),
+        OscMessage("/sync", 2),
+        OscMessage("/g_new", 1, 1, 0),
+        *(
+            OscMessage("/d_recv", synthdef.compile())
+            for synthdef in [
+                synthdefs.system_link_audio_1,
+                synthdefs.system_link_audio_10,
+                synthdefs.system_link_audio_11,
+                synthdefs.system_link_audio_12,
+                synthdefs.system_link_audio_13,
+                synthdefs.system_link_audio_14,
+                synthdefs.system_link_audio_15,
+                synthdefs.system_link_audio_16,
+                synthdefs.system_link_audio_2,
+                synthdefs.system_link_audio_3,
+                synthdefs.system_link_audio_4,
+                synthdefs.system_link_audio_5,
+                synthdefs.system_link_audio_6,
+                synthdefs.system_link_audio_7,
+                synthdefs.system_link_audio_8,
+                synthdefs.system_link_audio_9,
+                synthdefs.system_link_control_1,
+                synthdefs.system_link_control_10,
+                synthdefs.system_link_control_11,
+                synthdefs.system_link_control_12,
+                synthdefs.system_link_control_13,
+                synthdefs.system_link_control_14,
+                synthdefs.system_link_control_15,
+                synthdefs.system_link_control_16,
+                synthdefs.system_link_control_2,
+                synthdefs.system_link_control_3,
+                synthdefs.system_link_control_4,
+                synthdefs.system_link_control_5,
+                synthdefs.system_link_control_6,
+                synthdefs.system_link_control_7,
+                synthdefs.system_link_control_8,
+                synthdefs.system_link_control_9,
+            ]
+        ),
+        OscMessage("/sync", 0),
+    ]
+
+
+@pytest.mark.asyncio
+async def test_root_node(context):
+    assert isinstance(context.root_node, Group)
+    assert context.root_node.context is context
+    assert context.root_node.id_ == 0
 
 
 @pytest.mark.asyncio
@@ -1182,8 +1332,13 @@ async def test_sync(context):
         await get(context.sync())
 
 
+@pytest.mark.xfail
 @pytest.mark.asyncio
-async def test_root_node(context):
-    assert isinstance(context.root_node, Group)
-    assert context.root_node.context is context
-    assert context.root_node.id_ == 0
+async def test_unregister_lifecycle_callback(context):
+    raise Exception
+
+
+@pytest.mark.xfail
+@pytest.mark.asyncio
+async def test_unregister_osc_callback(context):
+    raise Exception

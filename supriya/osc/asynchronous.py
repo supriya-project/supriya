@@ -199,5 +199,5 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     def send(self, message: Union[OscBundle, OscMessage, SequenceABC, str]) -> None:
         self.transport.sendto(self._send(message))
 
-    def unregister(self, callback: OscCallback):
+    def unregister(self, callback: OscCallback) -> None:
         self._remove_callback(callback)

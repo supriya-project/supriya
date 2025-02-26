@@ -25,6 +25,7 @@ from .enums import (
     HeaderFormat,
     ParameterRate,
     SampleFormat,
+    ServerLifecycleEvent,
 )
 
 if TYPE_CHECKING:
@@ -83,4 +84,5 @@ RateLike: TypeAlias = _EnumLike[CalculationRate]
 EnvelopeShapeLike: TypeAlias = _EnumLike[EnvelopeShape]
 HeaderFormatLike: TypeAlias = _EnumLike[HeaderFormat]
 SampleFormatLike: TypeAlias = _EnumLike[SampleFormat]
+ServerLifecycleEventLike: TypeAlias = _EnumLike[ServerLifecycleEvent]
 UGenInputMap: TypeAlias = Optional[Dict[str, Union[SupportsFloat, str, None]]]

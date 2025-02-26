@@ -24,8 +24,6 @@ from .contexts import (
     Node,
     Score,
     Server,
-    ServerLifecycleEvent,
-    ServerShutdownEvent,
     Synth,
 )
 from .enums import (  # noqa
@@ -35,6 +33,8 @@ from .enums import (  # noqa
     HeaderFormat,
     ParameterRate,
     SampleFormat,
+    ServerLifecycleEvent,
+    ServerShutdownEvent,
 )
 from .io import graph, play, plot, render
 from .osc import OscBundle, OscCallback, OscMessage
