@@ -42,7 +42,7 @@ def setup_context(context_class, *, async_callback=False, name=None):
     context = context_class(name=name)
     callback = on_event_async if async_callback else on_event
     for event in ServerLifecycleEvent:
-        context.on(event, callback)
+        context.register_lifecycle_callback(event, callback)
     return context, events
 
 
