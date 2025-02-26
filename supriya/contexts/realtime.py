@@ -4,6 +4,7 @@ Tools for interacting with realtime execution contexts.
 
 import asyncio
 import concurrent.futures
+import dataclasses
 import logging
 import threading
 import warnings
@@ -24,8 +25,6 @@ from typing import (
     Union,
     cast,
 )
-
-from uqbar.objects import new
 
 from ..assets.synthdefs import system_synthdefs
 from ..enums import (
@@ -150,7 +149,7 @@ class BaseServer(Context):
         name: Optional[str] = None,
         **kwargs,
     ) -> None:
-        super().__init__(options, name=name, **kwargs)
+        Context.__init__(self, options, name=name, **kwargs)
         self._boot_status = BootStatus.OFFLINE
         self._buffers: Set[int] = set()
         self._is_owner = False
@@ -448,12 +447,13 @@ class Server(BaseServer):
         options: Optional[Options] = None,
         name: Optional[str] = None,
         **kwargs,
-    ):
+    ) -> None:
         def on_panic(event: ServerShutdownEvent) -> None:
             if not self._shutdown_future.done():
                 self._shutdown_future.set_result(event)
 
-        super().__init__(
+        BaseServer.__init__(
+            self,
             name=name,
             options=options,
             **kwargs,
@@ -463,10 +463,10 @@ class Server(BaseServer):
         self._shutdown_future: concurrent.futures.Future[ServerShutdownEvent] = (
             concurrent.futures.Future()
         )
-        self._osc_protocol = ThreadedOscProtocol(
+        self._osc_protocol: ThreadedOscProtocol = ThreadedOscProtocol(
             name=name, on_panic_callback=lambda: on_panic(ServerShutdownEvent.OSC_PANIC)
         )
-        self._process_protocol = SyncProcessProtocol(
+        self._process_protocol: SyncProcessProtocol = SyncProcessProtocol(
             name=name,
             on_panic_callback=lambda: on_panic(ServerShutdownEvent.PROCESS_PANIC),
         )
@@ -474,7 +474,7 @@ class Server(BaseServer):
 
     ### PRIVATE METHODS ###
 
-    def _lifecycle(self, owned=True) -> None:
+    def _lifecycle(self, owned: bool = True) -> None:
         log_prefix = self._log_prefix()
         logger.info(log_prefix + "booting ...")
         if owned:
@@ -588,7 +588,7 @@ class Server(BaseServer):
             self._client_id = int(response.other[0])
             self._maximum_logins = int(response.other[1])
 
-    def _shutdown(self):
+    def _shutdown(self) -> None:
         if self.is_owner:
             self.quit()
         else:
@@ -606,7 +606,7 @@ class Server(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
-        self._options = new(options or self._options, **kwargs)
+        self._options = dataclasses.replace(options or self._options, **kwargs)
         self._boot_future = concurrent.futures.Future()
         self._exit_future = concurrent.futures.Future()
         self._shutdown_future = concurrent.futures.Future()
@@ -631,7 +631,7 @@ class Server(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
-        self._options = new(options or self._options, **kwargs)
+        self._options = dataclasses.replace(options or self._options, **kwargs)
         self._boot_future = concurrent.futures.Future()
         self._exit_future = concurrent.futures.Future()
         self._shutdown_future = concurrent.futures.Future()
@@ -1054,8 +1054,9 @@ class AsyncServer(BaseServer):
 
     def __init__(
         self, options: Optional[Options] = None, name: Optional[str] = None, **kwargs
-    ):
-        super().__init__(
+    ) -> None:
+        BaseServer.__init__(
+            self,
             name=name,
             options=options,
             **kwargs,
@@ -1063,13 +1064,13 @@ class AsyncServer(BaseServer):
         self._boot_future: asyncio.Future[bool] = asyncio.Future()
         self._exit_future: asyncio.Future[bool] = asyncio.Future()
         self._shutdown_future: asyncio.Future[ServerShutdownEvent] = asyncio.Future()
-        self._osc_protocol = AsyncOscProtocol(
+        self._osc_protocol: AsyncOscProtocol = AsyncOscProtocol(
             name=name,
             on_panic_callback=lambda: self._shutdown_future.set_result(
                 ServerShutdownEvent.OSC_PANIC
             ),
         )
-        self._process_protocol = AsyncProcessProtocol(
+        self._process_protocol: AsyncProcessProtocol = AsyncProcessProtocol(
             name=name,
             on_panic_callback=lambda: self._shutdown_future.set_result(
                 ServerShutdownEvent.PROCESS_PANIC
@@ -1079,7 +1080,7 @@ class AsyncServer(BaseServer):
 
     ### PRIVATE METHODS ###
 
-    async def _lifecycle(self, owned=True) -> None:
+    async def _lifecycle(self, owned: bool = True) -> None:
         log_prefix = self._log_prefix()
         logger.info(log_prefix + "booting ...")
         if owned:
@@ -1197,7 +1198,7 @@ class AsyncServer(BaseServer):
             self._client_id = int(response.other[0])
             self._maximum_logins = int(response.other[1])
 
-    async def _shutdown(self):
+    async def _shutdown(self) -> None:
         if self.is_owner:
             await self.quit()
         else:
@@ -1217,7 +1218,7 @@ class AsyncServer(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
-        self._options = new(options or self._options, **kwargs)
+        self._options = dataclasses.replace(options or self._options, **kwargs)
         loop = asyncio.get_running_loop()
         self._boot_future = loop.create_future()
         self._exit_future = loop.create_future()
@@ -1240,7 +1241,7 @@ class AsyncServer(BaseServer):
         if self._boot_status != BootStatus.OFFLINE:
             raise ServerOnline
         self._boot_status = BootStatus.BOOTING
-        self._options = new(options or self._options, **kwargs)
+        self._options = dataclasses.replace(options or self._options, **kwargs)
         loop = asyncio.get_running_loop()
         self._boot_future = loop.create_future()
         self._exit_future = loop.create_future()
