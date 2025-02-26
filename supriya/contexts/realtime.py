@@ -449,6 +449,10 @@ class Server(BaseServer):
         name: Optional[str] = None,
         **kwargs,
     ):
+        def on_panic(event: ServerShutdownEvent) -> None:
+            if not self._shutdown_future.done():
+                self._shutdown_future.set_result(event)
+
         super().__init__(
             name=name,
             options=options,
@@ -460,16 +464,11 @@ class Server(BaseServer):
             concurrent.futures.Future()
         )
         self._osc_protocol = ThreadedOscProtocol(
-            name=name,
-            on_panic_callback=lambda: self._shutdown_future.set_result(
-                ServerShutdownEvent.OSC_PANIC
-            ),
+            name=name, on_panic_callback=lambda: on_panic(ServerShutdownEvent.OSC_PANIC)
         )
         self._process_protocol = SyncProcessProtocol(
             name=name,
-            on_panic_callback=lambda: self._shutdown_future.set_result(
-                ServerShutdownEvent.PROCESS_PANIC
-            ),
+            on_panic_callback=lambda: on_panic(ServerShutdownEvent.PROCESS_PANIC),
         )
         self._setup_osc_callbacks(self._osc_protocol)
 
