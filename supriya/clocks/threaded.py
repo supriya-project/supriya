@@ -4,8 +4,7 @@ import queue
 import threading
 from typing import Optional, Tuple
 
-from .bases import BaseClock
-from .ephemera import Action, Command, Moment
+from .core import Action, BaseClock, Command, Moment
 
 logger = logging.getLogger(__name__)
 

@@ -4,9 +4,9 @@ import queue
 import traceback
 from typing import Awaitable, Optional, Tuple
 
-from .bases import BaseClock
-from .ephemera import (
+from .core import (
     Action,
+    BaseClock,
     CallbackEvent,
     ChangeEvent,
     ClockContext,
