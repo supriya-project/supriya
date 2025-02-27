@@ -119,7 +119,7 @@ class AsyncClock(BaseClock):
             pass
 
     async def _wait_for_moment_async(self, offline: bool = False) -> Optional[Moment]:
-        current_time = self.get_current_time()
+        current_time = self._get_current_time()
         next_time = self._event_queue.peek().seconds
         logger.debug(
             f"[{self.name}] ... Waiting for next moment at {next_time} from {current_time}"
@@ -131,7 +131,7 @@ class AsyncClock(BaseClock):
                 return None
             self._process_command_deque()
             next_time = self._event_queue.peek().seconds
-            current_time = self.get_current_time()
+            current_time = self._get_current_time()
             self._event.clear()
         return self._seconds_to_moment(current_time)
 

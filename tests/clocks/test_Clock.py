@@ -15,7 +15,7 @@ repeat_count = 5
 def clock(mocker):
     clock = Clock()
     clock.slop = 0.001
-    mock = mocker.patch.object(Clock, "get_current_time")
+    mock = mocker.patch.object(Clock, "_get_current_time")
     mock.return_value = 0.0
     yield clock
     clock.stop()
@@ -41,7 +41,7 @@ def callback(
 
 
 def set_time_and_check(time_to_advance, clock, store):
-    clock.get_current_time.return_value = time_to_advance
+    clock._get_current_time.return_value = time_to_advance
     multiplier = 4
     if platform.system() == "Windows":
         multiplier = 40  # Windows CI is really slow
@@ -458,10 +458,10 @@ def test_reschedule_earlier(clock):
     assert set_time_and_check(0.5, clock, store) == []
     event_id = clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     time.sleep(clock.slop * 2)
-    assert clock.peek().seconds == 2.0
+    assert clock._peek().seconds == 2.0
     clock.reschedule(event_id, schedule_at=0.5)
     time.sleep(clock.slop * 2)
-    assert clock.peek().seconds == 1.0
+    assert clock._peek().seconds == 1.0
     assert set_time_and_check(2.0, clock, store) == [
         (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [1, 0.5, 0.5, 1.0])
     ]
@@ -474,10 +474,10 @@ def test_reschedule_later(clock):
     assert set_time_and_check(0.5, clock, store) == []
     event_id = clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     time.sleep(clock.slop * 2)
-    assert clock.peek().seconds == 2.0
+    assert clock._peek().seconds == 2.0
     clock.reschedule(event_id, schedule_at=1.5)
     time.sleep(clock.slop * 2)
-    assert clock.peek().seconds == 3.0
+    assert clock._peek().seconds == 3.0
     assert set_time_and_check(3.0, clock, store) == [
         (["4/4", 120.0], [2, 0.5, 1.5, 3.0], [2, 0.5, 1.5, 3.0])
     ]

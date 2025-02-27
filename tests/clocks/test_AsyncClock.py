@@ -29,7 +29,7 @@ async def clock(mocker, monkeypatch):
     clock = AsyncClock()
     clock.slop = 0.01
     monkeypatch.setattr(AsyncClock, "_wait_for_event_async", wait_for_event)
-    mock_time = mocker.patch.object(AsyncClock, "get_current_time")
+    mock_time = mocker.patch.object(AsyncClock, "_get_current_time")
     mock_time.return_value = 0.0
     yield clock
     await clock.stop()
@@ -56,7 +56,7 @@ def callback(
 
 async def set_time_and_check(time_to_advance, clock, store):
     logger.info(f"Setting time to {time_to_advance}")
-    clock.get_current_time.return_value = time_to_advance
+    clock._get_current_time.return_value = time_to_advance
     clock._event.set()
     await asyncio.sleep(0.01)
     moments = []
@@ -474,10 +474,10 @@ async def test_reschedule_earlier(clock):
     assert await set_time_and_check(0.5, clock, store) == []
     event_id = clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     await asyncio.sleep(0)
-    assert clock.peek().seconds == 2.0
+    assert clock._peek().seconds == 2.0
     clock.reschedule(event_id, schedule_at=0.5)
     await asyncio.sleep(0)
-    assert clock.peek().seconds == 1.0
+    assert clock._peek().seconds == 1.0
     assert await set_time_and_check(2.0, clock, store) == [
         (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [1, 0.5, 0.5, 1.0])
     ]
@@ -490,10 +490,10 @@ async def test_reschedule_later(clock):
     assert await set_time_and_check(0.5, clock, store) == []
     event_id = clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     await asyncio.sleep(0)
-    assert clock.peek().seconds == 2.0
+    assert clock._peek().seconds == 2.0
     clock.reschedule(event_id, schedule_at=1.5)
     await asyncio.sleep(0)
-    assert clock.peek().seconds == 3.0
+    assert clock._peek().seconds == 3.0
     assert await set_time_and_check(3.0, clock, store) == [
         (["4/4", 120.0], [2, 0.5, 1.5, 3.0], [2, 0.5, 1.5, 3.0])
     ]
