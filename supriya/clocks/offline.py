@@ -3,13 +3,18 @@ import queue
 from typing import Generator, Optional, Tuple
 
 from .asynchronous import AsyncClock
-from .bases import BaseClock
-from .ephemera import CallbackEvent, ClockContext, Moment, TimeUnit
+from .core import BaseClock, CallbackEvent, ClockContext, Moment, TimeUnit
 
 logger = logging.getLogger(__name__)
 
 
 class OfflineClock(BaseClock):
+    """
+    An offline clock.
+    """
+
+    ### INITIALIZER ###
+
     def __init__(self) -> None:
         super().__init__()
         self._generator: Optional[Generator[bool, None, None]] = None

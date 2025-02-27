@@ -4,16 +4,15 @@ import queue
 import threading
 from typing import Optional, Tuple
 
-from .bases import BaseClock
-from .ephemera import Action, Command, Moment
+from .core import Action, BaseClock, Command, Moment
 
 logger = logging.getLogger(__name__)
 
 
 class Clock(BaseClock):
-    ### CLASS VARIABLES ###
-
-    _default_clock: Optional["Clock"] = None
+    """
+    A threaded clock.
+    """
 
     ### INITIALIZER ###
 
@@ -87,12 +86,6 @@ class Clock(BaseClock):
         event = super().cancel(event_id)
         self._event.set()
         return event
-
-    @classmethod
-    def default(cls) -> "Clock":
-        if cls._default_clock is None:
-            cls._default_clock = cls()
-        return cls._default_clock
 
     def start(
         self,

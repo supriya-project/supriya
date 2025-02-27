@@ -4,9 +4,9 @@ import queue
 import traceback
 from typing import Awaitable, Optional, Tuple
 
-from .bases import BaseClock
-from .ephemera import (
+from .core import (
     Action,
+    BaseClock,
     CallbackEvent,
     ChangeEvent,
     ClockContext,
@@ -19,6 +19,12 @@ logger = logging.getLogger(__name__)
 
 
 class AsyncClock(BaseClock):
+    """
+    An async clock.
+    """
+
+    ### INITIALIZER ###
+
     def __init__(self) -> None:
         BaseClock.__init__(self)
         self._task: Optional[Awaitable[None]] = None

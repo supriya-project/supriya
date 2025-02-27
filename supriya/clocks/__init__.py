@@ -1,6 +1,6 @@
 from .asynchronous import AsyncClock
-from .bases import BaseClock
-from .ephemera import (
+from .core import (
+    BaseClock,
     CallbackEvent,
     ChangeEvent,
     ClockContext,
