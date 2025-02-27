@@ -20,9 +20,7 @@ from weakref import WeakSet
 from ..clocks import (
     BaseClock,
     CallbackEvent,
-    Clock,
     ClockContext,
-    OfflineClock,
     Quantization,
 )
 from ..contexts import Bus, Context, ContextObject, Node
@@ -256,7 +254,8 @@ class PatternPlayer:
         )
         if until:
             self._clock.schedule(self._stop_callback, event_type=2, schedule_at=until)
-        self._clock.start(initial_time=at)
+        if not self._clock.is_running and hasattr(self._clock, "start"):
+            self._clock.start(initial_time=at)
 
     def stop(self, quantization: Optional[Quantization] = None) -> None:
         with self._lock:

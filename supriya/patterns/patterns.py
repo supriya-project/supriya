@@ -285,7 +285,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
                 Optional[Coroutine],
             ]
         ] = None,
-        clock: Optional[BaseClock],
+        clock: BaseClock,
         quantization: Optional[Quantization] = None,
         target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
