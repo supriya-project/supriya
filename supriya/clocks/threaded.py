@@ -14,10 +14,6 @@ class Clock(BaseClock):
     A threaded clock.
     """
 
-    ### CLASS VARIABLES ###
-
-    _default_clock: Optional["Clock"] = None
-
     ### INITIALIZER ###
 
     def __init__(self) -> None:
@@ -90,12 +86,6 @@ class Clock(BaseClock):
         event = super().cancel(event_id)
         self._event.set()
         return event
-
-    @classmethod
-    def default(cls) -> "Clock":
-        if cls._default_clock is None:
-            cls._default_clock = cls()
-        return cls._default_clock
 
     def start(
         self,
