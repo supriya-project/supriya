@@ -27,7 +27,7 @@ from uuid import UUID
 from uqbar.objects import get_vars
 
 import supriya.patterns
-from supriya.clocks import BaseClock, Clock, ClockContext, OfflineClock, Quantization
+from supriya.clocks import BaseClock, ClockContext, OfflineClock, Quantization
 from supriya.contexts import Bus, Context, Node, Score
 
 from .events import CompositeEvent, Event, Priority
@@ -285,7 +285,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
                 Optional[Coroutine],
             ]
         ] = None,
-        clock: Optional[BaseClock] = None,
+        clock: Optional[BaseClock],
         quantization: Optional[Quantization] = None,
         target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
@@ -296,10 +296,9 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
         from .players import PatternPlayer  # Avoid circular import
 
         if isinstance(context, Score):
-            clock = OfflineClock()
+            if not isinstance(clock, OfflineClock):
+                raise ValueError(clock)
             at = at or 0.0
-        elif clock is None:
-            clock = Clock.default()
         player = PatternPlayer(
             pattern=self,
             context=context,
