@@ -10,6 +10,10 @@ logger = logging.getLogger(__name__)
 
 
 class Clock(BaseClock):
+    """
+    A threaded clock.
+    """
+
     ### CLASS VARIABLES ###
 
     _default_clock: Optional["Clock"] = None

@@ -19,6 +19,12 @@ logger = logging.getLogger(__name__)
 
 
 class AsyncClock(BaseClock):
+    """
+    An async clock.
+    """
+
+    ### INITIALIZER ###
+
     def __init__(self) -> None:
         BaseClock.__init__(self)
         self._task: Optional[Awaitable[None]] = None

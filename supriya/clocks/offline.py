@@ -9,6 +9,12 @@ logger = logging.getLogger(__name__)
 
 
 class OfflineClock(BaseClock):
+    """
+    An offline clock.
+    """
+
+    ### INITIALIZER ###
+
     def __init__(self) -> None:
         super().__init__()
         self._generator: Optional[Generator[bool, None, None]] = None
