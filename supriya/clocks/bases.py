@@ -94,7 +94,7 @@ class BaseClock:
             offset = self._measure_to_offset(measure)
         else:
             measure = None
-            fraction_grid = self.quantization_to_beats(quantization)
+            fraction_grid = self._quantization_to_beats(quantization)
             div, mod = divmod(moment.offset, fraction_grid)
             offset = float(div * fraction_grid)
             if mod:
@@ -105,6 +105,9 @@ class BaseClock:
             f"{seconds}:s / {offset}:o / {measure}:m"
         )
         return seconds, offset, measure
+
+    def _get_current_time(self) -> float:
+        return time.time()
 
     def _get_schedule_point(
         self, schedule_at: float, time_unit: TimeUnit
@@ -168,6 +171,18 @@ class BaseClock:
             previous_seconds=self._state.previous_seconds,
             beat_duration=1 / self._state.time_signature[1],
         )
+
+    def _peek(self) -> Optional[Event]:
+        try:
+            return self._event_queue.peek()
+        except queue.Empty:
+            return None
+
+    def _quantization_to_beats(self, quantization: Quantization) -> float:
+        fraction = fractions.Fraction(quantization.replace("T", ""))
+        if "T" in quantization:
+            fraction *= fractions.Fraction(2, 3)
+        return float(fraction)
 
     def _seconds_to_moment(self, seconds: float) -> Moment:
         offset = self._seconds_to_offset(seconds)
@@ -495,7 +510,7 @@ class BaseClock:
         if self._is_running:
             raise RuntimeError("Already started")
         if initial_time is None:
-            initial_time = self.get_current_time()
+            initial_time = self._get_current_time()
         self._state = ClockState(
             beats_per_minute=beats_per_minute or self._state.beats_per_minute,
             initial_seconds=initial_time,
@@ -538,7 +553,7 @@ class BaseClock:
             beats_per_minute=beats_per_minute,
             time_signature=time_signature,
             quantization=None,
-            schedule_at=self.get_current_time(),
+            schedule_at=self._get_current_time(),
             time_unit=None,
         )
         self._enqueue_command(command)
@@ -565,7 +580,7 @@ class BaseClock:
             kwargs=kwargs,
             procedure=procedure,
             quantization=quantization,
-            schedule_at=self.get_current_time() if self.is_running else 0,
+            schedule_at=self._get_current_time() if self.is_running else 0,
             time_unit=None,
         )
         self._enqueue_command(command)
@@ -586,28 +601,12 @@ class BaseClock:
             event_id=event_id,
             event_type=EventType.CHANGE,
             quantization=quantization,
-            schedule_at=self.get_current_time() if self.is_running else 0,
+            schedule_at=self._get_current_time() if self.is_running else 0,
             time_signature=time_signature,
             time_unit=None,
         )
         self._enqueue_command(command)
         return event_id
-
-    def get_current_time(self) -> float:
-        return time.time()
-
-    def peek(self) -> Optional[Event]:
-        try:
-            return self._event_queue.peek()
-        except queue.Empty:
-            return None
-
-    @classmethod
-    def quantization_to_beats(cls, quantization: Quantization) -> float:
-        fraction = fractions.Fraction(quantization.replace("T", ""))
-        if "T" in quantization:
-            fraction *= fractions.Fraction(2, 3)
-        return float(fraction)
 
     def reschedule(
         self,
