@@ -16,6 +16,11 @@ class OfflineClock(BaseClock):
 
     ### SCHEDULING METHODS ###
 
+    def _get_current_time(self) -> float:
+        if not self._is_running:
+            return 0.0
+        return self._state.previous_seconds
+
     def _perform_callback_event(
         self, event: CallbackEvent, current_moment: Moment, desired_moment: Moment
     ) -> None:
@@ -66,11 +71,6 @@ class OfflineClock(BaseClock):
 
     ### PUBLIC METHODS ###
 
-    def get_current_time(self) -> float:
-        if not self._is_running:
-            return 0.0
-        return self._state.previous_seconds
-
     def start(
         self,
         initial_time: Optional[float] = None,
@@ -102,6 +102,12 @@ class OfflineClock(BaseClock):
 
 
 class AsyncOfflineClock(AsyncClock):
+
+    def _get_current_time(self) -> float:
+        if not self._is_running:
+            return 0.0
+        return self._state.previous_seconds
+
     async def _run_async(self, offline: bool = False) -> None:
         logger.debug(f"[{self.name}] Coroutine start")
         self._process_command_deque(first_run=True)
@@ -136,8 +142,3 @@ class AsyncOfflineClock(AsyncClock):
         self._process_command_deque()
         self._event.clear()
         return True
-
-    def get_current_time(self) -> float:
-        if not self._is_running:
-            return 0.0
-        return self._state.previous_seconds
