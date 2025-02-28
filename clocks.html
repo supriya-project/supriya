@@ -1098,60 +1098,12 @@
   
   
     <li class="md-nav__item">
-      <a href="api/supriya/clocks/bases.html" class="md-nav__link">
+      <a href="api/supriya/clocks/core.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    bases
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="api/supriya/clocks/ephemera.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    ephemera
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="api/supriya/clocks/eventqueue.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    eventqueue
+    core
     
   </span>
   
@@ -3424,7 +3376,7 @@ musical patterns.</p>
 </code></pre></div>
 </div>
 <p>All clock callbacks need to accept <em>at least</em> a <code class="docutils literal notranslate"><span class="pre">context</span></code> argument, to which
-the clock will pass a <a class="reference internal" href="api/supriya/clocks/ephemera.html#supriya.clocks.ephemera.ClockContext" title="supriya.clocks.ephemera.ClockContext (Python class) — Bases: NamedTuple"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClockContext</span></code></a> object.</p>
+the clock will pass a <code class="xref py py-class docutils literal notranslate"><span class="pre">ClockContext</span></code> object.</p>
 <h3 id="id1">Scheduling<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
 <p>We can schedule that procedure with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
@@ -3435,7 +3387,7 @@ the clock will pass a <a class="reference internal" href="api/supriya/clocks/eph
 <h3 id="canceling">Canceling<a class="headerlink" href="#canceling" title="Link to this heading">¶</a></h3>
 <p>We can use the event ID to cancel the callback if it hasn’t already occurred:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="go">CallbackCommand(event_id=0, event_type=&lt;EventType.SCHEDULE: 1&gt;, quantization=None, schedule_at=0.0, time_unit=&lt;TimeUnit.BEATS: 0&gt;, args=None, kwargs=None, procedure=&lt;function callback at 0x7f4de8de5940&gt;)</span>
+<span class="go">CallbackCommand(event_id=0, event_type=&lt;EventType.SCHEDULE: 1&gt;, quantization=None, schedule_at=0.0, time_unit=&lt;TimeUnit.BEATS: 0&gt;, args=None, kwargs=None, procedure=&lt;function callback at 0x7ff5c2277e20&gt;)</span>
 </code></pre></div>
 </div>
 <h3 id="cueing">Cueing<a class="headerlink" href="#cueing" title="Link to this heading">¶</a></h3>

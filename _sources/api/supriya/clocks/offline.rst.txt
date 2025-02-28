@@ -10,11 +10,9 @@ offline
 .. autoclass:: AsyncOfflineClock
    :show-inheritance:
 
-   .. automethod:: get_current_time
 
 .. autoclass:: OfflineClock
    :show-inheritance:
 
-   .. automethod:: get_current_time
    .. automethod:: start
    .. automethod:: stop

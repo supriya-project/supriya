@@ -1,16 +1,32 @@
-.. _supriya--clocks--ephemera:
+.. _supriya--clocks--core:
 
-ephemera
-========
+core
+====
 
-.. automodule:: supriya.clocks.ephemera
+.. automodule:: supriya.clocks.core
 
-.. currentmodule:: supriya.clocks.ephemera
+.. currentmodule:: supriya.clocks.core
 
 .. autoclass:: Action
    :show-inheritance:
 
    .. automethod:: __replace__
+
+.. autoclass:: BaseClock
+   :show-inheritance:
+
+   .. automethod:: cancel
+   .. automethod:: change
+   .. automethod:: cue
+   .. automethod:: cue_change
+   .. automethod:: reschedule
+   .. automethod:: schedule
+   .. automethod:: schedule_change
+   .. autoproperty:: beats_per_minute
+   .. autoproperty:: is_running
+   .. autoproperty:: name
+   .. autoproperty:: slop
+   .. autoproperty:: time_signature
 
 .. autoclass:: CallbackCommand
    :show-inheritance:

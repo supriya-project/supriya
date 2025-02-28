@@ -11,6 +11,5 @@ threaded
    :show-inheritance:
 
    .. automethod:: cancel
-   .. automethod:: default
    .. automethod:: start
    .. automethod:: stop

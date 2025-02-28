@@ -11,8 +11,6 @@ clocks
    :hidden:
 
    asynchronous
-   bases
-   ephemera
-   eventqueue
+   core
    offline
    threaded
