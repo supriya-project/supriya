@@ -9,6 +9,7 @@ from typing import (
     Awaitable,
     Callable,
     Dict,
+    Iterator,
     List,
     Literal,
     NamedTuple,
@@ -74,24 +75,27 @@ class CaptureEntry(NamedTuple):
 class Capture:
     ### INITIALIZER ###
 
-    def __init__(self, osc_protocol):
+    def __init__(self, osc_protocol: "OscProtocol") -> None:
         self.osc_protocol = osc_protocol
-        self.messages = []
+        self.messages: list[CaptureEntry] = []
 
     ### SPECIAL METHODS ###
 
-    def __enter__(self):
+    def __enter__(self) -> "Capture":
         self.osc_protocol.captures.add(self)
         self.messages[:] = []
         return self
 
-    def __exit__(self, exc_type, exc_value, traceback):
+    def __exit__(self, exc_type, exc_value, traceback) -> None:
         self.osc_protocol.captures.remove(self)
 
-    def __iter__(self):
+    def __getitem__(self, i: int | slice) -> CaptureEntry | list[CaptureEntry]:
+        return self.messages[i]
+
+    def __iter__(self) -> Iterator[CaptureEntry]:
         return iter(self.messages)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.messages)
 
     ### PUBLIC METHODS ###
@@ -100,7 +104,7 @@ class Capture:
         self, sent=True, received=True, status=True
     ) -> List[Union[OscBundle, OscMessage]]:
         messages = []
-        for _, label, message in self.messages:
+        for _, label, message, _ in self.messages:
             if label == "R" and not received:
                 continue
             if label == "S" and not sent:
@@ -113,24 +117,6 @@ class Capture:
                 continue
             messages.append(message)
         return messages
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def received_messages(self):
-        return [
-            (timestamp, osc_message)
-            for timestamp, label, osc_message in self.messages
-            if label == "R"
-        ]
-
-    @property
-    def sent_messages(self):
-        return [
-            (timestamp, osc_message)
-            for timestamp, label, osc_message in self.messages
-            if label == "S"
-        ]
 
 
 class OscProtocol:
