@@ -10,6 +10,7 @@ import dataclasses
 import itertools
 import re
 import threading
+from collections.abc import Sequence as SequenceABC
 from os import PathLike
 from typing import (
     Callable,
@@ -1179,7 +1180,7 @@ class Context(metaclass=abc.ABCMeta):
         return self._add_request_with_completion(request, on_completion)
 
     @abc.abstractmethod
-    def send(self, message: SupportsOsc):
+    def send(self, message: Union[SupportsOsc, SequenceABC, str]):
         """
         Send a message to the execution context.
 

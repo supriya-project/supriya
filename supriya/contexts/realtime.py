@@ -44,7 +44,6 @@ from ..exceptions import (
 from ..osc import (
     AsyncOscProtocol,
     HealthCheck,
-    OscBundle,
     OscCallback,
     OscMessage,
     OscProtocol,
@@ -374,9 +373,7 @@ class BaseServer(Context):
 
     ### PUBLIC METHODS ###
 
-    def send(
-        self, message: Union[OscMessage, OscBundle, SupportsOsc, SequenceABC, str]
-    ) -> None:
+    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
         """
         Send a message to the execution context.
 
@@ -385,9 +382,7 @@ class BaseServer(Context):
         if self._boot_status == BootStatus.OFFLINE:
             raise ServerOffline
         osc_protocol: OscProtocol = getattr(self, "_osc_protocol")
-        osc_protocol.send(
-            message.to_osc() if isinstance(message, SupportsOsc) else message
-        )
+        osc_protocol.send(message)
 
     def set_latency(self, latency: float) -> None:
         """

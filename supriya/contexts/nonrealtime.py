@@ -9,6 +9,7 @@ import platform
 import shlex
 import shutil
 import struct
+from collections.abc import Sequence as SequenceABC
 from contextlib import ExitStack
 from os import PathLike
 from pathlib import Path
@@ -238,7 +239,7 @@ class Score(Context):
         if until and until > timestamp:
             yield RequestBundle(timestamp=until, contents=[DoNothing()])
 
-    def send(self, message: SupportsOsc) -> None:
+    def send(self, message: Union[SupportsOsc, SequenceABC, str]):
         """
         Send a message to the execution context.
 
