@@ -55,10 +55,6 @@ class UGenTransformer:
             "supriya.ugens.core.UGenVectorInput"
         )
 
-        assert UGenRecursiveInputTypeSym.node is not None
-        assert UGenScalarInputTypeSym.node is not None
-        assert UGenVectorInputTypeSym.node is not None
-
         UGenRecursiveInputType = getattr(UGenRecursiveInputTypeSym.node, "target")
         UGenScalarInputType = getattr(UGenScalarInputTypeSym.node, "target")
         UGenVectorInputType = getattr(UGenVectorInputTypeSym.node, "target")

@@ -21,8 +21,10 @@ class PV_ChainUGen(UGen):
         Returns ugen input.
         """
         input_ = self.inputs[0]
-        assert isinstance(input_, OutputProxy)
-        assert isinstance(input_.ugen, PV_ChainUGen)
+        if not isinstance(input_, OutputProxy):
+            raise ValueError(input_)
+        if not isinstance(input_.ugen, PV_ChainUGen):
+            raise ValueError(input_.ugen)
         return input_.ugen.fft_size
 
 

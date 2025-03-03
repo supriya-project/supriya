@@ -82,7 +82,8 @@ class BlockAllocator:
 
     def allocate(self, desired_block_size: int = 1) -> Optional[int]:
         desired_block_size = int(desired_block_size)
-        assert 0 < desired_block_size
+        if desired_block_size <= 0:
+            raise ValueError("desired_block_size must be greater than zero")
         block_id = None
         with self._lock:
             free_block = None
@@ -125,7 +126,8 @@ class BlockAllocator:
             if starting_blocks == stop_blocks:
                 if len(starting_blocks) == 0:
                     return None
-                assert len(starting_blocks) == 1
+                if len(starting_blocks) != 1:
+                    raise RuntimeError
                 free_block = starting_blocks[0]
                 used_block = Block(
                     start_offset=start_offset, stop_offset=stop_offset, used=True
@@ -149,20 +151,23 @@ class BlockAllocator:
             )
             if len(blocks) == 0:
                 return None
-            assert len(blocks) == 1
+            if len(blocks) != 1:
+                raise RuntimeError
             used_block = blocks[0]
             self._used_heap.remove(used_block)
             start_offset = used_block.start_offset
             stopping_blocks = self._free_heap.find_intervals_stopping_at(start_offset)
             if stopping_blocks:
-                assert len(stopping_blocks) == 1
+                if len(stopping_blocks) != 1:
+                    raise RuntimeError
                 stopping_block = stopping_blocks[0]
                 self._free_heap.remove(stopping_block)
                 start_offset = stopping_block.start_offset
             stop_offset = used_block.stop_offset
             starting_blocks = self._free_heap.find_intervals_starting_at(stop_offset)
             if starting_blocks:
-                assert len(starting_blocks) == 1
+                if len(starting_blocks) != 1:
+                    raise RuntimeError
                 starting_block = starting_blocks[0]
                 self._free_heap.remove(starting_block)
                 stop_offset = starting_block.stop_offset

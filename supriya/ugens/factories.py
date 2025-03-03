@@ -230,7 +230,8 @@ class SynthDefFactory:
 
     def __init__(self, channel_count=1, **kwargs):
         channel_count = int(channel_count)
-        assert channel_count > 0
+        if channel_count <= 0:
+            raise ValueError(channel_count)
         self._channel_count = channel_count
         self._feedback_loop = None
         self._gate = {}
@@ -556,7 +557,8 @@ class SynthDefFactory:
                             source[2]: AllpassC.ar/5[0]
         """
         channel_count = int(channel_count)
-        assert channel_count > 0
+        if channel_count <= 0:
+            raise ValueError(channel_count)
         clone = self._clone()
         clone._channel_count = channel_count
         return clone
@@ -1585,7 +1587,8 @@ class SynthDefFactory:
                             crossfade: BinaryOpUGen(MULTIPLICATION).kr[0]
                             source[0]: AllpassC.ar/1[0]
         """
-        assert not (replacing and crossfaded)
+        if replacing and crossfaded:
+            raise ValueError(replacing, crossfaded)
         clone = self._clone()
         clone._output.update(
             crossfaded=bool(crossfaded),

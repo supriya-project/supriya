@@ -205,7 +205,6 @@ class Silence(PseudoUGen):
         from . import DC
 
         channel_count = int(channel_count)
-        assert 0 <= channel_count
         silence = DC.ar(source=0)
         if channel_count == 1:
             return silence
