@@ -37,7 +37,7 @@ from .enums import (  # noqa
     ServerShutdownEvent,
 )
 from .io import graph, play, plot, render
-from .osc import OscBundle, OscCallback, OscMessage
+from .osc import OscBundle, OscCallback, OscMessage, find_free_port
 from .patterns import Pattern
 from .ugens import (
     Envelope,
@@ -104,6 +104,7 @@ __all__ = [
     "__version__",
     "__version_info__",
     "default",
+    "find_free_port",
     "graph",
     "output_path",
     "play",
