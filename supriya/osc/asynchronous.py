@@ -3,8 +3,8 @@ from collections.abc import Sequence as SequenceABC
 from typing import Awaitable, Callable, Dict, Optional, Sequence, Set, Tuple, Union
 
 from ..enums import BootStatus
-from ..typing import FutureLike
-from .messages import OscBundle, OscMessage
+from ..typing import FutureLike, SupportsOsc
+from .messages import OscMessage
 from .protocols import (
     HealthCheck,
     OscCallback,
@@ -196,7 +196,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         )
         return callback
 
-    def send(self, message: Union[OscBundle, OscMessage, SequenceABC, str]) -> None:
+    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
         self.transport.sendto(self._send(message))
 
     def unregister(self, callback: OscCallback) -> None:

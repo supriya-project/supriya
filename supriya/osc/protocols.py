@@ -9,7 +9,9 @@ from typing import (
     Awaitable,
     Callable,
     Dict,
+    Iterator,
     List,
+    Literal,
     NamedTuple,
     Optional,
     Sequence,
@@ -19,7 +21,7 @@ from typing import (
 )
 
 from ..enums import BootStatus
-from ..typing import FutureLike
+from ..typing import FutureLike, SupportsOsc
 from .messages import OscBundle, OscMessage
 
 osc_protocol_logger = logging.getLogger(__name__)
@@ -65,31 +67,35 @@ class HealthCheck:
 
 class CaptureEntry(NamedTuple):
     timestamp: float
-    label: str
+    label: Literal["R", "S"]
     message: Union[OscMessage, OscBundle]
+    raw_message: Union[SupportsOsc, SequenceABC, str] | None = None
 
 
 class Capture:
     ### INITIALIZER ###
 
-    def __init__(self, osc_protocol):
+    def __init__(self, osc_protocol: "OscProtocol") -> None:
         self.osc_protocol = osc_protocol
-        self.messages = []
+        self.messages: list[CaptureEntry] = []
 
     ### SPECIAL METHODS ###
 
-    def __enter__(self):
+    def __enter__(self) -> "Capture":
         self.osc_protocol.captures.add(self)
         self.messages[:] = []
         return self
 
-    def __exit__(self, exc_type, exc_value, traceback):
+    def __exit__(self, exc_type, exc_value, traceback) -> None:
         self.osc_protocol.captures.remove(self)
 
-    def __iter__(self):
+    def __getitem__(self, i: int | slice) -> CaptureEntry | list[CaptureEntry]:
+        return self.messages[i]
+
+    def __iter__(self) -> Iterator[CaptureEntry]:
         return iter(self.messages)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.messages)
 
     ### PUBLIC METHODS ###
@@ -98,7 +104,7 @@ class Capture:
         self, sent=True, received=True, status=True
     ) -> List[Union[OscBundle, OscMessage]]:
         messages = []
-        for _, label, message in self.messages:
+        for _, label, message, _ in self.messages:
             if label == "R" and not received:
                 continue
             if label == "S" and not sent:
@@ -111,24 +117,6 @@ class Capture:
                 continue
             messages.append(message)
         return messages
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def received_messages(self):
-        return [
-            (timestamp, osc_message)
-            for timestamp, label, osc_message in self.messages
-            if label == "R"
-        ]
-
-    @property
-    def sent_messages(self):
-        return [
-            (timestamp, osc_message)
-            for timestamp, label, osc_message in self.messages
-            if label == "S"
-        ]
 
 
 class OscProtocol:
@@ -293,27 +281,35 @@ class OscProtocol:
             kwargs=kwargs,
         )
 
-    def _send(self, message):
+    def _send(self, raw_message: Union[SupportsOsc, SequenceABC, str]) -> bytes:
         if self.status not in (BootStatus.BOOTING, BootStatus.ONLINE):
             raise OscProtocolOffline
-        if not isinstance(message, (str, SequenceABC, OscBundle, OscMessage)):
-            raise ValueError(message)
-        if isinstance(message, str):
-            message = OscMessage(message)
-        elif isinstance(message, SequenceABC):
-            message = OscMessage(*message)
+        if not isinstance(raw_message, (str, SequenceABC, SupportsOsc)):
+            raise ValueError(raw_message)
+        message: OscBundle | OscMessage
+        if isinstance(raw_message, str):
+            message = OscMessage(raw_message)
+        elif isinstance(raw_message, SequenceABC):
+            message = OscMessage(*raw_message)
+        else:
+            message = raw_message.to_osc()
         osc_out_logger.debug(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
             f"{message!r}"
         )
         for capture in self.captures:
             capture.messages.append(
-                CaptureEntry(timestamp=time.time(), label="S", message=message)
+                CaptureEntry(
+                    timestamp=time.time(),
+                    label="S",
+                    message=message,
+                    raw_message=raw_message,
+                )
             )
         datagram = message.to_datagram()
         udp_out_logger.debug(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
-            f"{datagram}"
+            f"{datagram!r}"
         )
         return datagram
 
@@ -373,7 +369,7 @@ class OscProtocol:
     ) -> OscCallback:
         raise NotImplementedError
 
-    def send(self, message: Union[OscBundle, OscMessage, SequenceABC, str]) -> None:
+    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
         raise NotImplementedError
 
     def unregister(self, callback: OscCallback) -> None:

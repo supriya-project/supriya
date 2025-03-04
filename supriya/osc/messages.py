@@ -297,6 +297,9 @@ class OscMessage:
                 result.append(x)
         return result
 
+    def to_osc(self) -> "OscMessage":
+        return self
+
 
 class OscBundle:
     """
@@ -471,3 +474,6 @@ class OscBundle:
         result = [self.timestamp]
         result.append([x.to_list() for x in self.contents])
         return result
+
+    def to_osc(self) -> "OscBundle":
+        return self

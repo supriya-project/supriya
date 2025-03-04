@@ -17,8 +17,8 @@ from typing import (
 )
 
 from ..enums import BootStatus
-from ..typing import FutureLike
-from .messages import OscBundle, OscMessage
+from ..typing import FutureLike, SupportsOsc
+from .messages import OscMessage
 from .protocols import (
     HealthCheck,
     OscCallback,
@@ -229,7 +229,7 @@ class ThreadedOscProtocol(OscProtocol):
         )
         return callback
 
-    def send(self, message: Union[OscBundle, OscMessage, SequenceABC, str]) -> None:
+    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
         try:
             self.osc_server.socket.sendto(
                 self._send(message),
