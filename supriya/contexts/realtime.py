@@ -11,8 +11,10 @@ import warnings
 from collections.abc import Sequence as SequenceABC
 from typing import (
     TYPE_CHECKING,
+    Any,
     Awaitable,
     Callable,
+    Coroutine,
     Dict,
     Iterable,
     List,
@@ -573,6 +575,9 @@ class Server(BaseServer):
 
     def _on_lifecycle_event(self, event: ServerLifecycleEvent) -> None:
         for callback in self._lifecycle_event_callbacks.get(event, []):
+            logger.info(
+                self._log_prefix() + f"lifecycle event: {event.name} {callback}"
+            )
             callback.procedure(event, *(callback.args or ()), **(callback.kwargs or {}))
             if callback.once:
                 self.unregister_lifecycle_callback(callback)
@@ -621,7 +626,7 @@ class Server(BaseServer):
         self._lifecycle_thread.start()
         if not (self._boot_future.result()):
             if (self._shutdown_future.result()) == ServerShutdownEvent.PROCESS_PANIC:
-                raise ServerCannotBoot(self.process_protocol.error_text)
+                raise ServerCannotBoot(self._process_protocol.error_text)
         return self
 
     def connect(self, *, options: Optional[Options] = None, **kwargs) -> "Server":
@@ -1178,6 +1183,9 @@ class AsyncServer(BaseServer):
 
     async def _on_lifecycle_event(self, event: ServerLifecycleEvent) -> None:
         for callback in self._lifecycle_event_callbacks.get(event, []):
+            logger.info(
+                self._log_prefix() + f"lifecycle event: {event.name} {callback}"
+            )
             if asyncio.iscoroutine(
                 result := callback.procedure(
                     event, *(callback.args or ()), **(callback.kwargs or {})
@@ -1229,7 +1237,7 @@ class AsyncServer(BaseServer):
         self._lifecycle_task = loop.create_task(self._lifecycle(owned=True))
         if not (await self._boot_future):
             if (await self._shutdown_future) == ServerShutdownEvent.PROCESS_PANIC:
-                raise ServerCannotBoot(self.process_protocol.error_text)
+                raise ServerCannotBoot(self._process_protocol.error_text)
         return self
 
     async def connect(
