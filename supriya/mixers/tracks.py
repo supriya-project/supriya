@@ -209,11 +209,9 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
 class Track(TrackContainer[TrackContainer], DeviceContainer):
 
     # TODO: add_device() -> Device
-    # TODO: add_send(destination: Track) -> Send
     # TODO: group_devices(index: int, count: int) -> Rack
     # TODO: group_tracks(index: int, count: int) -> Track
     # TODO: set_channel_count(self, channel_count: Optional[ChannelCount] = None) -> None
-    # TODO: set_input(None | Default | Track | BusGroup)
 
     def __init__(
         self,
