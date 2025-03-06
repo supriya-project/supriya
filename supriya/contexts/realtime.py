@@ -365,7 +365,7 @@ class BaseServer(Context):
 
     def _validate_can_request(self) -> None:
         if self._boot_status not in (BootStatus.BOOTING, BootStatus.ONLINE):
-            raise ServerOffline
+            raise ServerOffline("Server already offline!")
         pass  # Otherwise always OK to request in RT
 
     def _validate_moment_timestamp(self, seconds: Optional[float]) -> None:
@@ -380,7 +380,7 @@ class BaseServer(Context):
         :param message: The message to send.
         """
         if self._boot_status == BootStatus.OFFLINE:
-            raise ServerOffline
+            raise ServerOffline("Server already offline!")
         osc_protocol: OscProtocol = getattr(self, "_osc_protocol")
         osc_protocol.send(message)
 
@@ -513,7 +513,6 @@ class Server(BaseServer):
                     self._on_lifecycle_event(ServerLifecycleEvent.BOOTED)
                 self._boot_future.set_result(True)
         except TooManyClients:
-            print("B")
             self._shutdown_future.set_result(ServerShutdownEvent.TOO_MANY_CLIENTS)
         # await shutdown future, osc panic, process panic
         shutdown = self._shutdown_future.result()
@@ -578,7 +577,7 @@ class Server(BaseServer):
         if response is None or not isinstance(response, (DoneInfo, FailInfo)):
             raise RuntimeError
         if isinstance(response, FailInfo):
-            raise TooManyClients
+            raise TooManyClients("Too many clients connected already")
         if len(response.other) == 1:  # supernova doesn't provide a max logins value
             self._client_id = int(response.other[0])
             self._maximum_logins = self._options.maximum_logins
@@ -602,7 +601,7 @@ class Server(BaseServer):
         :param kwargs: Keyword arguments for options.
         """
         if self._boot_status != BootStatus.OFFLINE:
-            raise ServerOnline
+            raise ServerOnline("Server already online!")
         self._boot_status = BootStatus.BOOTING
         self._options = self._get_options(options or self._options, **kwargs)
         self._boot_future = concurrent.futures.Future()
@@ -627,7 +626,7 @@ class Server(BaseServer):
         :param kwargs: Keyword arguments for options.
         """
         if self._boot_status != BootStatus.OFFLINE:
-            raise ServerOnline
+            raise ServerOnline("Server already online!")
         self._boot_status = BootStatus.BOOTING
         self._options = self._get_options(options or self._options, **kwargs)
         self._boot_future = concurrent.futures.Future()
@@ -641,7 +640,7 @@ class Server(BaseServer):
         self._lifecycle_thread.start()
         if not (self._boot_future.result()):
             if self._shutdown_future.result() == ServerShutdownEvent.TOO_MANY_CLIENTS:
-                raise TooManyClients
+                raise TooManyClients("Too many clients connected already")
         return self
 
     def disconnect(self) -> "Server":
@@ -649,7 +648,7 @@ class Server(BaseServer):
         Disconnect from a running server.
         """
         if self._boot_status == BootStatus.OFFLINE:
-            raise ServerOffline
+            raise ServerOffline("Server already offline!")
         if self._is_owner:
             raise OwnedServerShutdown("Cannot disconnect from owned server.")
         self._shutdown_future.set_result(ServerShutdownEvent.DISCONNECT)
@@ -988,7 +987,7 @@ class Server(BaseServer):
         :param sync_id: The sync ID to wait on.
         """
         if self._boot_status not in (BootStatus.BOOTING, BootStatus.ONLINE):
-            raise ServerOffline
+            raise ServerOffline("Server already offline!")
         Sync(
             sync_id=sync_id if sync_id is not None else self._get_next_sync_id()
         ).communicate(server=self, timeout=timeout)
@@ -1188,7 +1187,7 @@ class AsyncServer(BaseServer):
         if response is None or not isinstance(response, (DoneInfo, FailInfo)):
             raise RuntimeError
         if isinstance(response, FailInfo):
-            raise TooManyClients
+            raise TooManyClients("Too many clients connected already")
         if len(response.other) == 1:  # supernova doesn't provide a max logins value
             self._client_id = int(response.other[0])
             self._maximum_logins = self._options.maximum_logins
@@ -1214,7 +1213,7 @@ class AsyncServer(BaseServer):
         :param kwargs: Keyword arguments for options.
         """
         if self._boot_status != BootStatus.OFFLINE:
-            raise ServerOnline
+            raise ServerOnline("Server already online!")
         self._boot_status = BootStatus.BOOTING
         self._options = self._get_options(options or self._options, **kwargs)
         loop = asyncio.get_running_loop()
@@ -1237,7 +1236,7 @@ class AsyncServer(BaseServer):
         :param kwargs: Keyword arguments for options.
         """
         if self._boot_status != BootStatus.OFFLINE:
-            raise ServerOnline
+            raise ServerOnline("Server already online!")
         self._boot_status = BootStatus.BOOTING
         self._options = self._get_options(options or self._options, **kwargs)
         loop = asyncio.get_running_loop()
@@ -1247,7 +1246,7 @@ class AsyncServer(BaseServer):
         self._lifecycle_task = loop.create_task(self._lifecycle(owned=False))
         if not (await self._boot_future):
             if await self._shutdown_future == ServerShutdownEvent.TOO_MANY_CLIENTS:
-                raise TooManyClients
+                raise TooManyClients("Too many clients connected already")
         return self
 
     async def disconnect(self) -> "AsyncServer":
@@ -1255,7 +1254,7 @@ class AsyncServer(BaseServer):
         Disconnect from a running server.
         """
         if self._boot_status == BootStatus.OFFLINE:
-            raise ServerOffline
+            raise ServerOffline("Server already offline!")
         if self._is_owner:
             raise OwnedServerShutdown("Cannot disconnect from owned server.")
         self._shutdown_future.set_result(ServerShutdownEvent.DISCONNECT)
@@ -1602,7 +1601,7 @@ class AsyncServer(BaseServer):
         :param sync_id: The sync ID to wait on.
         """
         if self._boot_status not in (BootStatus.BOOTING, BootStatus.ONLINE):
-            raise ServerOffline
+            raise ServerOffline("Server already offline!")
         await Sync(
             sync_id=sync_id if sync_id is not None else self._get_next_sync_id()
         ).communicate_async(server=self, timeout=timeout)
