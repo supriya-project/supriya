@@ -1,4 +1,5 @@
 import logging
+import os
 import pathlib
 import platform
 import shutil
@@ -15,6 +16,10 @@ def rm_dirs(app):
     yield
 
 
+@pytest.mark.skipif(
+    bool(os.environ.get("CI")) and platform.system() == "Windows",
+    reason="hangs on Windows in CI",
+)
 @pytest.mark.sphinx("html", testroot="book")
 def test_sphinx_book_html(caplog, app, status, warning, rm_dirs):
     caplog.set_level(logging.INFO)
