@@ -191,7 +191,6 @@ class Score(Context):
             protocol = AsyncNonrealtimeProcessProtocol()
             await protocol.run(command, render_directory_path_)
             exit_code: int = await protocol.exit_future
-            assert render_directory_path_ / render_file_name
             if output_file_path_:
                 shutil.copy(
                     render_directory_path_ / render_file_name, output_file_path_

@@ -644,7 +644,8 @@ cdef class IntervalTreeDriverEx:
 
     def find_intervals_intersecting_interval(self, interval):
         cinterval = _CInterval.from_interval(interval)
-        assert isinstance(cinterval, _CInterval)
+        if not isinstance(cinterval, _CInterval):
+            raise ValueError(cinterval)
         cintervals = self._recurse_find_intervals_intersecting_interval(
             self._root_node, cinterval)
         return self._unbox_cintervals(cintervals)
@@ -671,7 +672,8 @@ cdef class IntervalTreeDriverEx:
         return node.start_offset
 
     def index(self, interval):
-        assert self._is_interval(interval)
+        if not self._is_interval(interval):
+            raise ValueError(interval)
         cinterval = _CInterval.from_interval(interval)
         node = self._search(self._root_node, cinterval.start_offset)
         if node is None:

@@ -1300,7 +1300,8 @@ class IntervalTree:
         Returns generator.
         """
         n = int(n)
-        assert 0 < n
+        if n < 1:
+            raise ValueError(n)
         if reverse:
             for moment in self.iterate_moments(reverse=True):
                 moments = [moment]
@@ -1432,7 +1433,8 @@ class _CInterval:
         self.original_interval = original_interval
 
     def __eq__(self, cinterval):
-        assert isinstance(cinterval, type(self)), cinterval
+        if not isinstance(cinterval, type(self)):
+            raise ValueError(cinterval)
         if self.start_offset != cinterval.start_offset:
             return False
         if self.stop_offset != cinterval.stop_offset:
@@ -1442,11 +1444,13 @@ class _CInterval:
         return True
 
     def __ne__(self, cinterval):
-        assert isinstance(cinterval, type(self)), cinterval
+        if not isinstance(cinterval, type(self)):
+            raise ValueError(cinterval)
         return not self.__eq__(cinterval)
 
     def __lt__(self, cinterval):
-        assert isinstance(cinterval, type(self)), cinterval
+        if not isinstance(cinterval, type(self)):
+            raise ValueError(cinterval)
         if self.start_offset < cinterval.start_offset:
             return True
         if self.start_offset > cinterval.start_offset:
@@ -1730,7 +1734,8 @@ class IntervalTreeDriver:
         return result
 
     def _remove_interval(self, cinterval, old_start_offset=None):
-        assert isinstance(cinterval, _CInterval)
+        if not isinstance(cinterval, _CInterval):
+            raise ValueError(cinterval)
         start_offset = cinterval.start_offset
         if old_start_offset is not None:
             start_offset = old_start_offset
@@ -1887,7 +1892,8 @@ class IntervalTreeDriver:
         return node.start_offset
 
     def index(self, interval):
-        assert self._is_interval(interval)
+        if not self._is_interval(interval):
+            raise ValueError(interval)
         cinterval = _CInterval.from_interval(interval)
         node = self._search(self._root_node, cinterval.start_offset)
         if node is None:

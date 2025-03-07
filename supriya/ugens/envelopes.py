@@ -34,8 +34,10 @@ class Envelope:
         loop_node: Optional[int] = None,
         offset: Union[UGenOperable, float] = 0.0,
     ) -> None:
-        assert len(amplitudes) > 1
-        assert len(durations) == (len(amplitudes) - 1)
+        if len(amplitudes) <= 1:
+            raise ValueError(amplitudes)
+        if not (len(durations) == (len(amplitudes) - 1)):
+            raise ValueError(durations, amplitudes)
         if isinstance(curves, (int, float, str, EnvelopeShape, UGenOperable)):
             curves = [curves]
         elif curves is None:

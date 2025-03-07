@@ -4882,8 +4882,13 @@ class UGen(UGenOperable, Sequence):
         special_index: SupportsInt = 0,
         **kwargs: Union["UGenScalarInput", "UGenVectorInput"],
     ) -> None:
-        if self._valid_calculation_rates:
-            assert calculation_rate in self._valid_calculation_rates
+        if (
+            self._valid_calculation_rates
+            and calculation_rate not in self._valid_calculation_rates
+        ):
+            raise ValueError(
+                f"{calculation_rate} not in {self._valid_calculation_rates}"
+            )
         calculation_rate, kwargs = self._postprocess_kwargs(
             calculation_rate=calculation_rate, **kwargs
         )
@@ -5618,7 +5623,8 @@ class SynthDef:
             inputs: Dict[str, str] = {}
             if isinstance(ugen, Control):
                 for parameter in ugen.parameters:
-                    assert parameter.name is not None
+                    if parameter.name is None:
+                        raise ValueError(parameter)
                     if len(parameter.value) == 1:
                         inputs[parameter.name] = str(parameter.value[0])
                     else:
@@ -5664,7 +5670,8 @@ class SynthDef:
         for control in controls:
             index = control.special_index
             for parameter in control.parameters:
-                assert parameter.name is not None
+                if parameter.name is None:
+                    raise ValueError(parameter)
                 mapping[parameter.name] = (parameter, index)
                 index += len(parameter)
         return mapping
