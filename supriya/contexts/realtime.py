@@ -160,7 +160,7 @@ class BaseServer(Context):
         self._node_active: Dict[int, bool] = {}
         self._node_children: Dict[int, List[int]] = {}
         self._node_parents: Dict[int, int] = {}
-        self._shm: Optional["ServerSHM"] = None
+        self._shared_memory: Optional["ServerSHM"] = None
         self._status: Optional[StatusInfo] = None
 
     ### SPECIAL METHODS ###
@@ -333,11 +333,11 @@ class BaseServer(Context):
         ]:
             osc_protocol.register(pattern=pattern, procedure=procedure)
 
-    def _setup_shm(self) -> None:
+    def _setup_shared_memory(self) -> None:
         try:
             from .shm import ServerSHM
 
-            self._shm = ServerSHM(
+            self._shared_memory = ServerSHM(
                 self._options.port, self._options.control_bus_channel_count
             )
         except (ImportError, ModuleNotFoundError):
@@ -354,8 +354,8 @@ class BaseServer(Context):
                 with self.at():
                     self.add_synthdefs(synthdef)
 
-    def _teardown_shm(self) -> None:
-        self._shm = None
+    def _teardown_shared_memory(self) -> None:
+        self._shared_memory = None
 
     def _teardown_state(self) -> None:
         self._node_active.clear()
@@ -423,6 +423,13 @@ class BaseServer(Context):
         return self._is_owner
 
     @property
+    def shared_memory(self) -> Optional["ServerSHM"]:
+        """
+        Get the server's shared memory interface, if available.
+        """
+        return self._shared_memory
+
+    @property
     def status(self) -> Optional[StatusInfo]:
         """
         Get the server's last received status.
@@ -486,7 +493,7 @@ class Server(BaseServer):
                 self._exit_future.set_result(False)
                 return
             self._is_owner = True
-            self._setup_shm()
+            self._setup_shared_memory()
             self._on_lifecycle_event(ServerLifecycleEvent.PROCESS_BOOTED)
         logger.info(log_prefix + "connecting ...")
         self._on_lifecycle_event(ServerLifecycleEvent.CONNECTING)
@@ -541,7 +548,7 @@ class Server(BaseServer):
         if shutdown in (ServerShutdownEvent.QUIT, ServerShutdownEvent.DISCONNECT):
             self._on_lifecycle_event(ServerLifecycleEvent.OSC_DISCONNECTED)
         if owned:
-            self._teardown_shm()
+            self._teardown_shared_memory()
         self._teardown_state()
         self._is_owner = False
         if self in self._contexts:
@@ -1091,7 +1098,7 @@ class AsyncServer(BaseServer):
                 self._exit_future.set_result(False)
                 return
             self._is_owner = True
-            self._setup_shm()
+            self._setup_shared_memory()
             await self._on_lifecycle_event(ServerLifecycleEvent.PROCESS_BOOTED)
         logger.info(log_prefix + "connecting ...")
         await self._on_lifecycle_event(ServerLifecycleEvent.CONNECTING)
@@ -1146,7 +1153,7 @@ class AsyncServer(BaseServer):
         if shutdown in (ServerShutdownEvent.QUIT, ServerShutdownEvent.DISCONNECT):
             await self._on_lifecycle_event(ServerLifecycleEvent.OSC_DISCONNECTED)
         if owned:
-            self._teardown_shm()
+            self._teardown_shared_memory()
         self._teardown_state()
         self._is_owner = False
         if self in self._contexts:
