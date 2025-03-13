@@ -12,11 +12,10 @@ protocols
 
    .. automethod:: __enter__
    .. automethod:: __exit__
+   .. automethod:: __getitem__
    .. automethod:: __iter__
    .. automethod:: __len__
    .. automethod:: filtered
-   .. autoproperty:: received_messages
-   .. autoproperty:: sent_messages
 
 .. autoclass:: CaptureEntry
    :show-inheritance:

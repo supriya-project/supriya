@@ -46,6 +46,7 @@ realtime
    .. automethod:: unregister_lifecycle_callback
    .. autoproperty:: default_group
    .. autoproperty:: is_owner
+   .. autoproperty:: shared_memory
    .. autoproperty:: status
 
 .. autoclass:: Server
