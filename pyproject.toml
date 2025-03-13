@@ -51,7 +51,7 @@ docs = [
   "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
 ]
 test = [
-  "black >= 24.0.0",
+  "black[jupyter] >= 24.0.0",
   "flake8 >= 7.0.0",
   "isort >= 5.0.0",
   "jupyterlab",
