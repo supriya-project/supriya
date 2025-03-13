@@ -23,9 +23,9 @@ def test_shared_memory(server: Server) -> None:
     assert server.shared_memory[bus] == 0.0
     assert server.shared_memory[bus_group] == [0.0] * len(bus_group)
     assert server.shared_memory[int(bus)] == 0.0
-    assert server.shared_memory[int(bus_group) : int(bus_group) + len(bus_group)] == [0.0] * len(
-        bus_group
-    )
+    assert server.shared_memory[int(bus_group) : int(bus_group) + len(bus_group)] == [
+        0.0
+    ] * len(bus_group)
 
     random.shuffle(values)
     server.shared_memory[int(bus)] = values[-1]
