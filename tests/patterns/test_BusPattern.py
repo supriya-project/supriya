@@ -12,6 +12,7 @@ from supriya.patterns import (
     NodeFreeEvent,
     NoteEvent,
     NullEvent,
+    ParallelPattern,
     SequencePattern,
     SynthAllocateEvent,
 )
@@ -149,6 +150,150 @@ from supriya.patterns.testutils import run_pattern_test
                         NullEvent(delta=0.25),
                         NodeFreeEvent(M("E")),
                         BusFreeEvent(M("D")),
+                    ]
+                ),
+                CompositeEvent(
+                    [
+                        NodeFreeEvent(M("C")),
+                        NullEvent(delta=0.25),
+                        NodeFreeEvent(M("B")),
+                        BusFreeEvent(M("A")),
+                    ]
+                ),
+            ],
+            False,
+        ),
+        (
+            None,
+            ParallelPattern(
+                [
+                    BusPattern(
+                        EventPattern(a=SequencePattern([1, 2])), channel_count=2
+                    ),
+                    BusPattern(
+                        EventPattern(a=SequencePattern([1, 2])), channel_count=2
+                    ),
+                ]
+            ),
+            "audio",
+            2,
+            0.25,
+            [
+                CompositeEvent(
+                    [
+                        BusAllocateEvent(
+                            M("A"),
+                            calculation_rate=CalculationRate.AUDIO,
+                            channel_count=2,
+                        ),
+                        GroupAllocateEvent(M("B")),
+                        SynthAllocateEvent(
+                            M("C"),
+                            synthdefs.system_link_audio_2,
+                            add_action=AddAction.ADD_AFTER,
+                            amplitude=1.0,
+                            fade_time=0.25,
+                            in_=M("A"),
+                            target_node=M("B"),
+                        ),
+                    ]
+                ),
+                CompositeEvent(
+                    [
+                        CompositeEvent(
+                            [
+                                BusAllocateEvent(
+                                    M("D"),
+                                    calculation_rate=CalculationRate.AUDIO,
+                                    channel_count=2,
+                                ),
+                                GroupAllocateEvent(M("E"), target_node=M("B")),
+                                SynthAllocateEvent(
+                                    M("F"),
+                                    synthdefs.system_link_audio_2,
+                                    add_action=AddAction.ADD_AFTER,
+                                    amplitude=1.0,
+                                    fade_time=0.25,
+                                    in_=M("D"),
+                                    out=M("A"),
+                                    target_node=M("E"),
+                                ),
+                            ]
+                        ),
+                        NoteEvent(
+                            M("G"),
+                            a=1,
+                            delta=0.0,
+                            out=M("D"),
+                            target_node=M("E"),
+                        ),
+                        CompositeEvent(
+                            [
+                                BusAllocateEvent(
+                                    M("H"),
+                                    calculation_rate=CalculationRate.AUDIO,
+                                    channel_count=2,
+                                ),
+                                GroupAllocateEvent(M("I"), target_node=M("B")),
+                                SynthAllocateEvent(
+                                    M("J"),
+                                    synthdefs.system_link_audio_2,
+                                    add_action=AddAction.ADD_AFTER,
+                                    amplitude=1.0,
+                                    fade_time=0.25,
+                                    in_=M("H"),
+                                    out=M("A"),
+                                    target_node=M("I"),
+                                ),
+                            ]
+                        ),
+                        NoteEvent(
+                            M("K"),
+                            a=1,
+                            delta=0.0,
+                            out=M("H"),
+                            target_node=M("I"),
+                        ),
+                    ],
+                    delta=1.0,
+                ),
+                CompositeEvent(
+                    [
+                        NoteEvent(
+                            M("L"),
+                            a=2,
+                            delta=0.0,
+                            out=M("D"),
+                            target_node=M("E"),
+                        ),
+                        NoteEvent(
+                            M("M"),
+                            a=2,
+                            delta=0.0,
+                            out=M("H"),
+                            target_node=M("I"),
+                        ),
+                    ],
+                    delta=1.0,
+                ),
+                CompositeEvent(
+                    [
+                        CompositeEvent(
+                            [
+                                NodeFreeEvent(M("F")),
+                                NullEvent(delta=0.25),
+                                NodeFreeEvent(M("E")),
+                                BusFreeEvent(M("D")),
+                            ]
+                        ),
+                        CompositeEvent(
+                            [
+                                NodeFreeEvent(M("J")),
+                                NullEvent(delta=0.25),
+                                NodeFreeEvent(M("I")),
+                                BusFreeEvent(M("H")),
+                            ]
+                        ),
                     ]
                 ),
                 CompositeEvent(
