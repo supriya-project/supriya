@@ -574,6 +574,9 @@ class Server(BaseServer):
 
     def _on_lifecycle_event(self, event: ServerLifecycleEvent) -> None:
         for callback in self._lifecycle_event_callbacks.get(event, []):
+            logger.info(
+                self._log_prefix() + f"lifecycle event: {event.name} {callback}"
+            )
             callback.procedure(event, *(callback.args or ()), **(callback.kwargs or {}))
             if callback.once:
                 self.unregister_lifecycle_callback(callback)
@@ -1179,6 +1182,9 @@ class AsyncServer(BaseServer):
 
     async def _on_lifecycle_event(self, event: ServerLifecycleEvent) -> None:
         for callback in self._lifecycle_event_callbacks.get(event, []):
+            logger.info(
+                self._log_prefix() + f"lifecycle event: {event.name} {callback}"
+            )
             if asyncio.iscoroutine(
                 result := callback.procedure(
                     event, *(callback.args or ()), **(callback.kwargs or {})
