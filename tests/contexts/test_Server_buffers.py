@@ -2,7 +2,6 @@ import asyncio
 import concurrent.futures
 import logging
 import random
-import sys
 from pathlib import Path
 
 import pytest
@@ -296,9 +295,10 @@ def test_generate_buffer(context):
 @pytest.mark.asyncio
 async def test_get_buffer(context):
     buffer = context.add_buffer(channel_count=1, frame_count=512)
-    exception_classes = (concurrent.futures.TimeoutError,)
-    if sys.version_info >= (3, 8):
-        exception_classes += (asyncio.exceptions.TimeoutError,)
+    exception_classes = (
+        concurrent.futures.TimeoutError,
+        asyncio.exceptions.TimeoutError,
+    )
     with pytest.raises(exception_classes):
         await get(buffer.get(1))
     await get(context.sync())
@@ -314,9 +314,10 @@ async def test_get_buffer(context):
 @pytest.mark.asyncio
 async def test_get_buffer_range(context):
     buffer = context.add_buffer(channel_count=1, frame_count=512)
-    exception_classes = (concurrent.futures.TimeoutError,)
-    if sys.version_info >= (3, 8):
-        exception_classes += (asyncio.exceptions.TimeoutError,)
+    exception_classes = (
+        concurrent.futures.TimeoutError,
+        asyncio.exceptions.TimeoutError,
+    )
     with pytest.raises(exception_classes):
         await get(context.get_buffer_range(100, 1, 3))  # no such buffer exists
     await get(context.sync())
