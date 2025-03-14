@@ -15,7 +15,6 @@ from typing import (
     SupportsFloat,
     Tuple,
     Union,
-    cast,
 )
 
 from ..assets.synthdefs.default import default
@@ -23,14 +22,13 @@ from ..enums import AddAction, CalculationRate
 from ..io import PlayMemo
 from ..typing import AddActionLike, HeaderFormatLike, SampleFormatLike, SupportsRender
 from ..ugens import SynthDef
-from .errors import InvalidCalculationRate, InvalidMoment
+from .errors import ContextError, InvalidCalculationRate, InvalidMoment
 from .responses import BufferInfo, NodeInfo, QueryTreeGroup
 
 if TYPE_CHECKING:
     import numpy
 
     from .core import Completion, Context
-    from .realtime import AsyncServer, BaseServer, Server
 
 
 @dataclasses.dataclass(frozen=True)
@@ -62,7 +60,11 @@ class ContextObject:
         """
         Get the context object's allocation status.
         """
-        return self in cast("BaseServer", self.context)
+        from .realtime import BaseServer
+
+        if not isinstance(self.context, BaseServer):
+            raise ContextError
+        return self in self.context
 
 
 @dataclasses.dataclass(frozen=True)
@@ -94,12 +96,17 @@ class Buffer(ContextObject):
         return self.completion.__exit__(*args)
 
     def __plot__(self) -> Tuple["numpy.ndarray", float]:
+        # TODO: Make this async compatible.
         import librosa
 
+        from .realtime import Server
+
+        if not isinstance(self.context, Server):
+            raise ContextError
         with tempfile.TemporaryDirectory() as temp_directory:
             file_path = Path(temp_directory) / "tmp.wav"
             self.write(file_path=file_path, header_format="wav", sample_format="int32")
-            cast("Server", self.context).sync()
+            self.context.sync()
             return librosa.load(file_path, mono=False, sr=None)
 
     def __render_memo__(
@@ -108,10 +115,15 @@ class Buffer(ContextObject):
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
     ) -> SupportsRender:
+        # TODO: Make this async compatible.
+        from .realtime import Server
+
+        if not isinstance(self.context, Server):
+            raise ContextError
         with tempfile.TemporaryDirectory() as temp_directory:
             path = Path(temp_directory) / "tmp.wav"
             self.write(file_path=path, header_format="wav", sample_format="int32")
-            cast("Server", self.context).sync()
+            self.context.sync()
             return PlayMemo.from_path(path)
 
     def close(
@@ -227,9 +239,11 @@ class Buffer(ContextObject):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        return cast(Union["AsyncServer", "Server"], self.context).get_buffer(
-            self, *indices, sync=sync
-        )
+        from .realtime import AsyncServer, Server
+
+        if not isinstance(self.context, (AsyncServer, Server)):
+            raise ContextError
+        return self.context.get_buffer(self, *indices, sync=sync)
 
     def get_range(
         self, index: int, count: int, sync: bool = True
@@ -244,9 +258,11 @@ class Buffer(ContextObject):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        return cast(Union["AsyncServer", "Server"], self.context).get_buffer_range(
-            self, index, count, sync=sync
-        )
+        from .realtime import AsyncServer, Server
+
+        if not isinstance(self.context, (AsyncServer, Server)):
+            raise ContextError
+        return self.context.get_buffer_range(self, index, count, sync=sync)
 
     def normalize(self, new_maximum: float = 1.0, as_wavetable: bool = False) -> None:
         """
@@ -272,9 +288,11 @@ class Buffer(ContextObject):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        return cast(Union["AsyncServer", "Server"], self.context).query_buffer(
-            self, sync=sync
-        )
+        from .realtime import AsyncServer, Server
+
+        if not isinstance(self.context, (AsyncServer, Server)):
+            raise ContextError
+        return self.context.query_buffer(self, sync=sync)
 
     def read(
         self,
@@ -472,9 +490,11 @@ class Bus(ContextObject):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        return cast(Union["AsyncServer", "Server"], self.context).get_bus(
-            self, sync=sync
-        )
+        from .realtime import AsyncServer, Server
+
+        if not isinstance(self.context, (AsyncServer, Server)):
+            raise ContextError
+        return self.context.get_bus(self, sync=sync)
 
     def get_range(
         self, count: int, sync: bool = True
@@ -488,9 +508,11 @@ class Bus(ContextObject):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        return cast(Union["AsyncServer", "Server"], self.context).get_bus_range(
-            self, count, sync=sync
-        )
+        from .realtime import AsyncServer, Server
+
+        if not isinstance(self.context, (AsyncServer, Server)):
+            raise ContextError
+        return self.context.get_bus_range(self, count, sync=sync)
 
     def map_symbol(self) -> str:
         """
@@ -575,9 +597,11 @@ class BusGroup(ContextObject):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        return cast(Union["AsyncServer", "Server"], self.context).get_bus_range(
-            bus=self[0], count=len(self), sync=sync
-        )
+        from .realtime import AsyncServer, Server
+
+        if not isinstance(self.context, (AsyncServer, Server)):
+            raise ContextError
+        return self.context.get_bus_range(bus=self[0], count=len(self), sync=sync)
 
     def map_symbol(self) -> str:
         """
@@ -731,9 +755,11 @@ class Node(ContextObject):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        return cast(Union["AsyncServer", "Server"], self.context).query_node(
-            self, sync=sync
-        )
+        from .realtime import AsyncServer, Server
+
+        if not isinstance(self.context, (AsyncServer, Server)):
+            raise ContextError
+        return self.context.query_node(self, sync=sync)
 
     def set(
         self,
@@ -784,14 +810,22 @@ class Node(ContextObject):
         """
         Get the node's paused/unpaused status.
         """
-        return cast("BaseServer", self.context)._node_active.get(self.id_, True)
+        from .realtime import BaseServer
+
+        if not isinstance(self.context, BaseServer):
+            raise ContextError
+        return self.context._node_active.get(self.id_, True)
 
     @property
     def parent(self) -> Optional["Group"]:
         """
         Get the node's parent, as currently cached on the context.
         """
-        parent_id = cast("BaseServer", self.context)._node_parents.get(self.id_)
+        from .realtime import BaseServer
+
+        if not isinstance(self.context, BaseServer):
+            raise ContextError
+        parent_id = self.context._node_parents.get(self.id_)
         if parent_id is None:
             return None
         elif parent_id == 0:
@@ -803,13 +837,18 @@ class Node(ContextObject):
         """
         Get the node's parentage, as currently cached on the context.
         """
-        context = cast("BaseServer", self.context)
+        from .realtime import BaseServer
+
+        if not isinstance(self.context, BaseServer):
+            raise ContextError
         parentage: List["Node"] = [self]
-        while (parent_id := context._node_parents.get(parentage[-1].id_)) is not None:
+        while (
+            parent_id := self.context._node_parents.get(parentage[-1].id_)
+        ) is not None:
             if parent_id:
-                parentage.append(Group(context=context, id_=parent_id))
+                parentage.append(Group(context=self.context, id_=parent_id))
             else:
-                parentage.append(context.root_node)
+                parentage.append(self.context.root_node)
         return parentage
 
 
@@ -839,7 +878,11 @@ class Group(Node):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        return cast(Union["AsyncServer", "Server"], self.context).dump_tree(
+        from .realtime import AsyncServer, Server
+
+        if not isinstance(self.context, (AsyncServer, Server)):
+            raise ContextError
+        return self.context.dump_tree(
             group=self, include_controls=include_controls, sync=sync
         )
 
@@ -867,7 +910,11 @@ class Group(Node):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        return cast(Union["AsyncServer", "Server"], self.context).query_tree(
+        from .realtime import AsyncServer, Server
+
+        if not isinstance(self.context, (AsyncServer, Server)):
+            raise ContextError
+        return self.context.query_tree(
             group=self, include_controls=include_controls, sync=sync
         )
 
@@ -876,9 +923,13 @@ class Group(Node):
         """
         Get the group's children, as currently cached on the context.
         """
+        from .realtime import BaseServer
+
+        if not isinstance(self.context, BaseServer):
+            raise ContextError
         children: List[Node] = []
-        for id_ in cast("BaseServer", self.context)._node_children.get(self.id_, []):
-            if id_ in cast("BaseServer", self.context)._node_children:
+        for id_ in self.context._node_children.get(self.id_, []):
+            if id_ in self.context._node_children:
                 children.append(Group(context=self.context, id_=id_))
             else:
                 # cannot get synthdef name without running /g_queryTree
@@ -931,9 +982,11 @@ class Synth(Node):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        return cast(Union["AsyncServer", "Server"], self.context).get_synth_controls(
-            self, *controls, sync=sync
-        )
+        from .realtime import AsyncServer, Server
+
+        if not isinstance(self.context, (AsyncServer, Server)):
+            raise ContextError
+        return self.context.get_synth_controls(self, *controls, sync=sync)
 
     def get_range(
         self, control: Union[int, str], count: int, sync: bool = True
@@ -951,9 +1004,11 @@ class Synth(Node):
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
         """
-        return cast(
-            Union["AsyncServer", "Server"], self.context
-        ).get_synth_control_range(self, control, count, sync=sync)
+        from .realtime import AsyncServer, Server
+
+        if not isinstance(self.context, (AsyncServer, Server)):
+            raise ContextError
+        return self.context.get_synth_control_range(self, control, count, sync=sync)
 
     @property
     def _valid_add_actions(self) -> Container[int]:
