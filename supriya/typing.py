@@ -38,8 +38,14 @@ class Default:
     pass
 
 
+DEFAULT = Default()
+
+
 class Missing:
     pass
+
+
+MISSING = Missing()
 
 
 @runtime_checkable
