@@ -19,6 +19,8 @@
 
 #pragma once
 
+#define BOOST_ALL_NO_LIB
+
 #include "scope_buffer.hpp"
 
 #include <boost/version.hpp>
