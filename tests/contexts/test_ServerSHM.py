@@ -6,9 +6,6 @@ import pytest
 from supriya import Server
 
 
-@pytest.mark.skipif(
-    platform.system() == "Windows", reason="SHM not built under Windows"
-)
 def test_shared_memory(server: Server) -> None:
     from supriya.contexts.shm import ServerSHM
 
