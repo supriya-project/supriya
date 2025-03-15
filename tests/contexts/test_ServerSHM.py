@@ -1,13 +1,10 @@
-import platform
 import random
 
-import pytest
-
 from supriya import Server
+from supriya.contexts.shm import ServerSHM
 
 
 def test_shared_memory(server: Server) -> None:
-    from supriya.contexts.shm import ServerSHM
 
     assert isinstance(server.shared_memory, ServerSHM)
 
