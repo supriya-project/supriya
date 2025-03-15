@@ -482,6 +482,7 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
             and context.shared_memory
         ):
             return context.shared_memory[bus.id_ : bus.id_ + len(bus)]
+        # TODO: Implement SHM on Windows
         return (0.0,) * 2
 
     @property
