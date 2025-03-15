@@ -21,23 +21,20 @@ extensions = [
         "supriya.utils._intervals",
         language="c",
         sources=["supriya/utils/_intervals.pyx"],
-    )
+    ),
+    Extension(
+        "supriya.contexts.shm",
+        include_dirs=[
+            "vendor",
+            "vendor/TLSF-2.4.6/src",
+            "vendor/supercollider/common",
+        ],
+        language="c++",
+        libraries=["rt"] if platform.system() == "Linux" else [],
+        sources=["supriya/contexts/shm.pyx"],
+    ),
 ]
 
-if platform.system() != "Windows":
-    extensions.append(
-        Extension(
-            "supriya.contexts.shm",
-            include_dirs=[
-                "vendor",
-                "vendor/TLSF-2.4.6/src",
-                "vendor/supercollider/common",
-            ],
-            language="c++",
-            libraries=["rt"] if platform.system() == "Linux" else [],
-            sources=["supriya/contexts/shm.pyx"],
-        )
-    )
 
 if __name__ == "__main__":
     setup(

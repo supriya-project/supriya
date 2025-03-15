@@ -141,10 +141,8 @@ jobs:
       run: |
         python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
         python -c "from supriya.utils._intervals import IntervalTreeDriverEx; print(IntervalTreeDriverEx)"
+        python -c "from supriya.contexts.shm import ServerSHM; print(ServerSHM)"
       timeout-minutes: 1
-    - name: Sanity-check Supriya SHM (Non-Windows)
-      if: ${{ matrix.os != 'windows-latest' }}
-      run: python -c "from supriya.contexts.shm import ServerSHM; print(ServerSHM)"
     - name: Check for stray processes (Non-Windows)
       if: ${{ matrix.os != 'windows-latest' }}
       run: |

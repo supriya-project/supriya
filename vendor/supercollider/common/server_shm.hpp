@@ -85,12 +85,24 @@ public:
     }
 
 private:
-    string shmem_name;
+#if defined(_WIN64)
+	// Note: this shared memory structure is 32 bytes on the SuperCollider side in 64 bit
+	// at least on a release build which is typically used.
+	// But! A string on windows (or any platform for that matter) does not guarantee that it will consume 32 bytes of memory.
+	// A debug build of windows has this structure bigger than 32 and breaks
+	uint8_t shmem_name[32];
+#else
+#if defined(_WIN32)
+	// ... and on Win32 a debug build has this north of 24, but SC has 24
+	uint8_t shmem_name[24];
+#else
+	string shmem_name;
+#endif
+#endif
     sh_float_ptr control_busses_; // control busses
     scope_buffer_vector scope_buffers;
 };
 
-/*
 class server_shared_memory_creator {
 public:
     server_shared_memory_creator(unsigned int port_number, unsigned int control_busses):
@@ -141,7 +153,6 @@ private:
 protected:
     server_shared_memory* shm;
 };
-*/
 
 
 class server_shared_memory_client {
@@ -176,4 +187,4 @@ using detail_server_shm::scope_buffer;
 using detail_server_shm::scope_buffer_reader;
 using detail_server_shm::scope_buffer_writer;
 using detail_server_shm::server_shared_memory_client;
-// using detail_server_shm::server_shared_memory_creator;
+using detail_server_shm::server_shared_memory_creator;
