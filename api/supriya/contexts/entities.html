@@ -1606,12 +1606,36 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#supriya.contexts.entities.BusGroup.get" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="supriya.contexts.entities.BusGroup.get (Python method) — Get the control bus group&#39;s values.">get</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#supriya.contexts.entities.BusGroup.map_symbol" class="md-nav__link">
     
       <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
     
     <span class="md-ellipsis">
       <span title="supriya.contexts.entities.BusGroup.map_symbol (Python method) — Get the bus group&#39;s map symbol.">map_<wbr>symbol</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.contexts.entities.BusGroup.set" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="supriya.contexts.entities.BusGroup.set (Python method) — Set a range of control buses.">set</span>
     </span>
   </a>
   
@@ -4416,12 +4440,36 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#supriya.contexts.entities.BusGroup.get" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="supriya.contexts.entities.BusGroup.get (Python method) — Get the control bus group&#39;s values.">get</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#supriya.contexts.entities.BusGroup.map_symbol" class="md-nav__link">
     
       <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
     
     <span class="md-ellipsis">
       <span title="supriya.contexts.entities.BusGroup.map_symbol (Python method) — Get the bus group&#39;s map symbol.">map_<wbr>symbol</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.contexts.entities.BusGroup.set" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="supriya.contexts.entities.BusGroup.set (Python method) — Set a range of control buses.">set</span>
     </span>
   </a>
   
@@ -5430,9 +5478,40 @@ with the current request context.</p>
 </dd></dl>
 
 <dl class="py method objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="supriya.contexts.entities.BusGroup.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#supriya.contexts.entities.BusGroup.get.sync" title="supriya.contexts.entities.BusGroup.get.sync (Python parameter) — If true, communicate the request immediately."><span class="n"><span class="pre">sync</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable" title="(in Python v3.13)"><span class="pre">Awaitable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span></span><a class="headerlink" href="#supriya.contexts.entities.BusGroup.get" title="Link to this definition">¶</a></dt>
+<dd><p>Get the control bus group’s values.</p>
+<p>Emit <code class="docutils literal notranslate"><span class="pre">/c_getn</span></code> requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple api-field highlight">
+<dt id="supriya.contexts.entities.BusGroup.get.sync"><span class="n sig-name">sync</span><span class="p">:</span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></span></span><span class="w"> </span><span class="o">=</span><span class="w"> </span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#supriya.contexts.entities.BusGroup.get.sync" title="Permalink to this definition">¶</a></dt><dd><p>If true, communicate the request immediately. Otherwise bundle it
+with the current request context.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method objdesc">
 <dt class="sig sig-object highlight py" id="supriya.contexts.entities.BusGroup.map_symbol">
 <span class="sig-name descname"><span class="pre">map_symbol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span></span><a class="headerlink" href="#supriya.contexts.entities.BusGroup.map_symbol" title="Link to this definition">¶</a></dt>
 <dd><p>Get the bus group’s map symbol.</p>
+</dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.contexts.entities.BusGroup.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#supriya.contexts.entities.BusGroup.set.values" title="supriya.contexts.entities.BusGroup.set.values (Python parameter) — The values to write."><span class="n"><span class="pre">values</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span></span><a class="headerlink" href="#supriya.contexts.entities.BusGroup.set" title="Link to this definition">¶</a></dt>
+<dd><p>Set a range of control buses.</p>
+<p>Emit <code class="docutils literal notranslate"><span class="pre">/c_setn</span></code> or <code class="docutils literal notranslate"><span class="pre">/c_fill</span></code> requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple api-field highlight">
+<dt id="supriya.contexts.entities.BusGroup.set.values"><span class="n sig-name">values</span><span class="p">:</span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a><span class="w"> </span><span class="p">|</span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)">Sequence</a><span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a><span class="p">]</span></span></span><a class="headerlink" href="#supriya.contexts.entities.BusGroup.set.values" title="Permalink to this definition">¶</a></dt><dd><p>The values to write. If a float is passed, use that as a fill.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

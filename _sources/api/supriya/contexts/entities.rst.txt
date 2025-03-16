@@ -59,7 +59,9 @@ entities
    .. automethod:: __post_init__
    .. automethod:: __replace__
    .. automethod:: free
+   .. automethod:: get
    .. automethod:: map_symbol
+   .. automethod:: set
 
 .. autoclass:: ContextObject
    :show-inheritance:
