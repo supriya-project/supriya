@@ -2,8 +2,11 @@ import asyncio
 import logging
 import platform
 import random
+import warnings
+from typing import Literal, Type
 
 import pytest
+from pytest import MonkeyPatch
 
 from supriya.contexts.realtime import (
     DEFAULT_HEALTHCHECK,
@@ -30,7 +33,12 @@ supernova = pytest.param(
 )
 
 
-def setup_context(context_class, *, async_callback=False, name=None):
+def setup_context(
+    context_class: Type[AsyncServer | Server],
+    *,
+    async_callback: bool = False,
+    name: str | None = None,
+) -> tuple[AsyncServer | Server, list[ServerLifecycleEvent]]:
     def on_event(event: ServerLifecycleEvent) -> None:
         events.append(event)
 
@@ -38,11 +46,16 @@ def setup_context(context_class, *, async_callback=False, name=None):
         await asyncio.sleep(0)
         events.append(event)
 
-    events = []
-    context = context_class(name=name)
-    callback = on_event_async if async_callback else on_event
-    for event in ServerLifecycleEvent:
-        context.register_lifecycle_callback(event, callback)
+    events: list[ServerLifecycleEvent] = []
+    context: AsyncServer | Server = context_class(name=name)
+    if isinstance(context, AsyncServer):
+        for event in ServerLifecycleEvent:
+            context.register_lifecycle_callback(
+                event, on_event_async if async_callback else on_event
+            )
+    else:
+        for event in ServerLifecycleEvent:
+            context.register_lifecycle_callback(event, on_event)
     return context, events
 
 
@@ -62,12 +75,12 @@ logger = logging.getLogger(__name__)
 
 
 @pytest.fixture(autouse=True)
-def use_caplog(caplog):
+def use_caplog(caplog) -> None:
     caplog.set_level(logging.INFO)
 
 
 @pytest.fixture(autouse=True)
-def healthcheck_attempts(monkeypatch):
+def healthcheck_attempts(monkeypatch: MonkeyPatch) -> None:
     monkeypatch.setattr(DEFAULT_HEALTHCHECK, "max_attempts", 1)
 
 
@@ -77,7 +90,11 @@ def healthcheck_attempts(monkeypatch):
     "async_callback, context_class",
     [(False, AsyncServer), (True, AsyncServer), (False, Server)],
 )
-async def test_boot_only(async_callback, context_class, executable):
+async def test_boot_only(
+    async_callback: bool,
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
+) -> None:
     context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
@@ -103,7 +120,11 @@ async def test_boot_only(async_callback, context_class, executable):
     "async_callback, context_class",
     [(False, AsyncServer), (True, AsyncServer), (False, Server)],
 )
-async def test_boot_and_quit(async_callback, context_class, executable):
+async def test_boot_and_quit(
+    async_callback: bool,
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
+) -> None:
     context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
@@ -147,7 +168,11 @@ async def test_boot_and_quit(async_callback, context_class, executable):
     "async_callback, context_class",
     [(False, AsyncServer), (True, AsyncServer), (False, Server)],
 )
-async def test_boot_and_boot(async_callback, context_class, executable):
+async def test_boot_and_boot(
+    async_callback: bool,
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
+) -> None:
     context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
@@ -184,7 +209,11 @@ async def test_boot_and_boot(async_callback, context_class, executable):
     "async_callback, context_class",
     [(False, AsyncServer), (True, AsyncServer), (False, Server)],
 )
-async def test_boot_and_quit_and_quit(async_callback, context_class, executable):
+async def test_boot_and_quit_and_quit(
+    async_callback: bool,
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
+) -> None:
     context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
@@ -244,7 +273,11 @@ async def test_boot_and_quit_and_quit(async_callback, context_class, executable)
     "async_callback, context_class",
     [(False, AsyncServer), (True, AsyncServer), (False, Server)],
 )
-async def test_boot_and_connect(async_callback, context_class, executable):
+async def test_boot_and_connect(
+    async_callback: bool,
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
+) -> None:
     context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
@@ -281,7 +314,11 @@ async def test_boot_and_connect(async_callback, context_class, executable):
     "async_callback, context_class",
     [(False, AsyncServer), (True, AsyncServer), (False, Server)],
 )
-async def test_boot_a_and_boot_b_cannot_boot(async_callback, context_class, executable):
+async def test_boot_a_and_boot_b_cannot_boot(
+    async_callback: bool,
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
+) -> None:
     context_a, events_a = setup_context(
         context_class, async_callback=async_callback, name="one"
     )
@@ -330,8 +367,10 @@ async def test_boot_a_and_boot_b_cannot_boot(async_callback, context_class, exec
     [(False, AsyncServer), (True, AsyncServer), (False, Server)],
 )
 async def test_boot_a_and_connect_b_too_many_clients(
-    async_callback, context_class, executable
-):
+    async_callback: bool,
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
+) -> None:
     context_a, events_a = setup_context(
         context_class, async_callback=async_callback, name="one"
     )
@@ -354,8 +393,11 @@ async def test_boot_a_and_connect_b_too_many_clients(
     ]
     assert events_b == []
     #
-    with pytest.raises(TooManyClients):
-        await get(context_b.connect())
+    with warnings.catch_warnings(record=True) as w:
+        with pytest.raises(TooManyClients):
+            await get(context_b.connect())
+        assert len(w) == 1
+        assert str(w[-1].message) == "/notify too many users"
     assert context_a.boot_status == BootStatus.ONLINE and context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
     assert events_a == [
@@ -380,8 +422,10 @@ async def test_boot_a_and_connect_b_too_many_clients(
     [(False, AsyncServer), (True, AsyncServer), (False, Server)],
 )
 async def test_boot_a_and_connect_b_and_quit_a(
-    async_callback, context_class, executable
-):
+    async_callback: bool,
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
+) -> None:
     logger.warning("START")
     context_a, events_a = setup_context(
         context_class, async_callback=async_callback, name="one"
@@ -481,8 +525,10 @@ async def test_boot_a_and_connect_b_and_quit_a(
     [(False, AsyncServer), (True, AsyncServer), (False, Server)],
 )
 async def test_boot_a_and_connect_b_and_disconnect_b(
-    async_callback, context_class, executable
-):
+    async_callback: bool,
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
+) -> None:
     context_a, events_a = setup_context(
         context_class, async_callback=async_callback, name="one"
     )
@@ -538,8 +584,10 @@ async def test_boot_a_and_connect_b_and_disconnect_b(
     [(False, AsyncServer), (True, AsyncServer), (False, Server)],
 )
 async def test_boot_a_and_connect_b_and_disconnect_a(
-    async_callback, context_class, executable
-):
+    async_callback: bool,
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
+) -> None:
     context_a, events_a = setup_context(
         context_class, async_callback=async_callback, name="one"
     )
@@ -594,7 +642,7 @@ async def test_boot_a_and_connect_b_and_disconnect_a(
 )
 async def test_boot_a_and_connect_b_and_quit_b(
     async_callback, context_class, executable
-):
+) -> None:
     context_a, events_a = setup_context(
         context_class, async_callback=async_callback, name="one"
     )
@@ -648,8 +696,10 @@ async def test_boot_a_and_connect_b_and_quit_b(
     [(False, AsyncServer), (True, AsyncServer), (False, Server)],
 )
 async def test_boot_a_and_connect_b_and_force_quit_b(
-    async_callback, context_class, executable
-):
+    async_callback: bool,
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
+) -> None:
     logger.warning("START")
     context_a, events_a = setup_context(
         context_class, async_callback=async_callback, name="one"
@@ -726,7 +776,10 @@ async def test_boot_a_and_connect_b_and_force_quit_b(
 @pytest.mark.asyncio
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
 @pytest.mark.parametrize("context_class", [AsyncServer, Server])
-async def test_boot_reboot_sticky_options(context_class, executable):
+async def test_boot_reboot_sticky_options(
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
+) -> None:
     """
     Options persist across booting and quitting.
     """
@@ -751,7 +804,9 @@ async def test_boot_reboot_sticky_options(context_class, executable):
     [(False, AsyncServer), (True, AsyncServer), (False, Server)],
 )
 async def test_boot_a_and_connect_b_and_kill(
-    async_callback, context_class, executable
+    async_callback: bool,
+    context_class: Type[AsyncServer | Server],
+    executable: Literal["scsynth", "supernova"],
 ) -> None:
     logger.warning("START")
     context_a, events_a = setup_context(

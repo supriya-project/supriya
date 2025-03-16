@@ -21,6 +21,9 @@ from typing import (
 from ..enums import NodeAction
 from ..osc import OscMessage
 
+# Editorial: It's annoying not having stronger (generated) type guarantees
+# about OSC messages received from the server.
+
 
 @dataclasses.dataclass
 class Response:
@@ -71,7 +74,12 @@ class BufferInfo(Response):
     def from_osc(cls, osc_message: OscMessage) -> "Response":
         return cls(
             items=[
-                cls.Item(*osc_message.contents[i : i + 4])
+                cls.Item(
+                    buffer_id=cast(int, osc_message.contents[i]),
+                    frame_count=cast(int, osc_message.contents[i + 1]),
+                    channel_count=cast(int, osc_message.contents[i + 2]),
+                    sample_rate=cast(float, osc_message.contents[i + 3]),
+                )
                 for i in range(0, len(osc_message.contents), 4)
             ]
         )
@@ -88,7 +96,8 @@ class DoneInfo(Response):
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        command_name, *other = osc_message.contents
+        command_name = cast(str, osc_message.contents[0])
+        other = cast(Sequence[float | str], osc_message.contents[1:])
         return cls(command_name=command_name, other=other)
 
 
@@ -105,9 +114,9 @@ class FailInfo(Response):
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
         return cls(
-            command_name=osc_message.contents[0],
-            error=osc_message.contents[1],
-            other=osc_message.contents[2:],
+            command_name=cast(str, osc_message.contents[0]),
+            error=cast(str, osc_message.contents[1]),
+            other=cast(Sequence[float | str], osc_message.contents[2:]),
         )
 
 
@@ -122,11 +131,12 @@ class GetBufferInfo(Response):
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        buffer_id = osc_message.contents[0]
+        buffer_id = cast(int, osc_message.contents[0])
         items: List[Tuple[int, float]] = []
         for i in range(1, len(osc_message.contents), 2):
-            index, value = osc_message.contents[i : i + 2]
-            items.append((int(index), float(value)))
+            index = cast(int, osc_message.contents[i])
+            value = cast(float, osc_message.contents[i + 1])
+            items.append((index, value))
         return cls(buffer_id=buffer_id, items=items)
 
 
@@ -141,13 +151,17 @@ class GetBufferRangeInfo(Response):
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        buffer_id = osc_message.contents[0]
+        buffer_id = cast(int, osc_message.contents[0])
         items: List[Tuple[int, Sequence[float]]] = []
         current_index = 1
         while current_index < len(osc_message.contents):
-            index, count = osc_message.contents[current_index : current_index + 2]
+            index = cast(int, osc_message.contents[current_index])
+            count = cast(int, osc_message.contents[current_index + 1])
             current_index += 2
-            values = osc_message.contents[current_index : current_index + count]
+            values = cast(
+                Sequence[float],
+                osc_message.contents[current_index : current_index + count],
+            )
             items.append((index, tuple(values)))
             current_index += count
         return cls(buffer_id=buffer_id, items=items)
@@ -165,8 +179,9 @@ class GetControlBusInfo(Response):
     def from_osc(cls, osc_message: OscMessage) -> "Response":
         items: List[Tuple[int, float]] = []
         for i in range(0, len(osc_message.contents), 2):
-            index, value = osc_message.contents[i : i + 2]
-            items.append((int(index), float(value)))
+            index = cast(int, osc_message.contents[i])
+            value = cast(float, osc_message.contents[i + 1])
+            items.append((index, value))
         return cls(items=items)
 
 
@@ -183,9 +198,13 @@ class GetControlBusRangeInfo(Response):
         items: List[Tuple[int, Sequence[float]]] = []
         current_index = 0
         while current_index < len(osc_message.contents):
-            index, count = osc_message.contents[current_index : current_index + 2]
+            index = cast(int, osc_message.contents[current_index])
+            count = cast(int, osc_message.contents[current_index + 1])
             current_index += 2
-            values = osc_message.contents[current_index : current_index + count]
+            values = cast(
+                Sequence[float],
+                osc_message.contents[current_index : current_index + count],
+            )
             items.append((index, tuple(values)))
             current_index += count
         return cls(items=items)
@@ -198,20 +217,12 @@ class GetNodeControlInfo(Response):
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        node_id, *rest = osc_message.contents
+        node_id = cast(int, osc_message.contents[0])
         items: List[Tuple[Union[int, str], float]] = []
         for i in range(1, len(osc_message.contents), 2):
-            name_or_index, value = osc_message.contents[i : i + 2]
-            items.append(
-                (
-                    (
-                        name_or_index
-                        if isinstance(name_or_index, str)
-                        else int(name_or_index)
-                    ),
-                    float(value),
-                )
-            )
+            name_or_index = cast(int | str, osc_message.contents[i])
+            value = cast(float, osc_message.contents[i + 1])
+            items.append((name_or_index, value))
         return cls(node_id=node_id, items=items)
 
 
@@ -222,25 +233,18 @@ class GetNodeControlRangeInfo(Response):
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        node_id, *rest = osc_message.contents
+        node_id = cast(int, osc_message.contents[0])
         items: List[Tuple[Union[int, str], Sequence[float]]] = []
         current_index = 1
         while current_index < len(osc_message.contents):
-            name_or_index, count = osc_message.contents[
-                current_index : current_index + 2
-            ]
+            name_or_index = cast(int | str, osc_message.contents[current_index])
+            count = cast(int, osc_message.contents[current_index + 1])
             current_index += 2
-            values = osc_message.contents[current_index : current_index + count]
-            items.append(
-                (
-                    (
-                        name_or_index
-                        if isinstance(name_or_index, str)
-                        else int(name_or_index)
-                    ),
-                    tuple(values),
-                )
+            values = cast(
+                Sequence[float],
+                osc_message.contents[current_index : current_index + count],
             )
+            items.append((name_or_index, values))
             current_index += count
         return cls(node_id=node_id, items=items)
 
@@ -258,26 +262,23 @@ class NodeInfo(Response):
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        action = osc_message.address
-        (
-            node_id,
-            parent_id,
-            previous_id,
-            next_id,
-            is_group,
-            *rest,
-        ) = osc_message.contents
+        node_id = cast(int, osc_message.contents[0])
+        parent_id = cast(int, osc_message.contents[1])
+        previous_id = cast(int, osc_message.contents[2])
+        next_id = cast(int, osc_message.contents[3])
+        is_group = cast(bool, osc_message.contents[4])
         if is_group:
-            head_id: Optional[int] = int(rest[0])
-            tail_id: Optional[int] = int(rest[1])
+            head_id: int | None = cast(int, osc_message.contents[5])
+            tail_id: int | None = cast(int, osc_message.contents[6])
         else:
-            head_id, tail_id = None, None
+            head_id = None
+            tail_id = None
         return cls(
-            action=NodeAction.from_expr(action),
-            node_id=int(node_id),
-            parent_id=int(parent_id),
-            previous_id=int(previous_id),
-            next_id=int(next_id),
+            action=NodeAction.from_expr(osc_message.address),
+            node_id=node_id,
+            parent_id=parent_id,
+            previous_id=previous_id,
+            next_id=next_id,
             is_group=bool(is_group),
             head_id=head_id,
             tail_id=tail_id,
@@ -303,27 +304,31 @@ class QueryTreeInfo(Response):
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        flag = osc_message.contents[0]
-        node_id = int(osc_message.contents[1])
-        child_count = int(osc_message.contents[2])
+        flag = bool(osc_message.contents[0])
+        node_id = cast(int, osc_message.contents[1])
+        child_count = cast(int, osc_message.contents[2])
         items: List["QueryTreeInfo.Item"] = []
         index = 3
         while index < len(osc_message.contents):
-            child_id = int(osc_message.contents[index])
-            child_child_count = int(osc_message.contents[index + 1])
+            child_id = cast(int, osc_message.contents[index])
+            child_child_count = cast(int, osc_message.contents[index + 1])
             synthdef_name: Optional[str] = None
             controls: Optional[Dict[Union[int, str], Union[float, str]]] = None
             index += 2
             if child_child_count < 0:
-                synthdef_name = osc_message.contents[index]
+                synthdef_name = cast(str, osc_message.contents[index])
                 index += 1
                 if flag:
                     controls = {}
-                    control_count = osc_message.contents[index]
+                    control_count = cast(int, osc_message.contents[index])
                     index += 1
                     for i in range(control_count):
-                        name_or_index: Union[int, str] = osc_message.contents[index]
-                        value: Union[float, str] = osc_message.contents[index + 1]
+                        name_or_index: Union[int, str] = cast(
+                            int | str, osc_message.contents[index]
+                        )
+                        value: Union[float, str] = cast(
+                            float | str, osc_message.contents[index + 1]
+                        )
                         controls[name_or_index] = value
                         index += 2
             items.append(
@@ -342,19 +347,19 @@ class QueryTreeControl:
     name_or_index: Union[int, str]
     value: Union[float, str]
 
-    def __str__(self):
-        value = self.value
-        try:
-            value = round(value, 6)
-        except Exception:
-            pass
-        return f"{self.name_or_index}: {value!s}"
+    def __str__(self) -> str:
+        if isinstance(self.value, str):
+            return f"{self.name_or_index}: {self.value}"
+        return f"{self.name_or_index}: {round(self.value, 6)!s}"
 
 
 @dataclasses.dataclass
 class QueryTreeNode:
     node_id: int
     annotation: Optional[str] = None
+
+    def _get_str_format_pieces(self, unindexed: bool = False) -> list[str]:
+        raise NotImplementedError
 
 
 @dataclasses.dataclass
@@ -364,20 +369,17 @@ class QueryTreeSynth(QueryTreeNode):
     controls: List[QueryTreeControl] = dataclasses.field(default_factory=list)
     annotation: Optional[str] = None
 
-    def __format__(self, format_spec):
+    def __format__(self, format_spec: str) -> str:
         return "\n".join(
             self._get_str_format_pieces(unindexed=format_spec == "unindexed")
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "\n".join(self._get_str_format_pieces())
 
-    def _get_str_format_pieces(self, unindexed=False):
+    def _get_str_format_pieces(self, unindexed: bool = False) -> list[str]:
         result = []
-        node_id = self.node_id
-        if unindexed:
-            node_id = "..."
-        string = f"{node_id} {self.synthdef_name}"
+        string = f"{'...' if unindexed else self.node_id} {self.synthdef_name}"
         if self.annotation:
             string += f" ({self.annotation})"
         result.append(string)
@@ -394,22 +396,19 @@ class QueryTreeGroup(QueryTreeNode):
 
     ### SPECIAL METHODS ###
 
-    def __format__(self, format_spec):
+    def __format__(self, format_spec: str) -> str:
         return "NODE TREE " + "\n".join(
             self._get_str_format_pieces(unindexed=format_spec == "unindexed")
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "NODE TREE " + "\n".join(self._get_str_format_pieces())
 
     ### PRIVATE METHODS ###
 
-    def _get_str_format_pieces(self, unindexed=False):
+    def _get_str_format_pieces(self, unindexed: bool = False) -> list[str]:
         result = []
-        node_id = self.node_id
-        if unindexed:
-            node_id = "..."
-        string = f"{node_id} group"
+        string = f"{'...' if unindexed else self.node_id} group"
         if self.annotation:
             string += f" ({self.annotation})"
         result.append(string)
@@ -526,17 +525,14 @@ class StatusInfo(Response):
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        (
-            _,
-            ugen_count,
-            synth_count,
-            group_count,
-            synthdef_count,
-            average_cpu_usage,
-            peak_cpu_usage,
-            target_sample_rate,
-            actual_sample_rate,
-        ) = osc_message.contents
+        ugen_count = cast(int, osc_message.contents[1])
+        synth_count = cast(int, osc_message.contents[2])
+        group_count = cast(int, osc_message.contents[3])
+        synthdef_count = cast(int, osc_message.contents[4])
+        average_cpu_usage = cast(float, osc_message.contents[5])
+        peak_cpu_usage = cast(float, osc_message.contents[6])
+        target_sample_rate = cast(float, osc_message.contents[7])
+        actual_sample_rate = cast(float, osc_message.contents[8])
         return cls(
             actual_sample_rate=actual_sample_rate,
             average_cpu_usage=average_cpu_usage,
@@ -559,7 +555,7 @@ class SyncedInfo(Response):
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        return cls(*osc_message.contents)
+        return cls(cast(int, osc_message.contents[0]))
 
 
 @dataclasses.dataclass
@@ -572,7 +568,7 @@ class SynthDefRemovedInfo(Response):
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        return cls(*osc_message.contents)
+        return cls(cast(str, osc_message.contents[0]))
 
 
 @dataclasses.dataclass
@@ -587,7 +583,10 @@ class TriggerInfo(Response):
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        return cls(*osc_message.contents)
+        node_id = cast(int, osc_message.contents[0])
+        trigger_id = cast(int, osc_message.contents[1])
+        value = cast(float, osc_message.contents[2])
+        return cls(node_id, trigger_id, value)
 
 
 @dataclasses.dataclass
@@ -605,4 +604,10 @@ class VersionInfo(Response):
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        return cls(*osc_message.contents)
+        program_name = cast(str, osc_message.contents[0])
+        major = cast(int, osc_message.contents[1])
+        minor = cast(int, osc_message.contents[2])
+        patch = cast(str, osc_message.contents[3])
+        branch = cast(str, osc_message.contents[4])
+        commit = cast(str, osc_message.contents[5])
+        return cls(program_name, major, minor, patch, branch, commit)

@@ -1,27 +1,29 @@
-import uuid
 from unittest.mock import Mock, call
+from uuid import UUID, uuid4
 
 import pytest
 
-from supriya.contexts import Server
-from supriya.patterns.events import GroupAllocateEvent, NodeFreeEvent, Priority
+from supriya.contexts import ContextObject, Server
+from supriya.patterns.events import Event, GroupAllocateEvent, NodeFreeEvent, Priority
 
-id_ = uuid.uuid4()
+id_ = uuid4()
 
 
 @pytest.mark.parametrize(
     "event, offset, expected",
     [(NodeFreeEvent(id_), 0.0, [(0.0, Priority.START, NodeFreeEvent(id_))])],
 )
-def test_expand(event, offset, expected):
+def test_expand(
+    event: Event, offset: float, expected: list[tuple[float, Priority, Event]]
+) -> None:
     actual = event.expand(offset)
     assert actual == expected
 
 
-def test_perform():
+def test_perform() -> None:
     context = Server().boot()
-    proxy_mapping = {}
-    notes_mapping = {}
+    proxy_mapping: dict[UUID | tuple[UUID, int], ContextObject] = {}
+    notes_mapping: dict[UUID | tuple[UUID, int], float] = {}
     # Allocate
     allocate_event = GroupAllocateEvent(id_)
     with context.at():

@@ -66,7 +66,7 @@ mypy: ## Type-check via mypy
 	mypy ${project}/ tests/
 
 mypy-cov: ## Type-check via mypy with coverage reported to ./mypycov/
-	mypy --html-report ./mypycov/ ${project}/
+	mypy --html-report ./mypycov/ ${project}/ tests/
 
 mypy-strict: ## Type-check via mypy strictly
 	mypy --strict ${project}/

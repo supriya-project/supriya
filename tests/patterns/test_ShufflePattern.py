@@ -14,7 +14,13 @@ from supriya.patterns import ShufflePattern
         ([1, 2, 3], None, False, 3, True),
     ],
 )
-def test(sequence, iterations, forbid_repetitions, stride, is_infinite):
+def test_pattern(
+    sequence: list[int],
+    iterations: int | None,
+    forbid_repetitions: bool,
+    stride: int,
+    is_infinite: bool,
+) -> None:
     pattern = ShufflePattern(
         sequence, iterations=iterations, forbid_repetitions=forbid_repetitions
     )

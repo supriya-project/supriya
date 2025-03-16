@@ -3,7 +3,7 @@ import uuid
 from supriya.patterns import NoteEvent
 
 
-def test___eq__():
+def test___eq__() -> None:
     event_one = NoteEvent(uuid.uuid4())
     event_two = NoteEvent(uuid.uuid4())
     non_event = 23

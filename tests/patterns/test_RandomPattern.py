@@ -12,7 +12,12 @@ from supriya.patterns import RandomPattern
         (0.0, (1.0, 2.0), None, True),
     ],
 )
-def test(minimum, maximum, iterations, is_infinite):
+def test_pattern(
+    minimum: float | list[float],
+    maximum: float | list[float],
+    iterations: int | None,
+    is_infinite: bool,
+) -> None:
     pattern = RandomPattern(minimum=minimum, maximum=maximum, iterations=iterations)
     assert pattern.distribution == RandomPattern.Distribution.WHITE_NOISE
     assert pattern.is_infinite == is_infinite

@@ -5,7 +5,7 @@ from supriya import SynthDefBuilder
 from supriya.ugens.core import SynthDefError
 
 
-def test_01():
+def test_01() -> None:
     """
     Cannot share UGens.
     """
@@ -21,7 +21,7 @@ def test_01():
         assert "UGen input in different scope" in str(exception_info.value)
 
 
-def test_02():
+def test_02() -> None:
     """
     Cannot share parameters.
     """
@@ -38,7 +38,7 @@ def test_02():
         assert "UGen input in different scope" in str(exception_info.value)
 
 
-def test_03():
+def test_03() -> None:
     """
     Cannot share output proxies.
     """

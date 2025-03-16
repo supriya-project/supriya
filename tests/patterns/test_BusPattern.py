@@ -7,6 +7,7 @@ from supriya.patterns import (
     BusFreeEvent,
     BusPattern,
     CompositeEvent,
+    Event,
     EventPattern,
     GroupAllocateEvent,
     NodeFreeEvent,
@@ -18,6 +19,7 @@ from supriya.patterns import (
 )
 from supriya.patterns.testutils import MockUUID as M
 from supriya.patterns.testutils import run_pattern_test
+from supriya.typing import CalculationRateLike
 
 
 @pytest.mark.parametrize(
@@ -309,15 +311,15 @@ from supriya.patterns.testutils import run_pattern_test
         ),
     ],
 )
-def test(
-    stop_at,
+def test_pattern(
+    stop_at: float | None,
     inner_pattern,
-    calculation_rate,
-    channel_count,
-    release_time,
-    expected,
-    is_infinite,
-):
+    calculation_rate: CalculationRateLike,
+    channel_count: int,
+    release_time: float,
+    expected: list[Event],
+    is_infinite: bool,
+) -> None:
     pattern = BusPattern(
         inner_pattern,
         calculation_rate=calculation_rate,

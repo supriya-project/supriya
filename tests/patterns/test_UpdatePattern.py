@@ -44,6 +44,8 @@ from supriya.patterns.testutils import run_pattern_test
         ),
     ],
 )
-def test(stop_at, input_a, input_b1, input_b2, input_c, expected, is_infinite):
+def test_pattern(
+    stop_at, input_a, input_b1, input_b2, input_c, expected, is_infinite
+) -> None:
     pattern = UpdatePattern(EventPattern(a=input_a, b=input_b1), b=input_b2, c=input_c)
     run_pattern_test(pattern, expected, is_infinite, stop_at)

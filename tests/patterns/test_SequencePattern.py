@@ -48,7 +48,7 @@ from supriya.patterns.testutils import run_pattern_test
         ),
     ],
 )
-def test(stop_at, sequence, iterations, expected, is_infinite):
+def test_pattern(stop_at, sequence, iterations, expected, is_infinite) -> None:
     pattern = SequencePattern(sequence, iterations=iterations)
     run_pattern_test(pattern, expected, is_infinite, stop_at)
 
@@ -63,7 +63,7 @@ def test(stop_at, sequence, iterations, expected, is_infinite):
         (23, 1, ValueError),
     ],
 )
-def test___init__(sequence, iterations, raises):
+def test___init__(sequence, iterations, raises) -> None:
     if raises:
         with pytest.raises(raises):
             SequencePattern(sequence, iterations)

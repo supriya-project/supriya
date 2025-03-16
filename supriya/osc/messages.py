@@ -1,10 +1,10 @@
 import collections
 import datetime
-import enum
 import struct
 import time
 from collections.abc import Sequence as SequenceABC
-from typing import List
+from enum import Enum
+from typing import List, TypeAlias, Union
 
 from ..utils import group_by_count
 
@@ -15,6 +15,20 @@ SECONDS_TO_NTP_TIMESTAMP = 2.0**32.0
 SYSTEM_EPOCH = datetime.date(*time.gmtime(0)[0:3])
 NTP_EPOCH = datetime.date(1900, 1, 1)
 NTP_DELTA = (SYSTEM_EPOCH - NTP_EPOCH).days * 24 * 3600
+
+
+OscAddress: TypeAlias = Enum | int | str
+OscArgument: TypeAlias = Union[
+    Enum,
+    "OscBundle",
+    "OscMessage",
+    SequenceABC["OscArgument"],
+    bool,
+    bytes,
+    float,
+    str,
+    None,
+]
 
 
 def format_datagram(datagram: bytes) -> str:
@@ -130,8 +144,8 @@ class OscMessage:
 
     ### INITIALIZER ###
 
-    def __init__(self, address, *contents) -> None:
-        if isinstance(address, enum.Enum):
+    def __init__(self, address: OscAddress, *contents: OscArgument) -> None:
+        if isinstance(address, Enum):
             address = address.value
         if not isinstance(address, (str, int)):
             raise ValueError(f"address must be int or str, got {address}")
@@ -161,7 +175,7 @@ class OscMessage:
     ### PRIVATE METHODS ###
 
     @staticmethod
-    def _decode_blob(data):
+    def _decode_blob(data: bytes) -> tuple[bytes, bytes]:
         actual_length, remainder = struct.unpack(">I", data[:4])[0], data[4:]
         padded_length = actual_length
         if actual_length % 4 != 0:
@@ -169,13 +183,13 @@ class OscMessage:
         return remainder[:padded_length][:actual_length], remainder[padded_length:]
 
     @staticmethod
-    def _decode_string(data):
+    def _decode_string(data: bytes) -> tuple[str, bytes]:
         actual_length = data.index(b"\x00")
         padded_length = (actual_length // 4 + 1) * 4
         return str(data[:actual_length], "ascii"), data[padded_length:]
 
     @staticmethod
-    def _encode_string(value):
+    def _encode_string(value: str) -> bytes:
         result = bytes(value + "\x00", "ascii")
         if len(result) % 4 != 0:
             width = (len(result) // 4 + 1) * 4
@@ -183,7 +197,7 @@ class OscMessage:
         return result
 
     @staticmethod
-    def _encode_blob(value):
+    def _encode_blob(value: bytes) -> bytes:
         result = bytes(struct.pack(">I", len(value)) + value)
         if len(result) % 4 != 0:
             width = (len(result) // 4 + 1) * 4
@@ -191,13 +205,19 @@ class OscMessage:
         return result
 
     @classmethod
-    def _encode_value(cls, value):
-        if hasattr(value, "to_datagram"):
-            value = bytearray(value.to_datagram())
-        elif isinstance(value, enum.Enum):
-            value = value.value
+    def _encode_value(cls, value: OscArgument) -> tuple[str, bytes]:
         type_tags, encoded_value = "", b""
-        if isinstance(value, (bytearray, bytes)):
+        if isinstance(value, Enum):
+            if isinstance(value.value, str):
+                type_tags += "s"
+                encoded_value = cls._encode_string(value.value)
+            else:
+                type_tags += "i"
+                encoded_value += struct.pack(">i", value.value)
+        elif isinstance(value, (OscBundle, OscMessage)):
+            type_tags += "b"
+            encoded_value = cls._encode_blob(value.to_datagram())
+        elif isinstance(value, (bytearray, bytes)):
             type_tags += "b"
             encoded_value = cls._encode_blob(value)
         elif isinstance(value, str):
@@ -244,11 +264,11 @@ class OscMessage:
         )
 
     @classmethod
-    def from_datagram(cls, datagram):
+    def from_datagram(cls, datagram: bytes) -> "OscMessage":
         remainder = datagram
         address, remainder = cls._decode_string(remainder)
         type_tags, remainder = cls._decode_string(remainder)
-        contents = []
+        contents: list[OscArgument] = []
         array_stack = [contents]
         for type_tag in type_tags[1:]:
             if type_tag == "i":
@@ -279,7 +299,7 @@ class OscMessage:
             elif type_tag == "N":
                 array_stack[-1].append(None)
             elif type_tag == "[":
-                array = []
+                array: list[OscArgument] = []
                 array_stack[-1].append(array)
                 array_stack.append(array)
             elif type_tag == "]":
@@ -367,7 +387,12 @@ class OscBundle:
 
     ### INITIALIZER ###
 
-    def __init__(self, timestamp=None, contents=None) -> None:
+    def __init__(
+        self,
+        timestamp: float | None = None,
+        *,
+        contents: SequenceABC[Union["OscBundle", "OscMessage"]],
+    ) -> None:
         prototype = (OscMessage, type(self))
         self.timestamp = timestamp
         contents = contents or ()
@@ -404,7 +429,7 @@ class OscBundle:
     ### PRIVATE METHODS ###
 
     @staticmethod
-    def _decode_date(data):
+    def _decode_date(data: bytes) -> tuple[float | None, bytes]:
         data, remainder = data[:8], data[8:]
         if data == IMMEDIATELY:
             return None, remainder
@@ -412,7 +437,7 @@ class OscBundle:
         return date, remainder
 
     @staticmethod
-    def _encode_date(seconds, realtime=True):
+    def _encode_date(seconds: float | None, realtime: bool = True) -> bytes:
         if seconds is None:
             return IMMEDIATELY
         if realtime:
@@ -424,7 +449,7 @@ class OscBundle:
     ### PUBLIC METHODS ###
 
     @classmethod
-    def from_datagram(cls, datagram):
+    def from_datagram(cls, datagram: bytes) -> "OscBundle":
         if not datagram.startswith(BUNDLE_PREFIX):
             raise ValueError("datagram is not a bundle")
         remainder = datagram[8:]
@@ -432,6 +457,7 @@ class OscBundle:
         contents = []
         while len(remainder):
             length, remainder = struct.unpack(">i", remainder[:4])[0], remainder[4:]
+            item: OscBundle | OscMessage
             if remainder.startswith(BUNDLE_PREFIX):
                 item = cls.from_datagram(remainder[:length])
             else:
@@ -442,13 +468,15 @@ class OscBundle:
         return osc_bundle
 
     @classmethod
-    def partition(cls, messages, timestamp=None):
+    def partition(
+        cls, messages: list[OscMessage], timestamp: float | None = None
+    ) -> list["OscBundle"]:
         bundles = []
         contents = []
-        message = collections.deque(messages)
+        messages_ = collections.deque(messages)
         remaining = maximum = 8192 - len(BUNDLE_PREFIX) - 4
-        while messages:
-            message = messages.popleft()
+        while messages_:
+            message = messages_.popleft()
             datagram = message.to_datagram()
             remaining -= len(datagram) + 4
             if remaining > 0:
@@ -461,8 +489,8 @@ class OscBundle:
             bundles.append(cls(timestamp=timestamp, contents=contents))
         return bundles
 
-    def to_datagram(self, realtime=True) -> bytes:
-        datagram = BUNDLE_PREFIX
+    def to_datagram(self, realtime: bool = True) -> bytes:
+        datagram: bytes = BUNDLE_PREFIX
         datagram += self._encode_date(self.timestamp, realtime=realtime)
         for content in self.contents:
             content_datagram = content.to_datagram()

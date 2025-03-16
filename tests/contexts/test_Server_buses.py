@@ -1,5 +1,6 @@
 import asyncio
 import logging
+from typing import AsyncGenerator
 
 import pytest
 import pytest_asyncio
@@ -17,12 +18,12 @@ async def get(x):
 
 
 @pytest.fixture(autouse=True)
-def use_caplog(caplog):
+def use_caplog(caplog) -> None:
     caplog.set_level(logging.INFO)
 
 
 @pytest_asyncio.fixture(autouse=True, params=[AsyncServer, Server])
-async def context(request):
+async def context(request) -> AsyncGenerator[AsyncServer | Server, None]:
     context = request.param()
     await get(context.boot())
     context.add_synthdefs(default)
@@ -31,7 +32,7 @@ async def context(request):
 
 
 @pytest.mark.asyncio
-async def test_Bus_allocated(context):
+async def test_Bus_allocated(context: AsyncServer | Server) -> None:
     # TODO: what are the semantics actually?
     #       buses always exist.
     #       but the /leasing/ of a bus ID is temporal.
@@ -51,7 +52,7 @@ async def test_Bus_allocated(context):
 
 
 @pytest.mark.asyncio
-async def test_add_bus(context):
+async def test_add_bus(context: AsyncServer | Server) -> None:
     # invalid calculation rate
     with pytest.raises(InvalidCalculationRate):
         context.add_bus("SCALAR")
@@ -67,7 +68,7 @@ async def test_add_bus(context):
 
 
 @pytest.mark.asyncio
-async def test_add_bus_group(context):
+async def test_add_bus_group(context: AsyncServer | Server) -> None:
     # invalid calculation rate
     with pytest.raises(InvalidCalculationRate):
         context.add_bus_group("SCALAR")
@@ -97,7 +98,7 @@ async def test_add_bus_group(context):
 
 
 @pytest.mark.asyncio
-async def test_fill_buses(context):
+async def test_fill_buses(context: AsyncServer | Server) -> None:
     audio_bus = context.add_bus("AUDIO")
     control_bus_a = context.add_bus("CONTROL")
     control_bus_b = context.add_bus("CONTROL")
@@ -116,7 +117,7 @@ async def test_fill_buses(context):
 
 
 @pytest.mark.asyncio
-async def test_free_bus(context):
+async def test_free_bus(context: AsyncServer | Server) -> None:
     audio_bus = context.add_bus("AUDIO")
     control_bus = context.add_bus("CONTROL")
     with context.osc_protocol.capture() as transcript:
@@ -131,7 +132,7 @@ async def test_free_bus(context):
 
 
 @pytest.mark.asyncio
-async def test_get_bus(context):
+async def test_get_bus(context: AsyncServer | Server) -> None:
     audio_bus = context.add_bus("audio")
     with pytest.raises(InvalidCalculationRate):
         await get(audio_bus.get())
@@ -146,7 +147,7 @@ async def test_get_bus(context):
 
 
 @pytest.mark.asyncio
-async def test_get_bus_range(context):
+async def test_get_bus_range(context: AsyncServer | Server) -> None:
     audio_bus_group = context.add_bus_group("audio", count=4)
     with pytest.raises(InvalidCalculationRate):
         await get(audio_bus_group[0].get_range(count=len(audio_bus_group)))
@@ -167,7 +168,7 @@ async def test_get_bus_range(context):
 
 
 @pytest.mark.asyncio
-async def test_set_bus(context):
+async def test_set_bus(context: AsyncServer | Server) -> None:
     audio_bus = context.add_bus("AUDIO")
     control_bus_a = context.add_bus("CONTROL")
     control_bus_b = context.add_bus("CONTROL")
@@ -186,7 +187,7 @@ async def test_set_bus(context):
 
 
 @pytest.mark.asyncio
-async def test_set_bus_range(context):
+async def test_set_bus_range(context: AsyncServer | Server) -> None:
     audio_bus_group = context.add_bus_group("AUDIO", count=4)
     control_bus_group = context.add_bus_group("CONTROL", count=4)
     with context.osc_protocol.capture() as transcript:

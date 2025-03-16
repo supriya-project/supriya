@@ -11,12 +11,13 @@ from supriya.ugens import (
     PanB2,
     PinkNoise,
     SuperColliderSynthDef,
+    SynthDef,
     SynthDefBuilder,
 )
 
 
 @pytest.fixture
-def py_synthdef():
+def py_synthdef() -> SynthDef:
     with SynthDefBuilder() as builder:
         source = PinkNoise.ar()
         azimuth = LFNoise2.kr(frequency=0.25)
@@ -27,7 +28,7 @@ def py_synthdef():
     return py_synthdef
 
 
-def test_ambisonics_supriya_vs_bytes(py_synthdef):
+def test_ambisonics_supriya_vs_bytes(py_synthdef: SynthDef) -> None:
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -114,7 +115,7 @@ def test_ambisonics_supriya_vs_bytes(py_synthdef):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_ambisonics_supriya_vs_sclang(py_synthdef):
+def test_ambisonics_supriya_vs_sclang(py_synthdef: SynthDef) -> None:
     sc_synthdef = SuperColliderSynthDef(
         "ambisonics",
         r"""

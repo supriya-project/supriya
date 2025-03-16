@@ -3,6 +3,7 @@ import pytest
 from supriya import AddAction
 from supriya.patterns import (
     CompositeEvent,
+    Event,
     EventPattern,
     FxPattern,
     NodeFreeEvent,
@@ -13,7 +14,7 @@ from supriya.patterns import (
 )
 from supriya.patterns.testutils import MockUUID as M
 from supriya.patterns.testutils import run_pattern_test
-from supriya.ugens import FreeVerb, In, Out, SynthDefBuilder
+from supriya.ugens import FreeVerb, In, Out, SynthDef, SynthDefBuilder
 
 with SynthDefBuilder(in_=0, out=0, mix=0.0) as builder:
     in_ = In.ar(bus=builder["in_"], channel_count=2)
@@ -71,6 +72,14 @@ synthdef = builder.build()
         ),
     ],
 )
-def test(stop_at, inner_pattern, synthdef, release_time, kwargs, expected, is_infinite):
+def test_pattern(
+    stop_at: float | None,
+    inner_pattern: EventPattern,
+    synthdef: SynthDef,
+    release_time: float,
+    kwargs: dict[str, float],
+    expected: list[Event],
+    is_infinite: bool,
+) -> None:
     pattern = FxPattern(inner_pattern, synthdef, release_time=release_time, **kwargs)
     run_pattern_test(pattern, expected, is_infinite, stop_at)

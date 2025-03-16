@@ -1,8 +1,9 @@
 import asyncio
-from typing import Optional
+from typing import Optional, Type
 from unittest.mock import Mock, call
 
 import pytest
+from pytest_mock import MockerFixture
 
 from supriya import AddAction, CalculationRate
 from supriya.assets.synthdefs import default, system_link_audio_1
@@ -17,6 +18,7 @@ from supriya.patterns import (
     GroupPattern,
     MonoEventPattern,
     ParallelPattern,
+    PatternPlayer,
     SequencePattern,
 )
 from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
@@ -398,8 +400,12 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
     ],
 )
 def test_context_calls(
-    pattern, until: Optional[float], target_node: Optional[int], expected
-):
+    pattern,
+    until: Optional[float],
+    target_node: Optional[int],
+    expected,
+    mocker: MockerFixture,
+) -> None:
     clock = OfflineClock()
     context = Server().boot()
     target_node_ = None
@@ -409,21 +415,24 @@ def test_context_calls(
         )  # create an arbitrarily-ID'd group
         target_node_ = Group(context=context, id_=target_node)
     spy = Mock(spec=Context, wraps=context)
+    mocker.patch.object(context, "send")
     pattern.play(context=spy, clock=clock, target_node=target_node_, until=until)
     expected_mock_calls = expected(context)
     assert spy.mock_calls == expected_mock_calls
 
 
-def test_callback():
+def test_callback(mocker: MockerFixture) -> None:
     def callback(player, context, event, priority):
         callback_calls.append(
             (player, context.desired_moment.offset, type(event), priority)
         )
 
-    callback_calls = []
+    callback_calls: list[tuple[PatternPlayer, float, Type[Event], Priority]] = []
     pattern = EventPattern(frequency=SequencePattern([440, 550, 660]))
     clock = OfflineClock()
-    player = pattern.play(context=Server().boot(), clock=clock, callback=callback)
+    context = Server().boot()
+    mocker.patch.object(context, "send")
+    player = pattern.play(context=context, clock=clock, callback=callback)
     assert callback_calls == [
         (player, 0.0, StartEvent, Priority.START),
         (player, 0.0, NoteEvent, Priority.START),
@@ -437,7 +446,7 @@ def test_callback():
 
 
 @pytest.mark.asyncio
-async def test_callback_async():
+async def test_callback_async(mocker) -> None:
     def callback(player, context, event, priority):
         print("CALLBACK", player, context, event, priority)
         callback_calls.append(
@@ -448,12 +457,12 @@ async def test_callback_async():
 
     event_loop = asyncio.get_running_loop()
     stop_future = event_loop.create_future()
-    callback_calls = []
+    callback_calls: list[tuple[PatternPlayer, float, Type[Event], Priority]] = []
     pattern = EventPattern(frequency=SequencePattern([440, 550, 660]))
     clock = AsyncOfflineClock()
-    player = pattern.play(
-        context=await AsyncServer().boot(), clock=clock, callback=callback
-    )
+    context = await AsyncServer().boot()
+    mocker.patch.object(context, "send")
+    player = pattern.play(context=context, clock=clock, callback=callback)
     await clock.start()
     await stop_future
     await clock.stop()
@@ -469,7 +478,7 @@ async def test_callback_async():
     ]
 
 
-def test_nonrealtime():
+def test_nonrealtime() -> None:
     at = 1.0
     until = 1.5
     pattern = GroupPattern(

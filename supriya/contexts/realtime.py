@@ -146,14 +146,13 @@ class BaseServer(Context):
         **kwargs,
     ) -> None:
         Context.__init__(self, options, name=name, **kwargs)
-        self._boot_status = BootStatus.OFFLINE
         self._buffers: Set[int] = set()
-        self._is_owner = False
-        self._latency = 0.1
+        self._is_owner: bool = False
+        self._latency: float = 0.1
         self._lifecycle_event_callbacks: Dict[
             ServerLifecycleEvent, list[ServerLifecycleCallback]
         ] = {}
-        self._maximum_logins = 1
+        self._maximum_logins: int = 1
         self._node_active: Dict[int, bool] = {}
         self._node_children: Dict[int, List[int]] = {}
         self._node_parents: Dict[int, int] = {}
@@ -213,62 +212,76 @@ class BaseServer(Context):
 
     def _handle_done_b_alloc(self, message: OscMessage) -> None:
         with self._lock:
-            self._buffers.add(message.contents[1])
+            self._buffers.add(cast(int, message.contents[1]))
 
     def _handle_done_b_alloc_read(self, message: OscMessage) -> None:
         with self._lock:
-            self._buffers.add(message.contents[1])
+            self._buffers.add(cast(int, message.contents[1]))
 
     def _handle_done_b_alloc_read_channel(self, message: OscMessage) -> None:
         with self._lock:
-            self._buffers.add(message.contents[1])
+            self._buffers.add(cast(int, message.contents[1]))
 
     def _handle_done_b_free(self, message: OscMessage) -> None:
         with self._lock:
-            if message.contents[1] in self._buffers:
-                self._buffers.remove(message.contents[1])
-            self._free_id(Buffer, message.contents[1])
+            buffer_id = cast(int, message.contents[1])
+            if buffer_id in self._buffers:
+                self._buffers.remove(buffer_id)
+            self._free_id(Buffer, buffer_id)
 
     def _handle_fail(self, message: OscMessage) -> None:
-        warnings.warn(" ".join(str(x) for x in message.contents), FailWarning)
+        warnings.warn(
+            " ".join(str(x) for x in message.contents).strip(),
+            FailWarning,
+        )
 
     def _handle_n_end(self, message: OscMessage) -> None:
         with self._lock:
-            id_, parent_id, *_ = message.contents
+            node_id = cast(int, message.contents[0])
+            parent_id = cast(int | None, message.contents[1])
             if parent_id == -1:
-                parent_id = self._node_parents.get(id_)
+                parent_id = self._node_parents.get(node_id)
             if parent_id is not None:
-                self._remove_node_from_children(id_, parent_id)
-            self._free_id(Node, id_)
-            self._node_active.pop(id_, None)
-            self._node_children.pop(id_, None)
-            self._node_parents.pop(id_, None)
+                self._remove_node_from_children(node_id, parent_id)
+            self._free_id(Node, node_id)
+            self._node_active.pop(node_id, None)
+            self._node_children.pop(node_id, None)
+            self._node_parents.pop(node_id, None)
 
     def _handle_n_go(self, message: OscMessage) -> None:
         with self._lock:
-            id_, parent_id, previous_id, next_id, is_group, *_ = message.contents
-            self._node_parents[id_] = parent_id
-            self._node_active[id_] = True
+            node_id = cast(int, message.contents[0])
+            parent_id = cast(int, message.contents[1])
+            previous_id = cast(int, message.contents[2])
+            next_id = cast(int, message.contents[3])
+            is_group = bool(message.contents[4])
+            self._node_parents[node_id] = parent_id
+            self._node_active[node_id] = True
             if is_group:
-                self._node_children[id_] = []
-            self._add_node_to_children(id_, parent_id, previous_id, next_id)
+                self._node_children[node_id] = []
+            self._add_node_to_children(node_id, parent_id, previous_id, next_id)
 
     def _handle_n_move(self, message: OscMessage) -> None:
         with self._lock:
-            id_, parent_id, previous_id, next_id, *_ = message.contents
-            old_parent_id = self._node_parents[id_]
-            self._remove_node_from_children(id_, old_parent_id)
-            self._add_node_to_children(id_, parent_id, previous_id, next_id)
+            node_id = cast(int, message.contents[0])
+            parent_id = cast(int, message.contents[1])
+            previous_id = cast(int, message.contents[2])
+            next_id = cast(int, message.contents[3])
+            old_parent_id = self._node_parents[node_id]
+            self._remove_node_from_children(node_id, old_parent_id)
+            self._add_node_to_children(node_id, parent_id, previous_id, next_id)
 
     def _handle_n_off(self, message: OscMessage) -> None:
         with self._lock:
-            self._node_active[message.contents[0]] = False
+            node_id = cast(int, message.contents[0])
+            self._node_active[node_id] = False
 
     def _handle_n_on(self, message: OscMessage) -> None:
         with self._lock:
-            self._node_active[message.contents[0]] = True
+            node_id = cast(int, message.contents[0])
+            self._node_active[node_id] = True
 
-    def _handle_status_reply(self, message: OscMessage):
+    def _handle_status_reply(self, message: OscMessage) -> None:
         with self._lock:
             self._status = cast(StatusInfo, StatusInfo.from_osc(message))
 

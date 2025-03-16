@@ -3,6 +3,7 @@ import logging
 import re
 import subprocess
 import sys
+from typing import AsyncGenerator
 
 import pytest
 import pytest_asyncio
@@ -30,12 +31,12 @@ async def get(x):
 
 
 @pytest.fixture(autouse=True)
-def use_caplog(caplog):
+def use_caplog(caplog) -> None:
     caplog.set_level(logging.INFO)
 
 
 @pytest_asyncio.fixture(autouse=True, params=[AsyncServer, Server])
-async def context(request):
+async def context(request) -> AsyncGenerator[AsyncServer | Server, None]:
     context = request.param()
     await get(context.boot())
     context.add_synthdefs(default)
@@ -44,7 +45,7 @@ async def context(request):
 
 
 @pytest.mark.asyncio
-async def test_clear_schedule(context):
+async def test_clear_schedule(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         context.clear_schedule()
     assert transcript.filtered(received=False, status=False) == [
@@ -53,7 +54,7 @@ async def test_clear_schedule(context):
 
 
 @pytest.mark.asyncio
-async def test_default_group(context):
+async def test_default_group(context: AsyncServer | Server) -> None:
     assert isinstance(context.default_group, Group)
     assert context.default_group.context is context
     assert context.default_group.id_ == context.client_id + 1
@@ -63,7 +64,7 @@ async def test_default_group(context):
 # so this will time-out.
 @pytest.mark.flaky(reruns=5, conditions=sys.version_info[:2] in [(3, 10), (3, 11)])
 @pytest.mark.asyncio
-async def test_dump_tree(context):
+async def test_dump_tree(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         tree = await get(context.dump_tree())
         assert str(tree) == normalize(
@@ -1089,7 +1090,7 @@ async def test_dump_tree(context):
 
 
 @pytest.mark.asyncio
-async def test_query_status(context):
+async def test_query_status(context: AsyncServer | Server) -> None:
     assert isinstance(await get(context.query_status()), StatusInfo)
     # unsync
     with context.osc_protocol.capture() as transcript:
@@ -1098,7 +1099,7 @@ async def test_query_status(context):
 
 
 @pytest.mark.asyncio
-async def test_query_tree(context):
+async def test_query_tree(context: AsyncServer | Server) -> None:
     with context.at():
         group_a = context.add_group()
         group_b = context.add_group()
@@ -1136,18 +1137,20 @@ async def test_query_tree(context):
 
 
 @pytest.mark.asyncio
-async def test_query_version(context):
+async def test_query_version(context: AsyncServer | Server) -> None:
     completed_subprocess = subprocess.run(
         [scsynth.find("scsynth"), "-v"], capture_output=True, text=True
     )
     stdout = completed_subprocess.stdout
     line = completed_subprocess.stdout.splitlines()[0]
     print(stdout, line)
-    groups = re.match(
-        r"(\w+) (\d+)\.(\d+)(\.[\w-]+) \(Built from (?:branch|tag) '([\W\w]+)' \[([\W\w]+)\]\)",
-        line,
-    ).groups()
-    program_name, major, minor, patch, ref, commit = groups
+    assert (
+        match := re.match(
+            r"(\w+) (\d+)\.(\d+)(\.[\w-]+) \(Built from (?:branch|tag) '([\W\w]+)' \[([\W\w]+)\]\)",
+            line,
+        )
+    ) is not None
+    program_name, major, minor, patch, ref, commit = match.groups()
     expected_info = VersionInfo(
         program_name=program_name,
         major=int(major),
@@ -1164,13 +1167,13 @@ async def test_query_version(context):
 
 
 @pytest.mark.asyncio
-async def test_reboot(context):
+async def test_reboot(context: AsyncServer | Server) -> None:
     # TODO: expand this
 
     def callback(event: ServerLifecycleEvent) -> None:
         events.append(event)
 
-    events = []
+    events: list[ServerLifecycleEvent] = []
     for event in ServerLifecycleEvent:
         context.register_lifecycle_callback(event, callback)
     with context.osc_protocol.capture() as transcript:
@@ -1236,23 +1239,23 @@ async def test_reboot(context):
 
 @pytest.mark.xfail
 @pytest.mark.asyncio
-async def test_register_lifecycle_callback(context):
+async def test_register_lifecycle_callback(context: AsyncServer | Server) -> None:
     raise Exception
 
 
 @pytest.mark.xfail
 @pytest.mark.asyncio
-async def test_register_osc_callback(context):
+async def test_register_osc_callback(context: AsyncServer | Server) -> None:
     raise Exception
 
 
 @pytest.mark.asyncio
-async def test_reset(context):
+async def test_reset(context: AsyncServer | Server) -> None:
     # TODO: expand this
     def callback(event: ServerLifecycleEvent) -> None:
         events.append(event)
 
-    events = []
+    events: list[ServerLifecycleEvent] = []
     for event in ServerLifecycleEvent:
         context.register_lifecycle_callback(event, callback)
     with context.osc_protocol.capture() as transcript:
@@ -1310,14 +1313,14 @@ async def test_reset(context):
 
 
 @pytest.mark.asyncio
-async def test_root_node(context):
+async def test_root_node(context: AsyncServer | Server) -> None:
     assert isinstance(context.root_node, Group)
     assert context.root_node.context is context
     assert context.root_node.id_ == 0
 
 
 @pytest.mark.asyncio
-async def test_sync(context):
+async def test_sync(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         await get(context.sync())
         await get(context.sync())
@@ -1334,11 +1337,11 @@ async def test_sync(context):
 
 @pytest.mark.xfail
 @pytest.mark.asyncio
-async def test_unregister_lifecycle_callback(context):
+async def test_unregister_lifecycle_callback(context: AsyncServer | Server) -> None:
     raise Exception
 
 
 @pytest.mark.xfail
 @pytest.mark.asyncio
-async def test_unregister_osc_callback(context):
+async def test_unregister_osc_callback(context: AsyncServer | Server) -> None:
     raise Exception

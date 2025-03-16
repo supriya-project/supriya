@@ -21,7 +21,13 @@ from supriya.patterns import ChoicePattern, SequencePattern
         ),
     ],
 )
-def test(sequence, iterations, forbid_repetitions, weights, is_infinite):
+def test_pattern(
+    sequence: list[int],
+    iterations: int | None,
+    forbid_repetitions: bool,
+    weights: list[int] | None,
+    is_infinite: bool,
+) -> None:
     pattern = ChoicePattern(
         sequence,
         iterations=iterations,

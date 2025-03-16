@@ -9,6 +9,7 @@ from typing import (
     Awaitable,
     Callable,
     Dict,
+    Generator,
     Iterator,
     List,
     Literal,
@@ -31,7 +32,7 @@ udp_in_logger = logging.getLogger("supriya.udp.in")
 udp_out_logger = logging.getLogger("supriya.udp.out")
 
 
-def find_free_port():
+def find_free_port() -> int:
     with contextlib.closing(socket.socket(socket.AF_INET, socket.SOCK_DGRAM)) as s:
         s.bind(("", 0))
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -101,7 +102,7 @@ class Capture:
     ### PUBLIC METHODS ###
 
     def filtered(
-        self, sent=True, received=True, status=True
+        self, sent: bool = True, received: bool = True, status: bool = True
     ) -> List[Union[OscBundle, OscMessage]]:
         messages = []
         for _, label, message, _ in self.messages:
@@ -234,7 +235,7 @@ class OscProtocol:
         return None
 
     def _remove_callback(self, callback: OscCallback) -> None:
-        def delete(pattern, original_callback_map):
+        def delete(pattern, original_callback_map) -> None:
             key = pattern.pop(0)
             if key not in original_callback_map:
                 return
@@ -326,7 +327,9 @@ class OscProtocol:
                 procedure=self._on_healthcheck_passed,
             )
 
-    def _validate_receive(self, datagram):
+    def _validate_receive(
+        self, datagram
+    ) -> Generator[tuple[OscCallback, OscMessage], None, None]:
         udp_in_logger.debug(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
             f"{datagram}"

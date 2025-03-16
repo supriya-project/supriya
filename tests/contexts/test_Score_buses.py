@@ -8,16 +8,16 @@ from supriya.osc import OscBundle, OscMessage
 
 
 @pytest.fixture(autouse=True)
-def use_caplog(caplog):
+def use_caplog(caplog) -> None:
     caplog.set_level(logging.INFO)
 
 
 @pytest.fixture
-def context():
+def context() -> Score:
     return Score()
 
 
-def test_add_bus(context):
+def test_add_bus(context: Score) -> None:
     # no moment
     with pytest.raises(ContextError):
         context.add_bus("AUDIO")
@@ -35,7 +35,7 @@ def test_add_bus(context):
     assert list(context.iterate_osc_bundles()) == []
 
 
-def test_add_bus_group(context):
+def test_add_bus_group(context: Score) -> None:
     # no moment
     with pytest.raises(ContextError):
         context.add_bus_group("AUDIO", 0)
@@ -67,7 +67,7 @@ def test_add_bus_group(context):
     assert list(context.iterate_osc_bundles()) == []
 
 
-def test_fill_buses(context):
+def test_fill_buses(context: Score) -> None:
     with context.at(0):
         audio_bus = context.add_bus("AUDIO")
         control_bus_a = context.add_bus("CONTROL")
@@ -87,7 +87,7 @@ def test_fill_buses(context):
     ]
 
 
-def test_free_bus(context):
+def test_free_bus(context: Score) -> None:
     with context.at(0):
         audio_bus = context.add_bus("AUDIO")
         control_bus = context.add_bus("CONTROL")
@@ -102,7 +102,7 @@ def test_free_bus(context):
     assert new_control_bus.id_ == control_bus.id_ + 1
 
 
-def test_set_bus(context):
+def test_set_bus(context: Score) -> None:
     with context.at(0):
         audio_bus = context.add_bus("AUDIO")
         control_bus_a = context.add_bus("CONTROL")
@@ -121,7 +121,7 @@ def test_set_bus(context):
 
 
 @pytest.mark.asyncio
-async def test_set_bus_range(context):
+async def test_set_bus_range(context: Score) -> None:
     with context.at(0):
         audio_bus_group = context.add_bus_group("AUDIO", count=4)
         control_bus_group = context.add_bus_group("CONTROL", count=4)

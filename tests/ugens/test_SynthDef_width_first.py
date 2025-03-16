@@ -15,12 +15,13 @@ from supriya.ugens import (
     PV_MagMul,
     PinkNoise,
     SuperColliderSynthDef,
+    SynthDef,
     SynthDefBuilder,
     decompile_synthdef,
 )
 
 
-def test_01():
+def test_01() -> None:
     with SynthDefBuilder() as builder:
         local_buf = LocalBuf.ir(frame_count=2048)
         source = PinkNoise.ar()
@@ -115,7 +116,7 @@ def test_01():
 
 
 @pytest.fixture
-def py_synthdef_02():
+def py_synthdef_02() -> SynthDef:
     with SynthDefBuilder() as builder:
         source = PinkNoise.ar()
         local_buf = LocalBuf.ir(frame_count=2048)
@@ -129,7 +130,7 @@ def py_synthdef_02():
     return py_synthdef
 
 
-def test_02_ugens(py_synthdef_02):
+def test_02_ugens(py_synthdef_02: SynthDef) -> None:
     assert tuple(repr(_) for _ in py_synthdef_02.ugens) == (
         "<PinkNoise.ar()>",
         "<MaxLocalBufs.ir()>",
@@ -197,7 +198,7 @@ def test_02_ugens(py_synthdef_02):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_02_supriya_vs_sclang(py_synthdef_02):
+def test_02_supriya_vs_sclang(py_synthdef_02: SynthDef) -> None:
     sc_synthdef = SuperColliderSynthDef(
         "PVCopyTest",
         r"""
@@ -214,8 +215,8 @@ def test_02_supriya_vs_sclang(py_synthdef_02):
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
     py_compiled_synthdef = py_synthdef_02.compile()
     assert py_compiled_synthdef == sc_compiled_synthdef
-    sc_synthdef = decompile_synthdef(sc_compiled_synthdef)
-    assert tuple(repr(_) for _ in sc_synthdef.ugens) == (
+    decompiled_sc_synthdef = decompile_synthdef(sc_compiled_synthdef)
+    assert tuple(repr(_) for _ in decompiled_sc_synthdef.ugens) == (
         "<PinkNoise.ar()>",
         "<MaxLocalBufs.ir()>",
         "<LocalBuf.ir()>",
@@ -229,12 +230,12 @@ def test_02_supriya_vs_sclang(py_synthdef_02):
         "<IFFT.ar()>",
         "<Out.ar()>",
     )
-    assert tuple(repr(_) for _ in sc_synthdef.ugens) == tuple(
+    assert tuple(repr(_) for _ in decompiled_sc_synthdef.ugens) == tuple(
         repr(_) for _ in py_synthdef_02.ugens
     )
 
 
-def test_02_supriya_vs_bytes(py_synthdef_02):
+def test_02_supriya_vs_bytes(py_synthdef_02: SynthDef) -> None:
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'

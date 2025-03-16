@@ -11,12 +11,13 @@ from supriya.ugens import (
     Out,
     SinOsc,
     SuperColliderSynthDef,
+    SynthDef,
     SynthDefBuilder,
 )
 
 
 @pytest.fixture
-def py_synthdef():
+def py_synthdef() -> SynthDef:
     with SynthDefBuilder() as builder:
         series = Dseries.dr(length=float("inf"), start=0, step=1)
         trigger = Impulse.kr(frequency=10)
@@ -26,7 +27,7 @@ def py_synthdef():
     return py_synthdef
 
 
-def test_demand_supriya_vs_bytes(py_synthdef):
+def test_demand_supriya_vs_bytes(py_synthdef: SynthDef) -> None:
     # fmt: off
     test_compiled_synthdef = bytes(
          b'SCgf'
@@ -106,7 +107,7 @@ def test_demand_supriya_vs_bytes(py_synthdef):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_demand_supriya_vs_sclang(py_synthdef):
+def test_demand_supriya_vs_sclang(py_synthdef: SynthDef) -> None:
     sc_synthdef = SuperColliderSynthDef(
         "foo",
         """

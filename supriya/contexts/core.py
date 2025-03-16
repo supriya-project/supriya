@@ -13,6 +13,7 @@ import threading
 from collections.abc import Sequence as SequenceABC
 from os import PathLike
 from typing import (
+    Any,
     Callable,
     Dict,
     List,
@@ -211,29 +212,30 @@ class Context(metaclass=abc.ABCMeta):
         **kwargs,
     ) -> None:
         self._audio_bus_allocator = BlockAllocator()
-        self._boot_status = BootStatus.OFFLINE
+        self._boot_status: BootStatus = BootStatus.OFFLINE
         self._buffer_allocator = BlockAllocator()
-        self._client_id = 0
+        self._client_id: int = 0
         self._control_bus_allocator = BlockAllocator()
-        self._latency = 0.0
+        self._latency: float = 0.0
         self._lock = threading.RLock()
-        self._name = name
+        self._name: str | None = name
         self._node_id_allocator = NodeIdAllocator()
         self._options: Options = self._get_options(options, **kwargs)
-        self._sync_id = self._sync_id_minimum = 0
-        self._sync_id_maximum = 32 << 26
+        self._sync_id: int = 0
+        self._sync_id_minimum: int = 0
+        self._sync_id_maximum: int = 32 << 26
         self._thread_local = threading.local()
         self._setup_allocators()
 
     ### SPECIAL METHODS ###
 
-    def __getstate__(self):
+    def __getstate__(self) -> dict:
         state = self.__dict__.copy()
         del state["_lock"]
         del state["_thread_local"]
         return state
 
-    def __setstate__(self, state):
+    def __setstate__(self, state: dict) -> None:
         self.__dict__.update(state)
         self._lock = threading.RLock()
         self._thread_local = threading.local()
@@ -423,7 +425,7 @@ class Context(metaclass=abc.ABCMeta):
         file_path: Optional[PathLike] = None,
         frame_count: Optional[int] = None,
         starting_frame: Optional[int] = None,
-        on_completion: Optional[Callable[["Context"], None]] = None,
+        on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Buffer:
         """
         Add a new buffer to the context.
@@ -661,7 +663,7 @@ class Context(metaclass=abc.ABCMeta):
     def add_synthdefs(
         self,
         *synthdefs: SynthDef,
-        on_completion: Optional[Callable[["Context"], None]] = None,
+        on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Completion:
         """
         Add one or more SynthDefs to the context.
@@ -701,7 +703,7 @@ class Context(metaclass=abc.ABCMeta):
     def close_buffer(
         self,
         buffer: Buffer,
-        on_completion: Optional[Callable[["Context"], None]] = None,
+        on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Completion:
         """
         Close a buffer.
@@ -793,7 +795,7 @@ class Context(metaclass=abc.ABCMeta):
     def free_buffer(
         self,
         buffer: Buffer,
-        on_completion: Optional[Callable[["Context"], None]] = None,
+        on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Completion:
         """
         Free a buffer.
@@ -969,7 +971,7 @@ class Context(metaclass=abc.ABCMeta):
     def load_synthdefs(
         self,
         path: PathLike,
-        on_completion: Optional[Callable[["Context"], None]] = None,
+        on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Completion:
         """
         Load SynthDefs from a path.
@@ -993,7 +995,7 @@ class Context(metaclass=abc.ABCMeta):
     def load_synthdefs_directory(
         self,
         path: PathLike,
-        on_completion: Optional[Callable[["Context"], None]] = None,
+        on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Completion:
         """
         Load all SynthDefs from a directory.
@@ -1136,7 +1138,7 @@ class Context(metaclass=abc.ABCMeta):
         frame_count: Optional[int] = None,
         leave_open: bool = False,
         starting_frame: Optional[int] = None,
-        on_completion: Optional[Callable[["Context"], None]] = None,
+        on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Completion:
         """
         Read a file into a buffer.
@@ -1180,7 +1182,7 @@ class Context(metaclass=abc.ABCMeta):
         return self._add_request_with_completion(request, on_completion)
 
     @abc.abstractmethod
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]):
+    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
         """
         Send a message to the execution context.
 
@@ -1326,7 +1328,7 @@ class Context(metaclass=abc.ABCMeta):
         leave_open: bool = False,
         sample_format: SampleFormatLike = "int24",
         starting_frame: Optional[int] = None,
-        on_completion: Optional[Callable[["Context"], None]] = None,
+        on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Completion:
         """
         Write a buffer to disk.
@@ -1360,7 +1362,7 @@ class Context(metaclass=abc.ABCMeta):
     def zero_buffer(
         self,
         buffer: Buffer,
-        on_completion: Optional[Callable[["Context"], None]] = None,
+        on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Completion:
         """
         Set a buffer's contents to zero.

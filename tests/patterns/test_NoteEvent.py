@@ -1,15 +1,16 @@
-import uuid
 from unittest.mock import Mock, call
+from uuid import UUID, uuid4
 
 import pytest
+from pytest_mock import MockerFixture
 
 from supriya import AddAction, CalculationRate
 from supriya.assets.synthdefs import default
-from supriya.contexts import BusGroup, Server, Synth
-from supriya.patterns.events import BusAllocateEvent, NoteEvent, Priority
+from supriya.contexts import BusGroup, ContextObject, Server, Synth
+from supriya.patterns.events import BusAllocateEvent, Event, NoteEvent, Priority
 
-id_ = uuid.uuid4()
-bus_id = uuid.uuid4()
+id_ = uuid4()
+bus_id = uuid4()
 
 
 @pytest.mark.parametrize(
@@ -63,15 +64,19 @@ bus_id = uuid.uuid4()
         ),
     ],
 )
-def test_expand(event, offset, expected):
+def test_expand(
+    event: Event, offset: float, expected: list[tuple[float, Priority, Event]]
+) -> None:
     actual = event.expand(offset)
     assert actual == expected
 
 
-def test_perform():
+def test_perform(mocker: MockerFixture) -> None:
     context = Server().boot()
-    proxy_mapping = {}
-    notes_mapping = {}
+    spy = Mock(wraps=context)
+    mocker.patch.object(context, "send")
+    proxy_mapping: dict[UUID | tuple[UUID, int], ContextObject] = {}
+    notes_mapping: dict[UUID | tuple[UUID, int], float] = {}
     # 0: Allocate a bus for later
     bus_event = BusAllocateEvent(bus_id, calculation_rate="control")
     with context.at():
@@ -84,7 +89,6 @@ def test_perform():
         )
     # A: Allocate
     event_one = NoteEvent(id_)
-    spy = Mock(wraps=context)
     with context.at():
         event_one.perform(
             spy,
@@ -111,8 +115,6 @@ def test_perform():
             target_node=None,
         )
     ]
-    # Wait
-    context.sync()
     # B: Already allocated, so update settings
     event_two = NoteEvent(id_, amplitude=bus_id, frequency=550)
     spy = Mock(wraps=context)

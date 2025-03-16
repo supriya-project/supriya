@@ -11,7 +11,7 @@ from supriya.ugens import (
 )
 
 
-def test_SynthDefDecompiler_01():
+def test_SynthDefDecompiler_01() -> None:
     r"""Anonymous SynthDef without parameters."""
     with SynthDefBuilder() as builder:
         sine = SinOsc.ar()
@@ -27,7 +27,7 @@ def test_SynthDefDecompiler_01():
     assert old_synthdef.name == new_synthdef.name
 
 
-def test_SynthDefDecompiler_02():
+def test_SynthDefDecompiler_02() -> None:
     r"""Anonymous SynthDef with one parameter."""
     with SynthDefBuilder(freq=440) as builder:
         sine = SinOsc.ar(frequency=builder["freq"])
@@ -42,7 +42,7 @@ def test_SynthDefDecompiler_02():
     assert old_synthdef.name == new_synthdef.name
 
 
-def test_SynthDefDecompiler_03():
+def test_SynthDefDecompiler_03() -> None:
     r"""Named SynthDef with one parameter."""
     with SynthDefBuilder(freq=440) as builder:
         sine = SinOsc.ar(frequency=builder["freq"])
@@ -57,7 +57,7 @@ def test_SynthDefDecompiler_03():
     assert old_synthdef.name == new_synthdef.name
 
 
-def test_SynthDefDecompiler_04():
+def test_SynthDefDecompiler_04() -> None:
     r"""Multiple parameters."""
     with SynthDefBuilder(freq=1200, out=23) as builder:
         sine = SinOsc.ar(frequency=builder["freq"])
@@ -72,7 +72,7 @@ def test_SynthDefDecompiler_04():
     assert old_synthdef.name == new_synthdef.name
 
 
-def test_SynthDefDecompiler_05():
+def test_SynthDefDecompiler_05() -> None:
     """Multiple parameters."""
     builder = SynthDefBuilder(damping=0.5, delay_time=1.0, room_size=0.75)
     with builder:
@@ -91,7 +91,7 @@ def test_SynthDefDecompiler_05():
     assert old_synthdef.name == new_synthdef.name
 
 
-def test_SynthDefDecompiler_06():
+def test_SynthDefDecompiler_06() -> None:
     r"""Multiple parameters with different rates."""
     builder = SynthDefBuilder(
         a_phase=0.0, freq=440, i_decay_time=1.0, t_trig_a=0, t_trig_b=0
@@ -115,7 +115,7 @@ def test_SynthDefDecompiler_06():
     assert old_synthdef.name == new_synthdef.name
 
 
-def test_SynthDefDecompiler_07():
+def test_SynthDefDecompiler_07() -> None:
     builder = SynthDefBuilder(amp=0.5, freqs=[300, 400])
     with builder:
         sines = SinOsc.ar(frequency=builder["freqs"])
@@ -132,7 +132,7 @@ def test_SynthDefDecompiler_07():
     assert old_synthdef.name == new_synthdef.name
 
 
-def test_SynthDefDecompiler_08():
+def test_SynthDefDecompiler_08() -> None:
     r"""Multiple parameters with different lags."""
     builder = SynthDefBuilder(amp=0.5, freqs=Parameter(lag=0.5, value=[300, 400]))
     with builder:

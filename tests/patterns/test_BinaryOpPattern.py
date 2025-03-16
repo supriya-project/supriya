@@ -1,9 +1,12 @@
 import operator
+from typing import Callable, Sequence, TypeAlias
 
 import pytest
 
-from supriya.patterns import BinaryOpPattern, SequencePattern
+from supriya.patterns import BinaryOpPattern, Pattern, SequencePattern
 from supriya.patterns.testutils import run_pattern_test
+
+PatternInput: TypeAlias = int | Sequence["PatternInput"]
 
 
 @pytest.mark.parametrize(
@@ -28,6 +31,13 @@ from supriya.patterns.testutils import run_pattern_test
         ),
     ],
 )
-def test(stop_at, operator, input_a, input_b, expected, is_infinite):
+def test_pattern(
+    stop_at: float | None,
+    operator: Callable,
+    input_a: Pattern | PatternInput,
+    input_b: PatternInput,
+    expected: PatternInput,
+    is_infinite: bool,
+) -> None:
     pattern = BinaryOpPattern(operator, input_a, input_b)
     run_pattern_test(pattern, expected, is_infinite, stop_at)
