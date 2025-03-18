@@ -2,6 +2,7 @@ import pytest
 
 from supriya.patterns import (
     CompositeEvent,
+    Event,
     EventPattern,
     GroupAllocateEvent,
     GroupPattern,
@@ -9,6 +10,7 @@ from supriya.patterns import (
     NoteEvent,
     NullEvent,
     ParallelPattern,
+    Pattern,
     SequencePattern,
 )
 from supriya.patterns.testutils import MockUUID as M
@@ -139,6 +141,11 @@ from supriya.patterns.testutils import run_pattern_test
         ),
     ],
 )
-def test(stop_at, patterns, expected, is_infinite):
+def test_pattern(
+    stop_at: float | None,
+    patterns: list[Pattern[Event]],
+    expected: list[Event],
+    is_infinite: bool,
+) -> None:
     pattern = ParallelPattern(patterns)
     run_pattern_test(pattern, expected, is_infinite, stop_at)

@@ -40,16 +40,15 @@ class Score(Context):
 
     ### INITIALIZER ###
 
-    def __init__(self, options: Optional[Options] = None, **kwargs):
+    def __init__(self, options: Optional[Options] = None, **kwargs) -> None:
         super().__init__(options=options, **kwargs)
-        self._boot_status = BootStatus.ONLINE
+        self._boot_status: BootStatus = BootStatus.ONLINE
         self._requests: Dict[float, List[Requestable]] = {}
 
     ### CLASS METHODS ###
 
     async def __render__(
         self,
-        *,
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
@@ -238,7 +237,7 @@ class Score(Context):
         if until and until > timestamp:
             yield RequestBundle(timestamp=until, contents=[DoNothing()])
 
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]):
+    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
         """
         Send a message to the execution context.
 

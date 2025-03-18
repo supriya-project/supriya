@@ -69,12 +69,12 @@ class BlockAllocator:
 
     ### SPECIAL METHODS ###
 
-    def __getstate__(self):
+    def __getstate__(self) -> dict:
         state = self.__dict__.copy()
         del state["_lock"]
         return state
 
-    def __setstate__(self, state):
+    def __setstate__(self, state: dict) -> None:
         self.__dict__.update(state)
         self._lock = threading.Lock()
 
@@ -244,12 +244,12 @@ class NodeIdAllocator:
 
     ### SPECIAL METHODS ###
 
-    def __getstate__(self):
+    def __getstate__(self) -> dict:
         state = self.__dict__.copy()
         del state["_lock"]
         return state
 
-    def __setstate__(self, state):
+    def __setstate__(self, state: dict) -> None:
         self.__dict__.update(state)
         self._lock = threading.Lock()
 

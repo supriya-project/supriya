@@ -9,13 +9,14 @@ from supriya.ugens import (
     RandID,
     RandSeed,
     SuperColliderSynthDef,
+    SynthDef,
     SynthDefBuilder,
     WhiteNoise,
 )
 
 
 @pytest.fixture
-def py_synthdef_01():
+def py_synthdef_01() -> SynthDef:
     with SynthDefBuilder(rand_id=0, seed=0) as builder:
         RandID.ir(rand_id=builder["rand_id"])
         RandSeed.ir(seed=builder["seed"], trigger=1)
@@ -30,7 +31,7 @@ def py_synthdef_01():
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_rngs_01_supriya_vs_sclang(py_synthdef_01):
+def test_rngs_01_supriya_vs_sclang(py_synthdef_01: SynthDef) -> None:
     sc_synthdef = SuperColliderSynthDef(
         "seedednoise",
         r"""
@@ -45,7 +46,7 @@ def test_rngs_01_supriya_vs_sclang(py_synthdef_01):
     assert py_compiled_synthdef == sc_compiled_synthdef
 
 
-def test_rngs_01_supriya_vs_bytes(py_synthdef_01):
+def test_rngs_01_supriya_vs_bytes(py_synthdef_01: SynthDef) -> None:
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'

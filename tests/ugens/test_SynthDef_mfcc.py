@@ -11,13 +11,14 @@ from supriya.ugens import (
     In,
     Out,
     SuperColliderSynthDef,
+    SynthDef,
     SynthDefBuilder,
     decompile_synthdef,
 )
 
 
 @pytest.fixture
-def py_synthdef_mfcc():
+def py_synthdef_mfcc() -> SynthDef:
     with SynthDefBuilder() as builder:
         source = In.ar(bus=0)
         pv_chain = FFT.kr(source=source)
@@ -27,7 +28,7 @@ def py_synthdef_mfcc():
 
 
 @pytest.fixture
-def sc_synthdef_mfcc():
+def sc_synthdef_mfcc() -> SuperColliderSynthDef:
     return SuperColliderSynthDef(
         "MFCCTest",
         r"""
@@ -45,7 +46,9 @@ def sc_synthdef_mfcc():
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_ugens(py_synthdef_mfcc, sc_synthdef_mfcc):
+def test_ugens(
+    py_synthdef_mfcc: SynthDef, sc_synthdef_mfcc: SuperColliderSynthDef
+) -> None:
     py_ugens = tuple(repr(_) for _ in py_synthdef_mfcc.ugens)
     assert py_ugens == (
         "<In.ar()>",
@@ -66,7 +69,9 @@ def test_ugens(py_synthdef_mfcc, sc_synthdef_mfcc):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_format(py_synthdef_mfcc, sc_synthdef_mfcc):
+def test_format(
+    py_synthdef_mfcc: SynthDef, sc_synthdef_mfcc: SuperColliderSynthDef
+) -> None:
     py_format = str(py_synthdef_mfcc)
     assert py_format == normalize(
         """
@@ -118,7 +123,9 @@ def test_format(py_synthdef_mfcc, sc_synthdef_mfcc):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_py_compile(py_synthdef_mfcc, sc_synthdef_mfcc):
+def test_py_compile(
+    py_synthdef_mfcc: SynthDef, sc_synthdef_mfcc: SuperColliderSynthDef
+) -> None:
     py_compiled_synthdef = py_synthdef_mfcc.compile()
     # fmt: off
     assert py_compiled_synthdef == (

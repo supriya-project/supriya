@@ -8,7 +8,7 @@ from supriya.assets.synthdefs import system_link_audio_1, system_link_audio_2
 from supriya.ugens import SuperColliderSynthDef, decompile_synthdef
 
 
-def test_system_link_audio_1_supriya():
+def test_system_link_audio_1_supriya() -> None:
     assert normalize(str(system_link_audio_1)) == normalize(
         """
         synthdef:
@@ -53,7 +53,7 @@ def test_system_link_audio_1_supriya():
     )
 
 
-def test_system_link_audio_1_bytes():
+def test_system_link_audio_1_bytes() -> None:
     py_compiled = system_link_audio_1.compile()
     assert py_compiled == (
         b"SCgf\x00\x00\x00\x02\x00\x01\x13system_link_audio_1\x00\x00\x00\x05\x00\x00"
@@ -87,7 +87,7 @@ def test_system_link_audio_1_bytes():
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_system_link_audio_1_sclang():
+def test_system_link_audio_1_sclang() -> None:
     sc_compiled = SuperColliderSynthDef(
         "system_link_audio_1",
         r"""
@@ -155,7 +155,7 @@ def test_system_link_audio_1_sclang():
     )
 
 
-def test_system_link_audio_2_supriya():
+def test_system_link_audio_2_supriya() -> None:
     assert normalize(str(system_link_audio_2)) == normalize(
         """
         synthdef:
@@ -204,7 +204,7 @@ def test_system_link_audio_2_supriya():
     )
 
 
-def test_system_link_audio_2_bytes():
+def test_system_link_audio_2_bytes() -> None:
     py_compiled = system_link_audio_2.compile()
     assert py_compiled == (
         b"SCgf\x00\x00\x00\x02\x00\x01\x13system_link_audio_2\x00\x00\x00\x05\x00\x00"
@@ -241,7 +241,7 @@ def test_system_link_audio_2_bytes():
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_system_link_audio_2_sclang():
+def test_system_link_audio_2_sclang() -> None:
     sc_compiled = SuperColliderSynthDef(
         "system_link_audio_2",
         r"""

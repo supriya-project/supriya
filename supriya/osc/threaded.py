@@ -73,17 +73,19 @@ class ThreadedOscProtocol(OscProtocol):
         self.command_queue: Queue[Tuple[Literal["add", "remove"], OscCallback]] = (
             Queue()
         )
+        self.healthcheck_deadline = 0.0
         self.lock = threading.RLock()
 
     ### PRIVATE METHODS ###
 
     def _disconnect(self, panicked: bool = False) -> None:
         super()._disconnect(panicked=panicked)
-        if not self.osc_server._BaseServer__shutdown_request:
+        if not self.osc_server._BaseServer__shutdown_request:  # type: ignore
             # We set the shutdown request flag rather than call .shutdown()
             # because this is often being called from _inside_ the server
             # thread.
-            self.osc_server._BaseServer__shutdown_request = True
+            # N.B. Can't figure out how to make Mypy play nice with this.
+            self.osc_server._BaseServer__shutdown_request = True  # type: ignore
         self._on_disconnect(
             boot_future=self.boot_future,
             exit_future=self.exit_future,
@@ -117,7 +119,7 @@ class ThreadedOscProtocol(OscProtocol):
         if self.status == BootStatus.BOOTING:
             self._on_connect(boot_future=self.boot_future)
 
-    def _process_command_queue(self):
+    def _process_command_queue(self) -> None:
         while self.command_queue.qsize():
             try:
                 action, callback = self.command_queue.get()
@@ -128,7 +130,7 @@ class ThreadedOscProtocol(OscProtocol):
             elif action == "remove":
                 self._remove_callback(callback)
 
-    def _run_healthcheck(self):
+    def _run_healthcheck(self) -> None:
         if self.healthcheck is None:
             return
         now = time.time()
@@ -154,7 +156,7 @@ class ThreadedOscProtocol(OscProtocol):
             return
         self._disconnect(panicked=True)
 
-    def _server_factory(self, ip_address, port):
+    def _server_factory(self, ip_address, port) -> "Server":
         server = self.Server(
             (self.ip_address, self.port), self.Handler, bind_and_activate=False
         )
@@ -169,7 +171,7 @@ class ThreadedOscProtocol(OscProtocol):
 
     def connect(
         self, ip_address: str, port: int, *, healthcheck: Optional[HealthCheck] = None
-    ):
+    ) -> None:
         if self.status != BootStatus.OFFLINE:
             osc_protocol_logger.info(
                 f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "

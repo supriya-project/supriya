@@ -2,7 +2,13 @@ import uuid
 
 import pytest
 
-from supriya.patterns.events import CompositeEvent, NodeFreeEvent, NullEvent, Priority
+from supriya.patterns.events import (
+    CompositeEvent,
+    Event,
+    NodeFreeEvent,
+    NullEvent,
+    Priority,
+)
 
 id_ = uuid.uuid4()
 
@@ -22,7 +28,9 @@ id_ = uuid.uuid4()
         ),
     ],
 )
-def test_expand(event, offset, expected):
+def test_expand(
+    event: Event, offset: float, expected: list[tuple[float, Priority, Event]]
+) -> None:
     print(event)
     actual = event.expand(offset)
     assert actual == expected

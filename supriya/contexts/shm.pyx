@@ -21,7 +21,7 @@ cdef class ServerSHM:
     cdef server_shared_memory_client* client
     cdef unsigned int bus_count
 
-    def __cinit__(self, unsigned int port_number, unsigned int bus_count):
+    def __cinit__(self, unsigned int port_number, unsigned int bus_count) -> None:
         self.bus_count = bus_count
         self.client = new server_shared_memory_client(port_number)
 

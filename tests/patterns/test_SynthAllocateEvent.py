@@ -1,14 +1,15 @@
-import uuid
 from unittest.mock import Mock, call
+from uuid import UUID, uuid4
 
 import pytest
+from pytest_mock import MockerFixture
 
 from supriya import AddAction
 from supriya.assets.synthdefs import default
-from supriya.contexts import Server, Synth
-from supriya.patterns.events import Priority, SynthAllocateEvent
+from supriya.contexts import ContextObject, Server, Synth
+from supriya.patterns.events import Event, Priority, SynthAllocateEvent
 
-id_ = uuid.uuid4()
+id_ = uuid4()
 
 
 @pytest.mark.parametrize(
@@ -21,16 +22,19 @@ id_ = uuid.uuid4()
         )
     ],
 )
-def test_expand(event, offset, expected):
+def test_expand(
+    event: Event, offset: float, expected: list[tuple[float, Priority, Event]]
+) -> None:
     actual = event.expand(offset)
     assert actual == expected
 
 
-def test_perform():
+def test_perform(mocker: MockerFixture) -> None:
     context = Server().boot()
     spy = Mock(wraps=context)
-    proxy_mapping = {}
-    notes_mapping = {}
+    mocker.patch.object(context, "send")
+    proxy_mapping: dict[UUID | tuple[UUID, int], ContextObject] = {}
+    notes_mapping: dict[UUID | tuple[UUID, int], float] = {}
     # Allocate
     event = SynthAllocateEvent(id_, default)
     with context.at():

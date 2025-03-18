@@ -3,7 +3,7 @@ from uqbar.strings import normalize
 from supriya.ugens import Mix, Out, SinOsc, SynthDefBuilder
 
 
-def test_multi_value_parameters():
+def test_multi_value_parameters() -> None:
     with SynthDefBuilder(amp=0.1, freqs=[300, 400], out=0) as builder:
         sines = SinOsc.ar(frequency=builder["freqs"])
         sines = Mix.new(sines)

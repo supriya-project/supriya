@@ -6528,7 +6528,9 @@ class SuperColliderSynthDef:
                 "0.exit;",
             ]
         )
-        return "\n".join(input_)
+        text = "\n".join(input_)
+        print(text)
+        return text
 
     def compile(self) -> bytes:
         sclang_path = sclang.find()

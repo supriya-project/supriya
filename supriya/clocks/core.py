@@ -7,6 +7,7 @@ import logging
 import queue
 import time
 import traceback
+from collections.abc import Sequence
 from functools import total_ordering
 from typing import (
     Any,
@@ -736,7 +737,7 @@ class BaseClock:
         self,
         procedure: Callable,
         *,
-        args: Optional[Tuple[Any, ...]] = None,
+        args: Optional[Sequence[Any]] = None,
         event_type: int = EventType.SCHEDULE,
         kwargs: Optional[Dict[str, Any]] = None,
         quantization: Optional[Quantization] = None,
@@ -747,7 +748,7 @@ class BaseClock:
             raise ValueError(f"Invalid quantization: {quantization}")
         event_id = next(self._counter)
         command = CallbackCommand(
-            args=args,
+            args=tuple(args) if args else (),
             event_id=event_id,
             event_type=event_type,
             kwargs=kwargs,
@@ -824,18 +825,18 @@ class BaseClock:
         self,
         procedure: Callable,
         *,
+        args: Optional[Sequence[Any]] = None,
         event_type: int = EventType.SCHEDULE,
+        kwargs: Optional[Dict[str, Any]] = None,
         schedule_at: float = 0.0,
         time_unit: TimeUnit = TimeUnit.BEATS,
-        args: Optional[Tuple[Any, ...]] = None,
-        kwargs: Optional[Dict[str, Any]] = None,
     ) -> int:
         logger.debug(f"[{self.name}] Scheduling {procedure}")
         if event_type <= 0:
             raise ValueError(f"Invalid event type {event_type}")
         event_id = next(self._counter)
         command = CallbackCommand(
-            args=args,
+            args=tuple(args) if args else (),
             event_id=event_id,
             event_type=event_type,
             kwargs=kwargs,

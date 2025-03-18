@@ -73,8 +73,8 @@ class RandomPattern(Pattern[float]):
 
     def __init__(
         self,
-        minimum: float = 0.0,
-        maximum: float = 1.0,
+        minimum: float | Sequence[float] = 0.0,
+        maximum: float | Sequence[float] = 1.0,
         iterations: Optional[int] = None,
         distribution: Union["RandomPattern.Distribution", str] = "WHITE_NOISE",
     ) -> None:

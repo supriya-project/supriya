@@ -4,7 +4,7 @@ from supriya.ugens import SinOsc
 from supriya.ugens.factories import SynthDefFactory
 
 
-def test_gate_01():
+def test_gate_01() -> None:
     def signal_block(builder, source, state):
         return SinOsc.ar()
 
@@ -40,7 +40,7 @@ def test_gate_01():
     )
 
 
-def test_gate_02():
+def test_gate_02() -> None:
     def signal_block(builder, source, state):
         return SinOsc.ar()
 
@@ -78,7 +78,7 @@ def test_gate_02():
     )
 
 
-def test_gate_03():
+def test_gate_03() -> None:
     def signal_block(builder, source, state):
         return SinOsc.ar()
 
@@ -123,7 +123,7 @@ def test_gate_03():
     )
 
 
-def test_gate_04():
+def test_gate_04() -> None:
     def signal_block(builder, source, state):
         return SinOsc.ar()
 

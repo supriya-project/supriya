@@ -1,5 +1,6 @@
 import asyncio
 import logging
+from typing import AsyncGenerator
 
 import pytest
 import pytest_asyncio
@@ -25,7 +26,7 @@ def use_caplog(caplog):
 
 
 @pytest_asyncio.fixture(autouse=True, params=[AsyncServer, Server])
-async def context(request):
+async def context(request) -> AsyncGenerator[AsyncServer | Server, None]:
     context = request.param()
     await get(context.boot())
     context.add_synthdefs(default)
@@ -34,7 +35,7 @@ async def context(request):
 
 
 @pytest.mark.asyncio
-async def test_Group_children(context):
+async def test_Group_children(context: AsyncServer | Server) -> None:
     # root node's child(ren) is the default grop
     assert context.root_node.children == [context.default_group]
     # the default group initializes without children
@@ -69,7 +70,7 @@ async def test_Group_children(context):
 
 
 @pytest.mark.asyncio
-async def test_Node_active(context):
+async def test_Node_active(context: AsyncServer | Server) -> None:
     # nodes are active by default
     group = context.add_group()
     assert group.active  # waiting for the /n_go response
@@ -88,7 +89,7 @@ async def test_Node_active(context):
 
 
 @pytest.mark.asyncio
-async def test_Node_allocated(context):
+async def test_Node_allocated(context: AsyncServer | Server) -> None:
     # groups can be allocated
     group = context.add_group()
     assert not group.allocated  # waiting for the /n_go response
@@ -113,16 +114,17 @@ async def test_Node_allocated(context):
 
 
 @pytest.mark.asyncio
-async def test_Node_parent(context):
+async def test_Node_parent(context: AsyncServer | Server) -> None:
     group = context.add_group()
     assert group.parent is None  # waiting for the /n_go response
     await asyncio.sleep(0.1)
+    assert group.parent is not None
     assert group.parent == context.default_group
     assert group.parent.parent == context.root_node
 
 
 @pytest.mark.asyncio
-async def test_add_group(context):
+async def test_add_group(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         # /g_new
         group = context.add_group()
@@ -153,7 +155,9 @@ async def test_add_group(context):
 
 
 @pytest.mark.asyncio
-async def test_add_synth(context):
+async def test_add_synth(context: AsyncServer | Server) -> None:
+    context.add_synthdefs(default, test_two_voice)
+    await get(context.sync())
     with context.osc_protocol.capture() as transcript:
         bus_a = context.add_bus("AUDIO")
         bus_c = context.add_bus("CONTROL")
@@ -218,7 +222,7 @@ async def test_add_synth(context):
 
 
 @pytest.mark.asyncio
-async def test_free_group_children(context):
+async def test_free_group_children(context: AsyncServer | Server) -> None:
     grandparent = context.add_group()
     # setup
     parent = grandparent.add_group()
@@ -282,7 +286,7 @@ async def test_free_group_children(context):
 
 
 @pytest.mark.asyncio
-async def test_free_node(context):
+async def test_free_node(context: AsyncServer | Server) -> None:
     group = context.add_group()
     synth = context.add_synth(default)
     with context.osc_protocol.capture() as transcript:
@@ -295,7 +299,7 @@ async def test_free_node(context):
 
 
 @pytest.mark.asyncio
-async def test_get_synth_controls(context):
+async def test_get_synth_controls(context: AsyncServer | Server) -> None:
     with context.at():
         with context.add_synthdefs(default):
             synth = context.add_synth(
@@ -317,7 +321,7 @@ async def test_get_synth_controls(context):
 
 
 @pytest.mark.asyncio
-async def test_get_synth_control_range(context):
+async def test_get_synth_control_range(context: AsyncServer | Server) -> None:
     # TBH, not sure what the semantics of this command are supposed to be.
     with context.at():
         with context.add_synthdefs(default):
@@ -336,7 +340,7 @@ async def test_get_synth_control_range(context):
 
 
 @pytest.mark.asyncio
-async def test_map_node(context):
+async def test_map_node(context: AsyncServer | Server) -> None:
     bus_a = context.add_bus("AUDIO")
     bus_c = context.add_bus("CONTROL")
     synth = context.add_synth(default)
@@ -353,7 +357,7 @@ async def test_map_node(context):
 
 
 @pytest.mark.asyncio
-async def test_move_node(context):
+async def test_move_node(context: AsyncServer | Server) -> None:
     group = context.add_group()
     synth = context.add_synth(default)
     with context.osc_protocol.capture() as transcript:
@@ -370,7 +374,7 @@ async def test_move_node(context):
 
 
 @pytest.mark.asyncio
-async def test_order_nodes(context):
+async def test_order_nodes(context: AsyncServer | Server) -> None:
     group_a = context.add_group()
     group_b = context.add_group()
     group_c = context.add_group()
@@ -382,7 +386,7 @@ async def test_order_nodes(context):
 
 
 @pytest.mark.asyncio
-async def test_pause_node(context):
+async def test_pause_node(context: AsyncServer | Server) -> None:
     group = context.add_group()
     with context.osc_protocol.capture() as transcript:
         group.pause()
@@ -392,7 +396,7 @@ async def test_pause_node(context):
 
 
 @pytest.mark.asyncio
-async def test_query_node(context):
+async def test_query_node(context: AsyncServer | Server) -> None:
     group = context.add_group()
     await asyncio.sleep(0.1)
     assert await get(group.query()) == NodeInfo(
@@ -415,7 +419,7 @@ async def test_query_node(context):
 
 
 @pytest.mark.asyncio
-async def test_set_node(context):
+async def test_set_node(context: AsyncServer | Server) -> None:
     group = context.add_group()
     with context.osc_protocol.capture() as transcript:
         group.set((1, 2.3), (2, [3.4, 4.5]), foo=3.145, bar=4.5, baz=[1.23, 4.56])
@@ -438,7 +442,7 @@ async def test_set_node(context):
 
 
 @pytest.mark.asyncio
-async def test_set_node_range(context):
+async def test_set_node_range(context: AsyncServer | Server) -> None:
     group = context.add_group()
     with context.osc_protocol.capture() as transcript:
         group.set_range((2, [3.4, 4.5]), baz=[1.23, 4.56])
@@ -448,7 +452,7 @@ async def test_set_node_range(context):
 
 
 @pytest.mark.asyncio
-async def test_unpause_node(context):
+async def test_unpause_node(context: AsyncServer | Server) -> None:
     group_a = context.add_group()
     group_b = context.add_group()
     group_c = context.add_group()

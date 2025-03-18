@@ -79,7 +79,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         if self.status == BootStatus.BOOTING:
             await self._on_connect(boot_future=self.boot_future)
 
-    async def _run_healthcheck(self):
+    async def _run_healthcheck(self) -> None:
         if self.healthcheck is None:
             return
         while self.status in (BootStatus.BOOTING, BootStatus.ONLINE):
@@ -99,20 +99,20 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
 
     ### OVERRIDES ###
 
-    def connection_made(self, transport):
+    def connection_made(self, transport) -> None:
         osc_protocol_logger.info(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
             "connection made!"
         )
         self.transport = transport
 
-    def connection_lost(self, exc):
+    def connection_lost(self, exc) -> None:
         osc_protocol_logger.info(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
             "connection lost!"
         )
 
-    def datagram_received(self, data, addr):
+    def datagram_received(self, data, addr) -> None:
         loop = asyncio.get_running_loop()
         for callback, message in self._validate_receive(data):
             if asyncio.iscoroutine(
@@ -123,7 +123,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
                 self.background_tasks.add(task := loop.create_task(result))
                 task.add_done_callback(self.background_tasks.discard)
 
-    def error_received(self, exc):
+    def error_received(self, exc) -> None:
         osc_out_logger.warning(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
             f"errored: {exc}"

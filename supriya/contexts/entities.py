@@ -4,10 +4,12 @@ from os import PathLike
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
+    Any,
     Awaitable,
     Callable,
     Container,
     Dict,
+    Iterator,
     List,
     Literal,
     Optional,
@@ -15,6 +17,7 @@ from typing import (
     SupportsFloat,
     Tuple,
     Union,
+    overload,
 )
 
 from ..assets.synthdefs.default import default
@@ -127,7 +130,7 @@ class Buffer(ContextObject):
             return PlayMemo.from_path(path)
 
     def close(
-        self, on_completion: Optional[Callable[["Context"], None]] = None
+        self, on_completion: Optional[Callable[["Context"], Any]] = None
     ) -> "Completion":
         """
         Close the buffer.
@@ -180,7 +183,7 @@ class Buffer(ContextObject):
         self.context.fill_buffer(self, starting_frame, frame_count, value)
 
     def free(
-        self, on_completion: Optional[Callable[["Context"], None]] = None
+        self, on_completion: Optional[Callable[["Context"], Any]] = None
     ) -> "Completion":
         """
         Free the buffer.
@@ -302,7 +305,7 @@ class Buffer(ContextObject):
         channel_indices: Optional[List[int]] = None,
         frame_count: Optional[int] = None,
         leave_open: bool = False,
-        on_completion: Optional[Callable[["Context"], None]] = None,
+        on_completion: Optional[Callable[["Context"], Any]] = None,
         starting_frame: Optional[int] = None,
     ) -> "Completion":
         """
@@ -362,7 +365,7 @@ class Buffer(ContextObject):
         frame_count: Optional[int] = None,
         header_format: HeaderFormatLike = "aiff",
         leave_open: bool = False,
-        on_completion: Optional[Callable[["Context"], None]] = None,
+        on_completion: Optional[Callable[["Context"], Any]] = None,
         sample_format: SampleFormatLike = "int24",
         starting_frame: Optional[int] = None,
     ) -> "Completion":
@@ -394,7 +397,7 @@ class Buffer(ContextObject):
         )
 
     def zero(
-        self, on_completion: Optional[Callable[["Context"], None]] = None
+        self, on_completion: Optional[Callable[["Context"], Any]] = None
     ) -> "Completion":
         """
         Zero the buffer.
@@ -423,7 +426,7 @@ class BufferGroup(ContextObject):
         init=False, repr=False, default_factory=tuple
     )
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         object.__setattr__(
             self,
             "buffers",
@@ -433,13 +436,22 @@ class BufferGroup(ContextObject):
             ),
         )
 
+    @overload
+    def __getitem__(self, i: int) -> Buffer: ...
+
+    @overload
+    def __getitem__(self, s: slice) -> list[Buffer]: ...
+
     def __getitem__(self, item):
         return self.buffers[item]
+
+    def __iter__(self) -> Iterator[Buffer]:
+        return iter(self.buffers)
 
     def __len__(self) -> int:
         return len(self.buffers)
 
-    def free(self):
+    def free(self) -> None:
         """
         Free the buffer group.
 
@@ -562,7 +574,7 @@ class BusGroup(ContextObject):
         init=False, repr=False, default_factory=tuple
     )
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         object.__setattr__(
             self,
             "buses",
@@ -572,13 +584,22 @@ class BusGroup(ContextObject):
             ),
         )
 
+    @overload
+    def __getitem__(self, i: int) -> Bus: ...
+
+    @overload
+    def __getitem__(self, s: slice) -> list[Bus]: ...
+
     def __getitem__(self, item):
         return self.buses[item]
+
+    def __iter__(self) -> Iterator[Bus]:
+        return iter(self.buses)
 
     def __len__(self) -> int:
         return len(self.buses)
 
-    def free(self):
+    def free(self) -> None:
         """
         Free the bus group.
 

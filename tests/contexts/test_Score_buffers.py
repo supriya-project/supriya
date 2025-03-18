@@ -10,21 +10,21 @@ from supriya.osc import OscBundle, OscMessage
 
 
 @pytest.fixture
-def audio_paths():
+def audio_paths() -> list[Path]:
     return sorted((Path(assets.__path__[0]) / "audio" / "birds").glob("*.wav"))
 
 
 @pytest.fixture(autouse=True)
-def use_caplog(caplog):
+def use_caplog(caplog) -> None:
     caplog.set_level(logging.INFO)
 
 
 @pytest.fixture
-def context():
+def context() -> Score:
     return Score()
 
 
-def test_add_buffer(audio_paths, context):
+def test_add_buffer(audio_paths: list[Path], context: Score) -> None:
     with context.at(0):
         # neither frame count nor file path provided
         with pytest.raises(ValueError):
@@ -83,7 +83,7 @@ def test_add_buffer(audio_paths, context):
     ]
 
 
-def test_add_buffer_group(context):
+def test_add_buffer_group(context: Score) -> None:
     with context.at(0):
         # neither channel count nor frame count provided
         with pytest.raises(ValueError):
@@ -112,7 +112,7 @@ def test_add_buffer_group(context):
     ]
 
 
-def test_close_buffer(context):
+def test_close_buffer(context: Score) -> None:
     with context.at(0):
         buffer_a = context.add_buffer(channel_count=1, frame_count=23)
         buffer_b = context.add_buffer(channel_count=1, frame_count=23)
@@ -144,7 +144,7 @@ def test_close_buffer(context):
     ]
 
 
-def test_copy_buffer(context):
+def test_copy_buffer(context: Score) -> None:
     with context.at(0):
         buffer_a = context.add_buffer(channel_count=1, frame_count=23)
         buffer_b = context.add_buffer(channel_count=1, frame_count=23)
@@ -166,7 +166,7 @@ def test_copy_buffer(context):
     ]
 
 
-def test_fill_buffer(context):
+def test_fill_buffer(context: Score) -> None:
     with context.at(0):
         buffer_a = context.add_buffer(channel_count=1, frame_count=23)
         buffer_b = context.add_buffer(channel_count=1, frame_count=23)
@@ -197,7 +197,7 @@ def test_fill_buffer(context):
     ]
 
 
-def test_free_buffer(context):
+def test_free_buffer(context: Score) -> None:
     with context.at(0):
         buffer_a = context.add_buffer(channel_count=1, frame_count=23)
         buffer_b = context.add_buffer(channel_count=1, frame_count=23)
@@ -233,7 +233,7 @@ def test_free_buffer(context):
     ]
 
 
-def test_generate_buffer(context):
+def test_generate_buffer(context: Score) -> None:
     with context.at(0):
         buffer = context.add_buffer(channel_count=1, frame_count=1024)
         buffer.generate(command_name="sine1", amplitudes=[1, 2, 3])
@@ -288,7 +288,7 @@ def test_generate_buffer(context):
     ]
 
 
-def test_normalize_buffer(context):
+def test_normalize_buffer(context: Score) -> None:
     with context.at(0):
         buffer = context.add_buffer(channel_count=1, frame_count=23)
         buffer.normalize(0.5)
@@ -303,7 +303,7 @@ def test_normalize_buffer(context):
     ]
 
 
-def test_read_buffer(audio_paths, context):
+def test_read_buffer(audio_paths: list[Path], context: Score) -> None:
     with context.at(0):
         buffer_a = context.add_buffer(channel_count=1, frame_count=23)
         buffer_b = context.add_buffer(channel_count=1, frame_count=23)
@@ -369,7 +369,7 @@ def test_read_buffer(audio_paths, context):
     ]
 
 
-def test_set_buffer(context):
+def test_set_buffer(context: Score) -> None:
     with context.at(0):
         buffer = context.add_buffer(channel_count=1, frame_count=32)
         buffer.set(2, 0.5)
@@ -384,7 +384,7 @@ def test_set_buffer(context):
     ]
 
 
-def test_set_buffer_range(context):
+def test_set_buffer_range(context: Score) -> None:
     with context.at(0):
         buffer = context.add_buffer(channel_count=1, frame_count=32)
         buffer.set_range(4, (0.5, 0.75, 0.25))
@@ -399,7 +399,7 @@ def test_set_buffer_range(context):
     ]
 
 
-def test_write_buffer(context, tmp_path):
+def test_write_buffer(context: Score, tmp_path: Path) -> None:
     with context.at(0):
         buffer_a = context.add_buffer(channel_count=1, frame_count=23)
         buffer_b = context.add_buffer(channel_count=1, frame_count=23)
@@ -478,7 +478,7 @@ def test_write_buffer(context, tmp_path):
     ]
 
 
-def test_zero_buffer(context):
+def test_zero_buffer(context: Score) -> None:
     with context.at(0):
         buffer_a = context.add_buffer(channel_count=1, frame_count=23)
         buffer_b = context.add_buffer(channel_count=1, frame_count=23)

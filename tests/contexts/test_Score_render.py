@@ -15,12 +15,12 @@ EXPECTED_EXIT_CODES_WINDOWS = (3221226505, 3221225477)
 
 
 @pytest.fixture(autouse=True)
-def use_caplog(caplog):
+def use_caplog(caplog) -> None:
     caplog.set_level(logging.DEBUG)
 
 
 @pytest.fixture
-def context():
+def context() -> Score:
     context = Score()
     with context.at(0):
         with context.add_synthdefs(default):
@@ -113,14 +113,14 @@ def context():
     ],
 )
 async def test_render(
-    context,
+    context: Score,
     expected_channel_count,
     expected_duration,
     expected_path,
     expected_sample_rate,
     render_kwargs,
     tmp_path,
-):
+) -> None:
     actual_path, actual_exit_code = await context.render(**render_kwargs(tmp_path))
     assert actual_exit_code in (
         EXPECTED_EXIT_CODES_WINDOWS
@@ -146,7 +146,7 @@ async def test_render(
         assert round(actual_frame_count / actual_sample_rate, 2) == expected_duration
 
 
-def test___render__(context):
+def test___render__(context: Score) -> None:
     expected_path = (
         output_path
         / "score-1f2fad799464ced28d0af160e819d261488c4361ca8a32288f742f6e8e0fb01a.aiff"

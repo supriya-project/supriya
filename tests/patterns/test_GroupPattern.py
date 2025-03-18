@@ -2,6 +2,7 @@ import pytest
 
 from supriya.patterns import (
     CompositeEvent,
+    Event,
     EventPattern,
     GroupAllocateEvent,
     GroupPattern,
@@ -45,6 +46,12 @@ from supriya.patterns.testutils import run_pattern_test
         ),
     ],
 )
-def test(stop_at, inner_pattern, release_time, expected, is_infinite):
+def test_pattern(
+    stop_at: float | None,
+    inner_pattern: EventPattern,
+    release_time: float,
+    expected: list[Event],
+    is_infinite: bool,
+) -> None:
     pattern = GroupPattern(inner_pattern, release_time=release_time)
     run_pattern_test(pattern, expected, is_infinite, stop_at)

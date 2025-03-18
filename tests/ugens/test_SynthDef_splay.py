@@ -4,6 +4,7 @@ import platform
 import pytest
 from uqbar.strings import normalize
 
+from supriya.contexts import Server
 from supriya.ugens import (
     In,
     Out,
@@ -19,7 +20,7 @@ from supriya.ugens import (
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_Splay_01_sclang(server):
+def test_Splay_01_sclang(server: Server) -> None:
     sc_synthdef = SuperColliderSynthDef(
         "test",
         r"""
@@ -107,7 +108,7 @@ def test_Splay_01_sclang(server):
     )
 
 
-def test_Splay_01_supriya(server):
+def test_Splay_01_supriya(server: Server) -> None:
     with SynthDefBuilder(spread=1, level=0.2, center=0.0) as builder:
         source = Splay.ar(
             source=In.ar(bus=0, channel_count=5),
@@ -207,7 +208,7 @@ def test_Splay_01_supriya(server):
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_Splay_02_sclang(server):
+def test_Splay_02_sclang(server: Server) -> None:
     sc_synthdef = SuperColliderSynthDef(
         "test",
         r"""
@@ -357,7 +358,7 @@ def test_Splay_02_sclang(server):
     )
 
 
-def test_Splay_02_supriya(server):
+def test_Splay_02_supriya(server: Server) -> None:
     with SynthDefBuilder(spread=1, level=0.2) as builder:
         source = Splay.ar(
             source=In.ar(bus=0, channel_count=5),

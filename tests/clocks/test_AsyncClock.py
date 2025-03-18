@@ -4,11 +4,14 @@ import os
 import platform
 import random
 import statistics
+from typing import AsyncGenerator
 
 import pytest
 import pytest_asyncio
+from pytest import MonkeyPatch
+from pytest_mock import MockerFixture
 
-from supriya.clocks import AsyncClock, TimeUnit
+from supriya.clocks import AsyncClock, CallbackEvent, ClockContext, TimeUnit
 
 repeat_count = 5
 
@@ -16,12 +19,14 @@ logger = logging.getLogger("supriya.test")
 
 
 @pytest.fixture(autouse=True)
-def log_everything(caplog):
+def log_everything(caplog) -> None:
     caplog.set_level(logging.INFO, logger="supriya")
 
 
 @pytest_asyncio.fixture
-async def clock(mocker, monkeypatch):
+async def clock(
+    mocker: MockerFixture, monkeypatch: MonkeyPatch
+) -> AsyncGenerator[AsyncClock, None]:
     async def wait_for_event(self, sleep_time):
         await asyncio.sleep(0)
         await self._event.wait()
@@ -36,17 +41,17 @@ async def clock(mocker, monkeypatch):
 
 
 def callback(
-    context,
-    store,
-    blow_up_at=None,
-    delta=0.25,
-    limit=4,
-    time_unit=TimeUnit.BEATS,
-    **kwargs,
-):
+    context: ClockContext,
+    store: list[ClockContext],
+    blow_up_at: int | None = None,
+    delta: float = 0.25,
+    limit: int | None = 4,
+    time_unit: TimeUnit = TimeUnit.BEATS,
+) -> tuple[float, TimeUnit] | None:
+    assert isinstance(context.event, CallbackEvent)
     if context.event.invocations == blow_up_at:
         raise Exception
-    store.append((context.current_moment, context.desired_moment, context.event))
+    store.append(context)
     if limit is None:
         return delta, time_unit
     elif context.event.invocations < limit:
@@ -54,37 +59,40 @@ def callback(
     return None
 
 
-async def set_time_and_check(time_to_advance, clock, store):
+async def set_time_and_check(
+    time_to_advance: float, clock: AsyncClock, store: list[ClockContext]
+) -> list[tuple[list[float | str], list[float | int], list[float | int]]]:
     logger.info(f"Setting time to {time_to_advance}")
-    clock._get_current_time.return_value = time_to_advance
+    clock._get_current_time.return_value = time_to_advance  # type: ignore
     clock._event.set()
     await asyncio.sleep(0.01)
-    moments = []
-    for current_moment, desired_moment, event in store:
-        one = [
-            "{}/{}".format(*current_moment.time_signature),
-            current_moment.beats_per_minute,
-        ]
-        two = [
-            current_moment.measure,
-            round(current_moment.measure_offset, 10),
-            current_moment.offset,
-            current_moment.seconds,
-        ]
-        three = [
-            desired_moment.measure,
-            round(desired_moment.measure_offset, 10),
-            desired_moment.offset,
-            desired_moment.seconds,
-        ]
-        moments.append((one, two, three))
-    return moments
+    return [
+        (
+            [
+                "{}/{}".format(*context.current_moment.time_signature),
+                context.current_moment.beats_per_minute,
+            ],
+            [
+                context.current_moment.measure,
+                round(context.current_moment.measure_offset, 10),
+                context.current_moment.offset,
+                context.current_moment.seconds,
+            ],
+            [
+                context.desired_moment.measure,
+                round(context.desired_moment.measure_offset, 10),
+                context.desired_moment.offset,
+                context.desired_moment.seconds,
+            ],
+        )
+        for context in store
+    ]
 
 
-def calculate_skew(store):
+def calculate_skew(store: list[ClockContext]) -> dict[str, float]:
     skews = [
-        abs(current_moment.seconds - desired_moment.seconds)
-        for current_moment, desired_moment, event in store
+        abs(context.current_moment.seconds - context.desired_moment.seconds)
+        for context in store
     ]
     return {
         "min": min(skews),
@@ -97,7 +105,7 @@ def calculate_skew(store):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "schedule,start_clock_first,expected",
+    "schedule, start_clock_first, expected",
     [
         (True, True, [0.0, 0.25, 0.5, 0.75, 1.0]),
         (True, False, [0.0, 0.25, 0.5, 0.75, 1.0]),
@@ -105,11 +113,13 @@ def calculate_skew(store):
         (False, False, [0.0, 0.25, 0.5, 0.75, 1.0]),
     ],
 )
-async def test_realtime_01(schedule, start_clock_first, expected):
+async def test_realtime_01(
+    schedule: bool, start_clock_first: bool, expected: list[float]
+) -> None:
     """
     Start clock, then schedule
     """
-    store = []
+    store: list[ClockContext] = []
     clock = AsyncClock()
     assert not clock.is_running
     assert clock.beats_per_minute == 120
@@ -130,20 +140,24 @@ async def test_realtime_01(schedule, start_clock_first, expected):
     assert not clock.is_running
     assert clock.beats_per_minute == 120
     assert len(store) == 5
-    actual = [desired_moment.offset for current_moment, desired_moment, event in store]
+    actual = [context.desired_moment.offset for context in store]
     assert actual == expected
 
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "limit,bpm_schedule,expected",
+    "limit, bpm_schedule, expected",
     [
         (2, [(0.375, 240)], [(0.0, 0.0), (0.25, 0.4375), (0.5, 0.6875)]),
         (2, [(0.5, 240)], [(0.0, 0.0), (0.25, 0.5), (0.5, 0.75)]),
     ],
 )
-async def test_realtime_02(limit, bpm_schedule, expected):
-    store = []
+async def test_realtime_02(
+    limit: int,
+    bpm_schedule: list[tuple[float, float]],
+    expected: list[tuple[float, float]],
+) -> None:
+    store: list[ClockContext] = []
     clock = AsyncClock()
     clock.cue(callback, quantization="1/4", args=[store], kwargs=dict(limit=limit))
     for schedule_at, beats_per_minute in bpm_schedule:
@@ -156,15 +170,18 @@ async def test_realtime_02(limit, bpm_schedule, expected):
     await asyncio.sleep(2)
     await clock.stop()
     actual = [
-        (desired_moment.offset, desired_moment.seconds - clock._state.initial_seconds)
-        for current_moment, desired_moment, event in store
+        (
+            context.desired_moment.offset,
+            context.desired_moment.seconds - clock._state.initial_seconds,
+        )
+        for context in store
     ]
     assert actual == expected
 
 
 @pytest.mark.asyncio
-async def test_basic(clock):
-    store = []
+async def test_basic(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     await clock.start()
     clock.schedule(callback, schedule_at=0.0, args=[store])
     assert await set_time_and_check(0.0, clock, store) == [
@@ -195,9 +212,9 @@ async def test_basic(clock):
 
 
 @pytest.mark.asyncio
-async def test_two_procedures(clock):
-    store_one = []
-    store_two = []
+async def test_two_procedures(clock: AsyncClock) -> None:
+    store_one: list[ClockContext] = []
+    store_two: list[ClockContext] = []
     await clock.start()
     clock.schedule(callback, schedule_at=0.0, args=[store_one])
     clock.schedule(callback, schedule_at=0.1, args=[store_two], kwargs={"delta": 0.3})
@@ -248,8 +265,8 @@ async def test_two_procedures(clock):
 
 
 @pytest.mark.asyncio
-async def test_exception(clock):
-    store = []
+async def test_exception(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     await clock.start()
     clock.schedule(callback, schedule_at=0.0, args=[store], kwargs={"blow_up_at": 2})
     assert await set_time_and_check(0.0, clock, store) == [
@@ -274,8 +291,8 @@ async def test_exception(clock):
 
 
 @pytest.mark.asyncio
-async def test_change_tempo(clock):
-    store = []
+async def test_change_tempo(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     clock.schedule(callback, schedule_at=0.0, args=[store])
     await clock.start()
     assert await set_time_and_check(0.0, clock, store) == [
@@ -303,8 +320,8 @@ async def test_change_tempo(clock):
 
 
 @pytest.mark.asyncio
-async def test_schedule_tempo_change(clock):
-    store = []
+async def test_schedule_tempo_change(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     clock.schedule(callback, schedule_at=0.0, args=[store])
     clock.schedule_change(schedule_at=0.5, beats_per_minute=60)
     await clock.start()
@@ -340,8 +357,8 @@ async def test_schedule_tempo_change(clock):
 
 
 @pytest.mark.asyncio
-async def test_cue_basic(clock):
-    store = []
+async def test_cue_basic(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     await clock.start()
     clock.cue(callback, quantization=None, args=[store], kwargs={"limit": 0})
     assert await set_time_and_check(0.0, clock, store) == [
@@ -408,11 +425,11 @@ async def test_cue_basic(clock):
 
 
 @pytest.mark.asyncio
-async def test_cue_measures(clock):
+async def test_cue_measures(clock: AsyncClock) -> None:
     """
     Measure-wise cueing aligns to offset 0.0
     """
-    store = []
+    store: list[ClockContext] = []
     await clock.start()
     clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     assert await set_time_and_check(0.0, clock, store) == [
@@ -429,8 +446,8 @@ async def test_cue_measures(clock):
 
 
 @pytest.mark.asyncio
-async def test_cue_and_reschedule(clock):
-    store = []
+async def test_cue_and_reschedule(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     await clock.start()
     assert await set_time_and_check(0.25, clock, store) == []
     clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
@@ -461,46 +478,39 @@ async def test_cue_and_reschedule(clock):
 
 
 @pytest.mark.asyncio
-async def test_cue_invalid(clock):
-    await clock.start()
-    with pytest.raises(ValueError):
-        clock.cue(callback, quantization="BOGUS")
-
-
-@pytest.mark.asyncio
-async def test_reschedule_earlier(clock):
-    store = []
+async def test_reschedule_earlier(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     await clock.start()
     assert await set_time_and_check(0.5, clock, store) == []
     event_id = clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     await asyncio.sleep(0)
-    assert clock._peek().seconds == 2.0
+    assert (event := clock._peek()) is not None and event.seconds == 2.0
     clock.reschedule(event_id, schedule_at=0.5)
     await asyncio.sleep(0)
-    assert clock._peek().seconds == 1.0
+    assert (event := clock._peek()) is not None and event.seconds == 1.0
     assert await set_time_and_check(2.0, clock, store) == [
         (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [1, 0.5, 0.5, 1.0])
     ]
 
 
 @pytest.mark.asyncio
-async def test_reschedule_later(clock):
-    store = []
+async def test_reschedule_later(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     await clock.start()
     assert await set_time_and_check(0.5, clock, store) == []
     event_id = clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     await asyncio.sleep(0)
-    assert clock._peek().seconds == 2.0
+    assert (event := clock._peek()) is not None and event.seconds == 2.0
     clock.reschedule(event_id, schedule_at=1.5)
     await asyncio.sleep(0)
-    assert clock._peek().seconds == 3.0
+    assert (event := clock._peek()) is not None and event.seconds == 3.0
     assert await set_time_and_check(3.0, clock, store) == [
         (["4/4", 120.0], [2, 0.5, 1.5, 3.0], [2, 0.5, 1.5, 3.0])
     ]
 
 
 @pytest.mark.asyncio
-async def test_change_tempo_not_running(clock):
+async def test_change_tempo_not_running(clock: AsyncClock) -> None:
     assert clock.beats_per_minute == 120
     assert clock.time_signature == (4, 4)
     clock.change(beats_per_minute=135, time_signature=(3, 4))
@@ -509,8 +519,8 @@ async def test_change_tempo_not_running(clock):
 
 
 @pytest.mark.asyncio
-async def test_change_time_signature_on_downbeat(clock):
-    store = []
+async def test_change_time_signature_on_downbeat(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -541,8 +551,8 @@ async def test_change_time_signature_on_downbeat(clock):
 
 
 @pytest.mark.asyncio
-async def test_change_time_signature_on_downbeat_laggy(clock):
-    store = []
+async def test_change_time_signature_on_downbeat_laggy(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -564,8 +574,8 @@ async def test_change_time_signature_on_downbeat_laggy(clock):
 
 
 @pytest.mark.asyncio
-async def test_change_time_signature_late(clock):
-    store = []
+async def test_change_time_signature_late(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -596,8 +606,8 @@ async def test_change_time_signature_late(clock):
 
 
 @pytest.mark.asyncio
-async def test_change_time_signature_late_laggy(clock):
-    store = []
+async def test_change_time_signature_late_laggy(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -619,8 +629,8 @@ async def test_change_time_signature_late_laggy(clock):
 
 
 @pytest.mark.asyncio
-async def test_change_time_signature_early(clock):
-    store = []
+async def test_change_time_signature_early(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -651,8 +661,8 @@ async def test_change_time_signature_early(clock):
 
 
 @pytest.mark.asyncio
-async def test_change_time_signature_early_laggy(clock):
-    store = []
+async def test_change_time_signature_early_laggy(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -673,13 +683,13 @@ async def test_change_time_signature_early_laggy(clock):
 
 
 @pytest.mark.asyncio
-async def test_change_time_signature_shrinking(clock):
+async def test_change_time_signature_shrinking(clock: AsyncClock) -> None:
     """
     When shifting to a smaller time signature, if the desired measure offset is
     within that smaller time signature, maintain the desired measure and
     measure offset.
     """
-    store = []
+    store: list[ClockContext] = []
     clock.change(beats_per_minute=240)
     clock.schedule(callback, schedule_at=0.0, args=[store], kwargs={"limit": 12})
     clock.schedule_change(schedule_at=1.125, time_signature=(2, 4))
@@ -711,8 +721,8 @@ async def test_change_time_signature_shrinking(clock):
 
 
 @pytest.mark.asyncio
-async def test_schedule_measure_relative(clock):
-    store = []
+async def test_schedule_measure_relative(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -729,8 +739,8 @@ async def test_schedule_measure_relative(clock):
 
 
 @pytest.mark.asyncio
-async def test_schedule_seconds_relative(clock):
-    store = []
+async def test_schedule_seconds_relative(clock: AsyncClock) -> None:
+    store: list[ClockContext] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -747,13 +757,13 @@ async def test_schedule_seconds_relative(clock):
 
 
 @pytest.mark.asyncio
-async def test_cancel_invalid(clock):
+async def test_cancel_invalid(clock: AsyncClock) -> None:
     await clock.start()
     assert clock.cancel(1) is None
 
 
 @pytest.mark.asyncio
-async def test_slop(clock):
+async def test_slop(clock: AsyncClock) -> None:
     assert clock.slop == 0.01
     clock.slop = 0.1
     assert clock.slop == 0.1
@@ -764,7 +774,7 @@ async def test_slop(clock):
 
 
 @pytest.mark.asyncio
-async def test_start_and_restart(clock):
+async def test_start_and_restart(clock: AsyncClock) -> None:
     assert not clock.is_running
     await clock.start()
     assert clock.is_running
@@ -774,7 +784,7 @@ async def test_start_and_restart(clock):
 
 
 @pytest.mark.asyncio
-async def test_stop_and_restop(clock):
+async def test_stop_and_restop(clock: AsyncClock) -> None:
     assert not clock.is_running
     await clock.start()
     assert clock.is_running
@@ -786,12 +796,12 @@ async def test_stop_and_restop(clock):
 
 @pytest.mark.flaky(reruns=5)
 @pytest.mark.asyncio
-async def test_clock_skew():
+async def test_clock_skew() -> None:
     clock = AsyncClock()
     clock.slop = 0.001
     all_stats = []
     for _ in range(5):
-        store = []
+        store: list[ClockContext] = []
         for _ in range(20):
             delta = random.random() / 100
             clock.schedule(

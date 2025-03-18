@@ -1,25 +1,26 @@
 import logging
+from pathlib import Path
 
 import pytest
 
 from supriya.contexts.errors import MomentClosed
 from supriya.contexts.nonrealtime import Score
 from supriya.osc import OscBundle, OscMessage
-from supriya.ugens import Out, SinOsc, SynthDefBuilder, compile_synthdefs
+from supriya.ugens import Out, SinOsc, SynthDef, SynthDefBuilder, compile_synthdefs
 
 
 @pytest.fixture(autouse=True)
-def use_caplog(caplog):
+def use_caplog(caplog) -> None:
     caplog.set_level(logging.INFO)
 
 
 @pytest.fixture
-def context(request):
+def context(request) -> Score:
     return Score()
 
 
 @pytest.fixture
-def synthdefs():
+def synthdefs() -> list[SynthDef]:
     with SynthDefBuilder(bus=0, frequency=440) as builder:
         Out.ar(bus=builder["bus"], source=SinOsc.ar(frequency=builder["frequency"]))
     synthdef_a = builder.build(name="synthdef-a")
@@ -28,7 +29,7 @@ def synthdefs():
     return [synthdef_a, synthdef_b, synthdef_c]
 
 
-def test_add_synthdefs(context, synthdefs):
+def test_add_synthdefs(context: Score, synthdefs: list[SynthDef]) -> None:
     def compiled(*x):
         return compile_synthdefs(*x)
 
@@ -78,7 +79,7 @@ def test_add_synthdefs(context, synthdefs):
     ]
 
 
-def test_free_synthdefs(context, synthdefs):
+def test_free_synthdefs(context: Score, synthdefs: list[SynthDef]) -> None:
     with context.at(0):
         # no synthdefs provided
         with pytest.raises(ValueError):
@@ -93,7 +94,7 @@ def test_free_synthdefs(context, synthdefs):
     ]
 
 
-def test_free_all_synthdefs(context):
+def test_free_all_synthdefs(context: Score) -> None:
     with context.at(0):
         context.free_all_synthdefs()
     assert list(context.iterate_osc_bundles()) == [
@@ -101,7 +102,7 @@ def test_free_all_synthdefs(context):
     ]
 
 
-def test_load_synthdefs(context, tmp_path):
+def test_load_synthdefs(context: Score, tmp_path: Path) -> None:
     with context.at(0):
         context.load_synthdefs(tmp_path / "a.scsyndef")
         # completion via on_completion lambda succeeds
@@ -143,7 +144,7 @@ def test_load_synthdefs(context, tmp_path):
     ]
 
 
-def test_load_synthdefs_directory(context, tmp_path):
+def test_load_synthdefs_directory(context: Score, tmp_path: Path) -> None:
     with context.at(0):
         context.load_synthdefs_directory(tmp_path / "a")
         # completion via on_completion lambda succeeds

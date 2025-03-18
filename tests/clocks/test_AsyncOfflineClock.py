@@ -3,7 +3,7 @@ import logging
 
 import pytest
 
-from supriya.clocks import AsyncOfflineClock, TimeUnit
+from supriya.clocks import AsyncOfflineClock, CallbackEvent, ClockContext, TimeUnit
 
 repeat_count = 5
 
@@ -11,22 +11,22 @@ logger = logging.getLogger("supriya.test")
 
 
 @pytest.fixture(autouse=True)
-def log_everything(caplog):
+def log_everything(caplog) -> None:
     caplog.set_level(logging.INFO, logger="supriya.clocks")
 
 
 async def callback(
-    context,
-    store,
-    blow_up_at=None,
-    delta=0.25,
-    limit=4,
-    time_unit=TimeUnit.BEATS,
-    **kwargs,
-):
+    context: ClockContext,
+    store: list[ClockContext],
+    blow_up_at: int | None = None,
+    delta: float = 0.25,
+    limit: int | None = 4,
+    time_unit: TimeUnit = TimeUnit.BEATS,
+) -> tuple[float, TimeUnit] | None:
+    assert isinstance(context.event, CallbackEvent)
     if context.event.invocations == blow_up_at:
         raise Exception
-    store.append((context.current_moment, context.desired_moment, context.event))
+    store.append(context)
     if limit is None:
         return delta, time_unit
     elif context.event.invocations < limit:
@@ -34,33 +34,36 @@ async def callback(
     return None
 
 
-def check(store):
-    moments = []
-    for current_moment, desired_moment, event in store:
-        one = [
-            "{}/{}".format(*current_moment.time_signature),
-            current_moment.beats_per_minute,
-        ]
-        two = [
-            current_moment.measure,
-            round(current_moment.measure_offset, 10),
-            current_moment.offset,
-            current_moment.seconds,
-        ]
-        three = [
-            desired_moment.measure,
-            round(desired_moment.measure_offset, 10),
-            desired_moment.offset,
-            desired_moment.seconds,
-        ]
-        moments.append((one, two, three))
-    return moments
+def check(
+    store: list[ClockContext],
+) -> list[tuple[list[float | str], list[float | int], list[float | int]]]:
+    return [
+        (
+            [
+                "{}/{}".format(*context.current_moment.time_signature),
+                context.current_moment.beats_per_minute,
+            ],
+            [
+                context.current_moment.measure,
+                round(context.current_moment.measure_offset, 10),
+                context.current_moment.offset,
+                context.current_moment.seconds,
+            ],
+            [
+                context.desired_moment.measure,
+                round(context.desired_moment.measure_offset, 10),
+                context.desired_moment.offset,
+                context.desired_moment.seconds,
+            ],
+        )
+        for context in store
+    ]
 
 
 @pytest.mark.asyncio
-async def test_basic():
+async def test_basic() -> None:
     clock = AsyncOfflineClock()
-    store = []
+    store: list[ClockContext] = []
     clock.schedule(callback, schedule_at=0.0, args=[store])
     await clock.start()
     await asyncio.sleep(0.1)

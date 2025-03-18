@@ -1,8 +1,9 @@
 import operator
+from typing import Callable
 
 import pytest
 
-from supriya.patterns import BinaryOpPattern, SequencePattern, UnaryOpPattern
+from supriya.patterns import BinaryOpPattern, Pattern, SequencePattern, UnaryOpPattern
 
 
 @pytest.mark.parametrize(
@@ -202,12 +203,13 @@ from supriya.patterns import BinaryOpPattern, SequencePattern, UnaryOpPattern
         ),
     ],
 )
-def test_binary_ops(op, expr_one, expr_two, expected):
-    if isinstance(expected, Exception):
-        with pytest.raises(expected):
-            op(expr_one, expr_two)
-    else:
-        assert op(expr_one, expr_two) == expected
+def test_binary_ops(
+    op: Callable,
+    expr_one: Pattern | float,
+    expr_two: Pattern | float,
+    expected: Pattern,
+) -> None:
+    assert op(expr_one, expr_two) == expected
 
 
 @pytest.mark.parametrize(
@@ -235,9 +237,5 @@ def test_binary_ops(op, expr_one, expr_two, expected):
         ),
     ],
 )
-def test_unary_ops(op, expr, expected):
-    if isinstance(expected, Exception):
-        with pytest.raises(expected):
-            op(expr)
-    else:
-        assert op(expr) == expected
+def test_unary_ops(op: Callable, expr: Pattern, expected: Pattern) -> None:
+    assert op(expr) == expected

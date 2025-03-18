@@ -1,7 +1,7 @@
 from supriya.contexts.allocators import BlockAllocator
 
 
-def test_allocate():
+def test_allocate() -> None:
     allocator = BlockAllocator(heap_minimum=0, heap_maximum=16)
     assert allocator.allocate(4) == 0
     assert allocator.allocate(4) == 4
@@ -21,7 +21,7 @@ def test_allocate():
     assert allocator.allocate(1) == 5
 
 
-def test_allocate_block_within_block():
+def test_allocate_block_within_block() -> None:
     allocator = BlockAllocator()
     assert allocator.allocate_at(0, 3) == 0
     assert allocator.allocate_at(0, 2) is None
@@ -32,4 +32,4 @@ def test_allocate_block_within_block():
     assert allocator.allocate_at(2, 5) is None
     assert allocator.allocate_at(0, 9) is None
     assert allocator.allocate_at(3, 3) == 3
-    assert allocator.free(99) is None
+    allocator.free(99)

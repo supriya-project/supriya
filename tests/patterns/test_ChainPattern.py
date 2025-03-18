@@ -1,6 +1,12 @@
 import pytest
 
-from supriya.patterns import ChainPattern, EventPattern, NoteEvent, SequencePattern
+from supriya.patterns import (
+    ChainPattern,
+    Event,
+    EventPattern,
+    NoteEvent,
+    SequencePattern,
+)
 from supriya.patterns.testutils import MockUUID as M
 from supriya.patterns.testutils import run_pattern_test
 
@@ -44,7 +50,15 @@ from supriya.patterns.testutils import run_pattern_test
         ),
     ],
 )
-def test(stop_at, input_a, input_b1, input_b2, input_c, expected, is_infinite):
+def test_pattern(
+    stop_at: float | None,
+    input_a: SequencePattern,
+    input_b1: SequencePattern,
+    input_b2: SequencePattern,
+    input_c: SequencePattern,
+    expected: list[Event],
+    is_infinite: bool,
+) -> None:
     pattern = ChainPattern(
         EventPattern(a=input_a, b=input_b1),
         EventPattern(b=input_b2),

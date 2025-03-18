@@ -8,7 +8,7 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef
 
 
 @pytest.fixture
-def sc_synthdef_expansion():
+def sc_synthdef_expansion() -> SuperColliderSynthDef:
     return SuperColliderSynthDef(
         "expansionTest",
         """
@@ -26,7 +26,7 @@ def sc_synthdef_expansion():
     platform.system() == "Darwin" and os.environ.get("CI") == "true",
     reason="sclang hangs without QT",
 )
-def test_sc_format(sc_synthdef_expansion):
+def test_sc_format(sc_synthdef_expansion: SuperColliderSynthDef) -> None:
     sc_compiled_synthdef = bytes(sc_synthdef_expansion.compile())
     sc_synthdef = decompile_synthdef(sc_compiled_synthdef)
     assert str(sc_synthdef) == normalize(

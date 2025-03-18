@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.patterns import MonoEventPattern, NoteEvent, SequencePattern
+from supriya.patterns import Event, MonoEventPattern, NoteEvent, SequencePattern
 from supriya.patterns.testutils import MockUUID as M
 from supriya.patterns.testutils import run_pattern_test
 
@@ -72,6 +72,12 @@ from supriya.patterns.testutils import run_pattern_test
         ),
     ],
 )
-def test(stop_at, input_a, input_b, expected, is_infinite):
+def test_pattern(
+    stop_at: float | None,
+    input_a: SequencePattern,
+    input_b: SequencePattern | int,
+    expected: list[Event],
+    is_infinite: bool,
+) -> None:
     pattern = MonoEventPattern(a=input_a, b=input_b)
     run_pattern_test(pattern, expected, is_infinite, stop_at)

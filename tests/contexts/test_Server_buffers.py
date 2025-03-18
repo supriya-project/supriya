@@ -2,7 +2,9 @@ import asyncio
 import concurrent.futures
 import logging
 import random
+import warnings
 from pathlib import Path
+from typing import AsyncGenerator
 
 import pytest
 import pytest_asyncio
@@ -21,17 +23,17 @@ async def get(x):
 
 
 @pytest.fixture
-def audio_paths():
+def audio_paths() -> list[Path]:
     return sorted((Path(assets.__path__[0]) / "audio" / "birds").glob("*.wav"))
 
 
 @pytest.fixture(autouse=True)
-def use_caplog(caplog):
+def use_caplog(caplog) -> None:
     caplog.set_level(logging.INFO)
 
 
 @pytest_asyncio.fixture(autouse=True, params=[AsyncServer, Server])
-async def context(request):
+async def context(request) -> AsyncGenerator[AsyncServer | Server, None]:
     context = request.param()
     await get(context.boot())
     context.add_synthdefs(default)
@@ -40,7 +42,7 @@ async def context(request):
 
 
 @pytest.mark.asyncio
-async def test_Buffer_allocated(context):
+async def test_Buffer_allocated(context: AsyncServer | Server) -> None:
     # buffers can be allocated
     buffer_a = context.add_buffer(channel_count=1, frame_count=512)
     buffer_b = context.add_buffer(channel_count=1, frame_count=512)
@@ -67,7 +69,9 @@ async def test_Buffer_allocated(context):
 
 
 @pytest.mark.asyncio
-async def test_add_buffer(audio_paths, context):
+async def test_add_buffer(
+    audio_paths: list[Path], context: AsyncServer | Server
+) -> None:
     with context.osc_protocol.capture() as transcript:
         # neither frame count nor file path provided
         with pytest.raises(ValueError):
@@ -86,7 +90,7 @@ async def test_add_buffer(audio_paths, context):
         buffer_b = context.add_buffer(frame_count=19, file_path=audio_paths[0])
         # /b_allocReadChannel
         buffer_c = context.add_buffer(
-            frame_count=17, file_path=audio_paths[1], channel_indices=[1, 0]
+            frame_count=17, file_path=audio_paths[1], channel_indices=[0, 0]
         )
         # completion without moment errors
         with pytest.raises(MomentClosed):
@@ -108,7 +112,7 @@ async def test_add_buffer(audio_paths, context):
     assert transcript.filtered(received=False, status=False) == [
         OscMessage("/b_alloc", 0, 23, 1),
         OscMessage("/b_allocRead", 1, str(audio_paths[0]), 0, 19),
-        OscMessage("/b_allocReadChannel", 2, str(audio_paths[1]), 0, 17, 1, 0),
+        OscMessage("/b_allocReadChannel", 2, str(audio_paths[1]), 0, 17, 0, 0),
         OscMessage("/b_alloc", 3, 31, 3),
         OscMessage("/b_alloc", 4, 47, 1, OscMessage("/g_new", 1000, 0, 1)),
         OscBundle(
@@ -121,7 +125,7 @@ async def test_add_buffer(audio_paths, context):
 
 
 @pytest.mark.asyncio
-async def test_add_buffer_group(context):
+async def test_add_buffer_group(context: AsyncServer | Server) -> None:
     # neither channel count nor frame count provided
     with pytest.raises(ValueError):
         context.add_buffer_group()
@@ -150,7 +154,7 @@ async def test_add_buffer_group(context):
 
 
 @pytest.mark.asyncio
-async def test_close_buffer(context):
+async def test_close_buffer(context: AsyncServer | Server) -> None:
     buffer_a = context.add_buffer(channel_count=1, frame_count=23)
     buffer_b = context.add_buffer(channel_count=1, frame_count=23)
     buffer_c = context.add_buffer(channel_count=1, frame_count=23)
@@ -173,7 +177,7 @@ async def test_close_buffer(context):
 
 
 @pytest.mark.asyncio
-async def test_copy_buffer(context):
+async def test_copy_buffer(context: AsyncServer | Server) -> None:
     buffer_a = context.add_buffer(channel_count=1, frame_count=23)
     buffer_b = context.add_buffer(channel_count=1, frame_count=23)
     with context.osc_protocol.capture() as transcript:
@@ -189,7 +193,7 @@ async def test_copy_buffer(context):
 
 
 @pytest.mark.asyncio
-async def test_fill_buffer(context):
+async def test_fill_buffer(context: AsyncServer | Server) -> None:
     buffer_a = context.add_buffer(channel_count=1, frame_count=23)
     buffer_b = context.add_buffer(channel_count=1, frame_count=23)
     with context.osc_protocol.capture() as transcript:
@@ -213,7 +217,7 @@ async def test_fill_buffer(context):
 
 
 @pytest.mark.asyncio
-async def test_free_buffer(context):
+async def test_free_buffer(context: AsyncServer | Server) -> None:
     buffer_a = context.add_buffer(channel_count=1, frame_count=23)
     buffer_b = context.add_buffer(channel_count=1, frame_count=23)
     buffer_c = context.add_buffer(channel_count=1, frame_count=23)
@@ -235,7 +239,7 @@ async def test_free_buffer(context):
     ]
 
 
-def test_generate_buffer(context):
+def test_generate_buffer(context: AsyncServer | Server) -> None:
     buffer = context.add_buffer(channel_count=1, frame_count=1024)
     with context.osc_protocol.capture() as transcript:
         with context.at(0):
@@ -293,45 +297,51 @@ def test_generate_buffer(context):
 
 
 @pytest.mark.asyncio
-async def test_get_buffer(context):
+async def test_get_buffer(context: AsyncServer | Server) -> None:
     buffer = context.add_buffer(channel_count=1, frame_count=512)
     exception_classes = (
         concurrent.futures.TimeoutError,
         asyncio.exceptions.TimeoutError,
     )
-    with pytest.raises(exception_classes):
-        await get(buffer.get(1))
+    with warnings.catch_warnings(record=True) as w:
+        with pytest.raises(exception_classes):
+            await get(buffer.get(1))
+        assert len(w) == 1
+        assert str(w[-1].message) == "/b_get index out of range"
     await get(context.sync())
-    assert await get(buffer.get(1, 2, 3)) == {1: 0.0, 2: 0.0, 3: 0.0}
-    # unsync
     with context.osc_protocol.capture() as transcript:
-        assert await get(buffer.get(1, sync=False)) is None
+        assert await get(buffer.get(1, 2, 3)) == {1: 0.0, 2: 0.0, 3: 0.0}  # sync
+        assert await get(buffer.get(1, sync=False)) is None  # unsync
     assert transcript.filtered(received=False, status=False) == [
-        OscMessage("/b_get", 0, 1)
+        OscMessage("/b_get", 0, 1, 2, 3),
+        OscMessage("/b_get", 0, 1),
     ]
 
 
 @pytest.mark.asyncio
-async def test_get_buffer_range(context):
+async def test_get_buffer_range(context: AsyncServer | Server) -> None:
     buffer = context.add_buffer(channel_count=1, frame_count=512)
     exception_classes = (
         concurrent.futures.TimeoutError,
         asyncio.exceptions.TimeoutError,
     )
-    with pytest.raises(exception_classes):
-        await get(context.get_buffer_range(100, 1, 3))  # no such buffer exists
+    with warnings.catch_warnings(record=True) as w:
+        with pytest.raises(exception_classes):
+            await get(context.get_buffer_range(buffer, 1, 3))  # no such buffer exists
+        assert len(w) == 1
+        assert str(w[-1].message) == "/b_getn index out of range"
     await get(context.sync())
-    assert await get(buffer.get_range(1, 3)) == (0.0, 0.0, 0.0)
-    # unsync
     with context.osc_protocol.capture() as transcript:
-        assert await get(buffer.get_range(1, 3, sync=False)) is None
+        assert await get(buffer.get_range(1, 3)) == (0.0, 0.0, 0.0)  # sync
+        assert await get(buffer.get_range(1, 3, sync=False)) is None  # unsync
     assert transcript.filtered(received=False, status=False) == [
-        OscMessage("/b_getn", 0, 1, 3)
+        OscMessage("/b_getn", 0, 1, 3),
+        OscMessage("/b_getn", 0, 1, 3),
     ]
 
 
 @pytest.mark.asyncio
-async def test_normalize_buffer(context):
+async def test_normalize_buffer(context: AsyncServer | Server) -> None:
     buffer = context.add_buffer(channel_count=1, frame_count=23)
     with context.osc_protocol.capture() as transcript:
         buffer.normalize(0.5)
@@ -341,7 +351,7 @@ async def test_normalize_buffer(context):
 
 
 @pytest.mark.asyncio
-async def test_query_buffer(context):
+async def test_query_buffer(context: AsyncServer | Server) -> None:
     frame_count = random.randint(128, 256)
     channel_count = random.randint(1, 8)
     buffer = context.add_buffer(channel_count=channel_count, frame_count=frame_count)
@@ -368,7 +378,9 @@ async def test_query_buffer(context):
 
 
 @pytest.mark.asyncio
-async def test_read_buffer(audio_paths, context):
+async def test_read_buffer(
+    audio_paths: list[Path], context: AsyncServer | Server
+) -> None:
     buffer_a = context.add_buffer(channel_count=1, frame_count=23)
     buffer_b = context.add_buffer(channel_count=1, frame_count=23)
     buffer_c = context.add_buffer(channel_count=1, frame_count=23)
@@ -421,8 +433,9 @@ async def test_read_buffer(audio_paths, context):
 
 
 @pytest.mark.asyncio
-async def test_set_buffer(context):
+async def test_set_buffer(context: AsyncServer | Server) -> None:
     buffer = context.add_buffer(channel_count=1, frame_count=32)
+    await get(context.sync())  # can't set until allocation finishes
     with context.osc_protocol.capture() as transcript:
         buffer.set(2, 0.5)
     assert transcript.filtered(received=False, status=False) == [
@@ -431,8 +444,9 @@ async def test_set_buffer(context):
 
 
 @pytest.mark.asyncio
-async def test_set_buffer_range(context):
+async def test_set_buffer_range(context: AsyncServer | Server) -> None:
     buffer = context.add_buffer(channel_count=1, frame_count=32)
+    await get(context.sync())  # can't set until allocation finishes
     with context.osc_protocol.capture() as transcript:
         buffer.set_range(4, (0.5, 0.75, 0.25))
     assert transcript.filtered(received=False, status=False) == [
@@ -441,7 +455,7 @@ async def test_set_buffer_range(context):
 
 
 @pytest.mark.asyncio
-async def test_write_buffer(context, tmp_path):
+async def test_write_buffer(context: AsyncServer | Server, tmp_path: Path) -> None:
     buffer_a = context.add_buffer(channel_count=1, frame_count=23)
     buffer_b = context.add_buffer(channel_count=1, frame_count=23)
     buffer_c = context.add_buffer(channel_count=1, frame_count=23)
@@ -500,7 +514,7 @@ async def test_write_buffer(context, tmp_path):
 
 
 @pytest.mark.asyncio
-async def test_zero_buffer(context):
+async def test_zero_buffer(context: AsyncServer | Server) -> None:
     buffer_a = context.add_buffer(channel_count=1, frame_count=23)
     buffer_b = context.add_buffer(channel_count=1, frame_count=23)
     buffer_c = context.add_buffer(channel_count=1, frame_count=23)

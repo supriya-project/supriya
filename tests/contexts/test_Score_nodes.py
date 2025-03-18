@@ -8,11 +8,11 @@ from supriya.ugens import compile_synthdefs
 
 
 @pytest.fixture
-def context():
+def context() -> Score:
     return Score()
 
 
-def test_add_group(context):
+def test_add_group(context: Score) -> None:
     with context.at(0):
         # /g_new
         group = context.add_group()
@@ -48,7 +48,7 @@ def test_add_group(context):
             synth.add_group(add_action="ADD_TO_TAIL")
 
 
-def test_add_synth(context):
+def test_add_synth(context: Score) -> None:
     def compiled(*synthdefs):
         return compile_synthdefs(*synthdefs)
 
@@ -121,7 +121,7 @@ def test_add_synth(context):
             synth.add_synth(default, add_action="ADD_TO_TAIL")
 
 
-def test_free_group_children(context):
+def test_free_group_children(context: Score) -> None:
     with context.at(0):
         grandparent = context.add_group()
         # setup
@@ -146,7 +146,7 @@ def test_free_group_children(context):
     ]
 
 
-def test_free_node(context):
+def test_free_node(context: Score) -> None:
     with context.at(0):
         group = context.add_group()
         synth = context.add_synth(default)
@@ -165,7 +165,7 @@ def test_free_node(context):
     ]
 
 
-def test_map_node(context):
+def test_map_node(context: Score) -> None:
     with context.at(0):
         bus_a = context.add_bus("AUDIO")
         bus_c = context.add_bus("CONTROL")
@@ -183,7 +183,7 @@ def test_map_node(context):
     ]
 
 
-def test_move_node(context):
+def test_move_node(context: Score) -> None:
     with context.at(0):
         group = context.add_group()
         synth = context.add_synth(default)
@@ -206,7 +206,7 @@ def test_move_node(context):
     ]
 
 
-def test_order_nodes(context):
+def test_order_nodes(context: Score) -> None:
     with context.at(0):
         group_a = context.add_group()
         group_b = context.add_group()
@@ -223,7 +223,7 @@ def test_order_nodes(context):
     ]
 
 
-def test_pause_node(context):
+def test_pause_node(context: Score) -> None:
     with context.at(0):
         group = context.add_group()
         group.pause()
@@ -235,7 +235,7 @@ def test_pause_node(context):
     ]
 
 
-def test_set_node(context):
+def test_set_node(context: Score) -> None:
     with context.at(0):
         group = context.add_group()
         group.set((1, 2.3), (2, [3.4, 4.5]), foo=3.145, bar=4.5, baz=[1.23, 4.56])
@@ -263,7 +263,7 @@ def test_set_node(context):
     ]
 
 
-def test_set_node_range(context):
+def test_set_node_range(context: Score) -> None:
     with context.at(0):
         group = context.add_group()
         group.set_range((2, [3.4, 4.5]), baz=[1.23, 4.56])
@@ -278,7 +278,7 @@ def test_set_node_range(context):
     ]
 
 
-def test_unpause_node(context):
+def test_unpause_node(context: Score) -> None:
     with context.at(0):
         group_a = context.add_group()
         group_b = context.add_group()
