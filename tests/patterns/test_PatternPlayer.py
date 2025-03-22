@@ -416,7 +416,8 @@ def test_context_calls(
         target_node_ = Group(context=context, id_=target_node)
     spy = Mock(spec=Context, wraps=context)
     mocker.patch.object(context, "send")
-    pattern.play(context=spy, clock=clock, target_node=target_node_, until=until)
+    with OfflineClock().at() as clock:
+        pattern.play(context=spy, clock=clock, target_node=target_node_, until=until)
     expected_mock_calls = expected(context)
     assert spy.mock_calls == expected_mock_calls
 
@@ -429,10 +430,10 @@ def test_callback(mocker: MockerFixture) -> None:
 
     callback_calls: list[tuple[PatternPlayer, float, Type[Event], Priority]] = []
     pattern = EventPattern(frequency=SequencePattern([440, 550, 660]))
-    clock = OfflineClock()
     context = Server().boot()
     mocker.patch.object(context, "send")
-    player = pattern.play(context=context, clock=clock, callback=callback)
+    with OfflineClock().at() as clock:
+        player = pattern.play(context=context, clock=clock, callback=callback)
     assert callback_calls == [
         (player, 0.0, StartEvent, Priority.START),
         (player, 0.0, NoteEvent, Priority.START),
@@ -459,13 +460,11 @@ async def test_callback_async(mocker) -> None:
     stop_future = event_loop.create_future()
     callback_calls: list[tuple[PatternPlayer, float, Type[Event], Priority]] = []
     pattern = EventPattern(frequency=SequencePattern([440, 550, 660]))
-    clock = AsyncOfflineClock()
     context = await AsyncServer().boot()
     mocker.patch.object(context, "send")
-    player = pattern.play(context=context, clock=clock, callback=callback)
-    await clock.start()
+    async with AsyncOfflineClock().at() as clock:
+        player = pattern.play(context=context, clock=clock, callback=callback)
     await stop_future
-    await clock.stop()
     assert callback_calls == [
         (player, 0.0, StartEvent, Priority.START),
         (player, 0.0, NoteEvent, Priority.START),
@@ -484,9 +483,9 @@ def test_nonrealtime() -> None:
     pattern = GroupPattern(
         BusPattern(MonoEventPattern(frequency=SequencePattern([440, 550, 660])))
     )
-    clock = OfflineClock()
     context = Score()
-    pattern.play(context=context, clock=clock, at=at, until=until)
+    with OfflineClock().at(initial_time=at) as clock:
+        pattern.play(context=context, clock=clock, until=until)
     # Session should not map in_ or out, but use their bus numbers as consts.
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(

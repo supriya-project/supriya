@@ -69,6 +69,8 @@ class PatternPlayer:
         self._target_node = target_node
         self._next_delta: Optional[float] = None
         self._initial_seconds: Optional[float] = None
+        self._clock_event_id = -1
+        self._clock_stop_event_id = -1
         self._pattern = (
             pattern
             if (target_bus is None and target_node is None)
@@ -190,6 +192,8 @@ class PatternPlayer:
             )
             self._reschedule_queue(clock_context.desired_moment.offset)
             self._free_all_notes(clock_context.desired_moment.seconds)
+            self._clock_event_id = -1
+            self._clock_stop_event_id = -1
         return None
 
     def _enumerate(
@@ -235,7 +239,6 @@ class PatternPlayer:
     def play(
         self,
         quantization: Optional[Quantization] = None,
-        at: Optional[float] = None,
         until: Optional[float] = None,
     ) -> None:
         with self._lock:
@@ -253,14 +256,17 @@ class PatternPlayer:
             quantization=quantization,
         )
         if until:
-            self._clock.schedule(self._stop_callback, event_type=2, schedule_at=until)
-        if not self._clock.is_running and hasattr(self._clock, "start"):
-            self._clock.start(initial_time=at)
+            self._clock_stop_event_id = self._clock.schedule(
+                self._stop_callback, event_type=2, schedule_at=until
+            )
 
     def stop(self, quantization: Optional[Quantization] = None) -> None:
         with self._lock:
             if not self._is_running or self._is_stopping:
                 return
+            # If we're stopping earlier than the until parameter, cancel the current stop callback
+            if self._clock_stop_event_id != -1:
+                self._clock.cancel(self._clock_stop_event_id)
             self._clock.cue(
                 self._stop_callback, event_type=2, quantization=quantization
             )
