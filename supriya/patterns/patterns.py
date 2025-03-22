@@ -27,8 +27,8 @@ from uuid import UUID
 from uqbar.objects import get_vars
 
 import supriya.patterns
-from supriya.clocks import BaseClock, ClockContext, OfflineClock, Quantization
-from supriya.contexts import Bus, Context, Node, Score
+from supriya.clocks import BaseClock, ClockContext, Quantization
+from supriya.contexts import Bus, Context, Node
 
 from .events import CompositeEvent, Event, Priority
 
@@ -278,7 +278,6 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
         self,
         context: Context,
         *,
-        at: Optional[float] = None,
         callback: Optional[
             Callable[
                 ["supriya.patterns.PatternPlayer", ClockContext, Event, Priority],
@@ -295,10 +294,6 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
     ) -> "PatternPlayer":
         from .players import PatternPlayer  # Avoid circular import
 
-        if isinstance(context, Score):
-            if not isinstance(clock, OfflineClock):
-                raise ValueError(clock)
-            at = at or 0.0
         player = PatternPlayer(
             pattern=self,
             context=context,
@@ -308,7 +303,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
             target_node=target_node,
             uuid=uuid,
         )
-        player.play(quantization=quantization, at=at, until=until)
+        player.play(quantization=quantization, until=until)
         return player
 
     ### PUBLIC PROPERTIES ###
