@@ -283,6 +283,9 @@ class BaseClock:
     def _get_current_time(self) -> float:
         return time.time()
 
+    def _get_initial_time(self) -> float:
+        return self._get_current_time()
+
     def _get_schedule_point(
         self, schedule_at: float, time_unit: TimeUnit
     ) -> Tuple[float, Optional[float], Optional[int]]:
@@ -683,8 +686,9 @@ class BaseClock:
     ) -> None:
         if self._is_running:
             raise RuntimeError("Already started")
+        # TODO: This if block only makes sense in online clocks
         if initial_time is None:
-            initial_time = self._get_current_time()
+            initial_time = self._get_initial_time()
         self._state = ClockState(
             beats_per_minute=beats_per_minute or self._state.beats_per_minute,
             initial_seconds=initial_time,
