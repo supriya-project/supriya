@@ -34,13 +34,13 @@ class Clock(BaseClock):
         while self._is_running:
             logger.debug(f"[{self.name}] Loop start")
             if not self._wait_for_queue():
-                return
+                break
             try:
                 current_moment = self._wait_for_moment()
             except queue.Empty:
                 continue
             if current_moment is None:
-                return
+                break
             current_moment = self._perform_events(current_moment)
             self._state = self._state._replace(
                 previous_seconds=current_moment.seconds,
@@ -49,6 +49,7 @@ class Clock(BaseClock):
             if not offline:
                 self._event.wait(timeout=self._slop)
         logger.debug(f"[{self.name}] Terminating")
+        self._stop()
 
     def _wait_for_moment(self, offline: bool = False) -> Optional[Moment]:
         current_time = self._get_current_time()

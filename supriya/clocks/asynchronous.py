@@ -104,10 +104,10 @@ class AsyncClock(BaseClock):
         while self._is_running:
             logger.debug(f"[{self.name}] Loop start")
             if not await self._wait_for_queue_async():
-                return
+                break
             try:
                 if (current_moment := await self._wait_for_moment_async()) is None:
-                    return
+                    break
             except queue.Empty:
                 continue
             current_moment = await self._perform_events_async(current_moment)
