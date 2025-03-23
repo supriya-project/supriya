@@ -5,8 +5,10 @@ Tools for interacting with realtime execution contexts.
 import asyncio
 import concurrent.futures
 import logging
+import platform
 import shlex
 import threading
+import time
 import warnings
 from collections.abc import Sequence as SequenceABC
 from typing import (
@@ -694,6 +696,8 @@ class Server(BaseServer):
         if sync:
             with self.process_protocol.capture() as transcript:
                 request.communicate(server=self)
+                if platform.system() == "Windows":
+                    time.sleep(0.1)
                 self.sync(timeout=10.0)
                 return QueryTreeGroup.from_string("\n".join(transcript.lines))
         self._add_requests(request)
@@ -1303,6 +1307,8 @@ class AsyncServer(BaseServer):
         if sync:
             with self.process_protocol.capture() as transcript:
                 await request.communicate_async(server=self)
+                if platform.system() == "Windows":
+                    await asyncio.sleep(0.1)
                 await self.sync(timeout=10.0)
                 return QueryTreeGroup.from_string("\n".join(transcript.lines))
         self._add_requests(request)
