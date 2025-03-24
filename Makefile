@@ -3,7 +3,7 @@
 
 project = supriya
 origin := $(shell git config --get remote.origin.url)
-formatPaths = ${project}/ docs/ tests/ *.py
+formatPaths = ${project}/ docs/ examples/ tests/ *.py
 testPaths = ${project}/ tests/
 
 help: ## This help
