@@ -3,14 +3,16 @@
 Let's play a C-major chord:
 
 ```
-➜ python3 ./hello_world.py --help
+➜ python examples/hello_world/hello_world.py --help
 usage: hello world! [-h] (--realtime-threaded | --realtime-async | --nonrealtime)
+
+Play a C-major chord
 
 options:
   -h, --help           show this help message and exit
-  --realtime-threaded
-  --realtime-async
-  --nonrealtime
+  --realtime-threaded  use a realtime threaded Server
+  --realtime-async     use a realtime asyncio-enabled AsyncServer
+  --nonrealtime        use a non-realtime Score
 ```
 
 Play the chord using the standard threaded `Server` in realtime:

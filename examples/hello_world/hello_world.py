@@ -7,61 +7,101 @@ import supriya
 FREQUENCIES = [261.63, 329.63, 392.00]
 
 
-def run_threaded() -> None:
-    server = supriya.Server().boot()
+def play_synths(
+    context: supriya.Context, frequencies: list[float]
+) -> list[supriya.Synth]:
+    # Create an empty list to store synths in:
     synths: list[supriya.Synth] = []
-    with server.at():
-        with server.add_synthdefs(supriya.default):
-            for frequency in FREQUENCIES:
-                synths.append(
-                    server.add_synth(synthdef=supriya.default, frequency=frequency)
-                )
-    time.sleep(4)
+    # Add the default synthdef to the server and open a "completion" context
+    # manager to group further commands for when the synthdef finishes loading:
+    with context.add_synthdefs(supriya.default):
+        # Loop over the frequencies:
+        for frequency in frequencies:
+            # Create a synth using the default synthdef and the frequency
+            # and add it to the list of synths:
+            synths.append(
+                context.add_synth(synthdef=supriya.default, frequency=frequency)
+            )
+    return synths
+
+
+def stop_synths(synths: list[supriya.Synth]) -> None:
+    # Loop over the synths and free them
     for synth in synths:
         synth.free()
+
+
+def run_threaded() -> None:
+    # Create a server and boot it:
+    server = supriya.Server().boot()
+    # Start an OSC bundle to run immediately:
+    with server.at():
+        # Start playing the synths
+        synths = play_synths(context=server, frequencies=FREQUENCIES)
+    # Let the notes play for 4 seconds:
+    time.sleep(4)
+    # Loop over the synths and free them:
+    stop_synths(synths)
+    # Wait a second for the notes to fade out:
     time.sleep(1)
+    # Quit the server:
     server.quit()
 
 
 async def run_async() -> None:
+    # Create an async server and boot it:
     server = await supriya.AsyncServer().boot()
-    synths: list[supriya.Synth] = []
+    # Start an OSC bundle to run immediately:
     with server.at():
-        with server.add_synthdefs(supriya.default):
-            for frequency in FREQUENCIES:
-                synths.append(
-                    server.add_synth(synthdef=supriya.default, frequency=frequency)
-                )
+        # Start playing the synths:
+        synths = play_synths(context=server, frequencies=FREQUENCIES)
+    # Let the notes play for 4 seconds:
     await asyncio.sleep(4)
-    for synth in synths:
-        synth.free()
+    # Loop over the synths and free them:
+    stop_synths(synths)
+    # Wait a second for the notes to fade out:
     await asyncio.sleep(1)
+    # Quit the async server:
     await server.quit()
 
 
 def run_nonrealtime() -> None:
+    # Create a score:
     score = supriya.Score(output_bus_channel_count=2)
-    synths: list[supriya.Synth] = []
+    # Start an OSC bundle to run at 0 seconds:
     with score.at(0):
-        with score.add_synthdefs(supriya.default):
-            for frequency in FREQUENCIES:
-                synths.append(
-                    score.add_synth(synthdef=supriya.default, frequency=frequency)
-                )
+        # Start playing the synths:
+        synths = play_synths(context=score, frequencies=FREQUENCIES)
+    # Start an OSC bundle to run at 4 seconds:
     with score.at(4):
-        for synth in synths:
-            synth.free()
+        # Loop over the synths and free them:
+        stop_synths(synths)
+    # Start an OSC bundle to run at 5 seconds:
     with score.at(5):
+        # A no-op message to tell the score there's nothing left to do:
         score.do_nothing()
+    # Render the score to disk and open the soundfile:
     supriya.play(score)
 
 
 def parse_args(args: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(prog="hello world!")
+    parser = argparse.ArgumentParser(
+        prog="hello world!", description="Play a C-major chord"
+    )
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("--realtime-threaded", action="store_true")
-    group.add_argument("--realtime-async", action="store_true")
-    group.add_argument("--nonrealtime", action="store_true")
+    group.add_argument(
+        "--realtime-threaded",
+        action="store_true",
+        help="use a realtime threaded Server",
+    )
+    group.add_argument(
+        "--realtime-async",
+        action="store_true",
+        help="use a realtime asyncio-enabled AsyncServer",
+    )
+    group.add_argument(
+        "--nonrealtime", action="store_true", help="use a non-realtime Score"
+    )
     return parser.parse_args(args)
 
 
