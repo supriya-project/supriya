@@ -4,6 +4,7 @@ import time
 
 import supriya
 
+# A C-major chord
 FREQUENCIES = [261.63, 329.63, 392.00]
 
 
