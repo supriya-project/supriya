@@ -86,7 +86,7 @@ def run_nonrealtime() -> None:
 
 def parse_args(args: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(
-        prog="hello world!", description="Play a C-major chord"
+        description="Play a C-major chord via different kinds of contexts"
     )
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
