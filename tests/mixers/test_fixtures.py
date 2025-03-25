@@ -6,8 +6,8 @@ from .conftest import debug_tree
 
 
 @pytest.mark.asyncio
-async def test_session(session: tuple[Session, str]) -> None:
-    session_, initial_tree = session
+async def test_bare_session(bare_session: tuple[Session, str]) -> None:
+    session_, initial_tree = bare_session
     assert isinstance(session_, Session)
     await session_.boot()
     actual_tree = await debug_tree(session_)

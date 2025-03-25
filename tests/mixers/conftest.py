@@ -57,7 +57,7 @@ does_not_raise = contextlib.nullcontext()
 
 
 @pytest_asyncio.fixture
-async def session() -> Tuple[Session, str]:
+async def bare_session() -> Tuple[Session, str]:
     session = Session()
     await session.boot()
     initial_tree = await debug_tree(session)
