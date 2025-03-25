@@ -1,6 +1,7 @@
 import contextlib
 import difflib
-from typing import List, Optional, Tuple, Union
+import pprint
+from typing import Generator, List, Optional, Tuple, Union
 
 import pytest_asyncio
 from uqbar.strings import normalize
@@ -10,7 +11,9 @@ from supriya.mixers import Session
 
 
 @contextlib.contextmanager
-def capture(context: Optional[AsyncServer]):
+def capture(
+    context: Optional[AsyncServer],
+) -> Generator[List[Union[OscBundle, OscMessage]], None, None]:
     entries: List[Union[OscBundle, OscMessage]] = []
     if context is None:
         yield entries
@@ -18,6 +21,19 @@ def capture(context: Optional[AsyncServer]):
         with context.osc_protocol.capture() as transcript:
             yield entries
     entries.extend(transcript.filtered(received=False, status=False))
+
+
+def format_messages(messages: list[OscBundle | OscMessage]) -> str:
+    lines: list[str] = []
+    for message in messages:
+        formatted = pprint.pformat(message.to_list(), width=120)
+        for i, line in enumerate(formatted.splitlines()):
+            if i == 0:
+                prefix = "-"
+            else:
+                prefix = " "
+            lines.append(f"{prefix} {line}")
+    return "\n".join(lines)
 
 
 async def debug_tree(

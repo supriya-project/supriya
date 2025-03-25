@@ -1,12 +1,10 @@
-from typing import List, Tuple, Union
-
 import pytest
+from uqbar.strings import normalize
 
-from supriya import OscBundle, OscMessage
 from supriya.mixers import Session
 from supriya.mixers.tracks import Track, TrackContainer
 
-from .conftest import assert_diff, capture
+from .conftest import assert_diff, capture, format_messages
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -37,65 +35,16 @@ from .conftest import assert_diff, capture
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
             """,
-            [
-                OscBundle(
-                    contents=[
-                        OscMessage("/c_set", 52, 1.0, 53, 0.0),
-                        OscMessage("/c_fill", 54, 2, 0.0, 56, 2, 0.0),
-                        OscMessage(
-                            "/g_new", 1066, 1, 1001, 1067, 0, 1066, 1068, 1, 1066
-                        ),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:channel-strip:2",
-                            1069,
-                            1,
-                            1066,
-                            "active",
-                            "c52",
-                            "bus",
-                            36.0,
-                            "gain",
-                            "c53",
-                        ),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:meters:2",
-                            1070,
-                            3,
-                            1067,
-                            "in_",
-                            36.0,
-                            "out",
-                            54.0,
-                        ),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:meters:2",
-                            1071,
-                            3,
-                            1069,
-                            "in_",
-                            36.0,
-                            "out",
-                            56.0,
-                        ),
-                    ]
-                ),
-                OscMessage(
-                    "/s_new",
-                    "supriya:patch-cable:2x2",
-                    1072,
-                    1,
-                    1066,
-                    "active",
-                    "c52",
-                    "in_",
-                    36.0,
-                    "out",
-                    16.0,
-                ),
-            ],
+            """
+            - [None,
+               [['/c_set', 52, 1.0, 53, 0.0],
+                ['/c_fill', 54, 2, 0.0, 56, 2, 0.0],
+                ['/g_new', 1066, 1, 1001, 1067, 0, 1066, 1068, 1, 1066],
+                ['/s_new', 'supriya:channel-strip:2', 1069, 1, 1066, 'active', 'c52', 'bus', 36.0, 'gain', 'c53'],
+                ['/s_new', 'supriya:meters:2', 1070, 3, 1067, 'in_', 36.0, 'out', 54.0],
+                ['/s_new', 'supriya:meters:2', 1071, 3, 1069, 'in_', 36.0, 'out', 56.0]]]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1072, 1, 1066, 'active', 'c52', 'in_', 36.0, 'out', 16.0]
+            """,
         ),
         (
             "mixers[0].tracks[0]",
@@ -121,72 +70,23 @@ from .conftest import assert_diff, capture
                                  in_: 18.0, out: 7.0
                              1008 group (session.mixers[0].tracks[0]:devices)
             """,
-            [
-                OscBundle(
-                    contents=[
-                        OscMessage("/c_set", 52, 1.0, 53, 0.0),
-                        OscMessage("/c_fill", 54, 2, 0.0, 56, 2, 0.0),
-                        OscMessage(
-                            "/g_new", 1066, 1, 1007, 1067, 0, 1066, 1068, 1, 1066
-                        ),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:channel-strip:2",
-                            1069,
-                            1,
-                            1066,
-                            "active",
-                            "c52",
-                            "bus",
-                            36.0,
-                            "gain",
-                            "c53",
-                        ),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:meters:2",
-                            1070,
-                            3,
-                            1067,
-                            "in_",
-                            36.0,
-                            "out",
-                            54.0,
-                        ),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:meters:2",
-                            1071,
-                            3,
-                            1069,
-                            "in_",
-                            36.0,
-                            "out",
-                            56.0,
-                        ),
-                    ]
-                ),
-                OscMessage(
-                    "/s_new",
-                    "supriya:patch-cable:2x2",
-                    1072,
-                    1,
-                    1066,
-                    "active",
-                    "c52",
-                    "in_",
-                    36.0,
-                    "out",
-                    18.0,
-                ),
-            ],
+            """
+            - [None,
+               [['/c_set', 52, 1.0, 53, 0.0],
+                ['/c_fill', 54, 2, 0.0, 56, 2, 0.0],
+                ['/g_new', 1066, 1, 1007, 1067, 0, 1066, 1068, 1, 1066],
+                ['/s_new', 'supriya:channel-strip:2', 1069, 1, 1066, 'active', 'c52', 'bus', 36.0, 'gain', 'c53'],
+                ['/s_new', 'supriya:meters:2', 1070, 3, 1067, 'in_', 36.0, 'out', 54.0],
+                ['/s_new', 'supriya:meters:2', 1071, 3, 1069, 'in_', 36.0, 'out', 56.0]]]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1072, 1, 1066, 'active', 'c52', 'in_', 36.0, 'out', 18.0]
+            """,
         ),
     ],
 )
 @pytest.mark.asyncio
 async def test_TrackContainer_add_track(
-    complex_session: Tuple[Session, str],
-    expected_commands: List[Union[OscBundle, OscMessage]],
+    complex_session: tuple[Session, str],
+    expected_commands: str,
     expected_diff: str,
     online: bool,
     target: str,
@@ -212,4 +112,4 @@ async def test_TrackContainer_add_track(
         expected_diff,
         expected_initial_tree=initial_tree,
     )
-    assert commands == expected_commands
+    assert format_messages(commands) == normalize(expected_commands)
