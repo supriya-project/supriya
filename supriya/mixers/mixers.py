@@ -62,7 +62,6 @@ class Mixer(TrackContainer["Session"], DeviceContainer):
         AllocatableComponent.__init__(self, parent=parent)
         DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
-        self._tracks.append(Track(parent=self))
         self._output = MixerOutput(parent=self)
         self._soloed_tracks: Set[Track] = set()
 

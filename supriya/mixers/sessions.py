@@ -45,8 +45,6 @@ class Session(Component):
         self._status = BootStatus.OFFLINE
         self._synthdefs: Dict[AsyncServer, Set[SynthDef]] = {}
         # add initial context and mixer
-        self._contexts[(context := self._add_context())] = [mixer := Mixer(parent=self)]
-        self._mixers[mixer] = context
 
     def __getitem__(self, key: str) -> "Component":
         if not isinstance(key, str):
