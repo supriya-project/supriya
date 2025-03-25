@@ -24,7 +24,7 @@ async def debug_tree(
     session: Session, label: str = "initial tree", annotated: bool = True
 ) -> str:
     if not session.contexts:
-        return '<empty>'
+        return "<empty>"
     tree = str(await session.dump_tree(annotated=annotated))
     for i, context in enumerate(session.contexts):
         tree = tree.replace(repr(context), f"<session.contexts[{i}]>")

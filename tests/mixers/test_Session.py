@@ -11,8 +11,9 @@ from .conftest import assert_diff, debug_tree
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.asyncio
-async def test_Session_boot(online: bool, session: Session) -> None:
+async def test_Session_boot(online: bool, basic_session: tuple[Session, str]) -> None:
     # Pre-conditions
+    session, _ = basic_session
     assert session.status == BootStatus.OFFLINE
     if online:
         await session.boot()
@@ -52,8 +53,9 @@ async def test_Session_boot(online: bool, session: Session) -> None:
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.asyncio
-async def test_Session_quit(online: bool, session: Session) -> None:
+async def test_Session_quit(online: bool, basic_session: tuple[Session, str]) -> None:
     # Pre-conditions
+    session, _ = basic_session
     assert session.status == BootStatus.OFFLINE
     if online:
         await session.boot()
@@ -74,8 +76,11 @@ async def test_Session_quit(online: bool, session: Session) -> None:
     ],
 )
 @pytest.mark.asyncio
-async def test_Session_add_context(expectation, online: bool, session: Session) -> None:
+async def test_Session_add_context(
+    expectation, online: bool, basic_session: Session
+) -> None:
     # Pre-conditions
+    session, _ = basic_session
     if online:
         await session.boot()
     assert len(session.contexts) == 1
@@ -126,9 +131,10 @@ async def test_Session_add_context(expectation, online: bool, session: Session) 
 )
 @pytest.mark.asyncio
 async def test_Session_add_mixer(
-    expectation, online: bool, reuse_context, session: Session
+    expectation, online: bool, reuse_context: bool, basic_session: tuple[Session, str]
 ) -> None:
     # Pre-conditions
+    session, _ = basic_session
     if online:
         await session.boot()
     await session.add_context()
@@ -167,17 +173,6 @@ async def test_Session_add_mixer(
                 {session.contexts[1]!r}
                     NODE TREE 1000 group (session.mixers[1]:group)
                         1001 group (session.mixers[1]:tracks)
-                            1006 group (session.mixers[1].tracks[0]:group)
-                                1007 group (session.mixers[1].tracks[0]:tracks)
-                                1010 supriya:meters:2 (session.mixers[1].tracks[0]:input-levels)
-                                    in_: 18.0, out: 7.0
-                                1008 group (session.mixers[1].tracks[0]:devices)
-                                1009 supriya:channel-strip:2 (session.mixers[1].tracks[0]:channel-strip)
-                                    active: c5, bus: 18.0, gain: c6, gate: 1.0
-                                1011 supriya:meters:2 (session.mixers[1].tracks[0]:output-levels)
-                                    in_: 18.0, out: 9.0
-                                1012 supriya:patch-cable:2x2 (session.mixers[1].tracks[0].output:synth)
-                                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
                         1004 supriya:meters:2 (session.mixers[1]:input-levels)
                             in_: 16.0, out: 1.0
                         1002 group (session.mixers[1]:devices)
@@ -185,7 +180,7 @@ async def test_Session_add_mixer(
                             active: 1.0, bus: 16.0, gain: c0, gate: 1.0
                         1005 supriya:meters:2 (session.mixers[1]:output-levels)
                             in_: 16.0, out: 3.0
-                        1013 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
+                        1006 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
                 """
             )
@@ -217,17 +212,6 @@ async def test_Session_add_mixer(
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
                     NODE TREE 1014 group (session.mixers[1]:group)
                         1015 group (session.mixers[1]:tracks)
-                            1020 group (session.mixers[1].tracks[0]:group)
-                                1021 group (session.mixers[1].tracks[0]:tracks)
-                                1024 supriya:meters:2 (session.mixers[1].tracks[0]:input-levels)
-                                    in_: 22.0, out: 18.0
-                                1022 group (session.mixers[1].tracks[0]:devices)
-                                1023 supriya:channel-strip:2 (session.mixers[1].tracks[0]:channel-strip)
-                                    active: c16, bus: 22.0, gain: c17, gate: 1.0
-                                1025 supriya:meters:2 (session.mixers[1].tracks[0]:output-levels)
-                                    in_: 22.0, out: 20.0
-                                1026 supriya:patch-cable:2x2 (session.mixers[1].tracks[0].output:synth)
-                                    active: c16, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
                         1018 supriya:meters:2 (session.mixers[1]:input-levels)
                             in_: 20.0, out: 12.0
                         1016 group (session.mixers[1]:devices)
@@ -235,7 +219,7 @@ async def test_Session_add_mixer(
                             active: 1.0, bus: 20.0, gain: c11, gate: 1.0
                         1019 supriya:meters:2 (session.mixers[1]:output-levels)
                             in_: 20.0, out: 14.0
-                        1027 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
+                        1020 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
                 {session.contexts[1]!r}
                 """
@@ -251,9 +235,10 @@ async def test_Session_add_mixer(
 )
 @pytest.mark.asyncio
 async def test_Session_delete_context(
-    expectation, online: bool, session: Session
+    expectation, online: bool, basic_session: tuple[Session, str]
 ) -> None:
     # Pre-conditions
+    session, _ = basic_session
     if online:
         await session.boot()
     await session.add_context()
@@ -281,60 +266,40 @@ async def test_Session_delete_context(
             """
             --- initial
             +++ mutation
-            @@ -1,26 +1,4 @@
+            @@ -1,4 +1,16 @@
              <session.contexts[0]>
-            -    NODE TREE 1000 group (session.mixers[0]:group)
-            -        1001 group (session.mixers[0]:tracks)
-            -            1006 group (session.mixers[0].tracks[0]:group)
-            -                1007 group (session.mixers[0].tracks[0]:tracks)
-            -                1010 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
-            -                    in_: 18.0, out: 7.0
-            -                1008 group (session.mixers[0].tracks[0]:devices)
-            -                1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
-            -                    active: c5, bus: 18.0, gain: c6, gate: 1.0
-            -                1011 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
-            -                    in_: 18.0, out: 9.0
-            -                1012 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
-            -                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            -        1004 supriya:meters:2 (session.mixers[0]:input-levels)
-            -            in_: 16.0, out: 1.0
-            -        1002 group (session.mixers[0]:devices)
-            -        1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
-            -            active: 1.0, bus: 16.0, gain: c0, gate: 1.0
-            -        1005 supriya:meters:2 (session.mixers[0]:output-levels)
-            -            in_: 16.0, out: 3.0
-            -        1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
+            +    NODE TREE 1014 group (session.mixers[1]:group)
+            +        1015 group (session.mixers[1]:tracks)
+            +        1018 supriya:meters:2 (session.mixers[1]:input-levels)
+            +            in_: 20.0, out: 12.0
+            +        1016 group (session.mixers[1]:devices)
+            +        1017 supriya:channel-strip:2 (session.mixers[1]:channel-strip)
+            +            active: 1.0, bus: 20.0, gain: c11, gate: 1.0
+            +        1019 supriya:meters:2 (session.mixers[1]:output-levels)
+            +            in_: 20.0, out: 14.0
+            +        1020 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
+            +            active: 1.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
+            +<session.contexts[1]>
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+                         1006 group (session.mixers[0].tracks[0]:group)
+            @@ -20,16 +32,4 @@
+                     1005 supriya:meters:2 (session.mixers[0]:output-levels)
+                         in_: 16.0, out: 3.0
+                     1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
             -            active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
-                 NODE TREE 1014 group (session.mixers[1]:group)
-                     1015 group (session.mixers[1]:tracks)
-                         1020 group (session.mixers[1].tracks[0]:group)
-            @@ -43,4 +21,26 @@
-                         in_: 20.0, out: 14.0
-                     1027 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
-                         active: 1.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
-            -<session.contexts[1]>+<session.contexts[1]>
-            +    NODE TREE 1000 group (session.mixers[0]:group)
-            +        1001 group (session.mixers[0]:tracks)
-            +            1006 group (session.mixers[0].tracks[0]:group)
-            +                1007 group (session.mixers[0].tracks[0]:tracks)
-            +                1010 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
-            +                    in_: 18.0, out: 7.0
-            +                1008 group (session.mixers[0].tracks[0]:devices)
-            +                1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
-            +                    active: c5, bus: 18.0, gain: c6, gate: 1.0
-            +                1011 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
-            +                    in_: 18.0, out: 9.0
-            +                1012 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
-            +                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            +        1004 supriya:meters:2 (session.mixers[0]:input-levels)
-            +            in_: 16.0, out: 1.0
-            +        1002 group (session.mixers[0]:devices)
-            +        1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
-            +            active: 1.0, bus: 16.0, gain: c0, gate: 1.0
-            +        1005 supriya:meters:2 (session.mixers[0]:output-levels)
-            +            in_: 16.0, out: 3.0
-            +        1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
-            +            active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+            -    NODE TREE 1014 group (session.mixers[1]:group)
+            -        1015 group (session.mixers[1]:tracks)
+            -        1018 supriya:meters:2 (session.mixers[1]:input-levels)
+            -            in_: 20.0, out: 12.0
+            -        1016 group (session.mixers[1]:devices)
+            -        1017 supriya:channel-strip:2 (session.mixers[1]:channel-strip)
+            -            active: 1.0, bus: 20.0, gain: c11, gate: 1.0
+            -        1019 supriya:meters:2 (session.mixers[1]:output-levels)
+            -            in_: 20.0, out: 14.0
+            -        1020 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
+            -            active: 1.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
+            -<session.contexts[1]>+            active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
             """,
         ),
         (1, 0, ""),
@@ -344,23 +309,12 @@ async def test_Session_delete_context(
             """
             --- initial
             +++ mutation
-            @@ -21,26 +21,26 @@
+            @@ -21,15 +21,15 @@
                          in_: 16.0, out: 3.0
                      1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
                          active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
             -    NODE TREE 1014 group (session.mixers[1]:group)
             -        1015 group (session.mixers[1]:tracks)
-            -            1020 group (session.mixers[1].tracks[0]:group)
-            -                1021 group (session.mixers[1].tracks[0]:tracks)
-            -                1024 supriya:meters:2 (session.mixers[1].tracks[0]:input-levels)
-            -                    in_: 22.0, out: 18.0
-            -                1022 group (session.mixers[1].tracks[0]:devices)
-            -                1023 supriya:channel-strip:2 (session.mixers[1].tracks[0]:channel-strip)
-            -                    active: c16, bus: 22.0, gain: c17, gate: 1.0
-            -                1025 supriya:meters:2 (session.mixers[1].tracks[0]:output-levels)
-            -                    in_: 22.0, out: 20.0
-            -                1026 supriya:patch-cable:2x2 (session.mixers[1].tracks[0].output:synth)
-            -                    active: c16, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
             -        1018 supriya:meters:2 (session.mixers[1]:input-levels)
             -            in_: 20.0, out: 12.0
             -        1016 group (session.mixers[1]:devices)
@@ -368,22 +322,11 @@ async def test_Session_delete_context(
             -            active: 1.0, bus: 20.0, gain: c11, gate: 1.0
             -        1019 supriya:meters:2 (session.mixers[1]:output-levels)
             -            in_: 20.0, out: 14.0
-            -        1027 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
+            -        1020 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
             -            active: 1.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
             -<session.contexts[1]>+<session.contexts[1]>
             +    NODE TREE 1000 group (session.mixers[1]:group)
             +        1001 group (session.mixers[1]:tracks)
-            +            1006 group (session.mixers[1].tracks[0]:group)
-            +                1007 group (session.mixers[1].tracks[0]:tracks)
-            +                1010 supriya:meters:2 (session.mixers[1].tracks[0]:input-levels)
-            +                    in_: 18.0, out: 7.0
-            +                1008 group (session.mixers[1].tracks[0]:devices)
-            +                1009 supriya:channel-strip:2 (session.mixers[1].tracks[0]:channel-strip)
-            +                    active: c5, bus: 18.0, gain: c6, gate: 1.0
-            +                1011 supriya:meters:2 (session.mixers[1].tracks[0]:output-levels)
-            +                    in_: 18.0, out: 9.0
-            +                1012 supriya:patch-cable:2x2 (session.mixers[1].tracks[0].output:synth)
-            +                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
             +        1004 supriya:meters:2 (session.mixers[1]:input-levels)
             +            in_: 16.0, out: 1.0
             +        1002 group (session.mixers[1]:devices)
@@ -391,7 +334,7 @@ async def test_Session_delete_context(
             +            active: 1.0, bus: 16.0, gain: c0, gate: 1.0
             +        1005 supriya:meters:2 (session.mixers[1]:output-levels)
             +            in_: 16.0, out: 3.0
-            +        1013 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
+            +        1006 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
             +            active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
             """,
         ),
@@ -403,9 +346,10 @@ async def test_Session_set_mixer_context(
     expected_diff: str,
     mixer_index: int,
     online: bool,
-    session: Session,
+    basic_session: tuple[Session, str],
 ) -> None:
     # Pre-conditions
+    session, _ = basic_session
     if online:
         await session.boot()
     await session.add_mixer()
@@ -413,7 +357,7 @@ async def test_Session_set_mixer_context(
     assert len(session.contexts) == 2
     assert len(session.mixers) == 2
     if online:
-        await debug_tree(session)
+        await debug_tree(session, label="actual initial tree")
     # Operation
     await session.set_mixer_context(
         mixer=session.mixers[mixer_index], context=session.contexts[context_index]
@@ -450,17 +394,6 @@ async def test_Session_set_mixer_context(
                     active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
             NODE TREE 1014 group (session.mixers[1]:group)
                 1015 group (session.mixers[1]:tracks)
-                    1020 group (session.mixers[1].tracks[0]:group)
-                        1021 group (session.mixers[1].tracks[0]:tracks)
-                        1024 supriya:meters:2 (session.mixers[1].tracks[0]:input-levels)
-                            in_: 22.0, out: 18.0
-                        1022 group (session.mixers[1].tracks[0]:devices)
-                        1023 supriya:channel-strip:2 (session.mixers[1].tracks[0]:channel-strip)
-                            active: c16, bus: 22.0, gain: c17, gate: 1.0
-                        1025 supriya:meters:2 (session.mixers[1].tracks[0]:output-levels)
-                            in_: 22.0, out: 20.0
-                        1026 supriya:patch-cable:2x2 (session.mixers[1].tracks[0].output:synth)
-                            active: c16, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
                 1018 supriya:meters:2 (session.mixers[1]:input-levels)
                     in_: 20.0, out: 12.0
                 1016 group (session.mixers[1]:devices)
@@ -468,7 +401,7 @@ async def test_Session_set_mixer_context(
                     active: 1.0, bus: 20.0, gain: c11, gate: 1.0
                 1019 supriya:meters:2 (session.mixers[1]:output-levels)
                     in_: 20.0, out: 14.0
-                1027 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
+                1020 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
                     active: 1.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
         <session.contexts[1]>
         """,

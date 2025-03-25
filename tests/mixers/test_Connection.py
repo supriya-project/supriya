@@ -2,8 +2,8 @@ from typing import Dict
 
 import pytest
 
+from supriya.mixers import Session
 from supriya.mixers.components import Component
-from supriya.mixers.mixers import Mixer
 from supriya.mixers.routing import Connection
 
 
@@ -39,10 +39,14 @@ from supriya.mixers.routing import Connection
 )
 @pytest.mark.asyncio
 async def test_Connection_feedsback(
-    source_name: str, target_name: str, feedsback: bool, mixer: Mixer
+    source_name: str,
+    target_name: str,
+    feedsback: bool,
+    basic_session: tuple[Session, str],
 ) -> None:
+    session, _ = basic_session
     components: Dict[str, Component] = {
-        "mixer": mixer,
+        "mixer": (mixer := session.mixers[0]),
         "track_one": (track_one := mixer.tracks[0]),
         "track_two": (track_two := await mixer.add_track()),
         "track_one_child": await track_one.add_track(),

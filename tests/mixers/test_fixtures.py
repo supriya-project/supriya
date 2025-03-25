@@ -2,25 +2,26 @@ import pytest
 from uqbar.strings import normalize
 
 from supriya.mixers import Session
+
 from .conftest import debug_tree
 
 
 @pytest.mark.asyncio
 async def test_bare_session(bare_session: tuple[Session, str]) -> None:
-    session_, initial_tree = bare_session
-    assert isinstance(session_, Session)
-    await session_.boot()
-    actual_tree = await debug_tree(session_)
+    session, initial_tree = bare_session
+    assert isinstance(session, Session)
+    await session.boot()
+    actual_tree = await debug_tree(session)
     assert initial_tree == actual_tree
     assert actual_tree == "<empty>"
 
 
 @pytest.mark.asyncio
 async def test_basic_session(basic_session: tuple[Session, str]) -> None:
-    session_, initial_tree = basic_session
-    assert isinstance(session_, Session)
-    await session_.boot()
-    actual_tree = await debug_tree(session_)
+    session, initial_tree = basic_session
+    assert isinstance(session, Session)
+    await session.boot()
+    actual_tree = await debug_tree(session)
     assert initial_tree == actual_tree
     assert actual_tree == normalize(
         """
@@ -53,10 +54,10 @@ async def test_basic_session(basic_session: tuple[Session, str]) -> None:
 
 @pytest.mark.asyncio
 async def test_complex_session(complex_session: tuple[Session, str]) -> None:
-    session_, initial_tree = complex_session
-    assert isinstance(session_, Session)
-    await session_.boot()
-    actual_tree = await debug_tree(session_)
+    session, initial_tree = complex_session
+    assert isinstance(session, Session)
+    await session.boot()
+    actual_tree = await debug_tree(session)
     assert initial_tree == actual_tree
     assert actual_tree == normalize(
         """

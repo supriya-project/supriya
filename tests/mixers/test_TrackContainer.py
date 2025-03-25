@@ -2,8 +2,6 @@ import pytest
 
 from supriya import OscBundle, OscMessage
 from supriya.mixers import Session
-from supriya.mixers.mixers import Mixer
-from supriya.mixers.tracks import Track
 
 from .conftest import assert_diff, capture
 
@@ -11,12 +9,13 @@ from .conftest import assert_diff, capture
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.asyncio
 async def test_Track_add_track(
-    mixer: Mixer,
     online: bool,
-    session: Session,
-    track: Track,
+    basic_session: tuple[Session, str],
 ) -> None:
     # Pre-conditions
+    session, _ = basic_session
+    mixer = session.mixers[0]
+    track = mixer.tracks[0]
     if online:
         await session.boot()
     # Operation
