@@ -2,14 +2,11 @@ import contextlib
 import difflib
 from typing import List, Optional, Tuple, Union
 
-import pytest
 import pytest_asyncio
 from uqbar.strings import normalize
 
 from supriya import AsyncServer, OscBundle, OscMessage
 from supriya.mixers import Session
-from supriya.mixers.mixers import Mixer
-from supriya.mixers.tracks import Track
 
 
 @contextlib.contextmanager
@@ -26,6 +23,8 @@ def capture(context: Optional[AsyncServer]):
 async def debug_tree(
     session: Session, label: str = "initial tree", annotated: bool = True
 ) -> str:
+    if not session.contexts:
+        return '<empty>'
     tree = str(await session.dump_tree(annotated=annotated))
     for i, context in enumerate(session.contexts):
         tree = tree.replace(repr(context), f"<session.contexts[{i}]>")
@@ -57,33 +56,71 @@ async def assert_diff(
 does_not_raise = contextlib.nullcontext()
 
 
-@pytest.fixture
-def mixer(session: Session) -> Mixer:
-    return session.mixers[0]
+@pytest_asyncio.fixture
+async def session() -> Tuple[Session, str]:
+    session = Session()
+    await session.boot()
+    initial_tree = await debug_tree(session)
+    assert initial_tree == "<empty>"
+    await session.quit()
+    for component in session._walk():
+        print(component.address, component.graph_order)
+    return session, initial_tree
 
 
-@pytest.fixture
-def session() -> Session:
-    return Session()
-
-
-@pytest.fixture
-def track(mixer: Mixer) -> Track:
-    return mixer.tracks[0]
+@pytest_asyncio.fixture
+async def basic_session() -> Tuple[Session, str]:
+    session = Session()
+    mixer = await session.add_mixer()
+    await mixer.add_track()
+    await session.boot()
+    initial_tree = await debug_tree(session)
+    assert initial_tree == normalize(
+        """
+        <session.contexts[0]>
+            NODE TREE 1000 group (session.mixers[0]:group)
+                1001 group (session.mixers[0]:tracks)
+                    1006 group (session.mixers[0].tracks[0]:group)
+                        1007 group (session.mixers[0].tracks[0]:tracks)
+                        1010 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
+                            in_: 18.0, out: 7.0
+                        1008 group (session.mixers[0].tracks[0]:devices)
+                        1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                            active: c5, bus: 18.0, gain: c6, gate: 1.0
+                        1011 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
+                            in_: 18.0, out: 9.0
+                        1012 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
+                            active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                1004 supriya:meters:2 (session.mixers[0]:input-levels)
+                    in_: 16.0, out: 1.0
+                1002 group (session.mixers[0]:devices)
+                1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
+                    active: 1.0, bus: 16.0, gain: c0, gate: 1.0
+                1005 supriya:meters:2 (session.mixers[0]:output-levels)
+                    in_: 16.0, out: 3.0
+                1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
+                    active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+        """
+    )
+    await session.quit()
+    for component in session._walk():
+        print(component.address, component.graph_order)
+    return session, initial_tree
 
 
 @pytest_asyncio.fixture
 async def complex_session() -> Tuple[Session, str]:
     session = Session()
-    await session.add_mixer()
-    mixer_one = session.mixers[0]
+    mixer_one = await session.add_mixer()
+    mixer_two = await session.add_mixer()
     # tracks
-    track_one = mixer_one.tracks[0]  # track_one
+    track_one = await mixer_one.add_track()  # track_one
     track_two = await mixer_one.add_track()  # track_two
     await mixer_one.add_track()  # track_three
     track_one_one = await track_one.add_track()  # track_one_one
     await track_one.add_track()  # track_one_two
     await track_one_one.add_track()  # track_one_one_one
+    await mixer_two.add_track()
     # add sends
     await track_one.add_send(track_two)
     await track_two.add_send(track_one_one)
