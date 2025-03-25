@@ -77,7 +77,7 @@ async def test_Session_quit(online: bool, basic_session: tuple[Session, str]) ->
 )
 @pytest.mark.asyncio
 async def test_Session_add_context(
-    expectation, online: bool, basic_session: Session
+    expectation, online: bool, basic_session: tuple[Session, str]
 ) -> None:
     # Pre-conditions
     session, _ = basic_session
