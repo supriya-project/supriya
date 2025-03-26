@@ -152,6 +152,45 @@ Disconnecting won't terminate the server. It continues to run from wherever
 
     >>> server_one.quit()
 
+Lifecycle events
+````````````````
+
+Supriya allows hooking into server lifecycle events via lifecycle callbacks.
+Use lifecycle callbacks to execute code before booting, once booting, before
+quitting, after quitting, or even on server panic:
+
+    >>> for event in supriya.ServerLifecycleEvent:
+    ...     print(repr(event))
+    ..
+
+..  note:: This is spiritually equivalent to :term:`sclang`'s ``Server.doWhenBooted``.
+
+..  tip:: Use lifecycle callbacks to load SynthDefs on server boot. Make sure
+    to sync the server inside the callback procedure so your code blocks until
+    the loading completes.
+
+Define a callback and register it against one or more events:
+
+    >>> def print_event(event):
+    ...     print(repr(event))
+    ...
+    >>> callback = server.register_lifecycle_callback(
+    ...     event=list(supriya.ServerLifecycleEvent),
+    ...     procedure=print_event,
+    ... )
+
+Boot the server and watch the events print:
+
+    >>> server.boot()
+
+Quit the server and watch the events print:
+
+    >>> server.quit()
+
+Unregister the callback:
+
+    >>> server.unregister_lifecycle_callback(callback)
+
 Inspection
 ----------
 
