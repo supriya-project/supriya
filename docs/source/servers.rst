@@ -197,9 +197,12 @@ Inspection
 :py:class:`~supriya.contexts.realtime.Server` provides a number of methods and
 properties for inspecting its state.
 
-::
+Let's boot the server again::
 
     >>> server = supriya.Server().boot()
+
+Querying status
+```````````````
 
 Inspect the "status" of audio processing::
 
@@ -231,12 +234,18 @@ Note that ``synth_count``, ``synthdef_count`` and ``ugen_count`` have gone up
 after adding the synth to our server.  We'll discuss these concepts in
 following sections.
 
+Querying nodes
+``````````````
+
 Querying the node tree with :py:meth:`~supriya.contexts.realtime.Server.query`
 will return a "query tree" representation, which you can print to generate
 output similar to :term:`SuperCollider`'s ``s.queryAllNodes`` server method::
 
     >>> server.query_tree()
     >>> print(_)
+
+Querying default entities
+`````````````````````````
 
 Access the server's :term:`root node` and :term:`default group`::
 
@@ -267,6 +276,9 @@ Interaction
 The server provides a variety of methods for interacting with it and modifying
 its state.
 
+Sending OSC
+```````````
+
 You can send :term:`OSC` messages via the
 :py:meth:`~supriya.contexts.realtime.Server.send` method, either as
 explicit :py:class:`~supriya.osc.OscMessage` or
@@ -275,6 +287,9 @@ explicit :py:class:`~supriya.osc.OscMessage` or
 
     >>> from supriya.osc import OscMessage
     >>> server.send(OscMessage("/g_new", 1000, 0, 1))
+
+Syncing
+```````
 
 Many interactions with :term:`scsynth` don't take effect immediately. In fact,
 none of them really do, because the server behaves asynchronously. For
@@ -287,6 +302,9 @@ initiated operations complete::
 
 ..  note:: See :doc:`../osc` for more information about OSC communication with
     the server, including OSC callbacks.
+
+Mutating
+````````
 
 The server provides methods for allocating :term:`nodes <node>` (:term:`groups
 <group>` and :term:`synths <synth>`), :term:`buffers <buffer>` and :term:`buses
@@ -319,8 +337,8 @@ buffers and SynthDefs::
 
     >>> server.quit()
 
-Async
------
+Async servers
+-------------
 
 Supriya supports asyncio event loops via
 :py:class:`~supriya.contexts.realtime.AsyncServer`, which provides async
