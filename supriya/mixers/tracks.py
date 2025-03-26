@@ -15,15 +15,37 @@ class TrackContainer(AllocatableComponent[C]):
     def __init__(self) -> None:
         self._tracks: List[Track] = []
 
+    def _add_track(self) -> "Track":
+        self._tracks.append(track := Track(parent=self))
+        return track
+
     def _delete_track(self, track: "Track") -> None:
         self._tracks.remove(track)
 
+    def _group(self, index: int, count: int) -> "Track":
+        if index < 0:
+            raise ValueError(index)
+        elif count < 1:
+            raise ValueError(count)
+        elif (index + count) > len(self.tracks):
+            raise ValueError(index, count)
+        child_tracks = self._tracks[index : index + count]
+        group_track = Track(parent=self)
+        self._tracks.insert(index, group_track)
+        for i, child_track in enumerate(child_tracks):
+            child_track._move(parent=group_track, index=i)
+        return group_track
+
     async def add_track(self) -> "Track":
         async with self._lock:
-            self._tracks.append(track := Track(parent=self))
+            track = self._add_track()
             if context := self._can_allocate():
                 await track._allocate_deep(context=context)
             return track
+
+    async def group(self, index: int, count: int) -> "Track":
+        async with self._lock:
+            return self._group(index=index, count=count)
 
     @property
     def tracks(self) -> List["Track"]:
@@ -229,6 +251,16 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
         # TODO: Are sends the purview of track containers in general?
         self._sends: List[TrackSend] = []
 
+    def _add_send(
+        self, target: TrackContainer, postfader: bool = True, inverted: bool = False
+    ) -> TrackSend:
+        if self.mixer is not target.mixer:
+            raise RuntimeError
+        self._sends.append(
+            send := TrackSend(parent=self, postfader=postfader, target=target)
+        )
+        return send
+
     def _allocate(self, *, context: AsyncServer) -> bool:
         if not super()._allocate(context=context):
             return False
@@ -297,6 +329,41 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
             METERS_2,
         ]
 
+    def _move(self, parent: TrackContainer, index: int) -> None:
+        # Validate if moving is possible
+        if self.mixer is not parent.mixer:
+            raise RuntimeError
+        elif self in parent.parentage:
+            raise RuntimeError
+        elif index < 0:
+            raise RuntimeError
+        elif index and index >= len(parent.tracks):
+            raise RuntimeError
+        # Reconfigure parentage and bail if this is a no-op
+        old_parent, old_index = self._parent, 0
+        if old_parent is not None:
+            old_index = old_parent._tracks.index(self)
+        if old_parent is parent and old_index == index:
+            return  # Bail
+        if old_parent is not None:
+            old_parent._tracks.remove(self)
+        self._parent = parent
+        parent._tracks.insert(index, self)
+        # Apply changes against the context
+        if (context := self._can_allocate()) is not None:
+            if index == 0:
+                node_id = self._parent._nodes[ComponentNames.TRACKS]
+                add_action = AddAction.ADD_TO_HEAD
+            else:
+                node_id = self._parent._tracks[index - 1]._nodes[ComponentNames.GROUP]
+                add_action = AddAction.ADD_AFTER
+            with context.at():
+                self._nodes[ComponentNames.GROUP].move(
+                    target_node=node_id, add_action=add_action
+                )
+        for component in sorted(self._dependents, key=lambda x: x.graph_order):
+            component._reconcile(context)
+
     def _register_feedback(
         self, context: Optional[AsyncServer], dependent: "Component"
     ) -> Optional[BusGroup]:
@@ -311,6 +378,34 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
                 )
             )
         return self._get_audio_bus(context, name=ComponentNames.FEEDBACK)
+
+    def _set_muted(self, muted: bool = True) -> None:
+        self._is_muted = muted
+        self._update_activation()
+
+    def _set_soloed(self, soloed: bool = True, exclusive: bool = True) -> None:
+        self._is_soloed = soloed
+        if not (mixer := self.mixer):
+            return
+        if soloed:
+            if exclusive:
+                mixer._soloed_tracks.discard(self)
+                for track in mixer._soloed_tracks:
+                    track._is_soloed = False
+            mixer._soloed_tracks.add(self)
+        else:
+            mixer._soloed_tracks.discard(self)
+        for component in mixer._walk(Track):
+            if isinstance(component, Track):
+                component._update_activation()
+
+    def _ungroup(self) -> None:
+        if not (parent := self.parent):
+            raise ValueError
+        group_track_index = parent.tracks.index(self)
+        for i, track in enumerate(self._tracks[:], 1):
+            track._move(parent=self.parent, index=group_track_index + i)
+        self._delete()
 
     def _unregister_feedback(self, dependent: "Component") -> bool:
         if should_tear_down := super()._unregister_feedback(dependent):
@@ -338,11 +433,7 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
         self, target: TrackContainer, postfader: bool = True, inverted: bool = False
     ) -> TrackSend:
         async with self._lock:
-            if self.mixer is not target.mixer:
-                raise RuntimeError
-            self._sends.append(
-                send := TrackSend(parent=self, postfader=postfader, target=target)
-            )
+            send = self._add_send(target=target, postfader=postfader, inverted=inverted)
             if context := self._can_allocate():
                 await send._allocate_deep(context=context)
             return send
@@ -356,49 +447,14 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
 
     async def move(self, parent: TrackContainer, index: int) -> None:
         async with self._lock:
-            # Validate if moving is possible
-            if self.mixer is not parent.mixer:
-                raise RuntimeError
-            elif self in parent.parentage:
-                raise RuntimeError
-            elif index < 0:
-                raise RuntimeError
-            elif index and index >= len(parent.tracks):
-                raise RuntimeError
-            # Reconfigure parentage and bail if this is a no-op
-            old_parent, old_index = self._parent, 0
-            if old_parent is not None:
-                old_index = old_parent._tracks.index(self)
-            if old_parent is parent and old_index == index:
-                return  # Bail
-            if old_parent is not None:
-                old_parent._tracks.remove(self)
-            self._parent = parent
-            parent._tracks.insert(index, self)
-            # Apply changes against the context
-            if (context := self._can_allocate()) is not None:
-                if index == 0:
-                    node_id = self._parent._nodes[ComponentNames.TRACKS]
-                    add_action = AddAction.ADD_TO_HEAD
-                else:
-                    node_id = self._parent._tracks[index - 1]._nodes[
-                        ComponentNames.GROUP
-                    ]
-                    add_action = AddAction.ADD_AFTER
-                with context.at():
-                    self._nodes[ComponentNames.GROUP].move(
-                        target_node=node_id, add_action=add_action
-                    )
-            for component in sorted(self._dependents, key=lambda x: x.graph_order):
-                component._reconcile(context)
+            self._move(parent=parent, index=index)
 
     async def set_input(self, input_: Optional[Union[BusGroup, "Track"]]) -> None:
         await self._input.set_source(input_)
 
     async def set_muted(self, muted: bool = True) -> None:
         async with self._lock:
-            self._is_muted = muted
-            self._update_activation()
+            self._set_muted(muted)
 
     async def set_output(
         self, output: Optional[Union[BusGroup, Default, TrackContainer]]
@@ -407,24 +463,11 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
 
     async def set_soloed(self, soloed: bool = True, exclusive: bool = True) -> None:
         async with self._lock:
-            self._is_soloed = soloed
-            if not (mixer := self.mixer):
-                return
-            if soloed:
-                if exclusive:
-                    mixer._soloed_tracks.discard(self)
-                    for track in mixer._soloed_tracks:
-                        track._is_soloed = False
-                mixer._soloed_tracks.add(self)
-            else:
-                mixer._soloed_tracks.discard(self)
-            for component in mixer._walk(Track):
-                if isinstance(component, Track):
-                    component._update_activation()
+            self._set_soloed(soloed=soloed, exclusive=exclusive)
 
     async def ungroup(self) -> None:
         async with self._lock:
-            pass
+            self._ungroup()
 
     @property
     def address(self) -> str:

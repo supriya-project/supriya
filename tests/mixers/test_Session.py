@@ -9,65 +9,6 @@ from supriya.mixers import Session
 from .conftest import assert_diff, debug_tree
 
 
-@pytest.mark.parametrize("online", [False, True])
-@pytest.mark.asyncio
-async def test_Session_boot(online: bool, basic_session: tuple[Session, str]) -> None:
-    # Pre-conditions
-    session, _ = basic_session
-    assert session.status == BootStatus.OFFLINE
-    if online:
-        await session.boot()
-        assert session.status == BootStatus.ONLINE
-    # Operation
-    await session.boot()  # idempotent
-    # Post-conditions
-    assert session.status == BootStatus.ONLINE
-    assert await session.dump_tree() == normalize(
-        f"""
-        {session.contexts[0]!r}
-            NODE TREE 1000 group (session.mixers[0]:group)
-                1001 group (session.mixers[0]:tracks)
-                    1006 group (session.mixers[0].tracks[0]:group)
-                        1007 group (session.mixers[0].tracks[0]:tracks)
-                        1010 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
-                            in_: 18.0, out: 7.0
-                        1008 group (session.mixers[0].tracks[0]:devices)
-                        1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
-                            active: c5, bus: 18.0, gain: c6, gate: 1.0
-                        1011 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
-                            in_: 18.0, out: 9.0
-                        1012 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
-                            active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-                1004 supriya:meters:2 (session.mixers[0]:input-levels)
-                    in_: 16.0, out: 1.0
-                1002 group (session.mixers[0]:devices)
-                1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
-                    active: 1.0, bus: 16.0, gain: c0, gate: 1.0
-                1005 supriya:meters:2 (session.mixers[0]:output-levels)
-                    in_: 16.0, out: 3.0
-                1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
-                    active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
-        """
-    )
-
-
-@pytest.mark.parametrize("online", [False, True])
-@pytest.mark.asyncio
-async def test_Session_quit(online: bool, basic_session: tuple[Session, str]) -> None:
-    # Pre-conditions
-    session, _ = basic_session
-    assert session.status == BootStatus.OFFLINE
-    if online:
-        await session.boot()
-        assert session.status == BootStatus.ONLINE
-    # Operation
-    await session.quit()
-    # Post-conditions
-    assert session.status == BootStatus.OFFLINE
-    with pytest.raises(RuntimeError):
-        assert await session.dump_tree()
-
-
 @pytest.mark.parametrize(
     "online, expectation",
     [
@@ -226,6 +167,48 @@ async def test_Session_add_mixer(
             )
 
 
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.asyncio
+async def test_Session_boot(online: bool, basic_session: tuple[Session, str]) -> None:
+    # Pre-conditions
+    session, _ = basic_session
+    assert session.status == BootStatus.OFFLINE
+    if online:
+        await session.boot()
+        assert session.status == BootStatus.ONLINE
+    # Operation
+    await session.boot()  # idempotent
+    # Post-conditions
+    assert session.status == BootStatus.ONLINE
+    assert await session.dump_tree() == normalize(
+        f"""
+        {session.contexts[0]!r}
+            NODE TREE 1000 group (session.mixers[0]:group)
+                1001 group (session.mixers[0]:tracks)
+                    1006 group (session.mixers[0].tracks[0]:group)
+                        1007 group (session.mixers[0].tracks[0]:tracks)
+                        1010 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
+                            in_: 18.0, out: 7.0
+                        1008 group (session.mixers[0].tracks[0]:devices)
+                        1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                            active: c5, bus: 18.0, gain: c6, gate: 1.0
+                        1011 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
+                            in_: 18.0, out: 9.0
+                        1012 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
+                            active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                1004 supriya:meters:2 (session.mixers[0]:input-levels)
+                    in_: 16.0, out: 1.0
+                1002 group (session.mixers[0]:devices)
+                1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
+                    active: 1.0, bus: 16.0, gain: c0, gate: 1.0
+                1005 supriya:meters:2 (session.mixers[0]:output-levels)
+                    in_: 16.0, out: 3.0
+                1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
+                    active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+        """
+    )
+
+
 @pytest.mark.parametrize(
     "online, expectation",
     [
@@ -253,6 +236,23 @@ async def test_Session_delete_context(
             {session.contexts[0]!r}
             """
         )
+
+
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.asyncio
+async def test_Session_quit(online: bool, basic_session: tuple[Session, str]) -> None:
+    # Pre-conditions
+    session, _ = basic_session
+    assert session.status == BootStatus.OFFLINE
+    if online:
+        await session.boot()
+        assert session.status == BootStatus.ONLINE
+    # Operation
+    await session.quit()
+    # Post-conditions
+    assert session.status == BootStatus.OFFLINE
+    with pytest.raises(RuntimeError):
+        assert await session.dump_tree()
 
 
 @pytest.mark.parametrize("online", [False, True])
