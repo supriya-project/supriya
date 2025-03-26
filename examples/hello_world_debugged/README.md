@@ -6,8 +6,10 @@ the OSC messages sent by our client.
 
 We'll perform four kinds of debugging:
 
-- Turn on logging for the `scsynth` subprocess so we can see what it says when it boots up.
-- Print the "status" of the server at various points so we can see CPU usage, actual sample rates, node counts, etc.
+- Turn on logging for the `scsynth` subprocess so we can see what it says when
+  it boots up.
+- Print the "status" of the server at various points so we can see CPU usage,
+  actual sample rates, node counts, etc.
 - Print the "node tree": the structure of the groups and synths in the server.
 - Capture and print OSC messages sent by Supriya to `scsynth`.
 
