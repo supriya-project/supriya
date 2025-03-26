@@ -2,6 +2,7 @@ import asyncio
 from typing import Dict, List, Optional, Tuple, Union
 
 import pytest
+from uqbar.strings import normalize
 
 from supriya import BusGroup, OscBundle, OscMessage
 from supriya.mixers import Session
@@ -9,7 +10,7 @@ from supriya.mixers.mixers import Mixer
 from supriya.mixers.tracks import Track, TrackContainer, TrackSend
 from supriya.typing import DEFAULT, Default
 
-from .conftest import assert_diff, capture, debug_tree, does_not_raise
+from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_messages
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -21,21 +22,9 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise
             "mixers[0].tracks[1]",
             "mixers[0]",
             does_not_raise,
-            [
-                OscMessage(
-                    "/s_new",
-                    "supriya:patch-cable:2x2",
-                    1066,
-                    3,
-                    1037,
-                    "active",
-                    "c29",
-                    "in_",
-                    26.0,
-                    "out",
-                    16.0,
-                ),
-            ],
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 3, 1037, 'active', 'c29', 'in_', 26.0, 'out', 16.0]
+            """,
             """
             --- initial
             +++ mutation
@@ -55,21 +44,9 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise
             "mixers[0].tracks[1]",
             "mixers[0].tracks[2]",
             does_not_raise,
-            [
-                OscMessage(
-                    "/s_new",
-                    "supriya:patch-cable:2x2",
-                    1066,
-                    3,
-                    1037,
-                    "active",
-                    "c29",
-                    "in_",
-                    26.0,
-                    "out",
-                    30.0,
-                ),
-            ],
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 3, 1037, 'active', 'c29', 'in_', 26.0, 'out', 30.0]
+            """,
             """
             --- initial
             +++ mutation
@@ -89,21 +66,9 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise
             "mixers[0].tracks[1]",
             "mixers[0].tracks[2]",
             does_not_raise,
-            [
-                OscMessage(
-                    "/s_new",
-                    "supriya:patch-cable:2x2",
-                    1066,
-                    2,
-                    1037,
-                    "active",
-                    "c29",
-                    "in_",
-                    26.0,
-                    "out",
-                    30.0,
-                ),
-            ],
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 2, 1037, 'active', 'c29', 'in_', 26.0, 'out', 30.0]
+            """,
             """
             --- initial
             +++ mutation
@@ -123,34 +88,10 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise
             "mixers[0].tracks[1]",
             "mixers[0].tracks[1]",
             does_not_raise,
-            [
-                OscMessage(
-                    "/s_new",
-                    "supriya:fb-patch-cable:2x2",
-                    1066,
-                    0,
-                    1034,
-                    "active",
-                    "c29",
-                    "in_",
-                    36.0,
-                    "out",
-                    26.0,
-                ),
-                OscMessage(
-                    "/s_new",
-                    "supriya:patch-cable:2x2",
-                    1067,
-                    2,
-                    1037,
-                    "active",
-                    "c29",
-                    "in_",
-                    26.0,
-                    "out",
-                    36.0,
-                ),
-            ],
+            """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1034, 'active', 'c29', 'in_', 36.0, 'out', 26.0]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1067, 2, 1037, 'active', 'c29', 'in_', 26.0, 'out', 36.0]
+            """,
             """
             --- initial
             +++ mutation
@@ -176,34 +117,10 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise
             "mixers[0].tracks[2]",
             "mixers[0].tracks[1]",
             does_not_raise,
-            [
-                OscMessage(
-                    "/s_new",
-                    "supriya:fb-patch-cable:2x2",
-                    1066,
-                    0,
-                    1034,
-                    "active",
-                    "c29",
-                    "in_",
-                    36.0,
-                    "out",
-                    26.0,
-                ),
-                OscMessage(
-                    "/s_new",
-                    "supriya:patch-cable:2x2",
-                    1067,
-                    3,
-                    1046,
-                    "active",
-                    "c35",
-                    "in_",
-                    30.0,
-                    "out",
-                    36.0,
-                ),
-            ],
+            """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1034, 'active', 'c29', 'in_', 36.0, 'out', 26.0]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1067, 3, 1046, 'active', 'c35', 'in_', 30.0, 'out', 36.0]
+            """,
             """
             --- initial
             +++ mutation
@@ -232,16 +149,15 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise
             "mixers[0].tracks[1]",
             "mixers[1].tracks[0]",
             pytest.raises(RuntimeError),
-            [],
-            """
-            """,
+            "",
+            "",
         ),
     ],
 )
 @pytest.mark.asyncio
 async def test_Track_add_send(
     complex_session: Tuple[Session, str],
-    expected_commands: List[Union[OscBundle, OscMessage]],
+    expected_commands: str,
     expected_diff: str,
     maybe_raises,
     online: bool,
@@ -278,7 +194,7 @@ async def test_Track_add_send(
         expected_diff,
         expected_initial_tree=initial_tree,
     )
-    assert commands == expected_commands
+    assert format_messages(commands) == normalize(expected_commands)
 
 
 @pytest.mark.xfail
@@ -286,15 +202,15 @@ async def test_Track_add_send(
 @pytest.mark.parametrize(
     "target, expected_commands, expected_diff",
     [
-        ("parent", [], ""),
-        ("self", [], ""),
-        ("child", [], ""),
-        ("sibling", [], ""),
+        ("parent", "", ""),
+        ("self", "", ""),
+        ("child", "", ""),
+        ("sibling", "", ""),
     ],
 )
 @pytest.mark.asyncio
 async def test_Track_delete(
-    expected_commands: List[Union[OscBundle, OscMessage]],
+    expected_commands: str,
     expected_diff: str,
     online: bool,
     mixer: Mixer,
@@ -326,7 +242,7 @@ async def test_Track_delete(
         expected_initial_tree="""
         """,
     )
-    assert commands == expected_commands
+    assert format_messages(commands) == normalize(expected_commands)
     raise Exception
 
 
@@ -395,40 +311,13 @@ async def test_Track_delete(
                              1044 group
                              1047 supriya:meters:2
             """,
-            [
-                OscMessage("/n_after", 1006, 1034),
-                OscMessage(
-                    "/s_new",
-                    "supriya:fb-patch-cable:2x2",
-                    1066,
-                    0,
-                    1034,
-                    "active",
-                    "c29",
-                    "in_",
-                    36.0,
-                    "out",
-                    26.0,
-                ),
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1051, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1067,
-                            3,
-                            1009,
-                            "active",
-                            "c5",
-                            "in_",
-                            18.0,
-                            "out",
-                            36.0,
-                        ),
-                    ),
-                ),
-            ],
+            """
+            - ['/n_after', 1006, 1034]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1034, 'active', 'c29', 'in_', 36.0, 'out', 26.0]
+            - [None,
+               [['/n_set', 1051, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1067, 3, 1009, 'active', 'c5', 'in_', 18.0, 'out', 36.0]]]
+            """,
         ),
         (
             "mixers[0].tracks[0]",
@@ -437,7 +326,7 @@ async def test_Track_delete(
             pytest.raises(RuntimeError),
             (0, 0),
             "",
-            [],
+            "",
         ),
         (
             "mixers[0].tracks[1]",
@@ -508,61 +397,19 @@ async def test_Track_delete(
                              1044 group
                              1047 supriya:meters:2
             """,
-            [
-                OscMessage("/g_head", 1001, 1034),
-                OscMessage("/n_set", 1041, "gate", 0.0),
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1042, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1066,
-                            3,
-                            1037,
-                            "active",
-                            "c29",
-                            "in_",
-                            26.0,
-                            "out",
-                            20.0,
-                        ),
-                    ),
-                ),
-                OscMessage(
-                    "/s_new",
-                    "supriya:fb-patch-cable:2x2",
-                    1067,
-                    0,
-                    1034,
-                    "active",
-                    "c29",
-                    "in_",
-                    28.0,
-                    "out",
-                    26.0,
-                ),
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1051, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1068,
-                            3,
-                            1009,
-                            "active",
-                            "c5",
-                            "in_",
-                            18.0,
-                            "out",
-                            28.0,
-                        ),
-                    ),
-                ),
-            ],
+            """
+            - ['/g_head', 1001, 1034]
+            - ['/n_set', 1041, 'gate', 0.0]
+            - [None,
+               [['/n_set', 1042, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1066, 3, 1037, 'active', 'c29', 'in_', 26.0, 'out', 20.0]]]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1067, 0, 1034, 'active', 'c29', 'in_', 28.0, 'out', 26.0]
+            - [None,
+               [['/n_set', 1051, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1068, 3, 1009, 'active', 'c5', 'in_', 18.0, 'out', 28.0]]]
+            """,
         ),
-        ("mixers[0].tracks[1]", "mixers[0]", 1, does_not_raise, (0, 1), "", []),
+        ("mixers[0].tracks[1]", "mixers[0]", 1, does_not_raise, (0, 1), "", ""),
         (
             "mixers[0].tracks[1]",
             "mixers[0]",
@@ -609,7 +456,9 @@ async def test_Track_delete(
                          in_: 16.0, out: 1.0
                      1002 group
             """,
-            [OscMessage("/n_after", 1034, 1043)],
+            """
+            - ['/n_after', 1034, 1043]
+            """,
         ),
         (
             "mixers[0].tracks[1]",
@@ -618,7 +467,7 @@ async def test_Track_delete(
             pytest.raises(RuntimeError),
             (0, 1),
             "",
-            [],
+            "",
         ),
         (
             "mixers[0].tracks[1]",
@@ -689,77 +538,20 @@ async def test_Track_delete(
                              1044 group
                              1047 supriya:meters:2
             """,
-            [
-                OscMessage("/g_head", 1007, 1034),
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1040, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1066,
-                            1,
-                            1034,
-                            "active",
-                            "c29",
-                            "in_",
-                            26.0,
-                            "out",
-                            18.0,
-                        ),
-                    ),
-                ),
-                OscMessage("/n_set", 1041, "gate", 0.0),
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1042, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1067,
-                            3,
-                            1037,
-                            "active",
-                            "c29",
-                            "in_",
-                            26.0,
-                            "out",
-                            20.0,
-                        ),
-                    ),
-                ),
-                OscMessage(
-                    "/s_new",
-                    "supriya:fb-patch-cable:2x2",
-                    1068,
-                    0,
-                    1034,
-                    "active",
-                    "c29",
-                    "in_",
-                    28.0,
-                    "out",
-                    26.0,
-                ),
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1051, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1069,
-                            3,
-                            1009,
-                            "active",
-                            "c5",
-                            "in_",
-                            18.0,
-                            "out",
-                            28.0,
-                        ),
-                    ),
-                ),
-            ],
+            """
+            - ['/g_head', 1007, 1034]
+            - [None,
+               [['/n_set', 1040, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1066, 1, 1034, 'active', 'c29', 'in_', 26.0, 'out', 18.0]]]
+            - ['/n_set', 1041, 'gate', 0.0]
+            - [None,
+               [['/n_set', 1042, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1067, 3, 1037, 'active', 'c29', 'in_', 26.0, 'out', 20.0]]]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1068, 0, 1034, 'active', 'c29', 'in_', 28.0, 'out', 26.0]
+            - [None,
+               [['/n_set', 1051, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1069, 3, 1009, 'active', 'c5', 'in_', 18.0, 'out', 28.0]]]
+            """,
         ),
         (
             "mixers[0].tracks[1]",
@@ -829,77 +621,20 @@ async def test_Track_delete(
                              1044 group
                              1047 supriya:meters:2
             """,
-            [
-                OscMessage("/g_head", 1013, 1034),
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1040, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1066,
-                            1,
-                            1034,
-                            "active",
-                            "c29",
-                            "in_",
-                            26.0,
-                            "out",
-                            20.0,
-                        ),
-                    ),
-                ),
-                OscMessage("/n_set", 1041, "gate", 0.0),
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1042, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1067,
-                            3,
-                            1037,
-                            "active",
-                            "c29",
-                            "in_",
-                            26.0,
-                            "out",
-                            20.0,
-                        ),
-                    ),
-                ),
-                OscMessage(
-                    "/s_new",
-                    "supriya:fb-patch-cable:2x2",
-                    1068,
-                    0,
-                    1034,
-                    "active",
-                    "c29",
-                    "in_",
-                    28.0,
-                    "out",
-                    26.0,
-                ),
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1051, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1069,
-                            3,
-                            1009,
-                            "active",
-                            "c5",
-                            "in_",
-                            18.0,
-                            "out",
-                            28.0,
-                        ),
-                    ),
-                ),
-            ],
+            """
+            - ['/g_head', 1013, 1034]
+            - [None,
+               [['/n_set', 1040, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1066, 1, 1034, 'active', 'c29', 'in_', 26.0, 'out', 20.0]]]
+            - ['/n_set', 1041, 'gate', 0.0]
+            - [None,
+               [['/n_set', 1042, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1067, 3, 1037, 'active', 'c29', 'in_', 26.0, 'out', 20.0]]]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1068, 0, 1034, 'active', 'c29', 'in_', 28.0, 'out', 26.0]
+            - [None,
+               [['/n_set', 1051, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1069, 3, 1009, 'active', 'c5', 'in_', 18.0, 'out', 28.0]]]
+            """,
         ),
         (
             "mixers[0].tracks[1]",
@@ -908,7 +643,7 @@ async def test_Track_delete(
             pytest.raises(RuntimeError),
             (0, 1),
             "",
-            [],
+            "",
         ),
         (
             "mixers[0].tracks[1]",
@@ -957,27 +692,12 @@ async def test_Track_delete(
                                  in_: 30.0, out: 37.0
                              1045 group
             """,
-            [
-                OscMessage("/g_head", 1044, 1034),
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1040, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1066,
-                            1,
-                            1034,
-                            "active",
-                            "c29",
-                            "in_",
-                            26.0,
-                            "out",
-                            30.0,
-                        ),
-                    ),
-                ),
-            ],
+            """
+            - ['/g_head', 1044, 1034]
+            - [None,
+               [['/n_set', 1040, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1066, 1, 1034, 'active', 'c29', 'in_', 26.0, 'out', 30.0]]]
+            """,
         ),
         (
             "mixers[0].tracks[2]",
@@ -1025,7 +745,9 @@ async def test_Track_delete(
                          in_: 16.0, out: 1.0
                      1002 group
             """,
-            [OscMessage("/g_head", 1001, 1043)],
+            """
+            - ['/g_head', 1001, 1043]
+            """,
         ),
         (
             "mixers[0].tracks[1]",
@@ -1034,14 +756,14 @@ async def test_Track_delete(
             pytest.raises(RuntimeError),
             (0, 1),
             "",
-            [],
+            "",
         ),
     ],
 )
 @pytest.mark.asyncio
 async def test_Track_move(
     complex_session: Tuple[Session, str],
-    expected_commands: List[Union[OscBundle, OscMessage]],
+    expected_commands: str,
     expected_graph_order: List[int],
     expected_diff: str,
     index: int,
@@ -1075,7 +797,7 @@ async def test_Track_move(
         expected_initial_tree=initial_tree,
         annotated=False,
     )
-    assert commands == expected_commands
+    assert format_messages(commands) == normalize(expected_commands)
 
 
 @pytest.mark.parametrize("online", [False, True])
