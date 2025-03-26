@@ -1,7 +1,7 @@
 import contextlib
 import difflib
 import pprint
-from typing import Generator, List, Optional, Tuple, Union
+from typing import Generator
 
 import pytest_asyncio
 from uqbar.strings import normalize
@@ -12,9 +12,9 @@ from supriya.mixers import Session
 
 @contextlib.contextmanager
 def capture(
-    context: Optional[AsyncServer],
-) -> Generator[List[Union[OscBundle, OscMessage]], None, None]:
-    entries: List[Union[OscBundle, OscMessage]] = []
+    context: AsyncServer | None,
+) -> Generator[list[OscBundle | OscMessage], None, None]:
+    entries: list[OscBundle | OscMessage] = []
     if context is None:
         yield entries
     else:
@@ -73,7 +73,7 @@ does_not_raise = contextlib.nullcontext()
 
 
 @pytest_asyncio.fixture
-async def bare_session() -> Tuple[Session, str]:
+async def bare_session() -> tuple[Session, str]:
     session = Session()
     await session.boot()
     initial_tree = await debug_tree(session)
@@ -85,7 +85,7 @@ async def bare_session() -> Tuple[Session, str]:
 
 
 @pytest_asyncio.fixture
-async def basic_session() -> Tuple[Session, str]:
+async def basic_session() -> tuple[Session, str]:
     session = Session()
     mixer = await session.add_mixer()
     await mixer.add_track()
@@ -125,7 +125,7 @@ async def basic_session() -> Tuple[Session, str]:
 
 
 @pytest_asyncio.fixture
-async def complex_session() -> Tuple[Session, str]:
+async def complex_session() -> tuple[Session, str]:
     session = Session()
     mixer_one = await session.add_mixer()
     mixer_two = await session.add_mixer()

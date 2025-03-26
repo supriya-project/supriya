@@ -1,31 +1,29 @@
-from typing import List, Union
-
 import pytest
+from uqbar.strings import normalize
 
-from supriya import OscBundle, OscMessage
 from supriya.mixers import Session
 from supriya.mixers.mixers import Mixer
 
-from .conftest import assert_diff, capture
+from .conftest import assert_diff, capture, format_messages
 
 
 @pytest.mark.xfail
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "expected_commands, expected_diff",
+    "expected_diff, expected_commands",
     [
         (
-            [
-                OscMessage("/n_set", 1000, "gate", 0.0),
-                OscMessage("/n_set", 1004, "gate", 0.0),
-            ],
             "",
+            """
+            - ['/n_set', 1000, 'gate', 0.0]
+            - ['/n_set', 1004, 'gate', 0.0]
+            """,
         ),
     ],
 )
 @pytest.mark.asyncio
 async def test_Mixer_delete(
-    expected_commands: List[Union[OscBundle, OscMessage]],
+    expected_commands: str,
     expected_diff: str,
     mixer: Mixer,
     online: bool,
@@ -50,5 +48,4 @@ async def test_Mixer_delete(
         <session.contexts[0]>
         """,
     )
-    assert commands == expected_commands
-    raise Exception
+    assert format_messages(commands) == normalize(expected_commands)

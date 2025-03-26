@@ -1,5 +1,3 @@
-from typing import Dict
-
 import pytest
 
 from supriya.mixers import Session
@@ -45,7 +43,7 @@ async def test_Connection_feedsback(
     basic_session: tuple[Session, str],
 ) -> None:
     session, _ = basic_session
-    components: Dict[str, Component] = {
+    components: dict[str, Component] = {
         "mixer": (mixer := session.mixers[0]),
         "track_one": (track_one := mixer.tracks[0]),
         "track_two": (track_two := await mixer.add_track()),

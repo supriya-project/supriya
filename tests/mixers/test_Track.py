@@ -1,10 +1,9 @@
 import asyncio
-from typing import Dict, List, Optional, Tuple, Union
 
 import pytest
 from uqbar.strings import normalize
 
-from supriya import BusGroup, OscBundle, OscMessage
+from supriya import BusGroup
 from supriya.mixers import Session
 from supriya.mixers.mixers import Mixer
 from supriya.mixers.tracks import Track, TrackContainer, TrackSend
@@ -15,16 +14,13 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "postfader, source, target, maybe_raises, expected_commands, expected_diff",
+    "postfader, source, target, maybe_raises, expected_diff, expected_commands",
     [
         (
             True,
             "mixers[0].tracks[1]",
             "mixers[0]",
             does_not_raise,
-            """
-            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 3, 1037, 'active', 'c29', 'in_', 26.0, 'out', 16.0]
-            """,
             """
             --- initial
             +++ mutation
@@ -38,15 +34,15 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
                                  active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
                              1039 supriya:meters:2 (session.mixers[0].tracks[1]:output-levels)
             """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 3, 1037, 'active', 'c29', 'in_', 26.0, 'out', 16.0]
+            """,
         ),
         (
             True,
             "mixers[0].tracks[1]",
             "mixers[0].tracks[2]",
             does_not_raise,
-            """
-            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 3, 1037, 'active', 'c29', 'in_', 26.0, 'out', 30.0]
-            """,
             """
             --- initial
             +++ mutation
@@ -60,15 +56,15 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
                                  active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
                              1039 supriya:meters:2 (session.mixers[0].tracks[1]:output-levels)
             """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 3, 1037, 'active', 'c29', 'in_', 26.0, 'out', 30.0]
+            """,
         ),
         (
             False,
             "mixers[0].tracks[1]",
             "mixers[0].tracks[2]",
             does_not_raise,
-            """
-            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 2, 1037, 'active', 'c29', 'in_', 26.0, 'out', 30.0]
-            """,
             """
             --- initial
             +++ mutation
@@ -82,16 +78,15 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
                                  active: c29, bus: 26.0, gain: c30, gate: 1.0
                              1042 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
             """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 2, 1037, 'active', 'c29', 'in_', 26.0, 'out', 30.0]
+            """,
         ),
         (
             False,
             "mixers[0].tracks[1]",
             "mixers[0].tracks[1]",
             does_not_raise,
-            """
-            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1034, 'active', 'c29', 'in_', 36.0, 'out', 26.0]
-            - ['/s_new', 'supriya:patch-cable:2x2', 1067, 2, 1037, 'active', 'c29', 'in_', 26.0, 'out', 36.0]
-            """,
             """
             --- initial
             +++ mutation
@@ -111,16 +106,16 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
                                  active: c29, bus: 26.0, gain: c30, gate: 1.0
                              1042 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
             """,
+            """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1034, 'active', 'c29', 'in_', 36.0, 'out', 26.0]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1067, 2, 1037, 'active', 'c29', 'in_', 26.0, 'out', 36.0]
+            """,
         ),
         (
             True,
             "mixers[0].tracks[2]",
             "mixers[0].tracks[1]",
             does_not_raise,
-            """
-            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1034, 'active', 'c29', 'in_', 36.0, 'out', 26.0]
-            - ['/s_new', 'supriya:patch-cable:2x2', 1067, 3, 1046, 'active', 'c35', 'in_', 30.0, 'out', 36.0]
-            """,
             """
             --- initial
             +++ mutation
@@ -143,6 +138,10 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
                                  in_: 30.0, out: 39.0
                              1049 supriya:patch-cable:2x2 (session.mixers[0].tracks[2].output:synth)
             """,
+            """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1034, 'active', 'c29', 'in_', 36.0, 'out', 26.0]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1067, 3, 1046, 'active', 'c35', 'in_', 30.0, 'out', 36.0]
+            """,
         ),
         (
             True,
@@ -156,7 +155,7 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
 )
 @pytest.mark.asyncio
 async def test_Track_add_send(
-    complex_session: Tuple[Session, str],
+    complex_session: tuple[Session, str],
     expected_commands: str,
     expected_diff: str,
     maybe_raises,
@@ -176,7 +175,7 @@ async def test_Track_add_send(
     if online:
         await debug_tree(session)
     # Operation
-    send: Optional[TrackSend] = None
+    send: TrackSend | None = None
     with maybe_raises, capture(session["mixers[0]"].context) as commands:
         send = await source_.add_send(postfader=postfader, target=target_)
     # Post-conditions
@@ -200,7 +199,7 @@ async def test_Track_add_send(
 @pytest.mark.xfail
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "target, expected_commands, expected_diff",
+    "target, expected_diff, expected_commands",
     [
         ("parent", "", ""),
         ("self", "", ""),
@@ -217,10 +216,11 @@ async def test_Track_delete(
     session: Session,
     target: str,
 ) -> None:
+    # TODO: rewrite this with complex_session and track lookups
     # Pre-conditions
     if online:
         await session.boot()
-    targets: Dict[str, Track] = {
+    targets: dict[str, Track] = {
         "parent": (parent := await mixer.add_track()),
         "self": (track := await parent.add_track()),
         "child": await track.add_track(),
@@ -762,9 +762,9 @@ async def test_Track_delete(
 )
 @pytest.mark.asyncio
 async def test_Track_move(
-    complex_session: Tuple[Session, str],
+    complex_session: tuple[Session, str],
     expected_commands: str,
-    expected_graph_order: List[int],
+    expected_graph_order: list[int],
     expected_diff: str,
     index: int,
     online: bool,
@@ -802,23 +802,22 @@ async def test_Track_move(
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "source, target, maybe_raises, expected_commands, expected_diff",
+    "source, target, maybe_raises, expected_diff, expected_commands",
     [
         # none
         (
             "mixers[0].tracks[0].tracks[0]",
             None,
             does_not_raise,
-            [],
-            """
-            """,
+            "",
+            "",
         ),
         # self
         (
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0].tracks[0]",
             pytest.raises(RuntimeError),
-            [],
+            "",
             "",
         ),
         # parent
@@ -828,21 +827,6 @@ async def test_Track_move(
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0]",
             does_not_raise,
-            [
-                OscMessage(
-                    "/s_new",
-                    "supriya:fb-patch-cable:2x2",
-                    1066,
-                    2,
-                    1013,
-                    "active",
-                    "c11",
-                    "in_",
-                    18.0,
-                    "out",
-                    20.0,
-                ),
-            ],
             """
             --- initial
             +++ mutation
@@ -856,27 +840,15 @@ async def test_Track_move(
                                          1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
                                              1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
             """,
+            """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 2, 1013, 'active', 'c11', 'in_', 18.0, 'out', 20.0]
+            """,
         ),
         # child
         (
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0].tracks[0].tracks[0]",
             does_not_raise,
-            [
-                OscMessage(
-                    "/s_new",
-                    "supriya:patch-cable:2x2",
-                    1066,
-                    2,
-                    1013,
-                    "active",
-                    "c11",
-                    "in_",
-                    22.0,
-                    "out",
-                    20.0,
-                ),
-            ],
             """
             --- initial
             +++ mutation
@@ -890,6 +862,9 @@ async def test_Track_move(
                                          1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
                                              1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
             """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 2, 1013, 'active', 'c11', 'in_', 22.0, 'out', 20.0]
+            """,
         ),
         # auntie
         # TODO: This should feedback, because the reader is calculated before
@@ -898,21 +873,6 @@ async def test_Track_move(
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[1]",
             does_not_raise,
-            [
-                OscMessage(
-                    "/s_new",
-                    "supriya:fb-patch-cable:2x2",
-                    1066,
-                    2,
-                    1013,
-                    "active",
-                    "c11",
-                    "in_",
-                    26.0,
-                    "out",
-                    20.0,
-                ),
-            ],
             """
             --- initial
             +++ mutation
@@ -926,6 +886,9 @@ async def test_Track_move(
                                          1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
                                              1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
             """,
+            """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 2, 1013, 'active', 'c11', 'in_', 26.0, 'out', 20.0]
+            """,
         ),
         # sibling, reversed
         # NOTE: Does not need to feedback.
@@ -933,21 +896,6 @@ async def test_Track_move(
             "mixers[0].tracks[1]",
             "mixers[0].tracks[0]",
             does_not_raise,
-            [
-                OscMessage(
-                    "/s_new",
-                    "supriya:patch-cable:2x2",
-                    1066,
-                    2,
-                    1035,
-                    "active",
-                    "c29",
-                    "in_",
-                    18.0,
-                    "out",
-                    26.0,
-                ),
-            ],
             """
             --- initial
             +++ mutation
@@ -961,6 +909,9 @@ async def test_Track_move(
                              1038 supriya:meters:2 (session.mixers[0].tracks[1]:input-levels)
                                  in_: 26.0, out: 31.0
             """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 2, 1035, 'active', 'c29', 'in_', 18.0, 'out', 26.0]
+            """,
         ),
         # sibling
         # TODO: This should feedback, because the reader is calculated before
@@ -969,21 +920,6 @@ async def test_Track_move(
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0].tracks[1]",
             does_not_raise,
-            [
-                OscMessage(
-                    "/s_new",
-                    "supriya:fb-patch-cable:2x2",
-                    1066,
-                    2,
-                    1013,
-                    "active",
-                    "c11",
-                    "in_",
-                    24.0,
-                    "out",
-                    20.0,
-                ),
-            ],
             """
             --- initial
             +++ mutation
@@ -997,26 +933,29 @@ async def test_Track_move(
                                          1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
                                              1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
             """,
+            """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 2, 1013, 'active', 'c11', 'in_', 24.0, 'out', 20.0]
+            """,
         ),
         # other mixer
         (
             "mixers[0].tracks[0]",
             "mixers[1].tracks[0]",
             pytest.raises(RuntimeError),
-            [],
+            "",
             "",
         ),
     ],
 )
 @pytest.mark.asyncio
 async def test_Track_set_input(
-    complex_session: Tuple[Session, str],
-    expected_commands: List[Union[OscBundle, OscMessage]],
+    complex_session: tuple[Session, str],
+    expected_commands: str,
     expected_diff: str,
     maybe_raises,
     online: bool,
     source: str,
-    target: Optional[Union[str, Tuple[int, int]]],
+    target: str | tuple[int, int] | None,
 ) -> None:
     # Pre-conditions
     session, initial_tree = complex_session
@@ -1024,7 +963,7 @@ async def test_Track_set_input(
         await session.boot()
     source_ = session[source]
     assert isinstance(source_, Track)
-    target_: Optional[Union[BusGroup, Track]] = None
+    target_: BusGroup | Track | None = None
     # TODO: Because the context could be null, we need the "promise" of a bus group.
     if isinstance(target, str):
         target_component = session[target]
@@ -1049,16 +988,15 @@ async def test_Track_set_input(
         expected_diff,
         expected_initial_tree=initial_tree,
     )
-    assert commands == expected_commands
+    assert format_messages(commands) == normalize(expected_commands)
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "actions, expected_commands, expected_state",
+    "actions, expected_state, expected_commands",
     [
         (
             [("mixers[0].tracks[0]", [True])],
-            [OscMessage("/c_set", 5, 0.0)],
             [
                 ("m[0].t[0]", (0.0, 0.0), False),
                 ("m[0].t[0].t[0]", (1.0, 1.0), True),
@@ -1068,10 +1006,12 @@ async def test_Track_set_input(
                 ("m[0].t[2]", (0.0, 0.0), True),
                 ("m[1].t[0]", (0.0, 0.0), True),
             ],
+            """
+            - ['/c_set', 5, 0.0]
+            """,
         ),
         (
             [("mixers[0].tracks[0].tracks[0]", [True])],
-            [OscMessage("/c_set", 11, 0.0)],
             [
                 ("m[0].t[0]", (0.0, 0.0), True),
                 ("m[0].t[0].t[0]", (0.0, 0.0), False),
@@ -1081,15 +1021,18 @@ async def test_Track_set_input(
                 ("m[0].t[2]", (0.0, 0.0), True),
                 ("m[1].t[0]", (0.0, 0.0), True),
             ],
+            """
+            - ['/c_set', 11, 0.0]
+            """,
         ),
     ],
 )
 @pytest.mark.asyncio
 async def test_Track_set_muted(
-    actions: List[Tuple[str, List[bool]]],
-    complex_session: Tuple[Session, str],
-    expected_commands: List[Union[OscBundle, OscMessage]],
-    expected_state: List[Tuple[str, Tuple[float, ...], bool]],
+    actions: list[tuple[str, list[bool]]],
+    complex_session: tuple[Session, str],
+    expected_commands: str,
+    expected_state: list[tuple[str, tuple[float, ...], bool]],
     online: bool,
 ) -> None:
     # Pre-conditions
@@ -1114,7 +1057,6 @@ async def test_Track_set_muted(
         "",
         expected_initial_tree=initial_tree,
     )
-    assert commands == expected_commands
     assert [
         (
             track.short_address,
@@ -1124,20 +1066,18 @@ async def test_Track_set_muted(
         for track in session._walk(Track)
         if isinstance(track, Track)
     ] == expected_state
+    assert format_messages(commands) == normalize(expected_commands)
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "source, target, maybe_raises, expected_commands, expected_diff",
+    "source, target, maybe_raises, expected_diff, expected_commands",
     [
         # none
         (
             "mixers[0].tracks[0].tracks[0]",
             None,
             does_not_raise,
-            [
-                OscMessage("/n_set", 1025, "gate", 0.0),
-            ],
             """
             --- initial
             +++ mutation
@@ -1153,13 +1093,16 @@ async def test_Track_set_muted(
                                      1027 group (session.mixers[0].tracks[0].tracks[1]:tracks)
                                      1030 supriya:meters:2 (session.mixers[0].tracks[0].tracks[1]:input-levels)
             """,
+            """
+            - ['/n_set', 1025, 'gate', 0.0]
+            """,
         ),
         # default: no-op
         (
             "mixers[0].tracks[0].tracks[0]",
             DEFAULT,
             does_not_raise,
-            [],
+            "",
             "",
         ),
         # self
@@ -1167,7 +1110,7 @@ async def test_Track_set_muted(
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0].tracks[0]",
             pytest.raises(RuntimeError),
-            [],
+            "",
             "",
         ),
         # parent: no-op
@@ -1175,7 +1118,7 @@ async def test_Track_set_muted(
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0]",
             does_not_raise,
-            [],
+            "",
             "",
         ),
         # child
@@ -1183,39 +1126,6 @@ async def test_Track_set_muted(
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0].tracks[0].tracks[0]",
             does_not_raise,
-            [
-                OscMessage(
-                    "/s_new",
-                    "supriya:fb-patch-cable:2x2",
-                    1066,
-                    0,
-                    1018,
-                    "active",
-                    "c17",
-                    "in_",
-                    36.0,
-                    "out",
-                    22.0,
-                ),
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1025, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1067,
-                            1,
-                            1012,
-                            "active",
-                            "c11",
-                            "in_",
-                            20.0,
-                            "out",
-                            36.0,
-                        ),
-                    ),
-                ),
-            ],
             """
             --- initial
             +++ mutation
@@ -1242,32 +1152,18 @@ async def test_Track_set_muted(
                                      1027 group (session.mixers[0].tracks[0].tracks[1]:tracks)
                                      1030 supriya:meters:2 (session.mixers[0].tracks[0].tracks[1]:input-levels)
             """,
+            """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1018, 'active', 'c17', 'in_', 36.0, 'out', 22.0]
+            - [None,
+               [['/n_set', 1025, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1067, 1, 1012, 'active', 'c11', 'in_', 20.0, 'out', 36.0]]]
+            """,
         ),
         # auntie
         (
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[1]",
             does_not_raise,
-            [
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1025, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1066,
-                            1,
-                            1012,
-                            "active",
-                            "c11",
-                            "in_",
-                            20.0,
-                            "out",
-                            26.0,
-                        ),
-                    ),
-                ),
-            ],
             """
             --- initial
             +++ mutation
@@ -1285,41 +1181,25 @@ async def test_Track_set_muted(
                                      1027 group (session.mixers[0].tracks[0].tracks[1]:tracks)
                                      1030 supriya:meters:2 (session.mixers[0].tracks[0].tracks[1]:input-levels)
             """,
+            """
+            - [None,
+               [['/n_set', 1025, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1066, 1, 1012, 'active', 'c11', 'in_', 20.0, 'out', 26.0]]]
+            """,
         ),
         # mixer: no-op
         (
             "mixers[0].tracks[0]",
             "mixers[0]",
             does_not_raise,
-            [],
-            """
-            """,
+            "",
+            "",
         ),
         # sibling
         (
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0].tracks[1]",
             does_not_raise,
-            [
-                OscBundle(
-                    contents=(
-                        OscMessage("/n_set", 1025, "gate", 0.0),
-                        OscMessage(
-                            "/s_new",
-                            "supriya:patch-cable:2x2",
-                            1066,
-                            1,
-                            1012,
-                            "active",
-                            "c11",
-                            "in_",
-                            20.0,
-                            "out",
-                            24.0,
-                        ),
-                    ),
-                ),
-            ],
             """
             --- initial
             +++ mutation
@@ -1337,26 +1217,31 @@ async def test_Track_set_muted(
                                      1027 group (session.mixers[0].tracks[0].tracks[1]:tracks)
                                      1030 supriya:meters:2 (session.mixers[0].tracks[0].tracks[1]:input-levels)
             """,
+            """
+            - [None,
+               [['/n_set', 1025, 'gate', 0.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1066, 1, 1012, 'active', 'c11', 'in_', 20.0, 'out', 24.0]]]
+            """,
         ),
         # other mixer
         (
             "mixers[0].tracks[0]",
             "mixers[1].tracks[0]",
             pytest.raises(RuntimeError),
-            [],
+            "",
             "",
         ),
     ],
 )
 @pytest.mark.asyncio
 async def test_Track_set_output(
-    complex_session: Tuple[Session, str],
-    expected_commands: List[Union[OscBundle, OscMessage]],
+    complex_session: tuple[Session, str],
+    expected_commands: str,
     expected_diff: str,
     maybe_raises,
     online: bool,
     source: str,
-    target: Optional[Union[Default, str, Tuple[int, int]]],
+    target: Default | str | tuple[int, int] | None,
 ) -> None:
     # Pre-conditions
     session, initial_tree = complex_session
@@ -1364,7 +1249,7 @@ async def test_Track_set_output(
         await session.boot()
     source_ = session[source]
     assert isinstance(source_, Track)
-    target_: Optional[Union[BusGroup, Default, TrackContainer]] = None
+    target_: BusGroup | Default | TrackContainer | None = None
     if isinstance(target, Default):
         target_ = DEFAULT
     elif isinstance(target, str):
@@ -1391,24 +1276,16 @@ async def test_Track_set_output(
         expected_diff,
         expected_initial_tree=initial_tree,
     )
-    assert commands == expected_commands
+    assert format_messages(commands) == normalize(expected_commands)
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "actions, expected_commands, expected_state",
+    "actions, expected_state, expected_commands",
     [
         (
             [
                 ("mixers[0].tracks[0]", [True]),
-            ],
-            [
-                OscMessage("/c_set", 5, 1.0),
-                OscMessage("/c_set", 11, 1.0),
-                OscMessage("/c_set", 17, 1.0),
-                OscMessage("/c_set", 23, 1.0),
-                OscMessage("/c_set", 29, 0.0),
-                OscMessage("/c_set", 35, 0.0),
             ],
             [
                 ("m[0].t[0]", (1.0, 1.0), True),
@@ -1419,18 +1296,18 @@ async def test_Track_set_output(
                 ("m[0].t[2]", (0.0, 0.0), False),
                 ("m[1].t[0]", (0.0, 0.0), True),
             ],
+            """
+            - ['/c_set', 5, 1.0]
+            - ['/c_set', 11, 1.0]
+            - ['/c_set', 17, 1.0]
+            - ['/c_set', 23, 1.0]
+            - ['/c_set', 29, 0.0]
+            - ['/c_set', 35, 0.0]
+            """,
         ),
         (
             [
                 ("mixers[0].tracks[0].tracks[0]", [True]),
-            ],
-            [
-                OscMessage("/c_set", 5, 0.0),
-                OscMessage("/c_set", 11, 1.0),
-                OscMessage("/c_set", 17, 1.0),
-                OscMessage("/c_set", 23, 0.0),
-                OscMessage("/c_set", 29, 0.0),
-                OscMessage("/c_set", 35, 0.0),
             ],
             [
                 ("m[0].t[0]", (0.0, 0.0), False),
@@ -1441,25 +1318,19 @@ async def test_Track_set_output(
                 ("m[0].t[2]", (0.0, 0.0), False),
                 ("m[1].t[0]", (0.0, 0.0), True),
             ],
+            """
+            - ['/c_set', 5, 0.0]
+            - ['/c_set', 11, 1.0]
+            - ['/c_set', 17, 1.0]
+            - ['/c_set', 23, 0.0]
+            - ['/c_set', 29, 0.0]
+            - ['/c_set', 35, 0.0]
+            """,
         ),
         (
             [
                 ("mixers[0].tracks[0]", [True]),
                 ("mixers[0].tracks[1]", [True, False]),
-            ],
-            [
-                OscMessage("/c_set", 5, 1.0),
-                OscMessage("/c_set", 11, 1.0),
-                OscMessage("/c_set", 17, 1.0),
-                OscMessage("/c_set", 23, 1.0),
-                OscMessage("/c_set", 29, 0.0),
-                OscMessage("/c_set", 35, 0.0),
-                OscMessage("/c_set", 5, 1.0),
-                OscMessage("/c_set", 11, 1.0),
-                OscMessage("/c_set", 17, 1.0),
-                OscMessage("/c_set", 23, 1.0),
-                OscMessage("/c_set", 29, 1.0),
-                OscMessage("/c_set", 35, 0.0),
             ],
             [
                 ("m[0].t[0]", (1.0, 1.0), True),
@@ -1470,15 +1341,29 @@ async def test_Track_set_output(
                 ("m[0].t[2]", (0.0, 0.0), False),
                 ("m[1].t[0]", (0.0, 0.0), True),
             ],
+            """
+            - ['/c_set', 5, 1.0]
+            - ['/c_set', 11, 1.0]
+            - ['/c_set', 17, 1.0]
+            - ['/c_set', 23, 1.0]
+            - ['/c_set', 29, 0.0]
+            - ['/c_set', 35, 0.0]
+            - ['/c_set', 5, 1.0]
+            - ['/c_set', 11, 1.0]
+            - ['/c_set', 17, 1.0]
+            - ['/c_set', 23, 1.0]
+            - ['/c_set', 29, 1.0]
+            - ['/c_set', 35, 0.0]
+            """,
         ),
     ],
 )
 @pytest.mark.asyncio
 async def test_Track_set_soloed(
-    actions: List[Tuple[str, List[bool]]],
-    complex_session: Tuple[Session, str],
-    expected_commands: List[Union[OscBundle, OscMessage]],
-    expected_state: List[Tuple[str, Tuple[float, ...], bool]],
+    actions: list[tuple[str, list[bool]]],
+    complex_session: tuple[Session, str],
+    expected_commands: str,
+    expected_state: list[tuple[str, tuple[float, ...], bool]],
     online: bool,
 ) -> None:
     # Pre-conditions
@@ -1503,7 +1388,6 @@ async def test_Track_set_soloed(
         "",
         expected_initial_tree=initial_tree,
     )
-    assert commands == expected_commands
     assert [
         (
             track.short_address,
@@ -1513,20 +1397,21 @@ async def test_Track_set_soloed(
         for track in session._walk(Track)
         if isinstance(track, Track)
     ] == expected_state
+    assert format_messages(commands) == normalize(expected_commands)
 
 
 @pytest.mark.xfail
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "expected_commands, expected_diff",
+    "expected_diff, expected_commands",
     [
-        ([], ""),
+        ("", ""),
     ],
 )
 @pytest.mark.asyncio
 async def test_Track_ungroup(
-    complex_session: Tuple[Session, str],
-    expected_commands: List[Union[OscBundle, OscMessage]],
+    complex_session: tuple[Session, str],
+    expected_commands: str,
     expected_diff: str,
     online: bool,
     target: str,
@@ -1549,5 +1434,5 @@ async def test_Track_ungroup(
         expected_initial_tree="""
         """,
     )
-    assert commands == expected_commands
+    assert format_messages(commands) == normalize(expected_commands)
     raise Exception
