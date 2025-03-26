@@ -302,7 +302,7 @@ class BaseServer(Context):
         events: list[ServerLifecycleEvent] = []
         if isinstance(event, Iterable) and not isinstance(event, str):
             for event_ in event:
-                events.append(ServerLifecycleEvent.from_expr(event))
+                events.append(ServerLifecycleEvent.from_expr(event_))
         else:
             events.append(ServerLifecycleEvent.from_expr(event))
         callback = ServerLifecycleCallback(
