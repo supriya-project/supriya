@@ -1,7 +1,7 @@
 import logging
 import queue
 from contextlib import asynccontextmanager, contextmanager
-from typing import AsyncGenerator, Generator, Optional
+from typing import AsyncGenerator, Generator
 
 from .asynchronous import AsyncClock
 from .core import BaseClock, CallbackEvent, ClockContext, Moment, TimeUnit
@@ -60,7 +60,7 @@ class OfflineClock(BaseClock):
         logger.debug(f"[{self.name}] Terminating")
         self._stop()
 
-    def _wait_for_moment(self, offline: bool = False) -> Optional[Moment]:
+    def _wait_for_moment(self, offline: bool = False) -> Moment | None:
         current_time = self._event_queue.peek().seconds
         return self._seconds_to_moment(current_time)
 
@@ -78,7 +78,7 @@ class OfflineClock(BaseClock):
         initial_offset: float = 0.0,
         initial_measure: int = 1,
         beats_per_minute: float | None = None,
-        time_signature: Optional[tuple[int, int]] = None,
+        time_signature: tuple[int, int] | None = None,
     ) -> Generator["OfflineClock", None, None]:
         yield self
         self.start(
@@ -95,7 +95,7 @@ class OfflineClock(BaseClock):
         initial_offset: float = 0.0,
         initial_measure: int = 1,
         beats_per_minute: float | None = None,
-        time_signature: Optional[tuple[int, int]] = None,
+        time_signature: tuple[int, int] | None = None,
     ) -> None:
         self._start(
             initial_time=initial_time,
@@ -143,7 +143,7 @@ class AsyncOfflineClock(AsyncClock):
     async def _wait_for_event_async(self, sleep_time: float) -> None:
         pass
 
-    async def _wait_for_moment_async(self, offline: bool = False) -> Optional[Moment]:
+    async def _wait_for_moment_async(self, offline: bool = False) -> Moment | None:
         current_time = self._event_queue.peek().seconds
         self._process_command_deque()
         self._event.clear()
@@ -164,7 +164,7 @@ class AsyncOfflineClock(AsyncClock):
         initial_offset: float = 0.0,
         initial_measure: int = 1,
         beats_per_minute: float | None = None,
-        time_signature: Optional[tuple[int, int]] = None,
+        time_signature: tuple[int, int] | None = None,
     ) -> AsyncGenerator["AsyncOfflineClock", None]:
         yield self
         await self.start(
@@ -181,7 +181,7 @@ class AsyncOfflineClock(AsyncClock):
         initial_offset: float = 0.0,
         initial_measure: int = 1,
         beats_per_minute: float | None = None,
-        time_signature: Optional[tuple[int, int]] = None,
+        time_signature: tuple[int, int] | None = None,
     ) -> None:
         self._start(
             initial_time=initial_time,

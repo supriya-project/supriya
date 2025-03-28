@@ -127,7 +127,7 @@ class Buffer(ContextObject):
             return PlayMemo.from_path(path)
 
     def close(
-        self, on_completion: Optional[Callable[["Context"], Any]] = None
+        self, on_completion: Callable[["Context"], Any] | None = None
     ) -> "Completion":
         """
         Close the buffer.
@@ -180,7 +180,7 @@ class Buffer(ContextObject):
         self.context.fill_buffer(self, starting_frame, frame_count, value)
 
     def free(
-        self, on_completion: Optional[Callable[["Context"], Any]] = None
+        self, on_completion: Callable[["Context"], Any] | None = None
     ) -> "Completion":
         """
         Free the buffer.
@@ -302,7 +302,7 @@ class Buffer(ContextObject):
         channel_indices: Optional[list[int]] = None,
         frame_count: int | None = None,
         leave_open: bool = False,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
+        on_completion: Callable[["Context"], Any] | None = None,
         starting_frame: int | None = None,
     ) -> "Completion":
         """
@@ -362,7 +362,7 @@ class Buffer(ContextObject):
         frame_count: int | None = None,
         header_format: HeaderFormatLike = "aiff",
         leave_open: bool = False,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
+        on_completion: Callable[["Context"], Any] | None = None,
         sample_format: SampleFormatLike = "int24",
         starting_frame: int | None = None,
     ) -> "Completion":
@@ -394,7 +394,7 @@ class Buffer(ContextObject):
         )
 
     def zero(
-        self, on_completion: Optional[Callable[["Context"], Any]] = None
+        self, on_completion: Callable[["Context"], Any] | None = None
     ) -> "Completion":
         """
         Zero the buffer.

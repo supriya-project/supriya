@@ -2,7 +2,7 @@ import asyncio
 import logging
 import queue
 import traceback
-from typing import Awaitable, Optional
+from typing import Awaitable
 
 from .core import (
     Action,
@@ -27,7 +27,7 @@ class AsyncClock(BaseClock):
 
     def __init__(self) -> None:
         BaseClock.__init__(self)
-        self._task: Optional[Awaitable[None]] = None
+        self._task: Awaitable[None] | None = None
         self._slop = 1.0
         try:
             self._event = asyncio.Event()
@@ -124,7 +124,7 @@ class AsyncClock(BaseClock):
         except (asyncio.TimeoutError, RuntimeError):
             pass
 
-    async def _wait_for_moment_async(self, offline: bool = False) -> Optional[Moment]:
+    async def _wait_for_moment_async(self, offline: bool = False) -> Moment | None:
         current_time = self._get_current_time()
         next_time = self._event_queue.peek().seconds
         logger.debug(
@@ -156,7 +156,7 @@ class AsyncClock(BaseClock):
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id: int) -> Optional[Action]:
+    def cancel(self, event_id: int) -> Action | None:
         event = super().cancel(event_id)
         self._event.set()
         return event
@@ -167,7 +167,7 @@ class AsyncClock(BaseClock):
         initial_offset: float = 0.0,
         initial_measure: int = 1,
         beats_per_minute: float | None = None,
-        time_signature: Optional[tuple[int, int]] = None,
+        time_signature: tuple[int, int] | None = None,
     ) -> None:
         self._start(
             initial_time=initial_time,

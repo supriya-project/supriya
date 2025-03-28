@@ -15,7 +15,6 @@ from typing import (
     Deque,
     Literal,
     NamedTuple,
-    Optional,
     Union,
 )
 
@@ -92,14 +91,14 @@ class Action:
 
 @dataclasses.dataclass(frozen=True)
 class Command(Action):
-    quantization: Optional[Quantization]
+    quantization: Quantization | None
     schedule_at: float
-    time_unit: Optional[TimeUnit]
+    time_unit: TimeUnit | None
 
 
 @dataclasses.dataclass(frozen=True)
 class CallbackCommand(Command):
-    args: Optional[tuple]
+    args: tuple | None
     kwargs: dict | None
     procedure: Callable[["ClockContext"], Union[None, float, tuple[float, TimeUnit]]]
 
@@ -107,7 +106,7 @@ class CallbackCommand(Command):
 @dataclasses.dataclass(frozen=True)
 class ChangeCommand(Command):
     beats_per_minute: float | None
-    time_signature: Optional[tuple[int, int]]
+    time_signature: tuple[int, int] | None
 
 
 @total_ordering
@@ -141,7 +140,7 @@ class Event(Action):
 @dataclasses.dataclass(frozen=True, eq=False)
 class CallbackEvent(Event):
     procedure: Callable[["ClockContext"], Union[None, float, tuple[float, TimeUnit]]]
-    args: Optional[tuple]
+    args: tuple | None
     kwargs: dict | None
     invocations: int
 
@@ -152,7 +151,7 @@ class CallbackEvent(Event):
 @dataclasses.dataclass(frozen=True, eq=False)
 class ChangeEvent(Event):
     beats_per_minute: float | None
-    time_signature: Optional[tuple[int, int]]
+    time_signature: tuple[int, int] | None
 
     def __hash__(self) -> int:
         return hash((type(self), self.event_id))
@@ -344,7 +343,7 @@ class BaseClock:
             beat_duration=1 / self._state.time_signature[1],
         )
 
-    def _peek(self) -> Optional[Event]:
+    def _peek(self) -> Event | None:
         try:
             return self._event_queue.peek()
         except queue.Empty:
@@ -382,7 +381,7 @@ class BaseClock:
 
     ### SCHEDULING METHODS ###
 
-    def _cancel(self, event_id: int) -> Optional[Action]:
+    def _cancel(self, event_id: int) -> Action | None:
         action = self._actions_by_id.pop(event_id, None)
         if action is not None and isinstance(action, Event):
             self._event_queue.remove(action)
@@ -414,7 +413,7 @@ class BaseClock:
 
     def _process_perform_event_loop(
         self, current_moment: Moment
-    ) -> tuple[Optional[Event], Optional[Moment], bool, bool]:
+    ) -> tuple[Event | None, Moment | None, bool, bool]:
         # There may be items in the queue which have been flagged "removed".
         # They contribute to the queue's size, but cannot be retrieved by .get().
         try:
@@ -677,7 +676,7 @@ class BaseClock:
         initial_offset: float = 0.0,
         initial_measure: int = 1,
         beats_per_minute: float | None = None,
-        time_signature: Optional[tuple[int, int]] = None,
+        time_signature: tuple[int, int] | None = None,
     ) -> None:
         if self._is_running:
             raise RuntimeError("Already started")
@@ -703,7 +702,7 @@ class BaseClock:
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id: int) -> Optional[Action]:
+    def cancel(self, event_id: int) -> Action | None:
         logger.debug(f"[{self.name}] Canceling {event_id}")
         event = self._cancel(event_id)
         return event
@@ -711,7 +710,7 @@ class BaseClock:
     def change(
         self,
         beats_per_minute: float | None = None,
-        time_signature: Optional[tuple[int, int]] = None,
+        time_signature: tuple[int, int] | None = None,
     ) -> int | None:
         if not self._is_running:
             self._state = self._state._replace(
@@ -736,10 +735,10 @@ class BaseClock:
         self,
         procedure: Callable,
         *,
-        args: Optional[Sequence[Any]] = None,
+        args: Sequence[Any] | None = None,
         event_type: int = EventType.SCHEDULE,
-        kwargs: Optional[dict[str, Any]] = None,
-        quantization: Optional[Quantization] = None,
+        kwargs: dict[str, Any] | None = None,
+        quantization: Quantization | None = None,
     ) -> int:
         if event_type <= 0:
             raise ValueError(f"Invalid event type {event_type}")
@@ -763,8 +762,8 @@ class BaseClock:
         self,
         *,
         beats_per_minute: float | None = None,
-        quantization: Optional[Quantization] = None,
-        time_signature: Optional[tuple[int, int]] = None,
+        quantization: Quantization | None = None,
+        time_signature: tuple[int, int] | None = None,
     ) -> int:
         if quantization is not None and quantization not in self._valid_quantizations:
             raise ValueError(f"Invalid quantization: {quantization}")
@@ -824,9 +823,9 @@ class BaseClock:
         self,
         procedure: Callable,
         *,
-        args: Optional[Sequence[Any]] = None,
+        args: Sequence[Any] | None = None,
         event_type: int = EventType.SCHEDULE,
-        kwargs: Optional[dict[str, Any]] = None,
+        kwargs: dict[str, Any] | None = None,
         schedule_at: float = 0.0,
         time_unit: TimeUnit = TimeUnit.BEATS,
     ) -> int:
@@ -852,7 +851,7 @@ class BaseClock:
         *,
         beats_per_minute: float | None = None,
         schedule_at: float = 0.0,
-        time_signature: Optional[tuple[int, int]] = None,
+        time_signature: tuple[int, int] | None = None,
         time_unit: TimeUnit = TimeUnit.BEATS,
     ) -> int:
         event_id = next(self._counter)

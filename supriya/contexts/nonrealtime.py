@@ -14,7 +14,7 @@ from contextlib import ExitStack
 from os import PathLike
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Iterator, Optional, SupportsInt, Type, Union
+from typing import Iterator, SupportsInt, Type, Union
 
 from ..assets.synthdefs import system_synthdefs
 from ..enums import BootStatus, CalculationRate, HeaderFormat, SampleFormat
@@ -69,7 +69,7 @@ class Score(Context):
         self,
         type_: Type[ContextObject],
         id_: int,
-        calculation_rate: Optional[CalculationRate] = None,
+        calculation_rate: CalculationRate | None = None,
     ) -> None:
         pass
 

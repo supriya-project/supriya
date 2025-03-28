@@ -8,7 +8,6 @@ from collections import deque
 from typing import (
     Deque,
     Generator,
-    Optional,
     Sequence,
     Type,
     Union,
@@ -293,7 +292,7 @@ class QueryTreeInfo(Response):
         node_id: int
         child_count: int
         synthdef_name: str | None = None
-        controls: Optional[dict[Union[int, str], Union[float, str]]] = None
+        controls: dict[int | str, float | str] | None = None
 
     node_id: int
     child_count: int
@@ -310,7 +309,7 @@ class QueryTreeInfo(Response):
             child_id = cast(int, osc_message.contents[index])
             child_child_count = cast(int, osc_message.contents[index + 1])
             synthdef_name: str | None = None
-            controls: Optional[dict[Union[int, str], Union[float, str]]] = None
+            controls: dict[int | str, float | str] | None = None
             index += 2
             if child_child_count < 0:
                 synthdef_name = cast(str, osc_message.contents[index])
