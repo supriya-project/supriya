@@ -111,7 +111,7 @@ class Moment:
     """
 
     context: "Context"
-    seconds: Optional[float] = None
+    seconds: float | None = None
     closed: bool = dataclasses.field(default=False, init=False)
     requests: list[tuple[Request, Optional["Completion"]]] = dataclasses.field(
         default_factory=list, init=False
@@ -409,7 +409,7 @@ class Context(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def _validate_moment_timestamp(self, seconds: Optional[float]) -> None:
+    def _validate_moment_timestamp(self, seconds: float | None) -> None:
         raise NotImplementedError
 
     ### PUBLIC METHODS ###

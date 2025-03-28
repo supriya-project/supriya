@@ -5281,7 +5281,7 @@ class Parameter(UGen):
         name: Optional[str] = None,
         value: Union[float, Sequence[float]],
         rate: ParameterRate = ParameterRate.CONTROL,
-        lag: Optional[float] = None,
+        lag: float | None = None,
     ) -> None:
         if isinstance(value, SupportsFloat):
             self.value: tuple[float, ...] = (float(value),)
@@ -5960,7 +5960,7 @@ class SynthDefBuilder:
         name: str,
         value: Union[float, Sequence[float]],
         rate: Optional[ParameterRateLike] = ParameterRate.CONTROL,
-        lag: Optional[float] = None,
+        lag: float | None = None,
     ) -> Parameter:
         if name in self._parameters:
             raise ValueError(name, value)

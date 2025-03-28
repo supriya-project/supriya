@@ -163,10 +163,10 @@ class AsyncClock(BaseClock):
 
     async def start(
         self,
-        initial_time: Optional[float] = None,
+        initial_time: float | None = None,
         initial_offset: float = 0.0,
         initial_measure: int = 1,
-        beats_per_minute: Optional[float] = None,
+        beats_per_minute: float | None = None,
         time_signature: Optional[tuple[int, int]] = None,
     ) -> None:
         self._start(

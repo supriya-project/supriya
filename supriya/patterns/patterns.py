@@ -286,8 +286,8 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
         quantization: Optional[Quantization] = None,
         target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
-        tempo: Optional[float] = None,
-        until: Optional[float] = None,
+        tempo: float | None = None,
+        until: float | None = None,
         uuid: Optional[UUID] = None,
     ) -> "PatternPlayer":
         from .players import PatternPlayer  # Avoid circular import

@@ -488,9 +488,7 @@ class Bus(ContextObject):
         """
         self.context.free_bus(self)
 
-    def get(
-        self, sync: bool = True
-    ) -> Union[Awaitable[Optional[float]], Optional[float]]:
+    def get(self, sync: bool = True) -> Union[Awaitable[float | None], float | None]:
         """
         Get the control bus' value.
 

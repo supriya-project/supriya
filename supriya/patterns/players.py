@@ -63,8 +63,8 @@ class PatternPlayer:
         self._uuid: UUID = uuid or uuid4()
         self._target_bus = target_bus
         self._target_node = target_node
-        self._next_delta: Optional[float] = None
-        self._initial_seconds: Optional[float] = None
+        self._next_delta: float | None = None
+        self._initial_seconds: float | None = None
         self._clock_event_id = -1
         self._clock_stop_event_id = -1
         self._pattern = (
@@ -76,7 +76,7 @@ class PatternPlayer:
 
     def _clock_callback(
         self, clock_context: ClockContext, *args, **kwargs
-    ) -> Optional[float]:
+    ) -> float | None:
         for clock_context, seconds, offset, events in self._find_events(clock_context):
             if self._initial_seconds is None:
                 self._initial_seconds = seconds
@@ -176,7 +176,7 @@ class PatternPlayer:
 
     def _stop_callback(
         self, clock_context: ClockContext, *args, **kwargs
-    ) -> Optional[float]:
+    ) -> float | None:
         with self._lock:
             # Do we need to rebuild the queue? Yes.
             # Do we need to free all playing notes? Yes.
@@ -235,7 +235,7 @@ class PatternPlayer:
     def play(
         self,
         quantization: Optional[Quantization] = None,
-        until: Optional[float] = None,
+        until: float | None = None,
     ) -> None:
         with self._lock:
             if self._is_running:
@@ -274,7 +274,7 @@ class PatternPlayer:
         return self._notes_by_uuid[uuid]
 
     @property
-    def initial_seconds(self) -> Optional[float]:
+    def initial_seconds(self) -> float | None:
         return self._initial_seconds
 
     @property

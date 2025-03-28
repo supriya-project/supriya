@@ -138,7 +138,7 @@ class RequestBundle(Requestable):
     """
 
     contents: Sequence[Requestable]
-    timestamp: Optional[float] = None
+    timestamp: float | None = None
 
     ### PRIVATE METHODS ###
 

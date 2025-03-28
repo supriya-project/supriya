@@ -375,7 +375,7 @@ class BaseServer(Context):
             raise ServerOffline("Server already offline!")
         pass  # Otherwise always OK to request in RT
 
-    def _validate_moment_timestamp(self, seconds: Optional[float]) -> None:
+    def _validate_moment_timestamp(self, seconds: float | None) -> None:
         pass  # Floats and None are OK in RT
 
     ### PUBLIC METHODS ###
@@ -741,7 +741,7 @@ class Server(BaseServer):
         self._add_requests(request)
         return None
 
-    def get_bus(self, bus: Bus, sync: bool = True) -> Optional[float]:
+    def get_bus(self, bus: Bus, sync: bool = True) -> float | None:
         """
         Get a control bus value.
 
@@ -1354,7 +1354,7 @@ class AsyncServer(BaseServer):
         self._add_requests(request)
         return None
 
-    async def get_bus(self, bus: Bus, sync: bool = True) -> Optional[float]:
+    async def get_bus(self, bus: Bus, sync: bool = True) -> float | None:
         """
         Get a control bus value.
 

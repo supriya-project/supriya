@@ -106,7 +106,7 @@ class CallbackCommand(Command):
 
 @dataclasses.dataclass(frozen=True)
 class ChangeCommand(Command):
-    beats_per_minute: Optional[float]
+    beats_per_minute: float | None
     time_signature: Optional[tuple[int, int]]
 
 
@@ -115,7 +115,7 @@ class ChangeCommand(Command):
 class Event(Action):
     seconds: float
     measure: int | None
-    offset: Optional[float]
+    offset: float | None
 
     def __eq__(self, other: object) -> bool:
         # Need to act like a tuple here
@@ -151,7 +151,7 @@ class CallbackEvent(Event):
 
 @dataclasses.dataclass(frozen=True, eq=False)
 class ChangeEvent(Event):
-    beats_per_minute: Optional[float]
+    beats_per_minute: float | None
     time_signature: Optional[tuple[int, int]]
 
     def __hash__(self) -> int:
@@ -283,9 +283,9 @@ class BaseClock:
 
     def _get_schedule_point(
         self, schedule_at: float, time_unit: TimeUnit
-    ) -> tuple[float, Optional[float], int | None]:
+    ) -> tuple[float, float | None, int | None]:
         measure: int | None = None
-        offset: Optional[float] = None
+        offset: float | None = None
         if time_unit == TimeUnit.MEASURES:
             measure = int(schedule_at)
             offset = self._measure_to_offset(measure)
@@ -462,14 +462,14 @@ class BaseClock:
         self,
         desired_moment: Moment,
         event: CallbackEvent,
-        delta: Optional[float],
+        delta: float | None,
         time_unit: TimeUnit,
     ) -> None:
         if delta is None or delta <= 0:
             return
         invocations = event.invocations + 1
         measure: int | None = None
-        offset: Optional[float] = None
+        offset: float | None = None
         if time_unit in (TimeUnit.BEATS, TimeUnit.MEASURES):
             if time_unit == TimeUnit.MEASURES:
                 measure = desired_moment.measure + int(delta)
@@ -589,7 +589,7 @@ class BaseClock:
             logger.debug(f"[{self.name}] ... ... Scheduled at {schedule_at}")
             if command.quantization is not None:
                 seconds: float
-                offset: Optional[float]
+                offset: float | None
                 measure: int | None
                 # If the command was queued before the clock was started,
                 # reset its reference time
@@ -673,10 +673,10 @@ class BaseClock:
 
     def _start(
         self,
-        initial_time: Optional[float] = None,
+        initial_time: float | None = None,
         initial_offset: float = 0.0,
         initial_measure: int = 1,
-        beats_per_minute: Optional[float] = None,
+        beats_per_minute: float | None = None,
         time_signature: Optional[tuple[int, int]] = None,
     ) -> None:
         if self._is_running:
@@ -710,7 +710,7 @@ class BaseClock:
 
     def change(
         self,
-        beats_per_minute: Optional[float] = None,
+        beats_per_minute: float | None = None,
         time_signature: Optional[tuple[int, int]] = None,
     ) -> int | None:
         if not self._is_running:
@@ -762,7 +762,7 @@ class BaseClock:
     def cue_change(
         self,
         *,
-        beats_per_minute: Optional[float] = None,
+        beats_per_minute: float | None = None,
         quantization: Optional[Quantization] = None,
         time_signature: Optional[tuple[int, int]] = None,
     ) -> int:
@@ -850,7 +850,7 @@ class BaseClock:
     def schedule_change(
         self,
         *,
-        beats_per_minute: Optional[float] = None,
+        beats_per_minute: float | None = None,
         schedule_at: float = 0.0,
         time_signature: Optional[tuple[int, int]] = None,
         time_unit: TimeUnit = TimeUnit.BEATS,

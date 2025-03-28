@@ -82,7 +82,7 @@ class Score(Context):
         if self._get_moment() is None:
             raise ContextError
 
-    def _validate_moment_timestamp(self, seconds: Optional[float]) -> None:
+    def _validate_moment_timestamp(self, seconds: float | None) -> None:
         if seconds is None or seconds < 0:
             raise ContextError
 
@@ -92,7 +92,7 @@ class Score(Context):
         self,
         output_file_path: Optional[PathLike] = None,
         *,
-        duration: Optional[float] = None,
+        duration: float | None = None,
         header_format: HeaderFormatLike = HeaderFormat.AIFF,
         input_file_path: Optional[PathLike] = None,
         options: Optional[Options] = None,
@@ -196,7 +196,7 @@ class Score(Context):
                 )
         return output_file_path_, exit_code
 
-    def iterate_datagrams(self, until: Optional[float] = None) -> Iterator[bytes]:
+    def iterate_datagrams(self, until: float | None = None) -> Iterator[bytes]:
         """
         Iterate datagrams.
 
@@ -205,7 +205,7 @@ class Score(Context):
         for osc_bundle in self.iterate_osc_bundles(until=until):
             yield osc_bundle.to_datagram(realtime=False)
 
-    def iterate_osc_bundles(self, until: Optional[float] = None) -> Iterator[OscBundle]:
+    def iterate_osc_bundles(self, until: float | None = None) -> Iterator[OscBundle]:
         """
         Iterate OSC bundles.
 
@@ -215,7 +215,7 @@ class Score(Context):
             yield request_bundle.to_osc()
 
     def iterate_request_bundles(
-        self, until: Optional[float] = None
+        self, until: float | None = None
     ) -> Iterator[RequestBundle]:
         """
         Iterate request bundles.
