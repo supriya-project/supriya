@@ -111,8 +111,8 @@ class Buffer(ContextObject):
 
     def __render_memo__(
         self,
-        output_file_path: Optional[PathLike] = None,
-        render_directory_path: Optional[PathLike] = None,
+        output_file_path: PathLike | None = None,
+        render_directory_path: PathLike | None = None,
         **kwargs,
     ) -> SupportsRender:
         # TODO: Make this async compatible.

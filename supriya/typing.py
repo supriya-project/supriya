@@ -14,6 +14,7 @@ from typing import (
     Union,
     runtime_checkable,
 )
+from uuid import UUID
 
 from .enums import (
     AddAction,
@@ -56,8 +57,8 @@ class SupportsPlot(Protocol):
 class SupportsRender(Protocol):
     def __render__(
         self,
-        output_file_path: Optional[PathLike] = None,
-        render_directory_path: Optional[PathLike] = None,
+        output_file_path: PathLike | None = None,
+        render_directory_path: PathLike | None = None,
         **kwargs,
     ) -> Coroutine[None, None, tuple[Path | None, int]]:
         pass
@@ -84,3 +85,5 @@ HeaderFormatLike: TypeAlias = _EnumLike[HeaderFormat]
 SampleFormatLike: TypeAlias = _EnumLike[SampleFormat]
 ServerLifecycleEventLike: TypeAlias = _EnumLike[ServerLifecycleEvent]
 UGenInputMap: TypeAlias = Optional[dict[str, Union[SupportsFloat, str, None]]]
+
+UUIDDict: TypeAlias = dict[str, UUID]

@@ -6,7 +6,7 @@ import platform
 import subprocess
 from os import PathLike
 from pathlib import Path
-from typing import Coroutine, Optional, Union
+from typing import Coroutine, Union
 
 from uqbar.graphs import Grapher
 from uqbar.io import open_path
@@ -31,8 +31,8 @@ class PlayMemo:
 
     def __render__(
         self,
-        output_file_path: Optional[PathLike] = None,
-        render_directory_path: Optional[PathLike] = None,
+        output_file_path: PathLike | None = None,
+        render_directory_path: PathLike | None = None,
         **kwargs,
     ) -> Coroutine[None, None, tuple[Path | None, int]]:
         async def render_function() -> tuple[Path, int]:
@@ -134,8 +134,8 @@ def plot(plottable: SupportsPlot, format_="png", **kwargs):
 
 def render(
     renderable: Union[SupportsRender, SupportsRenderMemo],
-    output_file_path: Optional[PathLike] = None,
-    render_directory_path: Optional[PathLike] = None,
+    output_file_path: PathLike | None = None,
+    render_directory_path: PathLike | None = None,
     **kwargs,
 ) -> tuple[Path | None, int]:
     if isinstance(renderable, SupportsRenderMemo):

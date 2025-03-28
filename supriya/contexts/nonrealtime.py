@@ -49,8 +49,8 @@ class Score(Context):
 
     async def __render__(
         self,
-        output_file_path: Optional[PathLike] = None,
-        render_directory_path: Optional[PathLike] = None,
+        output_file_path: PathLike | None = None,
+        render_directory_path: PathLike | None = None,
         **kwargs,
     ) -> tuple[Path | None, int]:
         return await self.render(
@@ -90,13 +90,13 @@ class Score(Context):
 
     async def render(
         self,
-        output_file_path: Optional[PathLike] = None,
+        output_file_path: PathLike | None = None,
         *,
         duration: float | None = None,
         header_format: HeaderFormatLike = HeaderFormat.AIFF,
-        input_file_path: Optional[PathLike] = None,
+        input_file_path: PathLike | None = None,
         options: Options | None = None,
-        render_directory_path: Optional[PathLike] = None,
+        render_directory_path: PathLike | None = None,
         sample_format: SampleFormatLike = SampleFormat.INT24,
         sample_rate: float = 44100,
         suppress_output: bool = False,

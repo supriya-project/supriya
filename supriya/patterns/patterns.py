@@ -24,10 +24,9 @@ from uuid import UUID
 
 from uqbar.objects import get_vars
 
-import supriya.patterns
-from supriya.clocks import BaseClock, ClockContext, Quantization
-from supriya.contexts import Bus, Context, Node
-
+from ..clocks import BaseClock, ClockContext, Quantization
+from ..contexts import Bus, Context, Node
+from ..typing import UUIDDict
 from .events import CompositeEvent, Event, Priority
 
 if TYPE_CHECKING:
@@ -74,7 +73,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
 
     def __iter__(self) -> Generator[T, bool, None]:
         should_stop = False
-        state: Optional[dict[str, UUID]] = self._setup_state()
+        state: UUIDDict | None = self._setup_state()
         iterator = self._iterate(state)
         try:
             expr = self._adjust_recursive(next(iterator), state=state)
@@ -173,10 +172,10 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
 
     ### PRIVATE METHODS ###
 
-    def _adjust(self, expr: T, state: Optional[dict[str, UUID]] = None) -> T:
+    def _adjust(self, expr: T, state: UUIDDict | None = None) -> T:
         return expr
 
-    def _adjust_recursive(self, expr: T, state: Optional[dict[str, UUID]] = None) -> T:
+    def _adjust_recursive(self, expr: T, state: UUIDDict | None = None) -> T:
         if isinstance(expr, CompositeEvent):
             return cast(
                 T,
@@ -249,9 +248,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
             yield random.random()
 
     @abc.abstractmethod
-    def _iterate(
-        self, state: Optional[dict[str, UUID]] = None
-    ) -> Generator[T, bool, None]:
+    def _iterate(self, state: UUIDDict | None = None) -> Generator[T, bool, None]:
         raise NotImplementedError
 
     def _loop(self, iterations: int | None = None) -> Iterator[bool]:
@@ -262,11 +259,11 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
             for _ in range(iterations):
                 yield True
 
-    def _setup_state(self) -> Optional[dict[str, UUID]]:
+    def _setup_state(self) -> UUIDDict | None:
         return None
 
     def _setup_peripherals(
-        self, state: Optional[dict[str, UUID]]
+        self, state: UUIDDict | None
     ) -> tuple[Optional[T], Optional[T]]:
         return None, None
 
@@ -278,7 +275,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
         *,
         callback: Optional[
             Callable[
-                ["supriya.patterns.PatternPlayer", ClockContext, Event, Priority],
+                ["PatternPlayer", ClockContext, Event, Priority],
                 Optional[Coroutine],
             ]
         ] = None,
@@ -326,9 +323,7 @@ class BinaryOpPattern(Pattern[T]):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(
-        self, state: Optional[dict[str, UUID]] = None
-    ) -> Generator[T, bool, None]:
+    def _iterate(self, state: UUIDDict | None = None) -> Generator[T, bool, None]:
         iterator_one: Iterator[T] = iter(
             self.expr_one
             if isinstance(self.expr_one, Pattern)
@@ -362,9 +357,7 @@ class UnaryOpPattern(Pattern[T]):
         self.operator_ = operator_
         self.expr = expr
 
-    def _iterate(
-        self, state: Optional[dict[str, UUID]] = None
-    ) -> Generator[T, bool, None]:
+    def _iterate(self, state: UUIDDict | None = None) -> Generator[T, bool, None]:
         iterator: Iterator[T] = iter(
             self.expr
             if isinstance(self.expr, Pattern)
@@ -391,9 +384,7 @@ class SeedPattern(Pattern[T]):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(
-        self, state: Optional[dict[str, UUID]] = None
-    ) -> Generator[T, bool, None]:
+    def _iterate(self, state: UUIDDict | None = None) -> Generator[T, bool, None]:
         try:
             identifier = id(inspect.currentframe())
             rng = self._get_seeded_rng(seed=self.seed)

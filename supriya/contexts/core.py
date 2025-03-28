@@ -418,8 +418,8 @@ class Context(metaclass=abc.ABCMeta):
         self,
         *,
         channel_count: int | None = None,
-        channel_indices: Optional[list[int]] = None,
-        file_path: Optional[PathLike] = None,
+        channel_indices: list[int] | None = None,
+        file_path: PathLike | None = None,
         frame_count: int | None = None,
         starting_frame: int | None = None,
         on_completion: Optional[Callable[["Context"], Any]] = None,
@@ -559,7 +559,7 @@ class Context(metaclass=abc.ABCMeta):
         self,
         *,
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
-        target_node: Optional[SupportsInt] = None,
+        target_node: SupportsInt | None = None,
         parallel: bool = False,
         permanent: bool = False,
     ) -> Group:
@@ -593,7 +593,7 @@ class Context(metaclass=abc.ABCMeta):
         synthdef: SynthDef,
         *,
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
-        target_node: Optional[SupportsInt] = None,
+        target_node: SupportsInt | None = None,
         permanent: bool = False,
         **settings,
     ) -> Synth:

@@ -8,7 +8,6 @@ import hashlib
 import shlex
 from os import PathLike
 from pathlib import Path
-from typing import Optional
 
 from uqbar.io import find_executable
 from uqbar.strings import to_dash_case
@@ -93,8 +92,8 @@ class Say:
 
     async def __render__(
         self,
-        output_file_path: Optional[PathLike] = None,
-        render_directory_path: Optional[PathLike] = None,
+        output_file_path: PathLike | None = None,
+        render_directory_path: PathLike | None = None,
         **kwargs,
     ) -> tuple[Path, int]:
         path = self._build_output_file_path(
