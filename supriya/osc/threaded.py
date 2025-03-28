@@ -8,7 +8,6 @@ from typing import (
     Awaitable,
     Callable,
     Literal,
-    Optional,
     Sequence,
     Union,
     cast,
@@ -205,9 +204,9 @@ class ThreadedOscProtocol(OscProtocol):
         pattern: Sequence[float | str],
         procedure: Callable[[OscMessage], Awaitable[None] | None],
         *,
-        failure_pattern: Optional[Sequence[float | str]] = None,
+        failure_pattern: Sequence[float | str] | None = None,
         once: bool = False,
-        args: Optional[tuple] = None,
+        args: tuple | None = None,
         kwargs: dict | None = None,
     ) -> OscCallback:
         """

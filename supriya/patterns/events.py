@@ -1,5 +1,5 @@
 import enum
-from typing import Any, Optional, Sequence, SupportsFloat, Union
+from typing import Any, Sequence, SupportsFloat, Union
 from uuid import UUID
 
 from uqbar.objects import get_repr, get_vars, new
@@ -135,7 +135,7 @@ class NodeEvent(Event):
         *,
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         delta: float = 0.0,
-        target_node: Optional[Union[Node, UUID]] = None,
+        target_node: Node | UUID | None = None,
         **kwargs,
     ) -> None:
         Event.__init__(self, delta=delta, **kwargs)
@@ -146,7 +146,7 @@ class NodeEvent(Event):
     def _resolve_target_node(
         self,
         proxy_mapping: dict[Union[UUID, tuple[UUID, int]], ContextObject],
-    ) -> Optional[Node]:
+    ) -> Node | None:
         if isinstance(self.target_node, UUID):
             if not isinstance(
                 target_node_ := proxy_mapping.get(self.target_node), Node
@@ -205,12 +205,9 @@ class NoteEvent(NodeEvent):
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         delta: float = 1.0,
         duration: float = 1.0,
-        synthdef: Optional[SynthDef] = None,
-        target_node: Optional[Union[Node, UUID]] = None,
-        **kwargs: Union[
-            Union[SupportsFloat, UUID],
-            Sequence[Union[SupportsFloat, UUID]],
-        ],
+        synthdef: SynthDef | None = None,
+        target_node: Node | UUID | None = None,
+        **kwargs: SupportsFloat | UUID | Sequence[SupportsFloat | UUID],
     ) -> None:
         NodeEvent.__init__(
             self,
@@ -320,8 +317,8 @@ class SynthAllocateEvent(NodeEvent):
         *,
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         delta: float = 0.0,
-        target_node: Optional[Union[Node, UUID]] = None,
-        **kwargs: Union[SupportsFloat, Sequence[SupportsFloat], UUID],
+        target_node: Node | UUID | None = None,
+        **kwargs: SupportsFloat | Sequence[SupportsFloat] | UUID,
     ) -> None:
         NodeEvent.__init__(
             self,

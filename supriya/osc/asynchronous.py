@@ -1,6 +1,6 @@
 import asyncio
 from collections.abc import Sequence as SequenceABC
-from typing import Awaitable, Callable, Optional, Sequence, Union
+from typing import Awaitable, Callable, Sequence, Union
 
 from ..enums import BootStatus
 from ..typing import FutureLike, SupportsOsc
@@ -37,7 +37,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         self.boot_future: asyncio.Future[bool] = asyncio.Future()
         self.exit_future: asyncio.Future[bool] = asyncio.Future()
         self.background_tasks: set[asyncio.Task] = set()
-        self.healthcheck_task: Optional[asyncio.Task] = None
+        self.healthcheck_task: asyncio.Task | None = None
 
     ### PRIVATE METHODS ###
 
@@ -138,7 +138,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
             )
 
     async def connect(
-        self, ip_address: str, port: int, *, healthcheck: Optional[HealthCheck] = None
+        self, ip_address: str, port: int, *, healthcheck: HealthCheck | None = None
     ):
         if self.status != BootStatus.OFFLINE:
             osc_protocol_logger.info(
@@ -174,11 +174,11 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     def register(
         self,
         pattern: Sequence[float | str],
-        procedure: Callable[[OscMessage], Optional[Awaitable[None]]],
+        procedure: Callable[[OscMessage], Awaitable[None] | None],
         *,
-        failure_pattern: Optional[Sequence[float | str]] = None,
+        failure_pattern: Sequence[float | str] | None = None,
         once: bool = False,
-        args: Optional[tuple] = None,
+        args: tuple | None = None,
         kwargs: dict | None = None,
     ) -> OscCallback:
         """

@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import (
     TYPE_CHECKING,
     Coroutine,
-    Optional,
     Protocol,
     SupportsFloat,
     SupportsInt,
@@ -72,7 +71,7 @@ class SupportsRenderMemo(Protocol):
 
 E = TypeVar("E")
 
-_EnumLike = Optional[Union[E, SupportsInt, str, None]]
+_EnumLike = Union[E, SupportsInt, str] | None
 
 AddActionLike: TypeAlias = _EnumLike[AddAction]
 DoneActionLike: TypeAlias = _EnumLike[DoneAction]
@@ -84,6 +83,6 @@ EnvelopeShapeLike: TypeAlias = _EnumLike[EnvelopeShape]
 HeaderFormatLike: TypeAlias = _EnumLike[HeaderFormat]
 SampleFormatLike: TypeAlias = _EnumLike[SampleFormat]
 ServerLifecycleEventLike: TypeAlias = _EnumLike[ServerLifecycleEvent]
-UGenInputMap: TypeAlias = Optional[dict[str, Union[SupportsFloat, str, None]]]
+UGenInputMap: TypeAlias = dict[str, SupportsFloat | str | None] | None
 
 UUIDDict: TypeAlias = dict[str, UUID]

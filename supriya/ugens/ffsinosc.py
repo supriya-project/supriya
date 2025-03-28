@@ -1,4 +1,4 @@
-from typing import Optional, Sequence
+from typing import Sequence
 
 from supriya import utils
 
@@ -74,9 +74,9 @@ class Klank(UGen):
     def ar(
         cls,
         *,
-        amplitudes: Optional[Sequence[UGenScalarInput]] = None,
+        amplitudes: Sequence[UGenScalarInput] | None = None,
         decay_scale: UGenRecursiveInput = 1,
-        decay_times: Optional[Sequence[UGenScalarInput]] = None,
+        decay_times: Sequence[UGenScalarInput] | None = None,
         frequencies: Sequence[UGenScalarInput],
         frequency_offset: UGenRecursiveInput = 0,
         frequency_scale: UGenRecursiveInput = 1,

@@ -15,8 +15,6 @@ from typing import (
     Callable,
     Iterator,
     Literal,
-    Optional,
-    Union,
     cast,
 )
 
@@ -69,7 +67,7 @@ class Options:
     random_number_generator_count: int = 64
     realtime: bool = True
     restricted_path: str | None = None
-    safety_clip: Optional[Union[int, Literal["inf"]]] = None
+    safety_clip: Literal["inf"] | int | None = None
     sample_rate: int | None = None
     threads: int = 6
     ugen_plugins_path: str | None = None
@@ -117,7 +115,7 @@ class Options:
 
     def serialize(self) -> list[str]:
         result = [str(find(self.executable))]
-        pairs: dict[str, Optional[Union[list[str], str]]] = {}
+        pairs: dict[str, list[str] | str | None] = {}
         if self.realtime:
             if self.ip_address != DEFAULT_IP_ADDRESS:
                 pairs["-B"] = self.ip_address

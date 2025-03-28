@@ -3,7 +3,6 @@ from typing import (
     Generator,
     Generic,
     Iterable,
-    Optional,
     Sequence,
     Type,
     TypeVar,
@@ -18,8 +17,8 @@ class Expander(Generic[T]):
     def __call__(
         self,
         mapping: dict[str, Union[T, Sequence[T]]],
-        unexpanded: Optional[Iterable[str]] = None,
-        only: Optional[Iterable[str]] = None,
+        unexpanded: Iterable[str] | None = None,
+        only: Iterable[str] | None = None,
     ) -> list[dict[str, Union[T, Sequence[T]]]]:
         only_ = set(only or ())
         unexpanded_ = set(unexpanded or ())
@@ -48,14 +47,14 @@ class Expander(Generic[T]):
 
 def expand(
     mapping: dict[str, Union[T, Sequence[T]]],
-    unexpanded: Optional[Iterable[str]] = None,
-    only: Optional[Iterable[str]] = None,
+    unexpanded: Iterable[str] | None = None,
+    only: Iterable[str] | None = None,
 ) -> list[dict[str, Union[T, Sequence[T]]]]:
     return Expander[T]()(mapping, unexpanded, only)
 
 
 def flatten(
-    iterable: IT, terminal_types: Optional[Union[Type, tuple[Type, ...]]] = None
+    iterable: IT, terminal_types: Type | tuple[Type, ...] | None = None
 ) -> Generator[T, None, None]:
     for x in iterable:
         if isinstance(x, Iterable) and (

@@ -1,4 +1,4 @@
-from typing import Callable, Optional
+from typing import Callable
 from typing import Type as TypingType
 
 from mypy.nodes import ARG_OPT, Argument, AssignmentStmt, CallExpr, RefExpr, Var
@@ -153,7 +153,7 @@ def _ugen_hook(ctx: ClassDefContext) -> bool:
 class SupriyaPlugin(Plugin):
     def get_class_decorator_hook_2(
         self, fullname: str
-    ) -> Optional[Callable[[ClassDefContext], bool]]:
+    ) -> Callable[[ClassDefContext], bool] | None:
         if fullname == "supriya.ugens.core.ugen":
             return _ugen_hook
         return None

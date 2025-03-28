@@ -62,7 +62,7 @@ class Param(NamedTuple):
     A UGen input configuration.
     """
 
-    default: Optional[Union[Default, Missing, float]] = None
+    default: Default | Missing | float | None = None
     check: Check = Check.NONE
     unexpanded: bool = False
 
@@ -131,7 +131,7 @@ def _add_param_fn(cls, name: str, index: int, unexpanded: bool) -> None:
 
 def _add_rate_fn(
     cls,
-    rate: Optional[CalculationRate],
+    rate: CalculationRate | None,
     params: dict[str, "Param"],
     is_multichannel: bool,
     channel_count: int,
@@ -173,7 +173,7 @@ def _create_fn(
     args: list[str],
     body: list[str],
     return_type,
-    globals_: Optional[dict[str, Type]] = None,
+    globals_: dict[str, Type] | None = None,
     decorator: Callable | None = None,
     override: bool = False,
 ) -> None:
@@ -284,7 +284,7 @@ def _process_class(
 
 
 def param(
-    default: Optional[Union[Default, Missing, float]] = Missing(),
+    default: Default | Missing | float | None = Missing(),
     *,
     check: Check = Check.NONE,
     unexpanded: bool = False,
@@ -4923,7 +4923,7 @@ class UGen(UGenOperable, Sequence):
             raise ValueError(type(self).__name__, kwargs)
         self._inputs = tuple(inputs)
         self._input_keys = tuple(input_keys)
-        self._uuid: Optional[uuid.UUID] = None
+        self._uuid: uuid.UUID | None = None
         if SynthDefBuilder._active_builders:
             builder = SynthDefBuilder._active_builders[-1]
             self._uuid = builder._uuid
@@ -4974,7 +4974,7 @@ class UGen(UGenOperable, Sequence):
     def _expand_params(
         cls,
         params: dict[str, "UGenRecursiveInput"],
-        unexpanded_keys: Optional[Iterable[str]] = None,
+        unexpanded_keys: Iterable[str] | None = None,
     ) -> "UGenRecursiveParams":
         unexpanded_keys_ = set(unexpanded_keys or ())
         size = 0
@@ -5467,9 +5467,7 @@ class SynthDef:
                     else:
                         edge.attributes["color"] = "salmon"
 
-        def create_ugen_input_group(
-            ugen: UGen, ugen_index: int
-        ) -> Optional[RecordGroup]:
+        def create_ugen_input_group(ugen: UGen, ugen_index: int) -> RecordGroup | None:
             if not ugen.inputs:
                 return None
             input_group = RecordGroup(name="inputs")
@@ -5512,9 +5510,7 @@ class SynthDef:
                 mapping[ugen] = node
             return mapping
 
-        def create_ugen_output_group(
-            ugen: UGen, ugen_index: int
-        ) -> Optional[RecordGroup]:
+        def create_ugen_output_group(ugen: UGen, ugen_index: int) -> RecordGroup | None:
             if not len(ugen):
                 return None
             output_group = RecordGroup(name="outputs")
@@ -5959,7 +5955,7 @@ class SynthDefBuilder:
         *,
         name: str,
         value: Union[float, Sequence[float]],
-        rate: Optional[ParameterRateLike] = ParameterRate.CONTROL,
+        rate: ParameterRateLike | None = ParameterRate.CONTROL,
         lag: float | None = None,
     ) -> Parameter:
         if name in self._parameters:

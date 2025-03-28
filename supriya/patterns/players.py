@@ -42,16 +42,16 @@ class PatternPlayer:
         callback: Optional[
             Callable[["PatternPlayer", ClockContext, Event, Priority], None]
         ] = None,
-        target_bus: Optional[Bus] = None,
-        target_node: Optional[Node] = None,
-        uuid: Optional[UUID] = None,
+        target_bus: Bus | None = None,
+        target_node: Node | None = None,
+        uuid: UUID | None = None,
     ) -> None:
         self._context = context
         self._clock = clock
         self._callback = callback
         self._lock = RLock()
         self._queue: Queue[
-            tuple[float, Priority, Union[int, tuple[int, int]], Optional[Event]]
+            tuple[float, Priority, Union[int, tuple[int, int]], Event | None]
         ] = PriorityQueue()
         self._is_running = False
         self._is_stopping = False
@@ -217,9 +217,7 @@ class PatternPlayer:
                 self._context.free_node(node)
 
     def _reschedule_queue(self, current_offset: float) -> None:
-        events: list[
-            tuple[float, Priority, Union[int, tuple[int, int]], Optional[Event]]
-        ] = []
+        events: list[tuple[float, Priority, int | tuple[int, int], Event | None]] = []
         while not self._queue.empty():
             events.append(self._queue.get())
         if not events:
@@ -231,7 +229,7 @@ class PatternPlayer:
 
     def play(
         self,
-        quantization: Optional[Quantization] = None,
+        quantization: Quantization | None = None,
         until: float | None = None,
     ) -> None:
         with self._lock:
@@ -253,7 +251,7 @@ class PatternPlayer:
                 self._stop_callback, event_type=2, schedule_at=until
             )
 
-    def stop(self, quantization: Optional[Quantization] = None) -> None:
+    def stop(self, quantization: Quantization | None = None) -> None:
         with self._lock:
             if not self._is_running or self._is_stopping:
                 return

@@ -11,7 +11,6 @@ from os import PathLike
 from typing import (
     TYPE_CHECKING,
     Literal,
-    Optional,
     Sequence,
     SupportsInt,
     Union,
@@ -1320,13 +1319,11 @@ class NewSynth(Request):
         OscMessage('/s_new', 'default', 1001, 1, 1000, 'amplitude', 0.5, 'frequency', 432.0, 'panning', 'c0')
     """
 
-    synthdef: Union[SynthDef, str]
+    synthdef: SynthDef | str
     synth_id: SupportsInt
     add_action: AddActionLike
     target_node_id: SupportsInt
-    controls: Optional[dict[int | str, Union[float, str, tuple[float | str, ...]]]] = (
-        None
-    )
+    controls: dict[int | str, float | str | tuple[float | str, ...]] | None = None
 
     def to_osc(self) -> OscMessage:
         contents: list[Union[float, str, tuple[float | str, ...]]] = [
