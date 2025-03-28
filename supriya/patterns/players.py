@@ -268,7 +268,7 @@ class PatternPlayer:
             )
             self._players.remove(self)
 
-    def uuid_to_note_id(self, uuid: UUID, index: Optional[int] = None) -> float:
+    def uuid_to_note_id(self, uuid: UUID, index: int | None = None) -> float:
         if index is not None:
             return self._notes_by_uuid[uuid, index]
         return self._notes_by_uuid[uuid]

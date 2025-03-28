@@ -243,7 +243,7 @@ def _process_class(
     is_width_first: bool = False,
     channel_count: int = 1,
     fixed_channel_count: bool = False,
-    signal_range: Optional[int] = None,
+    signal_range: int | None = None,
 ) -> Type["UGen"]:
     params: dict[str, Param] = {}
     unexpanded_keys = []
@@ -312,7 +312,7 @@ def ugen(
     is_width_first: bool = False,
     channel_count: int = 1,
     fixed_channel_count: bool = False,
-    signal_range: Optional[int] = None,
+    signal_range: int | None = None,
 ) -> Callable[[Type["UGen"]], Type["UGen"]]:
     """
     Decorate a UGen class.
@@ -4904,11 +4904,11 @@ class UGen(UGenOperable, Sequence):
                 if key not in self._unexpanded_keys:
                     raise ValueError(key, value)
                 iterator: Iterable[
-                    tuple[Optional[int], Union[SupportsFloat, UGenScalar]]
+                    tuple[int | None, Union[SupportsFloat, UGenScalar]]
                 ] = ((i, v) for i, v in enumerate(value))
             else:
                 iterator = ((None, v) for v in [value])
-            i: Optional[int]
+            i: int | None
             for i, x in iterator:
                 if isinstance(x, SupportsFloat):
                     inputs.append(float(x))

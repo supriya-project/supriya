@@ -2057,7 +2057,7 @@ class ToggleNotifications(Request):
     """
 
     should_notify: bool
-    client_id: Optional[int] = None
+    client_id: int | None = None
 
     def _get_response_patterns(
         self,

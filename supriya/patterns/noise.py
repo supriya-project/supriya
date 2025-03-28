@@ -10,7 +10,7 @@ class ChoicePattern(SequencePattern[T]):
     def __init__(
         self,
         sequence: Sequence[Union[T, Pattern[T]]],
-        iterations: Optional[int] = 1,
+        iterations: int | None = 1,
         forbid_repetitions: bool = False,
         weights: Optional[Sequence[float]] = None,
     ) -> None:
@@ -23,7 +23,7 @@ class ChoicePattern(SequencePattern[T]):
     ) -> Generator[T, bool, None]:
         should_stop = False
         rng = self._get_rng()
-        previous_index: Optional[int] = None
+        previous_index: int | None = None
         for _ in self._loop(self._iterations):
             if self._weights:
                 index = self._find_index_weighted(rng, self._weights)
@@ -75,7 +75,7 @@ class RandomPattern(Pattern[float]):
         self,
         minimum: float | Sequence[float] = 0.0,
         maximum: float | Sequence[float] = 1.0,
-        iterations: Optional[int] = None,
+        iterations: int | None = None,
         distribution: Union["RandomPattern.Distribution", str] = "WHITE_NOISE",
     ) -> None:
         if iterations is not None:
@@ -112,7 +112,7 @@ class RandomPattern(Pattern[float]):
         return self._iterations is None
 
     @property
-    def iterations(self) -> Optional[int]:
+    def iterations(self) -> int | None:
         return self._iterations
 
     @property
@@ -128,7 +128,7 @@ class ShufflePattern(SequencePattern[T]):
     def __init__(
         self,
         sequence: Sequence[Union[T, Pattern[T]]],
-        iterations: Optional[int] = 1,
+        iterations: int | None = 1,
         forbid_repetitions: bool = False,
     ) -> None:
         super().__init__(sequence, iterations=iterations)

@@ -48,7 +48,7 @@ class Options:
     buffer_count: int = 1024
     control_bus_channel_count: int = 16384
     executable: Optional[str] = None
-    hardware_buffer_size: Optional[int] = None
+    hardware_buffer_size: int | None = None
     initial_node_id: int = 1000
     input_bus_channel_count: int = 8
     input_device: Optional[str] = None
@@ -70,7 +70,7 @@ class Options:
     realtime: bool = True
     restricted_path: Optional[str] = None
     safety_clip: Optional[Union[int, Literal["inf"]]] = None
-    sample_rate: Optional[int] = None
+    sample_rate: int | None = None
     threads: int = 6
     ugen_plugins_path: Optional[str] = None
     verbosity: int = 0

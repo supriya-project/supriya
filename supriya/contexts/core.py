@@ -271,7 +271,7 @@ class Context(metaclass=abc.ABCMeta):
         count: int = 1,
         permanent: bool = False,
     ) -> int:
-        id_: Optional[int] = None
+        id_: int | None = None
         if type_ is Node:
             if permanent:
                 id_ = self._node_id_allocator.allocate_permanent_node_id()
@@ -417,11 +417,11 @@ class Context(metaclass=abc.ABCMeta):
     def add_buffer(
         self,
         *,
-        channel_count: Optional[int] = None,
+        channel_count: int | None = None,
         channel_indices: Optional[list[int]] = None,
         file_path: Optional[PathLike] = None,
-        frame_count: Optional[int] = None,
-        starting_frame: Optional[int] = None,
+        frame_count: int | None = None,
+        starting_frame: int | None = None,
         on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Buffer:
         """
@@ -476,9 +476,9 @@ class Context(metaclass=abc.ABCMeta):
     def add_buffer_group(
         self,
         *,
-        channel_count: Optional[int] = None,
+        channel_count: int | None = None,
         count: int = 1,
-        frame_count: Optional[int] = None,
+        frame_count: int | None = None,
     ) -> BufferGroup:
         """
         Add a group of new buffers to the context.
@@ -1130,11 +1130,11 @@ class Context(metaclass=abc.ABCMeta):
         buffer: Buffer,
         file_path: PathLike,
         *,
-        buffer_starting_frame: Optional[int] = None,
+        buffer_starting_frame: int | None = None,
         channel_indices: Optional[list[int]] = None,
-        frame_count: Optional[int] = None,
+        frame_count: int | None = None,
         leave_open: bool = False,
-        starting_frame: Optional[int] = None,
+        starting_frame: int | None = None,
         on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Completion:
         """
@@ -1320,11 +1320,11 @@ class Context(metaclass=abc.ABCMeta):
         buffer: Buffer,
         file_path: PathLike,
         *,
-        frame_count: Optional[int] = None,
+        frame_count: int | None = None,
         header_format: HeaderFormatLike = "aiff",
         leave_open: bool = False,
         sample_format: SampleFormatLike = "int24",
-        starting_frame: Optional[int] = None,
+        starting_frame: int | None = None,
         on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Completion:
         """

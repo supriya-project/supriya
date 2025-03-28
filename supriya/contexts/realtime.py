@@ -997,7 +997,7 @@ class Server(BaseServer):
         self.sync()
         return self
 
-    def sync(self, sync_id: Optional[int] = None, timeout: float = 1.0) -> "Server":
+    def sync(self, sync_id: int | None = None, timeout: float = 1.0) -> "Server":
         """
         Sync the server.
 
@@ -1615,7 +1615,7 @@ class AsyncServer(BaseServer):
         return self
 
     async def sync(
-        self, sync_id: Optional[int] = None, timeout: float = 1.0
+        self, sync_id: int | None = None, timeout: float = 1.0
     ) -> "AsyncServer":
         """
         Sync the server.

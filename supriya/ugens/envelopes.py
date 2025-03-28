@@ -1,4 +1,4 @@
-from typing import Optional, Sequence, Union
+from typing import Sequence, Union
 
 from uqbar.objects import get_repr
 
@@ -30,8 +30,8 @@ class Envelope:
             EnvelopeShape.LINEAR,
             EnvelopeShape.LINEAR,
         ),
-        release_node: Optional[int] = None,
-        loop_node: Optional[int] = None,
+        release_node: int | None = None,
+        loop_node: int | None = None,
         offset: Union[UGenOperable, float] = 0.0,
     ) -> None:
         if len(amplitudes) <= 1:
@@ -255,7 +255,7 @@ class Envelope:
         return self._initial_amplitude
 
     @property
-    def loop_node(self) -> Optional[int]:
+    def loop_node(self) -> int | None:
         return self._loop_node
 
     @property
@@ -263,7 +263,7 @@ class Envelope:
         return self._offset
 
     @property
-    def release_node(self) -> Optional[int]:
+    def release_node(self) -> int | None:
         return self._release_node
 
 

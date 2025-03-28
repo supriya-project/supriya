@@ -254,7 +254,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
     ) -> Generator[T, bool, None]:
         raise NotImplementedError
 
-    def _loop(self, iterations: Optional[int] = None) -> Iterator[bool]:
+    def _loop(self, iterations: int | None = None) -> Iterator[bool]:
         if iterations is None:
             while True:
                 yield True
@@ -421,7 +421,7 @@ class SequencePattern(Pattern[T]):
     ### INITIALIZER ###
 
     def __init__(
-        self, sequence: Sequence[Union[T, Pattern[T]]], iterations: Optional[int] = 1
+        self, sequence: Sequence[Union[T, Pattern[T]]], iterations: int | None = 1
     ) -> None:
         if not isinstance(sequence, Sequence):
             raise ValueError(f"Must be sequence: {sequence!r}")

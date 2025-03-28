@@ -298,12 +298,12 @@ class Buffer(ContextObject):
         self,
         file_path: PathLike,
         *,
-        buffer_starting_frame: Optional[int] = None,
+        buffer_starting_frame: int | None = None,
         channel_indices: Optional[list[int]] = None,
-        frame_count: Optional[int] = None,
+        frame_count: int | None = None,
         leave_open: bool = False,
         on_completion: Optional[Callable[["Context"], Any]] = None,
-        starting_frame: Optional[int] = None,
+        starting_frame: int | None = None,
     ) -> "Completion":
         """
         Read a file into the buffer.
@@ -359,12 +359,12 @@ class Buffer(ContextObject):
         self,
         file_path: PathLike,
         *,
-        frame_count: Optional[int] = None,
+        frame_count: int | None = None,
         header_format: HeaderFormatLike = "aiff",
         leave_open: bool = False,
         on_completion: Optional[Callable[["Context"], Any]] = None,
         sample_format: SampleFormatLike = "int24",
-        starting_frame: Optional[int] = None,
+        starting_frame: int | None = None,
     ) -> "Completion":
         """
         Write the buffer to disk.

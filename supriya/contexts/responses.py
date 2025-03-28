@@ -254,8 +254,8 @@ class NodeInfo(Response):
     previous_id: int
     next_id: int
     is_group: bool
-    head_id: Optional[int] = None
-    tail_id: Optional[int] = None
+    head_id: int | None = None
+    tail_id: int | None = None
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
