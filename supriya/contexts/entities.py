@@ -247,7 +247,7 @@ class Buffer(ContextObject):
 
     def get_range(
         self, index: int, count: int, sync: bool = True
-    ) -> Union[Awaitable[Sequence[float] | None], Sequence[float] | None]:
+    ) -> Awaitable[Sequence[float] | None] | Sequence[float] | None:
         """
         Get a sample range.
 
@@ -279,7 +279,7 @@ class Buffer(ContextObject):
 
     def query(
         self, sync: bool = True
-    ) -> Union[Awaitable[BufferInfo | None], BufferInfo | None]:
+    ) -> Awaitable[BufferInfo | None] | BufferInfo | None:
         """
         Query the buffer.
 
@@ -488,7 +488,7 @@ class Bus(ContextObject):
         """
         self.context.free_bus(self)
 
-    def get(self, sync: bool = True) -> Union[Awaitable[float | None], float | None]:
+    def get(self, sync: bool = True) -> Awaitable[float | None] | float | None:
         """
         Get the control bus' value.
 
@@ -505,7 +505,7 @@ class Bus(ContextObject):
 
     def get_range(
         self, count: int, sync: bool = True
-    ) -> Union[Awaitable[Sequence[float] | None], Sequence[float] | None]:
+    ) -> Awaitable[Sequence[float] | None] | Sequence[float] | None:
         """
         Get a range of control bus values.
 
@@ -604,7 +604,7 @@ class BusGroup(ContextObject):
 
     def get(
         self, sync: bool = True
-    ) -> Union[Awaitable[Sequence[float] | None], Sequence[float] | None]:
+    ) -> Awaitable[Sequence[float] | None] | Sequence[float] | None:
         """
         Get the control bus group's values.
 
@@ -629,7 +629,7 @@ class BusGroup(ContextObject):
             return f"c{self.id_}"
         raise InvalidCalculationRate
 
-    def set(self, values: Union[float, Sequence[float]]) -> None:
+    def set(self, values: float | Sequence[float]) -> None:
         """
         Set a range of control buses.
 
@@ -716,7 +716,7 @@ class Node(ContextObject):
         """
         return self.context.free_node(self, force=force)
 
-    def map(self, **settings: Union[Bus, None]) -> None:
+    def map(self, **settings: Bus | None) -> None:
         """
         Map the node's controls to buses.
 
@@ -779,8 +779,8 @@ class Node(ContextObject):
 
     def set(
         self,
-        *indexed_settings: tuple[int, Union[SupportsFloat, Sequence[SupportsFloat]]],
-        **settings: Union[SupportsFloat, Sequence[SupportsFloat]],
+        *indexed_settings: tuple[int, SupportsFloat | Sequence[SupportsFloat]],
+        **settings: SupportsFloat | Sequence[SupportsFloat],
     ) -> None:
         """
         Set the node's controls.
@@ -884,7 +884,7 @@ class Group(Node):
         self,
         include_controls: bool = True,
         sync: bool = True,
-    ) -> Union[Awaitable[QueryTreeGroup | None], QueryTreeGroup | None]:
+    ) -> Awaitable[QueryTreeGroup | None] | QueryTreeGroup | None:
         """
         Dump the group's node tree.
 
@@ -916,7 +916,7 @@ class Group(Node):
         self,
         include_controls: bool = True,
         sync: bool = True,
-    ) -> Union[Awaitable[QueryTreeGroup | None], QueryTreeGroup | None]:
+    ) -> Awaitable[QueryTreeGroup | None] | QueryTreeGroup | None:
         """
         Query the group's node tree.
 

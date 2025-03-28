@@ -19,7 +19,7 @@ from typing import (
 from uqbar.objects import new
 
 from ..enums import AddAction, HeaderFormat, RequestName, SampleFormat
-from ..osc import OscBundle, OscMessage
+from ..osc import OscArgument, OscBundle, OscMessage
 from ..typing import AddActionLike, HeaderFormatLike, SampleFormatLike, SupportsOsc
 from ..ugens import SynthDef, compile_synthdefs
 from .responses import Response
@@ -96,7 +96,7 @@ class Requestable(ABC):
         return future.result()
 
     @abstractmethod
-    def to_osc(self) -> Union[OscBundle, OscMessage]:
+    def to_osc(self) -> OscBundle | OscMessage:
         raise NotImplementedError
 
 
@@ -188,7 +188,7 @@ class AllocateBuffer(Request):
         return ["/done", "/b_alloc", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[OscBundle, OscMessage, int]] = [
+        contents: list[OscArgument] = [
             int(self.buffer_id),
             int(self.frame_count),
             int(self.channel_count),
@@ -229,7 +229,7 @@ class AllocateReadBuffer(Request):
         return ["/done", "/b_allocRead", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[OscBundle, OscMessage, int, str]] = [
+        contents: list[OscArgument] = [
             int(self.buffer_id),
             str(self.path),
             int(self.starting_frame),
@@ -273,7 +273,7 @@ class AllocateReadBufferChannel(Request):
         return ["/done", "/b_allocReadChannel", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[OscBundle, OscMessage, int, str]] = [
+        contents: list[OscArgument] = [
             int(self.buffer_id),
             str(self.path),
             int(self.starting_frame),
@@ -345,7 +345,7 @@ class CloseBuffer(Request):
         return ["/done", "/b_close", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[OscBundle, OscMessage, int]] = [int(self.buffer_id)]
+        contents: list[OscArgument] = [int(self.buffer_id)]
         if self.on_completion:
             contents.append(self.on_completion.to_osc())
         return OscMessage(RequestName.BUFFER_CLOSE, *contents)
@@ -484,7 +484,7 @@ class FillBuffer(Request):
         ]
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[float]] = [int(self.buffer_id)]
+        contents: list[OscArgument] = [int(self.buffer_id)]
         for index, count, value in self.items:
             contents.extend([int(index), int(count), float(value)])
         return OscMessage(RequestName.BUFFER_FILL, *contents)
@@ -517,7 +517,7 @@ class FillControlBusRange(Request):
         return [cls(items=items)]
 
     def to_osc(self) -> OscMessage:
-        contents: list[float] = []
+        contents: list[OscArgument] = []
         for index, count, value in self.items:
             contents.extend([int(index), int(count), float(value)])
         return OscMessage(RequestName.CONTROL_BUS_FILL, *contents)
@@ -543,7 +543,7 @@ class FillNode(Request):
     items: Sequence[tuple[int | str, int, float]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[float | str] = [int(self.node_id)]
+        contents: list[OscArgument] = [int(self.node_id)]
         for control, count, value in self.items:
             contents.extend(
                 [
@@ -592,7 +592,7 @@ class FreeBuffer(Request):
     on_completion: Requestable | None = None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[OscBundle, OscMessage, int]] = [int(self.buffer_id)]
+        contents: list[OscArgument] = [int(self.buffer_id)]
         if self.on_completion:
             contents.append(self.on_completion.to_osc())
         return OscMessage(RequestName.BUFFER_FREE, *contents)
@@ -726,7 +726,7 @@ class GenerateBuffer(Request):
         return ["/done", "/b_gen", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[float | str] = [
+        contents: list[OscArgument] = [
             int(self.buffer_id),
             self.command_name,
             (
@@ -804,7 +804,7 @@ class GetBufferRange(Request):
         return ["/b_setn", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[int] = [int(self.buffer_id)]
+        contents: list[OscArgument] = [int(self.buffer_id)]
         for index, count in self.items:
             contents.extend([int(index), int(count)])
         return OscMessage(RequestName.BUFFER_GET_CONTIGUOUS, *contents)
@@ -857,7 +857,7 @@ class GetControlBusRange(Request):
         return ["/c_setn", int(self.items[0][0])], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[int] = []
+        contents: list[OscArgument] = []
         for index, count in self.items:
             contents.extend([int(index), int(count)])
         return OscMessage(RequestName.CONTROL_BUS_GET_CONTIGUOUS, *contents)
@@ -888,7 +888,7 @@ class GetSynthControl(Request):
         return ["/n_set", int(self.synth_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[int | str] = [int(self.synth_id)]
+        contents: list[OscArgument] = [int(self.synth_id)]
         for control in self.controls:
             contents.append(control if isinstance(control, str) else int(control))
         return OscMessage(RequestName.SYNTH_GET, *contents)
@@ -919,7 +919,7 @@ class GetSynthControlRange(Request):
         return ["/n_setn", int(self.synth_id), self.items[0][0]], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[int | str] = [int(self.synth_id)]
+        contents: list[OscArgument] = [int(self.synth_id)]
         for control, count in self.items:
             contents.extend(
                 [control if isinstance(control, str) else int(control), int(count)]
@@ -947,7 +947,7 @@ class LoadSynthDefs(Request):
     on_completion: Requestable | None = None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[OscBundle, OscMessage, str]] = [str(self.path)]
+        contents: list[OscArgument] = [str(self.path)]
         if self.on_completion:
             contents.append(self.on_completion.to_osc())
         return OscMessage(RequestName.SYNTHDEF_LOAD, *contents)
@@ -973,7 +973,7 @@ class LoadSynthDefDirectory(Request):
     on_completion: Requestable | None = None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[OscBundle, OscMessage, str]] = [str(self.path)]
+        contents: list[OscArgument] = [str(self.path)]
         if self.on_completion:
             contents.append(self.on_completion.to_osc())
         return OscMessage(RequestName.SYNTHDEF_LOAD_DIR, *contents)
@@ -999,7 +999,7 @@ class MapAudioBusToNode(Request):
     items: Sequence[tuple[int | str, SupportsInt]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[int | str] = [int(self.node_id)]
+        contents: list[OscArgument] = [int(self.node_id)]
         for index_or_name, bus_index in self.items:
             contents.extend(
                 [
@@ -1034,7 +1034,7 @@ class MapAudioBusRangeToNode(Request):
     items: Sequence[tuple[int | str, SupportsInt, int]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[int | str] = [int(self.node_id)]
+        contents: list[OscArgument] = [int(self.node_id)]
         for index_or_name, bus_index, count in self.items:
             contents.extend(
                 [
@@ -1070,7 +1070,7 @@ class MapControlBusToNode(Request):
     items: Sequence[tuple[int | str, SupportsInt]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[int | str] = [int(self.node_id)]
+        contents: list[OscArgument] = [int(self.node_id)]
         for index_or_name, bus_index in self.items:
             contents.extend(
                 [
@@ -1105,7 +1105,7 @@ class MapControlBusRangeToNode(Request):
     items: Sequence[tuple[int | str, SupportsInt, int]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[int | str] = [int(self.node_id)]
+        contents: list[OscArgument] = [int(self.node_id)]
         for index_or_name, bus_index, count in self.items:
             contents.extend(
                 [
@@ -1139,7 +1139,7 @@ class MoveNodeAfter(Request):
     items: Sequence[tuple[SupportsInt, SupportsInt]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[int] = []
+        contents: list[OscArgument] = []
         for node_id, target_node_id in self.items:
             contents.extend([int(node_id), int(target_node_id)])
         return OscMessage(RequestName.NODE_AFTER, *contents)
@@ -1163,7 +1163,7 @@ class MoveNodeBefore(Request):
     items: Sequence[tuple[SupportsInt, SupportsInt]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[int] = []
+        contents: list[OscArgument] = []
         for node_id, target_node_id in self.items:
             contents.extend([int(node_id), int(target_node_id)])
         return OscMessage(RequestName.NODE_BEFORE, *contents)
@@ -1187,7 +1187,7 @@ class MoveNodeToGroupHead(Request):
     items: Sequence[tuple[SupportsInt, SupportsInt]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[int] = []
+        contents: list[OscArgument] = []
         for node_id, target_group_id in self.items:
             contents.extend([int(target_group_id), int(node_id)])
         return OscMessage(RequestName.GROUP_HEAD, *contents)
@@ -1211,7 +1211,7 @@ class MoveNodeToGroupTail(Request):
     items: Sequence[tuple[SupportsInt, SupportsInt]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[int] = []
+        contents: list[OscArgument] = []
         for node_id, target_group_id in self.items:
             contents.extend([int(target_group_id), int(node_id)])
         return OscMessage(RequestName.GROUP_TAIL, *contents)
@@ -1326,7 +1326,7 @@ class NewSynth(Request):
     controls: dict[int | str, float | str | tuple[float | str, ...]] | None = None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[float, str, tuple[float | str, ...]]] = [
+        contents: list[OscArgument] = [
             (
                 self.synthdef.effective_name
                 if isinstance(self.synthdef, SynthDef)
@@ -1514,7 +1514,7 @@ class QueryTree(Request):
         ], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[int] = []
+        contents: list[OscArgument] = []
         for node_id, flag in self.items:
             contents.extend([int(node_id), int(bool(flag))])
         return OscMessage(RequestName.GROUP_QUERY_TREE, *contents)
@@ -1595,7 +1595,7 @@ class ReadBuffer(Request):
         return ["/done", "/b_read", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[OscBundle, OscMessage, int, str]] = [
+        contents: list[OscArgument] = [
             int(self.buffer_id),
             str(self.path),
             int(self.starting_frame_in_file),
@@ -1641,7 +1641,7 @@ class ReadBufferChannel(Request):
         return ["/done", "/b_readChannel", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[OscBundle, OscMessage, int, str]] = [
+        contents: list[OscArgument] = [
             int(self.buffer_id),
             str(self.path),
             int(self.starting_frame_in_file),
@@ -1681,9 +1681,7 @@ class ReceiveSynthDefs(Request):
     on_completion: Requestable | None = None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[OscBundle, OscMessage, bytes]] = [
-            compile_synthdefs(*self.synthdefs)
-        ]
+        contents: list[OscArgument] = [compile_synthdefs(*self.synthdefs)]
         if self.on_completion:
             contents.append(self.on_completion.to_osc())
         return OscMessage(RequestName.SYNTHDEF_RECEIVE, *contents)
@@ -1726,7 +1724,7 @@ class RunNode(Request):
         return [cls(items=items)]
 
     def to_osc(self) -> OscMessage:
-        contents: list[int] = []
+        contents: list[OscArgument] = []
         for node_id, flag in self.items:
             contents.extend([int(node_id), int(flag)])
         return OscMessage(RequestName.NODE_RUN, *contents)
@@ -1765,7 +1763,7 @@ class SetBuffer(Request):
         ]
 
     def to_osc(self) -> OscMessage:
-        contents: list[float] = [int(self.buffer_id)]
+        contents: list[OscArgument] = [int(self.buffer_id)]
         for index, value in self.items:
             contents.extend([int(index), float(value)])
         return OscMessage(RequestName.BUFFER_SET, *contents)
@@ -1804,7 +1802,7 @@ class SetBufferRange(Request):
         ]
 
     def to_osc(self) -> OscMessage:
-        contents: list[float] = [int(self.buffer_id)]
+        contents: list[OscArgument] = [int(self.buffer_id)]
         for index, values in self.items:
             contents.extend(
                 [int(index), len(values), *(float(value) for value in values)]
@@ -1837,7 +1835,7 @@ class SetControlBus(Request):
         return [cls(items=items)]
 
     def to_osc(self) -> OscMessage:
-        contents: list[float] = []
+        contents: list[OscArgument] = []
         for index, value in self.items:
             contents.extend([int(index), float(value)])
         return OscMessage(RequestName.CONTROL_BUS_SET, *contents)
@@ -1870,7 +1868,7 @@ class SetControlBusRange(Request):
         return [cls(items=items)]
 
     def to_osc(self) -> OscMessage:
-        contents: list[float] = []
+        contents: list[OscArgument] = []
         for index, values in self.items:
             contents.extend(
                 [int(index), len(values), *(float(value) for value in values)]
@@ -1901,10 +1899,10 @@ class SetNodeControl(Request):
     """
 
     node_id: SupportsInt
-    items: Sequence[tuple[int | str, Union[float, Sequence[float]]]]
+    items: Sequence[tuple[int | str, float | Sequence[float]]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[float, str, list[float]]] = [int(self.node_id)]
+        contents: list[OscArgument] = [int(self.node_id)]
         for control, values in self.items:
             contents.append(control if isinstance(control, str) else int(control))
             if isinstance(values, Sequence):
@@ -1937,7 +1935,7 @@ class SetNodeControlRange(Request):
     items: Sequence[tuple[int | str, Sequence[float]]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[float | str] = [int(self.node_id)]
+        contents: list[OscArgument] = [int(self.node_id)]
         for control, values in self.items:
             contents.extend(
                 [
@@ -2014,7 +2012,7 @@ class ToggleNotifications(Request):
         return ["/done", "/notify"], ["/fail", "/notify"]
 
     def to_osc(self) -> OscMessage:
-        contents: list[int] = [int(bool(self.should_notify))]
+        contents: list[OscArgument] = [int(bool(self.should_notify))]
         if self.client_id is not None:
             contents.append(int(self.client_id))
         return OscMessage(RequestName.NOTIFY, *contents)
@@ -2075,7 +2073,7 @@ class WriteBuffer(Request):
         return ["/done", "/b_write", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[OscBundle, OscMessage, int, str]] = [
+        contents: list[OscArgument] = [
             int(self.buffer_id),
             str(self.path),
             HeaderFormat.from_expr(self.header_format).name.lower(),
@@ -2114,7 +2112,7 @@ class ZeroBuffer(Request):
         return ["/done", "/b_zero", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[OscBundle, OscMessage, int]] = [int(self.buffer_id)]
+        contents: list[OscArgument] = [int(self.buffer_id)]
         if self.on_completion:
             contents.append(self.on_completion.to_osc())
         return OscMessage(RequestName.BUFFER_ZERO, *contents)

@@ -1,5 +1,5 @@
 import enum
-from typing import Any, Sequence, SupportsFloat, Union
+from typing import Any, Sequence, SupportsFloat
 from uuid import UUID
 
 from uqbar.objects import get_repr, get_vars, new
@@ -39,10 +39,10 @@ class Event:
     def perform(
         self,
         context: Context,
-        proxy_mapping: dict[Union[UUID, tuple[UUID, int]], ContextObject],
+        proxy_mapping: dict[UUID | tuple[UUID, int], ContextObject],
         *,
         current_offset: float,
-        notes_mapping: dict[Union[UUID, tuple[UUID, int]], float],
+        notes_mapping: dict[UUID | tuple[UUID, int], float],
         priority: Priority,
         **kwargs,
     ) -> None:
@@ -64,7 +64,7 @@ class StopEvent(Event):
 class BusAllocateEvent(Event):
     def __init__(
         self,
-        id_: Union[UUID, tuple[UUID, int]],
+        id_: UUID | tuple[UUID, int],
         *,
         calculation_rate: CalculationRateLike = "audio",
         channel_count: int = 1,
@@ -79,10 +79,10 @@ class BusAllocateEvent(Event):
     def perform(
         self,
         context: Context,
-        proxy_mapping: dict[Union[UUID, tuple[UUID, int]], ContextObject],
+        proxy_mapping: dict[UUID | tuple[UUID, int], ContextObject],
         *,
         current_offset: float,
-        notes_mapping: dict[Union[UUID, tuple[UUID, int]], float],
+        notes_mapping: dict[UUID | tuple[UUID, int], float],
         priority: Priority,
         **kwargs,
     ) -> None:
@@ -93,7 +93,7 @@ class BusAllocateEvent(Event):
 
 class BusFreeEvent(Event):
     def __init__(
-        self, id_: Union[UUID, tuple[UUID, int]], *, delta: float = 0.0, **kwargs
+        self, id_: UUID | tuple[UUID, int], *, delta: float = 0.0, **kwargs
     ) -> None:
         Event.__init__(self, delta=delta, **kwargs)
         self.id_ = id_
@@ -101,10 +101,10 @@ class BusFreeEvent(Event):
     def perform(
         self,
         context: Context,
-        proxy_mapping: dict[Union[UUID, tuple[UUID, int]], ContextObject],
+        proxy_mapping: dict[UUID | tuple[UUID, int], ContextObject],
         *,
         current_offset: float,
-        notes_mapping: dict[Union[UUID, tuple[UUID, int]], float],
+        notes_mapping: dict[UUID | tuple[UUID, int], float],
         priority: Priority,
         **kwargs,
     ) -> None:
@@ -131,7 +131,7 @@ class CompositeEvent(Event):
 class NodeEvent(Event):
     def __init__(
         self,
-        id_: Union[UUID, tuple[UUID, int]],
+        id_: UUID | tuple[UUID, int],
         *,
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         delta: float = 0.0,
@@ -145,7 +145,7 @@ class NodeEvent(Event):
 
     def _resolve_target_node(
         self,
-        proxy_mapping: dict[Union[UUID, tuple[UUID, int]], ContextObject],
+        proxy_mapping: dict[UUID | tuple[UUID, int], ContextObject],
     ) -> Node | None:
         if isinstance(self.target_node, UUID):
             if not isinstance(
@@ -160,10 +160,10 @@ class GroupAllocateEvent(NodeEvent):
     def perform(
         self,
         context: Context,
-        proxy_mapping: dict[Union[UUID, tuple[UUID, int]], ContextObject],
+        proxy_mapping: dict[UUID | tuple[UUID, int], ContextObject],
         *,
         current_offset: float,
-        notes_mapping: dict[Union[UUID, tuple[UUID, int]], float],
+        notes_mapping: dict[UUID | tuple[UUID, int], float],
         priority: Priority,
         **kwargs,
     ) -> None:
@@ -177,7 +177,7 @@ class GroupAllocateEvent(NodeEvent):
 
 class NodeFreeEvent(Event):
     def __init__(
-        self, id_: Union[UUID, tuple[UUID, int]], *, delta: float = 0.0, **kwargs
+        self, id_: UUID | tuple[UUID, int], *, delta: float = 0.0, **kwargs
     ) -> None:
         Event.__init__(self, delta=delta, **kwargs)
         self.id_ = id_
@@ -185,10 +185,10 @@ class NodeFreeEvent(Event):
     def perform(
         self,
         context: Context,
-        proxy_mapping: dict[Union[UUID, tuple[UUID, int]], ContextObject],
+        proxy_mapping: dict[UUID | tuple[UUID, int], ContextObject],
         *,
         current_offset: float,
-        notes_mapping: dict[Union[UUID, tuple[UUID, int]], float],
+        notes_mapping: dict[UUID | tuple[UUID, int], float],
         priority: Priority,
         **kwargs,
     ) -> None:
@@ -200,7 +200,7 @@ class NodeFreeEvent(Event):
 class NoteEvent(NodeEvent):
     def __init__(
         self,
-        id_: Union[UUID, tuple[UUID, int]],
+        id_: UUID | tuple[UUID, int],
         *,
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         delta: float = 1.0,
@@ -248,10 +248,10 @@ class NoteEvent(NodeEvent):
     def perform(
         self,
         context: Context,
-        proxy_mapping: dict[Union[UUID, tuple[UUID, int]], ContextObject],
+        proxy_mapping: dict[UUID | tuple[UUID, int], ContextObject],
         *,
         current_offset: float,
-        notes_mapping: dict[Union[UUID, tuple[UUID, int]], float],
+        notes_mapping: dict[UUID | tuple[UUID, int], float],
         priority: Priority,
         **kwargs,
     ) -> None:
@@ -260,7 +260,7 @@ class NoteEvent(NodeEvent):
             #    if yes, update settings
             #    if no, create proxy
             # update notes mapping with expected completion offset
-            settings: dict[str, Union[SupportsFloat, Sequence[SupportsFloat]]] = {}
+            settings: dict[str, SupportsFloat | Sequence[SupportsFloat]] = {}
             for key, value in self.kwargs.items():
                 if isinstance(value, UUID):
                     settings[key] = proxy_mapping[value]
@@ -312,7 +312,7 @@ class NullEvent(Event):
 class SynthAllocateEvent(NodeEvent):
     def __init__(
         self,
-        id_: Union[UUID, tuple[UUID, int]],
+        id_: UUID | tuple[UUID, int],
         synthdef: SynthDef,
         *,
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
@@ -333,14 +333,14 @@ class SynthAllocateEvent(NodeEvent):
     def perform(
         self,
         context: Context,
-        proxy_mapping: dict[Union[UUID, tuple[UUID, int]], ContextObject],
+        proxy_mapping: dict[UUID | tuple[UUID, int], ContextObject],
         *,
         current_offset: float,
-        notes_mapping: dict[Union[UUID, tuple[UUID, int]], float],
+        notes_mapping: dict[UUID | tuple[UUID, int], float],
         priority: Priority,
         **kwargs,
     ) -> None:
-        settings: dict[str, Union[SupportsFloat, Sequence[SupportsFloat]]] = {}
+        settings: dict[str, SupportsFloat | Sequence[SupportsFloat]] = {}
         for key, value in self.kwargs.items():
             if isinstance(value, UUID):
                 value = proxy_mapping[value]
