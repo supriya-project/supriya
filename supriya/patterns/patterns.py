@@ -10,7 +10,6 @@ import random
 from typing import (
     TYPE_CHECKING,
     Callable,
-    Coroutine,
     Generator,
     Generic,
     Iterator,
@@ -262,9 +261,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
     def _setup_state(self) -> UUIDDict | None:
         return None
 
-    def _setup_peripherals(
-        self, state: UUIDDict | None
-    ) -> tuple[Optional[T], Optional[T]]:
+    def _setup_peripherals(self, state: UUIDDict | None) -> tuple[T | None, T | None]:
         return None, None
 
     ### PUBLIC METHODS ###
@@ -276,16 +273,16 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
         callback: Optional[
             Callable[
                 ["PatternPlayer", ClockContext, Event, Priority],
-                Optional[Coroutine],
+                None,
             ]
         ] = None,
         clock: BaseClock,
-        quantization: Optional[Quantization] = None,
-        target_bus: Optional[Bus] = None,
-        target_node: Optional[Node] = None,
+        quantization: Quantization | None = None,
+        target_bus: Bus | None = None,
+        target_node: Node | None = None,
         tempo: float | None = None,
         until: float | None = None,
-        uuid: Optional[UUID] = None,
+        uuid: UUID | None = None,
     ) -> "PatternPlayer":
         from .players import PatternPlayer  # Avoid circular import
 

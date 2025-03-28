@@ -50,7 +50,7 @@ class Requestable(ABC):
 
     ### PUBLIC METHODS ###
 
-    def communicate(self, server: "Server", timeout: float = 1.0) -> Optional[Response]:
+    def communicate(self, server: "Server", timeout: float = 1.0) -> Response | None:
         (
             success_pattern,
             failure_pattern,
@@ -71,7 +71,7 @@ class Requestable(ABC):
 
     async def communicate_async(
         self, server: "AsyncServer", timeout: float = 1.0
-    ) -> Optional[Response]:
+    ) -> Response | None:
         (
             success_pattern,
             failure_pattern,
@@ -181,7 +181,7 @@ class AllocateBuffer(Request):
     buffer_id: SupportsInt
     frame_count: int
     channel_count: int = 1
-    on_completion: Optional[SupportsOsc] = None
+    on_completion: SupportsOsc | None = None
 
     def _get_response_patterns(
         self,
@@ -222,7 +222,7 @@ class AllocateReadBuffer(Request):
     path: PathLike
     starting_frame: int = 0
     frame_count: int = 0
-    on_completion: Optional[SupportsOsc] = None
+    on_completion: SupportsOsc | None = None
 
     def _get_response_patterns(
         self,
@@ -266,7 +266,7 @@ class AllocateReadBufferChannel(Request):
     channel_indices: Sequence[int]
     starting_frame: int = 0
     frame_count: int = 0
-    on_completion: Optional[SupportsOsc] = None
+    on_completion: SupportsOsc | None = None
 
     def _get_response_patterns(
         self,
@@ -1324,9 +1324,9 @@ class NewSynth(Request):
     synth_id: SupportsInt
     add_action: AddActionLike
     target_node_id: SupportsInt
-    controls: Optional[
-        dict[int | str, Union[float, str, tuple[float | str, ...]]]
-    ] = None
+    controls: Optional[dict[int | str, Union[float, str, tuple[float | str, ...]]]] = (
+        None
+    )
 
     def to_osc(self) -> OscMessage:
         contents: list[Union[float, str, tuple[float | str, ...]]] = [
@@ -1631,7 +1631,7 @@ class ReadBufferChannel(Request):
 
     buffer_id: SupportsInt
     path: PathLike
-    channel_indices: Optional[Sequence[int]] = None
+    channel_indices: Sequence[int] | None = None
     frame_count: int = -1
     leave_open: bool = False
     starting_frame_in_buffer: int = 0

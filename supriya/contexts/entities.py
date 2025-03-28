@@ -229,7 +229,7 @@ class Buffer(ContextObject):
 
     def get(
         self, *indices: int, sync: bool = True
-    ) -> Union[Awaitable[Optional[dict[int, float]]], Optional[dict[int, float]]]:
+    ) -> Union[Awaitable[dict[int, float] | None], dict[int, float] | None]:
         """
         Get a sample.
 
@@ -279,7 +279,7 @@ class Buffer(ContextObject):
 
     def query(
         self, sync: bool = True
-    ) -> Union[Awaitable[Optional[BufferInfo]], Optional[BufferInfo]]:
+    ) -> Union[Awaitable[BufferInfo | None], BufferInfo | None]:
         """
         Query the buffer.
 
@@ -299,7 +299,7 @@ class Buffer(ContextObject):
         file_path: PathLike,
         *,
         buffer_starting_frame: int | None = None,
-        channel_indices: Optional[list[int]] = None,
+        channel_indices: list[int] | None = None,
         frame_count: int | None = None,
         leave_open: bool = False,
         on_completion: Callable[["Context"], Any] | None = None,
@@ -762,7 +762,7 @@ class Node(ContextObject):
 
     def query(
         self, sync: bool = True
-    ) -> Union[Awaitable[Optional[NodeInfo]], Optional[NodeInfo]]:
+    ) -> Awaitable[NodeInfo | None] | (NodeInfo | None):
         """
         Query the node.
 
@@ -884,7 +884,7 @@ class Group(Node):
         self,
         include_controls: bool = True,
         sync: bool = True,
-    ) -> Union[Awaitable[Optional[QueryTreeGroup]], Optional[QueryTreeGroup]]:
+    ) -> Union[Awaitable[QueryTreeGroup | None], QueryTreeGroup | None]:
         """
         Dump the group's node tree.
 
@@ -916,7 +916,7 @@ class Group(Node):
         self,
         include_controls: bool = True,
         sync: bool = True,
-    ) -> Union[Awaitable[Optional[QueryTreeGroup]], Optional[QueryTreeGroup]]:
+    ) -> Union[Awaitable[QueryTreeGroup | None], QueryTreeGroup | None]:
         """
         Query the group's node tree.
 
@@ -986,8 +986,8 @@ class Synth(Node):
     synthdef: SynthDef
 
     def get(self, *controls: int | str, sync: bool = True) -> Union[
-        Awaitable[Optional[dict[int | str, float]]],
-        Optional[dict[int | str, float]],
+        Awaitable[dict[int | str, float] | None],
+        dict[int | str, float] | None,
     ]:
         """
         Get a control.
@@ -1004,9 +1004,7 @@ class Synth(Node):
             raise ContextError
         return self.context.get_synth_controls(self, *controls, sync=sync)
 
-    def get_range(
-        self, control: int | str, count: int, sync: bool = True
-    ) -> Union[
+    def get_range(self, control: int | str, count: int, sync: bool = True) -> Union[
         Awaitable[Sequence[float | str] | None],
         Sequence[float | str] | None,
     ]:

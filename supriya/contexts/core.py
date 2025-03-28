@@ -349,7 +349,7 @@ class Context(metaclass=abc.ABCMeta):
     def _get_options(self, options: Options | None, **kwargs) -> Options:
         return dataclasses.replace(options or Options(), **kwargs)
 
-    def _get_request_context(self) -> Optional[Union[Completion, Moment]]:
+    def _get_request_context(self) -> Completion | Moment | None:
         moments = self._thread_local.__dict__.get("moments", [])
         completions = self._thread_local.__dict__.get("completions", [])
         if completions:
@@ -614,9 +614,9 @@ class Context(metaclass=abc.ABCMeta):
             if add_action_ not in target_node._valid_add_actions:
                 raise ValueError(add_action_)
         target_node_id = self._resolve_node(target_node)
-        synthdef_kwargs: dict[
-            int | str, Union[float, str, tuple[float | str, ...]]
-        ] = {}
+        synthdef_kwargs: dict[int | str, Union[float, str, tuple[float | str, ...]]] = (
+            {}
+        )
         for _, parameter in synthdef.indexed_parameters:
             if parameter.name not in settings:
                 continue

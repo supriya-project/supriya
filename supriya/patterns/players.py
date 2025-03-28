@@ -2,7 +2,6 @@ from queue import Empty, PriorityQueue, Queue
 from threading import RLock
 from typing import (
     Callable,
-    Coroutine,
     Generator,
     Iterable,
     Optional,
@@ -41,9 +40,7 @@ class PatternPlayer:
         context: Context,
         clock: BaseClock,
         callback: Optional[
-            Callable[
-                ["PatternPlayer", ClockContext, Event, Priority], Optional[Coroutine]
-            ]
+            Callable[["PatternPlayer", ClockContext, Event, Priority], None]
         ] = None,
         target_bus: Optional[Bus] = None,
         target_node: Optional[Node] = None,
