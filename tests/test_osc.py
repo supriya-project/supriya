@@ -1,7 +1,6 @@
 import asyncio
 import concurrent.futures
 import logging
-from typing import List
 
 import pytest
 from uqbar.strings import normalize
@@ -91,7 +90,7 @@ async def test_OscProtocol(osc_protocol_class, process_protocol_class) -> None:
         healthcheck_failed.append(True)
 
     logger.info("START")
-    healthcheck_failed: List[bool] = []
+    healthcheck_failed: list[bool] = []
     port = find_free_port()
 
     logger.info("INIT PROCESS")
