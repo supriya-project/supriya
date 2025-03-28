@@ -12,7 +12,7 @@ class ChoicePattern(SequencePattern[T]):
         sequence: Sequence[Union[T, Pattern[T]]],
         iterations: int | None = 1,
         forbid_repetitions: bool = False,
-        weights: Optional[Sequence[float]] = None,
+        weights: Sequence[float] | None = None,
     ) -> None:
         super().__init__(sequence, iterations=iterations)
         self._forbid_repetitions = bool(forbid_repetitions)

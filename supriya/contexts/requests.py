@@ -715,8 +715,8 @@ class GenerateBuffer(Request):
     buffer_id: SupportsInt
     command_name: Literal["sine1", "sine2", "sine3", "cheby"]
     amplitudes: Sequence[float]
-    frequencies: Optional[Sequence[float]]
-    phases: Optional[Sequence[float]]
+    frequencies: Sequence[float] | None
+    phases: Sequence[float] | None
     as_wavetable: bool = False
     should_clear_first: bool = False
     should_normalize: bool = False

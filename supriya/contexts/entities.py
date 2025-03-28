@@ -197,8 +197,8 @@ class Buffer(ContextObject):
         self,
         command_name: Literal["sine1", "sine2", "sine3", "cheby"],
         amplitudes: Sequence[float],
-        frequencies: Optional[Sequence[float]] = None,
-        phases: Optional[Sequence[float]] = None,
+        frequencies: Sequence[float] | None = None,
+        phases: Sequence[float] | None = None,
         as_wavetable: bool = False,
         should_clear_first: bool = False,
         should_normalize: bool = False,
@@ -247,7 +247,7 @@ class Buffer(ContextObject):
 
     def get_range(
         self, index: int, count: int, sync: bool = True
-    ) -> Union[Awaitable[Optional[Sequence[float]]], Optional[Sequence[float]]]:
+    ) -> Union[Awaitable[Sequence[float] | None], Sequence[float] | None]:
         """
         Get a sample range.
 
@@ -505,7 +505,7 @@ class Bus(ContextObject):
 
     def get_range(
         self, count: int, sync: bool = True
-    ) -> Union[Awaitable[Optional[Sequence[float]]], Optional[Sequence[float]]]:
+    ) -> Union[Awaitable[Sequence[float] | None], Sequence[float] | None]:
         """
         Get a range of control bus values.
 
@@ -604,7 +604,7 @@ class BusGroup(ContextObject):
 
     def get(
         self, sync: bool = True
-    ) -> Union[Awaitable[Optional[Sequence[float]]], Optional[Sequence[float]]]:
+    ) -> Union[Awaitable[Sequence[float] | None], Sequence[float] | None]:
         """
         Get the control bus group's values.
 
