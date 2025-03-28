@@ -11,10 +11,11 @@ from collections.abc import Sequence
 from functools import total_ordering
 from typing import (
     Any,
-    Callable,
     Deque,
     Literal,
     NamedTuple,
+    Protocol,
+    TypeAlias,
     Union,
 )
 
@@ -96,11 +97,21 @@ class Command(Action):
     time_unit: TimeUnit | None
 
 
+ClockDelta: TypeAlias = float | tuple[float, TimeUnit] | None
+
+
+class ClockCallback(Protocol):
+    def __call__(
+        self, context: "ClockContext", *args: Any, **kwargs: Any
+    ) -> ClockDelta:
+        pass
+
+
 @dataclasses.dataclass(frozen=True)
 class CallbackCommand(Command):
     args: tuple | None
     kwargs: dict | None
-    procedure: Callable[["ClockContext"], Union[None, float, tuple[float, TimeUnit]]]
+    procedure: ClockCallback
 
 
 @dataclasses.dataclass(frozen=True)
@@ -139,7 +150,7 @@ class Event(Action):
 
 @dataclasses.dataclass(frozen=True, eq=False)
 class CallbackEvent(Event):
-    procedure: Callable[["ClockContext"], Union[None, float, tuple[float, TimeUnit]]]
+    procedure: ClockCallback
     args: tuple | None
     kwargs: dict | None
     invocations: int
@@ -733,7 +744,7 @@ class BaseClock:
 
     def cue(
         self,
-        procedure: Callable,
+        procedure: ClockCallback,
         *,
         args: Sequence[Any] | None = None,
         event_type: int = EventType.SCHEDULE,
@@ -821,7 +832,7 @@ class BaseClock:
 
     def schedule(
         self,
-        procedure: Callable,
+        procedure: ClockCallback,
         *,
         args: Sequence[Any] | None = None,
         event_type: int = EventType.SCHEDULE,

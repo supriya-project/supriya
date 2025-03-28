@@ -11,7 +11,7 @@ import pytest_asyncio
 from pytest import MonkeyPatch
 from pytest_mock import MockerFixture
 
-from supriya.clocks import AsyncClock, CallbackEvent, ClockContext, TimeUnit
+from supriya.clocks import AsyncClock, CallbackEvent, ClockContext, ClockDelta, TimeUnit
 
 repeat_count = 5
 
@@ -42,12 +42,13 @@ async def clock(
 
 def callback(
     context: ClockContext,
+    *,
     store: list[ClockContext],
     blow_up_at: int | None = None,
     delta: float = 0.25,
     limit: int | None = 4,
     time_unit: TimeUnit = TimeUnit.BEATS,
-) -> tuple[float, TimeUnit] | None:
+) -> ClockDelta:
     assert isinstance(context.event, CallbackEvent)
     if context.event.invocations == blow_up_at:
         raise Exception

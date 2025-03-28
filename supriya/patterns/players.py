@@ -15,6 +15,7 @@ from ..clocks import (
     BaseClock,
     CallbackEvent,
     ClockContext,
+    ClockDelta,
     Quantization,
 )
 from ..contexts import Bus, Context, ContextObject, Node
@@ -70,10 +71,8 @@ class PatternPlayer:
         )
         self._yielded = False
 
-    def _clock_callback(
-        self, clock_context: ClockContext, *args, **kwargs
-    ) -> float | None:
-        for clock_context, seconds, offset, events in self._find_events(clock_context):
+    def _clock_callback(self, context: ClockContext, *args, **kwargs) -> ClockDelta:
+        for clock_context, seconds, offset, events in self._find_events(context):
             if self._initial_seconds is None:
                 self._initial_seconds = seconds
             with self._context.at(seconds):
@@ -170,9 +169,7 @@ class PatternPlayer:
             pass
         return False
 
-    def _stop_callback(
-        self, clock_context: ClockContext, *args, **kwargs
-    ) -> float | None:
+    def _stop_callback(self, context: ClockContext, *args, **kwargs) -> ClockDelta:
         with self._lock:
             # Do we need to rebuild the queue? Yes.
             # Do we need to free all playing notes? Yes.
@@ -180,10 +177,10 @@ class PatternPlayer:
             # They'll be no-ops when performed.
             self._is_stopping = True
             self._clock.reschedule(
-                self._clock_event_id, schedule_at=clock_context.desired_moment.offset
+                self._clock_event_id, schedule_at=context.desired_moment.offset
             )
-            self._reschedule_queue(clock_context.desired_moment.offset)
-            self._free_all_notes(clock_context.desired_moment.seconds)
+            self._reschedule_queue(context.desired_moment.offset)
+            self._free_all_notes(context.desired_moment.seconds)
             self._clock_event_id = -1
             self._clock_stop_event_id = -1
         return None
