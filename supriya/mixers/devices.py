@@ -1,5 +1,3 @@
-from typing import List
-
 from ..contexts import AsyncServer
 from ..enums import AddAction
 from ..ugens import SynthDef
@@ -10,20 +8,24 @@ from .synthdefs import DEVICE_DC_TESTER_2
 class DeviceContainer(AllocatableComponent[C]):
 
     def __init__(self) -> None:
-        self._devices: List[Device] = []
+        self._devices: list[Device] = []
+
+    def _add_device(self) -> "Device":
+        self._devices.append(device := Device(parent=self))
+        return device
 
     def _delete_device(self, device: "Device") -> None:
         self._devices.remove(device)
 
     async def add_device(self) -> "Device":
         async with self._lock:
-            self._devices.append(device := Device(parent=self))
+            device = self._add_device()
             if context := self._can_allocate():
                 await device._allocate_deep(context=context)
             return device
 
     @property
-    def devices(self) -> List["Device"]:
+    def devices(self) -> list["Device"]:
         return self._devices[:]
 
 
@@ -47,7 +49,7 @@ class Device(AllocatableComponent):
             )
         return True
 
-    def _get_synthdefs(self) -> List[SynthDef]:
+    def _get_synthdefs(self) -> list[SynthDef]:
         return [DEVICE_DC_TESTER_2]
 
     async def set_active(self, active: bool = True) -> None:

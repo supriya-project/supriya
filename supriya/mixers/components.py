@@ -2,24 +2,16 @@ import asyncio
 from typing import (
     TYPE_CHECKING,
     Awaitable,
-    Dict,
     Generator,
     Generic,
     Iterator,
-    List,
     Literal,
     Optional,
-    Set,
-    Tuple,
     Type,
     TypeVar,
     cast,
 )
-
-try:
-    from typing import TypeAlias
-except ImportError:
-    from typing_extensions import TypeAlias  # noqa
+from typing import TypeAlias
 
 from ..contexts import AsyncServer, Buffer, BusGroup, Context, Group, Node
 from ..contexts.responses import QueryTreeGroup
@@ -60,13 +52,13 @@ class Component(Generic[C]):
     def __init__(
         self,
         *,
-        parent: Optional[C] = None,
+        parent: C | None = None,
     ) -> None:
         self._lock = asyncio.Lock()
-        self._parent: Optional[C] = parent
-        self._dependents: Set[Component] = set()
+        self._parent: C | None = parent
+        self._dependents: set[Component] = set()
         self._is_active = True
-        self._feedback_dependents: Set[Component] = set()
+        self._feedback_dependents: set[Component] = set()
 
     def __repr__(self) -> str:
         return f"<{type(self).__name__}>"
@@ -74,9 +66,9 @@ class Component(Generic[C]):
     async def _allocate_deep(self, *, context: AsyncServer) -> None:
         if self.session is None:
             raise RuntimeError
-        fifo: List[Tuple[Component, int]] = []
+        fifo: list[tuple[Component, int]] = []
         current_synthdefs = self.session._synthdefs[context]
-        desired_synthdefs: Set[SynthDef] = set()
+        desired_synthdefs: set[SynthDef] = set()
         for component in self._walk():
             fifo.append((component, 0))
             desired_synthdefs.update(component._get_synthdefs())
@@ -108,7 +100,7 @@ class Component(Generic[C]):
         self._deallocate_deep()
         self._parent = None
 
-    def _get_synthdefs(self) -> List[SynthDef]:
+    def _get_synthdefs(self) -> list[SynthDef]:
         return []
 
     def _iterate_parentage(self) -> Iterator["Component"]:
@@ -118,15 +110,15 @@ class Component(Generic[C]):
             component = component.parent
         yield component
 
-    def _reconcile(self, context: Optional[AsyncServer] = None) -> bool:
+    def _reconcile(self, context: AsyncServer | None = None) -> bool:
         return True
 
     def _register_dependency(self, dependent: "Component") -> None:
         self._dependents.add(dependent)
 
     def _register_feedback(
-        self, context: Optional[AsyncServer], dependent: "Component"
-    ) -> Optional[BusGroup]:
+        self, context: AsyncServer | None, dependent: "Component"
+    ) -> BusGroup | None:
         self._dependents.add(dependent)
         self._feedback_dependents.add(dependent)
         return None
@@ -141,7 +133,7 @@ class Component(Generic[C]):
         return had_feedback and not self._feedback_dependents
 
     def _walk(
-        self, component_class: Optional[Type["Component"]] = None
+        self, component_class: Type["Component"] | None = None
     ) -> Generator["Component", None, None]:
         component_class_ = component_class or Component
         if isinstance(self, component_class_):
@@ -154,17 +146,17 @@ class Component(Generic[C]):
         raise NotImplementedError
 
     @property
-    def children(self) -> List["Component"]:
+    def children(self) -> list["Component"]:
         return []
 
     @property
-    def context(self) -> Optional[AsyncServer]:
+    def context(self) -> AsyncServer | None:
         if (mixer := self.mixer) is not None:
             return mixer.context
         return None
 
     @property
-    def graph_order(self) -> Tuple[int, ...]:
+    def graph_order(self) -> tuple[int, ...]:
         # TODO: Cache this
         graph_order = []
         for parent, child in iterate_nwise(reversed(list(self._iterate_parentage()))):
@@ -182,11 +174,11 @@ class Component(Generic[C]):
         return None
 
     @property
-    def parent(self) -> Optional[C]:
+    def parent(self) -> C | None:
         return self._parent
 
     @property
-    def parentage(self) -> List["Component"]:
+    def parentage(self) -> list["Component"]:
         # TODO: Cache this
         return list(self._iterate_parentage())
 
@@ -218,17 +210,17 @@ class AllocatableComponent(Component[C]):
     def __init__(
         self,
         *,
-        parent: Optional[C] = None,
+        parent: C | None = None,
     ) -> None:
         super().__init__(parent=parent)
-        self._audio_buses: Dict[str, BusGroup] = {}
-        self._buffers: Dict[str, Buffer] = {}
-        self._context: Optional[Context] = None
-        self._control_buses: Dict[str, BusGroup] = {}
+        self._audio_buses: dict[str, BusGroup] = {}
+        self._buffers: dict[str, Buffer] = {}
+        self._context: Context | None = None
+        self._control_buses: dict[str, BusGroup] = {}
         self._is_active: bool = True
-        self._nodes: Dict[str, Node] = {}
+        self._nodes: dict[str, Node] = {}
 
-    def _can_allocate(self) -> Optional[AsyncServer]:
+    def _can_allocate(self) -> AsyncServer | None:
         if (
             context := self.context
         ) is not None and context.boot_status == BootStatus.ONLINE:
@@ -252,7 +244,7 @@ class AllocatableComponent(Component[C]):
 
     def _get_audio_bus(
         self,
-        context: Optional[AsyncServer],
+        context: AsyncServer | None,
         name: str,
         can_allocate: bool = False,
         channel_count: int = 2,
@@ -267,7 +259,7 @@ class AllocatableComponent(Component[C]):
 
     def _get_buses(
         self,
-        context: Optional[AsyncServer],
+        context: AsyncServer | None,
         name: str,
         *,
         calculation_rate: CalculationRate,
@@ -289,7 +281,7 @@ class AllocatableComponent(Component[C]):
 
     def _get_control_bus(
         self,
-        context: Optional[AsyncServer],
+        context: AsyncServer | None,
         name: str,
         can_allocate: bool = False,
         channel_count: int = 1,
@@ -310,7 +302,7 @@ class AllocatableComponent(Component[C]):
             cast(Group, self._nodes[ComponentNames.GROUP]).dump_tree(),
         )
         if annotated:
-            annotations: Dict[int, str] = {}
+            annotations: dict[int, str] = {}
             for component in self._walk():
                 if not isinstance(component, AllocatableComponent):
                     continue

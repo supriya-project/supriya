@@ -1,4 +1,4 @@
-from typing import List, Optional, Tuple, Union, cast
+from typing import Union, cast
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
@@ -13,14 +13,11 @@ from .synthdefs import CHANNEL_STRIP_2, FB_PATCH_CABLE_2_2, METERS_2, PATCH_CABL
 class TrackContainer(AllocatableComponent[C]):
 
     def __init__(self) -> None:
-        self._tracks: List[Track] = []
+        self._tracks: list[Track] = []
 
     def _add_track(self) -> "Track":
         self._tracks.append(track := Track(parent=self))
         return track
-
-    def _delete_track(self, track: "Track") -> None:
-        self._tracks.remove(track)
 
     def _group(self, index: int, count: int) -> "Track":
         if index < 0:
@@ -48,7 +45,7 @@ class TrackContainer(AllocatableComponent[C]):
             return self._group(index=index, count=count)
 
     @property
-    def tracks(self) -> List["Track"]:
+    def tracks(self) -> list["Track"]:
         return self._tracks[:]
 
 
@@ -57,7 +54,7 @@ class TrackFeedback(Connection["Track", BusGroup, "Track"]):
         self,
         *,
         parent: "Track",
-        source: Optional[BusGroup] = None,
+        source: BusGroup | None = None,
     ) -> None:
         super().__init__(
             name="feedback",
@@ -84,13 +81,13 @@ class TrackFeedback(Connection["Track", BusGroup, "Track"]):
         )
 
 
-class TrackInput(Connection["Track", Union[BusGroup, TrackContainer], "Track"]):
+class TrackInput(Connection["Track", Union[BusGroup, "Track"], "Track"]):
 
     def __init__(
         self,
         *,
         parent: "Track",
-        source: Optional[Union[BusGroup, "Track"]] = None,
+        source: Union[BusGroup, "Track"] | None = None,
     ) -> None:
         super().__init__(
             name="input",
@@ -117,22 +114,23 @@ class TrackInput(Connection["Track", Union[BusGroup, TrackContainer], "Track"]):
             synthdef=FB_PATCH_CABLE_2_2 if new_state.feedsback else PATCH_CABLE_2_2,
         )
 
-    async def set_source(self, source: Optional[Union[BusGroup, "Track"]]) -> None:
+    def _set_source(self, source: Union[BusGroup, "Track"] | None) -> None:
+        if source is self.parent:
+            raise RuntimeError
+        super()._set_source(source)
+
+    async def set_source(self, source: Union[BusGroup, "Track"] | None) -> None:
         async with self._lock:
-            if source is self.parent:
-                raise RuntimeError
             self._set_source(source)
 
 
-class TrackOutput(
-    Connection["Track", "Track", Union[BusGroup, Default, TrackContainer]]
-):
+class TrackOutput(Connection["Track", "Track", BusGroup | Default | TrackContainer]):
 
     def __init__(
         self,
         *,
         parent: "Track",
-        target: Optional[Union[BusGroup, Default, TrackContainer]] = DEFAULT,
+        target: BusGroup | Default | TrackContainer | None = DEFAULT,
     ) -> None:
         super().__init__(
             name="output",
@@ -142,16 +140,19 @@ class TrackOutput(
         )
 
     def _resolve_default_target(
-        self, context: Optional[AsyncServer]
-    ) -> Tuple[Optional[AllocatableComponent], Optional[BusGroup]]:
+        self, context: AsyncServer | None
+    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
         return (self.parent and self.parent.parent), None
 
+    def _set_target(self, target: BusGroup | Default | TrackContainer | None) -> None:
+        if target is self.parent:
+            raise RuntimeError
+        super()._set_target(target)
+
     async def set_target(
-        self, target: Optional[Union[BusGroup, Default, TrackContainer]]
+        self, target: BusGroup | Default | TrackContainer | None
     ) -> None:
         async with self._lock:
-            if target is self.parent:
-                raise RuntimeError
             self._set_target(target)
 
 
@@ -191,9 +192,14 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
         )
 
     def _resolve_default_source(
-        self, context: Optional[AsyncServer]
-    ) -> Tuple[Optional[AllocatableComponent], Optional[BusGroup]]:
+        self, context: AsyncServer | None
+    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
         return self.parent, None
+
+    def _set_target(self, target: TrackContainer | None) -> None:
+        if target is self.parent:
+            raise RuntimeError
+        super()._set_target(target)
 
     async def delete(self) -> None:
         async with self._lock:
@@ -207,8 +213,6 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
 
     async def set_target(self, target: TrackContainer) -> None:
         async with self._lock:
-            if target is self.parent:
-                raise RuntimeError
             self._set_target(target)
 
     @property
@@ -223,9 +227,9 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
         return self._postfader
 
     @property
-    def target(self) -> Union[AllocatableComponent, BusGroup]:
+    def target(self) -> AllocatableComponent | BusGroup:
         # TODO: Can this be parameterized via generics?
-        return cast(Union[AllocatableComponent, BusGroup], self._target)
+        return cast(AllocatableComponent | BusGroup, self._target)
 
 
 class Track(TrackContainer[TrackContainer], DeviceContainer):
@@ -233,12 +237,12 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
     # TODO: add_device() -> Device
     # TODO: group_devices(index: int, count: int) -> Rack
     # TODO: group_tracks(index: int, count: int) -> Track
-    # TODO: set_channel_count(self, channel_count: Optional[ChannelCount] = None) -> None
+    # TODO: set_channel_count(self, channel_count: ChannelCount | None = None) -> None
 
     def __init__(
         self,
         *,
-        parent: Optional[TrackContainer] = None,
+        parent: TrackContainer | None = None,
     ) -> None:
         AllocatableComponent.__init__(self, parent=parent)
         DeviceContainer.__init__(self)
@@ -249,7 +253,7 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
         self._is_soloed: bool = False
         self._output = TrackOutput(parent=self)
         # TODO: Are sends the purview of track containers in general?
-        self._sends: List[TrackSend] = []
+        self._sends: list[TrackSend] = []
 
     def _add_send(
         self, target: TrackContainer, postfader: bool = True, inverted: bool = False
@@ -323,7 +327,12 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
             )
         return True
 
-    def _get_synthdefs(self) -> List[SynthDef]:
+    def _delete(self) -> None:
+        if self._parent is not None:
+            self._parent._tracks.remove(self)
+        super()._delete()
+
+    def _get_synthdefs(self) -> list[SynthDef]:
         return [
             CHANNEL_STRIP_2,
             METERS_2,
@@ -365,8 +374,8 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
             component._reconcile(context)
 
     def _register_feedback(
-        self, context: Optional[AsyncServer], dependent: "Component"
-    ) -> Optional[BusGroup]:
+        self, context: AsyncServer | None, dependent: "Component"
+    ) -> BusGroup | None:
         super()._register_feedback(context, dependent)
         # check if feedback should be setup
         if not context:
@@ -441,15 +450,13 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
     async def delete(self) -> None:
         # TODO: What are delete semantics actually?
         async with self._lock:
-            if self._parent is not None:
-                self._parent._delete_track(self)
             self._delete()
 
     async def move(self, parent: TrackContainer, index: int) -> None:
         async with self._lock:
             self._move(parent=parent, index=index)
 
-    async def set_input(self, input_: Optional[Union[BusGroup, "Track"]]) -> None:
+    async def set_input(self, input_: Union[BusGroup, "Track"] | None) -> None:
         await self._input.set_source(input_)
 
     async def set_muted(self, muted: bool = True) -> None:
@@ -457,7 +464,7 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
             self._set_muted(muted)
 
     async def set_output(
-        self, output: Optional[Union[BusGroup, Default, TrackContainer]]
+        self, output: BusGroup | Default | TrackContainer | None
     ) -> None:
         await self._output.set_target(output)
 
@@ -477,7 +484,7 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
         return f"{self.parent.address}.tracks[{index}]"
 
     @property
-    def children(self) -> List[Component]:
+    def children(self) -> list[Component]:
         prefader_sends = []
         postfader_sends = []
         for send in self._sends:
@@ -496,11 +503,11 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
         ]
 
     @property
-    def input_(self) -> Optional[Union[BusGroup, TrackContainer]]:
+    def input_(self) -> BusGroup | TrackContainer | None:
         return self._input._source
 
     @property
-    def input_levels(self) -> Tuple[float, ...]:
+    def input_levels(self) -> tuple[float, ...]:
         if (
             (bus := self._control_buses.get(ComponentNames.INPUT_LEVELS))
             and (context := self._can_allocate())
@@ -514,11 +521,11 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
         return self._is_active
 
     @property
-    def output(self) -> Optional[Union[BusGroup, Default, TrackContainer]]:
+    def output(self) -> BusGroup | Default | TrackContainer | None:
         return self._output._target
 
     @property
-    def output_levels(self) -> Tuple[float, ...]:
+    def output_levels(self) -> tuple[float, ...]:
         if (
             (bus := self._control_buses.get(ComponentNames.OUTPUT_LEVELS))
             and (context := self._can_allocate())
@@ -529,5 +536,5 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
         return (0.0,) * 2
 
     @property
-    def sends(self) -> List[TrackSend]:
+    def sends(self) -> list[TrackSend]:
         return self._sends[:]

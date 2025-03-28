@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import re
-from typing import TYPE_CHECKING, Dict, List, Optional, Sequence, Set, Union
+from typing import TYPE_CHECKING, Sequence
 
 from ..clocks import AsyncClock
 from ..contexts import AsyncServer
@@ -36,14 +36,14 @@ class Session(Component):
         from .mixers import Mixer
 
         super().__init__()
-        self._boot_future: Optional[asyncio.Future] = None
+        self._boot_future: asyncio.Future | None = None
         self._clock = AsyncClock()
-        self._contexts: Dict[AsyncServer, List[Mixer]] = {}
+        self._contexts: dict[AsyncServer, list[Mixer]] = {}
         self._lock = asyncio.Lock()
-        self._mixers: Dict[Mixer, AsyncServer] = {}
-        self._quit_future: Optional[asyncio.Future] = None
+        self._mixers: dict[Mixer, AsyncServer] = {}
+        self._quit_future: asyncio.Future | None = None
         self._status = BootStatus.OFFLINE
-        self._synthdefs: Dict[AsyncServer, Set[SynthDef]] = {}
+        self._synthdefs: dict[AsyncServer, set[SynthDef]] = {}
         # add initial context and mixer
 
     def __getitem__(self, key: str) -> "Component":
@@ -51,7 +51,7 @@ class Session(Component):
             raise ValueError(key)
         elif not re.match(r"^[a-z_]+(\[\d+\])?(\.[a-z_]+(\[\d+\])?)*$", key):
             raise ValueError(key)
-        item: Union[Component, Sequence[Component]] = self
+        item: Component | Sequence[Component] = self
         for part in key.split("."):
             if not (match := re.match(r"^([a-z_]+)(\[(\d+)\])?$", part)):
                 raise ValueError(key, part)
@@ -69,7 +69,7 @@ class Session(Component):
         return f"<{type(self).__name__}>"
 
     def __str__(self) -> str:
-        parts: List[str] = [f"<{type(self).__name__} status={self.status.name}>"]
+        parts: list[str] = [f"<{type(self).__name__} status={self.status.name}>"]
         for context, mixers in self._contexts.items():
             parts.append(
                 f"    <{type(context).__name__} address={context.options.ip_address}:{context.options.port}>"
@@ -95,7 +95,7 @@ class Session(Component):
                 await context.boot(port=find_free_port())
             return context
 
-    async def add_mixer(self, context: Optional[AsyncServer] = None) -> "Mixer":
+    async def add_mixer(self, context: AsyncServer | None = None) -> "Mixer":
         from .mixers import Mixer
 
         async with self._lock:
@@ -149,7 +149,7 @@ class Session(Component):
         # and then the node tree needs to get partitioned by subtrees
         if self.status != BootStatus.ONLINE:
             raise RuntimeError
-        parts: List[str] = []
+        parts: list[str] = []
         for context, mixers in self._contexts.items():
             parts.append(repr(context))
             for mixer in mixers:
@@ -204,15 +204,15 @@ class Session(Component):
         return "session"
 
     @property
-    def children(self) -> List[Component]:
+    def children(self) -> list[Component]:
         return list(self._mixers)
 
     @property
-    def contexts(self) -> List[AsyncServer]:
+    def contexts(self) -> list[AsyncServer]:
         return list(self._contexts)
 
     @property
-    def mixers(self) -> List["Mixer"]:
+    def mixers(self) -> list["Mixer"]:
         return list(self._mixers)
 
     @property

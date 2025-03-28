@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, List, Optional, Set, Tuple
+from typing import TYPE_CHECKING, Optional
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
@@ -44,8 +44,8 @@ class MixerOutput(Connection["Mixer", "Mixer", Default]):
         )
 
     def _resolve_default_target(
-        self, context: Optional[AsyncServer]
-    ) -> Tuple[Optional[AllocatableComponent], Optional[BusGroup]]:
+        self, context: AsyncServer | None
+    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
         if not context:
             return None, None
         return None, context.audio_output_bus_group
@@ -63,7 +63,7 @@ class Mixer(TrackContainer["Session"], DeviceContainer):
         DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
         self._output = MixerOutput(parent=self)
-        self._soloed_tracks: Set[Track] = set()
+        self._soloed_tracks: set[Track] = set()
 
     def _allocate(self, context: AsyncServer) -> bool:
         if not super()._allocate(context=context):
@@ -124,7 +124,7 @@ class Mixer(TrackContainer["Session"], DeviceContainer):
             )
         return True
 
-    def _get_synthdefs(self) -> List[SynthDef]:
+    def _get_synthdefs(self) -> list[SynthDef]:
         return [
             CHANNEL_STRIP_2,
             METERS_2,
@@ -145,11 +145,11 @@ class Mixer(TrackContainer["Session"], DeviceContainer):
         return f"session.mixers[{index}]"
 
     @property
-    def children(self) -> List[Component]:
+    def children(self) -> list[Component]:
         return [*self._tracks, *self._devices, self._output]
 
     @property
-    def context(self) -> Optional[AsyncServer]:
+    def context(self) -> AsyncServer | None:
         if self.parent is None:
             return None
         return self.parent._mixers[self]

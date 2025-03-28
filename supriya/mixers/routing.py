@@ -1,11 +1,7 @@
 import dataclasses
 import enum
-from typing import Generic, List, Optional, Tuple, TypeVar, Union
-
-try:
-    from typing import TypeAlias
-except ImportError:
-    from typing_extensions import TypeAlias  # noqa
+from typing import Generic, TypeVar, Optional
+from typing import TypeAlias
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
@@ -14,7 +10,7 @@ from ..ugens import SynthDef
 from .components import A, AllocatableComponent, ComponentNames
 from .synthdefs import FB_PATCH_CABLE_2_2, PATCH_CABLE_2_2
 
-Connectable: TypeAlias = Union[AllocatableComponent, BusGroup, Default]
+Connectable: TypeAlias = AllocatableComponent | BusGroup | Default
 
 
 class DefaultBehavior(enum.Enum):
@@ -31,23 +27,23 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
 
     @dataclasses.dataclass
     class State:
-        feedsback: Optional[bool] = None
+        feedsback: bool | None = None
         inverted: bool = False
         postfader: bool = True
-        source_bus: Optional[BusGroup] = None
-        source_component: Optional[AllocatableComponent] = None
-        target_bus: Optional[BusGroup] = None
-        target_component: Optional[AllocatableComponent] = None
+        source_bus: BusGroup | None = None
+        source_component: AllocatableComponent | None = None
+        target_bus: BusGroup | None = None
+        target_component: AllocatableComponent | None = None
 
     def __init__(
         self,
         *,
         name: str,
-        source: Optional[S],
-        target: Optional[T],
+        source: S | None,
+        target: T | None,
         gain: float = 0.0,
         inverted: bool = False,
-        parent: Optional[A] = None,
+        parent: A | None = None,
         postfader: bool = True,
         writing: bool = True,
     ) -> None:
@@ -92,12 +88,12 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
         #       suite doesn't need to special case node or bus IDs.
         self._reconcile(new_state=self.State())
 
-    def _get_synthdefs(self) -> List[SynthDef]:
+    def _get_synthdefs(self) -> list[SynthDef]:
         return [FB_PATCH_CABLE_2_2, PATCH_CABLE_2_2]
 
     def _reconcile(
         self,
-        context: Optional[AsyncServer] = None,
+        context: AsyncServer | None = None,
         new_state: Optional["Connection.State"] = None,
     ) -> bool:
         new_state = new_state or self._resolve_state(context)
@@ -129,7 +125,7 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
             new_state.target_component._unregister_feedback(self)
 
     def _reconcile_synth(
-        self, context: Optional[AsyncServer], new_state: "Connection.State"
+        self, context: AsyncServer | None, new_state: "Connection.State"
     ) -> None:
         if self.parent is None:
             return
@@ -148,23 +144,23 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
                 )
 
     def _resolve_default_source(
-        self, context: Optional[AsyncServer]
-    ) -> Tuple[Optional[AllocatableComponent], Optional[BusGroup]]:
+        self, context: AsyncServer | None
+    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
         # return self.parent
         raise NotImplementedError
 
     def _resolve_default_target(
-        self, context: Optional[AsyncServer]
-    ) -> Tuple[Optional[AllocatableComponent], Optional[BusGroup]]:
+        self, context: AsyncServer | None
+    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
         # return self.parent and self.parent.parent
         raise NotImplementedError
 
     def _resolve_feedback(
         self,
-        context: Optional[AsyncServer],
-        source_component: Optional[AllocatableComponent],
-        target_component: Optional[AllocatableComponent],
-    ) -> Tuple[Optional[bool], Optional[BusGroup]]:
+        context: AsyncServer | None,
+        source_component: AllocatableComponent | None,
+        target_component: AllocatableComponent | None,
+    ) -> tuple[bool | None, BusGroup | None]:
         feedsback, target_bus = None, None
         try:
             source_order = source_component.graph_order if source_component else None
@@ -179,8 +175,8 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
         return feedsback, target_bus
 
     def _resolve_source(
-        self, context: Optional[AsyncServer]
-    ) -> Tuple[Optional[AllocatableComponent], Optional[BusGroup]]:
+        self, context: AsyncServer | None
+    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
         # resolve source
         source_component, source_bus = None, None
         if isinstance(self._source, BusGroup):
@@ -193,9 +189,7 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
             source_bus = source_component._audio_buses.get(ComponentNames.MAIN)
         return source_component, source_bus
 
-    def _resolve_state(
-        self, context: Optional[AsyncServer] = None
-    ) -> "Connection.State":
+    def _resolve_state(self, context: AsyncServer | None = None) -> "Connection.State":
         source_component, source_bus = self._resolve_source(context)
         target_component, target_bus = self._resolve_target(context)
         feedsback, feedback_bus = self._resolve_feedback(
@@ -212,8 +206,8 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
         )
 
     def _resolve_target(
-        self, context: Optional[AsyncServer]
-    ) -> Tuple[Optional[AllocatableComponent], Optional[BusGroup]]:
+        self, context: AsyncServer | None
+    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
         target_component, target_bus = None, None
         if isinstance(self._target, BusGroup):
             target_bus = self._target
@@ -235,13 +229,13 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
         self._postfader = postfader
         self._reconcile(context=self._can_allocate())
 
-    def _set_source(self, source: Optional[S]) -> None:
+    def _set_source(self, source: S | None) -> None:
         if isinstance(source, AllocatableComponent) and self.mixer is not source.mixer:
             raise RuntimeError
         self._source = source
         self._reconcile(context=self._can_allocate())
 
-    def _set_target(self, target: Optional[T]) -> None:
+    def _set_target(self, target: T | None) -> None:
         if isinstance(target, AllocatableComponent) and self.mixer is not target.mixer:
             raise RuntimeError
         self._target = target
@@ -250,10 +244,10 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
     @classmethod
     def feedsback(
         cls,
-        source_order: Optional[Tuple[int, ...]],
-        target_order: Optional[Tuple[int, ...]],
+        source_order: tuple[int, ...] | None,
+        target_order: tuple[int, ...] | None,
         writing: bool = True,
-    ) -> Optional[bool]:
+    ) -> bool | None:
         if source_order is None or target_order is None:
             return None
         length = min(len(target_order), len(source_order))
