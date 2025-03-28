@@ -27,9 +27,10 @@ async def test_Mixer_delete(
     expected_diff: str,
     mixer: Mixer,
     online: bool,
-    session: Session,
+    complex_session: tuple[Session, str],
 ) -> None:
     # Pre-conditions
+    session, initial_tree = complex_session
     print("Pre-conditions")
     if online:
         await session.boot()

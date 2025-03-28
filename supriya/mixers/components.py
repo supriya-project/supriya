@@ -8,10 +8,10 @@ from typing import (
     Literal,
     Optional,
     Type,
+    TypeAlias,
     TypeVar,
     cast,
 )
-from typing import TypeAlias
 
 from ..contexts import AsyncServer, Buffer, BusGroup, Context, Group, Node
 from ..contexts.responses import QueryTreeGroup

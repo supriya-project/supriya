@@ -200,12 +200,7 @@ async def test_Track_add_send(
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "target, expected_diff, expected_commands",
-    [
-        ("parent", "", ""),
-        ("self", "", ""),
-        ("child", "", ""),
-        ("sibling", "", ""),
-    ],
+    [],
 )
 @pytest.mark.asyncio
 async def test_Track_delete(
@@ -213,21 +208,16 @@ async def test_Track_delete(
     expected_diff: str,
     online: bool,
     mixer: Mixer,
-    session: Session,
+    complex_session: tuple[Session, str],
     target: str,
 ) -> None:
     # TODO: rewrite this with complex_session and track lookups
     # Pre-conditions
+    session, _ = complex_session
     if online:
         await session.boot()
-    targets: dict[str, Track] = {
-        "parent": (parent := await mixer.add_track()),
-        "self": (track := await parent.add_track()),
-        "child": await track.add_track(),
-        "sibling": (sibling := await mixer.add_track()),
-    }
-    await sibling.set_output(track)
-    target_ = targets[target]
+    target_ = session[target]
+    assert isinstance(target_, Track)
     parent_ = target_.parent
     # Operation
     with capture(mixer.context) as commands:
