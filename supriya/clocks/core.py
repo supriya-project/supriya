@@ -11,18 +11,20 @@ from collections.abc import Sequence
 from functools import total_ordering
 from typing import (
     Any,
+    Awaitable,
     Deque,
+    Generic,
     Literal,
     NamedTuple,
     Protocol,
     TypeAlias,
+    TypeVar,
     Union,
 )
 
 from .. import conversions
 
 logger = logging.getLogger(__name__)
-
 
 Quantization = Literal[
     "8M",
@@ -107,11 +109,18 @@ class ClockCallback(Protocol):
         pass
 
 
+class AsyncClockCallback(Protocol):
+    def __call__(
+        self, context: "ClockContext", *args: Any, **kwargs: Any
+    ) -> Awaitable[ClockDelta] | ClockDelta:
+        pass
+
+
 @dataclasses.dataclass(frozen=True)
 class CallbackCommand(Command):
     args: tuple | None
     kwargs: dict | None
-    procedure: ClockCallback
+    procedure: AsyncClockCallback | ClockCallback
 
 
 @dataclasses.dataclass(frozen=True)
@@ -150,7 +159,7 @@ class Event(Action):
 
 @dataclasses.dataclass(frozen=True, eq=False)
 class CallbackEvent(Event):
-    procedure: ClockCallback
+    procedure: AsyncClockCallback | ClockCallback
     args: tuple | None
     kwargs: dict | None
     invocations: int
@@ -208,7 +217,10 @@ class _EventQueue(queue.PriorityQueue[Event]):
             self.flags.pop(event, None)
 
 
-class BaseClock:
+C = TypeVar("C", bound=AsyncClockCallback | ClockCallback)
+
+
+class BaseClock(Generic[C]):
     ### CLASS VARIABLES ###
 
     _valid_quantizations: frozenset[Quantization] = frozenset(
@@ -744,7 +756,7 @@ class BaseClock:
 
     def cue(
         self,
-        procedure: ClockCallback,
+        procedure: C,
         *,
         args: Sequence[Any] | None = None,
         event_type: int = EventType.SCHEDULE,
@@ -832,7 +844,7 @@ class BaseClock:
 
     def schedule(
         self,
-        procedure: ClockCallback,
+        procedure: C,
         *,
         args: Sequence[Any] | None = None,
         event_type: int = EventType.SCHEDULE,

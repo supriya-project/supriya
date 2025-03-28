@@ -23,8 +23,8 @@ def log_everything(caplog) -> None:
 
 async def callback(
     context: ClockContext,
-    *,
     store: list[ClockContext],
+    *,
     blow_up_at: int | None = None,
     delta: float = 0.25,
     limit: int | None = 4,

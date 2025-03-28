@@ -26,6 +26,7 @@ def clock(mocker: MockerFixture) -> Generator[Clock, None, None]:
 def callback(
     context: ClockContext,
     store: list[ClockContext],
+    *,
     blow_up_at: int | None = None,
     delta: float = 0.25,
     limit: int | None = 4,
