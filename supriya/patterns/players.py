@@ -3,14 +3,10 @@ from threading import RLock
 from typing import (
     Callable,
     Coroutine,
-    Dict,
     Generator,
     Iterable,
-    List,
     Optional,
     Sequence,
-    Set,
-    Tuple,
     Union,
     cast,
 )
@@ -37,7 +33,7 @@ class PatternPlayer:
     """
 
     # TODO: Rewrite type annotation after dropping 3.8
-    _players = cast(Set["PatternPlayer"], WeakSet())
+    _players = cast(set["PatternPlayer"], WeakSet())
 
     def __init__(
         self,
@@ -58,12 +54,12 @@ class PatternPlayer:
         self._callback = callback
         self._lock = RLock()
         self._queue: Queue[
-            Tuple[float, Priority, Union[int, Tuple[int, int]], Optional[Event]]
+            tuple[float, Priority, Union[int, tuple[int, int]], Optional[Event]]
         ] = PriorityQueue()
         self._is_running = False
         self._is_stopping = False
-        self._proxies_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], ContextObject] = {}
-        self._notes_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], float] = {}
+        self._proxies_by_uuid: dict[Union[UUID, tuple[UUID, int]], ContextObject] = {}
+        self._notes_by_uuid: dict[Union[UUID, tuple[UUID, int]], float] = {}
         self._uuid: UUID = uuid or uuid4()
         self._target_bus = target_bus
         self._target_node = target_node
@@ -99,10 +95,10 @@ class PatternPlayer:
 
     def _find_events(
         self, clock_context: ClockContext
-    ) -> Iterable[Tuple[ClockContext, float, float, Sequence[Tuple[Event, Priority]]]]:
+    ) -> Iterable[tuple[ClockContext, float, float, Sequence[tuple[Event, Priority]]]]:
         with self._lock:
             current_offset = float("-inf")
-            events: List[Tuple[Event, Priority]] = []
+            events: list[tuple[Event, Priority]] = []
             if (
                 not cast(CallbackEvent, clock_context.event).invocations
                 and self._callback
@@ -198,7 +194,7 @@ class PatternPlayer:
 
     def _enumerate(
         self, iterator: Generator[Event, bool, None]
-    ) -> Generator[Tuple[int, Event], bool, None]:
+    ) -> Generator[tuple[int, Event], bool, None]:
         index = 0
         should_stop = False
         while True:
@@ -224,8 +220,8 @@ class PatternPlayer:
                 self._context.free_node(node)
 
     def _reschedule_queue(self, current_offset: float) -> None:
-        events: List[
-            Tuple[float, Priority, Union[int, Tuple[int, int]], Optional[Event]]
+        events: list[
+            tuple[float, Priority, Union[int, tuple[int, int]], Optional[Event]]
         ] = []
         while not self._queue.empty():
             events.append(self._queue.get())

@@ -6,7 +6,6 @@ import pathlib
 import pickle
 import textwrap
 import warnings
-from typing import Union
 
 import librosa.display
 import matplotlib.axes  # noqa
@@ -52,7 +51,7 @@ class PlayExtension(Extension):
         )
 
     def __init__(
-        self, renderable: Union[SupportsRender, SupportsRenderMemo], render_kwargs
+        self, renderable: SupportsRender | SupportsRenderMemo, render_kwargs
     ) -> None:
         if isinstance(renderable, SupportsRenderMemo):
             self.renderable = pickle.loads(pickle.dumps(renderable.__render_memo__()))

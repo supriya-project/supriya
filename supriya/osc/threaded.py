@@ -7,11 +7,9 @@ from queue import Empty, Queue
 from typing import (
     Awaitable,
     Callable,
-    Dict,
     Literal,
     Optional,
     Sequence,
-    Tuple,
     Union,
     cast,
 )
@@ -70,7 +68,7 @@ class ThreadedOscProtocol(OscProtocol):
         )
         self.boot_future: concurrent.futures.Future[bool] = concurrent.futures.Future()
         self.exit_future: concurrent.futures.Future[bool] = concurrent.futures.Future()
-        self.command_queue: Queue[Tuple[Literal["add", "remove"], OscCallback]] = (
+        self.command_queue: Queue[tuple[Literal["add", "remove"], OscCallback]] = (
             Queue()
         )
         self.healthcheck_deadline = 0.0
@@ -209,8 +207,8 @@ class ThreadedOscProtocol(OscProtocol):
         *,
         failure_pattern: Optional[Sequence[Union[str, float]]] = None,
         once: bool = False,
-        args: Optional[Tuple] = None,
-        kwargs: Optional[Dict] = None,
+        args: Optional[tuple] = None,
+        kwargs: Optional[dict] = None,
     ) -> OscCallback:
         """
         Register a callback.

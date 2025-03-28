@@ -13,14 +13,9 @@ from typing import (
     Any,
     Callable,
     Deque,
-    Dict,
-    FrozenSet,
-    List,
     Literal,
     NamedTuple,
     Optional,
-    Set,
-    Tuple,
     Union,
 )
 
@@ -68,7 +63,7 @@ class ClockState(NamedTuple):
     previous_offset: float
     previous_seconds: float
     previous_time_signature_change_offset: float
-    time_signature: Tuple[int, int]
+    time_signature: tuple[int, int]
 
 
 @dataclasses.dataclass(frozen=True)
@@ -86,7 +81,7 @@ class Moment:
     measure_offset: float
     offset: float  # the beat since zero
     seconds: float  # the seconds since zero
-    time_signature: Tuple[int, int]
+    time_signature: tuple[int, int]
 
 
 @dataclasses.dataclass(frozen=True)
@@ -104,15 +99,15 @@ class Command(Action):
 
 @dataclasses.dataclass(frozen=True)
 class CallbackCommand(Command):
-    args: Optional[Tuple]
-    kwargs: Optional[Dict]
-    procedure: Callable[["ClockContext"], Union[None, float, Tuple[float, TimeUnit]]]
+    args: Optional[tuple]
+    kwargs: Optional[dict]
+    procedure: Callable[["ClockContext"], Union[None, float, tuple[float, TimeUnit]]]
 
 
 @dataclasses.dataclass(frozen=True)
 class ChangeCommand(Command):
     beats_per_minute: Optional[float]
-    time_signature: Optional[Tuple[int, int]]
+    time_signature: Optional[tuple[int, int]]
 
 
 @total_ordering
@@ -145,9 +140,9 @@ class Event(Action):
 
 @dataclasses.dataclass(frozen=True, eq=False)
 class CallbackEvent(Event):
-    procedure: Callable[["ClockContext"], Union[None, float, Tuple[float, TimeUnit]]]
-    args: Optional[Tuple]
-    kwargs: Optional[Dict]
+    procedure: Callable[["ClockContext"], Union[None, float, tuple[float, TimeUnit]]]
+    args: Optional[tuple]
+    kwargs: Optional[dict]
     invocations: int
 
     def __hash__(self) -> int:
@@ -157,7 +152,7 @@ class CallbackEvent(Event):
 @dataclasses.dataclass(frozen=True, eq=False)
 class ChangeEvent(Event):
     beats_per_minute: Optional[float]
-    time_signature: Optional[Tuple[int, int]]
+    time_signature: Optional[tuple[int, int]]
 
     def __hash__(self) -> int:
         return hash((type(self), self.event_id))
@@ -173,8 +168,8 @@ class _EventQueue(queue.PriorityQueue[Event]):
     ### PRIVATE METHODS ###
 
     def _init(self, maxsize: Optional[int]) -> None:
-        self.queue: List[Event] = []
-        self.flags: Dict[Event, bool] = {}
+        self.queue: list[Event] = []
+        self.flags: dict[Event, bool] = {}
 
     def _put(self, event: Event) -> None:
         self.flags[event] = True
@@ -206,7 +201,7 @@ class _EventQueue(queue.PriorityQueue[Event]):
 class BaseClock:
     ### CLASS VARIABLES ###
 
-    _valid_quantizations: FrozenSet[Quantization] = frozenset(
+    _valid_quantizations: frozenset[Quantization] = frozenset(
         [
             "8M",
             "4M",
@@ -237,9 +232,9 @@ class BaseClock:
         self._event_queue = _EventQueue()
         self._is_running = False
         self._slop = 0.001
-        self._actions_by_id: Dict[int, Action] = {}
-        self._measure_relative_event_ids: Set[int] = set()
-        self._offset_relative_event_ids: Set[int] = set()
+        self._actions_by_id: dict[int, Action] = {}
+        self._measure_relative_event_ids: set[int] = set()
+        self._offset_relative_event_ids: set[int] = set()
         self._state = ClockState(
             beats_per_minute=120.0,
             initial_seconds=0.0,
@@ -254,7 +249,7 @@ class BaseClock:
 
     def _get_cue_point(
         self, seconds: float, quantization: Quantization
-    ) -> Tuple[float, float, Optional[int]]:
+    ) -> tuple[float, float, Optional[int]]:
         moment = self._seconds_to_moment(seconds)
         if quantization is None:
             offset: float = moment.offset
@@ -288,7 +283,7 @@ class BaseClock:
 
     def _get_schedule_point(
         self, schedule_at: float, time_unit: TimeUnit
-    ) -> Tuple[float, Optional[float], Optional[int]]:
+    ) -> tuple[float, Optional[float], Optional[int]]:
         measure: Optional[int] = None
         offset: Optional[float] = None
         if time_unit == TimeUnit.MEASURES:
@@ -419,7 +414,7 @@ class BaseClock:
 
     def _process_perform_event_loop(
         self, current_moment: Moment
-    ) -> Tuple[Optional[Event], Optional[Moment], bool, bool]:
+    ) -> tuple[Optional[Event], Optional[Moment], bool, bool]:
         # There may be items in the queue which have been flagged "removed".
         # They contribute to the queue's size, but cannot be retrieved by .get().
         try:
@@ -499,7 +494,7 @@ class BaseClock:
 
     def _perform_change_event(
         self, event: ChangeEvent, current_moment: Moment, desired_moment: Moment
-    ) -> Tuple[Moment, bool]:
+    ) -> tuple[Moment, bool]:
         logger.debug(
             f"[{self.name}] ... ... Changing at "
             f"{desired_moment.seconds - self._state.initial_seconds}:s"
@@ -682,7 +677,7 @@ class BaseClock:
         initial_offset: float = 0.0,
         initial_measure: int = 1,
         beats_per_minute: Optional[float] = None,
-        time_signature: Optional[Tuple[int, int]] = None,
+        time_signature: Optional[tuple[int, int]] = None,
     ) -> None:
         if self._is_running:
             raise RuntimeError("Already started")
@@ -716,7 +711,7 @@ class BaseClock:
     def change(
         self,
         beats_per_minute: Optional[float] = None,
-        time_signature: Optional[Tuple[int, int]] = None,
+        time_signature: Optional[tuple[int, int]] = None,
     ) -> Optional[int]:
         if not self._is_running:
             self._state = self._state._replace(
@@ -743,7 +738,7 @@ class BaseClock:
         *,
         args: Optional[Sequence[Any]] = None,
         event_type: int = EventType.SCHEDULE,
-        kwargs: Optional[Dict[str, Any]] = None,
+        kwargs: Optional[dict[str, Any]] = None,
         quantization: Optional[Quantization] = None,
     ) -> int:
         if event_type <= 0:
@@ -769,7 +764,7 @@ class BaseClock:
         *,
         beats_per_minute: Optional[float] = None,
         quantization: Optional[Quantization] = None,
-        time_signature: Optional[Tuple[int, int]] = None,
+        time_signature: Optional[tuple[int, int]] = None,
     ) -> int:
         if quantization is not None and quantization not in self._valid_quantizations:
             raise ValueError(f"Invalid quantization: {quantization}")
@@ -831,7 +826,7 @@ class BaseClock:
         *,
         args: Optional[Sequence[Any]] = None,
         event_type: int = EventType.SCHEDULE,
-        kwargs: Optional[Dict[str, Any]] = None,
+        kwargs: Optional[dict[str, Any]] = None,
         schedule_at: float = 0.0,
         time_unit: TimeUnit = TimeUnit.BEATS,
     ) -> int:
@@ -857,7 +852,7 @@ class BaseClock:
         *,
         beats_per_minute: Optional[float] = None,
         schedule_at: float = 0.0,
-        time_signature: Optional[Tuple[int, int]] = None,
+        time_signature: Optional[tuple[int, int]] = None,
         time_unit: TimeUnit = TimeUnit.BEATS,
     ) -> int:
         event_id = next(self._counter)
@@ -898,5 +893,5 @@ class BaseClock:
         self._slop = float(slop)
 
     @property
-    def time_signature(self) -> Tuple[int, int]:
+    def time_signature(self) -> tuple[int, int]:
         return self._state.time_signature

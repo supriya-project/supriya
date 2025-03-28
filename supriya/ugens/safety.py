@@ -1,4 +1,4 @@
-from typing import Any, Dict, Tuple
+from typing import Any
 
 from ..enums import CalculationRate
 from .core import UGen, param, ugen
@@ -32,7 +32,7 @@ class CheckBadValues(UGen):
         *,
         calculation_rate: CalculationRate,
         **kwargs,
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         if kwargs["post_mode"] not in (0, 1, 2):
             raise ValueError(f"Invalid post mode: {kwargs['post_mode']}")
         return calculation_rate, kwargs

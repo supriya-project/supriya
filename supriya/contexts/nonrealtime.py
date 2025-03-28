@@ -14,7 +14,7 @@ from contextlib import ExitStack
 from os import PathLike
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Dict, Iterator, List, Optional, SupportsInt, Tuple, Type, Union
+from typing import Iterator, Optional, SupportsInt, Type, Union
 
 from ..assets.synthdefs import system_synthdefs
 from ..enums import BootStatus, CalculationRate, HeaderFormat, SampleFormat
@@ -43,7 +43,7 @@ class Score(Context):
     def __init__(self, options: Optional[Options] = None, **kwargs) -> None:
         super().__init__(options=options, **kwargs)
         self._boot_status: BootStatus = BootStatus.ONLINE
-        self._requests: Dict[float, List[Requestable]] = {}
+        self._requests: dict[float, list[Requestable]] = {}
 
     ### CLASS METHODS ###
 
@@ -52,7 +52,7 @@ class Score(Context):
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Tuple[Optional[Path], int]:
+    ) -> tuple[Optional[Path], int]:
         return await self.render(
             output_file_path,
             render_directory_path=render_directory_path,
@@ -101,7 +101,7 @@ class Score(Context):
         sample_rate: float = 44100,
         suppress_output: bool = False,
         **kwargs,
-    ) -> Tuple[Optional[Path], int]:
+    ) -> tuple[Optional[Path], int]:
         """
         Render the score.
 
@@ -133,7 +133,7 @@ class Score(Context):
             options or self._options, **kwargs, realtime=False
         ).serialize()
         # build datagram
-        datagram_pieces: List[bytes] = []
+        datagram_pieces: list[bytes] = []
         for datagram_piece in self.iterate_datagrams(until=duration):
             datagram_pieces.append(struct.pack(">i", len(datagram_piece)))
             datagram_pieces.append(datagram_piece)

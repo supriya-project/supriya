@@ -1,6 +1,3 @@
-from typing import Tuple
-
-
 def midi_note_number_to_frequency(midi_note_number):
     return pow(2.0, (midi_note_number - 69) / 12) * 440.0
 
@@ -23,7 +20,7 @@ def decibels_to_amplitude(decibels):
 
 def measure_to_offset(
     measure: int,
-    time_signature: Tuple[int, int],
+    time_signature: tuple[int, int],
     previous_measure: int,
     previous_time_signature_change_offset: float,
 ) -> float:
@@ -34,7 +31,7 @@ def measure_to_offset(
 
 def offset_to_measure(
     offset: float,
-    time_signature: Tuple[int, int],
+    time_signature: tuple[int, int],
     previous_measure: int,
     previous_time_signature_change_offset: float,
 ) -> int:
@@ -49,7 +46,7 @@ def offset_to_measure(
 
 def offset_to_measure_offset(
     offset: float,
-    time_signature: Tuple[int, int],
+    time_signature: tuple[int, int],
     previous_time_signature_change_offset: float,
 ) -> float:
     return (offset - previous_time_signature_change_offset) % (

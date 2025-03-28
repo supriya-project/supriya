@@ -1,4 +1,4 @@
-from typing import Any, Dict, Tuple
+from typing import Any
 
 from ..enums import CalculationRate
 from ..typing import Default
@@ -41,7 +41,7 @@ class Gendy1(UGen):
 
     def _postprocess_kwargs(
         self, *, calculation_rate: CalculationRate, **kwargs
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         kwargs["knum"] = (
             kwargs["init_cps"]
             if isinstance(kwargs["knum"], Default)
@@ -90,7 +90,7 @@ class Gendy2(UGen):
 
     def _postprocess_kwargs(
         self, *, calculation_rate: CalculationRate, **kwargs
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         kwargs["knum"] = (
             kwargs["init_cps"]
             if isinstance(kwargs["knum"], Default)
@@ -133,7 +133,7 @@ class Gendy3(UGen):
 
     def _postprocess_kwargs(
         self, *, calculation_rate: CalculationRate, **kwargs
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         kwargs["knum"] = (
             kwargs["init_cps"]
             if isinstance(kwargs["knum"], Default)

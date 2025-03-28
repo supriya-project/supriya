@@ -1,6 +1,6 @@
 import dataclasses
 import threading
-from typing import Optional, Set
+from typing import Optional
 
 from ..utils import Interval, IntervalTree
 
@@ -239,7 +239,7 @@ class NodeIdAllocator:
         self._mask = self._client_id << 26
         self._temp = self._initial_node_id
         self._next_permanent_id = 1
-        self._freed_permanent_ids: Set[int] = set()
+        self._freed_permanent_ids: set[int] = set()
         self._lock = threading.Lock()
 
     ### SPECIAL METHODS ###

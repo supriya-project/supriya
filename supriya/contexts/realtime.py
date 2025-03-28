@@ -14,13 +14,10 @@ from collections.abc import Sequence as SequenceABC
 from typing import (
     Awaitable,
     Callable,
-    Dict,
     Iterable,
-    List,
     NamedTuple,
     Optional,
     Sequence,
-    Set,
     SupportsInt,
     Type,
     Union,
@@ -137,7 +134,7 @@ class BaseServer(Context):
 
     ### CLASS VARIABLES ###
 
-    _contexts: Set["BaseServer"] = set()
+    _contexts: set["BaseServer"] = set()
 
     ### INITIALIZER ###
 
@@ -148,16 +145,16 @@ class BaseServer(Context):
         **kwargs,
     ) -> None:
         Context.__init__(self, options, name=name, **kwargs)
-        self._buffers: Set[int] = set()
+        self._buffers: set[int] = set()
         self._is_owner: bool = False
         self._latency: float = 0.1
-        self._lifecycle_event_callbacks: Dict[
+        self._lifecycle_event_callbacks: dict[
             ServerLifecycleEvent, list[ServerLifecycleCallback]
         ] = {}
         self._maximum_logins: int = 1
-        self._node_active: Dict[int, bool] = {}
-        self._node_children: Dict[int, List[int]] = {}
-        self._node_parents: Dict[int, int] = {}
+        self._node_active: dict[int, bool] = {}
+        self._node_children: dict[int, list[int]] = {}
+        self._node_parents: dict[int, int] = {}
         self._shared_memory: Optional[ServerSHM] = None
         self._status: Optional[StatusInfo] = None
 
@@ -396,7 +393,7 @@ class BaseServer(Context):
 
     def set_latency(self, latency: float) -> None:
         """
-        Set the context's latency.
+        set the context's latency.
 
         :param latency: The latency in seconds.
         """
@@ -705,7 +702,7 @@ class Server(BaseServer):
 
     def get_buffer(
         self, buffer: Buffer, *indices: int, sync: bool = True
-    ) -> Optional[Dict[int, float]]:
+    ) -> Optional[dict[int, float]]:
         """
         Get a buffer sample.
 
@@ -789,7 +786,7 @@ class Server(BaseServer):
 
     def get_synth_controls(
         self, synth: Synth, *controls: Union[int, str], sync: bool = True
-    ) -> Optional[Dict[Union[int, str], float]]:
+    ) -> Optional[dict[Union[int, str], float]]:
         """
         Get a synth control.
 
@@ -1316,7 +1313,7 @@ class AsyncServer(BaseServer):
 
     async def get_buffer(
         self, buffer: Buffer, *indices: int, sync: bool = True
-    ) -> Optional[Dict[int, float]]:
+    ) -> Optional[dict[int, float]]:
         """
         Get a buffer sample.
 
@@ -1402,7 +1399,7 @@ class AsyncServer(BaseServer):
 
     async def get_synth_controls(
         self, synth: Synth, *controls: Union[int, str], sync: bool = True
-    ) -> Optional[Dict[Union[int, str], float]]:
+    ) -> Optional[dict[Union[int, str], float]]:
         """
         Get a synth control.
 

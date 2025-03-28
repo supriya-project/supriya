@@ -2,7 +2,7 @@ import atexit
 import logging
 import queue
 import threading
-from typing import Optional, Tuple
+from typing import Optional
 
 from .core import Action, BaseClock, Command, Moment
 
@@ -94,7 +94,7 @@ class Clock(BaseClock):
         initial_offset: float = 0.0,
         initial_measure: int = 1,
         beats_per_minute: Optional[float] = None,
-        time_signature: Optional[Tuple[int, int]] = None,
+        time_signature: Optional[tuple[int, int]] = None,
     ) -> None:
         self._start(
             initial_time=initial_time,

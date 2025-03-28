@@ -8,7 +8,7 @@ import hashlib
 import shlex
 from os import PathLike
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Optional
 
 from uqbar.io import find_executable
 from uqbar.strings import to_dash_case
@@ -96,7 +96,7 @@ class Say:
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Tuple[Path, int]:
+    ) -> tuple[Path, int]:
         path = self._build_output_file_path(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,

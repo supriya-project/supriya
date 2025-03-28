@@ -6,7 +6,7 @@ import platform
 import subprocess
 from os import PathLike
 from pathlib import Path
-from typing import Coroutine, Optional, Tuple, Union
+from typing import Coroutine, Optional, Union
 
 from uqbar.graphs import Grapher
 from uqbar.io import open_path
@@ -34,8 +34,8 @@ class PlayMemo:
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Coroutine[None, None, Tuple[Optional[Path], int]]:
-        async def render_function() -> Tuple[Path, int]:
+    ) -> Coroutine[None, None, tuple[Optional[Path], int]]:
+        async def render_function() -> tuple[Path, int]:
             if output_file_path is None:
                 hexdigest = hashlib.sha256(self.contents).hexdigest()
                 file_name = f"audio-{hexdigest}{self.suffix}"
@@ -61,7 +61,7 @@ class Player:
 
     ### SPECIAL METHODS ###
 
-    def __call__(self) -> Tuple[Optional[Path], int]:
+    def __call__(self) -> tuple[Optional[Path], int]:
         path, exit_code = self.render()
         if path:
             self.open_output_path(path)
@@ -77,7 +77,7 @@ class Player:
         else:
             open_path(output_path)
 
-    def render(self) -> Tuple[Optional[Path], int]:
+    def render(self) -> tuple[Optional[Path], int]:
         return render(self.renderable, **self.render_kwargs)
 
 
@@ -137,7 +137,7 @@ def render(
     output_file_path: Optional[PathLike] = None,
     render_directory_path: Optional[PathLike] = None,
     **kwargs,
-) -> Tuple[Optional[Path], int]:
+) -> tuple[Optional[Path], int]:
     if isinstance(renderable, SupportsRenderMemo):
         supports_render = renderable.__render_memo__()
     else:

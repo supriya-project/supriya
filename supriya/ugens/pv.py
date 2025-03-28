@@ -1,4 +1,4 @@
-from typing import Any, Dict, Tuple
+from typing import Any
 
 from ..enums import CalculationRate
 from ..typing import Default
@@ -62,7 +62,7 @@ class FFT(PV_ChainUGen):
 
     def _postprocess_kwargs(
         self, calculation_rate: CalculationRate, **kwargs
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         if isinstance(kwargs["buffer_id"], Default):
             kwargs["buffer_id"] = LocalBuf.ir(frame_count=kwargs["window_size"] or 2048)
         return calculation_rate, kwargs

@@ -15,14 +15,11 @@ from os import PathLike
 from typing import (
     Any,
     Callable,
-    Dict,
-    List,
     Literal,
     Optional,
     Sequence,
     SupportsFloat,
     SupportsInt,
-    Tuple,
     Type,
     Union,
     cast,
@@ -116,13 +113,13 @@ class Moment:
     context: "Context"
     seconds: Optional[float] = None
     closed: bool = dataclasses.field(default=False, init=False)
-    requests: List[Tuple[Request, Optional["Completion"]]] = dataclasses.field(
+    requests: list[tuple[Request, Optional["Completion"]]] = dataclasses.field(
         default_factory=list, init=False
     )
 
     def __enter__(self) -> "Moment":
         """
-        Set this moment the current "request context".
+        set this moment the current "request context".
         """
         if self.closed:
             raise MomentClosed
@@ -160,7 +157,7 @@ class Completion:
 
     context: "Context"
     moment: Moment
-    requests: List[Tuple[Request, Optional["Completion"]]] = dataclasses.field(
+    requests: list[tuple[Request, Optional["Completion"]]] = dataclasses.field(
         default_factory=list, init=False
     )
 
@@ -181,7 +178,7 @@ class Completion:
 
     def __enter__(self) -> "Completion":
         """
-        Set this completion as the current "request context".
+        set this completion as the current "request context".
         """
         if self.moment.closed:
             raise MomentClosed
@@ -297,9 +294,9 @@ class Context(metaclass=abc.ABCMeta):
 
     @staticmethod
     def _apply_completions(
-        pairs: List[Tuple[Request, Optional[Completion]]],
-    ) -> List[Request]:
-        requests: List[Request] = []
+        pairs: list[tuple[Request, Optional[Completion]]],
+    ) -> list[Request]:
+        requests: list[Request] = []
         for key, group in itertools.groupby(
             [
                 request if completion is None else completion(request)
@@ -421,7 +418,7 @@ class Context(metaclass=abc.ABCMeta):
         self,
         *,
         channel_count: Optional[int] = None,
-        channel_indices: Optional[List[int]] = None,
+        channel_indices: Optional[list[int]] = None,
         file_path: Optional[PathLike] = None,
         frame_count: Optional[int] = None,
         starting_frame: Optional[int] = None,
@@ -498,7 +495,7 @@ class Context(metaclass=abc.ABCMeta):
         if count < 1:
             raise ValueError
         id_ = self._allocate_id(Buffer, count=count)
-        requests: List[Request] = []
+        requests: list[Request] = []
         for i in range(count):
             requests.append(
                 AllocateBuffer(
@@ -617,8 +614,8 @@ class Context(metaclass=abc.ABCMeta):
             if add_action_ not in target_node._valid_add_actions:
                 raise ValueError(add_action_)
         target_node_id = self._resolve_node(target_node)
-        synthdef_kwargs: Dict[
-            Union[int, str], Union[float, str, Tuple[Union[float, str], ...]]
+        synthdef_kwargs: dict[
+            Union[int, str], Union[float, str, tuple[Union[float, str], ...]]
         ] = {}
         for _, parameter in synthdef.indexed_parameters:
             if parameter.name not in settings:
@@ -634,7 +631,7 @@ class Context(metaclass=abc.ABCMeta):
             ):
                 synthdef_kwargs[parameter.name] = tuple(float(v) for v in value)
             else:
-                processed_values: List[Union[float, str]] = []
+                processed_values: list[Union[float, str]] = []
                 for v in value:
                     if isinstance(v, Bus):
                         processed_values.append(v.map_symbol())
@@ -1039,7 +1036,7 @@ class Context(metaclass=abc.ABCMeta):
                     control[key] = int(index)
             elif value is None:
                 control[key] = -1
-        requests: List[Request] = []
+        requests: list[Request] = []
         if control:
             requests.append(
                 MapControlBusToNode(node_id=node, items=sorted(control.items()))
@@ -1134,7 +1131,7 @@ class Context(metaclass=abc.ABCMeta):
         file_path: PathLike,
         *,
         buffer_starting_frame: Optional[int] = None,
-        channel_indices: Optional[List[int]] = None,
+        channel_indices: Optional[list[int]] = None,
         frame_count: Optional[int] = None,
         leave_open: bool = False,
         starting_frame: Optional[int] = None,
@@ -1192,7 +1189,7 @@ class Context(metaclass=abc.ABCMeta):
 
     def set_buffer(self, buffer: Buffer, index: int, value: float) -> None:
         """
-        Set a buffer sample.
+        set a buffer sample.
 
         Emit ``/b_set`` requests.
 
@@ -1208,7 +1205,7 @@ class Context(metaclass=abc.ABCMeta):
         self, buffer: Buffer, index: int, values: Sequence[float]
     ) -> None:
         """
-        Set a buffer sample range.
+        set a buffer sample range.
 
         Emit ``/b_setn`` requests.
 
@@ -1222,7 +1219,7 @@ class Context(metaclass=abc.ABCMeta):
 
     def set_bus(self, bus: Bus, value: float) -> None:
         """
-        Set a control bus to a value.
+        set a control bus to a value.
 
         Emit ``/c_set`` requests.
 
@@ -1237,7 +1234,7 @@ class Context(metaclass=abc.ABCMeta):
 
     def set_bus_range(self, bus: Bus, values: Sequence[float]) -> None:
         """
-        Set a range of control buses.
+        set a range of control buses.
 
         Emit ``/c_setn`` requests.
 
@@ -1253,11 +1250,11 @@ class Context(metaclass=abc.ABCMeta):
     def set_node(
         self,
         node: Node,
-        *indexed_settings: Tuple[int, Union[SupportsFloat, Sequence[SupportsFloat]]],
+        *indexed_settings: tuple[int, Union[SupportsFloat, Sequence[SupportsFloat]]],
         **settings: Union[SupportsFloat, Sequence[SupportsFloat]],
     ) -> None:
         """
-        Set a node's controls.
+        set a node's controls.
 
         Emit ``/n_set`` requests.
 
@@ -1266,7 +1263,7 @@ class Context(metaclass=abc.ABCMeta):
         :param settings: A mapping of control names to values.
         """
         self._validate_can_request()
-        coerced_settings: Dict[Union[int, str], Union[float, Sequence[float]]] = {}
+        coerced_settings: dict[Union[int, str], Union[float, Sequence[float]]] = {}
         for index, values in sorted(indexed_settings):
             if isinstance(values, Sequence):
                 coerced_settings[index] = [float(value) for value in values]
@@ -1283,11 +1280,11 @@ class Context(metaclass=abc.ABCMeta):
     def set_node_range(
         self,
         node: Node,
-        *indexed_settings: Tuple[int, Sequence[SupportsFloat]],
+        *indexed_settings: tuple[int, Sequence[SupportsFloat]],
         **settings: Sequence[SupportsFloat],
     ) -> None:
         """
-        Set a range of node controls.
+        set a range of node controls.
 
         Emit ``/n_setn`` requests.
 
@@ -1296,7 +1293,7 @@ class Context(metaclass=abc.ABCMeta):
         :param settings: A mapping of control names to values.
         """
         self._validate_can_request()
-        coerced_settings: Dict[Union[int, str], Sequence[float]] = {}
+        coerced_settings: dict[Union[int, str], Sequence[float]] = {}
         for index, values in sorted(indexed_settings):
             coerced_settings[index] = [float(value) for value in values]
         for key, values in sorted(settings.items()):
@@ -1365,7 +1362,7 @@ class Context(metaclass=abc.ABCMeta):
         on_completion: Optional[Callable[["Context"], Any]] = None,
     ) -> Completion:
         """
-        Set a buffer's contents to zero.
+        set a buffer's contents to zero.
 
         Emit ``/b_zero`` requests.
 

@@ -1,4 +1,4 @@
-from typing import Dict, Generator, Iterator, Optional, Sequence, Tuple, Union
+from typing import Generator, Iterator, Optional, Sequence, Union
 from uuid import UUID
 
 from uqbar.enums import IntEnumeration
@@ -19,7 +19,7 @@ class ChoicePattern(SequencePattern[T]):
         self._weights = tuple(abs(float(x)) for x in weights) if weights else None
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[T, bool, None]:
         should_stop = False
         rng = self._get_rng()
@@ -63,7 +63,7 @@ class ChoicePattern(SequencePattern[T]):
         return self._forbid_repetitions
 
     @property
-    def weights(self) -> Optional[Tuple[float, ...]]:
+    def weights(self) -> Optional[tuple[float, ...]]:
         return self._weights
 
 
@@ -90,7 +90,7 @@ class RandomPattern(Pattern[float]):
         self._maximum: float = self._freeze_recursive(maximum)
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[float, bool, None]:
         def procedure(one: float, two: float) -> float:
             minimum, maximum = sorted([one, two])
@@ -135,7 +135,7 @@ class ShufflePattern(SequencePattern[T]):
         self._forbid_repetitions = bool(forbid_repetitions)
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[T, bool, None]:
         should_stop = False
         rng = self._get_rng()

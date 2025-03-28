@@ -1,4 +1,4 @@
-from typing import Any, Dict, Tuple
+from typing import Any
 
 from uqbar.enums import IntEnumeration
 
@@ -124,7 +124,7 @@ class MFCC(UGen):
         *,
         calculation_rate: CalculationRate,
         **kwargs,
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         self._channel_count = int(kwargs["coeff_count"])
         return calculation_rate, kwargs
 

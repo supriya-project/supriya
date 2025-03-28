@@ -8,16 +8,12 @@ from typing import (
     Any,
     Awaitable,
     Callable,
-    Dict,
     Generator,
     Iterator,
-    List,
     Literal,
     NamedTuple,
     Optional,
     Sequence,
-    Set,
-    Tuple,
     Union,
 )
 
@@ -50,7 +46,7 @@ class OscProtocolAlreadyConnected(Exception):
 class OscCallback(NamedTuple):
     pattern: tuple[str | int | float, ...]
     procedure: Callable
-    failure_pattern: Optional[Tuple[Union[str, int, float], ...]] = None
+    failure_pattern: Optional[tuple[Union[str, int, float], ...]] = None
     once: bool = False
     args: tuple | None = None
     kwargs: dict | None = None
@@ -58,8 +54,8 @@ class OscCallback(NamedTuple):
 
 @dataclasses.dataclass
 class HealthCheck:
-    request_pattern: List[str]
-    response_pattern: List[str]
+    request_pattern: list[str]
+    response_pattern: list[str]
     active: bool = True
     timeout: float = 1.0
     backoff_factor: float = 1.5
@@ -103,7 +99,7 @@ class Capture:
 
     def filtered(
         self, sent: bool = True, received: bool = True, status: bool = True
-    ) -> List[Union[OscBundle, OscMessage]]:
+    ) -> list[Union[OscBundle, OscMessage]]:
         messages = []
         for _, label, message, _ in self.messages:
             if label == "R" and not received:
@@ -131,8 +127,8 @@ class OscProtocol:
         on_disconnect_callback: Optional[Callable] = None,
         on_panic_callback: Optional[Callable] = None,
     ) -> None:
-        self.callbacks: Dict[Any, Any] = {}
-        self.captures: Set[Capture] = set()
+        self.callbacks: dict[Any, Any] = {}
+        self.captures: set[Capture] = set()
         self.healthcheck: Optional[HealthCheck] = None
         self.healthcheck_osc_callback: Optional[OscCallback] = None
         self.attempts = 0
@@ -183,7 +179,7 @@ class OscProtocol:
             self.unregister(self.healthcheck_osc_callback)
         return None
 
-    def _match_callbacks(self, message) -> List[OscCallback]:
+    def _match_callbacks(self, message) -> list[OscCallback]:
         items = (message.address,) + message.contents
         matching_callbacks = []
         callback_map = self.callbacks
@@ -260,8 +256,8 @@ class OscProtocol:
         *,
         failure_pattern=None,
         once: bool = False,
-        args: Optional[Tuple] = None,
-        kwargs: Optional[Dict] = None,
+        args: Optional[tuple] = None,
+        kwargs: Optional[dict] = None,
     ) -> OscCallback:
         if isinstance(pattern, (str, int, float)):
             pattern = [pattern]
@@ -367,8 +363,8 @@ class OscProtocol:
         *,
         failure_pattern: Optional[Sequence[Union[str, float]]] = None,
         once: bool = False,
-        args: Optional[Tuple] = None,
-        kwargs: Optional[Dict] = None,
+        args: Optional[tuple] = None,
+        kwargs: Optional[dict] = None,
     ) -> OscCallback:
         raise NotImplementedError
 

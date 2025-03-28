@@ -1,4 +1,4 @@
-from typing import Callable, List, Optional, Tuple
+from typing import Callable, Optional
 from typing import Type as TypingType
 
 from mypy.nodes import ARG_OPT, Argument, AssignmentStmt, CallExpr, RefExpr, Var
@@ -11,7 +11,7 @@ class UGenTransformer:
     def __init__(self, ctx: ClassDefContext) -> None:
         self._ctx = ctx
 
-    def collect_params(self) -> List[Tuple[str, bool]]:
+    def collect_params(self) -> list[tuple[str, bool]]:
         cls = self._ctx.cls
         params = []
         for stmt in cls.defs.body:

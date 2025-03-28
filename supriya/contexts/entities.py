@@ -8,14 +8,11 @@ from typing import (
     Awaitable,
     Callable,
     Container,
-    Dict,
     Iterator,
-    List,
     Literal,
     Optional,
     Sequence,
     SupportsFloat,
-    Tuple,
     Union,
     overload,
 )
@@ -98,7 +95,7 @@ class Buffer(ContextObject):
             raise InvalidMoment
         return self.completion.__exit__(*args)
 
-    def __plot__(self) -> Tuple["numpy.ndarray", float]:
+    def __plot__(self) -> tuple["numpy.ndarray", float]:
         # TODO: Make this async compatible.
         import librosa
 
@@ -232,7 +229,7 @@ class Buffer(ContextObject):
 
     def get(
         self, *indices: int, sync: bool = True
-    ) -> Union[Awaitable[Optional[Dict[int, float]]], Optional[Dict[int, float]]]:
+    ) -> Union[Awaitable[Optional[dict[int, float]]], Optional[dict[int, float]]]:
         """
         Get a sample.
 
@@ -302,7 +299,7 @@ class Buffer(ContextObject):
         file_path: PathLike,
         *,
         buffer_starting_frame: Optional[int] = None,
-        channel_indices: Optional[List[int]] = None,
+        channel_indices: Optional[list[int]] = None,
         frame_count: Optional[int] = None,
         leave_open: bool = False,
         on_completion: Optional[Callable[["Context"], Any]] = None,
@@ -422,7 +419,7 @@ class BufferGroup(ContextObject):
     """
 
     count: int = 1
-    buffers: Tuple[Buffer, ...] = dataclasses.field(
+    buffers: tuple[Buffer, ...] = dataclasses.field(
         init=False, repr=False, default_factory=tuple
     )
 
@@ -570,7 +567,7 @@ class BusGroup(ContextObject):
 
     calculation_rate: CalculationRate
     count: int = 1
-    buses: Tuple[Bus, ...] = dataclasses.field(
+    buses: tuple[Bus, ...] = dataclasses.field(
         init=False, repr=False, default_factory=tuple
     )
 
@@ -784,7 +781,7 @@ class Node(ContextObject):
 
     def set(
         self,
-        *indexed_settings: Tuple[int, Union[SupportsFloat, Sequence[SupportsFloat]]],
+        *indexed_settings: tuple[int, Union[SupportsFloat, Sequence[SupportsFloat]]],
         **settings: Union[SupportsFloat, Sequence[SupportsFloat]],
     ) -> None:
         """
@@ -797,7 +794,7 @@ class Node(ContextObject):
 
     def set_range(
         self,
-        *indexed_settings: Tuple[int, Sequence[SupportsFloat]],
+        *indexed_settings: tuple[int, Sequence[SupportsFloat]],
         **settings: Sequence[SupportsFloat],
     ) -> None:
         """
@@ -862,7 +859,7 @@ class Node(ContextObject):
 
         if not isinstance(self.context, BaseServer):
             raise ContextError
-        parentage: List["Node"] = [self]
+        parentage: list["Node"] = [self]
         while (
             parent_id := self.context._node_parents.get(parentage[-1].id_)
         ) is not None:
@@ -940,7 +937,7 @@ class Group(Node):
         )
 
     @property
-    def children(self) -> List[Node]:
+    def children(self) -> list[Node]:
         """
         Get the group's children, as currently cached on the context.
         """
@@ -948,7 +945,7 @@ class Group(Node):
 
         if not isinstance(self.context, BaseServer):
             raise ContextError
-        children: List[Node] = []
+        children: list[Node] = []
         for id_ in self.context._node_children.get(self.id_, []):
             if id_ in self.context._node_children:
                 children.append(Group(context=self.context, id_=id_))
@@ -991,8 +988,8 @@ class Synth(Node):
     synthdef: SynthDef
 
     def get(self, *controls: Union[int, str], sync: bool = True) -> Union[
-        Awaitable[Optional[Dict[Union[int, str], float]]],
-        Optional[Dict[Union[int, str], float]],
+        Awaitable[Optional[dict[Union[int, str], float]]],
+        Optional[dict[Union[int, str], float]],
     ]:
         """
         Get a control.

@@ -1,5 +1,5 @@
 import bisect
-from typing import Dict, Generator, List, Optional, Sequence, SupportsInt, Tuple
+from typing import Generator, Optional, Sequence, SupportsInt
 from uuid import UUID, uuid4
 
 from uqbar.objects import get_vars, new
@@ -21,7 +21,7 @@ from .events import (
 )
 from .patterns import Pattern
 
-UUIDDict = Dict[str, UUID]
+UUIDdict = dict[str, UUID]
 
 
 class BusPattern(Pattern[Event]):
@@ -47,7 +47,7 @@ class BusPattern(Pattern[Event]):
 
     ### PRIVATE METHODS ###
 
-    def _adjust(self, expr: Event, state: Optional[UUIDDict] = None) -> Event:
+    def _adjust(self, expr: Event, state: Optional[UUIDdict] = None) -> Event:
         if state is None:
             raise RuntimeError
         args, _, kwargs = get_vars(expr)
@@ -65,11 +65,11 @@ class BusPattern(Pattern[Event]):
         return expr
 
     def _iterate(
-        self, state: Optional[UUIDDict] = None
+        self, state: Optional[UUIDdict] = None
     ) -> Generator[Event, bool, None]:
         return iter(self._pattern)
 
-    def _setup_peripherals(self, state: Optional[UUIDDict]) -> Tuple[Event, Event]:
+    def _setup_peripherals(self, state: Optional[UUIDdict]) -> tuple[Event, Event]:
         if state is None:
             raise RuntimeError
         rate = self._calculation_rate.name.lower()
@@ -100,7 +100,7 @@ class BusPattern(Pattern[Event]):
             stops.insert(1, NullEvent(delta=self._release_time))
         return CompositeEvent(starts), CompositeEvent(stops)
 
-    def _setup_state(self) -> UUIDDict:
+    def _setup_state(self) -> UUIDdict:
         return {"bus": uuid4(), "link": uuid4(), "group": uuid4()}
 
     ### PUBLIC PROPERTIES ###
@@ -132,16 +132,16 @@ class FxPattern(Pattern[Event]):
     ### PRIVATE METHODS ###
 
     def _iterate(
-        self, state: Optional[UUIDDict] = None
+        self, state: Optional[UUIDdict] = None
     ) -> Generator[Event, bool, None]:
         return iter(self._pattern)
 
     def _setup_peripherals(
-        self, state: Optional[UUIDDict] = None
-    ) -> Tuple[Event, Event]:
+        self, state: Optional[UUIDdict] = None
+    ) -> tuple[Event, Event]:
         if state is None:
             raise RuntimeError
-        starts: List[Event] = [
+        starts: list[Event] = [
             SynthAllocateEvent(
                 add_action="ADD_TO_TAIL",
                 synthdef=self._synthdef,
@@ -149,12 +149,12 @@ class FxPattern(Pattern[Event]):
                 **self._kwargs,
             )
         ]
-        stops: List[Event] = [NodeFreeEvent(id_=state["synth"])]
+        stops: list[Event] = [NodeFreeEvent(id_=state["synth"])]
         if self._release_time:
             stops.insert(0, NullEvent(delta=self._release_time))
         return CompositeEvent(starts), CompositeEvent(stops)
 
-    def _setup_state(self) -> UUIDDict:
+    def _setup_state(self) -> UUIDdict:
         return {"synth": uuid4()}
 
     ### PUBLIC PROPERTIES ###
@@ -177,7 +177,7 @@ class GroupPattern(Pattern[Event]):
 
     ### PRIVATE METHODS ###
 
-    def _adjust(self, expr: Event, state: Optional[UUIDDict] = None) -> Event:
+    def _adjust(self, expr: Event, state: Optional[UUIDdict] = None) -> Event:
         if state is None:
             raise RuntimeError
         updates = {}
@@ -188,22 +188,22 @@ class GroupPattern(Pattern[Event]):
         return expr
 
     def _iterate(
-        self, state: Optional[UUIDDict] = None
+        self, state: Optional[UUIDdict] = None
     ) -> Generator[Event, bool, None]:
         return iter(self._pattern)
 
-    def _setup_peripherals(self, state: Optional[UUIDDict]) -> Tuple[Event, Event]:
+    def _setup_peripherals(self, state: Optional[UUIDdict]) -> tuple[Event, Event]:
         if state is None:
             raise RuntimeError
-        starts: List[Event] = [
+        starts: list[Event] = [
             GroupAllocateEvent(add_action="ADD_TO_HEAD", id_=state["group"])
         ]
-        stops: List[Event] = [NodeFreeEvent(id_=state["group"])]
+        stops: list[Event] = [NodeFreeEvent(id_=state["group"])]
         if self._release_time:
             stops.insert(0, NullEvent(delta=self._release_time))
         return CompositeEvent(starts), CompositeEvent(stops)
 
-    def _setup_state(self) -> UUIDDict:
+    def _setup_state(self) -> UUIDdict:
         return {"group": uuid4()}
 
     ### PUBLIC PROPERTIES ###
@@ -226,7 +226,7 @@ class ParallelPattern(Pattern[Event]):
     ### PRIVATE METHODS ###
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[Event, bool, None]:
         should_stop = False
         iterators = []
@@ -289,7 +289,7 @@ class PinPattern(Pattern[Event]):
         self._target_bus = target_bus
         self._target_node = target_node
 
-    def _adjust(self, expr: Event, state: Optional[UUIDDict] = None) -> Event:
+    def _adjust(self, expr: Event, state: Optional[UUIDdict] = None) -> Event:
         args, _, kwargs = get_vars(expr)
         updates = {}
         if self._target_node is not None and hasattr(expr, "target_node"):
@@ -307,7 +307,7 @@ class PinPattern(Pattern[Event]):
     ### PRIVATE METHODS ###
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[Event, bool, None]:
         return iter(self._pattern)
 

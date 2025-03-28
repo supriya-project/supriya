@@ -1,6 +1,6 @@
 import asyncio
 from collections.abc import Sequence as SequenceABC
-from typing import Awaitable, Callable, Dict, Optional, Sequence, Set, Tuple, Union
+from typing import Awaitable, Callable, Optional, Sequence, Union
 
 from ..enums import BootStatus
 from ..typing import FutureLike, SupportsOsc
@@ -36,7 +36,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         )
         self.boot_future: asyncio.Future[bool] = asyncio.Future()
         self.exit_future: asyncio.Future[bool] = asyncio.Future()
-        self.background_tasks: Set[asyncio.Task] = set()
+        self.background_tasks: set[asyncio.Task] = set()
         self.healthcheck_task: Optional[asyncio.Task] = None
 
     ### PRIVATE METHODS ###
@@ -178,8 +178,8 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         *,
         failure_pattern: Optional[Sequence[Union[str, float]]] = None,
         once: bool = False,
-        args: Optional[Tuple] = None,
-        kwargs: Optional[Dict] = None,
+        args: Optional[tuple] = None,
+        kwargs: Optional[dict] = None,
     ) -> OscCallback:
         """
         Register a callback.

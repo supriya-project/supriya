@@ -13,13 +13,9 @@ from pathlib import Path
 from typing import (
     IO,
     Callable,
-    Dict,
     Iterator,
-    List,
     Literal,
     Optional,
-    Set,
-    Tuple,
     Union,
     cast,
 )
@@ -96,7 +92,7 @@ class Options:
 
     ### PUBLIC METHODS ###
 
-    def get_audio_bus_ids(self, client_id: int) -> Tuple[int, int]:
+    def get_audio_bus_ids(self, client_id: int) -> tuple[int, int]:
         audio_buses_per_client = (
             self.private_audio_bus_channel_count // self.maximum_logins
         )
@@ -104,24 +100,24 @@ class Options:
         maximum = self.first_private_bus_id + ((client_id + 1) * audio_buses_per_client)
         return minimum, maximum
 
-    def get_buffer_ids(self, client_id: int) -> Tuple[int, int]:
+    def get_buffer_ids(self, client_id: int) -> tuple[int, int]:
         buffers_per_client = self.buffer_count // self.maximum_logins
         minimum = client_id * buffers_per_client
         maximum = (client_id + 1) * buffers_per_client
         return minimum, maximum
 
-    def get_control_bus_ids(self, client_id: int) -> Tuple[int, int]:
+    def get_control_bus_ids(self, client_id: int) -> tuple[int, int]:
         control_buses_per_client = self.control_bus_channel_count // self.maximum_logins
         minimum = client_id * control_buses_per_client
         maximum = (client_id + 1) * control_buses_per_client
         return minimum, maximum
 
-    def get_sync_ids(self, client_id: int) -> Tuple[int, int]:
+    def get_sync_ids(self, client_id: int) -> tuple[int, int]:
         return client_id << 26, (client_id + 1) << 26
 
-    def serialize(self) -> List[str]:
+    def serialize(self) -> list[str]:
         result = [str(find(self.executable))]
-        pairs: Dict[str, Optional[Union[List[str], str]]] = {}
+        pairs: dict[str, Optional[Union[list[str], str]]] = {}
         if self.realtime:
             if self.ip_address != DEFAULT_IP_ADDRESS:
                 pairs["-B"] = self.ip_address
@@ -271,7 +267,7 @@ class Capture:
 
     def __init__(self, process_protocol: "ProcessProtocol") -> None:
         self.process_protocol = process_protocol
-        self.lines: List[str] = []
+        self.lines: list[str] = []
 
     def __enter__(self) -> "Capture":
         self.process_protocol.captures.add(self)
@@ -297,7 +293,7 @@ class ProcessProtocol:
         on_quit_callback: Optional[Callable] = None,
     ) -> None:
         self.buffer_ = ""
-        self.captures: Set[Capture] = set()
+        self.captures: set[Capture] = set()
         self.error_text = ""
         self.name = name
         self.on_boot_callback = on_boot_callback
@@ -332,7 +328,7 @@ class ProcessProtocol:
         *,
         boot_future: FutureLike[bool],
         text: str,
-    ) -> Tuple[bool, bool]:
+    ) -> tuple[bool, bool]:
         resolved = False
         errored = False
         if "\n" in text:
@@ -569,7 +565,7 @@ class AsyncNonrealtimeProcessProtocol(asyncio.SubprocessProtocol, ProcessProtoco
         self.boot_future: asyncio.Future[bool] = asyncio.Future()
         self.exit_future: asyncio.Future[bool] = asyncio.Future()
 
-    async def run(self, command: List[str], render_directory_path: Path) -> None:
+    async def run(self, command: list[str], render_directory_path: Path) -> None:
         logger.info(f"running: {shlex.join(command)}")
         loop = asyncio.get_running_loop()
         self.boot_future = loop.create_future()

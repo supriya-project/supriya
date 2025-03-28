@@ -1,4 +1,4 @@
-from typing import Any, Dict, Generator, Optional, Type, Union
+from typing import Any, Generator, Optional, Type, Union
 from uuid import UUID, uuid4
 
 from uqbar.objects import new
@@ -19,7 +19,7 @@ class EventPattern(Pattern[Event]):
         self._patterns = patterns
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[Event, bool, None]:
         patterns = self._prepare_patterns()
         iterator_pairs = sorted(patterns.items())
@@ -33,8 +33,8 @@ class EventPattern(Pattern[Event]):
             if (yield self.event_type(uuid4(), **event)):
                 return
 
-    def _prepare_patterns(self) -> Dict[str, Generator[Any, bool, None]]:
-        generators: Dict[str, Generator[Any, bool, None]] = {}
+    def _prepare_patterns(self) -> dict[str, Generator[Any, bool, None]]:
+        generators: dict[str, Generator[Any, bool, None]] = {}
         for name, pattern in sorted(self._patterns.items()):
             if not isinstance(pattern, Pattern):
                 pattern = SequencePattern([pattern], iterations=None)
@@ -59,7 +59,7 @@ class MonoEventPattern(EventPattern):
     """
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[Event, bool, None]:
         id_ = uuid4()
         patterns = self._prepare_patterns()
@@ -94,7 +94,7 @@ class UpdatePattern(Pattern[Event]):
         self._patterns = patterns
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[Event, bool, None]:
         event_iterator = iter(self._pattern)
         iterator_pairs = sorted(self._prepare_patterns().items())
@@ -113,8 +113,8 @@ class UpdatePattern(Pattern[Event]):
             if (yield event):
                 return
 
-    def _prepare_patterns(self) -> Dict[str, Generator[Any, bool, None]]:
-        generators: Dict[str, Generator[Any, bool, None]] = {}
+    def _prepare_patterns(self) -> dict[str, Generator[Any, bool, None]]:
+        generators: dict[str, Generator[Any, bool, None]] = {}
         for name, pattern in sorted(self._patterns.items()):
             if not isinstance(pattern, Pattern):
                 pattern = SequencePattern([pattern], iterations=None)
@@ -134,12 +134,12 @@ class UpdateDictPattern(Pattern[Event]):
     Akin to SuperCollider's Penvir.
     """
 
-    def __init__(self, pattern: Pattern[Event], dictionary: Dict[str, Any]) -> None:
+    def __init__(self, pattern: Pattern[Event], dictionary: dict[str, Any]) -> None:
         self._pattern = pattern
         self._dictionary = dictionary
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[Event, bool, None]:
         event_iterator = iter(self._pattern)
         while True:
@@ -164,7 +164,7 @@ class ChainPattern(Pattern[Event]):
         self._patterns = tuple(patterns)
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[Event, bool, None]:
         patterns = [iter(_) for _ in self._patterns]
         while True:

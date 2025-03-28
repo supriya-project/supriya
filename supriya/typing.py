@@ -5,12 +5,10 @@ from pathlib import Path
 from typing import (
     TYPE_CHECKING,
     Coroutine,
-    Dict,
     Optional,
     Protocol,
     SupportsFloat,
     SupportsInt,
-    Tuple,
     TypeAlias,
     TypeVar,
     Union,
@@ -61,7 +59,7 @@ class SupportsRender(Protocol):
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Coroutine[None, None, Tuple[Optional[Path], int]]:
+    ) -> Coroutine[None, None, tuple[Optional[Path], int]]:
         pass
 
 
@@ -85,4 +83,4 @@ EnvelopeShapeLike: TypeAlias = _EnumLike[EnvelopeShape]
 HeaderFormatLike: TypeAlias = _EnumLike[HeaderFormat]
 SampleFormatLike: TypeAlias = _EnumLike[SampleFormat]
 ServerLifecycleEventLike: TypeAlias = _EnumLike[ServerLifecycleEvent]
-UGenInputMap: TypeAlias = Optional[Dict[str, Union[SupportsFloat, str, None]]]
+UGenInputMap: TypeAlias = Optional[dict[str, Union[SupportsFloat, str, None]]]

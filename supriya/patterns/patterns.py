@@ -11,13 +11,11 @@ from typing import (
     TYPE_CHECKING,
     Callable,
     Coroutine,
-    Dict,
     Generator,
     Generic,
     Iterator,
     Optional,
     Sequence,
-    Tuple,
     TypeVar,
     Union,
     cast,
@@ -41,7 +39,7 @@ T = TypeVar("T")
 class Pattern(Generic[T], metaclass=abc.ABCMeta):
     ### CLASSMETHODS ###
 
-    _rngs: Dict[int, Iterator[float]] = {}
+    _rngs: dict[int, Iterator[float]] = {}
 
     ### SPECIAL METHODS ###
 
@@ -76,7 +74,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
 
     def __iter__(self) -> Generator[T, bool, None]:
         should_stop = False
-        state: Optional[Dict[str, UUID]] = self._setup_state()
+        state: Optional[dict[str, UUID]] = self._setup_state()
         iterator = self._iterate(state)
         try:
             expr = self._adjust_recursive(next(iterator), state=state)
@@ -175,10 +173,10 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
 
     ### PRIVATE METHODS ###
 
-    def _adjust(self, expr: T, state: Optional[Dict[str, UUID]] = None) -> T:
+    def _adjust(self, expr: T, state: Optional[dict[str, UUID]] = None) -> T:
         return expr
 
-    def _adjust_recursive(self, expr: T, state: Optional[Dict[str, UUID]] = None) -> T:
+    def _adjust_recursive(self, expr: T, state: Optional[dict[str, UUID]] = None) -> T:
         if isinstance(expr, CompositeEvent):
             return cast(
                 T,
@@ -252,7 +250,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[T, bool, None]:
         raise NotImplementedError
 
@@ -264,12 +262,12 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
             for _ in range(iterations):
                 yield True
 
-    def _setup_state(self) -> Optional[Dict[str, UUID]]:
+    def _setup_state(self) -> Optional[dict[str, UUID]]:
         return None
 
     def _setup_peripherals(
-        self, state: Optional[Dict[str, UUID]]
-    ) -> Tuple[Optional[T], Optional[T]]:
+        self, state: Optional[dict[str, UUID]]
+    ) -> tuple[Optional[T], Optional[T]]:
         return None, None
 
     ### PUBLIC METHODS ###
@@ -329,7 +327,7 @@ class BinaryOpPattern(Pattern[T]):
     ### PRIVATE METHODS ###
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[T, bool, None]:
         iterator_one: Iterator[T] = iter(
             self.expr_one
@@ -365,7 +363,7 @@ class UnaryOpPattern(Pattern[T]):
         self.expr = expr
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[T, bool, None]:
         iterator: Iterator[T] = iter(
             self.expr
@@ -394,7 +392,7 @@ class SeedPattern(Pattern[T]):
     ### PRIVATE METHODS ###
 
     def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
+        self, state: Optional[dict[str, UUID]] = None
     ) -> Generator[T, bool, None]:
         try:
             identifier = id(inspect.currentframe())

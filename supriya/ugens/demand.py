@@ -1,5 +1,5 @@
 from collections.abc import Sequence
-from typing import Any, Dict, Tuple
+from typing import Any
 
 from ..enums import CalculationRate
 from .core import UGen, param, ugen
@@ -102,7 +102,7 @@ class Demand(UGen):
         *,
         calculation_rate: CalculationRate,
         **kwargs,
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         if not isinstance(source := kwargs["source"], Sequence):
             kwargs["source"] = [source]
         self._channel_count = len(kwargs["source"])

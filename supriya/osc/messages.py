@@ -4,7 +4,7 @@ import struct
 import time
 from collections.abc import Sequence as SequenceABC
 from enum import Enum
-from typing import List, TypeAlias, Union
+from typing import TypeAlias, Union
 
 from ..utils import group_by_count
 
@@ -32,7 +32,7 @@ OscArgument: TypeAlias = Union[
 
 
 def format_datagram(datagram: bytes) -> str:
-    result: List[str] = ["size {}".format(len(datagram))]
+    result: list[str] = ["size {}".format(len(datagram))]
     index = 0
     while index < len(datagram):
         hex_blocks = []
