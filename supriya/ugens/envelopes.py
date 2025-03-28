@@ -1,4 +1,4 @@
-from typing import Sequence, Union
+from typing import Sequence
 
 from uqbar.objects import get_repr
 
@@ -233,15 +233,15 @@ class Envelope:
         return (self.initial_amplitude,) + tuple(_[0] for _ in self.envelope_segments)
 
     @property
-    def curves(self) -> tuple[Union[EnvelopeShape, UGenOperable, float]]:
+    def curves(self) -> tuple[EnvelopeShape | UGenOperable | float]:
         return tuple(_[2] for _ in self.envelope_segments)
 
     @property
-    def duration(self) -> Union[float, UGenOperable]:
+    def duration(self) -> UGenOperable | float:
         return sum(self.durations)
 
     @property
-    def durations(self) -> tuple[Union[float, UGenOperable]]:
+    def durations(self) -> tuple[UGenOperable | float]:
         return tuple(_[1] for _ in self.envelope_segments)
 
     @property
@@ -249,7 +249,7 @@ class Envelope:
         return self._envelope_segments
 
     @property
-    def initial_amplitude(self) -> Union[float, UGenOperable]:
+    def initial_amplitude(self) -> UGenOperable | float:
         return self._initial_amplitude
 
     @property
@@ -257,7 +257,7 @@ class Envelope:
         return self._loop_node
 
     @property
-    def offset(self) -> Union[float, UGenOperable]:
+    def offset(self) -> UGenOperable | float:
         return self._offset
 
     @property

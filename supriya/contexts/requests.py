@@ -13,7 +13,6 @@ from typing import (
     Literal,
     Sequence,
     SupportsInt,
-    Union,
 )
 
 from uqbar.objects import new
@@ -679,7 +678,7 @@ class FreeSynthDef(Request):
         OscMessage('/d_free', 'default')
     """
 
-    synthdefs: Sequence[Union[SynthDef, str]]
+    synthdefs: Sequence[SynthDef | str]
 
     def to_osc(self) -> OscMessage:
         contents = []
