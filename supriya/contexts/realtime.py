@@ -140,7 +140,7 @@ class BaseServer(Context):
 
     def __init__(
         self,
-        options: Optional[Options],
+        options: Options | None,
         name: str | None = None,
         **kwargs,
     ) -> None:
@@ -456,7 +456,7 @@ class Server(BaseServer):
 
     def __init__(
         self,
-        options: Optional[Options] = None,
+        options: Options | None = None,
         name: str | None = None,
         **kwargs,
     ) -> None:
@@ -610,7 +610,7 @@ class Server(BaseServer):
 
     ### PUBLIC METHODS ###
 
-    def boot(self, *, options: Optional[Options] = None, **kwargs) -> "Server":
+    def boot(self, *, options: Options | None = None, **kwargs) -> "Server":
         """
         Boot the server.
 
@@ -635,7 +635,7 @@ class Server(BaseServer):
                 raise ServerCannotBoot(self.process_protocol.error_text)
         return self
 
-    def connect(self, *, options: Optional[Options] = None, **kwargs) -> "Server":
+    def connect(self, *, options: Options | None = None, **kwargs) -> "Server":
         """
         Connect to a running server.
 
@@ -807,7 +807,7 @@ class Server(BaseServer):
 
     def get_synth_control_range(
         self, synth: Synth, control: Union[int, str], count: int, sync: bool = True
-    ) -> Optional[Sequence[Union[float, str]]]:
+    ) -> Sequence[float | str] | None:
         """
         Get a range of synth controls.
 
@@ -1069,7 +1069,7 @@ class AsyncServer(BaseServer):
     ### INITIALIZER ###
 
     def __init__(
-        self, options: Optional[Options] = None, name: str | None = None, **kwargs
+        self, options: Options | None = None, name: str | None = None, **kwargs
     ) -> None:
         BaseServer.__init__(
             self,
@@ -1225,9 +1225,7 @@ class AsyncServer(BaseServer):
 
     ### PUBLIC METHODS ###
 
-    async def boot(
-        self, *, options: Optional[Options] = None, **kwargs
-    ) -> "AsyncServer":
+    async def boot(self, *, options: Options | None = None, **kwargs) -> "AsyncServer":
         """
         Boot the server.
 
@@ -1249,7 +1247,7 @@ class AsyncServer(BaseServer):
         return self
 
     async def connect(
-        self, *, options: Optional[Options] = None, **kwargs
+        self, *, options: Options | None = None, **kwargs
     ) -> "AsyncServer":
         """
         Connect to a running server.
@@ -1422,7 +1420,7 @@ class AsyncServer(BaseServer):
 
     async def get_synth_control_range(
         self, synth: Synth, control: Union[int, str], count: int, sync: bool = True
-    ) -> Optional[Sequence[Union[float, str]]]:
+    ) -> Sequence[float | str] | None:
         """
         Get a range of synth controls.
 

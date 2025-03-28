@@ -40,7 +40,7 @@ class Score(Context):
 
     ### INITIALIZER ###
 
-    def __init__(self, options: Optional[Options] = None, **kwargs) -> None:
+    def __init__(self, options: Options | None = None, **kwargs) -> None:
         super().__init__(options=options, **kwargs)
         self._boot_status: BootStatus = BootStatus.ONLINE
         self._requests: dict[float, list[Requestable]] = {}
@@ -52,7 +52,7 @@ class Score(Context):
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> tuple[Optional[Path], int]:
+    ) -> tuple[Path | None, int]:
         return await self.render(
             output_file_path,
             render_directory_path=render_directory_path,
@@ -95,13 +95,13 @@ class Score(Context):
         duration: float | None = None,
         header_format: HeaderFormatLike = HeaderFormat.AIFF,
         input_file_path: Optional[PathLike] = None,
-        options: Optional[Options] = None,
+        options: Options | None = None,
         render_directory_path: Optional[PathLike] = None,
         sample_format: SampleFormatLike = SampleFormat.INT24,
         sample_rate: float = 44100,
         suppress_output: bool = False,
         **kwargs,
-    ) -> tuple[Optional[Path], int]:
+    ) -> tuple[Path | None, int]:
         """
         Render the score.
 

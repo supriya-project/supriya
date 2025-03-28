@@ -1007,8 +1007,8 @@ class Synth(Node):
     def get_range(
         self, control: Union[int, str], count: int, sync: bool = True
     ) -> Union[
-        Awaitable[Optional[Sequence[Union[float, str]]]],
-        Optional[Sequence[Union[float, str]]],
+        Awaitable[Sequence[float | str] | None],
+        Sequence[float | str] | None,
     ]:
         """
         Get a range of controls.

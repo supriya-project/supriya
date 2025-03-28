@@ -42,8 +42,8 @@ class Requestable(ABC):
 
     @abstractmethod
     def _get_response_patterns_and_requestable(self, context: "Context") -> tuple[
-        Optional[Sequence[Union[float, str]]],
-        Optional[Sequence[Union[float, str]]],
+        Sequence[float | str] | None,
+        Sequence[float | str] | None,
         "Requestable",
     ]:
         raise NotImplementedError
@@ -111,14 +111,12 @@ class Request(Requestable):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return None, None
 
     def _get_response_patterns_and_requestable(self, context: "Context") -> tuple[
-        Optional[Sequence[Union[float, str]]],
-        Optional[Sequence[Union[float, str]]],
+        Sequence[float | str] | None,
+        Sequence[float | str] | None,
         "Requestable",
     ]:
         success_pattern, failure_pattern = self._get_response_patterns()
@@ -143,8 +141,8 @@ class RequestBundle(Requestable):
     ### PRIVATE METHODS ###
 
     def _get_response_patterns_and_requestable(self, context: "Context") -> tuple[
-        Optional[Sequence[Union[float, str]]],
-        Optional[Sequence[Union[float, str]]],
+        Sequence[float | str] | None,
+        Sequence[float | str] | None,
         "Requestable",
     ]:
         sync_id = context._get_next_sync_id()
@@ -187,9 +185,7 @@ class AllocateBuffer(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/b_alloc", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -230,9 +226,7 @@ class AllocateReadBuffer(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/b_allocRead", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -276,9 +270,7 @@ class AllocateReadBufferChannel(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/b_allocReadChannel", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -346,13 +338,11 @@ class CloseBuffer(Request):
     """
 
     buffer_id: SupportsInt
-    on_completion: Optional[Requestable] = None
+    on_completion: Requestable | None = None
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/b_close", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -389,9 +379,7 @@ class CopyBuffer(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/b_gen", int(self.target_buffer_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -602,7 +590,7 @@ class FreeBuffer(Request):
     """
 
     buffer_id: SupportsInt
-    on_completion: Optional[Requestable] = None
+    on_completion: Requestable | None = None
 
     def to_osc(self) -> OscMessage:
         contents: list[Union[OscBundle, OscMessage, int]] = [int(self.buffer_id)]
@@ -670,9 +658,7 @@ class FreeNode(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/n_end", int(self.node_ids[-1])], None
 
     def to_osc(self) -> OscMessage:
@@ -737,9 +723,7 @@ class GenerateBuffer(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/b_gen", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -785,9 +769,7 @@ class GetBuffer(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/b_set", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -819,9 +801,7 @@ class GetBufferRange(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/b_setn", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -848,9 +828,7 @@ class GetControlBus(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/c_set", int(self.bus_ids[0])], None
 
     def to_osc(self) -> OscMessage:
@@ -876,9 +854,7 @@ class GetControlBusRange(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/c_setn", int(self.items[0][0])], None
 
     def to_osc(self) -> OscMessage:
@@ -909,9 +885,7 @@ class GetSynthControl(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/n_set", int(self.synth_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -942,9 +916,7 @@ class GetSynthControlRange(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/n_setn", int(self.synth_id), self.items[0][0]], None
 
     def to_osc(self) -> OscMessage:
@@ -973,7 +945,7 @@ class LoadSynthDefs(Request):
     """
 
     path: PathLike
-    on_completion: Optional[Requestable] = None
+    on_completion: Requestable | None = None
 
     def to_osc(self) -> OscMessage:
         contents: list[Union[OscBundle, OscMessage, str]] = [str(self.path)]
@@ -999,7 +971,7 @@ class LoadSynthDefDirectory(Request):
     """
 
     path: PathLike
-    on_completion: Optional[Requestable] = None
+    on_completion: Requestable | None = None
 
     def to_osc(self) -> OscMessage:
         contents: list[Union[OscBundle, OscMessage, str]] = [str(self.path)]
@@ -1401,9 +1373,7 @@ class NormalizeBuffer(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/b_gen", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -1462,9 +1432,7 @@ class QueryBuffer(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         # TODO: We should be able to gather multiple responses
         return ["/b_info", self.buffer_ids[-1]], None
 
@@ -1491,9 +1459,7 @@ class QueryNode(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         # TODO: We should be able to gather multiple responses
         return ["/n_info", int(self.node_ids[-1])], None
 
@@ -1518,9 +1484,7 @@ class QueryStatus(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/status.reply"], None
 
     def to_osc(self) -> OscMessage:
@@ -1544,9 +1508,7 @@ class QueryTree(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         # TODO: We should be able to gather multiple responses
         return [
             "/g_queryTree.reply",
@@ -1576,9 +1538,7 @@ class QueryVersion(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/version.reply"], None
 
     def to_osc(self) -> OscMessage:
@@ -1600,9 +1560,7 @@ class Quit(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/quit"], None
 
     def to_osc(self) -> OscMessage:
@@ -1632,13 +1590,11 @@ class ReadBuffer(Request):
     leave_open: bool = False
     starting_frame_in_buffer: int = 0
     starting_frame_in_file: int = 0
-    on_completion: Optional[Requestable] = None
+    on_completion: Requestable | None = None
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/b_read", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -1680,13 +1636,11 @@ class ReadBufferChannel(Request):
     leave_open: bool = False
     starting_frame_in_buffer: int = 0
     starting_frame_in_file: int = 0
-    on_completion: Optional[Requestable] = None
+    on_completion: Requestable | None = None
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/b_readChannel", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -1727,7 +1681,7 @@ class ReceiveSynthDefs(Request):
     """
 
     synthdefs: Sequence[SynthDef]
-    on_completion: Optional[Requestable] = None
+    on_completion: Requestable | None = None
 
     def to_osc(self) -> OscMessage:
         contents: list[Union[OscBundle, OscMessage, bytes]] = [
@@ -2015,9 +1969,7 @@ class Sync(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/synced", self.sync_id], None
 
     def to_osc(self) -> OscMessage:
@@ -2061,9 +2013,7 @@ class ToggleNotifications(Request):
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/notify"], ["/fail", "/notify"]
 
     def to_osc(self) -> OscMessage:
@@ -2120,13 +2070,11 @@ class WriteBuffer(Request):
     frame_count: int = -1
     starting_frame: int = 0
     leave_open: bool = False
-    on_completion: Optional[Requestable] = None
+    on_completion: Requestable | None = None
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/b_write", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
@@ -2161,13 +2109,11 @@ class ZeroBuffer(Request):
     """
 
     buffer_id: SupportsInt
-    on_completion: Optional[Requestable] = None
+    on_completion: Requestable | None = None
 
     def _get_response_patterns(
         self,
-    ) -> tuple[
-        Optional[Sequence[Union[float, str]]], Optional[Sequence[Union[float, str]]]
-    ]:
+    ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return ["/done", "/b_zero", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:

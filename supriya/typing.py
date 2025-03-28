@@ -59,7 +59,7 @@ class SupportsRender(Protocol):
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Coroutine[None, None, tuple[Optional[Path], int]]:
+    ) -> Coroutine[None, None, tuple[Path | None, int]]:
         pass
 
 

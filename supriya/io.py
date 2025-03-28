@@ -34,7 +34,7 @@ class PlayMemo:
         output_file_path: Optional[PathLike] = None,
         render_directory_path: Optional[PathLike] = None,
         **kwargs,
-    ) -> Coroutine[None, None, tuple[Optional[Path], int]]:
+    ) -> Coroutine[None, None, tuple[Path | None, int]]:
         async def render_function() -> tuple[Path, int]:
             if output_file_path is None:
                 hexdigest = hashlib.sha256(self.contents).hexdigest()
@@ -61,7 +61,7 @@ class Player:
 
     ### SPECIAL METHODS ###
 
-    def __call__(self) -> tuple[Optional[Path], int]:
+    def __call__(self) -> tuple[Path | None, int]:
         path, exit_code = self.render()
         if path:
             self.open_output_path(path)
@@ -77,7 +77,7 @@ class Player:
         else:
             open_path(output_path)
 
-    def render(self) -> tuple[Optional[Path], int]:
+    def render(self) -> tuple[Path | None, int]:
         return render(self.renderable, **self.render_kwargs)
 
 
@@ -137,7 +137,7 @@ def render(
     output_file_path: Optional[PathLike] = None,
     render_directory_path: Optional[PathLike] = None,
     **kwargs,
-) -> tuple[Optional[Path], int]:
+) -> tuple[Path | None, int]:
     if isinstance(renderable, SupportsRenderMemo):
         supports_render = renderable.__render_memo__()
     else:

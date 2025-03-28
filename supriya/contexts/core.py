@@ -204,7 +204,7 @@ class Context(metaclass=abc.ABCMeta):
 
     def __init__(
         self,
-        options: Optional[Options],
+        options: Options | None,
         name: str | None = None,
         **kwargs,
     ) -> None:
