@@ -19,7 +19,6 @@ from typing import (
     Sequence,
     SupportsInt,
     Type,
-    Union,
     cast,
 )
 
@@ -320,7 +319,7 @@ class BaseServer(Context):
         except ValueError:
             pass
 
-    def _resolve_node(self, node: Union[Node, SupportsInt, None]) -> int:
+    def _resolve_node(self, node: Node | SupportsInt | None) -> int:
         if node is None:
             return self._client_id + 1
         return int(node)
@@ -379,7 +378,7 @@ class BaseServer(Context):
 
     ### PUBLIC METHODS ###
 
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
+    def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         """
         Send a message to the execution context.
 

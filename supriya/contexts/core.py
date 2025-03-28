@@ -21,7 +21,6 @@ from typing import (
     SupportsFloat,
     SupportsInt,
     Type,
-    Union,
     cast,
 )
 
@@ -320,7 +319,7 @@ class Context(metaclass=abc.ABCMeta):
         self,
         type_: Type[ContextObject],
         calculation_rate: CalculationRate | None = None,
-    ) -> Union[BlockAllocator, NodeIdAllocator]:
+    ) -> BlockAllocator | NodeIdAllocator:
         if type_ is Node:
             return self._node_id_allocator
         if type_ is Buffer:
@@ -371,7 +370,7 @@ class Context(metaclass=abc.ABCMeta):
         self._thread_local.__dict__.setdefault("moments", []).append(moment)
 
     @abc.abstractmethod
-    def _resolve_node(self, node: Union[Node, SupportsInt, None]) -> int:
+    def _resolve_node(self, node: Node | SupportsInt | None) -> int:
         raise NotImplementedError
 
     def _setup_allocators(self) -> None:
@@ -614,9 +613,7 @@ class Context(metaclass=abc.ABCMeta):
             if add_action_ not in target_node._valid_add_actions:
                 raise ValueError(add_action_)
         target_node_id = self._resolve_node(target_node)
-        synthdef_kwargs: dict[int | str, Union[float, str, tuple[float | str, ...]]] = (
-            {}
-        )
+        synthdef_kwargs: dict[int | str, float | str | tuple[float | str, ...]] = {}
         for _, parameter in synthdef.indexed_parameters:
             if parameter.name not in settings:
                 continue
@@ -1008,7 +1005,7 @@ class Context(metaclass=abc.ABCMeta):
         request = LoadSynthDefDirectory(path=path)
         return self._add_request_with_completion(request, on_completion)
 
-    def map_node(self, node: Node, **settings: Union[Bus, None, str]) -> None:
+    def map_node(self, node: Node, **settings: Bus | str | None) -> None:
         """
         Map a node's controls to buses.
 
@@ -1179,7 +1176,7 @@ class Context(metaclass=abc.ABCMeta):
         return self._add_request_with_completion(request, on_completion)
 
     @abc.abstractmethod
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
+    def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         """
         Send a message to the execution context.
 
@@ -1250,8 +1247,8 @@ class Context(metaclass=abc.ABCMeta):
     def set_node(
         self,
         node: Node,
-        *indexed_settings: tuple[int, Union[SupportsFloat, Sequence[SupportsFloat]]],
-        **settings: Union[SupportsFloat, Sequence[SupportsFloat]],
+        *indexed_settings: tuple[int, SupportsFloat | Sequence[SupportsFloat]],
+        **settings: SupportsFloat | Sequence[SupportsFloat],
     ) -> None:
         """
         set a node's controls.
@@ -1263,7 +1260,7 @@ class Context(metaclass=abc.ABCMeta):
         :param settings: A mapping of control names to values.
         """
         self._validate_can_request()
-        coerced_settings: dict[int | str, Union[float, Sequence[float]]] = {}
+        coerced_settings: dict[int | str, float | Sequence[float]] = {}
         for index, values in sorted(indexed_settings):
             if isinstance(values, Sequence):
                 coerced_settings[index] = [float(value) for value in values]

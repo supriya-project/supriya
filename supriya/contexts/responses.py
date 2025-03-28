@@ -10,7 +10,6 @@ from typing import (
     Generator,
     Sequence,
     Type,
-    Union,
     cast,
 )
 
@@ -431,7 +430,7 @@ class QueryTreeGroup(QueryTreeNode):
     def from_query_tree_info(cls, response: QueryTreeInfo) -> "QueryTreeGroup":
         def recurse(
             item: QueryTreeInfo.Item, items: Deque[QueryTreeInfo.Item]
-        ) -> Union[QueryTreeGroup, QueryTreeSynth]:
+        ) -> QueryTreeGroup | QueryTreeSynth:
             if item.child_count < 0:
                 return QueryTreeSynth(
                     node_id=item.node_id,

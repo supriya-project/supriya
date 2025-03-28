@@ -14,7 +14,7 @@ from contextlib import ExitStack
 from os import PathLike
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Iterator, SupportsInt, Type, Union
+from typing import Iterator, SupportsInt, Type
 
 from ..assets.synthdefs import system_synthdefs
 from ..enums import BootStatus, CalculationRate, HeaderFormat, SampleFormat
@@ -73,7 +73,7 @@ class Score(Context):
     ) -> None:
         pass
 
-    def _resolve_node(self, node: Union[Node, SupportsInt, None]) -> int:
+    def _resolve_node(self, node: Node | SupportsInt | None) -> int:
         if node is None:
             return 0
         return int(node)
@@ -237,7 +237,7 @@ class Score(Context):
         if until and until > timestamp:
             yield RequestBundle(timestamp=until, contents=[DoNothing()])
 
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
+    def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         """
         Send a message to the execution context.
 

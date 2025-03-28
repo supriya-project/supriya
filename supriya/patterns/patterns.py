@@ -13,7 +13,6 @@ from typing import (
     Generator,
     Generic,
     Iterator,
-    Optional,
     Sequence,
     TypeVar,
     Union,
@@ -270,10 +269,13 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
         self,
         context: Context,
         *,
-        callback: Callable[
-            ["PatternPlayer", ClockContext, Event, Priority],
-            None,
-        ] | None = None,
+        callback: (
+            Callable[
+                ["PatternPlayer", ClockContext, Event, Priority],
+                None,
+            ]
+            | None
+        ) = None,
         clock: BaseClock,
         quantization: Quantization | None = None,
         target_bus: Bus | None = None,

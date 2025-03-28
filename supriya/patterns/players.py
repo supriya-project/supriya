@@ -4,7 +4,6 @@ from typing import (
     Callable,
     Generator,
     Iterable,
-    Optional,
     Sequence,
     Union,
     cast,
@@ -39,7 +38,9 @@ class PatternPlayer:
         pattern: Pattern,
         context: Context,
         clock: BaseClock,
-        callback: Callable[["PatternPlayer", ClockContext, Event, Priority], None] | None = None,
+        callback: (
+            Callable[["PatternPlayer", ClockContext, Event, Priority], None] | None
+        ) = None,
         target_bus: Bus | None = None,
         target_node: Node | None = None,
         uuid: UUID | None = None,

@@ -229,7 +229,7 @@ class Buffer(ContextObject):
 
     def get(
         self, *indices: int, sync: bool = True
-    ) -> Union[Awaitable[dict[int, float] | None], dict[int, float] | None]:
+    ) -> Awaitable[dict[int, float] | None] | dict[int, float] | None:
         """
         Get a sample.
 
