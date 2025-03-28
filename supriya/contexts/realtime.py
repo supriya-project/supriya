@@ -141,7 +141,7 @@ class BaseServer(Context):
     def __init__(
         self,
         options: Optional[Options],
-        name: Optional[str] = None,
+        name: str | None = None,
         **kwargs,
     ) -> None:
         Context.__init__(self, options, name=name, **kwargs)
@@ -457,7 +457,7 @@ class Server(BaseServer):
     def __init__(
         self,
         options: Optional[Options] = None,
-        name: Optional[str] = None,
+        name: str | None = None,
         **kwargs,
     ) -> None:
         def on_panic(event: ServerShutdownEvent) -> None:
@@ -1069,7 +1069,7 @@ class AsyncServer(BaseServer):
     ### INITIALIZER ###
 
     def __init__(
-        self, options: Optional[Options] = None, name: Optional[str] = None, **kwargs
+        self, options: Optional[Options] = None, name: str | None = None, **kwargs
     ) -> None:
         BaseServer.__init__(
             self,

@@ -29,7 +29,7 @@ class Say:
     """
 
     text: str
-    voice: Optional[str]
+    voice: str | None
 
     ### CLASS VARIABLES ###
 

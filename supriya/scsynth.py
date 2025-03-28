@@ -47,11 +47,11 @@ class Options:
     block_size: int = 64
     buffer_count: int = 1024
     control_bus_channel_count: int = 16384
-    executable: Optional[str] = None
+    executable: str | None = None
     hardware_buffer_size: int | None = None
     initial_node_id: int = 1000
     input_bus_channel_count: int = 8
-    input_device: Optional[str] = None
+    input_device: str | None = None
     input_stream_mask: str = ""
     ip_address: str = DEFAULT_IP_ADDRESS
     load_synthdefs: bool = True
@@ -61,18 +61,18 @@ class Options:
     memory_locking: bool = False
     memory_size: int = 8192
     output_bus_channel_count: int = 8
-    output_device: Optional[str] = None
+    output_device: str | None = None
     output_stream_mask: str = ""
-    password: Optional[str] = None
+    password: str | None = None
     port: int = DEFAULT_PORT
     protocol: str = "udp"
     random_number_generator_count: int = 64
     realtime: bool = True
-    restricted_path: Optional[str] = None
+    restricted_path: str | None = None
     safety_clip: Optional[Union[int, Literal["inf"]]] = None
     sample_rate: int | None = None
     threads: int = 6
-    ugen_plugins_path: Optional[str] = None
+    ugen_plugins_path: str | None = None
     verbosity: int = 0
     wire_buffer_count: int = 64
     zero_configuration: bool = False
@@ -287,10 +287,10 @@ class ProcessProtocol:
     def __init__(
         self,
         *,
-        name: Optional[str] = None,
-        on_boot_callback: Optional[Callable] = None,
-        on_panic_callback: Optional[Callable] = None,
-        on_quit_callback: Optional[Callable] = None,
+        name: str | None = None,
+        on_boot_callback: Callable | None = None,
+        on_panic_callback: Callable | None = None,
+        on_quit_callback: Callable | None = None,
     ) -> None:
         self.buffer_ = ""
         self.captures: set[Capture] = set()
@@ -390,10 +390,10 @@ class ThreadedProcessProtocol(ProcessProtocol):
     def __init__(
         self,
         *,
-        name: Optional[str] = None,
-        on_boot_callback: Optional[Callable] = None,
-        on_panic_callback: Optional[Callable] = None,
-        on_quit_callback: Optional[Callable] = None,
+        name: str | None = None,
+        on_boot_callback: Callable | None = None,
+        on_panic_callback: Callable | None = None,
+        on_quit_callback: Callable | None = None,
     ) -> None:
         super().__init__(
             name=name,
@@ -475,10 +475,10 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
     def __init__(
         self,
         *,
-        name: Optional[str] = None,
-        on_boot_callback: Optional[Callable] = None,
-        on_panic_callback: Optional[Callable] = None,
-        on_quit_callback: Optional[Callable] = None,
+        name: str | None = None,
+        on_boot_callback: Callable | None = None,
+        on_panic_callback: Callable | None = None,
+        on_quit_callback: Callable | None = None,
     ) -> None:
         ProcessProtocol.__init__(
             self,

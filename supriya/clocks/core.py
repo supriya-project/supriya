@@ -100,7 +100,7 @@ class Command(Action):
 @dataclasses.dataclass(frozen=True)
 class CallbackCommand(Command):
     args: Optional[tuple]
-    kwargs: Optional[dict]
+    kwargs: dict | None
     procedure: Callable[["ClockContext"], Union[None, float, tuple[float, TimeUnit]]]
 
 
@@ -142,7 +142,7 @@ class Event(Action):
 class CallbackEvent(Event):
     procedure: Callable[["ClockContext"], Union[None, float, tuple[float, TimeUnit]]]
     args: Optional[tuple]
-    kwargs: Optional[dict]
+    kwargs: dict | None
     invocations: int
 
     def __hash__(self) -> int:
@@ -879,7 +879,7 @@ class BaseClock:
         return self._is_running
 
     @property
-    def name(self) -> Optional[str]:
+    def name(self) -> str | None:
         return self._name
 
     @property

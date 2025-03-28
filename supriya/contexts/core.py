@@ -205,7 +205,7 @@ class Context(metaclass=abc.ABCMeta):
     def __init__(
         self,
         options: Optional[Options],
-        name: Optional[str] = None,
+        name: str | None = None,
         **kwargs,
     ) -> None:
         self._audio_bus_allocator = BlockAllocator()
@@ -1430,7 +1430,7 @@ class Context(metaclass=abc.ABCMeta):
         return self._latency
 
     @property
-    def name(self) -> Optional[str]:
+    def name(self) -> str | None:
         """
         Get the context's optional name.
         """

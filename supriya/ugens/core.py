@@ -174,7 +174,7 @@ def _create_fn(
     body: list[str],
     return_type,
     globals_: Optional[dict[str, Type]] = None,
-    decorator: Optional[Callable] = None,
+    decorator: Callable | None = None,
     override: bool = False,
 ) -> None:
     if name in cls.__dict__ and not override:
@@ -362,7 +362,7 @@ def _compute_binary_op(
     left: "UGenRecursiveInput",
     right: "UGenRecursiveInput",
     special_index: BinaryOperator,
-    float_operator: Optional[Callable] = None,
+    float_operator: Callable | None = None,
 ) -> "UGenOperable":
     def recurse(
         all_expanded_params: UGenRecursiveParams,
@@ -396,7 +396,7 @@ def _compute_binary_op(
 def _compute_unary_op(
     source: "UGenRecursiveInput",
     special_index: UnaryOperator,
-    float_operator: Optional[Callable] = None,
+    float_operator: Callable | None = None,
 ) -> "UGenOperable":
     def recurse(
         all_expanded_params: UGenRecursiveParams,
@@ -5278,7 +5278,7 @@ class Parameter(UGen):
     def __init__(
         self,
         *,
-        name: Optional[str] = None,
+        name: str | None = None,
         value: Union[float, Sequence[float]],
         rate: ParameterRate = ParameterRate.CONTROL,
         lag: float | None = None,
@@ -5367,7 +5367,7 @@ class SynthDefError(Exception):
 
 class SynthDef:
 
-    def __init__(self, ugens: Sequence[UGen], name: Optional[str] = None) -> None:
+    def __init__(self, ugens: Sequence[UGen], name: str | None = None) -> None:
         if not ugens:
             raise SynthDefError("No UGens provided")
         self._ugens = tuple(ugens)
@@ -5700,7 +5700,7 @@ class SynthDef:
         return sorted((value[1], value[0]) for value in self.parameters.values())
 
     @property
-    def name(self) -> Optional[str]:
+    def name(self) -> str | None:
         return self._name
 
     @property
@@ -5971,7 +5971,7 @@ class SynthDefBuilder:
         self._parameters[name] = parameter
         return parameter
 
-    def build(self, name: Optional[str] = None, optimize: bool = True) -> SynthDef:
+    def build(self, name: str | None = None, optimize: bool = True) -> SynthDef:
         """
         Build.
 
@@ -6500,7 +6500,7 @@ def decompile_synthdefs(value: bytes) -> list[SynthDef]:
 
 class SuperColliderSynthDef:
 
-    def __init__(self, name: str, body: str, rates: Optional[str] = None):
+    def __init__(self, name: str, body: str, rates: str | None = None):
         self.name = name
         self.body = body
         self.rates = rates

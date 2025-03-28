@@ -292,7 +292,7 @@ class QueryTreeInfo(Response):
     class Item:
         node_id: int
         child_count: int
-        synthdef_name: Optional[str] = None
+        synthdef_name: str | None = None
         controls: Optional[dict[Union[int, str], Union[float, str]]] = None
 
     node_id: int
@@ -309,7 +309,7 @@ class QueryTreeInfo(Response):
         while index < len(osc_message.contents):
             child_id = cast(int, osc_message.contents[index])
             child_child_count = cast(int, osc_message.contents[index + 1])
-            synthdef_name: Optional[str] = None
+            synthdef_name: str | None = None
             controls: Optional[dict[Union[int, str], Union[float, str]]] = None
             index += 2
             if child_child_count < 0:
@@ -353,7 +353,7 @@ class QueryTreeControl:
 @dataclasses.dataclass
 class QueryTreeNode:
     node_id: int
-    annotation: Optional[str] = None
+    annotation: str | None = None
 
     def _get_str_format_pieces(self, unindexed: bool = False) -> list[str]:
         raise NotImplementedError
@@ -362,9 +362,9 @@ class QueryTreeNode:
 @dataclasses.dataclass
 class QueryTreeSynth(QueryTreeNode):
     node_id: int
-    synthdef_name: Optional[str] = None
+    synthdef_name: str | None = None
     controls: list[QueryTreeControl] = dataclasses.field(default_factory=list)
-    annotation: Optional[str] = None
+    annotation: str | None = None
 
     def __format__(self, format_spec: str) -> str:
         return "\n".join(
@@ -389,7 +389,7 @@ class QueryTreeSynth(QueryTreeNode):
 class QueryTreeGroup(QueryTreeNode):
     node_id: int
     children: list[QueryTreeNode] = dataclasses.field(default_factory=list)
-    annotation: Optional[str] = None
+    annotation: str | None = None
 
     ### SPECIAL METHODS ###
 

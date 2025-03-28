@@ -122,10 +122,10 @@ class OscProtocol:
     def __init__(
         self,
         *,
-        name: Optional[str] = None,
-        on_connect_callback: Optional[Callable] = None,
-        on_disconnect_callback: Optional[Callable] = None,
-        on_panic_callback: Optional[Callable] = None,
+        name: str | None = None,
+        on_connect_callback: Callable | None = None,
+        on_disconnect_callback: Callable | None = None,
+        on_panic_callback: Callable | None = None,
     ) -> None:
         self.callbacks: dict[Any, Any] = {}
         self.captures: set[Capture] = set()
@@ -257,7 +257,7 @@ class OscProtocol:
         failure_pattern=None,
         once: bool = False,
         args: Optional[tuple] = None,
-        kwargs: Optional[dict] = None,
+        kwargs: dict | None = None,
     ) -> OscCallback:
         if isinstance(pattern, (str, int, float)):
             pattern = [pattern]
@@ -364,7 +364,7 @@ class OscProtocol:
         failure_pattern: Optional[Sequence[Union[str, float]]] = None,
         once: bool = False,
         args: Optional[tuple] = None,
-        kwargs: Optional[dict] = None,
+        kwargs: dict | None = None,
     ) -> OscCallback:
         raise NotImplementedError
 

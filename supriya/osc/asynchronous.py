@@ -21,10 +21,10 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     def __init__(
         self,
         *,
-        name: Optional[str] = None,
-        on_connect_callback: Optional[Callable] = None,
-        on_disconnect_callback: Optional[Callable] = None,
-        on_panic_callback: Optional[Callable] = None,
+        name: str | None = None,
+        on_connect_callback: Callable | None = None,
+        on_disconnect_callback: Callable | None = None,
+        on_panic_callback: Callable | None = None,
     ) -> None:
         asyncio.DatagramProtocol.__init__(self)
         OscProtocol.__init__(
@@ -179,7 +179,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         failure_pattern: Optional[Sequence[Union[str, float]]] = None,
         once: bool = False,
         args: Optional[tuple] = None,
-        kwargs: Optional[dict] = None,
+        kwargs: dict | None = None,
     ) -> OscCallback:
         """
         Register a callback.
