@@ -985,9 +985,9 @@ class Synth(Node):
 
     synthdef: SynthDef
 
-    def get(self, *controls: Union[int, str], sync: bool = True) -> Union[
-        Awaitable[Optional[dict[Union[int, str], float]]],
-        Optional[dict[Union[int, str], float]],
+    def get(self, *controls: int | str, sync: bool = True) -> Union[
+        Awaitable[Optional[dict[int | str, float]]],
+        Optional[dict[int | str, float]],
     ]:
         """
         Get a control.
@@ -1005,7 +1005,7 @@ class Synth(Node):
         return self.context.get_synth_controls(self, *controls, sync=sync)
 
     def get_range(
-        self, control: Union[int, str], count: int, sync: bool = True
+        self, control: int | str, count: int, sync: bool = True
     ) -> Union[
         Awaitable[Sequence[float | str] | None],
         Sequence[float | str] | None,

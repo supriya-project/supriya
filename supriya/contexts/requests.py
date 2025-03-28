@@ -149,7 +149,7 @@ class RequestBundle(Requestable):
         request_bundle: "RequestBundle" = new(
             self, contents=list(self.contents) + [Sync(sync_id=sync_id)]
         )
-        response_pattern: list[Union[float, str]] = ["/synced", sync_id]
+        response_pattern: list[float | str] = ["/synced", sync_id]
         return response_pattern, None, request_bundle
 
     ### PUBLIC METHODS ###
@@ -541,10 +541,10 @@ class FillNode(Request):
     """
 
     node_id: SupportsInt
-    items: Sequence[tuple[Union[int, str], int, float]]
+    items: Sequence[tuple[int | str, int, float]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[float, str]] = [int(self.node_id)]
+        contents: list[float | str] = [int(self.node_id)]
         for control, count, value in self.items:
             contents.extend(
                 [
@@ -727,7 +727,7 @@ class GenerateBuffer(Request):
         return ["/done", "/b_gen", int(self.buffer_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[str, float]] = [
+        contents: list[float | str] = [
             int(self.buffer_id),
             self.command_name,
             (
@@ -881,7 +881,7 @@ class GetSynthControl(Request):
     """
 
     synth_id: SupportsInt
-    controls: Sequence[Union[int, str]]
+    controls: Sequence[int | str]
 
     def _get_response_patterns(
         self,
@@ -889,7 +889,7 @@ class GetSynthControl(Request):
         return ["/n_set", int(self.synth_id)], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[int, str]] = [int(self.synth_id)]
+        contents: list[int | str] = [int(self.synth_id)]
         for control in self.controls:
             contents.append(control if isinstance(control, str) else int(control))
         return OscMessage(RequestName.SYNTH_GET, *contents)
@@ -912,7 +912,7 @@ class GetSynthControlRange(Request):
     """
 
     synth_id: SupportsInt
-    items: Sequence[tuple[Union[int, str], int]]
+    items: Sequence[tuple[int | str, int]]
 
     def _get_response_patterns(
         self,
@@ -920,7 +920,7 @@ class GetSynthControlRange(Request):
         return ["/n_setn", int(self.synth_id), self.items[0][0]], None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[int, str]] = [int(self.synth_id)]
+        contents: list[int | str] = [int(self.synth_id)]
         for control, count in self.items:
             contents.extend(
                 [control if isinstance(control, str) else int(control), int(count)]
@@ -997,10 +997,10 @@ class MapAudioBusToNode(Request):
     """
 
     node_id: SupportsInt
-    items: Sequence[tuple[Union[int, str], SupportsInt]]
+    items: Sequence[tuple[int | str, SupportsInt]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[int, str]] = [int(self.node_id)]
+        contents: list[int | str] = [int(self.node_id)]
         for index_or_name, bus_index in self.items:
             contents.extend(
                 [
@@ -1032,10 +1032,10 @@ class MapAudioBusRangeToNode(Request):
     """
 
     node_id: SupportsInt
-    items: Sequence[tuple[Union[int, str], SupportsInt, int]]
+    items: Sequence[tuple[int | str, SupportsInt, int]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[int, str]] = [int(self.node_id)]
+        contents: list[int | str] = [int(self.node_id)]
         for index_or_name, bus_index, count in self.items:
             contents.extend(
                 [
@@ -1068,10 +1068,10 @@ class MapControlBusToNode(Request):
     """
 
     node_id: SupportsInt
-    items: Sequence[tuple[Union[int, str], SupportsInt]]
+    items: Sequence[tuple[int | str, SupportsInt]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[int, str]] = [int(self.node_id)]
+        contents: list[int | str] = [int(self.node_id)]
         for index_or_name, bus_index in self.items:
             contents.extend(
                 [
@@ -1103,10 +1103,10 @@ class MapControlBusRangeToNode(Request):
     """
 
     node_id: SupportsInt
-    items: Sequence[tuple[Union[int, str], SupportsInt, int]]
+    items: Sequence[tuple[int | str, SupportsInt, int]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[int, str]] = [int(self.node_id)]
+        contents: list[int | str] = [int(self.node_id)]
         for index_or_name, bus_index, count in self.items:
             contents.extend(
                 [
@@ -1325,11 +1325,11 @@ class NewSynth(Request):
     add_action: AddActionLike
     target_node_id: SupportsInt
     controls: Optional[
-        dict[Union[int, str], Union[float, str, tuple[Union[float, str], ...]]]
+        dict[int | str, Union[float, str, tuple[float | str, ...]]]
     ] = None
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[float, str, tuple[Union[float, str], ...]]] = [
+        contents: list[Union[float, str, tuple[float | str, ...]]] = [
             (
                 self.synthdef.effective_name
                 if isinstance(self.synthdef, SynthDef)
@@ -1904,7 +1904,7 @@ class SetNodeControl(Request):
     """
 
     node_id: SupportsInt
-    items: Sequence[tuple[Union[int, str], Union[float, Sequence[float]]]]
+    items: Sequence[tuple[int | str, Union[float, Sequence[float]]]]
 
     def to_osc(self) -> OscMessage:
         contents: list[Union[float, str, list[float]]] = [int(self.node_id)]
@@ -1937,10 +1937,10 @@ class SetNodeControlRange(Request):
     """
 
     node_id: SupportsInt
-    items: Sequence[tuple[Union[int, str], Sequence[float]]]
+    items: Sequence[tuple[int | str, Sequence[float]]]
 
     def to_osc(self) -> OscMessage:
-        contents: list[Union[float, str]] = [int(self.node_id)]
+        contents: list[float | str] = [int(self.node_id)]
         for control, values in self.items:
             contents.extend(
                 [

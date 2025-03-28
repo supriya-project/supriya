@@ -358,10 +358,10 @@ class OscProtocol:
 
     def register(
         self,
-        pattern: Sequence[Union[str, float]],
+        pattern: Sequence[float | str],
         procedure: Callable[[OscMessage], Optional[Awaitable[None]]],
         *,
-        failure_pattern: Optional[Sequence[Union[str, float]]] = None,
+        failure_pattern: Optional[Sequence[float | str]] = None,
         once: bool = False,
         args: Optional[tuple] = None,
         kwargs: dict | None = None,

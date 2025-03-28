@@ -615,7 +615,7 @@ class Context(metaclass=abc.ABCMeta):
                 raise ValueError(add_action_)
         target_node_id = self._resolve_node(target_node)
         synthdef_kwargs: dict[
-            Union[int, str], Union[float, str, tuple[Union[float, str], ...]]
+            int | str, Union[float, str, tuple[float | str, ...]]
         ] = {}
         for _, parameter in synthdef.indexed_parameters:
             if parameter.name not in settings:
@@ -631,7 +631,7 @@ class Context(metaclass=abc.ABCMeta):
             ):
                 synthdef_kwargs[parameter.name] = tuple(float(v) for v in value)
             else:
-                processed_values: list[Union[float, str]] = []
+                processed_values: list[float | str] = []
                 for v in value:
                     if isinstance(v, Bus):
                         processed_values.append(v.map_symbol())
@@ -1263,7 +1263,7 @@ class Context(metaclass=abc.ABCMeta):
         :param settings: A mapping of control names to values.
         """
         self._validate_can_request()
-        coerced_settings: dict[Union[int, str], Union[float, Sequence[float]]] = {}
+        coerced_settings: dict[int | str, Union[float, Sequence[float]]] = {}
         for index, values in sorted(indexed_settings):
             if isinstance(values, Sequence):
                 coerced_settings[index] = [float(value) for value in values]
@@ -1293,7 +1293,7 @@ class Context(metaclass=abc.ABCMeta):
         :param settings: A mapping of control names to values.
         """
         self._validate_can_request()
-        coerced_settings: dict[Union[int, str], Sequence[float]] = {}
+        coerced_settings: dict[int | str, Sequence[float]] = {}
         for index, values in sorted(indexed_settings):
             coerced_settings[index] = [float(value) for value in values]
         for key, values in sorted(settings.items()):

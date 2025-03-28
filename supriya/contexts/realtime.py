@@ -784,7 +784,7 @@ class Server(BaseServer):
         return None
 
     def get_synth_controls(
-        self, synth: Synth, *controls: Union[int, str], sync: bool = True
+        self, synth: Synth, *controls: int | str, sync: bool = True
     ) -> dict[int | str, float] | None:
         """
         Get a synth control.
@@ -805,7 +805,7 @@ class Server(BaseServer):
         return None
 
     def get_synth_control_range(
-        self, synth: Synth, control: Union[int, str], count: int, sync: bool = True
+        self, synth: Synth, control: int | str, count: int, sync: bool = True
     ) -> Sequence[float | str] | None:
         """
         Get a range of synth controls.
@@ -1395,7 +1395,7 @@ class AsyncServer(BaseServer):
         return None
 
     async def get_synth_controls(
-        self, synth: Synth, *controls: Union[int, str], sync: bool = True
+        self, synth: Synth, *controls: int | str, sync: bool = True
     ) -> dict[int | str, float] | None:
         """
         Get a synth control.
@@ -1418,7 +1418,7 @@ class AsyncServer(BaseServer):
         return None
 
     async def get_synth_control_range(
-        self, synth: Synth, control: Union[int, str], count: int, sync: bool = True
+        self, synth: Synth, control: int | str, count: int, sync: bool = True
     ) -> Sequence[float | str] | None:
         """
         Get a range of synth controls.

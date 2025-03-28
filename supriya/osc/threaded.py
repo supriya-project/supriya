@@ -168,7 +168,7 @@ class ThreadedOscProtocol(OscProtocol):
             cast(HealthCheck, self.healthcheck).active = True
 
     def connect(
-        self, ip_address: str, port: int, *, healthcheck: Optional[HealthCheck] = None
+        self, ip_address: str, port: int, *, healthcheck: HealthCheck | None = None
     ) -> None:
         if self.status != BootStatus.OFFLINE:
             osc_protocol_logger.info(
@@ -202,10 +202,10 @@ class ThreadedOscProtocol(OscProtocol):
 
     def register(
         self,
-        pattern: Sequence[Union[str, float]],
-        procedure: Callable[[OscMessage], Optional[Awaitable[None]]],
+        pattern: Sequence[float | str],
+        procedure: Callable[[OscMessage], Awaitable[None] | None],
         *,
-        failure_pattern: Optional[Sequence[Union[str, float]]] = None,
+        failure_pattern: Optional[Sequence[float | str]] = None,
         once: bool = False,
         args: Optional[tuple] = None,
         kwargs: dict | None = None,

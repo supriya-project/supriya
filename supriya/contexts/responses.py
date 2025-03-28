@@ -88,7 +88,7 @@ class DoneInfo(Response):
     """
 
     command_name: str
-    other: Sequence[Union[float, str]]
+    other: Sequence[float | str]
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
@@ -105,7 +105,7 @@ class FailInfo(Response):
 
     command_name: str
     error: str
-    other: Sequence[Union[float, str]]
+    other: Sequence[float | str]
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
@@ -209,12 +209,12 @@ class GetControlBusRangeInfo(Response):
 @dataclasses.dataclass
 class GetNodeControlInfo(Response):
     node_id: int
-    items: Sequence[tuple[Union[int, str], float]]
+    items: Sequence[tuple[int | str, float]]
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
         node_id = cast(int, osc_message.contents[0])
-        items: list[tuple[Union[int, str], float]] = []
+        items: list[tuple[int | str, float]] = []
         for i in range(1, len(osc_message.contents), 2):
             name_or_index = cast(int | str, osc_message.contents[i])
             value = cast(float, osc_message.contents[i + 1])
@@ -225,12 +225,12 @@ class GetNodeControlInfo(Response):
 @dataclasses.dataclass
 class GetNodeControlRangeInfo(Response):
     node_id: int
-    items: Sequence[tuple[Union[int, str], Sequence[float]]]
+    items: Sequence[tuple[int | str, Sequence[float]]]
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
         node_id = cast(int, osc_message.contents[0])
-        items: list[tuple[Union[int, str], Sequence[float]]] = []
+        items: list[tuple[int | str, Sequence[float]]] = []
         current_index = 1
         while current_index < len(osc_message.contents):
             name_or_index = cast(int | str, osc_message.contents[current_index])
@@ -319,10 +319,10 @@ class QueryTreeInfo(Response):
                     control_count = cast(int, osc_message.contents[index])
                     index += 1
                     for i in range(control_count):
-                        name_or_index: Union[int, str] = cast(
+                        name_or_index: int | str = cast(
                             int | str, osc_message.contents[index]
                         )
-                        value: Union[float, str] = cast(
+                        value: float | str = cast(
                             float | str, osc_message.contents[index + 1]
                         )
                         controls[name_or_index] = value
@@ -340,8 +340,8 @@ class QueryTreeInfo(Response):
 
 @dataclasses.dataclass
 class QueryTreeControl:
-    name_or_index: Union[int, str]
-    value: Union[float, str]
+    name_or_index: int | str
+    value: float | str
 
     def __str__(self) -> str:
         if isinstance(self.value, str):
@@ -485,11 +485,11 @@ class QueryTreeGroup(QueryTreeNode):
                 for pair in control_pattern.findall(line):
                     name_string, _, value_string = pair.partition(": ")
                     try:
-                        name_or_index: Union[int, str] = int(name_string)
+                        name_or_index: int | str = int(name_string)
                     except ValueError:
                         name_or_index = name_string
                     try:
-                        value: Union[float, str] = float(value_string)
+                        value: float | str = float(value_string)
                     except ValueError:
                         value = value_string
                     synth.controls.append(
