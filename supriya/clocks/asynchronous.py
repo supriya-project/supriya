@@ -6,6 +6,7 @@ from typing import Awaitable
 
 from .core import (
     Action,
+    AsyncClockCallback,
     BaseClock,
     CallbackEvent,
     ChangeEvent,
@@ -18,7 +19,7 @@ from .core import (
 logger = logging.getLogger(__name__)
 
 
-class AsyncClock(BaseClock):
+class AsyncClock(BaseClock[AsyncClockCallback]):
     """
     An async clock.
     """
@@ -52,12 +53,12 @@ class AsyncClock(BaseClock):
         args = event.args or ()
         kwargs = event.kwargs or {}
         try:
-            result = event.procedure(context, *args, **kwargs)
-            if asyncio.iscoroutine(result):
+            if asyncio.iscoroutine(result := event.procedure(context, *args, **kwargs)):
                 result = await result
         except Exception:
             traceback.print_exc()
             return
+        assert not isinstance(result, Awaitable)
         if isinstance(result, float) or result is None:
             delta, time_unit = result, TimeUnit.BEATS
         else:

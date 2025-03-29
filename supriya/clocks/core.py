@@ -474,6 +474,7 @@ class BaseClock(Generic[C]):
         except Exception:
             traceback.print_exc()
             return
+        assert not isinstance(result, Awaitable)
         if isinstance(result, float) or result is None:
             delta, time_unit = result, TimeUnit.BEATS
         else:

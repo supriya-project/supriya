@@ -3,12 +3,12 @@ import logging
 import queue
 import threading
 
-from .core import Action, BaseClock, Command, Moment
+from .core import Action, BaseClock, ClockCallback, Command, Moment
 
 logger = logging.getLogger(__name__)
 
 
-class Clock(BaseClock):
+class Clock(BaseClock[ClockCallback]):
     """
     A threaded clock.
     """

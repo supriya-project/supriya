@@ -1,15 +1,22 @@
 import logging
 import queue
 from contextlib import asynccontextmanager, contextmanager
-from typing import AsyncGenerator, Generator
+from typing import AsyncGenerator, Awaitable, Generator
 
 from .asynchronous import AsyncClock
-from .core import BaseClock, CallbackEvent, ClockContext, Moment, TimeUnit
+from .core import (
+    BaseClock,
+    CallbackEvent,
+    ClockCallback,
+    ClockContext,
+    Moment,
+    TimeUnit,
+)
 
 logger = logging.getLogger(__name__)
 
 
-class OfflineClock(BaseClock):
+class OfflineClock(BaseClock[ClockCallback]):
     """
     An offline clock.
     """
@@ -34,6 +41,7 @@ class OfflineClock(BaseClock):
         args = event.args or ()
         kwargs = event.kwargs or {}
         result = event.procedure(context, *args, **kwargs)
+        assert not isinstance(result, Awaitable)
         if isinstance(result, float) or result is None:
             delta, time_unit = result, TimeUnit.BEATS
         else:
