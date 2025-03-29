@@ -4586,8 +4586,8 @@ class UGenVector(UGenOperable, Sequence[UGenOperable]):
     A sequence of UGenOperables.
     """
 
-    def __init__(self, *values: Union[SupportsFloat, UGenOperable]) -> None:
-        values_: list[Union[UGen, UGenScalar, UGenVector]] = []
+    def __init__(self, *values: SupportsFloat | UGenOperable) -> None:
+        values_: list[UGen | UGenScalar | UGenVector] = []
         for x in values:
             if isinstance(x, (UGen, UGenScalar, UGenVector)):
                 values_.append(x)
@@ -4890,8 +4890,8 @@ class UGen(UGenOperable, Sequence):
         )
         self._calculation_rate = calculation_rate
         self._special_index = int(special_index)
-        input_keys: list[Union[str, tuple[str, int]]] = []
-        inputs: list[Union[OutputProxy, float]] = []
+        input_keys: list[str | tuple[str, int]] = []
+        inputs: list[OutputProxy | float] = []
         for key in self._ordered_keys:
             if (value := kwargs.pop(key)) is None:
                 raise ValueError(key)
@@ -4899,13 +4899,13 @@ class UGen(UGenOperable, Sequence):
                 serialized = value.serialize()
                 if any(isinstance(x, UGenVector) for x in serialized):
                     raise ValueError(key, serialized)
-                value = cast(Sequence[Union[SupportsFloat, UGenScalar]], serialized)
+                value = cast(Sequence[SupportsFloat | UGenScalar], serialized)
             if isinstance(value, Sequence):
                 if key not in self._unexpanded_keys:
                     raise ValueError(key, value)
-                iterator: Iterable[
-                    tuple[int | None, Union[SupportsFloat, UGenScalar]]
-                ] = ((i, v) for i, v in enumerate(value))
+                iterator: Iterable[tuple[int | None, SupportsFloat | UGenScalar]] = (
+                    (i, v) for i, v in enumerate(value)
+                )
             else:
                 iterator = ((None, v) for v in [value])
             i: int | None
@@ -5002,7 +5002,7 @@ class UGen(UGenOperable, Sequence):
                 else:
                     size = max(size, len(value))
         if not size:
-            return cast(dict[str, Union[UGenScalarInput, UGenVectorInput]], params)
+            return cast(dict[str, UGenScalarInput | UGenVectorInput], params)
         results = []
         for i in range(size):
             new_params: dict[str, UGenRecursiveInput] = {}
@@ -5118,7 +5118,7 @@ class UGen(UGenOperable, Sequence):
         return self._has_done_flag
 
     @property
-    def inputs(self) -> tuple[Union[OutputProxy, float], ...]:
+    def inputs(self) -> tuple[OutputProxy | float, ...]:
         return tuple(self._inputs)
 
     @property
@@ -5138,15 +5138,15 @@ class UGen(UGenOperable, Sequence):
         return self._special_index
 
 
-UGenScalarInput: TypeAlias = Union[SupportsFloat, UGenScalar]
-UGenVectorInput: TypeAlias = Union[UGenSerializable, Sequence[UGenScalarInput]]
+UGenScalarInput: TypeAlias = SupportsFloat | UGenScalar
+UGenVectorInput: TypeAlias = UGenSerializable | Sequence[UGenScalarInput]
 
-UGenRecursiveInput: TypeAlias = Union[
-    SupportsFloat, UGenOperable, UGenSerializable, Sequence["UGenRecursiveInput"]
-]
+UGenRecursiveInput: TypeAlias = (
+    SupportsFloat | UGenOperable | UGenSerializable | Sequence["UGenRecursiveInput"]
+)
 
-UGenParams: TypeAlias = dict[str, Union[UGenScalarInput, UGenVectorInput]]
-UGenRecursiveParams: TypeAlias = Union[UGenParams, list["UGenRecursiveParams"]]
+UGenParams: TypeAlias = dict[str, UGenScalarInput | UGenVectorInput]
+UGenRecursiveParams: TypeAlias = UGenParams | list["UGenRecursiveParams"]
 
 
 @ugen(is_pure=True)
@@ -5203,12 +5203,12 @@ class BinaryOpUGen(UGen):
         *,
         calculation_rate: CalculationRateLike = None,
         special_index: SupportsInt = 0,
-        **kwargs: Union[UGenScalarInput, UGenVectorInput],
+        **kwargs: UGenScalarInput | UGenVectorInput,
     ) -> UGenOperable:
         def process(
-            left: Union[UGenScalar, float],
-            right: Union[UGenScalar, float],
-        ) -> Union[UGenOperable, float]:
+            left: UGenScalar | float,
+            right: UGenScalar | float,
+        ) -> UGenOperable | float:
             if special_index == BinaryOperator.MULTIPLICATION:
                 if left == 0 or right == 0:
                     return ConstantProxy(0)
@@ -5279,7 +5279,7 @@ class Parameter(UGen):
         self,
         *,
         name: str | None = None,
-        value: Union[float, Sequence[float]],
+        value: float | Sequence[float],
         rate: ParameterRate = ParameterRate.CONTROL,
         lag: float | None = None,
     ) -> None:
@@ -5723,7 +5723,7 @@ class SynthDefBuilder:
 
     _active_builders: list["SynthDefBuilder"] = _local._active_builders
 
-    def __init__(self, **kwargs: Union[Parameter, float, Sequence[float]]) -> None:
+    def __init__(self, **kwargs: Parameter | Sequence[float] | float) -> None:
         self._building = False
         self._parameters: dict[str, Parameter] = {}
         self._ugens: list[UGen] = []
@@ -5822,7 +5822,7 @@ class SynthDefBuilder:
         if local_bufs:
             max_local_bufs = cast(OutputProxy, MaxLocalBufs.ir(maximum=len(local_bufs)))
             for local_buf in local_bufs:
-                inputs: list[Union[OutputProxy, float]] = list(local_buf.inputs[:2])
+                inputs: list[OutputProxy | float] = list(local_buf.inputs[:2])
                 inputs.append(max_local_bufs)
                 local_buf._inputs = tuple(inputs)
             # Insert the MaxLocalBufs just before the first LocalBuf
@@ -5954,7 +5954,7 @@ class SynthDefBuilder:
         self,
         *,
         name: str,
-        value: Union[float, Sequence[float]],
+        value: float | Sequence[float],
         rate: ParameterRateLike | None = ParameterRate.CONTROL,
         lag: float | None = None,
     ) -> Parameter:
@@ -6032,7 +6032,7 @@ class SynthDefBuilder:
         return SynthDef(ugens, name=name)
 
 
-def synthdef(*args: Union[str, tuple[str, float]]) -> Callable[[Callable], SynthDef]:
+def synthdef(*args: str | tuple[str, float]) -> Callable[[Callable], SynthDef]:
     """
     Decorator for quickly constructing SynthDefs from functions.
 
@@ -6252,9 +6252,7 @@ def _compile_ugen_graph(synthdef):
     )
 
 
-def _compile_ugen_input_spec(
-    input_: Union[OutputProxy, float], synthdef: SynthDef
-) -> bytes:
+def _compile_ugen_input_spec(input_: OutputProxy | float, synthdef: SynthDef) -> bytes:
     if isinstance(input_, float):
         return _encode_unsigned_int_32bit(0xFFFFFFFF) + _encode_unsigned_int_32bit(
             synthdef._constants.index(input_)
@@ -6377,7 +6375,7 @@ def _decode_parameters(value: bytes, index: int) -> tuple[dict[int, Parameter], 
 def _decompile_control_parameters(
     calculation_rate: CalculationRate,
     indexed_parameters: dict[int, Parameter],
-    inputs: Sequence[Union[OutputProxy, float]],
+    inputs: Sequence[OutputProxy | float],
     output_count: int,
     special_index: int,
     ugen_class: Type[UGen],
@@ -6419,7 +6417,7 @@ def _decompile_synthdef(value: bytes, index: int) -> tuple[SynthDef, int]:
         input_count, index = _decode_int_32bit(value, index)
         output_count, index = _decode_int_32bit(value, index)
         special_index, index = _decode_int_16bit(value, index)
-        inputs: list[Union[OutputProxy, float]] = []
+        inputs: list[OutputProxy | float] = []
         for _ in range(input_count):
             ugen_index, index = _decode_int_32bit(value, index)
             if ugen_index == 0xFFFFFFFF:

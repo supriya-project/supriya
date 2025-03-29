@@ -5,7 +5,6 @@ from typing import (
     Generator,
     Iterable,
     Sequence,
-    Union,
     cast,
 )
 from uuid import UUID, uuid4
@@ -51,12 +50,12 @@ class PatternPlayer:
         self._callback = callback
         self._lock = RLock()
         self._queue: Queue[
-            tuple[float, Priority, Union[int, tuple[int, int]], Event | None]
+            tuple[float, Priority, int | tuple[int, int], Event | None]
         ] = PriorityQueue()
         self._is_running = False
         self._is_stopping = False
-        self._proxies_by_uuid: dict[Union[UUID, tuple[UUID, int]], ContextObject] = {}
-        self._notes_by_uuid: dict[Union[UUID, tuple[UUID, int]], float] = {}
+        self._proxies_by_uuid: dict[UUID | tuple[UUID, int], ContextObject] = {}
+        self._notes_by_uuid: dict[UUID | tuple[UUID, int], float] = {}
         self._uuid: UUID = uuid or uuid4()
         self._target_bus = target_bus
         self._target_node = target_node
