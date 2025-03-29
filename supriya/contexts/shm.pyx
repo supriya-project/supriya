@@ -1,8 +1,6 @@
 # cython: language_level=3
 # distutils: language = c++
 
-from typing import Union
-
 from .entities import Bus, BusGroup
 from .shm cimport server_shared_memory_client
 
@@ -28,7 +26,7 @@ cdef class ServerSHM:
     def __dealloc__(self) -> None:
         del self.client
 
-    def __getitem__(self, item: Union[int, slice, Bus, BusGroup]) -> Union[float, list[float]]:
+    def __getitem__(self, item: Bus | BusGroup | int | slice) -> float | list[float]:
         if isinstance(item, Bus):
             item = int(item)
         elif isinstance(item, BusGroup):
@@ -44,7 +42,7 @@ cdef class ServerSHM:
             return result
         raise ValueError(item)
 
-    def __setitem__(self, item: Union[int, slice, Bus, BusGroup], value: Union[float, list[float]]) -> None:
+    def __setitem__(self, item: Bus | BusGroup | int | slice, value: float | list[float]) -> None:
         if isinstance(item, BusGroup):
             item = slice(int(item), int(item) + len(item), 1)
         elif isinstance(item, Bus):

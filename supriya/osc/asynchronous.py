@@ -1,6 +1,6 @@
 import asyncio
 from collections.abc import Sequence as SequenceABC
-from typing import Awaitable, Callable, Sequence, Union
+from typing import Awaitable, Callable, Sequence
 
 from ..enums import BootStatus
 from ..typing import FutureLike, SupportsOsc
@@ -196,7 +196,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         )
         return callback
 
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
+    def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         self.transport.sendto(self._send(message))
 
     def unregister(self, callback: OscCallback) -> None:

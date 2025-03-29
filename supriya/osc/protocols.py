@@ -13,7 +13,6 @@ from typing import (
     Literal,
     NamedTuple,
     Sequence,
-    Union,
 )
 
 from ..enums import BootStatus
@@ -64,8 +63,8 @@ class HealthCheck:
 class CaptureEntry(NamedTuple):
     timestamp: float
     label: Literal["R", "S"]
-    message: Union[OscMessage, OscBundle]
-    raw_message: Union[SupportsOsc, SequenceABC, str] | None = None
+    message: OscBundle | OscMessage
+    raw_message: SequenceABC | SupportsOsc | str | None = None
 
 
 class Capture:
@@ -98,7 +97,7 @@ class Capture:
 
     def filtered(
         self, sent: bool = True, received: bool = True, status: bool = True
-    ) -> list[Union[OscBundle, OscMessage]]:
+    ) -> list[OscBundle | OscMessage]:
         messages = []
         for _, label, message, _ in self.messages:
             if label == "R" and not received:
@@ -275,7 +274,7 @@ class OscProtocol:
             kwargs=kwargs,
         )
 
-    def _send(self, raw_message: Union[SupportsOsc, SequenceABC, str]) -> bytes:
+    def _send(self, raw_message: SequenceABC | SupportsOsc | str) -> bytes:
         if self.status not in (BootStatus.BOOTING, BootStatus.ONLINE):
             raise OscProtocolOffline
         if not isinstance(raw_message, (str, SequenceABC, SupportsOsc)):
@@ -365,7 +364,7 @@ class OscProtocol:
     ) -> OscCallback:
         raise NotImplementedError
 
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
+    def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         raise NotImplementedError
 
     def unregister(self, callback: OscCallback) -> None:

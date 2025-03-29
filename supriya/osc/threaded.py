@@ -9,7 +9,6 @@ from typing import (
     Callable,
     Literal,
     Sequence,
-    Union,
     cast,
 )
 
@@ -228,7 +227,7 @@ class ThreadedOscProtocol(OscProtocol):
         )
         return callback
 
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
+    def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         try:
             self.osc_server.socket.sendto(
                 self._send(message),

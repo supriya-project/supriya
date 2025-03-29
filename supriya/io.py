@@ -6,7 +6,7 @@ import platform
 import subprocess
 from os import PathLike
 from pathlib import Path
-from typing import Coroutine, Union
+from typing import Coroutine
 
 from uqbar.graphs import Grapher
 from uqbar.io import open_path
@@ -133,7 +133,7 @@ def plot(plottable: SupportsPlot, format_="png", **kwargs):
 
 
 def render(
-    renderable: Union[SupportsRender, SupportsRenderMemo],
+    renderable: SupportsRender | SupportsRenderMemo,
     output_file_path: PathLike | None = None,
     render_directory_path: PathLike | None = None,
     **kwargs,

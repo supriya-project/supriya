@@ -19,7 +19,6 @@ from typing import (
     Protocol,
     TypeAlias,
     TypeVar,
-    Union,
 )
 
 from .. import conversions
@@ -180,7 +179,7 @@ class ChangeEvent(Event):
 class ClockContext(NamedTuple):
     current_moment: Moment
     desired_moment: Moment
-    event: Union[CallbackEvent, ChangeEvent]
+    event: CallbackEvent | ChangeEvent
 
 
 class _EventQueue(queue.PriorityQueue[Event]):
@@ -630,7 +629,7 @@ class BaseClock(Generic[C]):
                     schedule_at += self._state.initial_seconds
                 seconds, offset, measure = schedule_at, None, None
             if isinstance(command, CallbackCommand):
-                event: Union[CallbackEvent, ChangeEvent] = CallbackEvent(
+                event: CallbackEvent | ChangeEvent = CallbackEvent(
                     args=command.args,
                     event_id=command.event_id,
                     kwargs=command.kwargs,
