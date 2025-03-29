@@ -14,11 +14,8 @@ from pathlib import Path
 from types import MappingProxyType
 from typing import (
     Callable,
-    Dict,
-    FrozenSet,
     Iterable,
     Iterator,
-    List,
     Literal,
     Mapping,
     NamedTuple,
@@ -27,7 +24,6 @@ from typing import (
     Sequence,
     SupportsFloat,
     SupportsInt,
-    Tuple,
     Type,
     TypeAlias,
     Union,
@@ -66,14 +62,14 @@ class Param(NamedTuple):
     A UGen input configuration.
     """
 
-    default: Optional[Union[Default, Missing, float]] = None
+    default: Default | Missing | float | None = None
     check: Check = Check.NONE
     unexpanded: bool = False
 
 
 def _add_init(
     cls,
-    params: Dict[str, "Param"],
+    params: dict[str, "Param"],
     is_multichannel: bool,
     channel_count: int,
     fixed_channel_count: bool,
@@ -135,8 +131,8 @@ def _add_param_fn(cls, name: str, index: int, unexpanded: bool) -> None:
 
 def _add_rate_fn(
     cls,
-    rate: Optional[CalculationRate],
-    params: Dict[str, "Param"],
+    rate: CalculationRate | None,
+    params: dict[str, "Param"],
     is_multichannel: bool,
     channel_count: int,
     fixed_channel_count: bool,
@@ -174,11 +170,11 @@ def _create_fn(
     *,
     cls,
     name: str,
-    args: List[str],
-    body: List[str],
+    args: list[str],
+    body: list[str],
     return_type,
-    globals_: Optional[Dict[str, Type]] = None,
-    decorator: Optional[Callable] = None,
+    globals_: dict[str, Type] | None = None,
+    decorator: Callable | None = None,
     override: bool = False,
 ) -> None:
     if name in cls.__dict__ and not override:
@@ -190,7 +186,7 @@ def _create_fn(
     text = f"    def {name}(\n        {args_}\n    ) -> _return_type:\n{body_}"
     local_vars = ", ".join(locals_.keys())
     text = f"def __create_fn__({local_vars}):\n{text}\n    return {name}"
-    namespace: Dict[str, Callable] = {}
+    namespace: dict[str, Callable] = {}
     exec(text, globals_, namespace)
     value = namespace["__create_fn__"](**locals_)
     value.__qualname__ = f"{cls.__qualname__}.{value.__name__}"
@@ -247,9 +243,9 @@ def _process_class(
     is_width_first: bool = False,
     channel_count: int = 1,
     fixed_channel_count: bool = False,
-    signal_range: Optional[int] = None,
+    signal_range: int | None = None,
 ) -> Type["UGen"]:
-    params: Dict[str, Param] = {}
+    params: dict[str, Param] = {}
     unexpanded_keys = []
     valid_calculation_rates = []
     for name, value in cls.__dict__.items():
@@ -288,7 +284,7 @@ def _process_class(
 
 
 def param(
-    default: Optional[Union[Default, Missing, float]] = Missing(),
+    default: Default | Missing | float | None = Missing(),
     *,
     check: Check = Check.NONE,
     unexpanded: bool = False,
@@ -316,7 +312,7 @@ def ugen(
     is_width_first: bool = False,
     channel_count: int = 1,
     fixed_channel_count: bool = False,
-    signal_range: Optional[int] = None,
+    signal_range: int | None = None,
 ) -> Callable[[Type["UGen"]], Type["UGen"]]:
     """
     Decorate a UGen class.
@@ -366,7 +362,7 @@ def _compute_binary_op(
     left: "UGenRecursiveInput",
     right: "UGenRecursiveInput",
     special_index: BinaryOperator,
-    float_operator: Optional[Callable] = None,
+    float_operator: Callable | None = None,
 ) -> "UGenOperable":
     def recurse(
         all_expanded_params: UGenRecursiveParams,
@@ -400,7 +396,7 @@ def _compute_binary_op(
 def _compute_unary_op(
     source: "UGenRecursiveInput",
     special_index: UnaryOperator,
-    float_operator: Optional[Callable] = None,
+    float_operator: Callable | None = None,
 ) -> "UGenOperable":
     def recurse(
         all_expanded_params: UGenRecursiveParams,
@@ -433,7 +429,7 @@ def _compute_ugen_map(
         source = source.serialize()
     if not isinstance(source, Sequence):
         source = UGenVector(source)
-    outputs: List[UGenOperable] = []
+    outputs: list[UGenOperable] = []
     for input_ in source:
         calculation_rate = CalculationRate.from_expr(input_)
         method = _get_method_for_rate(ugen, calculation_rate)
@@ -1744,7 +1740,7 @@ class UGenOperable:
                     recurse(input_)
 
         builder = SynthDefBuilder()
-        ugens: List[UGen] = []
+        ugens: list[UGen] = []
         recurse(copy.deepcopy(self))
         for ugen in ugens:
             ugen._uuid = builder._uuid
@@ -4590,8 +4586,8 @@ class UGenVector(UGenOperable, Sequence[UGenOperable]):
     A sequence of UGenOperables.
     """
 
-    def __init__(self, *values: Union[SupportsFloat, UGenOperable]) -> None:
-        values_: List[Union[UGen, UGenScalar, UGenVector]] = []
+    def __init__(self, *values: SupportsFloat | UGenOperable) -> None:
+        values_: list[UGen | UGenScalar | UGenVector] = []
         for x in values:
             if isinstance(x, (UGen, UGenScalar, UGenVector)):
                 values_.append(x)
@@ -4870,10 +4866,10 @@ class UGen(UGenOperable, Sequence):
     _is_output = False
     _is_pure = False
     _is_width_first = False
-    _ordered_keys: Tuple[str, ...] = ()
+    _ordered_keys: tuple[str, ...] = ()
     _signal_range: SignalRange = SignalRange.BIPOLAR
-    _unexpanded_keys: FrozenSet[str] = frozenset()
-    _valid_calculation_rates: Tuple[CalculationRate, ...] = ()
+    _unexpanded_keys: frozenset[str] = frozenset()
+    _valid_calculation_rates: tuple[CalculationRate, ...] = ()
 
     def __init__(
         self,
@@ -4894,8 +4890,8 @@ class UGen(UGenOperable, Sequence):
         )
         self._calculation_rate = calculation_rate
         self._special_index = int(special_index)
-        input_keys: List[Union[str, Tuple[str, int]]] = []
-        inputs: List[Union[OutputProxy, float]] = []
+        input_keys: list[str | tuple[str, int]] = []
+        inputs: list[OutputProxy | float] = []
         for key in self._ordered_keys:
             if (value := kwargs.pop(key)) is None:
                 raise ValueError(key)
@@ -4903,16 +4899,16 @@ class UGen(UGenOperable, Sequence):
                 serialized = value.serialize()
                 if any(isinstance(x, UGenVector) for x in serialized):
                     raise ValueError(key, serialized)
-                value = cast(Sequence[Union[SupportsFloat, UGenScalar]], serialized)
+                value = cast(Sequence[SupportsFloat | UGenScalar], serialized)
             if isinstance(value, Sequence):
                 if key not in self._unexpanded_keys:
                     raise ValueError(key, value)
-                iterator: Iterable[
-                    Tuple[Optional[int], Union[SupportsFloat, UGenScalar]]
-                ] = ((i, v) for i, v in enumerate(value))
+                iterator: Iterable[tuple[int | None, SupportsFloat | UGenScalar]] = (
+                    (i, v) for i, v in enumerate(value)
+                )
             else:
                 iterator = ((None, v) for v in [value])
-            i: Optional[int]
+            i: int | None
             for i, x in iterator:
                 if isinstance(x, SupportsFloat):
                     inputs.append(float(x))
@@ -4927,7 +4923,7 @@ class UGen(UGenOperable, Sequence):
             raise ValueError(type(self).__name__, kwargs)
         self._inputs = tuple(inputs)
         self._input_keys = tuple(input_keys)
-        self._uuid: Optional[uuid.UUID] = None
+        self._uuid: uuid.UUID | None = None
         if SynthDefBuilder._active_builders:
             builder = SynthDefBuilder._active_builders[-1]
             self._uuid = builder._uuid
@@ -4963,7 +4959,7 @@ class UGen(UGenOperable, Sequence):
         return f"<{type(self).__name__}.{self.calculation_rate.token}()>"
 
     def _eliminate(
-        self, sort_bundles: Dict["UGen", "SynthDefBuilder.SortBundle"]
+        self, sort_bundles: dict["UGen", "SynthDefBuilder.SortBundle"]
     ) -> None:
         if not (sort_bundle := sort_bundles.get(self)) or sort_bundle.descendants:
             return
@@ -4977,8 +4973,8 @@ class UGen(UGenOperable, Sequence):
     @classmethod
     def _expand_params(
         cls,
-        params: Dict[str, "UGenRecursiveInput"],
-        unexpanded_keys: Optional[Iterable[str]] = None,
+        params: dict[str, "UGenRecursiveInput"],
+        unexpanded_keys: Iterable[str] | None = None,
     ) -> "UGenRecursiveParams":
         unexpanded_keys_ = set(unexpanded_keys or ())
         size = 0
@@ -5006,10 +5002,10 @@ class UGen(UGenOperable, Sequence):
                 else:
                     size = max(size, len(value))
         if not size:
-            return cast(Dict[str, Union[UGenScalarInput, UGenVectorInput]], params)
+            return cast(dict[str, UGenScalarInput | UGenVectorInput], params)
         results = []
         for i in range(size):
-            new_params: Dict[str, UGenRecursiveInput] = {}
+            new_params: dict[str, UGenRecursiveInput] = {}
             for key, value in params.items():
                 # Redundant but satiates MyPy
                 if isinstance(value, UGenSerializable):
@@ -5099,7 +5095,7 @@ class UGen(UGenOperable, Sequence):
         return ugen
 
     def _optimize(
-        self, sort_bundles: Dict["UGen", "SynthDefBuilder.SortBundle"]
+        self, sort_bundles: dict["UGen", "SynthDefBuilder.SortBundle"]
     ) -> None:
         if not self._is_pure:
             return
@@ -5110,7 +5106,7 @@ class UGen(UGenOperable, Sequence):
         *,
         calculation_rate: CalculationRate,
         **kwargs: Union["UGenScalarInput", "UGenVectorInput"],
-    ) -> Tuple[CalculationRate, Dict[str, Union["UGenScalarInput", "UGenVectorInput"]]]:
+    ) -> tuple[CalculationRate, dict[str, Union["UGenScalarInput", "UGenVectorInput"]]]:
         return calculation_rate, kwargs
 
     @property
@@ -5122,7 +5118,7 @@ class UGen(UGenOperable, Sequence):
         return self._has_done_flag
 
     @property
-    def inputs(self) -> Tuple[Union[OutputProxy, float], ...]:
+    def inputs(self) -> tuple[OutputProxy | float, ...]:
         return tuple(self._inputs)
 
     @property
@@ -5142,15 +5138,15 @@ class UGen(UGenOperable, Sequence):
         return self._special_index
 
 
-UGenScalarInput: TypeAlias = Union[SupportsFloat, UGenScalar]
-UGenVectorInput: TypeAlias = Union[UGenSerializable, Sequence[UGenScalarInput]]
+UGenScalarInput: TypeAlias = SupportsFloat | UGenScalar
+UGenVectorInput: TypeAlias = UGenSerializable | Sequence[UGenScalarInput]
 
-UGenRecursiveInput: TypeAlias = Union[
-    SupportsFloat, UGenOperable, UGenSerializable, Sequence["UGenRecursiveInput"]
-]
+UGenRecursiveInput: TypeAlias = (
+    SupportsFloat | UGenOperable | UGenSerializable | Sequence["UGenRecursiveInput"]
+)
 
-UGenParams: TypeAlias = Dict[str, Union[UGenScalarInput, UGenVectorInput]]
-UGenRecursiveParams: TypeAlias = Union[UGenParams, List["UGenRecursiveParams"]]
+UGenParams: TypeAlias = dict[str, UGenScalarInput | UGenVectorInput]
+UGenRecursiveParams: TypeAlias = UGenParams | list["UGenRecursiveParams"]
 
 
 @ugen(is_pure=True)
@@ -5207,12 +5203,12 @@ class BinaryOpUGen(UGen):
         *,
         calculation_rate: CalculationRateLike = None,
         special_index: SupportsInt = 0,
-        **kwargs: Union[UGenScalarInput, UGenVectorInput],
+        **kwargs: UGenScalarInput | UGenVectorInput,
     ) -> UGenOperable:
         def process(
-            left: Union[UGenScalar, float],
-            right: Union[UGenScalar, float],
-        ) -> Union[UGenOperable, float]:
+            left: UGenScalar | float,
+            right: UGenScalar | float,
+        ) -> UGenOperable | float:
             if special_index == BinaryOperator.MULTIPLICATION:
                 if left == 0 or right == 0:
                     return ConstantProxy(0)
@@ -5282,13 +5278,13 @@ class Parameter(UGen):
     def __init__(
         self,
         *,
-        name: Optional[str] = None,
-        value: Union[float, Sequence[float]],
+        name: str | None = None,
+        value: float | Sequence[float],
         rate: ParameterRate = ParameterRate.CONTROL,
-        lag: Optional[float] = None,
+        lag: float | None = None,
     ) -> None:
         if isinstance(value, SupportsFloat):
-            self.value: Tuple[float, ...] = (float(value),)
+            self.value: tuple[float, ...] = (float(value),)
         else:
             self.value = tuple(float(x) for x in value)
         self.name = name
@@ -5371,21 +5367,21 @@ class SynthDefError(Exception):
 
 class SynthDef:
 
-    def __init__(self, ugens: Sequence[UGen], name: Optional[str] = None) -> None:
+    def __init__(self, ugens: Sequence[UGen], name: str | None = None) -> None:
         if not ugens:
             raise SynthDefError("No UGens provided")
         self._ugens = tuple(ugens)
         self._name = name
-        constants: List[float] = []
+        constants: list[float] = []
         for ugen in ugens:
             for input_ in ugen.inputs:
                 if isinstance(input_, float) and input_ not in constants:
                     constants.append(input_)
         self._constants = tuple(constants)
-        self._controls: Tuple[Control, ...] = tuple(
+        self._controls: tuple[Control, ...] = tuple(
             ugen for ugen in ugens if isinstance(ugen, Control)
         )
-        self._parameters: Dict[str, Tuple[Parameter, int]] = (
+        self._parameters: dict[str, tuple[Parameter, int]] = (
             self._collect_indexed_parameters(self._controls)
         )
         self._compiled_graph = _compile_ugen_graph(self)
@@ -5453,7 +5449,7 @@ class SynthDef:
 
         """
 
-        def connect_nodes(ugen_node_mapping: Dict[UGen, Node]) -> None:
+        def connect_nodes(ugen_node_mapping: dict[UGen, Node]) -> None:
             for ugen in self.ugens:
                 tail_node = ugen_node_mapping[ugen]
                 for i, input_ in enumerate(ugen.inputs):
@@ -5471,9 +5467,7 @@ class SynthDef:
                     else:
                         edge.attributes["color"] = "salmon"
 
-        def create_ugen_input_group(
-            ugen: UGen, ugen_index: int
-        ) -> Optional[RecordGroup]:
+        def create_ugen_input_group(ugen: UGen, ugen_index: int) -> RecordGroup | None:
             if not ugen.inputs:
                 return None
             input_group = RecordGroup(name="inputs")
@@ -5496,7 +5490,7 @@ class SynthDef:
                 )
             return input_group
 
-        def create_ugen_node_mapping() -> Dict[UGen, Node]:
+        def create_ugen_node_mapping() -> dict[UGen, Node]:
             mapping = {}
             for i, ugen in enumerate(self.ugens):
                 node = Node(name=f"ugen_{i}")
@@ -5516,9 +5510,7 @@ class SynthDef:
                 mapping[ugen] = node
             return mapping
 
-        def create_ugen_output_group(
-            ugen: UGen, ugen_index: int
-        ) -> Optional[RecordGroup]:
+        def create_ugen_output_group(ugen: UGen, ugen_index: int) -> RecordGroup | None:
             if not len(ugen):
                 return None
             output_group = RecordGroup(name="outputs")
@@ -5603,11 +5595,11 @@ class SynthDef:
             f"    name: {self.effective_name}",
             "    ugens:",
         ]
-        grouped_ugens: Dict[Tuple[Type[UGen], CalculationRate, int], List[UGen]] = {}
+        grouped_ugens: dict[tuple[Type[UGen], CalculationRate, int], list[UGen]] = {}
         for ugen in self.ugens:
             key = (type(ugen), ugen.calculation_rate, ugen.special_index)
             grouped_ugens.setdefault(key, []).append(ugen)
-        ugen_names: Dict[UGen, str] = {}
+        ugen_names: dict[UGen, str] = {}
         for ugen in self.ugens:
             name = type(ugen).__name__
             if isinstance(ugen, BinaryOpUGen):
@@ -5620,7 +5612,7 @@ class SynthDef:
                 name += f"/{related_ugens.index(ugen)}"
             ugen_names[ugen] = name
         for ugen in self.ugens:
-            inputs: Dict[str, str] = {}
+            inputs: dict[str, str] = {}
             if isinstance(ugen, Control):
                 for parameter in ugen.parameters:
                     if parameter.name is None:
@@ -5665,8 +5657,8 @@ class SynthDef:
 
     def _collect_indexed_parameters(
         self, controls: Sequence[Control]
-    ) -> Dict[str, Tuple[Parameter, int]]:
-        mapping: Dict[str, Tuple[Parameter, int]] = {}
+    ) -> dict[str, tuple[Parameter, int]]:
+        mapping: dict[str, tuple[Parameter, int]] = {}
         for control in controls:
             index = control.special_index
             for parameter in control.parameters:
@@ -5700,15 +5692,15 @@ class SynthDef:
         return "gate" in self.parameters
 
     @property
-    def indexed_parameters(self) -> Sequence[Tuple[int, Parameter]]:
+    def indexed_parameters(self) -> Sequence[tuple[int, Parameter]]:
         return sorted((value[1], value[0]) for value in self.parameters.values())
 
     @property
-    def name(self) -> Optional[str]:
+    def name(self) -> str | None:
         return self._name
 
     @property
-    def parameters(self) -> Mapping[str, Tuple[Parameter, int]]:
+    def parameters(self) -> Mapping[str, tuple[Parameter, int]]:
         return MappingProxyType(self._parameters)
 
     @property
@@ -5725,16 +5717,16 @@ class SynthDefBuilder:
 
     class SortBundle(NamedTuple):
         ugen: UGen
-        width_first_antecedents: Tuple[UGen, ...]
-        antecedents: List[UGen]
-        descendants: List[UGen]
+        width_first_antecedents: tuple[UGen, ...]
+        antecedents: list[UGen]
+        descendants: list[UGen]
 
-    _active_builders: List["SynthDefBuilder"] = _local._active_builders
+    _active_builders: list["SynthDefBuilder"] = _local._active_builders
 
-    def __init__(self, **kwargs: Union[Parameter, float, Sequence[float]]) -> None:
+    def __init__(self, **kwargs: Parameter | Sequence[float] | float) -> None:
         self._building = False
-        self._parameters: Dict[str, Parameter] = {}
-        self._ugens: List[UGen] = []
+        self._parameters: dict[str, Parameter] = {}
+        self._ugens: list[UGen] = []
         self._uuid = uuid.uuid4()
         for key, value in kwargs.items():
             if isinstance(value, Parameter):
@@ -5760,17 +5752,17 @@ class SynthDefBuilder:
         if not self._building:
             self._ugens.append(ugen)
 
-    def _build_control_mapping(self, parameters: Sequence[Parameter]) -> Tuple[
-        List[Control],
-        Dict[OutputProxy, OutputProxy],
+    def _build_control_mapping(self, parameters: Sequence[Parameter]) -> tuple[
+        list[Control],
+        dict[OutputProxy, OutputProxy],
     ]:
-        parameter_mapping: Dict[ParameterRate, List[Parameter]] = {}
+        parameter_mapping: dict[ParameterRate, list[Parameter]] = {}
         for parameter in parameters:
             parameter_mapping.setdefault(parameter.rate, []).append(parameter)
         for filtered_parameters in parameter_mapping.values():
             filtered_parameters.sort(key=lambda x: x.name or "")
-        controls: List[Control] = []
-        control_mapping: Dict[OutputProxy, OutputProxy] = {}
+        controls: list[Control] = []
+        control_mapping: dict[OutputProxy, OutputProxy] = {}
         starting_control_index = 0
         for parameter_rate in ParameterRate:
             if not (filtered_parameters := parameter_mapping.get(parameter_rate, [])):
@@ -5816,11 +5808,11 @@ class SynthDefBuilder:
                     starting_control_index += 1
         return controls, control_mapping
 
-    def _cleanup_local_bufs(self, ugens: List[UGen]) -> List[UGen]:
+    def _cleanup_local_bufs(self, ugens: list[UGen]) -> list[UGen]:
         from . import LocalBuf, MaxLocalBufs
 
-        filtered_ugens: List[UGen] = []
-        local_bufs: List[UGen] = []
+        filtered_ugens: list[UGen] = []
+        local_bufs: list[UGen] = []
         for ugen in ugens:
             if isinstance(ugen, MaxLocalBufs):
                 continue  # purging MaxLocalBufs from the graph so we can rebuild
@@ -5830,7 +5822,7 @@ class SynthDefBuilder:
         if local_bufs:
             max_local_bufs = cast(OutputProxy, MaxLocalBufs.ir(maximum=len(local_bufs)))
             for local_buf in local_bufs:
-                inputs: List[Union[OutputProxy, float]] = list(local_buf.inputs[:2])
+                inputs: list[OutputProxy | float] = list(local_buf.inputs[:2])
                 inputs.append(max_local_bufs)
                 local_buf._inputs = tuple(inputs)
             # Insert the MaxLocalBufs just before the first LocalBuf
@@ -5838,10 +5830,10 @@ class SynthDefBuilder:
             filtered_ugens[index:index] = [max_local_bufs.ugen]
         return filtered_ugens
 
-    def _cleanup_pv_chains(self, ugens: List[UGen]) -> List[UGen]:
+    def _cleanup_pv_chains(self, ugens: list[UGen]) -> list[UGen]:
         from . import LocalBuf, PV_ChainUGen, PV_Copy
 
-        mapping: Dict[UGen, List[Tuple[UGen, int]]] = {}
+        mapping: dict[UGen, list[tuple[UGen, int]]] = {}
         for ugen in ugens:
             if isinstance(ugen, PV_Copy) or not isinstance(ugen, PV_ChainUGen):
                 continue
@@ -5876,9 +5868,9 @@ class SynthDefBuilder:
                 ugens[index:index] = replacement
         return ugens
 
-    def _initiate_topological_sort(self, ugens: List[UGen]) -> Dict[UGen, SortBundle]:
-        sort_bundles: Dict[UGen, SynthDefBuilder.SortBundle] = {}
-        width_first_antecedents: List[UGen] = []
+    def _initiate_topological_sort(self, ugens: list[UGen]) -> dict[UGen, SortBundle]:
+        sort_bundles: dict[UGen, SynthDefBuilder.SortBundle] = {}
+        width_first_antecedents: list[UGen] = []
         # The UGens are in the order they were added to the SynthDef and that
         # order already mostly places inputs before outputs.  In sclang, the
         # per-UGen width-first antecedents list is updated at the moment the
@@ -5917,15 +5909,15 @@ class SynthDefBuilder:
             )
         return sort_bundles
 
-    def _optimize(self, ugens: List[UGen]) -> List[UGen]:
+    def _optimize(self, ugens: list[UGen]) -> list[UGen]:
         sort_bundles = self._initiate_topological_sort(ugens)
         for ugen in ugens:
             ugen._optimize(sort_bundles)
         return list(sort_bundles)
 
     def _remap_controls(
-        self, ugens: List[UGen], control_mapping: Dict[OutputProxy, OutputProxy]
-    ) -> List[UGen]:
+        self, ugens: list[UGen], control_mapping: dict[OutputProxy, OutputProxy]
+    ) -> list[UGen]:
         for ugen in ugens:
             ugen._inputs = tuple(
                 (
@@ -5937,10 +5929,10 @@ class SynthDefBuilder:
             )
         return ugens
 
-    def _sort_topologically(self, ugens: List[UGen]) -> List[UGen]:
+    def _sort_topologically(self, ugens: list[UGen]) -> list[UGen]:
         sort_bundles = self._initiate_topological_sort(ugens)
-        available_ugens: List[UGen] = []
-        output_stack: List[UGen] = []
+        available_ugens: list[UGen] = []
+        output_stack: list[UGen] = []
         for ugen in reversed(ugens):
             if not sort_bundles[ugen].antecedents and ugen not in available_ugens:
                 available_ugens.append(ugen)
@@ -5962,9 +5954,9 @@ class SynthDefBuilder:
         self,
         *,
         name: str,
-        value: Union[float, Sequence[float]],
-        rate: Optional[ParameterRateLike] = ParameterRate.CONTROL,
-        lag: Optional[float] = None,
+        value: float | Sequence[float],
+        rate: ParameterRateLike | None = ParameterRate.CONTROL,
+        lag: float | None = None,
     ) -> Parameter:
         if name in self._parameters:
             raise ValueError(name, value)
@@ -5975,7 +5967,7 @@ class SynthDefBuilder:
         self._parameters[name] = parameter
         return parameter
 
-    def build(self, name: Optional[str] = None, optimize: bool = True) -> SynthDef:
+    def build(self, name: str | None = None, optimize: bool = True) -> SynthDef:
         """
         Build.
 
@@ -6021,8 +6013,8 @@ class SynthDefBuilder:
         try:
             self._building = True
             with self:
-                ugens: List[UGen] = copy.deepcopy(self._ugens)
-                parameters: List[Parameter] = sorted(
+                ugens: list[UGen] = copy.deepcopy(self._ugens)
+                parameters: list[Parameter] = sorted(
                     [x for x in ugens if isinstance(x, Parameter)],
                     key=lambda x: x.name or "",
                 )
@@ -6040,7 +6032,7 @@ class SynthDefBuilder:
         return SynthDef(ugens, name=name)
 
 
-def synthdef(*args: Union[str, Tuple[str, float]]) -> Callable[[Callable], SynthDef]:
+def synthdef(*args: str | tuple[str, float]) -> Callable[[Callable], SynthDef]:
     """
     Decorator for quickly constructing SynthDefs from functions.
 
@@ -6260,9 +6252,7 @@ def _compile_ugen_graph(synthdef):
     )
 
 
-def _compile_ugen_input_spec(
-    input_: Union[OutputProxy, float], synthdef: SynthDef
-) -> bytes:
+def _compile_ugen_input_spec(input_: OutputProxy | float, synthdef: SynthDef) -> bytes:
     if isinstance(input_, float):
         return _encode_unsigned_int_32bit(0xFFFFFFFF) + _encode_unsigned_int_32bit(
             synthdef._constants.index(input_)
@@ -6317,28 +6307,28 @@ def compile_synthdefs(
     )
 
 
-def _decode_string(value: bytes, index: int) -> Tuple[str, int]:
+def _decode_string(value: bytes, index: int) -> tuple[str, int]:
     length, index = struct.unpack(">B", value[index : index + 1])[0], index + 1
     return value[index : index + length].decode("ascii"), index + length
 
 
-def _decode_float(value: bytes, index: int) -> Tuple[float, int]:
+def _decode_float(value: bytes, index: int) -> tuple[float, int]:
     return struct.unpack(">f", value[index : index + 4])[0], index + 4
 
 
-def _decode_int_8bit(value: bytes, index: int) -> Tuple[int, int]:
+def _decode_int_8bit(value: bytes, index: int) -> tuple[int, int]:
     return struct.unpack(">B", value[index : index + 1])[0], index + 1
 
 
-def _decode_int_16bit(value: bytes, index: int) -> Tuple[int, int]:
+def _decode_int_16bit(value: bytes, index: int) -> tuple[int, int]:
     return struct.unpack(">H", value[index : index + 2])[0], index + 2
 
 
-def _decode_int_32bit(value: bytes, index: int) -> Tuple[int, int]:
+def _decode_int_32bit(value: bytes, index: int) -> tuple[int, int]:
     return struct.unpack(">I", value[index : index + 4])[0], index + 4
 
 
-def _decode_constants(value: bytes, index: int) -> Tuple[Sequence[float], int]:
+def _decode_constants(value: bytes, index: int) -> tuple[Sequence[float], int]:
     constants = []
     constants_count, index = _decode_int_32bit(value, index)
     for _ in range(constants_count):
@@ -6347,7 +6337,7 @@ def _decode_constants(value: bytes, index: int) -> Tuple[Sequence[float], int]:
     return constants, index
 
 
-def _decode_parameters(value: bytes, index: int) -> Tuple[Dict[int, Parameter], int]:
+def _decode_parameters(value: bytes, index: int) -> tuple[dict[int, Parameter], int]:
     parameter_values = []
     parameter_count, index = _decode_int_32bit(value, index)
     for _ in range(parameter_count):
@@ -6384,8 +6374,8 @@ def _decode_parameters(value: bytes, index: int) -> Tuple[Dict[int, Parameter], 
 
 def _decompile_control_parameters(
     calculation_rate: CalculationRate,
-    indexed_parameters: Dict[int, Parameter],
-    inputs: Sequence[Union[OutputProxy, float]],
+    indexed_parameters: dict[int, Parameter],
+    inputs: Sequence[OutputProxy | float],
     output_count: int,
     special_index: int,
     ugen_class: Type[UGen],
@@ -6412,13 +6402,13 @@ def _decompile_control_parameters(
     return parameters
 
 
-def _decompile_synthdef(value: bytes, index: int) -> Tuple[SynthDef, int]:
+def _decompile_synthdef(value: bytes, index: int) -> tuple[SynthDef, int]:
     from supriya import ugens
 
     name, index = _decode_string(value, index)
     constants, index = _decode_constants(value, index)
     indexed_parameters, index = _decode_parameters(value, index)
-    decompiled_ugens: List[UGen] = []
+    decompiled_ugens: list[UGen] = []
     ugen_count, index = _decode_int_32bit(value, index)
     for i in range(ugen_count):
         ugen_name, index = _decode_string(value, index)
@@ -6427,7 +6417,7 @@ def _decompile_synthdef(value: bytes, index: int) -> Tuple[SynthDef, int]:
         input_count, index = _decode_int_32bit(value, index)
         output_count, index = _decode_int_32bit(value, index)
         special_index, index = _decode_int_16bit(value, index)
-        inputs: List[Union[OutputProxy, float]] = []
+        inputs: list[OutputProxy | float] = []
         for _ in range(input_count):
             ugen_index, index = _decode_int_32bit(value, index)
             if ugen_index == 0xFFFFFFFF:
@@ -6489,8 +6479,8 @@ def decompile_synthdef(value: bytes) -> SynthDef:
     return synthdefs[0]
 
 
-def decompile_synthdefs(value: bytes) -> List[SynthDef]:
-    synthdefs: List[SynthDef] = []
+def decompile_synthdefs(value: bytes) -> list[SynthDef]:
+    synthdefs: list[SynthDef] = []
     index = 4
     if value[:index] != b"SCgf":
         raise ValueError(value)
@@ -6504,7 +6494,7 @@ def decompile_synthdefs(value: bytes) -> List[SynthDef]:
 
 class SuperColliderSynthDef:
 
-    def __init__(self, name: str, body: str, rates: Optional[str] = None):
+    def __init__(self, name: str, body: str, rates: str | None = None):
         self.name = name
         self.body = body
         self.rates = rates

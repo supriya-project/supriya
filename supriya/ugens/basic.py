@@ -1,4 +1,4 @@
-from typing import Any, Dict, Sequence, Tuple
+from typing import Any, Sequence
 
 from .. import utils
 from ..enums import CalculationRate
@@ -441,7 +441,7 @@ class Sum3(UGen):
 
     def _postprocess_kwargs(
         self, *, calculation_rate: CalculationRate, **kwargs
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         inputs = sorted(
             [kwargs["input_one"], kwargs["input_two"], kwargs["input_three"]],
             key=lambda x: CalculationRate.from_expr(x),
@@ -511,7 +511,7 @@ class Sum4(UGen):
 
     def _postprocess_kwargs(
         self, *, calculation_rate: CalculationRate, **kwargs
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         inputs = sorted(
             [
                 kwargs["input_one"],

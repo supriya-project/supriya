@@ -2,7 +2,6 @@ import os
 import pathlib
 import stat
 from tempfile import NamedTemporaryFile, TemporaryDirectory
-from typing import Dict, List
 
 import pytest
 
@@ -217,7 +216,7 @@ def test_find_on_path(mock_env_scsynth_path, monkeypatch):
         ),
     ],
 )
-def test_Options(kwargs: Dict, expected: List[str]) -> None:
+def test_Options(kwargs: dict, expected: list[str]) -> None:
     options = scsynth.Options(**kwargs)
     actual = list(options)
     actual[0] = "/path/to/executable"  # replace to make it portable

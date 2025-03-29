@@ -20,6 +20,7 @@ build: ## Build for distribution
 
 clean: ## Clean-out transitory files
 	find . -name '*.pyc' | xargs rm
+	find . -name '.ipynb_checkpoints' | xargs rm -Rf
 	rm -Rif *.egg-info/
 	rm -Rif .*cache/
 	rm -Rif __pycache__

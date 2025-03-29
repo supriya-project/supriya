@@ -2,10 +2,11 @@ import asyncio
 import logging
 import queue
 import traceback
-from typing import Awaitable, Optional, Tuple
+from typing import Awaitable
 
 from .core import (
     Action,
+    AsyncClockCallback,
     BaseClock,
     CallbackEvent,
     ChangeEvent,
@@ -18,7 +19,7 @@ from .core import (
 logger = logging.getLogger(__name__)
 
 
-class AsyncClock(BaseClock):
+class AsyncClock(BaseClock[AsyncClockCallback]):
     """
     An async clock.
     """
@@ -27,7 +28,7 @@ class AsyncClock(BaseClock):
 
     def __init__(self) -> None:
         BaseClock.__init__(self)
-        self._task: Optional[Awaitable[None]] = None
+        self._task: Awaitable[None] | None = None
         self._slop = 1.0
         try:
             self._event = asyncio.Event()
@@ -52,12 +53,12 @@ class AsyncClock(BaseClock):
         args = event.args or ()
         kwargs = event.kwargs or {}
         try:
-            result = event.procedure(context, *args, **kwargs)
-            if asyncio.iscoroutine(result):
+            if asyncio.iscoroutine(result := event.procedure(context, *args, **kwargs)):
                 result = await result
         except Exception:
             traceback.print_exc()
             return
+        assert not isinstance(result, Awaitable)
         if isinstance(result, float) or result is None:
             delta, time_unit = result, TimeUnit.BEATS
         else:
@@ -124,7 +125,7 @@ class AsyncClock(BaseClock):
         except (asyncio.TimeoutError, RuntimeError):
             pass
 
-    async def _wait_for_moment_async(self, offline: bool = False) -> Optional[Moment]:
+    async def _wait_for_moment_async(self, offline: bool = False) -> Moment | None:
         current_time = self._get_current_time()
         next_time = self._event_queue.peek().seconds
         logger.debug(
@@ -156,18 +157,18 @@ class AsyncClock(BaseClock):
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id: int) -> Optional[Action]:
+    def cancel(self, event_id: int) -> Action | None:
         event = super().cancel(event_id)
         self._event.set()
         return event
 
     async def start(
         self,
-        initial_time: Optional[float] = None,
+        initial_time: float | None = None,
         initial_offset: float = 0.0,
         initial_measure: int = 1,
-        beats_per_minute: Optional[float] = None,
-        time_signature: Optional[Tuple[int, int]] = None,
+        beats_per_minute: float | None = None,
+        time_signature: tuple[int, int] | None = None,
     ) -> None:
         self._start(
             initial_time=initial_time,

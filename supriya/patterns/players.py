@@ -2,16 +2,9 @@ from queue import Empty, PriorityQueue, Queue
 from threading import RLock
 from typing import (
     Callable,
-    Coroutine,
-    Dict,
     Generator,
     Iterable,
-    List,
-    Optional,
     Sequence,
-    Set,
-    Tuple,
-    Union,
     cast,
 )
 from uuid import UUID, uuid4
@@ -21,6 +14,7 @@ from ..clocks import (
     BaseClock,
     CallbackEvent,
     ClockContext,
+    ClockDelta,
     Quantization,
 )
 from ..contexts import Bus, Context, ContextObject, Node
@@ -37,38 +31,36 @@ class PatternPlayer:
     """
 
     # TODO: Rewrite type annotation after dropping 3.8
-    _players = cast(Set["PatternPlayer"], WeakSet())
+    _players = cast(set["PatternPlayer"], WeakSet())
 
     def __init__(
         self,
         pattern: Pattern,
         context: Context,
         clock: BaseClock,
-        callback: Optional[
-            Callable[
-                ["PatternPlayer", ClockContext, Event, Priority], Optional[Coroutine]
-            ]
-        ] = None,
-        target_bus: Optional[Bus] = None,
-        target_node: Optional[Node] = None,
-        uuid: Optional[UUID] = None,
+        callback: (
+            Callable[["PatternPlayer", ClockContext, Event, Priority], None] | None
+        ) = None,
+        target_bus: Bus | None = None,
+        target_node: Node | None = None,
+        uuid: UUID | None = None,
     ) -> None:
         self._context = context
         self._clock = clock
         self._callback = callback
         self._lock = RLock()
         self._queue: Queue[
-            Tuple[float, Priority, Union[int, Tuple[int, int]], Optional[Event]]
+            tuple[float, Priority, int | tuple[int, int], Event | None]
         ] = PriorityQueue()
         self._is_running = False
         self._is_stopping = False
-        self._proxies_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], ContextObject] = {}
-        self._notes_by_uuid: Dict[Union[UUID, Tuple[UUID, int]], float] = {}
+        self._proxies_by_uuid: dict[UUID | tuple[UUID, int], ContextObject] = {}
+        self._notes_by_uuid: dict[UUID | tuple[UUID, int], float] = {}
         self._uuid: UUID = uuid or uuid4()
         self._target_bus = target_bus
         self._target_node = target_node
-        self._next_delta: Optional[float] = None
-        self._initial_seconds: Optional[float] = None
+        self._next_delta: float | None = None
+        self._initial_seconds: float | None = None
         self._clock_event_id = -1
         self._clock_stop_event_id = -1
         self._pattern = (
@@ -78,10 +70,8 @@ class PatternPlayer:
         )
         self._yielded = False
 
-    def _clock_callback(
-        self, clock_context: ClockContext, *args, **kwargs
-    ) -> Optional[float]:
-        for clock_context, seconds, offset, events in self._find_events(clock_context):
+    def _clock_callback(self, context: ClockContext, *args, **kwargs) -> ClockDelta:
+        for clock_context, seconds, offset, events in self._find_events(context):
             if self._initial_seconds is None:
                 self._initial_seconds = seconds
             with self._context.at(seconds):
@@ -99,10 +89,10 @@ class PatternPlayer:
 
     def _find_events(
         self, clock_context: ClockContext
-    ) -> Iterable[Tuple[ClockContext, float, float, Sequence[Tuple[Event, Priority]]]]:
+    ) -> Iterable[tuple[ClockContext, float, float, Sequence[tuple[Event, Priority]]]]:
         with self._lock:
             current_offset = float("-inf")
-            events: List[Tuple[Event, Priority]] = []
+            events: list[tuple[Event, Priority]] = []
             if (
                 not cast(CallbackEvent, clock_context.event).invocations
                 and self._callback
@@ -178,9 +168,7 @@ class PatternPlayer:
             pass
         return False
 
-    def _stop_callback(
-        self, clock_context: ClockContext, *args, **kwargs
-    ) -> Optional[float]:
+    def _stop_callback(self, context: ClockContext, *args, **kwargs) -> ClockDelta:
         with self._lock:
             # Do we need to rebuild the queue? Yes.
             # Do we need to free all playing notes? Yes.
@@ -188,17 +176,17 @@ class PatternPlayer:
             # They'll be no-ops when performed.
             self._is_stopping = True
             self._clock.reschedule(
-                self._clock_event_id, schedule_at=clock_context.desired_moment.offset
+                self._clock_event_id, schedule_at=context.desired_moment.offset
             )
-            self._reschedule_queue(clock_context.desired_moment.offset)
-            self._free_all_notes(clock_context.desired_moment.seconds)
+            self._reschedule_queue(context.desired_moment.offset)
+            self._free_all_notes(context.desired_moment.seconds)
             self._clock_event_id = -1
             self._clock_stop_event_id = -1
         return None
 
     def _enumerate(
         self, iterator: Generator[Event, bool, None]
-    ) -> Generator[Tuple[int, Event], bool, None]:
+    ) -> Generator[tuple[int, Event], bool, None]:
         index = 0
         should_stop = False
         while True:
@@ -224,9 +212,7 @@ class PatternPlayer:
                 self._context.free_node(node)
 
     def _reschedule_queue(self, current_offset: float) -> None:
-        events: List[
-            Tuple[float, Priority, Union[int, Tuple[int, int]], Optional[Event]]
-        ] = []
+        events: list[tuple[float, Priority, int | tuple[int, int], Event | None]] = []
         while not self._queue.empty():
             events.append(self._queue.get())
         if not events:
@@ -238,8 +224,8 @@ class PatternPlayer:
 
     def play(
         self,
-        quantization: Optional[Quantization] = None,
-        until: Optional[float] = None,
+        quantization: Quantization | None = None,
+        until: float | None = None,
     ) -> None:
         with self._lock:
             if self._is_running:
@@ -260,7 +246,7 @@ class PatternPlayer:
                 self._stop_callback, event_type=2, schedule_at=until
             )
 
-    def stop(self, quantization: Optional[Quantization] = None) -> None:
+    def stop(self, quantization: Quantization | None = None) -> None:
         with self._lock:
             if not self._is_running or self._is_stopping:
                 return
@@ -272,13 +258,13 @@ class PatternPlayer:
             )
             self._players.remove(self)
 
-    def uuid_to_note_id(self, uuid: UUID, index: Optional[int] = None) -> float:
+    def uuid_to_note_id(self, uuid: UUID, index: int | None = None) -> float:
         if index is not None:
             return self._notes_by_uuid[uuid, index]
         return self._notes_by_uuid[uuid]
 
     @property
-    def initial_seconds(self) -> Optional[float]:
+    def initial_seconds(self) -> float | None:
         return self._initial_seconds
 
     @property

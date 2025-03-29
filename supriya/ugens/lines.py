@@ -1,4 +1,4 @@
-from typing import Any, Dict, Tuple
+from typing import Any
 
 from ..enums import CalculationRate, DoneAction
 from .basic import MulAdd
@@ -183,7 +183,7 @@ class Line(UGen):
         *,
         calculation_rate: CalculationRate,
         **kwargs,
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         return calculation_rate, {
             **kwargs,
             "done_action": DoneAction.from_expr(int(kwargs["done_action"])),

@@ -8,7 +8,6 @@ import hashlib
 import shlex
 from os import PathLike
 from pathlib import Path
-from typing import Optional, Tuple
 
 from uqbar.io import find_executable
 from uqbar.strings import to_dash_case
@@ -29,7 +28,7 @@ class Say:
     """
 
     text: str
-    voice: Optional[str]
+    voice: str | None
 
     ### CLASS VARIABLES ###
 
@@ -93,10 +92,10 @@ class Say:
 
     async def __render__(
         self,
-        output_file_path: Optional[PathLike] = None,
-        render_directory_path: Optional[PathLike] = None,
+        output_file_path: PathLike | None = None,
+        render_directory_path: PathLike | None = None,
         **kwargs,
-    ) -> Tuple[Path, int]:
+    ) -> tuple[Path, int]:
         path = self._build_output_file_path(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,

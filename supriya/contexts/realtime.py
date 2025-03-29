@@ -14,16 +14,11 @@ from collections.abc import Sequence as SequenceABC
 from typing import (
     Awaitable,
     Callable,
-    Dict,
     Iterable,
-    List,
     NamedTuple,
-    Optional,
     Sequence,
-    Set,
     SupportsInt,
     Type,
-    Union,
     cast,
 )
 
@@ -137,29 +132,29 @@ class BaseServer(Context):
 
     ### CLASS VARIABLES ###
 
-    _contexts: Set["BaseServer"] = set()
+    _contexts: set["BaseServer"] = set()
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        options: Optional[Options],
-        name: Optional[str] = None,
+        options: Options | None,
+        name: str | None = None,
         **kwargs,
     ) -> None:
         Context.__init__(self, options, name=name, **kwargs)
-        self._buffers: Set[int] = set()
+        self._buffers: set[int] = set()
         self._is_owner: bool = False
         self._latency: float = 0.1
-        self._lifecycle_event_callbacks: Dict[
+        self._lifecycle_event_callbacks: dict[
             ServerLifecycleEvent, list[ServerLifecycleCallback]
         ] = {}
         self._maximum_logins: int = 1
-        self._node_active: Dict[int, bool] = {}
-        self._node_children: Dict[int, List[int]] = {}
-        self._node_parents: Dict[int, int] = {}
-        self._shared_memory: Optional[ServerSHM] = None
-        self._status: Optional[StatusInfo] = None
+        self._node_active: dict[int, bool] = {}
+        self._node_children: dict[int, list[int]] = {}
+        self._node_parents: dict[int, int] = {}
+        self._shared_memory: ServerSHM | None = None
+        self._status: StatusInfo | None = None
 
     ### SPECIAL METHODS ###
 
@@ -208,7 +203,7 @@ class BaseServer(Context):
         self,
         type_: Type[ContextObject],
         id_: int,
-        calculation_rate: Optional[CalculationRate] = None,
+        calculation_rate: CalculationRate | None = None,
     ) -> None:
         self._get_allocator(type_, calculation_rate).free(id_)
 
@@ -324,7 +319,7 @@ class BaseServer(Context):
         except ValueError:
             pass
 
-    def _resolve_node(self, node: Union[Node, SupportsInt, None]) -> int:
+    def _resolve_node(self, node: Node | SupportsInt | None) -> int:
         if node is None:
             return self._client_id + 1
         return int(node)
@@ -378,12 +373,12 @@ class BaseServer(Context):
             raise ServerOffline("Server already offline!")
         pass  # Otherwise always OK to request in RT
 
-    def _validate_moment_timestamp(self, seconds: Optional[float]) -> None:
+    def _validate_moment_timestamp(self, seconds: float | None) -> None:
         pass  # Floats and None are OK in RT
 
     ### PUBLIC METHODS ###
 
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
+    def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         """
         Send a message to the execution context.
 
@@ -396,7 +391,7 @@ class BaseServer(Context):
 
     def set_latency(self, latency: float) -> None:
         """
-        Set the context's latency.
+        set the context's latency.
 
         :param latency: The latency in seconds.
         """
@@ -433,14 +428,14 @@ class BaseServer(Context):
         return self._is_owner
 
     @property
-    def shared_memory(self) -> Optional[ServerSHM]:
+    def shared_memory(self) -> ServerSHM | None:
         """
         Get the server's shared memory interface, if available.
         """
         return self._shared_memory
 
     @property
-    def status(self) -> Optional[StatusInfo]:
+    def status(self) -> StatusInfo | None:
         """
         Get the server's last received status.
         """
@@ -459,8 +454,8 @@ class Server(BaseServer):
 
     def __init__(
         self,
-        options: Optional[Options] = None,
-        name: Optional[str] = None,
+        options: Options | None = None,
+        name: str | None = None,
         **kwargs,
     ) -> None:
         def on_panic(event: ServerShutdownEvent) -> None:
@@ -613,7 +608,7 @@ class Server(BaseServer):
 
     ### PUBLIC METHODS ###
 
-    def boot(self, *, options: Optional[Options] = None, **kwargs) -> "Server":
+    def boot(self, *, options: Options | None = None, **kwargs) -> "Server":
         """
         Boot the server.
 
@@ -638,7 +633,7 @@ class Server(BaseServer):
                 raise ServerCannotBoot(self.process_protocol.error_text)
         return self
 
-    def connect(self, *, options: Optional[Options] = None, **kwargs) -> "Server":
+    def connect(self, *, options: Options | None = None, **kwargs) -> "Server":
         """
         Connect to a running server.
 
@@ -677,10 +672,10 @@ class Server(BaseServer):
 
     def dump_tree(
         self,
-        group: Optional[Group] = None,
+        group: Group | None = None,
         include_controls: bool = True,
         sync: bool = True,
-    ) -> Optional[QueryTreeGroup]:
+    ) -> QueryTreeGroup | None:
         """
         Dump the server's node tree.
 
@@ -705,7 +700,7 @@ class Server(BaseServer):
 
     def get_buffer(
         self, buffer: Buffer, *indices: int, sync: bool = True
-    ) -> Optional[Dict[int, float]]:
+    ) -> dict[int, float] | None:
         """
         Get a buffer sample.
 
@@ -724,7 +719,7 @@ class Server(BaseServer):
 
     def get_buffer_range(
         self, buffer: Buffer, index: int, count: int, sync: bool = True
-    ) -> Optional[Sequence[float]]:
+    ) -> Sequence[float] | None:
         """
         Get a buffer sample range.
 
@@ -744,7 +739,7 @@ class Server(BaseServer):
         self._add_requests(request)
         return None
 
-    def get_bus(self, bus: Bus, sync: bool = True) -> Optional[float]:
+    def get_bus(self, bus: Bus, sync: bool = True) -> float | None:
         """
         Get a control bus value.
 
@@ -766,7 +761,7 @@ class Server(BaseServer):
 
     def get_bus_range(
         self, bus: Bus, count: int, sync: bool = True
-    ) -> Optional[Sequence[float]]:
+    ) -> Sequence[float] | None:
         """
         Get a range of control bus values.
 
@@ -788,8 +783,8 @@ class Server(BaseServer):
         return None
 
     def get_synth_controls(
-        self, synth: Synth, *controls: Union[int, str], sync: bool = True
-    ) -> Optional[Dict[Union[int, str], float]]:
+        self, synth: Synth, *controls: int | str, sync: bool = True
+    ) -> dict[int | str, float] | None:
         """
         Get a synth control.
 
@@ -809,8 +804,8 @@ class Server(BaseServer):
         return None
 
     def get_synth_control_range(
-        self, synth: Synth, control: Union[int, str], count: int, sync: bool = True
-    ) -> Optional[Sequence[Union[float, str]]]:
+        self, synth: Synth, control: int | str, count: int, sync: bool = True
+    ) -> Sequence[float | str] | None:
         """
         Get a range of synth controls.
 
@@ -830,7 +825,7 @@ class Server(BaseServer):
         self._add_requests(request)
         return None
 
-    def query_buffer(self, buffer: Buffer, sync: bool = True) -> Optional[BufferInfo]:
+    def query_buffer(self, buffer: Buffer, sync: bool = True) -> BufferInfo | None:
         """
         Query a buffer.
 
@@ -846,7 +841,7 @@ class Server(BaseServer):
         self._add_requests(request)
         return None
 
-    def query_node(self, node: Node, sync: bool = True) -> Optional[NodeInfo]:
+    def query_node(self, node: Node, sync: bool = True) -> NodeInfo | None:
         """
         Query a node.
 
@@ -862,7 +857,7 @@ class Server(BaseServer):
         self._add_requests(request)
         return None
 
-    def query_status(self, sync: bool = True) -> Optional[StatusInfo]:
+    def query_status(self, sync: bool = True) -> StatusInfo | None:
         """
         Query the server's status.
 
@@ -879,10 +874,10 @@ class Server(BaseServer):
 
     def query_tree(
         self,
-        group: Optional[Group] = None,
+        group: Group | None = None,
         include_controls: bool = True,
         sync: bool = True,
-    ) -> Optional[QueryTreeGroup]:
+    ) -> QueryTreeGroup | None:
         """
         Query the server's node tree.
 
@@ -901,7 +896,7 @@ class Server(BaseServer):
         self._add_requests(request)
         return None
 
-    def query_version(self, sync: bool = True) -> Optional[VersionInfo]:
+    def query_version(self, sync: bool = True) -> VersionInfo | None:
         """
         Query the server's version.
 
@@ -1000,7 +995,7 @@ class Server(BaseServer):
         self.sync()
         return self
 
-    def sync(self, sync_id: Optional[int] = None, timeout: float = 1.0) -> "Server":
+    def sync(self, sync_id: int | None = None, timeout: float = 1.0) -> "Server":
         """
         Sync the server.
 
@@ -1072,7 +1067,7 @@ class AsyncServer(BaseServer):
     ### INITIALIZER ###
 
     def __init__(
-        self, options: Optional[Options] = None, name: Optional[str] = None, **kwargs
+        self, options: Options | None = None, name: str | None = None, **kwargs
     ) -> None:
         BaseServer.__init__(
             self,
@@ -1228,9 +1223,7 @@ class AsyncServer(BaseServer):
 
     ### PUBLIC METHODS ###
 
-    async def boot(
-        self, *, options: Optional[Options] = None, **kwargs
-    ) -> "AsyncServer":
+    async def boot(self, *, options: Options | None = None, **kwargs) -> "AsyncServer":
         """
         Boot the server.
 
@@ -1252,7 +1245,7 @@ class AsyncServer(BaseServer):
         return self
 
     async def connect(
-        self, *, options: Optional[Options] = None, **kwargs
+        self, *, options: Options | None = None, **kwargs
     ) -> "AsyncServer":
         """
         Connect to a running server.
@@ -1288,10 +1281,10 @@ class AsyncServer(BaseServer):
 
     async def dump_tree(
         self,
-        group: Optional[Group] = None,
+        group: Group | None = None,
         include_controls: bool = True,
         sync: bool = True,
-    ) -> Optional[QueryTreeGroup]:
+    ) -> QueryTreeGroup | None:
         """
         Dump the server's node tree.
 
@@ -1316,7 +1309,7 @@ class AsyncServer(BaseServer):
 
     async def get_buffer(
         self, buffer: Buffer, *indices: int, sync: bool = True
-    ) -> Optional[Dict[int, float]]:
+    ) -> dict[int, float] | None:
         """
         Get a buffer sample.
 
@@ -1337,7 +1330,7 @@ class AsyncServer(BaseServer):
 
     async def get_buffer_range(
         self, buffer: Buffer, index: int, count: int, sync: bool = True
-    ) -> Optional[Sequence[float]]:
+    ) -> Sequence[float] | None:
         """
         Get a buffer sample range.
 
@@ -1357,7 +1350,7 @@ class AsyncServer(BaseServer):
         self._add_requests(request)
         return None
 
-    async def get_bus(self, bus: Bus, sync: bool = True) -> Optional[float]:
+    async def get_bus(self, bus: Bus, sync: bool = True) -> float | None:
         """
         Get a control bus value.
 
@@ -1379,7 +1372,7 @@ class AsyncServer(BaseServer):
 
     async def get_bus_range(
         self, bus: Bus, count: int, sync: bool = True
-    ) -> Optional[Sequence[float]]:
+    ) -> Sequence[float] | None:
         """
         Get a range of control bus values.
 
@@ -1401,8 +1394,8 @@ class AsyncServer(BaseServer):
         return None
 
     async def get_synth_controls(
-        self, synth: Synth, *controls: Union[int, str], sync: bool = True
-    ) -> Optional[Dict[Union[int, str], float]]:
+        self, synth: Synth, *controls: int | str, sync: bool = True
+    ) -> dict[int | str, float] | None:
         """
         Get a synth control.
 
@@ -1424,8 +1417,8 @@ class AsyncServer(BaseServer):
         return None
 
     async def get_synth_control_range(
-        self, synth: Synth, control: Union[int, str], count: int, sync: bool = True
-    ) -> Optional[Sequence[Union[float, str]]]:
+        self, synth: Synth, control: int | str, count: int, sync: bool = True
+    ) -> Sequence[float | str] | None:
         """
         Get a range of synth controls.
 
@@ -1447,7 +1440,7 @@ class AsyncServer(BaseServer):
 
     async def query_buffer(
         self, buffer: Buffer, sync: bool = True
-    ) -> Optional[BufferInfo]:
+    ) -> BufferInfo | None:
         """
         Query a buffer.
 
@@ -1463,7 +1456,7 @@ class AsyncServer(BaseServer):
         self._add_requests(request)
         return None
 
-    async def query_node(self, node: Node, sync: bool = True) -> Optional[NodeInfo]:
+    async def query_node(self, node: Node, sync: bool = True) -> NodeInfo | None:
         """
         Query a node.
 
@@ -1479,7 +1472,7 @@ class AsyncServer(BaseServer):
         self._add_requests(request)
         return None
 
-    async def query_status(self, sync: bool = True) -> Optional[StatusInfo]:
+    async def query_status(self, sync: bool = True) -> StatusInfo | None:
         """
         Query the server's status.
 
@@ -1496,10 +1489,10 @@ class AsyncServer(BaseServer):
 
     async def query_tree(
         self,
-        group: Optional[Group] = None,
+        group: Group | None = None,
         include_controls: bool = True,
         sync: bool = True,
-    ) -> Optional[QueryTreeGroup]:
+    ) -> QueryTreeGroup | None:
         """
         Query the server's node tree.
 
@@ -1518,7 +1511,7 @@ class AsyncServer(BaseServer):
         self._add_requests(request)
         return None
 
-    async def query_version(self, sync: bool = True) -> Optional[VersionInfo]:
+    async def query_version(self, sync: bool = True) -> VersionInfo | None:
         """
         Query the server's version.
 
@@ -1618,7 +1611,7 @@ class AsyncServer(BaseServer):
         return self
 
     async def sync(
-        self, sync_id: Optional[int] = None, timeout: float = 1.0
+        self, sync_id: int | None = None, timeout: float = 1.0
     ) -> "AsyncServer":
         """
         Sync the server.

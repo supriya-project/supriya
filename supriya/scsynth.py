@@ -13,14 +13,8 @@ from pathlib import Path
 from typing import (
     IO,
     Callable,
-    Dict,
     Iterator,
-    List,
     Literal,
-    Optional,
-    Set,
-    Tuple,
-    Union,
     cast,
 )
 
@@ -51,11 +45,11 @@ class Options:
     block_size: int = 64
     buffer_count: int = 1024
     control_bus_channel_count: int = 16384
-    executable: Optional[str] = None
-    hardware_buffer_size: Optional[int] = None
+    executable: str | None = None
+    hardware_buffer_size: int | None = None
     initial_node_id: int = 1000
     input_bus_channel_count: int = 8
-    input_device: Optional[str] = None
+    input_device: str | None = None
     input_stream_mask: str = ""
     ip_address: str = DEFAULT_IP_ADDRESS
     load_synthdefs: bool = True
@@ -65,18 +59,18 @@ class Options:
     memory_locking: bool = False
     memory_size: int = 8192
     output_bus_channel_count: int = 8
-    output_device: Optional[str] = None
+    output_device: str | None = None
     output_stream_mask: str = ""
-    password: Optional[str] = None
+    password: str | None = None
     port: int = DEFAULT_PORT
     protocol: str = "udp"
     random_number_generator_count: int = 64
     realtime: bool = True
-    restricted_path: Optional[str] = None
-    safety_clip: Optional[Union[int, Literal["inf"]]] = None
-    sample_rate: Optional[int] = None
+    restricted_path: str | None = None
+    safety_clip: Literal["inf"] | int | None = None
+    sample_rate: int | None = None
     threads: int = 6
-    ugen_plugins_path: Optional[str] = None
+    ugen_plugins_path: str | None = None
     verbosity: int = 0
     wire_buffer_count: int = 64
     zero_configuration: bool = False
@@ -96,7 +90,7 @@ class Options:
 
     ### PUBLIC METHODS ###
 
-    def get_audio_bus_ids(self, client_id: int) -> Tuple[int, int]:
+    def get_audio_bus_ids(self, client_id: int) -> tuple[int, int]:
         audio_buses_per_client = (
             self.private_audio_bus_channel_count // self.maximum_logins
         )
@@ -104,24 +98,24 @@ class Options:
         maximum = self.first_private_bus_id + ((client_id + 1) * audio_buses_per_client)
         return minimum, maximum
 
-    def get_buffer_ids(self, client_id: int) -> Tuple[int, int]:
+    def get_buffer_ids(self, client_id: int) -> tuple[int, int]:
         buffers_per_client = self.buffer_count // self.maximum_logins
         minimum = client_id * buffers_per_client
         maximum = (client_id + 1) * buffers_per_client
         return minimum, maximum
 
-    def get_control_bus_ids(self, client_id: int) -> Tuple[int, int]:
+    def get_control_bus_ids(self, client_id: int) -> tuple[int, int]:
         control_buses_per_client = self.control_bus_channel_count // self.maximum_logins
         minimum = client_id * control_buses_per_client
         maximum = (client_id + 1) * control_buses_per_client
         return minimum, maximum
 
-    def get_sync_ids(self, client_id: int) -> Tuple[int, int]:
+    def get_sync_ids(self, client_id: int) -> tuple[int, int]:
         return client_id << 26, (client_id + 1) << 26
 
-    def serialize(self) -> List[str]:
+    def serialize(self) -> list[str]:
         result = [str(find(self.executable))]
-        pairs: Dict[str, Optional[Union[List[str], str]]] = {}
+        pairs: dict[str, list[str] | str | None] = {}
         if self.realtime:
             if self.ip_address != DEFAULT_IP_ADDRESS:
                 pairs["-B"] = self.ip_address
@@ -271,7 +265,7 @@ class Capture:
 
     def __init__(self, process_protocol: "ProcessProtocol") -> None:
         self.process_protocol = process_protocol
-        self.lines: List[str] = []
+        self.lines: list[str] = []
 
     def __enter__(self) -> "Capture":
         self.process_protocol.captures.add(self)
@@ -291,13 +285,13 @@ class ProcessProtocol:
     def __init__(
         self,
         *,
-        name: Optional[str] = None,
-        on_boot_callback: Optional[Callable] = None,
-        on_panic_callback: Optional[Callable] = None,
-        on_quit_callback: Optional[Callable] = None,
+        name: str | None = None,
+        on_boot_callback: Callable | None = None,
+        on_panic_callback: Callable | None = None,
+        on_quit_callback: Callable | None = None,
     ) -> None:
         self.buffer_ = ""
-        self.captures: Set[Capture] = set()
+        self.captures: set[Capture] = set()
         self.error_text = ""
         self.name = name
         self.on_boot_callback = on_boot_callback
@@ -332,7 +326,7 @@ class ProcessProtocol:
         *,
         boot_future: FutureLike[bool],
         text: str,
-    ) -> Tuple[bool, bool]:
+    ) -> tuple[bool, bool]:
         resolved = False
         errored = False
         if "\n" in text:
@@ -394,10 +388,10 @@ class ThreadedProcessProtocol(ProcessProtocol):
     def __init__(
         self,
         *,
-        name: Optional[str] = None,
-        on_boot_callback: Optional[Callable] = None,
-        on_panic_callback: Optional[Callable] = None,
-        on_quit_callback: Optional[Callable] = None,
+        name: str | None = None,
+        on_boot_callback: Callable | None = None,
+        on_panic_callback: Callable | None = None,
+        on_quit_callback: Callable | None = None,
     ) -> None:
         super().__init__(
             name=name,
@@ -479,10 +473,10 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
     def __init__(
         self,
         *,
-        name: Optional[str] = None,
-        on_boot_callback: Optional[Callable] = None,
-        on_panic_callback: Optional[Callable] = None,
-        on_quit_callback: Optional[Callable] = None,
+        name: str | None = None,
+        on_boot_callback: Callable | None = None,
+        on_panic_callback: Callable | None = None,
+        on_quit_callback: Callable | None = None,
     ) -> None:
         ProcessProtocol.__init__(
             self,
@@ -569,7 +563,7 @@ class AsyncNonrealtimeProcessProtocol(asyncio.SubprocessProtocol, ProcessProtoco
         self.boot_future: asyncio.Future[bool] = asyncio.Future()
         self.exit_future: asyncio.Future[bool] = asyncio.Future()
 
-    async def run(self, command: List[str], render_directory_path: Path) -> None:
+    async def run(self, command: list[str], render_directory_path: Path) -> None:
         logger.info(f"running: {shlex.join(command)}")
         loop = asyncio.get_running_loop()
         self.boot_future = loop.create_future()

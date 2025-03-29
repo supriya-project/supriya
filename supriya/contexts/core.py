@@ -15,16 +15,12 @@ from os import PathLike
 from typing import (
     Any,
     Callable,
-    Dict,
-    List,
     Literal,
     Optional,
     Sequence,
     SupportsFloat,
     SupportsInt,
-    Tuple,
     Type,
-    Union,
     cast,
 )
 
@@ -114,15 +110,15 @@ class Moment:
     """
 
     context: "Context"
-    seconds: Optional[float] = None
+    seconds: float | None = None
     closed: bool = dataclasses.field(default=False, init=False)
-    requests: List[Tuple[Request, Optional["Completion"]]] = dataclasses.field(
+    requests: list[tuple[Request, Optional["Completion"]]] = dataclasses.field(
         default_factory=list, init=False
     )
 
     def __enter__(self) -> "Moment":
         """
-        Set this moment the current "request context".
+        set this moment the current "request context".
         """
         if self.closed:
             raise MomentClosed
@@ -160,7 +156,7 @@ class Completion:
 
     context: "Context"
     moment: Moment
-    requests: List[Tuple[Request, Optional["Completion"]]] = dataclasses.field(
+    requests: list[tuple[Request, Optional["Completion"]]] = dataclasses.field(
         default_factory=list, init=False
     )
 
@@ -181,7 +177,7 @@ class Completion:
 
     def __enter__(self) -> "Completion":
         """
-        Set this completion as the current "request context".
+        set this completion as the current "request context".
         """
         if self.moment.closed:
             raise MomentClosed
@@ -207,8 +203,8 @@ class Context(metaclass=abc.ABCMeta):
 
     def __init__(
         self,
-        options: Optional[Options],
-        name: Optional[str] = None,
+        options: Options | None,
+        name: str | None = None,
         **kwargs,
     ) -> None:
         self._audio_bus_allocator = BlockAllocator()
@@ -251,7 +247,7 @@ class Context(metaclass=abc.ABCMeta):
                 current_requests.append((request, None))
 
     def _add_request_with_completion(
-        self, request: Request, on_completion: Optional[Callable[["Context"], None]]
+        self, request: Request, on_completion: Callable[["Context"], None] | None
     ) -> Completion:
         with contextlib.ExitStack() as stack:
             current_requests = (
@@ -270,11 +266,11 @@ class Context(metaclass=abc.ABCMeta):
     def _allocate_id(
         self,
         type_: Type[ContextObject],
-        calculation_rate: Optional[CalculationRate] = None,
+        calculation_rate: CalculationRate | None = None,
         count: int = 1,
         permanent: bool = False,
     ) -> int:
-        id_: Optional[int] = None
+        id_: int | None = None
         if type_ is Node:
             if permanent:
                 id_ = self._node_id_allocator.allocate_permanent_node_id()
@@ -297,9 +293,9 @@ class Context(metaclass=abc.ABCMeta):
 
     @staticmethod
     def _apply_completions(
-        pairs: List[Tuple[Request, Optional[Completion]]],
-    ) -> List[Request]:
-        requests: List[Request] = []
+        pairs: list[tuple[Request, Completion | None]],
+    ) -> list[Request]:
+        requests: list[Request] = []
         for key, group in itertools.groupby(
             [
                 request if completion is None else completion(request)
@@ -315,15 +311,15 @@ class Context(metaclass=abc.ABCMeta):
         self,
         type_: Type[ContextObject],
         id_: int,
-        calculation_rate: Optional[CalculationRate] = None,
+        calculation_rate: CalculationRate | None = None,
     ) -> None:
         raise NotImplementedError
 
     def _get_allocator(
         self,
         type_: Type[ContextObject],
-        calculation_rate: Optional[CalculationRate] = None,
-    ) -> Union[BlockAllocator, NodeIdAllocator]:
+        calculation_rate: CalculationRate | None = None,
+    ) -> BlockAllocator | NodeIdAllocator:
         if type_ is Node:
             return self._node_id_allocator
         if type_ is Buffer:
@@ -335,7 +331,7 @@ class Context(metaclass=abc.ABCMeta):
                 return self._control_bus_allocator
         raise ValueError
 
-    def _get_moment(self) -> Optional[Moment]:
+    def _get_moment(self) -> Moment | None:
         moments = self._thread_local.__dict__.get("moments", [])
         if not moments:
             return None
@@ -352,7 +348,7 @@ class Context(metaclass=abc.ABCMeta):
     def _get_options(self, options: Options | None, **kwargs) -> Options:
         return dataclasses.replace(options or Options(), **kwargs)
 
-    def _get_request_context(self) -> Optional[Union[Completion, Moment]]:
+    def _get_request_context(self) -> Completion | Moment | None:
         moments = self._thread_local.__dict__.get("moments", [])
         completions = self._thread_local.__dict__.get("completions", [])
         if completions:
@@ -374,7 +370,7 @@ class Context(metaclass=abc.ABCMeta):
         self._thread_local.__dict__.setdefault("moments", []).append(moment)
 
     @abc.abstractmethod
-    def _resolve_node(self, node: Union[Node, SupportsInt, None]) -> int:
+    def _resolve_node(self, node: Node | SupportsInt | None) -> int:
         raise NotImplementedError
 
     def _setup_allocators(self) -> None:
@@ -412,7 +408,7 @@ class Context(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def _validate_moment_timestamp(self, seconds: Optional[float]) -> None:
+    def _validate_moment_timestamp(self, seconds: float | None) -> None:
         raise NotImplementedError
 
     ### PUBLIC METHODS ###
@@ -420,12 +416,12 @@ class Context(metaclass=abc.ABCMeta):
     def add_buffer(
         self,
         *,
-        channel_count: Optional[int] = None,
-        channel_indices: Optional[List[int]] = None,
-        file_path: Optional[PathLike] = None,
-        frame_count: Optional[int] = None,
-        starting_frame: Optional[int] = None,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
+        channel_count: int | None = None,
+        channel_indices: list[int] | None = None,
+        file_path: PathLike | None = None,
+        frame_count: int | None = None,
+        starting_frame: int | None = None,
+        on_completion: Callable[["Context"], Any] | None = None,
     ) -> Buffer:
         """
         Add a new buffer to the context.
@@ -479,9 +475,9 @@ class Context(metaclass=abc.ABCMeta):
     def add_buffer_group(
         self,
         *,
-        channel_count: Optional[int] = None,
+        channel_count: int | None = None,
         count: int = 1,
-        frame_count: Optional[int] = None,
+        frame_count: int | None = None,
     ) -> BufferGroup:
         """
         Add a group of new buffers to the context.
@@ -498,7 +494,7 @@ class Context(metaclass=abc.ABCMeta):
         if count < 1:
             raise ValueError
         id_ = self._allocate_id(Buffer, count=count)
-        requests: List[Request] = []
+        requests: list[Request] = []
         for i in range(count):
             requests.append(
                 AllocateBuffer(
@@ -562,7 +558,7 @@ class Context(metaclass=abc.ABCMeta):
         self,
         *,
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
-        target_node: Optional[SupportsInt] = None,
+        target_node: SupportsInt | None = None,
         parallel: bool = False,
         permanent: bool = False,
     ) -> Group:
@@ -596,7 +592,7 @@ class Context(metaclass=abc.ABCMeta):
         synthdef: SynthDef,
         *,
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
-        target_node: Optional[SupportsInt] = None,
+        target_node: SupportsInt | None = None,
         permanent: bool = False,
         **settings,
     ) -> Synth:
@@ -617,9 +613,7 @@ class Context(metaclass=abc.ABCMeta):
             if add_action_ not in target_node._valid_add_actions:
                 raise ValueError(add_action_)
         target_node_id = self._resolve_node(target_node)
-        synthdef_kwargs: Dict[
-            Union[int, str], Union[float, str, Tuple[Union[float, str], ...]]
-        ] = {}
+        synthdef_kwargs: dict[int | str, float | str | tuple[float | str, ...]] = {}
         for _, parameter in synthdef.indexed_parameters:
             if parameter.name not in settings:
                 continue
@@ -634,7 +628,7 @@ class Context(metaclass=abc.ABCMeta):
             ):
                 synthdef_kwargs[parameter.name] = tuple(float(v) for v in value)
             else:
-                processed_values: List[Union[float, str]] = []
+                processed_values: list[float | str] = []
                 for v in value:
                     if isinstance(v, Bus):
                         processed_values.append(v.map_symbol())
@@ -663,7 +657,7 @@ class Context(metaclass=abc.ABCMeta):
     def add_synthdefs(
         self,
         *synthdefs: SynthDef,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
+        on_completion: Callable[["Context"], Any] | None = None,
     ) -> Completion:
         """
         Add one or more SynthDefs to the context.
@@ -703,7 +697,7 @@ class Context(metaclass=abc.ABCMeta):
     def close_buffer(
         self,
         buffer: Buffer,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
+        on_completion: Callable[["Context"], Any] | None = None,
     ) -> Completion:
         """
         Close a buffer.
@@ -795,7 +789,7 @@ class Context(metaclass=abc.ABCMeta):
     def free_buffer(
         self,
         buffer: Buffer,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
+        on_completion: Callable[["Context"], Any] | None = None,
     ) -> Completion:
         """
         Free a buffer.
@@ -923,8 +917,8 @@ class Context(metaclass=abc.ABCMeta):
         buffer: Buffer,
         command_name: Literal["sine1", "sine2", "sine3", "cheby"],
         amplitudes: Sequence[float],
-        frequencies: Optional[Sequence[float]] = None,
-        phases: Optional[Sequence[float]] = None,
+        frequencies: Sequence[float] | None = None,
+        phases: Sequence[float] | None = None,
         as_wavetable: bool = False,
         should_clear_first: bool = False,
         should_normalize: bool = False,
@@ -971,7 +965,7 @@ class Context(metaclass=abc.ABCMeta):
     def load_synthdefs(
         self,
         path: PathLike,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
+        on_completion: Callable[["Context"], Any] | None = None,
     ) -> Completion:
         """
         Load SynthDefs from a path.
@@ -995,7 +989,7 @@ class Context(metaclass=abc.ABCMeta):
     def load_synthdefs_directory(
         self,
         path: PathLike,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
+        on_completion: Callable[["Context"], Any] | None = None,
     ) -> Completion:
         """
         Load all SynthDefs from a directory.
@@ -1011,7 +1005,7 @@ class Context(metaclass=abc.ABCMeta):
         request = LoadSynthDefDirectory(path=path)
         return self._add_request_with_completion(request, on_completion)
 
-    def map_node(self, node: Node, **settings: Union[Bus, None, str]) -> None:
+    def map_node(self, node: Node, **settings: Bus | str | None) -> None:
         """
         Map a node's controls to buses.
 
@@ -1039,7 +1033,7 @@ class Context(metaclass=abc.ABCMeta):
                     control[key] = int(index)
             elif value is None:
                 control[key] = -1
-        requests: List[Request] = []
+        requests: list[Request] = []
         if control:
             requests.append(
                 MapControlBusToNode(node_id=node, items=sorted(control.items()))
@@ -1133,12 +1127,12 @@ class Context(metaclass=abc.ABCMeta):
         buffer: Buffer,
         file_path: PathLike,
         *,
-        buffer_starting_frame: Optional[int] = None,
-        channel_indices: Optional[List[int]] = None,
-        frame_count: Optional[int] = None,
+        buffer_starting_frame: int | None = None,
+        channel_indices: list[int] | None = None,
+        frame_count: int | None = None,
         leave_open: bool = False,
-        starting_frame: Optional[int] = None,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
+        starting_frame: int | None = None,
+        on_completion: Callable[["Context"], Any] | None = None,
     ) -> Completion:
         """
         Read a file into a buffer.
@@ -1182,7 +1176,7 @@ class Context(metaclass=abc.ABCMeta):
         return self._add_request_with_completion(request, on_completion)
 
     @abc.abstractmethod
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
+    def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         """
         Send a message to the execution context.
 
@@ -1192,7 +1186,7 @@ class Context(metaclass=abc.ABCMeta):
 
     def set_buffer(self, buffer: Buffer, index: int, value: float) -> None:
         """
-        Set a buffer sample.
+        set a buffer sample.
 
         Emit ``/b_set`` requests.
 
@@ -1208,7 +1202,7 @@ class Context(metaclass=abc.ABCMeta):
         self, buffer: Buffer, index: int, values: Sequence[float]
     ) -> None:
         """
-        Set a buffer sample range.
+        set a buffer sample range.
 
         Emit ``/b_setn`` requests.
 
@@ -1222,7 +1216,7 @@ class Context(metaclass=abc.ABCMeta):
 
     def set_bus(self, bus: Bus, value: float) -> None:
         """
-        Set a control bus to a value.
+        set a control bus to a value.
 
         Emit ``/c_set`` requests.
 
@@ -1237,7 +1231,7 @@ class Context(metaclass=abc.ABCMeta):
 
     def set_bus_range(self, bus: Bus, values: Sequence[float]) -> None:
         """
-        Set a range of control buses.
+        set a range of control buses.
 
         Emit ``/c_setn`` requests.
 
@@ -1253,11 +1247,11 @@ class Context(metaclass=abc.ABCMeta):
     def set_node(
         self,
         node: Node,
-        *indexed_settings: Tuple[int, Union[SupportsFloat, Sequence[SupportsFloat]]],
-        **settings: Union[SupportsFloat, Sequence[SupportsFloat]],
+        *indexed_settings: tuple[int, SupportsFloat | Sequence[SupportsFloat]],
+        **settings: SupportsFloat | Sequence[SupportsFloat],
     ) -> None:
         """
-        Set a node's controls.
+        set a node's controls.
 
         Emit ``/n_set`` requests.
 
@@ -1266,7 +1260,7 @@ class Context(metaclass=abc.ABCMeta):
         :param settings: A mapping of control names to values.
         """
         self._validate_can_request()
-        coerced_settings: Dict[Union[int, str], Union[float, Sequence[float]]] = {}
+        coerced_settings: dict[int | str, float | Sequence[float]] = {}
         for index, values in sorted(indexed_settings):
             if isinstance(values, Sequence):
                 coerced_settings[index] = [float(value) for value in values]
@@ -1283,11 +1277,11 @@ class Context(metaclass=abc.ABCMeta):
     def set_node_range(
         self,
         node: Node,
-        *indexed_settings: Tuple[int, Sequence[SupportsFloat]],
+        *indexed_settings: tuple[int, Sequence[SupportsFloat]],
         **settings: Sequence[SupportsFloat],
     ) -> None:
         """
-        Set a range of node controls.
+        set a range of node controls.
 
         Emit ``/n_setn`` requests.
 
@@ -1296,7 +1290,7 @@ class Context(metaclass=abc.ABCMeta):
         :param settings: A mapping of control names to values.
         """
         self._validate_can_request()
-        coerced_settings: Dict[Union[int, str], Sequence[float]] = {}
+        coerced_settings: dict[int | str, Sequence[float]] = {}
         for index, values in sorted(indexed_settings):
             coerced_settings[index] = [float(value) for value in values]
         for key, values in sorted(settings.items()):
@@ -1323,12 +1317,12 @@ class Context(metaclass=abc.ABCMeta):
         buffer: Buffer,
         file_path: PathLike,
         *,
-        frame_count: Optional[int] = None,
+        frame_count: int | None = None,
         header_format: HeaderFormatLike = "aiff",
         leave_open: bool = False,
         sample_format: SampleFormatLike = "int24",
-        starting_frame: Optional[int] = None,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
+        starting_frame: int | None = None,
+        on_completion: Callable[["Context"], Any] | None = None,
     ) -> Completion:
         """
         Write a buffer to disk.
@@ -1362,10 +1356,10 @@ class Context(metaclass=abc.ABCMeta):
     def zero_buffer(
         self,
         buffer: Buffer,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
+        on_completion: Callable[["Context"], Any] | None = None,
     ) -> Completion:
         """
-        Set a buffer's contents to zero.
+        set a buffer's contents to zero.
 
         Emit ``/b_zero`` requests.
 
@@ -1433,7 +1427,7 @@ class Context(metaclass=abc.ABCMeta):
         return self._latency
 
     @property
-    def name(self) -> Optional[str]:
+    def name(self) -> str | None:
         """
         Get the context's optional name.
         """

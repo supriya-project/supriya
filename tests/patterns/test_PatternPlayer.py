@@ -1,5 +1,5 @@
 import asyncio
-from typing import Optional, Type
+from typing import Type
 from unittest.mock import Mock, call
 
 import pytest
@@ -401,8 +401,8 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
 )
 def test_context_calls(
     pattern,
-    until: Optional[float],
-    target_node: Optional[int],
+    until: float | None,
+    target_node: int | None,
     expected,
     mocker: MockerFixture,
 ) -> None:

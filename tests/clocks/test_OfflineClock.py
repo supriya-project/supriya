@@ -2,7 +2,13 @@ import logging
 
 import pytest
 
-from supriya.clocks import CallbackEvent, ClockContext, OfflineClock, TimeUnit
+from supriya.clocks import (
+    CallbackEvent,
+    ClockContext,
+    ClockDelta,
+    OfflineClock,
+    TimeUnit,
+)
 
 repeat_count = 5
 
@@ -17,11 +23,12 @@ def log_everything(caplog) -> None:
 def callback(
     context: ClockContext,
     store: list[ClockContext],
+    *,
     blow_up_at: int | None = None,
     delta: float = 0.25,
     limit: int | None = 4,
     time_unit: TimeUnit = TimeUnit.BEATS,
-) -> tuple[float, TimeUnit] | None:
+) -> ClockDelta:
     assert isinstance(context.event, CallbackEvent)
     if context.event.invocations == blow_up_at:
         raise Exception

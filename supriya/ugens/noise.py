@@ -1,4 +1,4 @@
-from typing import Any, Dict, Tuple
+from typing import Any
 
 from ..enums import CalculationRate, SignalRange
 from .core import UGen, param, ugen
@@ -119,7 +119,7 @@ class ExpRand(UGen):
         *,
         calculation_rate: CalculationRate,
         **kwargs,
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         if isinstance(kwargs["minimum"], float) and isinstance(
             kwargs["maximum"], float
         ):
@@ -481,7 +481,7 @@ class TIRand(UGen):
         *,
         calculation_rate: CalculationRate,
         **kwargs,
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         kwargs["minimum"] = int(kwargs["minimum"])
         kwargs["maximum"] = int(kwargs["maximum"])
         return calculation_rate, kwargs

@@ -1,13 +1,9 @@
 import itertools
 from typing import (
-    Dict,
     Generator,
     Generic,
     Iterable,
-    List,
-    Optional,
     Sequence,
-    Tuple,
     Type,
     TypeVar,
     Union,
@@ -20,15 +16,15 @@ IT = Iterable[Union[T, "IT"]]
 class Expander(Generic[T]):
     def __call__(
         self,
-        mapping: Dict[str, Union[T, Sequence[T]]],
-        unexpanded: Optional[Iterable[str]] = None,
-        only: Optional[Iterable[str]] = None,
-    ) -> List[Dict[str, Union[T, Sequence[T]]]]:
+        mapping: dict[str, Union[T, Sequence[T]]],
+        unexpanded: Iterable[str] | None = None,
+        only: Iterable[str] | None = None,
+    ) -> list[dict[str, Union[T, Sequence[T]]]]:
         only_ = set(only or ())
         unexpanded_ = set(unexpanded or ())
         expanded_mappings = []
         maximum_length = 1
-        massaged: Dict[str, Sequence[T]] = {}
+        massaged: dict[str, Sequence[T]] = {}
         for key, value in mapping.items():
             if only_ and key not in only_:
                 continue
@@ -39,7 +35,7 @@ class Expander(Generic[T]):
                 value = [value]
             massaged[key] = value
         for i in range(maximum_length):
-            expanded_mapping: Dict[str, Union[T, Sequence[T]]] = {}
+            expanded_mapping: dict[str, Union[T, Sequence[T]]] = {}
             for key, value in massaged.items():
                 if key in unexpanded_:
                     expanded_mapping[key] = value
@@ -50,15 +46,15 @@ class Expander(Generic[T]):
 
 
 def expand(
-    mapping: Dict[str, Union[T, Sequence[T]]],
-    unexpanded: Optional[Iterable[str]] = None,
-    only: Optional[Iterable[str]] = None,
-) -> List[Dict[str, Union[T, Sequence[T]]]]:
+    mapping: dict[str, Union[T, Sequence[T]]],
+    unexpanded: Iterable[str] | None = None,
+    only: Iterable[str] | None = None,
+) -> list[dict[str, Union[T, Sequence[T]]]]:
     return Expander[T]()(mapping, unexpanded, only)
 
 
 def flatten(
-    iterable: IT, terminal_types: Optional[Union[Type, Tuple[Type, ...]]] = None
+    iterable: IT, terminal_types: Type | tuple[Type, ...] | None = None
 ) -> Generator[T, None, None]:
     for x in iterable:
         if isinstance(x, Iterable) and (
@@ -69,7 +65,7 @@ def flatten(
             yield x
 
 
-def group_by_count(iterable: Iterable[T], count: int) -> Generator[List[T], None, None]:
+def group_by_count(iterable: Iterable[T], count: int) -> Generator[list[T], None, None]:
     iterator = iter(iterable)
     while True:
         group = list(itertools.islice(iterator, count))
@@ -82,7 +78,7 @@ def iterate_nwise(
     iterable: Iterable[T], n: int = 2
 ) -> Generator[Sequence[T], None, None]:
     iterables = itertools.tee(iterable, n)
-    temp: List[Iterable[T]] = []
+    temp: list[Iterable[T]] = []
     for idx, it in enumerate(iterables):
         it = itertools.islice(it, idx, None)
         temp.append(it)

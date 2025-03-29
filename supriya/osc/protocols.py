@@ -8,17 +8,11 @@ from typing import (
     Any,
     Awaitable,
     Callable,
-    Dict,
     Generator,
     Iterator,
-    List,
     Literal,
     NamedTuple,
-    Optional,
     Sequence,
-    Set,
-    Tuple,
-    Union,
 )
 
 from ..enums import BootStatus
@@ -50,7 +44,7 @@ class OscProtocolAlreadyConnected(Exception):
 class OscCallback(NamedTuple):
     pattern: tuple[str | int | float, ...]
     procedure: Callable
-    failure_pattern: Optional[Tuple[Union[str, int, float], ...]] = None
+    failure_pattern: tuple[float | int | str, ...] | None = None
     once: bool = False
     args: tuple | None = None
     kwargs: dict | None = None
@@ -58,8 +52,8 @@ class OscCallback(NamedTuple):
 
 @dataclasses.dataclass
 class HealthCheck:
-    request_pattern: List[str]
-    response_pattern: List[str]
+    request_pattern: list[str]
+    response_pattern: list[str]
     active: bool = True
     timeout: float = 1.0
     backoff_factor: float = 1.5
@@ -69,8 +63,8 @@ class HealthCheck:
 class CaptureEntry(NamedTuple):
     timestamp: float
     label: Literal["R", "S"]
-    message: Union[OscMessage, OscBundle]
-    raw_message: Union[SupportsOsc, SequenceABC, str] | None = None
+    message: OscBundle | OscMessage
+    raw_message: SequenceABC | SupportsOsc | str | None = None
 
 
 class Capture:
@@ -103,7 +97,7 @@ class Capture:
 
     def filtered(
         self, sent: bool = True, received: bool = True, status: bool = True
-    ) -> List[Union[OscBundle, OscMessage]]:
+    ) -> list[OscBundle | OscMessage]:
         messages = []
         for _, label, message, _ in self.messages:
             if label == "R" and not received:
@@ -126,15 +120,15 @@ class OscProtocol:
     def __init__(
         self,
         *,
-        name: Optional[str] = None,
-        on_connect_callback: Optional[Callable] = None,
-        on_disconnect_callback: Optional[Callable] = None,
-        on_panic_callback: Optional[Callable] = None,
+        name: str | None = None,
+        on_connect_callback: Callable | None = None,
+        on_disconnect_callback: Callable | None = None,
+        on_panic_callback: Callable | None = None,
     ) -> None:
-        self.callbacks: Dict[Any, Any] = {}
-        self.captures: Set[Capture] = set()
-        self.healthcheck: Optional[HealthCheck] = None
-        self.healthcheck_osc_callback: Optional[OscCallback] = None
+        self.callbacks: dict[Any, Any] = {}
+        self.captures: set[Capture] = set()
+        self.healthcheck: HealthCheck | None = None
+        self.healthcheck_osc_callback: OscCallback | None = None
         self.attempts = 0
         self.ip_address = "127.0.0.1"
         self.name = name
@@ -167,7 +161,7 @@ class OscProtocol:
                 callbacks, callback_map = callback_map.setdefault(item, ([], {}))
             callbacks.append(callback)
 
-    def _disconnect(self, panicked: bool = False) -> Optional[Awaitable[None]]:
+    def _disconnect(self, panicked: bool = False) -> Awaitable[None] | None:
         if panicked:
             osc_protocol_logger.info(
                 f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
@@ -183,7 +177,7 @@ class OscProtocol:
             self.unregister(self.healthcheck_osc_callback)
         return None
 
-    def _match_callbacks(self, message) -> List[OscCallback]:
+    def _match_callbacks(self, message) -> list[OscCallback]:
         items = (message.address,) + message.contents
         matching_callbacks = []
         callback_map = self.callbacks
@@ -197,9 +191,7 @@ class OscProtocol:
                 self.unregister(callback)
         return matching_callbacks
 
-    def _on_connect(
-        self, *, boot_future: FutureLike[bool]
-    ) -> Optional[Awaitable[None]]:
+    def _on_connect(self, *, boot_future: FutureLike[bool]) -> Awaitable[None] | None:
         osc_protocol_logger.info(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
             "... connected!"
@@ -214,7 +206,7 @@ class OscProtocol:
         boot_future: FutureLike[bool],
         exit_future: FutureLike[bool],
         panicked: bool = False,
-    ) -> Optional[Awaitable[None]]:
+    ) -> Awaitable[None] | None:
         osc_protocol_logger.info(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
             "... disconnected!"
@@ -226,7 +218,7 @@ class OscProtocol:
             exit_future.set_result(not panicked)
         return None
 
-    def _on_healthcheck_passed(self, message: OscMessage) -> Optional[Awaitable[None]]:
+    def _on_healthcheck_passed(self, message: OscMessage) -> Awaitable[None] | None:
         osc_protocol_logger.info(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
             "healthcheck: passed"
@@ -260,8 +252,8 @@ class OscProtocol:
         *,
         failure_pattern=None,
         once: bool = False,
-        args: Optional[Tuple] = None,
-        kwargs: Optional[Dict] = None,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
     ) -> OscCallback:
         if isinstance(pattern, (str, int, float)):
             pattern = [pattern]
@@ -282,7 +274,7 @@ class OscProtocol:
             kwargs=kwargs,
         )
 
-    def _send(self, raw_message: Union[SupportsOsc, SequenceABC, str]) -> bytes:
+    def _send(self, raw_message: SequenceABC | SupportsOsc | str) -> bytes:
         if self.status not in (BootStatus.BOOTING, BootStatus.ONLINE):
             raise OscProtocolOffline
         if not isinstance(raw_message, (str, SequenceABC, SupportsOsc)):
@@ -315,7 +307,7 @@ class OscProtocol:
         return datagram
 
     def _setup(
-        self, ip_address: str, port: int, healthcheck: Optional[HealthCheck]
+        self, ip_address: str, port: int, healthcheck: HealthCheck | None
     ) -> None:
         self.status = BootStatus.BOOTING
         self.ip_address = ip_address
@@ -357,22 +349,22 @@ class OscProtocol:
     def capture(self) -> "Capture":
         return Capture(self)
 
-    def disconnect(self) -> Optional[Awaitable[None]]:
+    def disconnect(self) -> Awaitable[None] | None:
         raise NotImplementedError
 
     def register(
         self,
-        pattern: Sequence[Union[str, float]],
-        procedure: Callable[[OscMessage], Optional[Awaitable[None]]],
+        pattern: Sequence[float | str],
+        procedure: Callable[[OscMessage], Awaitable[None] | None],
         *,
-        failure_pattern: Optional[Sequence[Union[str, float]]] = None,
+        failure_pattern: Sequence[float | str] | None = None,
         once: bool = False,
-        args: Optional[Tuple] = None,
-        kwargs: Optional[Dict] = None,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
     ) -> OscCallback:
         raise NotImplementedError
 
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
+    def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         raise NotImplementedError
 
     def unregister(self, callback: OscCallback) -> None:

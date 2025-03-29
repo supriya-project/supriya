@@ -7,12 +7,8 @@ from queue import Empty, Queue
 from typing import (
     Awaitable,
     Callable,
-    Dict,
     Literal,
-    Optional,
     Sequence,
-    Tuple,
-    Union,
     cast,
 )
 
@@ -56,10 +52,10 @@ class ThreadedOscProtocol(OscProtocol):
     def __init__(
         self,
         *,
-        name: Optional[str] = None,
-        on_connect_callback: Optional[Callable] = None,
-        on_disconnect_callback: Optional[Callable] = None,
-        on_panic_callback: Optional[Callable] = None,
+        name: str | None = None,
+        on_connect_callback: Callable | None = None,
+        on_disconnect_callback: Callable | None = None,
+        on_panic_callback: Callable | None = None,
     ):
         OscProtocol.__init__(
             self,
@@ -70,7 +66,7 @@ class ThreadedOscProtocol(OscProtocol):
         )
         self.boot_future: concurrent.futures.Future[bool] = concurrent.futures.Future()
         self.exit_future: concurrent.futures.Future[bool] = concurrent.futures.Future()
-        self.command_queue: Queue[Tuple[Literal["add", "remove"], OscCallback]] = (
+        self.command_queue: Queue[tuple[Literal["add", "remove"], OscCallback]] = (
             Queue()
         )
         self.healthcheck_deadline = 0.0
@@ -170,7 +166,7 @@ class ThreadedOscProtocol(OscProtocol):
             cast(HealthCheck, self.healthcheck).active = True
 
     def connect(
-        self, ip_address: str, port: int, *, healthcheck: Optional[HealthCheck] = None
+        self, ip_address: str, port: int, *, healthcheck: HealthCheck | None = None
     ) -> None:
         if self.status != BootStatus.OFFLINE:
             osc_protocol_logger.info(
@@ -204,13 +200,13 @@ class ThreadedOscProtocol(OscProtocol):
 
     def register(
         self,
-        pattern: Sequence[Union[str, float]],
-        procedure: Callable[[OscMessage], Optional[Awaitable[None]]],
+        pattern: Sequence[float | str],
+        procedure: Callable[[OscMessage], Awaitable[None] | None],
         *,
-        failure_pattern: Optional[Sequence[Union[str, float]]] = None,
+        failure_pattern: Sequence[float | str] | None = None,
         once: bool = False,
-        args: Optional[Tuple] = None,
-        kwargs: Optional[Dict] = None,
+        args: tuple | None = None,
+        kwargs: dict | None = None,
     ) -> OscCallback:
         """
         Register a callback.
@@ -231,7 +227,7 @@ class ThreadedOscProtocol(OscProtocol):
         )
         return callback
 
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
+    def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         try:
             self.osc_server.socket.sendto(
                 self._send(message),

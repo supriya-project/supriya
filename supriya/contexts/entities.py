@@ -8,14 +8,11 @@ from typing import (
     Awaitable,
     Callable,
     Container,
-    Dict,
     Iterator,
-    List,
     Literal,
     Optional,
     Sequence,
     SupportsFloat,
-    Tuple,
     Union,
     overload,
 )
@@ -98,7 +95,7 @@ class Buffer(ContextObject):
             raise InvalidMoment
         return self.completion.__exit__(*args)
 
-    def __plot__(self) -> Tuple["numpy.ndarray", float]:
+    def __plot__(self) -> tuple["numpy.ndarray", float]:
         # TODO: Make this async compatible.
         import librosa
 
@@ -114,8 +111,8 @@ class Buffer(ContextObject):
 
     def __render_memo__(
         self,
-        output_file_path: Optional[PathLike] = None,
-        render_directory_path: Optional[PathLike] = None,
+        output_file_path: PathLike | None = None,
+        render_directory_path: PathLike | None = None,
         **kwargs,
     ) -> SupportsRender:
         # TODO: Make this async compatible.
@@ -130,7 +127,7 @@ class Buffer(ContextObject):
             return PlayMemo.from_path(path)
 
     def close(
-        self, on_completion: Optional[Callable[["Context"], Any]] = None
+        self, on_completion: Callable[["Context"], Any] | None = None
     ) -> "Completion":
         """
         Close the buffer.
@@ -183,7 +180,7 @@ class Buffer(ContextObject):
         self.context.fill_buffer(self, starting_frame, frame_count, value)
 
     def free(
-        self, on_completion: Optional[Callable[["Context"], Any]] = None
+        self, on_completion: Callable[["Context"], Any] | None = None
     ) -> "Completion":
         """
         Free the buffer.
@@ -200,8 +197,8 @@ class Buffer(ContextObject):
         self,
         command_name: Literal["sine1", "sine2", "sine3", "cheby"],
         amplitudes: Sequence[float],
-        frequencies: Optional[Sequence[float]] = None,
-        phases: Optional[Sequence[float]] = None,
+        frequencies: Sequence[float] | None = None,
+        phases: Sequence[float] | None = None,
         as_wavetable: bool = False,
         should_clear_first: bool = False,
         should_normalize: bool = False,
@@ -232,7 +229,7 @@ class Buffer(ContextObject):
 
     def get(
         self, *indices: int, sync: bool = True
-    ) -> Union[Awaitable[Optional[Dict[int, float]]], Optional[Dict[int, float]]]:
+    ) -> Awaitable[dict[int, float] | None] | dict[int, float] | None:
         """
         Get a sample.
 
@@ -250,7 +247,7 @@ class Buffer(ContextObject):
 
     def get_range(
         self, index: int, count: int, sync: bool = True
-    ) -> Union[Awaitable[Optional[Sequence[float]]], Optional[Sequence[float]]]:
+    ) -> Awaitable[Sequence[float] | None] | Sequence[float] | None:
         """
         Get a sample range.
 
@@ -282,7 +279,7 @@ class Buffer(ContextObject):
 
     def query(
         self, sync: bool = True
-    ) -> Union[Awaitable[Optional[BufferInfo]], Optional[BufferInfo]]:
+    ) -> Awaitable[BufferInfo | None] | BufferInfo | None:
         """
         Query the buffer.
 
@@ -301,12 +298,12 @@ class Buffer(ContextObject):
         self,
         file_path: PathLike,
         *,
-        buffer_starting_frame: Optional[int] = None,
-        channel_indices: Optional[List[int]] = None,
-        frame_count: Optional[int] = None,
+        buffer_starting_frame: int | None = None,
+        channel_indices: list[int] | None = None,
+        frame_count: int | None = None,
         leave_open: bool = False,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
-        starting_frame: Optional[int] = None,
+        on_completion: Callable[["Context"], Any] | None = None,
+        starting_frame: int | None = None,
     ) -> "Completion":
         """
         Read a file into the buffer.
@@ -362,12 +359,12 @@ class Buffer(ContextObject):
         self,
         file_path: PathLike,
         *,
-        frame_count: Optional[int] = None,
+        frame_count: int | None = None,
         header_format: HeaderFormatLike = "aiff",
         leave_open: bool = False,
-        on_completion: Optional[Callable[["Context"], Any]] = None,
+        on_completion: Callable[["Context"], Any] | None = None,
         sample_format: SampleFormatLike = "int24",
-        starting_frame: Optional[int] = None,
+        starting_frame: int | None = None,
     ) -> "Completion":
         """
         Write the buffer to disk.
@@ -397,7 +394,7 @@ class Buffer(ContextObject):
         )
 
     def zero(
-        self, on_completion: Optional[Callable[["Context"], Any]] = None
+        self, on_completion: Callable[["Context"], Any] | None = None
     ) -> "Completion":
         """
         Zero the buffer.
@@ -422,7 +419,7 @@ class BufferGroup(ContextObject):
     """
 
     count: int = 1
-    buffers: Tuple[Buffer, ...] = dataclasses.field(
+    buffers: tuple[Buffer, ...] = dataclasses.field(
         init=False, repr=False, default_factory=tuple
     )
 
@@ -491,9 +488,7 @@ class Bus(ContextObject):
         """
         self.context.free_bus(self)
 
-    def get(
-        self, sync: bool = True
-    ) -> Union[Awaitable[Optional[float]], Optional[float]]:
+    def get(self, sync: bool = True) -> Awaitable[float | None] | float | None:
         """
         Get the control bus' value.
 
@@ -510,7 +505,7 @@ class Bus(ContextObject):
 
     def get_range(
         self, count: int, sync: bool = True
-    ) -> Union[Awaitable[Optional[Sequence[float]]], Optional[Sequence[float]]]:
+    ) -> Awaitable[Sequence[float] | None] | Sequence[float] | None:
         """
         Get a range of control bus values.
 
@@ -570,7 +565,7 @@ class BusGroup(ContextObject):
 
     calculation_rate: CalculationRate
     count: int = 1
-    buses: Tuple[Bus, ...] = dataclasses.field(
+    buses: tuple[Bus, ...] = dataclasses.field(
         init=False, repr=False, default_factory=tuple
     )
 
@@ -609,7 +604,7 @@ class BusGroup(ContextObject):
 
     def get(
         self, sync: bool = True
-    ) -> Union[Awaitable[Optional[Sequence[float]]], Optional[Sequence[float]]]:
+    ) -> Awaitable[Sequence[float] | None] | Sequence[float] | None:
         """
         Get the control bus group's values.
 
@@ -634,7 +629,7 @@ class BusGroup(ContextObject):
             return f"c{self.id_}"
         raise InvalidCalculationRate
 
-    def set(self, values: Union[float, Sequence[float]]) -> None:
+    def set(self, values: float | Sequence[float]) -> None:
         """
         Set a range of control buses.
 
@@ -721,7 +716,7 @@ class Node(ContextObject):
         """
         return self.context.free_node(self, force=force)
 
-    def map(self, **settings: Union[Bus, None]) -> None:
+    def map(self, **settings: Bus | None) -> None:
         """
         Map the node's controls to buses.
 
@@ -767,7 +762,7 @@ class Node(ContextObject):
 
     def query(
         self, sync: bool = True
-    ) -> Union[Awaitable[Optional[NodeInfo]], Optional[NodeInfo]]:
+    ) -> Awaitable[NodeInfo | None] | (NodeInfo | None):
         """
         Query the node.
 
@@ -784,8 +779,8 @@ class Node(ContextObject):
 
     def set(
         self,
-        *indexed_settings: Tuple[int, Union[SupportsFloat, Sequence[SupportsFloat]]],
-        **settings: Union[SupportsFloat, Sequence[SupportsFloat]],
+        *indexed_settings: tuple[int, SupportsFloat | Sequence[SupportsFloat]],
+        **settings: SupportsFloat | Sequence[SupportsFloat],
     ) -> None:
         """
         Set the node's controls.
@@ -797,7 +792,7 @@ class Node(ContextObject):
 
     def set_range(
         self,
-        *indexed_settings: Tuple[int, Sequence[SupportsFloat]],
+        *indexed_settings: tuple[int, Sequence[SupportsFloat]],
         **settings: Sequence[SupportsFloat],
     ) -> None:
         """
@@ -862,7 +857,7 @@ class Node(ContextObject):
 
         if not isinstance(self.context, BaseServer):
             raise ContextError
-        parentage: List["Node"] = [self]
+        parentage: list["Node"] = [self]
         while (
             parent_id := self.context._node_parents.get(parentage[-1].id_)
         ) is not None:
@@ -889,7 +884,7 @@ class Group(Node):
         self,
         include_controls: bool = True,
         sync: bool = True,
-    ) -> Union[Awaitable[Optional[QueryTreeGroup]], Optional[QueryTreeGroup]]:
+    ) -> Awaitable[QueryTreeGroup | None] | QueryTreeGroup | None:
         """
         Dump the group's node tree.
 
@@ -921,7 +916,7 @@ class Group(Node):
         self,
         include_controls: bool = True,
         sync: bool = True,
-    ) -> Union[Awaitable[Optional[QueryTreeGroup]], Optional[QueryTreeGroup]]:
+    ) -> Awaitable[QueryTreeGroup | None] | QueryTreeGroup | None:
         """
         Query the group's node tree.
 
@@ -940,7 +935,7 @@ class Group(Node):
         )
 
     @property
-    def children(self) -> List[Node]:
+    def children(self) -> list[Node]:
         """
         Get the group's children, as currently cached on the context.
         """
@@ -948,7 +943,7 @@ class Group(Node):
 
         if not isinstance(self.context, BaseServer):
             raise ContextError
-        children: List[Node] = []
+        children: list[Node] = []
         for id_ in self.context._node_children.get(self.id_, []):
             if id_ in self.context._node_children:
                 children.append(Group(context=self.context, id_=id_))
@@ -990,9 +985,9 @@ class Synth(Node):
 
     synthdef: SynthDef
 
-    def get(self, *controls: Union[int, str], sync: bool = True) -> Union[
-        Awaitable[Optional[Dict[Union[int, str], float]]],
-        Optional[Dict[Union[int, str], float]],
+    def get(self, *controls: int | str, sync: bool = True) -> Union[
+        Awaitable[dict[int | str, float] | None],
+        dict[int | str, float] | None,
     ]:
         """
         Get a control.
@@ -1009,11 +1004,9 @@ class Synth(Node):
             raise ContextError
         return self.context.get_synth_controls(self, *controls, sync=sync)
 
-    def get_range(
-        self, control: Union[int, str], count: int, sync: bool = True
-    ) -> Union[
-        Awaitable[Optional[Sequence[Union[float, str]]]],
-        Optional[Sequence[Union[float, str]]],
+    def get_range(self, control: int | str, count: int, sync: bool = True) -> Union[
+        Awaitable[Sequence[float | str] | None],
+        Sequence[float | str] | None,
     ]:
         """
         Get a range of controls.

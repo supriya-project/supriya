@@ -1,5 +1,5 @@
 import dataclasses
-from typing import Optional, Sequence, Union
+from typing import Sequence, Union
 
 from uqbar.objects import get_repr, new
 
@@ -596,7 +596,7 @@ class Interval:
         result.add(right_interval)
         return result
 
-    def translate(self, translation: float, stop_translation: Optional[float] = None):
+    def translate(self, translation: float, stop_translation: float | None = None):
         """
         Translate offsets by ``translation``, and optionally translate independently when specifying ``stop_translation``:
 

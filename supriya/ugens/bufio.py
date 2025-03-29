@@ -1,4 +1,4 @@
-from typing import Any, Dict, Tuple
+from typing import Any
 
 from ..enums import CalculationRate, DoneAction
 from .core import UGen, param, ugen
@@ -128,7 +128,7 @@ class LocalBuf(UGen):
 
     def _postprocess_kwargs(
         self, *, calculation_rate: CalculationRate, **kwargs
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         return CalculationRate.SCALAR, kwargs
 
 

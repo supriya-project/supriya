@@ -2,14 +2,13 @@ import atexit
 import logging
 import queue
 import threading
-from typing import Optional, Tuple
 
-from .core import Action, BaseClock, Command, Moment
+from .core import Action, BaseClock, ClockCallback, Command, Moment
 
 logger = logging.getLogger(__name__)
 
 
-class Clock(BaseClock):
+class Clock(BaseClock[ClockCallback]):
     """
     A threaded clock.
     """
@@ -51,7 +50,7 @@ class Clock(BaseClock):
         logger.debug(f"[{self.name}] Terminating")
         self._stop()
 
-    def _wait_for_moment(self, offline: bool = False) -> Optional[Moment]:
+    def _wait_for_moment(self, offline: bool = False) -> Moment | None:
         current_time = self._get_current_time()
         next_time = self._event_queue.peek().seconds
         logger.debug(
@@ -83,18 +82,18 @@ class Clock(BaseClock):
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id: int) -> Optional[Action]:
+    def cancel(self, event_id: int) -> Action | None:
         event = super().cancel(event_id)
         self._event.set()
         return event
 
     def start(
         self,
-        initial_time: Optional[float] = None,
+        initial_time: float | None = None,
         initial_offset: float = 0.0,
         initial_measure: int = 1,
-        beats_per_minute: Optional[float] = None,
-        time_signature: Optional[Tuple[int, int]] = None,
+        beats_per_minute: float | None = None,
+        time_signature: tuple[int, int] | None = None,
     ) -> None:
         self._start(
             initial_time=initial_time,

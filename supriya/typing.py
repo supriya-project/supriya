@@ -5,17 +5,15 @@ from pathlib import Path
 from typing import (
     TYPE_CHECKING,
     Coroutine,
-    Dict,
-    Optional,
     Protocol,
     SupportsFloat,
     SupportsInt,
-    Tuple,
     TypeAlias,
     TypeVar,
     Union,
     runtime_checkable,
 )
+from uuid import UUID
 
 from .enums import (
     AddAction,
@@ -58,10 +56,10 @@ class SupportsPlot(Protocol):
 class SupportsRender(Protocol):
     def __render__(
         self,
-        output_file_path: Optional[PathLike] = None,
-        render_directory_path: Optional[PathLike] = None,
+        output_file_path: PathLike | None = None,
+        render_directory_path: PathLike | None = None,
         **kwargs,
-    ) -> Coroutine[None, None, Tuple[Optional[Path], int]]:
+    ) -> Coroutine[None, None, tuple[Path | None, int]]:
         pass
 
 
@@ -73,16 +71,18 @@ class SupportsRenderMemo(Protocol):
 
 E = TypeVar("E")
 
-_EnumLike = Optional[Union[E, SupportsInt, str, None]]
+_EnumLike = Union[E, SupportsInt, str] | None
 
 AddActionLike: TypeAlias = _EnumLike[AddAction]
 DoneActionLike: TypeAlias = _EnumLike[DoneAction]
 CalculationRateLike: TypeAlias = _EnumLike[CalculationRate]
-FutureLike: TypeAlias = Union[concurrent.futures.Future[E], asyncio.Future[E]]
+FutureLike: TypeAlias = concurrent.futures.Future[E] | asyncio.Future[E]
 ParameterRateLike: TypeAlias = _EnumLike[ParameterRate]
 RateLike: TypeAlias = _EnumLike[CalculationRate]
 EnvelopeShapeLike: TypeAlias = _EnumLike[EnvelopeShape]
 HeaderFormatLike: TypeAlias = _EnumLike[HeaderFormat]
 SampleFormatLike: TypeAlias = _EnumLike[SampleFormat]
 ServerLifecycleEventLike: TypeAlias = _EnumLike[ServerLifecycleEvent]
-UGenInputMap: TypeAlias = Optional[Dict[str, Union[SupportsFloat, str, None]]]
+UGenInputMap: TypeAlias = dict[str, SupportsFloat | str | None] | None
+
+UUIDDict: TypeAlias = dict[str, UUID]

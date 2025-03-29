@@ -1,6 +1,5 @@
 import dataclasses
 import threading
-from typing import Optional, Set
 
 from ..utils import Interval, IntervalTree
 
@@ -52,9 +51,7 @@ class BlockAllocator:
 
     ### INITIALIZER ###
 
-    def __init__(
-        self, heap_maximum: Optional[int] = None, heap_minimum: int = 0
-    ) -> None:
+    def __init__(self, heap_maximum: int | None = None, heap_minimum: int = 0) -> None:
         self._free_heap = IntervalTree(accelerated=True)
         self._heap_maximum = heap_maximum
         self._heap_minimum = heap_minimum
@@ -80,7 +77,7 @@ class BlockAllocator:
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, desired_block_size: int = 1) -> Optional[int]:
+    def allocate(self, desired_block_size: int = 1) -> int | None:
         desired_block_size = int(desired_block_size)
         if desired_block_size <= 0:
             raise ValueError("desired_block_size must be greater than zero")
@@ -108,7 +105,7 @@ class BlockAllocator:
                 block_id = used_block.start_offset
         return int(block_id) if block_id is not None else None
 
-    def allocate_at(self, index: int, desired_block_size: int = 1) -> Optional[int]:
+    def allocate_at(self, index: int, desired_block_size: int = 1) -> int | None:
         index = int(index)
         desired_block_size = int(desired_block_size)
         block_id = None
@@ -179,7 +176,7 @@ class BlockAllocator:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def heap_maximum(self) -> Optional[int]:
+    def heap_maximum(self) -> int | None:
         """
         Maximum allocatable index.
         """
@@ -239,7 +236,7 @@ class NodeIdAllocator:
         self._mask = self._client_id << 26
         self._temp = self._initial_node_id
         self._next_permanent_id = 1
-        self._freed_permanent_ids: Set[int] = set()
+        self._freed_permanent_ids: set[int] = set()
         self._lock = threading.Lock()
 
     ### SPECIAL METHODS ###

@@ -6,7 +6,7 @@ import platform
 import subprocess
 from os import PathLike
 from pathlib import Path
-from typing import Coroutine, Optional, Tuple, Union
+from typing import Coroutine
 
 from uqbar.graphs import Grapher
 from uqbar.io import open_path
@@ -31,11 +31,11 @@ class PlayMemo:
 
     def __render__(
         self,
-        output_file_path: Optional[PathLike] = None,
-        render_directory_path: Optional[PathLike] = None,
+        output_file_path: PathLike | None = None,
+        render_directory_path: PathLike | None = None,
         **kwargs,
-    ) -> Coroutine[None, None, Tuple[Optional[Path], int]]:
-        async def render_function() -> Tuple[Path, int]:
+    ) -> Coroutine[None, None, tuple[Path | None, int]]:
+        async def render_function() -> tuple[Path, int]:
             if output_file_path is None:
                 hexdigest = hashlib.sha256(self.contents).hexdigest()
                 file_name = f"audio-{hexdigest}{self.suffix}"
@@ -61,7 +61,7 @@ class Player:
 
     ### SPECIAL METHODS ###
 
-    def __call__(self) -> Tuple[Optional[Path], int]:
+    def __call__(self) -> tuple[Path | None, int]:
         path, exit_code = self.render()
         if path:
             self.open_output_path(path)
@@ -77,7 +77,7 @@ class Player:
         else:
             open_path(output_path)
 
-    def render(self) -> Tuple[Optional[Path], int]:
+    def render(self) -> tuple[Path | None, int]:
         return render(self.renderable, **self.render_kwargs)
 
 
@@ -133,11 +133,11 @@ def plot(plottable: SupportsPlot, format_="png", **kwargs):
 
 
 def render(
-    renderable: Union[SupportsRender, SupportsRenderMemo],
-    output_file_path: Optional[PathLike] = None,
-    render_directory_path: Optional[PathLike] = None,
+    renderable: SupportsRender | SupportsRenderMemo,
+    output_file_path: PathLike | None = None,
+    render_directory_path: PathLike | None = None,
     **kwargs,
-) -> Tuple[Optional[Path], int]:
+) -> tuple[Path | None, int]:
     if isinstance(renderable, SupportsRenderMemo):
         supports_render = renderable.__render_memo__()
     else:

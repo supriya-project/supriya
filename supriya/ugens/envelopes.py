@@ -1,4 +1,4 @@
-from typing import List, Optional, Sequence, Tuple, Union
+from typing import Sequence
 
 from uqbar.objects import get_repr
 
@@ -24,15 +24,15 @@ class Envelope:
 
     def __init__(
         self,
-        amplitudes: Sequence[Union[UGenOperable, float]] = (0, 1, 0),
-        durations: Sequence[Union[UGenOperable, float]] = (1, 1),
-        curves: Sequence[Union[EnvelopeShape, UGenOperable, float, str, None]] = (
+        amplitudes: Sequence[UGenOperable | float] = (0, 1, 0),
+        durations: Sequence[UGenOperable | float] = (1, 1),
+        curves: Sequence[EnvelopeShape | UGenOperable | float | str | None] = (
             EnvelopeShape.LINEAR,
             EnvelopeShape.LINEAR,
         ),
-        release_node: Optional[int] = None,
-        loop_node: Optional[int] = None,
-        offset: Union[UGenOperable, float] = 0.0,
+        release_node: int | None = None,
+        loop_node: int | None = None,
+        offset: UGenOperable | float = 0.0,
     ) -> None:
         if len(amplitudes) <= 1:
             raise ValueError(amplitudes)
@@ -46,9 +46,9 @@ class Envelope:
         self._loop_node = loop_node
         self._offset = offset
         self._initial_amplitude = amplitudes[0]
-        self._amplitudes: Tuple[Union[UGenOperable, float], ...] = tuple(amplitudes[1:])
-        self._durations: Tuple[Union[UGenOperable, float], ...] = tuple(durations)
-        curves_: List[Union[EnvelopeShape, UGenOperable, float]] = []
+        self._amplitudes: tuple[UGenOperable | float, ...] = tuple(amplitudes[1:])
+        self._durations: tuple[UGenOperable | float, ...] = tuple(durations)
+        curves_: list[EnvelopeShape | UGenOperable | float] = []
         for x in curves:
             if isinstance(x, (EnvelopeShape, UGenOperable)):
                 curves_.append(x)
@@ -56,9 +56,7 @@ class Envelope:
                 curves_.append(EnvelopeShape.from_expr(x))
             else:
                 curves_.append(float(x))
-        self._curves: Tuple[Union[EnvelopeShape, UGenOperable, float], ...] = tuple(
-            curves_
-        )
+        self._curves: tuple[EnvelopeShape | UGenOperable | float, ...] = tuple(curves_)
         self._envelope_segments = tuple(
             utils.zip_cycled(self._amplitudes, self._durations, self._curves)
         )
@@ -131,10 +129,10 @@ class Envelope:
     @classmethod
     def percussive(
         cls,
-        attack_time: Union[UGenOperable, float] = 0.01,
-        release_time: Union[UGenOperable, float] = 1.0,
-        amplitude: Union[UGenOperable, float] = 1.0,
-        curve: Union[EnvelopeShape, UGenOperable, float, str] = -4.0,
+        attack_time: UGenOperable | float = 0.01,
+        release_time: UGenOperable | float = 1.0,
+        amplitude: UGenOperable | float = 1.0,
+        curve: EnvelopeShape | UGenOperable | float | str = -4.0,
     ) -> "Envelope":
         """
         Make a percussion envelope.
@@ -169,7 +167,7 @@ class Envelope:
         return Envelope(amplitudes=amplitudes, durations=durations, curves=curves)
 
     def serialize(self, **kwargs) -> UGenVector:
-        result: List[Union[UGenOperable, float]] = []
+        result: list[UGenOperable | float] = []
         result.append(self.initial_amplitude)
         result.append(len(self.envelope_segments))
         result.append(-99 if self.release_node is None else self.release_node)
@@ -187,7 +185,7 @@ class Envelope:
         return UGenVector(*result)
 
     def serialize_interpolated(self) -> UGenVector:
-        result: List[Union[UGenOperable, float]] = []
+        result: list[UGenOperable | float] = []
         result.append(self.offset or 0.0)
         result.append(self.initial_amplitude)
         result.append(len(self.envelope_segments))
@@ -231,19 +229,19 @@ class Envelope:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def amplitudes(self) -> Tuple[Union[UGenOperable, float]]:
+    def amplitudes(self) -> tuple[UGenOperable | float]:
         return (self.initial_amplitude,) + tuple(_[0] for _ in self.envelope_segments)
 
     @property
-    def curves(self) -> Tuple[Union[EnvelopeShape, UGenOperable, float]]:
+    def curves(self) -> tuple[EnvelopeShape | UGenOperable | float]:
         return tuple(_[2] for _ in self.envelope_segments)
 
     @property
-    def duration(self) -> Union[float, UGenOperable]:
+    def duration(self) -> UGenOperable | float:
         return sum(self.durations)
 
     @property
-    def durations(self) -> Tuple[Union[float, UGenOperable]]:
+    def durations(self) -> tuple[UGenOperable | float]:
         return tuple(_[1] for _ in self.envelope_segments)
 
     @property
@@ -251,19 +249,19 @@ class Envelope:
         return self._envelope_segments
 
     @property
-    def initial_amplitude(self) -> Union[float, UGenOperable]:
+    def initial_amplitude(self) -> UGenOperable | float:
         return self._initial_amplitude
 
     @property
-    def loop_node(self) -> Optional[int]:
+    def loop_node(self) -> int | None:
         return self._loop_node
 
     @property
-    def offset(self) -> Union[float, UGenOperable]:
+    def offset(self) -> UGenOperable | float:
         return self._offset
 
     @property
-    def release_node(self) -> Optional[int]:
+    def release_node(self) -> int | None:
         return self._release_node
 
 

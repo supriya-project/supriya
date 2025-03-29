@@ -14,7 +14,7 @@ from contextlib import ExitStack
 from os import PathLike
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Dict, Iterator, List, Optional, SupportsInt, Tuple, Type, Union
+from typing import Iterator, SupportsInt, Type
 
 from ..assets.synthdefs import system_synthdefs
 from ..enums import BootStatus, CalculationRate, HeaderFormat, SampleFormat
@@ -40,19 +40,19 @@ class Score(Context):
 
     ### INITIALIZER ###
 
-    def __init__(self, options: Optional[Options] = None, **kwargs) -> None:
+    def __init__(self, options: Options | None = None, **kwargs) -> None:
         super().__init__(options=options, **kwargs)
         self._boot_status: BootStatus = BootStatus.ONLINE
-        self._requests: Dict[float, List[Requestable]] = {}
+        self._requests: dict[float, list[Requestable]] = {}
 
     ### CLASS METHODS ###
 
     async def __render__(
         self,
-        output_file_path: Optional[PathLike] = None,
-        render_directory_path: Optional[PathLike] = None,
+        output_file_path: PathLike | None = None,
+        render_directory_path: PathLike | None = None,
         **kwargs,
-    ) -> Tuple[Optional[Path], int]:
+    ) -> tuple[Path | None, int]:
         return await self.render(
             output_file_path,
             render_directory_path=render_directory_path,
@@ -69,11 +69,11 @@ class Score(Context):
         self,
         type_: Type[ContextObject],
         id_: int,
-        calculation_rate: Optional[CalculationRate] = None,
+        calculation_rate: CalculationRate | None = None,
     ) -> None:
         pass
 
-    def _resolve_node(self, node: Union[Node, SupportsInt, None]) -> int:
+    def _resolve_node(self, node: Node | SupportsInt | None) -> int:
         if node is None:
             return 0
         return int(node)
@@ -82,7 +82,7 @@ class Score(Context):
         if self._get_moment() is None:
             raise ContextError
 
-    def _validate_moment_timestamp(self, seconds: Optional[float]) -> None:
+    def _validate_moment_timestamp(self, seconds: float | None) -> None:
         if seconds is None or seconds < 0:
             raise ContextError
 
@@ -90,18 +90,18 @@ class Score(Context):
 
     async def render(
         self,
-        output_file_path: Optional[PathLike] = None,
+        output_file_path: PathLike | None = None,
         *,
-        duration: Optional[float] = None,
+        duration: float | None = None,
         header_format: HeaderFormatLike = HeaderFormat.AIFF,
-        input_file_path: Optional[PathLike] = None,
-        options: Optional[Options] = None,
-        render_directory_path: Optional[PathLike] = None,
+        input_file_path: PathLike | None = None,
+        options: Options | None = None,
+        render_directory_path: PathLike | None = None,
         sample_format: SampleFormatLike = SampleFormat.INT24,
         sample_rate: float = 44100,
         suppress_output: bool = False,
         **kwargs,
-    ) -> Tuple[Optional[Path], int]:
+    ) -> tuple[Path | None, int]:
         """
         Render the score.
 
@@ -133,7 +133,7 @@ class Score(Context):
             options or self._options, **kwargs, realtime=False
         ).serialize()
         # build datagram
-        datagram_pieces: List[bytes] = []
+        datagram_pieces: list[bytes] = []
         for datagram_piece in self.iterate_datagrams(until=duration):
             datagram_pieces.append(struct.pack(">i", len(datagram_piece)))
             datagram_pieces.append(datagram_piece)
@@ -196,7 +196,7 @@ class Score(Context):
                 )
         return output_file_path_, exit_code
 
-    def iterate_datagrams(self, until: Optional[float] = None) -> Iterator[bytes]:
+    def iterate_datagrams(self, until: float | None = None) -> Iterator[bytes]:
         """
         Iterate datagrams.
 
@@ -205,7 +205,7 @@ class Score(Context):
         for osc_bundle in self.iterate_osc_bundles(until=until):
             yield osc_bundle.to_datagram(realtime=False)
 
-    def iterate_osc_bundles(self, until: Optional[float] = None) -> Iterator[OscBundle]:
+    def iterate_osc_bundles(self, until: float | None = None) -> Iterator[OscBundle]:
         """
         Iterate OSC bundles.
 
@@ -215,7 +215,7 @@ class Score(Context):
             yield request_bundle.to_osc()
 
     def iterate_request_bundles(
-        self, until: Optional[float] = None
+        self, until: float | None = None
     ) -> Iterator[RequestBundle]:
         """
         Iterate request bundles.
@@ -237,7 +237,7 @@ class Score(Context):
         if until and until > timestamp:
             yield RequestBundle(timestamp=until, contents=[DoNothing()])
 
-    def send(self, message: Union[SupportsOsc, SequenceABC, str]) -> None:
+    def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         """
         Send a message to the execution context.
 

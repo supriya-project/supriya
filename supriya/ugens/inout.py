@@ -1,4 +1,4 @@
-from typing import Any, Dict, Sequence, Tuple
+from typing import Any, Sequence
 
 from ..enums import CalculationRate
 from ..utils import repeat_to_length
@@ -57,7 +57,7 @@ class LocalIn(UGen):
         *,
         calculation_rate: CalculationRate,
         **kwargs,
-    ) -> Tuple[CalculationRate, Dict[str, Any]]:
+    ) -> tuple[CalculationRate, dict[str, Any]]:
         default = kwargs["default"]
         if not isinstance(default, Sequence):
             default = [default]

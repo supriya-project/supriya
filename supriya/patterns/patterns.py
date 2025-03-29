@@ -10,14 +10,10 @@ import random
 from typing import (
     TYPE_CHECKING,
     Callable,
-    Coroutine,
-    Dict,
     Generator,
     Generic,
     Iterator,
-    Optional,
     Sequence,
-    Tuple,
     TypeVar,
     Union,
     cast,
@@ -26,10 +22,9 @@ from uuid import UUID
 
 from uqbar.objects import get_vars
 
-import supriya.patterns
-from supriya.clocks import BaseClock, ClockContext, Quantization
-from supriya.contexts import Bus, Context, Node
-
+from ..clocks import BaseClock, ClockContext, Quantization
+from ..contexts import Bus, Context, Node
+from ..typing import UUIDDict
 from .events import CompositeEvent, Event, Priority
 
 if TYPE_CHECKING:
@@ -41,7 +36,7 @@ T = TypeVar("T")
 class Pattern(Generic[T], metaclass=abc.ABCMeta):
     ### CLASSMETHODS ###
 
-    _rngs: Dict[int, Iterator[float]] = {}
+    _rngs: dict[int, Iterator[float]] = {}
 
     ### SPECIAL METHODS ###
 
@@ -76,7 +71,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
 
     def __iter__(self) -> Generator[T, bool, None]:
         should_stop = False
-        state: Optional[Dict[str, UUID]] = self._setup_state()
+        state: UUIDDict | None = self._setup_state()
         iterator = self._iterate(state)
         try:
             expr = self._adjust_recursive(next(iterator), state=state)
@@ -175,10 +170,10 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
 
     ### PRIVATE METHODS ###
 
-    def _adjust(self, expr: T, state: Optional[Dict[str, UUID]] = None) -> T:
+    def _adjust(self, expr: T, state: UUIDDict | None = None) -> T:
         return expr
 
-    def _adjust_recursive(self, expr: T, state: Optional[Dict[str, UUID]] = None) -> T:
+    def _adjust_recursive(self, expr: T, state: UUIDDict | None = None) -> T:
         if isinstance(expr, CompositeEvent):
             return cast(
                 T,
@@ -251,12 +246,10 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
             yield random.random()
 
     @abc.abstractmethod
-    def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
-    ) -> Generator[T, bool, None]:
+    def _iterate(self, state: UUIDDict | None = None) -> Generator[T, bool, None]:
         raise NotImplementedError
 
-    def _loop(self, iterations: Optional[int] = None) -> Iterator[bool]:
+    def _loop(self, iterations: int | None = None) -> Iterator[bool]:
         if iterations is None:
             while True:
                 yield True
@@ -264,12 +257,10 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
             for _ in range(iterations):
                 yield True
 
-    def _setup_state(self) -> Optional[Dict[str, UUID]]:
+    def _setup_state(self) -> UUIDDict | None:
         return None
 
-    def _setup_peripherals(
-        self, state: Optional[Dict[str, UUID]]
-    ) -> Tuple[Optional[T], Optional[T]]:
+    def _setup_peripherals(self, state: UUIDDict | None) -> tuple[T | None, T | None]:
         return None, None
 
     ### PUBLIC METHODS ###
@@ -278,19 +269,20 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
         self,
         context: Context,
         *,
-        callback: Optional[
+        callback: (
             Callable[
-                ["supriya.patterns.PatternPlayer", ClockContext, Event, Priority],
-                Optional[Coroutine],
+                ["PatternPlayer", ClockContext, Event, Priority],
+                None,
             ]
-        ] = None,
+            | None
+        ) = None,
         clock: BaseClock,
-        quantization: Optional[Quantization] = None,
-        target_bus: Optional[Bus] = None,
-        target_node: Optional[Node] = None,
-        tempo: Optional[float] = None,
-        until: Optional[float] = None,
-        uuid: Optional[UUID] = None,
+        quantization: Quantization | None = None,
+        target_bus: Bus | None = None,
+        target_node: Node | None = None,
+        tempo: float | None = None,
+        until: float | None = None,
+        uuid: UUID | None = None,
     ) -> "PatternPlayer":
         from .players import PatternPlayer  # Avoid circular import
 
@@ -328,9 +320,7 @@ class BinaryOpPattern(Pattern[T]):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
-    ) -> Generator[T, bool, None]:
+    def _iterate(self, state: UUIDDict | None = None) -> Generator[T, bool, None]:
         iterator_one: Iterator[T] = iter(
             self.expr_one
             if isinstance(self.expr_one, Pattern)
@@ -364,9 +354,7 @@ class UnaryOpPattern(Pattern[T]):
         self.operator_ = operator_
         self.expr = expr
 
-    def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
-    ) -> Generator[T, bool, None]:
+    def _iterate(self, state: UUIDDict | None = None) -> Generator[T, bool, None]:
         iterator: Iterator[T] = iter(
             self.expr
             if isinstance(self.expr, Pattern)
@@ -393,9 +381,7 @@ class SeedPattern(Pattern[T]):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(
-        self, state: Optional[Dict[str, UUID]] = None
-    ) -> Generator[T, bool, None]:
+    def _iterate(self, state: UUIDDict | None = None) -> Generator[T, bool, None]:
         try:
             identifier = id(inspect.currentframe())
             rng = self._get_seeded_rng(seed=self.seed)
@@ -423,7 +409,7 @@ class SequencePattern(Pattern[T]):
     ### INITIALIZER ###
 
     def __init__(
-        self, sequence: Sequence[Union[T, Pattern[T]]], iterations: Optional[int] = 1
+        self, sequence: Sequence[Union[T, Pattern[T]]], iterations: int | None = 1
     ) -> None:
         if not isinstance(sequence, Sequence):
             raise ValueError(f"Must be sequence: {sequence!r}")

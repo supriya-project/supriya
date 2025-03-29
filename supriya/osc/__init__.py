@@ -3,7 +3,7 @@ Tools for sending, receiving and handling OSC messages.
 """
 
 from .asynchronous import AsyncOscProtocol
-from .messages import OscBundle, OscMessage
+from .messages import OscArgument, OscBundle, OscMessage
 from .protocols import (
     Capture,
     CaptureEntry,
@@ -21,6 +21,7 @@ __all__ = [
     "Capture",
     "CaptureEntry",
     "HealthCheck",
+    "OscArgument",
     "OscBundle",
     "OscCallback",
     "OscMessage",

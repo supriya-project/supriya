@@ -7,14 +7,9 @@ import re
 from collections import deque
 from typing import (
     Deque,
-    Dict,
     Generator,
-    List,
-    Optional,
     Sequence,
-    Tuple,
     Type,
-    Union,
     cast,
 )
 
@@ -29,7 +24,7 @@ from ..osc import OscMessage
 class Response:
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        mapping: Dict[str, Type[Response]] = {
+        mapping: dict[str, Type[Response]] = {
             "/b_info": BufferInfo,
             "/b_set": GetBufferInfo,
             "/b_setn": GetBufferRangeInfo,
@@ -92,7 +87,7 @@ class DoneInfo(Response):
     """
 
     command_name: str
-    other: Sequence[Union[float, str]]
+    other: Sequence[float | str]
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
@@ -109,7 +104,7 @@ class FailInfo(Response):
 
     command_name: str
     error: str
-    other: Sequence[Union[float, str]]
+    other: Sequence[float | str]
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
@@ -127,12 +122,12 @@ class GetBufferInfo(Response):
     """
 
     buffer_id: int
-    items: Sequence[Tuple[int, float]]
+    items: Sequence[tuple[int, float]]
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
         buffer_id = cast(int, osc_message.contents[0])
-        items: List[Tuple[int, float]] = []
+        items: list[tuple[int, float]] = []
         for i in range(1, len(osc_message.contents), 2):
             index = cast(int, osc_message.contents[i])
             value = cast(float, osc_message.contents[i + 1])
@@ -147,12 +142,12 @@ class GetBufferRangeInfo(Response):
     """
 
     buffer_id: int
-    items: Sequence[Tuple[int, Sequence[float]]]
+    items: Sequence[tuple[int, Sequence[float]]]
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
         buffer_id = cast(int, osc_message.contents[0])
-        items: List[Tuple[int, Sequence[float]]] = []
+        items: list[tuple[int, Sequence[float]]] = []
         current_index = 1
         while current_index < len(osc_message.contents):
             index = cast(int, osc_message.contents[current_index])
@@ -173,11 +168,11 @@ class GetControlBusInfo(Response):
     A ``/c_set`` response.
     """
 
-    items: Sequence[Tuple[int, float]]
+    items: Sequence[tuple[int, float]]
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        items: List[Tuple[int, float]] = []
+        items: list[tuple[int, float]] = []
         for i in range(0, len(osc_message.contents), 2):
             index = cast(int, osc_message.contents[i])
             value = cast(float, osc_message.contents[i + 1])
@@ -191,11 +186,11 @@ class GetControlBusRangeInfo(Response):
     A ``/c_setn`` response.
     """
 
-    items: Sequence[Tuple[int, Sequence[float]]]
+    items: Sequence[tuple[int, Sequence[float]]]
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        items: List[Tuple[int, Sequence[float]]] = []
+        items: list[tuple[int, Sequence[float]]] = []
         current_index = 0
         while current_index < len(osc_message.contents):
             index = cast(int, osc_message.contents[current_index])
@@ -213,12 +208,12 @@ class GetControlBusRangeInfo(Response):
 @dataclasses.dataclass
 class GetNodeControlInfo(Response):
     node_id: int
-    items: Sequence[Tuple[Union[int, str], float]]
+    items: Sequence[tuple[int | str, float]]
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
         node_id = cast(int, osc_message.contents[0])
-        items: List[Tuple[Union[int, str], float]] = []
+        items: list[tuple[int | str, float]] = []
         for i in range(1, len(osc_message.contents), 2):
             name_or_index = cast(int | str, osc_message.contents[i])
             value = cast(float, osc_message.contents[i + 1])
@@ -229,12 +224,12 @@ class GetNodeControlInfo(Response):
 @dataclasses.dataclass
 class GetNodeControlRangeInfo(Response):
     node_id: int
-    items: Sequence[Tuple[Union[int, str], Sequence[float]]]
+    items: Sequence[tuple[int | str, Sequence[float]]]
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
         node_id = cast(int, osc_message.contents[0])
-        items: List[Tuple[Union[int, str], Sequence[float]]] = []
+        items: list[tuple[int | str, Sequence[float]]] = []
         current_index = 1
         while current_index < len(osc_message.contents):
             name_or_index = cast(int | str, osc_message.contents[current_index])
@@ -257,8 +252,8 @@ class NodeInfo(Response):
     previous_id: int
     next_id: int
     is_group: bool
-    head_id: Optional[int] = None
-    tail_id: Optional[int] = None
+    head_id: int | None = None
+    tail_id: int | None = None
 
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
@@ -295,8 +290,8 @@ class QueryTreeInfo(Response):
     class Item:
         node_id: int
         child_count: int
-        synthdef_name: Optional[str] = None
-        controls: Optional[Dict[Union[int, str], Union[float, str]]] = None
+        synthdef_name: str | None = None
+        controls: dict[int | str, float | str] | None = None
 
     node_id: int
     child_count: int
@@ -307,13 +302,13 @@ class QueryTreeInfo(Response):
         flag = bool(osc_message.contents[0])
         node_id = cast(int, osc_message.contents[1])
         child_count = cast(int, osc_message.contents[2])
-        items: List["QueryTreeInfo.Item"] = []
+        items: list["QueryTreeInfo.Item"] = []
         index = 3
         while index < len(osc_message.contents):
             child_id = cast(int, osc_message.contents[index])
             child_child_count = cast(int, osc_message.contents[index + 1])
-            synthdef_name: Optional[str] = None
-            controls: Optional[Dict[Union[int, str], Union[float, str]]] = None
+            synthdef_name: str | None = None
+            controls: dict[int | str, float | str] | None = None
             index += 2
             if child_child_count < 0:
                 synthdef_name = cast(str, osc_message.contents[index])
@@ -323,10 +318,10 @@ class QueryTreeInfo(Response):
                     control_count = cast(int, osc_message.contents[index])
                     index += 1
                     for i in range(control_count):
-                        name_or_index: Union[int, str] = cast(
+                        name_or_index: int | str = cast(
                             int | str, osc_message.contents[index]
                         )
-                        value: Union[float, str] = cast(
+                        value: float | str = cast(
                             float | str, osc_message.contents[index + 1]
                         )
                         controls[name_or_index] = value
@@ -344,8 +339,8 @@ class QueryTreeInfo(Response):
 
 @dataclasses.dataclass
 class QueryTreeControl:
-    name_or_index: Union[int, str]
-    value: Union[float, str]
+    name_or_index: int | str
+    value: float | str
 
     def __str__(self) -> str:
         if isinstance(self.value, str):
@@ -356,7 +351,7 @@ class QueryTreeControl:
 @dataclasses.dataclass
 class QueryTreeNode:
     node_id: int
-    annotation: Optional[str] = None
+    annotation: str | None = None
 
     def _get_str_format_pieces(self, unindexed: bool = False) -> list[str]:
         raise NotImplementedError
@@ -365,9 +360,9 @@ class QueryTreeNode:
 @dataclasses.dataclass
 class QueryTreeSynth(QueryTreeNode):
     node_id: int
-    synthdef_name: Optional[str] = None
-    controls: List[QueryTreeControl] = dataclasses.field(default_factory=list)
-    annotation: Optional[str] = None
+    synthdef_name: str | None = None
+    controls: list[QueryTreeControl] = dataclasses.field(default_factory=list)
+    annotation: str | None = None
 
     def __format__(self, format_spec: str) -> str:
         return "\n".join(
@@ -391,8 +386,8 @@ class QueryTreeSynth(QueryTreeNode):
 @dataclasses.dataclass
 class QueryTreeGroup(QueryTreeNode):
     node_id: int
-    children: List[QueryTreeNode] = dataclasses.field(default_factory=list)
-    annotation: Optional[str] = None
+    children: list[QueryTreeNode] = dataclasses.field(default_factory=list)
+    annotation: str | None = None
 
     ### SPECIAL METHODS ###
 
@@ -419,7 +414,7 @@ class QueryTreeGroup(QueryTreeNode):
 
     ### PUBLIC METHODS ###
 
-    def annotate(self, annotations: Dict[int, str]) -> "QueryTreeGroup":
+    def annotate(self, annotations: dict[int, str]) -> "QueryTreeGroup":
         root = self
         if root.node_id in annotations:
             root = dataclasses.replace(root, annotation=annotations[root.node_id])
@@ -435,7 +430,7 @@ class QueryTreeGroup(QueryTreeNode):
     def from_query_tree_info(cls, response: QueryTreeInfo) -> "QueryTreeGroup":
         def recurse(
             item: QueryTreeInfo.Item, items: Deque[QueryTreeInfo.Item]
-        ) -> Union[QueryTreeGroup, QueryTreeSynth]:
+        ) -> QueryTreeGroup | QueryTreeSynth:
             if item.child_count < 0:
                 return QueryTreeSynth(
                     node_id=item.node_id,
@@ -445,7 +440,7 @@ class QueryTreeGroup(QueryTreeNode):
                         for name_or_index, value in (item.controls or {}).items()
                     ],
                 )
-            children: List[QueryTreeNode] = []
+            children: list[QueryTreeNode] = []
             for _ in range(item.child_count):
                 children.append(recurse(items.popleft(), items))
             return QueryTreeGroup(node_id=item.node_id, children=children)
@@ -469,7 +464,7 @@ class QueryTreeGroup(QueryTreeNode):
             lines.pop(0)
         if not lines:
             raise ValueError(string)
-        stack: List[QueryTreeGroup] = [
+        stack: list[QueryTreeGroup] = [
             QueryTreeGroup(node_id=int(lines.pop(0).rpartition(" ")[-1]))
         ]
         for line in lines:
@@ -489,11 +484,11 @@ class QueryTreeGroup(QueryTreeNode):
                 for pair in control_pattern.findall(line):
                     name_string, _, value_string = pair.partition(": ")
                     try:
-                        name_or_index: Union[int, str] = int(name_string)
+                        name_or_index: int | str = int(name_string)
                     except ValueError:
                         name_or_index = name_string
                     try:
-                        value: Union[float, str] = float(value_string)
+                        value: float | str = float(value_string)
                     except ValueError:
                         value = value_string
                     synth.controls.append(
