@@ -1,5 +1,6 @@
 
 
+
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -41,7 +42,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.f1e42938f8d3c76eb.min.css?v=85834ad9" />
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
         <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -209,17 +210,16 @@
   
   
   
+    <li class="md-tabs__item">
+      <a href="installation.html" class="md-tabs__link">
+        
+  
     
-    
-      <li class="md-tabs__item">
-        <a href="installation.html" class="md-tabs__link">
-          
   
   Getting Started
 
-        </a>
-      </li>
-    
+      </a>
+    </li>
   
 
       
@@ -229,17 +229,16 @@
     
   
   
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="contexts.html" class="md-tabs__link">
+        
+  
     
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="contexts.html" class="md-tabs__link">
-          
   
   Tutorials
 
-        </a>
-      </li>
-    
+      </a>
+    </li>
   
 
       
@@ -247,35 +246,16 @@
   
   
   
-    
-    
-      
-  
-  
+    <li class="md-tabs__item">
+      <a href="api/supriya/index.html" class="md-tabs__link">
+        
   
     
-    
-      
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="api/supriya/clocks/asynchronous.html" class="md-tabs__link">
-          
   
   API Reference
 
-        </a>
-      </li>
-    
-  
-
-    
-  
-
-    
+      </a>
+    </li>
   
 
       
@@ -283,17 +263,16 @@
   
   
   
+    <li class="md-tabs__item">
+      <a href="glossary.html" class="md-tabs__link">
+        
+  
     
-    
-      <li class="md-tabs__item">
-        <a href="glossary.html" class="md-tabs__link">
-          
   
   Appendix
 
-        </a>
-      </li>
-    
+      </a>
+    </li>
   
 
       
@@ -3125,8 +3104,9 @@
           
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset" role="main">
+                
+                
                   
-
 
 
   
@@ -3180,7 +3160,7 @@ will result in an error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/contexts/realtime.py&quot;</span>, line <span class="m">623</span>, in <span class="n">boot</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/contexts/realtime.py&quot;</span>, line <span class="m">633</span>, in <span class="n">boot</span>
 <span class="w">    </span><span class="k">raise</span> <span class="n">ServerCannotBoot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_protocol</span><span class="o">.</span><span class="n">error_text</span><span class="p">)</span>
 <span class="gr">supriya.exceptions.ServerCannotBoot</span>: <span class="n">*** ERROR: failed to open UDP socket: address in use.</span>
 </code></pre></div>
@@ -3188,7 +3168,7 @@ will result in an error:</p>
 <p>Use <code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code> to grab a random unused port to
 successfully boot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">())</span>
-<span class="go">&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 53399]&gt;</span>
+<span class="go">&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 54212]&gt;</span>
 </code></pre></div>
 </div>
 </div>
@@ -3263,7 +3243,7 @@ server will error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/contexts/realtime.py&quot;</span>, line <span class="m">914</span>, in <span class="n">quit</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/contexts/realtime.py&quot;</span>, line <span class="m">926</span>, in <span class="n">quit</span>
 <span class="w">    </span><span class="k">raise</span> <span class="n">UnownedServerShutdown</span><span class="p">(</span>
 <span class="w">    </span>    <span class="s2">&quot;Cannot quit unowned server without force flag.&quot;</span>
 <span class="w">    </span><span class="p">)</span>
@@ -3285,7 +3265,7 @@ properties for inspecting its state.</p>
 </div>
 <p>Inspect the “status” of audio processing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
-<span class="go">StatusInfo(actual_sample_rate=44105.90937424586, average_cpu_usage=0.0437905415892601, group_count=2, peak_cpu_usage=0.2304765284061432, synth_count=0, synthdef_count=0, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">StatusInfo(actual_sample_rate=44106.13584177124, average_cpu_usage=0.03997886925935745, group_count=2, peak_cpu_usage=0.21041510999202728, synth_count=0, synthdef_count=0, target_sample_rate=44100.0, ugen_count=0)</span>
 </code></pre></div>
 </div>
 <div class="hint tip admonition">
@@ -3301,7 +3281,7 @@ complexity of the status output:</p>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
-<span class="go">StatusInfo(actual_sample_rate=44105.90937424586, average_cpu_usage=0.10799185186624527, group_count=2, peak_cpu_usage=0.2304765284061432, synth_count=1, synthdef_count=33, target_sample_rate=44100.0, ugen_count=20)</span>
+<span class="go">StatusInfo(actual_sample_rate=44106.13584177124, average_cpu_usage=0.0985918939113617, group_count=2, peak_cpu_usage=0.21041510999202728, synth_count=1, synthdef_count=33, target_sample_rate=44100.0, ugen_count=20)</span>
 </code></pre></div>
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">synth_count</span></code>, <code class="docutils literal notranslate"><span class="pre">synthdef_count</span></code> and <code class="docutils literal notranslate"><span class="pre">ugen_count</span></code> have gone up
@@ -3442,15 +3422,15 @@ methods are async as well.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 <span class="go">&lt;AsyncServer OFFLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;</span>
-<span class="go">&lt;AsyncServer ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 51359]&gt;</span>
+<span class="go">&lt;AsyncServer ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 47251]&gt;</span>
 <span class="go">NODE TREE 0 group</span>
 <span class="go">    1 group</span>
 <span class="go">        1000 group</span>
-<span class="go">&lt;AsyncServer OFFLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 51359]&gt;</span>
+<span class="go">&lt;AsyncServer OFFLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 47251]&gt;</span>
 </code></pre></div>
 </div>
 <p>Use <a class="reference internal" href="api/supriya/contexts/realtime.html#supriya.contexts.realtime.AsyncServer" title="supriya.contexts.realtime.AsyncServer (Python class) — Bases: BaseServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncServer</span></code></a> with
-<a class="reference internal" href="api/supriya/clocks/asynchronous.html#supriya.clocks.asynchronous.AsyncClock" title="supriya.clocks.asynchronous.AsyncClock (Python class) — Bases: BaseClock"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncClock</span></code></a> to integrate with
+<a class="reference internal" href="api/supriya/clocks/asynchronous.html#supriya.clocks.asynchronous.AsyncClock" title="supriya.clocks.asynchronous.AsyncClock (Python class) — Bases: BaseClock[AsyncClockCallback]"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncClock</span></code></a> to integrate with
 eventloop-driven libraries like <a class="reference external" href="https://docs.aiohttp.org/">aiohttp</a>, <a class="reference external" href="https://python-prompt-toolkit.readthedocs.io/">python-prompt-toolkit</a> and
 <a class="reference external" href="https://github.com/artfwo/pymonome">pymonome</a>.</p>
 <h2 id="lower-level-apis">Lower level APIs<a class="headerlink" href="#lower-level-apis" title="Link to this heading">¶</a></h2>
@@ -3461,13 +3441,13 @@ eventloop-driven libraries like <a class="reference external" href="https://docs
 <p>Get access to the server’s underlying process management subsystem via
 <a class="reference internal" href="api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.process_protocol" title="supriya.contexts.realtime.Server.process_protocol (Python property) — Get the server's process protocol."><code class="xref py py-attr docutils literal notranslate"><span class="pre">process_protocol</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">process_protocol</span>
-<span class="go">&lt;supriya.scsynth.ThreadedProcessProtocol object at 0x7fe6a47b1130&gt;</span>
+<span class="go">&lt;supriya.scsynth.ThreadedProcessProtocol object at 0x7fe33498a990&gt;</span>
 </code></pre></div>
 </div>
 <p>Get access to the server’s underlying OSC subsystem via
 <a class="reference internal" href="api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.osc_protocol" title="supriya.contexts.realtime.Server.osc_protocol (Python property) — Get the server's OSC protocol."><code class="xref py py-attr docutils literal notranslate"><span class="pre">osc_protocol</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span>
-<span class="go">&lt;supriya.osc.threaded.ThreadedOscProtocol object at 0x7fe6a47b37a0&gt;</span>
+<span class="go">&lt;supriya.osc.threaded.ThreadedOscProtocol object at 0x7fe33498a210&gt;</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
@@ -3480,7 +3460,6 @@ subprocess and OSC communication via
 <a class="reference internal" href="api/supriya/scsynth.html#supriya.scsynth.AsyncProcessProtocol" title="supriya.scsynth.AsyncProcessProtocol (Python class) — Bases: SubprocessProtocol, ProcessProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncProcessProtocol</span></code></a> and
 <code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncOscProtocol</span></code> objects.</p>
 </div>
-
 
 
 

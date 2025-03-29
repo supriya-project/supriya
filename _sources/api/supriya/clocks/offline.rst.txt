@@ -10,9 +10,13 @@ offline
 .. autoclass:: AsyncOfflineClock
    :show-inheritance:
 
+   .. automethod:: at
+   .. automethod:: start
+   .. automethod:: stop
 
 .. autoclass:: OfflineClock
    :show-inheritance:
 
+   .. automethod:: at
    .. automethod:: start
    .. automethod:: stop

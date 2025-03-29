@@ -12,6 +12,11 @@ core
 
    .. automethod:: __replace__
 
+.. autoclass:: AsyncClockCallback
+   :show-inheritance:
+
+   .. automethod:: __call__
+
 .. autoclass:: BaseClock
    :show-inheritance:
 
@@ -47,6 +52,11 @@ core
    :show-inheritance:
 
    .. automethod:: __replace__
+
+.. autoclass:: ClockCallback
+   :show-inheritance:
+
+   .. automethod:: __call__
 
 .. autoclass:: ClockContext
    :show-inheritance:

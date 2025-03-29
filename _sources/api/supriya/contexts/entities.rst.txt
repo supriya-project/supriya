@@ -34,6 +34,7 @@ entities
    :show-inheritance:
 
    .. automethod:: __getitem__
+   .. automethod:: __iter__
    .. automethod:: __len__
    .. automethod:: __post_init__
    .. automethod:: __replace__
@@ -55,6 +56,7 @@ entities
    :show-inheritance:
 
    .. automethod:: __getitem__
+   .. automethod:: __iter__
    .. automethod:: __len__
    .. automethod:: __post_init__
    .. automethod:: __replace__
