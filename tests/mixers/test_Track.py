@@ -5,7 +5,6 @@ from uqbar.strings import normalize
 
 from supriya import BusGroup
 from supriya.mixers import Session
-from supriya.mixers.mixers import Mixer
 from supriya.mixers.tracks import Track, TrackContainer, TrackSend
 from supriya.typing import DEFAULT, Default
 
@@ -27,11 +26,11 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
             @@ -56,6 +56,8 @@
                              1036 group (session.mixers[0].tracks[1]:devices)
                              1037 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
-                                 active: c29, bus: 26.0, gain: c30, gate: 1.0
+                                 active: c29, bus: 26.0, done_action: 2.0, gain: c30, gate: 1.0
             +                1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[1]:synth)
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
                              1042 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
-                                 active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
+                                 active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
                              1039 supriya:meters:2 (session.mixers[0].tracks[1]:output-levels)
             """,
             """
@@ -51,9 +50,9 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
                              1037 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
                                  active: c29, bus: 26.0, gain: c30, gate: 1.0
             +                1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[1]:synth)
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 30.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 30.0
                              1042 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
-                                 active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
+                                 active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
                              1039 supriya:meters:2 (session.mixers[0].tracks[1]:output-levels)
             """,
             """
@@ -73,7 +72,7 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
                                  in_: 26.0, out: 31.0
                              1036 group (session.mixers[0].tracks[1]:devices)
             +                1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[1]:synth)
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 30.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 30.0
                              1037 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
                                  active: c29, bus: 26.0, gain: c30, gate: 1.0
                              1042 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
@@ -92,16 +91,16 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
             +++ mutation
             @@ -50,10 +50,14 @@
                              1033 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
-                                 active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
                          1034 group (session.mixers[0].tracks[1]:group)
             +                1066 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[1].feedback:synth)
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 36.0, out: 26.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 26.0
                              1035 group (session.mixers[0].tracks[1]:tracks)
                              1038 supriya:meters:2 (session.mixers[0].tracks[1]:input-levels)
                                  in_: 26.0, out: 31.0
                              1036 group (session.mixers[0].tracks[1]:devices)
             +                1067 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[1]:synth)
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 36.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 36.0
                              1037 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
                                  active: c29, bus: 26.0, gain: c30, gate: 1.0
                              1042 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
@@ -121,10 +120,10 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
             +++ mutation
             @@ -50,6 +50,8 @@
                              1033 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
-                                 active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
                          1034 group (session.mixers[0].tracks[1]:group)
             +                1066 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[1].feedback:synth)
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 36.0, out: 26.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 26.0
                              1035 group (session.mixers[0].tracks[1]:tracks)
                              1038 supriya:meters:2 (session.mixers[0].tracks[1]:input-levels)
                                  in_: 26.0, out: 31.0
@@ -133,7 +132,7 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
                              1046 supriya:channel-strip:2 (session.mixers[0].tracks[2]:channel-strip)
                                  active: c35, bus: 30.0, gain: c36, gate: 1.0
             +                1067 supriya:patch-cable:2x2 (session.mixers[0].tracks[2].sends[0]:synth)
-            +                    active: c35, gain: 0.0, gate: 1.0, in_: 30.0, out: 36.0
+            +                    active: c35, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 30.0, out: 36.0
                              1048 supriya:meters:2 (session.mixers[0].tracks[2]:output-levels)
                                  in_: 30.0, out: 39.0
                              1049 supriya:patch-cable:2x2 (session.mixers[0].tracks[2].output:synth)
@@ -200,40 +199,44 @@ async def test_Track_add_send(
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "target, expected_diff, expected_commands",
-    [],
+    [
+        ("mixers[0].tracks[0]", "", ""),
+        ("mixers[0].tracks[0].tracks[0]", "", ""),
+        ("mixers[0].tracks[0].tracks[0].tracks[0]", "", ""),
+        ("mixers[0].tracks[0].tracks[1]", "", ""),
+        ("mixers[0].tracks[1]", "", ""),
+        ("mixers[0].tracks[2]", "", ""),
+    ],
 )
 @pytest.mark.asyncio
 async def test_Track_delete(
     expected_commands: str,
     expected_diff: str,
     online: bool,
-    mixer: Mixer,
     complex_session: tuple[Session, str],
     target: str,
 ) -> None:
     # TODO: rewrite this with complex_session and track lookups
     # Pre-conditions
-    session, _ = complex_session
+    session, initial_tree = complex_session
     if online:
         await session.boot()
     target_ = session[target]
     assert isinstance(target_, Track)
     parent_ = target_.parent
     # Operation
-    with capture(mixer.context) as commands:
+    with capture(session["mixers[0]"].context) as commands:
         await target_.delete()
     # Post-conditions
     assert parent_ and target_ not in parent_.children
     if not online:
-        raise Exception
+        return
     await assert_diff(
         session,
         expected_diff,
-        expected_initial_tree="""
-        """,
+        expected_initial_tree=initial_tree,
     )
     assert format_messages(commands) == normalize(expected_commands)
-    raise Exception
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -255,7 +258,7 @@ async def test_Track_delete(
                      1001 group
             +            1034 group
             +                1066 supriya:fb-patch-cable:2x2
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 36.0, out: 26.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 26.0
             +                1035 group
             +                1038 supriya:meters:2
             +                    in_: 26.0, out: 31.0
@@ -263,11 +266,11 @@ async def test_Track_delete(
             +                1037 supriya:channel-strip:2
             +                    active: c29, bus: 26.0, gain: c30, gate: 1.0
             +                1042 supriya:patch-cable:2x2
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
             +                1039 supriya:meters:2
             +                    in_: 26.0, out: 33.0
             +                1040 supriya:patch-cable:2x2
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
                          1006 group
                              1007 group
                                  1012 group
@@ -276,14 +279,14 @@ async def test_Track_delete(
                              1009 supriya:channel-strip:2
                                  active: c5, bus: 18.0, gain: c6, gate: 1.0
             +                1067 supriya:patch-cable:2x2
-            +                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 36.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 36.0
                              1051 supriya:patch-cable:2x2
-            -                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
-            +                    active: c5, gain: 0.0, gate: 0.0, in_: 18.0, out: 26.0
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 26.0
                              1011 supriya:meters:2
                                  in_: 18.0, out: 9.0
                              1033 supriya:patch-cable:2x2
-                                 active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
             -            1034 group
             -                1035 group
             -                1038 supriya:meters:2
@@ -292,11 +295,11 @@ async def test_Track_delete(
             -                1037 supriya:channel-strip:2
             -                    active: c29, bus: 26.0, gain: c30, gate: 1.0
             -                1042 supriya:patch-cable:2x2
-            -                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
             -                1039 supriya:meters:2
             -                    in_: 26.0, out: 33.0
             -                1040 supriya:patch-cable:2x2
-            -                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
                          1043 group
                              1044 group
                              1047 supriya:meters:2
@@ -333,7 +336,7 @@ async def test_Track_delete(
                      1001 group
             +            1034 group
             +                1067 supriya:fb-patch-cable:2x2
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 28.0, out: 26.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 26.0
             +                1035 group
             +                1038 supriya:meters:2
             +                    in_: 26.0, out: 31.0
@@ -341,19 +344,19 @@ async def test_Track_delete(
             +                1037 supriya:channel-strip:2
             +                    active: c29, bus: 26.0, gain: c30, gate: 1.0
             +                1066 supriya:patch-cable:2x2
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
             +                1042 supriya:patch-cable:2x2
-            +                    active: c29, gain: 0.0, gate: 0.0, in_: 26.0, out: 28.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 26.0, out: 28.0
             +                1039 supriya:meters:2
             +                    in_: 26.0, out: 33.0
             +                1040 supriya:patch-cable:2x2
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
                          1006 group
                              1007 group
                                  1012 group
                                      1041 supriya:fb-patch-cable:2x2
-            -                            active: c11, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
-            +                            active: c11, gain: 0.0, gate: 0.0, in_: 28.0, out: 20.0
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 28.0, out: 20.0
                                      1013 group
                                          1018 group
                                              1019 group
@@ -362,14 +365,14 @@ async def test_Track_delete(
                              1009 supriya:channel-strip:2
                                  active: c5, bus: 18.0, gain: c6, gate: 1.0
             +                1068 supriya:patch-cable:2x2
-            +                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 28.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 28.0
                              1051 supriya:patch-cable:2x2
-            -                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
-            +                    active: c5, gain: 0.0, gate: 0.0, in_: 18.0, out: 26.0
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 26.0
                              1011 supriya:meters:2
                                  in_: 18.0, out: 9.0
                              1033 supriya:patch-cable:2x2
-                                 active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
             -            1034 group
             -                1035 group
             -                1038 supriya:meters:2
@@ -378,11 +381,11 @@ async def test_Track_delete(
             -                1037 supriya:channel-strip:2
             -                    active: c29, bus: 26.0, gain: c30, gate: 1.0
             -                1042 supriya:patch-cable:2x2
-            -                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
             -                1039 supriya:meters:2
             -                    in_: 26.0, out: 33.0
             -                1040 supriya:patch-cable:2x2
-            -                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
                          1043 group
                              1044 group
                              1047 supriya:meters:2
@@ -412,7 +415,7 @@ async def test_Track_delete(
             @@ -49,6 +49,17 @@
                                  in_: 18.0, out: 9.0
                              1033 supriya:patch-cable:2x2
-                                 active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
             +            1043 group
             +                1044 group
             +                1047 supriya:meters:2
@@ -423,14 +426,14 @@ async def test_Track_delete(
             +                1048 supriya:meters:2
             +                    in_: 30.0, out: 39.0
             +                1049 supriya:patch-cable:2x2
-            +                    active: c35, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
+            +                    active: c35, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
                          1034 group
                              1035 group
                              1038 supriya:meters:2
             @@ -62,17 +73,6 @@
                                  in_: 26.0, out: 33.0
                              1040 supriya:patch-cable:2x2
-                                 active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
+                                 active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
             -            1043 group
             -                1044 group
             -                1047 supriya:meters:2
@@ -441,7 +444,7 @@ async def test_Track_delete(
             -                1048 supriya:meters:2
             -                    in_: 30.0, out: 39.0
             -                1049 supriya:patch-cable:2x2
-            -                    active: c35, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
+            -                    active: c35, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
                      1004 supriya:meters:2
                          in_: 16.0, out: 1.0
                      1002 group
@@ -474,7 +477,7 @@ async def test_Track_delete(
                              1007 group
             +                    1034 group
             +                        1068 supriya:fb-patch-cable:2x2
-            +                            active: c29, gain: 0.0, gate: 1.0, in_: 28.0, out: 26.0
+            +                            active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 26.0
             +                        1035 group
             +                        1038 supriya:meters:2
             +                            in_: 26.0, out: 31.0
@@ -482,19 +485,19 @@ async def test_Track_delete(
             +                        1037 supriya:channel-strip:2
             +                            active: c29, bus: 26.0, gain: c30, gate: 1.0
             +                        1067 supriya:patch-cable:2x2
-            +                            active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
+            +                            active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
             +                        1042 supriya:patch-cable:2x2
-            +                            active: c29, gain: 0.0, gate: 0.0, in_: 26.0, out: 28.0
+            +                            active: c29, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 26.0, out: 28.0
             +                        1039 supriya:meters:2
             +                            in_: 26.0, out: 33.0
             +                        1040 supriya:patch-cable:2x2
-            +                            active: c29, gain: 0.0, gate: 0.0, in_: 26.0, out: 16.0
+            +                            active: c29, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 26.0, out: 16.0
             +                        1066 supriya:patch-cable:2x2
-            +                            active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 18.0
+            +                            active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 18.0
                                  1012 group
                                      1041 supriya:fb-patch-cable:2x2
-            -                            active: c11, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
-            +                            active: c11, gain: 0.0, gate: 0.0, in_: 28.0, out: 20.0
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 28.0, out: 20.0
                                      1013 group
                                          1018 group
                                              1019 group
@@ -503,27 +506,27 @@ async def test_Track_delete(
                              1009 supriya:channel-strip:2
                                  active: c5, bus: 18.0, gain: c6, gate: 1.0
             +                1069 supriya:patch-cable:2x2
-            +                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 28.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 28.0
                              1051 supriya:patch-cable:2x2
-            -                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
-            +                    active: c5, gain: 0.0, gate: 0.0, in_: 18.0, out: 26.0
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 26.0
                              1011 supriya:meters:2
                                  in_: 18.0, out: 9.0
                              1033 supriya:patch-cable:2x2
-                                 active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
             -            1034 group
             -                1035 group
             -                1038 supriya:meters:2
             -                    in_: 26.0, out: 31.0
             -                1036 group
             -                1037 supriya:channel-strip:2
-            -                    active: c29, bus: 26.0, gain: c30, gate: 1.0
+            -                    active: c29, bus: 26.0, done_action: 2.0, gain: c30, gate: 1.0
             -                1042 supriya:patch-cable:2x2
-            -                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
             -                1039 supriya:meters:2
             -                    in_: 26.0, out: 33.0
             -                1040 supriya:patch-cable:2x2
-            -                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
                          1043 group
                              1044 group
                              1047 supriya:meters:2
@@ -556,57 +559,57 @@ async def test_Track_delete(
                              1007 group
                                  1012 group
                                      1041 supriya:fb-patch-cable:2x2
-            -                            active: c11, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
-            +                            active: c11, gain: 0.0, gate: 0.0, in_: 28.0, out: 20.0
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 28.0, out: 20.0
                                      1013 group
             +                            1034 group
             +                                1068 supriya:fb-patch-cable:2x2
-            +                                    active: c29, gain: 0.0, gate: 1.0, in_: 28.0, out: 26.0
+            +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 26.0
             +                                1035 group
             +                                1038 supriya:meters:2
             +                                    in_: 26.0, out: 31.0
             +                                1036 group
             +                                1037 supriya:channel-strip:2
-            +                                    active: c29, bus: 26.0, gain: c30, gate: 1.0
+            +                                    active: c29, bus: 26.0, done_action: 2.0, gain: c30, gate: 1.0
             +                                1067 supriya:patch-cable:2x2
-            +                                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
+            +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
             +                                1042 supriya:patch-cable:2x2
-            +                                    active: c29, gain: 0.0, gate: 0.0, in_: 26.0, out: 28.0
+            +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 26.0, out: 28.0
             +                                1039 supriya:meters:2
             +                                    in_: 26.0, out: 33.0
             +                                1040 supriya:patch-cable:2x2
-            +                                    active: c29, gain: 0.0, gate: 0.0, in_: 26.0, out: 16.0
+            +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 26.0, out: 16.0
             +                                1066 supriya:patch-cable:2x2
-            +                                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
+            +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
                                          1018 group
                                              1019 group
                                              1022 supriya:meters:2
             @@ -43,25 +62,14 @@
                              1008 group
                              1009 supriya:channel-strip:2
-                                 active: c5, bus: 18.0, gain: c6, gate: 1.0
+                                 active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
             +                1069 supriya:patch-cable:2x2
-            +                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 28.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 28.0
                              1051 supriya:patch-cable:2x2
-            -                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
-            +                    active: c5, gain: 0.0, gate: 0.0, in_: 18.0, out: 26.0
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 26.0
                              1011 supriya:meters:2
                                  in_: 18.0, out: 9.0
                              1033 supriya:patch-cable:2x2
-                                 active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
             -            1034 group
             -                1035 group
             -                1038 supriya:meters:2
             -                    in_: 26.0, out: 31.0
             -                1036 group
             -                1037 supriya:channel-strip:2
-            -                    active: c29, bus: 26.0, gain: c30, gate: 1.0
+            -                    active: c29, bus: 26.0, done_action: 2.0, gain: c30, gate: 1.0
             -                1042 supriya:patch-cable:2x2
-            -                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
             -                1039 supriya:meters:2
             -                    in_: 26.0, out: 33.0
             -                1040 supriya:patch-cable:2x2
-            -                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
                          1043 group
                              1044 group
                              1047 supriya:meters:2
@@ -654,13 +657,13 @@ async def test_Track_delete(
             -                    in_: 26.0, out: 31.0
             -                1036 group
             -                1037 supriya:channel-strip:2
-            -                    active: c29, bus: 26.0, gain: c30, gate: 1.0
+            -                    active: c29, bus: 26.0, done_action: 2.0, gain: c30, gate: 1.0
             -                1042 supriya:patch-cable:2x2
-            -                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
             -                1039 supriya:meters:2
             -                    in_: 26.0, out: 33.0
             -                1040 supriya:patch-cable:2x2
-            -                    active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
                          1043 group
                              1044 group
             +                    1034 group
@@ -669,15 +672,15 @@ async def test_Track_delete(
             +                            in_: 26.0, out: 31.0
             +                        1036 group
             +                        1037 supriya:channel-strip:2
-            +                            active: c29, bus: 26.0, gain: c30, gate: 1.0
+            +                            active: c29, bus: 26.0, done_action: 2.0, gain: c30, gate: 1.0
             +                        1042 supriya:patch-cable:2x2
-            +                            active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
+            +                            active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
             +                        1039 supriya:meters:2
             +                            in_: 26.0, out: 33.0
             +                        1040 supriya:patch-cable:2x2
-            +                            active: c29, gain: 0.0, gate: 0.0, in_: 26.0, out: 16.0
+            +                            active: c29, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 26.0, out: 16.0
             +                        1066 supriya:patch-cable:2x2
-            +                            active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 30.0
+            +                            active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 30.0
                              1047 supriya:meters:2
                                  in_: 30.0, out: 37.0
                              1045 group
@@ -708,29 +711,29 @@ async def test_Track_delete(
             +                    in_: 30.0, out: 37.0
             +                1045 group
             +                1046 supriya:channel-strip:2
-            +                    active: c35, bus: 30.0, gain: c36, gate: 1.0
+            +                    active: c35, bus: 30.0, done_action: 2.0, gain: c36, gate: 1.0
             +                1048 supriya:meters:2
             +                    in_: 30.0, out: 39.0
             +                1049 supriya:patch-cable:2x2
-            +                    active: c35, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
+            +                    active: c35, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
                          1006 group
                              1007 group
                                  1012 group
             @@ -62,17 +73,6 @@
                                  in_: 26.0, out: 33.0
                              1040 supriya:patch-cable:2x2
-                                 active: c29, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
+                                 active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
             -            1043 group
             -                1044 group
             -                1047 supriya:meters:2
             -                    in_: 30.0, out: 37.0
             -                1045 group
             -                1046 supriya:channel-strip:2
-            -                    active: c35, bus: 30.0, gain: c36, gate: 1.0
+            -                    active: c35, bus: 30.0, done_action: 2.0, gain: c36, gate: 1.0
             -                1048 supriya:meters:2
             -                    in_: 30.0, out: 39.0
             -                1049 supriya:patch-cable:2x2
-            -                    active: c35, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
+            -                    active: c35, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
                      1004 supriya:meters:2
                          in_: 16.0, out: 1.0
                      1002 group
@@ -823,9 +826,9 @@ async def test_Track_move(
             @@ -6,6 +6,8 @@
                                  1012 group (session.mixers[0].tracks[0].tracks[0]:group)
                                      1041 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].feedback:synth)
-                                         active: c11, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
+                                         active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
             +                        1066 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].input:synth)
-            +                            active: c11, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
                                      1013 group (session.mixers[0].tracks[0].tracks[0]:tracks)
                                          1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
                                              1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
@@ -845,9 +848,9 @@ async def test_Track_move(
             @@ -6,6 +6,8 @@
                                  1012 group (session.mixers[0].tracks[0].tracks[0]:group)
                                      1041 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].feedback:synth)
-                                         active: c11, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
+                                         active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
             +                        1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].input:synth)
-            +                            active: c11, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
                                      1013 group (session.mixers[0].tracks[0].tracks[0]:tracks)
                                          1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
                                              1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
@@ -869,9 +872,9 @@ async def test_Track_move(
             @@ -6,6 +6,8 @@
                                  1012 group (session.mixers[0].tracks[0].tracks[0]:group)
                                      1041 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].feedback:synth)
-                                         active: c11, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
+                                         active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
             +                        1066 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].input:synth)
-            +                            active: c11, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
                                      1013 group (session.mixers[0].tracks[0].tracks[0]:tracks)
                                          1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
                                              1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
@@ -891,10 +894,10 @@ async def test_Track_move(
             +++ mutation
             @@ -50,6 +50,8 @@
                              1033 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
-                                 active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
                          1034 group (session.mixers[0].tracks[1]:group)
             +                1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].input:synth)
-            +                    active: c29, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
                              1035 group (session.mixers[0].tracks[1]:tracks)
                              1038 supriya:meters:2 (session.mixers[0].tracks[1]:input-levels)
                                  in_: 26.0, out: 31.0
@@ -916,9 +919,9 @@ async def test_Track_move(
             @@ -6,6 +6,8 @@
                                  1012 group (session.mixers[0].tracks[0].tracks[0]:group)
                                      1041 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].feedback:synth)
-                                         active: c11, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
+                                         active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
             +                        1066 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].input:synth)
-            +                            active: c11, gain: 0.0, gate: 1.0, in_: 24.0, out: 20.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 24.0, out: 20.0
                                      1013 group (session.mixers[0].tracks[0].tracks[0]:tracks)
                                          1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
                                              1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
@@ -1072,13 +1075,13 @@ async def test_Track_set_muted(
             --- initial
             +++ mutation
             @@ -25,8 +25,8 @@
-                                         active: c11, bus: 20.0, gain: c12, gate: 1.0
+                                         active: c11, bus: 20.0, done_action: 2.0, gain: c12, gate: 1.0
                                      1017 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:output-levels)
                                          in_: 20.0, out: 15.0
             -                        1025 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].output:synth)
-            -                            active: c11, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
             +                        1025 supriya:patch-cable:2x2
-            +                            active: c11, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
                                  1026 group (session.mixers[0].tracks[0].tracks[1]:group)
                                      1027 group (session.mixers[0].tracks[0].tracks[1]:tracks)
                                      1030 supriya:meters:2 (session.mixers[0].tracks[0].tracks[1]:input-levels)
@@ -1120,24 +1123,24 @@ async def test_Track_set_muted(
             --- initial
             +++ mutation
             @@ -8,6 +8,8 @@
-                                         active: c11, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
+                                         active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
                                      1013 group (session.mixers[0].tracks[0].tracks[0]:tracks)
                                          1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
             +                                1066 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].tracks[0].feedback:synth)
-            +                                    active: c17, gain: 0.0, gate: 1.0, in_: 36.0, out: 22.0
+            +                                    active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 22.0
                                              1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
                                              1022 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:input-levels)
                                                  in_: 22.0, out: 19.0
             @@ -25,8 +27,10 @@
-                                         active: c11, bus: 20.0, gain: c12, gate: 1.0
+                                         active: c11, bus: 20.0, done_action: 2.0, gain: c12, gate: 1.0
                                      1017 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:output-levels)
                                          in_: 20.0, out: 15.0
             -                        1025 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].output:synth)
-            -                            active: c11, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
             +                        1025 supriya:patch-cable:2x2
-            +                            active: c11, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
             +                        1067 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].output:synth)
-            +                            active: c11, gain: 0.0, gate: 1.0, in_: 20.0, out: 36.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 36.0
                                  1026 group (session.mixers[0].tracks[0].tracks[1]:group)
                                      1027 group (session.mixers[0].tracks[0].tracks[1]:tracks)
                                      1030 supriya:meters:2 (session.mixers[0].tracks[0].tracks[1]:input-levels)
@@ -1158,15 +1161,15 @@ async def test_Track_set_muted(
             --- initial
             +++ mutation
             @@ -25,8 +25,10 @@
-                                         active: c11, bus: 20.0, gain: c12, gate: 1.0
+                                         active: c11, bus: 20.0, done_action: 2.0, gain: c12, gate: 1.0
                                      1017 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:output-levels)
                                          in_: 20.0, out: 15.0
             -                        1025 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].output:synth)
-            -                            active: c11, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
             +                        1025 supriya:patch-cable:2x2
-            +                            active: c11, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
             +                        1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].output:synth)
-            +                            active: c11, gain: 0.0, gate: 1.0, in_: 20.0, out: 26.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 26.0
                                  1026 group (session.mixers[0].tracks[0].tracks[1]:group)
                                      1027 group (session.mixers[0].tracks[0].tracks[1]:tracks)
                                      1030 supriya:meters:2 (session.mixers[0].tracks[0].tracks[1]:input-levels)
@@ -1194,15 +1197,15 @@ async def test_Track_set_muted(
             --- initial
             +++ mutation
             @@ -25,8 +25,10 @@
-                                         active: c11, bus: 20.0, gain: c12, gate: 1.0
+                                         active: c11, bus: 20.0, done_action: 2.0, gain: c12, gate: 1.0
                                      1017 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:output-levels)
                                          in_: 20.0, out: 15.0
             -                        1025 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].output:synth)
-            -                            active: c11, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
             +                        1025 supriya:patch-cable:2x2
-            +                            active: c11, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
             +                        1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].output:synth)
-            +                            active: c11, gain: 0.0, gate: 1.0, in_: 20.0, out: 24.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 24.0
                                  1026 group (session.mixers[0].tracks[0].tracks[1]:group)
                                      1027 group (session.mixers[0].tracks[0].tracks[1]:tracks)
                                      1030 supriya:meters:2 (session.mixers[0].tracks[0].tracks[1]:input-levels)

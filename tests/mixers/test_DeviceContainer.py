@@ -24,7 +24,7 @@ from .conftest import assert_diff, capture, format_messages
             +                1067 supriya:device-dc-tester:2 (session.mixers[0].devices[0]:synth)
             +                    dc: 1.0, out: 16.0
                      1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
-                         active: 1.0, bus: 16.0, gain: c0, gate: 1.0
+                         active: 1.0, bus: 16.0, done_action: 2.0, gain: c0, gate: 1.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
             """,
             r"""
@@ -51,7 +51,7 @@ from .conftest import assert_diff, capture, format_messages
             +                        1067 supriya:device-dc-tester:2 (session.mixers[0].tracks[0].devices[0]:synth)
             +                            dc: 1.0, out: 18.0
                              1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
-                                 active: c5, bus: 18.0, gain: c6, gate: 1.0
+                                 active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
                              1051 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].sends[0]:synth)
             """,
             r"""

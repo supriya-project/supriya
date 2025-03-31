@@ -1,3 +1,4 @@
+from ..enums import DoneAction
 from ..ugens import (
     DC,
     Amplitude,
@@ -18,6 +19,7 @@ def build_channel_strip(channel_count: int = 2) -> SynthDef:
     with SynthDefBuilder(
         active=1,
         bus=0,
+        done_action=DoneAction.FREE_SYNTH,
         gain=Parameter(value=0, lag=LAG_TIME),
         gate=1,
     ) as builder:
@@ -32,6 +34,7 @@ def build_channel_strip(channel_count: int = 2) -> SynthDef:
         )
         free_gate = Linen.kr(
             attack_time=LAG_TIME,
+            done_action=builder["done_action"],
             gate=builder["gate"],
             release_time=LAG_TIME,
         )
@@ -63,7 +66,14 @@ def build_patch_cable(
     input_channel_count: int = 2, output_channel_count: int = 2, feedback: bool = False
 ) -> SynthDef:
     # TODO: Implement up/down channel mixing
-    with SynthDefBuilder(active=1, in_=0, out=0, gain=0, gate=1) as builder:
+    with SynthDefBuilder(
+        active=1,
+        done_action=DoneAction.FREE_SYNTH,
+        gain=0,
+        gate=1,
+        in_=0,
+        out=0,
+    ) as builder:
         if feedback:
             source = InFeedback.ar(
                 channel_count=input_channel_count,
@@ -81,6 +91,7 @@ def build_patch_cable(
         )
         free_gate = Linen.kr(
             attack_time=LAG_TIME,
+            done_action=builder["done_action"],
             gate=builder["gate"],
             release_time=LAG_TIME,
         )

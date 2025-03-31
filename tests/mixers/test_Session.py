@@ -43,20 +43,20 @@ async def test_Session_add_context(
                                 in_: 18.0, out: 7.0
                             1008 group (session.mixers[0].tracks[0]:devices)
                             1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
-                                active: c5, bus: 18.0, gain: c6, gate: 1.0
+                                active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
                             1011 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
                                 in_: 18.0, out: 9.0
                             1012 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
-                                active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                                active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
                     1004 supriya:meters:2 (session.mixers[0]:input-levels)
                         in_: 16.0, out: 1.0
                     1002 group (session.mixers[0]:devices)
                     1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
-                        active: 1.0, bus: 16.0, gain: c0, gate: 1.0
+                        active: 1.0, bus: 16.0, done_action: 2.0, gain: c0, gate: 1.0
                     1005 supriya:meters:2 (session.mixers[0]:output-levels)
                         in_: 16.0, out: 3.0
                     1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
-                        active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+                        active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
             {session.contexts[1]!r}
             """
         )
@@ -97,20 +97,20 @@ async def test_Session_add_mixer(
                                     in_: 18.0, out: 7.0
                                 1008 group (session.mixers[0].tracks[0]:devices)
                                 1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
-                                    active: c5, bus: 18.0, gain: c6, gate: 1.0
+                                    active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
                                 1011 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
                                     in_: 18.0, out: 9.0
                                 1012 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
-                                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
                         1004 supriya:meters:2 (session.mixers[0]:input-levels)
                             in_: 16.0, out: 1.0
                         1002 group (session.mixers[0]:devices)
                         1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
-                            active: 1.0, bus: 16.0, gain: c0, gate: 1.0
+                            active: 1.0, bus: 16.0, done_action: 2.0, gain: c0, gate: 1.0
                         1005 supriya:meters:2 (session.mixers[0]:output-levels)
                             in_: 16.0, out: 3.0
                         1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
-                            active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
                 {session.contexts[1]!r}
                     NODE TREE 1000 group (session.mixers[1]:group)
                         1001 group (session.mixers[1]:tracks)
@@ -118,11 +118,11 @@ async def test_Session_add_mixer(
                             in_: 16.0, out: 1.0
                         1002 group (session.mixers[1]:devices)
                         1003 supriya:channel-strip:2 (session.mixers[1]:channel-strip)
-                            active: 1.0, bus: 16.0, gain: c0, gate: 1.0
+                            active: 1.0, bus: 16.0, done_action: 2.0, gain: c0, gate: 1.0
                         1005 supriya:meters:2 (session.mixers[1]:output-levels)
                             in_: 16.0, out: 3.0
                         1006 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
-                            active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
                 """
             )
         else:
@@ -137,31 +137,31 @@ async def test_Session_add_mixer(
                                     in_: 18.0, out: 7.0
                                 1008 group (session.mixers[0].tracks[0]:devices)
                                 1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
-                                    active: c5, bus: 18.0, gain: c6, gate: 1.0
+                                    active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
                                 1011 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
                                     in_: 18.0, out: 9.0
                                 1012 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
-                                    active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
                         1004 supriya:meters:2 (session.mixers[0]:input-levels)
                             in_: 16.0, out: 1.0
                         1002 group (session.mixers[0]:devices)
                         1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
-                            active: 1.0, bus: 16.0, gain: c0, gate: 1.0
+                            active: 1.0, bus: 16.0, done_action: 2.0, gain: c0, gate: 1.0
                         1005 supriya:meters:2 (session.mixers[0]:output-levels)
                             in_: 16.0, out: 3.0
                         1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
-                            active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
                     NODE TREE 1014 group (session.mixers[1]:group)
                         1015 group (session.mixers[1]:tracks)
                         1018 supriya:meters:2 (session.mixers[1]:input-levels)
                             in_: 20.0, out: 12.0
                         1016 group (session.mixers[1]:devices)
                         1017 supriya:channel-strip:2 (session.mixers[1]:channel-strip)
-                            active: 1.0, bus: 20.0, gain: c11, gate: 1.0
+                            active: 1.0, bus: 20.0, done_action: 2.0, gain: c11, gate: 1.0
                         1019 supriya:meters:2 (session.mixers[1]:output-levels)
                             in_: 20.0, out: 14.0
                         1020 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
-                            active: 1.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
+                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
                 {session.contexts[1]!r}
                 """
             )
@@ -191,20 +191,20 @@ async def test_Session_boot(online: bool, basic_session: tuple[Session, str]) ->
                             in_: 18.0, out: 7.0
                         1008 group (session.mixers[0].tracks[0]:devices)
                         1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
-                            active: c5, bus: 18.0, gain: c6, gate: 1.0
+                            active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
                         1011 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
                             in_: 18.0, out: 9.0
                         1012 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
-                            active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                            active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
                 1004 supriya:meters:2 (session.mixers[0]:input-levels)
                     in_: 16.0, out: 1.0
                 1002 group (session.mixers[0]:devices)
                 1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
-                    active: 1.0, bus: 16.0, gain: c0, gate: 1.0
+                    active: 1.0, bus: 16.0, done_action: 2.0, gain: c0, gate: 1.0
                 1005 supriya:meters:2 (session.mixers[0]:output-levels)
                     in_: 16.0, out: 3.0
                 1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
-                    active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
         """
     )
 
@@ -274,11 +274,11 @@ async def test_Session_quit(online: bool, basic_session: tuple[Session, str]) ->
             +            in_: 20.0, out: 12.0
             +        1016 group (session.mixers[1]:devices)
             +        1017 supriya:channel-strip:2 (session.mixers[1]:channel-strip)
-            +            active: 1.0, bus: 20.0, gain: c11, gate: 1.0
+            +            active: 1.0, bus: 20.0, done_action: 2.0, gain: c11, gate: 1.0
             +        1019 supriya:meters:2 (session.mixers[1]:output-levels)
             +            in_: 20.0, out: 14.0
             +        1020 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
-            +            active: 1.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
+            +            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
             +<session.contexts[1]>
                  NODE TREE 1000 group (session.mixers[0]:group)
                      1001 group (session.mixers[0]:tracks)
@@ -287,18 +287,18 @@ async def test_Session_quit(online: bool, basic_session: tuple[Session, str]) ->
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
                          in_: 16.0, out: 3.0
                      1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
-            -            active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+            -            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
             -    NODE TREE 1014 group (session.mixers[1]:group)
             -        1015 group (session.mixers[1]:tracks)
             -        1018 supriya:meters:2 (session.mixers[1]:input-levels)
             -            in_: 20.0, out: 12.0
             -        1016 group (session.mixers[1]:devices)
             -        1017 supriya:channel-strip:2 (session.mixers[1]:channel-strip)
-            -            active: 1.0, bus: 20.0, gain: c11, gate: 1.0
+            -            active: 1.0, bus: 20.0, done_action: 2.0, gain: c11, gate: 1.0
             -        1019 supriya:meters:2 (session.mixers[1]:output-levels)
             -            in_: 20.0, out: 14.0
             -        1020 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
-            -            active: 1.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
+            -            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
             -<session.contexts[1]>+            active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
             """,
         ),
@@ -312,18 +312,18 @@ async def test_Session_quit(online: bool, basic_session: tuple[Session, str]) ->
             @@ -21,15 +21,15 @@
                          in_: 16.0, out: 3.0
                      1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
-                         active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+                         active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
             -    NODE TREE 1014 group (session.mixers[1]:group)
             -        1015 group (session.mixers[1]:tracks)
             -        1018 supriya:meters:2 (session.mixers[1]:input-levels)
             -            in_: 20.0, out: 12.0
             -        1016 group (session.mixers[1]:devices)
             -        1017 supriya:channel-strip:2 (session.mixers[1]:channel-strip)
-            -            active: 1.0, bus: 20.0, gain: c11, gate: 1.0
+            -            active: 1.0, bus: 20.0, done_action: 2.0, gain: c11, gate: 1.0
             -        1019 supriya:meters:2 (session.mixers[1]:output-levels)
             -            in_: 20.0, out: 14.0
             -        1020 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
-            -            active: 1.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
+            -            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
             -<session.contexts[1]>+<session.contexts[1]>
             +    NODE TREE 1000 group (session.mixers[1]:group)
             +        1001 group (session.mixers[1]:tracks)
@@ -331,11 +331,11 @@ async def test_Session_quit(online: bool, basic_session: tuple[Session, str]) ->
             +            in_: 16.0, out: 1.0
             +        1002 group (session.mixers[1]:devices)
             +        1003 supriya:channel-strip:2 (session.mixers[1]:channel-strip)
-            +            active: 1.0, bus: 16.0, gain: c0, gate: 1.0
+            +            active: 1.0, bus: 16.0, done_action: 2.0, gain: c0, gate: 1.0
             +        1005 supriya:meters:2 (session.mixers[1]:output-levels)
             +            in_: 16.0, out: 3.0
             +        1006 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
-            +            active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+            +            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
             """,
         ),
     ],
@@ -378,20 +378,20 @@ async def test_Session_set_mixer_context(
                             in_: 18.0, out: 7.0
                         1008 group (session.mixers[0].tracks[0]:devices)
                         1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
-                            active: c5, bus: 18.0, gain: c6, gate: 1.0
+                            active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
                         1011 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
                             in_: 18.0, out: 9.0
                         1012 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
-                            active: c5, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                            active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
                 1004 supriya:meters:2 (session.mixers[0]:input-levels)
                     in_: 16.0, out: 1.0
                 1002 group (session.mixers[0]:devices)
                 1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
-                    active: 1.0, bus: 16.0, gain: c0, gate: 1.0
+                    active: 1.0, bus: 16.0, done_action: 2.0, gain: c0, gate: 1.0
                 1005 supriya:meters:2 (session.mixers[0]:output-levels)
                     in_: 16.0, out: 3.0
                 1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
-                    active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
             NODE TREE 1014 group (session.mixers[1]:group)
                 1015 group (session.mixers[1]:tracks)
                 1018 supriya:meters:2 (session.mixers[1]:input-levels)
@@ -402,7 +402,7 @@ async def test_Session_set_mixer_context(
                 1019 supriya:meters:2 (session.mixers[1]:output-levels)
                     in_: 20.0, out: 14.0
                 1020 supriya:patch-cable:2x2 (session.mixers[1].output:synth)
-                    active: 1.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
+                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
         <session.contexts[1]>
         """,
     )

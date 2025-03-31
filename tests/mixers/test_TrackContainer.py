@@ -19,18 +19,18 @@ from .conftest import assert_diff, capture, format_messages
             @@ -73,6 +73,17 @@
                                  in_: 30.0, out: 39.0
                              1049 supriya:patch-cable:2x2 (session.mixers[0].tracks[2].output:synth)
-                                 active: c35, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
+                                 active: c35, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
             +            1066 group (session.mixers[0].tracks[3]:group)
             +                1067 group (session.mixers[0].tracks[3]:tracks)
             +                1070 supriya:meters:2 (session.mixers[0].tracks[3]:input-levels)
             +                    in_: 36.0, out: 54.0
             +                1068 group (session.mixers[0].tracks[3]:devices)
             +                1069 supriya:channel-strip:2 (session.mixers[0].tracks[3]:channel-strip)
-            +                    active: c52, bus: 36.0, gain: c53, gate: 1.0
+            +                    active: c52, bus: 36.0, done_action: 2.0, gain: c53, gate: 1.0
             +                1071 supriya:meters:2 (session.mixers[0].tracks[3]:output-levels)
             +                    in_: 36.0, out: 56.0
             +                1072 supriya:patch-cable:2x2 (session.mixers[0].tracks[3].output:synth)
-            +                    active: c52, gain: 0.0, gate: 1.0, in_: 36.0, out: 16.0
+            +                    active: c52, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 16.0
                      1004 supriya:meters:2 (session.mixers[0]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
@@ -54,18 +54,18 @@ from .conftest import assert_diff, capture, format_messages
             @@ -38,6 +38,17 @@
                                          in_: 24.0, out: 27.0
                                      1032 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[1].output:synth)
-                                         active: c23, gain: 0.0, gate: 1.0, in_: 24.0, out: 18.0
+                                         active: c23, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 24.0, out: 18.0
             +                    1066 group (session.mixers[0].tracks[0].tracks[2]:group)
             +                        1067 group (session.mixers[0].tracks[0].tracks[2]:tracks)
             +                        1070 supriya:meters:2 (session.mixers[0].tracks[0].tracks[2]:input-levels)
             +                            in_: 36.0, out: 54.0
             +                        1068 group (session.mixers[0].tracks[0].tracks[2]:devices)
             +                        1069 supriya:channel-strip:2 (session.mixers[0].tracks[0].tracks[2]:channel-strip)
-            +                            active: c52, bus: 36.0, gain: c53, gate: 1.0
+            +                            active: c52, bus: 36.0, done_action: 2.0, gain: c53, gate: 1.0
             +                        1071 supriya:meters:2 (session.mixers[0].tracks[0].tracks[2]:output-levels)
             +                            in_: 36.0, out: 56.0
             +                        1072 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[2].output:synth)
-            +                            active: c52, gain: 0.0, gate: 1.0, in_: 36.0, out: 18.0
+            +                            active: c52, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 18.0
                              1010 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
                                  in_: 18.0, out: 7.0
                              1008 group (session.mixers[0].tracks[0]:devices)
