@@ -21,8 +21,7 @@ def calculate_diff(initial_tree: str, actual_tree: str) -> str:
     initial_tree = normalize(initial_tree) + "\n"
     actual_tree = normalize(actual_tree) + "\n"
     return "".join(
-        line + "\n" if not line.endswith("\n") else line
-        for line in difflib.unified_diff(
+        difflib.unified_diff(
             normalize(initial_tree).splitlines(True),
             actual_tree.splitlines(True),
             tofile="mutation",

@@ -41,7 +41,7 @@ async def debug_tree(
 ) -> str:
     if not session.contexts:
         return "<empty>"
-    tree = str(await session.dump_tree(annotated=annotated))
+    tree = normalize(str(await session.dump_tree(annotated=annotated)))
     for i, context in enumerate(session.contexts):
         tree = tree.replace(repr(context), f"<session.contexts[{i}]>")
     print(f"{label}:\n{tree}")
@@ -57,6 +57,10 @@ async def assert_diff(
     await session.sync()
     print(f"expected initial tree:\n{normalize(expected_initial_tree)}")
     actual_tree = await debug_tree(session, "actual tree", annotated=annotated)
+    if not expected_initial_tree.endswith("\n"):
+        expected_initial_tree += "\n"
+    if not actual_tree.endswith("\n"):
+        actual_tree += "\n"
     actual_diff = "".join(
         difflib.unified_diff(
             normalize(expected_initial_tree).splitlines(True),
