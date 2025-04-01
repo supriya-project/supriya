@@ -63,7 +63,10 @@ def build_meters(channel_count: int = 2) -> SynthDef:
 
 
 def build_patch_cable(
-    input_channel_count: int = 2, output_channel_count: int = 2, feedback: bool = False, lag_time: float = LAG_TIME
+    input_channel_count: int = 2,
+    output_channel_count: int = 2,
+    feedback: bool = False,
+    lag_time: float = LAG_TIME,
 ) -> SynthDef:
     # TODO: Implement up/down channel mixing
     with SynthDefBuilder(
