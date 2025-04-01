@@ -61,7 +61,7 @@ class Component(Generic[C]):
         self._feedback_dependents: set[Component] = set()
 
     def __repr__(self) -> str:
-        return f"<{type(self).__name__}>"
+        return f"<{type(self).__name__} {self.address}>"
 
     async def _allocate_deep(self, *, context: AsyncServer) -> None:
         if self.session is None:
@@ -227,20 +227,24 @@ class AllocatableComponent(Component[C]):
             return context
         return None
 
-    def _deallocate(self) -> None:
+    def _deallocate(self, audio_buses: bool = True, buffers: bool = True, control_buses: bool = True, group: bool = True, nodes: bool = True) -> None:
         super()._deallocate()
-        for key in tuple(self._audio_buses):
-            self._audio_buses.pop(key).free()
-        for key in tuple(self._control_buses):
-            self._control_buses.pop(key).free()
-        if group := self._nodes.get(ComponentNames.GROUP):
+        if audio_buses:
+            for key in tuple(self._audio_buses):
+                self._audio_buses.pop(key).free()
+        if control_buses:
+            for key in tuple(self._control_buses):
+                self._control_buses.pop(key).free()
+        if group and (group_node := self._nodes.get(ComponentNames.GROUP)):
             if not self._is_active:
-                group.free()
+                group_node.free()
             else:
-                group.set(gate=0)
-        self._nodes.clear()
-        for key in tuple(self._buffers):
-            self._buffers.pop(key).free()
+                group_node.set(gate=0)
+        if nodes:
+            self._nodes.clear()
+        if buffers:
+            for key in tuple(self._buffers):
+                self._buffers.pop(key).free()
 
     def _get_audio_bus(
         self,

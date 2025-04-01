@@ -55,6 +55,7 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
         self._source = source
         self._target = target
         self._writing = writing
+        self._reconcile()
 
     def _allocate(self, *, context: AsyncServer) -> bool:
         if not super()._allocate(context=context):

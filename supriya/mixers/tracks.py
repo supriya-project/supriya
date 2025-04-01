@@ -1,7 +1,7 @@
 from typing import Union, cast
 
 from ..contexts import AsyncServer, BusGroup
-from ..enums import AddAction
+from ..enums import AddAction, DoneAction
 from ..typing import DEFAULT, Default
 from ..ugens import SynthDef
 from .components import AllocatableComponent, C, Component, ComponentNames
@@ -326,6 +326,14 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
                 out=output_levels_control_bus,
             )
         return True
+
+    def _deallocate(self) -> None:
+        if self._is_active and (channel_strip := self._nodes.get(ComponentNames.CHANNEL_STRIP)):
+            channel_strip.set(
+                done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP,
+                gate=0,
+            )
+        super()._deallocate(group=not self._is_active)
 
     def _delete(self) -> None:
         if self._parent is not None:
