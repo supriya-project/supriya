@@ -12,7 +12,7 @@ from ..ugens import (
     SynthDefBuilder,
 )
 
-LAG_TIME = 0.05
+LAG_TIME = 0.1
 
 
 def build_channel_strip(channel_count: int = 2, lag_time: float = LAG_TIME) -> SynthDef:
