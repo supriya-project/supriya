@@ -6,6 +6,7 @@ from uqbar.strings import normalize
 from supriya import BusGroup
 from supriya.mixers import Session
 from supriya.mixers.tracks import Track, TrackContainer, TrackSend
+from supriya.mixers.synthdefs import LAG_TIME
 from supriya.typing import DEFAULT, Default
 
 from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_messages
@@ -1045,6 +1046,7 @@ async def test_Track_set_muted(
     # Post-conditions
     if not online:
         return
+    await asyncio.sleep(LAG_TIME)
     await assert_diff(
         session,
         "",
@@ -1376,6 +1378,7 @@ async def test_Track_set_soloed(
     # Post-conditions
     if not online:
         return
+    await asyncio.sleep(LAG_TIME)
     await assert_diff(
         session,
         "",
