@@ -7,7 +7,7 @@ import pytest_asyncio
 from uqbar.strings import normalize
 
 from supriya import AsyncServer, DoneAction
-from supriya.mixers.synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2_2
+from supriya.mixers.synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2_2, LAG_TIME
 
 
 @pytest_asyncio.fixture
@@ -20,14 +20,17 @@ async def server() -> AsyncGenerator[AsyncServer, None]:
 def calculate_diff(initial_tree: str, actual_tree: str) -> str:
     initial_tree = normalize(initial_tree) + "\n"
     actual_tree = normalize(actual_tree) + "\n"
-    return "".join(
+    lines = list(
         difflib.unified_diff(
-            normalize(initial_tree).splitlines(True),
+            initial_tree.splitlines(True),
             actual_tree.splitlines(True),
             tofile="mutation",
             fromfile="initial",
         )
     )
+    for line in lines:
+        print(repr(line))
+    return "".join(lines)
 
 
 @pytest.mark.parametrize(
@@ -86,7 +89,7 @@ async def test_free_channel_strip(
                         active: 1.0, bus: 0.0, done_action: 2.0, gain: 0.0, gate: 1.0
         """,
     )
-    await asyncio.sleep(0.1)
+    await asyncio.sleep(LAG_TIME * 2)
     actual_tree = str(await server.query_tree())
     actual_diff = calculate_diff(initial_tree, actual_tree)
     assert normalize(expected_diff) == normalize(actual_diff)
@@ -148,7 +151,7 @@ async def test_free_patch_cable(
                         active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 0.0, out: 0.0
         """,
     )
-    await asyncio.sleep(0.1)
+    await asyncio.sleep(LAG_TIME * 2)
     actual_tree = str(await server.query_tree())
     actual_diff = calculate_diff(initial_tree, actual_tree)
     assert normalize(expected_diff) == normalize(actual_diff)
