@@ -12,15 +12,15 @@ from ..ugens import (
     SynthDefBuilder,
 )
 
-LAG_TIME = 0.005
+LAG_TIME = 0.05
 
 
-def build_channel_strip(channel_count: int = 2) -> SynthDef:
+def build_channel_strip(channel_count: int = 2, lag_time: float = LAG_TIME) -> SynthDef:
     with SynthDefBuilder(
         active=1,
         bus=0,
         done_action=DoneAction.FREE_SYNTH,
-        gain=Parameter(value=0, lag=LAG_TIME),
+        gain=Parameter(value=0, lag=lag_time),
         gate=1,
     ) as builder:
         source = In.ar(
@@ -30,13 +30,13 @@ def build_channel_strip(channel_count: int = 2) -> SynthDef:
         active_gate = Linen.kr(
             attack_time=LAG_TIME,
             gate=builder["active"],
-            release_time=LAG_TIME,
+            release_time=lag_time,
         )
         free_gate = Linen.kr(
             attack_time=LAG_TIME,
             done_action=builder["done_action"],
             gate=builder["gate"],
-            release_time=LAG_TIME,
+            release_time=lag_time,
         )
         source *= builder["gain"].db_to_amplitude()
         source *= active_gate
@@ -63,7 +63,7 @@ def build_meters(channel_count: int = 2) -> SynthDef:
 
 
 def build_patch_cable(
-    input_channel_count: int = 2, output_channel_count: int = 2, feedback: bool = False
+    input_channel_count: int = 2, output_channel_count: int = 2, feedback: bool = False, lag_time: float = LAG_TIME
 ) -> SynthDef:
     # TODO: Implement up/down channel mixing
     with SynthDefBuilder(
@@ -85,15 +85,15 @@ def build_patch_cable(
                 bus=builder["in_"],
             )
         active_gate = Linen.kr(
-            attack_time=LAG_TIME,
+            attack_time=lag_time,
             gate=builder["active"],
-            release_time=LAG_TIME,
+            release_time=lag_time,
         )
         free_gate = Linen.kr(
-            attack_time=LAG_TIME,
+            attack_time=lag_time,
             done_action=builder["done_action"],
             gate=builder["gate"],
-            release_time=LAG_TIME,
+            release_time=lag_time,
         )
         source *= builder["gain"].db_to_amplitude()
         source *= free_gate * active_gate

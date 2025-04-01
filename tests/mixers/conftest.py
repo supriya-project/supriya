@@ -53,9 +53,12 @@ async def assert_diff(
     expected_diff: str,
     expected_initial_tree: str,
     annotated: bool = True,
+    sync: bool = True,
 ) -> None:
-    await session.sync()
+    if sync:
+        await session.sync()
     print(f"expected initial tree:\n{normalize(expected_initial_tree)}")
+    expected_initial_tree = normalize(expected_initial_tree)
     actual_tree = await debug_tree(session, "actual tree", annotated=annotated)
     if not expected_initial_tree.endswith("\n"):
         expected_initial_tree += "\n"
@@ -63,7 +66,7 @@ async def assert_diff(
         actual_tree += "\n"
     actual_diff = "".join(
         difflib.unified_diff(
-            normalize(expected_initial_tree).splitlines(True),
+            expected_initial_tree.splitlines(True),
             actual_tree.splitlines(True),
             tofile="mutation",
             fromfile="initial",
