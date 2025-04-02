@@ -124,6 +124,13 @@ class Mixer(TrackContainer["Session"], DeviceContainer):
             )
         return True
 
+    def _disconnect_parentage(self) -> None:
+        if (session := self._parent) is not None and self in (
+            mixers := session._contexts.get(session._mixers.pop(self), [])
+        ):
+            mixers.remove(self)
+        super()._disconnect_parentage()
+
     def _get_synthdefs(self) -> list[SynthDef]:
         return [
             CHANNEL_STRIP_2,
@@ -133,8 +140,6 @@ class Mixer(TrackContainer["Session"], DeviceContainer):
     async def delete(self) -> None:
         # TODO: What are delete semantics actually?
         async with self._lock:
-            if self.session is not None:
-                self.session._delete_mixer(self)
             self._delete()
 
     @property

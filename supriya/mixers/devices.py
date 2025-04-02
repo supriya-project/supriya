@@ -14,9 +14,6 @@ class DeviceContainer(AllocatableComponent[C]):
         self._devices.append(device := Device(parent=self))
         return device
 
-    def _delete_device(self, device: "Device") -> None:
-        self._devices.remove(device)
-
     async def add_device(self) -> "Device":
         async with self._lock:
             device = self._add_device()
@@ -48,6 +45,11 @@ class Device(AllocatableComponent):
                 synthdef=DEVICE_DC_TESTER_2,
             )
         return True
+
+    def _disconnect_parentage(self) -> None:
+        if self._parent is not None:
+            self._parent._devices.remove(self)
+        super()._disconnect_parentage()
 
     def _get_synthdefs(self) -> list[SynthDef]:
         return [DEVICE_DC_TESTER_2]

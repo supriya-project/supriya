@@ -98,6 +98,9 @@ class Component(Generic[C]):
 
     def _delete(self) -> None:
         self._deallocate_deep()
+        self._disconnect_parentage()
+
+    def _disconnect_parentage(self) -> None:
         self._parent = None
 
     def _get_synthdefs(self) -> list[SynthDef]:
@@ -229,29 +232,20 @@ class AllocatableComponent(Component[C]):
 
     def _deallocate(
         self,
-        audio_buses: bool = True,
-        buffers: bool = True,
-        control_buses: bool = True,
-        group: bool = True,
-        nodes: bool = True,
     ) -> None:
         super()._deallocate()
-        if audio_buses:
-            for key in tuple(self._audio_buses):
-                self._audio_buses.pop(key).free()
-        if control_buses:
-            for key in tuple(self._control_buses):
-                self._control_buses.pop(key).free()
-        if group and (group_node := self._nodes.get(ComponentNames.GROUP)):
+        for key in tuple(self._audio_buses):
+            self._audio_buses.pop(key).free()
+        for key in tuple(self._control_buses):
+            self._control_buses.pop(key).free()
+        if group_node := self._nodes.get(ComponentNames.GROUP):
             if not self._is_active:
                 group_node.free()
             else:
                 group_node.set(gate=0)
-        if nodes:
-            self._nodes.clear()
-        if buffers:
-            for key in tuple(self._buffers):
-                self._buffers.pop(key).free()
+        self._nodes.clear()
+        for key in tuple(self._buffers):
+            self._buffers.pop(key).free()
 
     def _get_audio_bus(
         self,

@@ -84,10 +84,6 @@ class Session(Component):
         self._synthdefs[context] = set()
         return context
 
-    def _delete_mixer(self, mixer) -> None:
-        if mixer in (mixers := self._contexts.get(self._mixers.pop(mixer), [])):
-            mixers.remove(mixer)
-
     async def add_context(self) -> AsyncServer:
         async with self._lock:
             context = self._add_context()
