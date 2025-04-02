@@ -93,7 +93,8 @@ class Component(Generic[C]):
         pass
 
     def _deallocate_deep(self) -> None:
-        for component in self._walk():
+        next(iterator := self._walk())._deallocate()
+        for component in iterator:
             component._deallocate()
 
     def _delete(self) -> None:
@@ -233,19 +234,21 @@ class AllocatableComponent(Component[C]):
     def _deallocate(
         self,
     ) -> None:
-        super()._deallocate()
         for key in tuple(self._audio_buses):
             self._audio_buses.pop(key).free()
         for key in tuple(self._control_buses):
             self._control_buses.pop(key).free()
+        self._deallocate_nodes()
+        self._nodes.clear()
+        for key in tuple(self._buffers):
+            self._buffers.pop(key).free()
+
+    def _deallocate_nodes(self) -> None:
         if group_node := self._nodes.get(ComponentNames.GROUP):
             if not self._is_active:
                 group_node.free()
             else:
                 group_node.set(gate=0)
-        self._nodes.clear()
-        for key in tuple(self._buffers):
-            self._buffers.pop(key).free()
 
     def _get_audio_bus(
         self,
