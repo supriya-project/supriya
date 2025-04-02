@@ -328,7 +328,9 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
         return True
 
     def _deallocate(self) -> None:
-        if self._is_active and (channel_strip := self._nodes.get(ComponentNames.CHANNEL_STRIP)):
+        if self._is_active and (
+            channel_strip := self._nodes.get(ComponentNames.CHANNEL_STRIP)
+        ):
             channel_strip.set(
                 done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP,
                 gate=0,

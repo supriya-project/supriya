@@ -227,7 +227,14 @@ class AllocatableComponent(Component[C]):
             return context
         return None
 
-    def _deallocate(self, audio_buses: bool = True, buffers: bool = True, control_buses: bool = True, group: bool = True, nodes: bool = True) -> None:
+    def _deallocate(
+        self,
+        audio_buses: bool = True,
+        buffers: bool = True,
+        control_buses: bool = True,
+        group: bool = True,
+        nodes: bool = True,
+    ) -> None:
         super()._deallocate()
         if audio_buses:
             for key in tuple(self._audio_buses):

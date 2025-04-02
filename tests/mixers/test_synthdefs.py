@@ -7,7 +7,7 @@ import pytest_asyncio
 from uqbar.strings import normalize
 
 from supriya import AsyncServer, DoneAction
-from supriya.mixers.synthdefs import CHANNEL_STRIP_2, PATCH_CABLE_2_2, LAG_TIME
+from supriya.mixers.synthdefs import CHANNEL_STRIP_2, LAG_TIME, PATCH_CABLE_2_2
 
 
 @pytest_asyncio.fixture

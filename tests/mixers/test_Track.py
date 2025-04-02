@@ -5,8 +5,8 @@ from uqbar.strings import normalize
 
 from supriya import BusGroup
 from supriya.mixers import Session
-from supriya.mixers.tracks import Track, TrackContainer, TrackSend
 from supriya.mixers.synthdefs import LAG_TIME
+from supriya.mixers.tracks import Track, TrackContainer, TrackSend
 from supriya.typing import DEFAULT, Default
 
 from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_messages
