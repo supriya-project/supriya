@@ -44,7 +44,7 @@ async def debug_tree(
     tree = normalize(str(await session.dump_tree(annotated=annotated)))
     for i, context in enumerate(session.contexts):
         tree = tree.replace(repr(context), f"<session.contexts[{i}]>")
-    print(f"{label}:\n{tree}")
+    # print(f"{label}:\n{tree}")
     return tree
 
 
@@ -57,7 +57,7 @@ async def assert_diff(
 ) -> None:
     if sync:
         await session.sync()
-    print(f"expected initial tree:\n{normalize(expected_initial_tree)}")
+    # print(f"expected initial tree:\n{normalize(expected_initial_tree)}")
     expected_initial_tree = normalize(expected_initial_tree) + "\n"
     actual_tree = await debug_tree(session, "actual tree", annotated=annotated) + "\n"
     actual_diff = "".join(
@@ -68,7 +68,7 @@ async def assert_diff(
             fromfile="initial",
         )
     )
-    print(f"actual diff:\n{normalize(actual_diff)}")
+    # print(f"actual diff:\n{normalize(actual_diff)}")
     assert normalize(expected_diff) == normalize(actual_diff)
 
 
@@ -82,8 +82,8 @@ async def bare_session() -> tuple[Session, str]:
     initial_tree = await debug_tree(session)
     assert initial_tree == "<empty>"
     await session.quit()
-    for component in session._walk():
-        print(component.address, component.graph_order)
+    # for component in session._walk():
+    #     print(component.address, component.graph_order)
     return session, initial_tree
 
 
@@ -122,8 +122,8 @@ async def basic_session() -> tuple[Session, str]:
         """
     )
     await session.quit()
-    for component in session._walk():
-        print(component.address, component.graph_order)
+    # for component in session._walk():
+    #     print(component.address, component.graph_order)
     return session, initial_tree
 
 
@@ -257,6 +257,6 @@ async def complex_session() -> tuple[Session, str]:
         """
     )
     await session.quit()
-    for component in session._walk():
-        print(component.address, component.graph_order)
+    # for component in session._walk():
+    #     print(component.address, component.graph_order)
     return session, initial_tree

@@ -168,6 +168,7 @@ async def test_Track_add_send(
     session, initial_tree = complex_session
     if online:
         await session.boot()
+        await session.sync()
     source_ = session[source]
     target_ = session[target]
     assert isinstance(source_, Track)
@@ -196,23 +197,82 @@ async def test_Track_add_send(
     assert format_messages(commands) == normalize(expected_commands)
 
 
-@pytest.mark.xfail
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "target, expected_diff, expected_commands",
+    "target, expected_initial_diff, expected_final_diff, expected_commands",
     [
-        ("mixers[0].tracks[0]", "", ""),
-        ("mixers[0].tracks[0].tracks[0]", "", ""),
-        ("mixers[0].tracks[0].tracks[0].tracks[0]", "", ""),
-        ("mixers[0].tracks[0].tracks[1]", "", ""),
-        ("mixers[0].tracks[1]", "", ""),
-        ("mixers[0].tracks[2]", "", ""),
+        # ("mixers[0].tracks[0]", "", "", ""),
+        # ("mixers[0].tracks[0].tracks[0]", "", "", ""),
+        # ("mixers[0].tracks[0].tracks[0].tracks[0]", "", "", ""),
+        # ("mixers[0].tracks[0].tracks[1]", "", "", ""),
+        # ("mixers[0].tracks[1]", "", "", ""),
+        # ("mixers[0].tracks[2]", "", "", ""),
+        (
+            "mixers[1].tracks[0]",
+            """
+            --- initial
+            +++ mutation
+            @@ -84,17 +84,17 @@
+                         active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+                 NODE TREE 1052 group (session.mixers[1]:group)
+                     1053 group (session.mixers[1]:tracks)
+            -            1058 group (session.mixers[1].tracks[0]:group)
+            -                1059 group (session.mixers[1].tracks[0]:tracks)
+            -                1062 supriya:meters:2 (session.mixers[1].tracks[0]:input-levels)
+            +            1058 group
+            +                1059 group
+            +                1062 supriya:meters:2
+                                 in_: 34.0, out: 48.0
+            -                1060 group (session.mixers[1].tracks[0]:devices)
+            -                1061 supriya:channel-strip:2 (session.mixers[1].tracks[0]:channel-strip)
+            -                    active: c46, bus: 34.0, done_action: 2.0, gain: c47, gate: 1.0
+            -                1063 supriya:meters:2 (session.mixers[1].tracks[0]:output-levels)
+            +                1060 group
+            +                1061 supriya:channel-strip:2
+            +                    active: c46, bus: 34.0, done_action: 14.0, gain: c47, gate: 0.0
+            +                1063 supriya:meters:2
+                                 in_: 34.0, out: 50.0
+            -                1064 supriya:patch-cable:2x2 (session.mixers[1].tracks[0].output:synth)
+            -                    active: c46, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 34.0, out: 32.0
+            +                1064 supriya:patch-cable:2x2
+            +                    active: c46, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 34.0, out: 32.0
+                     1056 supriya:meters:2 (session.mixers[1]:input-levels)
+                         in_: 32.0, out: 42.0
+                     1054 group (session.mixers[1]:devices)
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -84,17 +84,6 @@
+                         active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+                 NODE TREE 1052 group (session.mixers[1]:group)
+                     1053 group (session.mixers[1]:tracks)
+            -            1058 group (session.mixers[1].tracks[0]:group)
+            -                1059 group (session.mixers[1].tracks[0]:tracks)
+            -                1062 supriya:meters:2 (session.mixers[1].tracks[0]:input-levels)
+            -                    in_: 34.0, out: 48.0
+            -                1060 group (session.mixers[1].tracks[0]:devices)
+            -                1061 supriya:channel-strip:2 (session.mixers[1].tracks[0]:channel-strip)
+            -                    active: c46, bus: 34.0, done_action: 2.0, gain: c47, gate: 1.0
+            -                1063 supriya:meters:2 (session.mixers[1].tracks[0]:output-levels)
+            -                    in_: 34.0, out: 50.0
+            -                1064 supriya:patch-cable:2x2 (session.mixers[1].tracks[0].output:synth)
+            -                    active: c46, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 34.0, out: 32.0
+                     1056 supriya:meters:2 (session.mixers[1]:input-levels)
+                         in_: 32.0, out: 42.0
+                     1054 group (session.mixers[1]:devices)
+            """,
+            """
+            - [None, [['/n_set', 1058, 'gate', 0.0], ['/n_set', 1061, 'done_action', 14.0]]]
+            """,
+        ),
     ],
 )
 @pytest.mark.asyncio
 async def test_Track_delete(
     expected_commands: str,
-    expected_diff: str,
+    expected_final_diff: str,
+    expected_initial_diff: str,
     online: bool,
     complex_session: tuple[Session, str],
     target: str,
@@ -222,6 +282,7 @@ async def test_Track_delete(
     session, initial_tree = complex_session
     if online:
         await session.boot()
+        await session.sync()
     target_ = session[target]
     assert isinstance(target_, Track)
     parent_ = target_.parent
@@ -234,10 +295,16 @@ async def test_Track_delete(
         return
     await assert_diff(
         session,
-        expected_diff,
+        expected_initial_diff,
         expected_initial_tree=initial_tree,
     )
     assert format_messages(commands) == normalize(expected_commands)
+    await asyncio.sleep(LAG_TIME * 2)
+    await assert_diff(
+        session,
+        expected_final_diff,
+        expected_initial_tree=initial_tree,
+    )
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -771,6 +838,7 @@ async def test_Track_move(
     session, _ = complex_session
     if online:
         await session.boot()
+        await session.sync()
         initial_tree = await debug_tree(session, annotated=False)
     target_ = session[target]
     parent_ = session[parent]
@@ -955,6 +1023,7 @@ async def test_Track_set_input(
     session, initial_tree = complex_session
     if online:
         await session.boot()
+        await session.sync()
     source_ = session[source]
     assert isinstance(source_, Track)
     target_: BusGroup | Track | None = None
@@ -1033,6 +1102,7 @@ async def test_Track_set_muted(
     session, _ = complex_session
     if online:
         await session.boot()
+        await session.sync()
         await session.mixers[0].tracks[0].tracks[0].tracks[0].add_device()
         await session.mixers[0].tracks[1].sends[0].delete()
         await asyncio.sleep(0.25)
@@ -1242,6 +1312,7 @@ async def test_Track_set_output(
     session, initial_tree = complex_session
     if online:
         await session.boot()
+        await session.sync()
     source_ = session[source]
     assert isinstance(source_, Track)
     target_: BusGroup | Default | TrackContainer | None = None
@@ -1365,6 +1436,7 @@ async def test_Track_set_soloed(
     session, initial_tree = complex_session
     if online:
         await session.boot()
+        await session.sync()
         await session.mixers[0].tracks[0].tracks[0].tracks[0].add_device()
         await session.mixers[0].tracks[1].sends[0].delete()
         await asyncio.sleep(0.25)
@@ -1416,6 +1488,7 @@ async def test_Track_ungroup(
     session, initial_tree = complex_session
     if online:
         await session.boot()
+        await session.sync()
     target_ = session[target]
     assert isinstance(target_, Track)
     # Operation

@@ -1,4 +1,5 @@
 import asyncio
+from contextlib import nullcontext
 from typing import (
     TYPE_CHECKING,
     Awaitable,
@@ -13,9 +14,9 @@ from typing import (
     cast,
 )
 
-from ..contexts import AsyncServer, Buffer, BusGroup, Context, Group, Node
+from ..contexts import AsyncServer, Buffer, BusGroup, Group, Node
 from ..contexts.responses import QueryTreeGroup
-from ..enums import BootStatus, CalculationRate
+from ..enums import BootStatus, CalculationRate, DoneAction
 from ..ugens import SynthDef
 from ..utils import iterate_nwise
 
@@ -93,13 +94,22 @@ class Component(Generic[C]):
         pass
 
     def _deallocate_deep(self) -> None:
-        next(iterator := self._walk())._deallocate()
-        for component in iterator:
+        self._deallocate_root()
+        for component in self._walk():
             component._deallocate()
 
+    def _deallocate_root(self) -> None:
+        pass
+
     def _delete(self) -> None:
-        self._deallocate_deep()
+        self._deallocate_root()
+        for component in self._walk():
+            component._deallocate()
+            component._disconnect_dependents(root=self)
         self._disconnect_parentage()
+
+    def _disconnect_dependents(self, root: "Component") -> None:
+        pass
 
     def _disconnect_parentage(self) -> None:
         self._parent = None
@@ -219,7 +229,6 @@ class AllocatableComponent(Component[C]):
         super().__init__(parent=parent)
         self._audio_buses: dict[str, BusGroup] = {}
         self._buffers: dict[str, Buffer] = {}
-        self._context: Context | None = None
         self._control_buses: dict[str, BusGroup] = {}
         self._is_active: bool = True
         self._nodes: dict[str, Node] = {}
@@ -231,24 +240,36 @@ class AllocatableComponent(Component[C]):
             return context
         return None
 
-    def _deallocate(
-        self,
-    ) -> None:
-        for key in tuple(self._audio_buses):
-            self._audio_buses.pop(key).free()
-        for key in tuple(self._control_buses):
-            self._control_buses.pop(key).free()
-        self._deallocate_nodes()
-        self._nodes.clear()
-        for key in tuple(self._buffers):
-            self._buffers.pop(key).free()
+    def _deallocate(self) -> None:
+        context_manager = (
+            context.at()
+            if (context := self._can_allocate()) is not None
+            else nullcontext()
+        )
+        with context_manager:
+            for key in tuple(self._audio_buses):
+                self._audio_buses.pop(key).free()
+            for key in tuple(self._control_buses):
+                self._control_buses.pop(key).free()
+            self._nodes.clear()
+            for key in tuple(self._buffers):
+                self._buffers.pop(key).free()
 
-    def _deallocate_nodes(self) -> None:
-        if group_node := self._nodes.get(ComponentNames.GROUP):
-            if not self._is_active:
-                group_node.free()
-            else:
+    def _deallocate_root(self) -> None:
+        context_manager = (
+            context.at()
+            if (context := self._can_allocate()) is not None
+            else nullcontext()
+        )
+        group_node = self._nodes.get(ComponentNames.GROUP)
+        synth_node = self._nodes.get(ComponentNames.CHANNEL_STRIP) or self._nodes.get(
+            ComponentNames.SYNTH
+        )
+        with context_manager:
+            if group_node:
                 group_node.set(gate=0)
+            if synth_node:
+                synth_node.set(done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP)
 
     def _get_audio_bus(
         self,
