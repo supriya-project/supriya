@@ -10,7 +10,7 @@ from .conftest import assert_diff, capture, format_messages
 @pytest.mark.xfail
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "expected_diff, expected_commands",
+    "expected_diff, expected_messages",
     [
         (
             "",
@@ -23,11 +23,11 @@ from .conftest import assert_diff, capture, format_messages
 )
 @pytest.mark.asyncio
 async def test_Mixer_delete(
-    expected_commands: str,
+    complex_session: tuple[Session, str],
     expected_diff: str,
+    expected_messages: str,
     mixer: Mixer,
     online: bool,
-    complex_session: tuple[Session, str],
 ) -> None:
     # Pre-conditions
     session, initial_tree = complex_session
@@ -36,7 +36,7 @@ async def test_Mixer_delete(
         await session.boot()
     # Operation
     print("Operation")
-    with capture(mixer.context) as commands:
+    with capture(mixer.context) as messages:
         await mixer.delete()
     # Post-conditions
     print("Post-conditions")
@@ -49,4 +49,4 @@ async def test_Mixer_delete(
         <session.contexts[0]>
         """,
     )
-    assert format_messages(commands) == normalize(expected_commands)
+    assert format_messages(messages) == normalize(expected_messages)

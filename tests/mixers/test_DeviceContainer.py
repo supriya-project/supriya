@@ -9,7 +9,7 @@ from .conftest import assert_diff, capture, format_messages
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "target, expected_diff, expected_commands",
+    "target, expected_diff, expected_messages",
     [
         (
             "mixers[0]",
@@ -70,8 +70,8 @@ from .conftest import assert_diff, capture, format_messages
 @pytest.mark.asyncio
 async def test_Track_add_device(
     complex_session: tuple[Session, str],
-    expected_commands: str,
     expected_diff: str,
+    expected_messages: str,
     online: bool,
     target: str,
 ) -> None:
@@ -82,7 +82,7 @@ async def test_Track_add_device(
     target_ = session[target]
     assert isinstance(target_, DeviceContainer)
     # Operation
-    with capture(session["mixers[0]"].context) as commands:
+    with capture(session["mixers[0]"].context) as messages:
         device = await target_.add_device()
     # Post-conditions
     assert isinstance(device, Device)
@@ -96,4 +96,4 @@ async def test_Track_add_device(
         expected_diff,
         expected_initial_tree=initial_tree,
     )
-    assert format_messages(commands) == normalize(expected_commands)
+    assert format_messages(messages) == normalize(expected_messages)

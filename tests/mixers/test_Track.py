@@ -14,7 +14,7 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "postfader, source, target, maybe_raises, expected_diff, expected_commands",
+    "postfader, source, target, maybe_raises, expected_diff, expected_messages",
     [
         (
             True,
@@ -156,8 +156,8 @@ from .conftest import assert_diff, capture, debug_tree, does_not_raise, format_m
 @pytest.mark.asyncio
 async def test_Track_add_send(
     complex_session: tuple[Session, str],
-    expected_commands: str,
     expected_diff: str,
+    expected_messages: str,
     maybe_raises,
     online: bool,
     postfader: bool,
@@ -177,7 +177,7 @@ async def test_Track_add_send(
         await debug_tree(session)
     # Operation
     send: TrackSend | None = None
-    with maybe_raises, capture(session["mixers[0]"].context) as commands:
+    with maybe_raises, capture(session["mixers[0]"].context) as messages:
         send = await source_.add_send(postfader=postfader, target=target_)
     # Post-conditions
     if send is not None:
@@ -194,100 +194,204 @@ async def test_Track_add_send(
         expected_diff,
         expected_initial_tree=initial_tree,
     )
-    assert format_messages(commands) == normalize(expected_commands)
+    assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "target, expected_initial_diff, expected_final_diff, expected_commands",
+    "target, commands, expected_diff, expected_messages",
     [
-        # ("mixers[0].tracks[0]", "", "", ""),
-        # ("mixers[0].tracks[0].tracks[0]", "", "", ""),
-        # ("mixers[0].tracks[0].tracks[0].tracks[0]", "", "", ""),
-        # ("mixers[0].tracks[0].tracks[1]", "", "", ""),
-        # ("mixers[0].tracks[1]", "", "", ""),
-        # ("mixers[0].tracks[2]", "", "", ""),
         (
-            "mixers[1].tracks[0]",
+            "mixers[0].tracks[0]",
+            [],
             """
             --- initial
             +++ mutation
-            @@ -84,17 +84,17 @@
-                         active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
-                 NODE TREE 1052 group (session.mixers[1]:group)
-                     1053 group (session.mixers[1]:tracks)
-            -            1058 group (session.mixers[1].tracks[0]:group)
-            -                1059 group (session.mixers[1].tracks[0]:tracks)
-            -                1062 supriya:meters:2 (session.mixers[1].tracks[0]:input-levels)
-            +            1058 group
-            +                1059 group
-            +                1062 supriya:meters:2
-                                 in_: 34.0, out: 48.0
-            -                1060 group (session.mixers[1].tracks[0]:devices)
-            -                1061 supriya:channel-strip:2 (session.mixers[1].tracks[0]:channel-strip)
-            -                    active: c46, bus: 34.0, done_action: 2.0, gain: c47, gate: 1.0
-            -                1063 supriya:meters:2 (session.mixers[1].tracks[0]:output-levels)
-            +                1060 group
-            +                1061 supriya:channel-strip:2
-            +                    active: c46, bus: 34.0, done_action: 14.0, gain: c47, gate: 0.0
-            +                1063 supriya:meters:2
-                                 in_: 34.0, out: 50.0
-            -                1064 supriya:patch-cable:2x2 (session.mixers[1].tracks[0].output:synth)
-            -                    active: c46, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 34.0, out: 32.0
-            +                1064 supriya:patch-cable:2x2
-            +                    active: c46, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 34.0, out: 32.0
-                     1056 supriya:meters:2 (session.mixers[1]:input-levels)
-                         in_: 32.0, out: 42.0
-                     1054 group (session.mixers[1]:devices)
+            @@ -7,11 +7,11 @@
+                                 in_: 18.0, out: 7.0
+                             1008 group
+                             1009 supriya:channel-strip:2
+            -                    active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
+            +                    active: c5, bus: 18.0, done_action: 14.0, gain: c6, gate: 0.0
+                             1011 supriya:meters:2
+                                 in_: 18.0, out: 9.0
+                             1012 supriya:patch-cable:2x2
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
+                     1004 supriya:meters:2
+                         in_: 16.0, out: 1.0
+                     1002 group
             """,
+            """
+            - [None, [['/n_set', 1006, 'gate', 0.0], ['/n_set', 1009, 'done_action', 14.0]]]
+            """,
+        ),
+        (
+            "mixers[0].tracks[0]",
+            [
+                ("mixers[0].tracks[0]", "add_track", None),
+            ],
             """
             --- initial
             +++ mutation
-            @@ -84,17 +84,6 @@
-                         active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
-                 NODE TREE 1052 group (session.mixers[1]:group)
-                     1053 group (session.mixers[1]:tracks)
-            -            1058 group (session.mixers[1].tracks[0]:group)
-            -                1059 group (session.mixers[1].tracks[0]:tracks)
-            -                1062 supriya:meters:2 (session.mixers[1].tracks[0]:input-levels)
-            -                    in_: 34.0, out: 48.0
-            -                1060 group (session.mixers[1].tracks[0]:devices)
-            -                1061 supriya:channel-strip:2 (session.mixers[1].tracks[0]:channel-strip)
-            -                    active: c46, bus: 34.0, done_action: 2.0, gain: c47, gate: 1.0
-            -                1063 supriya:meters:2 (session.mixers[1].tracks[0]:output-levels)
-            -                    in_: 34.0, out: 50.0
-            -                1064 supriya:patch-cable:2x2 (session.mixers[1].tracks[0].output:synth)
-            -                    active: c46, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 34.0, out: 32.0
-                     1056 supriya:meters:2 (session.mixers[1]:input-levels)
-                         in_: 32.0, out: 42.0
-                     1054 group (session.mixers[1]:devices)
+            @@ -9,20 +9,20 @@
+                                         in_: 20.0, out: 13.0
+                                     1014 group
+                                     1015 supriya:channel-strip:2
+            -                            active: c11, bus: 20.0, done_action: 2.0, gain: c12, gate: 1.0
+            +                            active: c11, bus: 20.0, done_action: 2.0, gain: c12, gate: 0.0
+                                     1017 supriya:meters:2
+                                         in_: 20.0, out: 15.0
+                                     1018 supriya:patch-cable:2x2
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
+                             1010 supriya:meters:2
+                                 in_: 18.0, out: 7.0
+                             1008 group
+                             1009 supriya:channel-strip:2
+            -                    active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
+            +                    active: c5, bus: 18.0, done_action: 14.0, gain: c6, gate: 0.0
+                             1011 supriya:meters:2
+                                 in_: 18.0, out: 9.0
+                             1019 supriya:patch-cable:2x2
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
+                     1004 supriya:meters:2
+                         in_: 16.0, out: 1.0
+                     1002 group
             """,
             """
-            - [None, [['/n_set', 1058, 'gate', 0.0], ['/n_set', 1061, 'done_action', 14.0]]]
+            - [None, [['/n_set', 1006, 'gate', 0.0], ['/n_set', 1009, 'done_action', 14.0]]]
+            """,
+        ),
+        (
+            "mixers[0].tracks[0]",
+            [("mixers[0].tracks[0]", "add_send", "mixers[0].tracks[0]")],
+            """
+            --- initial
+            +++ mutation
+            @@ -3,19 +3,19 @@
+                     1001 group
+                         1006 group
+                             1013 supriya:fb-patch-cable:2x2
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
+                             1007 group
+                             1010 supriya:meters:2
+                                 in_: 18.0, out: 7.0
+                             1008 group
+                             1009 supriya:channel-strip:2
+            -                    active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
+            +                    active: c5, bus: 18.0, done_action: 14.0, gain: c6, gate: 0.0
+                             1014 supriya:patch-cable:2x2
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
+                             1011 supriya:meters:2
+                                 in_: 18.0, out: 9.0
+                             1012 supriya:patch-cable:2x2
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
+                     1004 supriya:meters:2
+                         in_: 16.0, out: 1.0
+                     1002 group
+            """,
+            """
+            - [None, [['/n_set', 1006, 'gate', 0.0], ['/n_set', 1009, 'done_action', 14.0]]]
+            """,
+        ),
+        (
+            "mixers[0].tracks[1]",
+            [
+                ("mixers[0]", "add_track", None),
+                ("mixers[0].tracks[1]", "add_send", "mixers[0].tracks[0]"),
+            ],
+            """
+            --- initial
+            +++ mutation
+            @@ -3,7 +3,7 @@
+                     1001 group
+                         1006 group
+                             1020 supriya:fb-patch-cable:2x2
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 18.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 18.0
+                             1007 group
+                             1010 supriya:meters:2
+                                 in_: 18.0, out: 7.0
+            @@ -20,13 +20,13 @@
+                                 in_: 20.0, out: 13.0
+                             1015 group
+                             1016 supriya:channel-strip:2
+            -                    active: c11, bus: 20.0, done_action: 2.0, gain: c12, gate: 1.0
+            +                    active: c11, bus: 20.0, done_action: 14.0, gain: c12, gate: 0.0
+                             1021 supriya:patch-cable:2x2
+            -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 22.0
+            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 22.0
+                             1018 supriya:meters:2
+                                 in_: 20.0, out: 15.0
+                             1019 supriya:patch-cable:2x2
+            -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
+            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
+                     1004 supriya:meters:2
+                         in_: 16.0, out: 1.0
+                     1002 group
+            """,
+            """
+            - [None, [['/n_set', 1013, 'gate', 0.0], ['/n_set', 1016, 'done_action', 14.0]]]
+            - ['/n_set', 1020, 'gate', 0.0]
+            """,
+        ),
+        (
+            "mixers[0].tracks[1]",
+            [
+                ("mixers[0]", "add_track", None),
+                ("mixers[0].tracks[0]", "add_send", "mixers[0].tracks[1]"),
+            ],
+            """
+            """,
+            """
+            """,
+        ),
+        (
+            "mixers[0].tracks[1]",
+            [
+                ("mixers[0]", "add_track", None),
+                ("mixers[0].tracks[1]", "add_track", None),
+                ("mixers[0].tracks[0]", "add_send", "mixers[0].tracks[1].tracks[0]"),
+            ],
+            """
+            """,
+            """
             """,
         ),
     ],
 )
 @pytest.mark.asyncio
 async def test_Track_delete(
-    expected_commands: str,
-    expected_final_diff: str,
-    expected_initial_diff: str,
+    basic_session: tuple[Session, str],
+    commands: list[tuple[str, str, str | None]],
+    expected_diff: str,
+    expected_messages: str,
     online: bool,
-    complex_session: tuple[Session, str],
     target: str,
 ) -> None:
     # TODO: rewrite this with complex_session and track lookups
     # Pre-conditions
-    session, initial_tree = complex_session
+    session, _ = basic_session
+    for command in commands:
+        procedure = getattr(session[command[0]], command[1])
+        if command[2]:
+            await procedure(session[command[2]])
+        else:
+            await procedure()
     if online:
         await session.boot()
         await session.sync()
+        initial_tree = await debug_tree(session, annotated=False)
     target_ = session[target]
     assert isinstance(target_, Track)
     parent_ = target_.parent
     # Operation
-    with capture(session["mixers[0]"].context) as commands:
+    with capture(session["mixers[0]"].context) as messages:
         await target_.delete()
     # Post-conditions
     assert parent_ and target_ not in parent_.children
@@ -295,21 +399,16 @@ async def test_Track_delete(
         return
     await assert_diff(
         session,
-        expected_initial_diff,
+        expected_diff,
         expected_initial_tree=initial_tree,
+        annotated=False,
     )
-    assert format_messages(commands) == normalize(expected_commands)
-    await asyncio.sleep(LAG_TIME * 2)
-    await assert_diff(
-        session,
-        expected_final_diff,
-        expected_initial_tree=initial_tree,
-    )
+    assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "target, parent, index, maybe_raises, expected_graph_order, expected_diff, expected_commands",
+    "target, parent, index, maybe_raises, expected_graph_order, expected_diff, expected_messages",
     [
         (
             "mixers[0].tracks[0]",
@@ -824,14 +923,14 @@ async def test_Track_delete(
 @pytest.mark.asyncio
 async def test_Track_move(
     complex_session: tuple[Session, str],
-    expected_commands: str,
-    expected_graph_order: list[int],
     expected_diff: str,
+    expected_graph_order: list[int],
+    expected_messages: str,
     index: int,
+    maybe_raises,
     online: bool,
     parent: str,
     target: str,
-    maybe_raises,
 ) -> None:
     # Pre-conditions
     print("Pre-conditions")
@@ -846,14 +945,14 @@ async def test_Track_move(
     assert isinstance(parent_, TrackContainer)
     # Operation
     print("Operation")
-    with maybe_raises, capture(session["mixers[0]"].context) as commands:
+    with maybe_raises, capture(session["mixers[0]"].context) as messages:
         await target_.move(index=index, parent=parent_)
     # Post-conditions
     print("Post-conditions")
     assert target_.graph_order == expected_graph_order
     if not online:
         return
-    assert format_messages(commands) == normalize(expected_commands)
+    assert format_messages(messages) == normalize(expected_messages)
     await assert_diff(
         session,
         expected_diff,
@@ -864,7 +963,7 @@ async def test_Track_move(
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "source, target, maybe_raises, expected_diff, expected_commands",
+    "source, target, maybe_raises, expected_diff, expected_messages",
     [
         # none
         (
@@ -1012,8 +1111,8 @@ async def test_Track_move(
 @pytest.mark.asyncio
 async def test_Track_set_input(
     complex_session: tuple[Session, str],
-    expected_commands: str,
     expected_diff: str,
+    expected_messages: str,
     maybe_raises,
     online: bool,
     source: str,
@@ -1041,7 +1140,7 @@ async def test_Track_set_input(
     #         count=count,
     #     )
     # Operation
-    with maybe_raises, capture(session["mixers[0]"].context) as commands:
+    with maybe_raises, capture(session["mixers[0]"].context) as messages:
         await source_.set_input(target_)
     # Post-conditions
     if not online:
@@ -1051,12 +1150,12 @@ async def test_Track_set_input(
         expected_diff,
         expected_initial_tree=initial_tree,
     )
-    assert format_messages(commands) == normalize(expected_commands)
+    assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "actions, expected_state, expected_commands",
+    "actions, expected_state, expected_messages",
     [
         (
             [("mixers[0].tracks[0]", [True])],
@@ -1094,7 +1193,7 @@ async def test_Track_set_input(
 async def test_Track_set_muted(
     actions: list[tuple[str, list[bool]]],
     complex_session: tuple[Session, str],
-    expected_commands: str,
+    expected_messages: str,
     expected_state: list[tuple[str, tuple[float, ...], bool]],
     online: bool,
 ) -> None:
@@ -1108,7 +1207,7 @@ async def test_Track_set_muted(
         await asyncio.sleep(0.25)
         initial_tree = await debug_tree(session)
     # Operation
-    with capture(session["mixers[0]"].context) as commands:
+    with capture(session["mixers[0]"].context) as messages:
         for target, args in actions:
             target_ = session[target]
             assert isinstance(target_, Track)
@@ -1131,12 +1230,12 @@ async def test_Track_set_muted(
         for track in session._walk(Track)
         if isinstance(track, Track)
     ] == expected_state
-    assert format_messages(commands) == normalize(expected_commands)
+    assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "source, target, maybe_raises, expected_diff, expected_commands",
+    "source, target, maybe_raises, expected_diff, expected_messages",
     [
         # none
         (
@@ -1301,8 +1400,8 @@ async def test_Track_set_muted(
 @pytest.mark.asyncio
 async def test_Track_set_output(
     complex_session: tuple[Session, str],
-    expected_commands: str,
     expected_diff: str,
+    expected_messages: str,
     maybe_raises,
     online: bool,
     source: str,
@@ -1332,7 +1431,7 @@ async def test_Track_set_output(
     #         count=count,
     #     )
     # Operation
-    with maybe_raises, capture(session["mixers[0]"].context) as commands:
+    with maybe_raises, capture(session["mixers[0]"].context) as messages:
         await source_.set_output(target_)
     # Post-conditions
     if not online:
@@ -1342,12 +1441,12 @@ async def test_Track_set_output(
         expected_diff,
         expected_initial_tree=initial_tree,
     )
-    assert format_messages(commands) == normalize(expected_commands)
+    assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "actions, expected_state, expected_commands",
+    "actions, expected_state, expected_messages",
     [
         (
             [
@@ -1428,7 +1527,7 @@ async def test_Track_set_output(
 async def test_Track_set_soloed(
     actions: list[tuple[str, list[bool]]],
     complex_session: tuple[Session, str],
-    expected_commands: str,
+    expected_messages: str,
     expected_state: list[tuple[str, tuple[float, ...], bool]],
     online: bool,
 ) -> None:
@@ -1442,7 +1541,7 @@ async def test_Track_set_soloed(
         await asyncio.sleep(0.25)
         initial_tree = await debug_tree(session)
     # Operation
-    with capture(session["mixers[0]"].context) as commands:
+    with capture(session["mixers[0]"].context) as messages:
         for target, args in actions:
             target_ = session[target]
             assert isinstance(target_, Track)
@@ -1465,13 +1564,13 @@ async def test_Track_set_soloed(
         for track in session._walk(Track)
         if isinstance(track, Track)
     ] == expected_state
-    assert format_messages(commands) == normalize(expected_commands)
+    assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest.mark.xfail
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "expected_diff, expected_commands",
+    "expected_diff, expected_messages",
     [
         ("", ""),
     ],
@@ -1479,8 +1578,8 @@ async def test_Track_set_soloed(
 @pytest.mark.asyncio
 async def test_Track_ungroup(
     complex_session: tuple[Session, str],
-    expected_commands: str,
     expected_diff: str,
+    expected_messages: str,
     online: bool,
     target: str,
 ) -> None:
@@ -1492,7 +1591,7 @@ async def test_Track_ungroup(
     target_ = session[target]
     assert isinstance(target_, Track)
     # Operation
-    with capture(session["mixers[0]"].context) as commands:
+    with capture(session["mixers[0]"].context) as messages:
         await target_.ungroup()
     # Post-conditions
     if not online:
@@ -1503,5 +1602,5 @@ async def test_Track_ungroup(
         expected_initial_tree="""
         """,
     )
-    assert format_messages(commands) == normalize(expected_commands)
+    assert format_messages(messages) == normalize(expected_messages)
     raise Exception

@@ -109,6 +109,13 @@ class Component(Generic[C]):
         self._disconnect_parentage()
 
     def _disconnect_dependents(self, root: "Component") -> None:
+        for dependent in sorted(self._dependents, key=lambda x: x.graph_order):
+            print(f"disconnecting! {root=!r} {self=!r} {dependent=!r}")
+            dependent._disconnect_dependency(root=root, dependency=self)
+
+    def _disconnect_dependency(
+        self, root: "Component", dependency: "Component"
+    ) -> None:
         pass
 
     def _disconnect_parentage(self) -> None:
