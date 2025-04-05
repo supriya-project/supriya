@@ -66,6 +66,7 @@ runs:
         mkdir /tmp/supercollider/build
         cd /tmp/supercollider/build
         cmake \
+          -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
           -DRULE_LAUNCH_COMPILE=ccache \
           -DSC_ED=OFF \
           -DSC_EL=OFF \
