@@ -1521,7 +1521,7 @@ static const char *__pyx_f[] = {
 /*--- Type declarations ---*/
 struct __pyx_obj_7supriya_8contexts_3shm_ServerSHM;
 
-/* "supriya/contexts/shm.pyx":10
+/* "supriya/contexts/shm.pyx":8
  * 
  * 
  * cdef class ServerSHM:             # <<<<<<<<<<<<<<
@@ -2432,17 +2432,14 @@ static const char __pyx_k__2[] = ".";
 static const char __pyx_k__7[] = "?";
 static const char __pyx_k_gc[] = "gc";
 static const char __pyx_k_Bus[] = "Bus";
-static const char __pyx_k_List[] = "List";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_self[] = "self";
 static const char __pyx_k_test[] = "__test__";
-static const char __pyx_k_Union[] = "Union";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_enable[] = "enable";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_reduce[] = "__reduce__";
-static const char __pyx_k_typing[] = "typing";
 static const char __pyx_k_disable[] = "disable";
 static const char __pyx_k_indices[] = "indices";
 static const char __pyx_k_BusGroup[] = "BusGroup";
@@ -2511,12 +2508,10 @@ typedef struct {
   PyTypeObject *__pyx_ptype_7supriya_8contexts_3shm_ServerSHM;
   PyObject *__pyx_n_s_Bus;
   PyObject *__pyx_n_s_BusGroup;
-  PyObject *__pyx_n_s_List;
   PyObject *__pyx_n_s_ServerSHM;
   PyObject *__pyx_n_s_ServerSHM___reduce_cython;
   PyObject *__pyx_n_s_ServerSHM___setstate_cython;
   PyObject *__pyx_n_s_TypeError;
-  PyObject *__pyx_n_s_Union;
   PyObject *__pyx_n_s_ValueError;
   PyObject *__pyx_kp_u__2;
   PyObject *__pyx_n_s__7;
@@ -2550,7 +2545,6 @@ typedef struct {
   PyObject *__pyx_kp_s_stringsource;
   PyObject *__pyx_n_s_supriya_contexts_shm;
   PyObject *__pyx_n_s_test;
-  PyObject *__pyx_n_s_typing;
   PyObject *__pyx_int_0;
   PyObject *__pyx_int_1;
   PyObject *__pyx_tuple_;
@@ -2604,12 +2598,10 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_type_7supriya_8contexts_3shm_ServerSHM);
   Py_CLEAR(clear_module_state->__pyx_n_s_Bus);
   Py_CLEAR(clear_module_state->__pyx_n_s_BusGroup);
-  Py_CLEAR(clear_module_state->__pyx_n_s_List);
   Py_CLEAR(clear_module_state->__pyx_n_s_ServerSHM);
   Py_CLEAR(clear_module_state->__pyx_n_s_ServerSHM___reduce_cython);
   Py_CLEAR(clear_module_state->__pyx_n_s_ServerSHM___setstate_cython);
   Py_CLEAR(clear_module_state->__pyx_n_s_TypeError);
-  Py_CLEAR(clear_module_state->__pyx_n_s_Union);
   Py_CLEAR(clear_module_state->__pyx_n_s_ValueError);
   Py_CLEAR(clear_module_state->__pyx_kp_u__2);
   Py_CLEAR(clear_module_state->__pyx_n_s__7);
@@ -2643,7 +2635,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_kp_s_stringsource);
   Py_CLEAR(clear_module_state->__pyx_n_s_supriya_contexts_shm);
   Py_CLEAR(clear_module_state->__pyx_n_s_test);
-  Py_CLEAR(clear_module_state->__pyx_n_s_typing);
   Py_CLEAR(clear_module_state->__pyx_int_0);
   Py_CLEAR(clear_module_state->__pyx_int_1);
   Py_CLEAR(clear_module_state->__pyx_tuple_);
@@ -2675,12 +2666,10 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_type_7supriya_8contexts_3shm_ServerSHM);
   Py_VISIT(traverse_module_state->__pyx_n_s_Bus);
   Py_VISIT(traverse_module_state->__pyx_n_s_BusGroup);
-  Py_VISIT(traverse_module_state->__pyx_n_s_List);
   Py_VISIT(traverse_module_state->__pyx_n_s_ServerSHM);
   Py_VISIT(traverse_module_state->__pyx_n_s_ServerSHM___reduce_cython);
   Py_VISIT(traverse_module_state->__pyx_n_s_ServerSHM___setstate_cython);
   Py_VISIT(traverse_module_state->__pyx_n_s_TypeError);
-  Py_VISIT(traverse_module_state->__pyx_n_s_Union);
   Py_VISIT(traverse_module_state->__pyx_n_s_ValueError);
   Py_VISIT(traverse_module_state->__pyx_kp_u__2);
   Py_VISIT(traverse_module_state->__pyx_n_s__7);
@@ -2714,7 +2703,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_kp_s_stringsource);
   Py_VISIT(traverse_module_state->__pyx_n_s_supriya_contexts_shm);
   Py_VISIT(traverse_module_state->__pyx_n_s_test);
-  Py_VISIT(traverse_module_state->__pyx_n_s_typing);
   Py_VISIT(traverse_module_state->__pyx_int_0);
   Py_VISIT(traverse_module_state->__pyx_int_1);
   Py_VISIT(traverse_module_state->__pyx_tuple_);
@@ -2756,12 +2744,10 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_ptype_7supriya_8contexts_3shm_ServerSHM __pyx_mstate_global->__pyx_ptype_7supriya_8contexts_3shm_ServerSHM
 #define __pyx_n_s_Bus __pyx_mstate_global->__pyx_n_s_Bus
 #define __pyx_n_s_BusGroup __pyx_mstate_global->__pyx_n_s_BusGroup
-#define __pyx_n_s_List __pyx_mstate_global->__pyx_n_s_List
 #define __pyx_n_s_ServerSHM __pyx_mstate_global->__pyx_n_s_ServerSHM
 #define __pyx_n_s_ServerSHM___reduce_cython __pyx_mstate_global->__pyx_n_s_ServerSHM___reduce_cython
 #define __pyx_n_s_ServerSHM___setstate_cython __pyx_mstate_global->__pyx_n_s_ServerSHM___setstate_cython
 #define __pyx_n_s_TypeError __pyx_mstate_global->__pyx_n_s_TypeError
-#define __pyx_n_s_Union __pyx_mstate_global->__pyx_n_s_Union
 #define __pyx_n_s_ValueError __pyx_mstate_global->__pyx_n_s_ValueError
 #define __pyx_kp_u__2 __pyx_mstate_global->__pyx_kp_u__2
 #define __pyx_n_s__7 __pyx_mstate_global->__pyx_n_s__7
@@ -2795,7 +2781,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_kp_s_stringsource __pyx_mstate_global->__pyx_kp_s_stringsource
 #define __pyx_n_s_supriya_contexts_shm __pyx_mstate_global->__pyx_n_s_supriya_contexts_shm
 #define __pyx_n_s_test __pyx_mstate_global->__pyx_n_s_test
-#define __pyx_n_s_typing __pyx_mstate_global->__pyx_n_s_typing
 #define __pyx_int_0 __pyx_mstate_global->__pyx_int_0
 #define __pyx_int_1 __pyx_mstate_global->__pyx_int_1
 #define __pyx_tuple_ __pyx_mstate_global->__pyx_tuple_
@@ -2805,10 +2790,10 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_codeobj__6 __pyx_mstate_global->__pyx_codeobj__6
 /* #### Code section: module_code ### */
 
-/* "supriya/contexts/shm.pyx":24
+/* "supriya/contexts/shm.pyx":22
  *     cdef unsigned int bus_count
  * 
- *     def __cinit__(self, unsigned int port_number, unsigned int bus_count):             # <<<<<<<<<<<<<<
+ *     def __cinit__(self, unsigned int port_number, unsigned int bus_count) -> None:             # <<<<<<<<<<<<<<
  *         self.bus_count = bus_count
  *         self.client = new server_shared_memory_client(port_number)
  */
@@ -2852,7 +2837,7 @@ static int __pyx_pw_7supriya_8contexts_3shm_9ServerSHM_1__cinit__(PyObject *__py
           (void)__Pyx_Arg_NewRef_VARARGS(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -2860,14 +2845,14 @@ static int __pyx_pw_7supriya_8contexts_3shm_9ServerSHM_1__cinit__(PyObject *__py
           (void)__Pyx_Arg_NewRef_VARARGS(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, 1); __PYX_ERR(0, 24, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, 1); __PYX_ERR(0, 22, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__cinit__") < 0)) __PYX_ERR(0, 24, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__cinit__") < 0)) __PYX_ERR(0, 22, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -2875,12 +2860,12 @@ static int __pyx_pw_7supriya_8contexts_3shm_9ServerSHM_1__cinit__(PyObject *__py
       values[0] = __Pyx_Arg_VARARGS(__pyx_args, 0);
       values[1] = __Pyx_Arg_VARARGS(__pyx_args, 1);
     }
-    __pyx_v_port_number = __Pyx_PyInt_As_unsigned_int(values[0]); if (unlikely((__pyx_v_port_number == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L3_error)
-    __pyx_v_bus_count = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_bus_count == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L3_error)
+    __pyx_v_port_number = __Pyx_PyInt_As_unsigned_int(values[0]); if (unlikely((__pyx_v_port_number == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L3_error)
+    __pyx_v_bus_count = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_bus_count == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 24, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 22, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2914,17 +2899,17 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM___cinit__(struct __pyx_ob
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "supriya/contexts/shm.pyx":25
+  /* "supriya/contexts/shm.pyx":23
  * 
- *     def __cinit__(self, unsigned int port_number, unsigned int bus_count):
+ *     def __cinit__(self, unsigned int port_number, unsigned int bus_count) -> None:
  *         self.bus_count = bus_count             # <<<<<<<<<<<<<<
  *         self.client = new server_shared_memory_client(port_number)
  * 
  */
   __pyx_v_self->bus_count = __pyx_v_bus_count;
 
-  /* "supriya/contexts/shm.pyx":26
- *     def __cinit__(self, unsigned int port_number, unsigned int bus_count):
+  /* "supriya/contexts/shm.pyx":24
+ *     def __cinit__(self, unsigned int port_number, unsigned int bus_count) -> None:
  *         self.bus_count = bus_count
  *         self.client = new server_shared_memory_client(port_number)             # <<<<<<<<<<<<<<
  * 
@@ -2934,14 +2919,14 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM___cinit__(struct __pyx_ob
     __pyx_t_1 = new detail_server_shm::server_shared_memory_client(__pyx_v_port_number);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 26, __pyx_L1_error)
+    __PYX_ERR(0, 24, __pyx_L1_error)
   }
   __pyx_v_self->client = __pyx_t_1;
 
-  /* "supriya/contexts/shm.pyx":24
+  /* "supriya/contexts/shm.pyx":22
  *     cdef unsigned int bus_count
  * 
- *     def __cinit__(self, unsigned int port_number, unsigned int bus_count):             # <<<<<<<<<<<<<<
+ *     def __cinit__(self, unsigned int port_number, unsigned int bus_count) -> None:             # <<<<<<<<<<<<<<
  *         self.bus_count = bus_count
  *         self.client = new server_shared_memory_client(port_number)
  */
@@ -2956,7 +2941,7 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM___cinit__(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "supriya/contexts/shm.pyx":28
+/* "supriya/contexts/shm.pyx":26
  *         self.client = new server_shared_memory_client(port_number)
  * 
  *     def __dealloc__(self) -> None:             # <<<<<<<<<<<<<<
@@ -2979,16 +2964,16 @@ static void __pyx_pw_7supriya_8contexts_3shm_9ServerSHM_3__dealloc__(PyObject *_
 
 static void __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_2__dealloc__(struct __pyx_obj_7supriya_8contexts_3shm_ServerSHM *__pyx_v_self) {
 
-  /* "supriya/contexts/shm.pyx":29
+  /* "supriya/contexts/shm.pyx":27
  * 
  *     def __dealloc__(self) -> None:
  *         del self.client             # <<<<<<<<<<<<<<
  * 
- *     def __getitem__(self, item: Union[int, slice, Bus, BusGroup]) -> Union[float, List[float]]:
+ *     def __getitem__(self, item: Bus | BusGroup | int | slice) -> float | list[float]:
  */
   delete __pyx_v_self->client;
 
-  /* "supriya/contexts/shm.pyx":28
+  /* "supriya/contexts/shm.pyx":26
  *         self.client = new server_shared_memory_client(port_number)
  * 
  *     def __dealloc__(self) -> None:             # <<<<<<<<<<<<<<
@@ -2999,10 +2984,10 @@ static void __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_2__dealloc__(struct __py
   /* function exit code */
 }
 
-/* "supriya/contexts/shm.pyx":31
+/* "supriya/contexts/shm.pyx":29
  *         del self.client
  * 
- *     def __getitem__(self, item: Union[int, slice, Bus, BusGroup]) -> Union[float, List[float]]:             # <<<<<<<<<<<<<<
+ *     def __getitem__(self, item: Bus | BusGroup | int | slice) -> float | list[float]:             # <<<<<<<<<<<<<<
  *         if isinstance(item, Bus):
  *             item = int(item)
  */
@@ -3044,34 +3029,34 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
   __Pyx_RefNannySetupContext("__getitem__", 0);
   __Pyx_INCREF(__pyx_v_item);
 
-  /* "supriya/contexts/shm.pyx":32
+  /* "supriya/contexts/shm.pyx":30
  * 
- *     def __getitem__(self, item: Union[int, slice, Bus, BusGroup]) -> Union[float, List[float]]:
+ *     def __getitem__(self, item: Bus | BusGroup | int | slice) -> float | list[float]:
  *         if isinstance(item, Bus):             # <<<<<<<<<<<<<<
  *             item = int(item)
  *         elif isinstance(item, BusGroup):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Bus); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Bus); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_item, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_item, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "supriya/contexts/shm.pyx":33
- *     def __getitem__(self, item: Union[int, slice, Bus, BusGroup]) -> Union[float, List[float]]:
+    /* "supriya/contexts/shm.pyx":31
+ *     def __getitem__(self, item: Bus | BusGroup | int | slice) -> float | list[float]:
  *         if isinstance(item, Bus):
  *             item = int(item)             # <<<<<<<<<<<<<<
  *         elif isinstance(item, BusGroup):
  *             item = slice(int(item), int(item) + len(item))
  */
-    __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_v_item); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_v_item); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF_SET(__pyx_v_item, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "supriya/contexts/shm.pyx":32
+    /* "supriya/contexts/shm.pyx":30
  * 
- *     def __getitem__(self, item: Union[int, slice, Bus, BusGroup]) -> Union[float, List[float]]:
+ *     def __getitem__(self, item: Bus | BusGroup | int | slice) -> float | list[float]:
  *         if isinstance(item, Bus):             # <<<<<<<<<<<<<<
  *             item = int(item)
  *         elif isinstance(item, BusGroup):
@@ -3079,45 +3064,45 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
     goto __pyx_L3;
   }
 
-  /* "supriya/contexts/shm.pyx":34
+  /* "supriya/contexts/shm.pyx":32
  *         if isinstance(item, Bus):
  *             item = int(item)
  *         elif isinstance(item, BusGroup):             # <<<<<<<<<<<<<<
  *             item = slice(int(item), int(item) + len(item))
  *         if isinstance(item, int):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_BusGroup); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_BusGroup); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_item, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_item, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "supriya/contexts/shm.pyx":35
+    /* "supriya/contexts/shm.pyx":33
  *             item = int(item)
  *         elif isinstance(item, BusGroup):
  *             item = slice(int(item), int(item) + len(item))             # <<<<<<<<<<<<<<
  *         if isinstance(item, int):
  *             if item < 0 or item >= self.bus_count:
  */
-    __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_v_item); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_v_item); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_v_item); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_v_item); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 33, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PyObject_Length(__pyx_v_item); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 35, __pyx_L1_error)
-    __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __pyx_t_4 = PyObject_Length(__pyx_v_item); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 33, __pyx_L1_error)
+    __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 33, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyNumber_Add(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Add(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 33, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PySlice_New(__pyx_t_1, __pyx_t_6, Py_None); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __pyx_t_5 = PySlice_New(__pyx_t_1, __pyx_t_6, Py_None); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 33, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF_SET(__pyx_v_item, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "supriya/contexts/shm.pyx":34
+    /* "supriya/contexts/shm.pyx":32
  *         if isinstance(item, Bus):
  *             item = int(item)
  *         elif isinstance(item, BusGroup):             # <<<<<<<<<<<<<<
@@ -3127,7 +3112,7 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
   }
   __pyx_L3:;
 
-  /* "supriya/contexts/shm.pyx":36
+  /* "supriya/contexts/shm.pyx":34
  *         elif isinstance(item, BusGroup):
  *             item = slice(int(item), int(item) + len(item))
  *         if isinstance(item, int):             # <<<<<<<<<<<<<<
@@ -3137,45 +3122,45 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
   __pyx_t_2 = PyInt_Check(__pyx_v_item); 
   if (__pyx_t_2) {
 
-    /* "supriya/contexts/shm.pyx":37
+    /* "supriya/contexts/shm.pyx":35
  *             item = slice(int(item), int(item) + len(item))
  *         if isinstance(item, int):
  *             if item < 0 or item >= self.bus_count:             # <<<<<<<<<<<<<<
  *                 raise ValueError("index out of bounds")
  *             return self.client.get_control_busses()[item]
  */
-    __pyx_t_5 = PyObject_RichCompare(__pyx_v_item, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 37, __pyx_L1_error)
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 37, __pyx_L1_error)
+    __pyx_t_5 = PyObject_RichCompare(__pyx_v_item, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 35, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (!__pyx_t_7) {
     } else {
       __pyx_t_2 = __pyx_t_7;
       goto __pyx_L6_bool_binop_done;
     }
-    __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->bus_count); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 37, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->bus_count); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 35, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyObject_RichCompare(__pyx_v_item, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 37, __pyx_L1_error)
+    __pyx_t_6 = PyObject_RichCompare(__pyx_v_item, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 35, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 37, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 35, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_t_2 = __pyx_t_7;
     __pyx_L6_bool_binop_done:;
     if (unlikely(__pyx_t_2)) {
 
-      /* "supriya/contexts/shm.pyx":38
+      /* "supriya/contexts/shm.pyx":36
  *         if isinstance(item, int):
  *             if item < 0 or item >= self.bus_count:
  *                 raise ValueError("index out of bounds")             # <<<<<<<<<<<<<<
  *             return self.client.get_control_busses()[item]
  *         elif isinstance(item, slice):
  */
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 38, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 36, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_Raise(__pyx_t_6, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __PYX_ERR(0, 38, __pyx_L1_error)
+      __PYX_ERR(0, 36, __pyx_L1_error)
 
-      /* "supriya/contexts/shm.pyx":37
+      /* "supriya/contexts/shm.pyx":35
  *             item = slice(int(item), int(item) + len(item))
  *         if isinstance(item, int):
  *             if item < 0 or item >= self.bus_count:             # <<<<<<<<<<<<<<
@@ -3184,7 +3169,7 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
  */
     }
 
-    /* "supriya/contexts/shm.pyx":39
+    /* "supriya/contexts/shm.pyx":37
  *             if item < 0 or item >= self.bus_count:
  *                 raise ValueError("index out of bounds")
  *             return self.client.get_control_busses()[item]             # <<<<<<<<<<<<<<
@@ -3192,14 +3177,14 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
  *             result = []
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_v_item); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L1_error)
-    __pyx_t_6 = PyFloat_FromDouble((__pyx_v_self->client->get_control_busses()[__pyx_t_4])); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 39, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_v_item); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 37, __pyx_L1_error)
+    __pyx_t_6 = PyFloat_FromDouble((__pyx_v_self->client->get_control_busses()[__pyx_t_4])); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_r = __pyx_t_6;
     __pyx_t_6 = 0;
     goto __pyx_L0;
 
-    /* "supriya/contexts/shm.pyx":36
+    /* "supriya/contexts/shm.pyx":34
  *         elif isinstance(item, BusGroup):
  *             item = slice(int(item), int(item) + len(item))
  *         if isinstance(item, int):             # <<<<<<<<<<<<<<
@@ -3208,7 +3193,7 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
  */
   }
 
-  /* "supriya/contexts/shm.pyx":40
+  /* "supriya/contexts/shm.pyx":38
  *                 raise ValueError("index out of bounds")
  *             return self.client.get_control_busses()[item]
  *         elif isinstance(item, slice):             # <<<<<<<<<<<<<<
@@ -3218,28 +3203,28 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
   __pyx_t_2 = PySlice_Check(__pyx_v_item); 
   if (__pyx_t_2) {
 
-    /* "supriya/contexts/shm.pyx":41
+    /* "supriya/contexts/shm.pyx":39
  *             return self.client.get_control_busses()[item]
  *         elif isinstance(item, slice):
  *             result = []             # <<<<<<<<<<<<<<
  *             for bus_index in range(*item.indices(self.bus_count)):
  *                 result.append(self.client.get_control_busses()[bus_index])
  */
-    __pyx_t_6 = PyList_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_6 = PyList_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 39, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_v_result = ((PyObject*)__pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "supriya/contexts/shm.pyx":42
+    /* "supriya/contexts/shm.pyx":40
  *         elif isinstance(item, slice):
  *             result = []
  *             for bus_index in range(*item.indices(self.bus_count)):             # <<<<<<<<<<<<<<
  *                 result.append(self.client.get_control_busses()[bus_index])
  *             return result
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_indices); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_indices); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->bus_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->bus_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = NULL;
     __pyx_t_8 = 0;
@@ -3260,14 +3245,14 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
       __pyx_t_6 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_8, 1+__pyx_t_8);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 42, __pyx_L1_error)
+      if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 40, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
-    __pyx_t_5 = __Pyx_PySequence_Tuple(__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PySequence_Tuple(__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 42, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (likely(PyList_CheckExact(__pyx_t_6)) || PyTuple_CheckExact(__pyx_t_6)) {
@@ -3275,9 +3260,9 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
       __pyx_t_4 = 0;
       __pyx_t_9 = NULL;
     } else {
-      __pyx_t_4 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_4 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 40, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_9 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_5); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_5); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 40, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     for (;;) {
@@ -3286,28 +3271,28 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
           {
             Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_5);
             #if !CYTHON_ASSUME_SAFE_MACROS
-            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 42, __pyx_L1_error)
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 40, __pyx_L1_error)
             #endif
             if (__pyx_t_4 >= __pyx_temp) break;
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_6 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely((0 < 0))) __PYX_ERR(0, 42, __pyx_L1_error)
+          __pyx_t_6 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely((0 < 0))) __PYX_ERR(0, 40, __pyx_L1_error)
           #else
-          __pyx_t_6 = __Pyx_PySequence_ITEM(__pyx_t_5, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 42, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PySequence_ITEM(__pyx_t_5, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 40, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           #endif
         } else {
           {
             Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_5);
             #if !CYTHON_ASSUME_SAFE_MACROS
-            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 42, __pyx_L1_error)
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 40, __pyx_L1_error)
             #endif
             if (__pyx_t_4 >= __pyx_temp) break;
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely((0 < 0))) __PYX_ERR(0, 42, __pyx_L1_error)
+          __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely((0 < 0))) __PYX_ERR(0, 40, __pyx_L1_error)
           #else
-          __pyx_t_6 = __Pyx_PySequence_ITEM(__pyx_t_5, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 42, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PySequence_ITEM(__pyx_t_5, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 40, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           #endif
         }
@@ -3317,7 +3302,7 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 42, __pyx_L1_error)
+            else __PYX_ERR(0, 40, __pyx_L1_error)
           }
           break;
         }
@@ -3326,20 +3311,20 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
       __Pyx_XDECREF_SET(__pyx_v_bus_index, __pyx_t_6);
       __pyx_t_6 = 0;
 
-      /* "supriya/contexts/shm.pyx":43
+      /* "supriya/contexts/shm.pyx":41
  *             result = []
  *             for bus_index in range(*item.indices(self.bus_count)):
  *                 result.append(self.client.get_control_busses()[bus_index])             # <<<<<<<<<<<<<<
  *             return result
  *         raise ValueError(item)
  */
-      __pyx_t_10 = __Pyx_PyIndex_AsSsize_t(__pyx_v_bus_index); if (unlikely((__pyx_t_10 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 43, __pyx_L1_error)
-      __pyx_t_6 = PyFloat_FromDouble((__pyx_v_self->client->get_control_busses()[__pyx_t_10])); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 43, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyIndex_AsSsize_t(__pyx_v_bus_index); if (unlikely((__pyx_t_10 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 41, __pyx_L1_error)
+      __pyx_t_6 = PyFloat_FromDouble((__pyx_v_self->client->get_control_busses()[__pyx_t_10])); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 41, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_11 = __Pyx_PyList_Append(__pyx_v_result, __pyx_t_6); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 43, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyList_Append(__pyx_v_result, __pyx_t_6); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 41, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "supriya/contexts/shm.pyx":42
+      /* "supriya/contexts/shm.pyx":40
  *         elif isinstance(item, slice):
  *             result = []
  *             for bus_index in range(*item.indices(self.bus_count)):             # <<<<<<<<<<<<<<
@@ -3349,7 +3334,7 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "supriya/contexts/shm.pyx":44
+    /* "supriya/contexts/shm.pyx":42
  *             for bus_index in range(*item.indices(self.bus_count)):
  *                 result.append(self.client.get_control_busses()[bus_index])
  *             return result             # <<<<<<<<<<<<<<
@@ -3361,7 +3346,7 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
     __pyx_r = __pyx_v_result;
     goto __pyx_L0;
 
-    /* "supriya/contexts/shm.pyx":40
+    /* "supriya/contexts/shm.pyx":38
  *                 raise ValueError("index out of bounds")
  *             return self.client.get_control_busses()[item]
  *         elif isinstance(item, slice):             # <<<<<<<<<<<<<<
@@ -3370,23 +3355,23 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
  */
   }
 
-  /* "supriya/contexts/shm.pyx":45
+  /* "supriya/contexts/shm.pyx":43
  *                 result.append(self.client.get_control_busses()[bus_index])
  *             return result
  *         raise ValueError(item)             # <<<<<<<<<<<<<<
  * 
- *     def __setitem__(self, item: Union[int, slice, Bus, BusGroup], value: Union[float, List[float]]) -> None:
+ *     def __setitem__(self, item: Bus | BusGroup | int | slice, value: float | list[float]) -> None:
  */
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_v_item); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_v_item); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_Raise(__pyx_t_5, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __PYX_ERR(0, 45, __pyx_L1_error)
+  __PYX_ERR(0, 43, __pyx_L1_error)
 
-  /* "supriya/contexts/shm.pyx":31
+  /* "supriya/contexts/shm.pyx":29
  *         del self.client
  * 
- *     def __getitem__(self, item: Union[int, slice, Bus, BusGroup]) -> Union[float, List[float]]:             # <<<<<<<<<<<<<<
+ *     def __getitem__(self, item: Bus | BusGroup | int | slice) -> float | list[float]:             # <<<<<<<<<<<<<<
  *         if isinstance(item, Bus):
  *             item = int(item)
  */
@@ -3408,10 +3393,10 @@ static PyObject *__pyx_pf_7supriya_8contexts_3shm_9ServerSHM_4__getitem__(struct
   return __pyx_r;
 }
 
-/* "supriya/contexts/shm.pyx":47
+/* "supriya/contexts/shm.pyx":45
  *         raise ValueError(item)
  * 
- *     def __setitem__(self, item: Union[int, slice, Bus, BusGroup], value: Union[float, List[float]]) -> None:             # <<<<<<<<<<<<<<
+ *     def __setitem__(self, item: Bus | BusGroup | int | slice, value: float | list[float]) -> None:             # <<<<<<<<<<<<<<
  *         if isinstance(item, BusGroup):
  *             item = slice(int(item), int(item) + len(item), 1)
  */
@@ -3455,47 +3440,47 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
   __Pyx_RefNannySetupContext("__setitem__", 0);
   __Pyx_INCREF(__pyx_v_item);
 
-  /* "supriya/contexts/shm.pyx":48
+  /* "supriya/contexts/shm.pyx":46
  * 
- *     def __setitem__(self, item: Union[int, slice, Bus, BusGroup], value: Union[float, List[float]]) -> None:
+ *     def __setitem__(self, item: Bus | BusGroup | int | slice, value: float | list[float]) -> None:
  *         if isinstance(item, BusGroup):             # <<<<<<<<<<<<<<
  *             item = slice(int(item), int(item) + len(item), 1)
  *         elif isinstance(item, Bus):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_BusGroup); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_BusGroup); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_item, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_item, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "supriya/contexts/shm.pyx":49
- *     def __setitem__(self, item: Union[int, slice, Bus, BusGroup], value: Union[float, List[float]]) -> None:
+    /* "supriya/contexts/shm.pyx":47
+ *     def __setitem__(self, item: Bus | BusGroup | int | slice, value: float | list[float]) -> None:
  *         if isinstance(item, BusGroup):
  *             item = slice(int(item), int(item) + len(item), 1)             # <<<<<<<<<<<<<<
  *         elif isinstance(item, Bus):
  *             item = int(item)
  */
-    __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_v_item); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_v_item); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_v_item); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_v_item); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PyObject_Length(__pyx_v_item); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 49, __pyx_L1_error)
-    __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __pyx_t_4 = PyObject_Length(__pyx_v_item); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 47, __pyx_L1_error)
+    __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyNumber_Add(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Add(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PySlice_New(__pyx_t_1, __pyx_t_6, __pyx_int_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __pyx_t_5 = PySlice_New(__pyx_t_1, __pyx_t_6, __pyx_int_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF_SET(__pyx_v_item, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "supriya/contexts/shm.pyx":48
+    /* "supriya/contexts/shm.pyx":46
  * 
- *     def __setitem__(self, item: Union[int, slice, Bus, BusGroup], value: Union[float, List[float]]) -> None:
+ *     def __setitem__(self, item: Bus | BusGroup | int | slice, value: float | list[float]) -> None:
  *         if isinstance(item, BusGroup):             # <<<<<<<<<<<<<<
  *             item = slice(int(item), int(item) + len(item), 1)
  *         elif isinstance(item, Bus):
@@ -3503,32 +3488,32 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
     goto __pyx_L3;
   }
 
-  /* "supriya/contexts/shm.pyx":50
+  /* "supriya/contexts/shm.pyx":48
  *         if isinstance(item, BusGroup):
  *             item = slice(int(item), int(item) + len(item), 1)
  *         elif isinstance(item, Bus):             # <<<<<<<<<<<<<<
  *             item = int(item)
  *         if isinstance(item, int):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_Bus); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_Bus); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_item, __pyx_t_5); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_item, __pyx_t_5); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_2) {
 
-    /* "supriya/contexts/shm.pyx":51
+    /* "supriya/contexts/shm.pyx":49
  *             item = slice(int(item), int(item) + len(item), 1)
  *         elif isinstance(item, Bus):
  *             item = int(item)             # <<<<<<<<<<<<<<
  *         if isinstance(item, int):
  *             if item < 0 or item >= self.bus_count:
  */
-    __pyx_t_5 = __Pyx_PyNumber_Int(__pyx_v_item); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 51, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyNumber_Int(__pyx_v_item); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 49, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF_SET(__pyx_v_item, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "supriya/contexts/shm.pyx":50
+    /* "supriya/contexts/shm.pyx":48
  *         if isinstance(item, BusGroup):
  *             item = slice(int(item), int(item) + len(item), 1)
  *         elif isinstance(item, Bus):             # <<<<<<<<<<<<<<
@@ -3538,7 +3523,7 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
   }
   __pyx_L3:;
 
-  /* "supriya/contexts/shm.pyx":52
+  /* "supriya/contexts/shm.pyx":50
  *         elif isinstance(item, Bus):
  *             item = int(item)
  *         if isinstance(item, int):             # <<<<<<<<<<<<<<
@@ -3548,45 +3533,45 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
   __pyx_t_2 = PyInt_Check(__pyx_v_item); 
   if (__pyx_t_2) {
 
-    /* "supriya/contexts/shm.pyx":53
+    /* "supriya/contexts/shm.pyx":51
  *             item = int(item)
  *         if isinstance(item, int):
  *             if item < 0 or item >= self.bus_count:             # <<<<<<<<<<<<<<
  *                 raise ValueError("index out of bounds")
  *             self.client.set_control_bus(item, float(value))
  */
-    __pyx_t_5 = PyObject_RichCompare(__pyx_v_item, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 53, __pyx_L1_error)
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 53, __pyx_L1_error)
+    __pyx_t_5 = PyObject_RichCompare(__pyx_v_item, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 51, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (!__pyx_t_7) {
     } else {
       __pyx_t_2 = __pyx_t_7;
       goto __pyx_L6_bool_binop_done;
     }
-    __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->bus_count); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 53, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->bus_count); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyObject_RichCompare(__pyx_v_item, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 53, __pyx_L1_error)
+    __pyx_t_6 = PyObject_RichCompare(__pyx_v_item, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 53, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_t_2 = __pyx_t_7;
     __pyx_L6_bool_binop_done:;
     if (unlikely(__pyx_t_2)) {
 
-      /* "supriya/contexts/shm.pyx":54
+      /* "supriya/contexts/shm.pyx":52
  *         if isinstance(item, int):
  *             if item < 0 or item >= self.bus_count:
  *                 raise ValueError("index out of bounds")             # <<<<<<<<<<<<<<
  *             self.client.set_control_bus(item, float(value))
  *             return
  */
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 54, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 52, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_Raise(__pyx_t_6, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __PYX_ERR(0, 54, __pyx_L1_error)
+      __PYX_ERR(0, 52, __pyx_L1_error)
 
-      /* "supriya/contexts/shm.pyx":53
+      /* "supriya/contexts/shm.pyx":51
  *             item = int(item)
  *         if isinstance(item, int):
  *             if item < 0 or item >= self.bus_count:             # <<<<<<<<<<<<<<
@@ -3595,18 +3580,18 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
  */
     }
 
-    /* "supriya/contexts/shm.pyx":55
+    /* "supriya/contexts/shm.pyx":53
  *             if item < 0 or item >= self.bus_count:
  *                 raise ValueError("index out of bounds")
  *             self.client.set_control_bus(item, float(value))             # <<<<<<<<<<<<<<
  *             return
  *         elif isinstance(item, slice):
  */
-    __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_item); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L1_error)
-    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_v_value); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_item); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 53, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_v_value); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 53, __pyx_L1_error)
     __pyx_v_self->client->set_control_bus(__pyx_t_8, __pyx_t_9);
 
-    /* "supriya/contexts/shm.pyx":56
+    /* "supriya/contexts/shm.pyx":54
  *                 raise ValueError("index out of bounds")
  *             self.client.set_control_bus(item, float(value))
  *             return             # <<<<<<<<<<<<<<
@@ -3616,7 +3601,7 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
     __pyx_r = 0;
     goto __pyx_L0;
 
-    /* "supriya/contexts/shm.pyx":52
+    /* "supriya/contexts/shm.pyx":50
  *         elif isinstance(item, Bus):
  *             item = int(item)
  *         if isinstance(item, int):             # <<<<<<<<<<<<<<
@@ -3625,7 +3610,7 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
  */
   }
 
-  /* "supriya/contexts/shm.pyx":57
+  /* "supriya/contexts/shm.pyx":55
  *             self.client.set_control_bus(item, float(value))
  *             return
  *         elif isinstance(item, slice):             # <<<<<<<<<<<<<<
@@ -3635,7 +3620,7 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
   __pyx_t_2 = PySlice_Check(__pyx_v_item); 
   if (__pyx_t_2) {
 
-    /* "supriya/contexts/shm.pyx":58
+    /* "supriya/contexts/shm.pyx":56
  *             return
  *         elif isinstance(item, slice):
  *             for value_index, bus_index in enumerate(range(*item.indices(self.bus_count))):             # <<<<<<<<<<<<<<
@@ -3644,9 +3629,9 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
  */
     __Pyx_INCREF(__pyx_int_0);
     __pyx_t_6 = __pyx_int_0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_indices); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_indices); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->bus_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->bus_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 56, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_10 = NULL;
     __pyx_t_11 = 0;
@@ -3667,14 +3652,14 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
       __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_11, 1+__pyx_t_11);
       __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 58, __pyx_L1_error)
+      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 56, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
-    __pyx_t_1 = __Pyx_PySequence_Tuple(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PySequence_Tuple(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 58, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 56, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (likely(PyList_CheckExact(__pyx_t_5)) || PyTuple_CheckExact(__pyx_t_5)) {
@@ -3682,9 +3667,9 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
       __pyx_t_4 = 0;
       __pyx_t_12 = NULL;
     } else {
-      __pyx_t_4 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
+      __pyx_t_4 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_12 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 58, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 56, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     for (;;) {
@@ -3693,28 +3678,28 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
           {
             Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
             #if !CYTHON_ASSUME_SAFE_MACROS
-            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 58, __pyx_L1_error)
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 56, __pyx_L1_error)
             #endif
             if (__pyx_t_4 >= __pyx_temp) break;
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_5 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_5); __pyx_t_4++; if (unlikely((0 < 0))) __PYX_ERR(0, 58, __pyx_L1_error)
+          __pyx_t_5 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_5); __pyx_t_4++; if (unlikely((0 < 0))) __PYX_ERR(0, 56, __pyx_L1_error)
           #else
-          __pyx_t_5 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 58, __pyx_L1_error)
+          __pyx_t_5 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 56, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
           #endif
         } else {
           {
             Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_1);
             #if !CYTHON_ASSUME_SAFE_MACROS
-            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 58, __pyx_L1_error)
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 56, __pyx_L1_error)
             #endif
             if (__pyx_t_4 >= __pyx_temp) break;
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_5); __pyx_t_4++; if (unlikely((0 < 0))) __PYX_ERR(0, 58, __pyx_L1_error)
+          __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_5); __pyx_t_4++; if (unlikely((0 < 0))) __PYX_ERR(0, 56, __pyx_L1_error)
           #else
-          __pyx_t_5 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 58, __pyx_L1_error)
+          __pyx_t_5 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 56, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
           #endif
         }
@@ -3724,7 +3709,7 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 58, __pyx_L1_error)
+            else __PYX_ERR(0, 56, __pyx_L1_error)
           }
           break;
         }
@@ -3734,36 +3719,36 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
       __pyx_t_5 = 0;
       __Pyx_INCREF(__pyx_t_6);
       __Pyx_XDECREF_SET(__pyx_v_value_index, __pyx_t_6);
-      __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_t_6, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 58, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_t_6, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 56, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_6);
       __pyx_t_6 = __pyx_t_5;
       __pyx_t_5 = 0;
 
-      /* "supriya/contexts/shm.pyx":59
+      /* "supriya/contexts/shm.pyx":57
  *         elif isinstance(item, slice):
  *             for value_index, bus_index in enumerate(range(*item.indices(self.bus_count))):
  *                 value_ = float(value[value_index])             # <<<<<<<<<<<<<<
  *                 self.client.set_control_bus(bus_index, value_)
  *             return
  */
-      __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_value, __pyx_v_value_index); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 59, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_value, __pyx_v_value_index); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_5); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_AsDouble(__pyx_t_5); if (unlikely(__pyx_t_9 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 57, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_v_value_ = __pyx_t_9;
 
-      /* "supriya/contexts/shm.pyx":60
+      /* "supriya/contexts/shm.pyx":58
  *             for value_index, bus_index in enumerate(range(*item.indices(self.bus_count))):
  *                 value_ = float(value[value_index])
  *                 self.client.set_control_bus(bus_index, value_)             # <<<<<<<<<<<<<<
  *             return
  *         raise ValueError(item, value)
  */
-      __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_bus_index); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 60, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_bus_index); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 58, __pyx_L1_error)
       __pyx_v_self->client->set_control_bus(__pyx_t_8, __pyx_v_value_);
 
-      /* "supriya/contexts/shm.pyx":58
+      /* "supriya/contexts/shm.pyx":56
  *             return
  *         elif isinstance(item, slice):
  *             for value_index, bus_index in enumerate(range(*item.indices(self.bus_count))):             # <<<<<<<<<<<<<<
@@ -3774,7 +3759,7 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "supriya/contexts/shm.pyx":61
+    /* "supriya/contexts/shm.pyx":59
  *                 value_ = float(value[value_index])
  *                 self.client.set_control_bus(bus_index, value_)
  *             return             # <<<<<<<<<<<<<<
@@ -3783,7 +3768,7 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
     __pyx_r = 0;
     goto __pyx_L0;
 
-    /* "supriya/contexts/shm.pyx":57
+    /* "supriya/contexts/shm.pyx":55
  *             self.client.set_control_bus(item, float(value))
  *             return
  *         elif isinstance(item, slice):             # <<<<<<<<<<<<<<
@@ -3792,30 +3777,30 @@ static int __pyx_pf_7supriya_8contexts_3shm_9ServerSHM_6__setitem__(struct __pyx
  */
   }
 
-  /* "supriya/contexts/shm.pyx":62
+  /* "supriya/contexts/shm.pyx":60
  *                 self.client.set_control_bus(bus_index, value_)
  *             return
  *         raise ValueError(item, value)             # <<<<<<<<<<<<<<
  */
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_item);
   __Pyx_GIVEREF(__pyx_v_item);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_item)) __PYX_ERR(0, 62, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_item)) __PYX_ERR(0, 60, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_value);
   __Pyx_GIVEREF(__pyx_v_value);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_v_value)) __PYX_ERR(0, 62, __pyx_L1_error);
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_v_value)) __PYX_ERR(0, 60, __pyx_L1_error);
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __PYX_ERR(0, 62, __pyx_L1_error)
+  __PYX_ERR(0, 60, __pyx_L1_error)
 
-  /* "supriya/contexts/shm.pyx":47
+  /* "supriya/contexts/shm.pyx":45
  *         raise ValueError(item)
  * 
- *     def __setitem__(self, item: Union[int, slice, Bus, BusGroup], value: Union[float, List[float]]) -> None:             # <<<<<<<<<<<<<<
+ *     def __setitem__(self, item: Bus | BusGroup | int | slice, value: float | list[float]) -> None:             # <<<<<<<<<<<<<<
  *         if isinstance(item, BusGroup):
  *             item = slice(int(item), int(item) + len(item), 1)
  */
@@ -4265,12 +4250,10 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
   __Pyx_StringTabEntry __pyx_string_tab[] = {
     {&__pyx_n_s_Bus, __pyx_k_Bus, sizeof(__pyx_k_Bus), 0, 0, 1, 1},
     {&__pyx_n_s_BusGroup, __pyx_k_BusGroup, sizeof(__pyx_k_BusGroup), 0, 0, 1, 1},
-    {&__pyx_n_s_List, __pyx_k_List, sizeof(__pyx_k_List), 0, 0, 1, 1},
     {&__pyx_n_s_ServerSHM, __pyx_k_ServerSHM, sizeof(__pyx_k_ServerSHM), 0, 0, 1, 1},
     {&__pyx_n_s_ServerSHM___reduce_cython, __pyx_k_ServerSHM___reduce_cython, sizeof(__pyx_k_ServerSHM___reduce_cython), 0, 0, 1, 1},
     {&__pyx_n_s_ServerSHM___setstate_cython, __pyx_k_ServerSHM___setstate_cython, sizeof(__pyx_k_ServerSHM___setstate_cython), 0, 0, 1, 1},
     {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
-    {&__pyx_n_s_Union, __pyx_k_Union, sizeof(__pyx_k_Union), 0, 0, 1, 1},
     {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
     {&__pyx_kp_u__2, __pyx_k__2, sizeof(__pyx_k__2), 0, 1, 0, 0},
     {&__pyx_n_s__7, __pyx_k__7, sizeof(__pyx_k__7), 0, 0, 1, 1},
@@ -4304,16 +4287,15 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_kp_s_stringsource, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
     {&__pyx_n_s_supriya_contexts_shm, __pyx_k_supriya_contexts_shm, sizeof(__pyx_k_supriya_contexts_shm), 0, 0, 1, 1},
     {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
-    {&__pyx_n_s_typing, __pyx_k_typing, sizeof(__pyx_k_typing), 0, 0, 1, 1},
     {0, 0, 0, 0, 0, 0, 0}
   };
   return __Pyx_InitStrings(__pyx_string_tab);
 }
 /* #### Code section: cached_builtins ### */
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 38, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 42, __pyx_L1_error)
-  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 56, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -4325,14 +4307,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "supriya/contexts/shm.pyx":38
+  /* "supriya/contexts/shm.pyx":36
  *         if isinstance(item, int):
  *             if item < 0 or item >= self.bus_count:
  *                 raise ValueError("index out of bounds")             # <<<<<<<<<<<<<<
  *             return self.client.get_control_busses()[item]
  *         elif isinstance(item, slice):
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_index_out_of_bounds); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_index_out_of_bounds); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
@@ -4419,15 +4401,15 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_7supriya_8contexts_3shm_ServerSHM = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_7supriya_8contexts_3shm_ServerSHM_spec, NULL); if (unlikely(!__pyx_ptype_7supriya_8contexts_3shm_ServerSHM)) __PYX_ERR(0, 10, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_7supriya_8contexts_3shm_ServerSHM_spec, __pyx_ptype_7supriya_8contexts_3shm_ServerSHM) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_ptype_7supriya_8contexts_3shm_ServerSHM = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_7supriya_8contexts_3shm_ServerSHM_spec, NULL); if (unlikely(!__pyx_ptype_7supriya_8contexts_3shm_ServerSHM)) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_7supriya_8contexts_3shm_ServerSHM_spec, __pyx_ptype_7supriya_8contexts_3shm_ServerSHM) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   #else
   __pyx_ptype_7supriya_8contexts_3shm_ServerSHM = &__pyx_type_7supriya_8contexts_3shm_ServerSHM;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_7supriya_8contexts_3shm_ServerSHM) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_7supriya_8contexts_3shm_ServerSHM) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
   __pyx_ptype_7supriya_8contexts_3shm_ServerSHM->tp_print = 0;
@@ -4437,9 +4419,9 @@ static int __Pyx_modinit_type_init_code(void) {
     __pyx_ptype_7supriya_8contexts_3shm_ServerSHM->tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
   #endif
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_ServerSHM, (PyObject *) __pyx_ptype_7supriya_8contexts_3shm_ServerSHM) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_ServerSHM, (PyObject *) __pyx_ptype_7supriya_8contexts_3shm_ServerSHM) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_7supriya_8contexts_3shm_ServerSHM) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_7supriya_8contexts_3shm_ServerSHM) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   #endif
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -4754,68 +4736,40 @@ if (!__Pyx_RefNanny) {
   /* "supriya/contexts/shm.pyx":4
  * # distutils: language = c++
  * 
- * from typing import List, Union             # <<<<<<<<<<<<<<
- * 
- * from .entities import Bus, BusGroup
- */
-  __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_INCREF(__pyx_n_s_List);
-  __Pyx_GIVEREF(__pyx_n_s_List);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_List)) __PYX_ERR(0, 4, __pyx_L1_error);
-  __Pyx_INCREF(__pyx_n_s_Union);
-  __Pyx_GIVEREF(__pyx_n_s_Union);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_s_Union)) __PYX_ERR(0, 4, __pyx_L1_error);
-  __pyx_t_3 = __Pyx_Import(__pyx_n_s_typing, __pyx_t_2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_List); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_List, __pyx_t_2) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_Union); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Union, __pyx_t_2) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "supriya/contexts/shm.pyx":6
- * from typing import List, Union
- * 
  * from .entities import Bus, BusGroup             # <<<<<<<<<<<<<<
  * from .shm cimport server_shared_memory_client
  * 
  */
-  __pyx_t_3 = PyList_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_Bus);
   __Pyx_GIVEREF(__pyx_n_s_Bus);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_Bus)) __PYX_ERR(0, 6, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_Bus)) __PYX_ERR(0, 4, __pyx_L1_error);
   __Pyx_INCREF(__pyx_n_s_BusGroup);
   __Pyx_GIVEREF(__pyx_n_s_BusGroup);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 1, __pyx_n_s_BusGroup)) __PYX_ERR(0, 6, __pyx_L1_error);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_entities, __pyx_t_3, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Bus); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 6, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_s_BusGroup)) __PYX_ERR(0, 4, __pyx_L1_error);
+  __pyx_t_3 = __Pyx_Import(__pyx_n_s_entities, __pyx_t_2, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Bus, __pyx_t_3) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_BusGroup); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_BusGroup, __pyx_t_3) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_Bus); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Bus, __pyx_t_2) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_BusGroup); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_BusGroup, __pyx_t_2) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
  *     raise TypeError, "no default __reduce__ due to non-trivial __cinit__"
  * def __setstate_cython__(self, __pyx_state):
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7supriya_8contexts_3shm_9ServerSHM_9__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ServerSHM___reduce_cython, NULL, __pyx_n_s_supriya_contexts_shm, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_reduce_cython, __pyx_t_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_7supriya_8contexts_3shm_9ServerSHM_9__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ServerSHM___reduce_cython, NULL, __pyx_n_s_supriya_contexts_shm, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_reduce_cython, __pyx_t_3) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "(tree fragment)":3
  * def __reduce_cython__(self):
@@ -4823,20 +4777,20 @@ if (!__Pyx_RefNanny) {
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     raise TypeError, "no default __reduce__ due to non-trivial __cinit__"
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7supriya_8contexts_3shm_9ServerSHM_11__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ServerSHM___setstate_cython, NULL, __pyx_n_s_supriya_contexts_shm, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 3, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_setstate_cython, __pyx_t_2) < 0) __PYX_ERR(1, 3, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_7supriya_8contexts_3shm_9ServerSHM_11__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ServerSHM___setstate_cython, NULL, __pyx_n_s_supriya_contexts_shm, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_setstate_cython, __pyx_t_3) < 0) __PYX_ERR(1, 3, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "supriya/contexts/shm.pyx":1
  * # cython: language_level=3             # <<<<<<<<<<<<<<
  * # distutils: language = c++
  * 
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_3) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /*--- Wrapped vars code ---*/
 
