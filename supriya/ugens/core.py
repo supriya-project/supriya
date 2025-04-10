@@ -5586,6 +5586,14 @@ class SynthDef:
     def __hash__(self) -> int:
         return hash((type(self), self._name, self._compiled_graph))
 
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, type(self)):
+            return False
+        return (self._name, self._compiled_graph) == (
+            other._name,
+            other._compiled_graph,
+        )
+
     def __repr__(self) -> str:
         return "<{}: {}>".format(type(self).__name__, self.effective_name)
 
