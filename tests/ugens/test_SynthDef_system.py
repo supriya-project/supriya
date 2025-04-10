@@ -9,6 +9,9 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef
 from supriya.ugens.system import (
     amplitude_scope_audio_1,
     amplitude_scope_control_2,
+    build_channel_strip_synthdef,
+    build_meters_synthdef,
+    build_patch_cable_synthdef,
     frequency_scope_lin_1,
     frequency_scope_lin_shm_1,
     frequency_scope_log_1,
@@ -516,6 +519,469 @@ from supriya.ugens.system import (
                         max_frames: BinaryOpUGen(FLOAT_DIVISION).ir/1[0]
                         scope_frames: BinaryOpUGen(FLOAT_DIVISION).ir/1[0]
                         source[0]: BinaryOpUGen(ADDITION).ar[0]
+            """,
+        ),
+        (
+            build_channel_strip_synthdef(2),
+            """
+        synthdef:
+            name: supriya:channel-strip:2
+            ugens:
+            -   LagControl.kr:
+                    active: 1.0
+                    done_action: 2.0
+                    gain: 0.0
+                    gate: 1.0
+                    out: 0.0
+                    lags[0]: 0.0
+                    lags[1]: 0.0
+                    lags[2]: 0.05
+                    lags[3]: 0.0
+                    lags[4]: 0.0
+            -   In.ar:
+                    channel_count: 2
+                    bus: LagControl.kr[4:out]
+            -   Linen.kr/0:
+                    gate: LagControl.kr[0:active]
+                    attack_time: 0.05
+                    sustain_level: 1.0
+                    release_time: 0.05
+                    done_action: 0.0
+            -   Linen.kr/1:
+                    gate: LagControl.kr[3:gate]
+                    attack_time: 0.05
+                    sustain_level: 1.0
+                    release_time: 0.05
+                    done_action: LagControl.kr[1:done_action]
+            -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
+                    source: LagControl.kr[2:gain]
+            -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                    left: In.ar[0]
+                    right: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]
+            -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                    left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
+                    right: Linen.kr/0[0]
+            -   BinaryOpUGen(MULTIPLICATION).ar/2:
+                    left: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+                    right: Linen.kr/1[0]
+            -   BinaryOpUGen(MULTIPLICATION).ar/3:
+                    left: In.ar[1]
+                    right: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]
+            -   BinaryOpUGen(MULTIPLICATION).ar/4:
+                    left: BinaryOpUGen(MULTIPLICATION).ar/3[0]
+                    right: Linen.kr/0[0]
+            -   BinaryOpUGen(MULTIPLICATION).ar/5:
+                    left: BinaryOpUGen(MULTIPLICATION).ar/4[0]
+                    right: Linen.kr/1[0]
+            -   ReplaceOut.ar:
+                    bus: LagControl.kr[4:out]
+                    source[0]: BinaryOpUGen(MULTIPLICATION).ar/2[0]
+                    source[1]: BinaryOpUGen(MULTIPLICATION).ar/5[0]
+            """,
+        ),
+        (
+            build_meters_synthdef(2),
+            """
+            synthdef:
+                name: supriya:meters:2
+                ugens:
+                -   Control.kr:
+                        in_: 0.0
+                        out: 0.0
+                -   In.ar:
+                        channel_count: 2
+                        bus: Control.kr[0:in_]
+                -   Amplitude.kr/0:
+                        source: In.ar[0]
+                        attack_time: 0.01
+                        release_time: 0.01
+                -   Amplitude.kr/1:
+                        source: In.ar[1]
+                        attack_time: 0.01
+                        release_time: 0.01
+                -   Out.kr:
+                        bus: Control.kr[1:out]
+                        source[0]: Amplitude.kr/0[0]
+                        source[1]: Amplitude.kr/1[0]
+            """,
+        ),
+        (
+            build_patch_cable_synthdef(2, 2),
+            """
+            synthdef:
+                name: supriya:patch-cable:2x2
+                ugens:
+                -   Control.kr:
+                        active: 1.0
+                        done_action: 2.0
+                        gain: 0.0
+                        gate: 1.0
+                        in_: 0.0
+                        out: 0.0
+                -   In.ar:
+                        channel_count: 2
+                        bus: Control.kr[4:in_]
+                -   Linen.kr/0:
+                        gate: Control.kr[0:active]
+                        attack_time: 0.05
+                        sustain_level: 1.0
+                        release_time: 0.05
+                        done_action: 0.0
+                -   Linen.kr/1:
+                        gate: Control.kr[3:gate]
+                        attack_time: 0.05
+                        sustain_level: 1.0
+                        release_time: 0.05
+                        done_action: Control.kr[1:done_action]
+                -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
+                        source: Control.kr[2:gain]
+                -   BinaryOpUGen(MULTIPLICATION).kr/0:
+                        left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]
+                        right: Linen.kr/1[0]
+                -   BinaryOpUGen(MULTIPLICATION).kr/1:
+                        left: BinaryOpUGen(MULTIPLICATION).kr/0[0]
+                        right: Linen.kr/0[0]
+                -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                        left: In.ar[0]
+                        right: BinaryOpUGen(MULTIPLICATION).kr/1[0]
+                -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                        left: In.ar[1]
+                        right: BinaryOpUGen(MULTIPLICATION).kr/1[0]
+                -   Out.ar:
+                        bus: Control.kr[5:out]
+                        source[0]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
+                        source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+            """,
+        ),
+        (
+            build_patch_cable_synthdef(2, 2, feedback=True),
+            """
+            synthdef:
+                name: supriya:fb-patch-cable:2x2
+                ugens:
+                -   Control.kr:
+                        active: 1.0
+                        done_action: 2.0
+                        gain: 0.0
+                        gate: 1.0
+                        in_: 0.0
+                        out: 0.0
+                -   InFeedback.ar:
+                        channel_count: 2
+                        bus: Control.kr[4:in_]
+                -   Linen.kr/0:
+                        gate: Control.kr[0:active]
+                        attack_time: 0.05
+                        sustain_level: 1.0
+                        release_time: 0.05
+                        done_action: 0.0
+                -   Linen.kr/1:
+                        gate: Control.kr[3:gate]
+                        attack_time: 0.05
+                        sustain_level: 1.0
+                        release_time: 0.05
+                        done_action: Control.kr[1:done_action]
+                -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
+                        source: Control.kr[2:gain]
+                -   BinaryOpUGen(MULTIPLICATION).kr/0:
+                        left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]
+                        right: Linen.kr/1[0]
+                -   BinaryOpUGen(MULTIPLICATION).kr/1:
+                        left: BinaryOpUGen(MULTIPLICATION).kr/0[0]
+                        right: Linen.kr/0[0]
+                -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                        left: InFeedback.ar[0]
+                        right: BinaryOpUGen(MULTIPLICATION).kr/1[0]
+                -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                        left: InFeedback.ar[1]
+                        right: BinaryOpUGen(MULTIPLICATION).kr/1[0]
+                -   Out.ar:
+                        bus: Control.kr[5:out]
+                        source[0]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
+                        source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+            """,
+        ),
+        (
+            build_patch_cable_synthdef(4, 1),
+            """
+            synthdef:
+                name: supriya:patch-cable:4x1
+                ugens:
+                -   Control.kr:
+                        active: 1.0
+                        done_action: 2.0
+                        gain: 0.0
+                        gate: 1.0
+                        in_: 0.0
+                        out: 0.0
+                -   In.ar:
+                        channel_count: 4
+                        bus: Control.kr[4:in_]
+                -   Sum4.ar:
+                        input_one: In.ar[0]
+                        input_two: In.ar[1]
+                        input_three: In.ar[2]
+                        input_four: In.ar[3]
+                -   BinaryOpUGen(FLOAT_DIVISION).ar:
+                        left: Sum4.ar[0]
+                        right: 4.0
+                -   Linen.kr/0:
+                        gate: Control.kr[0:active]
+                        attack_time: 0.05
+                        sustain_level: 1.0
+                        release_time: 0.05
+                        done_action: 0.0
+                -   Linen.kr/1:
+                        gate: Control.kr[3:gate]
+                        attack_time: 0.05
+                        sustain_level: 1.0
+                        release_time: 0.05
+                        done_action: Control.kr[1:done_action]
+                -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
+                        source: Control.kr[2:gain]
+                -   BinaryOpUGen(MULTIPLICATION).kr/0:
+                        left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]
+                        right: Linen.kr/1[0]
+                -   BinaryOpUGen(MULTIPLICATION).kr/1:
+                        left: BinaryOpUGen(MULTIPLICATION).kr/0[0]
+                        right: Linen.kr/0[0]
+                -   BinaryOpUGen(MULTIPLICATION).ar:
+                        left: BinaryOpUGen(FLOAT_DIVISION).ar[0]
+                        right: BinaryOpUGen(MULTIPLICATION).kr/1[0]
+                -   Out.ar:
+                        bus: Control.kr[5:out]
+                        source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
+            """,
+        ),
+        (
+            build_patch_cable_synthdef(1, 4),
+            """
+            synthdef:
+                name: supriya:patch-cable:1x4
+                ugens:
+                -   Control.kr:
+                        active: 1.0
+                        done_action: 2.0
+                        gain: 0.0
+                        gate: 1.0
+                        in_: 0.0
+                        out: 0.0
+                -   In.ar:
+                        channel_count: 1
+                        bus: Control.kr[4:in_]
+                -   Linen.kr/0:
+                        gate: Control.kr[0:active]
+                        attack_time: 0.05
+                        sustain_level: 1.0
+                        release_time: 0.05
+                        done_action: 0.0
+                -   Linen.kr/1:
+                        gate: Control.kr[3:gate]
+                        attack_time: 0.05
+                        sustain_level: 1.0
+                        release_time: 0.05
+                        done_action: Control.kr[1:done_action]
+                -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
+                        source: Control.kr[2:gain]
+                -   BinaryOpUGen(MULTIPLICATION).kr/0:
+                        left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]
+                        right: Linen.kr/1[0]
+                -   BinaryOpUGen(MULTIPLICATION).kr/1:
+                        left: BinaryOpUGen(MULTIPLICATION).kr/0[0]
+                        right: Linen.kr/0[0]
+                -   BinaryOpUGen(MULTIPLICATION).ar:
+                        left: In.ar[0]
+                        right: BinaryOpUGen(MULTIPLICATION).kr/1[0]
+                -   Out.ar:
+                        bus: Control.kr[5:out]
+                        source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
+                        source[1]: BinaryOpUGen(MULTIPLICATION).ar[0]
+                        source[2]: BinaryOpUGen(MULTIPLICATION).ar[0]
+                        source[3]: BinaryOpUGen(MULTIPLICATION).ar[0]
+            """,
+        ),
+        (
+            build_patch_cable_synthdef(2, 4),
+            """
+            synthdef:
+                name: supriya:patch-cable:2x4
+                ugens:
+                -   Control.kr:
+                        active: 1.0
+                        done_action: 2.0
+                        gain: 0.0
+                        gate: 1.0
+                        in_: 0.0
+                        out: 0.0
+                -   In.ar:
+                        channel_count: 2
+                        bus: Control.kr[4:in_]
+                -   Linen.kr/0:
+                        gate: Control.kr[0:active]
+                        attack_time: 0.05
+                        sustain_level: 1.0
+                        release_time: 0.05
+                        done_action: 0.0
+                -   Linen.kr/1:
+                        gate: Control.kr[3:gate]
+                        attack_time: 0.05
+                        sustain_level: 1.0
+                        release_time: 0.05
+                        done_action: Control.kr[1:done_action]
+                -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
+                        source: Control.kr[2:gain]
+                -   BinaryOpUGen(MULTIPLICATION).kr/0:
+                        left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]
+                        right: Linen.kr/1[0]
+                -   BinaryOpUGen(MULTIPLICATION).kr/1:
+                        left: BinaryOpUGen(MULTIPLICATION).kr/0[0]
+                        right: Linen.kr/0[0]
+                -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                        left: In.ar[0]
+                        right: BinaryOpUGen(MULTIPLICATION).kr/1[0]
+                -   PanAz.ar/0:
+                        channel_count: 4
+                        source: BinaryOpUGen(MULTIPLICATION).ar/0[0]
+                        position: 0.0
+                        amplitude: 1.0
+                        width: 1.999
+                        orientation: 0.0
+                -   PanAz.ar/1:
+                        channel_count: 4
+                        source: BinaryOpUGen(MULTIPLICATION).ar/0[0]
+                        position: 0.5
+                        amplitude: 1.0
+                        width: 1.999
+                        orientation: 0.0
+                -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                        left: In.ar[1]
+                        right: BinaryOpUGen(MULTIPLICATION).kr/1[0]
+                -   PanAz.ar/2:
+                        channel_count: 4
+                        source: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+                        position: 1.0
+                        amplitude: 1.0
+                        width: 1.999
+                        orientation: 0.0
+                -   PanAz.ar/3:
+                        channel_count: 4
+                        source: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+                        position: 1.5
+                        amplitude: 1.0
+                        width: 1.999
+                        orientation: 0.0
+                -   Sum4.ar/0:
+                        input_one: PanAz.ar/0[0]
+                        input_two: PanAz.ar/1[0]
+                        input_three: PanAz.ar/2[0]
+                        input_four: PanAz.ar/3[0]
+                -   Sum4.ar/1:
+                        input_one: PanAz.ar/0[1]
+                        input_two: PanAz.ar/1[1]
+                        input_three: PanAz.ar/2[1]
+                        input_four: PanAz.ar/3[1]
+                -   Sum4.ar/2:
+                        input_one: PanAz.ar/0[2]
+                        input_two: PanAz.ar/1[2]
+                        input_three: PanAz.ar/2[2]
+                        input_four: PanAz.ar/3[2]
+                -   Sum4.ar/3:
+                        input_one: PanAz.ar/0[3]
+                        input_two: PanAz.ar/1[3]
+                        input_three: PanAz.ar/2[3]
+                        input_four: PanAz.ar/3[3]
+                -   Out.ar:
+                        bus: Control.kr[5:out]
+                        source[0]: Sum4.ar/0[0]
+                        source[1]: Sum4.ar/1[0]
+                        source[2]: Sum4.ar/2[0]
+                        source[3]: Sum4.ar/3[0]
+            """,
+        ),
+        (
+            build_patch_cable_synthdef(4, 2),
+            """
+            synthdef:
+                name: supriya:patch-cable:4x2
+                ugens:
+                -   Control.kr:
+                        active: 1.0
+                        done_action: 2.0
+                        gain: 0.0
+                        gate: 1.0
+                        in_: 0.0
+                        out: 0.0
+                -   In.ar:
+                        channel_count: 4
+                        bus: Control.kr[4:in_]
+                -   PanAz.ar/0:
+                        channel_count: 2
+                        source: In.ar[0]
+                        position: 0.0
+                        amplitude: 0.4142135623730951
+                        width: 1.999
+                        orientation: 0.0
+                -   PanAz.ar/1:
+                        channel_count: 2
+                        source: In.ar[1]
+                        position: 0.5
+                        amplitude: 0.4142135623730951
+                        width: 1.999
+                        orientation: 0.0
+                -   PanAz.ar/2:
+                        channel_count: 2
+                        source: In.ar[2]
+                        position: 1.0
+                        amplitude: 0.4142135623730951
+                        width: 1.999
+                        orientation: 0.0
+                -   PanAz.ar/3:
+                        channel_count: 2
+                        source: In.ar[3]
+                        position: 1.5
+                        amplitude: 0.4142135623730951
+                        width: 1.999
+                        orientation: 0.0
+                -   Sum4.ar/0:
+                        input_one: PanAz.ar/0[0]
+                        input_two: PanAz.ar/1[0]
+                        input_three: PanAz.ar/2[0]
+                        input_four: PanAz.ar/3[0]
+                -   Sum4.ar/1:
+                        input_one: PanAz.ar/0[1]
+                        input_two: PanAz.ar/1[1]
+                        input_three: PanAz.ar/2[1]
+                        input_four: PanAz.ar/3[1]
+                -   Linen.kr/0:
+                        gate: Control.kr[0:active]
+                        attack_time: 0.05
+                        sustain_level: 1.0
+                        release_time: 0.05
+                        done_action: 0.0
+                -   Linen.kr/1:
+                        gate: Control.kr[3:gate]
+                        attack_time: 0.05
+                        sustain_level: 1.0
+                        release_time: 0.05
+                        done_action: Control.kr[1:done_action]
+                -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
+                        source: Control.kr[2:gain]
+                -   BinaryOpUGen(MULTIPLICATION).kr/0:
+                        left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]
+                        right: Linen.kr/1[0]
+                -   BinaryOpUGen(MULTIPLICATION).kr/1:
+                        left: BinaryOpUGen(MULTIPLICATION).kr/0[0]
+                        right: Linen.kr/0[0]
+                -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                        left: Sum4.ar/0[0]
+                        right: BinaryOpUGen(MULTIPLICATION).kr/1[0]
+                -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                        left: Sum4.ar/1[0]
+                        right: BinaryOpUGen(MULTIPLICATION).kr/1[0]
+                -   Out.ar:
+                        bus: Control.kr[5:out]
+                        source[0]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
+                        source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
             """,
         ),
     ],
