@@ -5,6 +5,7 @@ Tools for interacting with realtime execution contexts.
 import asyncio
 import concurrent.futures
 import logging
+import os
 import platform
 import shlex
 import threading
@@ -691,8 +692,9 @@ class Server(BaseServer):
         if sync:
             with self.process_protocol.capture() as transcript:
                 request.communicate(server=self)
-                if platform.system() == "Windows":
-                    time.sleep(0.1)
+                # TODO: We need an end-delimiter for /g_dumpTree
+                if platform.system() == "Windows" and os.environ.get("CI"):
+                    time.sleep(0.05)
                 self.sync(timeout=10.0)
                 return QueryTreeGroup.from_string("\n".join(transcript.lines))
         self._add_requests(request)
@@ -1300,8 +1302,9 @@ class AsyncServer(BaseServer):
         if sync:
             with self.process_protocol.capture() as transcript:
                 await request.communicate_async(server=self)
-                if platform.system() == "Windows":
-                    await asyncio.sleep(0.1)
+                # TODO: We need an end-delimiter for /g_dumpTree
+                if platform.system() == "Windows" and os.environ.get("CI"):
+                    await asyncio.sleep(0.05)
                 await self.sync(timeout=10.0)
                 return QueryTreeGroup.from_string("\n".join(transcript.lines))
         self._add_requests(request)
