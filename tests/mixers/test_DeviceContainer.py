@@ -22,8 +22,8 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
                              <TrackOutput session.mixers[0].tracks[2].output target=default>
             +            <Device session.mixers[0].devices[0]>
                          <MixerOutput session.mixers[0].output>
-                     <Mixer session.mixers[1]>
-                         <Track session.mixers[1].tracks[0]>
+                     <Mixer 'Q' session.mixers[1]>
+                         <Track 'D' session.mixers[1].tracks[0]>
             """,
             """
             --- initial
@@ -57,7 +57,7 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
             +                <Device session.mixers[0].tracks[0].devices[0]>
                              <TrackOutput session.mixers[0].tracks[0].output target=default>
                              <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-                         <Track session.mixers[0].tracks[1]>
+                         <Track 'B' session.mixers[0].tracks[1]>
             """,
             """
             --- initial

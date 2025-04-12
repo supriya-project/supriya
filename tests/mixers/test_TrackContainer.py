@@ -20,13 +20,13 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
                              <TrackFeedback session.mixers[0].tracks[2].feedback>
                              <TrackInput session.mixers[0].tracks[2].input source=null>
                              <TrackOutput session.mixers[0].tracks[2].output target=default>
-            +            <Track session.mixers[0].tracks[3]>
+            +            <Track 'Z' session.mixers[0].tracks[3]>
             +                <TrackFeedback session.mixers[0].tracks[3].feedback>
             +                <TrackInput session.mixers[0].tracks[3].input source=null>
             +                <TrackOutput session.mixers[0].tracks[3].output target=default>
                          <MixerOutput session.mixers[0].output>
-                     <Mixer session.mixers[1]>
-                         <Track session.mixers[1].tracks[0]>
+                     <Mixer 'Q' session.mixers[1]>
+                         <Track 'D' session.mixers[1].tracks[0]>
             """,
             """
             --- initial
@@ -70,13 +70,13 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
                                  <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
                                  <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
                                  <TrackOutput session.mixers[0].tracks[0].tracks[1].output target=default>
-            +                <Track session.mixers[0].tracks[0].tracks[2]>
+            +                <Track 'Z' session.mixers[0].tracks[0].tracks[2]>
             +                    <TrackFeedback session.mixers[0].tracks[0].tracks[2].feedback>
             +                    <TrackInput session.mixers[0].tracks[0].tracks[2].input source=null>
             +                    <TrackOutput session.mixers[0].tracks[0].tracks[2].output target=default>
                              <TrackOutput session.mixers[0].tracks[0].output target=default>
                              <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-                         <Track session.mixers[0].tracks[1]>
+                         <Track 'B' session.mixers[0].tracks[1]>
             """,
             """
             --- initial
@@ -130,7 +130,7 @@ async def test_TrackContainer_add_track(
     assert isinstance(target_, TrackContainer)
     # Operation
     with capture(session["mixers[0]"].context) as messages:
-        track = await target_.add_track()
+        track = await target_.add_track(name="Z")
     # Post-conditions
     assert isinstance(track, Track)
     assert track in target_.tracks
