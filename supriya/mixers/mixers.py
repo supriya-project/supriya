@@ -25,7 +25,7 @@ class MixerOutput(Connection["Mixer", "Mixer", Default]):
         parent: "Mixer",
     ) -> None:
         super().__init__(
-            name="output",
+            kind="output",
             parent=parent,
             source=parent,
             target=DEFAULT,
@@ -62,8 +62,8 @@ class Mixer(TrackContainer["Session"], DeviceContainer):
     # TODO: set_channel_count(self, channel_count: ChannelCount) -> None
     # TODO: set_output(output: int) -> None
 
-    def __init__(self, *, parent: Optional["Session"]) -> None:
-        AllocatableComponent.__init__(self, parent=parent)
+    def __init__(self, *, name: str | None = None, parent: Optional["Session"]) -> None:
+        AllocatableComponent.__init__(self, name=name, parent=parent)
         DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
         self._output = MixerOutput(parent=self)
@@ -145,6 +145,9 @@ class Mixer(TrackContainer["Session"], DeviceContainer):
         # TODO: What are delete semantics actually?
         async with self._lock:
             self._delete()
+
+    def set_name(self, name: str | None = None) -> None:
+        self._name = name
 
     @property
     def address(self) -> str:
