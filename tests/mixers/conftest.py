@@ -149,8 +149,8 @@ async def bare_session() -> tuple[Session, str, str]:
 @pytest_asyncio.fixture
 async def basic_session() -> tuple[Session, str, str]:
     session = Session()
-    mixer = await session.add_mixer()
-    await mixer.add_track()
+    mixer = await session.add_mixer(name="P")
+    await mixer.add_track(name="A")
     await session.boot()
     initial_tree = await debug_tree(session)
     assert initial_tree == normalize(
@@ -185,8 +185,8 @@ async def basic_session() -> tuple[Session, str, str]:
         """
         <Session>
             <session.contexts[0]>
-                <Mixer session.mixers[0]>
-                    <Track session.mixers[0].tracks[0]>
+                <Mixer 'P' session.mixers[0]>
+                    <Track 'A' session.mixers[0].tracks[0]>
                         <TrackFeedback session.mixers[0].tracks[0].feedback>
                         <TrackInput session.mixers[0].tracks[0].input source=null>
                         <TrackOutput session.mixers[0].tracks[0].output target=default>
@@ -202,16 +202,16 @@ async def basic_session() -> tuple[Session, str, str]:
 @pytest_asyncio.fixture
 async def complex_session() -> tuple[Session, str, str]:
     session = Session()
-    mixer_one = await session.add_mixer()
-    mixer_two = await session.add_mixer()
+    mixer_one = await session.add_mixer(name="P")
+    mixer_two = await session.add_mixer(name="Q")
     # tracks
-    track_one = await mixer_one.add_track()  # track_one
-    track_two = await mixer_one.add_track()  # track_two
-    await mixer_one.add_track()  # track_three
-    track_one_one = await track_one.add_track()  # track_one_one
-    await track_one.add_track()  # track_one_two
-    await track_one_one.add_track()  # track_one_one_one
-    await mixer_two.add_track()
+    track_one = await mixer_one.add_track(name="A")  # track_one
+    track_two = await mixer_one.add_track(name="B")  # track_two
+    await mixer_one.add_track(name="C")  # track_three
+    track_one_one = await track_one.add_track(name="A1")  # track_one_one
+    await track_one.add_track(name="A2")  # track_one_two
+    await track_one_one.add_track(name="A11")  # track_one_one_one
+    await mixer_two.add_track(name="D")
     # add sends
     await track_one.add_send(track_two)
     await track_two.add_send(track_one_one)
@@ -333,36 +333,36 @@ async def complex_session() -> tuple[Session, str, str]:
         """
         <Session>
             <session.contexts[0]>
-                <Mixer session.mixers[0]>
-                    <Track session.mixers[0].tracks[0]>
+                <Mixer 'P' session.mixers[0]>
+                    <Track 'A' session.mixers[0].tracks[0]>
                         <TrackFeedback session.mixers[0].tracks[0].feedback>
                         <TrackInput session.mixers[0].tracks[0].input source=null>
-                        <Track session.mixers[0].tracks[0].tracks[0]>
+                        <Track 'A1' session.mixers[0].tracks[0].tracks[0]>
                             <TrackFeedback session.mixers[0].tracks[0].tracks[0].feedback>
                             <TrackInput session.mixers[0].tracks[0].tracks[0].input source=null>
-                            <Track session.mixers[0].tracks[0].tracks[0].tracks[0]>
+                            <Track 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
                                 <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
                                 <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
                                 <TrackOutput session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
                             <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=default>
-                        <Track session.mixers[0].tracks[0].tracks[1]>
+                        <Track 'A2' session.mixers[0].tracks[0].tracks[1]>
                             <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
                             <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
                             <TrackOutput session.mixers[0].tracks[0].tracks[1].output target=default>
                         <TrackOutput session.mixers[0].tracks[0].output target=default>
                         <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-                    <Track session.mixers[0].tracks[1]>
+                    <Track 'B' session.mixers[0].tracks[1]>
                         <TrackFeedback session.mixers[0].tracks[1].feedback>
                         <TrackInput session.mixers[0].tracks[1].input source=null>
                         <TrackOutput session.mixers[0].tracks[1].output target=default>
                         <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-                    <Track session.mixers[0].tracks[2]>
+                    <Track 'C' session.mixers[0].tracks[2]>
                         <TrackFeedback session.mixers[0].tracks[2].feedback>
                         <TrackInput session.mixers[0].tracks[2].input source=null>
                         <TrackOutput session.mixers[0].tracks[2].output target=default>
                     <MixerOutput session.mixers[0].output>
-                <Mixer session.mixers[1]>
-                    <Track session.mixers[1].tracks[0]>
+                <Mixer 'Q' session.mixers[1]>
+                    <Track 'D' session.mixers[1].tracks[0]>
                         <TrackFeedback session.mixers[1].tracks[0].feedback>
                         <TrackInput session.mixers[1].tracks[0].input source=null>
                         <TrackOutput session.mixers[1].tracks[0].output target=default>

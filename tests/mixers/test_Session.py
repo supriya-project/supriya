@@ -229,8 +229,8 @@ async def test_Session_boot(
             @@ -1,9 +1,2 @@
              <Session>
                  <session.contexts[0]>
-            -        <Mixer session.mixers[0]>
-            -            <Track session.mixers[0].tracks[0]>
+            -        <Mixer 'P' session.mixers[0]>
+            -            <Track 'A' session.mixers[0].tracks[0]>
             -                <TrackFeedback session.mixers[0].tracks[0].feedback>
             -                <TrackInput session.mixers[0].tracks[0].input source=null>
             -                <TrackOutput session.mixers[0].tracks[0].output target=default>
@@ -352,16 +352,16 @@ async def test_Session_quit(
             @@ -1,11 +1,11 @@
              <Session>
                  <session.contexts[0]>
-            +        <Mixer session.mixers[1]>
+            +        <Mixer 'Q' session.mixers[1]>
             +            <MixerOutput session.mixers[1].output>
             +    <session.contexts[1]>
-                     <Mixer session.mixers[0]>
-                         <Track session.mixers[0].tracks[0]>
+                     <Mixer 'P' session.mixers[0]>
+                         <Track 'A' session.mixers[0].tracks[0]>
                              <TrackFeedback session.mixers[0].tracks[0].feedback>
                              <TrackInput session.mixers[0].tracks[0].input source=null>
                              <TrackOutput session.mixers[0].tracks[0].output target=default>
                          <MixerOutput session.mixers[0].output>
-            -        <Mixer session.mixers[1]>
+            -        <Mixer 'Q' session.mixers[1]>
             -            <MixerOutput session.mixers[1].output>
             -    <session.contexts[1]>
             """,
@@ -415,7 +415,7 @@ async def test_Session_quit(
                              <TrackOutput session.mixers[0].tracks[0].output target=default>
                          <MixerOutput session.mixers[0].output>
             +    <session.contexts[1]>
-                     <Mixer session.mixers[1]>
+                     <Mixer 'Q' session.mixers[1]>
                          <MixerOutput session.mixers[1].output>
             -    <session.contexts[1]>
             """,
@@ -464,12 +464,12 @@ async def test_Session_set_mixer_context(
 ) -> None:
     # Pre-conditions
     session, _, _ = basic_session
-    if online:
-        await session.boot()
-    await session.add_mixer()
+    await session.add_mixer(name="Q")
     await session.add_context()
     assert len(session.contexts) == 2
     assert len(session.mixers) == 2
+    if online:
+        await session.boot()
     initial_components = debug_components(session)
     if online:
         initial_tree = await debug_tree(session, label="actual initial tree")
