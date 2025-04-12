@@ -53,15 +53,19 @@ class Component(Generic[C]):
     def __init__(
         self,
         *,
+        name: str | None = None,
         parent: C | None = None,
     ) -> None:
         self._lock = asyncio.Lock()
+        self._name: str | None = name
         self._parent: C | None = parent
         self._dependents: set[Component] = set()
         self._is_active = True
         self._feedback_dependents: set[Component] = set()
 
     def __repr__(self) -> str:
+        if self._name:
+            return f"<{type(self).__name__} {self._name!r} {self.address}>"
         return f"<{type(self).__name__} {self.address}>"
 
     async def _allocate_deep(self, *, context: AsyncServer) -> None:
@@ -241,9 +245,10 @@ class AllocatableComponent(Component[C]):
     def __init__(
         self,
         *,
+        name: str | None = None,
         parent: C | None = None,
     ) -> None:
-        super().__init__(parent=parent)
+        super().__init__(name=name, parent=parent)
         self._audio_buses: dict[str, BusGroup] = {}
         self._buffers: dict[str, Buffer] = {}
         self._control_buses: dict[str, BusGroup] = {}

@@ -17,6 +17,10 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
+_PATH_REGEX = re.compile(r"^[a-z_]+(\[\d+\])?(\.[a-z_]+(\[\d+\])?)*$")
+_PATH_PART_REGEX = re.compile(r"^([a-z_]+)(\[(\d+)\])?$")
+
+
 class Session(Component):
     """
     Top-level object.
@@ -49,11 +53,11 @@ class Session(Component):
     def __getitem__(self, key: str) -> "Component":
         if not isinstance(key, str):
             raise ValueError(key)
-        elif not re.match(r"^[a-z_]+(\[\d+\])?(\.[a-z_]+(\[\d+\])?)*$", key):
+        elif not _PATH_REGEX.match(key):
             raise ValueError(key)
         item: Component | Sequence[Component] = self
         for part in key.split("."):
-            if not (match := re.match(r"^([a-z_]+)(\[(\d+)\])?$", part)):
+            if not (match := _PATH_PART_REGEX.match(part)):
                 raise ValueError(key, part)
             name, _, index = match.groups()
             item = getattr(item, name)
@@ -91,7 +95,9 @@ class Session(Component):
                 await context.boot(port=find_free_port())
             return context
 
-    async def add_mixer(self, context: AsyncServer | None = None) -> "Mixer":
+    async def add_mixer(
+        self, context: AsyncServer | None = None, name: str | None = None
+    ) -> "Mixer":
         from .mixers import Mixer
 
         async with self._lock:
@@ -101,7 +107,9 @@ class Session(Component):
                     await context.boot(port=find_free_port())
             if context is None:
                 context = list(self._contexts)[0]
-            self._contexts.setdefault(context, []).append(mixer := Mixer(parent=self))
+            self._contexts.setdefault(context, []).append(
+                mixer := Mixer(name=name, parent=self)
+            )
             self._mixers[mixer] = context
             if self._status == BootStatus.ONLINE:
                 await mixer._allocate_deep(context=context)

@@ -37,7 +37,7 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
     def __init__(
         self,
         *,
-        name: str,
+        kind: str,
         source: S | None,
         target: T | None,
         gain: float = 0.0,
@@ -48,7 +48,7 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
     ) -> None:
         super().__init__(parent=parent)
         self._cached_state = self.State()
-        self._name = name
+        self._kind = kind
         self._postfader = postfader
         self._gain = gain
         self._inverted = inverted
@@ -265,5 +265,5 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
     @property
     def address(self) -> str:
         if self.parent is None:
-            return self._name
-        return f"{self.parent.address}.{self._name}"
+            return self._kind
+        return f"{self.parent.address}.{self._kind}"

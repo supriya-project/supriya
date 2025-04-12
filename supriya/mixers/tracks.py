@@ -19,8 +19,8 @@ class TrackContainer(AllocatableComponent[C]):
     def __init__(self) -> None:
         self._tracks: list[Track] = []
 
-    def _add_track(self) -> "Track":
-        self._tracks.append(track := Track(parent=self))
+    def _add_track(self, name: str | None = None) -> "Track":
+        self._tracks.append(track := Track(name=name, parent=self))
         return track
 
     def _group(self, index: int, count: int) -> "Track":
@@ -37,9 +37,9 @@ class TrackContainer(AllocatableComponent[C]):
             child_track._move(parent=group_track, index=i)
         return group_track
 
-    async def add_track(self) -> "Track":
+    async def add_track(self, name: str | None = None) -> "Track":
         async with self._lock:
-            track = self._add_track()
+            track = self._add_track(name=name)
             if context := self._can_allocate():
                 await track._allocate_deep(context=context)
             return track
@@ -61,7 +61,7 @@ class TrackFeedback(Connection["Track", BusGroup, "Track"]):
         source: BusGroup | None = None,
     ) -> None:
         super().__init__(
-            name="feedback",
+            kind="feedback",
             parent=parent,
             source=source,
             target=parent,
@@ -94,7 +94,7 @@ class TrackInput(Connection["Track", Union[BusGroup, "Track"], "Track"]):
         source: Union[BusGroup, "Track"] | None = None,
     ) -> None:
         super().__init__(
-            name="input",
+            kind="input",
             parent=parent,
             source=source,
             target=parent,
@@ -153,7 +153,7 @@ class TrackOutput(Connection["Track", "Track", BusGroup | Default | TrackContain
         target: BusGroup | Default | TrackContainer | None = DEFAULT,
     ) -> None:
         super().__init__(
-            name="output",
+            kind="output",
             parent=parent,
             source=parent,
             target=target,
@@ -203,7 +203,7 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
         postfader: bool = True,
     ) -> None:
         super().__init__(
-            name="send",
+            kind="send",
             parent=parent,
             postfader=postfader,
             source=parent,
@@ -261,6 +261,10 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
         async with self._lock:
             self._delete()
 
+    async def set_inverted(self, inverted: bool) -> None:
+        async with self._lock:
+            self._set_inverted(inverted)
+
     async def set_postfader(self, postfader: bool) -> None:
         async with self._lock:
             self._set_postfader(postfader)
@@ -275,6 +279,10 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
             return "sends[?]"
         index = self.parent.sends.index(self)
         return f"{self.parent.address}.sends[{index}]"
+
+    @property
+    def inverted(self) -> bool:
+        return self._inverted
 
     @property
     def postfader(self) -> bool:
@@ -296,9 +304,10 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
     def __init__(
         self,
         *,
+        name: str | None = None,
         parent: TrackContainer | None = None,
     ) -> None:
-        AllocatableComponent.__init__(self, parent=parent)
+        AllocatableComponent.__init__(self, name=name, parent=parent)
         DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
         self._feedback = TrackFeedback(parent=self)
@@ -516,6 +525,9 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
     async def set_muted(self, muted: bool = True) -> None:
         async with self._lock:
             self._set_muted(muted)
+
+    def set_name(self, name: str | None = None) -> None:
+        self._name = name
 
     async def set_output(
         self, output: BusGroup | Default | TrackContainer | None
