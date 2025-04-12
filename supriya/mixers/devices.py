@@ -10,13 +10,13 @@ class DeviceContainer(AllocatableComponent[C]):
     def __init__(self) -> None:
         self._devices: list[Device] = []
 
-    def _add_device(self) -> "Device":
-        self._devices.append(device := Device(parent=self))
+    def _add_device(self, name: str | None = None) -> "Device":
+        self._devices.append(device := Device(name=name, parent=self))
         return device
 
-    async def add_device(self) -> "Device":
+    async def add_device(self, name: str | None = None) -> "Device":
         async with self._lock:
-            device = self._add_device()
+            device = self._add_device(name=name)
             if context := self._can_allocate():
                 await device._allocate_deep(context=context)
             return device
@@ -57,6 +57,9 @@ class Device(AllocatableComponent):
     async def set_active(self, active: bool = True) -> None:
         async with self._lock:
             pass
+
+    def set_name(self, name: str | None = None) -> None:
+        self._name = name
 
     @property
     def address(self) -> str:
