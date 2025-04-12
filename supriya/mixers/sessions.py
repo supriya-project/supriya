@@ -17,10 +17,6 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-_PATH_REGEX = re.compile(r"^[a-z_]+(\[\d+\])?(\.[a-z_]+(\[\d+\])?)*$")
-_PATH_PART_REGEX = re.compile(r"^([a-z_]+)(\[(\d+)\])?$")
-
-
 class Session(Component):
     """
     Top-level object.
@@ -35,6 +31,9 @@ class Session(Component):
 
     This supports running scsynth and supernova simultaneously via two mixers.
     """
+
+    _PATH_REGEX = re.compile(r"^[a-z_]+(\[\d+\])?(\.[a-z_]+(\[\d+\])?)*$")
+    _PATH_PART_REGEX = re.compile(r"^([a-z_]+)(\[(\d+)\])?$")
 
     def __init__(self) -> None:
         from .mixers import Mixer
@@ -53,11 +52,11 @@ class Session(Component):
     def __getitem__(self, key: str) -> "Component":
         if not isinstance(key, str):
             raise ValueError(key)
-        elif not _PATH_REGEX.match(key):
+        elif not self._PATH_REGEX.match(key):
             raise ValueError(key)
         item: Component | Sequence[Component] = self
         for part in key.split("."):
-            if not (match := _PATH_PART_REGEX.match(part)):
+            if not (match := self._PATH_PART_REGEX.match(part)):
                 raise ValueError(key, part)
             name, _, index = match.groups()
             item = getattr(item, name)
