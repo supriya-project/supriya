@@ -7,6 +7,7 @@ from ..clocks import AsyncClock
 from ..contexts import AsyncServer
 from ..enums import BootStatus
 from ..osc import find_free_port
+from ..scsynth import Options
 from ..ugens import SynthDef
 from .components import Component
 
@@ -40,6 +41,7 @@ class Session(Component):
 
         super().__init__()
         self._boot_future: asyncio.Future | None = None
+        self._channel_count: int = 2
         self._clock = AsyncClock()
         self._contexts: dict[AsyncServer, list[Mixer]] = {}
         self._lock = asyncio.Lock()
@@ -81,15 +83,15 @@ class Session(Component):
                 parts.extend("        " + line for line in str(mixer).splitlines())
         return "\n".join(parts)
 
-    def _add_context(self) -> AsyncServer:
-        context = AsyncServer()
+    def _add_context(self, options: Options) -> AsyncServer:
+        context = AsyncServer(options)
         self._contexts[context] = []
         self._synthdefs[context] = set()
         return context
 
-    async def add_context(self) -> AsyncServer:
+    async def add_context(self, options: Options | None = None) -> AsyncServer:
         async with self._lock:
-            context = self._add_context()
+            context = self._add_context(options)
             if self._status == BootStatus.ONLINE:
                 await context.boot(port=find_free_port())
             return context
