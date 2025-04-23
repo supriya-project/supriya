@@ -6,7 +6,7 @@ from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
 from ..typing import Default
 from ..ugens import SynthDef
-from .components import C, Component, ComponentNames
+from .components import C, Component, ComponentNames, State
 from .synthdefs import build_patch_cable
 
 Connectable: TypeAlias = Component | BusGroup | Default
@@ -22,17 +22,18 @@ S = TypeVar("S", bound=Connectable)
 T = TypeVar("T", bound=Connectable)
 
 
-class Connection(Component[C], Generic[C, S, T]):
+@dataclasses.dataclass
+class ConnectionState(State):
+    feedsback: bool | None = None
+    inverted: bool = False
+    postfader: bool = True
+    source_bus: BusGroup | None = None
+    source_component: Component | None = None
+    target_bus: BusGroup | None = None
+    target_component: Component | None = None
 
-    @dataclasses.dataclass
-    class State:
-        feedsback: bool | None = None
-        inverted: bool = False
-        postfader: bool = True
-        source_bus: BusGroup | None = None
-        source_component: Component | None = None
-        target_bus: BusGroup | None = None
-        target_component: Component | None = None
+
+class Connection(Component[C, ConnectionState], Generic[C, S, T]):
 
     def __init__(
         self,
@@ -47,7 +48,7 @@ class Connection(Component[C], Generic[C, S, T]):
         writing: bool = True,
     ) -> None:
         super().__init__(parent=parent)
-        self._cached_state = self.State()
+        self._cached_state = ConnectionState()
         self._kind = kind
         self._postfader = postfader
         self._gain = gain
@@ -67,7 +68,7 @@ class Connection(Component[C], Generic[C, S, T]):
         *,
         context: AsyncServer,
         parent: Component,
-        new_state: "Connection.State",
+        new_state: ConnectionState,
     ) -> None:
         self._nodes[ComponentNames.SYNTH] = parent._nodes[
             ComponentNames.GROUP
@@ -86,7 +87,7 @@ class Connection(Component[C], Generic[C, S, T]):
         #       practice, this doesn't matter, but it does ensure the test
         #       suite doesn't need to special case node or bus IDs.
         super()._deallocate()
-        self._reconcile(context=self._can_allocate(), new_state=self.State())
+        self._reconcile(context=self._can_allocate(), new_state=ConnectionState())
 
     def _get_synthdefs(self) -> list[SynthDef]:
         return [build_patch_cable(2, 2, feedback=True), build_patch_cable(2, 2)]
@@ -94,7 +95,7 @@ class Connection(Component[C], Generic[C, S, T]):
     def _reconcile(
         self,
         context: AsyncServer | None = None,
-        new_state: Optional["Connection.State"] = None,
+        new_state: Optional[ConnectionState] = None,
     ) -> bool:
         new_state = new_state or self._resolve_state(context)
         self._reconcile_dependencies(new_state)
@@ -102,7 +103,7 @@ class Connection(Component[C], Generic[C, S, T]):
         self._cached_state = new_state
         return self._reconcile_deferment(new_state)
 
-    def _reconcile_deferment(self, new_state: "Connection.State") -> bool:
+    def _reconcile_deferment(self, new_state: ConnectionState) -> bool:
         if (
             new_state.source_component
             and new_state.target_component
@@ -111,7 +112,7 @@ class Connection(Component[C], Generic[C, S, T]):
             return False
         return True
 
-    def _reconcile_dependencies(self, new_state: "Connection.State") -> None:
+    def _reconcile_dependencies(self, new_state: ConnectionState) -> None:
         for new_component, old_component in [
             (new_state.source_component, self._cached_state.source_component),
             (new_state.target_component, self._cached_state.target_component),
@@ -125,7 +126,7 @@ class Connection(Component[C], Generic[C, S, T]):
             new_state.target_component._unregister_feedback(self)
 
     def _reconcile_synth(
-        self, context: AsyncServer | None, new_state: "Connection.State"
+        self, context: AsyncServer | None, new_state: ConnectionState
     ) -> None:
         if self.parent is None:
             return
@@ -189,13 +190,13 @@ class Connection(Component[C], Generic[C, S, T]):
             source_bus = source_component._audio_buses.get(ComponentNames.MAIN)
         return source_component, source_bus
 
-    def _resolve_state(self, context: AsyncServer | None = None) -> "Connection.State":
+    def _resolve_state(self, context: AsyncServer | None = None) -> ConnectionState:
         source_component, source_bus = self._resolve_source(context)
         target_component, target_bus = self._resolve_target(context)
         feedsback, feedback_bus = self._resolve_feedback(
             context, source_component, target_component
         )
-        return self.State(
+        return ConnectionState(
             feedsback=feedsback,
             inverted=self._inverted,
             postfader=self._postfader,

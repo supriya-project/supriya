@@ -1,12 +1,13 @@
+import dataclasses
 from typing import TYPE_CHECKING, Optional
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
 from ..typing import DEFAULT, Default
 from ..ugens import SynthDef
-from .components import Component, ComponentNames
+from .components import ChannelCount, Component, ComponentNames, State
 from .devices import DeviceContainer
-from .routing import Connection
+from .routing import Connection, ConnectionState
 from .synthdefs import (
     build_channel_strip,
     build_meters,
@@ -36,7 +37,7 @@ class MixerOutput(Connection["Mixer", "Mixer", Default]):
         *,
         context: AsyncServer,
         parent: Component,
-        new_state: "Connection.State",
+        new_state: ConnectionState,
     ) -> None:
         self._nodes[ComponentNames.SYNTH] = parent._nodes[
             ComponentNames.GROUP
@@ -55,7 +56,12 @@ class MixerOutput(Connection["Mixer", "Mixer", Default]):
         return None, context.audio_output_bus_group
 
 
-class Mixer(TrackContainer["Session"], DeviceContainer):
+@dataclasses.dataclass
+class MixerState(State):
+    channel_count: ChannelCount = 2
+
+
+class Mixer(TrackContainer["Session", MixerState], DeviceContainer["Session", State]):
 
     # TODO: add_device() -> Device
     # TODO: group_devices(index: int, count: int) -> Rack
