@@ -17,6 +17,7 @@ from typing import (
 from ..contexts import AsyncServer, Buffer, BusGroup, Group, Node
 from ..contexts.responses import QueryTreeGroup
 from ..enums import BootStatus, CalculationRate, DoneAction
+from ..typing import DEFAULT, Default
 from ..ugens import SynthDef
 from ..utils import iterate_nwise
 
@@ -56,6 +57,7 @@ class Component(Generic[C]):
     ) -> None:
         self._audio_buses: dict[str, BusGroup] = {}
         self._buffers: dict[str, Buffer] = {}
+        self._channel_count: ChannelCount | Default = DEFAULT
         self._control_buses: dict[str, BusGroup] = {}
         self._dependents: set[Component] = set()
         self._feedback_dependents: set[Component] = set()
@@ -285,6 +287,10 @@ class Component(Generic[C]):
         raise NotImplementedError
 
     @property
+    def channel_count(self) -> ChannelCount | Default:
+        return self._channel_count
+
+    @property
     def children(self) -> list["Component"]:
         return []
 
@@ -293,6 +299,13 @@ class Component(Generic[C]):
         if (mixer := self.mixer) is not None:
             return mixer.context
         return None
+
+    @property
+    def effective_channel_count(self) -> ChannelCount:
+        for component in self._iterate_parentage():
+            if isinstance(channel_count := component.channel_count, int):
+                return channel_count
+        return 2
 
     @property
     def graph_order(self) -> tuple[int, ...]:
