@@ -6,10 +6,10 @@ from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
 from ..typing import Default
 from ..ugens import SynthDef
-from .components import A, AllocatableComponent, ComponentNames
+from .components import C, Component, ComponentNames
 from .synthdefs import build_patch_cable
 
-Connectable: TypeAlias = AllocatableComponent | BusGroup | Default
+Connectable: TypeAlias = Component | BusGroup | Default
 
 
 class DefaultBehavior(enum.Enum):
@@ -22,7 +22,7 @@ S = TypeVar("S", bound=Connectable)
 T = TypeVar("T", bound=Connectable)
 
 
-class Connection(AllocatableComponent[A], Generic[A, S, T]):
+class Connection(Component[C], Generic[C, S, T]):
 
     @dataclasses.dataclass
     class State:
@@ -30,9 +30,9 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
         inverted: bool = False
         postfader: bool = True
         source_bus: BusGroup | None = None
-        source_component: AllocatableComponent | None = None
+        source_component: Component | None = None
         target_bus: BusGroup | None = None
-        target_component: AllocatableComponent | None = None
+        target_component: Component | None = None
 
     def __init__(
         self,
@@ -42,7 +42,7 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
         target: T | None,
         gain: float = 0.0,
         inverted: bool = False,
-        parent: A | None = None,
+        parent: C | None = None,
         postfader: bool = True,
         writing: bool = True,
     ) -> None:
@@ -66,7 +66,7 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
         self,
         *,
         context: AsyncServer,
-        parent: AllocatableComponent,
+        parent: Component,
         new_state: "Connection.State",
     ) -> None:
         self._nodes[ComponentNames.SYNTH] = parent._nodes[
@@ -145,21 +145,21 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
 
     def _resolve_default_source(
         self, context: AsyncServer | None
-    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
+    ) -> tuple[Component | None, BusGroup | None]:
         # return self.parent
         raise NotImplementedError
 
     def _resolve_default_target(
         self, context: AsyncServer | None
-    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
+    ) -> tuple[Component | None, BusGroup | None]:
         # return self.parent and self.parent.parent
         raise NotImplementedError
 
     def _resolve_feedback(
         self,
         context: AsyncServer | None,
-        source_component: AllocatableComponent | None,
-        target_component: AllocatableComponent | None,
+        source_component: Component | None,
+        target_component: Component | None,
     ) -> tuple[bool | None, BusGroup | None]:
         feedsback, target_bus = None, None
         try:
@@ -176,12 +176,12 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
 
     def _resolve_source(
         self, context: AsyncServer | None
-    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
+    ) -> tuple[Component | None, BusGroup | None]:
         # resolve source
         source_component, source_bus = None, None
         if isinstance(self._source, BusGroup):
             source_bus = self._source
-        elif isinstance(self._source, AllocatableComponent):
+        elif isinstance(self._source, Component):
             source_component = self._source
         elif isinstance(self._source, Default):
             source_component, source_bus = self._resolve_default_source(context)
@@ -207,11 +207,11 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
 
     def _resolve_target(
         self, context: AsyncServer | None
-    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
+    ) -> tuple[Component | None, BusGroup | None]:
         target_component, target_bus = None, None
         if isinstance(self._target, BusGroup):
             target_bus = self._target
-        elif isinstance(self._target, AllocatableComponent):
+        elif isinstance(self._target, Component):
             target_component = self._target
         elif isinstance(self._target, Default):
             target_component, target_bus = self._resolve_default_target(context)
@@ -230,13 +230,13 @@ class Connection(AllocatableComponent[A], Generic[A, S, T]):
         self._reconcile(context=self._can_allocate())
 
     def _set_source(self, source: S | None) -> None:
-        if isinstance(source, AllocatableComponent) and self.mixer is not source.mixer:
+        if isinstance(source, Component) and self.mixer is not source.mixer:
             raise RuntimeError
         self._source = source
         self._reconcile(context=self._can_allocate())
 
     def _set_target(self, target: T | None) -> None:
-        if isinstance(target, AllocatableComponent) and self.mixer is not target.mixer:
+        if isinstance(target, Component) and self.mixer is not target.mixer:
             raise RuntimeError
         self._target = target
         self._reconcile(context=self._can_allocate())

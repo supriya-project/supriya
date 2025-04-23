@@ -4,7 +4,7 @@ from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
 from ..typing import DEFAULT, Default
 from ..ugens import SynthDef
-from .components import AllocatableComponent, C, Component, ComponentNames
+from .components import C, Component, ComponentNames
 from .devices import DeviceContainer
 from .routing import Connection
 from .synthdefs import (
@@ -14,7 +14,7 @@ from .synthdefs import (
 )
 
 
-class TrackContainer(AllocatableComponent[C]):
+class TrackContainer(Component[C]):
 
     def __init__(self) -> None:
         self._tracks: list[Track] = []
@@ -71,7 +71,7 @@ class TrackFeedback(Connection["Track", BusGroup, "Track"]):
         self,
         *,
         context: AsyncServer,
-        parent: AllocatableComponent,
+        parent: Component,
         new_state: Connection.State,
     ) -> None:
         self._nodes[ComponentNames.SYNTH] = parent._nodes[
@@ -113,7 +113,7 @@ class TrackInput(Connection["Track", Union[BusGroup, "Track"], "Track"]):
         self,
         *,
         context: AsyncServer,
-        parent: AllocatableComponent,
+        parent: Component,
         new_state: Connection.State,
     ) -> None:
         self._nodes[ComponentNames.SYNTH] = parent._nodes[
@@ -171,7 +171,7 @@ class TrackOutput(Connection["Track", "Track", BusGroup | Default | TrackContain
 
     def _resolve_default_target(
         self, context: AsyncServer | None
-    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
+    ) -> tuple[Component | None, BusGroup | None]:
         return (self.parent and self.parent.parent), None
 
     def _disconnect_dependency(
@@ -220,7 +220,7 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
         self,
         *,
         context: AsyncServer,
-        parent: AllocatableComponent,
+        parent: Component,
         new_state: Connection.State,
     ) -> None:
         self._nodes[ComponentNames.SYNTH] = parent._nodes[
@@ -249,7 +249,7 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
 
     def _resolve_default_source(
         self, context: AsyncServer | None
-    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
+    ) -> tuple[Component | None, BusGroup | None]:
         return self.parent, None
 
     def _set_target(self, target: TrackContainer | None) -> None:
@@ -289,9 +289,9 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
         return self._postfader
 
     @property
-    def target(self) -> AllocatableComponent | BusGroup:
+    def target(self) -> Component | BusGroup:
         # TODO: Can this be parameterized via generics?
-        return cast(AllocatableComponent | BusGroup, self._target)
+        return cast(Component | BusGroup, self._target)
 
 
 class Track(TrackContainer[TrackContainer], DeviceContainer):
@@ -307,7 +307,7 @@ class Track(TrackContainer[TrackContainer], DeviceContainer):
         name: str | None = None,
         parent: TrackContainer | None = None,
     ) -> None:
-        AllocatableComponent.__init__(self, name=name, parent=parent)
+        Component.__init__(self, name=name, parent=parent)
         DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
         self._feedback = TrackFeedback(parent=self)

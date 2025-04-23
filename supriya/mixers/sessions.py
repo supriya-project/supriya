@@ -83,7 +83,7 @@ class Session(Component):
                 parts.extend("        " + line for line in str(mixer).splitlines())
         return "\n".join(parts)
 
-    def _add_context(self, options: Options) -> AsyncServer:
+    def _add_context(self, options: Options | None = None) -> AsyncServer:
         context = AsyncServer(options)
         self._contexts[context] = []
         self._synthdefs[context] = set()
@@ -108,6 +108,8 @@ class Session(Component):
                     await context.boot(port=find_free_port())
             if context is None:
                 context = list(self._contexts)[0]
+            if context not in self.contexts:
+                raise ValueError(context)
             self._contexts.setdefault(context, []).append(
                 mixer := Mixer(name=name, parent=self)
             )
@@ -161,7 +163,7 @@ class Session(Component):
         for context, mixers in self._contexts.items():
             parts.append(repr(context))
             for mixer in mixers:
-                for line in str(await mixer.dump_tree(annotated)).splitlines():
+                for line in (await mixer.dump_tree(annotated)).splitlines():
                     parts.append(f"    {line}")
         return "\n".join(parts)
 
