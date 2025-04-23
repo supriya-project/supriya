@@ -22,8 +22,6 @@ from ..utils import iterate_nwise
 
 C = TypeVar("C", bound="Component")
 
-A = TypeVar("A", bound="AllocatableComponent")
-
 # TODO: Integrate this with channel logic
 ChannelCount: TypeAlias = Literal[1, 2, 4, 8]
 
@@ -56,12 +54,16 @@ class Component(Generic[C]):
         name: str | None = None,
         parent: C | None = None,
     ) -> None:
+        self._audio_buses: dict[str, BusGroup] = {}
+        self._buffers: dict[str, Buffer] = {}
+        self._control_buses: dict[str, BusGroup] = {}
+        self._dependents: set[Component] = set()
+        self._feedback_dependents: set[Component] = set()
+        self._is_active = True
         self._lock = asyncio.Lock()
         self._name: str | None = name
+        self._nodes: dict[str, Node] = {}
         self._parent: C | None = parent
-        self._dependents: set[Component] = set()
-        self._is_active = True
-        self._feedback_dependents: set[Component] = set()
 
     def __repr__(self) -> str:
         if self._name:
@@ -94,8 +96,27 @@ class Component(Generic[C]):
     def _allocate(self, *, context: AsyncServer) -> bool:
         return True
 
+    def _can_allocate(self) -> AsyncServer | None:
+        if (
+            context := self.context
+        ) is not None and context.boot_status == BootStatus.ONLINE:
+            return context
+        return None
+
     def _deallocate(self) -> None:
-        pass
+        context_manager = (
+            context.at()
+            if (context := self._can_allocate()) is not None
+            else nullcontext()
+        )
+        with context_manager:
+            for key in tuple(self._audio_buses):
+                self._audio_buses.pop(key).free()
+            for key in tuple(self._control_buses):
+                self._control_buses.pop(key).free()
+            self._nodes.clear()
+            for key in tuple(self._buffers):
+                self._buffers.pop(key).free()
 
     def _deallocate_deep(self) -> None:
         self._deallocate_root()
@@ -103,7 +124,22 @@ class Component(Generic[C]):
             component._deallocate()
 
     def _deallocate_root(self) -> None:
-        pass
+        context_manager = (
+            context.at()
+            if (context := self._can_allocate()) is not None
+            else nullcontext()
+        )
+        group_node = self._nodes.get(ComponentNames.GROUP)
+        synth_node = self._nodes.get(ComponentNames.CHANNEL_STRIP) or self._nodes.get(
+            ComponentNames.SYNTH
+        )
+        with context_manager:
+            if group_node:
+                group_node.set(gate=0)
+            elif synth_node:
+                synth_node.set(gate=0)
+            if group_node and synth_node:
+                synth_node.set(done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP)
 
     def _delete(self) -> None:
         self._deallocate_root()
@@ -131,6 +167,58 @@ class Component(Generic[C]):
         for child in self.children:
             parts.extend(indent + line for line in child._dump_components())
         return parts
+
+    def _get_audio_bus(
+        self,
+        context: AsyncServer | None,
+        name: str,
+        can_allocate: bool = False,
+        channel_count: int = 2,
+    ) -> BusGroup:
+        return self._get_buses(
+            calculation_rate=CalculationRate.AUDIO,
+            can_allocate=can_allocate,
+            channel_count=channel_count,
+            context=context,
+            name=name,
+        )
+
+    def _get_buses(
+        self,
+        context: AsyncServer | None,
+        name: str,
+        *,
+        calculation_rate: CalculationRate,
+        can_allocate: bool = False,
+        channel_count: int = 1,
+    ) -> BusGroup:
+        if calculation_rate == CalculationRate.CONTROL:
+            buses = self._control_buses
+        elif calculation_rate == CalculationRate.AUDIO:
+            buses = self._audio_buses
+        else:
+            raise ValueError(calculation_rate)
+        if (name not in buses) and can_allocate and context:
+            buses[name] = context.add_bus_group(
+                calculation_rate=calculation_rate,
+                count=channel_count,
+            )
+        return buses[name]
+
+    def _get_control_bus(
+        self,
+        context: AsyncServer | None,
+        name: str,
+        can_allocate: bool = False,
+        channel_count: int = 1,
+    ) -> BusGroup:
+        return self._get_buses(
+            calculation_rate=CalculationRate.CONTROL,
+            can_allocate=can_allocate,
+            channel_count=channel_count,
+            context=context,
+            name=name,
+        )
 
     def _get_synthdefs(self) -> list[SynthDef]:
         return []
@@ -175,6 +263,22 @@ class Component(Generic[C]):
 
     def dump_components(self) -> str:
         return "\n".join(self._dump_components())
+
+    async def dump_tree(self, annotated: bool = True) -> str:
+        if self.session and self.session.status != BootStatus.ONLINE:
+            raise RuntimeError
+        tree = await cast(
+            Awaitable[QueryTreeGroup],
+            cast(Group, self._nodes[ComponentNames.GROUP]).dump_tree(),
+        )
+        if annotated:
+            annotations: dict[int, str] = {}
+            for component in self._walk():
+                address = component.address
+                for name, node in component._nodes.items():
+                    annotations[node.id_] = f"{address}:{name}"
+            return str(tree.annotate(annotations))
+        return str(tree)
 
     @property
     def address(self) -> str:
@@ -238,129 +342,3 @@ class Component(Generic[C]):
         ]:
             address = address.replace(from_, to_)
         return address
-
-
-class AllocatableComponent(Component[C]):
-
-    def __init__(
-        self,
-        *,
-        name: str | None = None,
-        parent: C | None = None,
-    ) -> None:
-        super().__init__(name=name, parent=parent)
-        self._audio_buses: dict[str, BusGroup] = {}
-        self._buffers: dict[str, Buffer] = {}
-        self._control_buses: dict[str, BusGroup] = {}
-        self._is_active: bool = True
-        self._nodes: dict[str, Node] = {}
-
-    def _can_allocate(self) -> AsyncServer | None:
-        if (
-            context := self.context
-        ) is not None and context.boot_status == BootStatus.ONLINE:
-            return context
-        return None
-
-    def _deallocate(self) -> None:
-        context_manager = (
-            context.at()
-            if (context := self._can_allocate()) is not None
-            else nullcontext()
-        )
-        with context_manager:
-            for key in tuple(self._audio_buses):
-                self._audio_buses.pop(key).free()
-            for key in tuple(self._control_buses):
-                self._control_buses.pop(key).free()
-            self._nodes.clear()
-            for key in tuple(self._buffers):
-                self._buffers.pop(key).free()
-
-    def _deallocate_root(self) -> None:
-        context_manager = (
-            context.at()
-            if (context := self._can_allocate()) is not None
-            else nullcontext()
-        )
-        group_node = self._nodes.get(ComponentNames.GROUP)
-        synth_node = self._nodes.get(ComponentNames.CHANNEL_STRIP) or self._nodes.get(
-            ComponentNames.SYNTH
-        )
-        with context_manager:
-            if group_node:
-                group_node.set(gate=0)
-            elif synth_node:
-                synth_node.set(gate=0)
-            if group_node and synth_node:
-                synth_node.set(done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP)
-
-    def _get_audio_bus(
-        self,
-        context: AsyncServer | None,
-        name: str,
-        can_allocate: bool = False,
-        channel_count: int = 2,
-    ) -> BusGroup:
-        return self._get_buses(
-            calculation_rate=CalculationRate.AUDIO,
-            can_allocate=can_allocate,
-            channel_count=channel_count,
-            context=context,
-            name=name,
-        )
-
-    def _get_buses(
-        self,
-        context: AsyncServer | None,
-        name: str,
-        *,
-        calculation_rate: CalculationRate,
-        can_allocate: bool = False,
-        channel_count: int = 1,
-    ) -> BusGroup:
-        if calculation_rate == CalculationRate.CONTROL:
-            buses = self._control_buses
-        elif calculation_rate == CalculationRate.AUDIO:
-            buses = self._audio_buses
-        else:
-            raise ValueError(calculation_rate)
-        if (name not in buses) and can_allocate and context:
-            buses[name] = context.add_bus_group(
-                calculation_rate=calculation_rate,
-                count=channel_count,
-            )
-        return buses[name]
-
-    def _get_control_bus(
-        self,
-        context: AsyncServer | None,
-        name: str,
-        can_allocate: bool = False,
-        channel_count: int = 1,
-    ) -> BusGroup:
-        return self._get_buses(
-            calculation_rate=CalculationRate.CONTROL,
-            can_allocate=can_allocate,
-            channel_count=channel_count,
-            context=context,
-            name=name,
-        )
-
-    async def dump_tree(self, annotated: bool = True) -> QueryTreeGroup:
-        if self.session and self.session.status != BootStatus.ONLINE:
-            raise RuntimeError
-        tree = await cast(
-            Awaitable[QueryTreeGroup],
-            cast(Group, self._nodes[ComponentNames.GROUP]).dump_tree(),
-        )
-        if annotated:
-            annotations: dict[int, str] = {}
-            for component in self._walk():
-                if not isinstance(component, AllocatableComponent):
-                    continue
-                address = component.address
-                for name, node in component._nodes.items():
-                    annotations[node.id_] = f"{address}:{name}"
-            return tree.annotate(annotations)
-        return tree
