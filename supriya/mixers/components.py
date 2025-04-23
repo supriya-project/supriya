@@ -1,4 +1,5 @@
 import asyncio
+import dataclasses
 from contextlib import nullcontext
 from typing import (
     TYPE_CHECKING,
@@ -21,7 +22,14 @@ from ..typing import DEFAULT, Default
 from ..ugens import SynthDef
 from ..utils import iterate_nwise
 
+
+@dataclasses.dataclass
+class State:
+    context: AsyncServer | None = None
+
+
 C = TypeVar("C", bound="Component")
+H = TypeVar("H", bound=State)
 
 # TODO: Integrate this with channel logic
 ChannelCount: TypeAlias = Literal[1, 2, 4, 8]
@@ -47,7 +55,7 @@ class ComponentNames:
     TRACKS = "tracks"
 
 
-class Component(Generic[C]):
+class Component(Generic[C, H]):
 
     def __init__(
         self,
@@ -66,6 +74,7 @@ class Component(Generic[C]):
         self._name: str | None = name
         self._nodes: dict[str, Node] = {}
         self._parent: C | None = parent
+        self._cached_state: H = self._resolve_empty_state()
 
     def __repr__(self) -> str:
         if self._name:
@@ -244,6 +253,12 @@ class Component(Generic[C]):
         self._dependents.add(dependent)
         self._feedback_dependents.add(dependent)
         return None
+
+    def _resolve_empty_state(self) -> H:
+        return cast(H, State())
+
+    def _resolve_state(self, context: AsyncServer | None = None) -> State:
+        raise NotImplementedError
 
     def _unregister_dependency(self, dependent: "Component") -> bool:
         self._dependents.discard(dependent)
