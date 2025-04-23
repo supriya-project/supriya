@@ -9,7 +9,7 @@ from ..enums import BootStatus
 from ..osc import find_free_port
 from ..scsynth import Options
 from ..ugens import SynthDef
-from .components import Component
+from .components import ChannelCount, Component
 
 if TYPE_CHECKING:
     from .mixers import Mixer
@@ -41,7 +41,7 @@ class Session(Component):
 
         super().__init__()
         self._boot_future: asyncio.Future | None = None
-        self._channel_count: int = 2
+        self._channel_count: ChannelCount = 2
         self._clock = AsyncClock()
         self._contexts: dict[AsyncServer, list[Mixer]] = {}
         self._lock = asyncio.Lock()
