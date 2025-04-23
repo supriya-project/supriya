@@ -4,7 +4,7 @@ from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
 from ..typing import DEFAULT, Default
 from ..ugens import SynthDef
-from .components import AllocatableComponent, Component, ComponentNames
+from .components import Component, ComponentNames
 from .devices import DeviceContainer
 from .routing import Connection
 from .synthdefs import (
@@ -35,7 +35,7 @@ class MixerOutput(Connection["Mixer", "Mixer", Default]):
         self,
         *,
         context: AsyncServer,
-        parent: AllocatableComponent,
+        parent: Component,
         new_state: "Connection.State",
     ) -> None:
         self._nodes[ComponentNames.SYNTH] = parent._nodes[
@@ -49,7 +49,7 @@ class MixerOutput(Connection["Mixer", "Mixer", Default]):
 
     def _resolve_default_target(
         self, context: AsyncServer | None
-    ) -> tuple[AllocatableComponent | None, BusGroup | None]:
+    ) -> tuple[Component | None, BusGroup | None]:
         if not context:
             return None, None
         return None, context.audio_output_bus_group
@@ -63,7 +63,7 @@ class Mixer(TrackContainer["Session"], DeviceContainer):
     # TODO: set_output(output: int) -> None
 
     def __init__(self, *, name: str | None = None, parent: Optional["Session"]) -> None:
-        AllocatableComponent.__init__(self, name=name, parent=parent)
+        Component.__init__(self, name=name, parent=parent)
         DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
         self._output = MixerOutput(parent=self)

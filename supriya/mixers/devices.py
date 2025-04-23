@@ -1,11 +1,11 @@
 from ..contexts import AsyncServer
 from ..enums import AddAction
 from ..ugens import SynthDef
-from .components import AllocatableComponent, C, ComponentNames
+from .components import C, Component, ComponentNames
 from .synthdefs import build_device_dc_tester
 
 
-class DeviceContainer(AllocatableComponent[C]):
+class DeviceContainer(Component[C]):
 
     def __init__(self) -> None:
         self._devices: list[Device] = []
@@ -26,7 +26,7 @@ class DeviceContainer(AllocatableComponent[C]):
         return self._devices[:]
 
 
-class Device(AllocatableComponent):
+class Device(Component):
 
     def _allocate(self, *, context: AsyncServer) -> bool:
         if not super()._allocate(context=context):
