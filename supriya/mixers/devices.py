@@ -1,11 +1,13 @@
+import dataclasses
+
 from ..contexts import AsyncServer
 from ..enums import AddAction
 from ..ugens import SynthDef
-from .components import C, Component, ComponentNames
+from .components import C, ChannelCount, Component, ComponentNames, H, State
 from .synthdefs import build_device_dc_tester
 
 
-class DeviceContainer(Component[C]):
+class DeviceContainer(Component[C, H]):
 
     def __init__(self) -> None:
         self._devices: list[Device] = []
@@ -26,8 +28,12 @@ class DeviceContainer(Component[C]):
         return self._devices[:]
 
 
-class Device(Component):
+@dataclasses.dataclass
+class DeviceState(State):
+    channel_count: ChannelCount = 2
 
+
+class Device(Component[DeviceContainer, DeviceState]):
     def _allocate(self, *, context: AsyncServer) -> bool:
         if not super()._allocate(context=context):
             return False

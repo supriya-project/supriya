@@ -1,12 +1,13 @@
+import dataclasses
 from typing import Union, cast
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
 from ..typing import DEFAULT, Default
 from ..ugens import SynthDef
-from .components import C, Component, ComponentNames
+from .components import C, ChannelCount, Component, ComponentNames, H, State
 from .devices import DeviceContainer
-from .routing import Connection
+from .routing import Connection, ConnectionState
 from .synthdefs import (
     build_channel_strip,
     build_meters,
@@ -14,7 +15,7 @@ from .synthdefs import (
 )
 
 
-class TrackContainer(Component[C]):
+class TrackContainer(Component[C, H]):
 
     def __init__(self) -> None:
         self._tracks: list[Track] = []
@@ -72,7 +73,7 @@ class TrackFeedback(Connection["Track", BusGroup, "Track"]):
         *,
         context: AsyncServer,
         parent: Component,
-        new_state: Connection.State,
+        new_state: ConnectionState,
     ) -> None:
         self._nodes[ComponentNames.SYNTH] = parent._nodes[
             ComponentNames.GROUP
@@ -114,7 +115,7 @@ class TrackInput(Connection["Track", Union[BusGroup, "Track"], "Track"]):
         *,
         context: AsyncServer,
         parent: Component,
-        new_state: Connection.State,
+        new_state: ConnectionState,
     ) -> None:
         self._nodes[ComponentNames.SYNTH] = parent._nodes[
             ComponentNames.TRACKS
@@ -221,7 +222,7 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
         *,
         context: AsyncServer,
         parent: Component,
-        new_state: Connection.State,
+        new_state: ConnectionState,
     ) -> None:
         self._nodes[ComponentNames.SYNTH] = parent._nodes[
             ComponentNames.CHANNEL_STRIP
@@ -294,7 +295,15 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
         return cast(Component | BusGroup, self._target)
 
 
-class Track(TrackContainer[TrackContainer], DeviceContainer):
+@dataclasses.dataclass
+class TrackState(State):
+    channel_count: ChannelCount = 2
+
+
+class Track(
+    TrackContainer[TrackContainer, TrackState],
+    DeviceContainer[TrackContainer, TrackState],
+):
 
     # TODO: add_device() -> Device
     # TODO: group_devices(index: int, count: int) -> Rack
