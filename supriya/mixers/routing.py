@@ -6,7 +6,7 @@ from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
 from ..typing import Default
 from ..ugens import SynthDef
-from .components import C, Component, ComponentNames, State
+from .components import Address, C, Component, ComponentNames, State
 from .synthdefs import build_patch_cable
 
 Connectable: TypeAlias = Component | BusGroup | Default
@@ -264,7 +264,7 @@ class Connection(Component[C, ConnectionState], Generic[C, S, T]):
         return feedsback
 
     @property
-    def address(self) -> str:
+    def address(self) -> Address:
         if self.parent is None:
             return self._kind
         return f"{self.parent.address}.{self._kind}"

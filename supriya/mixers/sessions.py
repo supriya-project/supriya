@@ -9,7 +9,7 @@ from ..enums import BootStatus
 from ..osc import find_free_port
 from ..scsynth import Options
 from ..ugens import SynthDef
-from .components import ChannelCount, Component
+from .components import Address, ChannelCount, Component
 
 if TYPE_CHECKING:
     from .mixers import Mixer
@@ -210,7 +210,7 @@ class Session(Component):
         await asyncio.gather(*[context.sync() for context in self.contexts])
 
     @property
-    def address(self) -> str:
+    def address(self) -> Address:
         return "session"
 
     @property
