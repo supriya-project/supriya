@@ -37,9 +37,9 @@ async def test_Session_add_context(
         --- initial
         +++ mutation
         @@ -6,3 +6,4 @@
-                         <TrackInput session.mixers[0].tracks[0].input source=null>
-                         <TrackOutput session.mixers[0].tracks[0].output target=default>
-                     <MixerOutput session.mixers[0].output>
+                         <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+                         <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+                     <MixerOutput 2 session.mixers[0].output>
         +    <session.contexts[1]>
         """,
         initial_components,
@@ -68,15 +68,6 @@ async def test_Session_add_context(
         (
             False,
             """
-            --- initial
-            +++ mutation
-            @@ -6,3 +6,6 @@
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-                         <MixerOutput session.mixers[0].output>
-            +    <session.contexts[1]>
-            +        <Mixer session.mixers[1]>
-            +            <MixerOutput session.mixers[1].output>
             """,
             """
             --- initial
@@ -117,15 +108,6 @@ async def test_Session_add_context(
         (
             True,
             """
-            --- initial
-            +++ mutation
-            @@ -6,3 +6,6 @@
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-                         <MixerOutput session.mixers[0].output>
-            +        <Mixer session.mixers[1]>
-            +            <MixerOutput session.mixers[1].output>
-            +    <session.contexts[1]>
             """,
             """
             --- initial
@@ -224,18 +206,6 @@ async def test_Session_boot(
         (
             0,
             """
-            --- initial
-            +++ mutation
-            @@ -1,9 +1,2 @@
-             <Session>
-                 <session.contexts[0]>
-            -        <Mixer 'P' session.mixers[0]>
-            -            <Track 'A' session.mixers[0].tracks[0]>
-            -                <TrackFeedback session.mixers[0].tracks[0].feedback>
-            -                <TrackInput session.mixers[0].tracks[0].input source=null>
-            -                <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -            <MixerOutput session.mixers[0].output>
-            -    <session.contexts[1]>
             """,
             """
             --- initial
@@ -272,10 +242,20 @@ async def test_Session_boot(
             """
             --- initial
             +++ mutation
-            @@ -6,4 +6,3 @@
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-                         <MixerOutput session.mixers[0].output>
+            @@ -1,11 +1,11 @@
+             <Session 0>
+                 <session.contexts[0]>
+            +        <Mixer 7 'Q' session.mixers[1]>
+            +            <MixerOutput 8 session.mixers[1].output>
+            +    <session.contexts[1]>
+                     <Mixer 1 'P' session.mixers[0]>
+                         <Track 3 'A' session.mixers[0].tracks[0]>
+                             <TrackFeedback 4 session.mixers[0].tracks[0].feedback>
+                             <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+                             <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+                         <MixerOutput 2 session.mixers[0].output>
+            -        <Mixer 7 'Q' session.mixers[1]>
+            -            <MixerOutput 8 session.mixers[1].output>
             -    <session.contexts[1]>
             """,
             """
@@ -350,19 +330,19 @@ async def test_Session_quit(
             --- initial
             +++ mutation
             @@ -1,11 +1,11 @@
-             <Session>
+             <Session 0>
                  <session.contexts[0]>
-            +        <Mixer 'Q' session.mixers[1]>
-            +            <MixerOutput session.mixers[1].output>
+            +        <Mixer 7 'Q' session.mixers[1]>
+            +            <MixerOutput 8 session.mixers[1].output>
             +    <session.contexts[1]>
-                     <Mixer 'P' session.mixers[0]>
-                         <Track 'A' session.mixers[0].tracks[0]>
-                             <TrackFeedback session.mixers[0].tracks[0].feedback>
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-                         <MixerOutput session.mixers[0].output>
-            -        <Mixer 'Q' session.mixers[1]>
-            -            <MixerOutput session.mixers[1].output>
+                     <Mixer 1 'P' session.mixers[0]>
+                         <Track 3 'A' session.mixers[0].tracks[0]>
+                             <TrackFeedback 4 session.mixers[0].tracks[0].feedback>
+                             <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+                             <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+                         <MixerOutput 2 session.mixers[0].output>
+            -        <Mixer 7 'Q' session.mixers[1]>
+            -            <MixerOutput 8 session.mixers[1].output>
             -    <session.contexts[1]>
             """,
             """
@@ -411,12 +391,12 @@ async def test_Session_quit(
             --- initial
             +++ mutation
             @@ -6,6 +6,6 @@
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-                         <MixerOutput session.mixers[0].output>
+                             <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+                             <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+                         <MixerOutput 2 session.mixers[0].output>
             +    <session.contexts[1]>
-                     <Mixer 'Q' session.mixers[1]>
-                         <MixerOutput session.mixers[1].output>
+                     <Mixer 7 'Q' session.mixers[1]>
+                         <MixerOutput 8 session.mixers[1].output>
             -    <session.contexts[1]>
             """,
             """

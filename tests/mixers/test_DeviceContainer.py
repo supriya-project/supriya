@@ -17,13 +17,13 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
             --- initial
             +++ mutation
             @@ -27,6 +27,7 @@
-                             <TrackFeedback session.mixers[0].tracks[2].feedback>
-                             <TrackInput session.mixers[0].tracks[2].input source=null>
-                             <TrackOutput session.mixers[0].tracks[2].output target=default>
-            +            <Device session.mixers[0].devices[0]>
-                         <MixerOutput session.mixers[0].output>
-                     <Mixer 'Q' session.mixers[1]>
-                         <Track 'D' session.mixers[1].tracks[0]>
+                             <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
+                             <TrackInput 15 session.mixers[0].tracks[2].input source=null>
+                             <TrackOutput 16 session.mixers[0].tracks[2].output target=default>
+            +            <Device 35 session.mixers[0].devices[0]>
+                         <MixerOutput 2 session.mixers[0].output>
+                     <Mixer 3 'Q' session.mixers[1]>
+                         <Track 29 'D' session.mixers[1].tracks[0]>
             """,
             """
             --- initial
@@ -51,13 +51,13 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
             --- initial
             +++ mutation
             @@ -16,6 +16,7 @@
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
-                                 <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
-                                 <TrackOutput session.mixers[0].tracks[0].tracks[1].output target=default>
-            +                <Device session.mixers[0].tracks[0].devices[0]>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-                             <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-                         <Track 'B' session.mixers[0].tracks[1]>
+                                 <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
+                                 <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
+                                 <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
+            +                <Device 35 session.mixers[0].tracks[0].devices[0]>
+                             <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
+                             <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
+                         <Track 9 'B' session.mixers[0].tracks[1]>
             """,
             """
             --- initial
