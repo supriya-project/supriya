@@ -99,6 +99,7 @@ class Component(Generic[C, H]):
     def __init__(
         self,
         *,
+        session: "Session",
         name: str | None = None,
         parent: C | None = None,
     ) -> None:
@@ -113,12 +114,15 @@ class Component(Generic[C, H]):
         self._name: str | None = name
         self._nodes: dict[str, Node] = {}
         self._parent: C | None = parent
+        self._session = session
+        # Computed
+        self._id = session._get_next_id()
         self._cached_state: H = self._resolve_empty_state()
 
     def __repr__(self) -> str:
         if self._name:
-            return f"<{type(self).__name__} {self._name!r} {self.address}>"
-        return f"<{type(self).__name__} {self.address}>"
+            return f"<{type(self).__name__} {self._id} {self._name!r} {self.address}>"
+        return f"<{type(self).__name__} {self._id} {self.address}>"
 
     async def _allocate_deep(self, *, context: AsyncServer) -> None:
         if self.session is None:
@@ -301,6 +305,8 @@ class Component(Generic[C, H]):
 
     @classmethod
     def _resolve_spec_state(cls, state: H) -> dict[Address, Spec]:
+        # OK, forcing function... can't rely on address because it changes if
+        # nodes re-order. We need unique, stable IDs for all components.
         return {}
 
     def _unregister_dependency(self, dependent: "Component") -> bool:

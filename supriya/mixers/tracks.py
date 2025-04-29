@@ -1,5 +1,5 @@
 import dataclasses
-from typing import Union, cast
+from typing import TYPE_CHECKING, Union, cast
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
@@ -14,6 +14,9 @@ from .synthdefs import (
     build_patch_cable,
 )
 
+if TYPE_CHECKING:
+    from .sessions import Session
+
 
 class TrackContainer(Component[C, H]):
 
@@ -21,7 +24,9 @@ class TrackContainer(Component[C, H]):
         self._tracks: list[Track] = []
 
     def _add_track(self, name: str | None = None) -> "Track":
-        self._tracks.append(track := Track(name=name, parent=self))
+        self._tracks.append(
+            track := Track(name=name, parent=self, session=self._session)
+        )
         return track
 
     def _group(self, index: int, count: int) -> "Track":
@@ -32,7 +37,7 @@ class TrackContainer(Component[C, H]):
         elif (index + count) > len(self.tracks):
             raise ValueError(index, count)
         child_tracks = self._tracks[index : index + count]
-        group_track = Track(parent=self)
+        group_track = Track(parent=self, session=self._session)
         self._tracks.insert(index, group_track)
         for i, child_track in enumerate(child_tracks):
             child_track._move(parent=group_track, index=i)
@@ -59,11 +64,13 @@ class TrackFeedback(Connection["Track", BusGroup, "Track"]):
         self,
         *,
         parent: "Track",
+        session: "Session",
         source: BusGroup | None = None,
     ) -> None:
         super().__init__(
             kind="feedback",
             parent=parent,
+            session=session,
             source=source,
             target=parent,
         )
@@ -92,11 +99,13 @@ class TrackInput(Connection["Track", Union[BusGroup, "Track"], "Track"]):
         self,
         *,
         parent: "Track",
+        session: "Session",
         source: Union[BusGroup, "Track"] | None = None,
     ) -> None:
         super().__init__(
             kind="input",
             parent=parent,
+            session=session,
             source=source,
             target=parent,
             writing=False,
@@ -108,7 +117,7 @@ class TrackInput(Connection["Track", Union[BusGroup, "Track"], "Track"]):
             source = self._source.address
         elif isinstance(self._source, BusGroup):
             source = self._source.map_symbol()
-        return f"<{type(self).__name__} {self.address} source={source}>"
+        return f"<{type(self).__name__} {self._id} {self.address} source={source}>"
 
     def _allocate_synth(
         self,
@@ -151,11 +160,13 @@ class TrackOutput(Connection["Track", "Track", BusGroup | Default | TrackContain
         self,
         *,
         parent: "Track",
+        session: "Session",
         target: BusGroup | Default | TrackContainer | None = DEFAULT,
     ) -> None:
         super().__init__(
             kind="output",
             parent=parent,
+            session=session,
             source=parent,
             target=target,
         )
@@ -168,7 +179,7 @@ class TrackOutput(Connection["Track", "Track", BusGroup | Default | TrackContain
             target = self._target.map_symbol()
         elif isinstance(self._target, Default):
             target = "default"
-        return f"<{type(self).__name__} {self.address} target={target}>"
+        return f"<{type(self).__name__} {self._id} {self.address} target={target}>"
 
     def _resolve_default_target(
         self, context: AsyncServer | None
@@ -200,13 +211,15 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
         self,
         *,
         parent: "Track",
-        target: TrackContainer,
         postfader: bool = True,
+        session: "Session",
+        target: TrackContainer,
     ) -> None:
         super().__init__(
             kind="send",
             parent=parent,
             postfader=postfader,
+            session=session,
             source=parent,
             target=target,
         )
@@ -215,7 +228,7 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
         target: str = "null"
         if isinstance(self._target, TrackContainer):
             target = self._target.address
-        return f"<{type(self).__name__} {self.address} target={target}>"
+        return f"<{type(self).__name__} {self._id} {self.address} target={target}>"
 
     def _allocate_synth(
         self,
@@ -315,17 +328,19 @@ class Track(
         *,
         name: str | None = None,
         parent: TrackContainer | None = None,
+        session: "Session",
     ) -> None:
-        Component.__init__(self, name=name, parent=parent)
+        Component.__init__(self, name=name, parent=parent, session=session)
         DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
-        self._feedback = TrackFeedback(parent=self)
-        self._input = TrackInput(parent=self)
         self._is_muted: bool = False
         self._is_soloed: bool = False
-        self._output = TrackOutput(parent=self)
         # TODO: Are sends the purview of track containers in general?
         self._sends: list[TrackSend] = []
+        # Sub-components
+        self._feedback = TrackFeedback(parent=self, session=session)
+        self._input = TrackInput(parent=self, session=session)
+        self._output = TrackOutput(parent=self, session=session)
 
     def _add_send(
         self, target: TrackContainer, postfader: bool = True, inverted: bool = False
@@ -333,7 +348,9 @@ class Track(
         if self.mixer is not target.mixer:
             raise RuntimeError
         self._sends.append(
-            send := TrackSend(parent=self, postfader=postfader, target=target)
+            send := TrackSend(
+                parent=self, postfader=postfader, session=self._session, target=target
+            )
         )
         return send
 

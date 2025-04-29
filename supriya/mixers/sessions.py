@@ -39,7 +39,7 @@ class Session(Component):
     def __init__(self) -> None:
         from .mixers import Mixer
 
-        super().__init__()
+        super().__init__(session=self)
         self._boot_future: asyncio.Future | None = None
         self._channel_count: ChannelCount = 2
         self._clock = AsyncClock()
@@ -71,7 +71,7 @@ class Session(Component):
         return item
 
     def __repr__(self) -> str:
-        return f"<{type(self).__name__}>"
+        return f"<{type(self).__name__} {self._id}>"
 
     def __str__(self) -> str:
         parts: list[str] = [f"<{type(self).__name__} status={self.status.name}>"]
@@ -88,6 +88,10 @@ class Session(Component):
         self._contexts[context] = []
         self._synthdefs[context] = set()
         return context
+
+    def _get_next_id(self) -> int:
+        self._next_id = (next_id := getattr(self, "_next_id", 0)) + 1
+        return next_id
 
     async def add_context(self, options: Options | None = None) -> AsyncServer:
         async with self._lock:
@@ -111,7 +115,7 @@ class Session(Component):
             if context not in self.contexts:
                 raise ValueError(context)
             self._contexts.setdefault(context, []).append(
-                mixer := Mixer(name=name, parent=self)
+                mixer := Mixer(name=name, parent=self, session=self._session)
             )
             self._mixers[mixer] = context
             if self._status == BootStatus.ONLINE:
