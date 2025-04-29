@@ -1,6 +1,6 @@
 import dataclasses
 import enum
-from typing import Generic, Optional, TypeAlias, TypeVar
+from typing import TYPE_CHECKING, Generic, Optional, TypeAlias, TypeVar
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
@@ -8,6 +8,10 @@ from ..typing import Default
 from ..ugens import SynthDef
 from .components import Address, C, Component, ComponentNames, State
 from .synthdefs import build_patch_cable
+
+if TYPE_CHECKING:
+    from .sessions import Session
+
 
 Connectable: TypeAlias = Component | BusGroup | Default
 
@@ -45,9 +49,10 @@ class Connection(Component[C, ConnectionState], Generic[C, S, T]):
         inverted: bool = False,
         parent: C | None = None,
         postfader: bool = True,
+        session: "Session",
         writing: bool = True,
     ) -> None:
-        super().__init__(parent=parent)
+        super().__init__(parent=parent, session=session)
         self._cached_state = ConnectionState()
         self._kind = kind
         self._postfader = postfader

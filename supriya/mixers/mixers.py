@@ -20,14 +20,11 @@ if TYPE_CHECKING:
 
 
 class MixerOutput(Connection["Mixer", "Mixer", Default]):
-    def __init__(
-        self,
-        *,
-        parent: "Mixer",
-    ) -> None:
+    def __init__(self, *, parent: "Mixer", session: "Session") -> None:
         super().__init__(
             kind="output",
             parent=parent,
+            session=session,
             source=parent,
             target=DEFAULT,
         )
@@ -68,12 +65,19 @@ class Mixer(TrackContainer["Session", MixerState], DeviceContainer["Session", St
     # TODO: set_channel_count(self, channel_count: ChannelCount) -> None
     # TODO: set_output(output: int) -> None
 
-    def __init__(self, *, name: str | None = None, parent: Optional["Session"]) -> None:
-        Component.__init__(self, name=name, parent=parent)
+    def __init__(
+        self,
+        *,
+        name: str | None = None,
+        parent: Optional["Session"],
+        session: "Session",
+    ) -> None:
+        Component.__init__(self, name=name, parent=parent, session=session)
         DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
-        self._output = MixerOutput(parent=self)
         self._soloed_tracks: set[Track] = set()
+        # Sub-components
+        self._output = MixerOutput(parent=self, session=self._session)
 
     def _allocate(self, context: AsyncServer) -> bool:
         if not super()._allocate(context=context):

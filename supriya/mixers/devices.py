@@ -13,7 +13,9 @@ class DeviceContainer(Component[C, H]):
         self._devices: list[Device] = []
 
     def _add_device(self, name: str | None = None) -> "Device":
-        self._devices.append(device := Device(name=name, parent=self))
+        self._devices.append(
+            device := Device(name=name, parent=self, session=self._session)
+        )
         return device
 
     async def add_device(self, name: str | None = None) -> "Device":
