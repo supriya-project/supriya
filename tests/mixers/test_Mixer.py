@@ -24,17 +24,18 @@ from .conftest import (
             --- initial
             +++ mutation
             @@ -1,10 +1,4 @@
-             <Session>
+             <Session 0>
                  <session.contexts[0]>
-            -        <Mixer 'P' session.mixers[0]>
-            -            <Track 'A' session.mixers[0].tracks[0]>
-            -                <TrackFeedback session.mixers[0].tracks[0].feedback>
-            -                <TrackInput session.mixers[0].tracks[0].input source=null>
-            -                <TrackOutput session.mixers[0].tracks[0].output target=default>
-            +        <Mixer 'Q' session.mixers[0]>
-                         <MixerOutput session.mixers[0].output>
-            -        <Mixer 'Q' session.mixers[1]>
-            -            <MixerOutput session.mixers[1].output>
+            -        <Mixer 1 'P' session.mixers[0]>
+            -            <Track 3 'A' session.mixers[0].tracks[0]>
+            -                <TrackFeedback 4 session.mixers[0].tracks[0].feedback>
+            -                <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+            -                <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+            -            <MixerOutput 2 session.mixers[0].output>
+            -        <Mixer 7 'Q' session.mixers[1]>
+            -            <MixerOutput 8 session.mixers[1].output>
+            +        <Mixer 7 'Q' session.mixers[0]>
+            +            <MixerOutput 8 session.mixers[0].output>
             """,
             """
             --- initial
@@ -77,11 +78,11 @@ from .conftest import (
             --- initial
             +++ mutation
             @@ -6,5 +6,3 @@
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-                         <MixerOutput session.mixers[0].output>
-            -        <Mixer 'Q' session.mixers[1]>
-            -            <MixerOutput session.mixers[1].output>
+                             <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+                             <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+                         <MixerOutput 2 session.mixers[0].output>
+            -        <Mixer 7 'Q' session.mixers[1]>
+            -            <MixerOutput 8 session.mixers[1].output>
             """,
             """
             --- initial
