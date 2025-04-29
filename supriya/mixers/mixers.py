@@ -5,7 +5,7 @@ from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
 from ..typing import DEFAULT, Default
 from ..ugens import SynthDef
-from .components import ChannelCount, Component, ComponentNames, State
+from .components import Address, ChannelCount, Component, ComponentNames, State
 from .devices import DeviceContainer
 from .routing import Connection, ConnectionState
 from .synthdefs import (
@@ -156,7 +156,7 @@ class Mixer(TrackContainer["Session", MixerState], DeviceContainer["Session", St
         self._name = name
 
     @property
-    def address(self) -> str:
+    def address(self) -> Address:
         if self.session is None:
             return "mixers[?]"
         index = self.session.mixers.index(self)

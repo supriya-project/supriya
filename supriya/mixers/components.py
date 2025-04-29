@@ -15,12 +15,16 @@ from typing import (
     cast,
 )
 
-from ..contexts import AsyncServer, Buffer, BusGroup, Group, Node
+from ..contexts import AsyncServer, Buffer, BusGroup, Context, Group, Node
 from ..contexts.responses import QueryTreeGroup
-from ..enums import BootStatus, CalculationRate, DoneAction
+from ..enums import AddAction, BootStatus, CalculationRate, DoneAction
 from ..typing import DEFAULT, Default
 from ..ugens import SynthDef
 from ..utils import iterate_nwise
+
+if TYPE_CHECKING:
+    from .mixers import Mixer
+    from .sessions import Session
 
 
 @dataclasses.dataclass
@@ -30,13 +34,48 @@ class State:
 
 C = TypeVar("C", bound="Component")
 H = TypeVar("H", bound=State)
-
-# TODO: Integrate this with channel logic
 ChannelCount: TypeAlias = Literal[1, 2, 4, 8]
+Address: TypeAlias = str
 
-if TYPE_CHECKING:
-    from .mixers import Mixer
-    from .sessions import Session
+
+@dataclasses.dataclass
+class Spec:
+    address: Address
+    context: Context | None
+
+
+@dataclasses.dataclass
+class BufferSpec(Spec):
+    channel_count: int
+    count: int
+
+
+@dataclasses.dataclass
+class BusSpec(Spec):
+    calculation_rate: CalculationRate
+    count: int
+
+
+@dataclasses.dataclass
+class SynthDefSpec(Spec):
+    synthdef: SynthDef
+
+
+@dataclasses.dataclass
+class NodeSpec(Spec):
+    add_action: AddAction
+    target_node: Address | None
+
+
+@dataclasses.dataclass
+class GroupSpec(NodeSpec):
+    pass
+
+
+@dataclasses.dataclass
+class SynthSpec(NodeSpec):
+    kwargs: dict[str, Address | float]
+    synthdef: Address
 
 
 class ComponentNames:
@@ -260,6 +299,10 @@ class Component(Generic[C, H]):
     def _resolve_state(self, context: AsyncServer | None = None) -> State:
         raise NotImplementedError
 
+    @classmethod
+    def _resolve_spec_state(cls, state: H) -> dict[Address, Spec]:
+        return {}
+
     def _unregister_dependency(self, dependent: "Component") -> bool:
         self._dependents.discard(dependent)
         return self._unregister_feedback(dependent)
@@ -298,7 +341,7 @@ class Component(Generic[C, H]):
         return str(tree)
 
     @property
-    def address(self) -> str:
+    def address(self) -> Address:
         raise NotImplementedError
 
     @property

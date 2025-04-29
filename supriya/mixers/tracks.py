@@ -5,7 +5,7 @@ from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
 from ..typing import DEFAULT, Default
 from ..ugens import SynthDef
-from .components import C, ChannelCount, Component, ComponentNames, H, State
+from .components import Address, C, ChannelCount, Component, ComponentNames, H, State
 from .devices import DeviceContainer
 from .routing import Connection, ConnectionState
 from .synthdefs import (
@@ -275,7 +275,7 @@ class TrackSend(Connection["Track", "Track", TrackContainer]):
             self._set_target(target)
 
     @property
-    def address(self) -> str:
+    def address(self) -> Address:
         if self.parent is None:
             return "sends[?]"
         index = self.parent.sends.index(self)
@@ -552,7 +552,7 @@ class Track(
             self._ungroup()
 
     @property
-    def address(self) -> str:
+    def address(self) -> Address:
         if self.parent is None:
             return "tracks[?]"
         index = self.parent.tracks.index(self)

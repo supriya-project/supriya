@@ -3,7 +3,7 @@ import dataclasses
 from ..contexts import AsyncServer
 from ..enums import AddAction
 from ..ugens import SynthDef
-from .components import C, ChannelCount, Component, ComponentNames, H, State
+from .components import Address, C, ChannelCount, Component, ComponentNames, H, State
 from .synthdefs import build_device_dc_tester
 
 
@@ -68,7 +68,7 @@ class Device(Component[DeviceContainer, DeviceState]):
         self._name = name
 
     @property
-    def address(self) -> str:
+    def address(self) -> Address:
         if self.parent is None:
             return "devices[?]"
         index = self.parent.devices.index(self)
