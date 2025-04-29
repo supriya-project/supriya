@@ -35,13 +35,13 @@ from .conftest import (
             --- initial
             +++ mutation
             @@ -23,6 +23,7 @@
-                             <TrackInput session.mixers[0].tracks[1].input source=null>
-                             <TrackOutput session.mixers[0].tracks[1].output target=default>
-                             <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-            +                <TrackSend session.mixers[0].tracks[1].sends[1] target=session.mixers[0]>
-                         <Track 'C' session.mixers[0].tracks[2]>
-                             <TrackFeedback session.mixers[0].tracks[2].feedback>
-                             <TrackInput session.mixers[0].tracks[2].input source=null>
+                             <TrackInput 11 session.mixers[0].tracks[1].input source=null>
+                             <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
+                             <TrackSend 34 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+            +                <TrackSend 35 session.mixers[0].tracks[1].sends[1] target=session.mixers[0]>
+                         <Track 13 'C' session.mixers[0].tracks[2]>
+                             <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
+                             <TrackInput 15 session.mixers[0].tracks[2].input source=null>
             """,
             """
             --- initial
@@ -69,13 +69,13 @@ from .conftest import (
             --- initial
             +++ mutation
             @@ -23,6 +23,7 @@
-                             <TrackInput session.mixers[0].tracks[1].input source=null>
-                             <TrackOutput session.mixers[0].tracks[1].output target=default>
-                             <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-            +                <TrackSend session.mixers[0].tracks[1].sends[1] target=session.mixers[0].tracks[2]>
-                         <Track 'C' session.mixers[0].tracks[2]>
-                             <TrackFeedback session.mixers[0].tracks[2].feedback>
-                             <TrackInput session.mixers[0].tracks[2].input source=null>
+                             <TrackInput 11 session.mixers[0].tracks[1].input source=null>
+                             <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
+                             <TrackSend 34 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+            +                <TrackSend 35 session.mixers[0].tracks[1].sends[1] target=session.mixers[0].tracks[2]>
+                         <Track 13 'C' session.mixers[0].tracks[2]>
+                             <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
+                             <TrackInput 15 session.mixers[0].tracks[2].input source=null>
             """,
             """
             --- initial
@@ -103,13 +103,13 @@ from .conftest import (
             --- initial
             +++ mutation
             @@ -21,6 +21,7 @@
-                         <Track 'B' session.mixers[0].tracks[1]>
-                             <TrackFeedback session.mixers[0].tracks[1].feedback>
-                             <TrackInput session.mixers[0].tracks[1].input source=null>
-            +                <TrackSend session.mixers[0].tracks[1].sends[1] target=session.mixers[0].tracks[2]>
-                             <TrackOutput session.mixers[0].tracks[1].output target=default>
-                             <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-                         <Track 'C' session.mixers[0].tracks[2]>
+                         <Track 9 'B' session.mixers[0].tracks[1]>
+                             <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
+                             <TrackInput 11 session.mixers[0].tracks[1].input source=null>
+            +                <TrackSend 35 session.mixers[0].tracks[1].sends[1] target=session.mixers[0].tracks[2]>
+                             <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
+                             <TrackSend 34 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+                         <Track 13 'C' session.mixers[0].tracks[2]>
             """,
             """
             --- initial
@@ -137,13 +137,13 @@ from .conftest import (
             --- initial
             +++ mutation
             @@ -21,6 +21,7 @@
-                         <Track 'B' session.mixers[0].tracks[1]>
-                             <TrackFeedback session.mixers[0].tracks[1].feedback>
-                             <TrackInput session.mixers[0].tracks[1].input source=null>
-            +                <TrackSend session.mixers[0].tracks[1].sends[1] target=session.mixers[0].tracks[1]>
-                             <TrackOutput session.mixers[0].tracks[1].output target=default>
-                             <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-                         <Track 'C' session.mixers[0].tracks[2]>
+                         <Track 9 'B' session.mixers[0].tracks[1]>
+                             <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
+                             <TrackInput 11 session.mixers[0].tracks[1].input source=null>
+            +                <TrackSend 35 session.mixers[0].tracks[1].sends[1] target=session.mixers[0].tracks[1]>
+                             <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
+                             <TrackSend 34 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+                         <Track 13 'C' session.mixers[0].tracks[2]>
             """,
             """
             --- initial
@@ -178,13 +178,13 @@ from .conftest import (
             --- initial
             +++ mutation
             @@ -27,6 +27,7 @@
-                             <TrackFeedback session.mixers[0].tracks[2].feedback>
-                             <TrackInput session.mixers[0].tracks[2].input source=null>
-                             <TrackOutput session.mixers[0].tracks[2].output target=default>
-            +                <TrackSend session.mixers[0].tracks[2].sends[0] target=session.mixers[0].tracks[1]>
-                         <MixerOutput session.mixers[0].output>
-                     <Mixer 'Q' session.mixers[1]>
-                         <Track 'D' session.mixers[1].tracks[0]>
+                             <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
+                             <TrackInput 15 session.mixers[0].tracks[2].input source=null>
+                             <TrackOutput 16 session.mixers[0].tracks[2].output target=default>
+            +                <TrackSend 35 session.mixers[0].tracks[2].sends[0] target=session.mixers[0].tracks[1]>
+                         <MixerOutput 2 session.mixers[0].output>
+                     <Mixer 3 'Q' session.mixers[1]>
+                         <Track 29 'D' session.mixers[1].tracks[0]>
             """,
             """
             --- initial
@@ -282,14 +282,14 @@ async def test_Track_add_send(
             --- initial
             +++ mutation
             @@ -1,8 +1,4 @@
-             <Session>
+             <Session 0>
                  <session.contexts[0]>
-                     <Mixer 'P' session.mixers[0]>
-            -            <Track 'A' session.mixers[0].tracks[0]>
-            -                <TrackFeedback session.mixers[0].tracks[0].feedback>
-            -                <TrackInput session.mixers[0].tracks[0].input source=null>
-            -                <TrackOutput session.mixers[0].tracks[0].output target=default>
-                         <MixerOutput session.mixers[0].output>
+                     <Mixer 1 'P' session.mixers[0]>
+            -            <Track 3 'A' session.mixers[0].tracks[0]>
+            -                <TrackFeedback 4 session.mixers[0].tracks[0].feedback>
+            -                <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+            -                <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+                         <MixerOutput 2 session.mixers[0].output>
             """,
             """
             --- initial
@@ -323,18 +323,18 @@ async def test_Track_add_send(
             --- initial
             +++ mutation
             @@ -1,12 +1,4 @@
-             <Session>
+             <Session 0>
                  <session.contexts[0]>
-                     <Mixer 'P' session.mixers[0]>
-            -            <Track 'A' session.mixers[0].tracks[0]>
-            -                <TrackFeedback session.mixers[0].tracks[0].feedback>
-            -                <TrackInput session.mixers[0].tracks[0].input source=null>
-            -                <Track 'B' session.mixers[0].tracks[0].tracks[0]>
-            -                    <TrackFeedback session.mixers[0].tracks[0].tracks[0].feedback>
-            -                    <TrackInput session.mixers[0].tracks[0].tracks[0].input source=null>
-            -                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=default>
-            -                <TrackOutput session.mixers[0].tracks[0].output target=default>
-                         <MixerOutput session.mixers[0].output>
+                     <Mixer 1 'P' session.mixers[0]>
+            -            <Track 3 'A' session.mixers[0].tracks[0]>
+            -                <TrackFeedback 4 session.mixers[0].tracks[0].feedback>
+            -                <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+            -                <Track 7 'B' session.mixers[0].tracks[0].tracks[0]>
+            -                    <TrackFeedback 8 session.mixers[0].tracks[0].tracks[0].feedback>
+            -                    <TrackInput 9 session.mixers[0].tracks[0].tracks[0].input source=null>
+            -                    <TrackOutput 10 session.mixers[0].tracks[0].tracks[0].output target=default>
+            -                <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+                         <MixerOutput 2 session.mixers[0].output>
             """,
             """
             --- initial
@@ -377,15 +377,15 @@ async def test_Track_add_send(
             --- initial
             +++ mutation
             @@ -1,9 +1,4 @@
-             <Session>
+             <Session 0>
                  <session.contexts[0]>
-                     <Mixer 'P' session.mixers[0]>
-            -            <Track 'A' session.mixers[0].tracks[0]>
-            -                <TrackFeedback session.mixers[0].tracks[0].feedback>
-            -                <TrackInput session.mixers[0].tracks[0].input source=null>
-            -                <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[0]>
-                         <MixerOutput session.mixers[0].output>
+                     <Mixer 1 'P' session.mixers[0]>
+            -            <Track 3 'A' session.mixers[0].tracks[0]>
+            -                <TrackFeedback 4 session.mixers[0].tracks[0].feedback>
+            -                <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+            -                <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+            -                <TrackSend 7 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[0]>
+                         <MixerOutput 2 session.mixers[0].output>
             """,
             """
             --- initial
@@ -430,15 +430,15 @@ async def test_Track_add_send(
             --- initial
             +++ mutation
             @@ -5,9 +5,4 @@
-                             <TrackFeedback session.mixers[0].tracks[0].feedback>
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -            <Track 'B' session.mixers[0].tracks[1]>
-            -                <TrackFeedback session.mixers[0].tracks[1].feedback>
-            -                <TrackInput session.mixers[0].tracks[1].input source=null>
-            -                <TrackOutput session.mixers[0].tracks[1].output target=default>
-            -                <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0]>
-                         <MixerOutput session.mixers[0].output>
+                             <TrackFeedback 4 session.mixers[0].tracks[0].feedback>
+                             <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+                             <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+            -            <Track 7 'B' session.mixers[0].tracks[1]>
+            -                <TrackFeedback 8 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 9 session.mixers[0].tracks[1].input source=null>
+            -                <TrackOutput 10 session.mixers[0].tracks[1].output target=default>
+            -                <TrackSend 11 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0]>
+                         <MixerOutput 2 session.mixers[0].output>
             """,
             """
             --- initial
@@ -486,15 +486,15 @@ async def test_Track_add_send(
             --- initial
             +++ mutation
             @@ -5,9 +5,4 @@
-                             <TrackFeedback session.mixers[0].tracks[0].feedback>
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-            -            <Track 'B' session.mixers[0].tracks[1]>
-            -                <TrackFeedback session.mixers[0].tracks[1].feedback>
-            -                <TrackInput session.mixers[0].tracks[1].input source=null>
-            -                <TrackOutput session.mixers[0].tracks[1].output target=default>
-                         <MixerOutput session.mixers[0].output>
+                             <TrackFeedback 4 session.mixers[0].tracks[0].feedback>
+                             <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+                             <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+            -                <TrackSend 11 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
+            -            <Track 7 'B' session.mixers[0].tracks[1]>
+            -                <TrackFeedback 8 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 9 session.mixers[0].tracks[1].input source=null>
+            -                <TrackOutput 10 session.mixers[0].tracks[1].output target=default>
+                         <MixerOutput 2 session.mixers[0].output>
             """,
             """
             --- initial
@@ -540,19 +540,19 @@ async def test_Track_add_send(
             --- initial
             +++ mutation
             @@ -5,13 +5,4 @@
-                             <TrackFeedback session.mixers[0].tracks[0].feedback>
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1].tracks[0]>
-            -            <Track 'B' session.mixers[0].tracks[1]>
-            -                <TrackFeedback session.mixers[0].tracks[1].feedback>
-            -                <TrackInput session.mixers[0].tracks[1].input source=null>
-            -                <Track 'C' session.mixers[0].tracks[1].tracks[0]>
-            -                    <TrackFeedback session.mixers[0].tracks[1].tracks[0].feedback>
-            -                    <TrackInput session.mixers[0].tracks[1].tracks[0].input source=null>
-            -                    <TrackOutput session.mixers[0].tracks[1].tracks[0].output target=default>
-            -                <TrackOutput session.mixers[0].tracks[1].output target=default>
-                         <MixerOutput session.mixers[0].output>
+                             <TrackFeedback 4 session.mixers[0].tracks[0].feedback>
+                             <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+                             <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+            -                <TrackSend 15 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1].tracks[0]>
+            -            <Track 7 'B' session.mixers[0].tracks[1]>
+            -                <TrackFeedback 8 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 9 session.mixers[0].tracks[1].input source=null>
+            -                <Track 11 'C' session.mixers[0].tracks[1].tracks[0]>
+            -                    <TrackFeedback 12 session.mixers[0].tracks[1].tracks[0].feedback>
+            -                    <TrackInput 13 session.mixers[0].tracks[1].tracks[0].input source=null>
+            -                    <TrackOutput 14 session.mixers[0].tracks[1].tracks[0].output target=default>
+            -                <TrackOutput 10 session.mixers[0].tracks[1].output target=default>
+                         <MixerOutput 2 session.mixers[0].output>
             """,
             """
             --- initial
@@ -608,16 +608,16 @@ async def test_Track_add_send(
             --- initial
             +++ mutation
             @@ -4,9 +4,5 @@
-                         <Track 'A' session.mixers[0].tracks[0]>
-                             <TrackFeedback session.mixers[0].tracks[0].feedback>
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-            -                <TrackOutput session.mixers[0].tracks[0].output target=session.mixers[0].tracks[1]>
-            -            <Track 'B' session.mixers[0].tracks[1]>
-            -                <TrackFeedback session.mixers[0].tracks[1].feedback>
-            -                <TrackInput session.mixers[0].tracks[1].input source=null>
-            -                <TrackOutput session.mixers[0].tracks[1].output target=default>
-            +                <TrackOutput session.mixers[0].tracks[0].output target=null>
-                         <MixerOutput session.mixers[0].output>
+                         <Track 3 'A' session.mixers[0].tracks[0]>
+                             <TrackFeedback 4 session.mixers[0].tracks[0].feedback>
+                             <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+            -                <TrackOutput 6 session.mixers[0].tracks[0].output target=session.mixers[0].tracks[1]>
+            -            <Track 7 'B' session.mixers[0].tracks[1]>
+            -                <TrackFeedback 8 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 9 session.mixers[0].tracks[1].input source=null>
+            -                <TrackOutput 10 session.mixers[0].tracks[1].output target=default>
+            +                <TrackOutput 6 session.mixers[0].tracks[0].output target=null>
+                         <MixerOutput 2 session.mixers[0].output>
             """,
             """
             --- initial
@@ -661,17 +661,17 @@ async def test_Track_add_send(
             --- initial
             +++ mutation
             @@ -3,10 +3,6 @@
-                     <Mixer 'P' session.mixers[0]>
-                         <Track 'A' session.mixers[0].tracks[0]>
-                             <TrackFeedback session.mixers[0].tracks[0].feedback>
-            -                <TrackInput session.mixers[0].tracks[0].input source=session.mixers[0].tracks[1]>
-            +                <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -            <Track 'B' session.mixers[0].tracks[1]>
-            -                <TrackFeedback session.mixers[0].tracks[1].feedback>
-            -                <TrackInput session.mixers[0].tracks[1].input source=null>
-            -                <TrackOutput session.mixers[0].tracks[1].output target=default>
-                         <MixerOutput session.mixers[0].output>
+                     <Mixer 1 'P' session.mixers[0]>
+                         <Track 3 'A' session.mixers[0].tracks[0]>
+                             <TrackFeedback 4 session.mixers[0].tracks[0].feedback>
+            -                <TrackInput 5 session.mixers[0].tracks[0].input source=session.mixers[0].tracks[1]>
+            +                <TrackInput 5 session.mixers[0].tracks[0].input source=null>
+                             <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
+            -            <Track 7 'B' session.mixers[0].tracks[1]>
+            -                <TrackFeedback 8 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 9 session.mixers[0].tracks[1].input source=null>
+            -                <TrackOutput 10 session.mixers[0].tracks[1].output target=default>
+                         <MixerOutput 2 session.mixers[0].output>
             """,
             """
             --- initial
@@ -770,50 +770,56 @@ async def test_Track_delete(
             --- initial
             +++ mutation
             @@ -1,28 +1,28 @@
-             <Session>
+             <Session 0>
                  <session.contexts[0]>
-                     <Mixer 'P' session.mixers[0]>
-            -            <Track 'A' session.mixers[0].tracks[0]>
-            +            <Track 'B' session.mixers[0].tracks[0]>
-                             <TrackFeedback session.mixers[0].tracks[0].feedback>
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-            -                <Track 'A1' session.mixers[0].tracks[0].tracks[0]>
-            -                    <TrackFeedback session.mixers[0].tracks[0].tracks[0].feedback>
-            -                    <TrackInput session.mixers[0].tracks[0].tracks[0].input source=null>
-            -                    <Track 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
-            -                        <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-            -                        <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-            -                        <TrackOutput session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-            -                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=default>
-            -                <Track 'A2' session.mixers[0].tracks[0].tracks[1]>
-            -                    <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
-            -                    <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
-            -                    <TrackOutput session.mixers[0].tracks[0].tracks[1].output target=default>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-            -            <Track 'B' session.mixers[0].tracks[1]>
-            +                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1].tracks[0]>
-            +            <Track 'A' session.mixers[0].tracks[1]>
-                             <TrackFeedback session.mixers[0].tracks[1].feedback>
-                             <TrackInput session.mixers[0].tracks[1].input source=null>
-            +                <Track 'A1' session.mixers[0].tracks[1].tracks[0]>
-            +                    <TrackFeedback session.mixers[0].tracks[1].tracks[0].feedback>
-            +                    <TrackInput session.mixers[0].tracks[1].tracks[0].input source=null>
-            +                    <Track 'A11' session.mixers[0].tracks[1].tracks[0].tracks[0]>
-            +                        <TrackFeedback session.mixers[0].tracks[1].tracks[0].tracks[0].feedback>
-            +                        <TrackInput session.mixers[0].tracks[1].tracks[0].tracks[0].input source=null>
-            +                        <TrackOutput session.mixers[0].tracks[1].tracks[0].tracks[0].output target=default>
-            +                    <TrackOutput session.mixers[0].tracks[1].tracks[0].output target=default>
-            +                <Track 'A2' session.mixers[0].tracks[1].tracks[1]>
-            +                    <TrackFeedback session.mixers[0].tracks[1].tracks[1].feedback>
-            +                    <TrackInput session.mixers[0].tracks[1].tracks[1].input source=null>
-            +                    <TrackOutput session.mixers[0].tracks[1].tracks[1].output target=default>
-                             <TrackOutput session.mixers[0].tracks[1].output target=default>
-            -                <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-            +                <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0]>
-                         <Track 'C' session.mixers[0].tracks[2]>
-                             <TrackFeedback session.mixers[0].tracks[2].feedback>
-                             <TrackInput session.mixers[0].tracks[2].input source=null>
+                     <Mixer 1 'P' session.mixers[0]>
+            -            <Track 5 'A' session.mixers[0].tracks[0]>
+            -                <TrackFeedback 6 session.mixers[0].tracks[0].feedback>
+            -                <TrackInput 7 session.mixers[0].tracks[0].input source=null>
+            -                <Track 17 'A1' session.mixers[0].tracks[0].tracks[0]>
+            -                    <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
+            -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
+            -                    <Track 25 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
+            -                        <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+            -                        <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+            -                        <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
+            -                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=default>
+            -                <Track 21 'A2' session.mixers[0].tracks[0].tracks[1]>
+            -                    <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
+            -                    <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
+            -                    <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
+            -                <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
+            -                <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
+            -            <Track 9 'B' session.mixers[0].tracks[1]>
+            -                <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 11 session.mixers[0].tracks[1].input source=null>
+            -                <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
+            -                <TrackSend 34 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+            +            <Track 9 'B' session.mixers[0].tracks[0]>
+            +                <TrackFeedback 10 session.mixers[0].tracks[0].feedback>
+            +                <TrackInput 11 session.mixers[0].tracks[0].input source=null>
+            +                <TrackOutput 12 session.mixers[0].tracks[0].output target=default>
+            +                <TrackSend 34 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1].tracks[0]>
+            +            <Track 5 'A' session.mixers[0].tracks[1]>
+            +                <TrackFeedback 6 session.mixers[0].tracks[1].feedback>
+            +                <TrackInput 7 session.mixers[0].tracks[1].input source=null>
+            +                <Track 17 'A1' session.mixers[0].tracks[1].tracks[0]>
+            +                    <TrackFeedback 18 session.mixers[0].tracks[1].tracks[0].feedback>
+            +                    <TrackInput 19 session.mixers[0].tracks[1].tracks[0].input source=null>
+            +                    <Track 25 'A11' session.mixers[0].tracks[1].tracks[0].tracks[0]>
+            +                        <TrackFeedback 26 session.mixers[0].tracks[1].tracks[0].tracks[0].feedback>
+            +                        <TrackInput 27 session.mixers[0].tracks[1].tracks[0].tracks[0].input source=null>
+            +                        <TrackOutput 28 session.mixers[0].tracks[1].tracks[0].tracks[0].output target=default>
+            +                    <TrackOutput 20 session.mixers[0].tracks[1].tracks[0].output target=default>
+            +                <Track 21 'A2' session.mixers[0].tracks[1].tracks[1]>
+            +                    <TrackFeedback 22 session.mixers[0].tracks[1].tracks[1].feedback>
+            +                    <TrackInput 23 session.mixers[0].tracks[1].tracks[1].input source=null>
+            +                    <TrackOutput 24 session.mixers[0].tracks[1].tracks[1].output target=default>
+            +                <TrackOutput 8 session.mixers[0].tracks[1].output target=default>
+            +                <TrackSend 33 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0]>
+                         <Track 13 'C' session.mixers[0].tracks[2]>
+                             <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
+                             <TrackInput 15 session.mixers[0].tracks[2].input source=null>
             """,
             """
             --- initial
@@ -898,50 +904,56 @@ async def test_Track_delete(
             --- initial
             +++ mutation
             @@ -1,28 +1,28 @@
-             <Session>
+             <Session 0>
                  <session.contexts[0]>
-                     <Mixer 'P' session.mixers[0]>
-            -            <Track 'A' session.mixers[0].tracks[0]>
-            +            <Track 'B' session.mixers[0].tracks[0]>
-                             <TrackFeedback session.mixers[0].tracks[0].feedback>
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-            -                <Track 'A1' session.mixers[0].tracks[0].tracks[0]>
-            -                    <TrackFeedback session.mixers[0].tracks[0].tracks[0].feedback>
-            -                    <TrackInput session.mixers[0].tracks[0].tracks[0].input source=null>
-            -                    <Track 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
-            -                        <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-            -                        <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-            -                        <TrackOutput session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-            -                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=default>
-            -                <Track 'A2' session.mixers[0].tracks[0].tracks[1]>
-            -                    <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
-            -                    <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
-            -                    <TrackOutput session.mixers[0].tracks[0].tracks[1].output target=default>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-            -            <Track 'B' session.mixers[0].tracks[1]>
-            +                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1].tracks[0]>
-            +            <Track 'A' session.mixers[0].tracks[1]>
-                             <TrackFeedback session.mixers[0].tracks[1].feedback>
-                             <TrackInput session.mixers[0].tracks[1].input source=null>
-            +                <Track 'A1' session.mixers[0].tracks[1].tracks[0]>
-            +                    <TrackFeedback session.mixers[0].tracks[1].tracks[0].feedback>
-            +                    <TrackInput session.mixers[0].tracks[1].tracks[0].input source=null>
-            +                    <Track 'A11' session.mixers[0].tracks[1].tracks[0].tracks[0]>
-            +                        <TrackFeedback session.mixers[0].tracks[1].tracks[0].tracks[0].feedback>
-            +                        <TrackInput session.mixers[0].tracks[1].tracks[0].tracks[0].input source=null>
-            +                        <TrackOutput session.mixers[0].tracks[1].tracks[0].tracks[0].output target=default>
-            +                    <TrackOutput session.mixers[0].tracks[1].tracks[0].output target=default>
-            +                <Track 'A2' session.mixers[0].tracks[1].tracks[1]>
-            +                    <TrackFeedback session.mixers[0].tracks[1].tracks[1].feedback>
-            +                    <TrackInput session.mixers[0].tracks[1].tracks[1].input source=null>
-            +                    <TrackOutput session.mixers[0].tracks[1].tracks[1].output target=default>
-                             <TrackOutput session.mixers[0].tracks[1].output target=default>
-            -                <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-            +                <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0]>
-                         <Track 'C' session.mixers[0].tracks[2]>
-                             <TrackFeedback session.mixers[0].tracks[2].feedback>
-                             <TrackInput session.mixers[0].tracks[2].input source=null>
+                     <Mixer 1 'P' session.mixers[0]>
+            -            <Track 5 'A' session.mixers[0].tracks[0]>
+            -                <TrackFeedback 6 session.mixers[0].tracks[0].feedback>
+            -                <TrackInput 7 session.mixers[0].tracks[0].input source=null>
+            -                <Track 17 'A1' session.mixers[0].tracks[0].tracks[0]>
+            -                    <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
+            -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
+            -                    <Track 25 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
+            -                        <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+            -                        <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+            -                        <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
+            -                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=default>
+            -                <Track 21 'A2' session.mixers[0].tracks[0].tracks[1]>
+            -                    <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
+            -                    <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
+            -                    <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
+            -                <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
+            -                <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
+            -            <Track 9 'B' session.mixers[0].tracks[1]>
+            -                <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 11 session.mixers[0].tracks[1].input source=null>
+            -                <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
+            -                <TrackSend 34 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+            +            <Track 9 'B' session.mixers[0].tracks[0]>
+            +                <TrackFeedback 10 session.mixers[0].tracks[0].feedback>
+            +                <TrackInput 11 session.mixers[0].tracks[0].input source=null>
+            +                <TrackOutput 12 session.mixers[0].tracks[0].output target=default>
+            +                <TrackSend 34 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1].tracks[0]>
+            +            <Track 5 'A' session.mixers[0].tracks[1]>
+            +                <TrackFeedback 6 session.mixers[0].tracks[1].feedback>
+            +                <TrackInput 7 session.mixers[0].tracks[1].input source=null>
+            +                <Track 17 'A1' session.mixers[0].tracks[1].tracks[0]>
+            +                    <TrackFeedback 18 session.mixers[0].tracks[1].tracks[0].feedback>
+            +                    <TrackInput 19 session.mixers[0].tracks[1].tracks[0].input source=null>
+            +                    <Track 25 'A11' session.mixers[0].tracks[1].tracks[0].tracks[0]>
+            +                        <TrackFeedback 26 session.mixers[0].tracks[1].tracks[0].tracks[0].feedback>
+            +                        <TrackInput 27 session.mixers[0].tracks[1].tracks[0].tracks[0].input source=null>
+            +                        <TrackOutput 28 session.mixers[0].tracks[1].tracks[0].tracks[0].output target=default>
+            +                    <TrackOutput 20 session.mixers[0].tracks[1].tracks[0].output target=default>
+            +                <Track 21 'A2' session.mixers[0].tracks[1].tracks[1]>
+            +                    <TrackFeedback 22 session.mixers[0].tracks[1].tracks[1].feedback>
+            +                    <TrackInput 23 session.mixers[0].tracks[1].tracks[1].input source=null>
+            +                    <TrackOutput 24 session.mixers[0].tracks[1].tracks[1].output target=default>
+            +                <TrackOutput 8 session.mixers[0].tracks[1].output target=default>
+            +                <TrackSend 33 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0]>
+                         <Track 13 'C' session.mixers[0].tracks[2]>
+                             <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
+                             <TrackInput 15 session.mixers[0].tracks[2].input source=null>
             """,
             """
             --- initial
@@ -1029,26 +1041,32 @@ async def test_Track_delete(
             --- initial
             +++ mutation
             @@ -17,16 +17,16 @@
-                                 <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
-                                 <TrackOutput session.mixers[0].tracks[0].tracks[1].output target=default>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-            -            <Track 'B' session.mixers[0].tracks[1]>
-            +                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[2]>
-            +            <Track 'C' session.mixers[0].tracks[1]>
-                             <TrackFeedback session.mixers[0].tracks[1].feedback>
-                             <TrackInput session.mixers[0].tracks[1].input source=null>
-                             <TrackOutput session.mixers[0].tracks[1].output target=default>
-            -                <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-            -            <Track 'C' session.mixers[0].tracks[2]>
-            +            <Track 'B' session.mixers[0].tracks[2]>
-                             <TrackFeedback session.mixers[0].tracks[2].feedback>
-                             <TrackInput session.mixers[0].tracks[2].input source=null>
-                             <TrackOutput session.mixers[0].tracks[2].output target=default>
-            +                <TrackSend session.mixers[0].tracks[2].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-                         <MixerOutput session.mixers[0].output>
-                     <Mixer 'Q' session.mixers[1]>
-                         <Track 'D' session.mixers[1].tracks[0]>
+                                 <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
+                                 <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
+                             <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
+            -                <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
+            -            <Track 9 'B' session.mixers[0].tracks[1]>
+            -                <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 11 session.mixers[0].tracks[1].input source=null>
+            -                <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
+            -                <TrackSend 34 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+            -            <Track 13 'C' session.mixers[0].tracks[2]>
+            -                <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
+            -                <TrackInput 15 session.mixers[0].tracks[2].input source=null>
+            -                <TrackOutput 16 session.mixers[0].tracks[2].output target=default>
+            +                <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[2]>
+            +            <Track 13 'C' session.mixers[0].tracks[1]>
+            +                <TrackFeedback 14 session.mixers[0].tracks[1].feedback>
+            +                <TrackInput 15 session.mixers[0].tracks[1].input source=null>
+            +                <TrackOutput 16 session.mixers[0].tracks[1].output target=default>
+            +            <Track 9 'B' session.mixers[0].tracks[2]>
+            +                <TrackFeedback 10 session.mixers[0].tracks[2].feedback>
+            +                <TrackInput 11 session.mixers[0].tracks[2].input source=null>
+            +                <TrackOutput 12 session.mixers[0].tracks[2].output target=default>
+            +                <TrackSend 34 session.mixers[0].tracks[2].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+                         <MixerOutput 2 session.mixers[0].output>
+                     <Mixer 3 'Q' session.mixers[1]>
+                         <Track 29 'D' session.mixers[1].tracks[0]>
             """,
             """
             --- initial
@@ -1114,48 +1132,57 @@ async def test_Track_delete(
             --- initial
             +++ mutation
             @@ -4,29 +4,29 @@
-                         <Track 'A' session.mixers[0].tracks[0]>
-                             <TrackFeedback session.mixers[0].tracks[0].feedback>
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-            -                <Track 'A1' session.mixers[0].tracks[0].tracks[0]>
-            +                <Track 'B' session.mixers[0].tracks[0].tracks[0]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[0].feedback>
-                                 <TrackInput session.mixers[0].tracks[0].tracks[0].input source=null>
-            -                    <Track 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
-            -                        <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-            -                        <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-            -                        <TrackOutput session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-                                 <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=default>
-            -                <Track 'A2' session.mixers[0].tracks[0].tracks[1]>
-            +                    <TrackSend session.mixers[0].tracks[0].tracks[0].sends[0] target=session.mixers[0].tracks[0].tracks[1]>
-            +                <Track 'A1' session.mixers[0].tracks[0].tracks[1]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
-                                 <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
-            +                    <Track 'A11' session.mixers[0].tracks[0].tracks[1].tracks[0]>
-            +                        <TrackFeedback session.mixers[0].tracks[0].tracks[1].tracks[0].feedback>
-            +                        <TrackInput session.mixers[0].tracks[0].tracks[1].tracks[0].input source=null>
-            +                        <TrackOutput session.mixers[0].tracks[0].tracks[1].tracks[0].output target=default>
-                                 <TrackOutput session.mixers[0].tracks[0].tracks[1].output target=default>
-            +                <Track 'A2' session.mixers[0].tracks[0].tracks[2]>
-            +                    <TrackFeedback session.mixers[0].tracks[0].tracks[2].feedback>
-            +                    <TrackInput session.mixers[0].tracks[0].tracks[2].input source=null>
-            +                    <TrackOutput session.mixers[0].tracks[0].tracks[2].output target=default>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-            -            <Track 'B' session.mixers[0].tracks[1]>
-            +                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-            +            <Track 'C' session.mixers[0].tracks[1]>
-                             <TrackFeedback session.mixers[0].tracks[1].feedback>
-                             <TrackInput session.mixers[0].tracks[1].input source=null>
-                             <TrackOutput session.mixers[0].tracks[1].output target=default>
-            -                <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-            -            <Track 'C' session.mixers[0].tracks[2]>
-            -                <TrackFeedback session.mixers[0].tracks[2].feedback>
-            -                <TrackInput session.mixers[0].tracks[2].input source=null>
-            -                <TrackOutput session.mixers[0].tracks[2].output target=default>
-                         <MixerOutput session.mixers[0].output>
-                     <Mixer 'Q' session.mixers[1]>
-                         <Track 'D' session.mixers[1].tracks[0]>
+                         <Track 5 'A' session.mixers[0].tracks[0]>
+                             <TrackFeedback 6 session.mixers[0].tracks[0].feedback>
+                             <TrackInput 7 session.mixers[0].tracks[0].input source=null>
+            -                <Track 17 'A1' session.mixers[0].tracks[0].tracks[0]>
+            -                    <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
+            -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
+            -                    <Track 25 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
+            -                        <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+            -                        <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+            -                        <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
+            -                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=default>
+            -                <Track 21 'A2' session.mixers[0].tracks[0].tracks[1]>
+            -                    <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
+            -                    <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
+            -                    <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
+            +                <Track 9 'B' session.mixers[0].tracks[0].tracks[0]>
+            +                    <TrackFeedback 10 session.mixers[0].tracks[0].tracks[0].feedback>
+            +                    <TrackInput 11 session.mixers[0].tracks[0].tracks[0].input source=null>
+            +                    <TrackOutput 12 session.mixers[0].tracks[0].tracks[0].output target=default>
+            +                    <TrackSend 34 session.mixers[0].tracks[0].tracks[0].sends[0] target=session.mixers[0].tracks[0].tracks[1]>
+            +                <Track 17 'A1' session.mixers[0].tracks[0].tracks[1]>
+            +                    <TrackFeedback 18 session.mixers[0].tracks[0].tracks[1].feedback>
+            +                    <TrackInput 19 session.mixers[0].tracks[0].tracks[1].input source=null>
+            +                    <Track 25 'A11' session.mixers[0].tracks[0].tracks[1].tracks[0]>
+            +                        <TrackFeedback 26 session.mixers[0].tracks[0].tracks[1].tracks[0].feedback>
+            +                        <TrackInput 27 session.mixers[0].tracks[0].tracks[1].tracks[0].input source=null>
+            +                        <TrackOutput 28 session.mixers[0].tracks[0].tracks[1].tracks[0].output target=default>
+            +                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[1].output target=default>
+            +                <Track 21 'A2' session.mixers[0].tracks[0].tracks[2]>
+            +                    <TrackFeedback 22 session.mixers[0].tracks[0].tracks[2].feedback>
+            +                    <TrackInput 23 session.mixers[0].tracks[0].tracks[2].input source=null>
+            +                    <TrackOutput 24 session.mixers[0].tracks[0].tracks[2].output target=default>
+                             <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
+            -                <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
+            -            <Track 9 'B' session.mixers[0].tracks[1]>
+            -                <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 11 session.mixers[0].tracks[1].input source=null>
+            -                <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
+            -                <TrackSend 34 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+            -            <Track 13 'C' session.mixers[0].tracks[2]>
+            -                <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
+            -                <TrackInput 15 session.mixers[0].tracks[2].input source=null>
+            -                <TrackOutput 16 session.mixers[0].tracks[2].output target=default>
+            +                <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+            +            <Track 13 'C' session.mixers[0].tracks[1]>
+            +                <TrackFeedback 14 session.mixers[0].tracks[1].feedback>
+            +                <TrackInput 15 session.mixers[0].tracks[1].input source=null>
+            +                <TrackOutput 16 session.mixers[0].tracks[1].output target=default>
+                         <MixerOutput 2 session.mixers[0].output>
+                     <Mixer 3 'Q' session.mixers[1]>
+                         <Track 29 'D' session.mixers[1].tracks[0]>
             """,
             """
             --- initial
@@ -1245,40 +1272,46 @@ async def test_Track_delete(
             --- initial
             +++ mutation
             @@ -7,26 +7,26 @@
-                             <Track 'A1' session.mixers[0].tracks[0].tracks[0]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[0].feedback>
-                                 <TrackInput session.mixers[0].tracks[0].tracks[0].input source=null>
-            -                    <Track 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
-            +                    <Track 'B' session.mixers[0].tracks[0].tracks[0].tracks[0]>
-                                     <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-                                     <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-                                     <TrackOutput session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-            +                        <TrackSend session.mixers[0].tracks[0].tracks[0].tracks[0].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-            +                    <Track 'A11' session.mixers[0].tracks[0].tracks[0].tracks[1]>
-            +                        <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[1].feedback>
-            +                        <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[1].input source=null>
-            +                        <TrackOutput session.mixers[0].tracks[0].tracks[0].tracks[1].output target=default>
-                                 <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=default>
-                             <Track 'A2' session.mixers[0].tracks[0].tracks[1]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
-                                 <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
-                                 <TrackOutput session.mixers[0].tracks[0].tracks[1].output target=default>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-            -            <Track 'B' session.mixers[0].tracks[1]>
-            +                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[0].tracks[0].tracks[0]>
-            +            <Track 'C' session.mixers[0].tracks[1]>
-                             <TrackFeedback session.mixers[0].tracks[1].feedback>
-                             <TrackInput session.mixers[0].tracks[1].input source=null>
-                             <TrackOutput session.mixers[0].tracks[1].output target=default>
-            -                <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-            -            <Track 'C' session.mixers[0].tracks[2]>
-            -                <TrackFeedback session.mixers[0].tracks[2].feedback>
-            -                <TrackInput session.mixers[0].tracks[2].input source=null>
-            -                <TrackOutput session.mixers[0].tracks[2].output target=default>
-                         <MixerOutput session.mixers[0].output>
-                     <Mixer 'Q' session.mixers[1]>
-                         <Track 'D' session.mixers[1].tracks[0]>
+                             <Track 17 'A1' session.mixers[0].tracks[0].tracks[0]>
+                                 <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
+                                 <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
+            -                    <Track 25 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
+            -                        <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+            -                        <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+            -                        <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
+            +                    <Track 9 'B' session.mixers[0].tracks[0].tracks[0].tracks[0]>
+            +                        <TrackFeedback 10 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+            +                        <TrackInput 11 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+            +                        <TrackOutput 12 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
+            +                        <TrackSend 34 session.mixers[0].tracks[0].tracks[0].tracks[0].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+            +                    <Track 25 'A11' session.mixers[0].tracks[0].tracks[0].tracks[1]>
+            +                        <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[1].feedback>
+            +                        <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[1].input source=null>
+            +                        <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[1].output target=default>
+                                 <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=default>
+                             <Track 21 'A2' session.mixers[0].tracks[0].tracks[1]>
+                                 <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
+                                 <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
+                                 <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
+                             <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
+            -                <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
+            -            <Track 9 'B' session.mixers[0].tracks[1]>
+            -                <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 11 session.mixers[0].tracks[1].input source=null>
+            -                <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
+            -                <TrackSend 34 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+            -            <Track 13 'C' session.mixers[0].tracks[2]>
+            -                <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
+            -                <TrackInput 15 session.mixers[0].tracks[2].input source=null>
+            -                <TrackOutput 16 session.mixers[0].tracks[2].output target=default>
+            +                <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[0].tracks[0].tracks[0]>
+            +            <Track 13 'C' session.mixers[0].tracks[1]>
+            +                <TrackFeedback 14 session.mixers[0].tracks[1].feedback>
+            +                <TrackInput 15 session.mixers[0].tracks[1].input source=null>
+            +                <TrackOutput 16 session.mixers[0].tracks[1].output target=default>
+                         <MixerOutput 2 session.mixers[0].output>
+                     <Mixer 3 'Q' session.mixers[1]>
+                         <Track 29 'D' session.mixers[1].tracks[0]>
             """,
             """
             --- initial
@@ -1377,29 +1410,32 @@ async def test_Track_delete(
             --- initial
             +++ mutation
             @@ -17,16 +17,16 @@
-                                 <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
-                                 <TrackOutput session.mixers[0].tracks[0].tracks[1].output target=default>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-            -            <Track 'B' session.mixers[0].tracks[1]>
-            +                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1].tracks[0]>
-            +            <Track 'C' session.mixers[0].tracks[1]>
-                             <TrackFeedback session.mixers[0].tracks[1].feedback>
-                             <TrackInput session.mixers[0].tracks[1].input source=null>
-            +                <Track 'B' session.mixers[0].tracks[1].tracks[0]>
-            +                    <TrackFeedback session.mixers[0].tracks[1].tracks[0].feedback>
-            +                    <TrackInput session.mixers[0].tracks[1].tracks[0].input source=null>
-            +                    <TrackOutput session.mixers[0].tracks[1].tracks[0].output target=default>
-            +                    <TrackSend session.mixers[0].tracks[1].tracks[0].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-                             <TrackOutput session.mixers[0].tracks[1].output target=default>
-            -                <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-            -            <Track 'C' session.mixers[0].tracks[2]>
-            -                <TrackFeedback session.mixers[0].tracks[2].feedback>
-            -                <TrackInput session.mixers[0].tracks[2].input source=null>
-            -                <TrackOutput session.mixers[0].tracks[2].output target=default>
-                         <MixerOutput session.mixers[0].output>
-                     <Mixer 'Q' session.mixers[1]>
-                         <Track 'D' session.mixers[1].tracks[0]>
+                                 <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
+                                 <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
+                             <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
+            -                <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
+            -            <Track 9 'B' session.mixers[0].tracks[1]>
+            -                <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 11 session.mixers[0].tracks[1].input source=null>
+            -                <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
+            -                <TrackSend 34 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+            -            <Track 13 'C' session.mixers[0].tracks[2]>
+            -                <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
+            -                <TrackInput 15 session.mixers[0].tracks[2].input source=null>
+            -                <TrackOutput 16 session.mixers[0].tracks[2].output target=default>
+            +                <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1].tracks[0]>
+            +            <Track 13 'C' session.mixers[0].tracks[1]>
+            +                <TrackFeedback 14 session.mixers[0].tracks[1].feedback>
+            +                <TrackInput 15 session.mixers[0].tracks[1].input source=null>
+            +                <Track 9 'B' session.mixers[0].tracks[1].tracks[0]>
+            +                    <TrackFeedback 10 session.mixers[0].tracks[1].tracks[0].feedback>
+            +                    <TrackInput 11 session.mixers[0].tracks[1].tracks[0].input source=null>
+            +                    <TrackOutput 12 session.mixers[0].tracks[1].tracks[0].output target=default>
+            +                    <TrackSend 34 session.mixers[0].tracks[1].tracks[0].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+            +                <TrackOutput 16 session.mixers[0].tracks[1].output target=default>
+                         <MixerOutput 2 session.mixers[0].output>
+                     <Mixer 3 'Q' session.mixers[1]>
+                         <Track 29 'D' session.mixers[1].tracks[0]>
             """,
             """
             --- initial
@@ -1459,55 +1495,64 @@ async def test_Track_delete(
             --- initial
             +++ mutation
             @@ -1,32 +1,32 @@
-             <Session>
+             <Session 0>
                  <session.contexts[0]>
-                     <Mixer 'P' session.mixers[0]>
-            -            <Track 'A' session.mixers[0].tracks[0]>
-            +            <Track 'C' session.mixers[0].tracks[0]>
-                             <TrackFeedback session.mixers[0].tracks[0].feedback>
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-            -                <Track 'A1' session.mixers[0].tracks[0].tracks[0]>
-            -                    <TrackFeedback session.mixers[0].tracks[0].tracks[0].feedback>
-            -                    <TrackInput session.mixers[0].tracks[0].tracks[0].input source=null>
-            -                    <Track 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
-            -                        <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-            -                        <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-            -                        <TrackOutput session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-            -                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=default>
-            -                <Track 'A2' session.mixers[0].tracks[0].tracks[1]>
-            -                    <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
-            -                    <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
-            -                    <TrackOutput session.mixers[0].tracks[0].tracks[1].output target=default>
-                             <TrackOutput session.mixers[0].tracks[0].output target=default>
-            -                <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-            -            <Track 'B' session.mixers[0].tracks[1]>
-            +            <Track 'A' session.mixers[0].tracks[1]>
-                             <TrackFeedback session.mixers[0].tracks[1].feedback>
-                             <TrackInput session.mixers[0].tracks[1].input source=null>
-            +                <Track 'A1' session.mixers[0].tracks[1].tracks[0]>
-            +                    <TrackFeedback session.mixers[0].tracks[1].tracks[0].feedback>
-            +                    <TrackInput session.mixers[0].tracks[1].tracks[0].input source=null>
-            +                    <Track 'A11' session.mixers[0].tracks[1].tracks[0].tracks[0]>
-            +                        <TrackFeedback session.mixers[0].tracks[1].tracks[0].tracks[0].feedback>
-            +                        <TrackInput session.mixers[0].tracks[1].tracks[0].tracks[0].input source=null>
-            +                        <TrackOutput session.mixers[0].tracks[1].tracks[0].tracks[0].output target=default>
-            +                    <TrackOutput session.mixers[0].tracks[1].tracks[0].output target=default>
-            +                <Track 'A2' session.mixers[0].tracks[1].tracks[1]>
-            +                    <TrackFeedback session.mixers[0].tracks[1].tracks[1].feedback>
-            +                    <TrackInput session.mixers[0].tracks[1].tracks[1].input source=null>
-            +                    <TrackOutput session.mixers[0].tracks[1].tracks[1].output target=default>
-                             <TrackOutput session.mixers[0].tracks[1].output target=default>
-            -                <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-            -            <Track 'C' session.mixers[0].tracks[2]>
-            +                <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[2]>
-            +            <Track 'B' session.mixers[0].tracks[2]>
-                             <TrackFeedback session.mixers[0].tracks[2].feedback>
-                             <TrackInput session.mixers[0].tracks[2].input source=null>
-                             <TrackOutput session.mixers[0].tracks[2].output target=default>
-            +                <TrackSend session.mixers[0].tracks[2].sends[0] target=session.mixers[0].tracks[1].tracks[0]>
-                         <MixerOutput session.mixers[0].output>
-                     <Mixer 'Q' session.mixers[1]>
-                         <Track 'D' session.mixers[1].tracks[0]>
+                     <Mixer 1 'P' session.mixers[0]>
+            -            <Track 5 'A' session.mixers[0].tracks[0]>
+            -                <TrackFeedback 6 session.mixers[0].tracks[0].feedback>
+            -                <TrackInput 7 session.mixers[0].tracks[0].input source=null>
+            -                <Track 17 'A1' session.mixers[0].tracks[0].tracks[0]>
+            -                    <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
+            -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
+            -                    <Track 25 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
+            -                        <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+            -                        <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+            -                        <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
+            -                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=default>
+            -                <Track 21 'A2' session.mixers[0].tracks[0].tracks[1]>
+            -                    <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
+            -                    <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
+            -                    <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
+            -                <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
+            -                <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
+            -            <Track 9 'B' session.mixers[0].tracks[1]>
+            -                <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 11 session.mixers[0].tracks[1].input source=null>
+            -                <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
+            -                <TrackSend 34 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+            -            <Track 13 'C' session.mixers[0].tracks[2]>
+            -                <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
+            -                <TrackInput 15 session.mixers[0].tracks[2].input source=null>
+            -                <TrackOutput 16 session.mixers[0].tracks[2].output target=default>
+            +            <Track 13 'C' session.mixers[0].tracks[0]>
+            +                <TrackFeedback 14 session.mixers[0].tracks[0].feedback>
+            +                <TrackInput 15 session.mixers[0].tracks[0].input source=null>
+            +                <TrackOutput 16 session.mixers[0].tracks[0].output target=default>
+            +            <Track 5 'A' session.mixers[0].tracks[1]>
+            +                <TrackFeedback 6 session.mixers[0].tracks[1].feedback>
+            +                <TrackInput 7 session.mixers[0].tracks[1].input source=null>
+            +                <Track 17 'A1' session.mixers[0].tracks[1].tracks[0]>
+            +                    <TrackFeedback 18 session.mixers[0].tracks[1].tracks[0].feedback>
+            +                    <TrackInput 19 session.mixers[0].tracks[1].tracks[0].input source=null>
+            +                    <Track 25 'A11' session.mixers[0].tracks[1].tracks[0].tracks[0]>
+            +                        <TrackFeedback 26 session.mixers[0].tracks[1].tracks[0].tracks[0].feedback>
+            +                        <TrackInput 27 session.mixers[0].tracks[1].tracks[0].tracks[0].input source=null>
+            +                        <TrackOutput 28 session.mixers[0].tracks[1].tracks[0].tracks[0].output target=default>
+            +                    <TrackOutput 20 session.mixers[0].tracks[1].tracks[0].output target=default>
+            +                <Track 21 'A2' session.mixers[0].tracks[1].tracks[1]>
+            +                    <TrackFeedback 22 session.mixers[0].tracks[1].tracks[1].feedback>
+            +                    <TrackInput 23 session.mixers[0].tracks[1].tracks[1].input source=null>
+            +                    <TrackOutput 24 session.mixers[0].tracks[1].tracks[1].output target=default>
+            +                <TrackOutput 8 session.mixers[0].tracks[1].output target=default>
+            +                <TrackSend 33 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[2]>
+            +            <Track 9 'B' session.mixers[0].tracks[2]>
+            +                <TrackFeedback 10 session.mixers[0].tracks[2].feedback>
+            +                <TrackInput 11 session.mixers[0].tracks[2].input source=null>
+            +                <TrackOutput 12 session.mixers[0].tracks[2].output target=default>
+            +                <TrackSend 34 session.mixers[0].tracks[2].sends[0] target=session.mixers[0].tracks[1].tracks[0]>
+                         <MixerOutput 2 session.mixers[0].output>
+                     <Mixer 3 'Q' session.mixers[1]>
+                         <Track 29 'D' session.mixers[1].tracks[0]>
             """,
             """
             --- initial
@@ -1641,14 +1686,14 @@ async def test_Track_move(
             --- initial
             +++ mutation
             @@ -6,7 +6,7 @@
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <Track 'A1' session.mixers[0].tracks[0].tracks[0]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[0].feedback>
-            -                    <TrackInput session.mixers[0].tracks[0].tracks[0].input source=null>
-            +                    <TrackInput session.mixers[0].tracks[0].tracks[0].input source=session.mixers[0].tracks[0]>
-                                 <Track 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
-                                     <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-                                     <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+                             <TrackInput 7 session.mixers[0].tracks[0].input source=null>
+                             <Track 17 'A1' session.mixers[0].tracks[0].tracks[0]>
+                                 <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
+            -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
+            +                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=session.mixers[0].tracks[0]>
+                                 <Track 25 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
+                                     <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+                                     <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
             """,
             """
             --- initial
@@ -1676,14 +1721,14 @@ async def test_Track_move(
             --- initial
             +++ mutation
             @@ -6,7 +6,7 @@
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <Track 'A1' session.mixers[0].tracks[0].tracks[0]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[0].feedback>
-            -                    <TrackInput session.mixers[0].tracks[0].tracks[0].input source=null>
-            +                    <TrackInput session.mixers[0].tracks[0].tracks[0].input source=session.mixers[0].tracks[0].tracks[0].tracks[0]>
-                                 <Track 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
-                                     <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-                                     <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+                             <TrackInput 7 session.mixers[0].tracks[0].input source=null>
+                             <Track 17 'A1' session.mixers[0].tracks[0].tracks[0]>
+                                 <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
+            -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
+            +                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=session.mixers[0].tracks[0].tracks[0].tracks[0]>
+                                 <Track 25 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
+                                     <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+                                     <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
             """,
             """
             --- initial
@@ -1713,14 +1758,14 @@ async def test_Track_move(
             --- initial
             +++ mutation
             @@ -6,7 +6,7 @@
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <Track 'A1' session.mixers[0].tracks[0].tracks[0]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[0].feedback>
-            -                    <TrackInput session.mixers[0].tracks[0].tracks[0].input source=null>
-            +                    <TrackInput session.mixers[0].tracks[0].tracks[0].input source=session.mixers[0].tracks[1]>
-                                 <Track 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
-                                     <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-                                     <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+                             <TrackInput 7 session.mixers[0].tracks[0].input source=null>
+                             <Track 17 'A1' session.mixers[0].tracks[0].tracks[0]>
+                                 <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
+            -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
+            +                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=session.mixers[0].tracks[1]>
+                                 <Track 25 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
+                                     <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+                                     <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
             """,
             """
             --- initial
@@ -1749,14 +1794,14 @@ async def test_Track_move(
             --- initial
             +++ mutation
             @@ -20,7 +20,7 @@
-                             <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-                         <Track 'B' session.mixers[0].tracks[1]>
-                             <TrackFeedback session.mixers[0].tracks[1].feedback>
-            -                <TrackInput session.mixers[0].tracks[1].input source=null>
-            +                <TrackInput session.mixers[0].tracks[1].input source=session.mixers[0].tracks[0]>
-                             <TrackOutput session.mixers[0].tracks[1].output target=default>
-                             <TrackSend session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-                         <Track 'C' session.mixers[0].tracks[2]>
+                             <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
+                         <Track 9 'B' session.mixers[0].tracks[1]>
+                             <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
+            -                <TrackInput 11 session.mixers[0].tracks[1].input source=null>
+            +                <TrackInput 11 session.mixers[0].tracks[1].input source=session.mixers[0].tracks[0]>
+                             <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
+                             <TrackSend 34 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+                         <Track 13 'C' session.mixers[0].tracks[2]>
             """,
             """
             --- initial
@@ -1786,14 +1831,14 @@ async def test_Track_move(
             --- initial
             +++ mutation
             @@ -6,7 +6,7 @@
-                             <TrackInput session.mixers[0].tracks[0].input source=null>
-                             <Track 'A1' session.mixers[0].tracks[0].tracks[0]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[0].feedback>
-            -                    <TrackInput session.mixers[0].tracks[0].tracks[0].input source=null>
-            +                    <TrackInput session.mixers[0].tracks[0].tracks[0].input source=session.mixers[0].tracks[0].tracks[1]>
-                                 <Track 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
-                                     <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-                                     <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+                             <TrackInput 7 session.mixers[0].tracks[0].input source=null>
+                             <Track 17 'A1' session.mixers[0].tracks[0].tracks[0]>
+                                 <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
+            -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
+            +                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=session.mixers[0].tracks[0].tracks[1]>
+                                 <Track 25 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
+                                     <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+                                     <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
             """,
             """
             --- initial
@@ -1962,14 +2007,14 @@ async def test_Track_set_muted(
             --- initial
             +++ mutation
             @@ -11,7 +11,7 @@
-                                     <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-                                     <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-                                     <TrackOutput session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-            -                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=default>
-            +                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=null>
-                             <Track 'A2' session.mixers[0].tracks[0].tracks[1]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
-                                 <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
+                                     <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+                                     <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+                                     <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
+            -                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=default>
+            +                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=null>
+                             <Track 21 'A2' session.mixers[0].tracks[0].tracks[1]>
+                                 <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
+                                 <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
             """,
             """
             --- initial
@@ -2017,14 +2062,14 @@ async def test_Track_set_muted(
             --- initial
             +++ mutation
             @@ -11,7 +11,7 @@
-                                     <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-                                     <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-                                     <TrackOutput session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-            -                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=default>
-            +                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=session.mixers[0].tracks[0]>
-                             <Track 'A2' session.mixers[0].tracks[0].tracks[1]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
-                                 <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
+                                     <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+                                     <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+                                     <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
+            -                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=default>
+            +                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=session.mixers[0].tracks[0]>
+                             <Track 21 'A2' session.mixers[0].tracks[0].tracks[1]>
+                                 <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
+                                 <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
             """,
             "",
             "",
@@ -2038,14 +2083,14 @@ async def test_Track_set_muted(
             --- initial
             +++ mutation
             @@ -11,7 +11,7 @@
-                                     <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-                                     <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-                                     <TrackOutput session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-            -                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=default>
-            +                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=session.mixers[0].tracks[0].tracks[0].tracks[0]>
-                             <Track 'A2' session.mixers[0].tracks[0].tracks[1]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
-                                 <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
+                                     <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+                                     <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+                                     <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
+            -                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=default>
+            +                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=session.mixers[0].tracks[0].tracks[0].tracks[0]>
+                             <Track 21 'A2' session.mixers[0].tracks[0].tracks[1]>
+                                 <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
+                                 <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
             """,
             """
             --- initial
@@ -2089,14 +2134,14 @@ async def test_Track_set_muted(
             --- initial
             +++ mutation
             @@ -11,7 +11,7 @@
-                                     <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-                                     <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-                                     <TrackOutput session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-            -                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=default>
-            +                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=session.mixers[0].tracks[1]>
-                             <Track 'A2' session.mixers[0].tracks[0].tracks[1]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
-                                 <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
+                                     <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+                                     <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+                                     <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
+            -                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=default>
+            +                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=session.mixers[0].tracks[1]>
+                             <Track 21 'A2' session.mixers[0].tracks[0].tracks[1]>
+                                 <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
+                                 <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
             """,
             """
             --- initial
@@ -2130,14 +2175,14 @@ async def test_Track_set_muted(
             --- initial
             +++ mutation
             @@ -16,7 +16,7 @@
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
-                                 <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
-                                 <TrackOutput session.mixers[0].tracks[0].tracks[1].output target=default>
-            -                <TrackOutput session.mixers[0].tracks[0].output target=default>
-            +                <TrackOutput session.mixers[0].tracks[0].output target=session.mixers[0]>
-                             <TrackSend session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-                         <Track 'B' session.mixers[0].tracks[1]>
-                             <TrackFeedback session.mixers[0].tracks[1].feedback>
+                                 <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
+                                 <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
+                                 <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
+            -                <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
+            +                <TrackOutput 8 session.mixers[0].tracks[0].output target=session.mixers[0]>
+                             <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
+                         <Track 9 'B' session.mixers[0].tracks[1]>
+                             <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
             """,
             "",
             "",
@@ -2151,14 +2196,14 @@ async def test_Track_set_muted(
             --- initial
             +++ mutation
             @@ -11,7 +11,7 @@
-                                     <TrackFeedback session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-                                     <TrackInput session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-                                     <TrackOutput session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-            -                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=default>
-            +                    <TrackOutput session.mixers[0].tracks[0].tracks[0].output target=session.mixers[0].tracks[0].tracks[1]>
-                             <Track 'A2' session.mixers[0].tracks[0].tracks[1]>
-                                 <TrackFeedback session.mixers[0].tracks[0].tracks[1].feedback>
-                                 <TrackInput session.mixers[0].tracks[0].tracks[1].input source=null>
+                                     <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
+                                     <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
+                                     <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
+            -                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=default>
+            +                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=session.mixers[0].tracks[0].tracks[1]>
+                             <Track 21 'A2' session.mixers[0].tracks[0].tracks[1]>
+                                 <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
+                                 <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
             """,
             """
             --- initial
