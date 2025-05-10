@@ -477,6 +477,14 @@ class Track(
             )
         return self._get_audio_bus(context, name=ComponentNames.FEEDBACK)
 
+    def _resolve_initial_state(self) -> TrackState:
+        return TrackState()
+
+    def _resolve_state(self, context: AsyncServer | None = None) -> TrackState:
+        return TrackState(
+            channel_count=self.effective_channel_count,
+        )
+
     def _set_muted(self, muted: bool = True) -> None:
         self._is_muted = muted
         self._update_activation()
@@ -611,6 +619,10 @@ class Track(
     @property
     def is_active(self) -> bool:
         return self._is_active
+
+    @property
+    def numeric_address(self) -> Address:
+        return f"tracks[{self._id}]"
 
     @property
     def output(self) -> BusGroup | Default | TrackContainer | None:

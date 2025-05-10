@@ -62,6 +62,14 @@ class Device(Component[DeviceContainer, DeviceState]):
     def _get_synthdefs(self) -> list[SynthDef]:
         return [build_device_dc_tester(2)]
 
+    def _resolve_initial_state(self) -> DeviceState:
+        return DeviceState()
+
+    def _resolve_state(self, context: AsyncServer | None = None) -> DeviceState:
+        return DeviceState(
+            channel_count=self.effective_channel_count,
+        )
+
     async def set_active(self, active: bool = True) -> None:
         async with self._lock:
             pass
@@ -75,3 +83,7 @@ class Device(Component[DeviceContainer, DeviceState]):
             return "devices[?]"
         index = self.parent.devices.index(self)
         return f"{self.parent.address}.devices[{index}]"
+
+    @property
+    def numeric_address(self) -> Address:
+        return f"devices[{self._id}]"

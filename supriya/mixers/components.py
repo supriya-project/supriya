@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 
 @dataclasses.dataclass
 class State:
-    context: AsyncServer | None = None
+    pass
 
 
 C = TypeVar("C", bound="Component")
@@ -117,7 +117,7 @@ class Component(Generic[C, H]):
         self._session = session
         # Computed
         self._id = session._get_next_id()
-        self._cached_state: H = self._resolve_empty_state()
+        self._cached_state: H = self._resolve_initial_state()
 
     def __repr__(self) -> str:
         if self._name:
@@ -297,17 +297,14 @@ class Component(Generic[C, H]):
         self._feedback_dependents.add(dependent)
         return None
 
-    def _resolve_empty_state(self) -> H:
-        return cast(H, State())
-
-    def _resolve_state(self, context: AsyncServer | None = None) -> State:
+    def _resolve_initial_state(self) -> H:
         raise NotImplementedError
 
-    @classmethod
-    def _resolve_spec_state(cls, state: H) -> dict[Address, Spec]:
-        # OK, forcing function... can't rely on address because it changes if
-        # nodes re-order. We need unique, stable IDs for all components.
-        return {}
+    def _resolve_spec_state(self, state: H) -> dict[Address, Spec | None]:
+        raise NotImplementedError
+
+    def _resolve_state(self, context: AsyncServer | None = None) -> H:
+        raise NotImplementedError
 
     def _unregister_dependency(self, dependent: "Component") -> bool:
         self._dependents.discard(dependent)
@@ -388,6 +385,10 @@ class Component(Generic[C, H]):
             if isinstance(component, Mixer):
                 return component
         return None
+
+    @property
+    def numeric_address(self) -> Address:
+        raise NotImplementedError
 
     @property
     def parent(self) -> C | None:
