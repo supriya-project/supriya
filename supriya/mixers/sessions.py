@@ -1,4 +1,5 @@
 import asyncio
+import dataclasses
 import logging
 import re
 from typing import TYPE_CHECKING, Sequence
@@ -9,7 +10,7 @@ from ..enums import BootStatus
 from ..osc import find_free_port
 from ..scsynth import Options
 from ..ugens import SynthDef
-from .components import Address, ChannelCount, Component
+from .components import Address, ChannelCount, Component, State
 
 if TYPE_CHECKING:
     from .mixers import Mixer
@@ -18,7 +19,12 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-class Session(Component):
+@dataclasses.dataclass
+class SessionState(State):
+    channel_count: ChannelCount = 2
+
+
+class Session(Component["Session", SessionState]):
     """
     Top-level object.
 
@@ -92,6 +98,12 @@ class Session(Component):
     def _get_next_id(self) -> int:
         self._next_id = (next_id := getattr(self, "_next_id", 0)) + 1
         return next_id
+
+    def _resolve_initial_state(self) -> SessionState:
+        return SessionState()
+
+    def _resolve_state(self, context: AsyncServer | None = None) -> SessionState:
+        return SessionState()
 
     async def add_context(self, options: Options | None = None) -> AsyncServer:
         async with self._lock:

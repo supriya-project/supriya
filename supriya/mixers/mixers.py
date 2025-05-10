@@ -5,7 +5,7 @@ from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
 from ..typing import DEFAULT, Default
 from ..ugens import SynthDef
-from .components import Address, ChannelCount, Component, ComponentNames, State
+from .components import Address, ChannelCount, Component, ComponentNames, Spec, State
 from .devices import DeviceContainer
 from .routing import Connection, ConnectionState
 from .synthdefs import (
@@ -58,7 +58,9 @@ class MixerState(State):
     channel_count: ChannelCount = 2
 
 
-class Mixer(TrackContainer["Session", MixerState], DeviceContainer["Session", State]):
+class Mixer(
+    TrackContainer["Session", MixerState], DeviceContainer["Session", MixerState]
+):
 
     # TODO: add_device() -> Device
     # TODO: group_devices(index: int, count: int) -> Rack
@@ -151,6 +153,17 @@ class Mixer(TrackContainer["Session", MixerState], DeviceContainer["Session", St
             build_meters(2),
         ]
 
+    def _resolve_initial_state(self) -> MixerState:
+        return MixerState()
+
+    def _resolve_spec_state(self, state: MixerState) -> dict[Address, Spec | None]:
+        return {}
+
+    def _resolve_state(self, context: AsyncServer | None = None) -> MixerState:
+        return MixerState(
+            channel_count=self.effective_channel_count,
+        )
+
     async def delete(self) -> None:
         # TODO: What are delete semantics actually?
         async with self._lock:
@@ -175,3 +188,7 @@ class Mixer(TrackContainer["Session", MixerState], DeviceContainer["Session", St
         if self.parent is None:
             return None
         return self.parent._mixers[self]
+
+    @property
+    def numeric_address(self) -> Address:
+        return f"mixers[{self._id}]"

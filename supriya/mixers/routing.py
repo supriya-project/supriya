@@ -195,6 +195,9 @@ class Connection(Component[C, ConnectionState], Generic[C, S, T]):
             source_bus = source_component._audio_buses.get(ComponentNames.MAIN)
         return source_component, source_bus
 
+    def _resolve_initial_state(self) -> ConnectionState:
+        return ConnectionState()
+
     def _resolve_state(self, context: AsyncServer | None = None) -> ConnectionState:
         source_component, source_bus = self._resolve_source(context)
         target_component, target_bus = self._resolve_target(context)
@@ -273,3 +276,7 @@ class Connection(Component[C, ConnectionState], Generic[C, S, T]):
         if self.parent is None:
             return self._kind
         return f"{self.parent.address}.{self._kind}"
+
+    @property
+    def numeric_address(self) -> Address:
+        return f"{self._kind}s[{self._id}]"
