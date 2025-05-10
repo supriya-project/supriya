@@ -1,56 +1,16 @@
 import dataclasses
 from typing import TYPE_CHECKING, Optional
 
-from ..contexts import AsyncServer, BusGroup
+from ..contexts import AsyncServer
 from ..enums import AddAction
-from ..typing import DEFAULT, Default
-from ..ugens import SynthDef
 from .components import Address, ChannelCount, Component, ComponentNames, Spec, State
-from .devices import DeviceContainer
-from .routing import Connection, ConnectionState
 from .synthdefs import (
     build_channel_strip,
     build_meters,
-    build_patch_cable,
 )
-from .tracks import Track, TrackContainer
 
 if TYPE_CHECKING:
     from .sessions import Session
-
-
-class MixerOutput(Connection["Mixer", "Mixer", Default]):
-    def __init__(self, *, parent: "Mixer", session: "Session") -> None:
-        super().__init__(
-            kind="output",
-            parent=parent,
-            session=session,
-            source=parent,
-            target=DEFAULT,
-        )
-
-    def _allocate_synth(
-        self,
-        *,
-        context: AsyncServer,
-        parent: Component,
-        new_state: ConnectionState,
-    ) -> None:
-        self._nodes[ComponentNames.SYNTH] = parent._nodes[
-            ComponentNames.GROUP
-        ].add_synth(
-            add_action=AddAction.ADD_TO_TAIL,
-            in_=new_state.source_bus,
-            out=new_state.target_bus,
-            synthdef=build_patch_cable(2, 2),
-        )
-
-    def _resolve_default_target(
-        self, context: AsyncServer | None
-    ) -> tuple[Component | None, BusGroup | None]:
-        if not context:
-            return None, None
-        return None, context.audio_output_bus_group
 
 
 @dataclasses.dataclass
@@ -58,10 +18,7 @@ class MixerState(State):
     channel_count: ChannelCount = 2
 
 
-class Mixer(
-    TrackContainer["Session", MixerState], DeviceContainer["Session", MixerState]
-):
-
+class Mixer(Component):
     # TODO: add_device() -> Device
     # TODO: group_devices(index: int, count: int) -> Rack
     # TODO: set_channel_count(self, channel_count: ChannelCount) -> None
@@ -75,11 +32,8 @@ class Mixer(
         session: "Session",
     ) -> None:
         Component.__init__(self, name=name, parent=parent, session=session)
-        DeviceContainer.__init__(self)
-        TrackContainer.__init__(self)
-        self._soloed_tracks: set[Track] = set()
-        # Sub-components
-        self._output = MixerOutput(parent=self, session=self._session)
+        # DeviceContainer.__init__(self)
+        # TrackContainer.__init__(self)
 
     def _allocate(self, context: AsyncServer) -> bool:
         if not super()._allocate(context=context):
@@ -146,12 +100,6 @@ class Mixer(
         ):
             mixers.remove(self)
         super()._disconnect_parentage()
-
-    def _get_synthdefs(self) -> list[SynthDef]:
-        return [
-            build_channel_strip(2),
-            build_meters(2),
-        ]
 
     def _resolve_initial_state(self) -> MixerState:
         return MixerState()

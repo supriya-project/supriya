@@ -1,6 +1,5 @@
 import asyncio
 import dataclasses
-from contextlib import nullcontext
 from typing import (
     TYPE_CHECKING,
     Awaitable,
@@ -17,7 +16,7 @@ from typing import (
 
 from ..contexts import AsyncServer, Buffer, BusGroup, Context, Group, Node
 from ..contexts.responses import QueryTreeGroup
-from ..enums import AddAction, BootStatus, CalculationRate, DoneAction
+from ..enums import AddAction, BootStatus, CalculationRate
 from ..typing import DEFAULT, Default
 from ..ugens import SynthDef
 from ..utils import iterate_nwise
@@ -32,8 +31,6 @@ class State:
     pass
 
 
-C = TypeVar("C", bound="Component")
-H = TypeVar("H", bound=State)
 ChannelCount: TypeAlias = Literal[1, 2, 4, 8]
 Address: TypeAlias = str
 
@@ -94,14 +91,14 @@ class ComponentNames:
     TRACKS = "tracks"
 
 
-class Component(Generic[C, H]):
+class Component:
 
     def __init__(
         self,
         *,
-        session: "Session",
+        id_: int,
         name: str | None = None,
-        parent: C | None = None,
+        parent=None,
     ) -> None:
         self._audio_buses: dict[str, BusGroup] = {}
         self._buffers: dict[str, Buffer] = {}
@@ -109,46 +106,17 @@ class Component(Generic[C, H]):
         self._control_buses: dict[str, BusGroup] = {}
         self._dependents: set[Component] = set()
         self._feedback_dependents: set[Component] = set()
+        self._id = id_
         self._is_active = True
         self._lock = asyncio.Lock()
         self._name: str | None = name
         self._nodes: dict[str, Node] = {}
-        self._parent: C | None = parent
-        self._session = session
-        # Computed
-        self._id = session._get_next_id()
-        self._cached_state: H = self._resolve_initial_state()
+        self._parent = parent
 
     def __repr__(self) -> str:
         if self._name:
             return f"<{type(self).__name__} {self._id} {self._name!r} {self.address}>"
         return f"<{type(self).__name__} {self._id} {self.address}>"
-
-    async def _allocate_deep(self, *, context: AsyncServer) -> None:
-        if self.session is None:
-            raise RuntimeError
-        fifo: list[tuple[Component, int]] = []
-        current_synthdefs = self.session._synthdefs[context]
-        desired_synthdefs: set[SynthDef] = set()
-        for component in self._walk():
-            fifo.append((component, 0))
-            desired_synthdefs.update(component._get_synthdefs())
-        if required_synthdefs := sorted(
-            desired_synthdefs - current_synthdefs, key=lambda x: x.effective_name
-        ):
-            for synthdef in required_synthdefs:
-                context.add_synthdefs(synthdef)
-            await context.sync()
-            current_synthdefs.update(required_synthdefs)
-        while fifo:
-            component, attempts = fifo.pop(0)
-            if attempts > 2:
-                raise RuntimeError(component, attempts)
-            if not component._allocate(context=context):
-                fifo.append((component, attempts + 1))
-
-    def _allocate(self, *, context: AsyncServer) -> bool:
-        return True
 
     def _can_allocate(self) -> AsyncServer | None:
         if (
@@ -156,61 +124,6 @@ class Component(Generic[C, H]):
         ) is not None and context.boot_status == BootStatus.ONLINE:
             return context
         return None
-
-    def _deallocate(self) -> None:
-        context_manager = (
-            context.at()
-            if (context := self._can_allocate()) is not None
-            else nullcontext()
-        )
-        with context_manager:
-            for key in tuple(self._audio_buses):
-                self._audio_buses.pop(key).free()
-            for key in tuple(self._control_buses):
-                self._control_buses.pop(key).free()
-            self._nodes.clear()
-            for key in tuple(self._buffers):
-                self._buffers.pop(key).free()
-
-    def _deallocate_deep(self) -> None:
-        self._deallocate_root()
-        for component in self._walk():
-            component._deallocate()
-
-    def _deallocate_root(self) -> None:
-        context_manager = (
-            context.at()
-            if (context := self._can_allocate()) is not None
-            else nullcontext()
-        )
-        group_node = self._nodes.get(ComponentNames.GROUP)
-        synth_node = self._nodes.get(ComponentNames.CHANNEL_STRIP) or self._nodes.get(
-            ComponentNames.SYNTH
-        )
-        with context_manager:
-            if group_node:
-                group_node.set(gate=0)
-            elif synth_node:
-                synth_node.set(gate=0)
-            if group_node and synth_node:
-                synth_node.set(done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP)
-
-    def _delete(self) -> None:
-        self._deallocate_root()
-        for component in self._walk():
-            component._deallocate()
-            component._disconnect_dependents(root=self)
-        self._disconnect_parentage()
-
-    def _disconnect_dependents(self, root: "Component") -> None:
-        # Delete (or disconnect) out-of-tree dependencies
-        for dependent in sorted(self._dependents, key=lambda x: x.graph_order):
-            dependent._disconnect_dependency(root=root, dependency=self)
-
-    def _disconnect_dependency(
-        self, root: "Component", dependency: "Component"
-    ) -> None:
-        pass
 
     def _disconnect_parentage(self) -> None:
         self._parent = None
@@ -222,61 +135,6 @@ class Component(Generic[C, H]):
             parts.extend(indent + line for line in child._dump_components())
         return parts
 
-    def _get_audio_bus(
-        self,
-        context: AsyncServer | None,
-        name: str,
-        can_allocate: bool = False,
-        channel_count: int = 2,
-    ) -> BusGroup:
-        return self._get_buses(
-            calculation_rate=CalculationRate.AUDIO,
-            can_allocate=can_allocate,
-            channel_count=channel_count,
-            context=context,
-            name=name,
-        )
-
-    def _get_buses(
-        self,
-        context: AsyncServer | None,
-        name: str,
-        *,
-        calculation_rate: CalculationRate,
-        can_allocate: bool = False,
-        channel_count: int = 1,
-    ) -> BusGroup:
-        if calculation_rate == CalculationRate.CONTROL:
-            buses = self._control_buses
-        elif calculation_rate == CalculationRate.AUDIO:
-            buses = self._audio_buses
-        else:
-            raise ValueError(calculation_rate)
-        if (name not in buses) and can_allocate and context:
-            buses[name] = context.add_bus_group(
-                calculation_rate=calculation_rate,
-                count=channel_count,
-            )
-        return buses[name]
-
-    def _get_control_bus(
-        self,
-        context: AsyncServer | None,
-        name: str,
-        can_allocate: bool = False,
-        channel_count: int = 1,
-    ) -> BusGroup:
-        return self._get_buses(
-            calculation_rate=CalculationRate.CONTROL,
-            can_allocate=can_allocate,
-            channel_count=channel_count,
-            context=context,
-            name=name,
-        )
-
-    def _get_synthdefs(self) -> list[SynthDef]:
-        return []
-
     def _iterate_parentage(self) -> Iterator["Component"]:
         component = self
         while component.parent is not None:
@@ -287,33 +145,14 @@ class Component(Generic[C, H]):
     def _reconcile(self, context: AsyncServer | None = None) -> bool:
         return True
 
-    def _register_dependency(self, dependent: "Component") -> None:
-        self._dependents.add(dependent)
-
-    def _register_feedback(
-        self, context: AsyncServer | None, dependent: "Component"
-    ) -> BusGroup | None:
-        self._dependents.add(dependent)
-        self._feedback_dependents.add(dependent)
-        return None
-
-    def _resolve_initial_state(self) -> H:
+    def _resolve_initial_state(self) -> State:
         raise NotImplementedError
 
-    def _resolve_spec_state(self, state: H) -> dict[Address, Spec | None]:
+    def _resolve_spec_state(self, state: State) -> dict[Address, Spec | None]:
         raise NotImplementedError
 
-    def _resolve_state(self, context: AsyncServer | None = None) -> H:
+    def _resolve_state(self, context: AsyncServer | None = None) -> State:
         raise NotImplementedError
-
-    def _unregister_dependency(self, dependent: "Component") -> bool:
-        self._dependents.discard(dependent)
-        return self._unregister_feedback(dependent)
-
-    def _unregister_feedback(self, dependent: "Component") -> bool:
-        had_feedback = bool(self._feedback_dependents)
-        self._feedback_dependents.discard(dependent)
-        return had_feedback and not self._feedback_dependents
 
     def _walk(
         self, component_class: Type["Component"] | None = None
