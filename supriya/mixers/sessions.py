@@ -24,7 +24,7 @@ class SessionState(State):
     channel_count: ChannelCount = 2
 
 
-class Session(Component["Session", SessionState]):
+class Session:
     """
     Top-level object.
 
@@ -45,7 +45,6 @@ class Session(Component["Session", SessionState]):
     def __init__(self) -> None:
         from .mixers import Mixer
 
-        super().__init__(session=self)
         self._boot_future: asyncio.Future | None = None
         self._channel_count: ChannelCount = 2
         self._clock = AsyncClock()
@@ -55,7 +54,6 @@ class Session(Component["Session", SessionState]):
         self._quit_future: asyncio.Future | None = None
         self._status = BootStatus.OFFLINE
         self._synthdefs: dict[AsyncServer, set[SynthDef]] = {}
-        # add initial context and mixer
 
     def __getitem__(self, key: str) -> "Component":
         if not isinstance(key, str):
@@ -100,9 +98,6 @@ class Session(Component["Session", SessionState]):
         return next_id
 
     def _resolve_initial_state(self) -> SessionState:
-        return SessionState()
-
-    def _resolve_state(self, context: AsyncServer | None = None) -> SessionState:
         return SessionState()
 
     async def add_context(self, options: Options | None = None) -> AsyncServer:
