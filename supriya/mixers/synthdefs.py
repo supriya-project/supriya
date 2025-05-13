@@ -24,14 +24,14 @@ def get_lag_time() -> float:
 def build_channel_strip(channel_count: int = 2) -> SynthDef:
     with SynthDefBuilder(
         active=1,
-        bus=0,
+        out=0,
         done_action=DoneAction.FREE_SYNTH,
         gain=Parameter(value=0, lag=get_lag_time()),
         gate=1,
     ) as builder:
         source = In.ar(
             channel_count=channel_count,
-            bus=builder["bus"],
+            bus=builder["out"],
         )
         active_gate = Linen.kr(
             attack_time=get_lag_time(),
@@ -47,7 +47,7 @@ def build_channel_strip(channel_count: int = 2) -> SynthDef:
         source *= builder["gain"].db_to_amplitude()
         source *= active_gate
         source *= free_gate
-        ReplaceOut.ar(bus=builder["bus"], source=source)
+        ReplaceOut.ar(bus=builder["out"], source=source)
     return builder.build(f"supriya:channel-strip:{channel_count}")
 
 

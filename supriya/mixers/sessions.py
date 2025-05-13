@@ -5,7 +5,7 @@ import re
 from typing import TYPE_CHECKING, Sequence
 
 from ..clocks import AsyncClock
-from ..contexts import AsyncServer
+from ..contexts import AsyncServer, ContextObject
 from ..enums import BootStatus
 from ..osc import find_free_port
 from ..scsynth import Options
@@ -24,7 +24,7 @@ class SessionState(State):
     channel_count: ChannelCount = 2
 
 
-class Session:
+class Session(Component):
     """
     Top-level object.
 
@@ -45,6 +45,7 @@ class Session:
     def __init__(self) -> None:
         from .mixers import Mixer
 
+        Component.__init__(self, id_=0)
         self._boot_future: asyncio.Future | None = None
         self._channel_count: ChannelCount = 2
         self._clock = AsyncClock()
@@ -54,6 +55,7 @@ class Session:
         self._quit_future: asyncio.Future | None = None
         self._status = BootStatus.OFFLINE
         self._synthdefs: dict[AsyncServer, set[SynthDef]] = {}
+        self._artifacts: dict[AsyncServer, dict[Address, ContextObject]] = {}
 
     def __getitem__(self, key: str) -> "Component":
         if not isinstance(key, str):
@@ -122,11 +124,11 @@ class Session:
             if context not in self.contexts:
                 raise ValueError(context)
             self._contexts.setdefault(context, []).append(
-                mixer := Mixer(name=name, parent=self, session=self._session)
+                mixer := Mixer(id_=self._get_next_id(), name=name, parent=self)
             )
             self._mixers[mixer] = context
             if self._status == BootStatus.ONLINE:
-                await mixer._allocate_deep(context=context)
+                await mixer._reconcile(context=context)
             return mixer
 
     async def boot(self) -> None:
@@ -146,7 +148,7 @@ class Session:
                 self._boot_future.set_result(True)
                 for context, mixers in self._contexts.items():
                     for mixer in mixers:
-                        await mixer._allocate_deep(context=context)
+                        await mixer._reconcile(context=context)
             elif self._boot_future is not None:  # BOOTING / ONLINE
                 await self._boot_future
             else:  # NONREALTIME
@@ -188,7 +190,7 @@ class Session:
                 for context, mixers in self._contexts.items():
                     for mixer in mixers:
                         with context.at():
-                            mixer._deallocate_deep()
+                            await mixer._reconcile()
                 await asyncio.gather(*[context.quit() for context in self._contexts])
                 self._status = BootStatus.OFFLINE
                 self._quit_future.set_result(True)
@@ -209,9 +211,7 @@ class Session:
                 return
             self._contexts[self._mixers[mixer]].remove(mixer)
             async with mixer._lock:
-                mixer._deallocate_deep()
-                if self._status == BootStatus.ONLINE:
-                    await mixer._allocate_deep(context=context)
+                await mixer._reconcile(context=context)
                 self._contexts[context].append(mixer)
                 self._mixers[mixer] = context
 
