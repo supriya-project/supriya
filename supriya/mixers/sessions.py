@@ -5,12 +5,13 @@ import re
 from typing import TYPE_CHECKING, Sequence
 
 from ..clocks import AsyncClock
-from ..contexts import AsyncServer, ContextObject
+from ..contexts import AsyncServer
 from ..enums import BootStatus
 from ..osc import find_free_port
 from ..scsynth import Options
 from ..ugens import SynthDef
 from .components import Address, ChannelCount, Component, State
+from .specs import Artifacts
 
 if TYPE_CHECKING:
     from .mixers import Mixer
@@ -49,13 +50,13 @@ class Session(Component):
         self._boot_future: asyncio.Future | None = None
         self._channel_count: ChannelCount = 2
         self._clock = AsyncClock()
+        self._context_artifacts: dict[AsyncServer, Artifacts] = {}
         self._contexts: dict[AsyncServer, list[Mixer]] = {}
         self._lock = asyncio.Lock()
         self._mixers: dict[Mixer, AsyncServer] = {}
         self._quit_future: asyncio.Future | None = None
         self._status = BootStatus.OFFLINE
         self._synthdefs: dict[AsyncServer, set[SynthDef]] = {}
-        self._artifacts: dict[AsyncServer, dict[Address, ContextObject]] = {}
 
     def __getitem__(self, key: str) -> "Component":
         if not isinstance(key, str):
@@ -92,12 +93,35 @@ class Session(Component):
     def _add_context(self, options: Options | None = None) -> AsyncServer:
         context = AsyncServer(options)
         self._contexts[context] = []
+        self._context_artifacts[context] = Artifacts()
         self._synthdefs[context] = set()
         return context
+
+    def _add_mixer(self, context: AsyncServer, name: str | None) -> "Mixer":
+        from .mixers import Mixer
+
+        self._contexts.setdefault(context, []).append(
+            mixer := Mixer(id_=self._get_next_id(), name=name, parent=self)
+        )
+        self._mixers[mixer] = context
+        return mixer
 
     def _get_next_id(self) -> int:
         self._next_id = (next_id := getattr(self, "_next_id", 0)) + 1
         return next_id
+
+    async def _get_or_create_context(
+        self, context: AsyncServer | None = None
+    ) -> AsyncServer:
+        if not self._contexts:
+            context = self._add_context()
+            if self._status == BootStatus.ONLINE:
+                await context.boot(port=find_free_port())
+        if context is None:
+            context = list(self._contexts)[0]
+        if context not in self.contexts:
+            raise ValueError(context)
+        return context
 
     def _resolve_initial_state(self) -> SessionState:
         return SessionState()
@@ -112,21 +136,12 @@ class Session(Component):
     async def add_mixer(
         self, context: AsyncServer | None = None, name: str | None = None
     ) -> "Mixer":
-        from .mixers import Mixer
 
         async with self._lock:
-            if not self._contexts:
-                context = self._add_context()
-                if self._status == BootStatus.ONLINE:
-                    await context.boot(port=find_free_port())
-            if context is None:
-                context = list(self._contexts)[0]
-            if context not in self.contexts:
-                raise ValueError(context)
-            self._contexts.setdefault(context, []).append(
-                mixer := Mixer(id_=self._get_next_id(), name=name, parent=self)
+            mixer = self._add_mixer(
+                context=await self._get_or_create_context(context),
+                name=name,
             )
-            self._mixers[mixer] = context
             if self._status == BootStatus.ONLINE:
                 await mixer._reconcile(context=context)
             return mixer

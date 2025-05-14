@@ -4,14 +4,16 @@ from typing import TYPE_CHECKING, Optional
 from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate
 from .components import (
-    Address,
-    BusSpec,
     ChannelCount,
     Component,
-    GroupSpec,
     Names,
-    Spec,
     State,
+)
+from .specs import (
+    Address,
+    BusSpec,
+    GroupSpec,
+    Spec,
     SynthDefSpec,
     SynthSpec,
 )
