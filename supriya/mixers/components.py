@@ -14,12 +14,12 @@ from typing import (
     cast,
 )
 
-from ..contexts import AsyncServer, Buffer, BusGroup, ContextObject, Group, Node
+from ..contexts import AsyncServer, Group
 from ..contexts.responses import QueryTreeGroup
-from ..enums import AddAction, BootStatus, CalculationRate
+from ..enums import BootStatus
 from ..typing import DEFAULT, Default
-from ..ugens import SynthDef
 from ..utils import iterate_nwise
+from .specs import Address, Artifacts, Spec, SynthDefSpec
 
 C = TypeVar("C", bound="Component")
 
@@ -33,76 +33,11 @@ class State:
 
     def resolve_specs(
         self, component: "Component", context: AsyncServer | None
-    ) -> list["Spec"]:
+    ) -> list[Spec]:
         raise NotImplementedError
 
 
 ChannelCount: TypeAlias = Literal[1, 2, 4, 8]
-Address: TypeAlias = str
-
-
-@dataclasses.dataclass
-class Spec:
-    address: Address
-    context: AsyncServer
-
-    def create(
-        self,
-        context: AsyncServer,
-        old_artifacts: dict[Address, ContextObject],
-        new_artifacts: dict[Address, ContextObject],
-    ) -> None:
-        raise NotImplementedError
-
-    def destroy(
-        self, context: AsyncServer, old_artifacts: dict[Address, ContextObject]
-    ) -> None:
-        raise NotImplementedError
-
-    def mutate(
-        self,
-        context: AsyncServer,
-        old_artifacts: dict[Address, ContextObject],
-        new_artifacts: dict[Address, ContextObject],
-    ) -> None:
-        raise NotImplementedError
-
-    def requires_recreation(self, other_spec: "Spec") -> bool:
-        raise NotImplementedError
-
-
-@dataclasses.dataclass
-class BufferSpec(Spec):
-    channel_count: int
-    count: int
-
-
-@dataclasses.dataclass
-class BusSpec(Spec):
-    calculation_rate: CalculationRate
-    channel_count: int
-
-
-@dataclasses.dataclass
-class SynthDefSpec(Spec):
-    synthdef: SynthDef
-
-
-@dataclasses.dataclass
-class NodeSpec(Spec):
-    add_action: AddAction
-    target_node: Address | None
-
-
-@dataclasses.dataclass
-class GroupSpec(NodeSpec):
-    pass
-
-
-@dataclasses.dataclass
-class SynthSpec(NodeSpec):
-    kwargs: dict[str, Address | float]
-    synthdef: Address
 
 
 class Names:
@@ -135,17 +70,13 @@ class Component(Generic[C]):
         name: str | None = None,
         parent: C | None = None,
     ) -> None:
-        self._audio_buses: dict[str, BusGroup] = {}
-        self._buffers: dict[str, Buffer] = {}
         self._channel_count: ChannelCount | Default = DEFAULT
-        self._control_buses: dict[str, BusGroup] = {}
         self._dependents: set[Component] = set()
         self._feedback_dependents: set[Component] = set()
         self._id = id_
         self._is_active = True
         self._lock = asyncio.Lock()
         self._name: str | None = name
-        self._nodes: dict[str, Node] = {}
         self._parent: C | None = parent
         self._specs: list[Spec] = []
         self._state: State = self._resolve_initial_state()
@@ -187,18 +118,16 @@ class Component(Generic[C]):
         dict[AsyncServer, dict[Address, tuple[Spec, Spec]]],
         dict[AsyncServer, dict[Address, Spec]],
     ]:
+        print(f"{self=}")
+        print(f"{self.session=}")
         if self.session is None:
             raise ValueError
-        # Need access to remote state and remote state updates
-        # Merge these together as changes are applied against the cluster
-        # Deletes always happen against the old artifacts
-        old_artifacts: dict[AsyncServer, dict[Address, ContextObject]] = (
-            self.session._artifacts
+        # artifacts
+        old_context_artifacts: dict[AsyncServer, Artifacts] = (
+            self.session._context_artifacts
         )
-        new_artifacts: dict[AsyncServer, dict[Address, ContextObject]] = {}
+        new_context_artifacts: dict[AsyncServer, Artifacts] = {}
         # spec buckets
-        #     bucket by create, re-create, mutate, destroy
-        #     moving contexts is a destroy and a create
         create_specs: dict[AsyncServer, dict[Address, Spec]] = {}
         mutate_specs: dict[AsyncServer, dict[Address, tuple[Spec, Spec]]] = {}
         destroy_specs: dict[AsyncServer, dict[Address, Spec]] = {}
@@ -212,6 +141,7 @@ class Component(Generic[C]):
         # include related components (dependencies?) e.g. sends / receives / inputs / outputs
         #    anything that introduces cycles into the component digraph
         for component in self._walk():
+            print(f"{component=}")
             # for component in queue:
             #     resolve state
             #     resolve new specs
@@ -233,7 +163,7 @@ class Component(Generic[C]):
                 if new_spec := new_specs.pop(address, None):
                     # N.B.: recreation needs to know about the old ID so we know how to free it
                     #       thus we maintain two dicts of context artifacts
-                    if old_spec.requires_recreation(new_spec):
+                    if new_spec.requires_recreation(old_spec):
                         destroy_specs.setdefault(old_spec.context, {})[
                             address
                         ] = old_spec
@@ -252,30 +182,44 @@ class Component(Generic[C]):
         # once all specs bucketed, build digraph of create specs
         #   OK... WTF does this digraph look like...
         ...
+        print(f"{create_specs=}")
+        print(f"{mutate_specs=}")
+        print(f"{destroy_specs=}")
         # create: walk digraph, executing specs against context
         #     if creating synthdefs, block until done
         for context, specs in create_specs.items():
             for spec in specs.values():
                 spec.create(
                     context=context,
-                    old_artifacts=old_artifacts[context],
-                    new_artifacts=new_artifacts[context],
+                    old_artifacts=old_context_artifacts.setdefault(
+                        context, Artifacts()
+                    ),
+                    new_artifacts=new_context_artifacts.setdefault(
+                        context, Artifacts()
+                    ),
                 )
+                if isinstance(spec, SynthDefSpec):
+                    await context.sync()
         # mutate: iterate mutate/recreate specs in order
         for context, spec_pairs in mutate_specs.items():
             for old_spec, new_spec in spec_pairs.values():
                 new_spec.mutate(
                     context=context,
-                    old_artifacts=old_artifacts[context],
-                    new_artifacts=new_artifacts[context],
+                    old_artifacts=old_context_artifacts[context],
+                    new_artifacts=new_context_artifacts.setdefault(
+                        context, Artifacts()
+                    ),
+                    old_spec=old_spec,
                 )
         # destroy: iterate destroy specs in order, special handling for "root" destroys (how?)
         for context, specs in destroy_specs.items():
             for spec in specs.values():
-                spec.destroy(context=context, old_artifacts=old_artifacts[context])
-        # merge artifcats
-        for context, artifacts in old_artifacts.items():
-            artifacts.update(new_artifacts[context])
+                spec.destroy(
+                    context=context, old_artifacts=old_context_artifacts[context]
+                )
+        # merge artifacts
+        for context in set(old_context_artifacts) | set(new_context_artifacts):
+            old_context_artifacts[context].merge(new_context_artifacts[context])
         # return stuff, for debugging
         return create_specs, mutate_specs, destroy_specs
 
@@ -306,10 +250,11 @@ class Component(Generic[C]):
         )
         if annotated:
             annotations: dict[int, str] = {}
-            for component in self._walk():
-                address = component.address
-                for name, node in component._nodes.items():
-                    annotations[node.id_] = f"{address}:{name}"
+            # TODO: Reimplement this on top of Artifacts
+            # for component in self._walk():
+            #     address = component.address
+            #     for name, node in component._nodes.items():
+            #         annotations[node.id_] = f"{address}:{name}"
             return str(tree.annotate(annotations))
         return str(tree)
 
