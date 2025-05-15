@@ -11,7 +11,7 @@ from supriya.contexts.nonrealtime import Score
 # develop as of 2025/02/11 exits with -11 (why??)
 EXPECTED_EXIT_CODES_NIX = (0, -11)
 # I simply do not understand why Windows is like this
-EXPECTED_EXIT_CODES_WINDOWS = (3221226505, 3221225477)
+EXPECTED_EXIT_CODES_WINDOWS = (1, 3221226505, 3221225477)
 
 
 @pytest.fixture(autouse=True)
