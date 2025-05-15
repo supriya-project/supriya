@@ -221,6 +221,7 @@ class Mixer(Component["Session"]):
         # TODO: What are delete semantics actually?
         async with self._lock:
             self._delete()
+            await self._reconcile(context=None)
 
     def set_name(self, name: str | None = None) -> None:
         self._name = name
