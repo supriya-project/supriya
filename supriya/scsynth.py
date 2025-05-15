@@ -497,9 +497,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         loop = asyncio.get_running_loop()
         self.boot_future = loop.create_future()
         self.exit_future = loop.create_future()
-        _, _ = await loop.subprocess_exec(
-            lambda: self, *options, stdin=None, stderr=None
-        )
+        await loop.subprocess_exec(lambda: self, *options, stdin=None, stderr=None)
         if not (await self.boot_future):
             await self.exit_future
             raise ServerCannotBoot(self.error_text)
@@ -507,11 +505,17 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
             self.on_boot_callback()
 
     def connection_made(self, transport) -> None:
+        def kill() -> None:
+            if transport.is_closing():
+                return
+            transport.kill()
+
         logger.info(
             f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
             "connection made!"
         )
         self.transport = transport
+        atexit.register(kill)
 
     def pipe_connection_lost(self, fd, exc) -> None:
         logger.info(
