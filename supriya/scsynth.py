@@ -508,7 +508,10 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         def kill() -> None:
             if transport.is_closing():
                 return
-            transport.kill()
+            try:
+                transport.kill()
+            except ProcessLookupError:
+                pass
 
         logger.info(
             f"[{self.options.ip_address}:{self.options.port}/{self.name or hex(id(self))}] "
