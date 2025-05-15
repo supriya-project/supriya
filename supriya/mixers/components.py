@@ -126,7 +126,11 @@ class Component(Generic[C]):
         old_context_artifacts: dict[AsyncServer, Artifacts] = (
             self.session._context_artifacts
         )
-        new_context_artifacts: dict[AsyncServer, Artifacts] = {}
+        new_context_artifacts: dict[AsyncServer, Artifacts] = {
+            context: Artifacts() for context in old_context_artifacts
+        }
+        if context and context not in new_context_artifacts:
+            new_context_artifacts[context] = Artifacts()
         # spec buckets
         create_specs: dict[AsyncServer, dict[Address, Spec]] = {}
         mutate_specs: dict[AsyncServer, dict[Address, tuple[Spec, Spec]]] = {}
@@ -134,10 +138,6 @@ class Component(Generic[C]):
         # create a set of visited components to ensure we only visit once
         visited_components: set[Component] = set()
         # iterate components depth-first
-        #     might need different iteration strategies depending on initiating action
-        #     a move affects the moved, and maybe feedback of any ins/outs
-        #     while a channel count change can't be predicted except by iterating until no state changes occur
-        #     but we can be inefficient for this first pass: don't over-engineer early
         # include related components (dependencies?) e.g. sends / receives / inputs / outputs
         #    anything that introduces cycles into the component digraph
         for component in self._walk():
@@ -180,11 +180,30 @@ class Component(Generic[C]):
             for address, new_spec in new_specs.items():
                 create_specs.setdefault(new_spec.context, {})[address] = new_spec
         # once all specs bucketed, build digraph of create specs
-        #   OK... WTF does this digraph look like...
-        ...
+        dependents: dict[AsyncServer, dict[Address, list[Address]]] = {}
+        dependencies: dict[AsyncServer, dict[Address, set[Address]]] = {}
+        for context, specs in create_specs.items():
+            for address, spec in specs.items():
+                requirements = spec.requires()
+                dependencies.setdefault(context, {}).setdefault(address, set()).update(
+                    requirements
+                )
+                for requirement in requirements:
+                    dependents.setdefault(context, {}).setdefault(
+                        requirement, []
+                    ).append(address)
+        # debug
         print(f"{create_specs=}")
         print(f"{mutate_specs=}")
         print(f"{destroy_specs=}")
+        print(f"{dependents=}")
+        print(f"{dependencies=}")
+        for context, d in dependents.items():
+            for dx, dy in d.items():
+                print(f"dependents: {dx} {dy}")
+        for context, d in dependencies.items():
+            for dx, dy in d.items():
+                print(f"dependencies: {dx} {dy}")
         # create: walk digraph, executing specs against context
         #     if creating synthdefs, block until done
         for context, specs in create_specs.items():

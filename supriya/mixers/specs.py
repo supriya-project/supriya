@@ -50,6 +50,9 @@ class Spec:
     ) -> None:
         raise NotImplementedError
 
+    def requires(self) -> list[Address]:
+        return []
+
     def requires_recreation(self, old_spec: "Spec") -> bool:
         raise NotImplementedError
 
@@ -135,7 +138,7 @@ class BufferSpec(Spec):
         raise NotImplementedError
 
     def destroy(self, context: AsyncServer, old_artifacts: Artifacts) -> None:
-        raise NotImplementedError
+        old_artifacts.buffers[self.address].free()
 
     def mutate(
         self,
@@ -209,7 +212,7 @@ class SynthDefSpec(Spec):
         new_artifacts.synthdefs[self.address] = self.synthdef
 
     def destroy(self, context: AsyncServer, old_artifacts: Artifacts) -> None:
-        raise NotImplementedError
+        return
 
     def mutate(
         self,
@@ -228,6 +231,11 @@ class SynthDefSpec(Spec):
 class NodeSpec(Spec):
     add_action: AddAction
     target_node: Address | None
+
+    def requires(self) -> list[Address]:
+        if self.target_node is not None:
+            return [self.target_node]
+        return []
 
 
 @dataclasses.dataclass
@@ -352,6 +360,13 @@ class SynthSpec(NodeSpec):
                 old_artifacts.nodes[self.address].map(**map_kwargs)
             if set_kwargs:
                 old_artifacts.nodes[self.address].set(**set_kwargs)
+
+    def requires(self) -> list[Address]:
+        return [
+            *super().requires(),
+            self.synthdef,
+            *[value for value in self.kwargs.values() if isinstance(value, Address)],
+        ]
 
     def requires_recreation(self, old_spec: "Spec") -> bool:
         if not isinstance(old_spec, SynthSpec):
