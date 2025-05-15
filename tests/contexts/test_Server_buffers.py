@@ -305,7 +305,7 @@ async def test_get_buffer(context: AsyncServer | Server) -> None:
     )
     with warnings.catch_warnings(record=True) as w:
         with pytest.raises(exception_classes):
-            await get(buffer.get(1))
+            await get(buffer.get(1024))
         assert len(w) == 1
         assert str(w[-1].message) == "/b_get index out of range"
     await get(context.sync())
