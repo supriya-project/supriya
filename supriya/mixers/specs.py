@@ -3,7 +3,7 @@ from collections import ChainMap
 from typing import TypeAlias
 
 from ..contexts import AsyncServer, Buffer, BusGroup, Node
-from ..enums import AddAction, CalculationRate
+from ..enums import AddAction, CalculationRate, DoneAction
 from ..ugens import SynthDef
 
 Address: TypeAlias = str
@@ -28,7 +28,7 @@ class Artifacts:
 @dataclasses.dataclass
 class Spec:
     address: Address
-    context: AsyncServer
+    context: AsyncServer | None
 
     def create(
         self,
@@ -258,7 +258,9 @@ class GroupSpec(NodeSpec):
         )
 
     def destroy(self, context: AsyncServer, old_artifacts: Artifacts) -> None:
-        old_artifacts.nodes[self.address].free()
+        # Handle actual freeing via synths contained in the group to ensure
+        # fade-outs get applied.
+        old_artifacts.nodes[self.address].pop(None)
 
     def mutate(
         self,
@@ -295,6 +297,7 @@ class GroupSpec(NodeSpec):
 class SynthSpec(NodeSpec):
     kwargs: dict[str, Address | float]
     synthdef: Address
+    destroy_strategy: DoneAction | None = None
 
     def create(
         self,
@@ -326,7 +329,8 @@ class SynthSpec(NodeSpec):
         )
 
     def destroy(self, context: AsyncServer, old_artifacts: Artifacts) -> None:
-        old_artifacts.nodes[self.address].free()
+        if (synth := old_artifacts.nodes[self.address].pop(None)) and self.destroy_strategy:
+            synth.set(gate=0, done_action=self.destroy_strategy)
 
     def mutate(
         self,
