@@ -163,11 +163,15 @@ class Component(Generic[C]):
                 if new_spec := new_specs.pop(address, None):
                     # N.B.: recreation needs to know about the old ID so we know how to free it
                     #       thus we maintain two dicts of context artifacts
-                    if new_spec.requires_recreation(old_spec):
+                    if new_spec.context and new_spec.requires_recreation(old_spec):
                         destroy_specs.setdefault(old_spec.context, {})[
                             address
                         ] = old_spec
                         create_specs.setdefault(new_spec.context, {})[
+                            address
+                        ] = new_spec
+                    elif not new_spec.context:
+                        destroy_specs.setdefault(old_spec.context, {})[
                             address
                         ] = new_spec
                     else:
