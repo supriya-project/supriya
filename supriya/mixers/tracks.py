@@ -1,9 +1,9 @@
 import dataclasses
-from typing import TYPE_CHECKING, Optional
 
 from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate
 from .components import (
+    C,
     ChannelCount,
     Component,
     Names,
@@ -18,14 +18,55 @@ from .specs import (
     SynthSpec,
 )
 from .synthdefs import build_channel_strip, build_meters
-from .tracks import TrackContainer
 
-if TYPE_CHECKING:
-    from .sessions import Session
+
+class TrackContainer(Component[C]):
+
+    def __init__(self) -> None:
+        self._tracks: list[Track] = []
+
+    def _add_track(self, name: str | None = None) -> "Track":
+        if (session := self.session) is None:
+            raise RuntimeError
+        self._tracks.append(
+            track := Track(id_=session._get_next_id(), name=name, parent=self)
+        )
+        return track
+
+    def _group(self, index: int, count: int) -> "Track":
+        if (session := self.session) is None:
+            raise RuntimeError
+        if index < 0:
+            raise ValueError(index)
+        elif count < 1:
+            raise ValueError(count)
+        elif (index + count) > len(self.tracks):
+            raise ValueError(index, count)
+        child_tracks = self._tracks[index : index + count]
+        group_track = Track(id_=session._get_next_id(), parent=self)
+        self._tracks.insert(index, group_track)
+        for i, child_track in enumerate(child_tracks):
+            child_track._move(parent=group_track, index=i)
+        return group_track
+
+    async def add_track(self, name: str | None = None) -> "Track":
+        async with self._lock:
+            track = self._add_track(name=name)
+            if context := self._can_allocate():
+                await track._reconcile(context=context)
+            return track
+
+    async def group(self, index: int, count: int) -> "Track":
+        async with self._lock:
+            return self._group(index=index, count=count)
+
+    @property
+    def tracks(self) -> list["Track"]:
+        return self._tracks[:]
 
 
 @dataclasses.dataclass
-class MixerState(State):
+class TrackState(State):
     channel_count: ChannelCount = 2
 
     def resolve_specs(
@@ -79,11 +120,14 @@ class MixerState(State):
                 name=Names.OUTPUT_LEVELS,
             ),
             GroupSpec(
-                add_action=AddAction.ADD_TO_HEAD,
+                add_action=AddAction.ADD_TO_TAIL,
                 component=component,
                 context=context,
                 name=Names.GROUP,
-                target_node=None,
+                # TODO: Need more advanced logic here for positioning
+                target_node=Spec.get_address(
+                    component.parent, Names.NODES, Names.TRACKS
+                ),
             ),
             GroupSpec(
                 add_action=AddAction.ADD_TO_HEAD,
@@ -152,96 +196,28 @@ class MixerState(State):
         ]
 
 
-class Mixer(
-    TrackContainer["Session"],
-):
-    # TODO: add_device() -> Device
-    # TODO: group_devices(index: int, count: int) -> Rack
-    # TODO: set_channel_count(self, channel_count: ChannelCount) -> None
-    # TODO: set_output(output: int) -> None
+class Track(TrackContainer[TrackContainer]):
 
     def __init__(
         self,
         *,
         id_: int,
         name: str | None = None,
-        parent: Optional["Session"],
+        parent: TrackContainer | None = None,
     ) -> None:
         Component.__init__(self, id_=id_, name=name, parent=parent)
-        # DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
 
-    #   def _allocate(self, context: AsyncServer) -> bool:
-    #       if not super()._allocate(context=context):
-    #           return False
-    #       # self._audio_buses["main"] = context.add_bus_group(
-    #       #     calculation_rate=CalculationRate.AUDIO,
-    #       #     count=2,
-    #       # )
-    #       main_audio_bus = self._get_audio_bus(
-    #           context, name=Names.MAIN, can_allocate=True
-    #       )
-    #       gain_control_bus = self._get_control_bus(
-    #           context, name=Names.GAIN, can_allocate=True
-    #       )
-    #       input_levels_control_bus = self._get_control_bus(
-    #           context,
-    #           name=Names.INPUT_LEVELS,
-    #           can_allocate=True,
-    #           channel_count=2,
-    #       )
-    #       output_levels_control_bus = self._get_control_bus(
-    #           context,
-    #           name=Names.OUTPUT_LEVELS,
-    #           can_allocate=True,
-    #           channel_count=2,
-    #       )
-    #       target_node = context.default_group
-    #       with context.at():
-    #           gain_control_bus.set(0.0)
-    #           input_levels_control_bus.set(0.0)
-    #           output_levels_control_bus.set(0.0)
-    #           self._nodes[Names.GROUP] = group = target_node.add_group(
-    #               add_action=AddAction.ADD_TO_TAIL
-    #           )
-    #           self._nodes[Names.TRACKS] = tracks = group.add_group(
-    #               add_action=AddAction.ADD_TO_HEAD
-    #           )
-    #           self._nodes[Names.DEVICES] = group.add_group(
-    #               add_action=AddAction.ADD_TO_TAIL
-    #           )
-    #           self._nodes[Names.CHANNEL_STRIP] = channel_strip = group.add_synth(
-    #               add_action=AddAction.ADD_TO_TAIL,
-    #               bus=main_audio_bus,
-    #               gain=gain_control_bus.map_symbol(),
-    #               synthdef=build_channel_strip(2),
-    #           )
-    #           self._nodes[Names.INPUT_LEVELS] = tracks.add_synth(
-    #               add_action=AddAction.ADD_AFTER,
-    #               synthdef=build_meters(2),
-    #               in_=self._audio_buses[Names.MAIN],
-    #               out=input_levels_control_bus,
-    #           )
-    #           self._nodes[Names.OUTPUT_LEVELS] = channel_strip.add_synth(
-    #               add_action=AddAction.ADD_AFTER,
-    #               synthdef=build_meters(2),
-    #               in_=self._audio_buses[Names.MAIN],
-    #               out=output_levels_control_bus,
-    #           )
-    #       return True
-
     def _disconnect_parentage(self) -> None:
-        if (session := self._parent) is not None and self in (
-            mixers := session._contexts.get(session._mixers.pop(self), [])
-        ):
-            mixers.remove(self)
+        if (parent := self._parent) is not None and self in parent._tracks:
+            parent._tracks.remove(self)
         super()._disconnect_parentage()
 
-    def _resolve_initial_state(self) -> MixerState:
-        return MixerState()
+    def _resolve_initial_state(self) -> TrackState:
+        return TrackState()
 
-    def _resolve_state(self, context: AsyncServer | None = None) -> MixerState:
-        return MixerState(
+    def _resolve_state(self, context: AsyncServer | None = None) -> TrackState:
+        return TrackState(
             channel_count=self.effective_channel_count,
         )
 
@@ -256,22 +232,15 @@ class Mixer(
 
     @property
     def address(self) -> Address:
-        if self.session is None:
-            return "mixers[?]"
-        index = self.session.mixers.index(self)
-        return f"session.mixers[{index}]"
+        if self.parent is None:
+            return "tracks[?]"
+        index = self.parent.tracks.index(self)
+        return f"{self.parent.address}.tracks[{index}]"
 
     @property
     def children(self) -> list[Component]:
-        # return [*self._tracks, *self._devices]
         return [*self._tracks]
 
     @property
-    def context(self) -> AsyncServer | None:
-        if self.parent is None:
-            return None
-        return self.parent._mixers[self]
-
-    @property
     def numeric_address(self) -> Address:
-        return f"mixers[{self._id}]"
+        return f"tracks[{self._id}]"

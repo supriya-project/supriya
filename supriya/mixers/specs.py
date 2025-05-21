@@ -1,12 +1,37 @@
 import dataclasses
+import enum
 from collections import ChainMap
-from typing import TypeAlias
+from typing import TYPE_CHECKING, Optional, TypeAlias
 
 from ..contexts import AsyncServer, Buffer, BusGroup, Node
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..ugens import SynthDef
 
 Address: TypeAlias = str
+
+if TYPE_CHECKING:
+    from .components import Component
+
+
+class Names(enum.StrEnum):
+    ACTIVE = "active"
+    AUDIO_BUSSES = "audio-busses"
+    BUFFERS = "buffers"
+    CHANNEL_STRIP = "channel-strip"
+    CONTROL_BUSSES = "control-busses"
+    DEVICES = "devices"
+    FEEDBACK = "feedback"
+    GAIN = "gain"
+    GROUP = "group"
+    INPUT = "input"
+    INPUT_LEVELS = "input-levels"
+    MAIN = "main"
+    NODES = "nodes"
+    OUTPUT = "output"
+    OUTPUT_LEVELS = "output-levels"
+    SYNTH = "synth"
+    SYNTHDEFS = "synthdefs"
+    TRACKS = "tracks"
 
 
 @dataclasses.dataclass
@@ -27,8 +52,9 @@ class Artifacts:
 
 @dataclasses.dataclass
 class Spec:
-    address: Address
+    component: "Component"
     context: AsyncServer | None
+    name: str
 
     def create(
         self,
@@ -40,6 +66,16 @@ class Spec:
 
     def destroy(self, context: AsyncServer, old_artifacts: Artifacts) -> None:
         raise NotImplementedError
+
+    @staticmethod
+    def get_address(
+        component: Optional["Component"], type_: Names, name: str
+    ) -> Address:
+        if type_ == Names.SYNTHDEFS:
+            return f"{Names.SYNTHDEFS}:{name}"
+        elif component is None:
+            raise ValueError
+        return f"{component.numeric_address}:{type_}:{name}"
 
     def mutate(
         self,
@@ -123,6 +159,10 @@ class Spec:
             old_artifacts.synthdefs,
         )[address]
 
+    @property
+    def address(self) -> Address:
+        raise NotImplementedError
+
 
 @dataclasses.dataclass
 class BufferSpec(Spec):
@@ -151,6 +191,10 @@ class BufferSpec(Spec):
 
     def requires_recreation(self, old_spec: "Spec") -> bool:
         return self != old_spec
+
+    @property
+    def address(self) -> Address:
+        return Spec.get_address(self.component, Names.BUFFERS, self.name)
 
 
 @dataclasses.dataclass
@@ -197,6 +241,14 @@ class BusSpec(Spec):
             raise ValueError(old_spec)
         return self != old_spec
 
+    @property
+    def address(self) -> Address:
+        if self.calculation_rate == CalculationRate.AUDIO:
+            return Spec.get_address(self.component, Names.AUDIO_BUSSES, self.name)
+        elif self.calculation_rate == CalculationRate.CONTROL:
+            return Spec.get_address(self.component, Names.CONTROL_BUSSES, self.name)
+        raise ValueError
+
 
 @dataclasses.dataclass
 class SynthDefSpec(Spec):
@@ -226,6 +278,10 @@ class SynthDefSpec(Spec):
     def requires_recreation(self, old_spec: "Spec") -> bool:
         return self != old_spec
 
+    @property
+    def address(self) -> Address:
+        return Spec.get_address(None, Names.SYNTHDEFS, self.synthdef.effective_name)
+
 
 @dataclasses.dataclass
 class NodeSpec(Spec):
@@ -236,6 +292,10 @@ class NodeSpec(Spec):
         if self.target_node is not None:
             return [self.target_node]
         return []
+
+    @property
+    def address(self) -> Address:
+        return Spec.get_address(self.component, Names.NODES, self.name)
 
 
 @dataclasses.dataclass
@@ -260,7 +320,7 @@ class GroupSpec(NodeSpec):
     def destroy(self, context: AsyncServer, old_artifacts: Artifacts) -> None:
         # Handle actual freeing via synths contained in the group to ensure
         # fade-outs get applied.
-        old_artifacts.nodes[self.address].pop(None)
+        old_artifacts.nodes.pop(self.address, None)
 
     def mutate(
         self,
@@ -329,7 +389,9 @@ class SynthSpec(NodeSpec):
         )
 
     def destroy(self, context: AsyncServer, old_artifacts: Artifacts) -> None:
-        if (synth := old_artifacts.nodes[self.address].pop(None)) and self.destroy_strategy:
+        if (
+            synth := old_artifacts.nodes.pop(self.address, None)
+        ) and self.destroy_strategy:
             synth.set(gate=0, done_action=self.destroy_strategy)
 
     def mutate(
