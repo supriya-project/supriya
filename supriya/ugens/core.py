@@ -78,8 +78,14 @@ def _add_init(
     args = ["self", "*", "calculation_rate: CalculationRateLike"]
     body = []
     if is_multichannel and not fixed_channel_count:
-        args.append(f"channel_count={channel_count or 1}")
-        body.append("self._channel_count = channel_count")
+        args.append(f"channel_count: int = {channel_count or 1}")
+        body.extend(
+            [
+                "if not isinstance(channel_count, int):",
+                "    raise ValueError(repr(channel_count))",
+                "self._channel_count = channel_count",
+            ]
+        )
     if fixed_channel_count:
         body.append(f"self._channel_count = {channel_count}")
     body.extend(
