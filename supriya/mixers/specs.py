@@ -58,13 +58,19 @@ class Spec:
 
     def create(
         self,
+        *,
         context: AsyncServer,
-        old_artifacts: Artifacts,
         new_artifacts: Artifacts,
+        old_artifacts: Artifacts,
     ) -> None:
         raise NotImplementedError
 
-    def destroy(self, context: AsyncServer, old_artifacts: Artifacts) -> None:
+    def destroy(
+        self,
+        *,
+        context: AsyncServer,
+        old_artifacts: Artifacts,
+    ) -> None:
         raise NotImplementedError
 
     @staticmethod
@@ -79,9 +85,10 @@ class Spec:
 
     def mutate(
         self,
+        *,
         context: AsyncServer,
-        old_artifacts: Artifacts,
         new_artifacts: Artifacts,
+        old_artifacts: Artifacts,
         old_spec: "Spec",
     ) -> None:
         raise NotImplementedError
@@ -119,11 +126,14 @@ class Spec:
             if isinstance(value, float):
                 set_kwargs[key] = value
             else:
-                bus = self.resolve_bus(
-                    address=value,
-                    new_artifacts=new_artifacts,
-                    old_artifacts=old_artifacts,
-                )
+                if isinstance(value, BusGroup):
+                    bus = value
+                elif isinstance(value, Address):
+                    bus = self.resolve_bus(
+                        address=value,
+                        new_artifacts=new_artifacts,
+                        old_artifacts=old_artifacts,
+                    )
                 if key in ("bus", "in_", "out"):
                     set_kwargs[key] = int(bus)
                 else:
@@ -178,7 +188,8 @@ class BufferSpec(Spec):
         raise NotImplementedError
 
     def destroy(self, context: AsyncServer, old_artifacts: Artifacts) -> None:
-        old_artifacts.buffers[self.address].free()
+        old_artifacts.buffers.pop(self.address).free()
+        self.component._artifacts.buffers.pop(self.name)
 
     def mutate(
         self,
@@ -201,6 +212,7 @@ class BufferSpec(Spec):
 class BusSpec(Spec):
     calculation_rate: CalculationRate
     channel_count: int
+    default: float = 0.0
 
     def create(
         self,
@@ -209,23 +221,30 @@ class BusSpec(Spec):
         new_artifacts: Artifacts,
     ) -> None:
         if self.calculation_rate == CalculationRate.AUDIO:
-            new_artifacts.audio_buses[self.address] = context.add_bus_group(
-                calculation_rate=CalculationRate.AUDIO,
+            bus_group = context.add_bus_group(
+                calculation_rate=self.calculation_rate,
                 count=self.channel_count,
             )
+            new_artifacts.audio_buses[self.address] = bus_group
+            self.component._artifacts.audio_buses[self.name] = bus_group
         elif self.calculation_rate == CalculationRate.CONTROL:
-            new_artifacts.control_buses[self.address] = context.add_bus_group(
-                calculation_rate=CalculationRate.AUDIO,
+            bus_group = context.add_bus_group(
+                calculation_rate=self.calculation_rate,
                 count=self.channel_count,
             )
+            bus_group.set(self.default)
+            new_artifacts.control_buses[self.address] = bus_group
+            self.component._artifacts.control_buses[self.name] = bus_group
         else:
             raise ValueError
 
     def destroy(self, context: AsyncServer, old_artifacts: Artifacts) -> None:
         if self.calculation_rate == CalculationRate.AUDIO:
             old_artifacts.audio_buses.pop(self.address).free()
+            self.component._artifacts.audio_buses.pop(self.name)
         elif self.calculation_rate == CalculationRate.CONTROL:
             old_artifacts.control_buses.pop(self.address).free()
+            self.component._artifacts.control_buses.pop(self.name)
 
     def mutate(
         self,
@@ -307,7 +326,7 @@ class GroupSpec(NodeSpec):
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
     ) -> None:
-        new_artifacts.nodes[self.address] = context.add_group(
+        group = context.add_group(
             add_action=self.add_action,
             target_node=self.resolve_node(
                 address=self.target_node,
@@ -316,11 +335,14 @@ class GroupSpec(NodeSpec):
                 old_artifacts=old_artifacts,
             ),
         )
+        new_artifacts.nodes[self.address] = group
+        self.component._artifacts.nodes[self.name] = group
 
     def destroy(self, context: AsyncServer, old_artifacts: Artifacts) -> None:
         # Handle actual freeing via synths contained in the group to ensure
         # fade-outs get applied.
-        old_artifacts.nodes.pop(self.address, None)
+        old_artifacts.nodes.pop(self.address)
+        self.component._artifacts.nodes.pop(self.name)
 
     def mutate(
         self,
@@ -370,7 +392,7 @@ class SynthSpec(NodeSpec):
             new_artifacts=new_artifacts,
             old_artifacts=old_artifacts,
         )
-        new_artifacts.nodes[self.address] = context.add_synth(
+        synth = context.add_synth(
             add_action=self.add_action,
             synthdef=self.resolve_synthdef(
                 address=self.synthdef,
@@ -387,11 +409,13 @@ class SynthSpec(NodeSpec):
             **set_kwargs,
             **map_kwargs,
         )
+        new_artifacts.nodes[self.address] = synth
+        self.component._artifacts.nodes[self.name] = synth
 
     def destroy(self, context: AsyncServer, old_artifacts: Artifacts) -> None:
-        if (
-            synth := old_artifacts.nodes.pop(self.address, None)
-        ) and self.destroy_strategy:
+        synth = old_artifacts.nodes.pop(self.address)
+        self.component._artifacts.nodes.pop(self.name)
+        if self.destroy_strategy:
             synth.set(gate=0, done_action=self.destroy_strategy)
 
     def mutate(

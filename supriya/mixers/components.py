@@ -132,7 +132,7 @@ class Component(Generic[C]):
             component: Component,
             context: AsyncServer | None,
         ) -> None:
-            print(f"{component=}")
+            # print(f"{component=}")
             # for component in queue:
             #     resolve state
             #     resolve new specs
@@ -205,17 +205,17 @@ class Component(Generic[C]):
                         requirement, []
                     ).append(address)
         # debug
-        print(f"{create_specs=}")
-        print(f"{mutate_specs=}")
-        print(f"{destroy_specs=}")
-        print(f"{dependents=}")
-        print(f"{dependencies=}")
-        for context, dp in dependents.items():
-            for dx, dy in dp.items():
-                print(f"dependents: {dx} {dy}")
-        for context, dq in dependencies.items():
-            for dx, dz in dq.items():
-                print(f"dependencies: {dx} {dz}")
+        # print(f"{create_specs=}")
+        # print(f"{mutate_specs=}")
+        # print(f"{destroy_specs=}")
+        # print(f"{dependents=}")
+        # print(f"{dependencies=}")
+        # for context, dp in dependents.items():
+        #     for dx, dy in dp.items():
+        #         print(f"dependents: {dx} {dy}")
+        # for context, dq in dependencies.items():
+        #     for dx, dz in dq.items():
+        #         print(f"dependencies: {dx} {dz}")
         # create: walk digraph, executing specs against context
         #     if creating synthdefs, block until done
         for context, specs in create_specs.items():
@@ -275,17 +275,19 @@ class Component(Generic[C]):
     async def dump_tree(self, annotated: bool = True) -> str:
         if self.session and self.session.status != BootStatus.ONLINE:
             raise RuntimeError
+        for k, v in self._artifacts.nodes.items():
+            print(k, v)
         tree = await cast(
             Awaitable[QueryTreeGroup],
-            cast(Group, self._nodes[Names.GROUP]).dump_tree(),
+            cast(Group, self._artifacts.nodes[Names.GROUP]).dump_tree(),
         )
         if annotated:
             annotations: dict[int, str] = {}
             # TODO: Reimplement this on top of Artifacts
-            # for component in self._walk():
-            #     address = component.address
-            #     for name, node in component._nodes.items():
-            #         annotations[node.id_] = f"{address}:{name}"
+            for component in self._walk():
+                address = component.address
+                for name, node in component._artifacts.nodes.items():
+                    annotations[node.id_] = f"{address}:{name}"
             return str(tree.annotate(annotations))
         return str(tree)
 

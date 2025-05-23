@@ -103,6 +103,15 @@ class TrackState(State):
                 channel_count=1,
                 component=component,
                 context=context,
+                default=1.0,
+                name=Names.ACTIVE,
+            ),
+            BusSpec(
+                calculation_rate=CalculationRate.CONTROL,
+                channel_count=1,
+                component=component,
+                context=context,
+                default=0.0,
                 name=Names.GAIN,
             ),
             BusSpec(
@@ -110,6 +119,7 @@ class TrackState(State):
                 channel_count=self.channel_count,
                 component=component,
                 context=context,
+                default=0.0,
                 name=Names.INPUT_LEVELS,
             ),
             BusSpec(
@@ -117,6 +127,7 @@ class TrackState(State):
                 channel_count=self.channel_count,
                 component=component,
                 context=context,
+                default=0.0,
                 name=Names.OUTPUT_LEVELS,
             ),
             GroupSpec(
@@ -148,6 +159,9 @@ class TrackState(State):
                 component=component,
                 context=context,
                 kwargs={
+                    "active": Spec.get_address(
+                        component, Names.CONTROL_BUSSES, Names.ACTIVE
+                    ),
                     "gain": Spec.get_address(
                         component, Names.CONTROL_BUSSES, Names.GAIN
                     ),
@@ -164,6 +178,9 @@ class TrackState(State):
                 component=component,
                 context=context,
                 kwargs={
+                    "active": Spec.get_address(
+                        component, Names.CONTROL_BUSSES, Names.ACTIVE
+                    ),
                     "in_": Spec.get_address(component, Names.AUDIO_BUSSES, Names.MAIN),
                     "out": Spec.get_address(
                         component, Names.CONTROL_BUSSES, Names.INPUT_LEVELS
@@ -180,6 +197,9 @@ class TrackState(State):
                 component=component,
                 context=context,
                 kwargs={
+                    "active": Spec.get_address(
+                        component, Names.CONTROL_BUSSES, Names.ACTIVE
+                    ),
                     "in_": Spec.get_address(component, Names.AUDIO_BUSSES, Names.MAIN),
                     "out": Spec.get_address(
                         component, Names.CONTROL_BUSSES, Names.OUTPUT_LEVELS
@@ -212,6 +232,9 @@ class Track(TrackContainer[TrackContainer]):
         if (parent := self._parent) is not None and self in parent._tracks:
             parent._tracks.remove(self)
         super()._disconnect_parentage()
+
+    def _move(self, *, parent: TrackContainer, index: int) -> None:
+        raise NotImplementedError
 
     def _resolve_initial_state(self) -> TrackState:
         return TrackState()

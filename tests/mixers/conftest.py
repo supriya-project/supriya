@@ -131,6 +131,8 @@ does_not_raise = contextlib.nullcontext()
 @pytest_asyncio.fixture
 async def bare_session() -> tuple[Session, str, str]:
     session = Session()
+    assert not session.contexts
+    assert not session.mixers
     await session.boot()
     initial_tree = await debug_tree(session)
     assert initial_tree == "<empty>"
@@ -151,32 +153,98 @@ async def basic_session() -> tuple[Session, str, str]:
     session = Session()
     mixer = await session.add_mixer(name="P")
     await mixer.add_track(name="A")
-    await session.boot()
+    with capture(session.contexts[0]) as messages:
+        await session.boot()
+    assert format_messages(messages) == normalize(
+        """
+        - ['/notify', 1]
+        - ['/g_new', 1, 1, 0]
+        - ['/d_recv', <SynthDef: system_link_audio_1>]
+        - ['/d_recv', <SynthDef: system_link_audio_10>]
+        - ['/d_recv', <SynthDef: system_link_audio_11>]
+        - ['/d_recv', <SynthDef: system_link_audio_12>]
+        - ['/d_recv', <SynthDef: system_link_audio_13>]
+        - ['/d_recv', <SynthDef: system_link_audio_14>]
+        - ['/d_recv', <SynthDef: system_link_audio_15>]
+        - ['/d_recv', <SynthDef: system_link_audio_16>]
+        - ['/d_recv', <SynthDef: system_link_audio_2>]
+        - ['/d_recv', <SynthDef: system_link_audio_3>]
+        - ['/d_recv', <SynthDef: system_link_audio_4>]
+        - ['/d_recv', <SynthDef: system_link_audio_5>]
+        - ['/d_recv', <SynthDef: system_link_audio_6>]
+        - ['/d_recv', <SynthDef: system_link_audio_7>]
+        - ['/d_recv', <SynthDef: system_link_audio_8>]
+        - ['/d_recv', <SynthDef: system_link_audio_9>]
+        - ['/d_recv', <SynthDef: system_link_control_1>]
+        - ['/d_recv', <SynthDef: system_link_control_10>]
+        - ['/d_recv', <SynthDef: system_link_control_11>]
+        - ['/d_recv', <SynthDef: system_link_control_12>]
+        - ['/d_recv', <SynthDef: system_link_control_13>]
+        - ['/d_recv', <SynthDef: system_link_control_14>]
+        - ['/d_recv', <SynthDef: system_link_control_15>]
+        - ['/d_recv', <SynthDef: system_link_control_16>]
+        - ['/d_recv', <SynthDef: system_link_control_2>]
+        - ['/d_recv', <SynthDef: system_link_control_3>]
+        - ['/d_recv', <SynthDef: system_link_control_4>]
+        - ['/d_recv', <SynthDef: system_link_control_5>]
+        - ['/d_recv', <SynthDef: system_link_control_6>]
+        - ['/d_recv', <SynthDef: system_link_control_7>]
+        - ['/d_recv', <SynthDef: system_link_control_8>]
+        - ['/d_recv', <SynthDef: system_link_control_9>]
+        - ['/sync', 0]
+        - ['/d_recv', <SynthDef: supriya:channel-strip:2>]
+        - ['/sync', 1]
+        - ['/d_recv', <SynthDef: supriya:meters:2>]
+        - ['/sync', 2]
+        - ['/d_recv', <SynthDef: supriya:patch-cable:2x2>]
+        - ['/sync', 3]
+        - ['/c_set', 0, 0.0]
+        - ['/c_fill', 1, 2, 0.0]
+        - ['/c_fill', 3, 2, 0.0]
+        - ['/g_new', 1000, 0, 1]
+        - ['/g_new', 1001, 0, 1000]
+        - ['/g_new', 1002, 1, 1000]
+        - ['/s_new', 'supriya:channel-strip:2', 1003, 1, 1000, 'gain', 'c0', 'out', 16.0]
+        - ['/s_new', 'supriya:meters:2', 1004, 3, 1001, 'in_', 16.0, 'out', 1.0]
+        - ['/s_new', 'supriya:meters:2', 1005, 3, 1003, 'in_', 16.0, 'out', 3.0]
+        - ['/s_new', 'supriya:patch-cable:2x2', 1006, 1, 1000, 'in_', 16.0]
+        - ['/c_set', 5, 1.0]
+        - ['/c_set', 6, 0.0]
+        - ['/c_fill', 7, 2, 0.0]
+        - ['/c_fill', 9, 2, 0.0]
+        - ['/g_new', 1007, 1, 1001]
+        - ['/g_new', 1008, 0, 1007]
+        - ['/g_new', 1009, 1, 1007]
+        - ['/s_new', 'supriya:channel-strip:2', 1010, 1, 1007, 'active', 'c5', 'gain', 'c6', 'out', 18.0]
+        - ['/s_new', 'supriya:meters:2', 1011, 3, 1008, 'in_', 18.0, 'out', 7.0]
+        - ['/s_new', 'supriya:meters:2', 1012, 3, 1010, 'in_', 18.0, 'out', 9.0]
+        """
+    )
     initial_tree = await debug_tree(session)
     assert initial_tree == normalize(
         """
         <session.contexts[0]>
             NODE TREE 1000 group (session.mixers[0]:group)
                 1001 group (session.mixers[0]:tracks)
-                    1006 group (session.mixers[0].tracks[0]:group)
-                        1007 group (session.mixers[0].tracks[0]:tracks)
-                        1010 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
+                    1007 group (session.mixers[0].tracks[0]:group)
+                        1008 group (session.mixers[0].tracks[0]:tracks)
+                        1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
                             in_: 18.0, out: 7.0
-                        1008 group (session.mixers[0].tracks[0]:devices)
-                        1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
-                            active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
-                        1011 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
+                        1009 group (session.mixers[0].tracks[0]:devices)
+                        1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                            active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+                        1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
                             in_: 18.0, out: 9.0
-                        1012 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
+                        1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
                             active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
                 1004 supriya:meters:2 (session.mixers[0]:input-levels)
                     in_: 16.0, out: 1.0
                 1002 group (session.mixers[0]:devices)
                 1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
-                    active: 1.0, bus: 16.0, done_action: 2.0, gain: c0, gate: 1.0
+                    active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                 1005 supriya:meters:2 (session.mixers[0]:output-levels)
                     in_: 16.0, out: 3.0
-                1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
+                1006 supriya:patch-cable:2x2 (session.mixers[0]:output)
                     active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
         """
     )

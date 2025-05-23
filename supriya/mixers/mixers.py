@@ -17,7 +17,7 @@ from .specs import (
     SynthDefSpec,
     SynthSpec,
 )
-from .synthdefs import build_channel_strip, build_meters
+from .synthdefs import build_channel_strip, build_meters, build_patch_cable
 from .tracks import TrackContainer
 
 if TYPE_CHECKING:
@@ -37,6 +37,7 @@ class MixerState(State):
             raise RuntimeError
         channel_strip_synthdef = build_channel_strip(self.channel_count)
         meters_synthdef = build_meters(self.channel_count)
+        patch_cable_synthdef = build_patch_cable(self.channel_count, self.channel_count)
         return [
             SynthDefSpec(
                 component=component,
@@ -49,6 +50,12 @@ class MixerState(State):
                 context=context,
                 name=meters_synthdef.effective_name,
                 synthdef=meters_synthdef,
+            ),
+            SynthDefSpec(
+                component=component,
+                context=context,
+                name=patch_cable_synthdef.effective_name,
+                synthdef=patch_cable_synthdef,
             ),
             BusSpec(
                 calculation_rate=CalculationRate.AUDIO,
@@ -148,6 +155,20 @@ class MixerState(State):
                 target_node=Spec.get_address(
                     component, Names.NODES, Names.CHANNEL_STRIP
                 ),
+            ),
+            SynthSpec(
+                add_action=AddAction.ADD_TO_TAIL,
+                component=component,
+                context=context,
+                kwargs={
+                    "in_": Spec.get_address(component, Names.AUDIO_BUSSES, Names.MAIN),
+                    "out": context.audio_output_bus_group,
+                },
+                name=Names.OUTPUT,
+                synthdef=Spec.get_address(
+                    None, Names.SYNTHDEFS, patch_cable_synthdef.effective_name
+                ),
+                target_node=Spec.get_address(component, Names.NODES, Names.GROUP),
             ),
         ]
 
