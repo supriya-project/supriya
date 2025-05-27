@@ -50,6 +50,27 @@ class Spec:
     ) -> None:
         raise NotImplementedError
 
+    @classmethod
+    def feedsback(
+        cls,
+        source_order: tuple[int, ...] | None,
+        target_order: tuple[int, ...] | None,
+        writing: bool = True,
+    ) -> bool | None:
+        if source_order is None or target_order is None:
+            return None
+        length = min(len(target_order), len(source_order))
+        # If source_order is shallower than target_order, source_order might contain target_order
+        if len(source_order) < len(target_order):
+            feedsback = target_order[:length] <= source_order
+        # If target_order is shallower than source_order, target_order might contain source_order
+        elif len(target_order) < len(source_order):
+            feedsback = target_order < source_order[:length]
+        # If orders are same depth, check difference strictly
+        else:
+            feedsback = target_order <= source_order
+        return feedsback
+
     @staticmethod
     def get_address(
         component: Optional["Component"], type_: Names, name: str

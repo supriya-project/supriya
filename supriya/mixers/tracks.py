@@ -284,10 +284,21 @@ class Track(TrackContainer[TrackContainer]):
                 target_node=Spec.get_address(self, Names.NODES, Names.CHANNEL_STRIP),
             ),
         ]
-        if self.output is DEFAULT:
+        if self.output is DEFAULT or isinstance(self.output, TrackContainer):
+            output_target_component = (
+                self.parent if self.output is DEFAULT else self.parent
+            )
+            output_feedsback = bool(
+                Spec.feedsback(
+                    source_order=self.graph_order,
+                    target_order=output_target_component.graph_order,
+                    writing=True,
+                )
+            )
             output_patch_cable_synthdef = build_patch_cable(
                 self.effective_channel_count,
-                self.parent.effective_channel_count,
+                output_target_component.effective_channel_count,
+                feedback=output_feedsback,
             )
             specs.extend(
                 [
@@ -310,8 +321,46 @@ class Track(TrackContainer[TrackContainer]):
                                 self, Names.AUDIO_BUSSES, Names.MAIN
                             ),
                             "out": Spec.get_address(
-                                self.parent, Names.AUDIO_BUSSES, Names.MAIN
+                                output_target_component,
+                                Names.AUDIO_BUSSES,
+                                Names.FEEDBACK if output_feedsback else Names.MAIN,
                             ),
+                        },
+                        synthdef=Spec.get_address(
+                            None,
+                            Names.SYNTHDEFS,
+                            output_patch_cable_synthdef.effective_name,
+                        ),
+                        target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                    ),
+                ]
+            )
+        elif isinstance(self.output, BusGroup):
+            output_patch_cable_synthdef = build_patch_cable(
+                self.effective_channel_count,
+                len(self.output),
+            )
+            specs.extend(
+                [
+                    SynthDefSpec(
+                        component=self,
+                        context=context,
+                        name=output_patch_cable_synthdef.effective_name,
+                        synthdef=output_patch_cable_synthdef,
+                    ),
+                    SynthSpec(
+                        add_action=AddAction.ADD_TO_TAIL,
+                        component=self,
+                        context=context,
+                        name=Names.OUTPUT,
+                        kwargs={
+                            "active": Spec.get_address(
+                                self, Names.CONTROL_BUSSES, Names.ACTIVE
+                            ),
+                            "in_": Spec.get_address(
+                                self, Names.AUDIO_BUSSES, Names.MAIN
+                            ),
+                            "out": self.output,
                         },
                         synthdef=Spec.get_address(
                             None,
