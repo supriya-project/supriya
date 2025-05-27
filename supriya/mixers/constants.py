@@ -30,10 +30,3 @@ class Names(enum.StrEnum):
     SYNTH = "synth"
     SYNTHDEFS = "synthdefs"
     TRACKS = "tracks"
-
-
-class Reconciliation(enum.StrEnum):
-    CREATE = "create"
-    DESTROY = "destroy"
-    MUTATE = "mutate"
-    RECREATE = "recreate"

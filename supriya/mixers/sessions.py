@@ -1,5 +1,4 @@
 import asyncio
-import dataclasses
 import logging
 import re
 from typing import TYPE_CHECKING, Sequence
@@ -10,8 +9,8 @@ from ..enums import BootStatus
 from ..osc import find_free_port
 from ..scsynth import Options
 from ..ugens import SynthDef
-from .components import Component, State
-from .constants import Address, ChannelCount, Reconciliation
+from .components import Component
+from .constants import Address, ChannelCount
 from .specs import Artifacts
 
 if TYPE_CHECKING:
@@ -19,11 +18,6 @@ if TYPE_CHECKING:
 
 
 logger = logging.getLogger(__name__)
-
-
-@dataclasses.dataclass
-class SessionState(State):
-    channel_count: ChannelCount = 2
 
 
 class Session(Component):
@@ -125,9 +119,6 @@ class Session(Component):
             raise ValueError(context)
         return context
 
-    def _resolve_initial_state(self) -> SessionState:
-        return SessionState()
-
     async def add_context(self, options: Options | None = None) -> AsyncServer:
         async with self._lock:
             context = self._add_context(options)
@@ -145,9 +136,7 @@ class Session(Component):
                 name=name,
             )
             if self._status == BootStatus.ONLINE:
-                await mixer._reconcile(
-                    context=context, reconciliation=Reconciliation.CREATE
-                )
+                await mixer._reconcile(context=context)
             return mixer
 
     async def boot(self) -> None:
@@ -167,9 +156,7 @@ class Session(Component):
                 self._boot_future.set_result(True)
                 for context, mixers in self._contexts.items():
                     for mixer in mixers:
-                        await mixer._reconcile(
-                            context=context, reconciliation=Reconciliation.CREATE
-                        )
+                        await mixer._reconcile(context=context)
             elif self._boot_future is not None:  # BOOTING / ONLINE
                 await self._boot_future
             else:  # NONREALTIME
@@ -211,9 +198,7 @@ class Session(Component):
                 for context, mixers in self._contexts.items():
                     for mixer in mixers:
                         with context.at():
-                            await mixer._reconcile(
-                                context=None, reconciliation=Reconciliation.DESTROY
-                            )
+                            await mixer._reconcile(context=None)
                 await asyncio.gather(*[context.quit() for context in self._contexts])
                 self._status = BootStatus.OFFLINE
                 self._quit_future.set_result(True)
@@ -234,9 +219,7 @@ class Session(Component):
                 return
             self._contexts[self._mixers[mixer]].remove(mixer)
             async with mixer._lock:
-                await mixer._reconcile(
-                    context=context, reconciliation=Reconciliation.RECREATE
-                )
+                await mixer._reconcile(context=context)
                 self._contexts[context].append(mixer)
                 self._mixers[mixer] = context
 

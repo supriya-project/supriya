@@ -1,5 +1,4 @@
 import asyncio
-import dataclasses
 from typing import (
     TYPE_CHECKING,
     Awaitable,
@@ -18,7 +17,7 @@ from ..contexts.responses import QueryTreeGroup
 from ..enums import BootStatus
 from ..typing import DEFAULT, Default
 from ..utils import iterate_nwise
-from .constants import IO, Address, ChannelCount, Names, Reconciliation
+from .constants import IO, Address, ChannelCount, Names
 from .specs import Artifacts, Spec, SynthDefSpec
 
 C = TypeVar("C", bound="Component")
@@ -26,18 +25,6 @@ C = TypeVar("C", bound="Component")
 if TYPE_CHECKING:
     from .mixers import Mixer
     from .sessions import Session
-
-
-@dataclasses.dataclass
-class State:
-    dependencies: dict["Component", dict[str, IO]] = dataclasses.field(
-        default_factory=dict
-    )
-
-    def resolve_specs(
-        self, component: "Component", context: AsyncServer | None
-    ) -> list[Spec]:
-        raise NotImplementedError
 
 
 class Component(Generic[C]):
@@ -58,7 +45,6 @@ class Component(Generic[C]):
         self._name: str | None = name
         self._parent: C | None = parent
         self._specs: list[Spec] = []
-        self._state: State = self._resolve_initial_state()
 
     def __repr__(self) -> str:
         if self._name:
@@ -96,7 +82,6 @@ class Component(Generic[C]):
     ) -> None:
         # print(f"{component=}")
         # for component in queue:
-        #     resolve state
         #     resolve new specs
         #     compare new specs against cached specs
         #     bucket by context
@@ -104,8 +89,7 @@ class Component(Generic[C]):
         # N.B. state is less important in this regime, but we do need to know
         #      for connections (sends, receives, inputs, outputs)
         #      because those introduce cyclic dependencies between components
-        component._state = (new_state := component._resolve_state(context=context))
-        component._specs = new_state.resolve_specs(component=component, context=context)
+        component._specs = component._resolve_specs(context=context)
         new_specs = {spec.address: spec for spec in component._specs}
         for address, old_spec in old_specs.items():
             if not old_spec.context:
@@ -134,52 +118,52 @@ class Component(Generic[C]):
             component = component.parent
         yield component
 
-    async def _reconcile(
-        self, *, context: AsyncServer | None, reconciliation: Reconciliation
+    async def _process_create_specs(
+        self, context, create_specs, old_context_artifacts, new_context_artifacts
     ) -> None:
+        # create: walk digraph, executing specs against context
+        #     if creating synthdefs, block until done
+        for context, specs in create_specs.items():
+            for spec in specs.values():
+                spec.create(
+                    context=context,
+                    old_artifacts=old_context_artifacts.setdefault(
+                        context, Artifacts()
+                    ),
+                    new_artifacts=new_context_artifacts.setdefault(
+                        context, Artifacts()
+                    ),
+                )
+                if isinstance(spec, SynthDefSpec):
+                    await context.sync()
 
-        async def _process_create_specs(
-            context, create_specs, old_context_artifacts, new_context_artifacts
-        ) -> None:
-            # create: walk digraph, executing specs against context
-            #     if creating synthdefs, block until done
-            for context, specs in create_specs.items():
-                for spec in specs.values():
-                    spec.create(
-                        context=context,
-                        old_artifacts=old_context_artifacts.setdefault(
-                            context, Artifacts()
-                        ),
-                        new_artifacts=new_context_artifacts.setdefault(
-                            context, Artifacts()
-                        ),
-                    )
-                    if isinstance(spec, SynthDefSpec):
-                        await context.sync()
+    def _process_mutate_specs(
+        self, context, mutate_specs, old_context_artifacts, new_context_artifacts
+    ) -> None:
+        for context, spec_pairs in mutate_specs.items():
+            for old_spec, new_spec in spec_pairs.values():
+                new_spec.mutate(
+                    context=context,
+                    old_artifacts=old_context_artifacts[context],
+                    new_artifacts=new_context_artifacts.setdefault(
+                        context, Artifacts()
+                    ),
+                    old_spec=old_spec,
+                )
 
-        def _process_mutate_specs(
-            context, mutate_specs, old_context_artifacts, new_context_artifacts
-        ) -> None:
-            for context, spec_pairs in mutate_specs.items():
-                for old_spec, new_spec in spec_pairs.values():
-                    new_spec.mutate(
-                        context=context,
-                        old_artifacts=old_context_artifacts[context],
-                        new_artifacts=new_context_artifacts.setdefault(
-                            context, Artifacts()
-                        ),
-                        old_spec=old_spec,
-                    )
+    def _process_destroy_specs(
+        self, context, destroy_specs, old_context_artifacts
+    ) -> None:
+        # destroy: iterate destroy specs in order, special handling for "root" destroys (how?)
+        for context, specs in destroy_specs.items():
+            for spec in specs.values():
+                spec.destroy(
+                    context=context, old_artifacts=old_context_artifacts[context]
+                )
 
-        def _process_destroy_specs(
-            context, create_specs, old_context_artifacts
-        ) -> None:
-            # destroy: iterate destroy specs in order, special handling for "root" destroys (how?)
-            for context, specs in destroy_specs.items():
-                for spec in specs.values():
-                    spec.destroy(
-                        context=context, old_artifacts=old_context_artifacts[context]
-                    )
+    async def _reconcile(
+        self, *, context: AsyncServer | None, deleting: bool = False
+    ) -> None:
 
         if self.session is None:
             raise ValueError
@@ -232,18 +216,18 @@ class Component(Generic[C]):
         # for context, dq in dependencies.items():
         #     for dx, dz in dq.items():
         #         print(f"dependencies: {dx} {dz}")
-        await _process_create_specs(
+        await self._process_create_specs(
             context, create_specs, old_context_artifacts, new_context_artifacts
         )
-        _process_mutate_specs(
-            context, create_specs, old_context_artifacts, new_context_artifacts
+        self._process_mutate_specs(
+            context, mutate_specs, old_context_artifacts, new_context_artifacts
         )
-        _process_destroy_specs(context, create_specs, old_context_artifacts)
+        self._process_destroy_specs(context, destroy_specs, old_context_artifacts)
         # merge artifacts
         for context in set(old_context_artifacts) | set(new_context_artifacts):
             old_context_artifacts[context].merge(new_context_artifacts[context])
         # destroy
-        if reconciliation is Reconciliation.DESTROY:
+        if deleting:
             self._delete()
 
     def _resolve_context_artifacts(
@@ -259,8 +243,8 @@ class Component(Generic[C]):
             new_context_artifacts[context] = Artifacts()
         return old_context_artifacts, new_context_artifacts
 
-    def _resolve_initial_state(self) -> State:
-        raise NotImplementedError
+    def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
+        return []
 
     def _resolve_spec_buckets(
         self,
@@ -278,9 +262,6 @@ class Component(Generic[C]):
             mutate_specs[context] = {}
             destroy_specs[context] = {}
         return create_specs, mutate_specs, destroy_specs
-
-    def _resolve_state(self, context: AsyncServer | None = None) -> State:
-        raise NotImplementedError
 
     def _walk(
         self, component_class: Type["Component"] | None = None
