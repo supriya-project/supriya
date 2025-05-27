@@ -44,7 +44,7 @@ class Mixer(
             mixers.remove(self)
         super()._disconnect_parentage()
 
-    def resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
+    def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
         if not context:
             return []
         if not self.parent:
