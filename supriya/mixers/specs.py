@@ -377,7 +377,7 @@ class GroupSpec(NodeSpec):
 
 @dataclasses.dataclass
 class SynthSpec(NodeSpec):
-    kwargs: dict[str, Address | float]
+    kwargs: dict[str, Address | BusGroup | float]
     synthdef: Address
     destroy_strategy: DoneAction | None = None
 

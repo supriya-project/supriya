@@ -1,7 +1,9 @@
 import dataclasses
+from typing import Union
 
-from ..contexts import AsyncServer
+from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate
+from ..typing import DEFAULT, Default
 from .components import (
     C,
     ChannelCount,
@@ -17,7 +19,7 @@ from .specs import (
     SynthDefSpec,
     SynthSpec,
 )
-from .synthdefs import build_channel_strip, build_meters
+from .synthdefs import build_channel_strip, build_meters, build_patch_cable
 
 
 class TrackContainer(Component[C]):
@@ -76,9 +78,11 @@ class TrackState(State):
             return []
         if not component.parent:
             raise RuntimeError
+        if not isinstance(component, Track):
+            raise RuntimeError
         channel_strip_synthdef = build_channel_strip(self.channel_count)
         meters_synthdef = build_meters(self.channel_count)
-        return [
+        specs: list[Spec] = [
             SynthDefSpec(
                 component=component,
                 context=context,
@@ -214,6 +218,41 @@ class TrackState(State):
                 ),
             ),
         ]
+        if component.output is DEFAULT:
+            output_patch_cable_synthdef = build_patch_cable(
+                self.channel_count,
+                component.parent.effective_channel_count,
+            )
+            specs.extend(
+                [
+                    SynthDefSpec(
+                        component=component,
+                        context=context,
+                        name=output_patch_cable_synthdef.effective_name,
+                        synthdef=output_patch_cable_synthdef,
+                    ),
+                    SynthSpec(
+                        add_action=AddAction.ADD_TO_TAIL,
+                        component=component,
+                        context=context,
+                        name=Names.OUTPUT,
+                        kwargs={
+                            "active": Spec.get_address(
+                                component, Names.CONTROL_BUSSES, Names.ACTIVE
+                            ),
+                            "in_": Spec.get_address(component, Names.AUDIO_BUSSES, Names.MAIN),
+                            "out": Spec.get_address(
+                                component.parent, Names.AUDIO_BUSSES, Names.MAIN
+                            ),
+                        },
+                        synthdef=Spec.get_address(
+                            None, Names.SYNTHDEFS, output_patch_cable_synthdef.effective_name
+                        ),
+                        target_node=Spec.get_address(component, Names.NODES, Names.GROUP),
+                    ),
+                ]
+            )
+        return specs
 
 
 class Track(TrackContainer[TrackContainer]):
@@ -227,6 +266,8 @@ class Track(TrackContainer[TrackContainer]):
     ) -> None:
         Component.__init__(self, id_=id_, name=name, parent=parent)
         TrackContainer.__init__(self)
+        self._input: BusGroup | Track | None = None
+        self._output: BusGroup | Default | TrackContainer | None = DEFAULT
 
     def _disconnect_parentage(self) -> None:
         if (parent := self._parent) is not None and self in parent._tracks:
@@ -244,11 +285,27 @@ class Track(TrackContainer[TrackContainer]):
             channel_count=self.effective_channel_count,
         )
 
+    async def add_send(self, target: "Track") -> None:
+        async with self._lock:
+            pass
+
     async def delete(self) -> None:
         # TODO: What are delete semantics actually?
         async with self._lock:
             self._delete()
             await self._reconcile(context=None)
+
+    async def set_input(self, input_: Union[BusGroup, "Track"] | None) -> None:
+        async with self._lock:
+            self._input = input_
+            await self._reconcile(context=self.context)
+
+    async def set_output(
+        self, output: Union[BusGroup, Default, "Track"] | None
+    ) -> None:
+        async with self._lock:
+            self._output = output
+            await self._reconcile(context=self.context)
 
     def set_name(self, name: str | None = None) -> None:
         self._name = name
@@ -265,5 +322,13 @@ class Track(TrackContainer[TrackContainer]):
         return [*self._tracks]
 
     @property
+    def input(self) -> Union[BusGroup, "Track"] | None:
+        return self._input
+
+    @property
     def numeric_address(self) -> Address:
         return f"tracks[{self._id}]"
+
+    @property
+    def output(self) -> Union[BusGroup, Default, "Track"] | None:
+        return self._output

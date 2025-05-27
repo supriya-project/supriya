@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from ..enums import DoneAction
 from ..ugens import (
     DC,
@@ -21,6 +23,7 @@ def get_lag_time() -> float:
     return _get_lag_time()
 
 
+@lru_cache(maxsize=32)
 def build_channel_strip(channel_count: int = 2) -> SynthDef:
     with SynthDefBuilder(
         active=1,
@@ -57,6 +60,7 @@ def build_device_dc_tester(channel_count: int = 2) -> SynthDef:
     return builder.build(f"supriya:device-dc-tester:{channel_count}")
 
 
+@lru_cache(maxsize=32)
 def build_meters(channel_count: int = 2) -> SynthDef:
     with SynthDefBuilder(in_=0, out=0) as builder:
         Out.kr(
@@ -68,6 +72,7 @@ def build_meters(channel_count: int = 2) -> SynthDef:
     return builder.build(f"supriya:meters:{channel_count}")
 
 
+@lru_cache(maxsize=32)
 def build_patch_cable(
     input_channel_count: int = 2,
     output_channel_count: int = 2,

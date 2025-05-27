@@ -31,6 +31,7 @@ if TYPE_CHECKING:
 
 @dataclasses.dataclass
 class State:
+    dependencies: set["Component"] = dataclasses.field(default_factory=set)
 
     def resolve_specs(
         self, component: "Component", context: AsyncServer | None
@@ -52,8 +53,7 @@ class Component(Generic[C]):
     ) -> None:
         self._artifacts = Artifacts()
         self._channel_count: ChannelCount | Default = DEFAULT
-        self._dependents: set[Component] = set()
-        self._feedback_dependents: set[Component] = set()
+        self._dependencies: set[tuple[Component, str]] = set()
         self._id = id_
         self._is_active = True
         self._lock = asyncio.Lock()
@@ -275,8 +275,6 @@ class Component(Generic[C]):
     async def dump_tree(self, annotated: bool = True) -> str:
         if self.session and self.session.status != BootStatus.ONLINE:
             raise RuntimeError
-        for k, v in self._artifacts.nodes.items():
-            print(k, v)
         tree = await cast(
             Awaitable[QueryTreeGroup],
             cast(Group, self._artifacts.nodes[Names.GROUP]).dump_tree(),

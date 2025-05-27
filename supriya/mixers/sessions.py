@@ -54,6 +54,7 @@ class Session(Component):
         self._contexts: dict[AsyncServer, list[Mixer]] = {}
         self._lock = asyncio.Lock()
         self._mixers: dict[Mixer, AsyncServer] = {}
+        self._next_id = 1
         self._quit_future: asyncio.Future | None = None
         self._status = BootStatus.OFFLINE
         self._synthdefs: dict[AsyncServer, set[SynthDef]] = {}
@@ -107,7 +108,7 @@ class Session(Component):
         return mixer
 
     def _get_next_id(self) -> int:
-        self._next_id = (next_id := getattr(self, "_next_id", 0)) + 1
+        self._next_id = (next_id := self._next_id) + 1
         return next_id
 
     async def _get_or_create_context(
