@@ -4,13 +4,11 @@ from typing import TYPE_CHECKING, Optional
 from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate
 from .components import (
-    ChannelCount,
     Component,
-    Names,
     State,
 )
+from .constants import Address, ChannelCount, Names, Reconciliation
 from .specs import (
-    Address,
     BusSpec,
     GroupSpec,
     Spec,
@@ -251,6 +249,9 @@ class Mixer(
     #           )
     #       return True
 
+    def _delete(self) -> None:
+        self._disconnect_parentage()
+
     def _disconnect_parentage(self) -> None:
         if (session := self._parent) is not None and self in (
             mixers := session._contexts.get(session._mixers.pop(self), [])
@@ -269,8 +270,7 @@ class Mixer(
     async def delete(self) -> None:
         # TODO: What are delete semantics actually?
         async with self._lock:
-            self._delete()
-            await self._reconcile(context=None)
+            await self._reconcile(context=None, reconciliation=Reconciliation.DESTROY)
 
     def set_name(self, name: str | None = None) -> None:
         self._name = name

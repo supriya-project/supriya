@@ -1,37 +1,14 @@
 import dataclasses
-import enum
 from collections import ChainMap
-from typing import TYPE_CHECKING, Optional, TypeAlias
+from typing import TYPE_CHECKING, Optional
 
 from ..contexts import AsyncServer, Buffer, BusGroup, Node
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..ugens import SynthDef
-
-Address: TypeAlias = str
+from .constants import Address, Names
 
 if TYPE_CHECKING:
     from .components import Component
-
-
-class Names(enum.StrEnum):
-    ACTIVE = "active"
-    AUDIO_BUSSES = "audio-busses"
-    BUFFERS = "buffers"
-    CHANNEL_STRIP = "channel-strip"
-    CONTROL_BUSSES = "control-busses"
-    DEVICES = "devices"
-    FEEDBACK = "feedback"
-    GAIN = "gain"
-    GROUP = "group"
-    INPUT = "input"
-    INPUT_LEVELS = "input-levels"
-    MAIN = "main"
-    NODES = "nodes"
-    OUTPUT = "output"
-    OUTPUT_LEVELS = "output-levels"
-    SYNTH = "synth"
-    SYNTHDEFS = "synthdefs"
-    TRACKS = "tracks"
 
 
 @dataclasses.dataclass
@@ -116,7 +93,7 @@ class Spec:
     def resolve_kwargs(
         self,
         *,
-        kwargs: dict[str, Address | float],
+        kwargs: dict[str, Address | BusGroup | float],
         new_artifacts: Artifacts,
         old_artifacts: Artifacts,
     ) -> tuple[dict[str, float], dict[str, str]]:

@@ -10,7 +10,8 @@ from ..enums import BootStatus
 from ..osc import find_free_port
 from ..scsynth import Options
 from ..ugens import SynthDef
-from .components import Address, ChannelCount, Component, State
+from .components import Component, State
+from .constants import Address, ChannelCount, Reconciliation
 from .specs import Artifacts
 
 if TYPE_CHECKING:
@@ -144,7 +145,9 @@ class Session(Component):
                 name=name,
             )
             if self._status == BootStatus.ONLINE:
-                await mixer._reconcile(context=context)
+                await mixer._reconcile(
+                    context=context, reconciliation=Reconciliation.CREATE
+                )
             return mixer
 
     async def boot(self) -> None:
@@ -164,7 +167,9 @@ class Session(Component):
                 self._boot_future.set_result(True)
                 for context, mixers in self._contexts.items():
                     for mixer in mixers:
-                        await mixer._reconcile(context=context)
+                        await mixer._reconcile(
+                            context=context, reconciliation=Reconciliation.CREATE
+                        )
             elif self._boot_future is not None:  # BOOTING / ONLINE
                 await self._boot_future
             else:  # NONREALTIME
@@ -206,7 +211,9 @@ class Session(Component):
                 for context, mixers in self._contexts.items():
                     for mixer in mixers:
                         with context.at():
-                            await mixer._reconcile()
+                            await mixer._reconcile(
+                                context=None, reconciliation=Reconciliation.DESTROY
+                            )
                 await asyncio.gather(*[context.quit() for context in self._contexts])
                 self._status = BootStatus.OFFLINE
                 self._quit_future.set_result(True)
@@ -227,7 +234,9 @@ class Session(Component):
                 return
             self._contexts[self._mixers[mixer]].remove(mixer)
             async with mixer._lock:
-                await mixer._reconcile(context=context)
+                await mixer._reconcile(
+                    context=context, reconciliation=Reconciliation.RECREATE
+                )
                 self._contexts[context].append(mixer)
                 self._mixers[mixer] = context
 

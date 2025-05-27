@@ -6,13 +6,11 @@ from ..enums import AddAction, CalculationRate
 from ..typing import DEFAULT, Default
 from .components import (
     C,
-    ChannelCount,
     Component,
-    Names,
     State,
 )
+from .constants import Address, ChannelCount, Names, Reconciliation
 from .specs import (
-    Address,
     BusSpec,
     GroupSpec,
     Spec,
@@ -55,7 +53,9 @@ class TrackContainer(Component[C]):
         async with self._lock:
             track = self._add_track(name=name)
             if context := self._can_allocate():
-                await track._reconcile(context=context)
+                await track._reconcile(
+                    context=context, reconciliation=Reconciliation.CREATE
+                )
             return track
 
     async def group(self, index: int, count: int) -> "Track":
@@ -65,6 +65,22 @@ class TrackContainer(Component[C]):
     @property
     def tracks(self) -> list["Track"]:
         return self._tracks[:]
+
+
+class TrackSend(Component["Track"]):
+
+    async def delete(self) -> None:
+        # TODO: What are delete semantics actually?
+        async with self._lock:
+            await self._reconcile(context=None, reconciliation=Reconciliation.DESTROY)
+
+    @property
+    def postfader(self) -> bool:
+        raise NotImplementedError
+
+    @property
+    def target(self) -> TrackContainer:
+        raise NotImplementedError
 
 
 @dataclasses.dataclass
@@ -240,15 +256,21 @@ class TrackState(State):
                             "active": Spec.get_address(
                                 component, Names.CONTROL_BUSSES, Names.ACTIVE
                             ),
-                            "in_": Spec.get_address(component, Names.AUDIO_BUSSES, Names.MAIN),
+                            "in_": Spec.get_address(
+                                component, Names.AUDIO_BUSSES, Names.MAIN
+                            ),
                             "out": Spec.get_address(
                                 component.parent, Names.AUDIO_BUSSES, Names.MAIN
                             ),
                         },
                         synthdef=Spec.get_address(
-                            None, Names.SYNTHDEFS, output_patch_cable_synthdef.effective_name
+                            None,
+                            Names.SYNTHDEFS,
+                            output_patch_cable_synthdef.effective_name,
                         ),
-                        target_node=Spec.get_address(component, Names.NODES, Names.GROUP),
+                        target_node=Spec.get_address(
+                            component, Names.NODES, Names.GROUP
+                        ),
                     ),
                 ]
             )
@@ -268,6 +290,10 @@ class Track(TrackContainer[TrackContainer]):
         TrackContainer.__init__(self)
         self._input: BusGroup | Track | None = None
         self._output: BusGroup | Default | TrackContainer | None = DEFAULT
+        self._sends: list[TrackSend] = []
+
+    def _delete(self) -> None:
+        self._disconnect_parentage()
 
     def _disconnect_parentage(self) -> None:
         if (parent := self._parent) is not None and self in parent._tracks:
@@ -285,30 +311,55 @@ class Track(TrackContainer[TrackContainer]):
             channel_count=self.effective_channel_count,
         )
 
-    async def add_send(self, target: "Track") -> None:
+    async def add_device(self) -> None:
         async with self._lock:
             pass
+
+    async def add_send(
+        self, target: TrackContainer, postfader: bool = True
+    ) -> TrackSend:
+        async with self._lock:
+            raise NotImplementedError
 
     async def delete(self) -> None:
         # TODO: What are delete semantics actually?
         async with self._lock:
-            self._delete()
-            await self._reconcile(context=None)
+            await self._reconcile(context=None, reconciliation=Reconciliation.DESTROY)
+
+    async def move(self, parent: TrackContainer, index: int) -> None:
+        async with self._lock:
+            pass
 
     async def set_input(self, input_: Union[BusGroup, "Track"] | None) -> None:
         async with self._lock:
             self._input = input_
-            await self._reconcile(context=self.context)
+            await self._reconcile(
+                context=self.context, reconciliation=Reconciliation.MUTATE
+            )
 
     async def set_output(
-        self, output: Union[BusGroup, Default, "Track"] | None
+        self, output: Union[BusGroup, Default, TrackContainer] | None
     ) -> None:
         async with self._lock:
             self._output = output
-            await self._reconcile(context=self.context)
+            await self._reconcile(
+                context=self.context, reconciliation=Reconciliation.MUTATE
+            )
+
+    async def set_muted(self, muted: bool) -> None:
+        async with self._lock:
+            raise NotImplementedError
 
     def set_name(self, name: str | None = None) -> None:
         self._name = name
+
+    async def set_soloed(self, soloed: bool) -> None:
+        async with self._lock:
+            raise NotImplementedError
+
+    async def ungroup(self) -> None:
+        async with self._lock:
+            raise NotImplementedError
 
     @property
     def address(self) -> Address:
@@ -319,16 +370,32 @@ class Track(TrackContainer[TrackContainer]):
 
     @property
     def children(self) -> list[Component]:
-        return [*self._tracks]
+        return [*self._tracks, *self._sends]
 
     @property
     def input(self) -> Union[BusGroup, "Track"] | None:
         return self._input
 
     @property
+    def input_levels(self) -> list[float]:
+        raise NotImplementedError
+
+    @property
+    def is_active(self) -> bool:
+        raise NotImplementedError
+
+    @property
     def numeric_address(self) -> Address:
         return f"tracks[{self._id}]"
 
     @property
-    def output(self) -> Union[BusGroup, Default, "Track"] | None:
+    def output(self) -> Union[BusGroup, Default, TrackContainer] | None:
         return self._output
+
+    @property
+    def output_levels(self) -> list[float]:
+        raise NotImplementedError
+
+    @property
+    def sends(self) -> list[TrackSend]:
+        return [*self._sends]
