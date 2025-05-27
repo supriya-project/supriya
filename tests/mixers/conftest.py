@@ -399,7 +399,9 @@ async def complex_session() -> tuple[Session, str, str]:
                         <Track 6 'A1' session.mixers[0].tracks[0].tracks[0]>
                             <Track 8 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
                         <Track 7 'A2' session.mixers[0].tracks[0].tracks[1]>
+                        <TrackSend 10 session.mixers[0].tracks[0].sends[0]>
                     <Track 4 'B' session.mixers[0].tracks[1]>
+                        <TrackSend 11 session.mixers[0].tracks[1].sends[0]>
                     <Track 5 'C' session.mixers[0].tracks[2]>
                 <Mixer 2 'Q' session.mixers[1]>
                     <Track 9 'D' session.mixers[1].tracks[0]>

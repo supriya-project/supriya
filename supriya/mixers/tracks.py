@@ -84,6 +84,17 @@ class TrackSend(Component["Track"]):
             await self._reconcile(context=None, deleting=True)
 
     @property
+    def address(self) -> Address:
+        if self.parent is None:
+            return "sends[?]"
+        index = self.parent.sends.index(self)
+        return f"{self.parent.address}.sends[{index}]"
+
+    @property
+    def numeric_address(self) -> Address:
+        return f"sends[{self._id}]"
+
+    @property
     def postfader(self) -> bool:
         return self._postfader
 
