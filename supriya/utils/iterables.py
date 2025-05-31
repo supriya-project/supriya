@@ -92,7 +92,7 @@ def repeat_to_length(iterable: Iterable[T], length: int) -> Generator[T, None, N
         yield x
 
 
-def zip_cycled(*args: Iterable[T]) -> Generator[Iterable[T], None, None]:
+def zip_cycled(*args: Sequence[T]) -> Generator[Sequence[T], None, None]:
     maximum_i = max(len(_) for _ in args) - 1
     cycles = [itertools.cycle(_) for _ in args]
     iterator = enumerate(zip(*cycles))
