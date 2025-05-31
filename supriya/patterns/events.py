@@ -36,6 +36,10 @@ class Event:
     def expand(self, offset: float) -> Sequence[tuple[float, Priority, "Event"]]:
         return [(offset, Priority.START, self)]
 
+    def merge(self, event: "Event") -> "Event":
+        _, _, kwargs = get_vars(event)
+        return new(self, **kwargs)
+
     def perform(
         self,
         context: Context,
