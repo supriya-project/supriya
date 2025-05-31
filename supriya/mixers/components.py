@@ -1,4 +1,5 @@
 import asyncio
+from collections import deque
 from typing import (
     TYPE_CHECKING,
     Awaitable,
@@ -38,7 +39,7 @@ class Component(Generic[C]):
     ) -> None:
         self._artifacts = Artifacts()
         self._channel_count: ChannelCount | Default = DEFAULT
-        self._dependencies: dict[Component, dict[str, IO]] = {}
+        self._dependencies: dict[tuple[Component, str], IO] = {}
         self._id = id_
         self._is_active = True
         self._lock = asyncio.Lock()
@@ -180,7 +181,10 @@ class Component(Generic[C]):
         # iterate components depth-first
         # include related components (dependencies?) e.g. sends / receives / inputs / outputs
         #    anything that introduces cycles into the component digraph
-        for component in self._walk():
+        components: deque[Component] = deque()
+        components.extend(self._walk())
+        while components:
+            component = components.popleft()
             if component in visited_components:
                 continue
             self._gather_component_specs(
@@ -191,6 +195,8 @@ class Component(Generic[C]):
                 mutate_specs=mutate_specs,
             )
             visited_components.add(component)
+            components.extend(component._reconcile_dependents())
+            components.extend([c for c, _ in component._dependencies])
         # once all specs bucketed, build digraph of create specs
         dependents: dict[AsyncServer, dict[Address, list[Address]]] = {}
         dependencies: dict[AsyncServer, dict[Address, set[Address]]] = {}
@@ -229,6 +235,9 @@ class Component(Generic[C]):
         # destroy
         if deleting:
             self._delete()
+
+    def _reconcile_dependents(self) -> list["Component"]:
+        return []
 
     def _resolve_context_artifacts(
         self,

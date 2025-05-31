@@ -7,7 +7,7 @@ from .components import (
     C,
     Component,
 )
-from .constants import Address, Names
+from .constants import IO, Address, Names
 from .specs import (
     BusSpec,
     GroupSpec,
@@ -78,6 +78,71 @@ class TrackSend(Component["Track"]):
         self._postfader = postfader
         self._target = target
 
+    def _reconcile_dependents(self) -> list["Component"]:
+        if self.parent is None:
+            raise ValueError
+        self.parent._dependencies[(self, Names.INPUT)] = IO.READ
+        self.target._dependencies[(self, Names.OUTPUT)] = IO.WRITE
+        return sorted(
+            [self.parent, self.target],
+            key=lambda x: x.graph_order,
+        )
+
+    def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
+        if not self.parent:
+            raise RuntimeError
+        if not context:
+            return []
+        feedsback = bool(
+            Spec.feedsback(
+                source_order=self.graph_order,
+                target_order=self.target.graph_order,
+                writing=True,
+            )
+        )
+        patch_cable_synthdef = build_patch_cable(
+            self.parent.effective_channel_count,
+            self.target.effective_channel_count,
+            feedback=feedsback,
+        )
+        return [
+            SynthDefSpec(
+                component=self,
+                context=context,
+                name=patch_cable_synthdef.effective_name,
+                synthdef=patch_cable_synthdef,
+            ),
+            SynthSpec(
+                add_action=(
+                    AddAction.ADD_AFTER if self.postfader else AddAction.ADD_BEFORE
+                ),
+                component=self,
+                context=context,
+                kwargs={
+                    "active": Spec.get_address(
+                        self.parent, Names.CONTROL_BUSSES, Names.ACTIVE
+                    ),
+                    "in_": Spec.get_address(
+                        self.parent, Names.AUDIO_BUSSES, Names.MAIN
+                    ),
+                    "out": Spec.get_address(
+                        self.target,
+                        Names.AUDIO_BUSSES,
+                        Names.FEEDBACK if feedsback else Names.MAIN,
+                    ),
+                },
+                name=Names.SYNTH,
+                synthdef=Spec.get_address(
+                    None,
+                    Names.SYNTHDEFS,
+                    patch_cable_synthdef.effective_name,
+                ),
+                target_node=Spec.get_address(
+                    self.parent, Names.NODES, Names.CHANNEL_STRIP
+                ),
+            ),
+        ]
+
     async def delete(self) -> None:
         # TODO: What are delete semantics actually?
         async with self._lock:
@@ -114,6 +179,8 @@ class Track(TrackContainer[TrackContainer]):
     ) -> None:
         Component.__init__(self, id_=id_, name=name, parent=parent)
         TrackContainer.__init__(self)
+        self._cached_input: Track | None = None
+        self._cached_output: TrackContainer | None = None
         self._input: BusGroup | Track | None = None
         self._output: BusGroup | Default | TrackContainer | None = DEFAULT
         self._sends: list[TrackSend] = []
@@ -146,6 +213,36 @@ class Track(TrackContainer[TrackContainer]):
 
     def _move(self, *, parent: TrackContainer, index: int) -> None:
         raise NotImplementedError
+
+    def _reconcile_dependents(self) -> list["Component"]:
+        old_input = self._cached_input
+        old_output = self._cached_output
+        new_input: Component | None = None
+        new_output: Component | None = None
+        if isinstance(self._input, Track):
+            new_input = self._cached_input = self._input
+        if isinstance(self._output, TrackContainer):
+            new_output = self._cached_output = self._output
+        elif self._output is DEFAULT:
+            new_output = self._cached_output = self.parent
+        if old_input != new_input:
+            if old_input:
+                old_input._dependencies.pop((self, Names.INPUT))
+            if new_input:
+                new_input._dependencies[(self, Names.INPUT)] = IO.READ
+        if old_output != new_output:
+            if old_output:
+                old_output._dependencies.pop((self, Names.OUTPUT))
+            if new_output:
+                new_output._dependencies[(self, Names.OUTPUT)] = IO.WRITE
+        return sorted(
+            [
+                x
+                for x in set([old_input, old_output, new_input, new_output])
+                if x is not None
+            ],
+            key=lambda x: x.graph_order,
+        )
 
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
         if not context:
