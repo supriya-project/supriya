@@ -1,4 +1,5 @@
 import enum
+import warnings
 from typing import Any, Sequence, SupportsFloat
 from uuid import UUID
 
@@ -10,6 +11,58 @@ from ..enums import AddAction, CalculationRate
 from ..typing import AddActionLike, CalculationRateLike
 from ..ugens import SynthDef
 from ..utils import expand
+
+
+def _process_synth_settings(
+    proxy_mapping: dict[UUID | tuple[UUID, int], ContextObject],
+    **kwargs: SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str],
+) -> dict[str, float | str | Sequence[float | str]]:
+    """
+    Resolve UUIDs into context object ids
+    """
+    settings: dict[str, float | str | Sequence[float | str]] = {}
+    for key, value in kwargs.items():
+        if not isinstance(value, Sequence) or isinstance(value, str):
+            value = [value]
+        processed_values: list[float | str] = []
+        for v in value:
+            if isinstance(v, UUID):
+                processed_values.append(int(proxy_mapping[v]))
+            else:
+                processed_values.append(float(v) if not isinstance(v, str) else v)
+        settings[key] = (
+            processed_values[0] if len(processed_values) == 1 else processed_values
+        )
+    return settings
+
+
+class PatternWarning(Warning):
+    pass
+
+
+warnings.simplefilter("always", PatternWarning)
+
+
+def _partition_synth_settings(
+    **kwargs: float | str | Sequence[float | str],
+) -> tuple[dict[str, float | Sequence[float]], dict[str, str]]:
+    """
+    Split synth settings into two maps suitable for set_node and map_node
+    """
+    set_kwargs: dict[str, float | Sequence[float]] = {}
+    map_kwargs: dict[str, str] = {}
+    for key, value in kwargs.items():
+        if isinstance(value, float):
+            set_kwargs[key] = value
+        elif isinstance(value, str):
+            map_kwargs[key] = value
+        elif isinstance(value, Sequence):
+            if all(isinstance(v, float) for v in value):
+                set_kwargs[key] = [float(v) for v in value]
+            else:
+                warnings.warn(f"Cannot process {value}")
+        # Unclear to me if we can map with a sequence of strings.
+    return set_kwargs, map_kwargs
 
 
 class Priority(enum.IntEnum):
@@ -260,24 +313,14 @@ class NoteEvent(NodeEvent):
         current_offset: float,
         notes_mapping: dict[UUID | tuple[UUID, int], float],
         priority: Priority,
-        **kwargs,
+        **kwargs: SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str],
     ) -> None:
         if priority == Priority.START and not self.rest:
             # does a proxy exist?
             #    if yes, update settings
             #    if no, create proxy
             # update notes mapping with expected completion offset
-            settings: dict[str, SupportsFloat | Sequence[SupportsFloat]] = {}
-            for key, value in self.kwargs.items():
-                if isinstance(value, UUID):
-                    settings[key] = proxy_mapping[value]
-                elif isinstance(value, Sequence):
-                    settings[key] = [
-                        float(proxy_mapping[x] if isinstance(x, UUID) else x)
-                        for x in value
-                    ]
-                else:
-                    settings[key] = float(value)
+            settings = _process_synth_settings(proxy_mapping, **self.kwargs)
             # add the synth
             if self.id_ not in proxy_mapping:
                 proxy_mapping[self.id_] = context.add_synth(
@@ -292,7 +335,11 @@ class NoteEvent(NodeEvent):
             else:
                 if not isinstance(node := proxy_mapping.get(self.id_), Node):
                     raise RuntimeError(node)
-                context.set_node(node, **settings)
+                set_kwargs, map_kwargs = _partition_synth_settings(**settings)
+                if set_kwargs:
+                    context.set_node(node, **set_kwargs)
+                if map_kwargs:
+                    context.map_node(node, **map_kwargs)
             if self.duration:
                 notes_mapping[self.id_] = current_offset + self.duration
         elif priority == Priority.STOP or self.rest:
@@ -325,7 +372,7 @@ class SynthAllocateEvent(NodeEvent):
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         delta: float = 0.0,
         target_node: Node | UUID | None = None,
-        **kwargs: SupportsFloat | Sequence[SupportsFloat] | UUID,
+        **kwargs: SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str],
     ) -> None:
         NodeEvent.__init__(
             self,
@@ -347,11 +394,7 @@ class SynthAllocateEvent(NodeEvent):
         priority: Priority,
         **kwargs,
     ) -> None:
-        settings: dict[str, SupportsFloat | Sequence[SupportsFloat]] = {}
-        for key, value in self.kwargs.items():
-            if isinstance(value, UUID):
-                value = proxy_mapping[value]
-            settings[key] = value
+        settings = _process_synth_settings(proxy_mapping, **self.kwargs)
         # add the synth
         proxy_mapping[self.id_] = context.add_synth(
             add_action=self.add_action,
