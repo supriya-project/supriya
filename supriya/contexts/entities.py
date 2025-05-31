@@ -683,7 +683,7 @@ class Node(ContextObject):
         *,
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         permanent: bool = False,
-        **settings,
+        **settings: SupportsFloat | str | Sequence[SupportsFloat | str],
     ) -> "Synth":
         """
         Add a new synth relative to this node.
