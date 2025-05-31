@@ -61,7 +61,9 @@ def test_add_synth(context: Score) -> None:
         context.add_synth(test_two_voice, frequencies=(123, 456))
     with context.at(1.23):
         context.add_synth(default, add_action="ADD_AFTER", target_node=synth)
-        context.add_synth(default, frequency=bus_c, amplitude="a16", pan=0.25, out=0)
+        context.add_synth(
+            default, frequency=bus_c.map_symbol(), amplitude="a16", pan=0.25, out=0
+        )
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(
             contents=(
@@ -76,7 +78,7 @@ def test_add_synth(context: Score) -> None:
                     "amplitude",
                     "c0",
                     "frequency",
-                    "a16",
+                    16.0,  # cast to an int
                     "pan",
                     0.25,
                 ),
