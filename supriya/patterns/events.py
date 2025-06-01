@@ -27,7 +27,7 @@ def _process_synth_settings(
         processed_values: list[float | str] = []
         for v in value:
             if isinstance(v, UUID):
-                processed_values.append(int(proxy_mapping[v]))
+                processed_values.append(float(proxy_mapping[v]))
             else:
                 processed_values.append(float(v) if not isinstance(v, str) else v)
         settings[key] = (

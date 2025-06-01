@@ -335,12 +335,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                     target_node=Group(context=context, id_=1001),
                     amplitude=1.0,
                     fade_time=0.25,
-                    in_=BusGroup(
-                        context=context,
-                        calculation_rate=CalculationRate.AUDIO,
-                        id_=16,
-                        count=1,
-                    ),
+                    in_=16.0,
                 ),
                 call.add_synth(
                     add_action=AddAction.ADD_TO_HEAD,
@@ -348,12 +343,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                     synthdef=default,
                     target_node=Group(context=context, id_=1001),
                     frequency=440,
-                    out=BusGroup(
-                        context=context,
-                        calculation_rate=CalculationRate.AUDIO,
-                        id_=16,
-                        count=1,
-                    ),
+                    out=16.0,
                 ),
                 call.at(2.0),
                 call.set_node(
@@ -363,12 +353,7 @@ from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
                         synthdef=default,
                     ),
                     frequency=550,
-                    out=BusGroup(
-                        context=context,
-                        calculation_rate=CalculationRate.AUDIO,
-                        id_=16,
-                        count=1,
-                    ),
+                    out=16.0,
                 ),
                 call.at(3.0),
                 call.free_node(
@@ -526,7 +511,7 @@ async def test_callback_async(mocker) -> None:
             """
             - [1.0,
                [['/g_new', 1000, 0, 0, 1001, 0, 1000],
-                ['/s_new', 'system_link_audio_1', 1002, 3, 1001, 'fade_time', 0.25, 'in_', 16.0],
+                ['/s_new', 'system_link_audio_1', 1002, 3, 1001, 'fade_time', 0.25],
                 ['/s_new', 'default', 1003, 0, 1001, 'frequency', 444.0, 'out', 16.0]]]
             - [3.0, [['/n_set', 1003, 'frequency', 555.0, 'out', 16.0]]]
             - [5.0, [['/n_set', 1003, 'gate', 0.0]]]
