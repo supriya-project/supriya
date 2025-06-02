@@ -209,6 +209,7 @@ class NoteEvent(NodeEvent):
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         delta: float = 1.0,
         duration: float = 1.0,
+        rest: bool = False,
         synthdef: SynthDef | None = None,
         target_node: Node | UUID | None = None,
         **kwargs: SupportsFloat | UUID | Sequence[SupportsFloat | UUID],
@@ -222,8 +223,9 @@ class NoteEvent(NodeEvent):
             **kwargs,
         )
         self.duration = duration
-        self.synthdef = synthdef
         self.kwargs = kwargs
+        self.rest = rest
+        self.synthdef = synthdef
 
     def expand(self, offset: float) -> Sequence[tuple[float, Priority, Event]]:
         starts, stops = [], []
@@ -235,6 +237,7 @@ class NoteEvent(NodeEvent):
                 add_action=self.add_action,
                 delta=self.delta,
                 duration=self.duration,
+                rest=self.rest,
                 synthdef=self.synthdef,
                 target_node=self.target_node,
                 **proxy_mapping,
@@ -259,7 +262,7 @@ class NoteEvent(NodeEvent):
         priority: Priority,
         **kwargs,
     ) -> None:
-        if priority == Priority.START:
+        if priority == Priority.START and not self.rest:
             # does a proxy exist?
             #    if yes, update settings
             #    if no, create proxy
@@ -292,7 +295,7 @@ class NoteEvent(NodeEvent):
                 context.set_node(node, **settings)
             if self.duration:
                 notes_mapping[self.id_] = current_offset + self.duration
-        elif priority == Priority.STOP:
+        elif priority == Priority.STOP or self.rest:
             # check notes mapping for expected completion offset:
             # if expected completion >= current_offset or non-existent? bail
             # otherwise release
