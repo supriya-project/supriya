@@ -139,7 +139,9 @@ def test_perform(mocker: MockerFixture) -> None:
     assert spy.mock_calls == [
         call.set_node(
             Synth(context=context, id_=1000, synthdef=default),
-            amplitude=proxy_mapping[bus_id],
+            # This doesn't make a lot of sense in real world usage, but we do
+            # want to validate that the bus ID gets used
+            amplitude=proxy_mapping[bus_id].id_,
             frequency=550,
         )
     ]

@@ -67,7 +67,9 @@ Referencing
 Mapping controls
 ````````````````
 
-- .map_symbol
+- .map_symbol()
+- Node.map()
+- TODO: Node.map_range()
 
 Inputs and outputs
 ``````````````````

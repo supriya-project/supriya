@@ -26,7 +26,7 @@ from typing import (
 
 from uqbar.objects import new
 
-from ..enums import AddAction, BootStatus, CalculationRate, ParameterRate
+from ..enums import AddAction, BootStatus, CalculationRate
 from ..scsynth import Options
 from ..typing import (
     AddActionLike,
@@ -594,7 +594,7 @@ class Context(metaclass=abc.ABCMeta):
         add_action: AddActionLike = AddAction.ADD_TO_HEAD,
         target_node: SupportsInt | None = None,
         permanent: bool = False,
-        **settings,
+        **settings: SupportsFloat | str | Sequence[SupportsFloat | str],
     ) -> Synth:
         """
         Add a new synth node to the context.
@@ -622,26 +622,18 @@ class Context(metaclass=abc.ABCMeta):
                 value = (value,)
             if value == parameter.value:
                 continue
-            if parameter.rate is ParameterRate.SCALAR or parameter.name in (
-                "in_",
-                "out",
-            ):
-                synthdef_kwargs[parameter.name] = tuple(float(v) for v in value)
-            else:
-                processed_values: list[float | str] = []
-                for v in value:
-                    if isinstance(v, Bus):
-                        processed_values.append(v.map_symbol())
-                    elif isinstance(v, str):
-                        if not BUS_PATTERN.match(v):
-                            raise ValueError(v)
-                        processed_values.append(v)
-                    else:
-                        processed_values.append(float(v))
-                if len(processed_values) == 1:
-                    synthdef_kwargs[parameter.name] = processed_values[0]
+            processed_values: list[float | str] = []
+            for v in value:
+                if isinstance(v, str):
+                    if not BUS_PATTERN.match(v):
+                        raise ValueError(v)
+                    processed_values.append(v)
                 else:
-                    synthdef_kwargs[parameter.name] = tuple(processed_values)
+                    processed_values.append(float(v))
+            if len(processed_values) == 1:
+                synthdef_kwargs[parameter.name] = processed_values[0]
+            else:
+                synthdef_kwargs[parameter.name] = tuple(processed_values)
         id_ = self._allocate_id(Node, permanent=permanent)
         self._add_requests(
             NewSynth(
