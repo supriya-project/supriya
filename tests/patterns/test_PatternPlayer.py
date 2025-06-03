@@ -4,13 +4,14 @@ from unittest.mock import Mock, call
 
 import pytest
 from pytest_mock import MockerFixture
+from uqbar.strings import normalize
 
 from supriya import AddAction, CalculationRate
 from supriya.assets.synthdefs import default, system_link_audio_1
 from supriya.clocks import AsyncOfflineClock, OfflineClock
 from supriya.contexts import AsyncServer, BusGroup, Context, Group, Score, Server, Synth
 from supriya.contexts.requests import NewGroup
-from supriya.osc import OscBundle, OscMessage
+from supriya.osc.utils import format_messages
 from supriya.patterns import (
     BusPattern,
     Event,
@@ -18,6 +19,7 @@ from supriya.patterns import (
     GroupPattern,
     MonoEventPattern,
     ParallelPattern,
+    Pattern,
     PatternPlayer,
     SequencePattern,
 )
@@ -477,51 +479,66 @@ async def test_callback_async(mocker) -> None:
     ]
 
 
-def test_nonrealtime() -> None:
-    at = 1.0
-    until = 1.5
-    pattern = GroupPattern(
-        BusPattern(MonoEventPattern(frequency=SequencePattern([440, 550, 660])))
-    )
+@pytest.mark.parametrize(
+    "pattern, at, until, expected",
+    [
+        (
+            EventPattern(
+                frequency=SequencePattern([444, 555, 666, 777]),
+                rest=SequencePattern([False, True, False, False]),
+            ),
+            1.0,
+            3.5,
+            """
+            - [1.0, [['/s_new', 'default', 1000, 0, 0, 'frequency', 444.0]]]
+            - [3.0, [['/n_set', 1000, 'gate', 0.0]]]
+            - [5.0, [['/s_new', 'default', 1001, 0, 0, 'frequency', 666.0]]]
+            - [7.0, [['/s_new', 'default', 1002, 0, 0, 'frequency', 777.0], ['/n_set', 1001, 'gate', 0.0]]]
+            - [8.0, [['/n_set', 1002, 'gate', 0.0]]]
+            """,
+        ),
+        (
+            MonoEventPattern(
+                frequency=SequencePattern([444, 555, 666, 777]),
+                rest=SequencePattern([False, False, True, False]),
+            ),
+            1.0,
+            3.5,
+            """
+            - [1.0, [['/s_new', 'default', 1000, 0, 0, 'frequency', 444.0]]]
+            - [3.0, [['/n_set', 1000, 'frequency', 555.0]]]
+            - [5.0, [['/n_set', 1000, 'gate', 0.0]]]
+            - [7.0, [['/s_new', 'default', 1001, 0, 0, 'frequency', 777.0]]]
+            - [8.0, [['/n_set', 1001, 'gate', 0.0]]]
+            """,
+        ),
+        (
+            GroupPattern(
+                BusPattern(
+                    MonoEventPattern(
+                        frequency=SequencePattern([444, 555, 666, 777]),
+                        rest=SequencePattern([False, False, True, False]),
+                    )
+                )
+            ),
+            1.0,
+            3.5,
+            """
+            - [1.0,
+               [['/g_new', 1000, 0, 0, 1001, 0, 1000],
+                ['/s_new', 'system_link_audio_1', 1002, 3, 1001, 'fade_time', 0.25, 'in_', 16.0],
+                ['/s_new', 'default', 1003, 0, 1001, 'frequency', 444.0, 'out', 16.0]]]
+            - [3.0, [['/n_set', 1003, 'frequency', 555.0, 'out', 16.0]]]
+            - [5.0, [['/n_set', 1003, 'gate', 0.0]]]
+            - [7.0, [['/s_new', 'default', 1004, 0, 1001, 'frequency', 777.0, 'out', 16.0]]]
+            - [8.0, [['/n_set', 1004, 'gate', 0.0], ['/n_set', 1002, 'gate', 0.0]]]
+            - [8.5, [['/n_free', 1001], ['/n_free', 1000]]]
+            """,
+        ),
+    ],
+)
+def test_nonrealtime(pattern: Pattern, at: float, until: float, expected: str) -> None:
     context = Score()
     with OfflineClock().at(initial_time=at) as clock:
         pattern.play(context=context, clock=clock, until=until)
-    # Session should not map in_ or out, but use their bus numbers as consts.
-    assert list(context.iterate_osc_bundles()) == [
-        OscBundle(
-            contents=(
-                OscMessage("/g_new", 1000, 0, 0, 1001, 0, 1000),
-                OscMessage(
-                    "/s_new",
-                    "system_link_audio_1",
-                    1002,
-                    3,
-                    1001,
-                    "fade_time",
-                    0.25,
-                    "in_",
-                    16.0,
-                ),
-                OscMessage("/s_new", "default", 1003, 0, 1001, "out", 16.0),
-            ),
-            timestamp=1.0,
-        ),
-        OscBundle(
-            contents=(OscMessage("/n_set", 1003, "frequency", 550.0, "out", 16.0),),
-            timestamp=3.0,
-        ),
-        OscBundle(
-            contents=(
-                OscMessage("/n_set", 1003, "gate", 0.0),
-                OscMessage("/n_set", 1002, "gate", 0.0),
-            ),
-            timestamp=4.0,
-        ),
-        OscBundle(
-            contents=(
-                OscMessage("/n_free", 1001),
-                OscMessage("/n_free", 1000),
-            ),
-            timestamp=4.5,
-        ),
-    ]
+    assert format_messages(list(context.iterate_osc_bundles())) == normalize(expected)
