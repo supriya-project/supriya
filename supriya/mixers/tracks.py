@@ -248,7 +248,7 @@ class Track(TrackContainer[TrackContainer]):
             raise RuntimeError
         channel_strip_synthdef = build_channel_strip(self.effective_channel_count)
         meters_synthdef = build_meters(self.effective_channel_count)
-        specs: list[Spec] = [
+        synthdefs: list[Spec] = [
             SynthDefSpec(
                 component=self,
                 context=context,
@@ -261,6 +261,8 @@ class Track(TrackContainer[TrackContainer]):
                 name=meters_synthdef.effective_name,
                 synthdef=meters_synthdef,
             ),
+        ]
+        busses: list[Spec] = [
             BusSpec(
                 calculation_rate=CalculationRate.AUDIO,
                 channel_count=self.effective_channel_count,
@@ -300,6 +302,8 @@ class Track(TrackContainer[TrackContainer]):
                 default=0.0,
                 name=Names.OUTPUT_LEVELS,
             ),
+        ]
+        groups: list[Spec] = [
             GroupSpec(
                 add_action=AddAction.ADD_TO_TAIL,
                 component=self,
@@ -322,6 +326,8 @@ class Track(TrackContainer[TrackContainer]):
                 name=Names.DEVICES,
                 target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
             ),
+        ]
+        synths: list[Spec] = [
             SynthSpec(
                 add_action=AddAction.ADD_TO_TAIL,
                 component=self,
@@ -394,78 +400,129 @@ class Track(TrackContainer[TrackContainer]):
                 output_target_component.effective_channel_count,
                 feedback=output_feedsback,
             )
-            specs.extend(
-                [
-                    SynthDefSpec(
-                        component=self,
-                        context=context,
-                        name=output_patch_cable_synthdef.effective_name,
-                        synthdef=output_patch_cable_synthdef,
-                    ),
-                    SynthSpec(
-                        add_action=AddAction.ADD_TO_TAIL,
-                        component=self,
-                        context=context,
-                        name=Names.OUTPUT,
-                        kwargs={
-                            "active": Spec.get_address(
-                                self, Names.CONTROL_BUSSES, Names.ACTIVE
-                            ),
-                            "in_": Spec.get_address(
-                                self, Names.AUDIO_BUSSES, Names.MAIN
-                            ),
-                            "out": Spec.get_address(
-                                output_target_component,
-                                Names.AUDIO_BUSSES,
-                                Names.FEEDBACK if output_feedsback else Names.MAIN,
-                            ),
-                        },
-                        synthdef=Spec.get_address(
-                            None,
-                            Names.SYNTHDEFS,
-                            output_patch_cable_synthdef.effective_name,
+            synthdefs.append(
+                SynthDefSpec(
+                    component=self,
+                    context=context,
+                    name=output_patch_cable_synthdef.effective_name,
+                    synthdef=output_patch_cable_synthdef,
+                )
+            )
+            synths.append(
+                SynthSpec(
+                    add_action=AddAction.ADD_TO_TAIL,
+                    component=self,
+                    context=context,
+                    name=Names.OUTPUT,
+                    kwargs={
+                        "active": Spec.get_address(
+                            self, Names.CONTROL_BUSSES, Names.ACTIVE
                         ),
-                        target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                        "in_": Spec.get_address(self, Names.AUDIO_BUSSES, Names.MAIN),
+                        "out": Spec.get_address(
+                            output_target_component,
+                            Names.AUDIO_BUSSES,
+                            Names.FEEDBACK if output_feedsback else Names.MAIN,
+                        ),
+                    },
+                    synthdef=Spec.get_address(
+                        None,
+                        Names.SYNTHDEFS,
+                        output_patch_cable_synthdef.effective_name,
                     ),
-                ]
+                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                )
             )
         elif isinstance(self.output, BusGroup):
             output_patch_cable_synthdef = build_patch_cable(
                 self.effective_channel_count,
                 len(self.output),
             )
-            specs.extend(
-                [
+            synthdefs.append(
+                SynthDefSpec(
+                    component=self,
+                    context=context,
+                    name=output_patch_cable_synthdef.effective_name,
+                    synthdef=output_patch_cable_synthdef,
+                )
+            )
+            synths.append(
+                SynthSpec(
+                    add_action=AddAction.ADD_TO_TAIL,
+                    component=self,
+                    context=context,
+                    name=Names.OUTPUT,
+                    kwargs={
+                        "active": Spec.get_address(
+                            self, Names.CONTROL_BUSSES, Names.ACTIVE
+                        ),
+                        "in_": Spec.get_address(self, Names.AUDIO_BUSSES, Names.MAIN),
+                        "out": self.output,
+                    },
+                    synthdef=Spec.get_address(
+                        None,
+                        Names.SYNTHDEFS,
+                        output_patch_cable_synthdef.effective_name,
+                    ),
+                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                )
+            )
+        target_graph_order = self.graph_order
+        for (component, _), io in self._dependencies.items():
+            if Spec.feedsback(
+                source_order=component.graph_order,
+                target_order=target_graph_order,
+                writing=io == IO.WRITE,
+            ):
+                feedback_patch_cable_synthdef = build_patch_cable(
+                    self.effective_channel_count,
+                    self.effective_channel_count,
+                    feedback=True,
+                )
+                synthdefs.append(
                     SynthDefSpec(
                         component=self,
                         context=context,
-                        name=output_patch_cable_synthdef.effective_name,
-                        synthdef=output_patch_cable_synthdef,
-                    ),
-                    SynthSpec(
-                        add_action=AddAction.ADD_TO_TAIL,
+                        name=feedback_patch_cable_synthdef.effective_name,
+                        synthdef=feedback_patch_cable_synthdef,
+                    )
+                )
+                busses.append(
+                    BusSpec(
+                        calculation_rate=CalculationRate.AUDIO,
+                        channel_count=self.effective_channel_count,
                         component=self,
                         context=context,
-                        name=Names.OUTPUT,
+                        name=Names.FEEDBACK,
+                    )
+                )
+                synths.append(
+                    SynthSpec(
+                        add_action=AddAction.ADD_TO_HEAD,
+                        component=self,
+                        context=context,
+                        name=Names.FEEDBACK,
                         kwargs={
                             "active": Spec.get_address(
                                 self, Names.CONTROL_BUSSES, Names.ACTIVE
                             ),
                             "in_": Spec.get_address(
+                                self, Names.AUDIO_BUSSES, Names.FEEDBACK
+                            ),
+                            "out": Spec.get_address(
                                 self, Names.AUDIO_BUSSES, Names.MAIN
                             ),
-                            "out": self.output,
                         },
                         synthdef=Spec.get_address(
                             None,
                             Names.SYNTHDEFS,
-                            output_patch_cable_synthdef.effective_name,
+                            feedback_patch_cable_synthdef.effective_name,
                         ),
                         target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
-                    ),
-                ]
-            )
-        return specs
+                    )
+                )
+                break
+        return synthdefs + busses + groups + synths
 
     async def add_device(self) -> None:
         async with self._lock:

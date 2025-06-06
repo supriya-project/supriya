@@ -19,6 +19,13 @@ class Artifacts:
     nodes: dict[Address, Node] = dataclasses.field(default_factory=dict)
     synthdefs: dict[Address, SynthDef] = dataclasses.field(default_factory=dict)
 
+    def clear(self) -> None:
+        self.audio_buses.clear()
+        self.buffers.clear()
+        self.control_buses.clear()
+        self.nodes.clear()
+        self.synthdefs.clear()
+
     def merge(self, other: "Artifacts") -> None:
         self.audio_buses.update(other.audio_buses)
         self.buffers.update(other.buffers)
@@ -277,6 +284,8 @@ class SynthDefSpec(Spec):
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
     ) -> None:
+        if self.address in old_artifacts.synthdefs:
+            return
         context.add_synthdefs(self.synthdef)
         new_artifacts.synthdefs[self.address] = self.synthdef
 

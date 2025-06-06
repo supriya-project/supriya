@@ -198,6 +198,7 @@ class Session(Component):
                     for mixer in mixers:
                         with context.at():
                             await mixer._reconcile(context=None)
+                    self._context_artifacts[context].clear()
                 await asyncio.gather(*[context.quit() for context in self._contexts])
                 self._status = BootStatus.OFFLINE
                 self._quit_future.set_result(True)
