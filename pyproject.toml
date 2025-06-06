@@ -51,9 +51,6 @@ docs = [
   "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
 ]
 test = [
-  "black[jupyter] >= 24.0.0",
-  "flake8 >= 7.0.0",
-  "isort >= 5.0.0",
   "jupyterlab",
   "librosa",
   "lxml",
@@ -64,6 +61,7 @@ test = [
   "pytest-cov",
   "pytest-mock",
   "pytest-rerunfailures",
+  "ruff",
   "setuptools; python_version >= '3.12'",
   "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
   "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
@@ -75,9 +73,6 @@ test = [
 homepage = "https://github.com/supriya-project/supriya"
 documentation = "https://supriya-project.github.io/supriya"
 repository = "https://github.com/supriya-project/supriya"
-
-[tool.black]
-target-version = ["py313"]
 
 [tool.cibuildwheel]
 build = "cp310-* cp311-* cp312-* cp313-*"
@@ -99,12 +94,6 @@ exclude_lines = [
   "pragma: no cover",
   "raise NotImplementedError",
 ]
-
-[tool.isort]
-case_sensitive = true
-known_third_party = ["uqbar"]
-profile = "black"
-skip = "supriya/__init__.py"
 
 [tool.mypy]
 ignore_missing_imports = true
@@ -134,3 +123,7 @@ testpaths = [
   "tests",
   "supriya",
 ]
+
+[tool.ruff]
+extend-include = ["*.ipynb"]
+line-length = 88

@@ -119,7 +119,6 @@ class OfflineClock(BaseClock[ClockCallback]):
 
 
 class AsyncOfflineClock(AsyncClock):
-
     ### SCHEDULING METHODS ###
 
     def _get_current_time(self) -> float:

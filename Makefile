@@ -9,12 +9,6 @@ testPaths = ${project}/ tests/
 help: ## This help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-z0-9A-Z_-]+:.*?## / {printf "\033[36m%-30s\033]0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
-black-check: ## Check syntax via black
-	black --check --diff ${formatPaths}
-
-black-reformat: ## Reformat via black
-	black ${formatPaths}
-
 build: ## Build for distribution
 	python setup.py sdist
 
@@ -42,9 +36,6 @@ docstrfmt: ## Reformat via docstrfmt
 docstrfmt-check: ## Check docstring syntax via docstrfmt
 	docstrfmt --check --no-docstring-trailing-line supriya/
 
-flake8: ## Lint via flake8
-	flake8 ${formatPaths}
-
 gh-pages: docs-clean ## Build and publish documentation to GitHub
 	rm -Rf gh-pages/
 	git clone $(origin) gh-pages/
@@ -58,10 +49,7 @@ gh-pages: docs-clean ## Build and publish documentation to GitHub
 		git push -u origin gh-pages
 	rm -Rf gh-pages/
 
-isort: ## Reformat via isort
-	isort ${formatPaths}
-
-lint: reformat flake8 mypy ## Run all linters
+lint: reformat ruff-lint mypy ## Run all linters
 
 mypy: ## Type-check via mypy
 	mypy ${project}/ tests/
@@ -76,13 +64,22 @@ pytest: ## Unit test via pytest
 	rm -Rf htmlcov/
 	pytest ${testPaths} --cov=supriya
 
-reformat: ## Reformat codebase
-	make isort
-	make black-reformat
-	make docstrfmt
+reformat: ruff-imports-fix ruff-format-fix ## Reformat codebase
 
-test: ## Test
-	make black-check
-	make flake8
-	make mypy
-	make pytest
+ruff-format: ## Lint via ruff
+	ruff format --check --diff ${formatPaths}
+
+ruff-format-fix: ## Lint via ruff
+	ruff format ${formatPaths}
+
+ruff-imports: ## Format imports via ruff
+	ruff check --select I,RUF022 ${formatPaths}
+
+ruff-imports-fix: ## Format imports via ruff
+	ruff check --select I,RUF022 --fix ${formatPaths}
+
+ruff-lint: ## Lint via ruff
+	ruff check --diff ${formatPaths}
+
+ruff-lint-fix: ## Lint via ruff
+	ruff check --fix ${formatPaths}

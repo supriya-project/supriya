@@ -195,7 +195,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
         coerced_exprs = [
             (
                 expr
-                if ((isinstance(expr, Sequence) and not isinstance(expr, (str, bytes))))
+                if (isinstance(expr, Sequence) and not isinstance(expr, (str, bytes)))
                 else [expr]
             )
             for expr in exprs

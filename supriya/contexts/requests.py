@@ -39,7 +39,9 @@ class Requestable(ABC):
     ### PRIVATE METHODS ###
 
     @abstractmethod
-    def _get_response_patterns_and_requestable(self, context: "Context") -> tuple[
+    def _get_response_patterns_and_requestable(
+        self, context: "Context"
+    ) -> tuple[
         Sequence[float | str] | None,
         Sequence[float | str] | None,
         "Requestable",
@@ -112,7 +114,9 @@ class Request(Requestable):
     ) -> tuple[Sequence[float | str] | None, Sequence[float | str] | None]:
         return None, None
 
-    def _get_response_patterns_and_requestable(self, context: "Context") -> tuple[
+    def _get_response_patterns_and_requestable(
+        self, context: "Context"
+    ) -> tuple[
         Sequence[float | str] | None,
         Sequence[float | str] | None,
         "Requestable",
@@ -138,7 +142,9 @@ class RequestBundle(Requestable):
 
     ### PRIVATE METHODS ###
 
-    def _get_response_patterns_and_requestable(self, context: "Context") -> tuple[
+    def _get_response_patterns_and_requestable(
+        self, context: "Context"
+    ) -> tuple[
         Sequence[float | str] | None,
         Sequence[float | str] | None,
         "Requestable",

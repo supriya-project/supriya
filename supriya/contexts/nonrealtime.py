@@ -25,7 +25,7 @@ from ..ugens import SynthDef
 from .core import Context
 from .entities import ContextObject, Node
 from .errors import ContextError
-from .requests import DoNothing, RequestBundle, Requestable
+from .requests import DoNothing, Requestable, RequestBundle
 
 logger = logging.getLogger(__name__)
 

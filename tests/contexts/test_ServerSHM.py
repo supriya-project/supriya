@@ -5,7 +5,6 @@ from supriya.contexts.shm import ServerSHM
 
 
 def test_shared_memory(server: Server) -> None:
-
     assert isinstance(server.shared_memory, ServerSHM)
 
     values = [i / 2 for i in range(20)]

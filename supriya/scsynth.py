@@ -262,7 +262,6 @@ class LineStatus(enum.IntEnum):
 
 
 class Capture:
-
     def __init__(self, process_protocol: "ProcessProtocol") -> None:
         self.process_protocol = process_protocol
         self.lines: list[str] = []
