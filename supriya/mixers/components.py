@@ -152,8 +152,15 @@ class Component(Generic[C]):
                 node_specs,
                 synthdef_specs,
             ) = self._sort_create_specs(specs)
-            create_specs(context=context, specs=synthdef_specs, group=False)
+            # make sure synthdefs are filtered by only the new ones for that context
+            synthdef_specs = [
+                synthdef_spec
+                for synthdef_spec in synthdef_specs
+                if synthdef_spec.address not in old_context_artifacts[context].synthdefs
+            ]
+            create_specs(context=context, specs=[synthdef_specs], group=False)
             create_specs(context=context, specs=buffer_specs, group=True)
+            print(f"{synthdef_specs=} {buffer_specs=}")
             if synthdef_specs or buffer_specs:
                 await context.sync()
             create_specs(context=context, specs=bus_specs, group=True)
@@ -261,7 +268,7 @@ class Component(Generic[C]):
         list[list[Spec]],
         list[list[Spec]],
         list[list[Spec]],
-        list[list[Spec]],
+        list[Spec],
     ]:
         buffer_specs: dict[Component, list[Spec]] = {}
         bus_specs: dict[Component, list[Spec]] = {}
@@ -305,7 +312,7 @@ class Component(Generic[C]):
                     ordered_node_specs.values(), lambda x: x.component
                 )
             ],
-            [sorted(synthdef_specs, key=lambda x: x.address)],
+            sorted(synthdef_specs, key=lambda x: x.address),
         )
 
     def _walk(

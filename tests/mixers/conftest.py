@@ -156,7 +156,6 @@ async def basic_session() -> tuple[Session, str, str]:
     with capture(session.contexts[0]) as messages:
         await session.boot()
     assert format_messages(messages) == normalize(
-        # TODO: These should be consolidated properly
         """
         - ['/notify', 1]
         - ['/g_new', 1, 1, 0]
@@ -273,8 +272,13 @@ async def complex_session() -> tuple[Session, str, str]:
     # TODO: Reimplement these
     await track_one.add_send(track_two)
     await track_two.add_send(track_one_one)
+    with capture(session.contexts[0]) as messages:
+        await session.boot()
     # record initial tree
-    await session.boot()
+    assert format_messages(messages) == normalize(
+        """
+        """
+    )
     initial_tree = await debug_tree(session)
     assert initial_tree == normalize(
         """
