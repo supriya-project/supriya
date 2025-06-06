@@ -64,7 +64,7 @@ pytest: ## Unit test via pytest
 	rm -Rf htmlcov/
 	pytest ${testPaths} --cov=supriya
 
-reformat: ruff-import-fix ruff-format-fix ## Reformat codebase
+reformat: ruff-imports-fix ruff-format-fix ## Reformat codebase
 
 ruff-format: ## Lint via ruff
 	ruff format --check --diff ${formatPaths}
@@ -72,10 +72,10 @@ ruff-format: ## Lint via ruff
 ruff-format-fix: ## Lint via ruff
 	ruff format ${formatPaths}
 
-ruff-import: ## Format imports via ruff
+ruff-imports: ## Format imports via ruff
 	ruff check --select I,RUF022 ${formatPaths}
 
-ruff-import-fix: ## Format imports via ruff
+ruff-imports-fix: ## Format imports via ruff
 	ruff check --select I,RUF022 --fix ${formatPaths}
 
 ruff-lint: ## Lint via ruff

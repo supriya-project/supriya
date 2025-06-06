@@ -80,6 +80,8 @@ jobs:
       run: pip install -e .[test]
     - name: Run Ruff format checker
       run: make ruff-format
+    - name: Run Ruff imports checker
+      run: make ruff-imports
     - name: Run Ruff lint checker
       run: make ruff-lint
     - name: Run Mypy
