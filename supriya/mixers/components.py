@@ -1,4 +1,7 @@
 import asyncio
+import contextlib
+import itertools
+from collections import deque
 from typing import (
     TYPE_CHECKING,
     Awaitable,
@@ -7,6 +10,7 @@ from typing import (
     Iterator,
     Optional,
     Type,
+    TypeAlias,
     TypeVar,
     cast,
 )
@@ -20,6 +24,9 @@ from .constants import IO, Address, ChannelCount, Names
 from .specs import Artifacts, BufferSpec, BusSpec, NodeSpec, Spec, SynthDefSpec
 
 C = TypeVar("C", bound="Component")
+
+SpecBucket: TypeAlias = dict[Address, tuple[Spec | None, Spec | None]]
+ContextSpecBuckets: TypeAlias = dict[AsyncServer, SpecBucket]
 
 if TYPE_CHECKING:
     from .mixers import Mixer
@@ -74,9 +81,9 @@ class Component(Generic[C]):
         *,
         component: "Component",
         context: AsyncServer | None,
-        create_specs: dict[AsyncServer, dict[Address, Spec]],
-        destroy_specs: dict[AsyncServer, dict[Address, Spec]],
-        mutate_specs: dict[AsyncServer, dict[Address, tuple[Spec, Spec]]],
+        create_spec_buckets: ContextSpecBuckets,
+        destroy_spec_buckets: ContextSpecBuckets,
+        mutate_spec_buckets: ContextSpecBuckets,
     ) -> None:
         old_specs = {spec.address: spec for spec in component._specs}
         component._specs = component._resolve_specs(context=context)
@@ -88,18 +95,21 @@ class Component(Generic[C]):
                 # N.B.: recreation needs to know about the old ID so we know how to free it
                 #       thus we maintain two dicts of context artifacts
                 if new_spec.context and new_spec.requires_recreation(old_spec):
-                    destroy_specs[old_spec.context][address] = (old_spec, None)
-                    create_specs[new_spec.context][address] = (None, new_spec)
+                    destroy_spec_buckets[old_spec.context][address] = (old_spec, None)
+                    create_spec_buckets[new_spec.context][address] = (None, new_spec)
                 elif not new_spec.context:
-                    destroy_specs[old_spec.context][address] = (new_spec, None)
+                    destroy_spec_buckets[old_spec.context][address] = (new_spec, None)
                 else:
-                    mutate_specs[old_spec.context][address] = (old_spec, new_spec)
+                    mutate_spec_buckets[old_spec.context][address] = (
+                        old_spec,
+                        new_spec,
+                    )
             else:
-                destroy_specs[old_spec.context][address] = (old_spec, None)
+                destroy_spec_buckets[old_spec.context][address] = (old_spec, None)
         for address, new_spec in new_specs.items():
             if not new_spec.context:
                 raise RuntimeError
-            create_specs[new_spec.context][address] = (None, new_spec)
+            create_spec_buckets[new_spec.context][address] = (None, new_spec)
 
     def _iterate_parentage(self) -> Iterator["Component"]:
         component = self
@@ -110,36 +120,54 @@ class Component(Generic[C]):
 
     async def _process_create_specs(
         self,
-        context: AsyncServer,
-        create_specs: dict[Address, Spec],
+        spec_buckets: ContextSpecBuckets,
         old_context_artifacts: dict[AsyncServer, Artifacts],
         new_context_artifacts: dict[AsyncServer, Artifacts],
     ) -> None:
+        def create_specs(
+            *,
+            context: AsyncServer,
+            specs: list[list[Spec]],
+            group: bool,
+        ) -> None:
+            if not specs:
+                return
+            for spec_group in specs:
+                with contextlib.ExitStack() as exit_stack:
+                    if group:
+                        exit_stack.enter_context(context.at())
+                    for spec in spec_group:
+                        spec.create(
+                            context=context,
+                            old_artifacts=old_context_artifacts[context],
+                            new_artifacts=new_context_artifacts[context],
+                        )
+
         # create: walk digraph, executing specs against context
         #     if creating synthdefs, block until done
-        for context, specs in create_specs.items():
-            for spec in specs.values():
-                spec.create(
-                    context=context,
-                    old_artifacts=old_context_artifacts.setdefault(
-                        context, Artifacts()
-                    ),
-                    new_artifacts=new_context_artifacts.setdefault(
-                        context, Artifacts()
-                    ),
-                )
-                if isinstance(spec, SynthDefSpec):
-                    await context.sync()
+        for context, specs in spec_buckets.items():
+            (
+                buffer_specs,
+                bus_specs,
+                node_specs,
+                synthdef_specs,
+            ) = self._sort_create_specs(specs)
+            create_specs(context=context, specs=synthdef_specs, group=False)
+            create_specs(context=context, specs=buffer_specs, group=True)
+            if synthdef_specs or buffer_specs:
+                await context.sync()
+            create_specs(context=context, specs=bus_specs, group=True)
+            create_specs(context=context, specs=node_specs, group=True)
 
     def _process_mutate_specs(
         self,
-        context: AsyncServer,
-        mutate_specs: dict[Address, tuple[Spec, Spec]],
+        spec_buckets: ContextSpecBuckets,
         old_context_artifacts: dict[AsyncServer, Artifacts],
         new_context_artifacts: dict[AsyncServer, Artifacts],
     ) -> None:
-        for context, spec_pairs in mutate_specs.items():
-            for old_spec, new_spec in spec_pairs.values():
+        for context, specs in spec_buckets.items():
+            for old_spec, new_spec in specs.values():
+                assert old_spec and new_spec
                 new_spec.mutate(
                     context=context,
                     old_artifacts=old_context_artifacts[context],
@@ -151,14 +179,14 @@ class Component(Generic[C]):
 
     def _process_destroy_specs(
         self,
-        context: AsyncServer,
-        destroy_specs: dict[Address, Spec],
+        spec_buckets: ContextSpecBuckets,
         old_context_artifacts: dict[AsyncServer, Artifacts],
     ) -> None:
         # destroy: iterate destroy specs in order, special handling for "root" destroys (how?)
-        for context, specs in destroy_specs.items():
-            for spec in specs.values():
-                spec.destroy(
+        for context, specs in spec_buckets.items():
+            for old_spec, _ in specs.values():
+                assert old_spec
+                old_spec.destroy(
                     context=context, old_artifacts=old_context_artifacts[context]
                 )
 
@@ -172,15 +200,15 @@ class Component(Generic[C]):
             context=context, session=self.session
         )
         # spec buckets
-        create_specs: dict[
-            AsyncServer, dict[Address, tuple[Spec | None, Spec | None]]
-        ] = {context: {} for context in new_context_artifacts}
-        mutate_specs: dict[
-            AsyncServer, dict[Address, tuple[Spec | None, Spec | None]]
-        ] = {context: {} for context in new_context_artifacts}
-        destroy_specs: dict[
-            AsyncServer, dict[Address, tuple[Spec | None, Spec | None]]
-        ] = {context: {} for context in new_context_artifacts}
+        create_spec_buckets: ContextSpecBuckets = {
+            context: {} for context in new_context_artifacts
+        }
+        mutate_spec_buckets: ContextSpecBuckets = {
+            context: {} for context in new_context_artifacts
+        }
+        destroy_spec_buckets: ContextSpecBuckets = {
+            context: {} for context in new_context_artifacts
+        }
         # iterate components depth-first
         # include related components (dependencies?) e.g. sends / receives / inputs / outputs
         #    anything that introduces cycles into the component digraph
@@ -188,42 +216,18 @@ class Component(Generic[C]):
             self._gather_component_specs(
                 component=component,
                 context=context,
-                create_specs=create_specs,
-                destroy_specs=destroy_specs,
-                mutate_specs=mutate_specs,
+                create_spec_buckets=create_spec_buckets,
+                destroy_spec_buckets=destroy_spec_buckets,
+                mutate_spec_buckets=mutate_spec_buckets,
             )
-        # once all specs bucketed, build digraph of create specs
-        dependents: dict[AsyncServer, dict[Address, list[Address]]] = {}
-        dependencies: dict[AsyncServer, dict[Address, set[Address]]] = {}
-        for context, specs in create_specs.items():
-            for address, spec in specs.items():
-                requirements = spec.requires()
-                dependencies.setdefault(context, {}).setdefault(address, set()).update(
-                    requirements
-                )
-                for requirement in requirements:
-                    dependents.setdefault(context, {}).setdefault(
-                        requirement, []
-                    ).append(address)
-        # debug
-        # print(f"{create_specs=}")
-        # print(f"{mutate_specs=}")
-        # print(f"{destroy_specs=}")
-        # print(f"{dependents=}")
-        # print(f"{dependencies=}")
-        # for context, dp in dependents.items():
-        #     for dx, dy in dp.items():
-        #         print(f"dependents: {dx} {dy}")
-        # for context, dq in dependencies.items():
-        #     for dx, dz in dq.items():
-        #         print(f"dependencies: {dx} {dz}")
+        # process specs
         await self._process_create_specs(
-            context, create_specs, old_context_artifacts, new_context_artifacts
+            create_spec_buckets, old_context_artifacts, new_context_artifacts
         )
         self._process_mutate_specs(
-            context, mutate_specs, old_context_artifacts, new_context_artifacts
+            mutate_spec_buckets, old_context_artifacts, new_context_artifacts
         )
-        self._process_destroy_specs(context, destroy_specs, old_context_artifacts)
+        self._process_destroy_specs(destroy_spec_buckets, old_context_artifacts)
         # merge artifacts
         for context in set(old_context_artifacts) | set(new_context_artifacts):
             old_context_artifacts[context].merge(new_context_artifacts[context])
@@ -252,32 +256,56 @@ class Component(Generic[C]):
 
     @classmethod
     def _sort_create_specs(
-        cls, specs: dict[Address, Spec]
+        cls, specs: SpecBucket
     ) -> tuple[
-        list[list[BufferSpec]],
-        list[list[BusSpec]],
-        list[list[NodeSpec]],
-        list[list[SynthDefSpec]],
+        list[list[Spec]],
+        list[list[Spec]],
+        list[list[Spec]],
+        list[list[Spec]],
     ]:
-        buffer_specs: list[BufferSpec] = []
-        bus_specs: list[BusSpec] = []
-        node_specs: list[NodeSpec] = []
-        synthdef_specs: list[SynthDefSpec] = []
-        for spec in specs:
-            if isinstance(spec, BusSpec):
-                bus_specs.append(spec)
+        buffer_specs: dict[Component, list[Spec]] = {}
+        bus_specs: dict[Component, list[Spec]] = {}
+        synthdef_specs: list[Spec] = []
+        ordered_node_specs: dict[Address, Spec] = {}
+        unordered_node_specs: deque[tuple[Spec, set[Address]]] = deque()
+        for _, spec in specs.values():
+            assert spec
+            if isinstance(spec, BufferSpec):
+                buffer_specs.setdefault(spec.component, []).append(spec)
+            elif isinstance(spec, BusSpec):
+                bus_specs.setdefault(spec.component, []).append(spec)
             elif isinstance(spec, SynthDefSpec):
                 synthdef_specs.append(spec)
+            elif isinstance(spec, NodeSpec):
+                dependencies: set[Address] = set(
+                    [
+                        address
+                        for address in spec.requires()
+                        if f":{Names.NODES}:" in address and address in specs
+                    ]
+                )
+                unordered_node_specs.append((spec, dependencies))
+        while unordered_node_specs:
+            node_spec, dependencies = unordered_node_specs.popleft()
+            if all(dependency in ordered_node_specs for dependency in dependencies):
+                ordered_node_specs[node_spec.address] = node_spec
+            else:
+                unordered_node_specs.append((node_spec, dependencies))
 
         # synthdefs, alphabetical
         # busses, alphabetical, grouped by component in graph order
         # waves of nodes, grouped by component in graph order
         #     component might repeat
         return (
-            buffer_specs,
-            bus_specs,
-            node_specs,
-            synthdef_specs,
+            list(buffer_specs.values()),
+            list(bus_specs.values()),
+            [
+                list(group)
+                for _, group in itertools.groupby(
+                    ordered_node_specs.values(), lambda x: x.component
+                )
+            ],
+            [sorted(synthdef_specs, key=lambda x: x.address)],
         )
 
     def _walk(
