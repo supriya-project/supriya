@@ -194,32 +194,23 @@ async def basic_session() -> tuple[Session, str, str]:
         - ['/d_recv', <SynthDef: system_link_control_9>]
         - ['/sync', 0]
         - ['/d_recv', <SynthDef: supriya:channel-strip:2>]
-        - ['/sync', 1]
         - ['/d_recv', <SynthDef: supriya:meters:2>]
-        - ['/sync', 2]
         - ['/d_recv', <SynthDef: supriya:patch-cable:2x2>]
-        - ['/sync', 3]
-        - ['/c_set', 0, 0.0]
-        - ['/c_fill', 1, 2, 0.0]
-        - ['/c_fill', 3, 2, 0.0]
-        - ['/g_new', 1000, 0, 1]
-        - ['/g_new', 1001, 0, 1000]
-        - ['/g_new', 1002, 1, 1000]
-        - ['/s_new', 'supriya:channel-strip:2', 1003, 1, 1000, 'gain', 'c0', 'out', 16.0]
-        - ['/s_new', 'supriya:meters:2', 1004, 3, 1001, 'in_', 16.0, 'out', 1.0]
-        - ['/s_new', 'supriya:meters:2', 1005, 3, 1003, 'in_', 16.0, 'out', 3.0]
-        - ['/s_new', 'supriya:patch-cable:2x2', 1006, 1, 1000, 'in_', 16.0]
-        - ['/c_set', 5, 1.0]
-        - ['/c_set', 6, 0.0]
-        - ['/c_fill', 7, 2, 0.0]
-        - ['/c_fill', 9, 2, 0.0]
-        - ['/g_new', 1007, 1, 1001]
-        - ['/g_new', 1008, 0, 1007]
-        - ['/g_new', 1009, 1, 1007]
-        - ['/s_new', 'supriya:channel-strip:2', 1010, 1, 1007, 'active', 'c5', 'gain', 'c6', 'out', 18.0]
-        - ['/s_new', 'supriya:meters:2', 1011, 3, 1008, 'in_', 18.0, 'out', 7.0]
-        - ['/s_new', 'supriya:meters:2', 1012, 3, 1010, 'in_', 18.0, 'out', 9.0]
-        - ['/s_new', 'supriya:patch-cable:2x2', 1013, 1, 1007, 'active', 'c5', 'in_', 18.0, 'out', 16.0]
+        - ['/sync', 1]
+        - [None, [['/c_set', 0, 0.0], ['/c_fill', 1, 2, 0.0, 3, 2, 0.0]]]
+        - [None, [['/c_set', 5, 1.0, 6, 0.0], ['/c_fill', 7, 2, 0.0, 9, 2, 0.0]]]
+        - [None,
+           [['/g_new', 1000, 0, 1, 1001, 0, 1000, 1002, 1, 1000],
+            ['/s_new', 'supriya:channel-strip:2', 1003, 1, 1000, 'gain', 'c0', 'out', 16.0],
+            ['/s_new', 'supriya:meters:2', 1004, 3, 1001, 'in_', 16.0, 'out', 1.0],
+            ['/s_new', 'supriya:meters:2', 1005, 3, 1003, 'in_', 16.0, 'out', 3.0],
+            ['/s_new', 'supriya:patch-cable:2x2', 1006, 1, 1000, 'in_', 16.0]]]
+        - [None,
+           [['/g_new', 1007, 1, 1001, 1008, 0, 1007, 1009, 1, 1007],
+            ['/s_new', 'supriya:channel-strip:2', 1010, 1, 1007, 'active', 'c5', 'gain', 'c6', 'out', 18.0],
+            ['/s_new', 'supriya:meters:2', 1011, 3, 1008, 'in_', 18.0, 'out', 7.0],
+            ['/s_new', 'supriya:meters:2', 1012, 3, 1010, 'in_', 18.0, 'out', 9.0],
+            ['/s_new', 'supriya:patch-cable:2x2', 1013, 1, 1007, 'active', 'c5', 'in_', 18.0, 'out', 16.0]]]
         """
     )
     initial_tree = await debug_tree(session)
