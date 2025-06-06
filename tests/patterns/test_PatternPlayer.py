@@ -403,7 +403,7 @@ def test_context_calls(
         target_node_ = Group(context=context, id_=target_node)
     spy = Mock(spec=Context, wraps=context)
     mocker.patch.object(context, "send")
-    with OfflineClock().at() as clock:
+    with OfflineClock().at():
         pattern.play(context=spy, clock=clock, target_node=target_node_, until=until)
     expected_mock_calls = expected(context)
     assert spy.mock_calls == expected_mock_calls
