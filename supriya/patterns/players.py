@@ -97,20 +97,31 @@ class PatternPlayer:
                 not cast(CallbackEvent, clock_context.event).invocations
                 and self._callback
             ):
-                yield clock_context, clock_context.desired_moment.seconds, clock_context.desired_moment.offset, [
-                    (StartEvent(), Priority.START)
-                ]
+                yield (
+                    clock_context,
+                    clock_context.desired_moment.seconds,
+                    clock_context.desired_moment.offset,
+                    [(StartEvent(), Priority.START)],
+                )
             while True:
                 try:
                     offset, priority, index, event = self._queue.get(block=False)
                 except Empty:
                     if events:
-                        yield clock_context, clock_context.desired_moment.seconds, current_offset, events
+                        yield (
+                            clock_context,
+                            clock_context.desired_moment.seconds,
+                            current_offset,
+                            events,
+                        )
                     self._is_running = False
                     if self._callback:
-                        yield clock_context, clock_context.desired_moment.seconds, current_offset, [
-                            (StopEvent(), Priority.STOP)
-                        ]
+                        yield (
+                            clock_context,
+                            clock_context.desired_moment.seconds,
+                            current_offset,
+                            [(StopEvent(), Priority.STOP)],
+                        )
                     self._next_delta = None
                     return
                 except Exception:
@@ -122,20 +133,33 @@ class PatternPlayer:
                 if delta:
                     self._queue.put((offset, priority, index, event))
                     if events:
-                        yield clock_context, clock_context.desired_moment.seconds, current_offset, events
+                        yield (
+                            clock_context,
+                            clock_context.desired_moment.seconds,
+                            current_offset,
+                            events,
+                        )
                     self._next_delta = delta
                     return
                 if not isinstance(event, Event):
                     if self._consume_iterator(offset):
                         if self._callback:
-                            yield clock_context, clock_context.desired_moment.seconds, current_offset, [
-                                (StopEvent(), Priority.STOP)
-                            ]
+                            yield (
+                                clock_context,
+                                clock_context.desired_moment.seconds,
+                                current_offset,
+                                [(StopEvent(), Priority.STOP)],
+                            )
                         self._next_delta = None
                         return
                 elif offset != current_offset:
                     if events:
-                        yield clock_context, clock_context.desired_moment.seconds, current_offset, events
+                        yield (
+                            clock_context,
+                            clock_context.desired_moment.seconds,
+                            current_offset,
+                            events,
+                        )
                     current_offset = offset
                     events = [(event, priority)]
                 else:

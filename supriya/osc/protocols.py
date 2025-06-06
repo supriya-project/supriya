@@ -287,8 +287,7 @@ class OscProtocol:
         else:
             message = raw_message.to_osc()
         osc_out_logger.debug(
-            f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
-            f"{message!r}"
+            f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] {message!r}"
         )
         for capture in self.captures:
             capture.messages.append(
@@ -301,8 +300,7 @@ class OscProtocol:
             )
         datagram = message.to_datagram()
         udp_out_logger.debug(
-            f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
-            f"{datagram!r}"
+            f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] {datagram!r}"
         )
         return datagram
 
@@ -323,16 +321,14 @@ class OscProtocol:
         self, datagram
     ) -> Generator[tuple[OscCallback, OscMessage], None, None]:
         udp_in_logger.debug(
-            f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
-            f"{datagram}"
+            f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] {datagram}"
         )
         try:
             message = OscMessage.from_datagram(datagram)
         except Exception:
             raise
         osc_in_logger.debug(
-            f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
-            f"{message!r}"
+            f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] {message!r}"
         )
         for capture in self.captures:
             capture.messages.append(

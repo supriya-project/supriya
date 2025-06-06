@@ -25,7 +25,6 @@ from .protocols import (
 
 
 class ThreadedOscProtocol(OscProtocol):
-
     class Server(socketserver.UDPServer):
         osc_protocol: "ThreadedOscProtocol"
 

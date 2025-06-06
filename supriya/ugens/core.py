@@ -5372,7 +5372,6 @@ class SynthDefError(Exception):
 
 
 class SynthDef:
-
     def __init__(self, ugens: Sequence[UGen], name: str | None = None) -> None:
         if not ugens:
             raise SynthDefError("No UGens provided")
@@ -5728,7 +5727,6 @@ _local._active_builders = []
 
 
 class SynthDefBuilder:
-
     class SortBundle(NamedTuple):
         ugen: UGen
         width_first_antecedents: tuple[UGen, ...]
@@ -5766,7 +5764,9 @@ class SynthDefBuilder:
         if not self._building:
             self._ugens.append(ugen)
 
-    def _build_control_mapping(self, parameters: Sequence[Parameter]) -> tuple[
+    def _build_control_mapping(
+        self, parameters: Sequence[Parameter]
+    ) -> tuple[
         list[Control],
         dict[OutputProxy, OutputProxy],
     ]:
@@ -6507,7 +6507,6 @@ def decompile_synthdefs(value: bytes) -> list[SynthDef]:
 
 
 class SuperColliderSynthDef:
-
     def __init__(self, name: str, body: str, rates: str | None = None):
         self.name = name
         self.body = body

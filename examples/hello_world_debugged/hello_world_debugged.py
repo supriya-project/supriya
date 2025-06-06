@@ -55,7 +55,6 @@ def main() -> None:
 
     # Capture the OSC messages send to the server to load the SynthDef and create the synths:
     with server.osc_protocol.capture() as transcript:
-
         # N.B. This block is now indented inside the .capture() context manager
         # Start an OSC bundle to run immediately:
         with server.at():
@@ -95,7 +94,6 @@ def main() -> None:
 
     # Capture the OSC messages send to the server to free the synths:
     with server.osc_protocol.capture() as transcript:
-
         # N.B. This block is now indented inside the .capture() context manager
         # Loop over the synths and free them
         stop_synths(synths)

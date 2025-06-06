@@ -760,9 +760,9 @@ class Node(ContextObject):
         """
         self.context.pause_node(self)
 
-    def query(
-        self, sync: bool = True
-    ) -> Awaitable[NodeInfo | None] | (NodeInfo | None):
+    def query(self, sync: bool = True) -> Awaitable[NodeInfo | None] | (
+        NodeInfo | None
+    ):
         """
         Query the node.
 
@@ -985,7 +985,9 @@ class Synth(Node):
 
     synthdef: SynthDef
 
-    def get(self, *controls: int | str, sync: bool = True) -> Union[
+    def get(
+        self, *controls: int | str, sync: bool = True
+    ) -> Union[
         Awaitable[dict[int | str, float] | None],
         dict[int | str, float] | None,
     ]:
@@ -1004,7 +1006,9 @@ class Synth(Node):
             raise ContextError
         return self.context.get_synth_controls(self, *controls, sync=sync)
 
-    def get_range(self, control: int | str, count: int, sync: bool = True) -> Union[
+    def get_range(
+        self, control: int | str, count: int, sync: bool = True
+    ) -> Union[
         Awaitable[Sequence[float | str] | None],
         Sequence[float | str] | None,
     ]:
