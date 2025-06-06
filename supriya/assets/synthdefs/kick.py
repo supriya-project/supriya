@@ -1,8 +1,8 @@
 from supriya.ugens import (
     BPF,
     RLPF,
-    EnvGen,
     Envelope,
+    EnvGen,
     Impulse,
     LinLin,
     Out,

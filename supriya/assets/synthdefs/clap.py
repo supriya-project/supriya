@@ -1,8 +1,8 @@
 from ...ugens import (
     BPF,
     HPF,
-    EnvGen,
     Envelope,
+    EnvGen,
     Out,
     SynthDef,
     SynthDefBuilder,

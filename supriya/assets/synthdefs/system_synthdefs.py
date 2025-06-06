@@ -1,7 +1,7 @@
 from supriya.enums import EnvelopeShape
 from supriya.ugens import (
-    EnvGen,
     Envelope,
+    EnvGen,
     In,
     InFeedback,
     Out,

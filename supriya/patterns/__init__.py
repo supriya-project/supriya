@@ -59,6 +59,6 @@ __all__ = [
     "StopEvent",
     "SynthAllocateEvent",
     "UnaryOpPattern",
-    "UpdatePattern",
     "UpdateDictPattern",
+    "UpdatePattern",
 ]
