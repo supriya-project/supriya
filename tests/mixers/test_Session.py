@@ -14,7 +14,6 @@ from .conftest import (
 )
 
 
-@pytest.mark.xfail
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.asyncio
 async def test_Session_add_context(
@@ -37,10 +36,10 @@ async def test_Session_add_context(
         """
         --- initial
         +++ mutation
-        @@ -6,3 +6,4 @@
-                         <TrackInput 5 session.mixers[0].tracks[0].input source=null>
-                         <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
-                     <MixerOutput 2 session.mixers[0].output>
+        @@ -2,3 +2,4 @@
+             <session.contexts[0]>
+                 <Mixer 1 'P' session.mixers[0]>
+                     <Track 2 'A' session.mixers[0].tracks[0]>
         +    <session.contexts[1]>
         """,
         initial_components,
@@ -54,7 +53,7 @@ async def test_Session_add_context(
         +++ mutation
         @@ -21,3 +21,4 @@
                      in_: 16.0, out: 3.0
-                 1013 supriya:patch-cable:2x2 (session.mixers[0].output:synth)
+                 1006 supriya:patch-cable:2x2 (session.mixers[0]:output)
                      active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
         +<session.contexts[1]>
         """,
@@ -62,7 +61,6 @@ async def test_Session_add_context(
     )
 
 
-@pytest.mark.xfail
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "reuse_context, expected_components_diff, expected_tree_diff, expected_messages",
@@ -219,7 +217,6 @@ async def test_Session_boot(
     )
 
 
-@pytest.mark.xfail
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "context_index, expected_components_diff, expected_tree_diff",
@@ -341,7 +338,6 @@ async def test_Session_quit(
     assert_components_diff(session, "", initial_components)
 
 
-@pytest.mark.xfail
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "mixer_index, context_index, expected_components_diff, expected_tree_diff",
