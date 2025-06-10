@@ -340,14 +340,14 @@ async def test_Session_quit(
             """
             --- initial
             +++ mutation
-            @@ -1,11 +1,11 @@
+            @@ -1,6 +1,6 @@
              <Session 0>
                  <session.contexts[0]>
-            +        <Mixer 7 'Q' session.mixers[1]>
+            +        <Mixer 3 'Q' session.mixers[1]>
             +    <session.contexts[1]>
                      <Mixer 1 'P' session.mixers[0]>
-                         <Track 3 'A' session.mixers[0].tracks[0]>
-            -        <Mixer 7 'Q' session.mixers[1]>
+                         <Track 2 'A' session.mixers[0].tracks[0]>
+            -        <Mixer 3 'Q' session.mixers[1]>
             -    <session.contexts[1]>
             """,
             """
@@ -395,9 +395,12 @@ async def test_Session_quit(
             """
             --- initial
             +++ mutation
-            @@ -6,6 +6,6 @@
+            @@ -2,5 +2,5 @@
+                 <session.contexts[0]>
+                     <Mixer 1 'P' session.mixers[0]>
+                         <Track 2 'A' session.mixers[0].tracks[0]>
             +    <session.contexts[1]>
-                     <Mixer 7 'Q' session.mixers[1]>
+                     <Mixer 3 'Q' session.mixers[1]>
             -    <session.contexts[1]>
             """,
             """

@@ -50,6 +50,10 @@ class Component(Generic[C]):
         self._name: str | None = name
         self._parent: C | None = parent
         self._specs: list[Spec] = []
+        # TODO: We wanna cache the context, because that makes some things simpler
+        #       e.g. checking if the context has changed...
+        #       are we booting? quitting? just mutating? changing contexts?
+        self._context: AsyncServer | None = None
 
     def __repr__(self) -> str:
         if self._name:
@@ -83,6 +87,7 @@ class Component(Generic[C]):
         context: AsyncServer | None,
         create_spec_buckets: ContextSpecBuckets,
         destroy_spec_buckets: ContextSpecBuckets,
+        is_root: bool,
         mutate_spec_buckets: ContextSpecBuckets,
     ) -> None:
         old_specs = {spec.address: spec for spec in component._specs}
@@ -206,15 +211,9 @@ class Component(Generic[C]):
             context=context, session=self.session
         )
         # spec buckets
-        create_spec_buckets: ContextSpecBuckets = {
-            context: {} for context in new_context_artifacts
-        }
-        mutate_spec_buckets: ContextSpecBuckets = {
-            context: {} for context in new_context_artifacts
-        }
-        destroy_spec_buckets: ContextSpecBuckets = {
-            context: {} for context in new_context_artifacts
-        }
+        create_spec_buckets: ContextSpecBuckets = {ctx: {} for ctx in new_context_artifacts}
+        mutate_spec_buckets: ContextSpecBuckets = {ctx: {} for ctx in new_context_artifacts}
+        destroy_spec_buckets: ContextSpecBuckets = {ctx: {} for ctx in new_context_artifacts}
         # iterate components depth-first
         # include related components (dependencies?) e.g. sends / receives / inputs / outputs
         #    anything that introduces cycles into the component digraph
@@ -225,6 +224,13 @@ class Component(Generic[C]):
                 create_spec_buckets=create_spec_buckets,
                 destroy_spec_buckets=destroy_spec_buckets,
                 mutate_spec_buckets=mutate_spec_buckets,
+                # TODO: We need to know where subtree roots are for efficient deletion
+                is_root=(component is self) or self not in list(component._iterate_parentage()),
+                # And we need to know what related components need to be touched
+                # e.g. for either deletion or for nulling their inputs/outputs
+                # Also, what's the right way to implement this???
+                # new_context=context, old_context=component._context
+                # .... because we don't want to change out-of-tree component contexts
             )
         # process specs
         await self._process_create_specs(
@@ -238,6 +244,7 @@ class Component(Generic[C]):
         for context in set(old_context_artifacts) | set(new_context_artifacts):
             old_context_artifacts[context].merge(new_context_artifacts[context])
         # destroy
+        # ... actually we want a stack of components to delete here, because sends might get deleted too
         if deleting:
             self._delete()
 
