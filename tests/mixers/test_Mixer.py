@@ -23,19 +23,13 @@ from .conftest import (
             """
             --- initial
             +++ mutation
-            @@ -1,10 +1,4 @@
+            @@ -1,5 +1,3 @@
              <Session 0>
                  <session.contexts[0]>
             -        <Mixer 1 'P' session.mixers[0]>
-            -            <Track 3 'A' session.mixers[0].tracks[0]>
-            -                <TrackFeedback 4 session.mixers[0].tracks[0].feedback>
-            -                <TrackInput 5 session.mixers[0].tracks[0].input source=null>
-            -                <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
-            -            <MixerOutput 2 session.mixers[0].output>
-            -        <Mixer 7 'Q' session.mixers[1]>
-            -            <MixerOutput 8 session.mixers[1].output>
-            +        <Mixer 7 'Q' session.mixers[0]>
-            +            <MixerOutput 8 session.mixers[0].output>
+            -            <Track 2 'A' session.mixers[0].tracks[0]>
+            -        <Mixer 3 'Q' session.mixers[1]>
+            +        <Mixer 3 'Q' session.mixers[0]>
             """,
             """
             --- initial
@@ -44,25 +38,25 @@ from .conftest import (
              <session.contexts[0]>
             -    NODE TREE 1000 group
             -        1001 group
-            -            1006 group
-            -                1007 group
-            -                1010 supriya:meters:2
-            -                    in_: 18.0, out: 7.0
+            -            1007 group
             -                1008 group
-            -                1009 supriya:channel-strip:2
-            -                    active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
             -                1011 supriya:meters:2
+            -                    in_: 18.0, out: 7.0
+            -                1009 group
+            -                1010 supriya:channel-strip:2
+            -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            -                1012 supriya:meters:2
             -                    in_: 18.0, out: 9.0
-            -                1012 supriya:patch-cable:2x2
+            -                1013 supriya:patch-cable:2x2
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
             -        1004 supriya:meters:2
             -            in_: 16.0, out: 1.0
             -        1002 group
             -        1003 supriya:channel-strip:2
-            -            active: 1.0, bus: 16.0, done_action: 2.0, gain: c0, gate: 1.0
+            -            active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
             -        1005 supriya:meters:2
             -            in_: 16.0, out: 3.0
-            -        1013 supriya:patch-cable:2x2
+            -        1006 supriya:patch-cable:2x2
             -            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
                  NODE TREE 1014 group
                      1015 group
@@ -77,19 +71,18 @@ from .conftest import (
             """
             --- initial
             +++ mutation
-            @@ -6,5 +6,3 @@
-                             <TrackInput 5 session.mixers[0].tracks[0].input source=null>
-                             <TrackOutput 6 session.mixers[0].tracks[0].output target=default>
-                         <MixerOutput 2 session.mixers[0].output>
-            -        <Mixer 7 'Q' session.mixers[1]>
-            -            <MixerOutput 8 session.mixers[1].output>
+            @@ -2,4 +2,3 @@
+                 <session.contexts[0]>
+                     <Mixer 1 'P' session.mixers[0]>
+                         <Track 2 'A' session.mixers[0].tracks[0]>
+            -        <Mixer 3 'Q' session.mixers[1]>
             """,
             """
             --- initial
             +++ mutation
             @@ -21,14 +21,3 @@
                          in_: 16.0, out: 3.0
-                     1013 supriya:patch-cable:2x2
+                     1006 supriya:patch-cable:2x2
                          active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
             -    NODE TREE 1014 group
             -        1015 group
@@ -97,7 +90,7 @@ from .conftest import (
             -            in_: 20.0, out: 12.0
             -        1016 group
             -        1017 supriya:channel-strip:2
-            -            active: 1.0, bus: 20.0, done_action: 2.0, gain: c11, gate: 1.0
+            -            active: 1.0, done_action: 2.0, gain: c11, gate: 1.0, out: 20.0
             -        1019 supriya:meters:2
             -            in_: 20.0, out: 14.0
             -        1020 supriya:patch-cable:2x2

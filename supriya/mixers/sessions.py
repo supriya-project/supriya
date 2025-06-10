@@ -217,7 +217,8 @@ class Session(Component):
                 return
             self._contexts[self._mixers[mixer]].remove(mixer)
             async with mixer._lock:
-                await mixer._reconcile(context=context)
+                if self._status == BootStatus.ONLINE:
+                    await mixer._reconcile(context=context)
                 self._contexts[context].append(mixer)
                 self._mixers[mixer] = context
 
