@@ -160,7 +160,6 @@ class Component(Generic[C]):
             ]
             create_specs(context=context, specs=[synthdef_specs], group=False)
             create_specs(context=context, specs=buffer_specs, group=True)
-            print(f"{synthdef_specs=} {buffer_specs=}")
             if synthdef_specs or buffer_specs:
                 await context.sync()
             create_specs(context=context, specs=bus_specs, group=True)

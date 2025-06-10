@@ -130,10 +130,8 @@ class Session(Component):
         self, context: AsyncServer | None = None, name: str | None = None
     ) -> "Mixer":
         async with self._lock:
-            mixer = self._add_mixer(
-                context=await self._get_or_create_context(context),
-                name=name,
-            )
+            context = await self._get_or_create_context(context)
+            mixer = self._add_mixer(context=context, name=name)
             if self._status == BootStatus.ONLINE:
                 await mixer._reconcile(context=context)
             return mixer
