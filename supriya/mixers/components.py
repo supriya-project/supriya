@@ -84,14 +84,18 @@ class Component(Generic[C]):
         self,
         *,
         component: "Component",
-        context: AsyncServer | None,
+        new_context: AsyncServer | None,
         create_spec_buckets: ContextSpecBuckets,
         destroy_spec_buckets: ContextSpecBuckets,
-        is_root: bool,
         mutate_spec_buckets: ContextSpecBuckets,
+        rooted: bool,
     ) -> None:
+        # old_context = component._context
         old_specs = {spec.address: spec for spec in component._specs}
-        component._specs = component._resolve_specs(context=context)
+        component._specs = component._resolve_specs(
+            context=new_context,
+        )
+        component._context = new_context
         new_specs = {spec.address: spec for spec in component._specs}
         for address, old_spec in old_specs.items():
             if not old_spec.context:
@@ -211,27 +215,43 @@ class Component(Generic[C]):
             context=context, session=self.session
         )
         # spec buckets
-        create_spec_buckets: ContextSpecBuckets = {ctx: {} for ctx in new_context_artifacts}
-        mutate_spec_buckets: ContextSpecBuckets = {ctx: {} for ctx in new_context_artifacts}
-        destroy_spec_buckets: ContextSpecBuckets = {ctx: {} for ctx in new_context_artifacts}
+        create_spec_buckets: ContextSpecBuckets = {
+            ctx: {} for ctx in new_context_artifacts
+        }
+        mutate_spec_buckets: ContextSpecBuckets = {
+            ctx: {} for ctx in new_context_artifacts
+        }
+        destroy_spec_buckets: ContextSpecBuckets = {
+            ctx: {} for ctx in new_context_artifacts
+        }
         # iterate components depth-first
         # include related components (dependencies?) e.g. sends / receives / inputs / outputs
         #    anything that introduces cycles into the component digraph
-        for component in list(self._walk_related()):
+        visited_components: set[Component] = set()
+        related_components: list[Component] = []
+        for component in self._walk():
+            related_components.extend(component._reconcile_dependents())
             self._gather_component_specs(
                 component=component,
-                context=context,
+                new_context=context,
                 create_spec_buckets=create_spec_buckets,
                 destroy_spec_buckets=destroy_spec_buckets,
                 mutate_spec_buckets=mutate_spec_buckets,
-                # TODO: We need to know where subtree roots are for efficient deletion
-                is_root=(component is self) or self not in list(component._iterate_parentage()),
-                # And we need to know what related components need to be touched
-                # e.g. for either deletion or for nulling their inputs/outputs
-                # Also, what's the right way to implement this???
-                # new_context=context, old_context=component._context
-                # .... because we don't want to change out-of-tree component contexts
+                rooted=component is self,
             )
+            visited_components.add(component)
+        for component in related_components:
+            if component in visited_components:
+                continue
+            self._gather_component_specs(
+                component=component,
+                new_context=context,
+                create_spec_buckets=create_spec_buckets,
+                destroy_spec_buckets=destroy_spec_buckets,
+                mutate_spec_buckets=mutate_spec_buckets,
+                rooted=True,
+            )
+            visited_components.add(component)
         # process specs
         await self._process_create_specs(
             create_spec_buckets, old_context_artifacts, new_context_artifacts
