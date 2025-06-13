@@ -1,8 +1,6 @@
 import math
 from typing import Sequence
 
-from uqbar.objects import get_repr
-
 from .. import utils
 from ..enums import DoneAction, EnvelopeShape
 from .core import Parameter, UGen, UGenOperable, UGenVector, param, ugen
@@ -46,9 +44,19 @@ class Envelope:
         self._release_node = release_node
         self._loop_node = loop_node
         self._offset = offset
-        self._initial_amplitude = amplitudes[0]
-        self._amplitudes: tuple[UGenOperable | float, ...] = tuple(amplitudes[1:])
-        self._durations: tuple[UGenOperable | float, ...] = tuple(durations)
+        self._initial_amplitude: UGenOperable | float = (
+            float(amplitudes[0])
+            if not isinstance(amplitudes[0], UGenOperable)
+            else amplitudes[0]
+        )
+        self._amplitudes: tuple[UGenOperable | float, ...] = tuple(
+            float(amplitude) if not isinstance(amplitude, UGenOperable) else amplitude
+            for amplitude in amplitudes[1:]
+        )
+        self._durations: tuple[UGenOperable | float, ...] = tuple(
+            float(duration) if not isinstance(duration, UGenOperable) else duration
+            for duration in durations
+        )
         curves_: list[EnvelopeShape | UGenOperable | float] = []
         for x in curves:
             if isinstance(x, (EnvelopeShape, UGenOperable)):
@@ -61,9 +69,6 @@ class Envelope:
         self._envelope_segments = tuple(
             utils.zip_cycled(self._amplitudes, self._durations, self._curves)
         )
-
-    def __repr__(self) -> str:
-        return get_repr(self)
 
     @classmethod
     def adsr(
@@ -111,21 +116,16 @@ class Envelope:
             raise ValueError(start_amplitude)
         if time < start_time:
             return start_amplitude
-        for i in range(len(self._envelope_segments)):
-            duration = self._durations[i]
-            if not isinstance(duration, float):
-                raise ValueError
-            stop_time = start_time + duration
-            stop_amplitude = self._amplitudes[i]
+        for stop_amplitude, duration, curve in self._envelope_segments:
             if not isinstance(stop_amplitude, float):
                 raise ValueError(stop_amplitude)
+            if not isinstance(duration, float):
+                raise ValueError
+            if not isinstance(curve, (EnvelopeShape, float)):
+                raise ValueError(curve)
+            stop_time = start_time + duration
             if time < stop_time:
                 position = (time - start_time) / duration
-                curve = self._curves[i]
-                if not isinstance(curve, float):
-                    raise ValueError(curve)
-                if not isinstance(curve, (EnvelopeShape, float)):
-                    raise ValueError(curve)
                 if isinstance(curve, float):
                     if abs(curve) < 0.0001:
                         return (
