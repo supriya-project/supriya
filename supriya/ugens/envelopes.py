@@ -284,6 +284,26 @@ class Envelope:
         return UGenVector(*result)
 
     def to_array(self, length: int = 1024) -> list[float]:
+        """
+        Convert envelope to a list of floats.
+
+        ::
+
+            >>> from supriya.ugens import Envelope
+
+        ::
+
+            >>> triangle = Envelope.triangle()
+            >>> [round(x, 3) for x in triangle.to_array(length=9)]
+            [0.0, 0.25, 0.5, 0.75, 1.0, 0.75, 0.5, 0.25, 0.0]
+
+        ::
+
+            >>> adsr = Envelope.adsr()
+            >>> [round(x, 3) for x in adsr.to_array(length=9)]
+            [0.0, 0.556, 0.466, 0.237, 0.119, 0.057, 0.025, 0.009, 0.0]
+
+        """
         if length < 1:
             raise ValueError(length)
         length = max(length, len(self._amplitudes))
