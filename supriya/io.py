@@ -84,7 +84,7 @@ class Player:
 class Plotter:
     ### INITIALIZER ###
 
-    def __init__(self, plottable, **kwargs):
+    def __init__(self, plottable: SupportsPlot, **kwargs):
         self.plottable = plottable
         self.plot_kwargs = kwargs
 

@@ -54,7 +54,7 @@ class SupportsOsc(Protocol):
 
 @runtime_checkable
 class SupportsPlot(Protocol):
-    def __plot__(self) -> "numpy.ndarray":
+    def __plot__(self) -> tuple["numpy.ndarray", float]:
         pass
 
 
