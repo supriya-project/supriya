@@ -26,6 +26,7 @@ events
    :show-inheritance:
 
    .. automethod:: expand
+   .. automethod:: merge
    .. automethod:: perform
 
 .. autoclass:: GroupAllocateEvent
@@ -73,3 +74,5 @@ events
    :show-inheritance:
 
    .. automethod:: perform
+
+.. autoexception:: PatternWarning

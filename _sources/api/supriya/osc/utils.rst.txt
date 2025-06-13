@@ -1,0 +1,10 @@
+.. _supriya--osc--utils:
+
+utils
+=====
+
+.. automodule:: supriya.osc.utils
+
+.. currentmodule:: supriya.osc.utils
+
+.. autofunction:: format_messages

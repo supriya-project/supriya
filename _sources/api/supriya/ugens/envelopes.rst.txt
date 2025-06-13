@@ -28,13 +28,16 @@ envelopes
 .. autoclass:: Envelope
    :show-inheritance:
 
+   .. automethod:: __plot__
    .. automethod:: adsr
    .. automethod:: asr
+   .. automethod:: at
    .. automethod:: from_segments
    .. automethod:: linen
    .. automethod:: percussive
    .. automethod:: serialize
    .. automethod:: serialize_interpolated
+   .. automethod:: to_array
    .. automethod:: triangle
    .. autoproperty:: amplitudes
    .. autoproperty:: curves
