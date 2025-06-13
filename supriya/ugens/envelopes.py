@@ -1,3 +1,4 @@
+import math
 from typing import Sequence
 
 from uqbar.objects import get_repr
@@ -101,6 +102,86 @@ class Envelope:
             release_node=release_node,
         )
 
+    def at(self, time: float) -> float:
+        PI = math.pi
+        PI2 = PI / 2.0
+        start_time = 0.0
+        start_amplitude = self._initial_amplitude
+        if not isinstance(start_amplitude, float):
+            raise ValueError(start_amplitude)
+        if time < start_time:
+            return start_amplitude
+        for i in range(len(self._envelope_segments)):
+            duration = self._durations[i]
+            if not isinstance(duration, float):
+                raise ValueError
+            stop_time = start_time + duration
+            stop_amplitude = self._amplitudes[i]
+            if not isinstance(stop_amplitude, float):
+                raise ValueError(stop_amplitude)
+            if time < stop_time:
+                position = (time - start_time) / duration
+                curve = self._curves[i]
+                if not isinstance(curve, float):
+                    raise ValueError(curve)
+                if not isinstance(curve, (EnvelopeShape, float)):
+                    raise ValueError(curve)
+                if isinstance(curve, float):
+                    if abs(curve) < 0.0001:
+                        return (
+                            position * (stop_amplitude - start_amplitude)
+                            + start_amplitude
+                        )
+                    denominator = 1.0 - math.exp(curve)
+                    numerator = 1.0 - math.exp(position * curve)
+                    return start_amplitude + (stop_amplitude - start_amplitude) * (
+                        numerator / denominator
+                    )
+                elif curve is EnvelopeShape.STEP:
+                    return stop_amplitude
+                elif curve is EnvelopeShape.HOLD:
+                    return start_amplitude
+                elif curve is EnvelopeShape.LINEAR:
+                    return (
+                        position * (stop_amplitude - start_amplitude) + start_amplitude
+                    )
+                elif curve is EnvelopeShape.EXPONENTIAL:
+                    return start_amplitude * math.pow(
+                        stop_amplitude / start_amplitude, position
+                    )
+                elif curve is EnvelopeShape.SINE:
+                    return start_amplitude + (stop_amplitude - start_amplitude) * (
+                        -math.cos(PI * position) * 0.5 + 0.5
+                    )
+                elif curve is EnvelopeShape.WELCH:
+                    if start_amplitude < stop_amplitude:
+                        return start_amplitude + (
+                            stop_amplitude - start_amplitude
+                        ) * math.sin(PI2 * position)
+                    return stop_amplitude - (
+                        stop_amplitude - start_amplitude
+                    ) * math.sin(PI2 - PI2 * position)
+                elif curve is EnvelopeShape.SQUARED:
+                    start_amplitude_sqrt = math.sqrt(start_amplitude)
+                    stop_amplitude_sqrt = math.sqrt(stop_amplitude)
+                    amplitude_sqrt = (
+                        position * (stop_amplitude_sqrt - start_amplitude_sqrt)
+                        + start_amplitude_sqrt
+                    )
+                    return amplitude_sqrt * amplitude_sqrt
+                elif curve is EnvelopeShape.CUBED:
+                    start_amplitude_cbrt = pow(start_amplitude, 0.3333333)
+                    stop_amplitude_cbrt = pow(stop_amplitude, 0.3333333)
+                    cbrt = (
+                        position * (stop_amplitude_cbrt - start_amplitude_cbrt)
+                        + start_amplitude_cbrt
+                    )
+                    return cbrt * cbrt * cbrt
+                break
+            start_time = stop_time
+            start_amplitude = stop_amplitude
+        return start_amplitude
+
     @classmethod
     def from_segments(
         cls,
@@ -179,7 +260,7 @@ class Envelope:
                 shape = int(curve)
                 curve = 0.0
             else:
-                shape = 5
+                shape = int(EnvelopeShape.CUSTOM)
             result.append(shape)
             result.append(curve)
         return UGenVector(*result)
@@ -201,6 +282,18 @@ class Envelope:
             result.append(curve)
             result.append(amplitude)
         return UGenVector(*result)
+
+    def to_array(self, length: int = 1024) -> list[float]:
+        if length < 1:
+            raise ValueError(length)
+        length = max(length, len(self._amplitudes))
+        if not isinstance(length, int):
+            raise ValueError("Envelope may not include UGenOperables")
+        total_duration = sum(self._durations)
+        if not isinstance(total_duration, float):
+            raise ValueError("Envelope may not include UGenOperables")
+        ratio = total_duration / (length - 1)
+        return [self.at(i * ratio) for i in range(length)]
 
     @classmethod
     def triangle(cls, duration=1.0, amplitude=1.0) -> "Envelope":
