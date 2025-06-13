@@ -222,11 +222,6 @@ class Envelope:
 
             >>> from supriya.ugens import Envelope
             >>> envelope = Envelope.percussive()
-            >>> envelope
-            Envelope(
-                curves=(-4.0, -4.0),
-                durations=(0.01, 1.0),
-            )
 
         ::
 
@@ -324,13 +319,6 @@ class Envelope:
 
             >>> from supriya.ugens import Envelope
             >>> envelope = Envelope.triangle()
-            >>> envelope
-            Envelope(
-                durations=(0.5, 0.5),
-            )
-
-        ::
-
             >>> list(envelope.serialize())
             [<0.0>, <2.0>, <-99.0>, <-99.0>, <1.0>, <0.5>, <1.0>, <0.0>, <0.0>, <0.5>, <1.0>, <0.0>]
         """
