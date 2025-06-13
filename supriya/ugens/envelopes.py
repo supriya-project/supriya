@@ -1,6 +1,5 @@
+import math
 from typing import Sequence
-
-from uqbar.objects import get_repr
 
 from .. import utils
 from ..enums import DoneAction, EnvelopeShape
@@ -45,9 +44,19 @@ class Envelope:
         self._release_node = release_node
         self._loop_node = loop_node
         self._offset = offset
-        self._initial_amplitude = amplitudes[0]
-        self._amplitudes: tuple[UGenOperable | float, ...] = tuple(amplitudes[1:])
-        self._durations: tuple[UGenOperable | float, ...] = tuple(durations)
+        self._initial_amplitude: UGenOperable | float = (
+            float(amplitudes[0])
+            if not isinstance(amplitudes[0], UGenOperable)
+            else amplitudes[0]
+        )
+        self._amplitudes: tuple[UGenOperable | float, ...] = tuple(
+            float(amplitude) if not isinstance(amplitude, UGenOperable) else amplitude
+            for amplitude in amplitudes[1:]
+        )
+        self._durations: tuple[UGenOperable | float, ...] = tuple(
+            float(duration) if not isinstance(duration, UGenOperable) else duration
+            for duration in durations
+        )
         curves_: list[EnvelopeShape | UGenOperable | float] = []
         for x in curves:
             if isinstance(x, (EnvelopeShape, UGenOperable)):
@@ -60,9 +69,6 @@ class Envelope:
         self._envelope_segments = tuple(
             utils.zip_cycled(self._amplitudes, self._durations, self._curves)
         )
-
-    def __repr__(self) -> str:
-        return get_repr(self)
 
     @classmethod
     def adsr(
@@ -100,6 +106,81 @@ class Envelope:
             curves=curves,
             release_node=release_node,
         )
+
+    def at(self, time: float) -> float:
+        PI = math.pi
+        PI2 = PI / 2.0
+        start_time = 0.0
+        start_amplitude = self._initial_amplitude
+        if not isinstance(start_amplitude, float):
+            raise ValueError(start_amplitude)
+        if time < start_time:
+            return start_amplitude
+        for stop_amplitude, duration, curve in self._envelope_segments:
+            if not isinstance(stop_amplitude, float):
+                raise ValueError(stop_amplitude)
+            if not isinstance(duration, float):
+                raise ValueError
+            if not isinstance(curve, (EnvelopeShape, float)):
+                raise ValueError(curve)
+            stop_time = start_time + duration
+            if time < stop_time:
+                position = (time - start_time) / duration
+                if isinstance(curve, float):
+                    if abs(curve) < 0.0001:
+                        return (
+                            position * (stop_amplitude - start_amplitude)
+                            + start_amplitude
+                        )
+                    denominator = 1.0 - math.exp(curve)
+                    numerator = 1.0 - math.exp(position * curve)
+                    return start_amplitude + (stop_amplitude - start_amplitude) * (
+                        numerator / denominator
+                    )
+                elif curve is EnvelopeShape.STEP:
+                    return stop_amplitude
+                elif curve is EnvelopeShape.HOLD:
+                    return start_amplitude
+                elif curve is EnvelopeShape.LINEAR:
+                    return (
+                        position * (stop_amplitude - start_amplitude) + start_amplitude
+                    )
+                elif curve is EnvelopeShape.EXPONENTIAL:
+                    return start_amplitude * math.pow(
+                        stop_amplitude / start_amplitude, position
+                    )
+                elif curve is EnvelopeShape.SINE:
+                    return start_amplitude + (stop_amplitude - start_amplitude) * (
+                        -math.cos(PI * position) * 0.5 + 0.5
+                    )
+                elif curve is EnvelopeShape.WELCH:
+                    if start_amplitude < stop_amplitude:
+                        return start_amplitude + (
+                            stop_amplitude - start_amplitude
+                        ) * math.sin(PI2 * position)
+                    return stop_amplitude - (
+                        stop_amplitude - start_amplitude
+                    ) * math.sin(PI2 - PI2 * position)
+                elif curve is EnvelopeShape.SQUARED:
+                    start_amplitude_sqrt = math.sqrt(start_amplitude)
+                    stop_amplitude_sqrt = math.sqrt(stop_amplitude)
+                    amplitude_sqrt = (
+                        position * (stop_amplitude_sqrt - start_amplitude_sqrt)
+                        + start_amplitude_sqrt
+                    )
+                    return amplitude_sqrt * amplitude_sqrt
+                elif curve is EnvelopeShape.CUBED:
+                    start_amplitude_cbrt = pow(start_amplitude, 0.3333333)
+                    stop_amplitude_cbrt = pow(stop_amplitude, 0.3333333)
+                    cbrt = (
+                        position * (stop_amplitude_cbrt - start_amplitude_cbrt)
+                        + start_amplitude_cbrt
+                    )
+                    return cbrt * cbrt * cbrt
+                break
+            start_time = stop_time
+            start_amplitude = stop_amplitude
+        return start_amplitude
 
     @classmethod
     def from_segments(
@@ -141,11 +222,6 @@ class Envelope:
 
             >>> from supriya.ugens import Envelope
             >>> envelope = Envelope.percussive()
-            >>> envelope
-            Envelope(
-                curves=(-4.0, -4.0),
-                durations=(0.01, 1.0),
-            )
 
         ::
 
@@ -179,7 +255,7 @@ class Envelope:
                 shape = int(curve)
                 curve = 0.0
             else:
-                shape = 5
+                shape = int(EnvelopeShape.CUSTOM)
             result.append(shape)
             result.append(curve)
         return UGenVector(*result)
@@ -202,6 +278,38 @@ class Envelope:
             result.append(amplitude)
         return UGenVector(*result)
 
+    def to_array(self, length: int = 1024) -> list[float]:
+        """
+        Convert envelope to a list of floats.
+
+        ::
+
+            >>> from supriya.ugens import Envelope
+
+        ::
+
+            >>> triangle = Envelope.triangle()
+            >>> [round(x, 3) for x in triangle.to_array(length=9)]
+            [0.0, 0.25, 0.5, 0.75, 1.0, 0.75, 0.5, 0.25, 0.0]
+
+        ::
+
+            >>> adsr = Envelope.adsr()
+            >>> [round(x, 3) for x in adsr.to_array(length=9)]
+            [0.0, 0.556, 0.466, 0.237, 0.119, 0.057, 0.025, 0.009, 0.0]
+
+        """
+        if length < 1:
+            raise ValueError(length)
+        length = max(length, len(self._amplitudes))
+        if not isinstance(length, int):
+            raise ValueError("Envelope may not include UGenOperables")
+        total_duration = sum(self._durations)
+        if not isinstance(total_duration, float):
+            raise ValueError("Envelope may not include UGenOperables")
+        ratio = total_duration / (length - 1)
+        return [self.at(i * ratio) for i in range(length)]
+
     @classmethod
     def triangle(cls, duration=1.0, amplitude=1.0) -> "Envelope":
         """
@@ -211,13 +319,6 @@ class Envelope:
 
             >>> from supriya.ugens import Envelope
             >>> envelope = Envelope.triangle()
-            >>> envelope
-            Envelope(
-                durations=(0.5, 0.5),
-            )
-
-        ::
-
             >>> list(envelope.serialize())
             [<0.0>, <2.0>, <-99.0>, <-99.0>, <1.0>, <0.5>, <1.0>, <0.0>, <0.0>, <0.5>, <1.0>, <0.0>]
         """
