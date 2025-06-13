@@ -196,13 +196,16 @@ class Component(Generic[C]):
         self,
         spec_buckets: ContextSpecBuckets,
         old_context_artifacts: dict[AsyncServer, Artifacts],
+        roots: list["Component"],
     ) -> None:
         # destroy: iterate destroy specs in order, special handling for "root" destroys (how?)
         for context, specs in spec_buckets.items():
             for old_spec, _ in specs.values():
                 assert old_spec
                 old_spec.destroy(
-                    context=context, old_artifacts=old_context_artifacts[context]
+                    context=context,
+                    old_artifacts=old_context_artifacts[context],
+                    rooted=old_spec.component in roots,
                 )
 
     async def _reconcile(
@@ -229,6 +232,7 @@ class Component(Generic[C]):
         #    anything that introduces cycles into the component digraph
         visited_components: set[Component] = set()
         related_components: list[Component] = []
+        roots: list[Component] = [self]
         for component in self._walk():
             related_components.extend(component._reconcile_dependents())
             self._gather_component_specs(
@@ -240,6 +244,7 @@ class Component(Generic[C]):
                 rooted=component is self,
             )
             visited_components.add(component)
+        # will need to make this more comprehensive eventually
         for component in related_components:
             if component in visited_components:
                 continue
@@ -251,6 +256,7 @@ class Component(Generic[C]):
                 mutate_spec_buckets=mutate_spec_buckets,
                 rooted=True,
             )
+            roots.append(component)
             visited_components.add(component)
         # process specs
         await self._process_create_specs(
@@ -259,7 +265,7 @@ class Component(Generic[C]):
         self._process_mutate_specs(
             mutate_spec_buckets, old_context_artifacts, new_context_artifacts
         )
-        self._process_destroy_specs(destroy_spec_buckets, old_context_artifacts)
+        self._process_destroy_specs(destroy_spec_buckets, old_context_artifacts, roots)
         # merge artifacts
         for context in set(old_context_artifacts) | set(new_context_artifacts):
             old_context_artifacts[context].merge(new_context_artifacts[context])
