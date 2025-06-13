@@ -1,9 +1,12 @@
 import math
-from typing import Sequence
+from typing import TYPE_CHECKING, Sequence
 
 from .. import utils
 from ..enums import DoneAction, EnvelopeShape
 from .core import Parameter, UGen, UGenOperable, UGenVector, param, ugen
+
+if TYPE_CHECKING:
+    import numpy
 
 
 class Envelope:
@@ -69,6 +72,15 @@ class Envelope:
         self._envelope_segments = tuple(
             utils.zip_cycled(self._amplitudes, self._durations, self._curves)
         )
+
+    def __plot__(self) -> tuple["numpy.ndarray", float]:
+        import numpy
+
+        duration = sum(self.durations)
+        if not isinstance(duration, float):
+            raise ValueError(duration)
+        array = self.to_array(length=int(44100 * duration))
+        return numpy.array([array, [0.0] * len(array)]), 44100.0
 
     @classmethod
     def adsr(
