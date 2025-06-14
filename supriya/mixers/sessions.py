@@ -8,7 +8,6 @@ from ..contexts import AsyncServer
 from ..enums import BootStatus
 from ..osc import find_free_port
 from ..scsynth import Options
-from ..ugens import SynthDef
 from .components import Component
 from .constants import Address, ChannelCount
 from .specs import Artifacts
@@ -52,7 +51,6 @@ class Session(Component):
         self._next_id = 1
         self._quit_future: asyncio.Future | None = None
         self._status = BootStatus.OFFLINE
-        self._synthdefs: dict[AsyncServer, set[SynthDef]] = {}
 
     def __getitem__(self, key: str) -> "Component":
         if not isinstance(key, str):
@@ -90,7 +88,6 @@ class Session(Component):
         context = AsyncServer(options)
         self._contexts[context] = []
         self._context_artifacts[context] = Artifacts()
-        self._synthdefs[context] = set()
         return context
 
     def _add_mixer(self, context: AsyncServer, name: str | None) -> "Mixer":
@@ -139,8 +136,6 @@ class Session(Component):
     async def boot(self) -> None:
         async with self._lock:
             # reset state
-            for set_ in self._synthdefs.values():
-                set_.clear()
             # guard against concurrent boot / quits
             if self._status == BootStatus.OFFLINE:
                 self._quit_future = None
