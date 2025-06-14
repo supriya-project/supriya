@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from ..contexts import AsyncServer, Buffer, BusGroup, Node
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..ugens import SynthDef
-from .constants import Address, Names
+from .constants import Address, Names, Reconciliation
 
 if TYPE_CHECKING:
     from .components import Component
@@ -483,3 +483,12 @@ class SynthSpec(NodeSpec):
         elif self.synthdef != old_spec.synthdef:
             return True
         return False
+
+
+@dataclasses.dataclass
+class SpecChange:
+    address: Address
+    context: AsyncServer
+    new_spec: Spec | None
+    old_spec: Spec | None
+    reconciliation: Reconciliation
