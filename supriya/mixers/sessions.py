@@ -19,6 +19,9 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
+# TODO: Session shouldn't be a Component because that assumes something
+#       allocatable within a single context. We need a lower-level component
+#       instead.
 class Session(Component):
     """
     Top-level object.

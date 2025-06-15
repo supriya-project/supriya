@@ -1,5 +1,6 @@
 import dataclasses
-from collections import ChainMap
+import itertools
+from collections import ChainMap, deque
 from typing import TYPE_CHECKING, Optional
 
 from ..contexts import AsyncServer, Buffer, BusGroup, Node
@@ -488,7 +489,210 @@ class SynthSpec(NodeSpec):
 @dataclasses.dataclass
 class SpecChange:
     address: Address
+    component: "Component"
     context: AsyncServer
-    new_spec: Spec | None
-    old_spec: Spec | None
     reconciliation: Reconciliation
+    new_spec: Spec | None = None
+    old_spec: Spec | None = None
+
+    @classmethod
+    def gather(
+        cls, *, old_specs: dict[Address, Spec], new_specs: dict[Address, Spec]
+    ) -> list["SpecChange"]:
+        spec_changes: list[SpecChange] = []
+        for address, old_spec in old_specs.items():
+            if not old_spec.context:
+                raise RuntimeError
+            if new_spec := new_specs.pop(address, None):
+                if not new_spec.context:
+                    raise RuntimeError
+                if new_spec == old_spec:
+                    continue
+                if old_spec.context != new_spec.context:
+                    spec_changes.extend(
+                        [
+                            SpecChange(
+                                address=address,
+                                component=new_spec.component,
+                                context=new_spec.context,
+                                new_spec=new_spec,
+                                reconciliation=Reconciliation.CREATE,
+                            ),
+                            SpecChange(
+                                address=address,
+                                component=new_spec.component,
+                                context=old_spec.context,
+                                old_spec=old_spec,
+                                reconciliation=Reconciliation.DESTROY,
+                            ),
+                        ]
+                    )
+                elif new_spec.requires_recreation(old_spec):
+                    # TODO: Revisit all Spec.requires_recreation() impls
+                    #       and remove context comparisons
+                    spec_changes.append(
+                        SpecChange(
+                            address=address,
+                            component=new_spec.component,
+                            context=new_spec.context,
+                            new_spec=new_spec,
+                            old_spec=old_spec,
+                            reconciliation=Reconciliation.RECREATE,
+                        )
+                    )
+                else:
+                    spec_changes.append(
+                        SpecChange(
+                            address=address,
+                            component=new_spec.component,
+                            context=new_spec.context,
+                            new_spec=new_spec,
+                            old_spec=old_spec,
+                            reconciliation=Reconciliation.MUTATE,
+                        )
+                    )
+            else:
+                spec_changes.append(
+                    SpecChange(
+                        address=address,
+                        component=old_spec.component,
+                        context=old_spec.context,
+                        old_spec=old_spec,
+                        reconciliation=Reconciliation.DESTROY,
+                    )
+                )
+        for address, new_spec in new_specs.items():
+            if not new_spec.context:
+                raise RuntimeError
+            spec_changes.append(
+                SpecChange(
+                    address=address,
+                    component=new_spec.component,
+                    context=new_spec.context,
+                    new_spec=new_spec,
+                    reconciliation=Reconciliation.CREATE,
+                )
+            )
+        return spec_changes
+
+    @classmethod
+    def sort(
+        cls, *, spec_changes: list["SpecChange"]
+    ) -> dict[AsyncServer, list["SpecChangeGroup"]]:
+        def _sort_create_spec_changes(
+            spec_changes: dict[Address, SpecChange],
+        ) -> list[SpecChangeGroup]:
+            spec_change_groups: list[SpecChangeGroup] = []
+            buffers: dict[Component, list[SpecChange]] = {}
+            busses: dict[Component, list[SpecChange]] = {}
+            synthdefs: list[SpecChange] = []
+            ordered_nodes: dict[Address, SpecChange] = {}
+            unordered_nodes: deque[tuple[SpecChange, set[Address]]] = deque()
+            for spec_change in spec_changes.values():
+                if not (spec := spec_change.new_spec):
+                    raise ValueError
+                if isinstance(spec, BufferSpec):
+                    buffers.setdefault(spec.component, []).append(spec_change)
+                elif isinstance(spec, BusSpec):
+                    busses.setdefault(spec.component, []).append(spec_change)
+                elif isinstance(spec, SynthDefSpec):
+                    synthdefs.append(spec_change)
+                elif isinstance(spec, NodeSpec):
+                    dependencies: set[Address] = set(
+                        [
+                            address
+                            for address in spec.requires()
+                            if f":{Names.NODES}:" in address and address in spec_changes
+                        ]
+                    )
+                    unordered_nodes.append((spec_change, dependencies))
+            while unordered_nodes:
+                spec_change, dependencies = unordered_nodes.popleft()
+                if all(dependency in ordered_nodes for dependency in dependencies):
+                    ordered_nodes[spec_change.address] = spec_change
+                else:
+                    unordered_nodes.append((spec_change, dependencies))
+            if synthdefs:
+                spec_change_groups.append(
+                    SpecChangeGroup(
+                        reconciliation=Reconciliation.CREATE,
+                        spec_changes=synthdefs,
+                        sync=True,
+                    ),
+                )
+            for group in buffers.values():
+                spec_change_groups.append(
+                    SpecChangeGroup(
+                        reconciliation=Reconciliation.CREATE,
+                        spec_changes=list(group),
+                        sync=True,
+                    )
+                )
+            for group in busses.values():
+                spec_change_groups.append(
+                    SpecChangeGroup(
+                        reconciliation=Reconciliation.CREATE,
+                        spec_changes=list(group),
+                        sync=False,
+                    )
+                )
+            for _, iterator in itertools.groupby(
+                ordered_nodes.values(), lambda x: x.component
+            ):
+                spec_change_groups.append(
+                    SpecChangeGroup(
+                        reconciliation=Reconciliation.CREATE,
+                        spec_changes=list(iterator),
+                        sync=False,
+                    )
+                )
+            return spec_change_groups
+
+        sorted_spec_changes: dict[AsyncServer, list[SpecChangeGroup]] = {}
+        unsorted_spec_changes: dict[AsyncServer, list[SpecChange]] = {}
+        for spec_change in spec_changes:
+            unsorted_spec_changes.setdefault(spec_change.context, []).append(
+                spec_change
+            )
+        for context, spec_changes_ in unsorted_spec_changes.items():
+            creations: dict[Address, SpecChange] = {}
+            mutations: list[SpecChange] = []
+            destructions: list[SpecChange] = []
+            for spec_change in spec_changes_:
+                if spec_change.reconciliation == Reconciliation.CREATE:
+                    creations[spec_change.address] = spec_change
+                elif spec_change.reconciliation == Reconciliation.RECREATE:
+                    creations[spec_change.address] = spec_change
+                    destructions.append(spec_change)
+                elif spec_change.reconciliation == Reconciliation.MUTATE:
+                    mutations.append(spec_change)
+                elif spec_change.reconciliation == Reconciliation.DESTROY:
+                    destructions.append(spec_change)
+            # sort creations
+            sorted_spec_changes[context] = _sort_create_spec_changes(creations)
+            # sort mutations
+            for _, group in itertools.groupby(mutations, lambda x: x.component):
+                sorted_spec_changes[context].append(
+                    SpecChangeGroup(
+                        reconciliation=Reconciliation.MUTATE,
+                        spec_changes=list(group),
+                        sync=False,
+                    )
+                )
+            # sort destructions
+            for _, group in itertools.groupby(destructions, lambda x: x.component):
+                sorted_spec_changes[context].append(
+                    SpecChangeGroup(
+                        reconciliation=Reconciliation.DESTROY,
+                        spec_changes=list(group),
+                        sync=False,
+                    )
+                )
+        return sorted_spec_changes
+
+
+@dataclasses.dataclass
+class SpecChangeGroup:
+    reconciliation: Reconciliation
+    spec_changes: list[SpecChange]
+    sync: bool
