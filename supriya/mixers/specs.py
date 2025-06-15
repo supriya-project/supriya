@@ -1,3 +1,4 @@
+import contextlib
 import dataclasses
 import itertools
 from collections import ChainMap, deque
@@ -577,7 +578,7 @@ class SpecChange:
 
     @classmethod
     def sort(
-        cls, *, spec_changes: list["SpecChange"]
+        cls, spec_changes: list["SpecChange"]
     ) -> dict[AsyncServer, list["SpecChangeGroup"]]:
         def _sort_create_spec_changes(
             spec_changes: dict[Address, SpecChange],
@@ -615,6 +616,7 @@ class SpecChange:
             if synthdefs:
                 spec_change_groups.append(
                     SpecChangeGroup(
+                        group=False,
                         reconciliation=Reconciliation.CREATE,
                         spec_changes=synthdefs,
                         sync=True,
@@ -623,6 +625,7 @@ class SpecChange:
             for group in buffers.values():
                 spec_change_groups.append(
                     SpecChangeGroup(
+                        group=True,
                         reconciliation=Reconciliation.CREATE,
                         spec_changes=list(group),
                         sync=True,
@@ -631,6 +634,7 @@ class SpecChange:
             for group in busses.values():
                 spec_change_groups.append(
                     SpecChangeGroup(
+                        group=True,
                         reconciliation=Reconciliation.CREATE,
                         spec_changes=list(group),
                         sync=False,
@@ -641,6 +645,7 @@ class SpecChange:
             ):
                 spec_change_groups.append(
                     SpecChangeGroup(
+                        group=True,
                         reconciliation=Reconciliation.CREATE,
                         spec_changes=list(iterator),
                         sync=False,
@@ -674,6 +679,7 @@ class SpecChange:
             for _, group in itertools.groupby(mutations, lambda x: x.component):
                 sorted_spec_changes[context].append(
                     SpecChangeGroup(
+                        group=True,
                         reconciliation=Reconciliation.MUTATE,
                         spec_changes=list(group),
                         sync=False,
@@ -683,6 +689,7 @@ class SpecChange:
             for _, group in itertools.groupby(destructions, lambda x: x.component):
                 sorted_spec_changes[context].append(
                     SpecChangeGroup(
+                        group=True,
                         reconciliation=Reconciliation.DESTROY,
                         spec_changes=list(group),
                         sync=False,
@@ -695,4 +702,19 @@ class SpecChange:
 class SpecChangeGroup:
     reconciliation: Reconciliation
     spec_changes: list[SpecChange]
-    sync: bool
+    group: bool = True
+    sync: bool = False
+
+    def apply(
+        self,
+        *,
+        context: AsyncServer,
+        old_artifacts: Artifacts,
+        new_artifacts: Artifacts,
+    ) -> None:
+        with contextlib.ExitStack() as exit_stack:
+            if self.group:
+                exit_stack.enter_context(context.at())
+            if self.reconciliation is Reconciliation.CREATE:
+                for spec_change in self.spec_changes:
+                    pass
