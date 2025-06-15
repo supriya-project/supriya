@@ -21,7 +21,15 @@ from ..enums import BootStatus
 from ..typing import DEFAULT, Default
 from ..utils import iterate_nwise
 from .constants import IO, Address, ChannelCount, Names
-from .specs import Artifacts, BufferSpec, BusSpec, NodeSpec, Spec, SynthDefSpec
+from .specs import (
+    Artifacts,
+    BufferSpec,
+    BusSpec,
+    NodeSpec,
+    Spec,
+    SpecChange,
+    SynthDefSpec,
+)
 
 C = TypeVar("C", bound="Component")
 
@@ -119,6 +127,18 @@ class Component(Generic[C]):
             if not new_spec.context:
                 raise RuntimeError
             create_spec_buckets[new_spec.context][address] = (None, new_spec)
+
+    def _gather_spec_changes(
+        self, *, new_context: AsyncServer | None
+    ) -> list[SpecChange]:
+        spec_changes: list[SpecChange] = []
+        old_specs = {spec.address: spec for spec in self._specs}
+        self._specs = self._resolve_specs(
+            context=new_context,
+        )
+        self._context = new_context
+        new_specs = {spec.address: spec for spec in self._specs}
+        return SpecChange.gather(old_specs=old_specs, new_specs=new_specs)
 
     def _iterate_parentage(self) -> Iterator["Component"]:
         component = self
@@ -274,6 +294,26 @@ class Component(Generic[C]):
         if deleting:
             self._delete()
 
+    def _reconcile_2(
+        self, *, new_context: AsyncServer | None, deleting: bool = False
+    ) -> list["Component"]:
+        if self.session is None:
+            raise ValueError
+        old_context_artifacts, new_context_artifacts = self._resolve_context_artifacts(
+            context=new_context, session=self.session
+        )
+        spec_changes: list[SpecChange] = []
+        visited_components: set[Component] = set()
+        for component in self._walk():
+            # need to patch up dependents
+            # need to know if we need to be deleted? how?
+
+            # gather spec changes
+            # add component to visited components to prevent cycles
+            spec_changes.extend(component._gather_spec_changes(new_context=new_context))
+            visited_components.add(component)
+        return []
+
     def _reconcile_dependents(self) -> list["Component"]:
         return []
 
@@ -355,22 +395,6 @@ class Component(Generic[C]):
             yield self
         for child in self.children:
             yield from child._walk(component_class_)
-
-    def _walk_related(self) -> Generator["Component", None, None]:
-        """
-        Walk subtree and reconcile related components at the same time.
-        """
-        visited_components: set[Component] = set()
-        related_components: list[Component] = []
-        for component in self._walk():
-            related_components.extend(component._reconcile_dependents())
-            yield component
-            visited_components.add(component)
-        for component in related_components:
-            if component in visited_components:
-                continue
-            yield component
-            visited_components.add(component)
 
     def dump_components(self) -> str:
         return "\n".join(self._dump_components())
