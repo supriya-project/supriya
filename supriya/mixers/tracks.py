@@ -1,7 +1,7 @@
 from typing import Optional, Union
 
 from ..contexts import AsyncServer, BusGroup
-from ..enums import AddAction, CalculationRate
+from ..enums import AddAction, CalculationRate, DoneAction
 from ..typing import DEFAULT, Default
 from .components import (
     C,
@@ -116,6 +116,7 @@ class TrackSend(Component["Track"]):
                 ),
                 component=self,
                 context=context,
+                destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
                 kwargs={
                     "active": Spec.get_address(
                         self.parent, Names.CONTROL_BUSSES, Names.ACTIVE
@@ -308,6 +309,7 @@ class Track(TrackContainer[TrackContainer]):
                 add_action=AddAction.ADD_TO_TAIL,
                 component=self,
                 context=context,
+                destroy_strategy={"gate": 0},
                 name=Names.GROUP,
                 # TODO: Need more advanced logic here for positioning
                 target_node=Spec.get_address(self.parent, Names.NODES, Names.TRACKS),
@@ -332,6 +334,9 @@ class Track(TrackContainer[TrackContainer]):
                 add_action=AddAction.ADD_TO_TAIL,
                 component=self,
                 context=context,
+                destroy_strategy={
+                    "done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+                },
                 kwargs={
                     "active": Spec.get_address(
                         self, Names.CONTROL_BUSSES, Names.ACTIVE

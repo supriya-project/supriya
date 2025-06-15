@@ -87,7 +87,6 @@ class Component(Generic[C]):
         new_context: AsyncServer | None,
         old_context_artifacts: dict[AsyncServer, Artifacts],
     ) -> list[SpecChange]:
-        spec_changes: list[SpecChange] = []
         old_specs = {spec.address: spec for spec in self._specs}
         self._specs = self._resolve_specs(
             context=new_context,
@@ -144,6 +143,7 @@ class Component(Generic[C]):
                     context=context_,
                     old_artifacts=old_context_artifacts[context_],
                     new_artifacts=new_context_artifacts[context_],
+                    roots=[self],
                 )
                 if spec_change_group.sync:
                     await context_.sync()

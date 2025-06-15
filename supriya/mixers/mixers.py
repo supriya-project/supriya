@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Optional
 
 from ..contexts import AsyncServer
-from ..enums import AddAction, CalculationRate
+from ..enums import AddAction, CalculationRate, DoneAction
 from .components import (
     Component,
 )
@@ -105,6 +105,7 @@ class Mixer(
                 add_action=AddAction.ADD_TO_HEAD,
                 component=self,
                 context=context,
+                destroy_strategy={"gate": 0},
                 name=Names.GROUP,
                 target_node=None,
             ),
@@ -126,6 +127,9 @@ class Mixer(
                 add_action=AddAction.ADD_TO_TAIL,
                 component=self,
                 context=context,
+                destroy_strategy={
+                    "done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+                },
                 kwargs={
                     "gain": Spec.get_address(self, Names.CONTROL_BUSSES, Names.GAIN),
                     "out": Spec.get_address(self, Names.AUDIO_BUSSES, Names.MAIN),

@@ -54,6 +54,7 @@ class Spec:
         self,
         *,
         old_artifacts: Artifacts,
+        recreated: bool = False,
         rooted: bool = False,
     ) -> None:
         raise NotImplementedError
@@ -190,7 +191,9 @@ class BufferSpec(Spec):
     ) -> None:
         raise NotImplementedError
 
-    def destroy(self, old_artifacts: Artifacts, rooted: bool = False) -> None:
+    def destroy(
+        self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
+    ) -> None:
         old_artifacts.buffers.pop(self.address).free()
         self.component._artifacts.buffers.pop(self.name)
 
@@ -239,7 +242,9 @@ class BusSpec(Spec):
         else:
             raise ValueError
 
-    def destroy(self, old_artifacts: Artifacts, rooted: bool = False) -> None:
+    def destroy(
+        self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
+    ) -> None:
         if self.calculation_rate == CalculationRate.AUDIO:
             old_artifacts.audio_buses.pop(self.address).free()
             self.component._artifacts.audio_buses.pop(self.name)
@@ -283,7 +288,9 @@ class SynthDefSpec(Spec):
         self.context.add_synthdefs(self.synthdef)
         new_artifacts.synthdefs[self.address] = self.synthdef
 
-    def destroy(self, old_artifacts: Artifacts, rooted: bool = False) -> None:
+    def destroy(
+        self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
+    ) -> None:
         return
 
     def mutate(
@@ -319,6 +326,8 @@ class NodeSpec(Spec):
 
 @dataclasses.dataclass
 class GroupSpec(NodeSpec):
+    destroy_strategy: dict[str, float] | None = None
+
     def create(
         self,
         old_artifacts: Artifacts,
@@ -335,11 +344,13 @@ class GroupSpec(NodeSpec):
         new_artifacts.nodes[self.address] = group
         self.component._artifacts.nodes[self.name] = group
 
-    def destroy(self, old_artifacts: Artifacts, rooted: bool = False) -> None:
-        # Handle actual freeing via synths contained in the group to ensure
-        # fade-outs get applied.
-        old_artifacts.nodes.pop(self.address)
+    def destroy(
+        self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
+    ) -> None:
+        node = old_artifacts.nodes.pop(self.address)
         self.component._artifacts.nodes.pop(self.name)
+        if rooted and self.destroy_strategy:
+            node.set(**self.destroy_strategy)
 
     def mutate(
         self,
@@ -363,8 +374,6 @@ class GroupSpec(NodeSpec):
             )
 
     def requires_recreation(self, old_spec: "Spec") -> bool:
-        if not isinstance(old_spec, GroupSpec):
-            raise ValueError(old_spec)
         return False
 
 
@@ -372,7 +381,7 @@ class GroupSpec(NodeSpec):
 class SynthSpec(NodeSpec):
     kwargs: dict[str, Address | BusGroup | float]
     synthdef: Address
-    destroy_strategy: DoneAction | None = None
+    destroy_strategy: dict[str, float] | None = None
 
     def create(
         self,
@@ -403,11 +412,15 @@ class SynthSpec(NodeSpec):
         new_artifacts.nodes[self.address] = synth
         self.component._artifacts.nodes[self.name] = synth
 
-    def destroy(self, old_artifacts: Artifacts, rooted: bool = False) -> None:
+    def destroy(
+        self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
+    ) -> None:
         synth = old_artifacts.nodes.pop(self.address)
         self.component._artifacts.nodes.pop(self.name)
-        if rooted and self.destroy_strategy:
-            synth.set(gate=0, done_action=self.destroy_strategy)
+        if recreated:
+            synth.set(done_action=DoneAction.FREE_SYNTH, gate=0)
+        elif rooted and self.destroy_strategy:
+            synth.set(**self.destroy_strategy)
 
     def mutate(
         self,
@@ -491,10 +504,15 @@ class SpecChange:
         self,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
+        rooted: bool = False,
     ) -> None:
         if self.old_spec is None:
             raise ValueError
-        self.old_spec.destroy(old_artifacts=old_artifacts)
+        self.old_spec.destroy(
+            old_artifacts=old_artifacts,
+            recreated=self.reconciliation is Reconciliation.RECREATE,
+            rooted=rooted,
+        )
 
     @classmethod
     def gather(
@@ -575,7 +593,7 @@ class SpecChange:
                 in old_context_artifacts[new_spec.context].synthdefs
             ):
                 # SynthDefs are global to the context,
-                # so check that they don't need to be created.
+                # so check that they don't need to be created
                 continue
             spec_changes.append(
                 SpecChange(
@@ -723,6 +741,7 @@ class SpecChangeGroup:
         context: AsyncServer,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
+        roots: list["Component"],
     ) -> None:
         with contextlib.ExitStack() as exit_stack:
             if self.group:
@@ -744,4 +763,5 @@ class SpecChangeGroup:
                     spec_change.destroy(
                         old_artifacts=old_artifacts,
                         new_artifacts=new_artifacts,
+                        rooted=spec_change.component in roots,
                     )
