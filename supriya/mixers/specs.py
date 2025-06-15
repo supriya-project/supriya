@@ -39,13 +39,12 @@ class Artifacts:
 @dataclasses.dataclass
 class Spec:
     component: "Component"
-    context: AsyncServer | None
+    context: AsyncServer
     name: str
 
     def create(
         self,
         *,
-        context: AsyncServer,
         new_artifacts: Artifacts,
         old_artifacts: Artifacts,
     ) -> None:
@@ -54,7 +53,6 @@ class Spec:
     def destroy(
         self,
         *,
-        context: AsyncServer,
         old_artifacts: Artifacts,
         rooted: bool = False,
     ) -> None:
@@ -94,7 +92,6 @@ class Spec:
     def mutate(
         self,
         *,
-        context: AsyncServer,
         new_artifacts: Artifacts,
         old_artifacts: Artifacts,
         old_spec: "Spec",
@@ -152,7 +149,6 @@ class Spec:
         self,
         *,
         address: Address | None,
-        context: AsyncServer,
         new_artifacts: Artifacts,
         old_artifacts: Artifacts,
     ) -> Node:
@@ -163,7 +159,7 @@ class Spec:
             )
         ):
             raise ValueError
-        return target_node or context.default_group
+        return target_node or self.context.default_group
 
     def resolve_synthdef(
         self,
@@ -189,21 +185,17 @@ class BufferSpec(Spec):
 
     def create(
         self,
-        context: AsyncServer,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
     ) -> None:
         raise NotImplementedError
 
-    def destroy(
-        self, context: AsyncServer, old_artifacts: Artifacts, rooted: bool = False
-    ) -> None:
+    def destroy(self, old_artifacts: Artifacts, rooted: bool = False) -> None:
         old_artifacts.buffers.pop(self.address).free()
         self.component._artifacts.buffers.pop(self.name)
 
     def mutate(
         self,
-        context: AsyncServer,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
         old_spec: "Spec",
@@ -226,19 +218,18 @@ class BusSpec(Spec):
 
     def create(
         self,
-        context: AsyncServer,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
     ) -> None:
         if self.calculation_rate == CalculationRate.AUDIO:
-            bus_group = context.add_bus_group(
+            bus_group = self.context.add_bus_group(
                 calculation_rate=self.calculation_rate,
                 count=self.channel_count,
             )
             new_artifacts.audio_buses[self.address] = bus_group
             self.component._artifacts.audio_buses[self.name] = bus_group
         elif self.calculation_rate == CalculationRate.CONTROL:
-            bus_group = context.add_bus_group(
+            bus_group = self.context.add_bus_group(
                 calculation_rate=self.calculation_rate,
                 count=self.channel_count,
             )
@@ -248,9 +239,7 @@ class BusSpec(Spec):
         else:
             raise ValueError
 
-    def destroy(
-        self, context: AsyncServer, old_artifacts: Artifacts, rooted: bool = False
-    ) -> None:
+    def destroy(self, old_artifacts: Artifacts, rooted: bool = False) -> None:
         if self.calculation_rate == CalculationRate.AUDIO:
             old_artifacts.audio_buses.pop(self.address).free()
             self.component._artifacts.audio_buses.pop(self.name)
@@ -260,7 +249,6 @@ class BusSpec(Spec):
 
     def mutate(
         self,
-        context: AsyncServer,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
         old_spec: "Spec",
@@ -287,23 +275,19 @@ class SynthDefSpec(Spec):
 
     def create(
         self,
-        context: AsyncServer,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
     ) -> None:
         if self.address in old_artifacts.synthdefs:
             return
-        context.add_synthdefs(self.synthdef)
+        self.context.add_synthdefs(self.synthdef)
         new_artifacts.synthdefs[self.address] = self.synthdef
 
-    def destroy(
-        self, context: AsyncServer, old_artifacts: Artifacts, rooted: bool = False
-    ) -> None:
+    def destroy(self, old_artifacts: Artifacts, rooted: bool = False) -> None:
         return
 
     def mutate(
         self,
-        context: AsyncServer,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
         old_spec: "Spec",
@@ -337,15 +321,13 @@ class NodeSpec(Spec):
 class GroupSpec(NodeSpec):
     def create(
         self,
-        context: AsyncServer,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
     ) -> None:
-        group = context.add_group(
+        group = self.context.add_group(
             add_action=self.add_action,
             target_node=self.resolve_node(
                 address=self.target_node,
-                context=context,
                 new_artifacts=new_artifacts,
                 old_artifacts=old_artifacts,
             ),
@@ -353,9 +335,7 @@ class GroupSpec(NodeSpec):
         new_artifacts.nodes[self.address] = group
         self.component._artifacts.nodes[self.name] = group
 
-    def destroy(
-        self, context: AsyncServer, old_artifacts: Artifacts, rooted: bool = False
-    ) -> None:
+    def destroy(self, old_artifacts: Artifacts, rooted: bool = False) -> None:
         # Handle actual freeing via synths contained in the group to ensure
         # fade-outs get applied.
         old_artifacts.nodes.pop(self.address)
@@ -363,7 +343,6 @@ class GroupSpec(NodeSpec):
 
     def mutate(
         self,
-        context: AsyncServer,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
         old_spec: "Spec",
@@ -378,7 +357,6 @@ class GroupSpec(NodeSpec):
                 add_action=self.add_action,
                 target_node=self.resolve_node(
                     address=self.target_node,
-                    context=context,
                     new_artifacts=new_artifacts,
                     old_artifacts=old_artifacts,
                 ),
@@ -387,8 +365,6 @@ class GroupSpec(NodeSpec):
     def requires_recreation(self, old_spec: "Spec") -> bool:
         if not isinstance(old_spec, GroupSpec):
             raise ValueError(old_spec)
-        if self.context != old_spec.context:
-            return True
         return False
 
 
@@ -400,7 +376,6 @@ class SynthSpec(NodeSpec):
 
     def create(
         self,
-        context: AsyncServer,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
     ) -> None:
@@ -409,7 +384,7 @@ class SynthSpec(NodeSpec):
             new_artifacts=new_artifacts,
             old_artifacts=old_artifacts,
         )
-        synth = context.add_synth(
+        synth = self.context.add_synth(
             add_action=self.add_action,
             synthdef=self.resolve_synthdef(
                 address=self.synthdef,
@@ -418,7 +393,6 @@ class SynthSpec(NodeSpec):
             ),
             target_node=self.resolve_node(
                 address=self.target_node,
-                context=context,
                 new_artifacts=new_artifacts,
                 old_artifacts=old_artifacts,
             ),
@@ -429,9 +403,7 @@ class SynthSpec(NodeSpec):
         new_artifacts.nodes[self.address] = synth
         self.component._artifacts.nodes[self.name] = synth
 
-    def destroy(
-        self, context: AsyncServer, old_artifacts: Artifacts, rooted: bool = False
-    ) -> None:
+    def destroy(self, old_artifacts: Artifacts, rooted: bool = False) -> None:
         synth = old_artifacts.nodes.pop(self.address)
         self.component._artifacts.nodes.pop(self.name)
         if rooted and self.destroy_strategy:
@@ -439,7 +411,6 @@ class SynthSpec(NodeSpec):
 
     def mutate(
         self,
-        context: AsyncServer,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
         old_spec: "Spec",
@@ -454,7 +425,6 @@ class SynthSpec(NodeSpec):
                 add_action=self.add_action,
                 target_node=self.resolve_node(
                     address=self.target_node,
-                    context=context,
                     new_artifacts=new_artifacts,
                     old_artifacts=old_artifacts,
                 ),
@@ -480,11 +450,7 @@ class SynthSpec(NodeSpec):
     def requires_recreation(self, old_spec: "Spec") -> bool:
         if not isinstance(old_spec, SynthSpec):
             raise ValueError(old_spec)
-        if self.context != old_spec.context:
-            return True
-        elif self.synthdef != old_spec.synthdef:
-            return True
-        return False
+        return self.synthdef != old_spec.synthdef
 
 
 @dataclasses.dataclass
@@ -496,9 +462,47 @@ class SpecChange:
     new_spec: Spec | None = None
     old_spec: Spec | None = None
 
+    def create(
+        self,
+        old_artifacts: Artifacts,
+        new_artifacts: Artifacts,
+    ) -> None:
+        if self.new_spec is None:
+            raise ValueError
+        self.new_spec.create(
+            new_artifacts=new_artifacts,
+            old_artifacts=old_artifacts,
+        )
+
+    def mutate(
+        self,
+        old_artifacts: Artifacts,
+        new_artifacts: Artifacts,
+    ) -> None:
+        if self.new_spec is None or self.old_spec is None:
+            raise ValueError
+        self.new_spec.mutate(
+            new_artifacts=new_artifacts,
+            old_artifacts=old_artifacts,
+            old_spec=self.old_spec,
+        )
+
+    def destroy(
+        self,
+        old_artifacts: Artifacts,
+        new_artifacts: Artifacts,
+    ) -> None:
+        if self.old_spec is None:
+            raise ValueError
+        self.old_spec.destroy(old_artifacts=old_artifacts)
+
     @classmethod
     def gather(
-        cls, *, old_specs: dict[Address, Spec], new_specs: dict[Address, Spec]
+        cls,
+        *,
+        old_specs: dict[Address, Spec],
+        new_specs: dict[Address, Spec],
+        old_context_artifacts: dict[AsyncServer, Artifacts],
     ) -> list["SpecChange"]:
         spec_changes: list[SpecChange] = []
         for address, old_spec in old_specs.items():
@@ -565,6 +569,14 @@ class SpecChange:
         for address, new_spec in new_specs.items():
             if not new_spec.context:
                 raise RuntimeError
+            if (
+                isinstance(new_spec, SynthDefSpec)
+                and new_spec.address
+                in old_context_artifacts[new_spec.context].synthdefs
+            ):
+                # SynthDefs are global to the context,
+                # so check that they don't need to be created.
+                continue
             spec_changes.append(
                 SpecChange(
                     address=address,
@@ -717,4 +729,19 @@ class SpecChangeGroup:
                 exit_stack.enter_context(context.at())
             if self.reconciliation is Reconciliation.CREATE:
                 for spec_change in self.spec_changes:
-                    pass
+                    spec_change.create(
+                        old_artifacts=old_artifacts,
+                        new_artifacts=new_artifacts,
+                    )
+            elif self.reconciliation is Reconciliation.MUTATE:
+                for spec_change in self.spec_changes:
+                    spec_change.mutate(
+                        old_artifacts=old_artifacts,
+                        new_artifacts=new_artifacts,
+                    )
+            elif self.reconciliation is Reconciliation.DESTROY:
+                for spec_change in self.spec_changes:
+                    spec_change.destroy(
+                        old_artifacts=old_artifacts,
+                        new_artifacts=new_artifacts,
+                    )

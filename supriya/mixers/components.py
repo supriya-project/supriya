@@ -82,7 +82,10 @@ class Component(Generic[C]):
         return parts
 
     def _gather_spec_changes(
-        self, *, new_context: AsyncServer | None
+        self,
+        *,
+        new_context: AsyncServer | None,
+        old_context_artifacts: dict[AsyncServer, Artifacts],
     ) -> list[SpecChange]:
         spec_changes: list[SpecChange] = []
         old_specs = {spec.address: spec for spec in self._specs}
@@ -91,7 +94,11 @@ class Component(Generic[C]):
         )
         self._context = new_context
         new_specs = {spec.address: spec for spec in self._specs}
-        return SpecChange.gather(old_specs=old_specs, new_specs=new_specs)
+        return SpecChange.gather(
+            old_specs=old_specs,
+            new_specs=new_specs,
+            old_context_artifacts=old_context_artifacts,
+        )
 
     def _iterate_parentage(self) -> Iterator["Component"]:
         component = self
@@ -119,7 +126,12 @@ class Component(Generic[C]):
             # need to know if we need to be deleted? how?
             # gather spec changes
             # add component to visited components to prevent cycles
-            spec_changes.extend(component._gather_spec_changes(new_context=context))
+            spec_changes.extend(
+                component._gather_spec_changes(
+                    new_context=context,
+                    old_context_artifacts=old_context_artifacts,
+                ),
+            )
             visited_components.add(component)
         for component in related_components:
             if component in visited_components:
