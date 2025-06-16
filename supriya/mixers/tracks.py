@@ -52,7 +52,7 @@ class TrackContainer(Component[C]):
             if context := self._can_allocate():
                 await track._reconcile(context=context)
             else:
-                track._reconcile_dependents()
+                track._reconcile_connected_components()
             return track
 
     async def group(self, index: int, count: int) -> "Track":
@@ -81,11 +81,11 @@ class TrackSend(Component["Track"]):
     def __repr__(self) -> str:
         return super().__repr__().replace(">", f" target={self.target.address}>")
 
-    def _reconcile_dependents(self) -> list["Component"]:
+    def _reconcile_connected_components(self) -> list["Component"]:
         if self.parent is None:
             raise ValueError
-        self.parent._dependencies[(self, Names.INPUT)] = IO.READ
-        self.target._dependencies[(self, Names.OUTPUT)] = IO.WRITE
+        self.parent._connections[(self, Names.INPUT)] = IO.READ
+        self.target._connections[(self, Names.OUTPUT)] = IO.WRITE
         return sorted(
             [self.parent, self.target],
             key=lambda x: x.graph_order,
@@ -218,7 +218,7 @@ class Track(TrackContainer[TrackContainer]):
     def _move(self, *, parent: TrackContainer, index: int) -> None:
         raise NotImplementedError
 
-    def _reconcile_dependents(self) -> list["Component"]:
+    def _reconcile_connected_components(self) -> list["Component"]:
         old_input = self._cached_input
         old_output = self._cached_output
         new_input: Component | None = None
@@ -231,14 +231,14 @@ class Track(TrackContainer[TrackContainer]):
             new_output = self._cached_output = self.parent
         if old_input != new_input:
             if old_input:
-                old_input._dependencies.pop((self, Names.INPUT))
+                old_input._connections.pop((self, Names.INPUT))
             if new_input:
-                new_input._dependencies[(self, Names.INPUT)] = IO.READ
+                new_input._connections[(self, Names.INPUT)] = IO.READ
         if old_output != new_output:
             if old_output:
-                old_output._dependencies.pop((self, Names.OUTPUT))
+                old_output._connections.pop((self, Names.OUTPUT))
             if new_output:
-                new_output._dependencies[(self, Names.OUTPUT)] = IO.WRITE
+                new_output._connections[(self, Names.OUTPUT)] = IO.WRITE
         return sorted(
             [
                 x
@@ -480,7 +480,7 @@ class Track(TrackContainer[TrackContainer]):
             )
         target_graph_order = self.graph_order
         visited_components: dict[Component, set[IO]] = {}
-        for (component, _), io in self._dependencies.items():
+        for (component, _), io in self._connections.items():
             visited_components.setdefault(component, set()).add(io)
             if Spec.feedsback(
                 source_order=component.graph_order,
@@ -552,7 +552,7 @@ class Track(TrackContainer[TrackContainer]):
             if context := self._can_allocate():
                 await send._reconcile(context=context)
             else:
-                send._reconcile_dependents()
+                send._reconcile_connected_components()
             return send
 
     async def delete(self) -> None:

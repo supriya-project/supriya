@@ -44,7 +44,7 @@ class Component(Generic[C]):
     ) -> None:
         self._artifacts = Artifacts()
         self._channel_count: ChannelCount | Default = DEFAULT
-        self._dependencies: dict[tuple[Component, str], IO] = {}
+        self._connections: dict[tuple[Component, str], IO] = {}
         self._id = id_
         self._is_active = True
         self._lock = asyncio.Lock()
@@ -125,8 +125,8 @@ class Component(Generic[C]):
         visited_components: set[Component] = set()
         related_components: list[Component] = []
         for component in self._walk():
-            # need to patch up dependents
-            related_components.extend(component._reconcile_dependents())
+            # need to patch up connected components
+            related_components.extend(component._reconcile_connected_components())
             # need to know if we need to be deleted? how?
             # gather spec changes
             # add component to visited components to prevent cycles
@@ -166,7 +166,7 @@ class Component(Generic[C]):
         if deleting:
             self._delete()
 
-    def _reconcile_dependents(self) -> list["Component"]:
+    def _reconcile_connected_components(self) -> list["Component"]:
         return []
 
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
