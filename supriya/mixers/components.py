@@ -112,9 +112,14 @@ class Component(Generic[C]):
         if self.session is None:
             raise ValueError
         # setup artifacts
-        old_context_artifacts, new_context_artifacts = self._resolve_context_artifacts(
-            context=context, session=self.session
+        old_context_artifacts: dict[AsyncServer, Artifacts] = (
+            self.session._context_artifacts
         )
+        new_context_artifacts: dict[AsyncServer, Artifacts] = {
+            context_: Artifacts() for context_ in old_context_artifacts
+        }
+        if context and context not in new_context_artifacts:
+            new_context_artifacts[context] = Artifacts()
         # gather spec changes
         spec_changes: list[SpecChange] = []
         visited_components: set[Component] = set()
@@ -137,7 +142,8 @@ class Component(Generic[C]):
                 continue
             # gather again
         # sort and apply spec changes
-        for context_, spec_change_groups in SpecChange.sort(spec_changes).items():
+        sorted_spec_changes = SpecChange.sort(spec_changes)
+        for context_, spec_change_groups in sorted_spec_changes.items():
             for spec_change_group in spec_change_groups:
                 spec_change_group.apply(
                     context=context_,
@@ -156,19 +162,6 @@ class Component(Generic[C]):
 
     def _reconcile_dependents(self) -> list["Component"]:
         return []
-
-    def _resolve_context_artifacts(
-        self,
-        context: AsyncServer | None,
-        session: "Session",
-    ) -> tuple[dict[AsyncServer, Artifacts], dict[AsyncServer, Artifacts]]:
-        old_context_artifacts: dict[AsyncServer, Artifacts] = session._context_artifacts
-        new_context_artifacts: dict[AsyncServer, Artifacts] = {
-            context_: Artifacts() for context_ in old_context_artifacts
-        }
-        if context and context not in new_context_artifacts:
-            new_context_artifacts[context] = Artifacts()
-        return old_context_artifacts, new_context_artifacts
 
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
         return []

@@ -361,7 +361,7 @@ async def test_Session_quit(
             +            in_: 20.0, out: 12.0
             +        1016 group (session.mixers[1]:devices)
             +        1017 supriya:channel-strip:2 (session.mixers[1]:channel-strip)
-            +            active: 1.0, out: 20.0, done_action: 2.0, gain: c11, gate: 1.0
+            +            active: 1.0, done_action: 2.0, gain: c11, gate: 1.0, out: 20.0
             +        1019 supriya:meters:2 (session.mixers[1]:output-levels)
             +            in_: 20.0, out: 14.0
             +        1020 supriya:patch-cable:2x2 (session.mixers[1]:output)
@@ -369,7 +369,7 @@ async def test_Session_quit(
             +<session.contexts[1]>
                  NODE TREE 1000 group (session.mixers[0]:group)
                      1001 group (session.mixers[0]:tracks)
-                         1006 group (session.mixers[0].tracks[0]:group)
+                         1007 group (session.mixers[0].tracks[0]:group)
             @@ -21,15 +33,3 @@
                          in_: 16.0, out: 3.0
                      1006 supriya:patch-cable:2x2 (session.mixers[0]:output)

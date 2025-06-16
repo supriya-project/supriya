@@ -51,6 +51,8 @@ class TrackContainer(Component[C]):
             track = self._add_track(name=name)
             if context := self._can_allocate():
                 await track._reconcile(context=context)
+            else:
+                track._reconcile_dependents()
             return track
 
     async def group(self, index: int, count: int) -> "Track":
@@ -543,6 +545,8 @@ class Track(TrackContainer[TrackContainer]):
             )
             if context := self._can_allocate():
                 await send._reconcile(context=context)
+            else:
+                send._reconcile_dependents()
             return send
 
     async def delete(self) -> None:

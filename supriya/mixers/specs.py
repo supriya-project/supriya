@@ -194,8 +194,11 @@ class BufferSpec(Spec):
     def destroy(
         self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
     ) -> None:
+        if (buffers := self.component._artifacts.buffers)[
+            self.name
+        ].context is self.context:
+            buffers.pop(self.name)
         old_artifacts.buffers.pop(self.address).free()
-        self.component._artifacts.buffers.pop(self.name)
 
     def mutate(
         self,
@@ -246,11 +249,17 @@ class BusSpec(Spec):
         self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
     ) -> None:
         if self.calculation_rate == CalculationRate.AUDIO:
+            if (audio_buses := self.component._artifacts.audio_buses)[
+                self.name
+            ].context is self.context:
+                audio_buses.pop(self.name)
             old_artifacts.audio_buses.pop(self.address).free()
-            self.component._artifacts.audio_buses.pop(self.name)
         elif self.calculation_rate == CalculationRate.CONTROL:
+            if (control_buses := self.component._artifacts.control_buses)[
+                self.name
+            ].context is self.context:
+                control_buses.pop(self.name)
             old_artifacts.control_buses.pop(self.address).free()
-            self.component._artifacts.control_buses.pop(self.name)
 
     def mutate(
         self,
@@ -347,8 +356,11 @@ class GroupSpec(NodeSpec):
     def destroy(
         self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
     ) -> None:
+        if (nodes := self.component._artifacts.nodes)[
+            self.name
+        ].context is self.context:
+            nodes.pop(self.name)
         node = old_artifacts.nodes.pop(self.address)
-        self.component._artifacts.nodes.pop(self.name)
         if rooted and self.destroy_strategy:
             node.set(**self.destroy_strategy)
 
@@ -415,8 +427,11 @@ class SynthSpec(NodeSpec):
     def destroy(
         self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
     ) -> None:
+        if (nodes := self.component._artifacts.nodes)[
+            self.name
+        ].context is self.context:
+            nodes.pop(self.name)
         synth = old_artifacts.nodes.pop(self.address)
-        self.component._artifacts.nodes.pop(self.name)
         if recreated:
             synth.set(done_action=DoneAction.FREE_SYNTH, gate=0)
         elif rooted and self.destroy_strategy:
@@ -648,7 +663,7 @@ class SpecChange:
                     SpecChangeGroup(
                         group=False,
                         reconciliation=Reconciliation.CREATE,
-                        spec_changes=synthdefs,
+                        spec_changes=sorted(synthdefs, key=lambda x: x.address),
                         sync=True,
                     ),
                 )
