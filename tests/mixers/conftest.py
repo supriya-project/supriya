@@ -362,7 +362,7 @@ async def complex_session() -> tuple[Session, str, str]:
             ['/s_new', 'supriya:meters:2', 1041, 3, 1038, 'in_', 28.0, 'out', 31.0],
             ['/s_new', 'supriya:meters:2', 1042, 3, 1040, 'in_', 28.0, 'out', 33.0],
             ['/s_new', 'supriya:patch-cable:2x2', 1043, 1, 1037, 'active', 'c29', 'in_', 28.0, 'out', 16.0]]]
-        - ['/s_new', 'supriya:fb-patch-cable:2x2', 1044, 3, 1040, 'active', 'c29', 'in_', 28.0, 'out', 22.0]
+        - ['/s_new', 'supriya:patch-cable:2x2', 1044, 3, 1040, 'active', 'c29', 'in_', 28.0, 'out', 22.0]
         - [None,
            [['/g_new', 1045, 1, 1001, 1046, 0, 1045, 1047, 1, 1045],
             ['/s_new', 'supriya:channel-strip:2', 1048, 1, 1045, 'active', 'c35', 'gain', 'c36', 'out', 30.0],
@@ -446,7 +446,7 @@ async def complex_session() -> tuple[Session, str, str]:
                         1039 group (session.mixers[0].tracks[1]:devices)
                         1040 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
                             active: c29, done_action: 2.0, gain: c30, gate: 1.0, out: 28.0
-                        1044 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
+                        1044 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
                             active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 22.0
                         1042 supriya:meters:2 (session.mixers[0].tracks[1]:output-levels)
                             in_: 28.0, out: 33.0
@@ -506,9 +506,9 @@ async def complex_session() -> tuple[Session, str, str]:
                         <Track 6 'A1' session.mixers[0].tracks[0].tracks[0]>
                             <Track 8 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
                         <Track 7 'A2' session.mixers[0].tracks[0].tracks[1]>
-                        <TrackSend 10 session.mixers[0].tracks[0].sends[0]>
+                        <TrackSend 10 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
                     <Track 4 'B' session.mixers[0].tracks[1]>
-                        <TrackSend 11 session.mixers[0].tracks[1].sends[0]>
+                        <TrackSend 11 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
                     <Track 5 'C' session.mixers[0].tracks[2]>
                 <Mixer 2 'Q' session.mixers[1]>
                     <Track 9 'D' session.mixers[1].tracks[0]>

@@ -69,7 +69,7 @@ class Component(Generic[C]):
         return None
 
     def _delete(self) -> None:
-        pass
+        self._disconnect_parentage()
 
     def _disconnect_parentage(self) -> None:
         self._parent = None
@@ -141,6 +141,12 @@ class Component(Generic[C]):
             if component in visited_components:
                 continue
             # gather again
+            spec_changes.extend(
+                component._gather_spec_changes(
+                    new_context=context,
+                    old_context_artifacts=old_context_artifacts,
+                ),
+            )
         # sort and apply spec changes
         sorted_spec_changes = SpecChange.sort(spec_changes)
         for context_, spec_change_groups in sorted_spec_changes.items():

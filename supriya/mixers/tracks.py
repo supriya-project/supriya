@@ -78,6 +78,9 @@ class TrackSend(Component["Track"]):
         self._postfader = postfader
         self._target = target
 
+    def __repr__(self) -> str:
+        return super().__repr__().replace(">", f" target={self.target.address}>")
+
     def _reconcile_dependents(self) -> list["Component"]:
         if self.parent is None:
             raise ValueError
@@ -95,7 +98,7 @@ class TrackSend(Component["Track"]):
             return []
         feedsback = bool(
             Spec.feedsback(
-                source_order=self.graph_order,
+                source_order=self.parent.graph_order,
                 target_order=self.target.graph_order,
                 writing=True,
             )
@@ -103,7 +106,6 @@ class TrackSend(Component["Track"]):
         patch_cable_synthdef = build_patch_cable(
             self.parent.effective_channel_count,
             self.target.effective_channel_count,
-            feedback=feedsback,
         )
         return [
             SynthDefSpec(
@@ -192,6 +194,8 @@ class Track(TrackContainer[TrackContainer]):
         target: TrackContainer,
     ) -> TrackSend:
         if (session := self.session) is None:
+            raise RuntimeError
+        if self.mixer is not target.mixer:
             raise RuntimeError
         self._sends.append(
             send := TrackSend(
@@ -475,12 +479,14 @@ class Track(TrackContainer[TrackContainer]):
                 )
             )
         target_graph_order = self.graph_order
+        visited_components: dict[Component, set[IO]] = {}
         for (component, _), io in self._dependencies.items():
+            visited_components.setdefault(component, set()).add(io)
             if Spec.feedsback(
                 source_order=component.graph_order,
                 target_order=target_graph_order,
                 writing=io == IO.WRITE,
-            ):
+            ) or visited_components[component] == set([IO.READ, IO.WRITE]):
                 feedback_patch_cable_synthdef = build_patch_cable(
                     self.effective_channel_count,
                     self.effective_channel_count,

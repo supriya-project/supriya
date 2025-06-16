@@ -125,7 +125,7 @@ async def test_complex_session(complex_session: tuple[Session, str, str]) -> Non
                         1039 group (session.mixers[0].tracks[1]:devices)
                         1040 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
                             active: c29, done_action: 2.0, gain: c30, gate: 1.0, out: 28.0
-                        1044 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
+                        1044 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
                             active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 22.0
                         1042 supriya:meters:2 (session.mixers[0].tracks[1]:output-levels)
                             in_: 28.0, out: 33.0
