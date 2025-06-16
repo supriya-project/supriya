@@ -71,6 +71,15 @@ class Component(Generic[C]):
     def _delete(self) -> None:
         self._disconnect_parentage()
 
+    def _disconnect_connections(self, root: "Component") -> set["Component"]:
+        disconnections: set[Component] = set()
+        for component, _ in self._connections:
+            if root in component.parentage:
+                continue
+            if component._notify_disconnected(self):
+                disconnections.add(component)
+        return disconnections
+
     def _disconnect_parentage(self) -> None:
         self._parent = None
 
@@ -106,6 +115,19 @@ class Component(Generic[C]):
             component = component.parent
         yield component
 
+    def _notify_disconnected(self, connection: "Component") -> bool:
+        """
+        Determines if a connection should self-delete.
+
+        E.g. a track is deleted, then a send from out-of-tree to that track
+        should be deleted too. When the track is deleted, it calls
+        _disconnect_connections(), which loops over its connections and calls
+        _notify_disconnected on each.
+
+        In practice, only sends get deleted in this way.
+        """
+        return False
+
     async def _reconcile(
         self, *, context: AsyncServer | None, deleting: bool = False
     ) -> None:
@@ -124,8 +146,11 @@ class Component(Generic[C]):
         spec_changes: list[SpecChange] = []
         visited_components: set[Component] = set()
         related_components: list[Component] = []
+        deleted_components: set[Component] = set([self] if deleting else [])
         for component in self._walk():
             # need to patch up connected components
+            if deleting:
+                deleted_components.update(component._disconnect_connections(self))
             related_components.extend(component._reconcile_connected_components())
             # need to know if we need to be deleted? how?
             # gather spec changes
@@ -143,7 +168,7 @@ class Component(Generic[C]):
             # gather again
             spec_changes.extend(
                 component._gather_spec_changes(
-                    new_context=context,
+                    new_context=None if component in deleted_components else context,
                     old_context_artifacts=old_context_artifacts,
                 ),
             )
@@ -163,8 +188,10 @@ class Component(Generic[C]):
         for context_ in set(old_context_artifacts) | set(new_context_artifacts):
             old_context_artifacts[context_].merge(new_context_artifacts[context_])
         # ... actually we want a stack of components to delete here, because sends might get deleted too if deleting:
-        if deleting:
-            self._delete()
+        for component in sorted(
+            deleted_components, key=lambda x: x.graph_order, reverse=True
+        ):
+            component._delete()
 
     def _reconcile_connected_components(self) -> list["Component"]:
         return []

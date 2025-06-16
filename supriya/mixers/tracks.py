@@ -81,6 +81,9 @@ class TrackSend(Component["Track"]):
     def __repr__(self) -> str:
         return super().__repr__().replace(">", f" target={self.target.address}>")
 
+    def _notify_disconnected(self, connection: "Component") -> bool:
+        return connection is self._target
+
     def _reconcile_connected_components(self) -> list["Component"]:
         if self.parent is None:
             raise ValueError
