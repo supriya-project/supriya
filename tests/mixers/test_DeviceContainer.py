@@ -16,14 +16,13 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
             """
             --- initial
             +++ mutation
-            @@ -27,6 +27,7 @@
-                             <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
-                             <TrackInput 15 session.mixers[0].tracks[2].input source=null>
-                             <TrackOutput 16 session.mixers[0].tracks[2].output target=default>
-            +            <Device 35 session.mixers[0].devices[0]>
-                         <MixerOutput 2 session.mixers[0].output>
-                     <Mixer 3 'Q' session.mixers[1]>
-                         <Track 29 'D' session.mixers[1].tracks[0]>
+            @@ -9,5 +9,6 @@
+                         <Track 4 'B' session.mixers[0].tracks[1]>
+                             <TrackSend 11 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+                         <Track 5 'C' session.mixers[0].tracks[2]>
+            +            <Device 12 session.mixers[0].devices[0]>
+                     <Mixer 2 'Q' session.mixers[1]>
+                         <Track 9 'D' session.mixers[1].tracks[0]>
             """,
             """
             --- initial
@@ -36,7 +35,7 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
             +                1067 supriya:device-dc-tester:2 (session.mixers[0].devices[0]:synth)
             +                    dc: 1.0, out: 16.0
                      1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
-                         active: 1.0, bus: 16.0, done_action: 2.0, gain: c0, gate: 1.0
+                         active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
             """,
             r"""
@@ -50,39 +49,38 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
             """
             --- initial
             +++ mutation
-            @@ -16,6 +16,7 @@
-                                 <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
-                                 <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
-                                 <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
-            +                <Device 35 session.mixers[0].tracks[0].devices[0]>
-                             <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
-                             <TrackSend 33 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-                         <Track 9 'B' session.mixers[0].tracks[1]>
+            @@ -5,6 +5,7 @@
+                             <Track 6 'A1' session.mixers[0].tracks[0].tracks[0]>
+                                 <Track 8 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
+                             <Track 7 'A2' session.mixers[0].tracks[0].tracks[1]>
+            +                <Device 12 session.mixers[0].tracks[0].devices[0]>
+                             <TrackSend 10 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
+                         <Track 4 'B' session.mixers[0].tracks[1]>
+                             <TrackSend 11 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
             """,
             """
             --- initial
             +++ mutation
             @@ -41,6 +41,9 @@
-                             1010 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
+                             1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
                                  in_: 18.0, out: 7.0
-                             1008 group (session.mixers[0].tracks[0]:devices)
+                             1009 group (session.mixers[0].tracks[0]:devices)
             +                    1066 group (session.mixers[0].tracks[0].devices[0]:group)
             +                        1067 supriya:device-dc-tester:2 (session.mixers[0].tracks[0].devices[0]:synth)
             +                            dc: 1.0, out: 18.0
-                             1009 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
-                                 active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
-                             1051 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].sends[0]:synth)
+                             1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                                 active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+                             1036 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].sends[0]:synth)
             """,
             r"""
             - ['/d_recv', <SynthDef: supriya:device-dc-tester:2>]
             - ['/sync', 2]
-            - [None, [['/g_new', 1066, 1, 1008], ['/s_new', 'supriya:device-dc-tester:2', 1067, 1, 1066, 'out', 18.0]]]
+            - [None, [['/g_new', 1066, 1, 1009], ['/s_new', 'supriya:device-dc-tester:2', 1067, 1, 1066, 'out', 18.0]]]
             """,
         ),
     ],
 )
 @pytest.mark.asyncio
-@pytest.mark.xfail
 async def test_Track_add_device(
     complex_session: tuple[Session, str, str],
     expected_components_diff: str,

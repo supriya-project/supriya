@@ -6,6 +6,7 @@ from .components import (
     Component,
 )
 from .constants import Address, Names
+from .devices import DeviceContainer
 from .specs import (
     BusSpec,
     GroupSpec,
@@ -21,6 +22,7 @@ if TYPE_CHECKING:
 
 
 class Mixer(
+    DeviceContainer["Session"],
     TrackContainer["Session"],
 ):
     def __init__(
@@ -31,7 +33,7 @@ class Mixer(
         parent: Optional["Session"],
     ) -> None:
         Component.__init__(self, id_=id_, name=name, parent=parent)
-        # DeviceContainer.__init__(self)
+        DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
 
     def _delete(self) -> None:
@@ -206,7 +208,7 @@ class Mixer(
     @property
     def children(self) -> list[Component]:
         # return [*self._tracks, *self._devices]
-        return [*self._tracks]
+        return [*self._tracks, *self._devices]
 
     @property
     def context(self) -> AsyncServer | None:

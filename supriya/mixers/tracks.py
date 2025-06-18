@@ -8,6 +8,7 @@ from .components import (
     Component,
 )
 from .constants import IO, Address, Names
+from .devices import DeviceContainer
 from .specs import (
     BusSpec,
     GroupSpec,
@@ -183,7 +184,7 @@ class TrackSend(Component["Track"]):
         return self._target
 
 
-class Track(TrackContainer[TrackContainer]):
+class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
     def __init__(
         self,
         *,
@@ -192,6 +193,7 @@ class Track(TrackContainer[TrackContainer]):
         parent: TrackContainer | None = None,
     ) -> None:
         Component.__init__(self, id_=id_, name=name, parent=parent)
+        DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
         self._cached_input: Track | None = None
         self._cached_output: TrackContainer | None = None
@@ -566,10 +568,6 @@ class Track(TrackContainer[TrackContainer]):
                 break
         return synthdefs + busses + groups + synths
 
-    async def add_device(self) -> None:
-        async with self._lock:
-            pass
-
     async def add_send(
         self, target: TrackContainer, postfader: bool = True
     ) -> TrackSend:
@@ -629,7 +627,7 @@ class Track(TrackContainer[TrackContainer]):
 
     @property
     def children(self) -> list[Component]:
-        return [*self._tracks, *self._sends]
+        return [*self._tracks, *self._devices, *self._sends]
 
     @property
     def input(self) -> Union[BusGroup, "Track"] | None:
