@@ -52,7 +52,7 @@ class TrackContainer(Component[C]):
             if context := self._can_allocate():
                 await track._reconcile(context=context)
             else:
-                track._reconcile_connected_components()
+                track._reconcile_connections()
             return track
 
     async def group(self, index: int, count: int) -> "Track":
@@ -84,15 +84,24 @@ class TrackSend(Component["Track"]):
     def _notify_disconnected(self, connection: "Component") -> bool:
         return connection is self._target
 
-    def _reconcile_connected_components(self) -> list["Component"]:
+    def _reconcile_connections(
+        self,
+        *,
+        deleting: bool = False,
+        root: Component | None = None,
+    ) -> tuple[list[Component], set[Component]]:
         if self.parent is None:
             raise ValueError
-        self.parent._connections[(self, Names.INPUT)] = IO.READ
-        self.target._connections[(self, Names.OUTPUT)] = IO.WRITE
-        return sorted(
-            [self.parent, self.target],
-            key=lambda x: x.graph_order,
-        )
+        related, deleted = super()._reconcile_connections(deleting=deleting, root=root)
+        components: list[Component] = [self.parent, self.target]
+        if deleting:
+            self.parent._connections.pop((self, Names.INPUT), None)
+            self.target._connections.pop((self, Names.OUTPUT), None)
+        else:
+            self.parent._connections[(self, Names.INPUT)] = IO.READ
+            self.target._connections[(self, Names.OUTPUT)] = IO.WRITE
+        related.extend(sorted(components, key=lambda x: x.graph_order))
+        return related, deleted
 
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
         if not self.parent:
@@ -221,35 +230,52 @@ class Track(TrackContainer[TrackContainer]):
     def _move(self, *, parent: TrackContainer, index: int) -> None:
         raise NotImplementedError
 
-    def _reconcile_connected_components(self) -> list["Component"]:
+    def _reconcile_connections(
+        self,
+        *,
+        deleting: bool = False,
+        root: Component | None = None,
+    ) -> tuple[list[Component], set[Component]]:
+        related, deleted = super()._reconcile_connections(deleting=deleting, root=root)
         old_input = self._cached_input
         old_output = self._cached_output
-        new_input: Component | None = None
-        new_output: Component | None = None
-        if isinstance(self._input, Track):
-            new_input = self._cached_input = self._input
-        if isinstance(self._output, TrackContainer):
-            new_output = self._cached_output = self._output
-        elif self._output is DEFAULT:
-            new_output = self._cached_output = self.parent
-        if old_input != new_input:
-            if old_input:
-                old_input._connections.pop((self, Names.INPUT))
-            if new_input:
-                new_input._connections[(self, Names.INPUT)] = IO.READ
-        if old_output != new_output:
-            if old_output:
-                old_output._connections.pop((self, Names.OUTPUT))
-            if new_output:
-                new_output._connections[(self, Names.OUTPUT)] = IO.WRITE
-        return sorted(
-            [
-                x
-                for x in set([old_input, old_output, new_input, new_output])
-                if x is not None
-            ],
-            key=lambda x: x.graph_order,
-        )
+        if deleting:
+            if self._cached_input:
+                self._cached_input._connections.pop((self, Names.INPUT), None)
+                related.append(self._cached_input)
+            if self._cached_output:
+                self._cached_output._connections.pop((self, Names.OUTPUT), None)
+                related.append(self._cached_output)
+        else:
+            new_input: Component | None = None
+            new_output: Component | None = None
+            if isinstance(self._input, Track):
+                new_input = self._cached_input = self._input
+            if isinstance(self._output, TrackContainer):
+                new_output = self._cached_output = self._output
+            elif self._output is DEFAULT:
+                new_output = self._cached_output = self.parent
+            if old_input != new_input:
+                if old_input:
+                    old_input._connections.pop((self, Names.INPUT))
+                if new_input:
+                    new_input._connections[(self, Names.INPUT)] = IO.READ
+            if old_output != new_output:
+                if old_output:
+                    old_output._connections.pop((self, Names.OUTPUT))
+                if new_output:
+                    new_output._connections[(self, Names.OUTPUT)] = IO.WRITE
+            related.extend(
+                sorted(
+                    [
+                        x
+                        for x in set([old_input, old_output, new_input, new_output])
+                        if x is not None
+                    ],
+                    key=lambda x: x.graph_order,
+                )
+            )
+        return related, deleted
 
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
         if not context:
@@ -555,7 +581,7 @@ class Track(TrackContainer[TrackContainer]):
             if context := self._can_allocate():
                 await send._reconcile(context=context)
             else:
-                send._reconcile_connected_components()
+                send._reconcile_connections()
             return send
 
     async def delete(self) -> None:

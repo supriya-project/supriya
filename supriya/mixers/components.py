@@ -71,7 +71,9 @@ class Component(Generic[C]):
     def _delete(self) -> None:
         self._disconnect_parentage()
 
-    def _disconnect_connections(self, root: "Component") -> set["Component"]:
+    def _disconnect_connections(
+        self, root: Optional["Component"] = None
+    ) -> set["Component"]:
         disconnections: set[Component] = set()
         for component, _ in self._connections:
             if root in component.parentage:
@@ -149,9 +151,11 @@ class Component(Generic[C]):
         deleted_components: set[Component] = set([self] if deleting else [])
         for component in self._walk():
             # need to patch up connected components
-            if deleting:
-                deleted_components.update(component._disconnect_connections(self))
-            related_components.extend(component._reconcile_connected_components())
+            related, deleted = component._reconcile_connections(
+                deleting=deleting, root=self
+            )
+            related_components.extend(related)
+            deleted_components.update(deleted)
             # need to know if we need to be deleted? how?
             # gather spec changes
             # add component to visited components to prevent cycles
@@ -162,9 +166,14 @@ class Component(Generic[C]):
                 ),
             )
             visited_components.add(component)
+        # TODO: Can we consolidate deleted/related?
+        related_components.extend(deleted_components)
         for component in related_components:
             if component in visited_components:
                 continue
+            component._reconcile_connections(
+                deleting=component in deleted_components, root=self
+            )
             # gather again
             spec_changes.extend(
                 component._gather_spec_changes(
@@ -193,8 +202,15 @@ class Component(Generic[C]):
         ):
             component._delete()
 
-    def _reconcile_connected_components(self) -> list["Component"]:
-        return []
+    def _reconcile_connections(
+        self,
+        *,
+        deleting: bool = False,
+        root: Optional["Component"] = None,
+    ) -> tuple[list["Component"], set["Component"]]:
+        if deleting:
+            return list(to_delete := self._disconnect_connections(root=root)), to_delete
+        return [], set()
 
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
         return []
