@@ -50,7 +50,7 @@ def calculate_diff(initial_tree: str, actual_tree: str) -> str:
                  1 group
                      1000 group
             -            1001 supriya:channel-strip:2
-            -                active: 1.0, bus: 0.0, done_action: 2.0, gain: 0.0, gate: 1.0
+            -                active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, out: 0.0
             """,
         ),
         (
@@ -63,7 +63,7 @@ def calculate_diff(initial_tree: str, actual_tree: str) -> str:
                  1 group
             -        1000 group
             -            1001 supriya:channel-strip:2
-            -                active: 1.0, bus: 0.0, done_action: 2.0, gain: 0.0, gate: 1.0
+            -                active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, out: 0.0
             """,
         ),
     ],
@@ -90,7 +90,7 @@ async def test_free_channel_strip(
             1 group
                 1000 group
                     1001 supriya:channel-strip:2
-                        active: 1.0, bus: 0.0, done_action: 2.0, gain: 0.0, gate: 1.0
+                        active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, out: 0.0
         """,
     )
     await asyncio.sleep(get_lag_time() * 2)

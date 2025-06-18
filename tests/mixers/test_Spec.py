@@ -2,7 +2,7 @@ import pytest
 
 from supriya.mixers import Session
 from supriya.mixers.components import Component
-from supriya.mixers.routing import Connection
+from supriya.mixers.specs import Spec
 
 
 @pytest.mark.parametrize(
@@ -36,7 +36,7 @@ from supriya.mixers.routing import Connection
     ],
 )
 @pytest.mark.asyncio
-async def test_Connection_feedsback(
+async def test_Spec_feedsback(
     basic_session: tuple[Session, str, str],
     feedsback: bool,
     source_name: str,
@@ -52,7 +52,7 @@ async def test_Connection_feedsback(
     }
     source = components[source_name]
     target = components[target_name]
-    assert Connection.feedsback(source.graph_order, target.graph_order) == feedsback, (
+    assert Spec.feedsback(source.graph_order, target.graph_order) == feedsback, (
         source_name,
         target_name,
     )

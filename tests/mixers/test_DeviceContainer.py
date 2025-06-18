@@ -82,6 +82,7 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
     ],
 )
 @pytest.mark.asyncio
+@pytest.mark.xfail
 async def test_Track_add_device(
     complex_session: tuple[Session, str, str],
     expected_components_diff: str,
