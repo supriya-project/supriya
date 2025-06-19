@@ -461,7 +461,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                     add_action=AddAction.ADD_TO_HEAD,
                     component=self,
                     context=context,
-                    destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
+                    # destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
                     name=Names.INPUT,
                     kwargs={
                         "active": Spec.get_address(
@@ -511,7 +511,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
                     context=context,
-                    destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
+                    # destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
                     name=Names.OUTPUT,
                     kwargs={
                         "active": Spec.get_address(
@@ -550,7 +550,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
                     context=context,
-                    destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
+                    # destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
                     name=Names.OUTPUT,
                     kwargs={
                         "active": Spec.get_address(

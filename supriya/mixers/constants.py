@@ -37,3 +37,4 @@ class Reconciliation(enum.StrEnum):
     RECREATE = "recreate"
     MUTATE = "mutate"
     DESTROY = "destroy"
+    DESTROY_SHALLOW = "destroy-shallow"

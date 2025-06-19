@@ -188,13 +188,15 @@ class Component(Generic[C]):
             )
         # sort and apply spec changes
         sorted_spec_changes = SpecChange.sort(spec_changes)
+        roots = [self, *deleted_components]
         for context_, spec_change_groups in sorted_spec_changes.items():
             for spec_change_group in spec_change_groups:
                 spec_change_group.apply(
                     context=context_,
                     old_artifacts=old_context_artifacts[context_],
                     new_artifacts=new_context_artifacts[context_],
-                    roots=[self] + related_components,
+                    roots=roots,
+                    related=related_components,
                 )
                 if spec_change_group.sync:
                     await context_.sync()

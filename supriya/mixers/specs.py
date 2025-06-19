@@ -55,6 +55,7 @@ class Spec:
         *,
         old_artifacts: Artifacts,
         recreated: bool = False,
+        related: bool = False,
         rooted: bool = False,
     ) -> None:
         raise NotImplementedError
@@ -192,7 +193,11 @@ class BufferSpec(Spec):
         raise NotImplementedError
 
     def destroy(
-        self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
+        self,
+        old_artifacts: Artifacts,
+        recreated: bool = False,
+        related: bool = False,
+        rooted: bool = False,
     ) -> None:
         if (buffers := self.component._artifacts.buffers)[
             self.name
@@ -246,7 +251,11 @@ class BusSpec(Spec):
             raise ValueError
 
     def destroy(
-        self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
+        self,
+        old_artifacts: Artifacts,
+        recreated: bool = False,
+        related: bool = False,
+        rooted: bool = False,
     ) -> None:
         if self.calculation_rate == CalculationRate.AUDIO:
             if (audio_buses := self.component._artifacts.audio_buses)[
@@ -298,7 +307,11 @@ class SynthDefSpec(Spec):
         new_artifacts.synthdefs[self.address] = self.synthdef
 
     def destroy(
-        self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
+        self,
+        old_artifacts: Artifacts,
+        recreated: bool = False,
+        related: bool = False,
+        rooted: bool = False,
     ) -> None:
         return
 
@@ -354,7 +367,11 @@ class GroupSpec(NodeSpec):
         self.component._artifacts.nodes[self.name] = group
 
     def destroy(
-        self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
+        self,
+        old_artifacts: Artifacts,
+        recreated: bool = False,
+        related: bool = False,
+        rooted: bool = False,
     ) -> None:
         if (nodes := self.component._artifacts.nodes)[
             self.name
@@ -425,17 +442,21 @@ class SynthSpec(NodeSpec):
         self.component._artifacts.nodes[self.name] = synth
 
     def destroy(
-        self, old_artifacts: Artifacts, recreated: bool = False, rooted: bool = False
+        self,
+        old_artifacts: Artifacts,
+        recreated: bool = False,
+        related: bool = False,
+        rooted: bool = False,
     ) -> None:
         if (nodes := self.component._artifacts.nodes)[
             self.name
         ].context is self.context:
             nodes.pop(self.name)
         synth = old_artifacts.nodes.pop(self.address)
-        if recreated:
-            synth.set(done_action=DoneAction.FREE_SYNTH, gate=0)
-        elif rooted and self.destroy_strategy:
+        if rooted and self.destroy_strategy:
             synth.set(**self.destroy_strategy)
+        elif recreated or related:
+            synth.set(done_action=DoneAction.FREE_SYNTH, gate=0)
 
     def mutate(
         self,
@@ -519,6 +540,7 @@ class SpecChange:
         self,
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
+        related: bool = False,
         rooted: bool = False,
     ) -> None:
         if self.old_spec is None:
@@ -526,6 +548,7 @@ class SpecChange:
         self.old_spec.destroy(
             old_artifacts=old_artifacts,
             recreated=self.reconciliation is Reconciliation.RECREATE,
+            related=related,
             rooted=rooted,
         )
 
@@ -757,6 +780,7 @@ class SpecChangeGroup:
         old_artifacts: Artifacts,
         new_artifacts: Artifacts,
         roots: list["Component"],
+        related: list["Component"],
     ) -> None:
         with contextlib.ExitStack() as exit_stack:
             if self.group:
@@ -779,4 +803,5 @@ class SpecChangeGroup:
                         old_artifacts=old_artifacts,
                         new_artifacts=new_artifacts,
                         rooted=spec_change.component in roots,
+                        related=spec_change.component in related,
                     )

@@ -304,10 +304,7 @@ async def test_Track_add_send(
                      1002 group
             """,
             """
-            - [None,
-               [['/n_set', 1007, 'gate', 0.0],
-                ['/n_set', 1010, 'done_action', 14.0],
-                ['/n_set', 1013, 'done_action', 2.0, 'gate', 0.0]]]
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
             """,
         ),
         # parent track with child
@@ -356,10 +353,7 @@ async def test_Track_add_send(
                      1002 group
             """,
             """
-            - [None,
-               [['/n_set', 1007, 'gate', 0.0],
-                ['/n_set', 1010, 'done_action', 14.0],
-                ['/n_set', 1013, 'done_action', 2.0, 'gate', 0.0]]]
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
             """,
         ),
         # in-tree send to self
@@ -405,11 +399,7 @@ async def test_Track_add_send(
                      1002 group
             """,
             """
-            - [None,
-               [['/n_set', 1007, 'gate', 0.0],
-                ['/n_set', 1010, 'done_action', 14.0],
-                ['/n_set', 1013, 'done_action', 2.0, 'gate', 0.0],
-                ['/n_set', 1014, 'gate', 0.0]]]
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0], ['/n_set', 1014, 'gate', 0.0]]]
             """,
         ),
         # in-tree send to out-of-tree stack
@@ -460,11 +450,8 @@ async def test_Track_add_send(
                      1002 group
             """,
             """
-            - [None,
-               [['/n_set', 1015, 'gate', 0.0],
-                ['/n_set', 1018, 'done_action', 14.0],
-                ['/n_set', 1021, 'done_action', 2.0, 'gate', 0.0]]]
-            - ['/n_set', 1014, 'gate', 0.0]
+            - [None, [['/n_set', 1015, 'gate', 0.0], ['/n_set', 1018, 'done_action', 14.0]]]
+            - ['/n_set', 1014, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
         # out-of-tree send to in-tree track
@@ -512,10 +499,7 @@ async def test_Track_add_send(
                      1002 group
             """,
             """
-            - [None,
-               [['/n_set', 1015, 'gate', 0.0],
-                ['/n_set', 1018, 'done_action', 14.0],
-                ['/n_set', 1021, 'done_action', 2.0, 'gate', 0.0]]]
+            - [None, [['/n_set', 1015, 'gate', 0.0], ['/n_set', 1018, 'done_action', 14.0]]]
             - ['/n_set', 1014, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
@@ -577,10 +561,7 @@ async def test_Track_add_send(
                      1002 group
             """,
             """
-            - [None,
-               [['/n_set', 1015, 'gate', 0.0],
-                ['/n_set', 1018, 'done_action', 14.0],
-                ['/n_set', 1021, 'done_action', 2.0, 'gate', 0.0]]]
+            - [None, [['/n_set', 1015, 'gate', 0.0], ['/n_set', 1018, 'done_action', 14.0]]]
             - ['/n_set', 1014, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
@@ -627,10 +608,7 @@ async def test_Track_add_send(
                      1002 group
             """,
             """
-            - [None,
-               [['/n_set', 1014, 'gate', 0.0],
-                ['/n_set', 1017, 'done_action', 14.0],
-                ['/n_set', 1020, 'done_action', 2.0, 'gate', 0.0]]]
+            - [None, [['/n_set', 1014, 'gate', 0.0], ['/n_set', 1017, 'done_action', 14.0]]]
             - ['/n_set', 1013, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
@@ -678,10 +656,7 @@ async def test_Track_add_send(
                      1002 group
             """,
             """
-            - [None,
-               [['/n_set', 1015, 'gate', 0.0],
-                ['/n_set', 1018, 'done_action', 14.0],
-                ['/n_set', 1021, 'done_action', 2.0, 'gate', 0.0]]]
+            - [None, [['/n_set', 1015, 'gate', 0.0], ['/n_set', 1018, 'done_action', 14.0]]]
             - ['/n_set', 1013, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),

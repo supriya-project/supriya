@@ -47,10 +47,7 @@ async def test_Component_connections_02():
     # Post-conditions
     assert format_messages(messages) == normalize(
         """
-        - [None,
-           [['/n_set', 1007, 'gate', 0.0],
-            ['/n_set', 1010, 'done_action', 14.0],
-            ['/n_set', 1013, 'done_action', 2.0, 'gate', 0.0]]]
+        - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
         """,
     )
     assert track_two._connections == {}
@@ -74,10 +71,7 @@ async def test_Component_connections_03():
     print(initial_tree)
     assert format_messages(messages) == normalize(
         """
-        - [None,
-           [['/n_set', 1015, 'gate', 0.0],
-            ['/n_set', 1018, 'done_action', 14.0],
-            ['/n_set', 1021, 'done_action', 2.0, 'gate', 0.0]]]
+        - [None, [['/n_set', 1015, 'gate', 0.0], ['/n_set', 1018, 'done_action', 14.0]]]
         - ['/n_set', 1014, 'done_action', 2.0, 'gate', 0.0]
         """,
     )
