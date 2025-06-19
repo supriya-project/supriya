@@ -82,6 +82,11 @@ class TrackSend(Component["Track"]):
     def __repr__(self) -> str:
         return super().__repr__().replace(">", f" target={self.target.address}>")
 
+    def _disconnect_parentage(self) -> None:
+        if (parent := self._parent) is not None and self in parent._sends:
+            parent._sends.remove(self)
+        super()._disconnect_parentage()
+
     def _notify_disconnected(self, connection: "Component") -> bool:
         return connection is self._target
 
@@ -221,9 +226,6 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
         )
         return send
 
-    def _delete(self) -> None:
-        self._disconnect_parentage()
-
     def _disconnect_parentage(self) -> None:
         if (parent := self._parent) is not None and self in parent._tracks:
             parent._tracks.remove(self)
@@ -231,6 +233,13 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
 
     def _move(self, *, parent: TrackContainer, index: int) -> None:
         raise NotImplementedError
+
+    def _notify_disconnected(self, connection: "Component") -> bool:
+        if connection is self._input:
+            self._input = None
+        if connection is self._output:
+            self._output = None
+        return False
 
     def _reconcile_connections(
         self,
@@ -426,6 +435,53 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                 target_node=Spec.get_address(self, Names.NODES, Names.CHANNEL_STRIP),
             ),
         ]
+        if isinstance(self.input, Track):
+            input_feedsback = bool(
+                Spec.feedsback(
+                    source_order=self.input.graph_order,
+                    target_order=self.graph_order,
+                    writing=False,
+                )
+            )
+            input_patch_cable_synthdef = build_patch_cable(
+                self.effective_channel_count,
+                self.input.effective_channel_count,
+                feedback=input_feedsback,
+            )
+            synthdefs.append(
+                SynthDefSpec(
+                    component=self,
+                    context=context,
+                    name=input_patch_cable_synthdef.effective_name,
+                    synthdef=input_patch_cable_synthdef,
+                )
+            )
+            synths.append(
+                SynthSpec(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    component=self,
+                    context=context,
+                    destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
+                    name=Names.INPUT,
+                    kwargs={
+                        "active": Spec.get_address(
+                            self, Names.CONTROL_BUSSES, Names.ACTIVE
+                        ),
+                        "in_": Spec.get_address(
+                            self.input,
+                            Names.AUDIO_BUSSES,
+                            Names.MAIN,
+                        ),
+                        "out": Spec.get_address(self, Names.AUDIO_BUSSES, Names.MAIN),
+                    },
+                    synthdef=Spec.get_address(
+                        None,
+                        Names.SYNTHDEFS,
+                        input_patch_cable_synthdef.effective_name,
+                    ),
+                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                )
+            )
         if self.output is DEFAULT or isinstance(self.output, TrackContainer):
             output_target_component = (
                 self.parent if self.output is DEFAULT else self.parent
@@ -455,6 +511,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
                     context=context,
+                    destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
                     name=Names.OUTPUT,
                     kwargs={
                         "active": Spec.get_address(
@@ -493,6 +550,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
                     context=context,
+                    destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
                     name=Names.OUTPUT,
                     kwargs={
                         "active": Spec.get_address(
@@ -545,6 +603,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                         add_action=AddAction.ADD_TO_HEAD,
                         component=self,
                         context=context,
+                        destroy_strategy={"gate": 0},
                         name=Names.FEEDBACK,
                         kwargs={
                             "active": Spec.get_address(
@@ -594,14 +653,20 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
     async def set_input(self, input_: Union[BusGroup, "Track"] | None) -> None:
         async with self._lock:
             self._input = input_
-            await self._reconcile(context=self.context)
+            if context := self._can_allocate():
+                await self._reconcile(context=context)
+            else:
+                self._reconcile_connections()
 
     async def set_output(
         self, output: Union[BusGroup, Default, TrackContainer] | None
     ) -> None:
         async with self._lock:
             self._output = output
-            await self._reconcile(context=self.context)
+            if context := self._can_allocate():
+                await self._reconcile(context=context)
+            else:
+                self._reconcile_connections()
 
     async def set_muted(self, muted: bool) -> None:
         async with self._lock:

@@ -73,14 +73,16 @@ class Component(Generic[C]):
 
     def _disconnect_connections(
         self, root: Optional["Component"] = None
-    ) -> set["Component"]:
-        disconnections: set[Component] = set()
+    ) -> tuple[list["Component"], set["Component"]]:
+        related: list[Component] = []
+        deleted: set[Component] = set()
         for component, _ in self._connections:
             if root in component.parentage:
                 continue
+            related.append(component)
             if component._notify_disconnected(self):
-                disconnections.add(component)
-        return disconnections
+                deleted.add(component)
+        return related, deleted
 
     def _disconnect_parentage(self) -> None:
         self._parent = None
@@ -166,18 +168,21 @@ class Component(Generic[C]):
                 ),
             )
             visited_components.add(component)
-        # TODO: Can we consolidate deleted/related?
         related_components.extend(deleted_components)
+        related_components = sorted(
+            set([x for x in related_components if x not in visited_components]),
+            key=lambda x: x.graph_order,
+        )
         for component in related_components:
-            if component in visited_components:
-                continue
             component._reconcile_connections(
                 deleting=component in deleted_components, root=self
             )
             # gather again
             spec_changes.extend(
                 component._gather_spec_changes(
-                    new_context=None if component in deleted_components else context,
+                    new_context=None
+                    if component in deleted_components
+                    else component._context,
                     old_context_artifacts=old_context_artifacts,
                 ),
             )
@@ -189,7 +194,7 @@ class Component(Generic[C]):
                     context=context_,
                     old_artifacts=old_context_artifacts[context_],
                     new_artifacts=new_context_artifacts[context_],
-                    roots=[self],
+                    roots=[self] + related_components,
                 )
                 if spec_change_group.sync:
                     await context_.sync()
@@ -208,9 +213,11 @@ class Component(Generic[C]):
         deleting: bool = False,
         root: Optional["Component"] = None,
     ) -> tuple[list["Component"], set["Component"]]:
+        related: list["Component"] = []
+        deleted: set["Component"] = set()
         if deleting:
-            return list(to_delete := self._disconnect_connections(root=root)), to_delete
-        return [], set()
+            related, deleted = self._disconnect_connections(root=root)
+        return related, deleted
 
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
         return []
