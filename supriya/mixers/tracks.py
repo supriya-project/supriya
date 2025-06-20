@@ -350,15 +350,25 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                 name=Names.OUTPUT_LEVELS,
             ),
         ]
+        track_index: int = self.parent.tracks.index(self)
+        if track_index:
+            group_add_action: AddAction = AddAction.ADD_AFTER
+            group_target: Address = Spec.get_address(
+                self.parent.tracks[track_index - 1],
+                Names.NODES,
+                Names.GROUP,
+            )
+        else:
+            group_add_action = AddAction.ADD_TO_HEAD
+            group_target = Spec.get_address(self.parent, Names.NODES, Names.TRACKS)
         groups: list[Spec] = [
             GroupSpec(
-                add_action=AddAction.ADD_TO_TAIL,
+                add_action=group_add_action,
                 component=self,
                 context=context,
                 destroy_strategy={"gate": 0},
                 name=Names.GROUP,
-                # TODO: Need more advanced logic here for positioning
-                target_node=Spec.get_address(self.parent, Names.NODES, Names.TRACKS),
+                target_node=group_target,
             ),
             GroupSpec(
                 add_action=AddAction.ADD_TO_HEAD,

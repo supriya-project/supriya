@@ -205,7 +205,7 @@ async def basic_session() -> tuple[Session, str, str]:
             ['/s_new', 'supriya:meters:2', 1005, 3, 1003, 'in_', 16.0, 'out', 3.0],
             ['/s_new', 'supriya:patch-cable:2x2', 1006, 1, 1000, 'in_', 16.0]]]
         - [None,
-           [['/g_new', 1007, 1, 1001, 1008, 0, 1007, 1009, 1, 1007],
+           [['/g_new', 1007, 0, 1001, 1008, 0, 1007, 1009, 1, 1007],
             ['/s_new', 'supriya:channel-strip:2', 1010, 1, 1007, 'active', 'c5', 'gain', 'c6', 'out', 18.0],
             ['/s_new', 'supriya:meters:2', 1011, 3, 1008, 'in_', 18.0, 'out', 7.0],
             ['/s_new', 'supriya:meters:2', 1012, 3, 1010, 'in_', 18.0, 'out', 9.0],
@@ -331,40 +331,40 @@ async def complex_session() -> tuple[Session, str, str]:
             ['/s_new', 'supriya:meters:2', 1005, 3, 1003, 'in_', 16.0, 'out', 3.0],
             ['/s_new', 'supriya:patch-cable:2x2', 1006, 1, 1000, 'in_', 16.0]]]
         - [None,
-           [['/g_new', 1007, 1, 1001, 1008, 0, 1007, 1009, 1, 1007],
+           [['/g_new', 1007, 0, 1001, 1008, 0, 1007, 1009, 1, 1007],
             ['/s_new', 'supriya:channel-strip:2', 1010, 1, 1007, 'active', 'c5', 'gain', 'c6', 'out', 18.0],
             ['/s_new', 'supriya:meters:2', 1011, 3, 1008, 'in_', 18.0, 'out', 7.0],
             ['/s_new', 'supriya:meters:2', 1012, 3, 1010, 'in_', 18.0, 'out', 9.0],
             ['/s_new', 'supriya:patch-cable:2x2', 1013, 1, 1007, 'active', 'c5', 'in_', 18.0, 'out', 16.0]]]
         - [None,
-           [['/g_new', 1014, 1, 1008, 1015, 0, 1014, 1016, 1, 1014],
+           [['/g_new', 1014, 0, 1008, 1015, 0, 1014, 1016, 1, 1014],
             ['/s_new', 'supriya:channel-strip:2', 1017, 1, 1014, 'active', 'c11', 'gain', 'c12', 'out', 20.0],
             ['/s_new', 'supriya:meters:2', 1018, 3, 1015, 'in_', 20.0, 'out', 13.0],
             ['/s_new', 'supriya:meters:2', 1019, 3, 1017, 'in_', 20.0, 'out', 15.0],
             ['/s_new', 'supriya:patch-cable:2x2', 1020, 1, 1014, 'active', 'c11', 'in_', 20.0, 'out', 18.0],
             ['/s_new', 'supriya:fb-patch-cable:2x2', 1021, 0, 1014, 'active', 'c11', 'in_', 22.0, 'out', 20.0]]]
         - [None,
-           [['/g_new', 1022, 1, 1015, 1023, 0, 1022, 1024, 1, 1022],
+           [['/g_new', 1022, 0, 1015, 1023, 0, 1022, 1024, 1, 1022],
             ['/s_new', 'supriya:channel-strip:2', 1025, 1, 1022, 'active', 'c17', 'gain', 'c18', 'out', 24.0],
             ['/s_new', 'supriya:meters:2', 1026, 3, 1023, 'in_', 24.0, 'out', 19.0],
             ['/s_new', 'supriya:meters:2', 1027, 3, 1025, 'in_', 24.0, 'out', 21.0],
             ['/s_new', 'supriya:patch-cable:2x2', 1028, 1, 1022, 'active', 'c17', 'in_', 24.0, 'out', 20.0]]]
         - [None,
-           [['/g_new', 1029, 1, 1008, 1030, 0, 1029, 1031, 1, 1029],
+           [['/g_new', 1029, 3, 1014, 1030, 0, 1029, 1031, 1, 1029],
             ['/s_new', 'supriya:channel-strip:2', 1032, 1, 1029, 'active', 'c23', 'gain', 'c24', 'out', 26.0],
             ['/s_new', 'supriya:meters:2', 1033, 3, 1030, 'in_', 26.0, 'out', 25.0],
             ['/s_new', 'supriya:meters:2', 1034, 3, 1032, 'in_', 26.0, 'out', 27.0],
             ['/s_new', 'supriya:patch-cable:2x2', 1035, 1, 1029, 'active', 'c23', 'in_', 26.0, 'out', 18.0]]]
         - ['/s_new', 'supriya:patch-cable:2x2', 1036, 3, 1010, 'active', 'c5', 'in_', 18.0, 'out', 28.0]
         - [None,
-           [['/g_new', 1037, 1, 1001, 1038, 0, 1037, 1039, 1, 1037],
+           [['/g_new', 1037, 3, 1007, 1038, 0, 1037, 1039, 1, 1037],
             ['/s_new', 'supriya:channel-strip:2', 1040, 1, 1037, 'active', 'c29', 'gain', 'c30', 'out', 28.0],
             ['/s_new', 'supriya:meters:2', 1041, 3, 1038, 'in_', 28.0, 'out', 31.0],
             ['/s_new', 'supriya:meters:2', 1042, 3, 1040, 'in_', 28.0, 'out', 33.0],
             ['/s_new', 'supriya:patch-cable:2x2', 1043, 1, 1037, 'active', 'c29', 'in_', 28.0, 'out', 16.0]]]
         - ['/s_new', 'supriya:patch-cable:2x2', 1044, 3, 1040, 'active', 'c29', 'in_', 28.0, 'out', 22.0]
         - [None,
-           [['/g_new', 1045, 1, 1001, 1046, 0, 1045, 1047, 1, 1045],
+           [['/g_new', 1045, 3, 1037, 1046, 0, 1045, 1047, 1, 1045],
             ['/s_new', 'supriya:channel-strip:2', 1048, 1, 1045, 'active', 'c35', 'gain', 'c36', 'out', 30.0],
             ['/s_new', 'supriya:meters:2', 1049, 3, 1046, 'in_', 30.0, 'out', 37.0],
             ['/s_new', 'supriya:meters:2', 1050, 3, 1048, 'in_', 30.0, 'out', 39.0],
@@ -378,7 +378,7 @@ async def complex_session() -> tuple[Session, str, str]:
             ['/s_new', 'supriya:meters:2', 1057, 3, 1055, 'in_', 32.0, 'out', 44.0],
             ['/s_new', 'supriya:patch-cable:2x2', 1058, 1, 1052, 'in_', 32.0]]]
         - [None,
-           [['/g_new', 1059, 1, 1053, 1060, 0, 1059, 1061, 1, 1059],
+           [['/g_new', 1059, 0, 1053, 1060, 0, 1059, 1061, 1, 1059],
             ['/s_new', 'supriya:channel-strip:2', 1062, 1, 1059, 'active', 'c46', 'gain', 'c47', 'out', 34.0],
             ['/s_new', 'supriya:meters:2', 1063, 3, 1060, 'in_', 34.0, 'out', 48.0],
             ['/s_new', 'supriya:meters:2', 1064, 3, 1062, 'in_', 34.0, 'out', 50.0],
