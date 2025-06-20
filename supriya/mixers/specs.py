@@ -467,15 +467,26 @@ class SynthSpec(NodeSpec):
                 ),
             )
         if self.kwargs != old_spec.kwargs:
-            set_kwargs, map_kwargs = self.resolve_kwargs(
+            old_set_kwargs, old_map_kwargs = self.resolve_kwargs(
                 kwargs=self.kwargs,
                 new_artifacts=new_artifacts,
                 old_artifacts=old_artifacts,
             )
-            if map_kwargs:
-                old_artifacts.nodes[self.address].map(**map_kwargs)
-            if set_kwargs:
-                old_artifacts.nodes[self.address].set(**set_kwargs)
+            new_set_kwargs, new_map_kwargs = self.resolve_kwargs(
+                kwargs=self.kwargs,
+                new_artifacts=new_artifacts,
+                old_artifacts=old_artifacts,
+            )
+            for key in old_set_kwargs:
+                if old_set_kwargs[key] == new_set_kwargs[key]:
+                    new_set_kwargs.pop(key)
+            for key in old_map_kwargs:
+                if old_map_kwargs[key] == new_map_kwargs[key]:
+                    new_map_kwargs.pop(key)
+            if new_map_kwargs:
+                old_artifacts.nodes[self.address].map(**new_map_kwargs)
+            if new_set_kwargs:
+                old_artifacts.nodes[self.address].set(**new_set_kwargs)
 
     def requires(self) -> list[Address]:
         return [

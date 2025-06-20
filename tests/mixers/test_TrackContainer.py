@@ -49,7 +49,7 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
             """
             - [None, [['/c_set', 52, 1.0, 53, 0.0], ['/c_fill', 54, 2, 0.0, 56, 2, 0.0]]]
             - [None,
-               [['/g_new', 1066, 1, 1001, 1067, 0, 1066, 1068, 1, 1066],
+               [['/g_new', 1066, 3, 1045, 1067, 0, 1066, 1068, 1, 1066],
                 ['/s_new', 'supriya:channel-strip:2', 1069, 1, 1066, 'active', 'c52', 'gain', 'c53', 'out', 36.0],
                 ['/s_new', 'supriya:meters:2', 1070, 3, 1067, 'in_', 36.0, 'out', 54.0],
                 ['/s_new', 'supriya:meters:2', 1071, 3, 1069, 'in_', 36.0, 'out', 56.0],
@@ -95,7 +95,7 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
             """
             - [None, [['/c_set', 52, 1.0, 53, 0.0], ['/c_fill', 54, 2, 0.0, 56, 2, 0.0]]]
             - [None,
-               [['/g_new', 1066, 1, 1008, 1067, 0, 1066, 1068, 1, 1066],
+               [['/g_new', 1066, 3, 1029, 1067, 0, 1066, 1068, 1, 1066],
                 ['/s_new', 'supriya:channel-strip:2', 1069, 1, 1066, 'active', 'c52', 'gain', 'c53', 'out', 36.0],
                 ['/s_new', 'supriya:meters:2', 1070, 3, 1067, 'in_', 36.0, 'out', 54.0],
                 ['/s_new', 'supriya:meters:2', 1071, 3, 1069, 'in_', 36.0, 'out', 56.0],
@@ -144,7 +144,7 @@ async def test_TrackContainer_add_track(
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "target, index, count, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
-    [()],
+    [],
 )
 @pytest.mark.asyncio
 async def test_TrackContainer_group(
