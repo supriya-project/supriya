@@ -17,7 +17,7 @@ from ..contexts.responses import QueryTreeGroup
 from ..enums import BootStatus
 from ..typing import DEFAULT, Default
 from ..utils import iterate_nwise
-from .constants import IO, Address, ChannelCount, Names
+from .constants import IO, Address, ChannelCount, Names, Reconciliation
 from .specs import (
     Artifacts,
     Spec,
@@ -99,6 +99,7 @@ class Component(Generic[C]):
         *,
         new_context: AsyncServer | None,
         old_context_artifacts: dict[AsyncServer, Artifacts],
+        destroy_reconciliation: Reconciliation,
     ) -> list[SpecChange]:
         old_specs = {spec.address: spec for spec in self._specs}
         self._specs = self._resolve_specs(
@@ -110,6 +111,7 @@ class Component(Generic[C]):
             old_specs=old_specs,
             new_specs=new_specs,
             old_context_artifacts=old_context_artifacts,
+            destroy_reconciliation=destroy_reconciliation,
         )
 
     def _iterate_parentage(self) -> Iterator["Component"]:
@@ -151,39 +153,48 @@ class Component(Generic[C]):
         visited_components: set[Component] = set()
         related_components: list[Component] = []
         deleted_components: set[Component] = set([self] if deleting else [])
+        # walk depth-first from the root
         for component in self._walk():
-            # need to patch up connected components
+            # patch up cyclic relationships
             related, deleted = component._reconcile_connections(
                 deleting=deleting, root=self
             )
             related_components.extend(related)
             deleted_components.update(deleted)
-            # need to know if we need to be deleted? how?
             # gather spec changes
-            # add component to visited components to prevent cycles
             spec_changes.extend(
                 component._gather_spec_changes(
                     new_context=context,
                     old_context_artifacts=old_context_artifacts,
+                    destroy_reconciliation=(
+                        Reconciliation.DESTROY_ROOT
+                        if component is self
+                        else Reconciliation.DESTROY
+                    ),
                 ),
             )
             visited_components.add(component)
+        # TODO: doesn't connection reconciliation handle this?
         related_components.extend(deleted_components)
+        # omit visited components (walk once!) and sort by graph order
         related_components = sorted(
             set([x for x in related_components if x not in visited_components]),
             key=lambda x: x.graph_order,
         )
+        # walk related components, but don't add new ones
         for component in related_components:
+            # patch up cyclic relationships
             component._reconcile_connections(
                 deleting=component in deleted_components, root=self
             )
-            # gather again
+            # gather spec changes
             spec_changes.extend(
                 component._gather_spec_changes(
-                    new_context=None
-                    if component in deleted_components
-                    else component._context,
+                    new_context=(
+                        None if component in deleted_components else component._context
+                    ),
                     old_context_artifacts=old_context_artifacts,
+                    destroy_reconciliation=Reconciliation.DESTROY_SHALLOW,
                 ),
             )
         # sort and apply spec changes

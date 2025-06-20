@@ -54,9 +54,7 @@ class Spec:
         self,
         *,
         old_artifacts: Artifacts,
-        recreated: bool = False,
-        related: bool = False,
-        rooted: bool = False,
+        reconciliation: Reconciliation,
     ) -> None:
         raise NotImplementedError
 
@@ -195,9 +193,7 @@ class BufferSpec(Spec):
     def destroy(
         self,
         old_artifacts: Artifacts,
-        recreated: bool = False,
-        related: bool = False,
-        rooted: bool = False,
+        reconciliation: Reconciliation,
     ) -> None:
         if (buffers := self.component._artifacts.buffers)[
             self.name
@@ -253,9 +249,7 @@ class BusSpec(Spec):
     def destroy(
         self,
         old_artifacts: Artifacts,
-        recreated: bool = False,
-        related: bool = False,
-        rooted: bool = False,
+        reconciliation: Reconciliation,
     ) -> None:
         if self.calculation_rate == CalculationRate.AUDIO:
             if (audio_buses := self.component._artifacts.audio_buses)[
@@ -309,9 +303,7 @@ class SynthDefSpec(Spec):
     def destroy(
         self,
         old_artifacts: Artifacts,
-        recreated: bool = False,
-        related: bool = False,
-        rooted: bool = False,
+        reconciliation: Reconciliation,
     ) -> None:
         return
 
@@ -369,16 +361,14 @@ class GroupSpec(NodeSpec):
     def destroy(
         self,
         old_artifacts: Artifacts,
-        recreated: bool = False,
-        related: bool = False,
-        rooted: bool = False,
+        reconciliation: Reconciliation,
     ) -> None:
         if (nodes := self.component._artifacts.nodes)[
             self.name
         ].context is self.context:
             nodes.pop(self.name)
         node = old_artifacts.nodes.pop(self.address)
-        if rooted and self.destroy_strategy:
+        if reconciliation is Reconciliation.DESTROY_ROOT and self.destroy_strategy:
             node.set(**self.destroy_strategy)
 
     def mutate(
@@ -444,19 +434,17 @@ class SynthSpec(NodeSpec):
     def destroy(
         self,
         old_artifacts: Artifacts,
-        recreated: bool = False,
-        related: bool = False,
-        rooted: bool = False,
+        reconciliation: Reconciliation,
     ) -> None:
         if (nodes := self.component._artifacts.nodes)[
             self.name
         ].context is self.context:
             nodes.pop(self.name)
         synth = old_artifacts.nodes.pop(self.address)
-        if rooted and self.destroy_strategy:
-            synth.set(**self.destroy_strategy)
-        elif recreated or related:
+        if reconciliation in (Reconciliation.DESTROY_SHALLOW, Reconciliation.RECREATE):
             synth.set(done_action=DoneAction.FREE_SYNTH, gate=0)
+        elif reconciliation is Reconciliation.DESTROY_ROOT and self.destroy_strategy:
+            synth.set(**self.destroy_strategy)
 
     def mutate(
         self,
@@ -547,9 +535,7 @@ class SpecChange:
             raise ValueError
         self.old_spec.destroy(
             old_artifacts=old_artifacts,
-            recreated=self.reconciliation is Reconciliation.RECREATE,
-            related=related,
-            rooted=rooted,
+            reconciliation=self.reconciliation,
         )
 
     @classmethod
@@ -559,6 +545,7 @@ class SpecChange:
         old_specs: dict[Address, Spec],
         new_specs: dict[Address, Spec],
         old_context_artifacts: dict[AsyncServer, Artifacts],
+        destroy_reconciliation: Reconciliation,
     ) -> list["SpecChange"]:
         spec_changes: list[SpecChange] = []
         for address, old_spec in old_specs.items():
@@ -584,7 +571,7 @@ class SpecChange:
                                 component=new_spec.component,
                                 context=old_spec.context,
                                 old_spec=old_spec,
-                                reconciliation=Reconciliation.DESTROY,
+                                reconciliation=destroy_reconciliation,
                             ),
                         ]
                     )
@@ -619,7 +606,7 @@ class SpecChange:
                         component=old_spec.component,
                         context=old_spec.context,
                         old_spec=old_spec,
-                        reconciliation=Reconciliation.DESTROY,
+                        reconciliation=destroy_reconciliation,
                     )
                 )
         for address, new_spec in new_specs.items():
@@ -739,7 +726,10 @@ class SpecChange:
                     destructions.append(spec_change)
                 elif spec_change.reconciliation == Reconciliation.MUTATE:
                     mutations.append(spec_change)
-                elif spec_change.reconciliation == Reconciliation.DESTROY:
+                elif spec_change.reconciliation in (
+                    Reconciliation.DESTROY_ROOT,
+                    Reconciliation.DESTROY_SHALLOW,
+                ):
                     destructions.append(spec_change)
             # sort creations
             sorted_spec_changes[context] = _sort_create_spec_changes(creations)
@@ -797,7 +787,7 @@ class SpecChangeGroup:
                         old_artifacts=old_artifacts,
                         new_artifacts=new_artifacts,
                     )
-            elif self.reconciliation is Reconciliation.DESTROY:
+            elif self.reconciliation in Reconciliation.DESTROY:
                 for spec_change in self.spec_changes:
                     spec_change.destroy(
                         old_artifacts=old_artifacts,
@@ -805,3 +795,5 @@ class SpecChangeGroup:
                         rooted=spec_change.component in roots,
                         related=spec_change.component in related,
                     )
+            else:
+                raise ValueError(self.reconciliation)

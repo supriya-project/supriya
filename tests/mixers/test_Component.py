@@ -41,10 +41,12 @@ async def test_Component_connections_02():
     track_two = await mixer.add_track()
     await track_one.add_send(track_two)
     await session.boot()
+    initial_tree = await debug_tree(session, annotated=False)
     # Operation
     with capture(session.contexts[0]) as messages:
         await track_one.delete()
     # Post-conditions
+    print(initial_tree)
     assert format_messages(messages) == normalize(
         """
         - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
@@ -65,7 +67,6 @@ async def test_Component_connections_03():
     initial_tree = await debug_tree(session, annotated=False)
     # Operation
     with capture(session.contexts[0]) as messages:
-        print("----")
         await track_two.delete()
     # Post-conditions
     print(initial_tree)

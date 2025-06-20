@@ -38,3 +38,4 @@ class Reconciliation(enum.StrEnum):
     MUTATE = "mutate"
     DESTROY = "destroy"
     DESTROY_SHALLOW = "destroy-shallow"
+    DESTROY_ROOT = "destroy-root"
