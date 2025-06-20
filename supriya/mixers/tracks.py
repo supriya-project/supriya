@@ -58,7 +58,12 @@ class TrackContainer(Component[C]):
 
     async def group(self, index: int, count: int) -> "Track":
         async with self._lock:
-            return self._group(index=index, count=count)
+            track = self._group(index=index, count=count)
+            if context := self._can_allocate():
+                await track._reconcile(context=context)
+            else:
+                track._reconcile_connections()
+            return track
 
     @property
     def tracks(self) -> list["Track"]:

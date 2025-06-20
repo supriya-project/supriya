@@ -114,19 +114,67 @@ async def test_TrackContainer_add_track(
     target: str,
 ) -> None:
     # Pre-conditions
+    print("Pre-conditions")
     session, initial_components, initial_tree = complex_session
     if online:
         await session.boot()
     target_ = session[target]
     assert isinstance(target_, TrackContainer)
     # Operation
+    print("Operation")
     with capture(session["mixers[0]"].context) as messages:
         track = await target_.add_track(name="Z")
     # Post-conditions
+    print("Post-conditions")
     assert isinstance(track, Track)
     assert track in target_.tracks
     assert track.parent is target_
     assert target_.tracks[-1] is track
+    assert_components_diff(session, expected_components_diff, initial_components)
+    if not online:
+        return
+    await assert_tree_diff(
+        session,
+        expected_tree_diff,
+        expected_initial_tree=initial_tree,
+    )
+    assert format_messages(messages) == normalize(expected_messages)
+
+
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.parametrize(
+    "target, index, count, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
+    [()],
+)
+@pytest.mark.asyncio
+async def test_TrackContainer_group(
+    complex_session: tuple[Session, str, str],
+    count: int,
+    expected_components_diff: str,
+    expected_messages: str,
+    expected_tree_diff: str,
+    index: int,
+    maybe_raises,
+    online: bool,
+    target: str,
+) -> None:
+    # Pre-conditions
+    print("Pre-conditions")
+    session, initial_components, initial_tree = complex_session
+    if online:
+        await session.boot()
+    target_ = session[target]
+    assert isinstance(target_, TrackContainer)
+    # Operation
+    print("Operation")
+    with maybe_raises, capture(session["mixers[0]"].context) as messages:
+        track = await target_.group(index=index, count=count)
+    # Post-conditions
+    print("Post-conditions")
+    assert isinstance(track, Track)
+    assert track in target_.tracks
+    assert track.parent is target_
+    assert target_.tracks[index] is track
     assert_components_diff(session, expected_components_diff, initial_components)
     if not online:
         return
