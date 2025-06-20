@@ -245,8 +245,8 @@ async def basic_session() -> tuple[Session, str, str]:
         """
         <Session 0>
             <session.contexts[0]>
-                <Mixer 1 'P' session.mixers[0]>
-                    <Track 2 'A' session.mixers[0].tracks[0]>
+                <Mixer 1 'P'>
+                    <Track 2 'A'>
         """
     )
     await session.quit()
@@ -501,17 +501,17 @@ async def complex_session() -> tuple[Session, str, str]:
         """
         <Session 0>
             <session.contexts[0]>
-                <Mixer 1 'P' session.mixers[0]>
-                    <Track 3 'A' session.mixers[0].tracks[0]>
-                        <Track 6 'A1' session.mixers[0].tracks[0].tracks[0]>
-                            <Track 8 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
-                        <Track 7 'A2' session.mixers[0].tracks[0].tracks[1]>
-                        <TrackSend 10 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-                    <Track 4 'B' session.mixers[0].tracks[1]>
-                        <TrackSend 11 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-                    <Track 5 'C' session.mixers[0].tracks[2]>
-                <Mixer 2 'Q' session.mixers[1]>
-                    <Track 9 'D' session.mixers[1].tracks[0]>
+                <Mixer 1 'P'>
+                    <Track 3 'A'>
+                        <Track 6 'A1'>
+                            <Track 8 'A11'>
+                        <Track 7 'A2'>
+                        <TrackSend 10 target=<Track 4 'B'>>
+                    <Track 4 'B'>
+                        <TrackSend 11 target=<Track 6 'A1'>>
+                    <Track 5 'C'>
+                <Mixer 2 'Q'>
+                    <Track 9 'D'>
         """
     )
     await session.quit()

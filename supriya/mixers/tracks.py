@@ -85,7 +85,7 @@ class TrackSend(Component["Track"]):
         self._target = target
 
     def __repr__(self) -> str:
-        return super().__repr__().replace(">", f" target={self.target.address}>")
+        return super().__repr__().replace(">", f" target={self.target!r}>")
 
     def _disconnect_parentage(self) -> None:
         if (parent := self._parent) is not None and self in parent._sends:

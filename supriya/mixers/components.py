@@ -58,8 +58,8 @@ class Component(Generic[C]):
 
     def __repr__(self) -> str:
         if self._name:
-            return f"<{type(self).__name__} {self._id} {self._name!r} {self.address}>"
-        return f"<{type(self).__name__} {self._id} {self.address}>"
+            return f"<{type(self).__name__} {self._id} {self._name!r}>"
+        return f"<{type(self).__name__} {self._id}>"
 
     def _can_allocate(self) -> AsyncServer | None:
         if (

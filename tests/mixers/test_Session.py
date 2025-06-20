@@ -38,8 +38,8 @@ async def test_Session_add_context(
         +++ mutation
         @@ -2,3 +2,4 @@
              <session.contexts[0]>
-                 <Mixer 1 'P' session.mixers[0]>
-                     <Track 2 'A' session.mixers[0].tracks[0]>
+                 <Mixer 1 'P'>
+                     <Track 2 'A'>
         +    <session.contexts[1]>
         """,
         initial_components,
@@ -72,10 +72,10 @@ async def test_Session_add_context(
             +++ mutation
             @@ -2,3 +2,5 @@
                  <session.contexts[0]>
-                     <Mixer 1 'P' session.mixers[0]>
-                         <Track 2 'A' session.mixers[0].tracks[0]>
+                     <Mixer 1 'P'>
+                         <Track 2 'A'>
             +    <session.contexts[1]>
-            +        <Mixer 3 session.mixers[1]>
+            +        <Mixer 3>
             """,
             """
             --- initial
@@ -118,9 +118,9 @@ async def test_Session_add_context(
             +++ mutation
             @@ -2,3 +2,5 @@
                  <session.contexts[0]>
-                     <Mixer 1 'P' session.mixers[0]>
-                         <Track 2 'A' session.mixers[0].tracks[0]>
-            +        <Mixer 3 session.mixers[1]>
+                     <Mixer 1 'P'>
+                         <Track 2 'A'>
+            +        <Mixer 3>
             +    <session.contexts[1]>
             """,
             """
@@ -224,8 +224,8 @@ async def test_Session_boot(
             @@ -1,5 +1,2 @@
              <Session 0>
                  <session.contexts[0]>
-            -        <Mixer 1 'P' session.mixers[0]>
-            -            <Track 2 'A' session.mixers[0].tracks[0]>
+            -        <Mixer 1 'P'>
+            -            <Track 2 'A'>
             -    <session.contexts[1]>
             """,
             """
@@ -265,8 +265,8 @@ async def test_Session_boot(
             +++ mutation
             @@ -2,4 +2,3 @@
                  <session.contexts[0]>
-                     <Mixer 1 'P' session.mixers[0]>
-                         <Track 2 'A' session.mixers[0].tracks[0]>
+                     <Mixer 1 'P'>
+                         <Track 2 'A'>
             -    <session.contexts[1]>
             """,
             """
@@ -343,11 +343,11 @@ async def test_Session_quit(
             @@ -1,6 +1,6 @@
              <Session 0>
                  <session.contexts[0]>
-            +        <Mixer 3 'Q' session.mixers[1]>
+            +        <Mixer 3 'Q'>
             +    <session.contexts[1]>
-                     <Mixer 1 'P' session.mixers[0]>
-                         <Track 2 'A' session.mixers[0].tracks[0]>
-            -        <Mixer 3 'Q' session.mixers[1]>
+                     <Mixer 1 'P'>
+                         <Track 2 'A'>
+            -        <Mixer 3 'Q'>
             -    <session.contexts[1]>
             """,
             """
@@ -397,10 +397,10 @@ async def test_Session_quit(
             +++ mutation
             @@ -2,5 +2,5 @@
                  <session.contexts[0]>
-                     <Mixer 1 'P' session.mixers[0]>
-                         <Track 2 'A' session.mixers[0].tracks[0]>
+                     <Mixer 1 'P'>
+                         <Track 2 'A'>
             +    <session.contexts[1]>
-                     <Mixer 3 'Q' session.mixers[1]>
+                     <Mixer 3 'Q'>
             -    <session.contexts[1]>
             """,
             """

@@ -17,12 +17,12 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
             --- initial
             +++ mutation
             @@ -9,5 +9,6 @@
-                         <Track 4 'B' session.mixers[0].tracks[1]>
-                             <TrackSend 11 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
-                         <Track 5 'C' session.mixers[0].tracks[2]>
-            +            <Device 12 session.mixers[0].devices[0]>
-                     <Mixer 2 'Q' session.mixers[1]>
-                         <Track 9 'D' session.mixers[1].tracks[0]>
+                         <Track 4 'B'>
+                             <TrackSend 11 target=<Track 6 'A1'>>
+                         <Track 5 'C'>
+            +            <Device 12>
+                     <Mixer 2 'Q'>
+                         <Track 9 'D'>
             """,
             """
             --- initial
@@ -50,13 +50,13 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
             --- initial
             +++ mutation
             @@ -5,6 +5,7 @@
-                             <Track 6 'A1' session.mixers[0].tracks[0].tracks[0]>
-                                 <Track 8 'A11' session.mixers[0].tracks[0].tracks[0].tracks[0]>
-                             <Track 7 'A2' session.mixers[0].tracks[0].tracks[1]>
-            +                <Device 12 session.mixers[0].tracks[0].devices[0]>
-                             <TrackSend 10 session.mixers[0].tracks[0].sends[0] target=session.mixers[0].tracks[1]>
-                         <Track 4 'B' session.mixers[0].tracks[1]>
-                             <TrackSend 11 session.mixers[0].tracks[1].sends[0] target=session.mixers[0].tracks[0].tracks[0]>
+                             <Track 6 'A1'>
+                                 <Track 8 'A11'>
+                             <Track 7 'A2'>
+            +                <Device 12>
+                             <TrackSend 10 target=<Track 4 'B'>>
+                         <Track 4 'B'>
+                             <TrackSend 11 target=<Track 6 'A1'>>
             """,
             """
             --- initial

@@ -26,10 +26,9 @@ from .conftest import (
             @@ -1,5 +1,3 @@
              <Session 0>
                  <session.contexts[0]>
-            -        <Mixer 1 'P' session.mixers[0]>
-            -            <Track 2 'A' session.mixers[0].tracks[0]>
-            -        <Mixer 3 'Q' session.mixers[1]>
-            +        <Mixer 3 'Q' session.mixers[0]>
+            -        <Mixer 1 'P'>
+            -            <Track 2 'A'>
+                     <Mixer 3 'Q'>
             """,
             """
             --- initial
@@ -73,9 +72,9 @@ from .conftest import (
             +++ mutation
             @@ -2,4 +2,3 @@
                  <session.contexts[0]>
-                     <Mixer 1 'P' session.mixers[0]>
-                         <Track 2 'A' session.mixers[0].tracks[0]>
-            -        <Mixer 3 'Q' session.mixers[1]>
+                     <Mixer 1 'P'>
+                         <Track 2 'A'>
+            -        <Mixer 3 'Q'>
             """,
             """
             --- initial
