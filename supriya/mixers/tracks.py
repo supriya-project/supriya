@@ -237,7 +237,25 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
         super()._disconnect_parentage()
 
     def _move(self, *, parent: TrackContainer, index: int) -> None:
-        raise NotImplementedError
+        # Validate if moving is possible
+        if self.mixer is not parent.mixer:
+            raise RuntimeError
+        elif self in parent.parentage:
+            raise RuntimeError
+        elif index < 0:
+            raise RuntimeError
+        elif index and index >= len(parent.tracks):
+            raise RuntimeError
+        # Reconfigure parentage and bail if this is a no-op
+        old_parent, old_index = self._parent, 0
+        if old_parent is not None:
+            old_index = old_parent._tracks.index(self)
+        if old_parent is parent and old_index == index:
+            return  # Bail
+        if old_parent is not None:
+            old_parent._tracks.remove(self)
+        self._parent = parent
+        parent._tracks.insert(index, self)
 
     def _notify_disconnected(self, connection: "Component") -> bool:
         if connection is self._input:
@@ -663,7 +681,9 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
 
     async def move(self, parent: TrackContainer, index: int) -> None:
         async with self._lock:
-            pass
+            self._move(parent=parent, index=index)
+            if context := self._can_allocate():
+                await self._reconcile(context=context)
 
     async def set_input(self, input_: Union[BusGroup, "Track"] | None) -> None:
         async with self._lock:
