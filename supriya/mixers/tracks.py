@@ -211,6 +211,16 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
         self._output: BusGroup | Default | TrackContainer | None = DEFAULT
         self._sends: list[TrackSend] = []
 
+    def __repr__(self) -> str:
+        repr_ = super().__repr__()
+        input_: str = ""
+        output: str = ""
+        if self.input is not None:
+            input_ = f" input={self.input!r}"
+        if self.output is not DEFAULT:
+            output = f" output={self.output!r}"
+        return f"{repr_[:-1]}{input_}{output}>"
+
     def _add_send(
         self,
         *,
