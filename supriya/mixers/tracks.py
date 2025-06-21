@@ -128,8 +128,8 @@ class TrackSend(Component["Track"]):
             return []
         feedsback = bool(
             Spec.feedsback(
-                source_order=self.parent.graph_order,
-                target_order=self.target.graph_order,
+                writer_order=self.parent.graph_order,
+                reader_order=self.target.graph_order,
             )
         )
         patch_cable_synthdef = build_patch_cable(
@@ -489,8 +489,8 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
         if isinstance(self.input, Track):
             input_feedsback = bool(
                 Spec.feedsback(
-                    source_order=self.input.graph_order,
-                    target_order=self.graph_order,
+                    writer_order=self.input.graph_order,
+                    reader_order=self.graph_order,
                 )
             )
             input_patch_cable_synthdef = build_patch_cable(
@@ -538,8 +538,8 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
             )
             output_feedsback = bool(
                 Spec.feedsback(
-                    source_order=self.graph_order,
-                    target_order=output_target_component.graph_order,
+                    writer_order=self.graph_order,
+                    reader_order=output_target_component.graph_order,
                 )
             )
             output_patch_cable_synthdef = build_patch_cable(

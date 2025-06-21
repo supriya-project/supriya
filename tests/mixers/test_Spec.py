@@ -6,7 +6,7 @@ from supriya.mixers.specs import Spec
 
 
 @pytest.mark.parametrize(
-    "source_name, target_name, feedsback",
+    "writer_name, reader_name, feedsback",
     [
         ("mixer", "mixer", True),
         ("mixer", "track_one", True),
@@ -39,8 +39,8 @@ from supriya.mixers.specs import Spec
 async def test_Spec_feedsback(
     basic_session: tuple[Session, str, str],
     feedsback: bool,
-    source_name: str,
-    target_name: str,
+    writer_name: str,
+    reader_name: str,
 ) -> None:
     session, _, _ = basic_session
     components: dict[str, Component] = {
@@ -50,9 +50,9 @@ async def test_Spec_feedsback(
         "track_one_child": await track_one.add_track(),
         "track_two_child": await track_two.add_track(),
     }
-    source = components[source_name]
-    target = components[target_name]
-    assert Spec.feedsback(source.graph_order, target.graph_order) == feedsback, (
-        source_name,
-        target_name,
+    writer = components[writer_name]
+    reader = components[reader_name]
+    assert Spec.feedsback(writer.graph_order, reader.graph_order) == feedsback, (
+        writer_name,
+        reader_name,
     )

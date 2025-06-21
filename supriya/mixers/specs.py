@@ -61,34 +61,34 @@ class Spec:
     @classmethod
     def feedsback(
         cls,
-        source_order: tuple[int, ...] | None,
-        target_order: tuple[int, ...] | None,
+        writer_order: tuple[int, ...] | None,
+        reader_order: tuple[int, ...] | None,
     ) -> bool | None:
-        if source_order is None or target_order is None:
+        if writer_order is None or reader_order is None:
             return None
-        length = min(len(target_order), len(source_order))
-        # If source_order is shallower than target_order, source_order might
-        # contain target_order
-        if len(source_order) < len(target_order):
-            feedsback = target_order[:length] <= source_order
-        # If target_order is shallower than source_order, target_order might
-            # contain source_order
-        elif len(target_order) < len(source_order):
-            feedsback = target_order < source_order[:length]
+        length = min(len(reader_order), len(writer_order))
+        # If writer_order is shallower than reader_order, writer_order might
+        # contain reader_order
+        if len(writer_order) < len(reader_order):
+            feedsback = reader_order[:length] <= writer_order
+        # If reader_order is shallower than writer_order, reader_order might
+        # contain writer_order
+        elif len(reader_order) < len(writer_order):
+            feedsback = reader_order < writer_order[:length]
         # If orders are same depth, check difference strictly
         else:
-            feedsback = target_order <= source_order
+            feedsback = reader_order <= writer_order
         return feedsback
 
     @classmethod
     def needs_feedback(cls, component: "Component") -> bool:
-        target_graph_order = component.graph_order
+        graph_order = component.graph_order
         visited_components: dict[Component, set[IO]] = {}
         for (connection, _), io in component._connections.items():
             visited_components.setdefault(connection, set()).add(io)
             if cls.feedsback(
-                source_order=connection.graph_order,
-                target_order=target_graph_order,
+                writer_order=connection.graph_order,
+                reader_order=graph_order,
             ) or visited_components[connection] == set([IO.READ, IO.WRITE]):
                 return True
         return False
