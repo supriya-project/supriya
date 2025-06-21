@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Optional
 from ..contexts import AsyncServer, Buffer, BusGroup, Node
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..ugens import SynthDef
-from .constants import Address, Names, Reconciliation
+from .constants import IO, Address, Names, Reconciliation
 
 if TYPE_CHECKING:
     from .components import Component
@@ -63,21 +63,35 @@ class Spec:
         cls,
         source_order: tuple[int, ...] | None,
         target_order: tuple[int, ...] | None,
-        writing: bool = True,
     ) -> bool | None:
         if source_order is None or target_order is None:
             return None
         length = min(len(target_order), len(source_order))
-        # If source_order is shallower than target_order, source_order might contain target_order
+        # If source_order is shallower than target_order, source_order might
+        # contain target_order
         if len(source_order) < len(target_order):
             feedsback = target_order[:length] <= source_order
-        # If target_order is shallower than source_order, target_order might contain source_order
+        # If target_order is shallower than source_order, target_order might
+            # contain source_order
         elif len(target_order) < len(source_order):
             feedsback = target_order < source_order[:length]
         # If orders are same depth, check difference strictly
         else:
             feedsback = target_order <= source_order
         return feedsback
+
+    @classmethod
+    def needs_feedback(cls, component: "Component") -> bool:
+        target_graph_order = component.graph_order
+        visited_components: dict[Component, set[IO]] = {}
+        for (connection, _), io in component._connections.items():
+            visited_components.setdefault(connection, set()).add(io)
+            if cls.feedsback(
+                source_order=connection.graph_order,
+                target_order=target_graph_order,
+            ) or visited_components[connection] == set([IO.READ, IO.WRITE]):
+                return True
+        return False
 
     @staticmethod
     def get_address(

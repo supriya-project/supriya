@@ -130,7 +130,6 @@ class TrackSend(Component["Track"]):
             Spec.feedsback(
                 source_order=self.parent.graph_order,
                 target_order=self.target.graph_order,
-                writing=True,
             )
         )
         patch_cable_synthdef = build_patch_cable(
@@ -492,7 +491,6 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                 Spec.feedsback(
                     source_order=self.input.graph_order,
                     target_order=self.graph_order,
-                    writing=False,
                 )
             )
             input_patch_cable_synthdef = build_patch_cable(
@@ -542,13 +540,11 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                 Spec.feedsback(
                     source_order=self.graph_order,
                     target_order=output_target_component.graph_order,
-                    writing=True,
                 )
             )
             output_patch_cable_synthdef = build_patch_cable(
                 self.effective_channel_count,
                 output_target_component.effective_channel_count,
-                feedback=output_feedsback,
             )
             synthdefs.append(
                 SynthDefSpec(
@@ -619,64 +615,53 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                     target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
                 )
             )
-        target_graph_order = self.graph_order
-        visited_components: dict[Component, set[IO]] = {}
-        for (component, _), io in self._connections.items():
-            visited_components.setdefault(component, set()).add(io)
-            if Spec.feedsback(
-                source_order=component.graph_order,
-                target_order=target_graph_order,
-                writing=io == IO.WRITE,
-            ) or visited_components[component] == set([IO.READ, IO.WRITE]):
-                feedback_patch_cable_synthdef = build_patch_cable(
-                    self.effective_channel_count,
-                    self.effective_channel_count,
-                    feedback=True,
+        if Spec.needs_feedback(self):
+            feedback_patch_cable_synthdef = build_patch_cable(
+                self.effective_channel_count,
+                self.effective_channel_count,
+                feedback=True,
+            )
+            synthdefs.append(
+                SynthDefSpec(
+                    component=self,
+                    context=context,
+                    name=feedback_patch_cable_synthdef.effective_name,
+                    synthdef=feedback_patch_cable_synthdef,
                 )
-                synthdefs.append(
-                    SynthDefSpec(
-                        component=self,
-                        context=context,
-                        name=feedback_patch_cable_synthdef.effective_name,
-                        synthdef=feedback_patch_cable_synthdef,
-                    )
+            )
+            busses.append(
+                BusSpec(
+                    calculation_rate=CalculationRate.AUDIO,
+                    channel_count=self.effective_channel_count,
+                    component=self,
+                    context=context,
+                    name=Names.FEEDBACK,
                 )
-                busses.append(
-                    BusSpec(
-                        calculation_rate=CalculationRate.AUDIO,
-                        channel_count=self.effective_channel_count,
-                        component=self,
-                        context=context,
-                        name=Names.FEEDBACK,
-                    )
-                )
-                synths.append(
-                    SynthSpec(
-                        add_action=AddAction.ADD_TO_HEAD,
-                        component=self,
-                        context=context,
-                        destroy_strategy={"gate": 0},
-                        name=Names.FEEDBACK,
-                        kwargs={
-                            "active": Spec.get_address(
-                                self, Names.CONTROL_BUSSES, Names.ACTIVE
-                            ),
-                            "in_": Spec.get_address(
-                                self, Names.AUDIO_BUSSES, Names.FEEDBACK
-                            ),
-                            "out": Spec.get_address(
-                                self, Names.AUDIO_BUSSES, Names.MAIN
-                            ),
-                        },
-                        synthdef=Spec.get_address(
-                            None,
-                            Names.SYNTHDEFS,
-                            feedback_patch_cable_synthdef.effective_name,
+            )
+            synths.append(
+                SynthSpec(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    component=self,
+                    context=context,
+                    destroy_strategy={"gate": 0},
+                    name=Names.FEEDBACK,
+                    kwargs={
+                        "active": Spec.get_address(
+                            self, Names.CONTROL_BUSSES, Names.ACTIVE
                         ),
-                        target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
-                    )
+                        "in_": Spec.get_address(
+                            self, Names.AUDIO_BUSSES, Names.FEEDBACK
+                        ),
+                        "out": Spec.get_address(self, Names.AUDIO_BUSSES, Names.MAIN),
+                    },
+                    synthdef=Spec.get_address(
+                        None,
+                        Names.SYNTHDEFS,
+                        feedback_patch_cable_synthdef.effective_name,
+                    ),
+                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
                 )
-                break
+            )
         return synthdefs + busses + groups + synths
 
     async def add_send(
