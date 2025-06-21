@@ -265,6 +265,10 @@ class Component(Generic[C]):
         return str(tree)
 
     @property
+    def _nonrecursive_repr(self) -> str:
+        return repr(self)
+
+    @property
     def address(self) -> Address:
         raise NotImplementedError
 

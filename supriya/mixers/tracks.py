@@ -85,7 +85,14 @@ class TrackSend(Component["Track"]):
         self._target = target
 
     def __repr__(self) -> str:
-        return super().__repr__().replace(">", f" target={self.target!r}>")
+        return (
+            super()
+            .__repr__()
+            .replace(
+                ">",
+                f" target={Component.__repr__(self.target)}>",
+            )
+        )
 
     def _disconnect_parentage(self) -> None:
         if (parent := self._parent) is not None and self in parent._sends:
@@ -215,10 +222,12 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
         repr_ = super().__repr__()
         input_: str = ""
         output: str = ""
-        if self.input is not None:
-            input_ = f" input={self.input!r}"
-        if self.output is not DEFAULT:
-            output = f" output={self.output!r}"
+        if isinstance(self.input, Track):
+            input_ = f" input={Component.__repr__(self.input)}"
+        if isinstance(self.output, TrackContainer):
+            output = f" output={Component.__repr__(self.output)}"
+        elif self.output is None:
+            output = f" output={None}"
         return f"{repr_[:-1]}{input_}{output}>"
 
     def _add_send(
@@ -697,6 +706,10 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
 
     async def set_input(self, input_: Union[BusGroup, "Track"] | None) -> None:
         async with self._lock:
+            if input_ is self:
+                raise RuntimeError
+            elif isinstance(input_, Track) and input_.mixer is not self.mixer:
+                raise RuntimeError
             self._input = input_
             if context := self._can_allocate():
                 await self._reconcile(context=context)
@@ -707,6 +720,10 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
         self, output: Union[BusGroup, Default, TrackContainer] | None
     ) -> None:
         async with self._lock:
+            if output is self:
+                raise RuntimeError
+            elif isinstance(output, TrackContainer) and output.mixer is not self.mixer:
+                raise RuntimeError
             self._output = output
             if context := self._can_allocate():
                 await self._reconcile(context=context)

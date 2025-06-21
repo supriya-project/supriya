@@ -1344,7 +1344,7 @@ async def test_Track_move(
             "",
             "",
         ),
-        # self
+        # self: not allowed
         (
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0].tracks[0]",
@@ -1361,40 +1361,40 @@ async def test_Track_move(
             "mixers[0].tracks[0]",
             does_not_raise,
             """
+            --- initial
+            +++ mutation
+            @@ -2,7 +2,7 @@
+                 <session.contexts[0]>
+                     <Mixer 1 'P'>
+                         <Track 3 'A'>
+            -                <Track 6 'A1'>
+            +                <Track 6 'A1' input=<Track 3 'A'>>
+                                 <Track 8 'A11'>
+                             <Track 7 'A2'>
+                             <TrackSend 10 target=<Track 4 'B'>>
+            """,
+            # TODO: This shouldn't trigger feedback in 1067
+            """
+            --- initial
+            +++ mutation
+            @@ -2,8 +2,12 @@
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+                         1007 group (session.mixers[0].tracks[0]:group)
+            +                1067 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0]:feedback)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 18.0
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+            +                        1066 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:input)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+                                     1021 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:feedback)
+                                         active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
             """,
             """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1014, 'active', 'c11', 'in_', 18.0, 'out', 20.0]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1067, 0, 1007, 'active', 'c5', 'in_', 36.0, 'out', 18.0]
             """,
-            """
-            """,
-            #   """
-            #   --- initial
-            #   +++ mutation
-            #   @@ -6,7 +6,7 @@
-            #                    <TrackInput 7 session.mixers[0].tracks[0].input source=null>
-            #                    <Track 17 'A1'>
-            #                        <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
-            #   -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
-            #   +                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=session.mixers[0].tracks[0]>
-            #                        <Track 25 'A11'>
-            #                            <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-            #                            <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-            #   """,
-            #   """
-            #   --- initial
-            #   +++ mutation
-            #   @@ -6,6 +6,8 @@
-            #                        1012 group (session.mixers[0].tracks[0].tracks[0]:group)
-            #                            1041 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].feedback:synth)
-            #                                active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
-            #   +                        1066 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].input:synth)
-            #   +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
-            #                            1013 group (session.mixers[0].tracks[0].tracks[0]:tracks)
-            #                                1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
-            #                                    1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
-            #   """,
-            #   """
-            #   - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 2, 1013, 'active', 'c11', 'in_', 18.0, 'out', 20.0]
-            #   """,
         ),
         # child
         (
@@ -1402,40 +1402,41 @@ async def test_Track_move(
             "mixers[0].tracks[0].tracks[0].tracks[0]",
             does_not_raise,
             """
+            --- initial
+            +++ mutation
+            @@ -2,7 +2,7 @@
+                 <session.contexts[0]>
+                     <Mixer 1 'P'>
+                         <Track 3 'A'>
+            -                <Track 6 'A1'>
+            +                <Track 6 'A1' input=<Track 8 'A11'>>
+                                 <Track 8 'A11'>
+                             <Track 7 'A2'>
+                             <TrackSend 10 target=<Track 4 'B'>>
             """,
+            # TODO: Track[6] should have the fb-patch-cable, and no feedback at 1067
             """
-            """,
+            --- initial
+            +++ mutation
+            @@ -4,10 +4,14 @@
+                         1007 group (session.mixers[0].tracks[0]:group)
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+            +                        1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:input)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 24.0, out: 20.0
+                                     1021 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:feedback)
+                                         active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+                                         1022 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
+            +                                1067 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:feedback)
+            +                                    active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 24.0
+                                             1023 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
+                                             1026 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:input-levels)
+                                                 in_: 24.0, out: 19.0           """,
             """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 0, 1014, 'active', 'c11', 'in_', 24.0, 'out', 20.0]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1067, 0, 1022, 'active', 'c17', 'in_', 36.0, 'out', 24.0]
             """,
-            #   """
-            #   --- initial
-            #   +++ mutation
-            #   @@ -6,7 +6,7 @@
-            #                    <TrackInput 7 session.mixers[0].tracks[0].input source=null>
-            #                    <Track 17 'A1'>
-            #                        <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
-            #   -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
-            #   +                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=session.mixers[0].tracks[0].tracks[0].tracks[0]>
-            #                        <Track 25 'A11'>
-            #                            <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-            #                            <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-            #   """,
-            #   """
-            #   --- initial
-            #   +++ mutation
-            #   @@ -6,6 +6,8 @@
-            #                        1012 group (session.mixers[0].tracks[0].tracks[0]:group)
-            #                            1041 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].feedback:synth)
-            #                                active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
-            #   +                        1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].input:synth)
-            #   +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
-            #                            1013 group (session.mixers[0].tracks[0].tracks[0]:tracks)
-            #                                1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
-            #                                    1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
-            #   """,
-            #   """
-            #   - ['/s_new', 'supriya:patch-cable:2x2', 1066, 2, 1013, 'active', 'c11', 'in_', 22.0, 'out', 20.0]
-            #   """,
         ),
         # auntie
         # TODO: This should feedback, because the reader is calculated before
@@ -1445,40 +1446,34 @@ async def test_Track_move(
             "mixers[0].tracks[1]",
             does_not_raise,
             """
+            --- initial
+            +++ mutation
+            @@ -2,7 +2,7 @@
+                 <session.contexts[0]>
+                     <Mixer 1 'P'>
+                         <Track 3 'A'>
+            -                <Track 6 'A1'>
+            +                <Track 6 'A1' input=<Track 4 'B'>>
+                                 <Track 8 'A11'>
+                             <Track 7 'A2'>
+                             <TrackSend 10 target=<Track 4 'B'>>
             """,
             """
+            --- initial
+            +++ mutation
+            @@ -4,6 +4,8 @@
+                         1007 group (session.mixers[0].tracks[0]:group)
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+            +                        1066 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:input)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
+                                     1021 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:feedback)
+                                         active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
             """,
             """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1014, 'active', 'c11', 'in_', 28.0, 'out', 20.0]
             """,
-            #   """
-            #   --- initial
-            #   +++ mutation
-            #   @@ -6,7 +6,7 @@
-            #                    <TrackInput 7 session.mixers[0].tracks[0].input source=null>
-            #                    <Track 17 'A1'>
-            #                        <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
-            #   -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
-            #   +                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=session.mixers[0].tracks[1]>
-            #                        <Track 25 'A11'>
-            #                            <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-            #                            <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-            #   """,
-            #   """
-            #   --- initial
-            #   +++ mutation
-            #   @@ -6,6 +6,8 @@
-            #                        1012 group (session.mixers[0].tracks[0].tracks[0]:group)
-            #                            1041 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].feedback:synth)
-            #                                active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
-            #   +                        1066 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].input:synth)
-            #   +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
-            #                            1013 group (session.mixers[0].tracks[0].tracks[0]:tracks)
-            #                                1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
-            #                                    1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
-            #   """,
-            #   """
-            #   - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 2, 1013, 'active', 'c11', 'in_', 26.0, 'out', 20.0]
-            #   """,
         ),
         # sibling, reversed
         # NOTE: Does not need to feedback.
@@ -1487,40 +1482,45 @@ async def test_Track_move(
             "mixers[0].tracks[0]",
             does_not_raise,
             """
+            --- initial
+            +++ mutation
+            @@ -6,7 +6,7 @@
+                                 <Track 8 'A11'>
+                             <Track 7 'A2'>
+                             <TrackSend 10 target=<Track 4 'B'>>
+            -            <Track 4 'B'>
+            +            <Track 4 'B' input=<Track 3 'A'>>
+                             <TrackSend 11 target=<Track 6 'A1'>>
+                         <Track 5 'C'>
+                     <Mixer 2 'Q'>
+            """,
+            # TODO: Should not trigger feedback at 1067
+            """
+            --- initial
+            +++ mutation
+            @@ -2,6 +2,8 @@
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+                         1007 group (session.mixers[0].tracks[0]:group)
+            +                1067 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0]:feedback)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 18.0
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+                                     1021 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:feedback)
+            @@ -50,6 +52,8 @@
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                         1037 group (session.mixers[0].tracks[1]:group)
+            +                1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[1]:input)
+            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 28.0
+                             1038 group (session.mixers[0].tracks[1]:tracks)
+                             1041 supriya:meters:2 (session.mixers[0].tracks[1]:input-levels)
+                                 in_: 28.0, out: 31.0
             """,
             """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 0, 1037, 'active', 'c29', 'in_', 18.0, 'out', 28.0]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1067, 0, 1007, 'active', 'c5', 'in_', 36.0, 'out', 18.0]
             """,
-            """
-            """,
-            #   """
-            #   --- initial
-            #   +++ mutation
-            #   @@ -20,7 +20,7 @@
-            #                    <TrackSend 33 target=<Track 4 'B'>>
-            #                <Track 9 'B'>
-            #                    <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
-            #   -                <TrackInput 11 session.mixers[0].tracks[1].input source=null>
-            #   +                <TrackInput 11 session.mixers[0].tracks[1].input source=session.mixers[0].tracks[0]>
-            #                    <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
-            #                    <TrackSend 34 target=<Track 6 'A1'>>
-            #                <Track 13 'C'>
-            #   """,
-            #   """
-            #   --- initial
-            #   +++ mutation
-            #   @@ -50,6 +50,8 @@
-            #                    1033 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].output:synth)
-            #                        active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            #                1034 group (session.mixers[0].tracks[1]:group)
-            #   +                1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].input:synth)
-            #   +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
-            #                    1035 group (session.mixers[0].tracks[1]:tracks)
-            #                    1038 supriya:meters:2 (session.mixers[0].tracks[1]:input-levels)
-            #                        in_: 26.0, out: 31.0
-            #   """,
-            #   """
-            #   - ['/s_new', 'supriya:patch-cable:2x2', 1066, 2, 1035, 'active', 'c29', 'in_', 18.0, 'out', 26.0]
-            #   """,
         ),
         # sibling
         # TODO: This should feedback, because the reader is calculated before
@@ -1530,40 +1530,34 @@ async def test_Track_move(
             "mixers[0].tracks[0].tracks[1]",
             does_not_raise,
             """
+            --- initial
+            +++ mutation
+            @@ -2,7 +2,7 @@
+                 <session.contexts[0]>
+                     <Mixer 1 'P'>
+                         <Track 3 'A'>
+            -                <Track 6 'A1'>
+            +                <Track 6 'A1' input=<Track 7 'A2'>>
+                                 <Track 8 'A11'>
+                             <Track 7 'A2'>
+                             <TrackSend 10 target=<Track 4 'B'>>
             """,
             """
+            --- initial
+            +++ mutation
+            @@ -4,6 +4,8 @@
+                         1007 group (session.mixers[0].tracks[0]:group)
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+            +                        1066 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:input)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
+                                     1021 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:feedback)
+                                         active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
             """,
             """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1014, 'active', 'c11', 'in_', 26.0, 'out', 20.0]
             """,
-            #   """
-            #   --- initial
-            #   +++ mutation
-            #   @@ -6,7 +6,7 @@
-            #                    <TrackInput 7 session.mixers[0].tracks[0].input source=null>
-            #                    <Track 17 'A1'>
-            #                        <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
-            #   -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
-            #   +                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=session.mixers[0].tracks[0].tracks[1]>
-            #                        <Track 25 'A11'>
-            #                            <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-            #                            <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-            #   """,
-            #   """
-            #   --- initial
-            #   +++ mutation
-            #   @@ -6,6 +6,8 @@
-            #                        1012 group (session.mixers[0].tracks[0].tracks[0]:group)
-            #                            1041 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].feedback:synth)
-            #                                active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
-            #   +                        1066 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].input:synth)
-            #   +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 24.0, out: 20.0
-            #                            1013 group (session.mixers[0].tracks[0].tracks[0]:tracks)
-            #                                1018 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
-            #                                    1019 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
-            #   """,
-            #   """
-            #   - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 2, 1013, 'active', 'c11', 'in_', 24.0, 'out', 20.0]
-            #   """,
         ),
         # other mixer
         (
@@ -1577,7 +1571,6 @@ async def test_Track_move(
     ],
 )
 @pytest.mark.asyncio
-@pytest.mark.xfail
 async def test_Track_set_input(
     complex_session: tuple[Session, str, str],
     expected_components_diff: str,
@@ -1596,11 +1589,11 @@ async def test_Track_set_input(
     source_ = session[source]
     assert isinstance(source_, Track)
     target_: BusGroup | Track | None = None
-    # TODO: Because the context could be null, we need the "promise" of a bus group.
     if isinstance(target, str):
         target_component = session[target]
         assert isinstance(target_component, Track)
         target_ = target_component
+    # TODO: Because the context could be null, we need the "promise" of a bus group.
     # elif isinstance(target, tuple):
     #     index, count = target
     #     target_ = BusGroup(
@@ -1760,7 +1753,7 @@ async def test_Track_set_muted(
             "",
             "",
         ),
-        # self
+        # self: not allowed
         (
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0].tracks[0]",
