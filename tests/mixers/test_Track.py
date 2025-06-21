@@ -731,20 +731,15 @@ async def test_Track_delete(
              <Session 0>
                  <session.contexts[0]>
                      <Mixer 1 'P'>
-            -            <Track 3 'A'>
-            -                <Track 6 'A1'>
-            -                    <Track 8 'A11'>
-            -                <Track 7 'A2'>
-            -                <TrackSend 10 target=<Track 4 'B'>>
+            +            <Track 4 'B'>
+            +                <TrackSend 11 target=<Track 6 'A1'>>
+                         <Track 3 'A'>
+                             <Track 6 'A1'>
+                                 <Track 8 'A11'>
+                             <Track 7 'A2'>
+                             <TrackSend 10 target=<Track 4 'B'>>
             -            <Track 4 'B'>
             -                <TrackSend 11 target=<Track 6 'A1'>>
-            +            <Track 4 'B'>
-            +                <TrackSend 11 target=<Track 4 'B'>>
-            +            <Track 3 'A'>
-            +                <Track 6 'A1'>
-            +                    <Track 8 'A11'>
-            +                <Track 7 'A2'>
-            +                <TrackSend 10 target=session.mixers[0].tracks[0]>
                          <Track 5 'C'>
                      <Mixer 2 'Q'>
                          <Track 9 'D'>
@@ -826,20 +821,15 @@ async def test_Track_delete(
              <Session 0>
                  <session.contexts[0]>
                      <Mixer 1 'P'>
-            -            <Track 3 'A'>
-            -                <Track 6 'A1'>
-            -                    <Track 8 'A11'>
-            -                <Track 7 'A2'>
-            -                <TrackSend 10 target=<Track 4 'B'>>
+            +            <Track 4 'B'>
+            +                <TrackSend 11 target=<Track 6 'A1'>>
+                         <Track 3 'A'>
+                             <Track 6 'A1'>
+                                 <Track 8 'A11'>
+                             <Track 7 'A2'>
+                             <TrackSend 10 target=<Track 4 'B'>>
             -            <Track 4 'B'>
             -                <TrackSend 11 target=<Track 6 'A1'>>
-            +            <Track 4 'B'>
-            +                <TrackSend 11 target=<Track 4 'B'>>
-            +            <Track 3 'A'>
-            +                <Track 6 'A1'>
-            +                    <Track 8 'A11'>
-            +                <Track 7 'A2'>
-            +                <TrackSend 10 target=session.mixers[0].tracks[0]>
                          <Track 5 'C'>
                      <Mixer 2 'Q'>
                          <Track 9 'D'>
@@ -910,85 +900,62 @@ async def test_Track_delete(
             does_not_raise,
             (0, 2),
             """
+            --- initial
+            +++ mutation
+            @@ -6,8 +6,8 @@
+                                 <Track 8 'A11'>
+                             <Track 7 'A2'>
+                             <TrackSend 10 target=<Track 4 'B'>>
+            +            <Track 5 'C'>
+                         <Track 4 'B'>
+                             <TrackSend 11 target=<Track 6 'A1'>>
+            -            <Track 5 'C'>
+                     <Mixer 2 'Q'>
+                         <Track 9 'D'>
             """,
             """
+            --- initial
+            +++ mutation
+            @@ -49,6 +49,17 @@
+                                 in_: 18.0, out: 9.0
+                             1013 supriya:patch-cable:2x2
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+            +            1045 group
+            +                1046 group
+            +                1049 supriya:meters:2
+            +                    in_: 30.0, out: 37.0
+            +                1047 group
+            +                1048 supriya:channel-strip:2
+            +                    active: c35, done_action: 2.0, gain: c36, gate: 1.0, out: 30.0
+            +                1050 supriya:meters:2
+            +                    in_: 30.0, out: 39.0
+            +                1051 supriya:patch-cable:2x2
+            +                    active: c35, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
+                         1037 group
+                             1038 group
+                             1041 supriya:meters:2
+            @@ -62,17 +73,6 @@
+                                 in_: 28.0, out: 33.0
+                             1043 supriya:patch-cable:2x2
+                                 active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 16.0
+            -            1045 group
+            -                1046 group
+            -                1049 supriya:meters:2
+            -                    in_: 30.0, out: 37.0
+            -                1047 group
+            -                1048 supriya:channel-strip:2
+            -                    active: c35, done_action: 2.0, gain: c36, gate: 1.0, out: 30.0
+            -                1050 supriya:meters:2
+            -                    in_: 30.0, out: 39.0
+            -                1051 supriya:patch-cable:2x2
+            -                    active: c35, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
+                     1004 supriya:meters:2
+                         in_: 16.0, out: 1.0
+                     1002 group
             """,
             """
+            - ['/n_after', 1037, 1045]
             """,
-        #       """
-        #       --- initial
-        #       +++ mutation
-        #       @@ -17,16 +17,16 @@
-        #                            <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
-        #                            <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
-        #                        <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
-        #       -                <TrackSend 33 target=<Track 4 'B'>>
-        #       -            <Track 9 'B'>
-        #       -                <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
-        #       -                <TrackInput 11 session.mixers[0].tracks[1].input source=null>
-        #       -                <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
-        #       -                <TrackSend 34 target=<Track 6 'A1'>>
-        #       -            <Track 13 'C'>
-        #       -                <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
-        #       -                <TrackInput 15 session.mixers[0].tracks[2].input source=null>
-        #       -                <TrackOutput 16 session.mixers[0].tracks[2].output target=default>
-        #       +                <TrackSend 33 target=<Track 5 'C'>>
-        #       +            <Track 13 'C'>
-        #       +                <TrackFeedback 14 session.mixers[0].tracks[1].feedback>
-        #       +                <TrackInput 15 session.mixers[0].tracks[1].input source=null>
-        #       +                <TrackOutput 16 session.mixers[0].tracks[1].output target=default>
-        #       +            <Track 9 'B'>
-        #       +                <TrackFeedback 10 session.mixers[0].tracks[2].feedback>
-        #       +                <TrackInput 11 session.mixers[0].tracks[2].input source=null>
-        #       +                <TrackOutput 12 session.mixers[0].tracks[2].output target=default>
-        #       +                <TrackSend 34 target=<Track 6 'A1'>>
-        #                    <MixerOutput 2 session.mixers[0].output>
-        #                <Mixer 3 'Q'>
-        #                    <Track 29 'D'>
-        #       """,
-        #       """
-        #       --- initial
-        #       +++ mutation
-        #       @@ -49,6 +49,17 @@
-        #                            in_: 18.0, out: 9.0
-        #                        1033 supriya:patch-cable:2x2
-        #                            active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-        #       +            1043 group
-        #       +                1044 group
-        #       +                1047 supriya:meters:2
-        #       +                    in_: 30.0, out: 37.0
-        #       +                1045 group
-        #       +                1046 supriya:channel-strip:2
-        #       +                    active: c35, bus: 30.0, done_action: 2.0, gain: c36, gate: 1.0
-        #       +                1048 supriya:meters:2
-        #       +                    in_: 30.0, out: 39.0
-        #       +                1049 supriya:patch-cable:2x2
-        #       +                    active: c35, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
-        #                    1034 group
-        #                        1035 group
-        #                        1038 supriya:meters:2
-        #       @@ -62,17 +73,6 @@
-        #                            in_: 26.0, out: 33.0
-        #                        1040 supriya:patch-cable:2x2
-        #                            active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
-        #       -            1043 group
-        #       -                1044 group
-        #       -                1047 supriya:meters:2
-        #       -                    in_: 30.0, out: 37.0
-        #       -                1045 group
-        #       -                1046 supriya:channel-strip:2
-        #       -                    active: c35, bus: 30.0, done_action: 2.0, gain: c36, gate: 1.0
-        #       -                1048 supriya:meters:2
-        #       -                    in_: 30.0, out: 39.0
-        #       -                1049 supriya:patch-cable:2x2
-        #       -                    active: c35, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
-        #                1004 supriya:meters:2
-        #                    in_: 16.0, out: 1.0
-        #                1002 group
-        #       """,
-        #       """
-        #       - ['/n_after', 1034, 1043]
-        #       """,
         ),
         (
             "mixers[0].tracks[1]",
@@ -1005,280 +972,161 @@ async def test_Track_delete(
             "mixers[0].tracks[0]",
             0,
             does_not_raise,
-            (0, 0, 2),
+            (0, 0, 0),
             """
+            --- initial
+            +++ mutation
+            @@ -2,12 +2,12 @@
+                 <session.contexts[0]>
+                     <Mixer 1 'P'>
+                         <Track 3 'A'>
+            +                <Track 4 'B'>
+            +                    <TrackSend 11 target=<Track 6 'A1'>>
+                             <Track 6 'A1'>
+                                 <Track 8 'A11'>
+                             <Track 7 'A2'>
+                             <TrackSend 10 target=<Track 4 'B'>>
+            -            <Track 4 'B'>
+            -                <TrackSend 11 target=<Track 6 'A1'>>
+                         <Track 5 'C'>
+                     <Mixer 2 'Q'>
+                         <Track 9 'D'>
             """,
             """
+            --- initial
+            +++ mutation
+            @@ -3,9 +3,24 @@
+                     1001 group
+                         1007 group
+                             1008 group
+            +                    1037 group
+            +                        1066 supriya:fb-patch-cable:2x2
+            +                            active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 28.0
+            +                        1038 group
+            +                        1041 supriya:meters:2
+            +                            in_: 28.0, out: 31.0
+            +                        1039 group
+            +                        1040 supriya:channel-strip:2
+            +                            active: c29, done_action: 2.0, gain: c30, gate: 1.0, out: 28.0
+            +                        1044 supriya:patch-cable:2x2
+            +                            active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 22.0
+            +                        1042 supriya:meters:2
+            +                            in_: 28.0, out: 33.0
+            +                        1043 supriya:patch-cable:2x2
+            +                            active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 16.0
+                                 1014 group
+                                     1021 supriya:fb-patch-cable:2x2
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 20.0
+                                     1015 group
+                                         1022 group
+                                             1023 group
+            @@ -49,19 +64,6 @@
+                                 in_: 18.0, out: 9.0
+                             1013 supriya:patch-cable:2x2
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+            -            1037 group
+            -                1038 group
+            -                1041 supriya:meters:2
+            -                    in_: 28.0, out: 31.0
+            -                1039 group
+            -                1040 supriya:channel-strip:2
+            -                    active: c29, done_action: 2.0, gain: c30, gate: 1.0, out: 28.0
+            -                1044 supriya:patch-cable:2x2
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 22.0
+            -                1042 supriya:meters:2
+            -                    in_: 28.0, out: 33.0
+            -                1043 supriya:patch-cable:2x2
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 16.0
+                         1045 group
+                             1046 group
+                             1049 supriya:meters:2
             """,
             """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1037, 'active', 'c29', 'in_', 36.0, 'out', 28.0]
+            - ['/g_head', 1008, 1037]
+            - ['/n_after', 1014, 1037]
+            - ['/n_set', 1021, 'done_action', 2.0, 'gate', 0.0]
             """,
-        #       """
-        #       --- initial
-        #       +++ mutation
-        #       @@ -4,29 +4,29 @@
-        #                    <Track 5 'A'>
-        #                        <TrackFeedback 6 session.mixers[0].tracks[0].feedback>
-        #                        <TrackInput 7 session.mixers[0].tracks[0].input source=null>
-        #       -                <Track 17 'A1'>
-        #       -                    <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
-        #       -                    <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
-        #       -                    <Track 25 'A11'>
-        #       -                        <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-        #       -                        <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-        #       -                        <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-        #       -                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=default>
-        #       -                <Track 21 'A2'>
-        #       -                    <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
-        #       -                    <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
-        #       -                    <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
-        #       +                <Track 9 'B'>
-        #       +                    <TrackFeedback 10 session.mixers[0].tracks[0].tracks[0].feedback>
-        #       +                    <TrackInput 11 session.mixers[0].tracks[0].tracks[0].input source=null>
-        #       +                    <TrackOutput 12 session.mixers[0].tracks[0].tracks[0].output target=default>
-        #       +                    <TrackSend 34 target=session.mixers[0].tracks[0].tracks[1]>
-        #       +                <Track 17 'A1'>
-        #       +                    <TrackFeedback 18 session.mixers[0].tracks[0].tracks[1].feedback>
-        #       +                    <TrackInput 19 session.mixers[0].tracks[0].tracks[1].input source=null>
-        #       +                    <Track 25 'A11'>
-        #       +                        <TrackFeedback 26 session.mixers[0].tracks[0].tracks[1].tracks[0].feedback>
-        #       +                        <TrackInput 27 session.mixers[0].tracks[0].tracks[1].tracks[0].input source=null>
-        #       +                        <TrackOutput 28 session.mixers[0].tracks[0].tracks[1].tracks[0].output target=default>
-        #       +                    <TrackOutput 20 session.mixers[0].tracks[0].tracks[1].output target=default>
-        #       +                <Track 21 'A2'>
-        #       +                    <TrackFeedback 22 session.mixers[0].tracks[0].tracks[2].feedback>
-        #       +                    <TrackInput 23 session.mixers[0].tracks[0].tracks[2].input source=null>
-        #       +                    <TrackOutput 24 session.mixers[0].tracks[0].tracks[2].output target=default>
-        #                        <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
-        #       -                <TrackSend 33 target=<Track 4 'B'>>
-        #       -            <Track 9 'B'>
-        #       -                <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
-        #       -                <TrackInput 11 session.mixers[0].tracks[1].input source=null>
-        #       -                <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
-        #       -                <TrackSend 34 target=<Track 6 'A1'>>
-        #       -            <Track 13 'C'>
-        #       -                <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
-        #       -                <TrackInput 15 session.mixers[0].tracks[2].input source=null>
-        #       -                <TrackOutput 16 session.mixers[0].tracks[2].output target=default>
-        #       +                <TrackSend 33 target=<Track 6 'A1'>>
-        #       +            <Track 13 'C'>
-        #       +                <TrackFeedback 14 session.mixers[0].tracks[1].feedback>
-        #       +                <TrackInput 15 session.mixers[0].tracks[1].input source=null>
-        #       +                <TrackOutput 16 session.mixers[0].tracks[1].output target=default>
-        #                    <MixerOutput 2 session.mixers[0].output>
-        #                <Mixer 3 'Q'>
-        #                    <Track 29 'D'>
-        #       """,
-        #       """
-        #       --- initial
-        #       +++ mutation
-        #       @@ -3,9 +3,28 @@
-        #                1001 group
-        #                    1006 group
-        #                        1007 group
-        #       +                    1034 group
-        #       +                        1068 supriya:fb-patch-cable:2x2
-        #       +                            active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 26.0
-        #       +                        1035 group
-        #       +                        1038 supriya:meters:2
-        #       +                            in_: 26.0, out: 31.0
-        #       +                        1036 group
-        #       +                        1037 supriya:channel-strip:2
-        #       +                            active: c29, bus: 26.0, done_action: 2.0, gain: c30, gate: 1.0
-        #       +                        1067 supriya:patch-cable:2x2
-        #       +                            active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
-        #       +                        1042 supriya:patch-cable:2x2
-        #       +                            active: c29, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 26.0, out: 28.0
-        #       +                        1039 supriya:meters:2
-        #       +                            in_: 26.0, out: 33.0
-        #       +                        1040 supriya:patch-cable:2x2
-        #       +                            active: c29, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 26.0, out: 16.0
-        #       +                        1066 supriya:patch-cable:2x2
-        #       +                            active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 18.0
-        #                            1012 group
-        #                                1041 supriya:fb-patch-cable:2x2
-        #       -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
-        #       +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 28.0, out: 20.0
-        #                                1013 group
-        #                                    1018 group
-        #                                        1019 group
-        #       @@ -43,25 +62,14 @@
-        #                        1008 group
-        #                        1009 supriya:channel-strip:2
-        #                            active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
-        #       +                1069 supriya:patch-cable:2x2
-        #       +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 28.0
-        #                        1051 supriya:patch-cable:2x2
-        #       -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
-        #       +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 26.0
-        #                        1011 supriya:meters:2
-        #                            in_: 18.0, out: 9.0
-        #                        1033 supriya:patch-cable:2x2
-        #                            active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-        #       -            1034 group
-        #       -                1035 group
-        #       -                1038 supriya:meters:2
-        #       -                    in_: 26.0, out: 31.0
-        #       -                1036 group
-        #       -                1037 supriya:channel-strip:2
-        #       -                    active: c29, bus: 26.0, done_action: 2.0, gain: c30, gate: 1.0
-        #       -                1042 supriya:patch-cable:2x2
-        #       -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
-        #       -                1039 supriya:meters:2
-        #       -                    in_: 26.0, out: 33.0
-        #       -                1040 supriya:patch-cable:2x2
-        #       -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
-        #                    1043 group
-        #                        1044 group
-        #                        1047 supriya:meters:2
-        #       """,
-        #       """
-        #       - ['/g_head', 1007, 1034]
-        #       - [None,
-        #          [['/n_set', 1040, 'gate', 0.0],
-        #           ['/s_new', 'supriya:patch-cable:2x2', 1066, 1, 1034, 'active', 'c29', 'in_', 26.0, 'out', 18.0]]]
-        #       - ['/n_set', 1041, 'gate', 0.0]
-        #       - [None,
-        #          [['/n_set', 1042, 'gate', 0.0],
-        #           ['/s_new', 'supriya:patch-cable:2x2', 1067, 3, 1037, 'active', 'c29', 'in_', 26.0, 'out', 20.0]]]
-        #       - ['/s_new', 'supriya:fb-patch-cable:2x2', 1068, 0, 1034, 'active', 'c29', 'in_', 28.0, 'out', 26.0]
-        #       - [None,
-        #          [['/n_set', 1051, 'gate', 0.0],
-        #           ['/s_new', 'supriya:patch-cable:2x2', 1069, 3, 1009, 'active', 'c5', 'in_', 18.0, 'out', 28.0]]]
-        #       """,
         ),
         (
             "mixers[0].tracks[1]",
             "mixers[0].tracks[0].tracks[0]",
             0,
             does_not_raise,
-            (0, 0, 2, 2),
+            (0, 0, 0, 0),
             """
+            --- initial
+            +++ mutation
+            @@ -3,11 +3,11 @@
+                     <Mixer 1 'P'>
+                         <Track 3 'A'>
+                             <Track 6 'A1'>
+            +                    <Track 4 'B'>
+            +                        <TrackSend 11 target=<Track 6 'A1'>>
+                                 <Track 8 'A11'>
+                             <Track 7 'A2'>
+                             <TrackSend 10 target=<Track 4 'B'>>
+            -            <Track 4 'B'>
+            -                <TrackSend 11 target=<Track 6 'A1'>>
+                         <Track 5 'C'>
+                     <Mixer 2 'Q'>
+                         <Track 9 'D'>
             """,
             """
+            --- initial
+            +++ mutation
+            @@ -5,8 +5,23 @@
+                             1008 group
+                                 1014 group
+                                     1021 supriya:fb-patch-cable:2x2
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 20.0
+                                     1015 group
+            +                            1037 group
+            +                                1066 supriya:fb-patch-cable:2x2
+            +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 28.0
+            +                                1038 group
+            +                                1041 supriya:meters:2
+            +                                    in_: 28.0, out: 31.0
+            +                                1039 group
+            +                                1040 supriya:channel-strip:2
+            +                                    active: c29, done_action: 2.0, gain: c30, gate: 1.0, out: 28.0
+            +                                1044 supriya:patch-cable:2x2
+            +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 22.0
+            +                                1042 supriya:meters:2
+            +                                    in_: 28.0, out: 33.0
+            +                                1043 supriya:patch-cable:2x2
+            +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 16.0
+                                         1022 group
+                                             1023 group
+                                             1026 supriya:meters:2
+            @@ -49,19 +64,6 @@
+                                 in_: 18.0, out: 9.0
+                             1013 supriya:patch-cable:2x2
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+            -            1037 group
+            -                1038 group
+            -                1041 supriya:meters:2
+            -                    in_: 28.0, out: 31.0
+            -                1039 group
+            -                1040 supriya:channel-strip:2
+            -                    active: c29, done_action: 2.0, gain: c30, gate: 1.0, out: 28.0
+            -                1044 supriya:patch-cable:2x2
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 22.0
+            -                1042 supriya:meters:2
+            -                    in_: 28.0, out: 33.0
+            -                1043 supriya:patch-cable:2x2
+            -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 16.0
+                         1045 group
+                             1046 group
+                             1049 supriya:meters:2
             """,
             """
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1066, 0, 1037, 'active', 'c29', 'in_', 36.0, 'out', 28.0]
+            - ['/g_head', 1015, 1037]
+            - ['/n_set', 1021, 'done_action', 2.0, 'gate', 0.0]
             """,
-        #       """
-        #       --- initial
-        #       +++ mutation
-        #       @@ -7,26 +7,26 @@
-        #                        <Track 17 'A1'>
-        #                            <TrackFeedback 18 session.mixers[0].tracks[0].tracks[0].feedback>
-        #                            <TrackInput 19 session.mixers[0].tracks[0].tracks[0].input source=null>
-        #       -                    <Track 25 'A11'>
-        #       -                        <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-        #       -                        <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-        #       -                        <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-        #       +                    <Track 9 'B'>
-        #       +                        <TrackFeedback 10 session.mixers[0].tracks[0].tracks[0].tracks[0].feedback>
-        #       +                        <TrackInput 11 session.mixers[0].tracks[0].tracks[0].tracks[0].input source=null>
-        #       +                        <TrackOutput 12 session.mixers[0].tracks[0].tracks[0].tracks[0].output target=default>
-        #       +                        <TrackSend 34 target=<Track 6 'A1'>>
-        #       +                    <Track 25 'A11'>
-        #       +                        <TrackFeedback 26 session.mixers[0].tracks[0].tracks[0].tracks[1].feedback>
-        #       +                        <TrackInput 27 session.mixers[0].tracks[0].tracks[0].tracks[1].input source=null>
-        #       +                        <TrackOutput 28 session.mixers[0].tracks[0].tracks[0].tracks[1].output target=default>
-        #                            <TrackOutput 20 session.mixers[0].tracks[0].tracks[0].output target=default>
-        #                        <Track 21 'A2'>
-        #                            <TrackFeedback 22 session.mixers[0].tracks[0].tracks[1].feedback>
-        #                            <TrackInput 23 session.mixers[0].tracks[0].tracks[1].input source=null>
-        #                            <TrackOutput 24 session.mixers[0].tracks[0].tracks[1].output target=default>
-        #                        <TrackOutput 8 session.mixers[0].tracks[0].output target=default>
-        #       -                <TrackSend 33 target=<Track 4 'B'>>
-        #       -            <Track 9 'B'>
-        #       -                <TrackFeedback 10 session.mixers[0].tracks[1].feedback>
-        #       -                <TrackInput 11 session.mixers[0].tracks[1].input source=null>
-        #       -                <TrackOutput 12 session.mixers[0].tracks[1].output target=default>
-        #       -                <TrackSend 34 target=<Track 6 'A1'>>
-        #       -            <Track 13 'C'>
-        #       -                <TrackFeedback 14 session.mixers[0].tracks[2].feedback>
-        #       -                <TrackInput 15 session.mixers[0].tracks[2].input source=null>
-        #       -                <TrackOutput 16 session.mixers[0].tracks[2].output target=default>
-        #       +                <TrackSend 33 target=session.mixers[0].tracks[0].tracks[0].tracks[0]>
-        #       +            <Track 13 'C'>
-        #       +                <TrackFeedback 14 session.mixers[0].tracks[1].feedback>
-        #       +                <TrackInput 15 session.mixers[0].tracks[1].input source=null>
-        #       +                <TrackOutput 16 session.mixers[0].tracks[1].output target=default>
-        #                    <MixerOutput 2 session.mixers[0].output>
-        #                <Mixer 3 'Q'>
-        #                    <Track 29 'D'>
-        #       """,
-        #       """
-        #       --- initial
-        #       +++ mutation
-        #       @@ -5,8 +5,27 @@
-        #                        1007 group
-        #                            1012 group
-        #                                1041 supriya:fb-patch-cable:2x2
-        #       -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 20.0
-        #       +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 28.0, out: 20.0
-        #                                1013 group
-        #       +                            1034 group
-        #       +                                1068 supriya:fb-patch-cable:2x2
-        #       +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 26.0
-        #       +                                1035 group
-        #       +                                1038 supriya:meters:2
-        #       +                                    in_: 26.0, out: 31.0
-        #       +                                1036 group
-        #       +                                1037 supriya:channel-strip:2
-        #       +                                    active: c29, bus: 26.0, done_action: 2.0, gain: c30, gate: 1.0
-        #       +                                1067 supriya:patch-cable:2x2
-        #       +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
-        #       +                                1042 supriya:patch-cable:2x2
-        #       +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 26.0, out: 28.0
-        #       +                                1039 supriya:meters:2
-        #       +                                    in_: 26.0, out: 33.0
-        #       +                                1040 supriya:patch-cable:2x2
-        #       +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 26.0, out: 16.0
-        #       +                                1066 supriya:patch-cable:2x2
-        #       +                                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
-        #                                    1018 group
-        #                                        1019 group
-        #                                        1022 supriya:meters:2
-        #       @@ -43,25 +62,14 @@
-        #                        1008 group
-        #                        1009 supriya:channel-strip:2
-        #                            active: c5, bus: 18.0, done_action: 2.0, gain: c6, gate: 1.0
-        #       +                1069 supriya:patch-cable:2x2
-        #       +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 28.0
-        #                        1051 supriya:patch-cable:2x2
-        #       -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 26.0
-        #       +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 26.0
-        #                        1011 supriya:meters:2
-        #                            in_: 18.0, out: 9.0
-        #                        1033 supriya:patch-cable:2x2
-        #                            active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-        #       -            1034 group
-        #       -                1035 group
-        #       -                1038 supriya:meters:2
-        #       -                    in_: 26.0, out: 31.0
-        #       -                1036 group
-        #       -                1037 supriya:channel-strip:2
-        #       -                    active: c29, bus: 26.0, done_action: 2.0, gain: c30, gate: 1.0
-        #       -                1042 supriya:patch-cable:2x2
-        #       -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 28.0
-        #       -                1039 supriya:meters:2
-        #       -                    in_: 26.0, out: 33.0
-        #       -                1040 supriya:patch-cable:2x2
-        #       -                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
-        #                    1043 group
-        #                        1044 group
-        #                        1047 supriya:meters:2
-        #       """,
-        #       """
-        #       - ['/g_head', 1013, 1034]
-        #       - [None,
-        #          [['/n_set', 1040, 'gate', 0.0],
-        #           ['/s_new', 'supriya:patch-cable:2x2', 1066, 1, 1034, 'active', 'c29', 'in_', 26.0, 'out', 20.0]]]
-        #       - ['/n_set', 1041, 'gate', 0.0]
-        #       - [None,
-        #          [['/n_set', 1042, 'gate', 0.0],
-        #           ['/s_new', 'supriya:patch-cable:2x2', 1067, 3, 1037, 'active', 'c29', 'in_', 26.0, 'out', 20.0]]]
-        #       - ['/s_new', 'supriya:fb-patch-cable:2x2', 1068, 0, 1034, 'active', 'c29', 'in_', 28.0, 'out', 26.0]
-        #       - [None,
-        #          [['/n_set', 1051, 'gate', 0.0],
-        #           ['/s_new', 'supriya:patch-cable:2x2', 1069, 3, 1009, 'active', 'c5', 'in_', 18.0, 'out', 28.0]]]
-        #       """,
         ),
         (
             "mixers[0].tracks[1]",
@@ -1388,30 +1236,6 @@ async def test_Track_delete(
             does_not_raise,
             (0, 0),
             """
-            --- initial
-            +++ mutation
-            @@ -1,13 +1,13 @@
-             <Session 0>
-                 <session.contexts[0]>
-                     <Mixer 1 'P'>
-            -            <Track 3 'A'>
-            -                <Track 6 'A1'>
-            -                    <Track 8 'A11'>
-            -                <Track 7 'A2'>
-            -                <TrackSend 10 target=<Track 4 'B'>>
-            -            <Track 4 'B'>
-            -                <TrackSend 11 target=<Track 6 'A1'>>
-            -            <Track 5 'C'>
-            +            <Track 5 'C'>
-            +            <Track 3 'A'>
-            +                <Track 6 'A1'>
-            +                    <Track 8 'A11'>
-            +                <Track 7 'A2'>
-            +                <TrackSend 10 target=<Track 5 'C'>>
-            +            <Track 4 'B'>
-            +                <TrackSend 11 target=<Track 4 'B'>>
-                     <Mixer 2 'Q'>
-                         <Track 9 'D'>
             """,
             """
             """,
@@ -1474,7 +1298,6 @@ async def test_Track_delete(
     ],
 )
 @pytest.mark.asyncio
-@pytest.mark.xfail
 async def test_Track_move(
     complex_session: tuple[Session, str, str],
     expected_components_diff: str,
