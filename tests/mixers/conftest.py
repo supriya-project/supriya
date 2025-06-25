@@ -13,6 +13,7 @@ from uqbar.strings import normalize
 from supriya import AsyncServer, OscBundle, OscMessage
 from supriya.mixers import Session
 from supriya.ugens import decompile_synthdefs
+from supriya.typing import DEFAULT
 
 
 async def apply_commands(
@@ -27,6 +28,8 @@ async def apply_commands(
         if command[2]:
             if session._PATH_REGEX.match(command[2]):
                 await procedure(session[command[2]])
+            elif command[2] == "DEFAULT":
+                await procedure(DEFAULT)
             else:
                 await procedure(command[2])
         else:

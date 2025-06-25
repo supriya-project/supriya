@@ -464,6 +464,7 @@ class SynthSpec(NodeSpec):
         new_artifacts: Artifacts,
         old_spec: "Spec",
     ) -> None:
+        print(f"MUTATE {self=}")
         if not isinstance(old_spec, SynthSpec):
             raise ValueError(old_spec)
         if (
@@ -480,7 +481,7 @@ class SynthSpec(NodeSpec):
             )
         if self.kwargs != old_spec.kwargs:
             old_set_kwargs, old_map_kwargs = self.resolve_kwargs(
-                kwargs=self.kwargs,
+                kwargs=old_spec.kwargs,
                 new_artifacts=new_artifacts,
                 old_artifacts=old_artifacts,
             )
@@ -510,7 +511,11 @@ class SynthSpec(NodeSpec):
     def requires_recreation(self, old_spec: "Spec") -> bool:
         if not isinstance(old_spec, SynthSpec):
             raise ValueError(old_spec)
-        return self.synthdef != old_spec.synthdef
+        if self.synthdef != old_spec.synthdef:
+            return True
+        elif any(self.kwargs[key] != old_spec.kwargs[key] for key in ["in_", "out"]):
+            return True
+        return False
 
 
 @dataclasses.dataclass

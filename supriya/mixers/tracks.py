@@ -544,11 +544,11 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
             )
         if self.output is DEFAULT or isinstance(self.output, TrackContainer):
             output_target_component = (
-                self.parent if self.output is DEFAULT else self.parent
+                self.parent if self.output is DEFAULT else self.output
             )
             output_feedsback = bool(
                 Spec.feedsback(
-                    writer_order=self.graph_order,
+                    writer_order=self.feedback_graph_order,
                     reader_order=output_target_component.graph_order,
                 )
             )
