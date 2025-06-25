@@ -251,7 +251,9 @@ class Component(Generic[C]):
     def dump_components(self) -> str:
         return "\n".join(self._dump_components())
 
-    async def dump_tree(self, annotated: bool = True) -> str:
+    async def dump_tree(self, annotated: bool = True, numeric: bool = False) -> str:
+        # TODO: Consolidate annotated and numeric flags.
+        #       annotation: Literal["nested", "numeric"] | None
         if self.session and self.session.status != BootStatus.ONLINE:
             raise RuntimeError
         tree = await cast(
@@ -262,7 +264,10 @@ class Component(Generic[C]):
             annotations: dict[int, str] = {}
             # TODO: Reimplement this on top of Artifacts
             for component in self._walk():
-                address = component.address
+                if numeric:
+                    address = component.numeric_address
+                else:
+                    address = component.address
                 for name, node in component._artifacts.nodes.items():
                     annotations[node.id_] = f"{address}:{name}"
             return str(tree.annotate(annotations))

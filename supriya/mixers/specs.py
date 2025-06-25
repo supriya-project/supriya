@@ -453,10 +453,19 @@ class SynthSpec(NodeSpec):
         ].context is self.context:
             nodes.pop(self.name)
         synth = old_artifacts.nodes.pop(self.address)
+        # TODO: Handle SynthDefs that don't have a gate parameter.
+        #       Will need to lookup the SynthDef in artifacts and check it.
+        #       If no gate, just hard-free it.
         if reconciliation in (Reconciliation.DESTROY_SHALLOW, Reconciliation.RECREATE):
-            synth.set(done_action=DoneAction.FREE_SYNTH, gate=0)
+            if old_artifacts.synthdefs[self.synthdef].has_gate:
+                synth.set(done_action=DoneAction.FREE_SYNTH, gate=0)
+            else:
+                synth.free()
         elif reconciliation is Reconciliation.DESTROY_ROOT and self.destroy_strategy:
-            synth.set(**self.destroy_strategy)
+            if old_artifacts.synthdefs[self.synthdef].has_gate:
+                synth.set(**self.destroy_strategy)
+            else:
+                synth.free()
 
     def mutate(
         self,

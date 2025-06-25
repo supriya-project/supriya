@@ -83,11 +83,14 @@ def debug_components(session: Session) -> str:
 
 
 async def debug_tree(
-    session: Session, label: str = "initial tree", annotated: bool = True
+    session: Session,
+    label: str = "initial tree",
+    annotated: bool = True,
+    numeric: bool = False,
 ) -> str:
     if not session.contexts:
         return "<empty>"
-    tree = normalize(str(await session.dump_tree(annotated=annotated)))
+    tree = normalize(str(await session.dump_tree(annotated=annotated, numeric=numeric)))
     for i, context in enumerate(session.contexts):
         tree = tree.replace(repr(context), f"<session.contexts[{i}]>")
     # print(f"{label}:\n{tree}")
@@ -129,8 +132,11 @@ async def compute_tree_diff(
     session: Session,
     initial_tree: str,
     annotated: bool = True,
+    numeric: bool = False,
 ) -> str:
-    actual_tree = await debug_tree(session, "actual tree", annotated=annotated)
+    actual_tree = await debug_tree(
+        session, "actual tree", annotated=annotated, numeric=numeric
+    )
     return compute_diff(initial_tree, actual_tree)
 
 
@@ -139,9 +145,13 @@ async def assert_tree_diff(
     expected_diff: str,
     expected_initial_tree: str,
     annotated: bool = True,
+    numeric: bool = False,
 ) -> None:
     actual_diff = await compute_tree_diff(
-        session=session, initial_tree=expected_initial_tree, annotated=annotated
+        session=session,
+        initial_tree=expected_initial_tree,
+        annotated=annotated,
+        numeric=numeric,
     )
     assert normalize(expected_diff) == actual_diff
 

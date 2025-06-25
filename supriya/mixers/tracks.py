@@ -7,7 +7,7 @@ from .components import (
     C,
     Component,
 )
-from .constants import IO, Address, Names
+from .constants import IO, Address, ChannelCount, Names
 from .devices import DeviceContainer
 from .specs import (
     BusSpec,
@@ -700,6 +700,12 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
             if context := self._can_allocate():
                 await self._reconcile(context=context)
 
+    async def set_channel_count(self, channel_count: ChannelCount | Default) -> None:
+        async with self._lock:
+            self._channel_count = channel_count
+            if context := self._can_allocate():
+                await self._reconcile(context=context)
+
     async def set_input(self, input_: Union[BusGroup, "Track"] | None) -> None:
         async with self._lock:
             if input_ is self:
@@ -711,6 +717,13 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                 await self._reconcile(context=context)
             else:
                 self._reconcile_connections()
+
+    async def set_muted(self, muted: bool) -> None:
+        async with self._lock:
+            raise NotImplementedError
+
+    def set_name(self, name: str | None = None) -> None:
+        self._name = name
 
     async def set_output(
         self, output: Union[BusGroup, Default, TrackContainer] | None
@@ -725,13 +738,6 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                 await self._reconcile(context=context)
             else:
                 self._reconcile_connections()
-
-    async def set_muted(self, muted: bool) -> None:
-        async with self._lock:
-            raise NotImplementedError
-
-    def set_name(self, name: str | None = None) -> None:
-        self._name = name
 
     async def set_soloed(self, soloed: bool) -> None:
         async with self._lock:

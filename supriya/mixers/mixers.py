@@ -2,10 +2,11 @@ from typing import TYPE_CHECKING, Optional
 
 from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate, DoneAction
+from ..typing import Default
 from .components import (
     Component,
 )
-from .constants import Address, Names
+from .constants import Address, ChannelCount, Names
 from .devices import DeviceContainer
 from .specs import (
     BusSpec,
@@ -53,8 +54,15 @@ class Mixer(
             raise RuntimeError
         channel_strip_synthdef = build_channel_strip(self.effective_channel_count)
         meters_synthdef = build_meters(self.effective_channel_count)
+        # Output clamps to the maximum output size of the context.
         patch_cable_synthdef = build_patch_cable(
-            self.effective_channel_count, self.effective_channel_count
+            self.effective_channel_count,
+            min(
+                [
+                    self.effective_channel_count,
+                    len(context.audio_output_bus_group),
+                ]
+            ),
         )
         return [
             SynthDefSpec(
@@ -194,6 +202,12 @@ class Mixer(
         # TODO: What are delete semantics actually?
         async with self._lock:
             await self._reconcile(context=None, deleting=True)
+
+    async def set_channel_count(self, channel_count: ChannelCount | Default) -> None:
+        async with self._lock:
+            self._channel_count = channel_count
+            if context := self._can_allocate():
+                await self._reconcile(context=context)
 
     def set_name(self, name: str | None = None) -> None:
         self._name = name

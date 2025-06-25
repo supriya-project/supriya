@@ -14,7 +14,6 @@ from .conftest import (
     assert_components_diff,
     assert_tree_diff,
     capture,
-    compute_tree_diff,
     debug_components,
     debug_tree,
     does_not_raise,
@@ -640,20 +639,24 @@ async def test_Track_add_send(
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "target, commands, expected_components_diff, expected_tree_diff, expected_messages",
+    "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
     [
+        # 0
         # just a track
         (
+            [
+                (None, "add_mixer", "Mixer"),
+                ("mixers[0]", "add_track", "Self"),
+            ],
             "mixers[0].tracks[0]",
-            [],
             """
             --- initial
             +++ mutation
             @@ -1,4 +1,3 @@
              <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1 'P'>
-            -            <Track 2 'A'>
+                     <Mixer 1>
+            -            <Track 2 'Self'>
             """,
             """
             --- initial
@@ -677,21 +680,24 @@ async def test_Track_add_send(
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
             """,
         ),
+        # 1
         # parent track with child
         (
-            "mixers[0].tracks[0]",
             [
-                ("mixers[0].tracks[0]", "add_track", "B"),
+                (None, "add_mixer", "Mixer"),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0].tracks[0]", "add_track", "Child"),
             ],
+            "mixers[0].tracks[0]",
             """
             --- initial
             +++ mutation
             @@ -1,5 +1,3 @@
              <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1 'P'>
-            -            <Track 2 'A'>
-            -                <Track 3 'B'>
+                     <Mixer 1>
+            -            <Track 2 'Self'>
+            -                <Track 3 'Child'>
             """,
             """
             --- initial
@@ -726,19 +732,64 @@ async def test_Track_add_send(
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
             """,
         ),
+        # 2
+        # child track
+        (
+            [
+                (None, "add_mixer", "Mixer"),
+                ("mixers[0]", "add_track", "Parent"),
+                ("mixers[0].tracks[0]", "add_track", "Self"),
+            ],
+            "mixers[0].tracks[0].tracks[0]",
+            """
+            --- initial
+            +++ mutation
+            @@ -2,4 +2,3 @@
+                 <session.contexts[0]>
+                     <Mixer 1>
+                         <Track 2 'Parent'>
+            -                <Track 3 'Self'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -9,11 +9,11 @@
+                                         in_: 20.0, out: 13.0
+                                     1016 group
+                                     1017 supriya:channel-strip:2
+            -                            active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            +                            active: c11, done_action: 14.0, gain: c12, gate: 0.0, out: 20.0
+                                     1019 supriya:meters:2
+                                         in_: 20.0, out: 15.0
+                                     1020 supriya:patch-cable:2x2
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
+                             1011 supriya:meters:2
+                                 in_: 18.0, out: 7.0
+                             1009 group
+            """,
+            """
+            - [None, [['/n_set', 1014, 'gate', 0.0], ['/n_set', 1017, 'done_action', 14.0]]]
+            """,
+        ),
+        # 3
         # in-tree send to self
         (
+            [
+                (None, "add_mixer", "Mixer"),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0].tracks[0]", "add_send", "mixers[0].tracks[0]"),
+            ],
             "mixers[0].tracks[0]",
-            [("mixers[0].tracks[0]", "add_send", "mixers[0].tracks[0]")],
             """
             --- initial
             +++ mutation
             @@ -1,5 +1,3 @@
              <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1 'P'>
-            -            <Track 2 'A'>
-            -                <TrackSend 3 target=<Track 2 'A'>>
+                     <Mixer 1>
+            -            <Track 2 'Self'>
+            -                <TrackSend 3 postfader target=<Track 2 'Self'>>
             """,
             """
             --- initial
@@ -772,27 +823,77 @@ async def test_Track_add_send(
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0], ['/n_set', 1014, 'gate', 0.0]]]
             """,
         ),
+        # 4
         # in-tree send to out-of-tree stack
         (
-            "mixers[0].tracks[1]",
             [
-                ("mixers[0]", "add_track", "B"),
-                ("mixers[0].tracks[1]", "add_send", "mixers[0].tracks[0]"),
+                (None, "add_mixer", "Mixer"),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", "Other"),
+                ("mixers[0].tracks[0]", "add_send", "mixers[0].tracks[1]"),
             ],
+            "mixers[0].tracks[0]",
             """
             --- initial
             +++ mutation
-            @@ -2,5 +2,3 @@
+            @@ -1,6 +1,4 @@
+             <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1 'P'>
-                         <Track 2 'A'>
-            -            <Track 3 'B'>
-            -                <TrackSend 4 target=<Track 2 'A'>>
+                     <Mixer 1>
+            -            <Track 2 'Self'>
+            -                <TrackSend 4 postfader target=<Track 3 'Other'>>
+                         <Track 3 'Other'>
             """,
             """
             --- initial
             +++ mutation
-            @@ -3,7 +3,7 @@
+            @@ -7,13 +7,13 @@
+                                 in_: 18.0, out: 7.0
+                             1009 group
+                             1010 supriya:channel-strip:2
+            -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 18.0
+                             1014 supriya:patch-cable:2x2
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
+                             1012 supriya:meters:2
+                                 in_: 18.0, out: 9.0
+                             1013 supriya:patch-cable:2x2
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
+                         1015 group
+                             1016 group
+                             1019 supriya:meters:2
+            """,
+            """
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
+            """,
+        ),
+        # 5
+        # out-of-tree send to in-tree track
+        (
+            [
+                (None, "add_mixer", "Mixer"),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", "Other"),
+                ("mixers[0].tracks[1]", "add_send", "mixers[0].tracks[0]"),
+            ],
+            "mixers[0].tracks[0]",
+            """
+            --- initial
+            +++ mutation
+            @@ -1,6 +1,4 @@
+             <Session 0>
+                 <session.contexts[0]>
+                     <Mixer 1>
+            -            <Track 2 'Self'>
+                         <Track 3 'Other'>
+            -                <TrackSend 4 postfader target=<Track 2 'Self'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -3,17 +3,17 @@
                      1001 group
                          1007 group
                              1014 supriya:fb-patch-cable:2x2
@@ -801,245 +902,218 @@ async def test_Track_add_send(
                              1008 group
                              1011 supriya:meters:2
                                  in_: 18.0, out: 7.0
-            @@ -20,13 +20,13 @@
-                                 in_: 22.0, out: 13.0
-                             1017 group
+                             1009 group
+                             1010 supriya:channel-strip:2
+            -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 18.0
+                             1012 supriya:meters:2
+                                 in_: 18.0, out: 9.0
+                             1013 supriya:patch-cable:2x2
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
+                         1015 group
+                             1016 group
+                             1019 supriya:meters:2
+            @@ -22,7 +22,7 @@
                              1018 supriya:channel-strip:2
-            -                    active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 22.0
-            +                    active: c11, done_action: 14.0, gain: c12, gate: 0.0, out: 22.0
+                                 active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 22.0
                              1022 supriya:patch-cable:2x2
             -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
             +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 20.0
                              1020 supriya:meters:2
                                  in_: 22.0, out: 15.0
                              1021 supriya:patch-cable:2x2
-            -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 16.0
-            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 16.0
-                     1004 supriya:meters:2
-                         in_: 16.0, out: 1.0
-                     1002 group
             """,
             """
-            - [None, [['/n_set', 1015, 'gate', 0.0], ['/n_set', 1018, 'done_action', 14.0]]]
-            - ['/n_set', 1014, 'done_action', 2.0, 'gate', 0.0]
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0], ['/n_set', 1014, 'gate', 0.0]]]
+            - ['/n_set', 1022, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
-        # out-of-tree send to in-tree track
-        (
-            "mixers[0].tracks[1]",
-            [
-                ("mixers[0]", "add_track", "B"),
-                ("mixers[0].tracks[0]", "add_send", "mixers[0].tracks[1]"),
-            ],
-            """
-            --- initial
-            +++ mutation
-            @@ -2,5 +2,3 @@
-                 <session.contexts[0]>
-                     <Mixer 1 'P'>
-                         <Track 2 'A'>
-            -                <TrackSend 4 target=<Track 3 'B'>>
-            -            <Track 3 'B'>
-            """,
-            """
-            --- initial
-            +++ mutation
-            @@ -9,7 +9,7 @@
-                             1010 supriya:channel-strip:2
-                                 active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
-                             1014 supriya:patch-cable:2x2
-            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
-            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
-                             1012 supriya:meters:2
-                                 in_: 18.0, out: 9.0
-                             1013 supriya:patch-cable:2x2
-            @@ -20,11 +20,11 @@
-                                 in_: 20.0, out: 13.0
-                             1017 group
-                             1018 supriya:channel-strip:2
-            -                    active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
-            +                    active: c11, done_action: 14.0, gain: c12, gate: 0.0, out: 20.0
-                             1020 supriya:meters:2
-                                 in_: 20.0, out: 15.0
-                             1021 supriya:patch-cable:2x2
-            -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
-            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
-                     1004 supriya:meters:2
-                         in_: 16.0, out: 1.0
-                     1002 group
-            """,
-            """
-            - [None, [['/n_set', 1015, 'gate', 0.0], ['/n_set', 1018, 'done_action', 14.0]]]
-            - ['/n_set', 1014, 'done_action', 2.0, 'gate', 0.0]
-            """,
-        ),
+        # 6
         # out-of-tree send to in-tree child track
         (
-            "mixers[0].tracks[1]",
             [
-                ("mixers[0]", "add_track", "B"),
-                ("mixers[0].tracks[1]", "add_track", "C"),
-                ("mixers[0].tracks[0]", "add_send", "mixers[0].tracks[1].tracks[0]"),
+                (None, "add_mixer", "Mixer"),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", "Other"),
+                ("mixers[0].tracks[0]", "add_track", "Child"),
+                ("mixers[0].tracks[1]", "add_send", "mixers[0].tracks[0].tracks[0]"),
             ],
+            "mixers[0].tracks[0]",
             """
             --- initial
             +++ mutation
-            @@ -2,6 +2,3 @@
+            @@ -1,7 +1,4 @@
+             <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1 'P'>
-                         <Track 2 'A'>
-            -                <TrackSend 5 target=<Track 4 'C'>>
-            -            <Track 3 'B'>
-            -                <Track 4 'C'>
+                     <Mixer 1>
+            -            <Track 2 'Self'>
+            -                <Track 4 'Child'>
+                         <Track 3 'Other'>
+            -                <TrackSend 5 postfader target=<Track 4 'Child'>>
             """,
             """
             --- initial
             +++ mutation
-            @@ -9,7 +9,7 @@
+            @@ -5,26 +5,26 @@
+                             1008 group
+                                 1014 group
+                                     1021 supriya:fb-patch-cable:2x2
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 20.0
+                                     1015 group
+                                     1018 supriya:meters:2
+                                         in_: 20.0, out: 13.0
+                                     1016 group
+                                     1017 supriya:channel-strip:2
+            -                            active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            +                            active: c11, done_action: 2.0, gain: c12, gate: 0.0, out: 20.0
+                                     1019 supriya:meters:2
+                                         in_: 20.0, out: 15.0
+                                     1020 supriya:patch-cable:2x2
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
+                             1011 supriya:meters:2
+                                 in_: 18.0, out: 7.0
+                             1009 group
                              1010 supriya:channel-strip:2
-                                 active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
-                             1014 supriya:patch-cable:2x2
-            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 22.0
-            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 22.0
+            -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 18.0
                              1012 supriya:meters:2
                                  in_: 18.0, out: 9.0
                              1013 supriya:patch-cable:2x2
-            @@ -22,20 +22,20 @@
-                                         in_: 22.0, out: 19.0
-                                     1024 group
-                                     1025 supriya:channel-strip:2
-            -                            active: c17, done_action: 2.0, gain: c18, gate: 1.0, out: 22.0
-            +                            active: c17, done_action: 2.0, gain: c18, gate: 0.0, out: 22.0
-                                     1027 supriya:meters:2
-                                         in_: 22.0, out: 21.0
-                                     1028 supriya:patch-cable:2x2
-            -                            active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
-            +                            active: c17, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 20.0
-                             1019 supriya:meters:2
-                                 in_: 20.0, out: 13.0
-                             1017 group
-                             1018 supriya:channel-strip:2
-            -                    active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
-            +                    active: c11, done_action: 14.0, gain: c12, gate: 0.0, out: 20.0
-                             1020 supriya:meters:2
-                                 in_: 20.0, out: 15.0
-                             1021 supriya:patch-cable:2x2
-            -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
-            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
-                     1004 supriya:meters:2
-                         in_: 16.0, out: 1.0
-                     1002 group
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
+                         1022 group
+                             1023 group
+                             1026 supriya:meters:2
+            @@ -33,7 +33,7 @@
+                             1025 supriya:channel-strip:2
+                                 active: c17, done_action: 2.0, gain: c18, gate: 1.0, out: 24.0
+                             1029 supriya:patch-cable:2x2
+            -                    active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 24.0, out: 22.0
+            +                    active: c17, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 24.0, out: 22.0
+                             1027 supriya:meters:2
+                                 in_: 24.0, out: 21.0
+                             1028 supriya:patch-cable:2x2
             """,
             """
-            - [None, [['/n_set', 1015, 'gate', 0.0], ['/n_set', 1018, 'done_action', 14.0]]]
-            - ['/n_set', 1014, 'done_action', 2.0, 'gate', 0.0]
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
+            - ['/n_set', 1029, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
+        # 7
         # out-of-tree track output
         (
-            "mixers[0].tracks[1]",
             [
-                ("mixers[0]", "add_track", "B"),
-                ("mixers[0].tracks[0]", "set_output", "mixers[0].tracks[1]"),
+                (None, "add_mixer", "Mixer"),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", "Other"),
+                ("mixers[0].tracks[1]", "set_output", "mixers[0].tracks[0]"),
             ],
+            "mixers[0].tracks[0]",
             """
             --- initial
             +++ mutation
             @@ -1,5 +1,4 @@
              <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1 'P'>
-            -            <Track 2 'A' output=<Track 3 'B'>>
-            -            <Track 3 'B'>
-            +            <Track 2 'A' output=None>
+                     <Mixer 1>
+            -            <Track 2 'Self'>
+            -            <Track 3 'Other' output=<Track 2 'Self'>>
+            +            <Track 3 'Other' output=None>
             """,
             """
             --- initial
             +++ mutation
-            @@ -11,18 +11,18 @@
+            @@ -3,17 +3,17 @@
+                     1001 group
+                         1007 group
+                             1014 supriya:fb-patch-cable:2x2
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
+                             1008 group
+                             1011 supriya:meters:2
+                                 in_: 18.0, out: 7.0
+                             1009 group
+                             1010 supriya:channel-strip:2
+            -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 18.0
+                             1012 supriya:meters:2
+                                 in_: 18.0, out: 9.0
+                             1013 supriya:patch-cable:2x2
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
+                         1015 group
+                             1016 group
+                             1019 supriya:meters:2
+            @@ -24,7 +24,7 @@
+                             1020 supriya:meters:2
+                                 in_: 22.0, out: 15.0
+                             1021 supriya:patch-cable:2x2
+            -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
+            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 20.0
+                     1004 supriya:meters:2
+                         in_: 16.0, out: 1.0
+                     1002 group
+            """,
+            """
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0], ['/n_set', 1014, 'gate', 0.0]]]
+            - ['/n_set', 1021, 'done_action', 2.0, 'gate', 0.0]
+            """,
+        ),
+        # 8
+        # out-of-tree track input
+        (
+            [
+                (None, "add_mixer", "Mixer"),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", "Other"),
+                ("mixers[0].tracks[1]", "set_input", "mixers[0].tracks[0]"),
+            ],
+            "mixers[0].tracks[0]",
+            """
+            --- initial
+            +++ mutation
+            @@ -1,5 +1,4 @@
+             <Session 0>
+                 <session.contexts[0]>
+                     <Mixer 1>
+            -            <Track 2 'Self'>
+            -            <Track 3 'Other' input=<Track 2 'Self'>>
+            +            <Track 3 'Other'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -7,14 +7,14 @@
+                                 in_: 18.0, out: 7.0
+                             1009 group
+                             1010 supriya:channel-strip:2
+            -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 18.0
                              1012 supriya:meters:2
                                  in_: 18.0, out: 9.0
                              1013 supriya:patch-cable:2x2
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
                          1014 group
+                             1020 supriya:patch-cable:2x2
+            -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
                              1015 group
                              1018 supriya:meters:2
                                  in_: 20.0, out: 13.0
-                             1016 group
-                             1017 supriya:channel-strip:2
-            -                    active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
-            +                    active: c11, done_action: 14.0, gain: c12, gate: 0.0, out: 20.0
-                             1019 supriya:meters:2
-                                 in_: 20.0, out: 15.0
-                             1020 supriya:patch-cable:2x2
-            -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
-            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
-                     1004 supriya:meters:2
-                         in_: 16.0, out: 1.0
-                     1002 group
             """,
             """
-            - [None, [['/n_set', 1014, 'gate', 0.0], ['/n_set', 1017, 'done_action', 14.0]]]
-            - ['/n_set', 1013, 'done_action', 2.0, 'gate', 0.0]
-            """,
-        ),
-        # out-of-tree track input
-        (
-            "mixers[0].tracks[1]",
-            [
-                ("mixers[0]", "add_track", "B"),
-                ("mixers[0].tracks[0]", "set_input", "mixers[0].tracks[1]"),
-            ],
-            """
-            --- initial
-            +++ mutation
-            @@ -1,5 +1,4 @@
-             <Session 0>
-                 <session.contexts[0]>
-                     <Mixer 1 'P'>
-            -            <Track 2 'A' input=<Track 3 'B'>>
-            -            <Track 3 'B'>
-            +            <Track 2 'A'>
-            """,
-            """
-            --- initial
-            +++ mutation
-            @@ -3,7 +3,7 @@
-                     1001 group
-                         1007 group
-                             1013 supriya:fb-patch-cable:2x2
-            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
-            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
-                             1008 group
-                             1011 supriya:meters:2
-                                 in_: 18.0, out: 7.0
-            @@ -20,11 +20,11 @@
-                                 in_: 20.0, out: 13.0
-                             1017 group
-                             1018 supriya:channel-strip:2
-            -                    active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
-            +                    active: c11, done_action: 14.0, gain: c12, gate: 0.0, out: 20.0
-                             1020 supriya:meters:2
-                                 in_: 20.0, out: 15.0
-                             1021 supriya:patch-cable:2x2
-            -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
-            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
-                     1004 supriya:meters:2
-                         in_: 16.0, out: 1.0
-                     1002 group
-            """,
-            """
-            - [None, [['/n_set', 1015, 'gate', 0.0], ['/n_set', 1018, 'done_action', 14.0]]]
-            - ['/n_set', 1013, 'done_action', 2.0, 'gate', 0.0]
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
+            - ['/n_set', 1020, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
     ],
 )
 @pytest.mark.asyncio
-@pytest.mark.xfail
 async def test_Track_delete(
-    basic_session: tuple[Session, str, str],
     commands: list[tuple[str | None, str, str | None]],
     expected_components_diff: str,
     expected_tree_diff: str,
@@ -1047,7 +1121,6 @@ async def test_Track_delete(
     online: bool,
     target: str,
 ) -> None:
-    # TODO: rewrite this with complex_session and track lookups
     # Pre-conditions
     print("Pre-conditions")
     session = Session()
@@ -1066,16 +1139,19 @@ async def test_Track_delete(
         await target_.delete()
     # Post-conditions
     print("Post-conditions")
-    if online:
-        actual_tree_diff = await compute_tree_diff(
-            session,
-            initial_tree,
-            annotated=False,
-        )
-        assert actual_tree_diff == normalize(expected_tree_diff)
-        assert format_messages(messages) == normalize(expected_messages)
-    assert parent_ and target_ not in parent_.children
+    assert parent_
+    assert target_ not in parent_.children
+    assert target_.parent is None
     assert_components_diff(session, expected_components_diff, initial_components)
+    if not online:
+        return
+    await assert_tree_diff(
+        session,
+        expected_tree_diff,
+        expected_initial_tree=initial_tree,
+        annotated=False,
+    )
+    assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest.mark.parametrize("online", [False, True])

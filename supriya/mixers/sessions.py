@@ -172,14 +172,16 @@ class Session(Component):
                 parts.extend((indent * 2) + line for line in mixer._dump_components())
         return "\n".join(parts)
 
-    async def dump_tree(self, annotated: bool = True) -> str:
+    async def dump_tree(self, annotated: bool = True, numeric: bool = False) -> str:
         if self.status != BootStatus.ONLINE:
             raise RuntimeError
         parts: list[str] = []
         for context, mixers in self._contexts.items():
             parts.append(repr(context))
             for mixer in mixers:
-                for line in (await mixer.dump_tree(annotated)).splitlines():
+                for line in (
+                    await mixer.dump_tree(annotated=annotated, numeric=numeric)
+                ).splitlines():
                     parts.append(f"    {line}")
         return "\n".join(parts)
 
