@@ -24,9 +24,10 @@ from .conftest import (
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, postfader, source, target, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
+    "commands, postfader, send_from, send_to, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
     [
-        # send to other mixer: raises
+        # send to other mixer
+        # - raises
         (
             [
                 (None, "add_mixer", None),
@@ -595,8 +596,8 @@ async def test_Track_add_send(
     maybe_raises,
     online: bool,
     postfader: bool,
-    source: str,
-    target: str,
+    send_from: str,
+    send_to: str,
 ) -> None:
     # Pre-conditions
     print("Pre-conditions")
@@ -608,24 +609,24 @@ async def test_Track_add_send(
         await session.sync()
         initial_tree = await debug_tree(session)
         print(initial_tree)
-    source_ = session[source]
-    target_ = session[target]
-    assert isinstance(source_, Track)
-    assert isinstance(target_, TrackContainer)
+    send_from_ = session[send_from]
+    send_to_ = session[send_to]
+    assert isinstance(send_from_, Track)
+    assert isinstance(send_to_, TrackContainer)
     send: TrackSend | None = None
     # Operation
     print("Operation")
     with maybe_raises, capture(session["mixers[0]"].context) as messages:
-        send = await source_.add_send(postfader=postfader, target=target_)
+        send = await send_from_.add_send(postfader=postfader, target=send_to_)
     # Post-conditions
     print("Post-conditions")
     if send is not None:
         assert isinstance(send, TrackSend)
-        assert send in source_.sends
-        assert send.parent is source_
+        assert send in send_from_.sends
+        assert send.parent is send_from_
         assert send.postfader == postfader
-        assert send.target is target_
-        assert source_.sends[-1] is send
+        assert send.target is send_to_
+        assert send_from_.sends[-1] is send
     assert_components_diff(session, expected_components_diff, initial_components)
     if not online:
         return
@@ -1689,168 +1690,535 @@ async def test_Track_move(
     assert format_messages(messages) == normalize(expected_messages)
 
 
-#   @pytest.mark.parametrize("online", [False, True])
-#   @pytest.mark.parametrize(
-#       "commands, input_to, input_from, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
-#       [
-#           # input from other mixer: raises
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", None),
-#                   ("mixers[1]", "add_track", None),
-#               ],
-#           ),
-#           # input from self: raises
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", "Self"),
-#               ],
-#           ),
-#           # input is none: no input
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", "Self"),
-#               ],
-#           ),
-#           # input from younger sibling
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", "Self"),
-#                   ("mixers[0]", "add_track", "Younger Sibling"),
-#               ],
-#           ),
-#           # input from older sibling
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", "Older Sibling"),
-#                   ("mixers[0]", "add_track", "Self"),
-#               ],
-#           ),
-#           # input from child
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", "Self"),
-#                   ("mixers[0].tracks[0]", "add_track", "Child"),
-#               ],
-#           ),
-#           # input from parent
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", "Parent"),
-#                   ("mixers[0].tracks[0]", "add_track", "Self"),
-#               ],
-#           ),
-#           # input from grandparent
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", "Grandarent"),
-#                   ("mixers[0].tracks[0]", "add_track", "Parent"),
-#                   ("mixers[0].tracks[0].tracks[0]", "add_track", "Self"),
-#               ],
-#           ),
-#           # input from grandchild
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", "Self"),
-#                   ("mixers[0].tracks[0]", "add_track", "Child"),
-#                   ("mixers[0].tracks[0].tracks[0]", "add_track", "Grandchild"),
-#               ],
-#           ),
-#           # input from older auntie
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", "Older Auntie"),
-#                   ("mixers[0]", "add_track", "Parent"),
-#                   ("mixers[0].tracks[1]", "add_track", "Self"),
-#               ],
-#           ),
-#           # input from younger auntie
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", "Parent"),
-#                   ("mixers[0]", "add_track", "Younger Auntie"),
-#                   ("mixers[0].tracks[0]", "add_track", "Self"),
-#               ],
-#           ),
-#           # input from older cousin
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", "Auntie"),
-#                   ("mixers[0]", "add_track", "Parent"),
-#                   ("mixers[0].tracks[0]", "add_track", "Older Cousin"),
-#                   ("mixers[0].tracks[1]", "add_track", "Self"),
-#               ],
-#           ),
-#           # input from younger cousin
-#           (
-#               [
-#                   (None, "add_mixer", None),
-#                   ("mixers[0]", "add_track", "Parent"),
-#                   ("mixers[0]", "add_track", "Auntie"),
-#                   ("mixers[0].tracks[0]", "add_track", "Self"),
-#                   ("mixers[0].tracks[1]", "add_track", "Younger Cousin"),
-#               ],
-#           ),
-#       ],
-#   )
-#   @pytest.mark.asyncio
-#   async def test_Track_set_input(
-#       complex_session: tuple[Session, str, str],
-#       expected_components_diff: str,
-#       expected_tree_diff: str,
-#       expected_messages: str,
-#       maybe_raises,
-#       online: bool,
-#       source: str,
-#       target: str | tuple[int, int] | None,
-#   ) -> None:
-#       # Pre-conditions
-#       session, initial_components, initial_tree = complex_session
-#       if online:
-#           await session.boot()
-#           await session.sync()
-#       source_ = session[source]
-#       assert isinstance(source_, Track)
-#       target_: BusGroup | Track | None = None
-#       if isinstance(target, str):
-#           target_component = session[target]
-#           assert isinstance(target_component, Track)
-#           target_ = target_component
-#       # TODO: Because the context could be null, we need the "promise" of a bus group.
-#       # elif isinstance(target, tuple):
-#       #     index, count = target
-#       #     target_ = BusGroup(
-#       #         context=session["mixers[0]"].context,
-#       #         calculation_rate=CalculationRate.AUDIO,
-#       #         id_=index,
-#       #         count=count,
-#       #     )
-#       # Operation
-#       with maybe_raises, capture(session["mixers[0]"].context) as messages:
-#           await source_.set_input(target_)
-#       # Post-conditions
-#       assert_components_diff(session, expected_components_diff, initial_components)
-#       if not online:
-#           return
-#       await assert_tree_diff(
-#           session,
-#           expected_tree_diff,
-#           expected_initial_tree=initial_tree,
-#       )
-#       assert format_messages(messages) == normalize(expected_messages)
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.parametrize(
+    "commands, input_to, input_from, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
+    [
+        # 0
+        # input from other mixer
+        # - raises
+        (
+            [
+                (None, "add_mixer", None),
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", None),
+                ("mixers[1]", "add_track", None),
+            ],
+            "mixers[0].tracks[0]",
+            "mixers[1].tracks[0]",
+            pytest.raises(RuntimeError),
+            """
+            """,
+            """
+            """,
+            """
+            """,
+        ),
+        # 1
+        # input from self
+        # - raises
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Self"),
+            ],
+            "mixers[0].tracks[0]",
+            "mixers[0].tracks[0]",
+            pytest.raises(RuntimeError),
+            """
+            """,
+            """
+            """,
+            """
+            """,
+        ),
+        # 2
+        # input is none
+        # - no input
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Self"),
+            ],
+            "mixers[0].tracks[0]",
+            None,
+            does_not_raise,
+            """
+            """,
+            """
+            """,
+            """
+            """,
+        ),
+        # 3
+        # input from younger sibling
+        # - self: expect feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", "Younger Sibling"),
+            ],
+            "mixers[0].tracks[0]",
+            "mixers[0].tracks[1]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -1,5 +1,5 @@
+             <Session 0>
+                 <session.contexts[0]>
+                     <Mixer 1>
+            -            <Track 2 'Self'>
+            +            <Track 2 'Self' input=<Track 3 'Younger Sibling'>>
+                         <Track 3 'Younger Sibling'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -2,6 +2,8 @@
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+                         1007 group (session.mixers[0].tracks[0]:group)
+            +                1021 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0]:input)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                             1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
+                                 in_: 18.0, out: 7.0
+            """,
+            """
+            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
+            - ['/sync', 4]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1021, 0, 1007, 'active', 'c5', 'in_', 20.0, 'out', 18.0]
+            """,
+        ),
+        # 4
+        # input from older sibling
+        # - self: do not expect feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Older Sibling"),
+                ("mixers[0]", "add_track", "Self"),
+            ],
+            "mixers[0].tracks[1]",
+            "mixers[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -2,4 +2,4 @@
+                 <session.contexts[0]>
+                     <Mixer 1>
+                         <Track 2 'Older Sibling'>
+            -            <Track 3 'Self'>
+            +            <Track 3 'Self' input=<Track 2 'Older Sibling'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -13,6 +13,8 @@
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+                         1014 group (session.mixers[0].tracks[1]:group)
+            +                1021 supriya:patch-cable:2x2 (session.mixers[0].tracks[1]:input)
+            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+                             1015 group (session.mixers[0].tracks[1]:tracks)
+                             1018 supriya:meters:2 (session.mixers[0].tracks[1]:input-levels)
+                                 in_: 20.0, out: 13.0
+            """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1021, 0, 1014, 'active', 'c11', 'in_', 18.0, 'out', 20.0]
+            """,
+        ),
+        # 5
+        # input from child
+        # - self: do not expect feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0].tracks[0]", "add_track", "Child"),
+            ],
+            "mixers[0].tracks[0]",
+            "mixers[0].tracks[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -1,5 +1,5 @@
+             <Session 0>
+                 <session.contexts[0]>
+                     <Mixer 1>
+            -            <Track 2 'Self'>
+            +            <Track 2 'Self' input=<Track 3 'Child'>>
+                             <Track 3 'Child'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -2,6 +2,8 @@
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+                         1007 group (session.mixers[0].tracks[0]:group)
+            +                1021 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:input)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+            """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1021, 0, 1007, 'active', 'c5', 'in_', 20.0, 'out', 18.0]
+            """,
+        ),
+        # 6
+        # input from parent
+        # - self: expect feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Parent"),
+                ("mixers[0].tracks[0]", "add_track", "Self"),
+            ],
+            "mixers[0].tracks[0].tracks[0]",
+            "mixers[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -2,4 +2,4 @@
+                 <session.contexts[0]>
+                     <Mixer 1>
+                         <Track 2 'Parent'>
+            -                <Track 3 'Self'>
+            +                <Track 3 'Self' input=<Track 2 'Parent'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -4,6 +4,8 @@
+                         1007 group (session.mixers[0].tracks[0]:group)
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+            +                        1021 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:input)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+                                     1018 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:input-levels)
+                                         in_: 20.0, out: 13.0
+            """,
+            """
+            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
+            - ['/sync', 4]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1021, 0, 1014, 'active', 'c11', 'in_', 18.0, 'out', 20.0]
+            """,
+        ),
+        # 7
+        # input from grandparent
+        # - self: expect feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Grandarent"),
+                ("mixers[0].tracks[0]", "add_track", "Parent"),
+                ("mixers[0].tracks[0].tracks[0]", "add_track", "Self"),
+            ],
+            "mixers[0].tracks[0].tracks[0].tracks[0]",
+            "mixers[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -3,4 +3,4 @@
+                     <Mixer 1>
+                         <Track 2 'Grandarent'>
+                             <Track 3 'Parent'>
+            -                    <Track 4 'Self'>
+            +                    <Track 4 'Self' input=<Track 2 'Grandarent'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -6,6 +6,8 @@
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+                                         1021 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
+            +                                1028 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:input)
+            +                                    active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 22.0
+                                             1022 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
+                                             1025 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:input-levels)
+                                                 in_: 22.0, out: 19.0
+            """,
+            """
+            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
+            - ['/sync', 4]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1028, 0, 1021, 'active', 'c17', 'in_', 18.0, 'out', 22.0]
+            """,
+        ),
+        # 8
+        # input from grandchild
+        # - self: do not expect feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0].tracks[0]", "add_track", "Child"),
+                ("mixers[0].tracks[0].tracks[0]", "add_track", "Grandchild"),
+            ],
+            "mixers[0].tracks[0]",
+            "mixers[0].tracks[0].tracks[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -1,6 +1,6 @@
+             <Session 0>
+                 <session.contexts[0]>
+                     <Mixer 1>
+            -            <Track 2 'Self'>
+            +            <Track 2 'Self' input=<Track 4 'Grandchild'>>
+                             <Track 3 'Child'>
+                                 <Track 4 'Grandchild'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -2,6 +2,8 @@
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+                         1007 group (session.mixers[0].tracks[0]:group)
+            +                1028 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:input)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 18.0
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+            """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1028, 0, 1007, 'active', 'c5', 'in_', 22.0, 'out', 18.0]
+            """,
+        ),
+        # 9
+        # input from older auntie
+        # - self: do not expect feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Older Auntie"),
+                ("mixers[0]", "add_track", "Parent"),
+                ("mixers[0].tracks[1]", "add_track", "Self"),
+            ],
+            "mixers[0].tracks[1].tracks[0]",
+            "mixers[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -3,4 +3,4 @@
+                     <Mixer 1>
+                         <Track 2 'Older Auntie'>
+                         <Track 3 'Parent'>
+            -                <Track 4 'Self'>
+            +                <Track 4 'Self' input=<Track 2 'Older Auntie'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -15,6 +15,8 @@
+                         1014 group (session.mixers[0].tracks[1]:group)
+                             1015 group (session.mixers[0].tracks[1]:tracks)
+                                 1021 group (session.mixers[0].tracks[1].tracks[0]:group)
+            +                        1028 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0]:input)
+            +                            active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 22.0
+                                     1022 group (session.mixers[0].tracks[1].tracks[0]:tracks)
+                                     1025 supriya:meters:2 (session.mixers[0].tracks[1].tracks[0]:input-levels)
+                                         in_: 22.0, out: 19.0
+            """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1028, 0, 1021, 'active', 'c17', 'in_', 18.0, 'out', 22.0]
+            """,
+        ),
+        # 10
+        # input from younger auntie
+        # - self: expect feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Parent"),
+                ("mixers[0]", "add_track", "Younger Auntie"),
+                ("mixers[0].tracks[0]", "add_track", "Self"),
+            ],
+            "mixers[0].tracks[0].tracks[0]",
+            "mixers[0].tracks[1]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -2,5 +2,5 @@
+                 <session.contexts[0]>
+                     <Mixer 1>
+                         <Track 2 'Parent'>
+            -                <Track 4 'Self'>
+            +                <Track 4 'Self' input=<Track 3 'Younger Auntie'>>
+                         <Track 3 'Younger Auntie'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -4,6 +4,8 @@
+                         1007 group (session.mixers[0].tracks[0]:group)
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+            +                        1028 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:input)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+                                     1018 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:input-levels)
+                                         in_: 20.0, out: 13.0
+            """,
+            """
+            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
+            - ['/sync', 4]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1028, 0, 1014, 'active', 'c11', 'in_', 22.0, 'out', 20.0]
+            """,
+        ),
+        # 11
+        # input from older cousin
+        # - self: do not expect feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Auntie"),
+                ("mixers[0]", "add_track", "Parent"),
+                ("mixers[0].tracks[0]", "add_track", "Older Cousin"),
+                ("mixers[0].tracks[1]", "add_track", "Self"),
+            ],
+            "mixers[0].tracks[1].tracks[0]",
+            "mixers[0].tracks[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -4,4 +4,4 @@
+                         <Track 2 'Auntie'>
+                             <Track 4 'Older Cousin'>
+                         <Track 3 'Parent'>
+            -                <Track 5 'Self'>
+            +                <Track 5 'Self' input=<Track 4 'Older Cousin'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -26,6 +26,8 @@
+                         1021 group (session.mixers[0].tracks[1]:group)
+                             1022 group (session.mixers[0].tracks[1]:tracks)
+                                 1028 group (session.mixers[0].tracks[1].tracks[0]:group)
+            +                        1035 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0]:input)
+            +                            active: c23, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 24.0
+                                     1029 group (session.mixers[0].tracks[1].tracks[0]:tracks)
+                                     1032 supriya:meters:2 (session.mixers[0].tracks[1].tracks[0]:input-levels)
+                                         in_: 24.0, out: 25.0
+            """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1035, 0, 1028, 'active', 'c23', 'in_', 20.0, 'out', 24.0]
+            """,
+        ),
+        # 12
+        # input from younger cousin
+        # - self: expect feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Parent"),
+                ("mixers[0]", "add_track", "Auntie"),
+                ("mixers[0].tracks[0]", "add_track", "Self"),
+                ("mixers[0].tracks[1]", "add_track", "Younger Cousin"),
+            ],
+            "mixers[0].tracks[0].tracks[0]",
+            "mixers[0].tracks[1].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -2,6 +2,6 @@
+                 <session.contexts[0]>
+                     <Mixer 1>
+                         <Track 2 'Parent'>
+            -                <Track 4 'Self'>
+            +                <Track 4 'Self' input=<Track 5 'Younger Cousin'>>
+                         <Track 3 'Auntie'>
+                             <Track 5 'Younger Cousin'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -4,6 +4,8 @@
+                         1007 group (session.mixers[0].tracks[0]:group)
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+            +                        1035 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:input)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 24.0, out: 20.0
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+                                     1018 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:input-levels)
+                                         in_: 20.0, out: 13.0
+            """,
+            """
+            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
+            - ['/sync', 4]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1035, 0, 1014, 'active', 'c11', 'in_', 24.0, 'out', 20.0]
+            """,
+        ),
+    ],
+)
+@pytest.mark.asyncio
+async def test_Track_set_input(
+    commands: list[tuple[str | None, str, str | None]],
+    expected_components_diff: str,
+    expected_messages: str,
+    expected_tree_diff: str,
+    input_from: str | tuple[int, int] | None,
+    input_to: str,
+    maybe_raises,
+    online: bool,
+) -> None:
+    # Pre-conditions
+    print("Pre-conditions")
+    session = Session()
+    await apply_commands(session, commands)
+    initial_components = debug_components(session)
+    if online:
+        await session.boot()
+        await session.sync()
+        initial_tree = await debug_tree(session)
+        # print(initial_tree)
+    input_to_ = session[input_to]
+    input_from_: BusGroup | Track | None = None
+    assert isinstance(input_to_, Track)
+    if isinstance(input_from, str):
+        input_from_component = session[input_from]
+        assert isinstance(input_from_component, Track)
+        input_from_ = input_from_component
+    # TODO: Because the context could be null, we need the "promise" of a bus group.
+    # elif isinstance(target, tuple):
+    #     index, count = target
+    #     target_ = BusGroup(
+    #         context=session["mixers[0]"].context,
+    #         calculation_rate=CalculationRate.AUDIO,
+    #         id_=index,
+    #         count=count,
+    #     )
+    # Operation
+    print("Operation")
+    with maybe_raises, capture(session["mixers[0]"].context) as messages:
+        await input_to_.set_input(input_from_)
+    # Post-conditions
+    print("Post-conditions")
+    assert_components_diff(session, expected_components_diff, initial_components)
+    if not online:
+        return
+    await assert_tree_diff(
+        session,
+        expected_tree_diff,
+        expected_initial_tree=initial_tree,
+    )
+    assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -2568,12 +2936,12 @@ async def test_Track_set_muted(
 async def test_Track_set_output(
     commands: list[tuple[str | None, str, str | None]],
     expected_components_diff: str,
-    expected_tree_diff: str,
     expected_messages: str,
+    expected_tree_diff: str,
     maybe_raises,
+    online: bool,
     output_from: str,
     output_to: Default | str | None,
-    online: bool,
 ) -> None:
     # Pre-conditions
     print("Pre-conditions")
