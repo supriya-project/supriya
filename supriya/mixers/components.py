@@ -162,15 +162,19 @@ class Component(Generic[C]):
             related_components.extend(related)
             deleted_components.update(deleted)
             # gather spec changes
+            if deleting:
+                destroy_reconciliation = (
+                    Reconciliation.DESTROY_ROOT
+                    if component is self
+                    else Reconciliation.DESTROY
+                )
+            else:
+                destroy_reconciliation = Reconciliation.DESTROY_SHALLOW
             spec_changes.extend(
                 component._gather_spec_changes(
                     new_context=context,
                     old_context_artifacts=old_context_artifacts,
-                    destroy_reconciliation=(
-                        Reconciliation.DESTROY_ROOT
-                        if component is self
-                        else Reconciliation.DESTROY
-                    ),
+                    destroy_reconciliation=destroy_reconciliation,
                 ),
             )
             visited_components.add(component)

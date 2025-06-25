@@ -464,7 +464,6 @@ class SynthSpec(NodeSpec):
         new_artifacts: Artifacts,
         old_spec: "Spec",
     ) -> None:
-        print(f"MUTATE {self=}")
         if not isinstance(old_spec, SynthSpec):
             raise ValueError(old_spec)
         if (

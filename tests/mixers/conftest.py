@@ -12,8 +12,8 @@ from uqbar.strings import normalize
 
 from supriya import AsyncServer, OscBundle, OscMessage
 from supriya.mixers import Session
-from supriya.ugens import decompile_synthdefs
 from supriya.typing import DEFAULT
+from supriya.ugens import decompile_synthdefs
 
 
 async def apply_commands(
