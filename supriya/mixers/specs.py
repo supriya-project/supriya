@@ -85,7 +85,7 @@ class Spec:
         graph_order = component.graph_order
         for (connection, _), io in component._connections.items():
             if io is IO.WRITE and Spec.feedsback(
-                writer_order=connection.graph_order,
+                writer_order=connection.feedback_graph_order,
                 reader_order=graph_order,
             ):
                 return True

@@ -189,6 +189,15 @@ class TrackSend(Component["Track"]):
         return f"{self.parent.address}.sends[{index}]"
 
     @property
+    def feedback_graph_order(self) -> tuple[int, ...]:
+        """
+        Graph order for sake of feedback calculations.
+        """
+        if self.parent is None:
+            raise RuntimeError
+        return self.parent.graph_order
+
+    @property
     def numeric_address(self) -> Address:
         return f"sends[{self._id}]"
 

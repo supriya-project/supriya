@@ -22,7 +22,7 @@ from .conftest import (
 )
 
 
-#@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "commands, postfader, source, target, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
     [
@@ -57,10 +57,40 @@ from .conftest import (
             "mixers[0].tracks[0]",
             does_not_raise,
             """
+            --- initial
+            +++ mutation
+            @@ -2,3 +2,4 @@
+                 <session.contexts[0]>
+                     <Mixer 1>
+                         <Track 2 'Self'>
+            +                <TrackSend 3 postfader target=<Track 2 'Self'>>
             """,
             """
+            --- initial
+            +++ mutation
+            @@ -2,12 +2,16 @@
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+                         1007 group (session.mixers[0].tracks[0]:group)
+            +                1015 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0]:feedback)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                             1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
+                                 in_: 18.0, out: 7.0
+                             1009 group (session.mixers[0].tracks[0]:devices)
+                             1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                                 active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            +                1014 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].sends[0]:synth)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+                             1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
+                                 in_: 18.0, out: 9.0
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             """,
             """
+            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
+            - ['/sync', 4]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1014, 3, 1010, 'active', 'c5', 'in_', 18.0, 'out', 20.0]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1015, 0, 1007, 'active', 'c5', 'in_', 20.0, 'out', 18.0]
             """,
         ),
         # send to younger sibling
@@ -558,15 +588,15 @@ from .conftest import (
 )
 @pytest.mark.asyncio
 async def test_Track_add_send(
-    commands: list[tuple[str, str, str | None]],
+    commands: list[tuple[str | None, str, str | None]],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,
     maybe_raises,
+    online: bool,
     postfader: bool,
     source: str,
     target: str,
-    online: bool = True,
 ) -> None:
     # Pre-conditions
     print("Pre-conditions")
@@ -1008,7 +1038,7 @@ async def test_Track_add_send(
 @pytest.mark.asyncio
 async def test_Track_delete(
     basic_session: tuple[Session, str, str],
-    commands: list[tuple[str, str, str | None]],
+    commands: list[tuple[str | None, str, str | None]],
     expected_components_diff: str,
     expected_tree_diff: str,
     expected_messages: str,

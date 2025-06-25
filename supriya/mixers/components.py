@@ -294,6 +294,13 @@ class Component(Generic[C]):
         return 2
 
     @property
+    def feedback_graph_order(self) -> tuple[int, ...]:
+        """
+        Graph order for sake of feedback calculations.
+        """
+        return self.graph_order
+
+    @property
     def graph_order(self) -> tuple[int, ...]:
         # TODO: Cache this
         graph_order = []
