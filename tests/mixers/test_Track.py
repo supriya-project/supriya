@@ -460,6 +460,100 @@ from .conftest import (
             - ['/s_new', 'supriya:patch-cable:2x2', 1028, 3, 1017, 'active', 'c11', 'in_', 20.0, 'out', 22.0]
             """,
         ),
+        # send to older cousin
+        # - older cousin: expect :feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Auntie"),
+                ("mixers[0]", "add_track", "Parent"),
+                ("mixers[0].tracks[0]", "add_track", "Older Cousin"),
+                ("mixers[0].tracks[1]", "add_track", "Self"),
+            ],
+            True,
+            "mixers[0].tracks[1].tracks[0]",
+            "mixers[0].tracks[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -5,3 +5,4 @@
+                             <Track 4 'Older Cousin'>
+                         <Track 3 'Parent'>
+                             <Track 5 'Self'>
+            +                    <TrackSend 6 postfader target=<Track 4 'Older Cousin'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -4,6 +4,8 @@
+                         1007 group (session.mixers[0].tracks[0]:group)
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+            +                        1036 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:feedback)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 20.0
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+                                     1018 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:input-levels)
+                                         in_: 20.0, out: 13.0
+            @@ -32,6 +34,8 @@
+                                     1030 group (session.mixers[0].tracks[1].tracks[0]:devices)
+                                     1031 supriya:channel-strip:2 (session.mixers[0].tracks[1].tracks[0]:channel-strip)
+                                         active: c23, done_action: 2.0, gain: c24, gate: 1.0, out: 24.0
+            +                        1035 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0].sends[0]:synth)
+            +                            active: c23, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 24.0, out: 26.0
+                                     1033 supriya:meters:2 (session.mixers[0].tracks[1].tracks[0]:output-levels)
+                                         in_: 24.0, out: 27.0
+                                     1034 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0]:output)
+            """,
+            """
+            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
+            - ['/sync', 4]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1035, 3, 1031, 'active', 'c23', 'in_', 24.0, 'out', 26.0]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1036, 0, 1014, 'active', 'c11', 'in_', 26.0, 'out', 20.0]
+            """,
+        ),
+        # send to younger cousin
+        # - younger cousin: do not expect :feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Parent"),
+                ("mixers[0]", "add_track", "Auntie"),
+                ("mixers[0].tracks[0]", "add_track", "Self"),
+                ("mixers[0].tracks[1]", "add_track", "Younger Cousin"),
+            ],
+            True,
+            "mixers[0].tracks[0].tracks[0]",
+            "mixers[0].tracks[1].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -3,5 +3,6 @@
+                     <Mixer 1>
+                         <Track 2 'Parent'>
+                             <Track 4 'Self'>
+            +                    <TrackSend 6 postfader target=<Track 5 'Younger Cousin'>>
+                         <Track 3 'Auntie'>
+                             <Track 5 'Younger Cousin'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -10,6 +10,8 @@
+                                     1016 group (session.mixers[0].tracks[0].tracks[0]:devices)
+                                     1017 supriya:channel-strip:2 (session.mixers[0].tracks[0].tracks[0]:channel-strip)
+                                         active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            +                        1035 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].sends[0]:synth)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 24.0
+                                     1019 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:output-levels)
+                                         in_: 20.0, out: 15.0
+                                     1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
+            """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1035, 3, 1017, 'active', 'c11', 'in_', 20.0, 'out', 24.0]
+            """,
+        ),
     ],
 )
 @pytest.mark.asyncio
