@@ -82,7 +82,7 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
 )
 @pytest.mark.asyncio
 async def test_Track_add_device(
-    complex_session: tuple[Session, str, str],
+    basic_session: tuple[Session, str, str],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,
@@ -90,7 +90,7 @@ async def test_Track_add_device(
     target: str,
 ) -> None:
     # Pre-conditions
-    session, initial_components, initial_tree = complex_session
+    session, initial_components, initial_tree = basic_session
     if online:
         await session.boot()
     target_ = session[target]

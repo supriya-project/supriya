@@ -83,13 +83,11 @@ class Spec:
     @classmethod
     def needs_feedback(cls, component: "Component") -> bool:
         graph_order = component.graph_order
-        visited_components: dict[Component, set[IO]] = {}
         for (connection, _), io in component._connections.items():
-            visited_components.setdefault(connection, set()).add(io)
-            if cls.feedsback(
+            if io is IO.WRITE and Spec.feedsback(
                 writer_order=connection.graph_order,
                 reader_order=graph_order,
-            ) or visited_components[connection] == set([IO.READ, IO.WRITE]):
+            ):
                 return True
         return False
 

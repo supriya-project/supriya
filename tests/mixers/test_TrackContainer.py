@@ -16,44 +16,42 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
             """
             --- initial
             +++ mutation
-            @@ -9,5 +9,6 @@
-                         <Track 4 'B'>
-                             <TrackSend 11 target=<Track 6 'A1'>>
-                         <Track 5 'C'>
-            +            <Track 12 'Z'>
-                     <Mixer 2 'Q'>
-                         <Track 9 'D'>
+            @@ -2,3 +2,4 @@
+                 <session.contexts[0]>
+                     <Mixer 1 'P'>
+                         <Track 2 'A'>
+            +            <Track 3 'Z'>
             """,
             """
             --- initial
             +++ mutation
-            @@ -73,6 +73,17 @@
-                                 in_: 30.0, out: 39.0
-                             1051 supriya:patch-cable:2x2 (session.mixers[0].tracks[2]:output)
-                                 active: c35, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 30.0, out: 16.0
-            +            1066 group (session.mixers[0].tracks[3]:group)
-            +                1067 group (session.mixers[0].tracks[3]:tracks)
-            +                1070 supriya:meters:2 (session.mixers[0].tracks[3]:input-levels)
-            +                    in_: 36.0, out: 54.0
-            +                1068 group (session.mixers[0].tracks[3]:devices)
-            +                1069 supriya:channel-strip:2 (session.mixers[0].tracks[3]:channel-strip)
-            +                    active: c52, done_action: 2.0, gain: c53, gate: 1.0, out: 36.0
-            +                1071 supriya:meters:2 (session.mixers[0].tracks[3]:output-levels)
-            +                    in_: 36.0, out: 56.0
-            +                1072 supriya:patch-cable:2x2 (session.mixers[0].tracks[3]:output)
-            +                    active: c52, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 16.0
+            @@ -12,6 +12,17 @@
+                                 in_: 18.0, out: 9.0
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+            +            1014 group (session.mixers[0].tracks[1]:group)
+            +                1015 group (session.mixers[0].tracks[1]:tracks)
+            +                1018 supriya:meters:2 (session.mixers[0].tracks[1]:input-levels)
+            +                    in_: 20.0, out: 13.0
+            +                1016 group (session.mixers[0].tracks[1]:devices)
+            +                1017 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
+            +                    active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            +                1019 supriya:meters:2 (session.mixers[0].tracks[1]:output-levels)
+            +                    in_: 20.0, out: 15.0
+            +                1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[1]:output)
+            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
                      1004 supriya:meters:2 (session.mixers[0]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
             """,
             """
-            - [None, [['/c_set', 52, 1.0, 53, 0.0], ['/c_fill', 54, 2, 0.0, 56, 2, 0.0]]]
+            - [None, [['/c_set', 11, 1.0, 12, 0.0], ['/c_fill', 13, 2, 0.0, 15, 2, 0.0]]]
             - [None,
-               [['/g_new', 1066, 3, 1045, 1067, 0, 1066, 1068, 1, 1066],
-                ['/s_new', 'supriya:channel-strip:2', 1069, 1, 1066, 'active', 'c52', 'gain', 'c53', 'out', 36.0],
-                ['/s_new', 'supriya:meters:2', 1070, 3, 1067, 'in_', 36.0, 'out', 54.0],
-                ['/s_new', 'supriya:meters:2', 1071, 3, 1069, 'in_', 36.0, 'out', 56.0],
-                ['/s_new', 'supriya:patch-cable:2x2', 1072, 1, 1066, 'active', 'c52', 'in_', 36.0, 'out', 16.0]]]
+               [['/g_new', 1014, 3, 1007, 1015, 0, 1014, 1016, 1, 1014],
+                ['/s_new', 'supriya:channel-strip:2', 1017, 1, 1014, 'active', 'c11', 'gain', 'c12', 'out', 20.0],
+                ['/s_new', 'supriya:meters:2', 1018, 3, 1015, 'in_', 20.0, 'out', 13.0],
+                ['/s_new', 'supriya:meters:2', 1019, 3, 1017, 'in_', 20.0, 'out', 15.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1020, 1, 1014, 'active', 'c11', 'in_', 20.0, 'out', 16.0]]]
             """,
         ),
         (
@@ -61,52 +59,49 @@ from .conftest import assert_components_diff, assert_tree_diff, capture, format_
             """
             --- initial
             +++ mutation
-            @@ -5,6 +5,7 @@
-                             <Track 6 'A1'>
-                                 <Track 8 'A11'>
-                             <Track 7 'A2'>
-            +                <Track 12 'Z'>
-                             <TrackSend 10 target=<Track 4 'B'>>
-                         <Track 4 'B'>
-                             <TrackSend 11 target=<Track 6 'A1'>>
+            @@ -2,3 +2,4 @@
+                 <session.contexts[0]>
+                     <Mixer 1 'P'>
+                         <Track 2 'A'>
+            +                <Track 3 'Z'>
             """,
             """
             --- initial
             +++ mutation
-            @@ -38,6 +38,17 @@
-                                         in_: 26.0, out: 27.0
-                                     1035 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[1]:output)
-                                         active: c23, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 18.0
-            +                    1066 group (session.mixers[0].tracks[0].tracks[2]:group)
-            +                        1067 group (session.mixers[0].tracks[0].tracks[2]:tracks)
-            +                        1070 supriya:meters:2 (session.mixers[0].tracks[0].tracks[2]:input-levels)
-            +                            in_: 36.0, out: 54.0
-            +                        1068 group (session.mixers[0].tracks[0].tracks[2]:devices)
-            +                        1069 supriya:channel-strip:2 (session.mixers[0].tracks[0].tracks[2]:channel-strip)
-            +                            active: c52, done_action: 2.0, gain: c53, gate: 1.0, out: 36.0
-            +                        1071 supriya:meters:2 (session.mixers[0].tracks[0].tracks[2]:output-levels)
-            +                            in_: 36.0, out: 56.0
-            +                        1072 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[2]:output)
-            +                            active: c52, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 18.0
+            @@ -3,6 +3,17 @@
+                     1001 group (session.mixers[0]:tracks)
+                         1007 group (session.mixers[0].tracks[0]:group)
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+            +                    1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+            +                        1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+            +                        1018 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:input-levels)
+            +                            in_: 20.0, out: 13.0
+            +                        1016 group (session.mixers[0].tracks[0].tracks[0]:devices)
+            +                        1017 supriya:channel-strip:2 (session.mixers[0].tracks[0].tracks[0]:channel-strip)
+            +                            active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            +                        1019 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:output-levels)
+            +                            in_: 20.0, out: 15.0
+            +                        1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
                              1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
                                  in_: 18.0, out: 7.0
                              1009 group (session.mixers[0].tracks[0]:devices)
             """,
             """
-            - [None, [['/c_set', 52, 1.0, 53, 0.0], ['/c_fill', 54, 2, 0.0, 56, 2, 0.0]]]
+            - [None, [['/c_set', 11, 1.0, 12, 0.0], ['/c_fill', 13, 2, 0.0, 15, 2, 0.0]]]
             - [None,
-               [['/g_new', 1066, 3, 1029, 1067, 0, 1066, 1068, 1, 1066],
-                ['/s_new', 'supriya:channel-strip:2', 1069, 1, 1066, 'active', 'c52', 'gain', 'c53', 'out', 36.0],
-                ['/s_new', 'supriya:meters:2', 1070, 3, 1067, 'in_', 36.0, 'out', 54.0],
-                ['/s_new', 'supriya:meters:2', 1071, 3, 1069, 'in_', 36.0, 'out', 56.0],
-                ['/s_new', 'supriya:patch-cable:2x2', 1072, 1, 1066, 'active', 'c52', 'in_', 36.0, 'out', 18.0]]]
+               [['/g_new', 1014, 0, 1008, 1015, 0, 1014, 1016, 1, 1014],
+                ['/s_new', 'supriya:channel-strip:2', 1017, 1, 1014, 'active', 'c11', 'gain', 'c12', 'out', 20.0],
+                ['/s_new', 'supriya:meters:2', 1018, 3, 1015, 'in_', 20.0, 'out', 13.0],
+                ['/s_new', 'supriya:meters:2', 1019, 3, 1017, 'in_', 20.0, 'out', 15.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1020, 1, 1014, 'active', 'c11', 'in_', 20.0, 'out', 18.0]]]
             """,
         ),
     ],
 )
 @pytest.mark.asyncio
 async def test_TrackContainer_add_track(
-    complex_session: tuple[Session, str, str],
+    basic_session: tuple[Session, str, str],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,
@@ -115,7 +110,7 @@ async def test_TrackContainer_add_track(
 ) -> None:
     # Pre-conditions
     print("Pre-conditions")
-    session, initial_components, initial_tree = complex_session
+    session, initial_components, initial_tree = basic_session
     if online:
         await session.boot()
     target_ = session[target]
@@ -148,7 +143,7 @@ async def test_TrackContainer_add_track(
 )
 @pytest.mark.asyncio
 async def test_TrackContainer_group(
-    complex_session: tuple[Session, str, str],
+    basic_session: tuple[Session, str, str],
     count: int,
     expected_components_diff: str,
     expected_messages: str,
@@ -160,7 +155,7 @@ async def test_TrackContainer_group(
 ) -> None:
     # Pre-conditions
     print("Pre-conditions")
-    session, initial_components, initial_tree = complex_session
+    session, initial_components, initial_tree = basic_session
     if online:
         await session.boot()
     target_ = session[target]
