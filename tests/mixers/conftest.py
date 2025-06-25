@@ -527,9 +527,9 @@ async def complex_session() -> tuple[Session, str, str]:
                         <Track 6 'A1'>
                             <Track 8 'A11'>
                         <Track 7 'A2'>
-                        <TrackSend 10 target=<Track 4 'B'>>
+                        <TrackSend 10 postfader target=<Track 4 'B'>>
                     <Track 4 'B'>
-                        <TrackSend 11 target=<Track 6 'A1'>>
+                        <TrackSend 11 postfader target=<Track 6 'A1'>>
                     <Track 5 'C'>
                 <Mixer 2 'Q'>
                     <Track 9 'D'>
