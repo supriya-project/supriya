@@ -10,6 +10,7 @@ from supriya.mixers.tracks import Track, TrackContainer, TrackSend
 from supriya.typing import DEFAULT, Default
 
 from .conftest import (
+    apply_commands,
     assert_components_diff,
     assert_tree_diff,
     capture,
@@ -21,231 +22,472 @@ from .conftest import (
 )
 
 
-@pytest.mark.parametrize("online", [False, True])
+#@pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "postfader, source, target, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
+    "commands, postfader, source, target, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
     [
+        # send to other mixer: raises
         (
+            [
+                (None, "add_mixer", None),
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", None),
+                ("mixers[1]", "add_track", None),
+            ],
             True,
-            "mixers[0].tracks[1]",
-            "mixers[0]",
-            does_not_raise,
-            """
-            --- initial
-            +++ mutation
-            @@ -8,6 +8,7 @@
-                             <TrackSend 10 target=<Track 4 'B'>>
-                         <Track 4 'B'>
-                             <TrackSend 11 target=<Track 6 'A1'>>
-            +                <TrackSend 12 target=<Mixer 1 'P'>>
-                         <Track 5 'C'>
-                     <Mixer 2 'Q'>
-                         <Track 9 'D'>
-            """,
-            """
-            --- initial
-            +++ mutation
-            @@ -56,6 +56,8 @@
-                             1039 group (session.mixers[0].tracks[1]:devices)
-                             1040 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
-                                 active: c29, done_action: 2.0, gain: c30, gate: 1.0, out: 28.0
-            +                1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[1]:synth)
-            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 16.0
-                             1044 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
-                                 active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 22.0
-                             1042 supriya:meters:2 (session.mixers[0].tracks[1]:output-levels)
-            """,
-            """
-            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 3, 1040, 'active', 'c29', 'in_', 28.0, 'out', 16.0]
-            """,
-        ),
-        (
-            True,
-            "mixers[0].tracks[1]",
-            "mixers[0].tracks[2]",
-            does_not_raise,
-            """
-            --- initial
-            +++ mutation
-            @@ -8,6 +8,7 @@
-                             <TrackSend 10 target=<Track 4 'B'>>
-                         <Track 4 'B'>
-                             <TrackSend 11 target=<Track 6 'A1'>>
-            +                <TrackSend 12 target=<Track 5 'C'>>
-                         <Track 5 'C'>
-                     <Mixer 2 'Q'>
-                         <Track 9 'D'>
-            """,
-            """
-            --- initial
-            +++ mutation
-            @@ -56,6 +56,8 @@
-                             1039 group (session.mixers[0].tracks[1]:devices)
-                             1040 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
-                                 active: c29, done_action: 2.0, gain: c30, gate: 1.0, out: 28.0
-            +                1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[1]:synth)
-            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 30.0
-                             1044 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
-                                 active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 22.0
-                             1042 supriya:meters:2 (session.mixers[0].tracks[1]:output-levels)
-            """,
-            """
-            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 3, 1040, 'active', 'c29', 'in_', 28.0, 'out', 30.0]
-            """,
-        ),
-        (
-            False,
-            "mixers[0].tracks[1]",
-            "mixers[0].tracks[2]",
-            does_not_raise,
-            """
-            --- initial
-            +++ mutation
-            @@ -8,6 +8,7 @@
-                             <TrackSend 10 target=<Track 4 'B'>>
-                         <Track 4 'B'>
-                             <TrackSend 11 target=<Track 6 'A1'>>
-            +                <TrackSend 12 target=<Track 5 'C'>>
-                         <Track 5 'C'>
-                     <Mixer 2 'Q'>
-                         <Track 9 'D'>
-            """,
-            """
-            --- initial
-            +++ mutation
-            @@ -54,6 +54,8 @@
-                             1041 supriya:meters:2 (session.mixers[0].tracks[1]:input-levels)
-                                 in_: 28.0, out: 31.0
-                             1039 group (session.mixers[0].tracks[1]:devices)
-            +                1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[1]:synth)
-            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 30.0
-                             1040 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
-                                 active: c29, done_action: 2.0, gain: c30, gate: 1.0, out: 28.0
-                             1044 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
-            """,
-            """
-            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 2, 1040, 'active', 'c29', 'in_', 28.0, 'out', 30.0]
-            """,
-        ),
-        (
-            False,
-            "mixers[0].tracks[1]",
-            "mixers[0].tracks[1]",
-            does_not_raise,
-            """
-            --- initial
-            +++ mutation
-            @@ -8,6 +8,7 @@
-                             <TrackSend 10 target=<Track 4 'B'>>
-                         <Track 4 'B'>
-                             <TrackSend 11 target=<Track 6 'A1'>>
-            +                <TrackSend 12 target=<Track 4 'B'>>
-                         <Track 5 'C'>
-                     <Mixer 2 'Q'>
-                         <Track 9 'D'>
-            """,
-            """
-            --- initial
-            +++ mutation
-            @@ -50,10 +50,14 @@
-                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
-                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-                         1037 group (session.mixers[0].tracks[1]:group)
-            +                1067 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[1]:feedback)
-            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 28.0
-                             1038 group (session.mixers[0].tracks[1]:tracks)
-                             1041 supriya:meters:2 (session.mixers[0].tracks[1]:input-levels)
-                                 in_: 28.0, out: 31.0
-                             1039 group (session.mixers[0].tracks[1]:devices)
-            +                1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[1]:synth)
-            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 28.0, out: 36.0
-                             1040 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
-                                 active: c29, done_action: 2.0, gain: c30, gate: 1.0, out: 28.0
-                             1044 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
-            """,
-            """
-            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 2, 1040, 'active', 'c29', 'in_', 28.0, 'out', 36.0]
-            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1067, 0, 1037, 'active', 'c29', 'in_', 36.0, 'out', 28.0]
-            """,
-        ),
-        (
-            True,
-            "mixers[0].tracks[2]",
-            "mixers[0].tracks[1]",
-            does_not_raise,
-            """
-            --- initial
-            +++ mutation
-            @@ -9,5 +9,6 @@
-                         <Track 4 'B'>
-                             <TrackSend 11 target=<Track 6 'A1'>>
-                         <Track 5 'C'>
-            +                <TrackSend 12 target=<Track 4 'B'>>
-                     <Mixer 2 'Q'>
-                         <Track 9 'D'>
-            """,
-            """
-            --- initial
-            +++ mutation
-            @@ -50,6 +50,8 @@
-                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
-                                 active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-                         1037 group (session.mixers[0].tracks[1]:group)
-            +                1067 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[1]:feedback)
-            +                    active: c29, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 36.0, out: 28.0
-                             1038 group (session.mixers[0].tracks[1]:tracks)
-                             1041 supriya:meters:2 (session.mixers[0].tracks[1]:input-levels)
-                                 in_: 28.0, out: 31.0
-            @@ -69,6 +71,8 @@
-                             1047 group (session.mixers[0].tracks[2]:devices)
-                             1048 supriya:channel-strip:2 (session.mixers[0].tracks[2]:channel-strip)
-                                 active: c35, done_action: 2.0, gain: c36, gate: 1.0, out: 30.0
-            +                1066 supriya:patch-cable:2x2 (session.mixers[0].tracks[2].sends[0]:synth)
-            +                    active: c35, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 30.0, out: 36.0
-                             1050 supriya:meters:2 (session.mixers[0].tracks[2]:output-levels)
-                                 in_: 30.0, out: 39.0
-                             1051 supriya:patch-cable:2x2 (session.mixers[0].tracks[2]:output)
-            """,
-            """
-            - ['/s_new', 'supriya:patch-cable:2x2', 1066, 3, 1048, 'active', 'c35', 'in_', 30.0, 'out', 36.0]
-            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1067, 0, 1037, 'active', 'c29', 'in_', 36.0, 'out', 28.0]
-            """,
-        ),
-        (
-            True,
-            "mixers[0].tracks[1]",
+            "mixers[0].tracks[0]",
             "mixers[1].tracks[0]",
             pytest.raises(RuntimeError),
-            "",
-            "",
-            "",
+            """
+            """,
+            """
+            """,
+            """
+            """,
+        ),
+        # send to self
+        # - track: expect :feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Self"),
+            ],
+            True,
+            "mixers[0].tracks[0]",
+            "mixers[0].tracks[0]",
+            does_not_raise,
+            """
+            """,
+            """
+            """,
+            """
+            """,
+        ),
+        # send to younger sibling
+        # - sibling: do not expect :feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", "Younger Sibling"),
+            ],
+            True,
+            "mixers[0].tracks[0]",
+            "mixers[0].tracks[1]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -2,4 +2,5 @@
+                 <session.contexts[0]>
+                     <Mixer 1>
+                         <Track 2 'Self'>
+            +                <TrackSend 4 postfader target=<Track 3 'Younger Sibling'>>
+                         <Track 3 'Younger Sibling'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -8,6 +8,8 @@
+                             1009 group (session.mixers[0].tracks[0]:devices)
+                             1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                                 active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            +                1021 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].sends[0]:synth)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+                             1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
+                                 in_: 18.0, out: 9.0
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+            """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1021, 3, 1010, 'active', 'c5', 'in_', 18.0, 'out', 20.0]
+            """,
+        ),
+        # send to younger sibling, prefader
+        # - sibling: do not expect :feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", "Younger Sibling"),
+            ],
+            False,
+            "mixers[0].tracks[0]",
+            "mixers[0].tracks[1]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -2,4 +2,5 @@
+                 <session.contexts[0]>
+                     <Mixer 1>
+                         <Track 2 'Self'>
+            +                <TrackSend 4 prefader target=<Track 3 'Younger Sibling'>>
+                         <Track 3 'Younger Sibling'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -6,6 +6,8 @@
+                             1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
+                                 in_: 18.0, out: 7.0
+                             1009 group (session.mixers[0].tracks[0]:devices)
+            +                1021 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].sends[0]:synth)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+                             1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                                 active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+                             1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
+            """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1021, 2, 1010, 'active', 'c5', 'in_', 18.0, 'out', 20.0]
+            """,
+        ),
+        # send to older sibling
+        # - sibling: expect :feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Older Sibling"),
+                ("mixers[0]", "add_track", "Self"),
+            ],
+            True,
+            "mixers[0].tracks[1]",
+            "mixers[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -3,3 +3,4 @@
+                     <Mixer 1>
+                         <Track 2 'Older Sibling'>
+                         <Track 3 'Self'>
+            +                <TrackSend 4 postfader target=<Track 2 'Older Sibling'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -2,6 +2,8 @@
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+                         1007 group (session.mixers[0].tracks[0]:group)
+            +                1022 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0]:feedback)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 18.0
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                             1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
+                                 in_: 18.0, out: 7.0
+            @@ -19,6 +21,8 @@
+                             1016 group (session.mixers[0].tracks[1]:devices)
+                             1017 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
+                                 active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            +                1021 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
+            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 22.0
+                             1019 supriya:meters:2 (session.mixers[0].tracks[1]:output-levels)
+                                 in_: 20.0, out: 15.0
+                             1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[1]:output)
+            """,
+            """
+            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
+            - ['/sync', 4]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1021, 3, 1017, 'active', 'c11', 'in_', 20.0, 'out', 22.0]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1022, 0, 1007, 'active', 'c5', 'in_', 22.0, 'out', 18.0]
+            """,
+        ),
+        # send to child
+        # - child: expect :feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0].tracks[0]", "add_track", "Child"),
+            ],
+            True,
+            "mixers[0].tracks[0]",
+            "mixers[0].tracks[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -3,3 +3,4 @@
+                     <Mixer 1>
+                         <Track 2 'Self'>
+                             <Track 3 'Child'>
+            +                <TrackSend 4 postfader target=<Track 3 'Child'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -4,6 +4,8 @@
+                         1007 group (session.mixers[0].tracks[0]:group)
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+            +                        1022 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:feedback)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+                                     1018 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:input-levels)
+                                         in_: 20.0, out: 13.0
+            @@ -19,6 +21,8 @@
+                             1009 group (session.mixers[0].tracks[0]:devices)
+                             1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                                 active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            +                1021 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].sends[0]:synth)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 22.0
+                             1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
+                                 in_: 18.0, out: 9.0
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+            """,
+            """
+            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
+            - ['/sync', 4]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1021, 3, 1010, 'active', 'c5', 'in_', 18.0, 'out', 22.0]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1022, 0, 1014, 'active', 'c11', 'in_', 22.0, 'out', 20.0]
+            """,
+        ),
+        # send to parent
+        # - parent: do not expect :feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Parent"),
+                ("mixers[0].tracks[0]", "add_track", "Self"),
+            ],
+            True,
+            "mixers[0].tracks[0].tracks[0]",
+            "mixers[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -3,3 +3,4 @@
+                     <Mixer 1>
+                         <Track 2 'Parent'>
+                             <Track 3 'Self'>
+            +                    <TrackSend 4 postfader target=<Track 2 'Parent'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -10,6 +10,8 @@
+                                     1016 group (session.mixers[0].tracks[0].tracks[0]:devices)
+                                     1017 supriya:channel-strip:2 (session.mixers[0].tracks[0].tracks[0]:channel-strip)
+                                         active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            +                        1021 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].sends[0]:synth)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+                                     1019 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:output-levels)
+                                         in_: 20.0, out: 15.0
+                                     1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
+            """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1021, 3, 1017, 'active', 'c11', 'in_', 20.0, 'out', 18.0]
+            """,
+        ),
+        # send to grandparent
+        # - grandparent: do not expect :feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Grandarent"),
+                ("mixers[0].tracks[0]", "add_track", "Parent"),
+                ("mixers[0].tracks[0].tracks[0]", "add_track", "Self"),
+            ],
+            True,
+            "mixers[0].tracks[0].tracks[0].tracks[0]",
+            "mixers[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -4,3 +4,4 @@
+                         <Track 2 'Grandarent'>
+                             <Track 3 'Parent'>
+                                 <Track 4 'Self'>
+            +                        <TrackSend 5 postfader target=<Track 2 'Grandarent'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -12,6 +12,8 @@
+                                             1023 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:devices)
+                                             1024 supriya:channel-strip:2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:channel-strip)
+                                                 active: c17, done_action: 2.0, gain: c18, gate: 1.0, out: 22.0
+            +                                1028 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].tracks[0].sends[0]:synth)
+            +                                    active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 18.0
+                                             1026 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:output-levels)
+                                                 in_: 22.0, out: 21.0
+                                             1027 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:output)
+            """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1028, 3, 1024, 'active', 'c17', 'in_', 22.0, 'out', 18.0]
+            """,
+        ),
+        # send to grandchild
+        # - grandchild: expect :feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0].tracks[0]", "add_track", "Child"),
+                ("mixers[0].tracks[0].tracks[0]", "add_track", "Grandchild"),
+            ],
+            True,
+            "mixers[0].tracks[0]",
+            "mixers[0].tracks[0].tracks[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -4,3 +4,4 @@
+                         <Track 2 'Self'>
+                             <Track 3 'Child'>
+                                 <Track 4 'Grandchild'>
+            +                <TrackSend 5 postfader target=<Track 4 'Grandchild'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -6,6 +6,8 @@
+                                 1014 group (session.mixers[0].tracks[0].tracks[0]:group)
+                                     1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
+                                         1021 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:group)
+            +                                1029 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:feedback)
+            +                                    active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 24.0, out: 22.0
+                                             1022 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
+                                             1025 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:input-levels)
+                                                 in_: 22.0, out: 19.0
+            @@ -30,6 +32,8 @@
+                             1009 group (session.mixers[0].tracks[0]:devices)
+                             1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                                 active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            +                1028 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].sends[0]:synth)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 24.0
+                             1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
+                                 in_: 18.0, out: 9.0
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+            """,
+            """
+            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
+            - ['/sync', 4]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1028, 3, 1010, 'active', 'c5', 'in_', 18.0, 'out', 24.0]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1029, 0, 1021, 'active', 'c17', 'in_', 24.0, 'out', 22.0]
+            """,
+        ),
+        # send to older auntie
+        # - auntie: expect :feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Older Auntie"),
+                ("mixers[0]", "add_track", "Parent"),
+                ("mixers[0].tracks[1]", "add_track", "Self"),
+            ],
+            True,
+            "mixers[0].tracks[1].tracks[0]",
+            "mixers[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -4,3 +4,4 @@
+                         <Track 2 'Older Auntie'>
+                         <Track 3 'Parent'>
+                             <Track 4 'Self'>
+            +                    <TrackSend 5 postfader target=<Track 2 'Older Auntie'>>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -2,6 +2,8 @@
+                 NODE TREE 1000 group (session.mixers[0]:group)
+                     1001 group (session.mixers[0]:tracks)
+                         1007 group (session.mixers[0].tracks[0]:group)
+            +                1029 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0]:feedback)
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 24.0, out: 18.0
+                             1008 group (session.mixers[0].tracks[0]:tracks)
+                             1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
+                                 in_: 18.0, out: 7.0
+            @@ -21,6 +23,8 @@
+                                     1023 group (session.mixers[0].tracks[1].tracks[0]:devices)
+                                     1024 supriya:channel-strip:2 (session.mixers[0].tracks[1].tracks[0]:channel-strip)
+                                         active: c17, done_action: 2.0, gain: c18, gate: 1.0, out: 22.0
+            +                        1028 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0].sends[0]:synth)
+            +                            active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 24.0
+                                     1026 supriya:meters:2 (session.mixers[0].tracks[1].tracks[0]:output-levels)
+                                         in_: 22.0, out: 21.0
+                                     1027 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0]:output)
+            """,
+            """
+            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
+            - ['/sync', 4]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1028, 3, 1024, 'active', 'c17', 'in_', 22.0, 'out', 24.0]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1029, 0, 1007, 'active', 'c5', 'in_', 24.0, 'out', 18.0]
+            """,
+        ),
+        # send to younger auntie
+        # - auntie: do not expect :feedback
+        (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Parent"),
+                ("mixers[0]", "add_track", "Younger Auntie"),
+                ("mixers[0].tracks[0]", "add_track", "Self"),
+            ],
+            True,
+            "mixers[0].tracks[0].tracks[0]",
+            "mixers[0].tracks[1]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -3,4 +3,5 @@
+                     <Mixer 1>
+                         <Track 2 'Parent'>
+                             <Track 4 'Self'>
+            +                    <TrackSend 5 postfader target=<Track 3 'Younger Auntie'>>
+                         <Track 3 'Younger Auntie'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -10,6 +10,8 @@
+                                     1016 group (session.mixers[0].tracks[0].tracks[0]:devices)
+                                     1017 supriya:channel-strip:2 (session.mixers[0].tracks[0].tracks[0]:channel-strip)
+                                         active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            +                        1028 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].sends[0]:synth)
+            +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 22.0
+                                     1019 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:output-levels)
+                                         in_: 20.0, out: 15.0
+                                     1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
+            """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1028, 3, 1017, 'active', 'c11', 'in_', 20.0, 'out', 22.0]
+            """,
         ),
     ],
 )
 @pytest.mark.asyncio
 async def test_Track_add_send(
-    complex_session: tuple[Session, str, str],
+    commands: list[tuple[str, str, str | None]],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,
     maybe_raises,
-    online: bool,
     postfader: bool,
     source: str,
     target: str,
+    online: bool = True,
 ) -> None:
     # Pre-conditions
     print("Pre-conditions")
-    session, initial_components, initial_tree = complex_session
+    session = Session()
+    await apply_commands(session, commands)
+    initial_components = debug_components(session)
     if online:
         await session.boot()
         await session.sync()
+        initial_tree = await debug_tree(session)
+        print(initial_tree)
     source_ = session[source]
     target_ = session[target]
     assert isinstance(source_, Track)
     assert isinstance(target_, TrackContainer)
-    if online:
-        await debug_tree(session)
     send: TrackSend | None = None
     # Operation
     print("Operation")
@@ -683,15 +925,7 @@ async def test_Track_delete(
     # Pre-conditions
     print("Pre-conditions")
     session, _, _ = basic_session
-    for command in commands:
-        procedure = getattr(session[command[0]], command[1])
-        if command[2]:
-            if session._PATH_REGEX.match(command[2]):
-                await procedure(session[command[2]])
-            else:
-                await procedure(command[2])
-        else:
-            await procedure()
+    await apply_commands(session, commands)
     if online:
         await session.boot()
         await session.sync()

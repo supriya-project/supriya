@@ -90,6 +90,7 @@ class TrackSend(Component["Track"]):
             .__repr__()
             .replace(
                 ">",
+                f" {'postfader' if self.postfader else 'prefader'}"
                 f" target={Component.__repr__(self.target)}>",
             )
         )

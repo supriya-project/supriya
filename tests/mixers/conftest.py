@@ -15,6 +15,24 @@ from supriya.mixers import Session
 from supriya.ugens import decompile_synthdefs
 
 
+async def apply_commands(
+    session: Session,
+    commands: list[tuple[str | None, str, str | None]],
+) -> None:
+    for command in commands:
+        if command[0] is None:
+            procedure = getattr(session, command[1])
+        else:
+            procedure = getattr(session[command[0]], command[1])
+        if command[2]:
+            if session._PATH_REGEX.match(command[2]):
+                await procedure(session[command[2]])
+            else:
+                await procedure(command[2])
+        else:
+            await procedure()
+
+
 @contextlib.contextmanager
 def capture(
     context: AsyncServer | None,
