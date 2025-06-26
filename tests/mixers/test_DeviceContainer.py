@@ -21,8 +21,8 @@ from .conftest import (
     [
         (
             [
-                (None, "add_mixer", "Mixer"),
-                ("mixers[0]", "add_track", "Track"),
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
             ],
             "mixers[0]",
             """
@@ -30,7 +30,7 @@ from .conftest import (
             +++ mutation
             @@ -2,3 +2,4 @@
                  <session.contexts[0]>
-                     <Mixer 1>
+                     <Mixer 1 'Mixer'>
                          <Track 2 'Track'>
             +            <Device 3>
             """,
@@ -56,8 +56,8 @@ from .conftest import (
         ),
         (
             [
-                (None, "add_mixer", "Mixer"),
-                ("mixers[0]", "add_track", "Track"),
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
             ],
             "mixers[0].tracks[0]",
             """
@@ -65,7 +65,7 @@ from .conftest import (
             +++ mutation
             @@ -2,3 +2,4 @@
                  <session.contexts[0]>
-                     <Mixer 1>
+                     <Mixer 1 'Mixer'>
                          <Track 2 'Track'>
             +                <Device 3>
             """,
@@ -93,7 +93,7 @@ from .conftest import (
 )
 @pytest.mark.asyncio
 async def test_Track_add_device(
-    commands: list[tuple[str | None, str, str | None]],
+    commands: list[tuple[str | None, str, dict | None]],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,

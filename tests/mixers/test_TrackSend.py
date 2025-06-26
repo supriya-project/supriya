@@ -22,7 +22,7 @@ from .conftest import (
 )
 @pytest.mark.asyncio
 async def test_TrackSend_delete(
-    commands: list[tuple[str | None, str, str | None]],
+    commands: list[tuple[str | None, str, dict | None]],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,

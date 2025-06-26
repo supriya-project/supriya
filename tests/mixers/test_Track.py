@@ -50,7 +50,7 @@ from .conftest import (
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             True,
             "mixers[0].tracks[0]",
@@ -98,8 +98,8 @@ from .conftest import (
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Older Sibling"),
-                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Older Sibling"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             True,
             "mixers[0].tracks[1]",
@@ -148,8 +148,8 @@ from .conftest import (
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0]", "add_track", "Younger Sibling"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
             True,
             "mixers[0].tracks[0]",
@@ -187,8 +187,8 @@ from .conftest import (
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0]", "add_track", "Younger Sibling"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
             False,
             "mixers[0].tracks[0]",
@@ -226,8 +226,8 @@ from .conftest import (
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0].tracks[0]", "add_track", "Child"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
             True,
             "mixers[0].tracks[0]",
@@ -276,8 +276,8 @@ from .conftest import (
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             True,
             "mixers[0].tracks[0].tracks[0]",
@@ -314,9 +314,9 @@ from .conftest import (
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Grandarent"),
-                ("mixers[0].tracks[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[0].tracks[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Grandparent"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             True,
             "mixers[0].tracks[0].tracks[0].tracks[0]",
@@ -326,10 +326,10 @@ from .conftest import (
             --- initial
             +++ mutation
             @@ -4,3 +4,4 @@
-                         <Track 2 'Grandarent'>
+                         <Track 2 'Grandparent'>
                              <Track 3 'Parent'>
                                  <Track 4 'Self'>
-            +                        <TrackSend 5 postfader target=<Track 2 'Grandarent'>>
+            +                        <TrackSend 5 postfader target=<Track 2 'Grandparent'>>
             """,
             """
             --- initial
@@ -353,9 +353,9 @@ from .conftest import (
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0].tracks[0]", "add_track", "Child"),
-                ("mixers[0].tracks[0].tracks[0]", "add_track", "Grandchild"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
+                ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Grandchild"}),
             ],
             True,
             "mixers[0].tracks[0]",
@@ -404,9 +404,9 @@ from .conftest import (
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Older Auntie"),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[1]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Older Auntie"}),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
             True,
             "mixers[0].tracks[1].tracks[0]",
@@ -455,9 +455,9 @@ from .conftest import (
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0]", "add_track", "Younger Auntie"),
-                ("mixers[0].tracks[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             True,
             "mixers[0].tracks[0].tracks[0]",
@@ -495,10 +495,10 @@ from .conftest import (
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Older Auntie"),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[0]", "add_track", "Older Cousin"),
-                ("mixers[0].tracks[1]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Older Auntie"}),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Older Cousin"}),
+                ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
             True,
             "mixers[0].tracks[1].tracks[0]",
@@ -547,10 +547,10 @@ from .conftest import (
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0]", "add_track", "Younger Auntie"),
-                ("mixers[0].tracks[0]", "add_track", "Self"),
-                ("mixers[0].tracks[1]", "add_track", "Younger Cousin"),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
+                ("mixers[0].tracks[1]", "add_track", {"name": "Younger Cousin"}),
             ],
             True,
             "mixers[0].tracks[0].tracks[0]",
@@ -588,7 +588,7 @@ from .conftest import (
 )
 @pytest.mark.asyncio
 async def test_Track_add_send(
-    commands: list[tuple[str | None, str, str | None]],
+    commands: list[tuple[str | None, str, dict | None]],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,
@@ -645,8 +645,8 @@ async def test_Track_add_send(
         # just a track
         (
             [
-                (None, "add_mixer", "Mixer"),
-                ("mixers[0]", "add_track", "Self"),
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0]",
             """
@@ -655,7 +655,7 @@ async def test_Track_add_send(
             @@ -1,4 +1,3 @@
              <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1>
+                     <Mixer 1 'Mixer'>
             -            <Track 2 'Self'>
             """,
             """
@@ -684,9 +684,9 @@ async def test_Track_add_send(
         # parent track with child
         (
             [
-                (None, "add_mixer", "Mixer"),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0].tracks[0]", "add_track", "Child"),
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
             "mixers[0].tracks[0]",
             """
@@ -695,7 +695,7 @@ async def test_Track_add_send(
             @@ -1,5 +1,3 @@
              <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1>
+                     <Mixer 1 'Mixer'>
             -            <Track 2 'Self'>
             -                <Track 3 'Child'>
             """,
@@ -736,9 +736,9 @@ async def test_Track_add_send(
         # child track
         (
             [
-                (None, "add_mixer", "Mixer"),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[0]", "add_track", "Self"),
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0].tracks[0]",
             """
@@ -746,7 +746,7 @@ async def test_Track_add_send(
             +++ mutation
             @@ -2,4 +2,3 @@
                  <session.contexts[0]>
-                     <Mixer 1>
+                     <Mixer 1 'Mixer'>
                          <Track 2 'Parent'>
             -                <Track 3 'Self'>
             """,
@@ -776,9 +776,9 @@ async def test_Track_add_send(
         # in-tree send to self
         (
             [
-                (None, "add_mixer", "Mixer"),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0].tracks[0]", "add_send", "mixers[0].tracks[0]"),
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
             "mixers[0].tracks[0]",
             """
@@ -787,7 +787,7 @@ async def test_Track_add_send(
             @@ -1,5 +1,3 @@
              <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1>
+                     <Mixer 1 'Mixer'>
             -            <Track 2 'Self'>
             -                <TrackSend 3 postfader target=<Track 2 'Self'>>
             """,
@@ -827,10 +827,10 @@ async def test_Track_add_send(
         # in-tree send to out-of-tree stack
         (
             [
-                (None, "add_mixer", "Mixer"),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0]", "add_track", "Other"),
-                ("mixers[0].tracks[0]", "add_send", "mixers[0].tracks[1]"),
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0]", "add_track", {"name": "Other"}),
+                ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[1]"}),
             ],
             "mixers[0].tracks[0]",
             """
@@ -839,7 +839,7 @@ async def test_Track_add_send(
             @@ -1,6 +1,4 @@
              <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1>
+                     <Mixer 1 'Mixer'>
             -            <Track 2 'Self'>
             -                <TrackSend 4 postfader target=<Track 3 'Other'>>
                          <Track 3 'Other'>
@@ -873,10 +873,10 @@ async def test_Track_add_send(
         # out-of-tree send to in-tree track
         (
             [
-                (None, "add_mixer", "Mixer"),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0]", "add_track", "Other"),
-                ("mixers[0].tracks[1]", "add_send", "mixers[0].tracks[0]"),
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0]", "add_track", {"name": "Other"}),
+                ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
             "mixers[0].tracks[0]",
             """
@@ -885,7 +885,7 @@ async def test_Track_add_send(
             @@ -1,6 +1,4 @@
              <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1>
+                     <Mixer 1 'Mixer'>
             -            <Track 2 'Self'>
                          <Track 3 'Other'>
             -                <TrackSend 4 postfader target=<Track 2 'Self'>>
@@ -933,11 +933,11 @@ async def test_Track_add_send(
         # out-of-tree send to in-tree child track
         (
             [
-                (None, "add_mixer", "Mixer"),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0]", "add_track", "Other"),
-                ("mixers[0].tracks[0]", "add_track", "Child"),
-                ("mixers[0].tracks[1]", "add_send", "mixers[0].tracks[0].tracks[0]"),
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0]", "add_track", {"name": "Other"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
+                ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0].tracks[0]"}),
             ],
             "mixers[0].tracks[0]",
             """
@@ -946,7 +946,7 @@ async def test_Track_add_send(
             @@ -1,7 +1,4 @@
              <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1>
+                     <Mixer 1 'Mixer'>
             -            <Track 2 'Self'>
             -                <Track 4 'Child'>
                          <Track 3 'Other'>
@@ -1006,10 +1006,10 @@ async def test_Track_add_send(
         # out-of-tree track output
         (
             [
-                (None, "add_mixer", "Mixer"),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0]", "add_track", "Other"),
-                ("mixers[0].tracks[1]", "set_output", "mixers[0].tracks[0]"),
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0]", "add_track", {"name": "Other"}),
+                ("mixers[0].tracks[1]", "set_output", {"output": "mixers[0].tracks[0]"}),
             ],
             "mixers[0].tracks[0]",
             """
@@ -1018,7 +1018,7 @@ async def test_Track_add_send(
             @@ -1,5 +1,4 @@
              <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1>
+                     <Mixer 1 'Mixer'>
             -            <Track 2 'Self'>
             -            <Track 3 'Other' output=<Track 2 'Self'>>
             +            <Track 3 'Other' output=None>
@@ -1066,10 +1066,10 @@ async def test_Track_add_send(
         # out-of-tree track input
         (
             [
-                (None, "add_mixer", "Mixer"),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0]", "add_track", "Other"),
-                ("mixers[0].tracks[1]", "set_input", "mixers[0].tracks[0]"),
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0]", "add_track", {"name": "Other"}),
+                ("mixers[0].tracks[1]", "set_input", {"input_": "mixers[0].tracks[0]"}),
             ],
             "mixers[0].tracks[0]",
             """
@@ -1078,7 +1078,7 @@ async def test_Track_add_send(
             @@ -1,5 +1,4 @@
              <Session 0>
                  <session.contexts[0]>
-                     <Mixer 1>
+                     <Mixer 1 'Mixer'>
             -            <Track 2 'Self'>
             -            <Track 3 'Other' input=<Track 2 'Self'>>
             +            <Track 3 'Other'>
@@ -1114,7 +1114,7 @@ async def test_Track_add_send(
 )
 @pytest.mark.asyncio
 async def test_Track_delete(
-    commands: list[tuple[str | None, str, str | None]],
+    commands: list[tuple[str | None, str, dict | None]],
     expected_components_diff: str,
     expected_tree_diff: str,
     expected_messages: str,
@@ -1798,7 +1798,7 @@ async def test_Track_move(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0]",
             "mixers[0].tracks[0]",
@@ -1816,7 +1816,7 @@ async def test_Track_move(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0]",
             None,
@@ -1834,8 +1834,8 @@ async def test_Track_move(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0]", "add_track", "Younger Sibling"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
             "mixers[0].tracks[0]",
             "mixers[0].tracks[1]",
@@ -1876,8 +1876,8 @@ async def test_Track_move(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Older Sibling"),
-                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Older Sibling"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[1]",
             "mixers[0].tracks[0]",
@@ -1915,8 +1915,8 @@ async def test_Track_move(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0].tracks[0]", "add_track", "Child"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
             "mixers[0].tracks[0]",
             "mixers[0].tracks[0].tracks[0]",
@@ -1955,8 +1955,8 @@ async def test_Track_move(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0]",
@@ -1996,9 +1996,9 @@ async def test_Track_move(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Grandarent"),
-                ("mixers[0].tracks[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[0].tracks[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Grandparent"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0]",
@@ -2008,10 +2008,10 @@ async def test_Track_move(
             +++ mutation
             @@ -3,4 +3,4 @@
                      <Mixer 1>
-                         <Track 2 'Grandarent'>
+                         <Track 2 'Grandparent'>
                              <Track 3 'Parent'>
             -                    <Track 4 'Self'>
-            +                    <Track 4 'Self' input=<Track 2 'Grandarent'>>
+            +                    <Track 4 'Self' input=<Track 2 'Grandparent'>>
             """,
             """
             --- initial
@@ -2038,9 +2038,9 @@ async def test_Track_move(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0].tracks[0]", "add_track", "Child"),
-                ("mixers[0].tracks[0].tracks[0]", "add_track", "Grandchild"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
+                ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Grandchild"}),
             ],
             "mixers[0].tracks[0]",
             "mixers[0].tracks[0].tracks[0].tracks[0]",
@@ -2080,9 +2080,9 @@ async def test_Track_move(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Older Auntie"),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[1]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Older Auntie"}),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[1].tracks[0]",
             "mixers[0].tracks[0]",
@@ -2120,9 +2120,9 @@ async def test_Track_move(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0]", "add_track", "Younger Auntie"),
-                ("mixers[0].tracks[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[1]",
@@ -2163,10 +2163,10 @@ async def test_Track_move(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Auntie"),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[0]", "add_track", "Older Cousin"),
-                ("mixers[0].tracks[1]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Older Auntie"}),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Older Cousin"}),
+                ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[1].tracks[0]",
             "mixers[0].tracks[0].tracks[0]",
@@ -2175,7 +2175,7 @@ async def test_Track_move(
             --- initial
             +++ mutation
             @@ -4,4 +4,4 @@
-                         <Track 2 'Auntie'>
+                         <Track 2 'Older Auntie'>
                              <Track 4 'Older Cousin'>
                          <Track 3 'Parent'>
             -                <Track 5 'Self'>
@@ -2204,10 +2204,10 @@ async def test_Track_move(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0]", "add_track", "Auntie"),
-                ("mixers[0].tracks[0]", "add_track", "Self"),
-                ("mixers[0].tracks[1]", "add_track", "Younger Cousin"),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
+                ("mixers[0].tracks[1]", "add_track", {"name": "Younger Cousin"}),
             ],
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[1].tracks[0]",
@@ -2221,7 +2221,7 @@ async def test_Track_move(
                          <Track 2 'Parent'>
             -                <Track 4 'Self'>
             +                <Track 4 'Self' input=<Track 5 'Younger Cousin'>>
-                         <Track 3 'Auntie'>
+                         <Track 3 'Younger Auntie'>
                              <Track 5 'Younger Cousin'>
             """,
             """
@@ -2247,7 +2247,7 @@ async def test_Track_move(
 )
 @pytest.mark.asyncio
 async def test_Track_set_input(
-    commands: list[tuple[str | None, str, str | None]],
+    commands: list[tuple[str | None, str, dict | None]],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,
@@ -2409,7 +2409,7 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0]",
             "mixers[0].tracks[0]",
@@ -2427,7 +2427,7 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0]",
             None,
@@ -2467,8 +2467,8 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0]", "add_track", "Younger Sibling"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
             "mixers[0].tracks[0]",
             "mixers[0].tracks[1]",
@@ -2512,8 +2512,8 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Older Sibling"),
-                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Older Sibling"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[1]",
             "mixers[0].tracks[0]",
@@ -2568,8 +2568,8 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0].tracks[0]", "add_track", "Child"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
             "mixers[0].tracks[0]",
             "mixers[0].tracks[0].tracks[0]",
@@ -2626,7 +2626,7 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0]",
             "mixers[0]",
@@ -2653,8 +2653,8 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0]",
@@ -2682,8 +2682,8 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0].tracks[0]",
             DEFAULT,
@@ -2701,9 +2701,9 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Grandarent"),
-                ("mixers[0].tracks[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[0].tracks[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Grandparent"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0].tracks[0].tracks[0]",
             "mixers[0].tracks[0]",
@@ -2713,10 +2713,10 @@ async def test_Track_set_muted(
             +++ mutation
             @@ -3,4 +3,4 @@
                      <Mixer 1>
-                         <Track 2 'Grandarent'>
+                         <Track 2 'Grandparent'>
                              <Track 3 'Parent'>
             -                    <Track 4 'Self'>
-            +                    <Track 4 'Self' output=<Track 2 'Grandarent'>>
+            +                    <Track 4 'Self' output=<Track 2 'Grandparent'>>
             """,
             """
             --- initial
@@ -2746,9 +2746,9 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Self"),
-                ("mixers[0].tracks[0]", "add_track", "Child"),
-                ("mixers[0].tracks[0].tracks[0]", "add_track", "Grandchild"),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
+                ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Grandchild"}),
             ],
             "mixers[0].tracks[0]",
             "mixers[0].tracks[0].tracks[0].tracks[0]",
@@ -2805,9 +2805,9 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Older Auntie"),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[1]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Older Auntie"}),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[1].tracks[0]",
             "mixers[0].tracks[0]",
@@ -2862,9 +2862,9 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0]", "add_track", "Younger Auntie"),
-                ("mixers[0].tracks[0]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[1]",
@@ -2908,10 +2908,10 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Older Auntie"),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0].tracks[0]", "add_track", "Older Cousin"),
-                ("mixers[0].tracks[1]", "add_track", "Self"),
+                ("mixers[0]", "add_track", {"name": "Older Auntie"}),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Older Cousin"}),
+                ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[1].tracks[0]",
             "mixers[0].tracks[0].tracks[0]",
@@ -2966,10 +2966,10 @@ async def test_Track_set_muted(
         (
             [
                 (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Parent"),
-                ("mixers[0]", "add_track", "Younger Auntie"),
-                ("mixers[0].tracks[0]", "add_track", "Self"),
-                ("mixers[0].tracks[1]", "add_track", "Younger Cousin"),
+                ("mixers[0]", "add_track", {"name": "Parent"}),
+                ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
+                ("mixers[0].tracks[1]", "add_track", {"name": "Younger Cousin"}),
             ],
             "mixers[0].tracks[0].tracks[0]",
             "mixers[0].tracks[1].tracks[0]",
@@ -3012,7 +3012,7 @@ async def test_Track_set_muted(
 )
 @pytest.mark.asyncio
 async def test_Track_set_output(
-    commands: list[tuple[str | None, str, str | None]],
+    commands: list[tuple[str | None, str, dict | None]],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,

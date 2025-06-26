@@ -21,9 +21,9 @@ from .conftest import (
     [
         (
             [
-                (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Track"),
-                (None, "add_mixer", None),
+                (None, "add_mixer", {"name": "Mixer One"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+                (None, "add_mixer", {"name": "Mixer Two"}),
             ],
             "mixers[0]",
             """
@@ -32,9 +32,9 @@ from .conftest import (
             @@ -1,5 +1,3 @@
              <Session 0>
                  <session.contexts[0]>
-            -        <Mixer 1>
+            -        <Mixer 1 'Mixer One'>
             -            <Track 2 'Track'>
-                     <Mixer 3>
+                     <Mixer 3 'Mixer Two'>
             """,
             """
             --- initial
@@ -73,9 +73,9 @@ from .conftest import (
         ),
         (
             [
-                (None, "add_mixer", None),
-                ("mixers[0]", "add_track", "Track"),
-                (None, "add_mixer", None),
+                (None, "add_mixer", {"name": "Mixer One"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+                (None, "add_mixer", {"name": "Mixer Two"}),
             ],
             "mixers[1]",
             """
@@ -83,9 +83,9 @@ from .conftest import (
             +++ mutation
             @@ -2,4 +2,3 @@
                  <session.contexts[0]>
-                     <Mixer 1>
+                     <Mixer 1 'Mixer One'>
                          <Track 2 'Track'>
-            -        <Mixer 3>
+            -        <Mixer 3 'Mixer Two'>
             """,
             """
             --- initial
@@ -114,7 +114,7 @@ from .conftest import (
 )
 @pytest.mark.asyncio
 async def test_Mixer_delete(
-    commands: list[tuple[str | None, str, str | None]],
+    commands: list[tuple[str | None, str, dict | None]],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,

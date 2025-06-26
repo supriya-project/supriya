@@ -12,28 +12,25 @@ from uqbar.strings import normalize
 
 from supriya import AsyncServer, OscBundle, OscMessage
 from supriya.mixers import Session
-from supriya.typing import DEFAULT
 from supriya.ugens import decompile_synthdefs
 
 
 async def apply_commands(
     session: Session,
-    commands: list[tuple[str | None, str, str | None]],
+    commands: list[tuple[str | None, str, dict | None]],
 ) -> None:
     for command in commands:
         if command[0] is None:
             procedure = getattr(session, command[1])
         else:
             procedure = getattr(session[command[0]], command[1])
+        kwargs = {}
         if command[2]:
-            if session._PATH_REGEX.match(command[2]):
-                await procedure(session[command[2]])
-            elif command[2] == "DEFAULT":
-                await procedure(DEFAULT)
-            else:
-                await procedure(command[2])
-        else:
-            await procedure()
+            for key, value in command[2].items():
+                if session._PATH_REGEX.match(value):
+                    value = session[value]
+                kwargs[key] = value
+        await procedure(**kwargs)
 
 
 @contextlib.contextmanager
