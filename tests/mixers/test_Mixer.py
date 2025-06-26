@@ -5,6 +5,7 @@ from supriya.mixers import Session
 from supriya.mixers.mixers import Mixer
 
 from .conftest import (
+    apply_commands,
     assert_components_diff,
     assert_tree_diff,
     capture,
@@ -16,9 +17,14 @@ from .conftest import (
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "target, expected_components_diff, expected_tree_diff, expected_messages",
+    "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
     [
         (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Track"),
+                (None, "add_mixer", None),
+            ],
             "mixers[0]",
             """
             --- initial
@@ -26,9 +32,9 @@ from .conftest import (
             @@ -1,5 +1,3 @@
              <Session 0>
                  <session.contexts[0]>
-            -        <Mixer 1 'P'>
-            -            <Track 2 'A'>
-                     <Mixer 3 'Q'>
+            -        <Mixer 1>
+            -            <Track 2 'Track'>
+                     <Mixer 3>
             """,
             """
             --- initial
@@ -66,15 +72,20 @@ from .conftest import (
             """,
         ),
         (
+            [
+                (None, "add_mixer", None),
+                ("mixers[0]", "add_track", "Track"),
+                (None, "add_mixer", None),
+            ],
             "mixers[1]",
             """
             --- initial
             +++ mutation
             @@ -2,4 +2,3 @@
                  <session.contexts[0]>
-                     <Mixer 1 'P'>
-                         <Track 2 'A'>
-            -        <Mixer 3 'Q'>
+                     <Mixer 1>
+                         <Track 2 'Track'>
+            -        <Mixer 3>
             """,
             """
             --- initial
@@ -103,7 +114,7 @@ from .conftest import (
 )
 @pytest.mark.asyncio
 async def test_Mixer_delete(
-    basic_session: tuple[Session, str, str],
+    commands: list[tuple[str | None, str, str | None]],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,
@@ -111,14 +122,15 @@ async def test_Mixer_delete(
     target: str,
 ) -> None:
     # Pre-conditions
-    session, _, _ = basic_session
     print("Pre-conditions")
-    await session.add_mixer(name="Q")
-    if online or True:
+    session = Session()
+    await apply_commands(session, commands)
+    initial_components = debug_components(session)
+    if online:
         await session.boot()
         await session.sync()
         initial_tree = await debug_tree(session, annotated=False)
-    initial_components = debug_components(session)
+        print(initial_tree)
     target_ = session[target]
     assert isinstance(target_, Mixer)
     # Operation
@@ -128,6 +140,7 @@ async def test_Mixer_delete(
     # Post-conditions
     print("Post-conditions")
     assert target_ not in session.mixers
+    assert target_.parent is None
     assert_components_diff(session, expected_components_diff, initial_components)
     if not online:
         return
