@@ -230,11 +230,9 @@ class Component(Generic[C]):
         deleting: bool = False,
         root: Optional["Component"] = None,
     ) -> tuple[list["Component"], set["Component"]]:
-        related: list["Component"] = []
-        deleted: set["Component"] = set()
         if deleting:
-            related, deleted = self._disconnect_connections(root=root)
-        return related, deleted
+            return self._disconnect_connections(root=root)
+        return [component for component, _ in self._connections], set()
 
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
         return []

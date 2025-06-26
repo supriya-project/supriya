@@ -15,28 +15,31 @@ if TYPE_CHECKING:
 
 @dataclasses.dataclass
 class Artifacts:
-    audio_buses: dict[Address, BusGroup] = dataclasses.field(default_factory=dict)
+    audio_busses: dict[Address, BusGroup] = dataclasses.field(default_factory=dict)
     buffers: dict[Address, Buffer] = dataclasses.field(default_factory=dict)
-    control_buses: dict[Address, BusGroup] = dataclasses.field(default_factory=dict)
+    control_busses: dict[Address, BusGroup] = dataclasses.field(default_factory=dict)
     nodes: dict[Address, Node] = dataclasses.field(default_factory=dict)
     synthdefs: dict[Address, SynthDef] = dataclasses.field(default_factory=dict)
+    hashes: dict[Address, int] = dataclasses.field(default_factory=dict)
 
     def clear(self) -> None:
-        self.audio_buses.clear()
+        self.audio_busses.clear()
         self.buffers.clear()
-        self.control_buses.clear()
+        self.control_busses.clear()
         self.nodes.clear()
         self.synthdefs.clear()
+        self.hashes.clear()
 
     def merge(self, other: "Artifacts") -> None:
-        self.audio_buses.update(other.audio_buses)
+        self.audio_busses.update(other.audio_busses)
         self.buffers.update(other.buffers)
-        self.control_buses.update(other.control_buses)
+        self.control_busses.update(other.control_busses)
         self.nodes.update(other.nodes)
         self.synthdefs.update(other.synthdefs)
+        self.hashes.update(other.hashes)
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class Spec:
     component: "Component"
     context: AsyncServer
@@ -124,10 +127,10 @@ class Spec:
         old_artifacts: Artifacts,
     ) -> BusGroup:
         return ChainMap(
-            new_artifacts.audio_buses,
-            new_artifacts.control_buses,
-            old_artifacts.audio_buses,
-            old_artifacts.control_buses,
+            new_artifacts.audio_busses,
+            new_artifacts.control_busses,
+            old_artifacts.audio_busses,
+            old_artifacts.control_busses,
         )[address]
 
     def resolve_kwargs(
@@ -190,10 +193,22 @@ class Spec:
         raise NotImplementedError
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class BufferSpec(Spec):
     channel_count: int
     count: int
+
+    def __hash__(self) -> int:
+        return hash(
+            (
+                type(self),
+                self.component,
+                self.context,
+                self.name,
+                self.channel_count,
+                self.count,
+            ),
+        )
 
     def create(
         self,
@@ -207,10 +222,11 @@ class BufferSpec(Spec):
         old_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
-        if (buffers := self.component._artifacts.buffers)[
-            self.name
-        ].context is self.context:
+        buffers = self.component._artifacts.buffers
+        hashes = self.component._artifacts.hashes
+        if hashes[self.address] == hash(self):
             buffers.pop(self.name)
+            hashes.pop(self.address)
         old_artifacts.buffers.pop(self.address).free()
 
     def mutate(
@@ -229,11 +245,24 @@ class BufferSpec(Spec):
         return Spec.get_address(self.component, Names.BUFFERS, self.name)
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class BusSpec(Spec):
     calculation_rate: CalculationRate
     channel_count: int
     default: float = 0.0
+
+    def __hash__(self) -> int:
+        return hash(
+            (
+                type(self),
+                self.component,
+                self.context,
+                self.name,
+                self.calculation_rate,
+                self.channel_count,
+                self.default,
+            ),
+        )
 
     def create(
         self,
@@ -245,36 +274,36 @@ class BusSpec(Spec):
                 calculation_rate=self.calculation_rate,
                 count=self.channel_count,
             )
-            new_artifacts.audio_buses[self.address] = bus_group
-            self.component._artifacts.audio_buses[self.name] = bus_group
+            new_artifacts.audio_busses[self.address] = bus_group
+            self.component._artifacts.audio_busses[self.name] = bus_group
         elif self.calculation_rate == CalculationRate.CONTROL:
             bus_group = self.context.add_bus_group(
                 calculation_rate=self.calculation_rate,
                 count=self.channel_count,
             )
             bus_group.set(self.default)
-            new_artifacts.control_buses[self.address] = bus_group
-            self.component._artifacts.control_buses[self.name] = bus_group
+            new_artifacts.control_busses[self.address] = bus_group
+            self.component._artifacts.control_busses[self.name] = bus_group
         else:
             raise ValueError
+        self.component._artifacts.hashes[self.address] = hash(self)
 
     def destroy(
         self,
         old_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
+        hashes = self.component._artifacts.hashes
         if self.calculation_rate == CalculationRate.AUDIO:
-            if (audio_buses := self.component._artifacts.audio_buses)[
-                self.name
-            ].context is self.context:
-                audio_buses.pop(self.name)
-            old_artifacts.audio_buses.pop(self.address).free()
+            busses = self.component._artifacts.audio_busses
+            old_busses = old_artifacts.audio_busses
         elif self.calculation_rate == CalculationRate.CONTROL:
-            if (control_buses := self.component._artifacts.control_buses)[
-                self.name
-            ].context is self.context:
-                control_buses.pop(self.name)
-            old_artifacts.control_buses.pop(self.address).free()
+            busses = self.component._artifacts.control_busses
+            old_busses = old_artifacts.control_busses
+        if hashes[self.address] == hash(self):
+            busses.pop(self.name)
+            hashes.pop(self.address)
+        old_busses.pop(self.address).free()
 
     def mutate(
         self,
@@ -298,9 +327,20 @@ class BusSpec(Spec):
         raise ValueError
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class SynthDefSpec(Spec):
     synthdef: SynthDef
+
+    def __hash__(self) -> int:
+        return hash(
+            (
+                type(self),
+                self.component,
+                self.context,
+                self.name,
+                self.synthdef,
+            ),
+        )
 
     def create(
         self,
@@ -335,7 +375,7 @@ class SynthDefSpec(Spec):
         return Spec.get_address(None, Names.SYNTHDEFS, self.synthdef.effective_name)
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class NodeSpec(Spec):
     add_action: AddAction
     target_node: Address | None
@@ -350,9 +390,26 @@ class NodeSpec(Spec):
         return Spec.get_address(self.component, Names.NODES, self.name)
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class GroupSpec(NodeSpec):
     destroy_strategy: dict[str, float] | None = None
+
+    def __hash__(self) -> int:
+        return hash(
+            (
+                type(self),
+                self.component,
+                self.context,
+                self.name,
+                self.add_action,
+                self.target_node,
+                (
+                    tuple(sorted(self.destroy_strategy.items()))
+                    if self.destroy_strategy
+                    else None,
+                ),
+            ),
+        )
 
     def create(
         self,
@@ -369,16 +426,22 @@ class GroupSpec(NodeSpec):
         )
         new_artifacts.nodes[self.address] = group
         self.component._artifacts.nodes[self.name] = group
+        self.component._artifacts.hashes[self.address] = hash(self)
 
     def destroy(
         self,
         old_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
-        if (nodes := self.component._artifacts.nodes)[
-            self.name
-        ].context is self.context:
+        # TODO: We need to compare new vs old spec hashes before deleting from
+        # component artifacts to handle the case of re-creation where a new
+        # node was created and added to the component artifacts but with a
+        # different hash than this spec's hash.
+        nodes = self.component._artifacts.nodes
+        hashes = self.component._artifacts.hashes
+        if hashes[self.address] == hash(self):
             nodes.pop(self.name)
+            hashes.pop(self.address)
         node = old_artifacts.nodes.pop(self.address)
         if reconciliation is Reconciliation.DESTROY_ROOT and self.destroy_strategy:
             node.set(**self.destroy_strategy)
@@ -403,16 +466,36 @@ class GroupSpec(NodeSpec):
                     old_artifacts=old_artifacts,
                 ),
             )
+        self.component._artifacts.hashes[self.address] = hash(self)
 
     def requires_recreation(self, old_spec: "Spec") -> bool:
         return False
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class SynthSpec(NodeSpec):
     kwargs: dict[str, Address | BusGroup | float]
     synthdef: Address
     destroy_strategy: dict[str, float] | None = None
+
+    def __hash__(self) -> int:
+        return hash(
+            (
+                type(self),
+                self.component,
+                self.context,
+                self.name,
+                self.add_action,
+                self.target_node,
+                tuple(sorted(self.kwargs.items())),
+                self.synthdef,
+                (
+                    tuple(sorted(self.destroy_strategy.items()))
+                    if self.destroy_strategy
+                    else None,
+                ),
+            ),
+        )
 
     def create(
         self,
@@ -442,16 +525,22 @@ class SynthSpec(NodeSpec):
         )
         new_artifacts.nodes[self.address] = synth
         self.component._artifacts.nodes[self.name] = synth
+        self.component._artifacts.hashes[self.address] = hash(self)
 
     def destroy(
         self,
         old_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
-        if (nodes := self.component._artifacts.nodes)[
-            self.name
-        ].context is self.context:
+        # TODO: We need to compare new vs old spec hashes before deleting from
+        # component artifacts to handle the case of re-creation where a new
+        # node was created and added to the component artifacts but with a
+        # different hash than this spec's hash.
+        nodes = self.component._artifacts.nodes
+        hashes = self.component._artifacts.hashes
+        if hashes[self.address] == hash(self):
             nodes.pop(self.name)
+            hashes.pop(self.address)
         synth = old_artifacts.nodes.pop(self.address)
         # TODO: Handle SynthDefs that don't have a gate parameter.
         #       Will need to lookup the SynthDef in artifacts and check it.
@@ -508,6 +597,7 @@ class SynthSpec(NodeSpec):
                 old_artifacts.nodes[self.address].map(**new_map_kwargs)
             if new_set_kwargs:
                 old_artifacts.nodes[self.address].set(**new_set_kwargs)
+        self.component._artifacts.hashes[self.address] = hash(self)
 
     def requires(self) -> list[Address]:
         return [
